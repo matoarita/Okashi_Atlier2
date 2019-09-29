@@ -1,0 +1,310 @@
+﻿//Attach this script to a Toggle GameObject. To do this, go to Create>UI>Toggle.
+//Set your own Text in the Inspector window
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Linq;
+
+//***  アイテムの調合処理、プレイヤーのアイテム所持リストの処理はここでやっています。
+//***  プレファブにとりつけているスクリプト、なので、privateの値は、インスタンスごとに変わってくるため、バグに注意。
+
+public class shopitemSelectToggle : MonoBehaviour
+{
+    Toggle m_Toggle;
+    public Text m_Text; //デバッグ用。未使用。
+
+    private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
+    private Text _text; //同じく、Scene「Compund」用。
+
+    private GameObject pitemlistController_obj;
+    private PlayerItemListController pitemlistController;
+    private Exp_Controller exp_Controller;
+
+    private GameObject card_view_obj;
+    private CardView card_view;
+
+    private GameObject shopitemlistController_obj;
+    private ShopItemListController shopitemlistController;
+
+    private GameObject updown_counter_obj;
+    private Updown_counter updown_counter;
+    private Button[] updown_button = new Button[2];
+
+    private GameObject itemselect_cancel_obj;
+    private ItemSelect_Cancel itemselect_cancel;
+
+
+    private PlayerItemList pitemlist;
+    private ItemDataBase database;
+    private ItemCompoundDataBase databaseCompo;
+    private ItemShopDataBase shop_database;
+
+    private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
+    private Text yes_text;
+    private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
+    private Text no_text;
+    private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
+
+
+    public int toggle_shopitem_ID; //リストの要素自体に、アイテムIDを保持する。
+    public int toggle_shopitem_type; //リストの要素に、通常アイテムか、イベントアイテム判定用のタイプを保持する。
+
+    private int i;
+
+    private int pitemlist_max;
+    private int count;
+    private bool selectToggle;
+
+    private int kettei_item1; //このスクリプトは、プレファブのインスタンスに取り付けているので、各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
+
+    private int count_1;
+
+
+    void Start()
+    {
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+
+        //Fetch the Toggle GameObject
+        m_Toggle = GetComponent<Toggle>();
+
+        //Initialise the Text to say the first state of the Toggle デバッグ用テキスト
+        //m_Text = m_Toggle.GetComponentInChildren<Text>();
+        //m_Text.text = "First Value : " + m_Toggle.isOn;
+
+        //Add listener for when the state of the Toggle changes, to take action アドリスナー　トグルの値が変化したときに、｛｝内のメソッドを呼び出す
+        m_Toggle.onValueChanged.AddListener(delegate
+        {
+            ToggleValueChanged(m_Toggle);
+        });
+
+
+        shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
+        shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+        updown_counter_obj = shopitemlistController_obj.transform.Find("updown_counter").gameObject;
+        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+        updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
+        yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
+        yes_text = yes.GetComponentInChildren<Text>();
+        no = shopitemlistController_obj.transform.Find("No").gameObject;
+        no_text = no.GetComponentInChildren<Text>();
+        yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //調合組み合わせデータベースの取得
+        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //ショップデータベースの取得
+        shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
+
+        //カード表示用オブジェクトの取得
+        card_view_obj = GameObject.FindWithTag("CardView");
+        card_view = card_view_obj.GetComponent<CardView>();
+
+        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        i = 0;
+
+        count = 0;
+
+        no.SetActive(false);
+    }
+
+
+    void Update()
+    {
+        if (shopitemlistController.shop_final_select_flag == true) //最後、これを買うかどうかを待つフラグ
+        {
+                StartCoroutine("shop_buy_Final_select");
+        }
+    }
+
+    //Output the new state of the Toggle into Text
+    void ToggleValueChanged(Toggle change)
+    {
+        //m_Text.text = "New Value : " + m_Toggle.isOn;
+        if (m_Toggle.isOn == true)
+        {
+                shop_buy_active();
+        }
+    }
+
+
+    /* ### ショップでアイテムを買うときのシーン ### */
+
+    public void shop_buy_active()
+    {
+
+        //アイテムを選択したときの処理（トグルの処理）
+
+        count = 0;
+
+        while (count < shopitemlistController._shop_listitem.Count)
+        {
+            selectToggle = shopitemlistController._shop_listitem[count].GetComponent<Toggle>().isOn;
+            if (selectToggle == true) break;
+            ++count;
+        }
+
+        shopitemlistController.shop_count = count; //カウントしたリスト番号を保持
+        shopitemlistController.shop_kettei_item1 = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_ID; //アイテムIDを入れる。
+        shopitemlistController.shop_itemType = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_type; //判定用アイテムタイプを入れる。
+
+        _text.text = shop_database.shopitems[count].shop_itemNameHyouji + "を買いますか？個数を選択してください。";
+
+        
+        Debug.Log(count + "番が押されたよ");
+        Debug.Log("アイテム:" + shop_database.shopitems[count].shop_itemNameHyouji + "が選択されました。");
+
+        StartCoroutine("shop_buy_kosu_select");
+
+    }
+
+    IEnumerator shop_buy_kosu_select()
+    {
+        //Debug.Log("これでいいですか？");
+
+        //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
+        for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
+        {
+            shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = false;
+        }
+
+        yes.SetActive(true);
+        no.SetActive(true);
+        updown_counter_obj.SetActive(true);
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された。これでいいですか？の確認。
+
+                //Debug.Log("ok");
+                //解除
+
+                shopitemlistController.shop_final_itemkosu_1 = updown_counter.updown_kosu; //最終個数を入れる。
+
+                shopitemlistController.shop_final_select_flag = true; //確認のフラグ
+                yes_selectitem_kettei.kettei1 = false;
+
+                Debug.Log("選択完了！");
+
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                break;
+
+            case false: //キャンセルが押された
+
+                Debug.Log("cancel");
+
+                _text.text = "何にしますか？";
+
+                for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
+                {
+                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
+                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                yes_selectitem_kettei.kettei1 = false;
+                yes.SetActive(false);
+                no.SetActive(false);
+                updown_counter_obj.SetActive(false);
+
+                //pitemlistController.cardImage_onoff_pcontrol.SetActive(false);
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                break;
+        }
+    }
+
+
+    IEnumerator shop_buy_Final_select()
+    {
+
+        _text.text = shop_database.shopitems[shopitemlistController.shop_count].shop_itemNameHyouji + "を" + shopitemlistController.shop_final_itemkosu_1 + "個買いますか？";
+
+        updown_button[0].interactable = false;
+        updown_button[1].interactable = false;
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        shopitemlistController.shop_final_select_flag = false;
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された。購入決定。
+
+
+                exp_Controller.shop_buy_ok = true; //購入完了のフラグをたてる。
+
+                for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
+                {
+                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
+                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+
+
+
+                yes.SetActive(false);
+                no.SetActive(false);
+
+                updown_button[0].interactable = true;
+                updown_button[1].interactable = true;
+                updown_counter_obj.SetActive(false);
+
+
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                break;
+
+            case false:
+
+                //Debug.Log("cancel");
+
+                _text.text = "何にしますか？";
+
+                for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
+                {
+                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
+                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                yes_selectitem_kettei.kettei1 = false;
+                yes.SetActive(false);
+                no.SetActive(false);
+
+                updown_button[0].interactable = true;
+                updown_button[1].interactable = true;
+                updown_counter_obj.SetActive(false);
+
+                //pitemlistController.cardImage_onoff_pcontrol.SetActive(false);
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                break;
+        }
+
+    }
+
+
+}

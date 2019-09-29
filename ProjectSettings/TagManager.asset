@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - check_ItemDataBase_obj
+  - PlayerItemListContent
+  - PlayerItemList
+  - PlayeritemList_ScrollView
+  - CompoundSelect
+  - SelectItem_kakunin
+  - Girl1
+  - Item_card_base
+  - GirlEat_scene
+  - Girl_love_exp_bar
+  - Fire
+  - MoneyStatus_panel
+  - Exp_Controller
+  - TravelList_ScrollView
+  - TravelListContent
+  - Travel_Main
+  - Shop_Main
+  - ShopitemList_ScrollView
+  - ShopitemListContent
+  - updown_counter
+  - RecipiList_ScrollView
+  - RecipiListContent
+  - MainList_ScrollView
+  - Canvas
+  - Compound_Main
+  - AudioClickSE
+  - CardView
+  - GirlEat_Judge
+  - Utage_Scenario
+  - ItemSelect_Cancel
+  - Message_Window
+  - QuestBox_Main
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Utage
+  - UtageUI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

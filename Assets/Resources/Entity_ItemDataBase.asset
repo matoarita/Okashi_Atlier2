@@ -1,0 +1,1665 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Entity_ItemDataBase
+  m_EditorClassIdentifier: Assembly-CSharp::Entity_ItemDataBase
+  sheets:
+  - name: 01_ItemDB_Material
+    list:
+    - ItemID: 0
+      file_name: orange
+      name: orange
+      nameHyouji: "\u30AA\u30EC\u30F3\u30B8"
+      desc: "\u6A59\u8272\u306E\u30D5\u30EC\u30C3\u30B7\u30E5\u306A\u679C\u7269\u3002\u679C\u6C41\u304C\u30B8\u30E5\u30FC\u30B7\u30FC"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 3
+      bitter: 1
+      sour: 2
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Fruits
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 1
+      file_name: grape
+      name: grape
+      nameHyouji: "\u3076\u3069\u3046"
+      desc: "\u7D2B\u8272\u306E\u5C0F\u3055\u306A\u5B9F\u304C\u3044\u304F\u3064\u3082\u9023\u306A\u3063\u305F\u679C\u7269\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 3
+      bitter: 0
+      sour: 1
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Fruits
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 2
+      file_name: blue_berry
+      name: blue_berry
+      nameHyouji: "\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC"
+      desc: "\u9752\u8272\u306E\u5C0F\u3055\u306A\u5B9F\u304C\u9023\u306A\u3063\u305F\u9178\u3063\u3071\u3044\u679C\u7269\u3002\u9999\u308A\u304C\u826F\u304F\u3001\u30B8\u30E5\u30FC\u30B7\u30FC\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 3
+      bitter: 0
+      sour: 5
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Fruits
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 3
+      file_name: orange
+      name: nuts
+      nameHyouji: "\u30CA\u30C3\u30C4"
+      desc: "\u8102\u5206\u306E\u591A\u3044\u6728\u306E\u5B9F\u3002\u305D\u306E\u307E\u307E\u98DF\u3079\u3066\u3082\u304A\u3044\u3057\u3044\u3002"
+      mp: 0
+      day: 0
+      quality: 7
+      sweat: 0
+      bitter: 1
+      sour: 0
+      crispy: 7
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Nuts
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 4
+      file_name: strawberry
+      name: strawberry
+      nameHyouji: "\u3044\u3061\u3054"
+      desc: "\u8D64\u8272\u306E\u679C\u7269\u3002\u30B8\u30E5\u30FC\u30B7\u30FC\u3067\u5C11\u3057\u7518\u9178\u3063\u3071\u3044\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 3
+      bitter: 0
+      sour: 4
+      crispy: 0
+      fluffy: 3
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Fruits
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 5
+      file_name: komugiko
+      name: komugiko
+      nameHyouji: "\u5C0F\u9EA6\u7C89"
+      desc: "\u5C0F\u9EA6\u3092\u3072\u3044\u3066\u7C89\u3005\u306B\u3057\u305F\u7C89\u3002\u304A\u83D3\u5B50\u306E\u539F\u6599\u306B\u306A\u308B\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 2
+      fluffy: 2
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 10
+      sell_price: 5
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 6
+      file_name: egg
+      name: egg
+      nameHyouji: "\u305F\u307E\u3054"
+      desc: "\u9CE5\u304C\u7523\u307F\u843D\u3068\u3059\u5C0F\u3055\u306A\u751F\u547D\u3002\u6FC3\u539A\u3067\u304A\u3044\u3057\u3044\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 12
+      sell_price: 6
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 7
+      file_name: butter
+      name: butter
+      nameHyouji: "\u30D0\u30BF\u30FC"
+      desc: "\u725B\u4E73\u3092\u719F\u6210\u3055\u305B\u3066\u51FA\u6765\u308B\u3001\u9999\u308A\u9AD8\u3044\u6CB9\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 3
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 20
+      sell_price: 10
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 8
+      file_name: suger
+      name: suger
+      nameHyouji: "\u7802\u7CD6"
+      desc: "\u30B5\u30C8\u30A6\u30AD\u30D3\u3092\u716E\u8A70\u3081\u3066\u4E7E\u71E5\u3055\u305B\u305F\u7C89\u3002\u3059\u3054\u304F\u7518\u304F\u4E2D\u6BD2\u6027\u304C\u3042\u308B\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 9
+      file_name: honey
+      name: honey
+      nameHyouji: "\u306F\u3061\u307F\u3064"
+      desc: "\u8702\u304C\u96C6\u3081\u305F\u871C\u3002\u3055\u308F\u3084\u304B\u306A\u7518\u3055\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 8
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 10
+      file_name: milk
+      name: milk
+      nameHyouji: "\u30DF\u30EB\u30AF"
+      desc: "\u725B\u306E\u4E73\u3092\u643E\u308B\u3053\u3068\u3067\u53D6\u308C\u308B\u767D\u3044\u6DB2\u4F53\u3002\u6804\u990A\u6E80\u70B9\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 11
+      file_name: apareiyu
+      name: apareiyu
+      nameHyouji: "\u30A2\u30D1\u30EC\u30A4\u30E6"
+      desc: "\u30D0\u30BF\u30FC\u30FB\u5375\u30FB\u7802\u7CD6\u3092\u6DF7\u305C\u305F\u30AF\u30EA\u30FC\u30E0\u72B6\u306E\u30BF\u30CD"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 3
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 12
+      file_name: cookie_base
+      name: cookie_base
+      nameHyouji: "\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
+      desc: "\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 2
+      fluffy: 2
+      smooth: 3
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 13
+      file_name: cake_base
+      name: cake_base
+      nameHyouji: "\u30B1\u30FC\u30AD\u306E\u751F\u5730"
+      desc: "\u30B1\u30FC\u30AD\u306E\u751F\u5730\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 2
+      fluffy: 2
+      smooth: 3
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 14
+      file_name: chocolate_base
+      name: chocolate_base
+      nameHyouji: "\u30C1\u30E7\u30B3\u306E\u30BF\u30CD"
+      desc: "\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8\u306E\u751F\u5730\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 2
+      fluffy: 2
+      smooth: 3
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 15
+      file_name: pie_base
+      name: pie_base
+      nameHyouji: "\u30D1\u30A4\u306E\u751F\u5730"
+      desc: "\u30D1\u30A4\u751F\u5730\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 2
+      fluffy: 2
+      smooth: 3
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 16
+      file_name: cacao_beans
+      name: cacao_beans
+      nameHyouji: "\u30AB\u30AB\u30AA\u8C46"
+      desc: "\u30C1\u30E7\u30B3\u306E\u539F\u6599\u3002\u81A8\u5927\u306A\u6642\u9593\u3092\u304B\u3051\u3066\u7DF4\u308B\u3068\u3001\u30C1\u30E7\u30B3\u306B\u306A\u308B"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 5
+      sour: 0
+      crispy: 0
+      fluffy: 2
+      smooth: 5
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Nuts
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 17
+      file_name: orange
+      name: maple_syrup
+      nameHyouji: "\u30E1\u30FC\u30D7\u30EB\u306E\u6A39\u6DB2"
+      desc: "\u30E1\u30FC\u30D7\u30EB\u30C4\u30EA\u30FC\u304B\u3089\u53D6\u308C\u308B\u3001\u3069\u3053\u304B\u61D0\u304B\u3057\u3044\u9999\u308A\u306E\u6A39\u6DB2\u3002\u7518\u3044\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 5
+      sour: 0
+      crispy: 0
+      fluffy: 2
+      smooth: 5
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Nuts
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 18
+      file_name: orange
+      name: shishamo
+      nameHyouji: "\u3057\u3057\u3083\u3082"
+      desc: "\u3057\u3057\u3083\u3082\u3002\u5869\u304C\u3089\u3044\u9B5A\u306E\u5E72\u7269\u3002\u9152\u306E\u80B4\u306B\u3074\u3063\u305F\u308A\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 5
+      sour: 0
+      crispy: 0
+      fluffy: 2
+      smooth: 5
+      jiggly: 0
+      chewy: 0
+      type: Mat
+      subtype: Source
+      girl1_like: 0
+      cost_price: 500
+      sell_price: 250
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+  - name: 02_ItemDB_Okashi
+    list:
+    - ItemID: 200
+      file_name: neko_cookie
+      name: neko_cookie
+      nameHyouji: "\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
+      desc: "\u3055\u304F\u3055\u304F\u306B\u713C\u304D\u4E0A\u3052\u305F\u30AF\u30C3\u30AD\u30FC\u3002\u30D0\u30BF\u30FC\u3082\u6DF7\u3056\u3063\u3066\u3001\u98A8\u5473\u8C4A\u304B\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 10
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cookie
+      girl1_like: 5
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 201
+      file_name: orange_neko_cookie
+      name: orange_neko_cookie
+      nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30CD\u30B3\u30AF\u30C3\u30AD\u30FC"
+      desc: "\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306B\u3001\u30AA\u30EC\u30F3\u30B8\u3092\u6DF7\u305C\u305F\u7518\u9178\u3063\u3071\u3044\u30AF\u30C3\u30AD\u30FC\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 10
+      crispy: 10
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cookie
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 202
+      file_name: orange_neko_cookie
+      name: orange_neko_nuts
+      nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30CD\u30B3\u30AF\u30C3\u30AD\u30FC\uFF5E\u30CA\u30C3\u30C4\u306E\u305B\uFF5E"
+      desc: "\u3055\u3089\u306B\u3001\u30CA\u30C3\u30C4\u3092\u306E\u305B\u305F\u3082\u306E\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 10
+      crispy: 10
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cookie
+      girl1_like: 13
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 203
+      file_name: castella
+      name: castella
+      nameHyouji: "\u30E1\u30FC\u30D7\u30EB\u30AB\u30B9\u30C6\u30E9"
+      desc: "\u30E1\u30FC\u30D7\u30EB\u30B7\u30E5\u30AC\u30FC\u3092\u4F7F\u3044\u3001\u3069\u3053\u304B\u61D0\u304B\u3057\u3044\u98A8\u5473\u304C\u6F02\u3046\u30B1\u30FC\u30AD\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 20
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 20
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cake
+      girl1_like: 20
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 204
+      file_name: dorayaki
+      name: dorayaki
+      nameHyouji: "\u3057\u3063\u3068\u308A\u30C1\u30E7\u30B3\u3069\u3089\u3084\u304D"
+      desc: "\u53E3\u5F53\u305F\u308A\u306E\u826F\u3044\u751F\u5730\u306B\u30C1\u30E7\u30B3\u3092\u6DF7\u305C\u3001\u4E00\u5C64\u98A8\u5473\u3092\u5897\u3057\u305F\u3069\u3089\u3084\u304D\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 40
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 20
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cake
+      girl1_like: 20
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 205
+      file_name: huwakoro
+      name: huwakoro
+      nameHyouji: "\u3075\u308F\u3053\u308D"
+      desc: "\u3075\u308F\u3075\u308F\u3067\u3001\u3053\u308D\u3053\u308D\u3059\u308B\u3001\u4E00\u53E3\u30B5\u30A4\u30BA\u306E\u30B1\u30FC\u30AD\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 40
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 40
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cake
+      girl1_like: 20
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 206
+      file_name: baumcoohen
+      name: choco_baumcoohen
+      nameHyouji: "\u30C1\u30E7\u30B3\u304C\u3051\u30D0\u30A6\u30E0\u30AF\u30FC\u30D8\u30F3"
+      desc: "\u30D0\u30A6\u30E0\u30AF\u30FC\u30D8\u30F3\u306B\u3001\u3055\u3089\u306B\u306A\u3081\u3089\u304B\u306A\u53E3\u5F53\u305F\u308A\u306E\u30C1\u30E7\u30B3\u3092\u305F\u3063\u3077\u308A\u304B\u3051\u305F\u304A\u83D3\u5B50\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 40
+      bitter: 12
+      sour: 0
+      crispy: 0
+      fluffy: 30
+      smooth: 10
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cake
+      girl1_like: 20
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 207
+      file_name: baumcoohen
+      name: baumcoohen
+      nameHyouji: "\u3057\u3063\u3068\u308A\u30D0\u30A6\u30E0\u30AF\u30FC\u30D8\u30F3"
+      desc: "\u6728\u306E\u5E74\u8F2A\u3092\u6A21\u3057\u305F\u898B\u305F\u76EE\u306E\u30B1\u30FC\u30AD\u3002\u30B9\u30DD\u30F3\u30B8\u304C\u3075\u308F\u3075\u308F\u3057\u3063\u3068\u308A\u3057\u3066\u3044\u3066\u3001\u601D\u3044\u306E\u5916\u304A\u8179\u3044\u3063\u3071\u3044\u306B\u306A\u308B\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 30
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 30
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cake
+      girl1_like: 20
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 208
+      file_name: castella
+      name: castella
+      nameHyouji: "\u30B0\u30EA\u30FC\u30F3\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
+      desc: "\u900F\u660E\u306E\u5B9D\u77F3\u306E\u3088\u3046\u306A\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8\u3002\u8584\u3044\u30A8\u30E1\u30E9\u30EB\u30C9\u8272\u3092\u3057\u3066\u3044\u308B\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 70
+      bitter: 20
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 30
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Chocolate
+      girl1_like: 20
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 209
+      file_name: chocolate
+      name: chocolate
+      nameHyouji: "\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
+      desc: "\u9ED2\u3063\u307D\u3044\u3001\u3068\u3066\u3082\u7518\u3044\u53E3\u6EB6\u3051\u306E\u826F\u3044\u304A\u83D3\u5B50\u3002\u71B1\u3067\u6EB6\u3051\u308B\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 70
+      bitter: 20
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 30
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Chocolate
+      girl1_like: 20
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 210
+      file_name: chocolate
+      name: chocolate
+      nameHyouji: "\u30DE\u30B8\u30AB\u30EB\u30BF\u30EB\u30C8"
+      desc: "\u9B54\u6CD5\u306E\u3088\u3046\u306A\u30AB\u30E9\u30D5\u30EB\u306A\u5473\u306E\u30BF\u30EB\u30C8\u30B1\u30FC\u30AD\u3002\u5E78\u305B\u3002"
+      mp: 0
+      day: 0
+      quality: 90
+      sweat: 70
+      bitter: 20
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 30
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Chocolate
+      girl1_like: 50
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 211
+      file_name: chocolate
+      name: chocolate
+      nameHyouji: "\u30DE\u30B8\u30AB\u30EB\u30C8\u30EA\u30E5\u30D5"
+      desc: "\u30D4\u30F3\u30AF\u8272\u306E\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8\u3002\u4E00\u53E3\u98DF\u3079\u308B\u3068\u3001\u3053\u308C\u307E\u3067\u4F53\u9A13\u3057\u305F\u3053\u3068\u306E\u306A\u3044\u3088\u3046\u306A\u5FEB\u611F\u304C\u5168\u8EAB\u3092\u99C6\u3051\u5DE1\u308B\u3089\u3057\u3044..\u3002"
+      mp: 0
+      day: 0
+      quality: 100
+      sweat: 70
+      bitter: 20
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 30
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Chocolate
+      girl1_like: 50
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 212
+      file_name: orange_juice
+      name: orange_juice
+      nameHyouji: "\u6FC3\u7E2E\u30AA\u30EC\u30F3\u30B8\u30B8\u30E5\u30FC\u30B9"
+      desc: "\u30AA\u30EC\u30F3\u30B8\uFF11\uFF10\uFF10\uFF05\u3067\u305F\u3063\u3077\u308A\u306E\u30D3\u30BF\u30DF\u30F3C"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 6
+      bitter: 2
+      sour: 4
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Juice
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 213
+      file_name: orange_juice
+      name: haloween_juice
+      nameHyouji: "\u30CF\u30ED\u30A6\u30A3\u30FC\u30F3\u30B8\u30E5\u30FC\u30B9"
+      desc: "\u30AA\u30EC\u30F3\u30B8\u3068\u3076\u3069\u3046\u3092\u5408\u308F\u305B\u305F\u30C8\u30ED\u30D4\u30AB\u30EB\u306A\u5473"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 6
+      bitter: 2
+      sour: 4
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Juice
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 214
+      file_name: neko_cookie
+      name: cloud_cookie
+      nameHyouji: "\u3075\u308F\u3075\u308F\u96F2\u306E\u30AF\u30C3\u30AD\u30FC"
+      desc: "\u96F2\u3092\u56FA\u3081\u3066\u3067\u304D\u305F\u7518\u3044\u30AF\u30C3\u30AD\u30FC\u3002\u3055\u3063\u304F\u308A\u3075\u308F\u3075\u308F"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cookie
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 215
+      file_name: neko_cookie
+      name: maccha_choco
+      nameHyouji: "\u62B9\u8336\u30AC\u30C8\u30FC\u30B7\u30E7\u30B3\u30E9"
+      desc: "\u62B9\u8336\u3092\u7DF4\u308A\u8FBC\u3093\u3060\u67D4\u3089\u304B\u3044\u30B7\u30E7\u30B3\u30E9\u30B1\u30FC\u30AD"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cake
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 216
+      file_name: neko_cookie
+      name: rich_tea
+      nameHyouji: "\u82F1\u56FD\u30A2\u30FC\u30EB\u30B0\u30EC\u30A4\u30C6\u30A3\u30FC"
+      desc: "\u672C\u5834\u30A4\u30AE\u30EA\u30B9\u306E\u98A8\u5473\u3092\u6F02\u308F\u305B\u308B\u7D05\u8336\u3002\u9999\u308A\u9AD8\u304F\u3001\u30EA\u30C3\u30C1\u306A\u6C17\u5206\u306B\u306A\u308B\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Tea
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 217
+      file_name: neko_cookie
+      name: sinamon_pie
+      nameHyouji: "\u30D0\u30BF\u30FC\u30B9\u30B3\u30C3\u30C1\u30B7\u30CA\u30E2\u30F3\u30D1\u30A4"
+      desc: "\u304A\u6BCD\u3055\u3093\u306E\u5473\u304C\u3059\u308B\u30B7\u30CA\u30E2\u30F3\u30D1\u30A4\u3002\u3055\u304F\u3055\u304F\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Pie
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 218
+      file_name: neko_cookie
+      name: corn_soup
+      nameHyouji: "\u30B3\u30FC\u30F3\u30B9\u30FC\u30D7"
+      desc: "\u3068\u308D\u308A\u3068\u512A\u3057\u3044\u30DF\u30EB\u30AD\u30FC\u306A\u5473\u308F\u3044\u306E\u30B3\u30FC\u30F3\u30B9\u30FC\u30D7"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Soup
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 219
+      file_name: neko_cookie
+      name: forest_coffee
+      nameHyouji: "\u68EE\u306E\u30B3\u30FC\u30D2\u30FC"
+      desc: "\u30B3\u30AF\u304C\u3042\u308A\u3001\u8C4A\u304B\u306B\u82E6\u5473\u304C\u3042\u308B\u30B3\u30FC\u30D2\u30FC"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Coffee
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 220
+      file_name: neko_cookie
+      name: light_manderin
+      nameHyouji: "\u5149\u306E\u30DE\u30F3\u30C7\u30EA\u30F3"
+      desc: "\u30B3\u30AF\u304C\u3042\u308A\u3001\u30D5\u30EB\u30FC\u30C6\u30A3\u3067\u30B9\u30C3\u30AD\u30EA\u3068\u3057\u305F\u30B3\u30FC\u30D2\u30FC"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Coffee
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 221
+      file_name: neko_cookie
+      name: kogyoku_apple_tea
+      nameHyouji: "\u7D05\u7389\u30A2\u30C3\u30D7\u30EB\u30C6\u30A3\u30FC"
+      desc: "\u3084\u3084\u9178\u5473\u304C\u5F37\u304F\u9999\u308A\u9AD8\u3044\u30A2\u30C3\u30D7\u30EB\u30C6\u30A3\u30FC"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Tea
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 222
+      file_name: neko_cookie
+      name: potato_bonbon
+      nameHyouji: "\u30DD\u30C6\u30C8\u30DC\u30F3\u30DC\u30F3"
+      desc: "\u8584\u5207\u308A\u30DD\u30C6\u30C8\u304C\u307C\u3093\u307C\u3093\u306B\u81A8\u3089\u3093\u3060\u304A\u83D3\u5B50\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cookie
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 223
+      file_name: neko_cookie
+      name: torte
+      nameHyouji: "\u30C8\u30EB\u30C6"
+      desc: "\u306A\u3081\u3089\u304B\u3067\u53E3\u306E\u4E2D\u3067\u30B9\u3063\u3068\u3068\u308D\u3051\u308B\u30C1\u30E7\u30B3\u30B1\u30FC\u30AD"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Cake
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 224
+      file_name: neko_cookie
+      name: sea_losanonos
+      nameHyouji: "\u6D77\u306E\u30ED\u30B9\u30A2\u30CE\u30CE\u30B9"
+      desc: "\u30ED\u30B9\u30A2\u30CE\u30CE\u30B9\u8FB2\u5712\u3067\u7A6B\u308C\u305F\u8C46\u3092\u719F\u6210\u3055\u305B\u3066\u3001\u3058\u3063\u304F\u308A\u633D\u304F\u3068\u51FA\u6765\u308B\u3001\u82B3\u9187\u306A\u9999\u308A\u306E\u30B3\u30FC\u30D2\u30FC\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 50
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Okashi
+      subtype: Coffee
+      girl1_like: 10
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+  - name: 03_ItemDB_Potion
+    list:
+    - ItemID: 400
+      file_name: neko_cookie
+      name: neko_cookie
+      nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30D4\u30FC\u30EB"
+      desc: "\u30AA\u30EC\u30F3\u30B8\u98A8\u5473\u3092\u8DB3\u3057\u307E\u3059\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 10
+      bitter: 0
+      sour: 10
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Potion
+      subtype: Potion
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 401
+      file_name: neko_cookie
+      name: neko_cookie
+      nameHyouji: "\u30B8\u30E3\u30E0\u30D0\u30EC\u30C3\u30C8"
+      desc: "\u30B8\u30E3\u30E0\u5473\u306E\u30E9\u30E0\u30CD\u306E\u3088\u3046\u306A\u3082\u306E"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 20
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Potion
+      subtype: Potion
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 402
+      file_name: neko_cookie
+      name: neko_cookie
+      nameHyouji: "\u30B6\u30E9\u30E1"
+      desc: "\u5C11\u3057\u3056\u3089\u3056\u3089\u306E\u7802\u7CD6\u3067\u3059\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 30
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Potion
+      subtype: Potion
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 403
+      file_name: neko_cookie
+      name: neko_cookie
+      nameHyouji: "\u30B3\u30B3\u30A2\u30D1\u30A6\u30C0\u30FC"
+      desc: "\u30B3\u30B3\u30A2\u98A8\u5473\u306E\u7C89\u672B\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 30
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Potion
+      subtype: Potion
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 404
+      file_name: neko_cookie
+      name: neko_cookie
+      nameHyouji: "\u62B9\u8336\u30D1\u30A6\u30C0\u30FC"
+      desc: "\u62B9\u8336\u306E\u7C89\u672B\u3067\u3059\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 30
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Potion
+      subtype: Potion
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 405
+      file_name: neko_cookie
+      name: neko_cookie
+      nameHyouji: "\u30AF\u30EA\u30B9\u30BF\u30EB\u30B7\u30E5\u30AC\u30FC"
+      desc: "\u30AD\u30E9\u30AD\u30E9\u8F1D\u304F\u3061\u3063\u3061\u3083\u306A\u7802\u7CD6\u3002"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 30
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Potion
+      subtype: Potion
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 406
+      file_name: orange
+      name: orange
+      nameHyouji: "\u30DF\u30E9\u30AF\u30EB\u30BF\u30D4\u30AA\u30AB"
+      desc: "\u4E03\u8272\u306B\u8F1D\u304F\u30BF\u30D4\u30AA\u30AB"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 30
+      bitter: 0
+      sour: 10
+      crispy: 30
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Potion
+      subtype: Potion
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+  - name: 04_ItemDB_Etc
+    list:
+    - ItemID: 500
+      file_name: neko_cookie
+      name: gomi_1
+      nameHyouji: "\u95C7\u306E\u7C89\u672B"
+      desc: "\u5931\u6557\u4F5C"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Etc
+      subtype: Non
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 
+    - ItemID: 501
+      file_name: neko_cookie
+      name: recipi_01
+      nameHyouji: "\u30EC\u30B7\u30D4\u672C\uFF5E\u305D\u306E\uFF11\uFF5E"
+      desc: "\u521D\u7D1A\u306E\u304A\u83D3\u5B50\u30EC\u30B7\u30D4\u304C\u8F09\u3063\u3066\u308B"
+      mp: 0
+      day: 0
+      quality: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      jiggly: 0
+      chewy: 0
+      type: Etc
+      subtype: Non
+      girl1_like: 0
+      cost_price: 1500
+      sell_price: 0
+      topping01: 
+      topping02: 
+      topping03: 
+      topping04: 
+      topping05: 
+      topping06: 
+      topping07: 
+      topping08: 
+      topping09: 
+      topping10: 

@@ -1,0 +1,571 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59559cf03d7cf424caaaf2c880f7fe77, type: 3}
+  m_Name: Entity_compoItemDataBase
+  m_EditorClassIdentifier: 
+  sheets:
+  - name: Compound_ItemDB
+    list:
+    - ItemID: 0
+      cmpitemID_1: orange
+      cmpitemID_2: orange
+      cmpitemID_3: empty
+      result_itemID: orange_juice
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 2
+      Comment: "\u30AA\u30EC\u30F3\u30B8\u7CFB"
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\u3068\u30AA\u30EC\u30F3\u30B8"
+      Comment3: "\u6FC3\u7E2E\u30AA\u30EC\u30F3\u30B8\u30B8\u30E5\u30FC\u30B9"
+    - ItemID: 1
+      cmpitemID_1: orange
+      cmpitemID_2: grape
+      cmpitemID_3: empty
+      result_itemID: haloween_juice
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u3076\u3069\u3046"
+      Comment3: "\u30CF\u30ED\u30A6\u30A3\u30FC\u30F3\u30B8\u30E5\u30FC\u30B9"
+    - ItemID: 2
+      cmpitemID_1: orange
+      cmpitemID_2: strawberry
+      cmpitemID_3: empty
+      result_itemID: mix_fruits_juice
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u3044\u3061\u3054"
+      Comment3: "\u30DF\u30C3\u30AF\u30B9\u30B8\u30E5\u30FC\u30B9"
+    - ItemID: 3
+      cmpitemID_1: orange
+      cmpitemID_2: blue_berry
+      cmpitemID_3: empty
+      result_itemID: mix_fruits_juice
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC"
+      Comment3: "\u30DF\u30C3\u30AF\u30B9\u30B8\u30E5\u30FC\u30B9"
+    - ItemID: 4
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 5
+      cmpitemID_1: hakurikiko
+      cmpitemID_2: appaleil
+      cmpitemID_3: butter
+      result_itemID: cake_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: "\u5C0F\u9EA6\u7C89"
+      Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
+      Comment3: "\u30B1\u30FC\u30AD\u30D9\u30FC\u30B9"
+    - ItemID: 6
+      cmpitemID_1: hakurikiko
+      cmpitemID_2: butter
+      cmpitemID_3: suger
+      result_itemID: cookie_base
+      cmpitem_kosu1: 2
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u8584\u529B\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
+      Comment3: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9"
+    - ItemID: 7
+      cmpitemID_1: hakurikiko
+      cmpitemID_2: egg
+      cmpitemID_3: suger
+      result_itemID: cookie_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u8584\u529B\u7C89\xD7\u305F\u307E\u3054\xD7\u7802\u7CD6"
+      Comment3: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9"
+    - ItemID: 8
+      cmpitemID_1: hakurikiko
+      cmpitemID_2: butter
+      cmpitemID_3: honey
+      result_itemID: cookie_base_honey
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u8584\u529B\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u306F\u3061\u307F\u3064"
+      Comment3: "\u30B1\u30FC\u30AD\u30D9\u30FC\u30B9"
+    - ItemID: 9
+      cmpitemID_1: hakurikiko
+      cmpitemID_2: butter
+      cmpitemID_3: empty
+      result_itemID: cookie_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u8584\u529B\u7C89\xD7\u30D0\u30BF\u30FC"
+      Comment3: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9"
+    - ItemID: 10
+      cmpitemID_1: hakurikiko
+      cmpitemID_2: egg
+      cmpitemID_3: butter
+      result_itemID: cookie_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u8584\u529B\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u305F\u307E\u3054"
+      Comment3: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9"
+    - ItemID: 11
+      cmpitemID_1: hakurikiko
+      cmpitemID_2: armond_powder
+      cmpitemID_3: empty
+      result_itemID: financier_powder
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30FC\u30E2\u30F3\u30C9\u30D7\u30FC\u30C9\u30EB"
+      Comment3: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u30D9\u30FC\u30B9"
+    - ItemID: 12
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 13
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 14
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 15
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 16
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 17
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 18
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 19
+      cmpitemID_1: kyorikiko
+      cmpitemID_2: appaleil
+      cmpitemID_3: butter
+      result_itemID: cake_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: "\u5C0F\u9EA6\u7C89"
+      Comment2: "\u5F37\u529B\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
+      Comment3: "\u30B1\u30FC\u30AD\u30D9\u30FC\u30B9"
+    - ItemID: 20
+      cmpitemID_1: kyorikiko
+      cmpitemID_2: butter
+      cmpitemID_3: suger
+      result_itemID: cookie_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u5F37\u529B\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
+      Comment3: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9"
+    - ItemID: 21
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 22
+      cmpitemID_1: egg
+      cmpitemID_2: suger
+      cmpitemID_3: empty
+      result_itemID: appaleil
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: "\u30A2\u30D1\u30EC\u30A4\u30E6\u7CFB"
+      Comment2: "\u305F\u307E\u3054\xD7\u7802\u7CD6"
+      Comment3: "\u30A2\u30D1\u30EC\u30A4\u30E6"
+    - ItemID: 23
+      cmpitemID_1: egg_white
+      cmpitemID_2: suger
+      cmpitemID_3: empty
+      result_itemID: appaleil_white
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u5375\u767D\xD7\u7802\u7CD6\uFF08\u53B3\u5BC6\u306B\u306F\u30B0\u30E9\u30CB\u30E5\u30FC\u7CD6\uFF09"
+      Comment3: "\u5375\u767D\u30D9\u30FC\u30B9\u306E\u30A2\u30D1\u30EC\u30A4\u30E6"
+    - ItemID: 24
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 25
+      cmpitemID_1: cookie_base
+      cmpitemID_2: cream_cheese
+      cmpitemID_3: empty
+      result_itemID: cookie_base_cheese
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 34
+      Comment: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\u7CFB"
+      Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30AF\u30EA\u30FC\u30E0\u30C1\u30FC\u30BA"
+      Comment3: "\u30C1\u30FC\u30BA\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
+    - ItemID: 26
+      cmpitemID_1: cookie_base
+      cmpitemID_2: orange
+      cmpitemID_3: empty
+      result_itemID: cookie_base_orange
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 10
+      Comment: 
+      Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30AA\u30EC\u30F3\u30B8"
+      Comment3: "\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
+    - ItemID: 27
+      cmpitemID_1: cookie_base
+      cmpitemID_2: grape
+      cmpitemID_3: empty
+      result_itemID: cookie_base_grape
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 11
+      Comment: 
+      Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
+      Comment3: "\u3076\u3069\u3046\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
+    - ItemID: 28
+      cmpitemID_1: cookie_base
+      cmpitemID_2: cocoa_powder
+      cmpitemID_3: empty
+      result_itemID: cookie_base_cocoa
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 11
+      Comment: 
+      Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30D1\u30A6\u30C0\u30FC"
+      Comment3: "\u30B3\u30B3\u30A2\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
+    - ItemID: 29
+      cmpitemID_1: cookie_base
+      cmpitemID_2: cookie_base_cocoa
+      cmpitemID_3: empty
+      result_itemID: cookie_base_icebox
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 34
+      Comment: 
+      Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
+      Comment3: "\u30A2\u30A4\u30B9\u30DC\u30C3\u30AF\u30B9\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
+    - ItemID: 30
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 31
+      cmpitemID_1: financier_powder
+      cmpitemID_2: appaleil_white
+      cmpitemID_3: kogashi_butter
+      result_itemID: financier_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 90
+      renkin_Bexp: 34
+      Comment: 
+      Comment2: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7528\u306E\u7C89\xD7\u5375\u767D\xD7\u7802\u7CD6\xD7\u7126\u304C\u3057\u30D0\u30BF\u30FC"
+      Comment3: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u751F\u5730"
+    - ItemID: 32
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 33
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 34
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 35
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 36
+      cmpitemID_1: cacao_beans
+      cmpitemID_2: suger
+      cmpitemID_3: empty
+      result_itemID: chocolate_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 50
+      renkin_Bexp: 32
+      Comment: "\u30C1\u30E7\u30B3\u7CFB"
+      Comment2: "\u30AB\u30AB\u30AA\u8C46\xD7\u7802\u7CD6"
+      Comment3: "\u30C1\u30E7\u30B3\u30D9\u30FC\u30B9"
