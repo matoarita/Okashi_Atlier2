@@ -13,6 +13,10 @@ public class Shop_Main : MonoBehaviour {
 
     private GameObject backbutton_obj;
 
+    private GameObject canvas;
+
+    private GameObject shopon_toggle;
+
     public int shop_status;
 
     // Use this for initialization
@@ -20,6 +24,9 @@ public class Shop_Main : MonoBehaviour {
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
+
+        canvas = GameObject.FindWithTag("Canvas");
+        shopon_toggle = canvas.transform.Find("ShopOn_Toggle").gameObject;
 
         //戻るボタンを取得
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
@@ -58,11 +65,9 @@ public class Shop_Main : MonoBehaviour {
             {
                 case 0:
 
-                    shopitemlist_onoff.SetActive(true); //ショップリスト画面を表示。
+                    shopon_toggle.SetActive(true);
                     backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
-
-                    shop_status = 1; //ショップのシーンに入っている、というフラグ         
 
                     break;
 
@@ -73,5 +78,23 @@ public class Shop_Main : MonoBehaviour {
         }
 
 	}
+
+    public void OnCheck_1() //レシピ調合をON
+    {
+        if (shopon_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            shopitemlist_onoff.SetActive(true); //ショップリスト画面を表示。
+            shopon_toggle.SetActive(false);
+            backbutton_obj.SetActive(false);
+
+            shop_status = 1; //ショップのシーンに入っている、というフラグ
+
+            //Debug.Log("check1");
+            _text.text = "何を買うの？";
+            
+        }
+    }
 
 }
