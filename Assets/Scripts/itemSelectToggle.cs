@@ -1672,6 +1672,7 @@ public class itemSelectToggle : MonoBehaviour
         Debug.Log("これでいいですか？");
 
         card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+        updown_counter_obj.SetActive(true);
 
         SelectPaused();
 

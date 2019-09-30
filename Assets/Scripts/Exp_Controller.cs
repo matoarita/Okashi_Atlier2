@@ -578,7 +578,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     compound_success = false;
 
-                    StartCoroutine("renkinTopping_exp_up");
+                    StartCoroutine("renkin_exp_up");
 
                     pitemlistController_obj.SetActive(true);
 

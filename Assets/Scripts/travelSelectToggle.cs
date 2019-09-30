@@ -54,6 +54,8 @@ public class travelSelectToggle : MonoBehaviour {
 
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
+
+        no.SetActive(false);
     }
 	
 	// Update is called once per frame

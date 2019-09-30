@@ -15,7 +15,9 @@ public class Shop_Main : MonoBehaviour {
 
     private GameObject canvas;
 
-    private GameObject shopon_toggle;
+    private GameObject shop_select;
+    private GameObject shopon_toggle_buy;
+    private GameObject shopon_toggle_watch;
 
     public int shop_status;
 
@@ -26,7 +28,9 @@ public class Shop_Main : MonoBehaviour {
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
 
         canvas = GameObject.FindWithTag("Canvas");
-        shopon_toggle = canvas.transform.Find("ShopOn_Toggle").gameObject;
+        shop_select = canvas.transform.Find("Shop_Select").gameObject;
+        shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
+        shopon_toggle_watch = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Watch").gameObject;
 
         //戻るボタンを取得
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
@@ -40,7 +44,7 @@ public class Shop_Main : MonoBehaviour {
         _text = text_area.GetComponentInChildren<Text>();
 
         //初期メッセージ
-        _text.text = "いらっしゃい～。好きなものを選んでね。";
+        _text.text = "いらっしゃい～。";
         text_area.SetActive(false);
 
         shop_status = 0;
@@ -53,6 +57,7 @@ public class Shop_Main : MonoBehaviour {
         if (GameMgr.scenario_ON == true)
         {
             shopitemlist_onoff.SetActive(false);
+            shop_select.SetActive(false);
             backbutton_obj.SetActive(false);
             text_area.SetActive(false);
 
@@ -65,13 +70,19 @@ public class Shop_Main : MonoBehaviour {
             {
                 case 0:
 
-                    shopon_toggle.SetActive(true);
+                    shopitemlist_onoff.SetActive(false);
+                    shop_select.SetActive(true);
                     backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
+
+                    _text.text = "いらっしゃい～。";
 
                     break;
 
                 case 1:
+                    break;
+
+                case 2:
                     break;
                 
             }
@@ -79,22 +90,34 @@ public class Shop_Main : MonoBehaviour {
 
 	}
 
-    public void OnCheck_1() //レシピ調合をON
+    public void OnCheck_1() //ショップ　アイテムを買う
     {
-        if (shopon_toggle.GetComponent<Toggle>().isOn == true)
+        if (shopon_toggle_buy.GetComponent<Toggle>().isOn == true)
         {
-            shopon_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+            shopon_toggle_buy.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             shopitemlist_onoff.SetActive(true); //ショップリスト画面を表示。
-            shopon_toggle.SetActive(false);
-            backbutton_obj.SetActive(false);
+            shop_select.SetActive(false);
 
             shop_status = 1; //ショップのシーンに入っている、というフラグ
 
-            //Debug.Log("check1");
             _text.text = "何を買うの？";
             
         }
     }
 
+    public void OnCheck_2() //眺める（話かけて、噂を聞いたりする。）
+    {
+        if (shopon_toggle_watch.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle_watch.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            //shop_select.SetActive(false);
+
+            shop_status = 2; //眺めるを押したときのフラグ
+
+            _text.text = "なぁに？お話する？";
+
+        }
+    }
 }

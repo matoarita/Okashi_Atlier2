@@ -28,6 +28,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
     private GameObject shopitemlistController_obj;
     private ShopItemListController shopitemlistController;
+    private GameObject back_ShopFirst_obj;
+    private Button back_ShopFirst_btn;
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
@@ -36,6 +38,8 @@ public class shopitemSelectToggle : MonoBehaviour
     private GameObject itemselect_cancel_obj;
     private ItemSelect_Cancel itemselect_cancel;
 
+    private GameObject backbutton_obj;
+    private Button backbutton_btn;
 
     private PlayerItemList pitemlist;
     private ItemDataBase database;
@@ -84,6 +88,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
         shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
         shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+        back_ShopFirst_obj = shopitemlistController_obj.transform.Find("Back_ShopFirst").gameObject;
+        back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
 
         updown_counter_obj = shopitemlistController_obj.transform.Find("updown_counter").gameObject;
         updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
@@ -94,6 +100,8 @@ public class shopitemSelectToggle : MonoBehaviour
         no = shopitemlistController_obj.transform.Find("No").gameObject;
         no_text = no.GetComponentInChildren<Text>();
         yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+        
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -110,6 +118,10 @@ public class shopitemSelectToggle : MonoBehaviour
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
+
+        //戻るボタンを取得
+        backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
+        backbutton_btn = backbutton_obj.GetComponent<Button>();
 
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
@@ -136,7 +148,9 @@ public class shopitemSelectToggle : MonoBehaviour
         //m_Text.text = "New Value : " + m_Toggle.isOn;
         if (m_Toggle.isOn == true)
         {
-                shop_buy_active();
+            back_ShopFirst_btn.interactable = false;
+            backbutton_btn.interactable = false;
+            shop_buy_active();
         }
     }
 
@@ -167,12 +181,6 @@ public class shopitemSelectToggle : MonoBehaviour
         Debug.Log(count + "番が押されたよ");
         Debug.Log("アイテム:" + shop_database.shopitems[count].shop_itemNameHyouji + "が選択されました。");
 
-        StartCoroutine("shop_buy_kosu_select");
-
-    }
-
-    IEnumerator shop_buy_kosu_select()
-    {
         //Debug.Log("これでいいですか？");
 
         //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
@@ -184,6 +192,14 @@ public class shopitemSelectToggle : MonoBehaviour
         yes.SetActive(true);
         no.SetActive(true);
         updown_counter_obj.SetActive(true);
+
+        StartCoroutine("shop_buy_kosu_select");
+
+    }
+
+    IEnumerator shop_buy_kosu_select()
+    {
+        
 
         // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
 
@@ -228,6 +244,9 @@ public class shopitemSelectToggle : MonoBehaviour
                 no.SetActive(false);
                 updown_counter_obj.SetActive(false);
 
+                back_ShopFirst_btn.interactable = true;
+                backbutton_btn.interactable = true;
+
                 //pitemlistController.cardImage_onoff_pcontrol.SetActive(false);
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                 break;
@@ -265,11 +284,10 @@ public class shopitemSelectToggle : MonoBehaviour
                     shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
 
-
-
-
                 yes.SetActive(false);
                 no.SetActive(false);
+                back_ShopFirst_btn.interactable = true;
+                backbutton_btn.interactable = true;
 
                 updown_button[0].interactable = true;
                 updown_button[1].interactable = true;
@@ -294,6 +312,9 @@ public class shopitemSelectToggle : MonoBehaviour
                 yes_selectitem_kettei.kettei1 = false;
                 yes.SetActive(false);
                 no.SetActive(false);
+
+                back_ShopFirst_btn.interactable = true;
+                backbutton_btn.interactable = true;
 
                 updown_button[0].interactable = true;
                 updown_button[1].interactable = true;
