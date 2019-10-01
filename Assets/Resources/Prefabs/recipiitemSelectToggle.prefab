@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 114582627593196500}
   - component: {fileID: 114593139687513202}
   - component: {fileID: 114332712796115306}
+  - component: {fileID: 114571725990106628}
   m_Layer: 0
   m_Name: recipiitemSelectToggle
   m_TagString: Untagged
@@ -124,7 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704e345778d4d144c9dcd67f5a6bd051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipi_toggleitem_ID: 0
+  recipi_toggleitemType: 0
+  recipi_toggleCompoitem_ID: 0
+  recipi_toggleEventitem_ID: 0
   recipi_itemID: 0
   recipi_itemNameHyouji: 
 --- !u!114 &114405367026683348
@@ -154,6 +157,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114571725990106628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1690221747771036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114582627593196500
 MonoBehaviour:
   m_ObjectHideFlags: 1

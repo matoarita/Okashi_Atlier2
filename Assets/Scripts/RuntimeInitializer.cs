@@ -77,6 +77,10 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(itemSelect_cancel_init);
         itemSelect_cancel_init.tag = "ItemSelect_Cancel";
 
+        //サウンド・SE関連を統括するオブジェクト
+        var soundcontroller_init = new GameObject("SoundController", typeof(SoundController));
+        GameObject.DontDestroyOnLoad(soundcontroller_init);
+        soundcontroller_init.tag = "SoundController";
     }
 
 } // class RuntimeInitializer

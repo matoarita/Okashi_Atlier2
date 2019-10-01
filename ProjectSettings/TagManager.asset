@@ -36,6 +36,7 @@ TagManager:
   - ItemSelect_Cancel
   - Message_Window
   - QuestBox_Main
+  - SoundController
   layers:
   - Default
   - TransparentFX
