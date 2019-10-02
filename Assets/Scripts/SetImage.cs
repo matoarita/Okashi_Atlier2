@@ -37,6 +37,8 @@ public class SetImage : MonoBehaviour
     private string item_type_sub;
 
     private string _quality;
+
+    private string _rich;
     private string _sweat;
     private string _sour;
     private string _bitter;
@@ -58,6 +60,8 @@ public class SetImage : MonoBehaviour
 
     private Text item_Name_Full;
     private Text item_Quality;
+
+    private Text item_Rich;
     private Text item_Sweat;
     private Text item_Bitter;
     private Text item_Sour;
@@ -112,7 +116,7 @@ public class SetImage : MonoBehaviour
         item_RankDesc = this.transform.Find("Item_card_template/ItemRankDesc").gameObject.GetComponent<Text>(); //ランクに合わせて、おいしさや食感を表示するテキスト
         
         item_Name_Full = this.transform.Find("Card_Param_window/Card_Name/Tx_Name").gameObject.GetComponent<Text>(); //名前（スロット名も含む正式名称）の値
-        item_Quality = this.transform.Find("Card_Param_window/Card_Parameter/ItemQualityScore").gameObject.GetComponent<Text>(); //味のコクの値
+        item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
         item_Sweat = this.transform.Find("Card_Param_window/Card_Parameter/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
         item_Bitter = this.transform.Find("Card_Param_window/Card_Parameter/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
         item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
@@ -194,9 +198,11 @@ public class SetImage : MonoBehaviour
                 //カードのアイテム名
                 item_Name.text = database.items[check_counter].itemNameHyouji;
 
-                
-                //甘さなどのパラメータを代入
+                //アイテムの品質値
                 _quality = database.items[check_counter].Quality.ToString();
+
+                //甘さなどのパラメータを代入
+                _rich = database.items[check_counter].Rich.ToString();
                 _sweat = database.items[check_counter].Sweat.ToString();
                 _sour = database.items[check_counter].Sour.ToString();
                 _bitter = database.items[check_counter].Bitter.ToString();
@@ -255,9 +261,11 @@ public class SetImage : MonoBehaviour
                 //カードのアイテム名
                 item_Name.text = pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
 
+                //アイテムの品質値
+                _quality = pitemlist.player_originalitemlist[check_counter].Quality.ToString();
 
                 //甘さなどのパラメータを代入
-                _quality = pitemlist.player_originalitemlist[check_counter].Quality.ToString();
+                _rich = pitemlist.player_originalitemlist[check_counter].Rich.ToString();
                 _sweat = pitemlist.player_originalitemlist[check_counter].Sweat.ToString();
                 _sour = pitemlist.player_originalitemlist[check_counter].Sour.ToString();
                 _bitter = pitemlist.player_originalitemlist[check_counter].Bitter.ToString();
@@ -426,7 +434,7 @@ public class SetImage : MonoBehaviour
         /* カテゴリーここまで */
 
         //甘さ・苦さ・酸味の表示
-        item_Quality.text = _quality;
+        item_Rich.text = _rich;
         item_Sweat.text = _sweat;
         item_Bitter.text = _sour;
         item_Sour.text = _bitter;

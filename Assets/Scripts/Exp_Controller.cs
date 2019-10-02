@@ -286,6 +286,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 {
                     Comp_method_bunki = 1; //トッピング調合扱いで、処理を行う。
 
+                    result_kosu = pitemlistController.final_kettei_kosu1;
+
                     base_kettei_item = kettei_item1;
                     kettei_item1 = kettei_item2;
                     kettei_item2 = kettei_item3;
@@ -296,14 +298,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     toggle_type2 = toggle_type3;
                     toggle_type3 = 0;
 
+                    final_kette_kosu1 = pitemlistController.final_kettei_kosu2;
+                    final_kette_kosu2 = pitemlistController.final_kettei_kosu3;
+                    final_kette_kosu3 = 0;
 
                     if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、二個で調合している。
                     {
                         kettei_item2 = 9999;
                         toggle_type2 = 0;
+                        final_kette_kosu2 = 0;
                     }
 
-                    result_kosu = pitemlistController.final_kettei_kosu1;
+                    
                 }
                 else if (comp_judge_flag == 2) //生地を合成する処理で、新規にアイテムが作成される場合（例えば、クッキー生地×オレンジで、オレンジクッキー生地など）
                 {
@@ -1078,7 +1084,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case 1: //オリジナルプレイヤーアイテムリストから選択している場合
 
                 _id = kettei_item1;
-                _addkosu = 1;
+                _addkosu = final_kette_kosu1;
                 //Debug.Log("_id: " + _id);
                 //各パラメータを取得
                 Set_add_originparam();
@@ -1150,7 +1156,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 case 1: //オリジナルプレイヤーアイテムリストから選択している場合
 
                     _id = kettei_item3;
-                    _addkosu = 1;
+                    _addkosu = final_kette_kosu3;
 
                     //各パラメータを取得
                     Set_add_originparam();
@@ -1267,10 +1273,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             for (i = 0; i < _additemlist.Count; i++) //入れた材料の数だけ、繰り返す。
             {
-                for (i = 0; i < _additemlist.Count; i++)
-                {
                     AddTasteParam();
-                }
             }
         }
 
@@ -1343,7 +1346,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _basehardness += _additemlist[i]._Addhardness * _additemlist[i]._Addkosu;
         _basejiggly += _additemlist[i]._Addjiggly * _additemlist[i]._Addkosu;
         _basechewy += _additemlist[i]._Addchewy * _additemlist[i]._Addkosu;
-        _basepowdery += _addpowdery * _additemlist[i]._Addkosu;
+        _basepowdery += _additemlist[i]._Addpowdery * _additemlist[i]._Addkosu;
         _baseoily += _additemlist[i]._Addoily * _additemlist[i]._Addkosu;
         _basewatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
     }
@@ -1396,7 +1399,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _basehardness += (int)(_additemlist[i]._Addhardness * _add_ratio);
         _basejiggly += (int)(_additemlist[i]._Addjiggly * _add_ratio);
         _basechewy += (int)(_additemlist[i]._Addchewy * _add_ratio);
-        _basepowdery += (int)(_addpowdery * _add_ratio);
+        _basepowdery += (int)(_additemlist[i]._Addpowdery * _add_ratio);
         _baseoily += (int)(_additemlist[i]._Addoily * _add_ratio);
         _basewatery += (int)(_additemlist[i]._Addwatery * _add_ratio);
     }
@@ -1415,7 +1418,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _basehardness += (int)(_additemlist[i]._Addhardness * komugiko_ratio);
         _basejiggly += (int)(_additemlist[i]._Addjiggly * komugiko_ratio);
         _basechewy += (int)(_additemlist[i]._Addchewy * komugiko_ratio);
-        _basepowdery += (int)(_addpowdery * komugiko_ratio);
+        _basepowdery += (int)(_additemlist[i]._Addpowdery * komugiko_ratio);
         _baseoily += (int)(_additemlist[i]._Addoily * komugiko_ratio);
         _basewatery += (int)(_additemlist[i]._Addwatery * komugiko_ratio);
     }

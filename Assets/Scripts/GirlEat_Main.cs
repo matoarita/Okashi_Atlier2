@@ -166,7 +166,8 @@ public class GirlEat_Main : MonoBehaviour
 
     IEnumerator Okashi_after() //お菓子の感想をいったあとに、記憶について、もしくはストーリーが展開
     {
-        while (!Input.GetMouseButtonDown(0)) yield return null;
+        //while (!Input.GetMouseButtonDown(0)) yield return null;
+        while (!text_area.GetComponent<MessageWindow>().window_clickon) yield return null;
 
         window_param_result_obj.SetActive(false);
         backbutton_obj.SetActive(true);
@@ -206,4 +207,5 @@ public class GirlEat_Main : MonoBehaviour
 
         }
     }
+
 }

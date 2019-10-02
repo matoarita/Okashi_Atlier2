@@ -257,7 +257,7 @@ public class recipiitemSelectToggle : MonoBehaviour
                     recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
 
-                Debug.Log("キャンセルをおした");
+                //Debug.Log("キャンセルをおした");
                 itemselect_cancel.All_cancel();
 
                 break;

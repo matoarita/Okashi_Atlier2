@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 114693708792194112}
   - component: {fileID: 114538764033191848}
   - component: {fileID: 114668712869124216}
+  - component: {fileID: 114663580077191126}
   m_Layer: 0
   m_Name: shopitemSelectToggle
   m_TagString: Untagged
@@ -260,6 +261,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u5728\u5EAB"
+--- !u!114 &114663580077191126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1712237269238428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114668712869124216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -272,9 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Text: {fileID: 0}
-  toggleitem_ID: 0
-  toggleitem_type: 0
-  toggle_originplist_ID: 0
+  toggle_shopitem_ID: 0
+  toggle_shopitem_type: 0
 --- !u!114 &114693708792194112
 MonoBehaviour:
   m_ObjectHideFlags: 1

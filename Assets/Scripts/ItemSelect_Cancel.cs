@@ -247,7 +247,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     {
                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                         {
-                            Debug.Log("調合シーンキャンセル");
+                            //Debug.Log("調合シーンキャンセル");
 
                             card_view.DeleteCard_DrawView();
 

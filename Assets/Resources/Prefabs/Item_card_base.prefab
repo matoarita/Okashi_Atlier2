@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 222686931398107384}
   - component: {fileID: 114059097838524104}
   m_Layer: 0
-  m_Name: Tx_Quality
+  m_Name: Tx_Rich
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 222873063387144924}
   - component: {fileID: 114103387680639872}
   m_Layer: 0
-  m_Name: ItemQualityScore
+  m_Name: ItemRichScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

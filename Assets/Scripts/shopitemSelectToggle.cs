@@ -229,7 +229,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
             case false: //キャンセルが押された
 
-                Debug.Log("cancel");
+                //Debug.Log("cancel");
 
                 _text.text = "何にしますか？";
 

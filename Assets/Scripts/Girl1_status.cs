@@ -8,6 +8,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //女の子の好み値。この値と、選択したアイテムの数値を比較し、近いほど得点があがる。
     public int girl1_Quality;
 
+    public int girl1_Rich;
     public int girl1_Sweat;
     public int girl1_Sour;
     public int girl1_Bitter;
@@ -45,6 +46,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int itemLike_score_final;
 
     public int quality_score_final;
+
+    public int rich_score_final;
     public int sweat_score_final;
     public int bitter_score_final;
     public int sour_score_final;
@@ -72,8 +75,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //アイテムそれぞれに、女の子の好き度を表す、基礎パラメータがある。エクセルのアイテムデータベースにgirl1_likeで登録している。
 
+        //品質値に対する評価。
+        girl1_Quality = 50;
 
         //女の子の好み。初期化。甘さ・苦さ・酸味は近いものほど高得点。
+        girl1_Rich = 30;
         girl1_Sweat = 50;
         girl1_Sour = 20;
         girl1_Bitter = 30;
@@ -83,8 +89,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Fluffy = 10;
         girl1_Smooth = 10;
         girl1_Hardness = 10;
-        girl1_Chewy = 10;
-        girl1_Jiggly = 10;
+
+        //未使用
+        girl1_Chewy = 0;
+        girl1_Jiggly = 0;
 
 
         //女の子が好きなお菓子のタイプ。クッキー好きとか、ケーキ好きとか。_pは、どれぐらい好きかを数値化。
