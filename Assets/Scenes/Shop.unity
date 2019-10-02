@@ -5108,7 +5108,7 @@ GameObject:
   - component: {fileID: 2124116769}
   - component: {fileID: 2124116768}
   m_Layer: 0
-  m_Name: chara_shop
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

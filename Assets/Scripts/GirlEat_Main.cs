@@ -15,6 +15,11 @@ public class GirlEat_Main : MonoBehaviour
     private GameObject text_area;
     private Text _text;
 
+    private GameObject canvas;
+    private GameObject girleat_select;
+    private GameObject girleat_toggle_present;
+    private GameObject girleat_toggle_watch;
+
     private GameObject playeritemlist_onoff;
 
     private GameObject backbutton_obj;
@@ -54,7 +59,12 @@ public class GirlEat_Main : MonoBehaviour
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
 
-        
+        canvas = GameObject.FindWithTag("Canvas");
+        girleat_select = canvas.transform.Find("GirlEat_Select").gameObject;
+        girleat_toggle_present = girleat_select.transform.Find("Viewport/Content/GirlEat_Toggle_Present").gameObject;
+        girleat_toggle_watch = girleat_select.transform.Find("Viewport/Content/GirlEat_Toggle_Watch").gameObject;
+
+
         //所持アイテム画面を開く。初期設定で最初はOFF。
         playeritemlist_onoff = GameObject.FindWithTag("PlayeritemList_ScrollView");
 
@@ -92,8 +102,11 @@ public class GirlEat_Main : MonoBehaviour
         {
             playeritemlist_onoff.SetActive(false);
             backbutton_obj.SetActive(true);
+            girleat_select.SetActive(true);
 
-            StartCoroutine("GirlEat_Start");
+            //初期メッセージ
+            _text.text = "こんにちわ～。今日はおヒマですか？";
+
         }
 
         if (girleat_status == 2) //女の子にアイテムをあげたあとの処理
@@ -123,6 +136,10 @@ public class GirlEat_Main : MonoBehaviour
 
                 StartCoroutine(Okashi_after());
             }
+        }
+
+        if (girleat_status == 5) //女の子を眺める
+        {
 
         }
 
@@ -146,26 +163,6 @@ public class GirlEat_Main : MonoBehaviour
         }
     }
 
-    IEnumerator GirlEat_Start()
-    {
-        //初期メッセージ
-        _text.text = "こんにちわ～。今日はおヒマですか？";
-
-        girleat_status = 1; //女の子にアイテムをあげるシーンに入っています、というフラグ。分岐があるわけではないが、0の繰り返しを避ける意味がある。
-
-        while (!Input.GetMouseButtonDown(0)) yield return null; //マウス左クリックが押されるまで待機する。コルーチンが動いていても、Updateは、常に更新されている。
-
-        _text.text = "あげたいアイテムを選択してください。";
-
-        while (!Input.GetMouseButtonDown(0)) yield return null; //マウス左クリックが押されるまで待機する。コルーチンが動いていても、Updateは、常に更新されている。
-
-        yield return new WaitForSeconds(0.2f); //○○秒待つ
-
-        backbutton_obj.SetActive(false);
-        playeritemlist_onoff.SetActive(true); //アイテム画面を表示。
-        //no.SetActive(true);
-    }
-
 
     IEnumerator Okashi_after() //お菓子の感想をいったあとに、記憶について、もしくはストーリーが展開
     {
@@ -177,4 +174,36 @@ public class GirlEat_Main : MonoBehaviour
         
     }
 
+    public void OnCheck_1() //女の子にお菓子をあげる
+    { 
+        if (girleat_toggle_present.GetComponent<Toggle>().isOn == true)
+        {
+            girleat_toggle_present.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            backbutton_obj.SetActive(false);
+            playeritemlist_onoff.SetActive(true); //アイテム画面を表示。
+                                                  //no.SetActive(true);
+            girleat_select.SetActive(false);
+
+            girleat_status = 1; //女の子にアイテムをあげるシーンに入っています、というフラグ。分岐があるわけではないが、0の繰り返しを避ける意味がある。
+
+            _text.text = "あげたいアイテムを選択してください。";
+            
+        }
+    }
+
+    public void OnCheck_2() //眺める（話かけて、噂を聞いたりする。）
+    {
+        if (girleat_toggle_watch.GetComponent<Toggle>().isOn == true)
+        {
+            girleat_toggle_watch.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            //shop_select.SetActive(false);
+
+            girleat_status = 5; //眺めるを押したときのフラグ
+
+            _text.text = "ん？どうしました？";
+
+        }
+    }
 }

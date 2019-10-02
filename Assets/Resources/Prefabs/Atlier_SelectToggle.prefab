@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224529589624786010}
   - component: {fileID: 114778740421086744}
   - component: {fileID: 114646573513133500}
+  - component: {fileID: 114585681781334004}
   m_Layer: 0
   m_Name: Atlier_SelectToggle
   m_TagString: Untagged
@@ -79,6 +80,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114585681781334004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1278971591492044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114646573513133500
 MonoBehaviour:
   m_ObjectHideFlags: 1

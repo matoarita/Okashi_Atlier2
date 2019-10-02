@@ -14,7 +14,6 @@ public class Shop_Main : MonoBehaviour {
     private GameObject backbutton_obj;
 
     private GameObject canvas;
-
     private GameObject shop_select;
     private GameObject shopon_toggle_buy;
     private GameObject shopon_toggle_watch;

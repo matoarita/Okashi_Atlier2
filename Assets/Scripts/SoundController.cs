@@ -29,8 +29,8 @@ public class SoundController : MonoBehaviour {
             seIndexes[seClips[i].name] = i;
         }
 
-        Debug.Log("se ========================");
-        foreach(var ac in seClips ) { Debug.Log( ac.name ); }
+        /*Debug.Log("se ========================");
+        foreach(var ac in seClips ) { Debug.Log( ac.name ); }*/
     }
 
     // Use this for initialization
