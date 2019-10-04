@@ -2760,6 +2760,16 @@ MonoBehaviour:
       - 1.5
       - 
       - Arika/chara_megane.png
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -3418,7 +3428,7 @@ MonoBehaviour:
       - "\u30A2\u30A4\u30C6\u30E0\u53D6\u5F97\u97F3\uFF11"
       - 
       - Se
-      - audiostock_66347_sample.mp3
+      - SE_02.mp3
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -3536,7 +3546,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 265
+    textLength: 247
     headerRow: 0
   - rows:
     - rowIndex: 0
