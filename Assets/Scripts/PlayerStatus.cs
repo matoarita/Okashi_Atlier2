@@ -27,7 +27,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         Debug.Log("Before scene loaded: Player_status");
 
         //プレイヤー初期設定
-        player_money = 10000;
+        player_money = 2000;
         player_day = 91;
         player_renkin_lv = 1;
         player_renkin_exp = 0;

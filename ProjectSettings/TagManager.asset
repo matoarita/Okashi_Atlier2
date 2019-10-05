@@ -36,6 +36,7 @@ TagManager:
   - Message_Window
   - QuestBox_Main
   - SoundController
+  - PlayerItemListView_Init
   layers:
   - Default
   - TransparentFX

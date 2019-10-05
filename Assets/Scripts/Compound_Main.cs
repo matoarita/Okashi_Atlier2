@@ -9,8 +9,11 @@ public class Compound_Main : MonoBehaviour {
     private GameObject text_area;
     private Text _text;
 
+    private GameObject canvas;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
+    private GameObject pitemlist_scrollview_init_obj;
 
     private GameObject recipilist_onoff;
     private RecipiListController recipilistController;
@@ -50,7 +53,7 @@ public class Compound_Main : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        Debug.Log("Compound scene loaded");
+        //Debug.Log("Compound scene loaded");
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
@@ -61,16 +64,20 @@ public class Compound_Main : MonoBehaviour {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
-
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         //戻るボタンを取得
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
         backbutton_obj.SetActive(false);
 
-        //所持アイテム画面を開く。初期設定で最初はOFF。
-        playeritemlist_onoff = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        //プレイヤー所持アイテムリストパネルの取得
+        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
 
         //レシピ画面の初期設定

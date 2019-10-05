@@ -11,7 +11,14 @@ public class Travel_Map01_Main : MonoBehaviour {
 
     private WorldDataBase worlddatabase;
 
+    private GameObject playeritemlist_onoff;
+    private PlayerItemListController pitemlistController;
+    private GameObject pitemlist_scrollview_init_obj;
+
     private PlayerItemList pitemlist;
+
+    private GameObject canvas;
+
     private ItemDataBase database;
 
     private int travel_no; //選んだマップの番号　近くの森＝0 エメラルドの森＝1 ..  ワールドデータベースのリストの配列番号と一緒
@@ -28,6 +35,17 @@ public class Travel_Map01_Main : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        //キャンバスの取得
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //所持アイテム画面を開く。初期設定で最初はOFF。
+        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
+
+        playeritemlist_onoff.SetActive(false);
 
         map_itemList.Clear();
 

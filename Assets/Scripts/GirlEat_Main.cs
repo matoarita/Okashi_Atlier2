@@ -9,8 +9,9 @@ public class GirlEat_Main : MonoBehaviour
     private GameObject utageScenario_obj;
     private Utage_scenario utageScenario;
 
-    private GameObject pitemlistController_obj;
+    private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
+    private GameObject pitemlist_scrollview_init_obj;
 
     private GameObject text_area;
     private Text _text;
@@ -18,9 +19,7 @@ public class GirlEat_Main : MonoBehaviour
     private GameObject canvas;
     private GameObject girleat_select;
     private GameObject girleat_toggle_present;
-    private GameObject girleat_toggle_watch;
-
-    private GameObject playeritemlist_onoff;
+    private GameObject girleat_toggle_watch;    
 
     private GameObject backbutton_obj;
 
@@ -47,34 +46,32 @@ public class GirlEat_Main : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Debug.Log("Girl scene loaded");
+        //Debug.Log("Girl scene loaded");
 
         //戻るボタンを取得
-        backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
-
-        //プレイヤー所持アイテムリストパネルの取得
-        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+        backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;       
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
-
+        
+        //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
         girleat_select = canvas.transform.Find("GirlEat_Select").gameObject;
         girleat_toggle_present = girleat_select.transform.Find("Viewport/Content/GirlEat_Toggle_Present").gameObject;
         girleat_toggle_watch = girleat_select.transform.Find("Viewport/Content/GirlEat_Toggle_Watch").gameObject;
 
+        //プレイヤー所持アイテムリストパネルの初期化・取得
+        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
 
-        //所持アイテム画面を開く。初期設定で最初はOFF。
-        playeritemlist_onoff = GameObject.FindWithTag("PlayeritemList_ScrollView");
 
         //比較値計算結果用のパネル　デバッグ用
         window_param_result_obj = GameObject.FindWithTag("Canvas").transform.Find("Window_Param_Result").gameObject;
         window_result_text = window_param_result_obj.transform.Find("Viewport/Content/Text").gameObject.GetComponent<Text>();
 
-        //no.SetActive(true);
-
-        playeritemlist_onoff.SetActive(false);
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
@@ -166,7 +163,6 @@ public class GirlEat_Main : MonoBehaviour
 
     IEnumerator Okashi_after() //お菓子の感想をいったあとに、記憶について、もしくはストーリーが展開
     {
-        //while (!Input.GetMouseButtonDown(0)) yield return null;
         while (!text_area.GetComponent<MessageWindow>().window_clickon) yield return null;
 
         window_param_result_obj.SetActive(false);

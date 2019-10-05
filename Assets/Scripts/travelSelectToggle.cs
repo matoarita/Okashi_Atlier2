@@ -132,7 +132,7 @@ public class travelSelectToggle : MonoBehaviour {
 
             case false: //キャンセル
 
-                _text.text = "";
+                _text.text = "さて.. 行けるとこは、と。";
 
                 for (i = 0; i < travellistController._travellistitem.Count; i++)
                 {

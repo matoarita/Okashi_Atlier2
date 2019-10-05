@@ -11,6 +11,10 @@ public class Shop_Main : MonoBehaviour {
 
     private GameObject shopitemlist_onoff;
 
+    private GameObject playeritemlist_onoff;
+    private PlayerItemListController pitemlistController;
+    private GameObject pitemlist_scrollview_init_obj;
+
     private GameObject backbutton_obj;
 
     private GameObject canvas;
@@ -26,7 +30,9 @@ public class Shop_Main : MonoBehaviour {
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
 
+        //キャンバスの取得
         canvas = GameObject.FindWithTag("Canvas");
+
         shop_select = canvas.transform.Find("Shop_Select").gameObject;
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
         shopon_toggle_watch = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Watch").gameObject;
@@ -34,6 +40,14 @@ public class Shop_Main : MonoBehaviour {
         //戻るボタンを取得
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
         backbutton_obj.SetActive(false);
+
+        //プレイヤー所持アイテムリストパネルの初期化・取得
+        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
+
+        playeritemlist_onoff.SetActive(false); //ショップ画面では使わないのでOFF
 
         //ショップリスト画面を開く。初期設定で最初はOFF。
         shopitemlist_onoff = GameObject.FindWithTag("ShopitemList_ScrollView");

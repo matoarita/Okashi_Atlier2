@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114603611064960670}
   - component: {fileID: 114249897934857688}
   - component: {fileID: 114915028685923790}
+  - component: {fileID: 114351239305880328}
   m_Layer: 0
   m_Name: travelSelectToggle
   m_TagString: Untagged
@@ -99,6 +100,17 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &114351239305880328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1224921670484098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114460977168426482
 MonoBehaviour:
   m_ObjectHideFlags: 1

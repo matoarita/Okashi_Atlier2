@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
+
+
 public class RuntimeInitializer : MonoBehaviour
 {
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void InitializeBeforeSceneLoad()
     {
@@ -35,7 +38,12 @@ public class RuntimeInitializer : MonoBehaviour
         var player_itemlist_init = new GameObject("PlayerItemList", typeof(PlayerItemList));
         GameObject.DontDestroyOnLoad(player_itemlist_init);
         player_itemlist_init.tag = "PlayerItemList";
-        
+
+        //プレイヤーアイテムリストスクロールビューの初期化用オブジェクト
+        var player_itemscrollview_init = new GameObject("PlayerItemListView_Init", typeof(PlayerItemListView_Init));
+        GameObject.DontDestroyOnLoad(player_itemscrollview_init);
+        player_itemscrollview_init.tag = "PlayerItemListView_Init";
+
         //デバッグ用チェックアイテムデータベースリスト
         var chk_itemdatabase_init = new GameObject("Check_ItemDataBase", typeof(Check_ItemDataBase));
         GameObject.DontDestroyOnLoad(chk_itemdatabase_init);
@@ -81,6 +89,7 @@ public class RuntimeInitializer : MonoBehaviour
         var soundcontroller_init = new GameObject("SoundController", typeof(SoundController));
         GameObject.DontDestroyOnLoad(soundcontroller_init);
         soundcontroller_init.tag = "SoundController";
+
     }
 
 } // class RuntimeInitializer

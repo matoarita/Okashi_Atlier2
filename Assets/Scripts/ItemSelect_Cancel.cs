@@ -28,6 +28,8 @@ public class ItemSelect_Cancel : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private GameObject canvas;
+
     private GameObject shopitemlistController_obj;
     private ShopItemListController shopitemlistController;
 
@@ -153,8 +155,6 @@ public class ItemSelect_Cancel : MonoBehaviour {
 
     void Setup_Scene1()
     {
-        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
         if (SceneManager.GetActiveScene().name == "Compound")
         {
@@ -162,16 +162,6 @@ public class ItemSelect_Cancel : MonoBehaviour {
             recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
         }
 
-        updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
-        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-        updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
-
-        yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-        yes_text = yes.GetComponentInChildren<Text>();
-        no = pitemlistController_obj.transform.Find("No").gameObject;
-        yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
-
-        item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;
     }
 
     void Setup_Scene2()
@@ -203,6 +193,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
+        canvas = GameObject.FindWithTag("Canvas");
         //text_area = GameObject.FindWithTag("Message_Window");
         //_text = text_area.GetComponentInChildren<Text>();
 
@@ -213,6 +204,43 @@ public class ItemSelect_Cancel : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
+        //初期化
+        switch (SceneManager.GetActiveScene().name)
+        {
+
+            case "000_Prologue": //シナリオ系のシーンでは読み込まない。
+                break;
+
+            case "001_Chapter1":
+                break;
+
+            default:
+
+                //プレイヤーアイテムリストオブジェクトの初期化
+                if (pitemlistController_obj == null)
+                {
+                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+                    updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
+                    updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+                    updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
+                    yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+                    yes_text = yes.GetComponentInChildren<Text>();
+                    no = pitemlistController_obj.transform.Find("No").gameObject;
+                    yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+                    item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;
+                }
+
+                break;
+        }
+
+
+
+        //各シーンごとの、待機処理
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {

@@ -21,6 +21,8 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private GameObject canvas;
+
     private bool playeritemlist_sw;
 
     // Use this for initialization
@@ -37,11 +39,35 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 	// Update is called once per frame
 	void Update ()
     {
+        switch (SceneManager.GetActiveScene().name)
+        {
+
+            case "000_Prologue": //シナリオ系のシーンでは読み込まない。
+                break;
+
+            case "001_Chapter1":
+                break;
+
+
+            default: //その他調合シーンなどでは読み込む。
+
+                //プレイヤーアイテムリストオブジェクトの初期化
+                if (pitemlistController_obj == null)
+                {
+                    canvas = GameObject.FindWithTag("Canvas");
+                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+                }
+
+                break;
+        }
+        
+
         if (SceneManager.GetActiveScene().name == "Hiroba")
         {
             if (Input.GetKeyDown(KeyCode.Z)) //Zキーでアイテムメニューを開く。デバッグ用
             {
-
+                
                 if (playeritemlist_sw == true)
                 {
                     pitemlistController_obj.SetActive(false);
@@ -78,8 +104,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     {
         //Debug.Log(scene.name + "main scene loaded");
 
-        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -87,10 +111,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
         moneystatus_onoff = GameObject.FindWithTag("MoneyStatus_panel");
         //moneystatus_onoff.SetActive(false);
-
-        //チェックIDBデバッグ用
-        //check_ItemDataBase_obj = GameObject.FindWithTag("check_ItemDataBase_obj");
-        //check_IDB = check_ItemDataBase_obj.GetComponent<Check_ItemDataBase>();
 
         playeritemlist_sw = false;
     }

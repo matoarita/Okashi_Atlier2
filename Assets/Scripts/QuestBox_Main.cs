@@ -16,6 +16,7 @@ public class QuestBox_Main : MonoBehaviour {
 
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
+    private GameObject pitemlist_scrollview_init_obj;
 
     private GameObject backbutton_obj;
 
@@ -27,7 +28,9 @@ public class QuestBox_Main : MonoBehaviour {
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
 
+        //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
         qbox_select = canvas.transform.Find("QuestBox_Select").gameObject;
         qbox_toggle_nouhin = qbox_select.transform.Find("Viewport/Content/QuestBox_Toggle_Nouhin").gameObject;
         qbox_toggle_watch = qbox_select.transform.Find("Viewport/Content/QuestBox_Toggle_Watch").gameObject;
@@ -36,8 +39,10 @@ public class QuestBox_Main : MonoBehaviour {
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
         backbutton_obj.SetActive(false);
 
-        //所持アイテム画面を開く。初期設定で最初はOFF。
-        playeritemlist_onoff = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        //プレイヤー所持アイテムリストパネルの取得
+        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
 
         text_area = GameObject.FindWithTag("Message_Window");

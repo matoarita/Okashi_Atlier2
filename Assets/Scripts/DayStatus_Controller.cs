@@ -21,18 +21,18 @@ public class DayStatus_Controller : MonoBehaviour
         //カレンダー初期化
         calender.Clear();
 
-        calender.Add(30); //１月
-        calender.Add(30); //２月
-        calender.Add(30); //３月
+        calender.Add(31); //１月
+        calender.Add(28); //２月
+        calender.Add(31); //３月
         calender.Add(30); //４月
-        calender.Add(30); //５月
+        calender.Add(31); //５月
         calender.Add(30); //６月
-        calender.Add(30); //７月
-        calender.Add(30); //８月
+        calender.Add(31); //７月
+        calender.Add(31); //８月
         calender.Add(30); //９月
-        calender.Add(30); //１０月
+        calender.Add(31); //１０月
         calender.Add(30); //１１月
-        calender.Add(30); //１２月
+        calender.Add(31); //１２月
 
         _day_param = transform.GetChild(1).gameObject;
         _day_text = _day_param.GetComponent<Text>();
