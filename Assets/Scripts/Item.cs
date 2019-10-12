@@ -70,6 +70,7 @@ public class Item
         Cake,
         Jelly,
         Omochi,
+        Appaleil,
         Pate,
         Komugiko,
         Egg,
@@ -91,6 +92,7 @@ public class Item
     {
         Non,
         Orange,
+        PinkBloodOrange,
         OrangeMix, //生地にオレンジを混ぜた状態
         Grape,
         Blueberry,

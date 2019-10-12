@@ -89,4 +89,9 @@ public class MainListController : MonoBehaviour {
             FadeManager.Instance.LoadScene("QuestBox", 0.3f);
         }
     }
+
+    public void OnUp_Button()
+    {
+        FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
+    }
 }

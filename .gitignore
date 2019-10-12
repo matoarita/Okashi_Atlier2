@@ -34,3 +34,11 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Excel_Data/~$Entity_slotNameDataBase.xlsx.meta
+Assets/Excel_Data/~$Entity_slotNameDataBase.xlsx
+Assets/Excel_Data/~$Entity_shopItemDataBase.xlsx.meta
+Assets/Excel_Data/~$Entity_shopItemDataBase.xlsx
+Assets/Excel_Data/~$Entity_compoItemDataBase.xlsx.meta
+Assets/Excel_Data/~$Entity_compoItemDataBase.xlsx
+Assets/Excel_Data/~$Entity_ItemDataBase.xlsx.meta
+Assets/Excel_Data/~$Entity_ItemDataBase.xlsx

@@ -20,6 +20,7 @@ public class Shop_Main : MonoBehaviour {
     private GameObject canvas;
     private GameObject shop_select;
     private GameObject shopon_toggle_buy;
+    private GameObject shopon_toggle_talk;
     private GameObject shopon_toggle_watch;
 
     public int shop_status;
@@ -35,6 +36,7 @@ public class Shop_Main : MonoBehaviour {
 
         shop_select = canvas.transform.Find("Shop_Select").gameObject;
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
+        shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
         shopon_toggle_watch = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Watch").gameObject;
 
         //戻るボタンを取得
@@ -97,6 +99,10 @@ public class Shop_Main : MonoBehaviour {
 
                 case 2:
                     break;
+
+                default:
+                    break;
+
                 
             }
         }
@@ -119,7 +125,23 @@ public class Shop_Main : MonoBehaviour {
         }
     }
 
-    public void OnCheck_2() //眺める（話かけて、噂を聞いたりする。）
+    public void OnCheck_2() //話す
+    {
+        if (shopon_toggle_talk.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle_talk.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            shop_status = 2; //眺めるを押したときのフラグ
+
+            //_text.text = "なぁに？お話する？";
+
+            GameMgr.talk_flag = true;
+            GameMgr.talk_number = 100; //ショップ関係は、100番台
+
+        }
+    }
+
+    public void OnCheck_3() //眺める
     {
         if (shopon_toggle_watch.GetComponent<Toggle>().isOn == true)
         {
@@ -127,7 +149,7 @@ public class Shop_Main : MonoBehaviour {
 
             //shop_select.SetActive(false);
 
-            shop_status = 2; //眺めるを押したときのフラグ
+            shop_status = 3; //眺めるを押したときのフラグ
 
             _text.text = "なぁに？お話する？";
 

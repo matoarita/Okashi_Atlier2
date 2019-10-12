@@ -879,16 +879,35 @@ public class itemSelectToggle : MonoBehaviour
         if (pitemlistController.result_item != 500)
         {
 
-            if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate)
+            if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Appaleil)
             {
-                exp_Controller.comp_judge_flag = 2; //生地を合成する処理で、新規にアイテムが作成される場合
+                exp_Controller.comp_judge_flag = 2; //新規にアイテムが作成される　＋　１・２・３個めのいずれかに生地を合成している。
 
                 success_text = "生地にアイテムを合成します。";
                 judge_flag = 0; //必ず成功する
 
             }
+            else if (pitemlistController.final_kettei_item2 != 9999)
+            {
+                if (database.items[pitemlistController.final_kettei_item2].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item2].itemType_sub == Item.ItemType_sub.Appaleil)
+                {
+                    exp_Controller.comp_judge_flag = 2; //新規にアイテムが作成される　＋　１・２・３個めのいずれかに生地を合成している。
 
-            else //一個目が生地ではなく、全く新しいアイテムが生成される。
+                    judge_flag = 0; //必ず成功する
+                }
+            }
+
+            else if (pitemlistController.final_kettei_item3 != 9999)
+            {
+                if (database.items[pitemlistController.final_kettei_item3].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item3].itemType_sub == Item.ItemType_sub.Appaleil)
+                {
+                    exp_Controller.comp_judge_flag = 2; //新規にアイテムが作成される　＋　１・２・３個めのいずれかに生地を合成している。
+
+                    judge_flag = 0; //必ず成功する
+                }
+            }
+
+            else //一個目が生地ではなく、小麦粉も使われていない。全く新しいアイテムが生成される。
             {
                 exp_Controller.comp_judge_flag = 0; //新規調合の場合は0にする。
 
@@ -930,7 +949,7 @@ public class itemSelectToggle : MonoBehaviour
         else if (pitemlistController.result_item == 500)
         {
 
-            //もし一個目に選んだアイテムが、生地タイプのアイテムの場合、2個目のアイテムが合成用のアイテムであれば、
+            //一個目に選んだアイテムが、生地タイプのアイテムの場合で、2個目のアイテムが合成用のアイテムであれば、
             //成功失敗の判定処理はせず、生地にアイテムを合成する処理になる。
 
             if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate)

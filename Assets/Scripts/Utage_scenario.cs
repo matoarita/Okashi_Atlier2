@@ -161,7 +161,8 @@ public class Utage_scenario : MonoBehaviour
                 switch (GameMgr.scenario_flag)
                 {
 
-                    case 120: //調合パート開始時にショップへ初めて入る。お店のアイドル的娘
+                    case 120: //調合パート開始時にショップへ初めて入る。お店のアイドル娘
+
                         GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。
                         StartCoroutine(Chapter1_Shop_AtFirst());
                         break;
@@ -170,6 +171,13 @@ public class Utage_scenario : MonoBehaviour
                         break;
                 }
 
+                if ( GameMgr.talk_flag == true )
+                {
+
+                    GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。
+                    StartCoroutine(Shop_Talk());
+
+                }
             }
         }
     }
@@ -291,7 +299,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false;
 
         GameMgr.scenario_ON = false;
-        GameMgr.scenario_flag = 125;
+        GameMgr.scenario_flag = 130;
 
     }
 
@@ -397,6 +405,37 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.event_recipi_endflag = true; //レシピを読み終えたフラグ
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    //
+    // ショップの「話す」コマンド
+    //
+    IEnumerator Shop_Talk()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Shop_Talk"; //ショップ話すタグのシナリオを再生。
+
+        GameMgr.talk_flag = false; // アップデートの更新を止める。
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Shop_Talk_Num", GameMgr.talk_number);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+        
+        GameMgr.scenario_ON = false;
 
     }
 }

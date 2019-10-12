@@ -73,6 +73,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int komugiko_flag; //使っていた場合、1にする。
     private float komugiko_ratio;
     private float _add_ratio;
+    private float _bad_ratio;
+    private float _komugibad_ratio;
 
     private int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ
 
@@ -146,6 +148,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private string _add_itemType;
     private string _add_itemType_sub;
     private int _addkosu;
+
+    private int total_kosu;
+    private float komugiko_distance;
 
     //計算用_ADDアイテムリスト 材料（最大３つまで）を、0,1,2の順に入れる。
     private List<ItemAdd> _additemlist = new List<ItemAdd>();
@@ -311,9 +316,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     
                 }
-                else if (comp_judge_flag == 2) //生地を合成する処理で、新規にアイテムが作成される場合（例えば、クッキー生地×オレンジで、オレンジクッキー生地など）
+                else if (comp_judge_flag == 2) //新規にアイテムが作成される場合で、かつ生地を使用している場合（例えば、クッキー生地×オレンジで、オレンジクッキー生地など）
                 {
                     Comp_method_bunki = 0;
+
 
                     result_kosu = pitemlistController.final_kettei_kosu1;
                 }
@@ -756,7 +762,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //ベースアイテム　タイプを見て、プレイヤリストアイテムかオリジナルアイテムかを識別する。
 
-        if (Comp_method_bunki == 0) //オリジナル調合の場合で、新規にアイテムを作成する場合。　調合DBで算出された、リザルトアイテムをベース。
+        if (Comp_method_bunki == 0) //新規にアイテムを作成する場合か、生地合成だけど、アイテム自体は新しく変わる場合。調合DBで算出された、リザルトアイテムをベース。
         {
             _id = result_item;
 
@@ -904,7 +910,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Debug.Log("_basegirl1_like:" + _basegirl1_like + " _basecost:" + _basecost + " _basesell:" + _basesell);
         Debug.Log("_base_itemType:" + _base_itemType + " _base_itemType_sub:" + _base_itemType_sub);
 
-        Debug.Log("スロット1: " + _basetp[0]);
+        /*Debug.Log("スロット1: " + _basetp[0]);
         Debug.Log("スロット2: " + _basetp[1]);
         Debug.Log("スロット3: " + _basetp[2]);
         Debug.Log("スロット4: " + _basetp[3]);
@@ -913,7 +919,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Debug.Log("スロット7: " + _basetp[6]);
         Debug.Log("スロット8: " + _basetp[7]);
         Debug.Log("スロット9: " + _basetp[8]);
-        Debug.Log("スロット10: " + _basetp[9]);
+        Debug.Log("スロット10: " + _basetp[9]);*/
 
 
 
@@ -1068,7 +1074,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //材料一個目のパラムを取得し、_addに代入
 
-        //Debug.Log("final_kette_kosu1: " + final_kette_kosu1);
         switch (toggle_type1)
         {
             case 0: //プレイヤーアイテムリストから選択している。
@@ -1120,7 +1125,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 case 1: //オリジナルプレイヤーアイテムリストから選択している場合
 
                     _id = kettei_item2;
-                    _addkosu = 1;
+                    _addkosu = final_kette_kosu2;
                     //Debug.Log("_id: " + _id);
                     //各パラメータを取得
                     Set_add_originparam();
@@ -1177,28 +1182,44 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void ToppingAddMethod()
     {
 
+        total_kosu = 0;
+
         //①まずは、数字のパラメータ同士を加算する。
         //アイテム名（_basename）は、ベースのアイテムが素になる。ので、_basenameへの代入処理は無視。
 
-        for (i = 0; i < _additemlist.Count; i++) //入れた材料の数だけ、繰り返す。また、今のところは、材料入れた数だけ、売値や女の子の好み値も倍数で増えていく。
+        for (i = 0; i < _additemlist.Count; i++) //入れた材料の数だけ、繰り返す。その後、総個数割り算。
         {
             _basemp += _additemlist[i]._Addmp * _additemlist[i]._Addkosu;
             _baseday += _additemlist[i]._Addday * _additemlist[i]._Addkosu;
-            _basegirl1_like += _additemlist[i]._Addgirl1_like * _additemlist[i]._Addkosu;
+            //_basegirl1_like += _additemlist[i]._Addgirl1_like * _additemlist[i]._Addkosu; アイテムそれ自体の好みなので、変化はしない。
             _basecost += _additemlist[i]._Addcost * _additemlist[i]._Addkosu;
             _basesell += _additemlist[i]._Addsell * _additemlist[i]._Addkosu;
+            _basequality += _additemlist[i]._Addquality * _additemlist[i]._Addkosu;
+
+            total_kosu += _additemlist[i]._Addkosu;
         }
 
+        if (total_kosu == 0) { total_kosu = 1; } //0で割り算する恐れがあるので、回避
 
-        //甘さやサクサク感などの計算処理。
-        //1. 新規調合で、かつ小麦粉を使った生地作りの場合、
+        _basemp /= total_kosu;
+        _baseday /= total_kosu;
+        _basecost /= total_kosu;
+        _basesell /= total_kosu;
+        _basequality /= total_kosu;
+
+
+
+        //②次に、甘さやサクサク感などの計算処理。
+
+        //1. 新規調合の場合、基本的にアイテム同士のパラメータを加算し、その後個数で割り算する。
+
+        //2. 新規調合で、かつ小麦粉を使った生地作りの場合、
         //そのまま加算はせず、小麦粉をベースに、バター・砂糖・たまごは、各比率を計算し、代入する。
-        //2. 新規調合だが、小麦粉を使わない調合で、生地×生地の場合は、加算後に生地数分で割り算。
-        //3. 新規調合だが、小麦粉を使わない調合で、フルーツ同士の場合は、加算のみ。
-        //4. トッピング調合時、または、生地にアイテムを合成する処理は、そのまま加算する。
 
-        if (Comp_method_bunki == 0) //新規調合の場合
-        {
+        //3. トッピング調合時、または、生地にアイテムを合成する処理も、加算し、その後割り算。
+
+        //if (Comp_method_bunki == 0) //新規調合の場合
+        //{
 
             komugiko_flag = 0;
 
@@ -1224,13 +1245,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     for (i = 0; i < _additemlist.Count; i++)
                     {
                         AddTasteParam(); //各材料を加算していく。
-
-                        //「生地」を使っていた場合、使った材料数だけ割り算
-                        if (_additemlist[i]._Add_itemType_sub == "Pate")
-                        {
-                            DivisionTasteparam();
-                        }
                     }
+
+                    DivisionTasteparam(); //その後、個数で割り算する。
 
                     break;
 
@@ -1242,17 +1259,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     for (i = 0; i < _additemlist.Count; i++)
                     {
-                        if (i == komugiko_id) //小麦粉を加算する場合は、ratio=1で加算する。
+                        if (i == komugiko_id) //小麦粉それ自体の計算は取り除く
                         {
-                            komugiko_ratio = (float)1.0;
-                            Debug.Log("komugiko_ratio: " + komugiko_ratio);
 
-                            AddRatioTasteParam_Komugiko();
                         }
-                        if (i != komugiko_id)
+                        else
                         {
                             komugiko_ratio = (float)_additemlist[i]._Addkosu / _additemlist[komugiko_id]._Addkosu; // 小麦粉に対する、各材料の分量・比率
-                            Debug.Log("komugiko_ratio: " + komugiko_ratio);
+                            Debug.Log("komugiko_ratio（材料の個数 / 小麦粉の個数）: " + _additemlist[i]._Addname + " " + komugiko_ratio);
 
                             AddRatioTasteParam();
                         }
@@ -1265,9 +1279,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     break;
 
             }
-        }
+        //}
 
-        else if (Comp_method_bunki == 1) //トッピング調合、または生地合成の場合
+        /*else if (Comp_method_bunki == 1) //トッピング調合、または生地合成の場合
         {
             Debug.Log("トッピング調合、または生地合成");
 
@@ -1275,11 +1289,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                     AddTasteParam();
             }
-        }
+        }*/
 
 
 
-        //②次にスロット同士の計算をする。重複した場合は、個別にスロットに入れる。新しいトッピング能力がある場合は、ベースの空のスロットに上書きしていく。
+
+
+        //③スロット同士の計算をする。重複した場合は、個別にスロットに入れる。新しいトッピング能力がある場合は、ベースの空のスロットに上書きしていく。
         //ベースの空スロットがなくなった時点で、それ以上合成はできない。
 
         //加算トッピングの一個目をもとに、ベースのスロット一個目から順番にみていく。
@@ -1335,7 +1351,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void AddTasteParam()
     {
         //そのまま加算する。
-        _basequality += _additemlist[i]._Addquality * _additemlist[i]._Addkosu;
+        
         _baserich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
         _basesweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
         _basebitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
@@ -1351,44 +1367,109 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _basewatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
     }
 
+    void DivisionTasteparam()
+    {
+        //総個数で割り算する
+
+        _baserich /= total_kosu;
+        _basesweat /= total_kosu;
+        _basebitter /= total_kosu;
+        _basesour /= total_kosu;
+        _basecrispy /= total_kosu;
+        _basefluffy /= total_kosu;
+        _basesmooth /= total_kosu;
+        _basehardness /= total_kosu;
+        _basejiggly /= total_kosu;
+        _basechewy /= total_kosu;
+        _basepowdery /= total_kosu;
+        _baseoily /= total_kosu;
+        _basewatery /= total_kosu;
+    }
+
     void AddRatioTasteParam()
     {
-        //小麦粉 1に対して、 バター: 砂糖などの材料の比率で、加算する値が変わる。
-        //小麦粉 1のとき、ratio=0.5が最も高得点になる。
-        //そこから距離が離れると、値が低くなっていく。
+        //小麦粉 1に対して、 バターや砂糖などの材料の比率で、加算する値が変わる。
+        //大体　2:1:1がほどよいとされている。
+        //あまりに小麦粉の量に対して、材料を多く入れすぎていると、マイナス。
 
-        //もし、0.5を基準に、誤差が0.0~0.1未満なら。
-        if (Mathf.Abs((float)0.5 - komugiko_ratio) >= 0 && Mathf.Abs((float)0.5 - komugiko_ratio) < 0.1)
+        komugiko_distance = (komugiko_ratio - (float)0.5); //0.5は、小麦粉*材料=2:1の場合の値。材料ごとに設定してもよいかも。
+        Debug.Log("小麦粉と " + _additemlist[i]._Addname + " との距離" + komugiko_distance);
+
+        //誤差が、-0.3以上　極端に小麦粉を入れすぎた場合
+        if (komugiko_distance < -0.3)
         {
-            _add_ratio = (float)5.0;
-            //この場合、基本値 5倍にする。サクサク度が、バター基本値の5倍、歯ごたえが-5倍になる、ということ。
-            //砂糖でも同じ計算が適用される。（砂糖は、甘さ8*5, 滑らか度 5*5, 歯ごたえ2*5が加算される）
+            //小麦8: バター1などの場合。（比率的には、比率0.125で、0.125-0.5=-0.375になる。） 小麦粉を入れすぎたときの補正
+            _add_ratio = -(Mathf.Abs(komugiko_distance) * (float)10.0);
+            komugiko_ratio = -(Mathf.Abs(komugiko_distance) * (float)10.0);
+            _bad_ratio = (float)3.0;
+            _komugibad_ratio = (float)3.0;
         }
 
-        //もし、0.5を基準に、誤差が0.1~0.2以内なら。
-        else if (Mathf.Abs((float)0.5 - komugiko_ratio) >= 0.1 && Mathf.Abs((float)0.5 - komugiko_ratio) < 0.2)
+        //誤差が-0.0 ~ -0.3
+        else if (komugiko_distance >= -0.3 && komugiko_distance < 0)
         {
-            _add_ratio = komugiko_ratio - (float)0.5;
-            //仮に小麦粉3: バター1だと、komugiko_ratio=0.33 0.33-0.5で、-0.17ぐらい。
-            //よって、バターの基本値に-0.17をかけて、サクサク度は減り、歯ごたえが逆にプラスされる。
+            //小麦4: バター1などの場合。（比率的には、4:1で入れた場合。比率0.25で、0.25-0.5=-0.25になる。） 小麦粉を多めにしたときの補正
+            _add_ratio = (float)0.7;
+            komugiko_ratio = (float)1.2;
+            _bad_ratio = (float)0.7;
+            _komugibad_ratio = (float)1.5;
         }
 
-        //もし、0.5を基準に、誤差が0.2~0.5以内なら。
-        else if (Mathf.Abs((float)0.5 - komugiko_ratio) >= 0.2 && Mathf.Abs((float)0.5 - komugiko_ratio) < 0.5)
+        //もし、小麦粉1に対して、材料0.5を基準に、誤差が0.0~0.5未満なら。一番ほどよい距離である。
+        else if (komugiko_distance >= 0 && komugiko_distance < 0.5)
         {
-            _add_ratio = (komugiko_ratio - (float)0.5) * (float)10.0;
-            //仮に小麦粉10: バター1だと、komugiko_ratio=0.1 0.1-0.5で、-0.4ぐらい。相当小麦粉を入れすぎてることになる。
-            //よって、バターの基本値に-0.4をかけ、さらに10倍のバイアスがかかる。(=基本値 -4倍）サクサク度は極端に減り、ガッチガチの歯ごたえになる。
+            _add_ratio = (float)1.0;
+            komugiko_ratio = (float)1.0;
+            _bad_ratio = (float)1.0;
+            _komugibad_ratio = (float)1.0;
         }
 
-        //もし、0.5を基準に、誤差が0.5以上なら。
-        else if (Mathf.Abs((float)0.5 - komugiko_ratio) >= 0.5)
+        //誤差が0.5～1.2
+        else if (komugiko_distance >= 0.5 && komugiko_distance < 1.2)
         {
-            _add_ratio = (komugiko_ratio - (float)0.5) * (float)0.7;
-            //小麦1: バター3とか、砂糖4などの場合。かなり割合多めに入っている計算なので、かえってパラメータはあまり増加しなくなる。
+            //小麦2: バター2などの場合。（比率的には、1:1で入れた場合。）
+
+            _add_ratio = ((float)1.0 + Mathf.Abs(komugiko_distance)) * (float)1.3; //若干、材料のほうが多い分、材料の値が強くなる。
+            komugiko_ratio = ((float)1.2 - Mathf.Abs(komugiko_distance)) * (float)0.7;
+            _bad_ratio = ((float)1.0 + Mathf.Abs(komugiko_distance)) * (float)1.5;
+            _komugibad_ratio = ((float)1.2 - Mathf.Abs(komugiko_distance)) * (float)0.7;
+        }
+        //誤差が1.2～2.2
+        else if (komugiko_distance >= 1.2 && komugiko_distance < 2.2)
+        {
+            //小麦2: バター4などの場合。（2.0。　2.0-0.5=1.5の場合）　少し材料が多めになっているとき
+
+            _add_ratio = (float)1.5; 
+            komugiko_ratio = (float)0.5;
+            _bad_ratio = (float)1.75;
+            _komugibad_ratio = (float)0.5;
+        }
+        //誤差が2.2～3.0
+        else if (komugiko_distance >= 2.2 && komugiko_distance < 3.0)
+        {
+            //小麦2: バター6などの場合。（3.0。　3.0-0.5=2.5の場合）　かなり材料が多めになっているとき
+
+            _add_ratio = (float)1.7; 
+            komugiko_ratio = (float)0.4;
+            _bad_ratio = (float)2.0;
+            _komugibad_ratio = (float)0.6;
+        }
+        //誤差が3.0以上　材料を入れすぎた
+        else if (komugiko_distance >= 3.0)
+        {
+            //小麦2: バター10などの場合。（5.0。　5.0-0.5=4.5の場合）　明らかに材料を入れすぎた
+
+            _add_ratio = -(Mathf.Abs(komugiko_distance) * (float)10.0); 
+            komugiko_ratio = -(Mathf.Abs(komugiko_distance) * (float)10.0);
+            _bad_ratio = (float)3.5;
+            _komugibad_ratio = (float)3.5;
         }
 
-        _basequality += (int)(_additemlist[i]._Addquality * _add_ratio);
+
+        Debug.Log("_add_ratio: " + _add_ratio);
+        Debug.Log("_komugiko_ratio: " + komugiko_ratio);
+
+        //その時の材料の値　×　_add_ratioで、加算する。
         _baserich += (int)(_additemlist[i]._Addrich * _add_ratio);
         _basesweat += (int)(_additemlist[i]._Addsweat * _add_ratio);
         _basebitter += (int)(_additemlist[i]._Addbitter * _add_ratio);
@@ -1399,15 +1480,31 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _basehardness += (int)(_additemlist[i]._Addhardness * _add_ratio);
         _basejiggly += (int)(_additemlist[i]._Addjiggly * _add_ratio);
         _basechewy += (int)(_additemlist[i]._Addchewy * _add_ratio);
-        _basepowdery += (int)(_additemlist[i]._Addpowdery * _add_ratio);
-        _baseoily += (int)(_additemlist[i]._Addoily * _add_ratio);
-        _basewatery += (int)(_additemlist[i]._Addwatery * _add_ratio);
+        _basepowdery += (int)(_additemlist[i]._Addpowdery * _add_ratio * _bad_ratio);
+        _baseoily += (int)(_additemlist[i]._Addoily * _add_ratio * _bad_ratio);
+        _basewatery += (int)(_additemlist[i]._Addwatery * _add_ratio * _bad_ratio);
+
+        //小麦粉の値　×　補正値　を加算する。
+
+        _baserich += (int)(_additemlist[komugiko_id]._Addrich * komugiko_ratio);
+        _basesweat += (int)(_additemlist[komugiko_id]._Addsweat * komugiko_ratio);
+        _basebitter += (int)(_additemlist[komugiko_id]._Addbitter * komugiko_ratio);
+        _basesour += (int)(_additemlist[komugiko_id]._Addsour * komugiko_ratio);
+        _basecrispy += (int)(_additemlist[komugiko_id]._Addcrispy * komugiko_ratio);
+        _basefluffy += (int)(_additemlist[komugiko_id]._Addfluffy * komugiko_ratio);
+        _basesmooth += (int)(_additemlist[komugiko_id]._Addsmooth * komugiko_ratio);
+        _basehardness += (int)(_additemlist[komugiko_id]._Addhardness * komugiko_ratio);
+        _basejiggly += (int)(_additemlist[komugiko_id]._Addjiggly * komugiko_ratio);
+        _basechewy += (int)(_additemlist[komugiko_id]._Addchewy * komugiko_ratio);
+        _basepowdery += (int)(_additemlist[komugiko_id]._Addpowdery * komugiko_ratio * _komugibad_ratio);
+        _baseoily += (int)(_additemlist[komugiko_id]._Addoily * komugiko_ratio * _komugibad_ratio);
+        _basewatery += (int)(_additemlist[komugiko_id]._Addwatery * komugiko_ratio * _komugibad_ratio);
     }
 
     void AddRatioTasteParam_Komugiko()
     {
         //小麦粉の場合 1.0をそのまま加算する計算。
-        _basequality += (int)(_additemlist[i]._Addquality * komugiko_ratio);
+
         _baserich += (int)(_additemlist[i]._Addrich * komugiko_ratio);
         _basesweat += (int)(_additemlist[i]._Addsweat * komugiko_ratio);
         _basebitter += (int)(_additemlist[i]._Addbitter * komugiko_ratio);
@@ -1423,24 +1520,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _basewatery += (int)(_additemlist[i]._Addwatery * komugiko_ratio);
     }
 
-    void DivisionTasteparam()
-    {
-        //個数で割り算する
-        _basequality /= _additemlist[i]._Addkosu;
-        _baserich /= _additemlist[i]._Addkosu;
-        _basesweat /= _additemlist[i]._Addkosu;
-        _basebitter /= _additemlist[i]._Addkosu;
-        _basesour /= _additemlist[i]._Addkosu;
-        _basecrispy /= _additemlist[i]._Addkosu;
-        _basefluffy /=  _additemlist[i]._Addkosu;
-        _basesmooth /= _additemlist[i]._Addkosu;
-        _basehardness /=  _additemlist[i]._Addkosu;
-        _basejiggly /= _additemlist[i]._Addkosu;
-        _basechewy /= _additemlist[i]._Addkosu;
-        _basepowdery /= _additemlist[i]._Addkosu;
-        _baseoily /= _additemlist[i]._Addkosu;
-        _basewatery /= _additemlist[i]._Addkosu;
-    }
+    
 
     void Set_addparam()
     {

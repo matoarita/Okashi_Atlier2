@@ -541,7 +541,7 @@ MonoBehaviour:
       strings:
       - player_name
       - String
-      - "\u30AE\u30F3"
+      - "\u30C8\u30E2\u30E4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -698,9 +698,24 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 25
+      debugIndex: 25
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 26
+      debugIndex: 26
+      strings:
+      - Shop_Talk_Num
+      - Int
+      - 0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 129
+    textLength: 147
     headerRow: 0
   - rows:
     - rowIndex: 0

@@ -21,24 +21,28 @@ MonoBehaviour:
     - ItemID: 1
       slot_Name: Orange
       slot_Hyouki_1: "\u30AA\u30EC\u30F3\u30B8"
-      slot_Hyouki_2: "<\u30AA\u30EC\u30F3\u30B8\u306E\u305B>"
+      slot_Hyouki_2: "<\u30AA\u30EC\u30F3\u30B8\u6DF7\u305C>"
     - ItemID: 2
+      slot_Name: PinkBloodOrange
+      slot_Hyouki_1: "\u30D4\u30F3\u30AF\u30D6\u30E9\u30C3\u30C9\u30AA\u30EC\u30F3\u30B8"
+      slot_Hyouki_2: "<\u30AA\u30EC\u30F3\u30B8\u6DF7\u305C>"
+    - ItemID: 3
       slot_Name: Grape
       slot_Hyouki_1: "\u3076\u3069\u3046"
-      slot_Hyouki_2: "<\u3076\u3069\u3046\u306E\u305B>"
-    - ItemID: 3
+      slot_Hyouki_2: "<\u3076\u3069\u3046\u6DF7\u305C>"
+    - ItemID: 4
       slot_Name: Blueberry
       slot_Hyouki_1: "\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC"
       slot_Hyouki_2: "<\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC>"
-    - ItemID: 4
+    - ItemID: 5
       slot_Name: Strawberry
       slot_Hyouki_1: "\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC"
-      slot_Hyouki_2: "<\u3044\u3061\u3054\u306E\u305B>"
-    - ItemID: 5
+      slot_Hyouki_2: "<\u3044\u3061\u3054\u6DF7\u305C>"
+    - ItemID: 6
       slot_Name: Nuts
       slot_Hyouki_1: "\u30CA\u30C3\u30C4"
       slot_Hyouki_2: "<\u30CA\u30C3\u30C4\u5165\u308A>"
-    - ItemID: 6
+    - ItemID: 7
       slot_Name: Shishamo
       slot_Hyouki_1: "\u3057\u3057\u3083\u3082"
-      slot_Hyouki_2: "<\u3057\u3057\u3083\u3082\u306E\u305B>"
+      slot_Hyouki_2: "<\u6DF7\u305C\u8FBC\u307F\u3057\u3057\u3083\u3082>"

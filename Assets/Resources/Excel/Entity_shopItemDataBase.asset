@@ -31,6 +31,10 @@ MonoBehaviour:
       zaiko: 50
       itemType: 0
     - ItemID: 4
+      name: egg
+      zaiko: 50
+      itemType: 0
+    - ItemID: 5
       name: cookie_base_recipi
       zaiko: 1
       itemType: 1
