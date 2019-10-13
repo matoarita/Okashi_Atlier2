@@ -327,11 +327,11 @@ public class itemSelectToggle : MonoBehaviour
                 //もし生地アイテムを一個目に選んだ場合、生地にアイテムを混ぜ込む処理になる。
                 if (database.items[itemID_1].itemType_sub == Item.ItemType_sub.Pate)
                 {
-                    _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。生地にアイテムを混ぜ込みます。" + "\n" + "個数を選択してください。";
+                    _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
                 }
                 else
                 {
-                    _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。個数を選択してください。";
+                    _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
                 }
 
 

@@ -38,7 +38,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 	}
 
     //カード表示処理
-
     public void SelectCard_DrawView(int _toggleType, int _kettei_item1)
     {
         //初期化しておく
@@ -56,13 +55,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _kettei_item1;
 
         _cardImage_obj[0].transform.localScale = new Vector3(1.15f, 1.15f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(-170, 60, 0);
+        _cardImage_obj[0].transform.localPosition = new Vector3(-170, 80, 0);
 
         //デバッグ用
         if (SceneManager.GetActiveScene().name == "Hiroba")
         {
             _cardImage_obj[0].transform.localScale = new Vector3(1.15f, 1.15f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(-170, 60, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(-170, 80, 0);
         }
 
     }
@@ -85,8 +84,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.75f, 0.75f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(-170, 90, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.65f, 0.65f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(-250, 200, 0);
         }
 
         // トッピング調合を選択した場合の処理

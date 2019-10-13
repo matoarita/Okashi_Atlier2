@@ -116,28 +116,28 @@ public class SetImage : MonoBehaviour
         item_RankDesc = this.transform.Find("Item_card_template/ItemRankDesc").gameObject.GetComponent<Text>(); //ランクに合わせて、おいしさや食感を表示するテキスト
         
         item_Name_Full = this.transform.Find("Card_Param_window/Card_Name/Tx_Name").gameObject.GetComponent<Text>(); //名前（スロット名も含む正式名称）の値
-        item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
-        item_Sweat = this.transform.Find("Card_Param_window/Card_Parameter/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
-        item_Bitter = this.transform.Find("Card_Param_window/Card_Parameter/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
-        item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
+        item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
+        item_Sweat = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
+        item_Bitter = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
+        item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
 
-        item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/ItemCrispyScore").gameObject.GetComponent<Text>(); //さくさくの値
-        item_Fluffy = this.transform.Find("Card_Param_window/Card_Parameter/ItemFluffyScore").gameObject.GetComponent<Text>(); //ふわふわの値
-        item_Smooth = this.transform.Find("Card_Param_window/Card_Parameter/ItemSmoothScore").gameObject.GetComponent<Text>(); //口溶けの値
-        item_Hardness = this.transform.Find("Card_Param_window/Card_Parameter/ItemHardnessScore").gameObject.GetComponent<Text>(); //歯ごたえの値
-        item_Jiggly = this.transform.Find("Card_Param_window/Card_Parameter/ItemJigglyScore").gameObject.GetComponent<Text>(); //ぷるぷるの値
-        item_Chewy = this.transform.Find("Card_Param_window/Card_Parameter/ItemChewyScore").gameObject.GetComponent<Text>(); //ぐみぐみの値
+        item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemCrispyScore").gameObject.GetComponent<Text>(); //さくさくの値
+        item_Fluffy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemFluffyScore").gameObject.GetComponent<Text>(); //ふわふわの値
+        item_Smooth = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSmoothScore").gameObject.GetComponent<Text>(); //口溶けの値
+        item_Hardness = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemHardnessScore").gameObject.GetComponent<Text>(); //歯ごたえの値
+        item_Jiggly = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemJigglyScore").gameObject.GetComponent<Text>(); //ぷるぷるの値
+        item_Chewy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemChewyScore").gameObject.GetComponent<Text>(); //ぐみぐみの値
 
-        item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
-        item_Slot[1] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_02").gameObject.GetComponent<Text>(); //Slot02の値
-        item_Slot[2] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_03").gameObject.GetComponent<Text>(); //Slot03の値
-        item_Slot[3] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_04").gameObject.GetComponent<Text>(); //Slot04の値
-        item_Slot[4] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_05").gameObject.GetComponent<Text>(); //Slot05の値
-        item_Slot[5] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_06").gameObject.GetComponent<Text>(); //Slot06の値
-        item_Slot[6] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_07").gameObject.GetComponent<Text>(); //Slot07の値
-        item_Slot[7] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_08").gameObject.GetComponent<Text>(); //Slot08の値
-        item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
-        item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
+        item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
+        item_Slot[1] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_02").gameObject.GetComponent<Text>(); //Slot02の値
+        item_Slot[2] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_03").gameObject.GetComponent<Text>(); //Slot03の値
+        item_Slot[3] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_04").gameObject.GetComponent<Text>(); //Slot04の値
+        item_Slot[4] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_05").gameObject.GetComponent<Text>(); //Slot05の値
+        item_Slot[5] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_06").gameObject.GetComponent<Text>(); //Slot06の値
+        item_Slot[6] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_07").gameObject.GetComponent<Text>(); //Slot07の値
+        item_Slot[7] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_08").gameObject.GetComponent<Text>(); //Slot08の値
+        item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
+        item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
 
 
         Card_param_obj.SetActive(false);
