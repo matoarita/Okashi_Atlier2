@@ -57,6 +57,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int kettei_item2;
     private int kettei_item3;
 
+    private int base_kosu;
     private int final_kette_kosu1;
     private int final_kette_kosu2;
     private int final_kette_kosu3;
@@ -149,6 +150,27 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private string _add_itemType_sub;
     private int _addkosu;
 
+    private int _tempmp;
+    private int _tempday;
+    private int _tempquality;
+    private int _temprich;
+    private int _tempsweat;
+    private int _tempbitter;
+    private int _tempsour;
+    private int _tempcrispy;
+    private int _tempfluffy;
+    private int _tempsmooth;
+    private int _temphardness;
+    private int _tempjiggly;
+    private int _tempchewy;
+    private int _temppowdery;
+    private int _tempoily;
+    private int _tempwatery;
+    private int _tempgirl1_like;
+    private int _tempcost;
+    private int _tempsell;
+    private string[] _temptp;
+
     private int total_kosu;
     private float komugiko_distance;
 
@@ -206,8 +228,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
-        //text_area = GameObject.FindWithTag("Message_Window"); //メッセージウィンドウ取得。プロローグなどでは使用しないので、あえてstart()では宣言していない。
-        //_text = text_area.GetComponentInChildren<Text>();
 
         result_ok = false;
         recipiresult_ok = false;
@@ -225,6 +245,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //トッピングスロットの配列
         _basetp = new string[10];
         _addtp = new string[10];
+        _temptp = new string[10];
     }
 	
 	// Update is called once per frame
@@ -262,7 +283,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
                 final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
 
-                result_kosu = 1;
+                /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
+                Debug.Log("pitemlistController.kettei_item2: " + kettei_item2);
+                Debug.Log("pitemlistController._toggle_type1: " + toggle_type1);
+                Debug.Log("pitemlistController._toggle_type2: " + toggle_type2);
+                Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+                Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
 
                 //リザルトアイテムを代入
                 result_item = pitemlistController.result_item;
@@ -270,28 +296,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //調合データベースのIDを代入
                 result_ID = pitemlistController.result_compID;
 
-                /*Debug.Log("kettei_item1: " + kettei_item1);
-                Debug.Log("kettei_item2: " + kettei_item2);
-                Debug.Log("kettei_item3: " + kettei_item3);*/
-
-                /*Debug.Log("final_kette_kosu1: " + final_kette_kosu1);
-                Debug.Log("final_kette_kosu2: " + final_kette_kosu2);
-                Debug.Log("final_kette_kosu3: " + final_kette_kosu3);*/
-
 
                 //トッピング調合用メソッドを流用するために、kettei_itemの変換
 
-                if (comp_judge_flag == 0) //0は新規調合の場合。一個目が生地とかは関係ない。
+                if (comp_judge_flag == 0) //新規調合の場合。
                 {
                     Comp_method_bunki = 0;
-
-                    result_kosu = 8; //ランダムで何個かできる。
                 }
+
                 else if (comp_judge_flag == 1) //生地を合成する処理で、新規にアイテムは作成されない場合
                 {
-                    Comp_method_bunki = 1; //トッピング調合扱いで、処理を行う。
-
-                    result_kosu = pitemlistController.final_kettei_kosu1;
+                    Comp_method_bunki = 1; //生地を合成する時の分岐
 
                     base_kettei_item = kettei_item1;
                     kettei_item1 = kettei_item2;
@@ -303,6 +318,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     toggle_type2 = toggle_type3;
                     toggle_type3 = 0;
 
+                    base_kosu = pitemlistController.final_kettei_kosu1;
                     final_kette_kosu1 = pitemlistController.final_kettei_kosu2;
                     final_kette_kosu2 = pitemlistController.final_kettei_kosu3;
                     final_kette_kosu3 = 0;
@@ -320,10 +336,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 {
                     Comp_method_bunki = 0;
 
-
-                    result_kosu = pitemlistController.final_kettei_kosu1;
                 }
-
 
                 pitemlistController_obj.SetActive(false);
 
@@ -333,8 +346,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //完成したアイテムの追加。
                     Topping_Compound_Method();
 
-                    //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
-                    //pitemlist.addPlayerItem(result_item, final_kosu_1);
 
                     //完成アイテムの、レシピフラグをONにする。
                     databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
@@ -342,8 +353,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     card_view.ResultCard_DrawView(1, new_item);
 
                     PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
-
-                    result_ok = false;
 
                     compound_success = false;
 
@@ -355,7 +364,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 } else
                 {
 
-                    _text.text = "調合失敗..！ "; //+ database.items[pitemlistController.result_item].itemNameHyouji + " ができました。";
+                    _text.text = "調合失敗..！ ";
 
                     Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
 
@@ -368,9 +377,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     card_view.ResultCard_DrawView(0, result_item);
     
 
-                    result_ok = false;
+                    
                     pitemlistController_obj.SetActive(true);
                 }
+
+                result_ok = false;
 
                 pitemlistController.AddItemList(); //リスト描画の更新
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
@@ -409,7 +420,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
                 final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
 
-                result_kosu = recipilistController.final_select_kosu;
+                //result_kosu = recipilistController.final_select_kosu;
 
                 result_item = recipilistController.result_recipiitem;
                 result_ID = recipilistController.result_recipicompID;
@@ -475,15 +486,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 }
 
 
-                //**ここまで**
+                
 
+                base_kosu = 1;
                 final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
                 final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
                 final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
 
-                result_kosu = 1;
+                //**ここまで**
 
-                Comp_method_bunki = 1; //トッピング調合の処理。0の場合、オリジナル調合から新規で作った処理が入っている。
+                Comp_method_bunki = 3; //トッピング調合の処理。
 
                 if (compound_success == true)
                 {
@@ -539,7 +551,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 final_kette_kosu2 = 0;
                 final_kette_kosu3 = 0;
 
-                result_kosu = pitemlistController.final_kettei_kosu1;
+                //result_kosu = pitemlistController.final_kettei_kosu1;
 
                 final_kettei_item1 = pitemlistController.final_kettei_item1;
 
@@ -658,8 +670,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
                 pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-                //Debug.Log("pitemlistController.kettei_item1: " + pitemlistController.kettei_item1);
-                //Debug.Log("pitemlistController._toggle_type1: " + pitemlistController._toggle_type1);
 
                 //お菓子の判定処理を起動
                 girlEat_judge.Girleat_Judge_method();
@@ -762,40 +772,41 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //ベースアイテム　タイプを見て、プレイヤリストアイテムかオリジナルアイテムかを識別する。
 
-        if (Comp_method_bunki == 0) //新規にアイテムを作成する場合か、生地合成だけど、アイテム自体は新しく変わる場合。調合DBで算出された、リザルトアイテムをベース。
+        if (Comp_method_bunki == 0) //新規にアイテムを作成する場合。空のパラメータに、材料のパラメータを総計していく。
         {
             _id = result_item;
 
             //各パラメータを取得
             _basename = database.items[_id].itemName;
-            _basemp = database.items[_id].itemMP;
-            _baseday = database.items[_id].item_day;
-            _basequality = database.items[_id].Quality;
-            _baserich = database.items[_id].Rich;
-            _basesweat = database.items[_id].Sweat;
-            _basebitter = database.items[_id].Bitter;
-            _basesour = database.items[_id].Sour;
-            _basecrispy = database.items[_id].Crispy;
-            _basefluffy = database.items[_id].Fluffy;
-            _basesmooth = database.items[_id].Smooth;
-            _basehardness = database.items[_id].Hardness;
-            _basejiggly = database.items[_id].Jiggly;
-            _basechewy = database.items[_id].Chewy;
-            _basepowdery = database.items[_id].Powdery;
-            _baseoily = database.items[_id].Oily;
-            _basewatery = database.items[_id].Watery;
-            _basegirl1_like = database.items[_id].girl1_itemLike;
-            _basecost = database.items[_id].cost_price;
-            _basesell = database.items[_id].sell_price;
+            _basemp = 0;
+            _baseday = 0;
+            _basequality = 0;
+            _baserich = 0;
+            _basesweat = 0;
+            _basebitter = 0;
+            _basesour = 0;
+            _basecrispy = 0;
+            _basefluffy = 0;
+            _basesmooth = 0;
+            _basehardness = 0;
+            _basejiggly = 0;
+            _basechewy = 0;
+            _basepowdery = 0;
+            _baseoily = 0;
+            _basewatery = 0;
+            _basegirl1_like = 0;
+            _basecost = 0;
+            _basesell = 0;
             _base_itemType = database.items[_id].itemType.ToString();
             _base_itemType_sub = database.items[_id].itemType_sub.ToString();
 
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
-                _basetp[i] = database.items[_id].toppingtype[i].ToString();
+                _basetp[i] = "Non";
             }
         }
-        else if (Comp_method_bunki == 1) //トッピング調合の場合。　一個目に選んだアイテムをベースに、リザルトアイテムにする。
+
+        else if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //生地合成、もしくはトッピング調合の場合。　一個目に選んだアイテムをベースに、リザルトアイテムにする。
         {
             switch (base_toggle_type)
             {
@@ -926,16 +937,74 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //以下、実際にアイテムリスト削除と、プレイヤーアイテムへの所持追加処理
 
-        //                          //
+
+        //最終的に生成されるアイテムの個数を決定
+        if (result_ok == true) //オリジナル調合の場合
+        {
+            switch (comp_judge_flag)
+            {
+                case 0: //新規調合（生地は不使用）
+
+                    if (komugiko_flag == 0) //小麦粉を使っていない
+                    {
+                        result_kosu = total_kosu / _additemlist.Count;                        
+
+                        result_kosu *= 2; //2倍出来上がる。
+                    }
+                    else //小麦粉を使っている
+                    {
+                        result_kosu = _additemlist[komugiko_id]._Addkosu; //小麦粉の個数をベースにする。
+
+                        //ランダム 0 ~ 2
+                        var rand = Random.Range(0, 2);
+
+                        result_kosu += rand;
+                    }
+
+                    break;
+
+                case 1: //トッピング　もしくは、生地合成
+
+                    result_kosu = pitemlistController.final_kettei_kosu1;
+                    break;
+
+                case 2: //新規調合で、かつ生地を使用
+
+                    i = 0;
+                    while (i < _additemlist.Count)
+                    {
+                        if (_additemlist[i]._Add_itemType_sub == "Pate")
+                        {
+                            result_kosu = _additemlist[i]._Addkosu;
+                            break;
+                        }
+                        i++;
+                    }
+                    break;
+
+                default:
+
+                    break;
+            }
+        }
+        else if (recipiresult_ok == true) //レシピ調合の場合
+        {
+            result_kosu = recipilistController.final_select_kosu;
+        }
+        else if (topping_result_ok == true) //トッピング調合の場合
+        {
+            result_kosu = 1;
+        }
+        else if (roast_result_ok == true) //「焼く」の場合
+        {
+            result_kosu = pitemlistController.final_kettei_kosu1;
+        }
+
         // アイテムリストの削除処理 //
-        //                          //
-
         Delete_playerItemList();
-
-
+        
         //新しく作ったアイテムをオリジナルアイテムリストに追加。
         pitemlist.addOriginalItem(_basename, _basemp, _baseday, _basequality, _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basegirl1_like, _basecost, _basesell, _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9], result_kosu);
-
         new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
     
     }
@@ -1070,13 +1139,43 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //
     void AddParamMethod()
     {
+
+        //初期化
         _additemlist.Clear();
 
+        _tempmp = 0;
+        _tempday = 0;
+        _tempquality = 0;
+        _temprich = 0;
+        _tempsweat = 0;
+        _tempbitter = 0;
+        _tempsour = 0;
+        _tempcrispy = 0;
+        _tempfluffy = 0;
+        _tempsmooth = 0;
+        _temphardness = 0;
+        _tempjiggly = 0;
+        _tempchewy = 0;
+        _temppowdery = 0;
+        _tempoily = 0;
+        _tempwatery = 0;
+        _tempgirl1_like = 0;
+        _tempcost = 0;
+        _tempsell = 0;
+
+        for (i = 0; i < database.items[0].toppingtype.Length; i++)
+        {
+            _temptp[i] = "Non";
+        }
+
         //材料一個目のパラムを取得し、_addに代入
+        //Debug.Log("toggle_type1: " + toggle_type1);
 
         switch (toggle_type1)
         {
             case 0: //プレイヤーアイテムリストから選択している。
+
+                //Debug.Log("一個目店アイテム");
 
                 _id = kettei_item1;
                 _addkosu = final_kette_kosu1;
@@ -1087,6 +1186,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 break;
 
             case 1: //オリジナルプレイヤーアイテムリストから選択している場合
+
+                //Debug.Log("一個目オリジナルアイテム");
 
                 _id = kettei_item1;
                 _addkosu = final_kette_kosu1;
@@ -1114,6 +1215,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 case 0: //プレイヤーアイテムリストから選択している。
 
+                    //Debug.Log("二個目店アイテム");
+
                     _id = kettei_item2;
                     _addkosu = final_kette_kosu2;
                     //Debug.Log("_id: " + _id);
@@ -1123,6 +1226,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     break;
 
                 case 1: //オリジナルプレイヤーアイテムリストから選択している場合
+
+                    //Debug.Log("二個目オリジナルアイテム");
 
                     _id = kettei_item2;
                     _addkosu = final_kette_kosu2;
@@ -1145,7 +1250,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (kettei_item3 != 9999) //三個目のトッピングアイテムを選んでいなければ、この処理は無視する。
         {
 
-            //Debug.Log("final_kette_kosu3: " + final_kette_kosu3);
+            Debug.Log("3個目のアイテムを使用 final_kette_kosu3: " + final_kette_kosu3);
             switch (toggle_type3)
             {
                 case 0: //プレイヤーアイテムリストから選択している。
@@ -1174,12 +1279,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         }
 
-        //ここまでで、追加の処理が終了したので、計算処理にはいる。
-        ToppingAddMethod();
+        /*for (i = 0; i < _additemlist.Count; i++) //デバッグ
+        {
+            Debug.Log("_additemlist._Addkosu: " + i + ": " + _additemlist[i]._Addkosu);
+        }*/
+
+
+        Comp_ParamAddMethod();
+            
 
     }
 
-    void ToppingAddMethod()
+    void Comp_ParamAddMethod()
     {
 
         total_kosu = 0;
@@ -1189,23 +1300,30 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         for (i = 0; i < _additemlist.Count; i++) //入れた材料の数だけ、繰り返す。その後、総個数割り算。
         {
-            _basemp += _additemlist[i]._Addmp * _additemlist[i]._Addkosu;
-            _baseday += _additemlist[i]._Addday * _additemlist[i]._Addkosu;
-            //_basegirl1_like += _additemlist[i]._Addgirl1_like * _additemlist[i]._Addkosu; アイテムそれ自体の好みなので、変化はしない。
-            _basecost += _additemlist[i]._Addcost * _additemlist[i]._Addkosu;
-            _basesell += _additemlist[i]._Addsell * _additemlist[i]._Addkosu;
-            _basequality += _additemlist[i]._Addquality * _additemlist[i]._Addkosu;
+            _tempmp += _additemlist[i]._Addmp * _additemlist[i]._Addkosu;
+            _tempday += _additemlist[i]._Addday * _additemlist[i]._Addkosu;
+            _tempcost += _additemlist[i]._Addcost * _additemlist[i]._Addkosu;
+            _tempsell += _additemlist[i]._Addsell * _additemlist[i]._Addkosu;
+            _tempquality += _additemlist[i]._Addquality * _additemlist[i]._Addkosu;
 
             total_kosu += _additemlist[i]._Addkosu;
         }
 
+        //生地合成のときのみ、ベース個数を含む
+        if ( Comp_method_bunki == 1)
+        {
+            total_kosu += base_kosu;
+        }
+
+        //Debug.Log("total_kosu: " + total_kosu);
+
         if (total_kosu == 0) { total_kosu = 1; } //0で割り算する恐れがあるので、回避
 
-        _basemp /= total_kosu;
-        _baseday /= total_kosu;
-        _basecost /= total_kosu;
-        _basesell /= total_kosu;
-        _basequality /= total_kosu;
+        _tempmp /= total_kosu;
+        _tempday /= total_kosu;
+        _tempcost /= total_kosu;
+        _tempsell /= total_kosu;
+        _tempquality /= total_kosu;
 
 
 
@@ -1218,88 +1336,110 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //3. トッピング調合時、または、生地にアイテムを合成する処理も、加算し、その後割り算。
 
-        //if (Comp_method_bunki == 0) //新規調合の場合
-        //{
+        Komugiko_Method();
 
-            komugiko_flag = 0;
 
-            //まず、材料に小麦粉を使ってるか否かをチェック。小麦粉の種類が複数の場合、現状バグるので、その処理は後に実装すること。
-            for (i = 0; i < _additemlist.Count; i++)
-            {
-                
-                if (_additemlist[i]._Add_itemType_sub == "Komugiko")
-                {
-                    komugiko_id = i;
-                    komugiko_flag = 1;
-                    
-                }
-            }
+        //③スロット同士の計算をする。
 
-            //材料に小麦粉を使っているか否かで処理を分岐
-            switch ( komugiko_flag )
-            {
-                case 0: //材料に小麦粉を使っていない
+        AddSlot_Method();
 
-                    Debug.Log("小麦粉を使っていない");
 
-                    for (i = 0; i < _additemlist.Count; i++)
-                    {
-                        AddTasteParam(); //各材料を加算していく。
-                    }
+        //最後に、ベースのパラメータに、_tempパラメータを加算する。
+        _basemp += _tempmp;
+        _baseday += _tempday;
+        _basecost += _tempcost;
+        _basesell += _tempsell;
+        _basequality += _tempquality;
+        _baserich += _temprich;
+        _basesweat += _tempsweat;
+        _basebitter += _tempbitter;
+        _basesour += _tempsour;
+        _basecrispy += _tempcrispy;
+        _basefluffy += _tempfluffy;
+        _basesmooth += _tempsmooth;
+        _basehardness += _temphardness;
+        _basejiggly += _tempjiggly;
+        _basechewy += _tempchewy;
+        _basepowdery += _temppowdery;
+        _baseoily += _tempoily;
+        _basewatery += _tempwatery;
+    }
 
-                    DivisionTasteparam(); //その後、個数で割り算する。
+    void Komugiko_Method()
+    {
+        komugiko_id = 0;
+        komugiko_flag = 0;
 
-                    break;
 
-                case 1: //小麦粉を使っている場合
-
-                    Debug.Log("小麦粉を使っている" + "  材料ID(0 or 1 or 2): " + komugiko_id);
-
-                    //また一からみていき、今度は加算していく。小麦粉IDだけ取り除く
-
-                    for (i = 0; i < _additemlist.Count; i++)
-                    {
-                        if (i == komugiko_id) //小麦粉それ自体の計算は取り除く
-                        {
-
-                        }
-                        else
-                        {
-                            komugiko_ratio = (float)_additemlist[i]._Addkosu / _additemlist[komugiko_id]._Addkosu; // 小麦粉に対する、各材料の分量・比率
-                            Debug.Log("komugiko_ratio（材料の個数 / 小麦粉の個数）: " + _additemlist[i]._Addname + " " + komugiko_ratio);
-
-                            AddRatioTasteParam();
-                        }
-
-                    }
-
-                    break;
-
-                default:
-                    break;
-
-            }
-        //}
-
-        /*else if (Comp_method_bunki == 1) //トッピング調合、または生地合成の場合
+        //まず、材料に小麦粉を使ってるか否かをチェック。小麦粉の種類が複数の場合、現状バグるので、その処理は後に実装すること。
+        for (i = 0; i < _additemlist.Count; i++)
         {
-            Debug.Log("トッピング調合、または生地合成");
 
-            for (i = 0; i < _additemlist.Count; i++) //入れた材料の数だけ、繰り返す。
+            if (_additemlist[i]._Add_itemType_sub == "Komugiko")
             {
-                    AddTasteParam();
+                komugiko_id = i;
+                komugiko_flag = 1;
+
             }
-        }*/
+        }
+
+        //材料に小麦粉を使っているか否かで処理を分岐
+        switch (komugiko_flag)
+        {
+            case 0: //材料に小麦粉を使っていない
+
+                Debug.Log("小麦粉を使っていない");
+
+                for (i = 0; i < _additemlist.Count; i++)
+                {
+                    AddTasteParam(); //各材料を加算していく。
+                }
+
+                DivisionTasteparam(); //その後、個数で割り算する。
+
+                break;
+
+            case 1: //小麦粉を使っている場合
+
+                Debug.Log("小麦粉を使っている" + "  材料ID(0 or 1 or 2): " + komugiko_id);
+
+                //また一からみていき、今度は加算していく。小麦粉IDだけ取り除く
+
+                for (i = 0; i < _additemlist.Count; i++)
+                {
+                    if (i == komugiko_id) //小麦粉それ自体の計算は取り除く
+                    {
+
+                    }
+                    else
+                    {
+                        komugiko_ratio = (float)_additemlist[i]._Addkosu / _additemlist[komugiko_id]._Addkosu; // 小麦粉に対する、各材料の分量・比率
+                        Debug.Log("komugiko_ratio（材料の個数 / 小麦粉の個数）: " + _additemlist[i]._Addname + " " + komugiko_ratio);
+
+                        AddRatioTasteParam();
+                    }
 
 
+                }
+
+                total_kosu = _additemlist.Count;
+                DivisionTasteparam(); //その後、個数で割り算する。
+
+                break;
+
+            default:
+                break;
+
+        }
+    }
 
 
-
-        //③スロット同士の計算をする。重複した場合は、個別にスロットに入れる。新しいトッピング能力がある場合は、ベースの空のスロットに上書きしていく。
+    void AddSlot_Method()
+    {
+        //重複した場合は、個別にスロットに入れる。新しいトッピング能力がある場合は、ベースの空のスロットに上書きしていく。
         //ベースの空スロットがなくなった時点で、それ以上合成はできない。
 
         //加算トッピングの一個目をもとに、ベースのスロット一個目から順番にみていく。
-
 
         for (count = 0; count < _additemlist.Count; count++)
         {
@@ -1309,7 +1449,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 //Debug.Log(_addtp[i]);
 
-                if ( _additemlist[count]._Addtp[i] != "Non") //Nonではない、＝いちごとかオレンジとか、何かが入っている場合は、次にベースのTPを見る。
+                if (_additemlist[count]._Addtp[i] != "Non") //Nonではない、＝いちごとかオレンジとか、何かが入っている場合は、次にベースのTPを見る。
                 {
 
                     j = 0;
@@ -1345,45 +1485,45 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 i++;
             }
         }
-        
     }
+
 
     void AddTasteParam()
     {
         //そのまま加算する。
         
-        _baserich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
-        _basesweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
-        _basebitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
-        _basesour += _additemlist[i]._Addsour * _additemlist[i]._Addkosu;
-        _basecrispy += _additemlist[i]._Addcrispy * _additemlist[i]._Addkosu;
-        _basefluffy += _additemlist[i]._Addfluffy * _additemlist[i]._Addkosu;
-        _basesmooth += _additemlist[i]._Addsmooth * _additemlist[i]._Addkosu;
-        _basehardness += _additemlist[i]._Addhardness * _additemlist[i]._Addkosu;
-        _basejiggly += _additemlist[i]._Addjiggly * _additemlist[i]._Addkosu;
-        _basechewy += _additemlist[i]._Addchewy * _additemlist[i]._Addkosu;
-        _basepowdery += _additemlist[i]._Addpowdery * _additemlist[i]._Addkosu;
-        _baseoily += _additemlist[i]._Addoily * _additemlist[i]._Addkosu;
-        _basewatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
+        _temprich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
+        _tempsweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
+        _tempbitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
+        _tempsour += _additemlist[i]._Addsour * _additemlist[i]._Addkosu;
+        _tempcrispy += _additemlist[i]._Addcrispy * _additemlist[i]._Addkosu;
+        _tempfluffy += _additemlist[i]._Addfluffy * _additemlist[i]._Addkosu;
+        _tempsmooth += _additemlist[i]._Addsmooth * _additemlist[i]._Addkosu;
+        _temphardness += _additemlist[i]._Addhardness * _additemlist[i]._Addkosu;
+        _tempjiggly += _additemlist[i]._Addjiggly * _additemlist[i]._Addkosu;
+        _tempchewy += _additemlist[i]._Addchewy * _additemlist[i]._Addkosu;
+        _temppowdery += _additemlist[i]._Addpowdery * _additemlist[i]._Addkosu;
+        _tempoily += _additemlist[i]._Addoily * _additemlist[i]._Addkosu;
+        _tempwatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
     }
 
     void DivisionTasteparam()
     {
         //総個数で割り算する
 
-        _baserich /= total_kosu;
-        _basesweat /= total_kosu;
-        _basebitter /= total_kosu;
-        _basesour /= total_kosu;
-        _basecrispy /= total_kosu;
-        _basefluffy /= total_kosu;
-        _basesmooth /= total_kosu;
-        _basehardness /= total_kosu;
-        _basejiggly /= total_kosu;
-        _basechewy /= total_kosu;
-        _basepowdery /= total_kosu;
-        _baseoily /= total_kosu;
-        _basewatery /= total_kosu;
+        _temprich /= total_kosu;
+        _tempsweat /= total_kosu;
+        _tempbitter /= total_kosu;
+        _tempsour /= total_kosu;
+        _tempcrispy /= total_kosu;
+        _tempfluffy /= total_kosu;
+        _tempsmooth /= total_kosu;
+        _temphardness /= total_kosu;
+        _tempjiggly /= total_kosu;
+        _tempchewy /= total_kosu;
+        _temppowdery /= total_kosu;
+        _tempoily /= total_kosu;
+        _tempwatery /= total_kosu;
     }
 
     void AddRatioTasteParam()
@@ -1393,7 +1533,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //あまりに小麦粉の量に対して、材料を多く入れすぎていると、マイナス。
 
         komugiko_distance = (komugiko_ratio - (float)0.5); //0.5は、小麦粉*材料=2:1の場合の値。材料ごとに設定してもよいかも。
-        Debug.Log("小麦粉と " + _additemlist[i]._Addname + " との距離" + komugiko_distance);
+        Debug.Log("小麦粉と " + _additemlist[i]._Addname + " との距離: " + komugiko_ratio  + " - 0.5 = " + komugiko_distance);
 
         //誤差が、-0.3以上　極端に小麦粉を入れすぎた場合
         if (komugiko_distance < -0.3)
@@ -1429,10 +1569,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             //小麦2: バター2などの場合。（比率的には、1:1で入れた場合。）
 
-            _add_ratio = ((float)1.0 + Mathf.Abs(komugiko_distance)) * (float)1.3; //若干、材料のほうが多い分、材料の値が強くなる。
-            komugiko_ratio = ((float)1.2 - Mathf.Abs(komugiko_distance)) * (float)0.7;
-            _bad_ratio = ((float)1.0 + Mathf.Abs(komugiko_distance)) * (float)1.5;
-            _komugibad_ratio = ((float)1.2 - Mathf.Abs(komugiko_distance)) * (float)0.7;
+            _add_ratio = ((float)0.5 + Mathf.Abs(komugiko_distance)) * (float)1.1; //若干、材料のほうが多い分、材料の値が強くなる。
+            komugiko_ratio = (float)0.9;
+            _bad_ratio = ((float)0.5 + Mathf.Abs(komugiko_distance)) * (float)1.1;
+            _komugibad_ratio = (float)0.9;
         }
         //誤差が1.2～2.2
         else if (komugiko_distance >= 1.2 && komugiko_distance < 2.2)
@@ -1440,9 +1580,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //小麦2: バター4などの場合。（2.0。　2.0-0.5=1.5の場合）　少し材料が多めになっているとき
 
             _add_ratio = (float)1.5; 
-            komugiko_ratio = (float)0.5;
+            komugiko_ratio = (float)0.75;
             _bad_ratio = (float)1.75;
-            _komugibad_ratio = (float)0.5;
+            _komugibad_ratio = (float)0.9;
         }
         //誤差が2.2～3.0
         else if (komugiko_distance >= 2.2 && komugiko_distance < 3.0)
@@ -1452,7 +1592,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _add_ratio = (float)1.7; 
             komugiko_ratio = (float)0.4;
             _bad_ratio = (float)2.0;
-            _komugibad_ratio = (float)0.6;
+            _komugibad_ratio = (float)0.8;
         }
         //誤差が3.0以上　材料を入れすぎた
         else if (komugiko_distance >= 3.0)
@@ -1470,54 +1610,35 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Debug.Log("_komugiko_ratio: " + komugiko_ratio);
 
         //その時の材料の値　×　_add_ratioで、加算する。
-        _baserich += (int)(_additemlist[i]._Addrich * _add_ratio);
-        _basesweat += (int)(_additemlist[i]._Addsweat * _add_ratio);
-        _basebitter += (int)(_additemlist[i]._Addbitter * _add_ratio);
-        _basesour += (int)(_additemlist[i]._Addsour * _add_ratio);
-        _basecrispy += (int)(_additemlist[i]._Addcrispy * _add_ratio);
-        _basefluffy += (int)(_additemlist[i]._Addfluffy * _add_ratio);
-        _basesmooth += (int)(_additemlist[i]._Addsmooth * _add_ratio);
-        _basehardness += (int)(_additemlist[i]._Addhardness * _add_ratio);
-        _basejiggly += (int)(_additemlist[i]._Addjiggly * _add_ratio);
-        _basechewy += (int)(_additemlist[i]._Addchewy * _add_ratio);
-        _basepowdery += (int)(_additemlist[i]._Addpowdery * _add_ratio * _bad_ratio);
-        _baseoily += (int)(_additemlist[i]._Addoily * _add_ratio * _bad_ratio);
-        _basewatery += (int)(_additemlist[i]._Addwatery * _add_ratio * _bad_ratio);
+        _temprich += (int)(_additemlist[i]._Addrich * _add_ratio);
+        _tempsweat += (int)(_additemlist[i]._Addsweat * _add_ratio);
+        _tempbitter += (int)(_additemlist[i]._Addbitter * _add_ratio);
+        _tempsour += (int)(_additemlist[i]._Addsour * _add_ratio);
+        _tempcrispy += (int)(_additemlist[i]._Addcrispy * _add_ratio);
+        _tempfluffy += (int)(_additemlist[i]._Addfluffy * _add_ratio);
+        _tempsmooth += (int)(_additemlist[i]._Addsmooth * _add_ratio);
+        _temphardness += (int)(_additemlist[i]._Addhardness * _add_ratio);
+        _tempjiggly += (int)(_additemlist[i]._Addjiggly * _add_ratio);
+        _tempchewy += (int)(_additemlist[i]._Addchewy * _add_ratio);
+        _temppowdery += (int)(_additemlist[i]._Addpowdery * _add_ratio * _bad_ratio);
+        _tempoily += (int)(_additemlist[i]._Addoily * _add_ratio * _bad_ratio);
+        _tempwatery += (int)(_additemlist[i]._Addwatery * _add_ratio * _bad_ratio);
 
         //小麦粉の値　×　補正値　を加算する。
 
-        _baserich += (int)(_additemlist[komugiko_id]._Addrich * komugiko_ratio);
-        _basesweat += (int)(_additemlist[komugiko_id]._Addsweat * komugiko_ratio);
-        _basebitter += (int)(_additemlist[komugiko_id]._Addbitter * komugiko_ratio);
-        _basesour += (int)(_additemlist[komugiko_id]._Addsour * komugiko_ratio);
-        _basecrispy += (int)(_additemlist[komugiko_id]._Addcrispy * komugiko_ratio);
-        _basefluffy += (int)(_additemlist[komugiko_id]._Addfluffy * komugiko_ratio);
-        _basesmooth += (int)(_additemlist[komugiko_id]._Addsmooth * komugiko_ratio);
-        _basehardness += (int)(_additemlist[komugiko_id]._Addhardness * komugiko_ratio);
-        _basejiggly += (int)(_additemlist[komugiko_id]._Addjiggly * komugiko_ratio);
-        _basechewy += (int)(_additemlist[komugiko_id]._Addchewy * komugiko_ratio);
-        _basepowdery += (int)(_additemlist[komugiko_id]._Addpowdery * komugiko_ratio * _komugibad_ratio);
-        _baseoily += (int)(_additemlist[komugiko_id]._Addoily * komugiko_ratio * _komugibad_ratio);
-        _basewatery += (int)(_additemlist[komugiko_id]._Addwatery * komugiko_ratio * _komugibad_ratio);
-    }
-
-    void AddRatioTasteParam_Komugiko()
-    {
-        //小麦粉の場合 1.0をそのまま加算する計算。
-
-        _baserich += (int)(_additemlist[i]._Addrich * komugiko_ratio);
-        _basesweat += (int)(_additemlist[i]._Addsweat * komugiko_ratio);
-        _basebitter += (int)(_additemlist[i]._Addbitter * komugiko_ratio);
-        _basesour += (int)(_additemlist[i]._Addsour * komugiko_ratio);
-        _basecrispy += (int)(_additemlist[i]._Addcrispy * komugiko_ratio);
-        _basefluffy += (int)(_additemlist[i]._Addfluffy * komugiko_ratio);
-        _basesmooth += (int)(_additemlist[i]._Addsmooth * komugiko_ratio);
-        _basehardness += (int)(_additemlist[i]._Addhardness * komugiko_ratio);
-        _basejiggly += (int)(_additemlist[i]._Addjiggly * komugiko_ratio);
-        _basechewy += (int)(_additemlist[i]._Addchewy * komugiko_ratio);
-        _basepowdery += (int)(_additemlist[i]._Addpowdery * komugiko_ratio);
-        _baseoily += (int)(_additemlist[i]._Addoily * komugiko_ratio);
-        _basewatery += (int)(_additemlist[i]._Addwatery * komugiko_ratio);
+        _temprich += (int)(_additemlist[komugiko_id]._Addrich * komugiko_ratio);
+        _tempsweat += (int)(_additemlist[komugiko_id]._Addsweat * komugiko_ratio);
+        _tempbitter += (int)(_additemlist[komugiko_id]._Addbitter * komugiko_ratio);
+        _tempsour += (int)(_additemlist[komugiko_id]._Addsour * komugiko_ratio);
+        _tempcrispy += (int)(_additemlist[komugiko_id]._Addcrispy * komugiko_ratio);
+        _tempfluffy += (int)(_additemlist[komugiko_id]._Addfluffy * komugiko_ratio);
+        _tempsmooth += (int)(_additemlist[komugiko_id]._Addsmooth * komugiko_ratio);
+        _temphardness += (int)(_additemlist[komugiko_id]._Addhardness * komugiko_ratio);
+        _tempjiggly += (int)(_additemlist[komugiko_id]._Addjiggly * komugiko_ratio);
+        _tempchewy += (int)(_additemlist[komugiko_id]._Addchewy * komugiko_ratio);
+        _temppowdery += (int)(_additemlist[komugiko_id]._Addpowdery * komugiko_ratio * _komugibad_ratio);
+        _tempoily += (int)(_additemlist[komugiko_id]._Addoily * komugiko_ratio * _komugibad_ratio);
+        _tempwatery += (int)(_additemlist[komugiko_id]._Addwatery * komugiko_ratio * _komugibad_ratio);
     }
 
     
@@ -1590,7 +1711,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     }
 
 
+
+
+
+    //
     //Qboxにお菓子を入れたときの、お菓子の評価＋報酬額の決定
+    //
+
+
 
     void Judge_QuestOkashi()
     {

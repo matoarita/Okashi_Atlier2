@@ -302,6 +302,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
         for (i = 0; i < max_original; i++)
         {
+            //Debug.Log("ID: " + i + " 所持アイテム: " + pitemlist.player_originalitemlist[i].itemName);
             if (SceneManager.GetActiveScene().name == "Compound")
             {
                 switch (compound_Main.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。

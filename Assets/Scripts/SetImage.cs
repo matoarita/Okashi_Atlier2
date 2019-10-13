@@ -461,16 +461,16 @@ public class SetImage : MonoBehaviour
         {
             switch (item_type_sub)
             {
-                case "Appaleil":
+                /*case "Appaleil":
                     Card_param_obj.SetActive(true);
-                    break;
+                    break;*/
 
                 case "Pate":
                     Card_param_obj.SetActive(true);
                     break;
 
                 default:
-                    Card_param_obj.SetActive(true);
+                    Card_param_obj.SetActive(false);
                     break;
             }
         }

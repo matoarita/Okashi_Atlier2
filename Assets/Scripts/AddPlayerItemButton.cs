@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class AddPlayerItemButton : MonoBehaviour {
 
-    //private GameObject Itemdatabase_object; //ItemDataBaseゲームオブジェクトを取得
     private ItemDataBase database;
 
-    //private GameObject playeritemlist_obj;
     private PlayerItemList pitemlist;
 
     private GameObject pitemlistController_obj;
@@ -23,11 +21,9 @@ public class AddPlayerItemButton : MonoBehaviour {
     {
 
         //アイテムデータベースの取得
-        //Itemdatabase_object = GameObject.FindWithTag("ItemDataBase");
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         //プレイヤー所持アイテムリストの取得
-        //playeritemlist_obj = GameObject.FindWithTag("PlayerItemList");
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");

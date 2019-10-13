@@ -74,6 +74,7 @@ public class itemSelectToggle : MonoBehaviour
 
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
 
+    private bool compoDB_select_judge;
     private string resultitemID;
     private int result_compoID;
 
@@ -777,7 +778,7 @@ public class itemSelectToggle : MonoBehaviour
 
         resultitemID = "gomi_1"; //どの調合組み合わせのパターンにも合致しなかった場合は、ゴミのIDが入っている。調合DBのゴミのitemNameを入れると、後で数値に変換してくれる。現在は、500に変換される。
 
-
+        compoDB_select_judge = false;
 
         //判定処理//
 
@@ -792,8 +793,9 @@ public class itemSelectToggle : MonoBehaviour
 
                 if (databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[2])
                 {
-                    //if (databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu3)
-                    //{
+                //if (databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu3)
+                //{
+                        compoDB_select_judge = true; //一致するものがあった場合は、true
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[0][1][2]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[0][1][2]と合致");
@@ -802,8 +804,9 @@ public class itemSelectToggle : MonoBehaviour
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[2])
                 {
-                    //if (databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu3)
-                    //{
+                //if (databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu3)
+                //{
+                        compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[0][2][1]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[0][2][1]と合致");
@@ -812,8 +815,9 @@ public class itemSelectToggle : MonoBehaviour
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[2])
                 {
-                    //if (databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu3)
-                    //{
+                //if (databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu3)
+                //{
+                        compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[1][0][2]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[1][0][2]と合致");
@@ -822,8 +826,9 @@ public class itemSelectToggle : MonoBehaviour
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[2])
                 {
-                    //if (databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu3)
-                    //{
+                //if (databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu3)
+                //{
+                        compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[1][2][0]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[1][2][0]と合致");
@@ -832,8 +837,9 @@ public class itemSelectToggle : MonoBehaviour
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[2])
                 {
-                    //if (databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu3)
-                    //{
+                //if (databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu3)
+                //{
+                        compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[2][0][1]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[2][0][1]と合致");
@@ -842,8 +848,9 @@ public class itemSelectToggle : MonoBehaviour
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[2])
                 {
-                    //if (databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu3)
-                    //{
+                //if (databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu3)
+                //{
+                        compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[2][1][0]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[2][1][0]と合致");
@@ -853,6 +860,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 ++i;
             }
+
 
             //stringのリザルドアイテムを、アイテムIDに変換。
             i = 0;
@@ -870,20 +878,21 @@ public class itemSelectToggle : MonoBehaviour
 
             pitemlistController.result_compID = result_compoID;
 
+           
 
         //新規調合で新しいアイテムが作成される場合の処理。
         //さらに生地への合成か、全く新しいアイテムが作成されるかで変わる。
-        //pitemlistController.result_itemは、デフォルトで、500＝失敗作のIDが入っている。
-        //もし、上記の検索で一致するものがあれば、500以外の数値（アイテムID）で上書きされている。
+        //コンポDBに一致するものがあった場合は、以下の処理を行う。
 
-        if (pitemlistController.result_item != 500)
+        if (compoDB_select_judge == true)
         {
 
-            if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Appaleil)
+            //Debug.Log("調合DBに該当する。");
+
+            /*if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Appaleil)
             {
                 exp_Controller.comp_judge_flag = 2; //新規にアイテムが作成される　＋　１・２・３個めのいずれかに生地を合成している。
 
-                success_text = "生地にアイテムを合成します。";
                 judge_flag = 0; //必ず成功する
 
             }
@@ -902,12 +911,12 @@ public class itemSelectToggle : MonoBehaviour
                 if (database.items[pitemlistController.final_kettei_item3].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item3].itemType_sub == Item.ItemType_sub.Appaleil)
                 {
                     exp_Controller.comp_judge_flag = 2; //新規にアイテムが作成される　＋　１・２・３個めのいずれかに生地を合成している。
-
                     judge_flag = 0; //必ず成功する
                 }
             }
 
-            else //一個目が生地ではなく、小麦粉も使われていない。全く新しいアイテムが生成される。
+            else */
+            //一個目が生地ではなく、小麦粉も使われていない。全く新しいアイテムが生成される。
             {
                 exp_Controller.comp_judge_flag = 0; //新規調合の場合は0にする。
 
@@ -946,8 +955,9 @@ public class itemSelectToggle : MonoBehaviour
 
         //どの調合リストにも当てはまらなかった場合（result_item=500）、
         //生地にアイテムを合成するのか、どの組み合わせにも当てはまらず単純に失敗するのか、の判定をさらに行う
-        else if (pitemlistController.result_item == 500)
+        else
         {
+            //Debug.Log("どの調合リストにも当てはまらなかった。");
 
             //一個目に選んだアイテムが、生地タイプのアイテムの場合で、2個目のアイテムが合成用のアイテムであれば、
             //成功失敗の判定処理はせず、生地にアイテムを合成する処理になる。
@@ -1008,19 +1018,23 @@ public class itemSelectToggle : MonoBehaviour
 
                     default:
 
-                        //どのパターンにもあてはまらない場合は、失敗する。
+                        //2個目のアイテムが、上記のパターンにあてはまらない場合は、失敗する。
+
+                        judge_flag = 1; //成功判定の処理をON
+                        compoundsuccess_flag = false;
                         success_text = "これは.. ダメかもしれぬ。";
                         break;
                 }
 
             }
 
-            //上記３パターンのどれにも当てはまらない場合、
-            //DBにも登録されておらず、生地への合成でもないので、単純に失敗する。
+            //一個目が生地でない場合、
+            //DBにも登録されておらず、生地への合成でもないので、失敗する。
 
             else
             {
                 //失敗
+                judge_flag = 1; //成功判定の処理をON
                 compoundsuccess_flag = false;
                 success_text = "これは.. ダメかもしれぬ。";
             }
