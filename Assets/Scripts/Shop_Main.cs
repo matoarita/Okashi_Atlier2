@@ -11,6 +11,8 @@ public class Shop_Main : MonoBehaviour {
 
     private GameObject shopitemlist_onoff;
 
+    private GameObject money_status_obj;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
@@ -42,6 +44,10 @@ public class Shop_Main : MonoBehaviour {
         //戻るボタンを取得
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
         backbutton_obj.SetActive(false);
+
+        //自分の持ってるお金などのステータス
+        money_status_obj = GameObject.FindWithTag("MoneyStatus_panel");
+        money_status_obj.SetActive(false);
 
         //プレイヤー所持アイテムリストパネルの初期化・取得
         pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
@@ -75,6 +81,7 @@ public class Shop_Main : MonoBehaviour {
             shop_select.SetActive(false);
             backbutton_obj.SetActive(false);
             text_area.SetActive(false);
+            money_status_obj.SetActive(false);
 
             shop_status = 0;
         }
@@ -89,6 +96,7 @@ public class Shop_Main : MonoBehaviour {
                     shop_select.SetActive(true);
                     backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
+                    money_status_obj.SetActive(true);
 
                     _text.text = "いらっしゃい～。";
 

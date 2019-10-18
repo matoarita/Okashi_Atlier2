@@ -57,7 +57,7 @@ public class Hiroba_Main : MonoBehaviour {
                 break;
 
             default:
-                _text.text = "どうするかな？";
+                _text.text = "アトリエ前だ。どうする？";
                 break;
         }
     }

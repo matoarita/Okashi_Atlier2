@@ -73,6 +73,7 @@ public class itemSelectToggle : MonoBehaviour
     private int baseitemID;
 
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
+    private List<string>  _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
 
     private bool compoDB_select_judge;
     private string resultitemID;
@@ -758,20 +759,24 @@ public class itemSelectToggle : MonoBehaviour
     void CompoundMethod()
     {
         _itemIDtemp_result.Clear();
+        _itemSubtype_temp_result.Clear();
 
         _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item1].itemName);
         _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item2].itemName);
 
+        _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item1].itemType_sub.ToString());
+        _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item2].itemType_sub.ToString());
+
         if (pitemlistController.final_kettei_item3 == 9999) //二個しか選択していないときは、9999が入っている。
         {
             _itemIDtemp_result.Add("empty");
+            _itemSubtype_temp_result.Add("empty");
             pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
         }
         else {
             _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item3].itemName);
+            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item3].itemType_sub.ToString());
         }
-        
-        //Debug.Log("選択したアイテムID: " + _itemIDtemp_result[0] + " " + _itemIDtemp_result[1] + " " + _itemIDtemp_result[2]);
 
         
         i = 0;
@@ -786,10 +791,10 @@ public class itemSelectToggle : MonoBehaviour
         //新規作成のため、以下の判定処理を行う。個数は、判定に関係しない。
 
 
+        //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
+
             while (i < databaseCompo.compoitems.Count)
             {
-                //Debug.Log("調合用アイテムDB: 1: " + databaseCompo.compoitems[i].cmpitemID_1 + " 2: " + databaseCompo.compoitems[i].cmpitemID_2 + " 3: " + databaseCompo.compoitems[i].cmpitemID_3);
-                //Debug.Log(i);
 
                 if (databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[2])
                 {
@@ -861,9 +866,176 @@ public class itemSelectToggle : MonoBehaviour
                 ++i;
             }
 
-
-            //stringのリザルドアイテムを、アイテムIDに変換。
+        //②　①の組み合わせにない場合は、2通りが考えられる。　アイテム名＋サブ＋サブ　か　アイテム名＋アイテム名＋サブの組み合わせ
+        if (compoDB_select_judge == false)
+        {
             i = 0;
+
+            while (i < databaseCompo.compoitems.Count)
+            {
+                //コンポDBの一個目のアイテム名と選んだ3アイテムの名前が一致するかどうかを見る。
+
+                if (databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[0]) //一個目に選択したのが一致してた
+                {
+                    //一致してた場合、次に、2個目のコンポDBのアイテム名と一致するものがあるか調べる
+                    if (databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[1])
+                    {
+                        //アイテム名＋アイテム名＋サブ(サブが空の場合もある。）
+                        //3個目がサブ
+                        if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[2]) 
+                        {
+                            compoDB_select_judge = true; //一致するものがあった場合は、true
+                            resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                            result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                            break;
+                        }
+                    }
+                    else if (_itemIDtemp_result[2] != "empty" && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[2])
+                    {
+                        //アイテム名＋サブ＋アイテム名
+                        //2個目がサブ
+                        if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[1]) 
+                        {
+                            compoDB_select_judge = true; //一致するものがあった場合は、true
+                            resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                            result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                            break;
+                        }
+                    }
+                    //2・3個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
+                    else if (databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[2])
+                    {
+                        //アイテム名＋サブ＋サブ。
+                        compoDB_select_judge = true; //一致するものがあった場合は、true
+                        resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                        result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                        break;
+                    }
+                    else if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[2])
+                    {
+                        //アイテム名＋サブ＋サブ。
+                        compoDB_select_judge = true; //一致するものがあった場合は、true
+                        resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                        result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                        break;
+                    }
+                }
+
+                else if (databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[1]) //二個目に選択したのが一致してた
+                {
+                    //一致してた場合、次に、2個目のコンポDBのアイテム名と一致するものがあるか調べる
+                    if (databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[0])
+                    {
+                        //アイテム名＋アイテム名＋サブ
+                        //3個目がサブ
+                        if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[2]) //3個目のサブも一致していた
+                        {
+                            compoDB_select_judge = true; //一致するものがあった場合は、true
+                            resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                            result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                            break;
+                        }
+                    }
+                    else if (_itemIDtemp_result[2] != "empty" && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[2])
+                    {
+                        //アイテム名＋サブ＋アイテム名
+                        //2個目がサブ
+                        if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[0]) //2個目のサブも一致していた
+                        {
+                            compoDB_select_judge = true; //一致するものがあった場合は、true
+                            resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                            result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                            break;
+                        }
+                    }
+                    //1・3個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
+                    else if (databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[2])
+                    {
+                        compoDB_select_judge = true; //一致するものがあった場合は、true
+                        resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                        result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                        break;
+                    }
+                    else if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[2])
+                    {
+                        compoDB_select_judge = true; //一致するものがあった場合は、true
+                        resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                        result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                        break;
+                    }
+                }
+
+                else if (databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[2]) //三個目に選択したのが一致してた
+                {
+                    //一致してた場合、次に、2個目のコンポDBのアイテム名と一致するものがあるか調べる
+                    if (databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[0])
+                    {
+                        //アイテム名＋アイテム名＋サブ
+                        //3個目がサブ
+                        if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[1])
+                        {
+                            compoDB_select_judge = true; //一致するものがあった場合は、true
+                            resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                            result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                            break;
+                        }
+                    }
+                    else if (databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[1])
+                    {
+                        //アイテム名＋サブ＋アイテム名
+                        //2個目がサブ
+                        if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[0])
+                        {
+                            compoDB_select_judge = true; //一致するものがあった場合は、true
+                            resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                            result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                            break;
+                        }
+                    }
+                    //1・2個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
+                    if (databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[1])
+                    {
+                        compoDB_select_judge = true; //一致するものがあった場合は、true
+                        resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                        result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                        break;
+                    }
+                    //一致してた場合、残りの2個のサブタイプを見る
+                    if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[0])
+                    {
+                        compoDB_select_judge = true; //一致するものがあった場合は、true
+                        resultitemID = databaseCompo.compoitems[i].cmpitemID_result;
+                        result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+
+                        break;
+                    }
+                }
+                ++i;
+            }
+        }
+
+        //③固有の組み合わせがなかった場合のみ、ジャンル同士の組み合わせがないかも見る。
+
+        if (compoDB_select_judge == false)
+        {
+            subtype_Kensaku();
+        }
+
+        
+
+        //stringのリザルドアイテムを、アイテムIDに変換。
+        i = 0;
 
             while (i < database.items.Count)
             {
@@ -889,33 +1061,7 @@ public class itemSelectToggle : MonoBehaviour
 
             //Debug.Log("調合DBに該当する。");
 
-            /*if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Appaleil)
-            {
-                exp_Controller.comp_judge_flag = 2; //新規にアイテムが作成される　＋　１・２・３個めのいずれかに生地を合成している。
-
-                judge_flag = 0; //必ず成功する
-
-            }
-            else if (pitemlistController.final_kettei_item2 != 9999)
-            {
-                if (database.items[pitemlistController.final_kettei_item2].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item2].itemType_sub == Item.ItemType_sub.Appaleil)
-                {
-                    exp_Controller.comp_judge_flag = 2; //新規にアイテムが作成される　＋　１・２・３個めのいずれかに生地を合成している。
-
-                    judge_flag = 0; //必ず成功する
-                }
-            }
-
-            else if (pitemlistController.final_kettei_item3 != 9999)
-            {
-                if (database.items[pitemlistController.final_kettei_item3].itemType_sub == Item.ItemType_sub.Pate || database.items[pitemlistController.final_kettei_item3].itemType_sub == Item.ItemType_sub.Appaleil)
-                {
-                    exp_Controller.comp_judge_flag = 2; //新規にアイテムが作成される　＋　１・２・３個めのいずれかに生地を合成している。
-                    judge_flag = 0; //必ず成功する
-                }
-            }
-
-            else */
+            
             //一個目が生地ではなく、小麦粉も使われていない。全く新しいアイテムが生成される。
             {
                 exp_Controller.comp_judge_flag = 0; //新規調合の場合は0にする。
@@ -1041,6 +1187,80 @@ public class itemSelectToggle : MonoBehaviour
         }
    
         //判定予測処理　ここまで//
+    }
+
+    void subtype_Kensaku()
+    {
+        i = 0;
+
+        while (i < databaseCompo.compoitems.Count)
+        {
+            //Debug.Log("調合用アイテムサブタイプDB: 1: " + databaseCompo.compoitems[i].cmp_subtype_1 + " 2: " + databaseCompo.compoitems[i].cmp_subtype_2 + " 3: " + databaseCompo.compoitems[i].cmp_subtype_3);
+            //Debug.Log(i);
+
+
+            if (databaseCompo.compoitems[i].cmp_subtype_1 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[2])
+            {
+
+                compoDB_select_judge = true; //一致するものがあった場合は、true
+                resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[0][1][2]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
+                result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+                                   //Debug.Log("[0][1][2]と合致");
+                break;
+
+            }
+            else if (databaseCompo.compoitems[i].cmp_subtype_1 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[2])
+            {
+
+                compoDB_select_judge = true;
+                resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[0][2][1]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
+                result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+                                   //Debug.Log("[0][2][1]と合致");
+                break;
+
+            }
+            else if (databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_1 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[2])
+            {
+
+                compoDB_select_judge = true;
+                resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[1][0][2]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
+                result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+                                   //Debug.Log("[1][0][2]と合致");
+                break;
+
+            }
+            else if (databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_1 == _itemSubtype_temp_result[2])
+            {
+
+                compoDB_select_judge = true;
+                resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[1][2][0]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
+                result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+                                   //Debug.Log("[1][2][0]と合致");
+                break;
+
+            }
+            else if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_1 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[2])
+            {
+
+                compoDB_select_judge = true;
+                resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[2][0][1]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
+                result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+                                   //Debug.Log("[2][0][1]と合致");
+                break;
+
+            }
+            else if (databaseCompo.compoitems[i].cmp_subtype_3 == _itemSubtype_temp_result[0] && databaseCompo.compoitems[i].cmp_subtype_2 == _itemSubtype_temp_result[1] && databaseCompo.compoitems[i].cmp_subtype_1 == _itemSubtype_temp_result[2])
+            {
+
+                compoDB_select_judge = true;
+                resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[2][1][0]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
+                result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
+                                   //Debug.Log("[2][1][0]と合致");
+                break;
+            }
+
+            ++i;
+        }
     }
 
     void CompoundSuccess_judge()

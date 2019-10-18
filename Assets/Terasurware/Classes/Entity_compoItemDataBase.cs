@@ -21,6 +21,9 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public string cmpitemID_1;
 		public string cmpitemID_2;
 		public string cmpitemID_3;
+		public string cmp_subtype_1;
+		public string cmp_subtype_2;
+		public string cmp_subtype_3;
 		public string result_itemID;
 		public int cmpitem_kosu1;
 		public int cmpitem_kosu2;
