@@ -18,23 +18,26 @@ MonoBehaviour:
       roast_itemName: cookie_base
       result_itemName: neko_cookie
     - ItemID: 1
-      roast_itemName: cookie_base_nosuger
+      roast_itemName: cookie_base_salad_Oil
       result_itemName: neko_cookie
     - ItemID: 2
+      roast_itemName: cookie_base_nosuger
+      result_itemName: cookie_salad_oil
+    - ItemID: 3
       roast_itemName: cake_base_cheese
       result_itemName: cheese_cake
-    - ItemID: 3
+    - ItemID: 4
       roast_itemName: cookie_base_orange
       result_itemName: orange_neko_cookie
-    - ItemID: 4
+    - ItemID: 5
       roast_itemName: cookie_base_cheese
       result_itemName: cheese_cookie
-    - ItemID: 5
+    - ItemID: 6
       roast_itemName: cookie_base_grape
       result_itemName: grape_cookie
-    - ItemID: 6
+    - ItemID: 7
       roast_itemName: cookie_base_honey
       result_itemName: honey_cookie
-    - ItemID: 7
+    - ItemID: 8
       roast_itemName: financier_base
       result_itemName: financier

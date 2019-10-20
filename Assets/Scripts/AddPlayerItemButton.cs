@@ -41,8 +41,45 @@ public class AddPlayerItemButton : MonoBehaviour {
     {
         Allitem_Add();
 
-        //Debug.Log(pitemlist.playeritemlist.Count);
-        //Debug.Log(pitemlistController.itemSelected.Count);
+    }
+
+    public void OnClickAddSkillButton2()
+    {
+        //基本アイテムのみ追加。
+        for (i = 0; i <= database.sheet_topendID[1]; i++)
+        {
+            /*if( database.items[i].itemName == "egg")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }*/
+            if (database.items[i].itemName == "salad_Oil")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+            if (database.items[i].itemName == "butter")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+            if (database.items[i].itemName == "suger")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+            if (database.items[i].itemName == "hakurikiko")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+            if (database.items[i].itemName == "orange")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+            if (database.items[i].itemName == "nuts")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+        }
+
+        pitemlistController.AddItemList();
+
     }
 
     void Allitem_Add()

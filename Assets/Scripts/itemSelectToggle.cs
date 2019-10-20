@@ -1108,7 +1108,11 @@ public class itemSelectToggle : MonoBehaviour
             //一個目に選んだアイテムが、生地タイプのアイテムの場合で、2個目のアイテムが合成用のアイテムであれば、
             //成功失敗の判定処理はせず、生地にアイテムを合成する処理になる。
 
-            if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate)
+            if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate || 
+                database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Cookie_base ||
+                database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pie_base ||
+                database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Chocolate_base ||
+                database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Cake_base)
             {
 
                 switch (database.items[pitemlistController.final_kettei_item2].itemType_sub)
@@ -2156,7 +2160,7 @@ public class itemSelectToggle : MonoBehaviour
         yes_selectitem_kettei.kettei1 = false;
         yes.SetActive(false);
         //no.SetActive(false);
-        item_tsuika.SetActive(true);
+        //item_tsuika.SetActive(true);
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
@@ -2176,7 +2180,7 @@ public class itemSelectToggle : MonoBehaviour
 
         yes.SetActive(true);
         no.SetActive(true);
-        item_tsuika.SetActive(false);
+        //item_tsuika.SetActive(false);
 
         yes_text.text = "決定";
 

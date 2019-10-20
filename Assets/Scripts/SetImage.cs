@@ -469,6 +469,22 @@ public class SetImage : MonoBehaviour
                     Card_param_obj.SetActive(true);
                     break;
 
+                case "Cookie_base":
+                    Card_param_obj.SetActive(true);
+                    break;
+
+                case "Pie_base":
+                    Card_param_obj.SetActive(true);
+                    break;
+
+                case "Chocolate_base":
+                    Card_param_obj.SetActive(true);
+                    break;
+
+                case "Cake_base":
+                    Card_param_obj.SetActive(true);
+                    break;
+
                 default:
                     Card_param_obj.SetActive(false);
                     break;

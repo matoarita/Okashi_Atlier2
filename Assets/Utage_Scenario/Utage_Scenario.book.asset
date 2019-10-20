@@ -2839,7 +2839,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u2460\u30DC\u30A6\u30EB\u306B<color=#FF5CA1FF>\u7121\u5869\u30D0\u30BF\u30FC</color>\u3068<color=#FF5CA1FF>\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC\u7CD6</color>\uFF08\u713C\u3051\u3053\u3052\u3066\u8AAD\u3081\u306A\u3044\uFF09\u3092\u5165\u308C\u3001\n\u30AF\u30EA\u30FC\u30E0\u72B6\u306B\u306A\u308B\u307E\u3067\u6DF7\u305C\u308B"
+      - "\u2460\u30DC\u30A6\u30EB\u306B<color=#FF5CA1FF>\u7121\u5869\u30D0\u30BF\u30FC</color>\u3068<color=#FF5CA1FF>\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC</color>\uFF08\u713C\u3051\u3053\u3052\u3066\u8AAD\u3081\u306A\u3044\uFF09\u3092\u5165\u308C\u3001\n\u30AF\u30EA\u30FC\u30E0\u72B6\u306B\u306A\u308B\u307E\u3067\u6DF7\u305C\u308B"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -3016,7 +3016,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Event_Recipi
     type: 1
-    textLength: 692
+    textLength: 691
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -8016,7 +8016,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u2460\u30DC\u30A6\u30EB\u306B<color=#FF5CA1FF>\u7121\u5869\u30D0\u30BF\u30FC</color>\u3068<color=#FF5CA1FF>\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC\u7CD6</color>\uFF08\u713C\u3051\u3053\u3052\u3066\u8AAD\u3081\u306A\u3044\uFF09\u3092\u5165\u308C\u3001\n\u30AF\u30EA\u30FC\u30E0\u72B6\u306B\u306A\u308B\u307E\u3067\u6DF7\u305C\u308B"
+      - "\u2460\u30DC\u30A6\u30EB\u306B<color=#FF5CA1FF>\u7121\u5869\u30D0\u30BF\u30FC</color>\u3068<color=#FF5CA1FF>\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC</color>\uFF08\u713C\u3051\u3053\u3052\u3066\u8AAD\u3081\u306A\u3044\uFF09\u3092\u5165\u308C\u3001\n\u30AF\u30EA\u30FC\u30E0\u72B6\u306B\u306A\u308B\u307E\u3067\u6DF7\u305C\u308B"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -8277,7 +8277,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Event_Recipi
     type: 1
-    textLength: 692
+    textLength: 691
     headerRow: 0
   - rows:
     - rowIndex: 0

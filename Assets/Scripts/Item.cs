@@ -65,9 +65,13 @@ public class Item
     {
         Non,
         Cookie,
+        Cookie_base,
         Pie,
+        Pie_base,
         Chocolate,
+        Chocolate_base,
         Cake,
+        Cake_base,
         Jelly,
         Omochi,
         Appaleil,
@@ -99,7 +103,9 @@ public class Item
         Strawberry,
         Nuts,
         Zarame,
-        Shishamo
+        Shishamo,
+        Butter,
+        Kogashi_Butter
     }
 
     //ここでリスト化時に渡す引数をあてがいます   
