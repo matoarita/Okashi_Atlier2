@@ -422,6 +422,24 @@ public class ItemSelect_Cancel : MonoBehaviour {
                         }
                     }
                 }
+
+                if (compound_Main.compound_select == 99) //オリジナル調合のときの処理
+                {
+                    if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
+                    {
+                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                        {
+                            compound_Main.compound_status = 0;
+                            card_view.DeleteCard_DrawView();
+
+                            yes.SetActive(false);
+                            no.SetActive(true);
+                            //updown_counter_obj.SetActive(false);
+
+                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                        }
+                    }
+                }
             }
         }
 

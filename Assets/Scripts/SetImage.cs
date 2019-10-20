@@ -77,6 +77,16 @@ public class SetImage : MonoBehaviour
 
     private int i, count;
 
+    private int _quality_score;
+    private int _rich_score;
+    private int _sweat_score;
+    private int _sour_score;
+    private int _bitter_score;
+
+    private int _crispy_score;
+    private int _fluffy_score;
+    private int _smooth_score;
+    private int _hardness_score;
 
     public int check_counter;
     public int Pitem_or_Origin; //プレイヤーアイテムか、オリジナルアイテムかの判定
@@ -116,6 +126,8 @@ public class SetImage : MonoBehaviour
         item_RankDesc = this.transform.Find("Item_card_template/ItemRankDesc").gameObject.GetComponent<Text>(); //ランクに合わせて、おいしさや食感を表示するテキスト
         
         item_Name_Full = this.transform.Find("Card_Param_window/Card_Name/Tx_Name").gameObject.GetComponent<Text>(); //名前（スロット名も含む正式名称）の値
+
+        item_Quality = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemQualityScore").gameObject.GetComponent<Text>(); //品質の値
         item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
         item_Sweat = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
         item_Bitter = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
@@ -138,7 +150,7 @@ public class SetImage : MonoBehaviour
         item_Slot[7] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_08").gameObject.GetComponent<Text>(); //Slot08の値
         item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
         item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
-
+        
 
         Card_param_obj.SetActive(false);
 
@@ -157,6 +169,7 @@ public class SetImage : MonoBehaviour
         {
             case 0: //プレイヤーアイテムリストを選択した場合
                 //Debug.Log("プレイヤーアイテムリスト　check_counter:" + check_counter);
+
                 Pitemlist_CardDraw();
                 break;
 
@@ -204,8 +217,8 @@ public class SetImage : MonoBehaviour
                 //甘さなどのパラメータを代入
                 _rich = database.items[check_counter].Rich.ToString();
                 _sweat = database.items[check_counter].Sweat.ToString();
-                _sour = database.items[check_counter].Sour.ToString();
                 _bitter = database.items[check_counter].Bitter.ToString();
+                _sour = database.items[check_counter].Sour.ToString();              
 
                 _crispy = database.items[check_counter].Crispy.ToString();
                 _fluffy = database.items[check_counter].Fluffy.ToString();
@@ -213,6 +226,19 @@ public class SetImage : MonoBehaviour
                 _hardness = database.items[check_counter].Hardness.ToString();
                 _jiggly = database.items[check_counter].Jiggly.ToString();
                 _chewy = database.items[check_counter].Chewy.ToString();
+
+                //数値として代入
+                _quality_score = database.items[check_counter].Quality;
+                _rich_score = database.items[check_counter].Rich;
+                _sweat_score = database.items[check_counter].Sweat;
+                _bitter_score = database.items[check_counter].Bitter;
+                _sour_score = database.items[check_counter].Sour;
+
+                _crispy_score = database.items[check_counter].Crispy;
+                _fluffy_score = database.items[check_counter].Fluffy;
+                _smooth_score = database.items[check_counter].Smooth;
+                _hardness_score = database.items[check_counter].Hardness;
+
 
                 for (i=0; i<_slot.Length; i++)
                 {
@@ -267,8 +293,8 @@ public class SetImage : MonoBehaviour
                 //甘さなどのパラメータを代入
                 _rich = pitemlist.player_originalitemlist[check_counter].Rich.ToString();
                 _sweat = pitemlist.player_originalitemlist[check_counter].Sweat.ToString();
-                _sour = pitemlist.player_originalitemlist[check_counter].Sour.ToString();
                 _bitter = pitemlist.player_originalitemlist[check_counter].Bitter.ToString();
+                _sour = pitemlist.player_originalitemlist[check_counter].Sour.ToString();               
 
                 _crispy = pitemlist.player_originalitemlist[check_counter].Crispy.ToString();
                 _fluffy = pitemlist.player_originalitemlist[check_counter].Fluffy.ToString();
@@ -276,6 +302,21 @@ public class SetImage : MonoBehaviour
                 _hardness = pitemlist.player_originalitemlist[check_counter].Hardness.ToString();
                 _jiggly = pitemlist.player_originalitemlist[check_counter].Jiggly.ToString();
                 _chewy = pitemlist.player_originalitemlist[check_counter].Chewy.ToString();
+
+
+                //数値として代入
+                _quality_score = pitemlist.player_originalitemlist[check_counter].Quality;
+                _rich_score = pitemlist.player_originalitemlist[check_counter].Rich;
+                _sweat_score = pitemlist.player_originalitemlist[check_counter].Sweat;
+                _bitter_score = pitemlist.player_originalitemlist[check_counter].Bitter;
+                _sour_score = pitemlist.player_originalitemlist[check_counter].Sour;
+
+                _crispy_score = pitemlist.player_originalitemlist[check_counter].Crispy;
+                _fluffy_score = pitemlist.player_originalitemlist[check_counter].Fluffy;
+                _smooth_score = pitemlist.player_originalitemlist[check_counter].Smooth;
+                _hardness_score = pitemlist.player_originalitemlist[check_counter].Hardness;
+
+
 
                 for (i = 0; i < _slot.Length; i++)
                 {
@@ -413,6 +454,18 @@ public class SetImage : MonoBehaviour
             case "Pate":
                 subcategory = "生地";
                 break;
+            case "Cookie_base":
+                subcategory = "生地";
+                break;
+            case "Pie_base":
+                subcategory = "生地";
+                break;
+            case "Chocolate_base":
+                subcategory = "生地";
+                break;
+            case "Cake_base":
+                subcategory = "生地";
+                break;
             case "Komugiko":
                 subcategory = "小麦粉";
                 break;
@@ -421,6 +474,9 @@ public class SetImage : MonoBehaviour
                 break;
             case "Butter":
                 subcategory = "バター";
+                break;
+            case "Egg":
+                subcategory = "たまご";
                 break;
             default:
                 // 処理３　指定がなかった場合
@@ -436,8 +492,8 @@ public class SetImage : MonoBehaviour
         //甘さ・苦さ・酸味の表示
         item_Rich.text = _rich;
         item_Sweat.text = _sweat;
-        item_Bitter.text = _sour;
-        item_Sour.text = _bitter;
+        item_Bitter.text = _bitter;
+        item_Sour.text = _sour;
 
         item_Crispy.text = _crispy;
         item_Fluffy.text = _fluffy;
@@ -445,6 +501,58 @@ public class SetImage : MonoBehaviour
         item_Hardness.text = _hardness;
         item_Jiggly.text = _jiggly;
         item_Chewy.text = _chewy;
+
+
+        //品質の表示
+        if (_quality_score <= 0)
+        {
+            _quality = "";
+        }
+        else if (_quality_score > 0 && _quality_score <= 20)
+        {
+            _quality = "F";
+        }
+        else if (_quality_score > 20 && _quality_score <= 30)
+        {
+            _quality = "D";
+        }
+        else if (_quality_score > 30 && _quality_score <= 40)
+        {
+            _quality = "D+";
+        }
+        else if (_quality_score > 40 && _quality_score <= 60) //50が平均値
+        {
+            _quality = "C";
+        }
+        else if (_quality_score > 60 && _quality_score <= 70)
+        {
+            _quality = "B";
+        }
+        else if (_quality_score > 70 && _quality_score <= 80)
+        {
+            _quality = "B+";
+        }
+        else if (_quality_score > 80 && _quality_score <= 88)
+        {
+            _quality = "A";
+        }
+        else if (_quality_score > 88 && _quality_score <= 93)
+        {
+            _quality = "S";
+        }
+        else if (_quality_score > 95 && _quality_score <= 99)
+        {
+            _quality = "SS";
+        }
+        else if (_quality_score > 100)
+        {
+            _quality = "SSS+";
+        }
+
+        item_Quality.text = _quality;
+
+
+
 
         for (i = 0; i < _slot.Length; i++)
         {

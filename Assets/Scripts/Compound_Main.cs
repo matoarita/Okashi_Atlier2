@@ -27,11 +27,14 @@ public class Compound_Main : MonoBehaviour {
     private ItemCompoundDataBase databaseCompo;
 
     private GameObject compoundselect_onoff_obj;
+    private GameObject saveload_panel;
     private GameObject recipi_toggle;
     private GameObject topping_toggle;
     private GameObject original_toggle;
     private GameObject roast_toggle;
     private GameObject blend_toggle;
+
+    private GameObject menu_toggle;
 
     private GameObject backbutton_obj;
 
@@ -99,12 +102,15 @@ public class Compound_Main : MonoBehaviour {
         _text = text_area.GetComponentInChildren<Text>();
 
         compoundselect_onoff_obj = GameObject.FindWithTag("CompoundSelect");
+        saveload_panel = canvas.transform.Find("SaveLoadPanel").gameObject;
 
         recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
         topping_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Topping_Toggle").gameObject;
         original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
         roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
+
+        menu_toggle = saveload_panel.transform.Find("Viewport/Content_compound/Menu_Toggle").gameObject;
 
         //初期メッセージ
         _text.text = "何の調合をする？";
@@ -126,6 +132,7 @@ public class Compound_Main : MonoBehaviour {
         if (GameMgr.scenario_ON == true)
         {
             compoundselect_onoff_obj.SetActive(false);
+            saveload_panel.SetActive(false);
             backbutton_obj.SetActive(false);
             text_area.SetActive(false);
         }
@@ -140,6 +147,7 @@ public class Compound_Main : MonoBehaviour {
                     recipilist_onoff.SetActive(false);
                     playeritemlist_onoff.SetActive(false);
                     compoundselect_onoff_obj.SetActive(true);
+                    saveload_panel.SetActive(true);
                     backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
 
@@ -149,6 +157,7 @@ public class Compound_Main : MonoBehaviour {
                 case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
 
                     compoundselect_onoff_obj.SetActive(false);
+                    saveload_panel.SetActive(false);
                     compound_status = 4; //調合シーンに入っています、というフラグ
                     compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
                     recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
@@ -159,6 +168,7 @@ public class Compound_Main : MonoBehaviour {
                 case 2: //トッピング調合の処理を開始。クリック後に処理が始まる。
 
                     compoundselect_onoff_obj.SetActive(false);
+                    saveload_panel.SetActive(false);
                     compound_status = 4; //調合シーンに入っています、というフラグ
                     compound_select = 2; //トッピング調合を選択
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -170,6 +180,7 @@ public class Compound_Main : MonoBehaviour {
                 case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
 
                     compoundselect_onoff_obj.SetActive(false);
+                    saveload_panel.SetActive(false);
                     compound_status = 4; //調合シーンに入っています、というフラグ
                     compound_select = 3; //オリジナル調合を選択
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -191,6 +202,7 @@ public class Compound_Main : MonoBehaviour {
                 case 5: //「焼く」を選択
 
                     compoundselect_onoff_obj.SetActive(false);
+                    saveload_panel.SetActive(false);
                     compound_status = 4; //調合シーンに入っています、というフラグ
                     compound_select = 5; //焼くを選択
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -199,6 +211,16 @@ public class Compound_Main : MonoBehaviour {
 
                     break;
 
+                case 99:
+
+                    compoundselect_onoff_obj.SetActive(false);
+                    saveload_panel.SetActive(false);
+                    compound_status = 100;
+                    compound_select = 99;
+                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                    no.SetActive(true);
+
+                    break;
 
                 case 100: //調合中　退避用
                     break;
@@ -223,6 +245,7 @@ public class Compound_Main : MonoBehaviour {
             if(GameMgr.event_recipi_endflag == true)
             {
                 compoundselect_onoff_obj.SetActive(true);
+                saveload_panel.SetActive(true);
                 backbutton_obj.SetActive(true);
                 text_area.SetActive(true);
 
@@ -284,7 +307,7 @@ public class Compound_Main : MonoBehaviour {
     public void OnCheck_5() //"焼き"をON
     {
         if (roast_toggle.GetComponent<Toggle>().isOn == true)
-        {
+        {           
             yes_no_load();
 
             //Debug.Log("check3");
@@ -293,6 +316,17 @@ public class Compound_Main : MonoBehaviour {
         }
     }
 
+    public void OnMenu_toggle() //メニューをON
+    {
+        if (menu_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            menu_toggle.GetComponent<Toggle>().isOn = false;
+            yes_no_load();
+
+            //Debug.Log("check1");
+            compound_status = 99;
+        }
+    }
 
     //イベント用レシピを見たときの処理。
     public void eventRecipi_ON()
@@ -301,6 +335,7 @@ public class Compound_Main : MonoBehaviour {
         Debug.Log("イベントレシピID: " + event_itemID + "　レシピ名: " + pitemlist.eventitemlist[event_itemID].event_itemNameHyouji);
 
         compoundselect_onoff_obj.SetActive(false);
+        saveload_panel.SetActive(false);
         backbutton_obj.SetActive(false);
         text_area.SetActive(false);
 

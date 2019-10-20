@@ -279,6 +279,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 }
                                 break;
 
+                            case 99: //メニュー画面を開いたとき
+
+                                itemlist_hyouji();
+                                break;
+
                             default:
                                 break;
                         }
@@ -334,6 +339,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         {
                             original_itemlist_hyouji();
                         }
+                        break;
+
+                    case 99: //メニュー画面を開いたとき
+
+                        original_itemlist_hyouji();
                         break;
 
                     default:

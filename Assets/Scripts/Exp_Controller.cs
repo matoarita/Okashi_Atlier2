@@ -1352,20 +1352,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             total_kosu += base_kosu;
         }
 
-        //Debug.Log("total_kosu: " + total_kosu);
+        if (total_kosu == 0) { total_kosu = 1; } //0で割り算する恐れがあるので、回避
 
-        if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //トッピング、または生地合成のときは何もしない。新規合成の時に処理。
-        {
+        _basemp += _tempmp;
+        _baseday += _tempday;
+        _basequality += _tempquality;
 
-        }
-        else
-        {
-            if (total_kosu == 0) { total_kosu = 1; } //0で割り算する恐れがあるので、回避
-
-            _tempmp /= total_kosu;
-            _tempday /= total_kosu;
-            _tempquality /= total_kosu;
-        }
+        _basemp /= total_kosu;
+        _baseday /= total_kosu;
+        _basequality /= total_kosu;
 
 
 
@@ -1379,7 +1374,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //3. トッピング調合時、または、生地にアイテムを合成する処理も、加算し、その後割り算。
 
 
-        if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //トッピング、または生地合成のときの計算。
+        if (Comp_method_bunki == 1) //トッピング、または生地合成のときの計算。
         {
             for (i = 0; i < _additemlist.Count; i++)
             {
@@ -1398,9 +1393,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //ベースのパラメータに、_tempパラメータを加算し、全体個数で割り算 
 
-            _basemp += _tempmp;
-            _baseday += _tempday;
-            _basequality += _tempquality;
             _baserich += _temprich;
             _basesweat += _tempsweat;
             _basebitter += _tempbitter;
@@ -1416,9 +1408,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _basewatery += _tempwatery;
 
             
-            _basemp /= total_kosu;
-            _baseday /= total_kosu;
-            _basequality /= total_kosu;
             _baserich /= total_kosu;
             _basesweat /= total_kosu;
             _basebitter /= total_kosu;
@@ -1440,9 +1429,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             Komugiko_Method();
 
             //最後に、ベースのパラメータに、_tempパラメータを加算する。
-            _basemp += _tempmp;
-            _baseday += _tempday;
-            _basequality += _tempquality;
+            //_basemp += _tempmp;
+            //_baseday += _tempday;
+            //_basequality += _tempquality;
             _baserich += _temprich;
             _basesweat += _tempsweat;
             _basebitter += _tempbitter;

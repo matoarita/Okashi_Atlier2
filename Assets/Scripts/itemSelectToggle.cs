@@ -220,6 +220,12 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     compound_roast_active();
                 }
+
+                // 単にメニューを開いたとき
+                if (compound_Main.compound_select == 99)
+                {
+                    Player_ItemList_Open();
+                }
             }
 
             else if (SceneManager.GetActiveScene().name == "GirlEat") // 女の子にアイテムあげるシーンでやりたい処理
