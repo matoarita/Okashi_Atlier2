@@ -335,7 +335,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                     case 5: //焼くとき。アイテムタイプサブが「生地」のみ表示。
 
-                        if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" || database.items[i].itemType_sub.ToString() == "Pie_base" || database.items[i].itemType_sub.ToString() == "Chocorate_base" || database.items[i].itemType_sub.ToString() == "Cake_base")
+                        if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Pate" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cookie_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Pie_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocorate_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cake_base")
                         {
                             original_itemlist_hyouji();
                         }
