@@ -139,7 +139,7 @@ MonoBehaviour:
     - rowIndex: 8
       debugIndex: 8
       strings:
-      - "\u30E6\u30C3\u30B3\u304A\u3070\u3055\u3093"
+      - "\u304A\u3070\u3055\u3093"
       - <param=npcA_name>
       - "\u901A\u5E38"
       - 
@@ -202,7 +202,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 415
+    textLength: 412
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
       strings:
       - player_name
       - String
-      - "\u30C8\u30E2\u30E4"
+      - "\u30C8\u30FC\u30E4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -628,7 +628,7 @@ MonoBehaviour:
       strings:
       - npcA_name
       - String
-      - "\u30E6\u30C3\u30B3\u304A\u3070\u3055\u3093"
+      - "\u30CA\u30B8\u30E3\u304A\u3070\u3055\u3093"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -649,7 +649,7 @@ MonoBehaviour:
       strings:
       - town_name
       - String
-      - "\u30ED\u30A2"
+      - "\u30EB\u30A4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 

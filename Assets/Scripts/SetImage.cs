@@ -37,6 +37,7 @@ public class SetImage : MonoBehaviour
     private string item_type_sub;
 
     private string _quality;
+    private string _quality_bar;
 
     private string _rich;
     private string _sweat;
@@ -60,6 +61,8 @@ public class SetImage : MonoBehaviour
 
     private Text item_Name_Full;
     private Text item_Quality;
+    private Text item_Quality_Bar;
+    private Text item_Quality_Score;
 
     private Text item_Rich;
     private Text item_Sweat;
@@ -127,12 +130,15 @@ public class SetImage : MonoBehaviour
         
         item_Name_Full = this.transform.Find("Card_Param_window/Card_Name/Tx_Name").gameObject.GetComponent<Text>(); //名前（スロット名も含む正式名称）の値
 
-        item_Quality = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemQualityScore").gameObject.GetComponent<Text>(); //品質の値
-        item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
-        item_Sweat = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
-        item_Bitter = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
-        item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
+        item_Quality = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Rank").gameObject.GetComponent<Text>(); //品質のランク
+        item_Quality_Bar = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Bar").gameObject.GetComponent<Text>(); //品質の★の数
+        item_Quality_Score = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Score").gameObject.GetComponent<Text>(); //品質の★の数
 
+        item_Sweat = this.transform.Find("Item_card_template/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
+        item_Bitter = this.transform.Find("Item_card_template/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
+        item_Sour = this.transform.Find("Item_card_template/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
+
+        item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
         item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemCrispyScore").gameObject.GetComponent<Text>(); //さくさくの値
         item_Fluffy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemFluffyScore").gameObject.GetComponent<Text>(); //ふわふわの値
         item_Smooth = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSmoothScore").gameObject.GetComponent<Text>(); //口溶けの値
@@ -258,15 +264,13 @@ public class SetImage : MonoBehaviour
                         if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
                         {
                             _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
-                            _slotHyouji2[i] = "　" + "<color=#FFAEE9>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                            _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
                             break;
                         }
                         count++;
                     }
                 }
 
-                //元のアイテム名＋スロット名
-                item_Name_Full.text = item_Name.text + _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9];
 
                 break;
 
@@ -335,15 +339,13 @@ public class SetImage : MonoBehaviour
                         if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
                         {
                             _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
-                            _slotHyouji2[i] = "　" + "<color=#FFAEE9>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                            _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
                             break;
                         }
                         count++;
                     }
                 }
 
-                //元のアイテム名＋スロット名
-                item_Name_Full.text = item_Name.text + _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9];
 
                 break;
 
@@ -359,41 +361,6 @@ public class SetImage : MonoBehaviour
         item_screen.sprite = Sprite.Create(card_template_1,
                                    new Rect(0, 0, card_template_1.width, card_template_1.height),
                                    Vector2.zero);
-
-        /* ランクの表示 （未使用）*/
-
-        /*if (database.items[check_counter].item_quality <= 0)
-        {
-            rank = "F";
-        }
-        else if (database.items[check_counter].item_quality > 0 && database.items[check_counter].item_quality <= 20)
-        {
-            rank = "E";
-        }
-        else if (database.items[check_counter].item_quality > 20 && database.items[check_counter].item_quality <= 40)
-        {
-            rank = "D";
-        }
-        else if (database.items[check_counter].item_quality > 40 && database.items[check_counter].item_quality <= 60)
-        {
-            rank = "C";
-        }
-        else if (database.items[check_counter].item_quality > 60 && database.items[check_counter].item_quality <= 80)
-        {
-            rank = "B";
-        }
-        else if (database.items[check_counter].item_quality > 80 && database.items[check_counter].item_quality <= 95)
-        {
-            rank = "A";
-        }
-        else if (database.items[check_counter].item_quality > 95 && database.items[check_counter].item_quality <= 100)
-        {
-            rank = "S";
-        }
-
-        item_Rank.text = rank;*/
-
-        /* ランクここまで */
 
 
         /* カテゴリーの表示 ついでに、ランクによって、「ふわふわ感」などの表示も行う。*/
@@ -511,59 +478,74 @@ public class SetImage : MonoBehaviour
         else if (_quality_score > 0 && _quality_score <= 20)
         {
             _quality = "F";
+            _quality_bar = "★";
         }
         else if (_quality_score > 20 && _quality_score <= 30)
         {
             _quality = "D";
+            _quality_bar = "★★";
         }
         else if (_quality_score > 30 && _quality_score <= 40)
         {
             _quality = "D+";
+            _quality_bar = "★★+";
         }
         else if (_quality_score > 40 && _quality_score <= 60) //50が平均値
         {
             _quality = "C";
+            _quality_bar = "★★★";
         }
         else if (_quality_score > 60 && _quality_score <= 70)
         {
             _quality = "B";
+            _quality_bar = "★★★★";
         }
         else if (_quality_score > 70 && _quality_score <= 80)
         {
             _quality = "B+";
+            _quality_bar = "★★★★+";
         }
         else if (_quality_score > 80 && _quality_score <= 88)
         {
             _quality = "A";
+            _quality_bar = "★★★★★";
         }
         else if (_quality_score > 88 && _quality_score <= 93)
         {
             _quality = "S";
+            _quality_bar = "★★★★★★";
         }
         else if (_quality_score > 95 && _quality_score <= 99)
         {
             _quality = "SS";
+            _quality_bar = "★★★★★★";
         }
         else if (_quality_score > 100)
         {
             _quality = "SSS+";
+            _quality_bar = "★★★★★★★";
         }
 
         item_Quality.text = _quality;
+        item_Quality_Bar.text = _quality_bar;
+        item_Quality_Score.text = _quality_score.ToString();
 
 
 
+        //スロット名の表示
 
         for (i = 0; i < _slot.Length; i++)
         {
-            if ( _slot[i] == "Non" ) //Nonは空白表示。その他、英語表記は、日本語表記に直すのがよいかも。エクセルなどにスロット表示用の名前DBを作る。
+            if ( _slot[i] == "Non" ) //Nonは空白表示。
             {
                 _slot[i] = "";
             }
-
-            //スロット名の表示
-            item_Slot[i].text = _slotHyouji1[i];
+       
+            item_Slot[i].text = _slotHyouji1[i]; //スロット表示１のほうが、スロットに表示する用のテキスト。スロット表示２は、アイテムのフルネームのほう。
         }
+
+        
+
 
         if (item_type == "Mat")
         {
@@ -594,9 +576,16 @@ public class SetImage : MonoBehaviour
                     break;
 
                 default:
-                    Card_param_obj.SetActive(false);
+                    Card_param_obj.SetActive(true);
                     break;
             }
+        }
+        else if (item_type == "Okashi")
+        {
+            //スロット名+アイテム名の表示
+            item_Name_Full.text = _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9] + item_Name.text;
+            item_Name.text = item_Name_Full.text; //お菓子
+            Card_param_obj.SetActive(true);
         }
         else
         {

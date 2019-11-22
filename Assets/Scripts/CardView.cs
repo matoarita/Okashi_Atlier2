@@ -54,13 +54,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item1;
 
-        _cardImage_obj[0].transform.localScale = new Vector3(1.15f, 1.15f, 1);
+        _cardImage_obj[0].transform.localScale = new Vector3(1.0f, 1.0f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(-170, 80, 0);
 
         //デバッグ用
         if (SceneManager.GetActiveScene().name == "Hiroba")
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(1.15f, 1.15f, 1);
+            _cardImage_obj[0].transform.localScale = new Vector3(1.0f, 1.0f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(-170, 80, 0);
         }
 

@@ -131,4 +131,19 @@ public class QuestBox_Main : MonoBehaviour {
 
         }
     }
+
+    public void OnCheck_3() //開業
+    {
+        if (qbox_toggle_watch.GetComponent<Toggle>().isOn == true)
+        {
+            qbox_toggle_watch.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            //shop_select.SetActive(false);
+
+            qbox_status = 20; //眺めるを押したときのフラグ
+
+            _text.text = "開業";
+
+        }
+    }
 }
