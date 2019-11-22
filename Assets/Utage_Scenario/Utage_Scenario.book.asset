@@ -2787,7 +2787,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u30D2\u30F3\u30C8_\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
-      - Ev_recipi==1
+      - Ev_recipi==2
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -7958,7 +7958,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u30D2\u30F3\u30C8_\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
-      - Ev_recipi==1
+      - Ev_recipi==2
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 

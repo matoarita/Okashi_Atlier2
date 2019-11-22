@@ -141,7 +141,7 @@ public class Updown_counter_recipi : MonoBehaviour
         itemID_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID; //itemID_1という変数に、プレイヤーが選択した調合DBの配列番号を格納する。
         itemname_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;
 
-        recipilistController.final_select_kosu = updown_kosu;
+        recipilistController.final_select_kosu = updown_kosu; //最終的に作る個数
 
         //必要アイテム・個数の代入
         cmpitem_kosu1 = databaseCompo.compoitems[itemID_1].cmpitem_kosu1;
@@ -154,7 +154,7 @@ public class Updown_counter_recipi : MonoBehaviour
         {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_1)
             {
-                cmpitem_1 = database.items[i].itemNameHyouji; //調合DB一個目のnameを日本語表示に。
+                cmpitem_1 = database.items[i].itemNameHyouji; //調合DB一個目の番号を保存。また、nameを日本語表示に。
                 itemdb_id1 = i; //その時のアイテムDB番号も、保存
                 break;
             }
@@ -167,7 +167,7 @@ public class Updown_counter_recipi : MonoBehaviour
         {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_2)
             {
-                cmpitem_2 = database.items[i].itemNameHyouji; //調合DB一個目のnameを日本語表示に。
+                cmpitem_2 = database.items[i].itemNameHyouji; //調合DB二個目のnameを日本語表示に。
                 itemdb_id2 = i; //その時のアイテムDB番号も、保存
                 break;
             }
@@ -182,33 +182,12 @@ public class Updown_counter_recipi : MonoBehaviour
         {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_3)
             {
-                cmpitem_3 = database.items[i].itemNameHyouji; //調合DB一個目のnameを日本語表示に。
+                cmpitem_3 = database.items[i].itemNameHyouji; //調合DB三個目のnameを日本語表示に。
                 itemdb_id3 = i; //その時のアイテムDB番号も、保存
                 break;
             }
             ++i;
         }
-
-
-        //最終的なアイテムを決定
-        recipilistController.kettei_recipiitem1 = database.items[itemdb_id1].itemID;
-        recipilistController.kettei_recipiitem2 = database.items[itemdb_id2].itemID;
-
-        recipilistController.final_kettei_recipikosu1 = cmpitem_kosu1_select;
-        recipilistController.final_kettei_recipikosu2 = cmpitem_kosu2_select;
-
-        if (databaseCompo.compoitems[itemID_1].cmpitemID_3 == "empty") //2個のアイテムが必要な場合。３個めは空＝9999
-        {
-            recipilistController.kettei_recipiitem3 = 9999;
-            recipilistController.final_kettei_recipikosu3 = 0;
-        }
-        else //3個アイテムが必要な場合
-        {
-            recipilistController.kettei_recipiitem3 = database.items[itemdb_id3].itemID;
-            recipilistController.final_kettei_recipikosu3 = cmpitem_kosu3_select;
-        }
-
-
 
 
         cmpitem_kosu1_select = cmpitem_kosu1 * updown_kosu; //必要個数×選択している作成数
@@ -247,7 +226,7 @@ public class Updown_counter_recipi : MonoBehaviour
             }
             else
             {
-                _text.text = itemname_1 + "が選択されました。" + "\n" + _a + "\n" + _b;
+                _text.text = itemname_1 + "が選択されました。何個作る？" + "\n" + _a + "\n" + _b;
                 yes.SetActive(true);
                 updown_button[1].interactable = true;
 
@@ -264,11 +243,31 @@ public class Updown_counter_recipi : MonoBehaviour
             }
             else
             {
-                _text.text = itemname_1 + "が選択されました。" + "\n" + _a + "\n" + _b + "\n" + _c;
+                _text.text = itemname_1 + "が選択されました。何個作る？" + "\n" + _a + "\n" + _b + "\n" + _c;
                 yes.SetActive(true);
                 updown_button[1].interactable = true;
 
             }
+        }
+
+
+        //最終的な必要アイテム＋最終個数をコントローラー側の変数に代入
+
+        recipilistController.kettei_recipiitem1 = database.items[itemdb_id1].itemID;
+        recipilistController.kettei_recipiitem2 = database.items[itemdb_id2].itemID;
+
+        recipilistController.final_kettei_recipikosu1 = cmpitem_kosu1_select;
+        recipilistController.final_kettei_recipikosu2 = cmpitem_kosu2_select;
+
+        if (databaseCompo.compoitems[itemID_1].cmpitemID_3 == "empty") //2個のアイテムが必要な場合。３個めは空＝9999
+        {
+            recipilistController.kettei_recipiitem3 = 9999;
+            recipilistController.final_kettei_recipikosu3 = 0;
+        }
+        else //3個アイテムが必要な場合
+        {
+            recipilistController.kettei_recipiitem3 = database.items[itemdb_id3].itemID;
+            recipilistController.final_kettei_recipikosu3 = cmpitem_kosu3_select;
         }
     }
 }

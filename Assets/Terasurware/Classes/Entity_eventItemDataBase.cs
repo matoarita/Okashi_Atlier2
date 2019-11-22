@@ -22,6 +22,8 @@ public class Entity_eventItemDataBase : ScriptableObject
 		public string nameHyouji;
 		public int cost_price;
 		public int sell_price;
+		public int kosu;
+		public int read_flag;
 	}
 }
 

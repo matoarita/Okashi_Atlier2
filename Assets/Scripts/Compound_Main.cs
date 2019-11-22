@@ -38,6 +38,8 @@ public class Compound_Main : MonoBehaviour {
 
     private GameObject backbutton_obj;
 
+    private bool ReadRecipi_ALLOK; 
+
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
@@ -119,142 +121,148 @@ public class Compound_Main : MonoBehaviour {
         compound_status = 0;
         compound_select = 0;
 
-
-        //レシピ調合用の、フラグ管理部分
-        //Check_RecipiFlag();
-        
+        ReadRecipi_ALLOK = false;
+             
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
-        if (GameMgr.scenario_ON == true)
+        //読んでいないレシピがあれば、読む処理。優先順位が一番先。
+        if (ReadRecipi_ALLOK == false)
         {
-            compoundselect_onoff_obj.SetActive(false);
-            saveload_panel.SetActive(false);
-            backbutton_obj.SetActive(false);
-            text_area.SetActive(false);
+            Check_RecipiFlag();
         }
-        else
+
+        else //以下が、通常の処理
         {
-
-            //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-            switch (compound_status)
+            //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
+            if (GameMgr.scenario_ON == true)
             {
-                case 0:
+                compoundselect_onoff_obj.SetActive(false);
+                saveload_panel.SetActive(false);
+                backbutton_obj.SetActive(false);
+                text_area.SetActive(false);
+            }
+            else
+            {
 
-                    recipilist_onoff.SetActive(false);
-                    playeritemlist_onoff.SetActive(false);
+                //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
+                switch (compound_status)
+                {
+                    case 0:
+
+                        recipilist_onoff.SetActive(false);
+                        playeritemlist_onoff.SetActive(false);
+                        compoundselect_onoff_obj.SetActive(true);
+                        saveload_panel.SetActive(true);
+                        backbutton_obj.SetActive(true);
+                        text_area.SetActive(true);
+
+                        text_scenario();
+                        break;
+
+                    case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
+
+                        compoundselect_onoff_obj.SetActive(false);
+                        saveload_panel.SetActive(false);
+                        compound_status = 4; //調合シーンに入っています、というフラグ
+                        compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
+                        recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+                        no.SetActive(true);
+
+                        break;
+
+                    case 2: //トッピング調合の処理を開始。クリック後に処理が始まる。
+
+                        compoundselect_onoff_obj.SetActive(false);
+                        saveload_panel.SetActive(false);
+                        compound_status = 4; //調合シーンに入っています、というフラグ
+                        compound_select = 2; //トッピング調合を選択
+                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                        no.SetActive(true);
+
+                        break;
+
+                    case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
+
+                        compoundselect_onoff_obj.SetActive(false);
+                        saveload_panel.SetActive(false);
+                        compound_status = 4; //調合シーンに入っています、というフラグ
+                        compound_select = 3; //オリジナル調合を選択
+                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+                        no.SetActive(true);
+
+                        break;
+
+                    case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
+
+                        recipi_toggle.GetComponent<Toggle>().isOn = false;
+                        original_toggle.GetComponent<Toggle>().isOn = false;
+                        topping_toggle.GetComponent<Toggle>().isOn = false;
+                        roast_toggle.GetComponent<Toggle>().isOn = false;
+                        //blend_toggle.GetComponent<Toggle>().isOn = false;
+
+                        break;
+
+                    case 5: //「焼く」を選択
+
+                        compoundselect_onoff_obj.SetActive(false);
+                        saveload_panel.SetActive(false);
+                        compound_status = 4; //調合シーンに入っています、というフラグ
+                        compound_select = 5; //焼くを選択
+                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                        no.SetActive(true);
+
+                        break;
+
+                    case 99:
+
+                        compoundselect_onoff_obj.SetActive(false);
+                        saveload_panel.SetActive(false);
+                        compound_status = 100;
+                        compound_select = 99;
+                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        no.SetActive(true);
+
+                        break;
+
+                    case 100: //調合中　退避用
+                        break;
+
+
+                    /*case 5: //ブレンド調合の処理（未使用）
+
+                        compoundselect_onoff_obj.SetActive(false);
+                        compound_status = 4; //調合シーンに入っています、というフラグ
+                        compound_select = 5; //ブレンド調合を選択
+                        recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+                        no.SetActive(true);
+
+                        break;*/
+
+
+
+                    default:
+                        break;
+                }
+
+                if (GameMgr.event_recipi_endflag == true)
+                {
                     compoundselect_onoff_obj.SetActive(true);
                     saveload_panel.SetActive(true);
                     backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
 
                     text_scenario();
-                    break;
 
-                case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
-
-                    compoundselect_onoff_obj.SetActive(false);
-                    saveload_panel.SetActive(false);
-                    compound_status = 4; //調合シーンに入っています、というフラグ
-                    compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
-                    recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
-                    no.SetActive(true);
-
-                    break;
-
-                case 2: //トッピング調合の処理を開始。クリック後に処理が始まる。
-
-                    compoundselect_onoff_obj.SetActive(false);
-                    saveload_panel.SetActive(false);
-                    compound_status = 4; //調合シーンに入っています、というフラグ
-                    compound_select = 2; //トッピング調合を選択
-                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                    no.SetActive(true);
-
-                    break;
-
-                case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
-
-                    compoundselect_onoff_obj.SetActive(false);
-                    saveload_panel.SetActive(false);
-                    compound_status = 4; //調合シーンに入っています、というフラグ
-                    compound_select = 3; //オリジナル調合を選択
-                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-                    no.SetActive(true);
-
-                    break;
-
-                case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
-
-                    recipi_toggle.GetComponent<Toggle>().isOn = false;
-                    original_toggle.GetComponent<Toggle>().isOn = false;
-                    topping_toggle.GetComponent<Toggle>().isOn = false;
-                    roast_toggle.GetComponent<Toggle>().isOn = false;
-                    //blend_toggle.GetComponent<Toggle>().isOn = false;
-
-                    break;
-
-                case 5: //「焼く」を選択
-
-                    compoundselect_onoff_obj.SetActive(false);
-                    saveload_panel.SetActive(false);
-                    compound_status = 4; //調合シーンに入っています、というフラグ
-                    compound_select = 5; //焼くを選択
-                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                    no.SetActive(true);
-
-                    break;
-
-                case 99:
-
-                    compoundselect_onoff_obj.SetActive(false);
-                    saveload_panel.SetActive(false);
-                    compound_status = 100;
-                    compound_select = 99;
-                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                    no.SetActive(true);
-
-                    break;
-
-                case 100: //調合中　退避用
-                    break;
-
-
-                /*case 5: //ブレンド調合の処理（未使用）
-
-                    compoundselect_onoff_obj.SetActive(false);
-                    compound_status = 4; //調合シーンに入っています、というフラグ
-                    compound_select = 5; //ブレンド調合を選択
-                    recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
-                    no.SetActive(true);
-
-                    break;*/
-
-
-
-                default:
-                    break;
-            }
-
-            if(GameMgr.event_recipi_endflag == true)
-            {
-                compoundselect_onoff_obj.SetActive(true);
-                saveload_panel.SetActive(true);
-                backbutton_obj.SetActive(true);
-                text_area.SetActive(true);
-
-                text_scenario();
-
-                GameMgr.event_recipi_endflag = false;
+                    GameMgr.event_recipi_endflag = false;
+                }
             }
         }
-
     }
 
     public void OnCheck_1() //レシピ調合をON
@@ -395,24 +403,31 @@ public class Compound_Main : MonoBehaviour {
 
     void Check_RecipiFlag()
     {
-        i = 0;
-        //レシピを名前で検索し、アイテムIDを入れる。
-        while (i < database.items.Count)
+        
+        //所持しているが、まだ読んでいないレシピがないか、チェックする。
+        while ( ReadRecipi_ALLOK != true)
         {
-            if (database.items[i].itemName == "recipi_01")
+
+            i = 0;
+            ReadRecipi_ALLOK = true;
+
+            while (i < pitemlist.eventitemlist.Count)
             {
-                recipi01_ID = i;
-                //Debug.Log("recipi01_ID: " + recipi01_ID);
-                break;
+                //もし、所持はしているのに、リードフラグは０のまま（＝読んでいないもの）がある場合、レシピを読む処理に入る。
+                if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ReadFlag == 0)
+                {
+                    
+                    ReadRecipi_ALLOK = false;
+
+                    /* レシピを読む処理 */
+                    Debug.Log("まだ" + pitemlist.eventitemlist[i].event_itemNameHyouji + "を読んでいない");
+
+                    pitemlist.eventitemlist[i].ev_ReadFlag = 1; //読み終えたら1
+                    break;
+                }
+                ++i;
             }
-            ++i;
         }
 
-        if (pitemlist.playeritemlist[recipi01_ID] >= 1) //レシピ01の本を持っているとき
-        {
-            //レシピ調合可能なアイテムを、調合アイテムデータベースのフラグをONにする。
-            databaseCompo.compoitems[5].cmpitem_flag = 1; //コンポDBのItemID　5番をONにする。
-            Debug.Log("recipi01の本を持っている。");
-        }
     }
 }

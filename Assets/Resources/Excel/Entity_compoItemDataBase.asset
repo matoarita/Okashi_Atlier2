@@ -357,11 +357,11 @@ MonoBehaviour:
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30AF\u30EA\u30FC\u30E0\u30C1\u30FC\u30BA"
       Comment3: "\u30C1\u30FC\u30BA\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
     - ItemID: 19
-      cmpitemID_1: orange
-      cmpitemID_2: empty
+      cmpitemID_1: cookie_base
+      cmpitemID_2: orange
       cmpitemID_3: empty
       cmp_subtype_1: empty
-      cmp_subtype_2: Cookie_base
+      cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: cookie_base_orange
       cmpitem_kosu1: 1

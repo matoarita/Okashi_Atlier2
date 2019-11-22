@@ -189,7 +189,8 @@ public class recipiitemSelectToggle : MonoBehaviour
             recipilistController.result_recipicompID = compo_itemID;
 
             //調合DBの生成されるアイテム名から、アイテムDBを検索し、IDを検出して、リザルトに代入
-            while ( i < databaseCompo.compoitems.Count )
+            i = 0;
+            while ( i < database.items.Count )
             {
                 if ( database.items[i].itemName == databaseCompo.compoitems[compo_itemID].cmpitemID_result )
                 {
@@ -267,7 +268,7 @@ public class recipiitemSelectToggle : MonoBehaviour
 
     IEnumerator recipiFinal_select()
     {
-        _text.text = "これで作成しますか？";
+        _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "を" + recipilistController.final_select_kosu + "個 作成しますか？";
 
         while (yes_selectitem_kettei.onclick != true)
         {

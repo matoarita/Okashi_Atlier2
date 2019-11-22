@@ -656,10 +656,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //プレイヤーアイテムリストに追加。
                     pitemlist.addPlayerItem(kettei_item1, result_kosu);
                 }
-                else if (toggle_type1 == 1)
+                else if (toggle_type1 == 1) //shop_itemType=1のものは、レシピのこと。買うことで、あとでアトリエに戻ったときに、本を読み、いくつかのレシピを解禁するフラグになる。
                 {
                     //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
                     pitemlist.add_eventPlayerItem(kettei_item1, result_kosu);
+
                 }
 
                 //所持金をへらす
