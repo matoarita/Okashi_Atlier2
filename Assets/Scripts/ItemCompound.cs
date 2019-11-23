@@ -9,6 +9,7 @@ using System.Collections;
 public class ItemCompound
 {
     public int cmpitemID;
+    public string cmpitem_Name;
     public string cmpitemID_1;
     public string cmpitemID_2;
     public string cmpitemID_3;
@@ -28,9 +29,10 @@ public class ItemCompound
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemCompound(int id, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, string result_item, int _kosu1, int _kosu2, int _kosu3, int _flag, int cost_time, int srate, int renkin_bexp)
+    public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, string result_item, int _kosu1, int _kosu2, int _kosu3, int _flag, int cost_time, int srate, int renkin_bexp)
     {
         cmpitemID = id;
+        cmpitem_Name = cmpname;
         cmpitemID_1 = item1;
         cmpitemID_2 = item2;
         cmpitemID_3 = item3;

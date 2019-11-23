@@ -38,7 +38,8 @@ public class Compound_Main : MonoBehaviour {
 
     private GameObject backbutton_obj;
 
-    private bool ReadRecipi_ALLOK; 
+    private bool ReadRecipi_ALLOK;
+    private bool Recipi_loading;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
@@ -46,8 +47,8 @@ public class Compound_Main : MonoBehaviour {
     private Text no_text;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    private int i;
-    private int recipi01_ID;
+    private int i, j;
+    private int comp_ID;
 
     public int compound_status;
     public int compound_select;
@@ -56,7 +57,7 @@ public class Compound_Main : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
 
         //Debug.Log("Compound scene loaded");
 
@@ -84,17 +85,20 @@ public class Compound_Main : MonoBehaviour {
         pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
+        playeritemlist_onoff.SetActive(false);
 
         //レシピ画面の初期設定
         recipilist_onoff = GameObject.FindWithTag("RecipiList_ScrollView");
         recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
+        recipilist_onoff.SetActive(false);
+
 
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
         yes = playeritemlist_onoff.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
         no = playeritemlist_onoff.transform.Find("No").gameObject;
         no_text = no.GetComponentInChildren<Text>();
-               
+
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -122,11 +126,12 @@ public class Compound_Main : MonoBehaviour {
         compound_select = 0;
 
         ReadRecipi_ALLOK = false;
-             
+        Recipi_loading = false;
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
 
         //読んでいないレシピがあれば、読む処理。優先順位が一番先。
         if (ReadRecipi_ALLOK == false)
@@ -250,6 +255,18 @@ public class Compound_Main : MonoBehaviour {
                         break;
                 }
 
+                if (GameMgr.recipi_read_endflag == true)
+                {
+                    compoundselect_onoff_obj.SetActive(true);
+                    saveload_panel.SetActive(true);
+                    backbutton_obj.SetActive(true);
+                    text_area.SetActive(true);
+
+                    text_scenario();
+
+                    GameMgr.recipi_read_endflag = false;
+                }
+
                 if (GameMgr.event_recipi_endflag == true)
                 {
                     compoundselect_onoff_obj.SetActive(true);
@@ -261,6 +278,8 @@ public class Compound_Main : MonoBehaviour {
 
                     GameMgr.event_recipi_endflag = false;
                 }
+
+
             }
         }
     }
@@ -315,7 +334,7 @@ public class Compound_Main : MonoBehaviour {
     public void OnCheck_5() //"焼き"をON
     {
         if (roast_toggle.GetComponent<Toggle>().isOn == true)
-        {           
+        {
             yes_no_load();
 
             //Debug.Log("check3");
@@ -354,7 +373,7 @@ public class Compound_Main : MonoBehaviour {
 
     void yes_no_load()
     {
-        
+
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
 
         if (recipi_toggle.GetComponent<Toggle>().isOn == true) //レシピ調合の場合、名前が少し違う
@@ -403,31 +422,95 @@ public class Compound_Main : MonoBehaviour {
 
     void Check_RecipiFlag()
     {
-        
-        //所持しているが、まだ読んでいないレシピがないか、チェックする。
-        while ( ReadRecipi_ALLOK != true)
+        if (Recipi_loading == true)
         {
+            //レシピを読み込み中のときは、所持チェックはしない。
+        }
+        else //レシピを読み込み中でない。
+        {
+            //所持しているが、まだ読んでいないレシピがないか、チェックする。
 
             i = 0;
-            ReadRecipi_ALLOK = true;
 
             while (i < pitemlist.eventitemlist.Count)
             {
+                ReadRecipi_ALLOK = true;
+
                 //もし、所持はしているのに、リードフラグは０のまま（＝読んでいないもの）がある場合、レシピを読む処理に入る。
                 if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ReadFlag == 0)
                 {
-                    
+
                     ReadRecipi_ALLOK = false;
 
                     /* レシピを読む処理 */
-                    Debug.Log("まだ" + pitemlist.eventitemlist[i].event_itemNameHyouji + "を読んでいない");
+                    Recipi_loading = true; //レシピを読み込み中ですよ～のフラグ
+                    pitemlist.eventitemlist[i].ev_ReadFlag = 1; //該当のイベントアイテムのレシピのフラグをONにしておく（読んだ、という意味）
+                    Recipi_FlagON_Method();
+                    Debug.Log("レシピ: " + pitemlist.eventitemlist[i].event_itemNameHyouji + "を読んだ");
 
-                    pitemlist.eventitemlist[i].ev_ReadFlag = 1; //読み終えたら1
                     break;
                 }
                 ++i;
             }
+
+            if (Recipi_loading == true)
+            {
+                StartCoroutine(Recipi_Read_Method());
+            }
+        }
+    }
+
+    IEnumerator Recipi_Read_Method() {
+
+        compoundselect_onoff_obj.SetActive(false);
+        saveload_panel.SetActive(false);
+        backbutton_obj.SetActive(false);
+        text_area.SetActive(false);
+        GameMgr.recipi_read_ID = pitemlist.eventitemlist[i].ev_ItemID;
+        GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
         }
 
+        Recipi_loading = false;
+    }
+
+    void Recipi_FlagON_Method()
+    {
+        //レシピの番号チェック　
+        switch(pitemlist.eventitemlist[i].ev_ItemID)
+        {
+            case 2:
+
+                Find_compoitemdatabase("cookie_base");
+                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+
+                Find_compoitemdatabase("financier_base");
+                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+
+                Find_compoitemdatabase("appaleil");
+                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    //アイテム名を入力すると、該当するcompoIDを返す処理
+    void Find_compoitemdatabase(string compo_itemname)
+    {
+        j = 0;
+        while ( j < databaseCompo.compoitems.Count )
+        {
+            if (compo_itemname == databaseCompo.compoitems[j].cmpitem_Name)
+            {
+                comp_ID = j;
+                break;
+            }
+            j++;
+        }
     }
 }

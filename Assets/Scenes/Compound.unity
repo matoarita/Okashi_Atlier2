@@ -551,11 +551,11 @@ RectTransform:
   m_Children:
   - {fileID: 2050364001}
   m_Father: {fileID: 1311570594}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: -175}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &82144440
@@ -908,9 +908,9 @@ RectTransform:
   m_Father: {fileID: 1176463416}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 320, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &260599772
@@ -1080,8 +1080,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 659049838}
   m_HandleRect: {fileID: 659049837}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0.000000054495683
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1374,9 +1374,9 @@ RectTransform:
   m_Father: {fileID: 1176463416}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &402432830
@@ -2143,9 +2143,9 @@ RectTransform:
   m_Father: {fileID: 1311570594}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: -105}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &605208178
@@ -3179,8 +3179,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1030660028}
   m_HandleRect: {fileID: 1030660027}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3624,9 +3624,9 @@ RectTransform:
   m_Father: {fileID: 1176463416}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1043408218
@@ -4089,7 +4089,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30E1\u30CB\u30E5\u30FC"
+  m_Text: "\u30A2\u30A4\u30C6\u30E0"
 --- !u!222 &1173857320
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4253,7 +4253,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30EC\u30B7\u30D4\u3092\u898B\u308B"
+  m_Text: "\u30EC\u30B7\u30D4\u304B\u3089\u8ABF\u5408"
 --- !u!222 &1186662459
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4513,11 +4513,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1508620539}
+  - {fileID: 82144439}
   - {fileID: 667630797}
   - {fileID: 605208177}
   - {fileID: 1590401085}
-  - {fileID: 82144439}
+  - {fileID: 1508620539}
   m_Father: {fileID: 781453616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5171,7 +5171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1508620539
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5185,11 +5185,11 @@ RectTransform:
   m_Children:
   - {fileID: 1252314177}
   m_Father: {fileID: 1311570594}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: -35}
+  m_AnchoredPosition: {x: 150, y: -175}
   m_SizeDelta: {x: 300, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1508620540
@@ -5865,7 +5865,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u304A\u83D3\u5B50\u3092\u65B0\u3057\u304F\u4F5C\u308B"
+  m_Text: "\u30AA\u30EA\u30B8\u30CA\u30EB\u3067\u4E00\u304B\u3089\u8ABF\u5408"
 --- !u!222 &1573978023
 CanvasRenderer:
   m_ObjectHideFlags: 0

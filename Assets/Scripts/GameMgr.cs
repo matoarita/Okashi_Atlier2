@@ -17,6 +17,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int event_recipiID; //その時のイベント番号
     public static bool event_recipi_endflag; //レシピを読み終えたときのフラグ
 
+    public static bool recipi_read_flag; //入手したレシピを読むときの、宴を表示する用のフラグ
+    public static int recipi_read_ID; //その時のイベント番号
+    public static bool recipi_read_endflag; //レシピを読み終えたときのフラグ
+
     public static bool talk_flag; //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number; //その時の会話番号。
 
@@ -40,6 +44,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         event_recipi_flag = false;
         event_recipi_endflag = false;
+
+        recipi_read_flag = false;
+        recipi_read_endflag = false;
 
         orange_recipi_get = false;
 

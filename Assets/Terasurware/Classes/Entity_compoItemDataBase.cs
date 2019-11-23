@@ -18,6 +18,7 @@ public class Entity_compoItemDataBase : ScriptableObject
 	{
 		
 		public int ItemID;
+		public string cmpitemName;
 		public string cmpitemID_1;
 		public string cmpitemID_2;
 		public string cmpitemID_3;

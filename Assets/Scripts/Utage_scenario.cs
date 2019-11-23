@@ -14,6 +14,7 @@ public class Utage_scenario : MonoBehaviour
     private bool scenario_loading;
 
     private int event_ID;
+    private int recipi_read_ID;
 
     private PlayerItemList pitemlist;
 
@@ -106,6 +107,15 @@ public class Utage_scenario : MonoBehaviour
 
                     //イベントレシピを表示
                     StartCoroutine(Event_recipi_Hyouji());
+                }
+
+                if (GameMgr.recipi_read_flag == true)
+                {
+                    GameMgr.recipi_read_flag = false;
+                    recipi_read_ID = GameMgr.recipi_read_ID;
+
+                    //イベントレシピを表示
+                    StartCoroutine(Recipi_read_Hyouji());
                 }
             }
                 
@@ -407,6 +417,35 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 
     }
+
+    
+    IEnumerator Recipi_read_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Recipi_read"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Read_recipi", recipi_read_ID);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+
+        GameMgr.recipi_read_endflag = true; //レシピを読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
 
     //
     // ショップの「話す」コマンド

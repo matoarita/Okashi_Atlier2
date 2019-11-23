@@ -700,8 +700,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 25
       debugIndex: 25
-      strings: []
-      isEmpty: 1
+      strings:
+      - Read_recipi
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 26
@@ -715,7 +718,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 147
+    textLength: 162
     headerRow: 0
   - rows:
     - rowIndex: 0

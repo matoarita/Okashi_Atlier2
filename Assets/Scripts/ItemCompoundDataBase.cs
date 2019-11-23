@@ -10,6 +10,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private Entity_compoItemDataBase excel_compoitemdatabase;
 
     private int _id;
+    private string cmpitem_name;
     private string cmpitem_1;
     private string cmpitem_2;
     private string cmpitem_3;
@@ -54,6 +55,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         {
             // 一旦代入
             _id = excel_compoitemdatabase.sheets[sheet_no].list[count].ItemID;
+            cmpitem_name = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemName;
             cmpitem_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_1;
             cmpitem_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_2;
             cmpitem_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_3;
@@ -74,7 +76,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
 
             //ここでリストに追加している
-            compoitems.Add(new ItemCompound(_id, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_flag, _cost_time, _srate, _renkin_bexp));
+            compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_flag, _cost_time, _srate, _renkin_bexp));
 
             ++count;
         }

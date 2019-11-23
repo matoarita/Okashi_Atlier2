@@ -91,6 +91,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool topping_result_ok; //トッピング調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool roast_result_ok; //「焼く」完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
 
+    public bool blend_flag; //これがたっていたら、レシピ調合の際、プレイヤーが素材自体を変えたり、比率を変えている、というフラグ。現在は、とりあえずオフ。
+
     public bool girleat_ok; // 女の子にアイテムをあげた時の完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool shop_buy_ok; //購入完了のフラグ。これがたっていたら、購入の処理を行い、フラグをオフに。
     public bool qbox_ok; // クエスト納品時の完了フラグ。
@@ -257,6 +259,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         result_ok = false;
         recipiresult_ok = false;
         girleat_ok = false;
+
+        blend_flag = false;
 
         compound_success = false;
 
@@ -441,20 +445,34 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
                 final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
 
-                //result_kosu = recipilistController.final_select_kosu;
+                result_kosu = recipilistController.final_select_kosu;
 
                 result_item = recipilistController.result_recipiitem;
                 result_ID = recipilistController.result_recipicompID;
 
-                //レシピ調合の場合、材料は、デフォルトで店売りのアイテムを使う。また、アイテム追加処理は、他の調合と同じメソッドを流用できる。
-                //ただし、今後の仕様で、材料アイテムと個数は、プレイヤーが任意に変更できるようにする予定。
 
-                Comp_method_bunki = 0;
+                //レシピ調合の場合、材料は、デフォルトで店売りのアイテムを使う。出来るアイテムも、デフォルトでは店売り。
+                //後々、ブレンドで比率を変えた場合は、アイテムの生成処理を、他の調合と同じメソッドを流用。
 
-                //完成したアイテムの追加。
-                Topping_Compound_Method();
+                if (blend_flag == true) //プレイヤーが任意で、アイテムを変えたり、比率を変更した場合
+                {
+                    Comp_method_bunki = 0;
 
-                card_view.ResultCard_DrawView(1, new_item);
+                    //オリジナル調合のメソッドを流用する
+                    Topping_Compound_Method();
+
+                    card_view.ResultCard_DrawView(1, new_item);
+                }
+                else //こっちがデフォルト。店売りアイテムを使い、店売りアイテムを作成する。
+                {
+                    Comp_method_bunki = 0;
+
+                    Delete_playerItemList();
+                    pitemlist.addPlayerItem(result_item, result_kosu);
+
+                    card_view.ResultCard_DrawView(0, result_item);
+                }
+               
 
                 recipiresult_ok = false;
 
@@ -506,8 +524,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     kettei_item3 = 9999;
                 }
 
-
-                
 
                 base_kosu = 1;
                 final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
