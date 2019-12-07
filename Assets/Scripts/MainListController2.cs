@@ -10,11 +10,13 @@ public class MainListController2 : MonoBehaviour
     private GameObject npc1_toggle_obj;
     private GameObject npc2_toggle_obj;
     private GameObject npc3_toggle_obj;
+    private GameObject hiroba1_toggle_obj;
 
 
     private Toggle npc1_toggle;
     private Toggle npc2_toggle;
     private Toggle npc3_toggle;
+    private Toggle hiroba1_toggle;
 
 
 
@@ -25,11 +27,13 @@ public class MainListController2 : MonoBehaviour
         npc1_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC1_SelectToggle").gameObject;
         npc2_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC2_SelectToggle").gameObject;
         npc3_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC3_SelectToggle").gameObject;
+        hiroba1_toggle_obj = this.transform.Find("Viewport/Content_Main/Hiroba1_SelectToggle").gameObject;
 
 
         npc1_toggle = npc1_toggle_obj.GetComponent<Toggle>();
         npc2_toggle = npc2_toggle_obj.GetComponent<Toggle>();
         npc3_toggle = npc3_toggle_obj.GetComponent<Toggle>();
+        hiroba1_toggle = hiroba1_toggle_obj.GetComponent<Toggle>();
 
     }
 
@@ -70,8 +74,11 @@ public class MainListController2 : MonoBehaviour
         }
     }
 
-    public void OnBack_Button()
+    public void OnHiroba1_Button()
     {
-        FadeManager.Instance.LoadScene("Hiroba", 0.3f);
+        if (hiroba1_toggle.isOn == true)
+        {
+            FadeManager.Instance.LoadScene("Hiroba", 0.3f);
+        }
     }
 }

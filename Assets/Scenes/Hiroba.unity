@@ -297,6 +297,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114676940227885200, guid: cf6b7a94aa3f6f04ba2b4931bbcbbe7c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnHiroba2_Button
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf6b7a94aa3f6f04ba2b4931bbcbbe7c, type: 2}
   m_IsPrefabParent: 0
@@ -1567,7 +1572,7 @@ Prefab:
     - target: {fileID: 114937718235805506, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_Text
-      value: "\u304A\u5E97\u30A8\u30D0\u30FC\u30D6\u30EB\u30FC"
+      value: "SHOP\u300C\u30A2\u30AF\u30A2\u4EAD\u300D"
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -1644,10 +1649,10 @@ RectTransform:
   m_Father: {fileID: 2084325463}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 16}
-  m_SizeDelta: {x: 270, y: 270}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -122}
+  m_SizeDelta: {x: 270, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1367671904
 MonoBehaviour:
@@ -1713,7 +1718,7 @@ Prefab:
     - target: {fileID: 114937718235805506, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_Text
-      value: "\u30AF\u30A8\u30B9\u30C8"
+      value: "\u30CA\u30B8\u30E3\u306E\u5BBF\u5834"
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -2122,22 +2127,22 @@ Prefab:
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 110
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -210
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 220
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -2147,7 +2152,7 @@ Prefab:
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -2157,7 +2162,7 @@ Prefab:
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -2171,11 +2176,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1278971591492044, guid: f45d90a6ca66996479e40787f055a9dd, type: 2}
       propertyPath: m_Name
-      value: Atlier_SelectToggle (1)
+      value: Hiroba2_SelectToggle
       objectReference: {fileID: 0}
     - target: {fileID: 1278971591492044, guid: f45d90a6ca66996479e40787f055a9dd, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937718235805506, guid: f45d90a6ca66996479e40787f055a9dd,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u5E83\u5834\u3078\u3044\u304F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114778740421086744, guid: f45d90a6ca66996479e40787f055a9dd,
+        type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2084325467}
+    - target: {fileID: 114778740421086744, guid: f45d90a6ca66996479e40787f055a9dd,
+        type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnHiroba2_Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f45d90a6ca66996479e40787f055a9dd, type: 2}
@@ -2397,7 +2417,7 @@ Prefab:
     - target: {fileID: 114937718235805506, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_Text
-      value: "\u304A\u5C4B\u6577"
+      value: "\u6559\u4F1A"
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}

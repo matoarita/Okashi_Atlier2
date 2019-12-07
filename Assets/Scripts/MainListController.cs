@@ -11,12 +11,14 @@ public class MainListController : MonoBehaviour {
     private GameObject GirlEat_toggle_obj;
     private GameObject Travel_toggle_obj;
     private GameObject QuestBox_toggle_obj;
+    private GameObject Hiroba2_toggle_obj;
 
     private Toggle Atlier_toggle;
     private Toggle Shop_toggle;
     private Toggle GirlEat_toggle;
     private Toggle Travel_toggle;
     private Toggle QuestBox_toggle;
+    private Toggle Hiroba2_toggle;
 
 
     // Use this for initialization
@@ -27,12 +29,14 @@ public class MainListController : MonoBehaviour {
         GirlEat_toggle_obj = this.transform.Find("Viewport/Content_Main/GirlEat_SelectToggle").gameObject;
         Travel_toggle_obj = this.transform.Find("Viewport/Content_Main/Travel_SelectToggle").gameObject;
         QuestBox_toggle_obj = this.transform.Find("Viewport/Content_Main/QuestBox_SelectToggle").gameObject;
+        Hiroba2_toggle_obj = this.transform.Find("Viewport/Content_Main/Hiroba2_SelectToggle").gameObject;
 
         Atlier_toggle = Atlier_toggle_obj.GetComponent<Toggle>();
         Shop_toggle = Shop_toggle_obj.GetComponent<Toggle>();
         GirlEat_toggle = GirlEat_toggle_obj.GetComponent<Toggle>();
         Travel_toggle = Travel_toggle_obj.GetComponent<Toggle>();
         QuestBox_toggle = QuestBox_toggle_obj.GetComponent<Toggle>();
+        Hiroba2_toggle = Hiroba2_toggle_obj.GetComponent<Toggle>();
 
     }
 	
@@ -90,8 +94,11 @@ public class MainListController : MonoBehaviour {
         }
     }
 
-    public void OnUp_Button()
+    public void OnHiroba2_Button()
     {
-        FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
+        if (Hiroba2_toggle.isOn == true)
+        {
+            FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
+        }
     }
 }

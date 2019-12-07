@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f0a97b2eb0f554d9836d9d0117032c, type: 3}
+  m_Name: Entity_eventItemDataBase
+  m_EditorClassIdentifier: 
+  sheets:
+  - name: 01_event_recipi
+    list:
+    - ev_ItemID: 0
+      name: ev01_orange_cookie_recipi
+      nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4"
+      cost_price: 0
+      sell_price: 0
+      kosu: 0
+      read_flag: 0
+    - ev_ItemID: 1
+      name: najya_start_recipi
+      nameHyouji: "\u30CA\u30B8\u30E3\u306E\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C"
+      cost_price: 0
+      sell_price: 0
+      kosu: 0
+      read_flag: 0
+    - ev_ItemID: 2
+      name: cookie_base_recipi
+      nameHyouji: "\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
+      cost_price: 1500
+      sell_price: 750
+      kosu: 0
+      read_flag: 0
