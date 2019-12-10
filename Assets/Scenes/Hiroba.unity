@@ -1572,7 +1572,7 @@ Prefab:
     - target: {fileID: 114937718235805506, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_Text
-      value: "SHOP\u300C\u30A2\u30AF\u30A2\u4EAD\u300D"
+      value: "SHOP\u300C\u30D5\u30A3\u30AA\u30CA\u300D"
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}

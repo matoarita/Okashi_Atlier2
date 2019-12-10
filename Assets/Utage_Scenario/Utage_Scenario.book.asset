@@ -2317,6 +2317,14 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 5
+      debugIndex: 9
+      strings:
+      - Jump
+      - "*\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
       debugIndex: 19
       strings:
       - EndScenario
@@ -2325,7 +2333,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter1_Compound_AtFirst
     type: 1
-    textLength: 160
+    textLength: 173
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -2869,7 +2877,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u2460\u30DC\u30A6\u30EB\u306B<color=#FF5CA1FF>\u7121\u5869\u30D0\u30BF\u30FC</color>\u3068<color=#FF5CA1FF>\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC</color>\uFF08\u713C\u3051\u3053\u3052\u3066\u8AAD\u3081\u306A\u3044\uFF09\u3092\u5165\u308C\u3001\n\u30AF\u30EA\u30FC\u30E0\u72B6\u306B\u306A\u308B\u307E\u3067\u6DF7\u305C\u308B"
+      - "\u2460\u30DC\u30A6\u30EB\u306B<color=#FF5CA1FF>\u30D0\u30BF\u30FC</color>\u3068<color=#FF5CA1FF>\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC</color>\uFF08\u713C\u3051\u3053\u3052\u3066\u8AAD\u3081\u306A\u3044\uFF09\u3092\u5165\u308C\u3001\n\u30AF\u30EA\u30FC\u30E0\u72B6\u306B\u306A\u308B\u307E\u3067\u6DF7\u305C\u308B"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -3046,7 +3054,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Event_Recipi
     type: 1
-    textLength: 699
+    textLength: 697
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -3081,19 +3089,28 @@ MonoBehaviour:
       debugIndex: 5
       strings:
       - Jump
+      - "*\u30CA\u30B8\u30E3\u306E\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C"
+      - Read_recipi==1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 6
+      strings:
+      - 
       - "*\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
       - Read_recipi==2
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 3
+    - rowIndex: 4
       debugIndex: 10
       strings:
       - "*\u30EA\u30FC\u30C9\u30EC\u30B7\u30D4\u8A72\u5F53\u7121\u3057"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 4
+    - rowIndex: 5
       debugIndex: 11
       strings:
       - 
@@ -3108,22 +3125,51 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 5
+    - rowIndex: 6
       debugIndex: 13
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 6
-      debugIndex: 19
+    - rowIndex: 7
+      debugIndex: 16
+      strings:
+      - "*\u30CA\u30B8\u30E3\u306E\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 8
+      debugIndex: 18
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C\u3092\u8AAD\u3093\u3060\uFF01"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 9
+      debugIndex: 22
+      strings:
+      - EndScenario
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 10
+      debugIndex: 26
       strings:
       - "*\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 7
-      debugIndex: 21
+    - rowIndex: 11
+      debugIndex: 28
       strings:
       - 
       - 
@@ -3137,8 +3183,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 8
-      debugIndex: 22
+    - rowIndex: 12
+      debugIndex: 29
       strings:
       - 
       - 
@@ -3152,8 +3198,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 9
-      debugIndex: 23
+    - rowIndex: 13
+      debugIndex: 30
       strings:
       - 
       - 
@@ -3167,8 +3213,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 10
-      debugIndex: 24
+    - rowIndex: 14
+      debugIndex: 31
       strings:
       - 
       - 
@@ -3182,24 +3228,16 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 11
-      debugIndex: 31
+    - rowIndex: 15
+      debugIndex: 34
       strings:
       - EndScenario
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Recipi_read
     type: 1
-    textLength: 292
+    textLength: 356
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -7399,8 +7437,10 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 9
       debugIndex: 9
-      strings: []
-      isEmpty: 1
+      strings:
+      - Jump
+      - "*\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 10
@@ -7466,7 +7506,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter1_Compound_AtFirst
     type: 1
-    textLength: 160
+    textLength: 173
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -8262,7 +8302,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u2460\u30DC\u30A6\u30EB\u306B<color=#FF5CA1FF>\u7121\u5869\u30D0\u30BF\u30FC</color>\u3068<color=#FF5CA1FF>\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC</color>\uFF08\u713C\u3051\u3053\u3052\u3066\u8AAD\u3081\u306A\u3044\uFF09\u3092\u5165\u308C\u3001\n\u30AF\u30EA\u30FC\u30E0\u72B6\u306B\u306A\u308B\u307E\u3067\u6DF7\u305C\u308B"
+      - "\u2460\u30DC\u30A6\u30EB\u306B<color=#FF5CA1FF>\u30D0\u30BF\u30FC</color>\u3068<color=#FF5CA1FF>\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC</color>\uFF08\u713C\u3051\u3053\u3052\u3066\u8AAD\u3081\u306A\u3044\uFF09\u3092\u5165\u308C\u3001\n\u30AF\u30EA\u30FC\u30E0\u72B6\u306B\u306A\u308B\u307E\u3067\u6DF7\u305C\u308B"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -8523,7 +8563,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Event_Recipi
     type: 1
-    textLength: 699
+    textLength: 697
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -8574,15 +8614,18 @@ MonoBehaviour:
       debugIndex: 5
       strings:
       - Jump
-      - "*\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
-      - Read_recipi==2
+      - "*\u30CA\u30B8\u30E3\u306E\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C"
+      - Read_recipi==1
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 6
       debugIndex: 6
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - "*\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
+      - Read_recipi==2
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 7
@@ -8652,8 +8695,9 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 16
       debugIndex: 16
-      strings: []
-      isEmpty: 1
+      strings:
+      - "*\u30CA\u30B8\u30E3\u306E\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 17
@@ -8664,15 +8708,23 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 18
       debugIndex: 18
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C\u3092\u8AAD\u3093\u3060\uFF01"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 19
       debugIndex: 19
-      strings:
-      - "*\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 20
@@ -8683,6 +8735,50 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 21
       debugIndex: 21
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 22
+      debugIndex: 22
+      strings:
+      - EndScenario
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 23
+      debugIndex: 23
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 24
+      debugIndex: 24
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 25
+      debugIndex: 25
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 26
+      debugIndex: 26
+      strings:
+      - "*\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 27
+      debugIndex: 27
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 28
+      debugIndex: 28
       strings:
       - 
       - 
@@ -8696,8 +8792,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 22
-      debugIndex: 22
+    - rowIndex: 29
+      debugIndex: 29
       strings:
       - 
       - 
@@ -8711,8 +8807,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 23
-      debugIndex: 23
+    - rowIndex: 30
+      debugIndex: 30
       strings:
       - 
       - 
@@ -8726,8 +8822,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 24
-      debugIndex: 24
+    - rowIndex: 31
+      debugIndex: 31
       strings:
       - 
       - 
@@ -8741,78 +8837,18 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 25
-      debugIndex: 25
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 26
-      debugIndex: 26
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 27
-      debugIndex: 27
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 28
-      debugIndex: 28
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 29
-      debugIndex: 29
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 30
-      debugIndex: 30
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 31
-      debugIndex: 31
-      strings:
-      - EndScenario
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 32
       debugIndex: 32
-      strings: []
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
@@ -8824,8 +8860,9 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 34
       debugIndex: 34
-      strings: []
-      isEmpty: 1
+      strings:
+      - EndScenario
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 35
@@ -8836,7 +8873,16 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 36
       debugIndex: 36
-      strings: []
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
@@ -8848,7 +8894,16 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 38
       debugIndex: 38
-      strings: []
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
@@ -8929,7 +8984,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Recipi_read
     type: 1
-    textLength: 292
+    textLength: 356
     headerRow: 0
   - rows:
     - rowIndex: 0

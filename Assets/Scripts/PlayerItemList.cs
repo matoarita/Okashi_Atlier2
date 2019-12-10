@@ -20,6 +20,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int ev_kosu;
     private int ev_cost, ev_sell;
     private int ev_read_flag; //そのレシピを読み終えたかどうかをチェックするフラグ
+    private int ev_list_on; //レシピリストに、表示するか否か。1の場合、リストに表示され、使用すると、そのレシピの内容を読むことができる。
 
     private int i;
     private int count;
@@ -101,11 +102,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_itemNameHyouji = excel_eventitemdatabase.sheets[sheet_no].list[count].nameHyouji;
                 ev_cost = excel_eventitemdatabase.sheets[sheet_no].list[count].cost_price;
                 ev_sell = excel_eventitemdatabase.sheets[sheet_no].list[count].sell_price;
-                ev_read_flag = 0;
-                ev_kosu = 0;
+                ev_kosu = excel_eventitemdatabase.sheets[sheet_no].list[count].kosu;
+                ev_read_flag = excel_eventitemdatabase.sheets[sheet_no].list[count].read_flag;
+                ev_list_on = excel_eventitemdatabase.sheets[sheet_no].list[count].list_hyouji_on;
 
                 //ここでリストに追加している
-                eventitemlist.Add(new ItemEvent(_id, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag));
+                eventitemlist.Add(new ItemEvent(_id, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_list_on));
 
                 ++count;
             }
@@ -118,7 +120,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
                 for (i = 0; i < excel_eventitemdatabase.sheets[sheet_no].list[0].ev_ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
                 {
-                    eventitemlist.Add(new ItemEvent(_id + i + 1, "", "", 0, 0, 0, 0)); //エクセルに登録されていないアイテムID分、空をいれている。
+                    eventitemlist.Add(new ItemEvent(_id + i + 1, "", "", 0, 0, 0, 0, 0)); //エクセルに登録されていないアイテムID分、空をいれている。
                 }
             }
         }

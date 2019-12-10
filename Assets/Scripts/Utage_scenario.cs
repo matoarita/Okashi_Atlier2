@@ -92,7 +92,7 @@ public class Utage_scenario : MonoBehaviour
                 {
 
                     case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。また、何を作ればよいかを指示してくれる。
-                        GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。
+
                         StartCoroutine(Chapter1_Compound_AtFirst());
                         break;
 
@@ -280,7 +280,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false;
 
         GameMgr.scenario_ON = false;
-        GameMgr.scenario_flag = 115;
+        GameMgr.scenario_flag = 120;
 
     }
 

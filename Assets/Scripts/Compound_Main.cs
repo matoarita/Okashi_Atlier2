@@ -133,22 +133,35 @@ public class Compound_Main : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        //読んでいないレシピがあれば、読む処理。優先順位が一番先。
-        if (ReadRecipi_ALLOK == false)
+        switch (GameMgr.scenario_flag)
         {
-            Check_RecipiFlag();
+
+            case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。また、何を作ればよいかを指示してくれる。
+                GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+                break;
+
+            default:
+                break;
+        }
+
+        //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
+        if (GameMgr.scenario_ON == true)
+        {
+            compoundselect_onoff_obj.SetActive(false);
+            saveload_panel.SetActive(false);
+            backbutton_obj.SetActive(false);
+            text_area.SetActive(false);
         }
 
         else //以下が、通常の処理
         {
-            //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
-            if (GameMgr.scenario_ON == true)
+            //Debug.Log("調合シーン　処理　二番目");
+            //読んでいないレシピがあれば、読む処理。優先順位二番目。
+            if (ReadRecipi_ALLOK == false)
             {
-                compoundselect_onoff_obj.SetActive(false);
-                saveload_panel.SetActive(false);
-                backbutton_obj.SetActive(false);
-                text_area.SetActive(false);
+                Check_RecipiFlag();
             }
+
             else
             {
 
@@ -402,9 +415,6 @@ public class Compound_Main : MonoBehaviour {
             case 115:
                 _text.text = "何の調合をする？" + "\n" + "(さっきのレシピを見てみるか。)";
 
-                /*original_toggle.GetComponent<Toggle>().interactable = false;
-                topping_toggle.GetComponent<Toggle>().interactable = false;
-                roast_toggle.GetComponent<Toggle>().interactable = false;*/
                 break;
 
             case 120:
@@ -441,9 +451,9 @@ public class Compound_Main : MonoBehaviour {
                 {
 
                     ReadRecipi_ALLOK = false;
+                    Recipi_loading = true; //レシピを読み込み中ですよ～のフラグ
 
                     /* レシピを読む処理 */
-                    Recipi_loading = true; //レシピを読み込み中ですよ～のフラグ
                     pitemlist.eventitemlist[i].ev_ReadFlag = 1; //該当のイベントアイテムのレシピのフラグをONにしておく（読んだ、という意味）
                     Recipi_FlagON_Method();
                     Debug.Log("レシピ: " + pitemlist.eventitemlist[i].event_itemNameHyouji + "を読んだ");
@@ -482,10 +492,14 @@ public class Compound_Main : MonoBehaviour {
         //レシピの番号チェック　
         switch(pitemlist.eventitemlist[i].ev_ItemID)
         {
-            case 2:
+            case 1: //ナジャのお菓子作りの基本
 
                 Find_compoitemdatabase("cookie_base");
                 databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+
+                break;
+
+            case 2: //クッキー生地作り方のレシピ＜初級＞              
 
                 Find_compoitemdatabase("financier_base");
                 databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;

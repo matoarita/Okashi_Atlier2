@@ -26,6 +26,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     private PlayerItemList pitemlist;
 
+    private int i, j;
+    private int ev_id;
+
     //イベントフラグ管理用
     [SerializeField]
     private bool orange_recipi_get;
@@ -103,13 +106,35 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
 
         //ここまで
+
+        //ゲーム中にイベントで入手したアイテムの管理
         if (orange_recipi_get != true)
         {
             if (scenario_flag == 110)
             {
-                pitemlist.add_eventPlayerItem(0, 1); //オレンジクッキーのレシピを追加
+                Find_eventitemdatabase("najya_start_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
+
+                Find_eventitemdatabase("ev01_orange_cookie_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //オレンジクッキーのレシピを追加
+
                 orange_recipi_get = true; //ゲットしたよフラグをONに。
             }
+        }
+    }
+
+    //アイテム名を入力すると、該当するeventitem_IDを返す処理
+    void Find_eventitemdatabase(string compo_itemname)
+    {
+        j = 0;
+        while (j < pitemlist.eventitemlist.Count)
+        {
+            if (compo_itemname == pitemlist.eventitemlist[j].event_itemName)
+            {
+                ev_id = j;
+                break;
+            }
+            j++;
         }
     }
 }

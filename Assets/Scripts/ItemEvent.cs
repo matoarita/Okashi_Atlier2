@@ -15,11 +15,12 @@ public class ItemEvent
     public int event_sell_price;
     public int ev_itemKosu;
     public int ev_ReadFlag;
+    public int ev_ListOn;
 
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemEvent(int id, string ev_item, string ev_itemNameHyouji, int _cost, int _sell, int kosu, int flag)
+    public ItemEvent(int id, string ev_item, string ev_itemNameHyouji, int _cost, int _sell, int kosu, int flag, int list_on)
     {
         ev_ItemID = id;
         event_itemName = ev_item;
@@ -29,6 +30,7 @@ public class ItemEvent
         event_sell_price = _sell;
         ev_itemKosu = kosu;
         ev_ReadFlag = flag;
+        ev_ListOn = list_on;
 
     }
 

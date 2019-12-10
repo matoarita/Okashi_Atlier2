@@ -114,7 +114,7 @@ public class RecipiListController : MonoBehaviour {
         //イベント用レシピのフラグをチェック。レシピリストから、さらに読めるものを表示。章クリア用のメモなど。
         for(i = 0; i < pitemlist.eventitemlist.Count; i++)
         {
-            if ( pitemlist.eventitemlist[i].ev_itemKosu > 0) //調合DBのフラグが1以上のアイテムのみ、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
+            if ( pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ListOn == 1) //イベントレシピを所持してる　かつ　リスト表示がONのものを表示
             {
                 //Debug.Log(i);
 
