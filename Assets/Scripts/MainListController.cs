@@ -43,10 +43,10 @@ public class MainListController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if( GameMgr.scenario_flag >= 110 && GameMgr.scenario_flag < 150) //1話の最初の調合シーンのときは、女の子と会うコマンドはOFF
+		/*if( GameMgr.scenario_flag >= 110 && GameMgr.scenario_flag < 150) //1話の最初の調合シーンのときは、女の子と会うコマンドはOFF
         {
             GirlEat_toggle_obj.SetActive(false);
-        }
+        }*/
 	}
 
     public void OnAtlier_toggle()

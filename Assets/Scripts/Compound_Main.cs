@@ -35,6 +35,7 @@ public class Compound_Main : MonoBehaviour {
     private GameObject blend_toggle;
 
     private GameObject menu_toggle;
+    private GameObject shop_toggle;
 
     private GameObject backbutton_obj;
 
@@ -116,7 +117,8 @@ public class Compound_Main : MonoBehaviour {
         roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
-        menu_toggle = saveload_panel.transform.Find("Viewport/Content_compound/Menu_Toggle").gameObject;
+        menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
+        shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
 
         //初期メッセージ
         _text.text = "何の調合をする？";
@@ -173,8 +175,8 @@ public class Compound_Main : MonoBehaviour {
                         recipilist_onoff.SetActive(false);
                         playeritemlist_onoff.SetActive(false);
                         compoundselect_onoff_obj.SetActive(true);
-                        saveload_panel.SetActive(true);
-                        backbutton_obj.SetActive(true);
+                        //saveload_panel.SetActive(true);
+                        //backbutton_obj.SetActive(true);
                         text_area.SetActive(true);
 
                         text_scenario();
@@ -271,8 +273,8 @@ public class Compound_Main : MonoBehaviour {
                 if (GameMgr.recipi_read_endflag == true)
                 {
                     compoundselect_onoff_obj.SetActive(true);
-                    saveload_panel.SetActive(true);
-                    backbutton_obj.SetActive(true);
+                    //saveload_panel.SetActive(true);
+                    //backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
 
                     text_scenario();
@@ -283,8 +285,8 @@ public class Compound_Main : MonoBehaviour {
                 if (GameMgr.event_recipi_endflag == true)
                 {
                     compoundselect_onoff_obj.SetActive(true);
-                    saveload_panel.SetActive(true);
-                    backbutton_obj.SetActive(true);
+                    //saveload_panel.SetActive(true);
+                    //backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
 
                     text_scenario();
@@ -304,31 +306,31 @@ public class Compound_Main : MonoBehaviour {
             yes_no_load();
 
             //Debug.Log("check1");
-            _text.text = "レシピから、お菓子を作るよ。調合したいアイテムを選択してください。";
+            _text.text = "レシピから作るよ。何を作る？";
             compound_status = 1;
         }
     }
 
     public void OnCheck_2() //トッピング調合をON
     {
-        if (topping_toggle.GetComponent<Toggle>().isOn == true)
+        if (original_toggle.GetComponent<Toggle>().isOn == true)
         {
             yes_no_load();
 
             //Debug.Log("check2");
-            _text.text = "すでに作ったアイテムにトッピングをして、味の調節をしよう。";
+            _text.text = "エクストリーム調合をするよ！ まずは、お菓子を選んでね。";
             compound_status = 2;
         }
     }
 
     public void OnCheck_3() //オリジナル調合をON
     {
-        if (original_toggle.GetComponent<Toggle>().isOn == true)
+        if (recipi_toggle.GetComponent<Toggle>().isOn == true)
         {
             yes_no_load();
 
             //Debug.Log("check3");
-            _text.text = "オリジナル調合をするよ！ 一つ目のアイテムを選択してください。";
+            _text.text = "何を作る？";
             compound_status = 3;
         }
     }
@@ -367,6 +369,15 @@ public class Compound_Main : MonoBehaviour {
             compound_status = 99;
         }
     }
+    public void OnShop_toggle() //メニューをON
+    {
+        if (shop_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            shop_toggle.GetComponent<Toggle>().isOn = false;
+            FadeManager.Instance.LoadScene("Shop", 0.3f);
+        }
+    }
+    
 
     //イベント用レシピを見たときの処理。
     public void eventRecipi_ON()

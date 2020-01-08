@@ -18,6 +18,6 @@ public class BackTown : MonoBehaviour {
     public void OnClickToTown()
     {
         //SceneManager.LoadScene("Hiroba");
-        FadeManager.Instance.LoadScene("Hiroba", 0.3f);
+        FadeManager.Instance.LoadScene("Compound", 0.3f);
     }
 }

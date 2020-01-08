@@ -1364,7 +1364,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //生地合成のときのみ、ベース個数を含む。
-        if ( Comp_method_bunki == 1)
+        if (Comp_method_bunki == 1 || Comp_method_bunki == 3)
         {
             total_kosu += base_kosu;
         }
@@ -1383,15 +1383,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //②次に、甘さやサクサク感などの計算処理。
 
-        //1. 新規調合の場合、基本的にアイテム同士のパラメータを加算し、その後個数で割り算する。
+        //1. 新規調合の場合、基本的に全てのアイテム同士のパラメータを加算し、その後個数で割り算する。
 
         //2. 新規調合で、かつ小麦粉を使った生地作りの場合、
         //そのまま加算はせず、小麦粉をベースに、バター・砂糖・たまごは、各比率を計算し、代入する。
 
-        //3. トッピング調合時、または、生地にアイテムを合成する処理も、加算し、その後割り算。
+        //3. トッピング調合時、または、生地にアイテムを合成する処理は、加算し、その後割り算。
 
 
-        if (Comp_method_bunki == 1) //トッピング、または生地合成のときの計算。
+        if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //トッピング、または生地合成のときの計算。
         {
             for (i = 0; i < _additemlist.Count; i++)
             {
