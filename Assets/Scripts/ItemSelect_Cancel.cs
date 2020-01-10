@@ -244,6 +244,8 @@ public class ItemSelect_Cancel : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
+
+            //調合中か、あげる処理に入っているか、もしくはアイテムリストを開いているとき
             if (compound_Main.compound_status == 4)
             {
                 if (compound_Main.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
@@ -288,6 +290,8 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     }
                 }
             }
+
+            //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
             else
             {
 
@@ -301,7 +305,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
                         {
                             if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
                             {
-                                if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。トグルが押されると、これはfalseになり、トグルの処理が優先される。
+                                if (kettei_on_waiting == false) //待機状態を表す。トグルが押されると、kettei_on_waiting=trueになり、トグルの処理が優先される。
                                 {
                                     if (pitemlistController.kettei1_bunki == 1) //現在一個目を選択している状態
                                     {
@@ -356,7 +360,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
                         {
                             if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
                             {
-                                if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。トグルが押されると、これはfalseになり、トグルの処理が優先される。
+                                if (kettei_on_waiting == false) //待機状態を表す。トグルが押されると、kettei_on_waiting=trueになり、トグルの処理が優先される。
                                 {
                                     if (pitemlistController.kettei1_bunki == 10) //現在ベースアイテムを選択している状態
                                     {
@@ -423,18 +427,19 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     }
                 }
 
-                if (compound_Main.compound_select == 99) //オリジナル調合のときの処理
+                if (compound_Main.compound_select == 99) //アイテム欄を開いているときで、カードが表示されている。
                 {
                     if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
                     {
                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                         {
-                            compound_Main.compound_status = 0;
+                            All_cancel();
+
+                            //カード表示を消す
                             card_view.DeleteCard_DrawView();
 
                             yes.SetActive(false);
                             no.SetActive(true);
-                            //updown_counter_obj.SetActive(false);
 
                             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                         }
@@ -538,7 +543,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
 
-            else if (compound_Main.compound_select == 2) //オリジナル調合のときの処理
+            else if (compound_Main.compound_select == 2) //エクストリーム調合のときの処理
             {
                 if (pitemlistController.kettei1_bunki == 10)
                 {

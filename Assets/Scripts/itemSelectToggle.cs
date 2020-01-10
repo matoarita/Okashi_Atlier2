@@ -221,6 +221,12 @@ public class itemSelectToggle : MonoBehaviour
                     compound_roast_active();
                 }
 
+                // お菓子を「あげる」を選択した場合の処理
+                if (compound_Main.compound_select == 10)
+                {
+                    Girl_present();
+                }
+
                 // 単にメニューを開いたとき
                 if (compound_Main.compound_select == 99)
                 {
@@ -258,6 +264,8 @@ public class itemSelectToggle : MonoBehaviour
     //アイテム画面を開いた時の処理。アイテムを選択すると、カードを表示する。
     void Player_ItemList_Open()
     {
+        no.SetActive(true);
+
         count = 0;
 
         while (count < pitemlistController._listitem.Count)
@@ -298,6 +306,8 @@ public class itemSelectToggle : MonoBehaviour
             ++count;
         }
     }
+
+
 
     /* ### 調合シーンの処理 ### */
 
@@ -1980,7 +1990,81 @@ public class itemSelectToggle : MonoBehaviour
      
         }
     }
-    
+
+
+    /* ### 調合シーンで、女の子にお菓子をあげる処理 ＜エクストリーム調合に方針変え＞ ### */
+
+    public void Girl_present()
+    {
+        count = 0;
+
+        while (count < pitemlistController._listitem.Count)
+        {
+            selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
+            if (selectToggle == true) break;
+            ++count;
+        }
+
+        //リスト中の選択された番号を格納。
+        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+
+
+        //表示中リストの、リスト番号を保存。
+        pitemlistController._count1 = count;
+
+        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+        pitemlistController.final_kettei_item1 = itemID_1;
+
+        pitemlistController.kettei1_bunki = 9999; //分岐なし。テキストの更新を避けるため、とりあえず適当な数字を入れて回避。
+
+        _text.text = database.items[itemID_1].itemNameHyouji + "をあげますか？";
+
+        Debug.Log(count + "番が押されたよ");
+        Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+        Debug.Log("これでいいですか？");
+
+        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+
+        SelectPaused();
+
+        StartCoroutine("Girl_present_Final_select");
+    }
+
+    IEnumerator Girl_present_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                //女の子にアイテムをあげる処理
+                compound_Main.compound_status = 11; //status=11で処理。
+
+                Off_Flag_Setting();
+
+                break;
+
+            case false:
+
+                //Debug.Log("一個目はcancel");
+
+                //_text.text = "焼きたい生地を選択してください。";
+
+                itemselect_cancel.All_cancel();
+                break;
+
+        }
+    }
+
+
+
 
 
     /* ### 女の子にあげるときのシーン ### */
@@ -2062,6 +2146,9 @@ public class itemSelectToggle : MonoBehaviour
                 break;
         }
     }
+
+
+
 
 
     /* ### クエストボックスのシーン ### */
@@ -2200,6 +2287,11 @@ public class itemSelectToggle : MonoBehaviour
             if (compound_Main.compound_select == 5)
             {
                 yes_text.text = "生地を焼く！";
+            }
+
+            if (compound_Main.compound_select == 10)
+            {
+                yes_text.text = "あげる";
             }
         }
     }

@@ -37,6 +37,7 @@ TagManager:
   - QuestBox_Main
   - SoundController
   - PlayerItemListView_Init
+  - GetMaterial
   layers:
   - Default
   - TransparentFX

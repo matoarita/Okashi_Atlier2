@@ -273,7 +273,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 break;
 
                             case 5: //焼くとき。アイテムタイプサブが「生地」のみ表示。
+
                                 if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" || database.items[i].itemType_sub.ToString() == "Pie_base" || database.items[i].itemType_sub.ToString() == "Chocorate_base" || database.items[i].itemType_sub.ToString() == "Cake_base")
+                                {
+                                    itemlist_hyouji();
+                                }
+                                break;
+
+                            case 10: //お菓子をあげるとき。アイテムタイプが「お菓子」のみ表示
+
+                                if (database.items[i].itemType.ToString() == "Okashi")
                                 {
                                     itemlist_hyouji();
                                 }
@@ -285,6 +294,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 break;
 
                             default:
+
                                 break;
                         }
                     }
@@ -341,6 +351,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         }
                         break;
 
+                    case 10: //お菓子をあげるとき。アイテムタイプが「お菓子」のみ表示
+
+                        if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                        {
+                            original_itemlist_hyouji();
+                        }
+                        break;
+
                     case 99: //メニュー画面を開いたとき
 
                         original_itemlist_hyouji();
@@ -366,7 +384,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     }
 
 
+
+
     //トッピング調合の時のみ使用。ベースアイテムを決める時。
+
     public void topping_DrawView_1()
     {  
 
@@ -423,7 +444,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
     }
 
+
+
     //トッピング調合の時のみ使用。トッピング材料を決める時。
+
     public void topping_DrawView_2()
     {
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -479,6 +503,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
     }
 
+
+
+
     void itemlist_hyouji()
     {
         //Debug.Log(i);
@@ -503,6 +530,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         ++list_count;
     }
+
+
+
 
     void original_itemlist_hyouji()
     {

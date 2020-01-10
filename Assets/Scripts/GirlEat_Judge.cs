@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class GirlEat_Judge : MonoBehaviour {
 
-    private GameObject pitemlistController_obj;
-    private PlayerItemListController pitemlistController;
-
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -149,15 +146,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
     //選んだアイテムと、女の子の好みを比較するメソッド
 
-    public void Girleat_Judge_method()
+    public void Girleat_Judge_method(int value1, int value2)
     {
-        //プレイヤー所持アイテムリストパネルの取得
-        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
         //一度、決定したアイテムのリスト番号と、タイプを取得
-        kettei_item1 = pitemlistController.kettei_item1;
-        _toggle_type1 = pitemlistController._toggle_type1;
+        kettei_item1 = value1;
+        _toggle_type1 = value2;
 
         //アイテムパラメータの取得
 
@@ -552,10 +546,13 @@ public class GirlEat_Judge : MonoBehaviour {
         girl1_status.total_score_final = total_score;
 
 
-        window_param_result_obj.SetActive(true);
+        // => Compound_Mainに戻る
+
+
+        //window_param_result_obj.SetActive(true);
 
         //デバッグ用　計算結果の表示
-        window_result_text.text = "###  好みの比較　結果　###"
+        /*window_result_text.text = "###  好みの比較　結果　###"
             + "\n" + "\n" + "基礎点数: " + itemLike_score
             + "\n" + "\n" + _basenameHyouji + " のあまさ: " + _basesweat + "\n" + " 女の子の好みの甘さ: " + _girlsweat + "\n" + "あまさの差: " + sweat_result + " 点数: " + sweat_score
             + "\n" + "\n" + _basenameHyouji + " の苦さ: " + _basebitter + "\n" + " 女の子の好みの苦さ: " + _girlbitter + "\n" + "にがさの差: " + bitter_result + " 点数: " + bitter_score
@@ -568,9 +565,6 @@ public class GirlEat_Judge : MonoBehaviour {
             + "\n" + "\n" + "噛み応え度: " + "-"
             + "\n" + "\n" + girl1_status.girl1_Subtype1 + "が好き " + "点数: " + subtype1_score
             + "\n" + "\n" + girl1_status.girl1_Subtype2 + "が好き " + "点数: " + subtype2_score
-            + "\n" + "\n" + "総合得点: " + total_score;
-
-
-        // => Exp_Controllerに戻る
+            + "\n" + "\n" + "総合得点: " + total_score;*/
     }
 }

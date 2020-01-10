@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 
 //
-//アイテムの更新・経験値の増減処理を行うコントローラー
+//アイテムの更新・経験値の増減処理を行うコントローラー　＋　調合の処理を担うメソッド
 //
 
 public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
@@ -709,8 +709,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
 
-                //お菓子の判定処理を起動
-                girlEat_judge.Girleat_Judge_method();
+                //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
+                girlEat_judge.Girleat_Judge_method(pitemlistController.kettei_item1, pitemlistController._toggle_type1);
 
 
                 //アイテムリストの更新。選んだアイテムをリストから削除

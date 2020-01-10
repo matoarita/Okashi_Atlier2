@@ -21,6 +21,12 @@ public class Compound_Main : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private GameObject get_material_obj;
+    private GetMaterial get_material;
+
+    private GameObject GirlEat_judge_obj;
+    private GirlEat_Judge girlEat_judge;
+
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -28,14 +34,18 @@ public class Compound_Main : MonoBehaviour {
 
     private GameObject compoundselect_onoff_obj;
     private GameObject saveload_panel;
+
+    private GameObject original_toggle;
     private GameObject recipi_toggle;
     private GameObject topping_toggle;
-    private GameObject original_toggle;
+    private GameObject extreme_toggle;
     private GameObject roast_toggle;
     private GameObject blend_toggle;
 
     private GameObject menu_toggle;
+    private GameObject girleat_toggle;
     private GameObject shop_toggle;
+    private GameObject getmaterial_toggle;
 
     private GameObject backbutton_obj;
 
@@ -105,20 +115,32 @@ public class Compound_Main : MonoBehaviour {
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
+        //材料ランダムで３つ手に入るオブジェクトの取得
+        get_material_obj = GameObject.FindWithTag("GetMaterial");
+        get_material = get_material_obj.GetComponent<GetMaterial>();
+
+        //女の子、お菓子の判定処理オブジェクトの取得
+        GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
+        girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
+
+
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
 
         compoundselect_onoff_obj = GameObject.FindWithTag("CompoundSelect");
         saveload_panel = canvas.transform.Find("SaveLoadPanel").gameObject;
 
+        original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
         recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
         topping_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Topping_Toggle").gameObject;
-        original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
+        extreme_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Extreme_Toggle").gameObject;
         roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
+        girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
+        getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
 
         //初期メッセージ
         _text.text = "何の調合をする？";
@@ -193,7 +215,7 @@ public class Compound_Main : MonoBehaviour {
 
                         break;
 
-                    case 2: //トッピング調合の処理を開始。クリック後に処理が始まる。
+                    case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
 
                         compoundselect_onoff_obj.SetActive(false);
                         saveload_panel.SetActive(false);
@@ -219,12 +241,6 @@ public class Compound_Main : MonoBehaviour {
 
                     case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
 
-                        recipi_toggle.GetComponent<Toggle>().isOn = false;
-                        original_toggle.GetComponent<Toggle>().isOn = false;
-                        topping_toggle.GetComponent<Toggle>().isOn = false;
-                        roast_toggle.GetComponent<Toggle>().isOn = false;
-                        //blend_toggle.GetComponent<Toggle>().isOn = false;
-
                         break;
 
                     case 5: //「焼く」を選択
@@ -239,11 +255,36 @@ public class Compound_Main : MonoBehaviour {
 
                         break;
 
+                    case 10: //「あげる」を選択
+
+                        compoundselect_onoff_obj.SetActive(false);
+                        saveload_panel.SetActive(false);
+                        compound_status = 4; //あげるシーンに入っています、というフラグ
+                        compound_select = 10; //あげるを選択
+                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                        no.SetActive(true);
+
+                        break;
+
+                    case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
+
+                        playeritemlist_onoff.SetActive(false);
+                        compound_status = 4;
+
+                        //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
+                        girlEat_judge.Girleat_Judge_method(pitemlistController.kettei_item1, pitemlistController._toggle_type1);
+
+                        _text.text = "お菓子をあげた！";
+                        compound_status = 0;
+
+                        break;
+
                     case 99:
 
                         compoundselect_onoff_obj.SetActive(false);
                         saveload_panel.SetActive(false);
-                        compound_status = 100;
+                        compound_status = 4;
                         compound_select = 99;
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         no.SetActive(true);
@@ -303,6 +344,7 @@ public class Compound_Main : MonoBehaviour {
     {
         if (recipi_toggle.GetComponent<Toggle>().isOn == true)
         {
+            recipi_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
             //Debug.Log("check1");
@@ -313,8 +355,9 @@ public class Compound_Main : MonoBehaviour {
 
     public void OnCheck_2() //トッピング調合をON
     {
-        if (original_toggle.GetComponent<Toggle>().isOn == true)
+        if (extreme_toggle.GetComponent<Toggle>().isOn == true)
         {
+            extreme_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
             //Debug.Log("check2");
@@ -325,8 +368,9 @@ public class Compound_Main : MonoBehaviour {
 
     public void OnCheck_3() //オリジナル調合をON
     {
-        if (recipi_toggle.GetComponent<Toggle>().isOn == true)
+        if (original_toggle.GetComponent<Toggle>().isOn == true)
         {
+            original_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
             //Debug.Log("check3");
@@ -350,6 +394,7 @@ public class Compound_Main : MonoBehaviour {
     {
         if (roast_toggle.GetComponent<Toggle>().isOn == true)
         {
+            roast_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
             //Debug.Log("check3");
@@ -369,7 +414,8 @@ public class Compound_Main : MonoBehaviour {
             compound_status = 99;
         }
     }
-    public void OnShop_toggle() //メニューをON
+
+    public void OnShop_toggle() //ショップへ移動　未使用
     {
         if (shop_toggle.GetComponent<Toggle>().isOn == true)
         {
@@ -377,7 +423,31 @@ public class Compound_Main : MonoBehaviour {
             FadeManager.Instance.LoadScene("Shop", 0.3f);
         }
     }
-    
+
+    public void OnGetMaterial_toggle() //材料をランダムで入手する処理
+    {
+        if (getmaterial_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            getmaterial_toggle.GetComponent<Toggle>().isOn = false;
+
+            //材料をランダムで３つ手に入れる処理
+            get_material.GetRandomMaterials();
+        }
+    }
+
+    public void OnGirlEat() //女の子にお菓子をあげる
+    {
+        if (girleat_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            girleat_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            yes_no_load();
+            
+            _text.text = "あげたいアイテムを選択してください。";
+            compound_status = 10;
+
+        }
+    }
 
     //イベント用レシピを見たときの処理。
     public void eventRecipi_ON()
@@ -434,7 +504,6 @@ public class Compound_Main : MonoBehaviour {
                 break;
 
             default:
-                _text.text = "何の調合をする？";
                 break;
         }
     }
