@@ -281,14 +281,14 @@ MonoBehaviour:
       Comment2: 
       Comment3: 
     - ItemID: 14
-      cmpitemName: cookie_base
-      cmpitemID_1: hakurikiko
+      cmpitemName: neko_cookie
+      cmpitemID_1: komugiko
       cmpitemID_2: butter
       cmpitemID_3: suger
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
-      result_itemID: cookie_base
+      result_itemID: neko_cookie
       cmpitem_kosu1: 2
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -296,18 +296,18 @@ MonoBehaviour:
       cost_time: 1
       success_rate: 95
       renkin_Bexp: 3
-      Comment: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\u7CFB"
+      Comment: "\u57FA\u672C"
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       Comment3: "\u57FA\u672C\u30D0\u30BF\u30FC\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
     - ItemID: 15
-      cmpitemName: cookie_base_salad_Oil
-      cmpitemID_1: hakurikiko
+      cmpitemName: neko_cookie_salad_Oil
+      cmpitemID_1: komugiko
       cmpitemID_2: salad_Oil
       cmpitemID_3: suger
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
-      result_itemID: cookie_base_salad_Oil
+      result_itemID: neko_cookie
       cmpitem_kosu1: 2
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -319,14 +319,33 @@ MonoBehaviour:
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30B5\u30E9\u30C0\u6CB9\xD7\u7802\u7CD6"
       Comment3: "\u7C21\u5358\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
     - ItemID: 16
-      cmpitemName: cookie_base_cheese
-      cmpitemID_1: hakurikiko
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 17
+      cmpitemName: cheese_cookie
+      cmpitemID_1: neko_cookie
       cmpitemID_2: cream_cheese
       cmpitemID_3: empty
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
-      result_itemID: cookie_base_cheese
+      result_itemID: cheese_cookie
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -334,18 +353,18 @@ MonoBehaviour:
       cost_time: 1
       success_rate: 90
       renkin_Bexp: 34
-      Comment: 
-      Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30AF\u30EA\u30FC\u30E0\u30C1\u30FC\u30BA"
+      Comment: "\u30AF\u30C3\u30AD\u30FC\u7CFB"
+      Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AF\u30EA\u30FC\u30E0\u30C1\u30FC\u30BA"
       Comment3: "\u30C1\u30FC\u30BA\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
-    - ItemID: 17
-      cmpitemName: cookie_base_orange
-      cmpitemID_1: cookie_base
+    - ItemID: 18
+      cmpitemName: orange_neko_cookie
+      cmpitemID_1: neko_cookie
       cmpitemID_2: orange
       cmpitemID_3: empty
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
-      result_itemID: cookie_base_orange
+      result_itemID: orange_neko_cookie
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -354,9 +373,9 @@ MonoBehaviour:
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
-      Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30AA\u30EC\u30F3\u30B8"
+      Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8"
       Comment3: "\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
-    - ItemID: 18
+    - ItemID: 19
       cmpitemName: cookie_base_pinkorange
       cmpitemID_1: cookie_base
       cmpitemID_2: pink_bloodorange
@@ -375,7 +394,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30D4\u30F3\u30AF\u30D6\u30E9\u30C3\u30C9\u30AA\u30EC\u30F3\u30B8"
       Comment3: "\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
-    - ItemID: 19
+    - ItemID: 20
       cmpitemName: cookie_base_grape
       cmpitemID_1: cookie_base
       cmpitemID_2: grape
@@ -394,7 +413,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       Comment3: "\u3076\u3069\u3046\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
-    - ItemID: 20
+    - ItemID: 21
       cmpitemName: cookie_base_cocoa
       cmpitemID_1: cookie_base
       cmpitemID_2: cocoa_powder
@@ -413,7 +432,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30D1\u30A6\u30C0\u30FC"
       Comment3: "\u30B3\u30B3\u30A2\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
-    - ItemID: 21
+    - ItemID: 22
       cmpitemName: cookie_base_icebox
       cmpitemID_1: cookie_base
       cmpitemID_2: cookie_base_cocoa
@@ -432,7 +451,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
       Comment3: "\u30A2\u30A4\u30B9\u30DC\u30C3\u30AF\u30B9\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
-    - ItemID: 22
+    - ItemID: 23
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -451,11 +470,11 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       Comment3: 
-    - ItemID: 23
+    - ItemID: 24
       cmpitemName: financier_base
       cmpitemID_1: appaleil
       cmpitemID_2: armond_powder
-      cmpitemID_3: hakurikiko
+      cmpitemID_3: komugiko
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
@@ -470,7 +489,7 @@ MonoBehaviour:
       Comment: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u30D9\u30FC\u30B9\u7CFB"
       Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30FC\u30E2\u30F3\u30C9\u30D7\u30FC\u30C9\u30EB\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
       Comment3: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u30D9\u30FC\u30B9"
-    - ItemID: 24
+    - ItemID: 25
       cmpitemName: financier_base_Hard
       cmpitemID_1: financier_powder
       cmpitemID_2: appaleil_white
@@ -489,25 +508,6 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7528\u306E\u7C89\xD7\u5375\u767D\xD7\u7802\u7CD6\xD7\u7126\u304C\u3057\u30D0\u30BF\u30FC"
       Comment3: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u751F\u5730"
-    - ItemID: 25
-      cmpitemName: 
-      cmpitemID_1: 
-      cmpitemID_2: 
-      cmpitemID_3: 
-      cmp_subtype_1: 
-      cmp_subtype_2: 
-      cmp_subtype_3: 
-      result_itemID: 
-      cmpitem_kosu1: 0
-      cmpitem_kosu2: 0
-      cmpitem_kosu3: 0
-      cmp_flag: 0
-      cost_time: 0
-      success_rate: 0
-      renkin_Bexp: 0
-      Comment: 
-      Comment2: 
-      Comment3: 
     - ItemID: 26
       cmpitemName: 
       cmpitemID_1: 
@@ -566,25 +566,6 @@ MonoBehaviour:
       Comment2: 
       Comment3: 
     - ItemID: 29
-      cmpitemName: chocolate_base
-      cmpitemID_1: cacao_beans
-      cmpitemID_2: suger
-      cmpitemID_3: empty
-      cmp_subtype_1: empty
-      cmp_subtype_2: empty
-      cmp_subtype_3: empty
-      result_itemID: chocolate_base
-      cmpitem_kosu1: 1
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
-      cmp_flag: 0
-      cost_time: 1
-      success_rate: 50
-      renkin_Bexp: 32
-      Comment: "\u30C1\u30E7\u30B3\u7CFB"
-      Comment2: "\u30AB\u30AB\u30AA\u8C46\xD7\u7802\u7CD6"
-      Comment3: "\u30C1\u30E7\u30B3\u30D9\u30FC\u30B9"
-    - ItemID: 30
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -603,7 +584,45 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       Comment3: 
+    - ItemID: 30
+      cmpitemName: chocolate_base
+      cmpitemID_1: cacao_beans
+      cmpitemID_2: suger
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: chocolate_base
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 50
+      renkin_Bexp: 32
+      Comment: "\u30C1\u30E7\u30B3\u7CFB"
+      Comment2: "\u30AB\u30AB\u30AA\u8C46\xD7\u7802\u7CD6"
+      Comment3: "\u30C1\u30E7\u30B3\u30D9\u30FC\u30B9"
     - ItemID: 31
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      Comment3: 
+    - ItemID: 32
       cmpitemName: cake_base
       cmpitemID_1: appaleil
       cmpitemID_2: empty

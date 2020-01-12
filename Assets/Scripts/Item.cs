@@ -46,7 +46,7 @@ public class Item
     public int sell_price; //ショップに売るときの値段
 
     //トッピングスロット
-    public ToppingType[] toppingtype;
+    public string[] toppingtype = new string[10];
 
 
     //アイテムタイプ　「お菓子・アクセサリー・くすり・材料」の4種類
@@ -91,23 +91,6 @@ public class Item
         Coffee
     }
 
-    //トッピング能力。
-    public enum ToppingType
-    {
-        Non,
-        Orange,
-        PinkBloodOrange,
-        OrangeMix, //生地にオレンジを混ぜた状態
-        Grape,
-        Blueberry,
-        Strawberry,
-        Nuts,
-        Zarame,
-        Shishamo,
-        Butter,
-        Kogashi_Butter
-    }
-
     //ここでリスト化時に渡す引数をあてがいます   
     public Item(int id, string file_name, string name, string nameHyouji, string desc, int mp, int day, int quality, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, int itemkosu)
     {
@@ -150,18 +133,16 @@ public class Item
         cost_price = cost;
         sell_price = sell;
 
-        toppingtype = new ToppingType[10];
-
-        toppingtype[0] = (ToppingType)Enum.Parse(typeof(ToppingType), tp01);
-        toppingtype[1] = (ToppingType)Enum.Parse(typeof(ToppingType), tp02);
-        toppingtype[2] = (ToppingType)Enum.Parse(typeof(ToppingType), tp03);
-        toppingtype[3] = (ToppingType)Enum.Parse(typeof(ToppingType), tp04);
-        toppingtype[4] = (ToppingType)Enum.Parse(typeof(ToppingType), tp05);
-        toppingtype[5] = (ToppingType)Enum.Parse(typeof(ToppingType), tp06);
-        toppingtype[6] = (ToppingType)Enum.Parse(typeof(ToppingType), tp07);
-        toppingtype[7] = (ToppingType)Enum.Parse(typeof(ToppingType), tp08);
-        toppingtype[8] = (ToppingType)Enum.Parse(typeof(ToppingType), tp09);
-        toppingtype[9] = (ToppingType)Enum.Parse(typeof(ToppingType), tp10);
+        toppingtype[0] = tp01;
+        toppingtype[1] = tp02;
+        toppingtype[2] = tp03;
+        toppingtype[3] = tp04;
+        toppingtype[4] = tp05;
+        toppingtype[5] = tp06;
+        toppingtype[6] = tp07;
+        toppingtype[7] = tp08;
+        toppingtype[8] = tp09;
+        toppingtype[9] = tp10;
 
         ItemKosu = itemkosu;
     }

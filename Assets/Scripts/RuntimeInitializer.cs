@@ -18,6 +18,10 @@ public class RuntimeInitializer : MonoBehaviour
         var worlddatabase_init = new GameObject("WorldDataBase", typeof(WorldDataBase));
         GameObject.DontDestroyOnLoad(worlddatabase_init);
 
+        //スロットネーム変換リスト
+        var slotnamedatabase_init = new GameObject("SlotNameDataBase", typeof(SlotNameDataBase));
+        GameObject.DontDestroyOnLoad(slotnamedatabase_init);
+
         //アイテムデータベースリスト
         var itemdatabase_init = new GameObject("ItemDataBase", typeof(ItemDataBase));
         GameObject.DontDestroyOnLoad(itemdatabase_init);
@@ -28,11 +32,7 @@ public class RuntimeInitializer : MonoBehaviour
 
         //焼くデータベースリスト
         var itemroastdatabase_init = new GameObject("ItemRoastDataBase", typeof(ItemRoastDataBase));
-        GameObject.DontDestroyOnLoad(itemroastdatabase_init);
-
-        //スロットネーム変換リスト
-        var slotnamedatabase_init = new GameObject("SlotNameDataBase", typeof(SlotNameDataBase));
-        GameObject.DontDestroyOnLoad(slotnamedatabase_init);
+        GameObject.DontDestroyOnLoad(itemroastdatabase_init);       
 
         //プレイヤーアイテムリスト
         var player_itemlist_init = new GameObject("PlayerItemList", typeof(PlayerItemList));

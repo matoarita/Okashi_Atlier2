@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 {
+    //スロットのトッピングDB。スロット名を取得。
+    private SlotNameDataBase slotnamedatabase;
+
+    private float timeLeft;
+    private int timeCount;
+    private float timeOut;
 
     //女の子の好み値。この値と、選択したアイテムの数値を比較し、近いほど得点があがる。
     public int girl1_Quality;
@@ -24,8 +30,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int girl1_Oily;
     public int girl1_Watery;
 
-
-
     public string girl1_Subtype1;
     public string girl1_Subtype2;
     public int girl1_Subtype1_p;
@@ -33,6 +37,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public string girl1_Topping1; 
     public string girl1_Topping2;
+
 
     public int girl1_Love_exp; //女の子の好感度のこと。ゲーム中に、お菓子をあげることで変動する。総量。
     public int girl1_Getlove_exp; //お菓子の判定の際、取得した好感度。Love_expにこの値を加算していく。
@@ -64,6 +69,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public int total_score_final;
 
+    private int i, count;
+    private int index;
+
+    //ランダムで変化する、女の子が今食べたいお菓子のテーブル
+    public List<string> girl1_hungryInfo = new List<string>();
+    public List<int> girl1_hungryScore = new List<int>();
+
     // Use this for initialization
 
     void Start () {
@@ -72,6 +84,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         girl_comment_flag = false;
         girl_comment_endflag = false;
+
+        //スロットの日本語表示用リストの取得
+        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
+        //秒計算。　
+        timeLeft = 1.0f;
+        timeCount = 0; //1秒タイマー
+
+        //この時間ごとに、女の子は、お菓子を欲しがり始める。
+        timeOut = 5.0f; 
 
         //アイテムそれぞれに、女の子の好き度を表す、基礎パラメータがある。エクセルのアイテムデータベースにgirl1_likeで登録している。
 
@@ -108,13 +130,60 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         girl1_Love_exp = 0;
         girl1_Getlove_exp = 0;
-        
+
+        // スロットの効果と点数データベースの初期化
+        InitializeItemSlotDicts();
     }
 
     // Update is called once per frame
     void Update () {
-		
-	}
 
+        //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
+        timeLeft -= Time.deltaTime;
+        timeOut -= Time.deltaTime;
 
+        if (timeLeft <= 0.0)
+        {
+            timeLeft = 1.0f;
+            timeCount++;
+
+            //ここに処理
+            //Debug.Log("経過時間: " + timeCount + " 秒");
+        }
+
+        if (timeOut <= 0.0)
+        {
+            timeOut = 5.0f;
+
+            // Do anything
+            Debug.Log("お腹が空いたよ～～");
+
+            //女の子の食べたいものが、ランダムで切り替わるテーブル            
+            index = Random.Range(1, girl1_hungryScore.Count);
+            Debug.Log("ランダムで食べたいもの一つ決定: " + index + " " + slotnamedatabase.slotname_lists[index].slot_Hyouki_1);
+            Debug.Log(slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + " のお菓子が食べたいよ～");
+
+            //まず全ての値を0に初期化
+            for(i = 0; i < girl1_hungryScore.Count; i++ )
+            {
+                girl1_hungryScore[i] = 0;
+            }            
+
+            //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
+            girl1_hungryScore[index]++;
+
+            //表示用吹き出しを生成
+        }
+    }
+
+    void InitializeItemSlotDicts()
+    {
+
+        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
+        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
+        {
+            girl1_hungryInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
+            girl1_hungryScore.Add(0);
+        }
+    }
 }

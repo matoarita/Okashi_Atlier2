@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,11 +16,13 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject window_param_result_obj;
     private Text window_result_text;
 
-    private int i;
+    private int i, count;
 
     private int kettei_item1; //女の子にあげるアイテムの、アイテムリスト番号。
     private int _toggle_type1; //店売りか、オリジナルのアイテムなのかの判定用
 
+    //スロットのトッピングDB。スロット名を取得。
+    private SlotNameDataBase slotnamedatabase;
 
     //アイテムのパラメータ
 
@@ -107,7 +110,13 @@ public class GirlEat_Judge : MonoBehaviour {
 
     public int total_score;
 
-    
+    private bool dislike_flag;
+
+    // スロットのデータを保持するリスト。点数とセット。
+    List<string> itemslotInfo = new List<string>();
+
+    // スロットの点数
+    List<int> itemslotScore = new List<int>();
 
 
     // Use this for initialization
@@ -122,6 +131,9 @@ public class GirlEat_Judge : MonoBehaviour {
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
+        //スロットの日本語表示用リストの取得
+        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
@@ -134,8 +146,13 @@ public class GirlEat_Judge : MonoBehaviour {
         kettei_item1 = 0;
         _toggle_type1 = 0;
 
+        dislike_flag = true;
+
         //トッピングスロットの配列
         _basetp = new string[10];
+
+        // スロットの効果と点数データベースの初期化
+        InitializeItemSlotDicts();
     }
 	
 	// Update is called once per frame
@@ -231,194 +248,318 @@ public class GirlEat_Judge : MonoBehaviour {
         _girlwatery = girl1_status.girl1_Watery;
 
 
+        /* 古い処理、ここに入ってた。とりあえず、スクリプト下部へ避難 */
 
+        /* 新しい処理ここから */
 
-        Debug.Log("###  好みの比較　結果　###");
-
-        //味の濃さ（さっぱりかコクがあるか）の比較。
-        quality_result = _basequality - _girlquality;
-
-
-        //甘さ・苦さ・酸味の比較。
-
-        sweat_result = _basesweat - _girlsweat;
-        Debug.Log(_basenameHyouji + " のあまさ: " + _basesweat + " 女の子の好みの甘さ: " + _girlsweat);
-        Debug.Log("あまさの差: " + sweat_result);
-
-        bitter_result = _basebitter - _girlbitter;
-        Debug.Log(_basenameHyouji + " の苦さ: " + _basebitter + " 女の子の好みの苦さ: " + _girlbitter);
-        Debug.Log("にがさの差: " + bitter_result);
-
-        sour_result = _basesour - _girlsour;
-        Debug.Log(_basenameHyouji + " の酸味: " + _basesour + " 女の子の好みの酸味: " + _girlsour);
-        Debug.Log("酸味の差: " + sour_result);
-
-
-        //食感の比較。事前に値に取得。
-
-        crispy_result = _basecrispy - _girlcrispy;
-        fluffy_result = _basefluffy - _girlfluffy;
-        smooth_result = _basesmooth - _girlsmooth;
-        hardness_result = _basehardness - _girlhardness;
-        jiggly_result = _basejiggly - _girljiggly;
-        chewy_result = _basechewy - _girlchewy;
-
-
-        //マイナス要素の比較。粉っぽいか、油っぽいか、水っぽい。女の子の許容値を超えると、他のスコアにマイナス影響をあたえる。
-        powdery_result = _basepowdery - _girlpowdery;
-        oily_result = _baseoily - _girloily;
-        watery_result = _basewatery - _girlwatery;
-
-
-
-
-        //  ###  採点メソッド  ###  //
-
-        itemLike_score = 0;
-
-        quality_score = 0;
-        sweat_score = 0;
-        bitter_score = 0;
-        sour_score = 0;
-
-        crispy_score = 0;
-        fluffy_score = 0;
-        smooth_score = 0;
-        hardness_score = 0;
-        jiggly_score = 0;
-        chewy_score = 0;
-
-        subtype1_score = 0;
-        subtype2_score = 0;
-
-        total_score = 0;
-
-
-
-        //
-        //各スコアの計算
-        //
-
-
-        //アイテムごとに固有の満足度があるので、その値を取得。
-        itemLike_score = _basegirl1_like;
-        Debug.Log("基礎点数: " + itemLike_score);
-
-
-        //あまみ・にがみ・さんみに対して、それぞれの評価。差の値により、6段階で評価する。
-
-        //甘味
-        if (Mathf.Abs(sweat_result) == 0)
+        for (i = 0; i < _basetp.Length; i++)
         {
-            Debug.Log("甘み: Perfect!!");
-            sweat_score = 100;
+            count = 0;
+            //itemslotInfoディクショナリのキーを全て取得
+            foreach (string key in itemslotInfo)
+            {   
+                //Debug.Log(key);
+                if ( _basetp[i] == key) //キーと一致するアイテムスロットがあれば、点数を+1
+                {
+                    //Debug.Log(key);
+                    itemslotScore[count]++;                  
+                }
+                count++;
+            }                      
         }
-        else if (Mathf.Abs(sweat_result) < 5)
-        {
-            Debug.Log("甘み: Great!!");
-            sweat_score = 30;
-        }
-        else if (Mathf.Abs(sweat_result) < 15)
-        {
-            Debug.Log("甘み: Good!");
-            sweat_score = 10;
-        }
-        else if (Mathf.Abs(sweat_result) < 50)
-        {
-            Debug.Log("甘み: Normal");
-            sweat_score = 2;
-        }
-        else if (Mathf.Abs(sweat_result) < 80)
-        {
-            Debug.Log("甘み: poor");
-            sweat_score = -35;
-        }
-        else if (Mathf.Abs(sweat_result) <= 100)
-        {
-            Debug.Log("甘み: death..");
-            sweat_score = -80;
-        }
-        else
-        {
-            Debug.Log("100を超える場合はなし");
-        }
-        Debug.Log("甘み点: " + sweat_score);
 
-        //苦味
-        if (Mathf.Abs(bitter_result) == 0)
+        //確認用
+        /*count = 0;
+        foreach (string key in itemslotInfo)
         {
-            Debug.Log("苦味: Perfect!!");
-            bitter_score = 100;
-        }
-        else if (Mathf.Abs(bitter_result) < 5)
-        {
-            Debug.Log("苦味: Great!!");
-            bitter_score = 30;
-        }
-        else if (Mathf.Abs(bitter_result) < 15)
-        {
-            Debug.Log("苦味: Good!");
-            bitter_score = 10;
-        }
-        else if (Mathf.Abs(bitter_result) < 50)
-        {
-            Debug.Log("苦味: Normal");
-            bitter_score = 2;
-        }
-        else if (Mathf.Abs(bitter_result) < 80)
-        {
-            Debug.Log("苦味: poor");
-            bitter_score = -35;
-        }
-        else if (Mathf.Abs(bitter_result) <= 100)
-        {
-            Debug.Log("苦味: death..");
-            bitter_score = -80;
-        }
-        else
-        {
-            Debug.Log("100を超える場合はなし");
-        }
-        Debug.Log("苦味点: " + bitter_score);
+            Debug.Log(key + ": " + itemslotScore[count].ToString());
+            count++;
+        }*/
 
-        //酸味
-        if (Mathf.Abs(sour_result) == 0)
+        //女の子が食べたいものを満たしているか、比較する
+        //OKだったら、正解し、さらに好感度の上昇値を計算する。
+        dislike_flag = true;
+        for ( i = 0; i < itemslotScore.Count; i++)
         {
-            Debug.Log("酸味: Perfect!!");
-            sour_score = 100;
+            //0はNonなので、無視
+            if (i != 0)
+            {
+                //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                if (itemslotScore[i] >= girl1_status.girl1_hungryScore[i])
+                {
+                    
+                }
+                //一つでも満たしてないものがある場合は、NGフラグがたつ
+                else
+                {
+                    dislike_flag = false;
+                }
+            }
         }
-        else if (Mathf.Abs(sour_result) < 5)
+
+        if(dislike_flag == true) //正解の場合
         {
-            Debug.Log("酸味: Great!!");
-            sour_score = 30;
+            //合計点をもとに、女の子の好感度がアップ！
+            girl1_status.girl1_Getlove_exp = total_score;
+
+            Debug.Log("お兄ちゃん！ありがとー！！");
         }
-        else if (Mathf.Abs(sour_result) < 15)
+        else //失敗の場合
         {
-            Debug.Log("酸味: Good!");
-            sour_score = 10;
+            Debug.Log("コレ嫌いー！");
         }
-        else if (Mathf.Abs(sour_result) < 50)
-        {
-            Debug.Log("酸味: Normal");
-            sour_score = 2;
-        }
-        else if (Mathf.Abs(sour_result) < 80)
-        {
-            Debug.Log("酸味: poor");
-            sour_score = -35;
-        }
-        else if (Mathf.Abs(sour_result) <= 100)
-        {
-            Debug.Log("酸味: death..");
-            sour_score = -80;
-        }
-        else
-        {
-            Debug.Log("100を超える場合はなし");
-        }
-        Debug.Log("酸味点: " + sour_score);
+        
+        
 
 
+
+
+
+        //宴用にgirl1_statusにも、点数を共有
+        girl1_status.girl_final_kettei_item = kettei_item1;
+
+        girl1_status.itemLike_score_final = itemLike_score;
+
+        girl1_status.quality_score_final = quality_score;
+        girl1_status.sweat_score_final = sweat_score;
+        girl1_status.bitter_score_final = bitter_score;
+        girl1_status.sour_score_final = sour_score;
+
+        girl1_status.crispy_score_final = crispy_score;
+        girl1_status.fluffy_score_final = fluffy_score;
+        girl1_status.smooth_score_final = smooth_score;
+        girl1_status.hardness_score_final = hardness_score;
+        girl1_status.jiggly_score_final = jiggly_score;
+        girl1_status.chewy_score_final = chewy_score;
+
+        girl1_status.subtype1_score_final = subtype1_score;
+        girl1_status.subtype2_score_final = subtype2_score;
+
+        girl1_status.total_score_final = total_score;
+
+
+        // => Compound_Mainに戻る
+
+
+        //window_param_result_obj.SetActive(true);
+
+        //デバッグ用　計算結果の表示
+        /*window_result_text.text = "###  好みの比較　結果　###"
+            + "\n" + "\n" + "基礎点数: " + itemLike_score
+            + "\n" + "\n" + _basenameHyouji + " のあまさ: " + _basesweat + "\n" + " 女の子の好みの甘さ: " + _girlsweat + "\n" + "あまさの差: " + sweat_result + " 点数: " + sweat_score
+            + "\n" + "\n" + _basenameHyouji + " の苦さ: " + _basebitter + "\n" + " 女の子の好みの苦さ: " + _girlbitter + "\n" + "にがさの差: " + bitter_result + " 点数: " + bitter_score
+            + "\n" + "\n" + _basenameHyouji + " の酸味: " + _basesour + "\n" + " 女の子の好みの酸味: " + _girlsour + "\n" + "酸味の差: " + sour_result + " 点数: " + sour_score
+            + "\n" + "\n" + "さくさく度: " + _basecrispy + "\n" + "さくさく閾値: " + _girlcrispy + "\n" + "差: " + crispy_result + " 点数: " + crispy_score
+            + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _girlfluffy + "\n" + "差: " + fluffy_result + " 点数: " + fluffy_score
+            + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _girlsmooth + "\n" + "差: " + smooth_result + " 点数: " + smooth_score
+            + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness + "\n" + "差: " + hardness_result + " 点数: " + hardness_score
+            + "\n" + "\n" + "ぷるぷる度: " + "-"
+            + "\n" + "\n" + "噛み応え度: " + "-"
+            + "\n" + "\n" + girl1_status.girl1_Subtype1 + "が好き " + "点数: " + subtype1_score
+            + "\n" + "\n" + girl1_status.girl1_Subtype2 + "が好き " + "点数: " + subtype2_score
+            + "\n" + "\n" + "総合得点: " + total_score;*/
+    }
+
+    void InitializeItemSlotDicts()
+    {
+
+        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
+        for( i = 0; i < slotnamedatabase.slotname_lists.Count; i++ )
+        {
+            itemslotInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
+            itemslotScore.Add(0);
+        }
+            
+    }
+
+        /*
+            Debug.Log("###  好みの比較　結果　###");
+
+            //味の濃さ（さっぱりかコクがあるか）の比較。
+            quality_result = _basequality - _girlquality;
+
+
+            //甘さ・苦さ・酸味の比較。
+
+            sweat_result = _basesweat - _girlsweat;
+            Debug.Log(_basenameHyouji + " のあまさ: " + _basesweat + " 女の子の好みの甘さ: " + _girlsweat);
+            Debug.Log("あまさの差: " + sweat_result);
+
+            bitter_result = _basebitter - _girlbitter;
+            Debug.Log(_basenameHyouji + " の苦さ: " + _basebitter + " 女の子の好みの苦さ: " + _girlbitter);
+            Debug.Log("にがさの差: " + bitter_result);
+
+            sour_result = _basesour - _girlsour;
+            Debug.Log(_basenameHyouji + " の酸味: " + _basesour + " 女の子の好みの酸味: " + _girlsour);
+            Debug.Log("酸味の差: " + sour_result);
+
+
+            //食感の比較。事前に値に取得。
+
+            crispy_result = _basecrispy - _girlcrispy;
+            fluffy_result = _basefluffy - _girlfluffy;
+            smooth_result = _basesmooth - _girlsmooth;
+            hardness_result = _basehardness - _girlhardness;
+            jiggly_result = _basejiggly - _girljiggly;
+            chewy_result = _basechewy - _girlchewy;
+
+
+            //マイナス要素の比較。粉っぽいか、油っぽいか、水っぽい。女の子の許容値を超えると、他のスコアにマイナス影響をあたえる。
+            powdery_result = _basepowdery - _girlpowdery;
+            oily_result = _baseoily - _girloily;
+            watery_result = _basewatery - _girlwatery;
+
+
+
+
+            //  ###  採点メソッド  ###  //
+
+            itemLike_score = 0;
+
+            quality_score = 0;
+            sweat_score = 0;
+            bitter_score = 0;
+            sour_score = 0;
+
+            crispy_score = 0;
+            fluffy_score = 0;
+            smooth_score = 0;
+            hardness_score = 0;
+            jiggly_score = 0;
+            chewy_score = 0;
+
+            subtype1_score = 0;
+            subtype2_score = 0;
+
+            total_score = 0;
+
+
+
+            //
+            //各スコアの計算
+            //
+
+
+            //アイテムごとに固有の満足度があるので、その値を取得。
+            itemLike_score = _basegirl1_like;
+            Debug.Log("基礎点数: " + itemLike_score);
+
+
+            //あまみ・にがみ・さんみに対して、それぞれの評価。差の値により、6段階で評価する。
+
+            //甘味
+            if (Mathf.Abs(sweat_result) == 0)
+            {
+                Debug.Log("甘み: Perfect!!");
+                sweat_score = 100;
+            }
+            else if (Mathf.Abs(sweat_result) < 5)
+            {
+                Debug.Log("甘み: Great!!");
+                sweat_score = 30;
+            }
+            else if (Mathf.Abs(sweat_result) < 15)
+            {
+                Debug.Log("甘み: Good!");
+                sweat_score = 10;
+            }
+            else if (Mathf.Abs(sweat_result) < 50)
+            {
+                Debug.Log("甘み: Normal");
+                sweat_score = 2;
+            }
+            else if (Mathf.Abs(sweat_result) < 80)
+            {
+                Debug.Log("甘み: poor");
+                sweat_score = -35;
+            }
+            else if (Mathf.Abs(sweat_result) <= 100)
+            {
+                Debug.Log("甘み: death..");
+                sweat_score = -80;
+            }
+            else
+            {
+                Debug.Log("100を超える場合はなし");
+            }
+            Debug.Log("甘み点: " + sweat_score);
+
+            //苦味
+            if (Mathf.Abs(bitter_result) == 0)
+            {
+                Debug.Log("苦味: Perfect!!");
+                bitter_score = 100;
+            }
+            else if (Mathf.Abs(bitter_result) < 5)
+            {
+                Debug.Log("苦味: Great!!");
+                bitter_score = 30;
+            }
+            else if (Mathf.Abs(bitter_result) < 15)
+            {
+                Debug.Log("苦味: Good!");
+                bitter_score = 10;
+            }
+            else if (Mathf.Abs(bitter_result) < 50)
+            {
+                Debug.Log("苦味: Normal");
+                bitter_score = 2;
+            }
+            else if (Mathf.Abs(bitter_result) < 80)
+            {
+                Debug.Log("苦味: poor");
+                bitter_score = -35;
+            }
+            else if (Mathf.Abs(bitter_result) <= 100)
+            {
+                Debug.Log("苦味: death..");
+                bitter_score = -80;
+            }
+            else
+            {
+                Debug.Log("100を超える場合はなし");
+            }
+            Debug.Log("苦味点: " + bitter_score);
+
+            //酸味
+            if (Mathf.Abs(sour_result) == 0)
+            {
+                Debug.Log("酸味: Perfect!!");
+                sour_score = 100;
+            }
+            else if (Mathf.Abs(sour_result) < 5)
+            {
+                Debug.Log("酸味: Great!!");
+                sour_score = 30;
+            }
+            else if (Mathf.Abs(sour_result) < 15)
+            {
+                Debug.Log("酸味: Good!");
+                sour_score = 10;
+            }
+            else if (Mathf.Abs(sour_result) < 50)
+            {
+                Debug.Log("酸味: Normal");
+                sour_score = 2;
+            }
+            else if (Mathf.Abs(sour_result) < 80)
+            {
+                Debug.Log("酸味: poor");
+                sour_score = -35;
+            }
+            else if (Mathf.Abs(sour_result) <= 100)
+            {
+                Debug.Log("酸味: death..");
+                sour_score = -80;
+            }
+            else
+            {
+                Debug.Log("100を超える場合はなし");
+            }
+            Debug.Log("酸味点: " + sour_score);
+            */
+
+        /*
         //食感の計算。基本的に、女の子の閾値を超えた分が、加算される。
         if( crispy_result >= 0 )
         {
@@ -435,7 +576,7 @@ public class GirlEat_Judge : MonoBehaviour {
         if (hardness_result >= 0)
         {
             hardness_score = Mathf.Abs(hardness_result);
-        }
+        }*/
         /*if (jiggly_result >= 0) 未使用
         {
             jiggly_score = Mathf.Abs(jiggly_result);
@@ -444,7 +585,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             chewy_score = Mathf.Abs(chewy_result);
         }*/
-        
+
 
 
         /*
@@ -492,6 +633,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         */
 
+        /*
         //クッキーが好き、ケーキが好きなどの、サブタイプの採点。一致していれば、加点。
         if (_baseitemtype_sub == girl1_status.girl1_Subtype1)
         {
@@ -514,57 +656,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
         Debug.Log("総合点: " + total_score);
 
-
-
-
-        //合計点をもとに、女の子の好感度がアップ！
-        girl1_status.girl1_Getlove_exp = total_score;
-
         Debug.Log("###  ###");
-
-
-        //宴用にgirl1_statusにも、点数を共有
-        girl1_status.girl_final_kettei_item = kettei_item1;
-
-        girl1_status.itemLike_score_final = itemLike_score;
-
-        girl1_status.quality_score_final = quality_score;
-        girl1_status.sweat_score_final = sweat_score;
-        girl1_status.bitter_score_final = bitter_score;
-        girl1_status.sour_score_final = sour_score;
-
-        girl1_status.crispy_score_final = crispy_score;
-        girl1_status.fluffy_score_final = fluffy_score;
-        girl1_status.smooth_score_final = smooth_score;
-        girl1_status.hardness_score_final = hardness_score;
-        girl1_status.jiggly_score_final = jiggly_score;
-        girl1_status.chewy_score_final = chewy_score;
-
-        girl1_status.subtype1_score_final = subtype1_score;
-        girl1_status.subtype2_score_final = subtype2_score;
-
-        girl1_status.total_score_final = total_score;
-
-
-        // => Compound_Mainに戻る
-
-
-        //window_param_result_obj.SetActive(true);
-
-        //デバッグ用　計算結果の表示
-        /*window_result_text.text = "###  好みの比較　結果　###"
-            + "\n" + "\n" + "基礎点数: " + itemLike_score
-            + "\n" + "\n" + _basenameHyouji + " のあまさ: " + _basesweat + "\n" + " 女の子の好みの甘さ: " + _girlsweat + "\n" + "あまさの差: " + sweat_result + " 点数: " + sweat_score
-            + "\n" + "\n" + _basenameHyouji + " の苦さ: " + _basebitter + "\n" + " 女の子の好みの苦さ: " + _girlbitter + "\n" + "にがさの差: " + bitter_result + " 点数: " + bitter_score
-            + "\n" + "\n" + _basenameHyouji + " の酸味: " + _basesour + "\n" + " 女の子の好みの酸味: " + _girlsour + "\n" + "酸味の差: " + sour_result + " 点数: " + sour_score
-            + "\n" + "\n" + "さくさく度: " + _basecrispy + "\n" + "さくさく閾値: " + _girlcrispy + "\n" + "差: " + crispy_result + " 点数: " + crispy_score
-            + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _girlfluffy + "\n" + "差: " + fluffy_result + " 点数: " + fluffy_score
-            + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _girlsmooth + "\n" + "差: " + smooth_result + " 点数: " + smooth_score
-            + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness + "\n" + "差: " + hardness_result + " 点数: " + hardness_score
-            + "\n" + "\n" + "ぷるぷる度: " + "-"
-            + "\n" + "\n" + "噛み応え度: " + "-"
-            + "\n" + "\n" + girl1_status.girl1_Subtype1 + "が好き " + "点数: " + subtype1_score
-            + "\n" + "\n" + girl1_status.girl1_Subtype2 + "が好き " + "点数: " + subtype2_score
-            + "\n" + "\n" + "総合得点: " + total_score;*/
+        */
     }
-}

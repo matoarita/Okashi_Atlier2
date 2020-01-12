@@ -491,6 +491,8 @@ public class ItemSelect_Cancel : MonoBehaviour {
         }
     }
 
+
+
     //一個目の選択をキャンセルする処理
     public void All_cancel()
     {
@@ -529,12 +531,12 @@ public class ItemSelect_Cancel : MonoBehaviour {
             }
 
 
-
-            if (compound_Main.compound_select == 3 || compound_Main.compound_select == 5) //オリジナル調合 or 焼くのときの処理
+            //オリジナル調合の処理
+            if (compound_Main.compound_select == 3) 
             {
                 if (pitemlistController.kettei1_bunki == 1)
                 {
-                    _text.text = "一つ目のアイテムを選択してください。";
+                    _text.text = "一つ目の材料を選択してね。";
                 }
 
                 pitemlistController.kettei1_bunki = 0;
@@ -543,11 +545,12 @@ public class ItemSelect_Cancel : MonoBehaviour {
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
 
-            else if (compound_Main.compound_select == 2) //エクストリーム調合のときの処理
+            //エクストリーム調合のときの処理
+            else if (compound_Main.compound_select == 2) 
             {
                 if (pitemlistController.kettei1_bunki == 10)
                 {
-                    _text.text = "ベースアイテムを選択してください。";
+                    _text.text = "ベースのお菓子を選択してね。";
                 }
 
                 pitemlistController.kettei1_bunki = 0;
@@ -556,12 +559,37 @@ public class ItemSelect_Cancel : MonoBehaviour {
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
 
-            else if (compound_Main.compound_select == 1) //レシピ調合のときの処理
+            //レシピ調合のときの処理
+            else if (compound_Main.compound_select == 1) 
             {
-                _text.text = "レシピを選択してください。";
+                _text.text = "レシピを選択してね。";
 
                 //レシピのキャンセル(recipiitemlistController)は、recipiitemSelectToggleの中で処理。
                 //なので、recipiitemlistControllerは、このスクリプト内では記述していない。
+            }
+
+            //焼くのときの処理
+            else if (compound_Main.compound_select == 5)
+            {
+                _text.text = "一つ目の材料を選択してね。";
+
+
+                pitemlistController.kettei1_bunki = 0;
+
+                update_ListSelect_Flag = 0; //オールリセットするのみ。
+                update_ListSelect(); //アイテム選択時の、リストの表示処理
+            }
+
+            //お菓子をあげるときの処理
+            if (compound_Main.compound_select == 10)
+            {
+                _text.text = "あげるお菓子を選択してね。";
+
+
+                pitemlistController.kettei1_bunki = 0;
+
+                update_ListSelect_Flag = 0; //オールリセットするのみ。
+                update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
 
         }
@@ -647,6 +675,8 @@ public class ItemSelect_Cancel : MonoBehaviour {
             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
+
+
     //三個目の選択をキャンセルする処理
     public void Three_cancel()
     {
@@ -691,6 +721,8 @@ public class ItemSelect_Cancel : MonoBehaviour {
             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
+
+    //四個目の選択をキャンセルする処理
     public void Four_cancel()
     {
         text_area = GameObject.FindWithTag("Message_Window");
@@ -722,8 +754,8 @@ public class ItemSelect_Cancel : MonoBehaviour {
             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
-        //リストからアイテム選択時に、選択したアイテムを再度入力できなくする処理
-        public void update_ListSelect()
+    //リストからアイテム選択時に、選択したアイテムを再度入力できなくする処理
+    public void update_ListSelect()
         {
 
             for (i = 0; i < pitemlistController._listitem.Count; i++)
@@ -797,11 +829,11 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     update_ListSelect_3();
                 }
             }
-        }
+    }
 
 
-        void update_ListSelect_base()
-        {
+    void update_ListSelect_base()
+    {
             //トッピング調合時、ベースアイテムを選択できないようにする。
 
             //とりあえず、表示されてるリストを上から順番に見ていく。店売りかオリジナルの判定＋その時のプレイヤーリスト番号が一致するものが、一個目に選択したもの。
@@ -809,13 +841,13 @@ public class ItemSelect_Cancel : MonoBehaviour {
             if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == pitemlistController._base_toggle_type && pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == pitemlistController.base_kettei_item)
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false; //一個目も選択できないようにする
-                Debug.Log("一個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type1 + " リストID: " + pitemlistController.kettei_item1);
+                //Debug.Log("一個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type1 + " リストID: " + pitemlistController.kettei_item1);
             }
 
-        }
+    }
 
-        void update_ListSelect_1()
-        {
+    void update_ListSelect_1()
+    {
             //一個目選択したものを選択できないようにする。
 
             //とりあえず、表示されてるリストを上から順番に見ていく。店売りかオリジナルの判定＋その時のプレイヤーリスト番号が一致するものが、一個目に選択したもの。
@@ -823,30 +855,30 @@ public class ItemSelect_Cancel : MonoBehaviour {
             if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == pitemlistController._toggle_type1 && pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == pitemlistController.kettei_item1)
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false; //一個目も選択できないようにする
-                Debug.Log("一個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type1 + " リストID: " + pitemlistController.kettei_item1);
+                //Debug.Log("一個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type1 + " リストID: " + pitemlistController.kettei_item1);
             }
 
-        }
+    }
 
-        void update_ListSelect_2()
+    void update_ListSelect_2()
         {
             //二個目選択したものを選択できないようにする。一個目と同様の処理。
             if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == pitemlistController._toggle_type2 && pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == pitemlistController.kettei_item2)
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false; //二個目も選択できないようにする
-                Debug.Log("二個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type2 + " リストID: " + pitemlistController.kettei_item2);
+                //Debug.Log("二個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type2 + " リストID: " + pitemlistController.kettei_item2);
             }
 
-        }
+    }
 
-        void update_ListSelect_3()
+    void update_ListSelect_3()
         {
             //三個目選択したものを選択できないようにする。
             if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == pitemlistController._toggle_type3 && pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == pitemlistController.kettei_item3)
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false; //三個目も選択できないようにする
-                Debug.Log("三個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type3 + " リストID: " + pitemlistController.kettei_item3);
+                //Debug.Log("三個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type3 + " リストID: " + pitemlistController.kettei_item3);
             }
 
-        }
+    }
 }

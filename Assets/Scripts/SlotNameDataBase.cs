@@ -9,8 +9,6 @@ public class SlotNameDataBase : SingletonMonoBehaviour<SlotNameDataBase>
 {
     private Entity_slotNameDataBase excel_slot_namedatabase;
 
-    private ItemDataBase database;
-
     private int _id;
     private string slotName;
     private string slot_Hyouki_1;
@@ -20,8 +18,6 @@ public class SlotNameDataBase : SingletonMonoBehaviour<SlotNameDataBase>
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
-
-    //「焼く」ときの、アイテム変換データベース。
 
     public List<SlotName> slotname_lists = new List<SlotName>(); //
 
@@ -33,8 +29,6 @@ public class SlotNameDataBase : SingletonMonoBehaviour<SlotNameDataBase>
 
         excel_slot_namedatabase = Resources.Load("Excel/Entity_slotNameDataBase") as Entity_slotNameDataBase;
 
-        //アイテムデータベースの取得
-        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         sheet_no = 0;
 

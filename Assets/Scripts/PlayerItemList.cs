@@ -33,7 +33,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //プレイヤーのイベントアイテムリスト。
     public List<ItemEvent> eventitemlist = new List<ItemEvent>();
 
-    //プレイヤーが作成したオリジナルのアイテムリスト。元アイテムにブレンドの値を加算、トッピングの値を持つもの。こっちはリスト型で保存。（個数は、とりあえず保持しない）
+    //プレイヤーが作成したオリジナルのアイテムリスト。
     public List<Item> player_originalitemlist = new List<Item>(); 
 
     // Use this for initialization

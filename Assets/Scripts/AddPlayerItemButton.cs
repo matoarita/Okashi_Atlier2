@@ -52,7 +52,8 @@ public class AddPlayerItemButton : MonoBehaviour {
             {
                 pitemlist.addPlayerItem(i, 5);
             }*/
-            if (database.items[i].itemName == "salad_Oil")
+
+            if (database.items[i].itemName == "komugiko")
             {
                 pitemlist.addPlayerItem(i, 5);
             }
@@ -64,10 +65,7 @@ public class AddPlayerItemButton : MonoBehaviour {
             {
                 pitemlist.addPlayerItem(i, 5);
             }
-            if (database.items[i].itemName == "hakurikiko")
-            {
-                pitemlist.addPlayerItem(i, 5);
-            }
+            
             if (database.items[i].itemName == "orange")
             {
                 pitemlist.addPlayerItem(i, 5);
@@ -90,7 +88,14 @@ public class AddPlayerItemButton : MonoBehaviour {
         //デバッグ用　すべてのアイテムを追加する。
         for (i = 0; i <= database.sheet_topendID[1]; i++)
         {
-            pitemlist.addPlayerItem(i, 5);
+            if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" || database.items[i].itemType_sub.ToString() == "Appaleil")
+            {
+                //生地タイプ、クッキーベースタイプ、アパレイユを無視する。
+            }
+            else
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
 
         }
 

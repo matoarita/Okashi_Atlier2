@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-// アイテム画像を変更するスクリプト
+// アイテム画像を表示するスクリプト
 
 
 public class SetImage : MonoBehaviour

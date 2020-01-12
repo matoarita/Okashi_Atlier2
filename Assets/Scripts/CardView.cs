@@ -14,7 +14,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     private List<GameObject> _cardImage_obj = new List<GameObject>(); //カード表示用のゲームオブジェクト
 
-    private SetImage _cardImage;
+    private SetImage _cardImage; //カードの描画処理は、SetImageスクリプト
     private GameObject canvas;
     private GameObject cardPrefab;
 

@@ -113,15 +113,18 @@ public class GetMaterial : MonoBehaviour {
         itemInfo.Add(1, "orange"); //アイテムデータベースに登録されているアイテム名と同じにする
         itemInfo.Add(2, "grape");
         itemInfo.Add(3, "nuts");
-        itemInfo.Add(4, "竜の翼");
-        itemInfo.Add(5, "竜の逆鱗");
-        itemInfo.Add(6, "竜の紅玉");
+        itemInfo.Add(4, "komugiko");
+        itemInfo.Add(5, "butter");
+        itemInfo.Add(6, "suger");
 
         itemDropDict = new Dictionary<int, float>();
         //itemDropDict.Add(0, 60.0f); //0 なしが　60%
         itemDropDict.Add(1, 25.0f); //1 が　25%
         itemDropDict.Add(2, 12.0f); //2 が　12%
         itemDropDict.Add(3, 3.0f);  //3 が　3%
+        itemDropDict.Add(4, 20.0f); //4 が　20%
+        itemDropDict.Add(5, 20.0f); //5 が　20%
+        itemDropDict.Add(6, 20.0f); //6 が　20%
 
         itemDropKosuDict = new Dictionary<int, float>();
         itemDropKosuDict.Add(1, 60.0f); //1個　60%

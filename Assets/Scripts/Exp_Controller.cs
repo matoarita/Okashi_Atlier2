@@ -953,11 +953,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //全て完了。最終的に完成された_baseのパラムを基に、新しくアイテムを生成し、ベースとトッピングアイテムは削除する。
 
         //ここまでで、生成されるアイテムの予測が出来る。
-        Debug.Log("_basename: " + _basename + " _basemp: " + _basemp + " _baseday: " + _baseday + " _basequality: " + _basequality);
+        /*Debug.Log("_basename: " + _basename + " _basemp: " + _basemp + " _baseday: " + _baseday + " _basequality: " + _basequality);
         Debug.Log("_baserich: " + _baserich + "_basesweat: " + _basesweat + " _basebitter: " + _basebitter + " _basesour: " + _basesour + " _basecrispy: " + _basecrispy + " _basefluffy: " + _basefluffy);
         Debug.Log("_basesmooth: " + _basesmooth + " _basejiggly: " + _basejiggly + " _basechewy: " + _basechewy);
         Debug.Log("_basegirl1_like:" + _basegirl1_like + " _basecost:" + _basecost + " _basesell:" + _basesell);
-        Debug.Log("_base_itemType:" + _base_itemType + " _base_itemType_sub:" + _base_itemType_sub);
+        Debug.Log("_base_itemType:" + _base_itemType + " _base_itemType_sub:" + _base_itemType_sub);*/
 
         /*Debug.Log("スロット1: " + _basetp[0]);
         Debug.Log("スロット2: " + _basetp[1]);
@@ -1307,7 +1307,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (kettei_item3 != 9999) //三個目のトッピングアイテムを選んでいなければ、この処理は無視する。
         {
 
-            Debug.Log("3個目のアイテムを使用 final_kette_kosu3: " + final_kette_kosu3);
+            //Debug.Log("3個目のアイテムを使用 final_kette_kosu3: " + final_kette_kosu3);
             switch (toggle_type3)
             {
                 case 0: //プレイヤーアイテムリストから選択している。
@@ -1519,7 +1519,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             case 0: //材料に小麦粉を使っていない
 
-                Debug.Log("小麦粉を使っていない");
+                //Debug.Log("小麦粉を使っていない");
 
                 for (i = 0; i < _additemlist.Count; i++)
                 {
@@ -1527,7 +1527,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     if (_additemlist[i]._Add_itemType_sub == "Fruits" || _additemlist[i]._Add_itemType_sub == "Potion")
                     {
                         total_kosu -= _additemlist[i]._Addkosu;
-                        Debug.Log("フルーツの個数: " + _additemlist[i]._Addkosu);
+                        //Debug.Log("フルーツの個数: " + _additemlist[i]._Addkosu);
                     }
                     else
                     {
@@ -1542,7 +1542,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 1: //小麦粉を使っている場合
 
-                Debug.Log("小麦粉を使っている" + "  材料ID(0 or 1 or 2): " + komugiko_id);
+                //Debug.Log("小麦粉を使っている" + "  材料ID(0 or 1 or 2): " + komugiko_id);
 
                 //また一からみていき、今度は加算していく。小麦粉IDだけ取り除く
 
@@ -1556,7 +1556,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     {
                         etc_mat_count++;
                         komugiko_ratio = (float)_additemlist[i]._Addkosu / _additemlist[komugiko_id]._Addkosu; // 小麦粉に対する、各材料の分量・比率
-                        Debug.Log("komugiko_ratio（材料の個数 / 小麦粉の個数）: " + _additemlist[i]._Addname + " " + komugiko_ratio);
+                        //Debug.Log("komugiko_ratio（材料の個数 / 小麦粉の個数）: " + _additemlist[i]._Addname + " " + komugiko_ratio);
 
                         //材料の値を計算する。
                         AddRatioTasteParam();
@@ -1705,7 +1705,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //あまりに小麦粉の量に対して、材料を多く入れすぎていると、マイナス。
 
         komugiko_distance = (komugiko_ratio - (float)0.5); //0.5は、小麦粉*材料=2:1の場合の値。材料ごとに設定してもよいかも。
-        Debug.Log("小麦粉と " + _additemlist[i]._Addname + " との距離: " + komugiko_ratio  + " - 0.5 = " + komugiko_distance);
+        //Debug.Log("小麦粉と " + _additemlist[i]._Addname + " との距離: " + komugiko_ratio  + " - 0.5 = " + komugiko_distance);
 
         //誤差が、-0.3以上　極端に小麦粉を入れすぎた場合
         if (komugiko_distance < -0.3)
@@ -1778,8 +1778,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
 
-        Debug.Log("_add_ratio: " + _add_ratio);
-        Debug.Log("_komugiko_ratio: " + komugiko_ratio);
+        //Debug.Log("_add_ratio: " + _add_ratio);
+        //Debug.Log("_komugiko_ratio: " + komugiko_ratio);
 
         //その時の材料の値　×　_add_ratioで、加算する。
         _temprich += (int)(_additemlist[i]._Addrich * _add_ratio);

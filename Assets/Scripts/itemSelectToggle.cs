@@ -352,8 +352,8 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
 
-                Debug.Log(count + "番が押されたよ");
-                Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+                //Debug.Log(count + "番が押されたよ");
+                //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示。トグルタイプとリスト番号を入れると、表示してくれる。
@@ -398,8 +398,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。個数を選択してください。";
 
-                Debug.Log(count + "番が押されたよ");
-                Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
+                //Debug.Log(count + "番が押されたよ");
+                //Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView02(pitemlistController._toggle_type2, pitemlistController.kettei_item2); //選択したアイテム2枚目をカードで表示
@@ -447,8 +447,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。個数を選択してください。";
 
-                Debug.Log(count + "番が押されたよ");
-                Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
+                //Debug.Log(count + "番が押されたよ");
+                //Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView03(pitemlistController._toggle_type3, pitemlistController.kettei_item3); //選択したアイテム2枚目をカードで表示
@@ -505,7 +505,7 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
                 }
-                Debug.Log("一個目選択完了！");
+                //Debug.Log("一個目選択完了！");
                 break;
 
             case false: //キャンセルが押された
@@ -558,7 +558,7 @@ public class itemSelectToggle : MonoBehaviour
                 yes_text.text = "調合する";
 
                 _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
-                Debug.Log("二個目選択完了！");
+                //Debug.Log("二個目選択完了！");
                 break;
 
             case false:
@@ -593,7 +593,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
 
-                Debug.Log("三個目選択完了！");
+                //Debug.Log("三個目選択完了！");
 
                 itemselect_cancel.update_ListSelect_Flag = 3; //二個目まで、選択できないようにする。
                 itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -690,7 +690,7 @@ public class itemSelectToggle : MonoBehaviour
 
                     case false:
 
-                        Debug.Log("1個目を選択した状態に戻る");
+                        //Debug.Log("1個目を選択した状態に戻る");
 
                         itemselect_cancel.Two_cancel();
 
@@ -1350,8 +1350,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 _text.text = database.items[baseitemID].itemNameHyouji + "をベースにします。";
 
-                Debug.Log(count + "番が押されたよ");
-                Debug.Log("1個目　アイテムID:" + baseitemID + " " + database.items[baseitemID].itemNameHyouji + "が選択されました。");
+                //Debug.Log(count + "番が押されたよ");
+                //Debug.Log("1個目　アイテムID:" + baseitemID + " " + database.items[baseitemID].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item); //選択したアイテムをカードで表示
@@ -1391,8 +1391,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。個数を選択してください。";
 
-                Debug.Log(count + "番が押されたよ");
-                Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+                //Debug.Log(count + "番が押されたよ");
+                //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView02(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
@@ -1439,8 +1439,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。個数を選択してください。";
 
-                Debug.Log(count + "番が押されたよ");
-                Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
+                //Debug.Log(count + "番が押されたよ");
+                //Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView03(pitemlistController._toggle_type2, pitemlistController.kettei_item2); //選択したアイテム2枚目をカードで表示
@@ -1491,8 +1491,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。個数を選択してください。";
 
-                Debug.Log(count + "番が押されたよ");
-                Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
+                //Debug.Log(count + "番が押されたよ");
+                //Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView04(pitemlistController._toggle_type3, pitemlistController.kettei_item3); //選択したアイテム2枚目をカードで表示
@@ -1548,7 +1548,7 @@ public class itemSelectToggle : MonoBehaviour
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + " " + "1個" + "\n" + "トッピングアイテム一個目を選択してください。";
-                Debug.Log("ベースアイテム選択完了！");
+                //Debug.Log("ベースアイテム選択完了！");
                 break;
 
             case false: //キャンセルが押された
@@ -1598,7 +1598,7 @@ public class itemSelectToggle : MonoBehaviour
                 yes_text.text = "調合する";
 
                 _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
-                Debug.Log("二個目選択完了！");
+                //Debug.Log("二個目選択完了！");
                 break;
 
             case false: //キャンセルが押された
@@ -1649,7 +1649,7 @@ public class itemSelectToggle : MonoBehaviour
                 yes_text.text = "調合する";
 
                 _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
-                Debug.Log("三個目選択完了！");
+                //Debug.Log("三個目選択完了！");
                 break;
 
             case false:
@@ -1684,7 +1684,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
 
-                Debug.Log("三個目選択完了！");
+                //Debug.Log("三個目選択完了！");
 
                 itemselect_cancel.update_ListSelect_Flag = 13; //ベースアイテムと一個目・二個目・三個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
@@ -1776,7 +1776,7 @@ public class itemSelectToggle : MonoBehaviour
 
                     case false:
 
-                        Debug.Log("ベースアイテムを選択した状態に戻る");
+                        //Debug.Log("ベースアイテムを選択した状態に戻る");
 
                         itemselect_cancel.Two_cancel();
 
@@ -1839,7 +1839,7 @@ public class itemSelectToggle : MonoBehaviour
 
                     case false:
 
-                        Debug.Log("1個目を選択した状態に戻る");
+                        //Debug.Log("1個目を選択した状態に戻る");
 
                         itemselect_cancel.Three_cancel();
 
@@ -1900,7 +1900,7 @@ public class itemSelectToggle : MonoBehaviour
 
                     case false:
 
-                        Debug.Log("2個目を選択した状態に戻る");
+                        //Debug.Log("2個目を選択した状態に戻る");
 
                         itemselect_cancel.Four_cancel();
 
@@ -1940,9 +1940,9 @@ public class itemSelectToggle : MonoBehaviour
 
         _text.text = database.items[itemID_1].itemNameHyouji + "を焼きますか？○○時間かかります。";
 
-        Debug.Log(count + "番が押されたよ");
-        Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
-        Debug.Log("これでいいですか？");
+        //Debug.Log(count + "番が押されたよ");
+        //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+        //Debug.Log("これでいいですか？");
 
         card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
         updown_counter_obj.SetActive(true);
@@ -2020,9 +2020,9 @@ public class itemSelectToggle : MonoBehaviour
 
         _text.text = database.items[itemID_1].itemNameHyouji + "をあげますか？";
 
-        Debug.Log(count + "番が押されたよ");
-        Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
-        Debug.Log("これでいいですか？");
+        //Debug.Log(count + "番が押されたよ");
+        //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+        //Debug.Log("これでいいですか？");
 
         card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
 
@@ -2098,9 +2098,9 @@ public class itemSelectToggle : MonoBehaviour
         //pitemlistController.cardImage_onoff_pcontrol.SetActive(true);
         _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。これでいいですか？";
 
-        Debug.Log(count + "番が押されたよ");
-        Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
-        Debug.Log("これでいいですか？");
+        //Debug.Log(count + "番が押されたよ");
+        //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
+        //Debug.Log("これでいいですか？");
 
         card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
 
@@ -2181,9 +2181,9 @@ public class itemSelectToggle : MonoBehaviour
         //pitemlistController.cardImage_onoff_pcontrol.SetActive(true);
         _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。これでいいですか？";
 
-        Debug.Log(count + "番が押されたよ");
-        Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
-        Debug.Log("これでいいですか？");
+        //Debug.Log(count + "番が押されたよ");
+        //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
+        //Debug.Log("これでいいですか？");
 
         card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
         updown_counter_obj.SetActive(true);
@@ -2257,7 +2257,7 @@ public class itemSelectToggle : MonoBehaviour
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-        Debug.Log("選択完了！");
+        //Debug.Log("選択完了！");
     }
 
 

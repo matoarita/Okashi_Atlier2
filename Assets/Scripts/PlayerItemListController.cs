@@ -18,6 +18,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
+    private SlotNameDataBase slotnamedatabase;
+    private string[] _slot = new string[10]; //とりあえず、スロットの数の設定用。
+    private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。
+
     private PlayerItemList pitemlist;
 
     private GameObject textPrefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
@@ -38,7 +42,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private int max;
     private int max_original;
     private int count;
-    private int i;
+    private int i, n;
 
     //各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
     public int _count1; //表示されているリスト中の選択番号 1
@@ -85,6 +89,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //スロットの日本語表示用リストの取得
+        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
 
         //スクロールビュー内の、コンテンツ要素を取得
@@ -266,7 +273,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
 
-                                if (database.items[i].itemType.ToString() == "Mat" || database.items[i].itemType.ToString() == "Potion")
+                                if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg")
                                 {
                                     itemlist_hyouji();
                                 }
@@ -337,7 +344,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                     case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子タイプは表示しない。
 
-                        if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion")
+                        if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg")
                         {
                             original_itemlist_hyouji();
                         }
@@ -505,6 +512,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
 
 
+    //リストにアイテム名（デフォルトアイテム）を表示する処理
 
     void itemlist_hyouji()
     {
@@ -532,7 +540,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     }
 
 
-
+    //リストにアイテム名（作ったアイテム）を表示する処理
 
     void original_itemlist_hyouji()
     {
@@ -547,10 +555,34 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _toggle_itemID.toggle_originplist_ID = i; //オリジナルアイテムリストのリスト番号
         //Debug.Log("プレイヤオリジナルアイテムリストID: " + _toggle_itemID.toggle_originplist_ID + " " + "アイテムID: " + _toggle_itemID.toggleitem_ID);
 
+
+        //アイテム名の表示
         item_name = pitemlist.player_originalitemlist[i].itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
 
+        //_slotHyouji1[]は、一度名前を、全て空白に初期化
+        for (n = 0; n < _slotHyouji1.Length; n++)
+        {
+            _slotHyouji1[n] = "";
+        }
 
-        _text[0].text = item_name;
+        //カード正式名称（ついてるスロット名も含めた名前）
+        for (n = 0; n < _slot.Length; n++)
+        {
+            count = 0;
+
+            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
+            while (count < slotnamedatabase.slotname_lists.Count)
+            {
+                if (slotnamedatabase.slotname_lists[count].slotName == pitemlist.player_originalitemlist[i].toppingtype[n].ToString())
+                {
+                    _slotHyouji1[n] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    break;
+                }
+                count++;
+            }
+        }
+
+        _text[0].text = _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + item_name;
         _text[0].color = new Color(50f / 255f, 128f / 255f, 126f / 255f);
 
         item_kosu = pitemlist.player_originalitemlist[i].ItemKosu;
