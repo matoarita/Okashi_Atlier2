@@ -57,135 +57,6 @@ public class ItemSelect_Cancel : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        switch(SceneManager.GetActiveScene().name)
-        {
-            case "Hiroba":
-                break;
-
-            case "Compound":
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-                Setup_Scene1();
-                break;
-
-            case "Shop":
-                Setup_Scene2();
-                break;
-
-            case "GirlEat":
-                GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
-                girlEat_scene = GirlEat_scene_obj.GetComponent<GirlEat_Main>();
-
-                Setup_Scene1();
-                break;
-
-            case "QuestBox":
-                QuestBox_scene_obj = GameObject.FindWithTag("QuestBox_Main");
-                questBox_scene = QuestBox_scene_obj.GetComponent<QuestBox_Main>();
-
-                Setup_Scene1();
-                break;
-
-            case "Travel":
-                //Setup_Scene1();
-                break;
-
-            default:
-                
-                break;
-
-        }
-        
-        Setup_SceneObject();
-
-        SceneManager.sceneLoaded += SceneLoaded; //なんらかのシーン読み込み後に、初期化するメソッド
-    }
-
-    //なんらかのシーン読み込み後に、初期化するメソッド
-    void SceneLoaded (Scene nextScene, LoadSceneMode mode)
-    {
-        //Debug.Log(nextScene.name);
-        //Debug.Log(mode);
-        //Debug.Log("Cancel Scene Loaded");
-
-        switch (nextScene.name)
-        {
-            case "Hiroba":
-                break;
-
-            case "Compound":
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-                Setup_Scene1();
-                break;
-
-            case "Shop":
-                Setup_Scene2();
-                break;
-
-            case "GirlEat":
-                GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
-                girlEat_scene = GirlEat_scene_obj.GetComponent<GirlEat_Main>();
-
-                Setup_Scene1();
-                break;
-
-            case "QuestBox":
-                QuestBox_scene_obj = GameObject.FindWithTag("QuestBox_Main");
-                questBox_scene = QuestBox_scene_obj.GetComponent<QuestBox_Main>();
-
-                Setup_Scene1();
-                break;
-
-            case "Travel":
-                //Setup_Scene1();
-                break;
-
-            default:
-
-                break;
-        }
-
-        Setup_SceneObject();
-
-        
-    }
-
-    void Setup_Scene1()
-    {
-
-        if (SceneManager.GetActiveScene().name == "Compound")
-        {
-            recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
-            recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-        }
-
-    }
-
-    void Setup_Scene2()
-    {
-        shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
-        shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-        updown_counter_obj = shopitemlistController_obj.transform.Find("updown_counter").gameObject;
-        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-        updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
-
-        yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
-        yes_text = yes.GetComponentInChildren<Text>();
-        no = shopitemlistController_obj.transform.Find("No").gameObject;
-        no_text = no.GetComponentInChildren<Text>();
-        yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
-    }
-
-    void Setup_Scene3()
-    {
-    }
-
-    void Setup_SceneObject()
-    {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
@@ -198,6 +69,57 @@ public class ItemSelect_Cancel : MonoBehaviour {
         //_text = text_area.GetComponentInChildren<Text>();
 
         update_ListSelect_Flag = 0;
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Hiroba":
+                break;
+
+            case "Compound":
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                break;
+
+            case "Shop":
+
+                shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
+                shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                updown_counter_obj = shopitemlistController_obj.transform.Find("updown_counter").gameObject;
+                updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+                updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
+                yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
+                yes_text = yes.GetComponentInChildren<Text>();
+                no = shopitemlistController_obj.transform.Find("No").gameObject;
+                no_text = no.GetComponentInChildren<Text>();
+                yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+                break;
+
+            case "GirlEat":
+                GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
+                girlEat_scene = GirlEat_scene_obj.GetComponent<GirlEat_Main>();
+
+                break;
+
+            case "QuestBox":
+                QuestBox_scene_obj = GameObject.FindWithTag("QuestBox_Main");
+                questBox_scene = QuestBox_scene_obj.GetComponent<QuestBox_Main>();
+
+                break;
+
+            case "Travel":
+                //Setup_Scene1();
+                break;
+
+            default:
+                
+                break;
+
+        }
+       
     }
 
 
@@ -215,6 +137,24 @@ public class ItemSelect_Cancel : MonoBehaviour {
             case "001_Chapter1":
                 break;
 
+            case "Compound":
+
+                //プレイヤーアイテムリストオブジェクトの初期化
+                if (pitemlistController_obj == null)
+                {
+                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+                }
+
+                //レシピリストオブジェクトの初期化
+                if (recipilistController_obj == null)
+                {
+                    recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+                    recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+                }
+
+                break;
+
             default:
 
                 //プレイヤーアイテムリストオブジェクトの初期化
@@ -223,7 +163,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
                     pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-                    updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
+                    /*updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
                     updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
                     updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
 
@@ -232,7 +172,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     no = pitemlistController_obj.transform.Find("No").gameObject;
                     yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
-                    item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;
+                    item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;*/
                 }
 
                 break;

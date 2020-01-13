@@ -17,6 +17,7 @@ public class Compound_Main : MonoBehaviour {
 
     private GameObject recipilist_onoff;
     private RecipiListController recipilistController;
+    private GameObject recipilist_scrollview_init_obj;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -98,7 +99,9 @@ public class Compound_Main : MonoBehaviour {
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
         playeritemlist_onoff.SetActive(false);
 
-        //レシピ画面の初期設定
+        //レシピリストパネルの取得
+        recipilist_scrollview_init_obj = GameObject.FindWithTag("RecipiListView_Init");
+        recipilist_scrollview_init_obj.GetComponent<RecipiListView_Init>().RecipiList_ScrollView_Init();
         recipilist_onoff = GameObject.FindWithTag("RecipiList_ScrollView");
         recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
         recipilist_onoff.SetActive(false);

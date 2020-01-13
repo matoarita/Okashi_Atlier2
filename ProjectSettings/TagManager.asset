@@ -38,6 +38,8 @@ TagManager:
   - SoundController
   - PlayerItemListView_Init
   - GetMaterial
+  - Hukidashi
+  - RecipiListView_Init
   layers:
   - Default
   - TransparentFX

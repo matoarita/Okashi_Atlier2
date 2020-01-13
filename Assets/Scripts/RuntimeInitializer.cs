@@ -44,6 +44,11 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(player_itemscrollview_init);
         player_itemscrollview_init.tag = "PlayerItemListView_Init";
 
+        //レシピリストスクロールビューの初期化用オブジェクト
+        var recipi_itemscrollview_init = new GameObject("RecipiListView_Init", typeof(RecipiListView_Init));
+        GameObject.DontDestroyOnLoad(recipi_itemscrollview_init);
+        recipi_itemscrollview_init.tag = "RecipiListView_Init";
+
         //デバッグ用チェックアイテムデータベースリスト
         var chk_itemdatabase_init = new GameObject("Check_ItemDataBase", typeof(Check_ItemDataBase));
         GameObject.DontDestroyOnLoad(chk_itemdatabase_init);

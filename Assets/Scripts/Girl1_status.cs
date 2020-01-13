@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 {
@@ -10,6 +12,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private float timeLeft;
     private int timeCount;
     private float timeOut;
+
+    private GameObject text_area;
+
+    private GameObject hukidashiPrefab;
+    private GameObject canvas;
+
+    private GameObject hukidashiitem;
+    private Text _text;
 
     //女の子の好み値。この値と、選択したアイテムの数値を比較し、近いほど得点があがる。
     public int girl1_Quality;
@@ -85,8 +95,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl_comment_flag = false;
         girl_comment_endflag = false;
 
+        //Prefab内の、コンテンツ要素を取得
+        canvas = GameObject.FindWithTag("Canvas");
+        hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
+
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
+        //テキストエリアの取得
+        text_area = GameObject.FindWithTag("Message_Window");
+        
 
         //秒計算。　
         timeLeft = 1.0f;
@@ -155,6 +173,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             timeOut = 5.0f;
 
+            if (hukidashiitem != null) {
+                Destroy(hukidashiitem);
+            }
+
             // Do anything
             Debug.Log("お腹が空いたよ～～");
 
@@ -173,6 +195,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             girl1_hungryScore[index]++;
 
             //表示用吹き出しを生成
+            hukidashiitem = Instantiate(hukidashiPrefab, canvas.transform);
+            _text = hukidashiitem.GetComponentInChildren<Text>();
+
+            //_text = text_area.GetComponentInChildren<Text>();
+            _text.text = "<color=#0000FF>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "のお菓子が食べたいよ～";
         }
     }
 
