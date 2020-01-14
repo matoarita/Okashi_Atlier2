@@ -13,7 +13,6 @@ public class SelectItem_kettei : MonoBehaviour {
     {
         kettei1 = false;
         onclick = false;
-        this.gameObject.SetActive(false);
     }
 	
 	// Update is called once per frame

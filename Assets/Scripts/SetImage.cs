@@ -185,6 +185,9 @@ public class SetImage : MonoBehaviour
                 //プレイヤー所持アイテムリストの取得
                 pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
+                //オリジナルアイテムのときだけ、効果覧を表示
+                Card_param_obj.SetActive(true);
+
                 Pitemlist_CardDraw();
                 break;
 
@@ -200,7 +203,7 @@ public class SetImage : MonoBehaviour
 
         switch (Pitem_or_Origin)
         {
-            case 0: //プレイヤーアイテムリストを選択した場合
+            case 0: //店売りアイテムリストを選択した場合
 
                 //アイテムタイプを代入//
                 item_type = database.items[check_counter].itemType.ToString();
@@ -556,27 +559,27 @@ public class SetImage : MonoBehaviour
                     break;*/
 
                 case "Pate":
-                    Card_param_obj.SetActive(true);
+                    //Card_param_obj.SetActive(true);
                     break;
 
                 case "Cookie_base":
-                    Card_param_obj.SetActive(true);
+                    //Card_param_obj.SetActive(true);
                     break;
 
                 case "Pie_base":
-                    Card_param_obj.SetActive(true);
+                    //Card_param_obj.SetActive(true);
                     break;
 
                 case "Chocolate_base":
-                    Card_param_obj.SetActive(true);
+                    //Card_param_obj.SetActive(true);
                     break;
 
                 case "Cake_base":
-                    Card_param_obj.SetActive(true);
+                    //Card_param_obj.SetActive(true);
                     break;
 
                 default:
-                    Card_param_obj.SetActive(true);
+                    //Card_param_obj.SetActive(true);
                     break;
             }
         }
@@ -585,11 +588,11 @@ public class SetImage : MonoBehaviour
             //スロット名+アイテム名の表示
             item_Name_Full.text = _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9] + item_Name.text;
             item_Name.text = item_Name_Full.text; //お菓子
-            Card_param_obj.SetActive(true);
+            //Card_param_obj.SetActive(true);
         }
         else
         {
-            Card_param_obj.SetActive(true);
+            //Card_param_obj.SetActive(true);
         }
 
 

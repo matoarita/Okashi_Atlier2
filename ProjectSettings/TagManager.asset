@@ -40,6 +40,8 @@ TagManager:
   - GetMaterial
   - Hukidashi
   - RecipiListView_Init
+  - SelectItem_kettei
+  - Black_Effect
   layers:
   - Default
   - TransparentFX

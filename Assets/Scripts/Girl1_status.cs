@@ -12,6 +12,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private float timeLeft;
     private int timeCount;
     private float timeOut;
+    private Text Counter;
+
+    public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
 
     private GameObject text_area;
 
@@ -49,8 +52,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public string girl1_Topping2;
 
 
-    public int girl1_Love_exp; //女の子の好感度のこと。ゲーム中に、お菓子をあげることで変動する。総量。
-    public int girl1_Getlove_exp; //お菓子の判定の際、取得した好感度。Love_expにこの値を加算していく。
+    public int girl1_Love_exp; //女の子の好感度値のこと。ゲーム中に、お菓子をあげることで変動する。
 
     public bool girl_comment_flag; //女の子が感想をいうときに、宴をON/OFFにするフラグ
     public bool girl_comment_endflag; //感想を全て言い終えたフラグ
@@ -82,6 +84,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int i, count;
     private int index;
 
+    private float rnd;
+
     //ランダムで変化する、女の子が今食べたいお菓子のテーブル
     public List<string> girl1_hungryInfo = new List<string>();
     public List<int> girl1_hungryScore = new List<int>();
@@ -95,6 +99,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl_comment_flag = false;
         girl_comment_endflag = false;
 
+        timeGirl_hungry_status = 0;
+
         //Prefab内の、コンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
         hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
@@ -104,7 +110,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //テキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
-        
+        Counter = canvas.transform.Find("Debug_Panel/TimeCount").gameObject.GetComponent<Text>(); //デバッグ用
+
 
         //秒計算。　
         timeLeft = 1.0f;
@@ -147,7 +154,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Topping2 = "grape";
 
         girl1_Love_exp = 0;
-        girl1_Getlove_exp = 0;
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
@@ -156,50 +162,52 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     // Update is called once per frame
     void Update () {
 
-        //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
+        
         timeLeft -= Time.deltaTime;
         timeOut -= Time.deltaTime;
 
+        //1秒ごとのタイムカウンター
         if (timeLeft <= 0.0)
         {
             timeLeft = 1.0f;
             timeCount++;
 
-            //ここに処理
+            //ここに処理。デバッグ用。
+            Counter.text = "PlayTime: " + timeCount + " s";
             //Debug.Log("経過時間: " + timeCount + " 秒");
         }
 
+        //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
         if (timeOut <= 0.0)
         {
-            timeOut = 5.0f;
-
-            if (hukidashiitem != null) {
-                Destroy(hukidashiitem);
-            }
-
-            // Do anything
-            Debug.Log("お腹が空いたよ～～");
-
-            //女の子の食べたいものが、ランダムで切り替わるテーブル            
-            index = Random.Range(1, girl1_hungryScore.Count);
-            Debug.Log("ランダムで食べたいもの一つ決定: " + index + " " + slotnamedatabase.slotname_lists[index].slot_Hyouki_1);
-            Debug.Log(slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + " のお菓子が食べたいよ～");
-
-            //まず全ての値を0に初期化
-            for(i = 0; i < girl1_hungryScore.Count; i++ )
+            switch (timeGirl_hungry_status)
             {
-                girl1_hungryScore[i] = 0;
-            }            
+                case 0:
 
-            //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
-            girl1_hungryScore[index]++;
+                    timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
-            //表示用吹き出しを生成
-            hukidashiitem = Instantiate(hukidashiPrefab, canvas.transform);
-            _text = hukidashiitem.GetComponentInChildren<Text>();
+                    rnd = Random.Range(10.0f, 25.0f);
+                    timeOut = 5.0f + rnd;
+                    Girl_Hungry();
+                    break;
 
-            //_text = text_area.GetComponentInChildren<Text>();
-            _text.text = "<color=#0000FF>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "のお菓子が食べたいよ～";
+                case 1:
+
+                    timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
+
+                    rnd = Random.Range(3.0f, 10.0f);
+                    timeOut = 3.0f + rnd;
+                    Girl_Full();
+                    break;
+
+                default:
+
+                    timeOut = 5.0f;
+                    break;
+            }
+            
+
+            
         }
     }
 
@@ -211,6 +219,49 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             girl1_hungryInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
             girl1_hungryScore.Add(0);
+        }
+    }
+
+    void Girl_Hungry()
+    {
+        //前の残りの吹き出しアイテムを削除。
+        if (hukidashiitem != null)
+        {
+            Destroy(hukidashiitem);
+        }
+
+        //女の子の食べたいものが、ランダムで切り替わるテーブル            
+        index = Random.Range(1, girl1_hungryScore.Count);
+
+        //まず全ての値を0に初期化
+        for (i = 0; i < girl1_hungryScore.Count; i++)
+        {
+            girl1_hungryScore[i] = 0;
+        }
+
+        //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
+        girl1_hungryScore[index]++;
+
+        //表示用吹き出しを生成
+        hukidashiitem = Instantiate(hukidashiPrefab, canvas.transform);
+        _text = hukidashiitem.GetComponentInChildren<Text>();
+
+        //_text = text_area.GetComponentInChildren<Text>();
+        _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "のお菓子が食べたいなぁ";
+    }
+
+    void Girl_Full()
+    {
+        //前の残りの吹き出しアイテムを削除。
+        if (hukidashiitem != null)
+        {
+            Destroy(hukidashiitem);
+        }
+
+        //まず全ての値を0に初期化
+        for (i = 0; i < girl1_hungryScore.Count; i++)
+        {
+            girl1_hungryScore[i] = 0;
         }
     }
 }

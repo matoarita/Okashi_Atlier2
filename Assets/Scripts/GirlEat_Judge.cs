@@ -16,10 +16,21 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject window_param_result_obj;
     private Text window_result_text;
 
+    private GameObject hukidashiitem;
+    private Text _text;
+
+    private GameObject text_area;
+    private Text _windowtext;
+
     private int i, count;
 
     private int kettei_item1; //女の子にあげるアイテムの、アイテムリスト番号。
     private int _toggle_type1; //店売りか、オリジナルのアイテムなのかの判定用
+
+    private Slider _slider; //好感度バーを取得
+    private int _exp;
+    private int Getlove_exp;
+    private bool loveanim_on;
 
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
@@ -143,6 +154,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
         window_param_result_obj.SetActive(false);
 
+        //windowテキストエリアの取得
+        text_area = GameObject.FindWithTag("Message_Window");
+        _windowtext = text_area.GetComponentInChildren<Text>();
+
         kettei_item1 = 0;
         _toggle_type1 = 0;
 
@@ -153,12 +168,69 @@ public class GirlEat_Judge : MonoBehaviour {
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
+
+        //好感度バーの取得
+        _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
+        _slider.value = girl1_status.girl1_Love_exp;
+        _exp = 0;
+        Getlove_exp = 0;
+        loveanim_on = false;
+
+        //バーの最大値の設定。ステージによって変わる。
+        _slider.maxValue = 100;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        //好感度バーアニメーションの処理
+        if (loveanim_on == true)
+        {
+            if (Getlove_exp > 0) //増える場合は、こっちの処理
+            {
+
+                //１ずつ増加
+                ++_exp;
+                ++girl1_status.girl1_Love_exp;
+
+                //スライダにも反映
+                _slider.value = girl1_status.girl1_Love_exp;
+
+                if (_exp >= Getlove_exp)
+                {
+                    Getlove_exp = 0;
+                    _exp = 0;
+                    loveanim_on = false;
+                }
+            }
+
+            else if (Getlove_exp < 0)//減る場合は、こっちの処理
+            {
+
+                //１ずつ減少
+                --_exp;
+                --girl1_status.girl1_Love_exp;
+
+                //スライダにも反映
+                _slider.value = girl1_status.girl1_Love_exp;
+
+                if (_exp <= Getlove_exp)
+                {
+                    Getlove_exp = 0;
+                    _exp = 0;
+                    loveanim_on = false;
+                }
+            }
+            else
+            {
+                //0の場合で、アニメーションが作動した場合は、特になにもしない。
+                Getlove_exp = 0;
+                _exp = 0;
+                loveanim_on = false;
+            }
+        }
+
+    }
 
 
     //選んだアイテムと、女の子の好みを比較するメソッド
@@ -250,7 +322,15 @@ public class GirlEat_Judge : MonoBehaviour {
 
         /* 古い処理、ここに入ってた。とりあえず、スクリプト下部へ避難 */
 
+
+
         /* 新しい処理ここから */
+
+        //一回まず各スコアを初期化。
+        for (i = 0; i < itemslotScore.Count; i++)
+        {
+            itemslotScore[i] = 0;
+        }
 
         for (i = 0; i < _basetp.Length; i++)
         {
@@ -276,43 +356,85 @@ public class GirlEat_Judge : MonoBehaviour {
             count++;
         }*/
 
-        //女の子が食べたいものを満たしているか、比較する
-        //OKだったら、正解し、さらに好感度の上昇値を計算する。
-        dislike_flag = true;
-        for ( i = 0; i < itemslotScore.Count; i++)
-        {
-            //0はNonなので、無視
-            if (i != 0)
-            {
-                //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
-                if (itemslotScore[i] >= girl1_status.girl1_hungryScore[i])
-                {
-                    
-                }
-                //一つでも満たしてないものがある場合は、NGフラグがたつ
-                else
-                {
-                    dislike_flag = false;
-                }
-            }
-        }
 
-        if(dislike_flag == true) //正解の場合
+        switch (girl1_status.timeGirl_hungry_status)
         {
-            //合計点をもとに、女の子の好感度がアップ！
-            girl1_status.girl1_Getlove_exp = total_score;
+            case 0: //お腹が特に減ってない状態。
 
-            Debug.Log("お兄ちゃん！ありがとー！！");
-        }
-        else //失敗の場合
-        {
-            Debug.Log("コレ嫌いー！");
+                Debug.Log("今はあまりお腹が減ってないらしい");
+
+                _windowtext.text = "今はあまりお腹が減ってないらしい";
+
+                break;
+
+            case 1: //お腹が空いた状態。吹き出しがでる。
+
+                _windowtext.text = "お菓子をあげた！";
+
+                //女の子が食べたいものを満たしているか、比較する
+                //OKだったら、正解し、さらに好感度の上昇値を計算する。
+
+                dislike_flag = true;
+                for (i = 0; i < itemslotScore.Count; i++)
+                {
+                    //0はNonなので、無視
+                    if (i != 0)
+                    {
+                        //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                        if (itemslotScore[i] >= girl1_status.girl1_hungryScore[i])
+                        {
+
+                        }
+                        //一つでも満たしてないものがある場合は、NGフラグがたつ
+                        else
+                        {
+                            dislike_flag = false;
+                        }
+                    }
+                }
+
+                if (dislike_flag == true) //正解の場合
+                {
+
+                    hukidashiitem = GameObject.FindWithTag("Hukidashi");
+                    _text = hukidashiitem.GetComponentInChildren<Text>();
+
+                    _text.text = "お兄ちゃん！ありがとー！！";
+
+                    //好感度取得
+                    Getlove_exp = 30;
+
+                    //アイテムの削除
+                    delete_Item();                    
+
+                    //アニメーションをON
+                    loveanim_on = true;
+
+                }
+                else //失敗の場合
+                {
+                    hukidashiitem = GameObject.FindWithTag("Hukidashi");
+                    _text = hukidashiitem.GetComponentInChildren<Text>();
+
+                    _text.text = "コレ嫌いー！";
+
+                    //好感度取得
+                    Getlove_exp = -10;
+
+                    //アイテムの削除
+                    delete_Item();
+
+                    //アニメーションをON
+                    loveanim_on = true;
+
+                }
+
+                break;
+
+            default:
+                break;
         }
         
-        
-
-
-
 
 
         //宴用にgirl1_statusにも、点数を共有
@@ -370,6 +492,25 @@ public class GirlEat_Judge : MonoBehaviour {
             itemslotScore.Add(0);
         }
             
+    }
+
+    void delete_Item()
+    {
+        switch (_toggle_type1)
+        {
+            case 0: //プレイヤーアイテムリストから選択している。
+
+                pitemlist.deletePlayerItem(kettei_item1, 1);
+                break;
+
+            case 1: //オリジナルアイテムリストから選択している。オリジナルの場合は、一度削除用リストにIDを追加し、降順にしてから、後の削除メソッドでまとめて削除する。
+
+                pitemlist.deleteOriginalItem(kettei_item1, 1);
+                break;
+
+            default:
+                break;
+        }
     }
 
         /*

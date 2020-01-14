@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ItemSelect_Cancel : MonoBehaviour {
+public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
+{
 
     private GameObject text_area; //Sceneテキスト表示エリアのこと。
     private Text _text; //
@@ -42,11 +43,15 @@ public class ItemSelect_Cancel : MonoBehaviour {
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private Text no_text;
+
+    private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
     private GameObject item_tsuika; //PlayeritemList_ScrollViewの子オブジェクト「item_tsuika」ボタン
 
     private ItemDataBase database;
+
+    private GameObject black_effect;
 
     public int update_ListSelect_Flag;
 
@@ -64,9 +69,10 @@ public class ItemSelect_Cancel : MonoBehaviour {
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
+        //黒半透明パネルの取得
+        //black_effect = GameObject.FindWithTag("Black_Effect");
+
         canvas = GameObject.FindWithTag("Canvas");
-        //text_area = GameObject.FindWithTag("Message_Window");
-        //_text = text_area.GetComponentInChildren<Text>();
 
         update_ListSelect_Flag = 0;
 
@@ -94,7 +100,9 @@ public class ItemSelect_Cancel : MonoBehaviour {
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = shopitemlistController_obj.transform.Find("No").gameObject;
                 no_text = no.GetComponentInChildren<Text>();
-                yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                 break;
 
@@ -162,17 +170,6 @@ public class ItemSelect_Cancel : MonoBehaviour {
                 {
                     pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
                     pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-                    /*updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
-                    updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-                    updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
-
-                    yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-                    yes_text = yes.GetComponentInChildren<Text>();
-                    no = pitemlistController_obj.transform.Find("No").gameObject;
-                    yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
-
-                    item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;*/
                 }
 
                 break;
@@ -193,7 +190,9 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     yes = recipilistController_obj.transform.Find("Yes").gameObject;
                     yes_text = yes.GetComponentInChildren<Text>();
                     no = recipilistController_obj.transform.Find("No").gameObject;
-                    yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                     updown_counter_obj = recipilistController_obj.transform.Find("updown_counter").gameObject;
                     updown_counter_recipi = updown_counter_obj.GetComponent<Updown_counter_recipi>();
@@ -204,7 +203,9 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     yes = pitemlistController_obj.transform.Find("Yes").gameObject;
                     yes_text = yes.GetComponentInChildren<Text>();
                     no = pitemlistController_obj.transform.Find("No").gameObject;
-                    yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                     updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
                     updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
@@ -253,9 +254,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
                                         {
                                             //Debug.Log("一個目はcancel");
 
-                                            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                                            _text = text_area.GetComponentInChildren<Text>();
-
+                                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                                             All_cancel();
 
                                         }
@@ -265,19 +264,15 @@ public class ItemSelect_Cancel : MonoBehaviour {
                                     {
                                         if (yes_selectitem_kettei.kettei1 == true) //調合二個で決定した状態
                                         {
-                                            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                                            _text = text_area.GetComponentInChildren<Text>();
 
                                             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                                             pitemlistController.final_select_flag = true; //最後調合するかどうかのフラグをオンに。
+
                                         }
 
                                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                         {
                                             //Debug.Log("二個目はcancel");
-
-                                            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                                            _text = text_area.GetComponentInChildren<Text>();
 
                                             Two_cancel();
 
@@ -308,9 +303,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
                                         {
                                             //Debug.Log("一個目はcancel");
 
-                                            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                                            _text = text_area.GetComponentInChildren<Text>();
-
+                                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                                             pitemlistController.topping_DrawView_1(); //リストビューを更新し、トッピング材料だけ表示する。
 
                                             All_cancel();
@@ -322,19 +315,15 @@ public class ItemSelect_Cancel : MonoBehaviour {
                                     {
                                         if (yes_selectitem_kettei.kettei1 == true) //ベースアイテム＋調合１個で決定した状態
                                         {
-                                            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                                            _text = text_area.GetComponentInChildren<Text>();
 
                                             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                                             pitemlistController.final_select_flag = true; //最後調合するかどうかのフラグをオンに。
+
                                         }
 
                                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                         {
                                             //Debug.Log("一個目はcancel");
-
-                                            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                                            _text = text_area.GetComponentInChildren<Text>();
 
                                             Two_cancel();
                                         }
@@ -344,19 +333,15 @@ public class ItemSelect_Cancel : MonoBehaviour {
                                     {
                                         if (yes_selectitem_kettei.kettei1 == true) //ベースアイテム＋調合二個で決定した状態
                                         {
-                                            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                                            _text = text_area.GetComponentInChildren<Text>();
 
                                             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                                             pitemlistController.final_select_flag = true; //最後調合するかどうかのフラグをオンに。
+
                                         }
 
                                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                         {
                                             //Debug.Log("二個目はcancel");
-
-                                            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                                            _text = text_area.GetComponentInChildren<Text>();
 
                                             Three_cancel();
                                         }
@@ -398,14 +383,13 @@ public class ItemSelect_Cancel : MonoBehaviour {
                     if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                     {
                         //Debug.Log("キャンセル");
+
                         GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
                         girlEat_scene = GirlEat_scene_obj.GetComponent<GirlEat_Main>();
 
-                        text_area = GameObject.FindWithTag("Message_Window");
-                        _text = text_area.GetComponentInChildren<Text>();
-
                         girlEat_scene.girleat_status = 0;
                         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
                         //All_cancel();
                     }
                 }
@@ -424,7 +408,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
 
                         questBox_scene.qbox_status = 0;
                         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-                                                               //All_cancel();
+                        //All_cancel();
                     }
                 }
             }
@@ -440,7 +424,6 @@ public class ItemSelect_Cancel : MonoBehaviour {
         _text = text_area.GetComponentInChildren<Text>();
 
         kettei_on_waiting = false;
-        //pitemlistController.kettei1_on = false; //現在、トグルは一つも押されていない状態
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理
         {
@@ -452,7 +435,6 @@ public class ItemSelect_Cancel : MonoBehaviour {
                 yes = recipilistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = recipilistController_obj.transform.Find("No").gameObject;
-                yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
                 updown_counter_obj = recipilistController_obj.transform.Find("updown_counter").gameObject;
                 updown_counter_recipi = updown_counter_obj.GetComponent<Updown_counter_recipi>();
@@ -463,7 +445,6 @@ public class ItemSelect_Cancel : MonoBehaviour {
                 yes = pitemlistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = pitemlistController_obj.transform.Find("No").gameObject;
-                yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
                 updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
                 updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
@@ -539,7 +520,7 @@ public class ItemSelect_Cancel : MonoBehaviour {
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
             no = pitemlistController_obj.transform.Find("No").gameObject;
-            yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
 
             update_ListSelect_Flag = 0; //オールリセットするのみ。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -549,7 +530,6 @@ public class ItemSelect_Cancel : MonoBehaviour {
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
             no = pitemlistController_obj.transform.Find("No").gameObject;
-            yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
             update_ListSelect_Flag = 0; //オールリセットするのみ。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -560,10 +540,13 @@ public class ItemSelect_Cancel : MonoBehaviour {
 
         yes.SetActive(false);
         no.SetActive(true);
-        //item_tsuika.SetActive(true);
         updown_counter_obj.SetActive(false);
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        //黒半透明パネルの取得
+        //black_effect = GameObject.FindWithTag("Black_Effect");
+        //black_effect.SetActive(false); //黒半透明パネルをオフ
     }
 
 

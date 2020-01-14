@@ -51,78 +51,6 @@ MonoBehaviour:
       topping09: Non
       topping10: Non
     - ItemID: 1
-      file_name: komugiko
-      name: kyorikiko
-      nameHyouji: "\u5C0F\u9EA6\u7C89\uFF1C\u5F37\u529B\uFF1E"
-      desc: "\u8584\u529B\u7C89\u3088\u308A\u3082\u3082\u3063\u3061\u308A\u3057\u305F\u98DF\u611F\u3092\u51FA\u305B\u308B\u3002\uFF1C\u4E0A\u7D1A\u7D20\u6750\uFF1E"
-      mp: 0
-      day: 0
-      quality: 50
-      rich: 35
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 35
-      fluffy: 50
-      smooth: 50
-      hardness: 85
-      jiggly: 0
-      chewy: 0
-      powdery: 50
-      oily: 0
-      watery: 0
-      type: Mat
-      subtype: Komugiko
-      girl1_like: 0
-      cost_price: 10
-      sell_price: 5
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      topping10: Non
-    - ItemID: 2
-      file_name: butter
-      name: salad_Oil
-      nameHyouji: "\u83DC\u7A2E\u30AA\u30A4\u30EB"
-      desc: "\u83DC\u7A2E\u304B\u3089\u4F5C\u3063\u305F\u690D\u7269\u6027\u306E\u6CB9\u3002\u5B89\u3044\u304C\u3001\u5C11\u3057\u6CB9\u3063\u307D\u3044\u3002"
-      mp: 0
-      day: 0
-      quality: 50
-      rich: 35
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 50
-      fluffy: 50
-      smooth: 50
-      hardness: 40
-      jiggly: 0
-      chewy: 0
-      powdery: 0
-      oily: 78
-      watery: 3
-      type: Mat
-      subtype: Butter
-      girl1_like: 0
-      cost_price: 20
-      sell_price: 10
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      topping10: Non
-    - ItemID: 3
       file_name: butter
       name: butter
       nameHyouji: "\u30D0\u30BF\u30FC"
@@ -158,43 +86,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 4
-      file_name: butter
-      name: butter_salt
-      nameHyouji: "\u6709\u5869\u30D0\u30BF\u30FC"
-      desc: "\u725B\u4E73\u3092\u719F\u6210\u3055\u305B\u3066\u51FA\u6765\u308B\u3001\u9999\u308A\u9AD8\u3044\u6CB9\u3002\u5869\u304C\u307B\u3093\u306E\u5C11\u3057\u52A0\u3048\u3089\u308C\u3066\u3044\u308B\u3002"
-      mp: 0
-      day: 0
-      quality: 50
-      rich: 60
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 65
-      fluffy: 50
-      smooth: 60
-      hardness: 40
-      jiggly: 0
-      chewy: 0
-      powdery: 0
-      oily: 15
-      watery: 3
-      type: Mat
-      subtype: Butter
-      girl1_like: 0
-      cost_price: 20
-      sell_price: 10
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      topping10: Non
-    - ItemID: 5
+    - ItemID: 2
       file_name: butter
       name: kogashi_butter
       nameHyouji: "\u7126\u304C\u3057\u30D0\u30BF\u30FC"
@@ -230,7 +122,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 6
+    - ItemID: 3
       file_name: suger
       name: suger
       nameHyouji: "\u7802\u7CD6"
@@ -266,7 +158,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 7
+    - ItemID: 4
       file_name: suger
       name: granusuger
       nameHyouji: "\u30B0\u30E9\u30CB\u30E5\u30FC\u7CD6"
@@ -302,7 +194,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 8
+    - ItemID: 5
       file_name: suger
       name: powder_suger
       nameHyouji: "\u7C89\u7CD6"
@@ -338,7 +230,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 9
+    - ItemID: 6
       file_name: suger
       name: pink_suger
       nameHyouji: "\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC"
@@ -374,7 +266,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 10
+    - ItemID: 7
       file_name: suger
       name: emerald_suger
       nameHyouji: "\u30A8\u30E1\u30E9\u30EB\u30C9\u30B7\u30E5\u30AC\u30FC"
@@ -410,7 +302,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 11
+    - ItemID: 8
       file_name: egg
       name: egg
       nameHyouji: "\u305F\u307E\u3054"
@@ -446,7 +338,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 12
+    - ItemID: 9
       file_name: egg
       name: egg_white
       nameHyouji: "\u5375\u767D"
@@ -482,7 +374,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 13
+    - ItemID: 10
       file_name: egg
       name: egg_yellow
       nameHyouji: "\u5375\u9EC4"
@@ -518,7 +410,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 14
+    - ItemID: 11
       file_name: cacao_beans
       name: cacao_beans
       nameHyouji: "\u30AB\u30AB\u30AA\u8C46"
@@ -544,6 +436,114 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+    - ItemID: 12
+      file_name: komugiko
+      name: kyorikiko
+      nameHyouji: "\u5C0F\u9EA6\u7C89\uFF1C\u5F37\u529B\uFF1E"
+      desc: "\u8584\u529B\u7C89\u3088\u308A\u3082\u3082\u3063\u3061\u308A\u3057\u305F\u98DF\u611F\u3092\u51FA\u305B\u308B\u3002\uFF1C\u4E0A\u7D1A\u7D20\u6750\uFF1E"
+      mp: 0
+      day: 0
+      quality: 50
+      rich: 35
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 35
+      fluffy: 50
+      smooth: 50
+      hardness: 85
+      jiggly: 0
+      chewy: 0
+      powdery: 50
+      oily: 0
+      watery: 0
+      type: Mat
+      subtype: Komugiko
+      girl1_like: 0
+      cost_price: 10
+      sell_price: 5
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+    - ItemID: 13
+      file_name: butter
+      name: salad_Oil
+      nameHyouji: "\u83DC\u7A2E\u30AA\u30A4\u30EB"
+      desc: "\u83DC\u7A2E\u304B\u3089\u4F5C\u3063\u305F\u690D\u7269\u6027\u306E\u6CB9\u3002\u5B89\u3044\u304C\u3001\u5C11\u3057\u6CB9\u3063\u307D\u3044\u3002"
+      mp: 0
+      day: 0
+      quality: 50
+      rich: 35
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 50
+      fluffy: 50
+      smooth: 50
+      hardness: 40
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 78
+      watery: 3
+      type: Mat
+      subtype: Butter
+      girl1_like: 0
+      cost_price: 20
+      sell_price: 10
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+    - ItemID: 14
+      file_name: butter
+      name: butter_salt
+      nameHyouji: "\u6709\u5869\u30D0\u30BF\u30FC"
+      desc: "\u725B\u4E73\u3092\u719F\u6210\u3055\u305B\u3066\u51FA\u6765\u308B\u3001\u9999\u308A\u9AD8\u3044\u6CB9\u3002\u5869\u304C\u307B\u3093\u306E\u5C11\u3057\u52A0\u3048\u3089\u308C\u3066\u3044\u308B\u3002"
+      mp: 0
+      day: 0
+      quality: 50
+      rich: 60
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 65
+      fluffy: 50
+      smooth: 60
+      hardness: 40
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 15
+      watery: 3
+      type: Mat
+      subtype: Butter
+      girl1_like: 0
+      cost_price: 20
+      sell_price: 10
       topping01: Non
       topping02: Non
       topping03: Non

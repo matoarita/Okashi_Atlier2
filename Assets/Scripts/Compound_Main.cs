@@ -59,6 +59,8 @@ public class Compound_Main : MonoBehaviour {
     private Text no_text;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
+    private GameObject black_effect;
+
     private int i, j;
     private int comp_ID;
 
@@ -126,9 +128,13 @@ public class Compound_Main : MonoBehaviour {
         GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
         girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
 
-
+        //windowテキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
+
+        //黒半透明パネルの取得
+        //black_effect = GameObject.FindWithTag("Black_Effect");
+        //black_effect.SetActive(false);
 
         compoundselect_onoff_obj = GameObject.FindWithTag("CompoundSelect");
         saveload_panel = canvas.transform.Find("SaveLoadPanel").gameObject;
@@ -277,8 +283,7 @@ public class Compound_Main : MonoBehaviour {
 
                         //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
                         girlEat_judge.Girleat_Judge_method(pitemlistController.kettei_item1, pitemlistController._toggle_type1);
-
-                        _text.text = "お菓子をあげた！";
+                        
                         compound_status = 0;
 
                         break;
@@ -350,7 +355,8 @@ public class Compound_Main : MonoBehaviour {
             recipi_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
-            //Debug.Log("check1");
+            //black_effect.SetActive(true);
+
             _text.text = "レシピから作るよ。何を作る？";
             compound_status = 1;
         }
@@ -363,7 +369,9 @@ public class Compound_Main : MonoBehaviour {
             extreme_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
-            //Debug.Log("check2");
+            //black_effect.SetActive(true);
+
+
             _text.text = "エクストリーム調合をするよ！ まずは、お菓子を選んでね。";
             compound_status = 2;
         }
@@ -376,7 +384,8 @@ public class Compound_Main : MonoBehaviour {
             original_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
-            //Debug.Log("check3");
+            //black_effect.SetActive(true);
+
             _text.text = "何を作る？";
             compound_status = 3;
         }
@@ -400,7 +409,8 @@ public class Compound_Main : MonoBehaviour {
             roast_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
-            //Debug.Log("check3");
+            //black_effect.SetActive(true);
+
             _text.text = "作った生地を焼きます。焼きたい生地を選んでください。";
             compound_status = 5;
         }
@@ -413,7 +423,8 @@ public class Compound_Main : MonoBehaviour {
             menu_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
-            //Debug.Log("check1");
+            //black_effect.SetActive(true);
+
             compound_status = 99;
         }
     }

@@ -39,6 +39,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private ItemCompoundDataBase databaseCompo;
     private ItemRoastDataBase databaseRoast;
     private ItemShopDataBase shop_database;
+    private SlotNameDataBase slotnamedatabase;
 
     private int toggle_type1;
     private int toggle_type2;
@@ -68,6 +69,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private bool Pate_flag;
     private int result_kosu;
+
+    private string[] _slot = new string[10];
+    private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
 
     private int i, j, sw, count;
 
@@ -249,6 +253,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
+
+        //スロットの日本語表示用リストの取得
+        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
 
         //カード表示用オブジェクトの取得
@@ -551,7 +558,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     compound_success = false;
 
-                    StartCoroutine("renkinTopping_exp_up");
+                    StartCoroutine("renkin_exp_up");
 
                     pitemlistController_obj.SetActive(true);
 
@@ -1058,7 +1065,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         deleteOriginalList.Clear();
 
-        if (Comp_method_bunki == 1) //トッピング調合などの場合で、ベースアイテムを、プレイヤーのアイテムリストから選んでる場合は、ベースアイテムの削除処理を行う。
+        if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //生地合成、もしくはトッピング調合などの場合、ベースアイテムを、プレイヤーのアイテムリストから選んでる場合は、ベースアイテムの削除処理を行う。
         {
 
             //ベースアイテムを削除する。
@@ -1168,7 +1175,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             foreach (KeyValuePair<int, int> deletePair in newTable)
             {
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
-                //Debug.Log("delete_originID:個数 " + deletePair.Key + ":" + deletePair.Value);
+                //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }
         }
     }
@@ -2217,21 +2224,34 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     IEnumerator renkin_exp_up()
     {
-        //Debug.Log("経験値アップ");
 
-        _text.text = "調合完了！ " + database.items[result_item].itemNameHyouji + " が" + result_kosu + "個 できました！" + "\n" + "錬金経験値" + databaseCompo.compoitems[result_ID].renkin_Bexp + "上がった！";
+        //_slotHyouji1[]は、一度名前を、全て空白に初期化
+        for (i = 0; i < _slotHyouji1.Length; i++)
+        {
+            _slotHyouji1[i] = "";
+        }
 
-        Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
+        //カード正式名称（ついてるスロット名も含めた名前）
+        for (i = 0; i < _slot.Length; i++)
+        {
+            count = 0;
 
-        while (!Input.GetMouseButtonDown(0)) yield return null;
+            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
+            while (count < slotnamedatabase.slotname_lists.Count)
+            {
+                if (slotnamedatabase.slotname_lists[count].slotName == pitemlist.player_originalitemlist[new_item].toppingtype[i].ToString())
+                {
+                    _slotHyouji1[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    break;
+                }
+                count++;
+            }
+        }
 
-    }
-
-    IEnumerator renkinTopping_exp_up()
-    {
-        //Debug.Log("経験値アップ");
-
-        _text.text = "調合完了！ " + database.items[result_item].itemNameHyouji + " ができました！";
+        _text.text = "調合完了！ " +
+            _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
+            " が" + result_kosu + "個 できました！" + "\n" + 
+            "錬金経験値" + databaseCompo.compoitems[result_ID].renkin_Bexp + "上がった！";
 
         Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
 

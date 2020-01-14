@@ -40,6 +40,7 @@ public class GirlEat_Main : MonoBehaviour
     private int sw;
 
     public int girleat_status;
+    private int Getlove_exp;
 
     private int final_kettei_item1; //女の子にあげるアイテムの、アイテムID。
 
@@ -128,8 +129,10 @@ public class GirlEat_Main : MonoBehaviour
                 girleat_status = 10;
                 sw = 0;
 
+                Getlove_exp = 30;
+
                 text_area.SetActive(true);
-                _text.text = "好感度: " + girl1_status.girl1_Getlove_exp + " アップ！！";
+                _text.text = "好感度: " + Getlove_exp + " アップ！！";
 
                 StartCoroutine(Okashi_after());
             }
@@ -144,14 +147,14 @@ public class GirlEat_Main : MonoBehaviour
         {
             StartCoroutine("Okashi_after");
 
-            if (_exp <= girl1_status.girl1_Getlove_exp)
+            if (_exp <= Getlove_exp)
             {
                 ++girl1_status.girl1_Love_exp;
                 ++_exp;
                 _slider.value = girl1_status.girl1_Love_exp;
 
             }
-            else if (_exp > girl1_status.girl1_Getlove_exp)
+            else if (_exp > Getlove_exp)
             {
                 
             }

@@ -39,12 +39,13 @@ public class AddPlayerItemButton : MonoBehaviour {
 
     public void OnClickAddSkillButton()
     {
+        
         Allitem_Add();
-
     }
 
     public void OnClickAddSkillButton2()
     {
+
         //基本アイテムのみ追加。
         for (i = 0; i <= database.sheet_topendID[1]; i++)
         {
@@ -74,7 +75,23 @@ public class AddPlayerItemButton : MonoBehaviour {
             {
                 pitemlist.addPlayerItem(i, 5);
             }
+            
         }
+
+        count = database.sheet_topendID[2];
+
+        j = database.sheet_topendID[3] - database.sheet_topendID[2];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == "neko_cookie")
+            {
+                pitemlist.addPlayerItem(count, 5);
+            }
+            ++count;
+        }
+
+        pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 99, 99, 50, 30, 30, 0, 0, 0, 0, 0, 50, 50, 50, 20, 9999, 9999, "Orange", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5);
 
         pitemlistController.AddItemList();
 
