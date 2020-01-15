@@ -19,6 +19,17 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 	// Update is called once per frame
 	void Update () {
         
+        //各ステータスの上限
+        if( player_money > 999999 )
+        {
+            player_money = 999999;
+        }
+
+        //お金が0になってしまった場合は、ゲームオーバー？
+        if ( player_money <= 0 )
+        {
+            player_money = 0;
+        }
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

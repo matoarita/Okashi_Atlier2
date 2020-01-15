@@ -101,9 +101,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 no = shopitemlistController_obj.transform.Find("No").gameObject;
                 no_text = no.GetComponentInChildren<Text>();
 
-                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
                 break;
 
             case "GirlEat":
@@ -126,8 +123,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 
                 break;
 
-        }
-       
+        }       
     }
 
 
@@ -147,9 +143,17 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             case "Compound":
 
+                //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
+                if (compound_Main_obj == null)
+                {
+                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+                }
+
                 //プレイヤーアイテムリストオブジェクトの初期化
                 if (pitemlistController_obj == null)
                 {
+                    canvas = GameObject.FindWithTag("Canvas");
                     pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
                     pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
                 }
@@ -157,6 +161,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 //レシピリストオブジェクトの初期化
                 if (recipilistController_obj == null)
                 {
+                    canvas = GameObject.FindWithTag("Canvas");
                     recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
                     recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
                 }
@@ -168,6 +173,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 //プレイヤーアイテムリストオブジェクトの初期化
                 if (pitemlistController_obj == null)
                 {
+                    canvas = GameObject.FindWithTag("Canvas");
                     pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
                     pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
                 }

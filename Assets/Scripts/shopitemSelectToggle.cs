@@ -50,6 +50,8 @@ public class shopitemSelectToggle : MonoBehaviour
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private Text no_text;
+
+    private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
 
@@ -99,7 +101,9 @@ public class shopitemSelectToggle : MonoBehaviour
         yes_text = yes.GetComponentInChildren<Text>();
         no = shopitemlistController_obj.transform.Find("No").gameObject;
         no_text = no.GetComponentInChildren<Text>();
-        yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+        selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
         
 
@@ -130,6 +134,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
         count = 0;
 
+        yes.SetActive(false);
         no.SetActive(false);
     }
 
@@ -247,7 +252,6 @@ public class shopitemSelectToggle : MonoBehaviour
                 back_ShopFirst_btn.interactable = true;
                 backbutton_btn.interactable = true;
 
-                //pitemlistController.cardImage_onoff_pcontrol.SetActive(false);
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                 break;
         }

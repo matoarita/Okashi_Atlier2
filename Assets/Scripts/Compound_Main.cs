@@ -102,8 +102,7 @@ public class Compound_Main : MonoBehaviour {
         playeritemlist_onoff.SetActive(false);
 
         //レシピリストパネルの取得
-        recipilist_scrollview_init_obj = GameObject.FindWithTag("RecipiListView_Init");
-        recipilist_scrollview_init_obj.GetComponent<RecipiListView_Init>().RecipiList_ScrollView_Init();
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().RecipiList_ScrollView_Init();
         recipilist_onoff = GameObject.FindWithTag("RecipiList_ScrollView");
         recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
         recipilist_onoff.SetActive(false);

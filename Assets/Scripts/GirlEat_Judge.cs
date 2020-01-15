@@ -29,8 +29,15 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private Slider _slider; //好感度バーを取得
     private int _exp;
+    private int slot_girlscore, slot_money;
     private int Getlove_exp;
+    private int GetMoney;
     private bool loveanim_on;
+
+    //SEを鳴らす
+    public AudioClip sound1;
+    public AudioClip sound2;
+    AudioSource audioSource;
 
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
@@ -60,7 +67,7 @@ public class GirlEat_Judge : MonoBehaviour {
     //private string _basename;
     //private int _basemp;
     //private int _baseday;
-    //private int _basecost;
+    private int _basecost;
     //private int _basesell;
 
     //女の子の計算用パラメータ
@@ -158,6 +165,8 @@ public class GirlEat_Judge : MonoBehaviour {
         text_area = GameObject.FindWithTag("Message_Window");
         _windowtext = text_area.GetComponentInChildren<Text>();
 
+        audioSource = GetComponent<AudioSource>();
+
         kettei_item1 = 0;
         _toggle_type1 = 0;
 
@@ -174,6 +183,7 @@ public class GirlEat_Judge : MonoBehaviour {
         _slider.value = girl1_status.girl1_Love_exp;
         _exp = 0;
         Getlove_exp = 0;
+        GetMoney = 0;
         loveanim_on = false;
 
         //バーの最大値の設定。ステージによって変わる。
@@ -206,19 +216,28 @@ public class GirlEat_Judge : MonoBehaviour {
 
             else if (Getlove_exp < 0)//減る場合は、こっちの処理
             {
-
-                //１ずつ減少
-                --_exp;
-                --girl1_status.girl1_Love_exp;
-
-                //スライダにも反映
-                _slider.value = girl1_status.girl1_Love_exp;
-
-                if (_exp <= Getlove_exp)
+                //好感度が0の場合、0が下限。
+                if (girl1_status.girl1_Love_exp <= 0)
                 {
                     Getlove_exp = 0;
                     _exp = 0;
                     loveanim_on = false;
+                }
+                else
+                {
+                    //１ずつ減少
+                    --_exp;
+                    --girl1_status.girl1_Love_exp;
+
+                    //スライダにも反映
+                    _slider.value = girl1_status.girl1_Love_exp;
+
+                    if (_exp <= Getlove_exp)
+                    {
+                        Getlove_exp = 0;
+                        _exp = 0;
+                        loveanim_on = false;
+                    }
                 }
             }
             else
@@ -265,6 +284,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basegirl1_like = database.items[kettei_item1].girl1_itemLike;
                 _baseitemtype = database.items[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = database.items[kettei_item1].itemType_sub.ToString();
+                _basecost = database.items[kettei_item1].cost_price;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -292,6 +312,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basegirl1_like = pitemlist.player_originalitemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_originalitemlist[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = pitemlist.player_originalitemlist[kettei_item1].itemType_sub.ToString();
+                _basecost = pitemlist.player_originalitemlist[kettei_item1].cost_price;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -369,8 +390,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case 1: //お腹が空いた状態。吹き出しがでる。
 
-                _windowtext.text = "お菓子をあげた！";
-
+                
                 //女の子が食べたいものを満たしているか、比較する
                 //OKだったら、正解し、さらに好感度の上昇値を計算する。
 
@@ -401,8 +421,11 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     _text.text = "お兄ちゃん！ありがとー！！";
 
-                    //好感度取得
-                    Getlove_exp = 30;
+                    //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
+                    LoveScoreCal();
+
+                    Debug.Log("GetMoney: " + GetMoney);
+                    PlayerStatus.player_money += GetMoney;
 
                     //アイテムの削除
                     delete_Item();                    
@@ -410,6 +433,15 @@ public class GirlEat_Judge : MonoBehaviour {
                     //アニメーションをON
                     loveanim_on = true;
 
+                    //音を鳴らす
+                    audioSource.PlayOneShot(sound1);
+
+                    //テキストウィンドウの更新
+                    _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Getlove_exp + "アップ！　" + "お金を" + GetMoney + "G ゲットした！";
+
+                    //お菓子をあげたあとの状態に移行する。
+                    girl1_status.timeGirl_hungry_status = 2;
+                    girl1_status.timeOut = 5.0f;
                 }
                 else //失敗の場合
                 {
@@ -427,7 +459,22 @@ public class GirlEat_Judge : MonoBehaviour {
                     //アニメーションをON
                     loveanim_on = true;
 
+                    //音を鳴らす
+                    audioSource.PlayOneShot(sound2);
+
+                    //テキストウィンドウの更新
+                    _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Math.Abs(Getlove_exp) + "下がった..。";
+
+                    //お菓子をあげたあとの状態に移行する。残り時間を、短く設定。
+                    girl1_status.timeGirl_hungry_status = 2;
+                    girl1_status.timeOut = 5.0f;
                 }
+
+                break;
+
+            case 2:
+
+                _windowtext.text = "お菓子をあげたばかりだ。";
 
                 break;
 
@@ -513,12 +560,43 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
+    void LoveScoreCal()
+    {
+        //①アイテムそれぞれの固有の好感度: _basegirl1_like お金:_basecost + ②スロット単体の効果による得点 + ③スロットの役の組み合わせ（チョコバナナなど）
+
+        slot_girlscore = 0;
+        slot_money = 0;
+
+        //スロットの計算。該当するスロット効果があれば、それを得点にする。
+        for ( i = 0; i < _basetp.Length; i++)
+        {
+            count = 0;
+            while (count < slotnamedatabase.slotname_lists.Count)
+            {
+                if(_basetp[i] == slotnamedatabase.slotname_lists[count].slotName)
+                {
+                    //Debug.Log("スロットの効果により、好感度・お金が加算: " + slotnamedatabase.slotname_lists[count].slotName + " 好感度: " + slotnamedatabase.slotname_lists[count].slot_girlScore + " お金: " + slotnamedatabase.slotname_lists[count].slot_Money);
+                    slot_girlscore += slotnamedatabase.slotname_lists[count].slot_girlScore;
+                    slot_money += slotnamedatabase.slotname_lists[count].slot_Money;
+                    break;
+                }
+                count++;
+            }
+        }
+
+        //好感度取得
+        Getlove_exp = _basegirl1_like + slot_girlscore;
+
+        //お金の取得
+        GetMoney = _basecost + slot_money;
+    }
+
         /*
             Debug.Log("###  好みの比較　結果　###");
 
             //味の濃さ（さっぱりかコクがあるか）の比較。
             quality_result = _basequality - _girlquality;
-
+            
 
             //甘さ・苦さ・酸味の比較。
 
@@ -799,4 +877,5 @@ public class GirlEat_Judge : MonoBehaviour {
 
         Debug.Log("###  ###");
         */
+    
     }

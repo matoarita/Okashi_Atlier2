@@ -15,7 +15,7 @@ MonoBehaviour:
   - name: ShopItemDB_1
     list:
     - ItemID: 0
-      name: hakurikiko
+      name: komugiko
       zaiko: 50
       itemType: 0
     - ItemID: 1

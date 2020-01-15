@@ -37,17 +37,12 @@ public class RuntimeInitializer : MonoBehaviour
         //プレイヤーアイテムリスト
         var player_itemlist_init = new GameObject("PlayerItemList", typeof(PlayerItemList));
         GameObject.DontDestroyOnLoad(player_itemlist_init);
-        player_itemlist_init.tag = "PlayerItemList";
+        player_itemlist_init.tag = "PlayerItemList";       
 
-        //プレイヤーアイテムリストスクロールビューの初期化用オブジェクト
+        //プレイヤーアイテムリスト・レシピリストの初期化・生成。リストスクロールビューの初期位置などの設定用オブジェクト
         var player_itemscrollview_init = new GameObject("PlayerItemListView_Init", typeof(PlayerItemListView_Init));
         GameObject.DontDestroyOnLoad(player_itemscrollview_init);
         player_itemscrollview_init.tag = "PlayerItemListView_Init";
-
-        //レシピリストスクロールビューの初期化用オブジェクト
-        var recipi_itemscrollview_init = new GameObject("RecipiListView_Init", typeof(RecipiListView_Init));
-        GameObject.DontDestroyOnLoad(recipi_itemscrollview_init);
-        recipi_itemscrollview_init.tag = "RecipiListView_Init";
 
         //デバッグ用チェックアイテムデータベースリスト
         var chk_itemdatabase_init = new GameObject("Check_ItemDataBase", typeof(Check_ItemDataBase));
@@ -56,10 +51,14 @@ public class RuntimeInitializer : MonoBehaviour
 
         //女の子１のステータスリスト
         var girl1_status_init = new GameObject("Girl1_status", typeof(Girl1_status));
+        girl1_status_init.AddComponent<AudioSource>();
+        girl1_status_init.GetComponent<AudioSource>().volume = 0.5f;
         GameObject.DontDestroyOnLoad(girl1_status_init);
 
         //カード表示部分
         var cardview_init = new GameObject("CardView", typeof(CardView));
+        cardview_init.AddComponent<AudioSource>();
+        cardview_init.GetComponent<AudioSource>().volume = 0.5f;
         GameObject.DontDestroyOnLoad(cardview_init);
         cardview_init.tag = "CardView";
 

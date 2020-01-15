@@ -21,6 +21,10 @@ public class GetMaterial : MonoBehaviour {
     // ドロップする個数の辞書
     Dictionary<int, float> itemDropKosuDict;
 
+    //SEを鳴らす
+    public AudioClip sound1;
+    AudioSource audioSource;
+
     private int itemId, itemKosu;
     private string itemName;
 
@@ -30,6 +34,8 @@ public class GetMaterial : MonoBehaviour {
     private string[] _a = new string[3];
     private int[] kettei_item = new int[3];
     private int[] kettei_kosu = new int[3];
+
+    private int mat_cost;
 
     // Use this for initialization
     void Start () {
@@ -47,6 +53,10 @@ public class GetMaterial : MonoBehaviour {
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
 
+        //材料採取のための、消費コスト
+        mat_cost = 30;
+
+        audioSource = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -57,52 +67,67 @@ public class GetMaterial : MonoBehaviour {
     public void GetRandomMaterials() //材料を３つランダムでゲットする処理
     {
 
-        for (count = 0; count < 3; count++) //3回繰り返す
+        //お金のチェック       
+        if (PlayerStatus.player_money < mat_cost)
         {
-            // ドロップアイテムの抽選
-            itemId = Choose();
-            itemName = itemInfo[itemId];
+            _text.text = "お金が足らない。";
+        }
+        else
+        {
+            //お金の消費
+            PlayerStatus.player_money = PlayerStatus.player_money - mat_cost;
 
-            //  個数の抽選
-            itemKosu = ChooseKosu();
-            kettei_kosu[count] = itemKosu;
-
-            //今回のゲームでは、必ず何かアイテムが入手できる。
-
-            if (itemId == 0) //id = 0 のときは、何もなし
+            for (count = 0; count < 3; count++) //3回繰り返す
             {
-                _a[count] = "";
-                kettei_kosu[count] = 0;
-            }
-            else
-            {
-                //itemNameをもとに、アイテムデータベースのアイテムIDを取得
-                i = 0;
+                // ドロップアイテムの抽選
+                itemId = Choose();
+                itemName = itemInfo[itemId];
 
-                while (i < database.items.Count)
+                //  個数の抽選
+                itemKosu = ChooseKosu();
+                kettei_kosu[count] = itemKosu;
+
+                //今回のゲームでは、必ず何かアイテムが入手できる。
+
+                if (itemId == 0) //id = 0 のときは、何もなし
                 {
-                    if (database.items[i].itemName == itemName)
+                    _a[count] = "";
+                    kettei_kosu[count] = 0;
+                }
+                else
+                {
+                    //itemNameをもとに、アイテムデータベースのアイテムIDを取得
+                    i = 0;
+
+                    while (i < database.items.Count)
                     {
-                        kettei_item[count] = i; //一致したときのiが、DBのitemIDのこと
-                        break;
+                        if (database.items[i].itemName == itemName)
+                        {
+                            kettei_item[count] = i; //一致したときのiが、DBのitemIDのこと
+                            break;
+                        }
+                        ++i;
                     }
-                    ++i;
+
+
+                    _a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
                 }
 
-                
-                _a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
             }
 
+
+            //アイテムの取得処理
+            pitemlist.addPlayerItem(kettei_item[0], kettei_kosu[0]);
+            pitemlist.addPlayerItem(kettei_item[1], kettei_kosu[1]);
+            pitemlist.addPlayerItem(kettei_item[2], kettei_kosu[2]);
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound1);
+
+            //テキストに結果反映
+            _text.text = _a[0] + "\n" + _a[1] + "\n" + _a[2];
+
         }
-        
-
-        //アイテムの取得処理
-        pitemlist.addPlayerItem(kettei_item[0], kettei_kosu[0]);
-        pitemlist.addPlayerItem(kettei_item[1], kettei_kosu[1]);
-        pitemlist.addPlayerItem(kettei_item[2], kettei_kosu[2]);
-
-        //テキストに結果反映
-        _text.text = _a[0] + "\n" + _a[1] + "\n" + _a[2];
 
     }
 

@@ -20,6 +20,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public int Pitem_or_Origin_judge; //店売りアイテムか、オリジナルアイテムの判定
 
+    //SEを鳴らす
+    public AudioClip sound1;
+    AudioSource audioSource;
+
     // Use this for initialization
     void Start () {
 
@@ -28,6 +32,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
 
         Pitem_or_Origin_judge = 0;
+
+        audioSource = GetComponent<AudioSource>();
 
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }
@@ -322,6 +328,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
+
+        audioSource.PlayOneShot(sound1);
 
     }
 

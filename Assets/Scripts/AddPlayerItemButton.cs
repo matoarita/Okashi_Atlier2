@@ -91,7 +91,7 @@ public class AddPlayerItemButton : MonoBehaviour {
             ++count;
         }
 
-        pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 99, 99, 50, 30, 30, 0, 0, 0, 0, 0, 50, 50, 50, 20, 9999, 9999, "Orange", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5);
+        pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 99, 99, 50, 30, 30, 0, 0, 0, 0, 0, 50, 50, 50, 20, 50, 50, "Orange", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5);
 
         pitemlistController.AddItemList();
 
@@ -136,7 +136,7 @@ public class AddPlayerItemButton : MonoBehaviour {
             ++count;
         }
                                  
-        pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 99, 99, 50, 30, 30, 0, 0, 0, 0, 0, 50, 50, 50, 20, 9999, 9999, "Orange", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5);
+        pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 99, 99, 50, 30, 30, 0, 0, 0, 0, 0, 50, 50, 50, 20, 50, 50, "Orange", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5);
 
         pitemlistController.AddItemList();
     }
