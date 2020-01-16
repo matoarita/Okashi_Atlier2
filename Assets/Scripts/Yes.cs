@@ -12,6 +12,7 @@ public class Yes : MonoBehaviour {
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+        this.gameObject.SetActive(false);
 
     }
 	

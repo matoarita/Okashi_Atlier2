@@ -11,6 +11,8 @@ using System.Linq;
 
 public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 {
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
 
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
@@ -89,6 +91,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool compound_success; //調合の成功か失敗
 
     public int comp_judge_flag; //調合判定を行うかどうか。itemSelectToggleのjudge_flagと連動する。0の場合、必ず成功=生地に合成する処理。1の場合、新規調合を表す。
+
+    public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
 
     public bool result_ok; // 調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool recipiresult_ok; //レシピ調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
@@ -262,6 +266,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                break;
+
+            default:
+                break;
+        }
 
         result_ok = false;
         recipiresult_ok = false;
@@ -270,6 +285,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         blend_flag = false;
 
         compound_success = false;
+
+        extreme_on = false;
 
         i = 0;
         j = 0;
@@ -289,7 +306,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
-            
+
+            //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
+            if (compound_Main_obj == null)
+            {
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+            }
+
             //
             //オリジナル調合完了の場合、ここでアイテムリストの更新行う。
             //
@@ -302,22 +326,42 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
                 _text = text_area.GetComponentInChildren<Text>();
 
-                //**重要** 
-                //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
-                //店売りの場合は、実質アイテムIDと数字は一緒。
-                //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
+                //オリジナル調合の設定
+                if (extreme_on != true)
+                {
+                    //**重要** 
+                    //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
+                    //店売りの場合は、実質アイテムIDと数字は一緒。
+                    //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
 
-                kettei_item1 = pitemlistController.kettei_item1;
-                kettei_item2 = pitemlistController.kettei_item2;
-                kettei_item3 = pitemlistController.kettei_item3;
+                    kettei_item1 = pitemlistController.kettei_item1;
+                    kettei_item2 = pitemlistController.kettei_item2;
+                    kettei_item3 = pitemlistController.kettei_item3;
 
-                toggle_type1 = pitemlistController._toggle_type1;
-                toggle_type2 = pitemlistController._toggle_type2;
-                toggle_type3 = pitemlistController._toggle_type3;
+                    toggle_type1 = pitemlistController._toggle_type1;
+                    toggle_type2 = pitemlistController._toggle_type2;
+                    toggle_type3 = pitemlistController._toggle_type3;
 
-                final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
-                final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
-                final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+                    final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
+                    final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
+                    final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+                }
+
+                //エクストリーム調合から閃いた場合
+                else
+                {
+                    kettei_item1 = pitemlistController.base_kettei_item;
+                    kettei_item2 = pitemlistController.kettei_item1;
+                    kettei_item3 = pitemlistController.kettei_item2;
+
+                    toggle_type1 = pitemlistController._base_toggle_type;
+                    toggle_type2 = pitemlistController._toggle_type1;
+                    toggle_type3 = pitemlistController._toggle_type2;
+
+                    final_kette_kosu1 = pitemlistController.final_base_kettei_kosu;
+                    final_kette_kosu2 = pitemlistController.final_kettei_kosu1;
+                    final_kette_kosu3 = pitemlistController.final_kettei_kosu2;
+                }
 
                 /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
                 Debug.Log("pitemlistController.kettei_item2: " + kettei_item2);
@@ -374,21 +418,51 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //経験値の増減
                 if (compound_success == true)
-                {                   
-                    //完成したアイテムの追加。
-                    Topping_Compound_Method();
+                {
+                    compound_success = false;
 
+                    //オリジナル調合なら、普通に生成
+                    if (extreme_on != true)
+                    {
+                        //完成したアイテムの追加。
+                        Topping_Compound_Method();
+
+                        PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
+
+                        StartCoroutine("renkin_exp_up");
+
+                        card_view.ResultCard_DrawView(1, new_item);
+                    }
+
+                    //エクストリーム調合の場合、スロット計算などはせず、新しいアイテムのみ生成。
+                    else
+                    {
+                        // アイテムリストの削除処理 //
+                        Delete_playerItemList();
+
+                        //新しく作ったアイテムをアイテムリストに追加。
+                        //プレイヤーアイテムリストに追加。
+                        pitemlist.addPlayerItem(result_item, 1);
+                        
+                        new_item = result_item;
+
+                        PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
+                        
+                        //エクストリームの場合は、アイテムを閃く！
+                        StartCoroutine("extreme_exp_up");
+                        
+                        card_view.ResultCard_DrawView(0, new_item);
+                    }
 
                     //完成アイテムの、レシピフラグをONにする。
                     databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
 
-                    card_view.ResultCard_DrawView(1, new_item);
-
-                    PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
-
-                    compound_success = false;
-
-                    StartCoroutine("renkin_exp_up");
+                    //はじめて、アイテムを制作した場合は、フラグをONに。
+                    if (compound_Main.First_Recipi_on != true)
+                    {
+                        compound_Main.First_Recipi_on = true;
+                    }
+                                    
 
                     pitemlistController_obj.SetActive(true);
 
@@ -407,9 +481,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     Delete_playerItemList();
 
                     card_view.ResultCard_DrawView(0, result_item);
-    
-
-                    
+                        
                     pitemlistController_obj.SetActive(true);
                 }
 
@@ -2251,6 +2323,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text.text = "調合完了！ " +
             _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
             " が" + result_kosu + "個 できました！" + "\n" + 
+            "錬金経験値" + databaseCompo.compoitems[result_ID].renkin_Bexp + "上がった！";
+
+        Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
+
+        while (!Input.GetMouseButtonDown(0)) yield return null;
+
+    }
+
+    IEnumerator extreme_exp_up()
+    {
+
+        _text.text = "調合完了！ " + database.items[new_item].itemNameHyouji +
+            " を閃いた！" + "\n" +
             "錬金経験値" + databaseCompo.compoitems[result_ID].renkin_Bexp + "上がった！";
 
         Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");

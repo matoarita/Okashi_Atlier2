@@ -1817,6 +1817,42 @@ MonoBehaviour:
       topping09: Non
       topping10: Non
     - ItemID: 207
+      file_name: orange_neko_cookie
+      name: emerald_neko_cookie
+      nameHyouji: "\u30A8\u30E1\u30E9\u30EB\u30C9\u30CD\u30B3\u30AF\u30C3\u30AD\u30FC"
+      desc: "\u30A8\u30E1\u30E9\u30EB\u30C9\u306E\u3088\u3046\u306A\u30AD\u30E9\u30AD\u30E9\u3057\u305F\u8272\u306E\u3001\u7518\u9178\u3063\u3071\u3044\u30AF\u30C3\u30AD\u30FC\u3002"
+      mp: 0
+      day: 0
+      quality: 20
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Okashi
+      subtype: Cookie
+      girl1_like: 10
+      cost_price: 60
+      sell_price: 60
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+    - ItemID: 208
       file_name: strawberry_milfiyu
       name: strawberry_milfiyu
       nameHyouji: "\u3055\u304F\u3055\u304F\u82FA\u306E\u30DF\u30EB\u30D5\u30A3\u30FC\u30E6"
@@ -1852,7 +1888,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 208
+    - ItemID: 209
       file_name: castella
       name: financier
       nameHyouji: "\u7126\u304C\u3057\u30D0\u30BF\u30FC\u306E\u3057\u3063\u3068\u308A\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
@@ -1888,7 +1924,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 209
+    - ItemID: 210
       file_name: castella
       name: castella
       nameHyouji: "\u30E1\u30FC\u30D7\u30EB\u30AB\u30B9\u30C6\u30E9"
@@ -1924,7 +1960,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 210
+    - ItemID: 211
       file_name: castella
       name: cheese_cake
       nameHyouji: "\u30C1\u30FC\u30BA\u30B1\u30FC\u30AD"
@@ -1960,7 +1996,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 211
+    - ItemID: 212
       file_name: castella
       name: pan_cake
       nameHyouji: "\u30D1\u30F3\u30B1\u30FC\u30AD"
@@ -1996,7 +2032,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 212
+    - ItemID: 213
       file_name: dorayaki
       name: dorayaki
       nameHyouji: "\u3057\u3063\u3068\u308A\u30C1\u30E7\u30B3\u3069\u3089\u3084\u304D"
@@ -2032,7 +2068,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 213
+    - ItemID: 214
       file_name: huwakoro
       name: huwakoro
       nameHyouji: "\u3075\u308F\u3053\u308D"
@@ -2068,7 +2104,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 214
+    - ItemID: 215
       file_name: baumcoohen
       name: choco_baumcoohen
       nameHyouji: "\u30C1\u30E7\u30B3\u304C\u3051\u30D0\u30A6\u30E0\u30AF\u30FC\u30D8\u30F3"
@@ -2104,7 +2140,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 215
+    - ItemID: 216
       file_name: baumcoohen
       name: baumcoohen
       nameHyouji: "\u3057\u3063\u3068\u308A\u30D0\u30A6\u30E0\u30AF\u30FC\u30D8\u30F3"
@@ -2140,7 +2176,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 216
+    - ItemID: 217
       file_name: baumcoohen
       name: stairway_to_Heaven
       nameHyouji: "\u5929\u56FD\u3078\u306E\u968E\u6BB5"
@@ -2176,7 +2212,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 217
+    - ItemID: 218
       file_name: baumcoohen
       name: Eden
       nameHyouji: "\uFF25\u30FB\uFF24\u30FB\uFF25\u30FB\uFF2E"
@@ -2212,7 +2248,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 218
+    - ItemID: 219
       file_name: baumcoohen
       name: kinshi_gyokuyo
       nameHyouji: "\u91D1\u679D\u7389\u8449"
@@ -2248,7 +2284,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 219
+    - ItemID: 220
       file_name: chocolate
       name: green_chocolate
       nameHyouji: "\u30B0\u30EA\u30FC\u30F3\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
@@ -2284,7 +2320,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 220
+    - ItemID: 221
       file_name: chocolate
       name: chocolate
       nameHyouji: "\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
@@ -2320,7 +2356,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 221
+    - ItemID: 222
       file_name: chocolate
       name: magical_torte
       nameHyouji: "\u30DE\u30B8\u30AB\u30EB\u30BF\u30EB\u30C8"
@@ -2356,7 +2392,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 222
+    - ItemID: 223
       file_name: chocolate
       name: magical_torf
       nameHyouji: "\u30DE\u30B8\u30AB\u30EB\u30C8\u30EA\u30E5\u30D5"
@@ -2392,7 +2428,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 223
+    - ItemID: 224
       file_name: chocolate
       name: aquamarine
       nameHyouji: "\u9065\u304B\u306A\u308B\u84BC"
@@ -2428,7 +2464,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 224
+    - ItemID: 225
       file_name: chocolate
       name: forget_me_not
       nameHyouji: "\u30D5\u30A9\u30FC\u30B2\u30C3\u30C8\u30FB\u30DF\u30FC\u30FB\u30CE\u30C3\u30C8"
@@ -2464,7 +2500,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 225
+    - ItemID: 226
       file_name: orange_juice
       name: orange_juice
       nameHyouji: "\u6FC3\u7E2E\u30AA\u30EC\u30F3\u30B8\u30B8\u30E5\u30FC\u30B9"
@@ -2500,7 +2536,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 226
+    - ItemID: 227
       file_name: orange_juice
       name: haloween_juice
       nameHyouji: "\u30CF\u30ED\u30A6\u30A3\u30FC\u30F3\u30B8\u30E5\u30FC\u30B9"
@@ -2536,7 +2572,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 227
+    - ItemID: 228
       file_name: orange_juice
       name: mix_fruits_juice
       nameHyouji: "\u30DF\u30C3\u30AF\u30B9\u30D5\u30EB\u30FC\u30C4\u30B8\u30E5\u30FC\u30B9"
@@ -2572,7 +2608,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 228
+    - ItemID: 229
       file_name: neko_cookie
       name: cloud_cookie
       nameHyouji: "\u3075\u308F\u3075\u308F\u96F2\u306E\u30AF\u30C3\u30AD\u30FC"
@@ -2608,7 +2644,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 229
+    - ItemID: 230
       file_name: neko_cookie
       name: maccha_choco
       nameHyouji: "\u62B9\u8336\u30AC\u30C8\u30FC\u30B7\u30E7\u30B3\u30E9"
@@ -2644,7 +2680,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 230
+    - ItemID: 231
       file_name: neko_cookie
       name: rich_tea
       nameHyouji: "\u82F1\u56FD\u30A2\u30FC\u30EB\u30B0\u30EC\u30A4\u30C6\u30A3\u30FC"
@@ -2680,7 +2716,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 231
+    - ItemID: 232
       file_name: neko_cookie
       name: sinamon_pie
       nameHyouji: "\u30D0\u30BF\u30FC\u30B9\u30B3\u30C3\u30C1\u30B7\u30CA\u30E2\u30F3\u30D1\u30A4"
@@ -2716,7 +2752,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 232
+    - ItemID: 233
       file_name: neko_cookie
       name: corn_soup
       nameHyouji: "\u30B3\u30FC\u30F3\u30B9\u30FC\u30D7"
@@ -2752,7 +2788,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 233
+    - ItemID: 234
       file_name: neko_cookie
       name: forest_coffee
       nameHyouji: "\u68EE\u306E\u30B3\u30FC\u30D2\u30FC"
@@ -2788,7 +2824,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 234
+    - ItemID: 235
       file_name: neko_cookie
       name: light_manderin
       nameHyouji: "\u5149\u306E\u30DE\u30F3\u30C7\u30EA\u30F3"
@@ -2824,7 +2860,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 235
+    - ItemID: 236
       file_name: neko_cookie
       name: kogyoku_apple_tea
       nameHyouji: "\u7D05\u7389\u30A2\u30C3\u30D7\u30EB\u30C6\u30A3\u30FC"
@@ -2860,7 +2896,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 236
+    - ItemID: 237
       file_name: neko_cookie
       name: potato_bonbon
       nameHyouji: "\u30DD\u30C6\u30C8\u30DC\u30F3\u30DC\u30F3"
@@ -2896,7 +2932,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 237
+    - ItemID: 238
       file_name: neko_cookie
       name: torte
       nameHyouji: "\u30C8\u30EB\u30C6"
@@ -2932,7 +2968,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-    - ItemID: 238
+    - ItemID: 239
       file_name: neko_cookie
       name: sea_losanonos
       nameHyouji: "\u6D77\u306E\u30ED\u30B9\u30A2\u30CE\u30CE\u30B9"

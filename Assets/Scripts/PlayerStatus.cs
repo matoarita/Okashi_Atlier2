@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 {
+    
 
     public static int player_money; // 所持金
     public static int player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
@@ -15,21 +16,11 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_ninki_param; //人気度。いるかな？とりあえず置き
 
     public static List<bool> player_travelList = new List<bool>(); //旅行先。行ける場所が増えると、カウントも増える。
-	
-	// Update is called once per frame
-	void Update () {
-        
-        //各ステータスの上限
-        if( player_money > 999999 )
-        {
-            player_money = 999999;
-        }
 
-        //お金が0になってしまった場合は、ゲームオーバー？
-        if ( player_money <= 0 )
-        {
-            player_money = 0;
-        }
+
+    // Update is called once per frame
+    void Update () {
+       
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

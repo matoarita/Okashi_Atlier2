@@ -123,7 +123,6 @@ public class itemSelectToggle : MonoBehaviour
 
         updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
         updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-        updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
 
         yes = pitemlistController_obj.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
@@ -691,6 +690,8 @@ public class itemSelectToggle : MonoBehaviour
                         //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
 
+                        exp_Controller.extreme_on = false;
+
                         compound_Main.compound_status = 4;
 
                         Off_Flag_Setting();
@@ -760,6 +761,8 @@ public class itemSelectToggle : MonoBehaviour
                         //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
 
+                        exp_Controller.extreme_on = false;
+
                         compound_Main.compound_status = 4;
 
                         Off_Flag_Setting();
@@ -786,24 +789,51 @@ public class itemSelectToggle : MonoBehaviour
         _itemIDtemp_result.Clear();
         _itemSubtype_temp_result.Clear();
 
-        _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item1].itemName);
-        _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item2].itemName);
-
-        _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item1].itemType_sub.ToString());
-        _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item2].itemType_sub.ToString());
-
-        if (pitemlistController.final_kettei_item3 == 9999) //二個しか選択していないときは、9999が入っている。
+        //オリジナル調合の場合はこっち
+        if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
         {
-            _itemIDtemp_result.Add("empty");
-            _itemSubtype_temp_result.Add("empty");
-            pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
-        }
-        else {
-            _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item3].itemName);
-            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item3].itemType_sub.ToString());
+            _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item1].itemName);
+            _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item2].itemName);
+
+            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item1].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item2].itemType_sub.ToString());
+
+            if (pitemlistController.final_kettei_item3 == 9999) //二個しか選択していないときは、9999が入っている。
+            {
+                _itemIDtemp_result.Add("empty");
+                _itemSubtype_temp_result.Add("empty");
+                pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
+            }
+            else
+            {
+                _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item3].itemName);
+                _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item3].itemType_sub.ToString());
+            }
         }
 
-        
+        //エクストリーム調合の場合は、こっち。ベース決定アイテムを、temp_resultに入れる。
+        else if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
+        {
+            _itemIDtemp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemName);
+            _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item1].itemName);
+
+            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item1].itemType_sub.ToString());
+
+            if (pitemlistController.final_kettei_item2 == 9999) //二個しか選択していないときは、9999が入っている。
+            {
+                _itemIDtemp_result.Add("empty");
+                _itemSubtype_temp_result.Add("empty");
+                pitemlistController.final_kettei_kosu2 = 9999; //個数にも9999=emptyを入れる。
+            }
+            else
+            {
+                _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item2].itemName);
+                _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item2].itemType_sub.ToString());
+            }
+        }
+
+
         i = 0;
 
         resultitemID = "gomi_1"; //どの調合組み合わせのパターンにも合致しなかった場合は、ゴミのIDが入っている。調合DBのゴミのitemNameを入れると、後で数値に変換してくれる。現在は、500に変換される。
@@ -1130,88 +1160,101 @@ public class itemSelectToggle : MonoBehaviour
         {
             //Debug.Log("どの調合リストにも当てはまらなかった。");
 
-            //一個目に選んだアイテムが、生地タイプのアイテムの場合で、2個目のアイテムが合成用のアイテムであれば、
-            //成功失敗の判定処理はせず、生地にアイテムを合成する処理になる。
+            //オリジナル調合の場合は、生地合成、もしくは単純に失敗かの判定
+            if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
+            {
 
-            if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate || 
+
+
+                //一個目に選んだアイテムが、生地タイプのアイテムの場合で、2個目のアイテムが合成用のアイテムであれば、
+                //成功失敗の判定処理はせず、生地にアイテムを合成する処理になる。
+
+                if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate ||
                 database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Cookie_base ||
                 database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pie_base ||
                 database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Chocolate_base ||
                 database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Cake_base)
-            {
-
-                switch (database.items[pitemlistController.final_kettei_item2].itemType_sub)
                 {
-                    case Item.ItemType_sub.Fruits:
 
-                        success_text = "生地にアイテムを合成します。";
-                        judge_flag = 0; //必ず成功する
-                        exp_Controller.comp_judge_flag = 1; //1の場合、生地にアイテムを合成する処理のフラグ
-                        break;
+                    switch (database.items[pitemlistController.final_kettei_item2].itemType_sub)
+                    {
+                        case Item.ItemType_sub.Fruits:
 
-                    case Item.ItemType_sub.Nuts:
+                            success_text = "生地にアイテムを合成します。";
+                            judge_flag = 0; //必ず成功する
+                            exp_Controller.comp_judge_flag = 1; //1の場合、生地にアイテムを合成する処理のフラグ
+                            break;
 
-                        success_text = "生地にアイテムを合成します。";
-                        judge_flag = 0; //必ず成功する
-                        exp_Controller.comp_judge_flag = 1;
-                        break;
+                        case Item.ItemType_sub.Nuts:
 
-                    case Item.ItemType_sub.Suger:
+                            success_text = "生地にアイテムを合成します。";
+                            judge_flag = 0; //必ず成功する
+                            exp_Controller.comp_judge_flag = 1;
+                            break;
 
-                        success_text = "生地にアイテムを合成します。";
-                        judge_flag = 0; //必ず成功する
-                        exp_Controller.comp_judge_flag = 1;
-                        break;
+                        case Item.ItemType_sub.Suger:
 
-                    case Item.ItemType_sub.Komugiko:
+                            success_text = "生地にアイテムを合成します。";
+                            judge_flag = 0; //必ず成功する
+                            exp_Controller.comp_judge_flag = 1;
+                            break;
 
-                        success_text = "生地にアイテムを合成します。";
-                        judge_flag = 0; //必ず成功する
-                        exp_Controller.comp_judge_flag = 1;
-                        break;
+                        case Item.ItemType_sub.Komugiko:
 
-                    case Item.ItemType_sub.Butter:
+                            success_text = "生地にアイテムを合成します。";
+                            judge_flag = 0; //必ず成功する
+                            exp_Controller.comp_judge_flag = 1;
+                            break;
 
-                        success_text = "生地にアイテムを合成します。";
-                        judge_flag = 0; //必ず成功する
-                        exp_Controller.comp_judge_flag = 1;
-                        break;
+                        case Item.ItemType_sub.Butter:
 
-                    case Item.ItemType_sub.Source:
+                            success_text = "生地にアイテムを合成します。";
+                            judge_flag = 0; //必ず成功する
+                            exp_Controller.comp_judge_flag = 1;
+                            break;
 
-                        success_text = "生地にアイテムを合成します。";
-                        judge_flag = 0; //必ず成功する
-                        exp_Controller.comp_judge_flag = 1;
-                        break;
+                        case Item.ItemType_sub.Source:
 
-                    case Item.ItemType_sub.Potion:
+                            success_text = "生地にアイテムを合成します。";
+                            judge_flag = 0; //必ず成功する
+                            exp_Controller.comp_judge_flag = 1;
+                            break;
 
-                        success_text = "生地にアイテムを合成します。";
-                        judge_flag = 0; //必ず成功する
-                        exp_Controller.comp_judge_flag = 1;
-                        break;
+                        case Item.ItemType_sub.Potion:
 
-                    default:
+                            success_text = "生地にアイテムを合成します。";
+                            judge_flag = 0; //必ず成功する
+                            exp_Controller.comp_judge_flag = 1;
+                            break;
 
-                        //2個目のアイテムが、上記のパターンにあてはまらない場合は、失敗する。
+                        default:
 
-                        judge_flag = 1; //成功判定の処理をON
-                        compoundsuccess_flag = false;
-                        success_text = "これは.. ダメかもしれぬ。";
-                        break;
+                            //2個目のアイテムが、上記のパターンにあてはまらない場合は、失敗する。
+
+                            judge_flag = 1; //成功判定の処理をON
+                            compoundsuccess_flag = false;
+                            success_text = "これは.. ダメかもしれぬ。";
+                            break;
+                    }
+
                 }
 
+                //一個目が生地でない場合、
+                //DBにも登録されておらず、生地への合成でもないので、失敗する。
+
+                else
+                {
+                    //失敗
+                    judge_flag = 1; //成功判定の処理をON
+                    compoundsuccess_flag = false;
+                    success_text = "これは.. ダメかもしれぬ。";
+                }
             }
 
-            //一個目が生地でない場合、
-            //DBにも登録されておらず、生地への合成でもないので、失敗する。
-
-            else
+            //エクストリーム調合の場合は、通常通りトッピングの処理を行う。
+            else if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
             {
-                //失敗
-                judge_flag = 1; //成功判定の処理をON
-                compoundsuccess_flag = false;
-                success_text = "これは.. ダメかもしれぬ。";
+
             }
         }
    
@@ -1740,6 +1783,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 card_view.OKCard_DrawView02();
 
+                CompoundMethod(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
+
                 _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "をトッピングします。" + "\n" + "　調合しますか？";
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
@@ -1755,28 +1800,50 @@ public class itemSelectToggle : MonoBehaviour
                 switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
-                        //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
 
-                        /*//調合成功の判定
-                        CompoundSuccess_judge();
+                        //新しいアイテムが生成される。オリジナル調合として処理
+                        if ( compoDB_select_judge == true )
+                        {
+                            //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
 
-                        if (compoundsuccess_flag == true)
+                            if (judge_flag == 0)
+                            {
+                                exp_Controller.compound_success = true;
+                            }
+                            else if (judge_flag == 1)
+                            {
+                                //調合成功の判定
+                                CompoundSuccess_judge();
+
+                                if (compoundsuccess_flag == true)
+                                {
+                                    exp_Controller.compound_success = true;
+
+                                }
+                                else if (compoundsuccess_flag == false)
+                                {
+                                    exp_Controller.compound_success = false;
+                                    pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
+
+                                }
+                            }
+
+                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
+
+                            exp_Controller.extreme_on = true;
+                        }
+
+                        //コンポDBに該当していなければ、通常通りトッピングの処理
+                        else
                         {
                             exp_Controller.compound_success = true;
 
+                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
                         }
-                        else if (compoundsuccess_flag == false)
-                        {
-                            exp_Controller.compound_success = false;
-                            pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
 
-                        }*/
-
-                        exp_Controller.compound_success = true;
-
-                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-
+                        
                         compound_Main.compound_status = 4;
 
                         Off_Flag_Setting();
@@ -1803,6 +1870,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 card_view.OKCard_DrawView03();
 
+                CompoundMethod(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
+
                 _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "　調合しますか？";
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
@@ -1818,27 +1887,48 @@ public class itemSelectToggle : MonoBehaviour
                 switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
-                        //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
 
-                        /*//調合成功の判定
-                        CompoundSuccess_judge();
+                        //新しいアイテムが生成される。オリジナル調合として処理
+                        if (compoDB_select_judge == true)
+                        {
+                            //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
 
-                        if (compoundsuccess_flag == true)
+                            if (judge_flag == 0)
+                            {
+                                exp_Controller.compound_success = true;
+                            }
+                            else if (judge_flag == 1)
+                            {
+                                //調合成功の判定
+                                CompoundSuccess_judge();
+
+                                if (compoundsuccess_flag == true)
+                                {
+                                    exp_Controller.compound_success = true;
+
+                                }
+                                else if (compoundsuccess_flag == false)
+                                {
+                                    exp_Controller.compound_success = false;
+                                    pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
+
+                                }
+                            }
+
+                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
+
+                            exp_Controller.extreme_on = true;
+                        }
+
+                        //コンポDBに該当していなければ、通常通りトッピングの処理
+                        else
                         {
                             exp_Controller.compound_success = true;
 
+                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
                         }
-                        else if (compoundsuccess_flag == false)
-                        {
-                            exp_Controller.compound_success = false;
-                            pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
-
-                        }*/
-
-                        exp_Controller.compound_success = true;
-
-                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
 
                         compound_Main.compound_status = 4;
 

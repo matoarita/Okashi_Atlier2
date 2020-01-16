@@ -45,6 +45,8 @@ public class recipiitemSelectToggle : MonoBehaviour
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
+
+    private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
     public int recipi_toggleitemType; //選んだアイテムが、イベントアイテムか、コンポ調合DBのアイテムかを判別する。0=イベントアイテム, 1=コンポ調合用DBアイテム
@@ -83,11 +85,17 @@ public class recipiitemSelectToggle : MonoBehaviour
             ToggleValueChanged(m_Toggle);
         });
 
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
+        {
+            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+        }
 
         recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
         recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+
+        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
         updown_counter_obj = recipilistController_obj.transform.Find("updown_counter").gameObject;
         updown_counter = updown_counter_obj.GetComponent<Updown_counter_recipi>();
@@ -95,15 +103,14 @@ public class recipiitemSelectToggle : MonoBehaviour
         yes = recipilistController_obj.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
         no = recipilistController_obj.transform.Find("No").gameObject;
-        yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
-        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
-        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
+        selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
+        
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
-        updown_counter_obj.SetActive(false);
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();

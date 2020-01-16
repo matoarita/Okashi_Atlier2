@@ -57,7 +57,6 @@ public class Compound_Main : MonoBehaviour {
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private Text no_text;
-    private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
     private GameObject black_effect;
 
@@ -68,6 +67,8 @@ public class Compound_Main : MonoBehaviour {
     public int compound_select;
 
     public int event_itemID; //イベントレシピ使用時のイベントのID
+
+    public bool First_Recipi_on; //何かお菓子を作り、はじめてレシピがONになったときのフラグ。これ以降、レシピトグルがONになる。
 
 
     // Use this for initialization
@@ -97,6 +98,7 @@ public class Compound_Main : MonoBehaviour {
         //プレイヤー所持アイテムリストパネルの取得
         pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
         pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
         playeritemlist_onoff.SetActive(false);
@@ -140,7 +142,6 @@ public class Compound_Main : MonoBehaviour {
 
         original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
         recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
-        topping_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Topping_Toggle").gameObject;
         extreme_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Extreme_Toggle").gameObject;
         roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
@@ -160,6 +161,7 @@ public class Compound_Main : MonoBehaviour {
         ReadRecipi_ALLOK = false;
         Recipi_loading = false;
 
+        First_Recipi_on = false;
     }
 
     // Update is called once per frame
@@ -188,6 +190,7 @@ public class Compound_Main : MonoBehaviour {
         else //以下が、通常の処理
         {
             //Debug.Log("調合シーン　処理　二番目");
+
             //読んでいないレシピがあれば、読む処理。優先順位二番目。
             if (ReadRecipi_ALLOK == false)
             {
@@ -196,6 +199,15 @@ public class Compound_Main : MonoBehaviour {
 
             else
             {
+                //はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
+                if (First_Recipi_on == true)
+                {
+                    recipi_toggle.SetActive(true);
+                }
+                else
+                {
+                    recipi_toggle.SetActive(false);
+                }
 
                 //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
                 switch (compound_status)

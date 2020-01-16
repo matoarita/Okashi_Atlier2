@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView_Init>
 {
+    private ItemDataBase database;
+
+    private PlayerItemList pitemlist;
 
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
@@ -18,15 +21,22 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
     private GameObject canvas;
 
+    private int i;
+
     // Use this for initialization
     void Start () {
-		
-	}
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+    }
 
     public void PlayerItemList_ScrollView_Init()
     {
@@ -39,7 +49,9 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         playeritemlist_onoff.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
         playeritemlist_onoff.transform.localPosition = new Vector3(-250,100, 0);
         playeritemlist_onoff.name = "PlayeritemList_ScrollView";
-       
+
+        //初期アイテムの設定
+        pitem_init();
     }
 
     public void RecipiList_ScrollView_Init()
@@ -53,5 +65,33 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         recipilist_onoff.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
         recipilist_onoff.transform.localPosition = new Vector3(-250, 100, 0);
         recipilist_onoff.name = "RecipiList_ScrollView";
+    }
+
+    void pitem_init()
+    {
+        //Debug.Log("プレイヤーステータス　アイテム初期化　実行");
+        //初期に所持するアイテム
+        //基本アイテムのみ追加。
+        for (i = 0; i <= database.sheet_topendID[1]; i++)
+        {
+            /*if( database.items[i].itemName == "egg")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }*/
+            
+            if (database.items[i].itemName == "komugiko")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+            if (database.items[i].itemName == "butter")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+            if (database.items[i].itemName == "suger")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
+        }
+
     }
 }

@@ -100,7 +100,6 @@ public class Updown_counter_recipi : MonoBehaviour
         _count_text = transform.GetChild(0).gameObject.GetComponent<Text>();
         _count_text.text = "1";
 
-
     }
 
     public void OnClick_up()
@@ -117,6 +116,7 @@ public class Updown_counter_recipi : MonoBehaviour
             updown_kosu = _zaiko_max;
         }
 
+        //個数を変えた際に、必要アイテム数と、所持アイテム数を比較するメソッド
         updown_keisan_Method();
 
         _count_text.text = updown_kosu.ToString();
@@ -130,6 +130,7 @@ public class Updown_counter_recipi : MonoBehaviour
             updown_kosu = 1;
         }
 
+        //個数を変えた際に、必要アイテム数と、所持アイテム数を比較するメソッド
         updown_keisan_Method();
 
         _count_text.text = updown_kosu.ToString();
