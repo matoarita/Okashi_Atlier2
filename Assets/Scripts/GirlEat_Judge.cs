@@ -59,7 +59,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _baseoily;
     private int _basewatery;
     private int _basegirl1_like; 
-    private string[] _basetp;
+    private string[] _basetp = new string[10];
+    private string[] _koyutp = new string[3];
 
     private string _baseitemtype;
     private string _baseitemtype_sub;
@@ -171,9 +172,6 @@ public class GirlEat_Judge : MonoBehaviour {
         _toggle_type1 = 0;
 
         dislike_flag = true;
-
-        //トッピングスロットの配列
-        _basetp = new string[10];
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
@@ -291,6 +289,11 @@ public class GirlEat_Judge : MonoBehaviour {
                     _basetp[i] = database.items[kettei_item1].toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < database.items[kettei_item1].koyu_toppingtype.Length; i++)
+                {
+                    _koyutp[i] = database.items[kettei_item1].koyu_toppingtype[i].ToString();
+                }
+
                 break;
 
             case 1:
@@ -317,6 +320,11 @@ public class GirlEat_Judge : MonoBehaviour {
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
                     _basetp[i] = pitemlist.player_originalitemlist[kettei_item1].toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < database.items[kettei_item1].koyu_toppingtype.Length; i++)
+                {
+                    _koyutp[i] = pitemlist.player_originalitemlist[kettei_item1].koyu_toppingtype[i].ToString();
                 }
 
                 break;
@@ -353,6 +361,7 @@ public class GirlEat_Judge : MonoBehaviour {
             itemslotScore[i] = 0;
         }
 
+        //トッピングスロットをみて、一致する効果があれば、所持数+1
         for (i = 0; i < _basetp.Length; i++)
         {
             count = 0;
@@ -367,6 +376,23 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
                 count++;
             }                      
+        }
+
+        //固有トッピングスロットも見る。一致する効果があれば、所持数+1
+        for (i = 0; i < _koyutp.Length; i++)
+        {
+            count = 0;
+            //itemslotInfoディクショナリのキーを全て取得
+            foreach (string key in itemslotInfo)
+            {
+                //Debug.Log(key);
+                if (_koyutp[i] == key) //キーと一致するアイテムスロットがあれば、点数を+1
+                {
+                    //Debug.Log("_koyutp: " + _koyutp[i]);
+                    itemslotScore[count]++;
+                }
+                count++;
+            }
         }
 
         //確認用

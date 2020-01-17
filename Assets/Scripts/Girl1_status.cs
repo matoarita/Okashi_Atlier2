@@ -178,7 +178,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     // Update is called once per frame
     void Update () {
 
-        
+        //シーン移動の際、破壊されてしまうオブジェクトは、毎回初期化
+        if( canvas == null )
+        {
+            canvas = GameObject.FindWithTag("Canvas");
+        }
+
+        if (hukidashiPrefab == null)
+        {
+            //Prefab内の、コンテンツ要素を取得       
+            hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
+        }
+            
+
         timeLeft -= Time.deltaTime;
         timeOut -= Time.deltaTime;
 

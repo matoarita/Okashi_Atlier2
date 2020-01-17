@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Yes : MonoBehaviour {
 
@@ -12,8 +13,8 @@ public class Yes : MonoBehaviour {
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-        this.gameObject.SetActive(false);
 
+        //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }
 	
 	// Update is called once per frame
@@ -29,4 +30,8 @@ public class Yes : MonoBehaviour {
         selectitem_kettei.kettei1 = true;
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
+    }
 }

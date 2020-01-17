@@ -38,9 +38,6 @@ public class shopitemSelectToggle : MonoBehaviour
     private GameObject itemselect_cancel_obj;
     private ItemSelect_Cancel itemselect_cancel;
 
-    private GameObject backbutton_obj;
-    private Button backbutton_btn;
-
     private PlayerItemList pitemlist;
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -123,9 +120,6 @@ public class shopitemSelectToggle : MonoBehaviour
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
-        //戻るボタンを取得
-        backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
-        backbutton_btn = backbutton_obj.GetComponent<Button>();
 
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
@@ -154,7 +148,6 @@ public class shopitemSelectToggle : MonoBehaviour
         if (m_Toggle.isOn == true)
         {
             back_ShopFirst_btn.interactable = false;
-            backbutton_btn.interactable = false;
             shop_buy_active();
         }
     }
@@ -250,7 +243,6 @@ public class shopitemSelectToggle : MonoBehaviour
                 updown_counter_obj.SetActive(false);
 
                 back_ShopFirst_btn.interactable = true;
-                backbutton_btn.interactable = true;
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                 break;
@@ -291,7 +283,6 @@ public class shopitemSelectToggle : MonoBehaviour
                 yes.SetActive(false);
                 no.SetActive(false);
                 back_ShopFirst_btn.interactable = true;
-                backbutton_btn.interactable = true;
 
                 updown_button[0].interactable = true;
                 updown_button[1].interactable = true;
@@ -318,13 +309,11 @@ public class shopitemSelectToggle : MonoBehaviour
                 no.SetActive(false);
 
                 back_ShopFirst_btn.interactable = true;
-                backbutton_btn.interactable = true;
 
                 updown_button[0].interactable = true;
                 updown_button[1].interactable = true;
                 updown_counter_obj.SetActive(false);
 
-                //pitemlistController.cardImage_onoff_pcontrol.SetActive(false);
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                 break;
         }

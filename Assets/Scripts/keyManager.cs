@@ -55,6 +55,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                 if (pitemlistController_obj == null)
                 {
                     canvas = GameObject.FindWithTag("Canvas");
+
                     pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
                     pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
                 }

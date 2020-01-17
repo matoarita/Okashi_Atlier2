@@ -114,6 +114,11 @@ public class AddPlayerItemButton : MonoBehaviour {
                 pitemlist.addPlayerItem(i, 5);
             }
 
+            //アパレイユ追加。
+            if (database.items[i].itemName == "appaleil")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
         }
 
         count = database.sheet_topendID[2];

@@ -19,19 +19,19 @@ MonoBehaviour:
       zaiko: 50
       itemType: 0
     - ItemID: 1
-      name: kyorikiko
-      zaiko: 50
-      itemType: 0
-    - ItemID: 2
       name: butter
       zaiko: 50
       itemType: 0
-    - ItemID: 3
+    - ItemID: 2
       name: suger
       zaiko: 50
       itemType: 0
-    - ItemID: 4
+    - ItemID: 3
       name: egg
+      zaiko: 50
+      itemType: 0
+    - ItemID: 4
+      name: orange
       zaiko: 50
       itemType: 0
     - ItemID: 5

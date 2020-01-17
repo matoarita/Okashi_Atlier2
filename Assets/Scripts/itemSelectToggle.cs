@@ -163,6 +163,7 @@ public class itemSelectToggle : MonoBehaviour
         itemID_1 = 0;
         itemID_2 = 0;
 
+        yes.SetActive(false);
     }
 
 
@@ -214,24 +215,32 @@ public class itemSelectToggle : MonoBehaviour
                 // オリジナル調合を選択した場合の処理
                 if ( compound_Main.compound_select == 3 )
                 {
+                    yes.SetActive(true);
+
                     compound_active();
                 }
 
                 // トッピング調合を選択した場合の処理
                 if (compound_Main.compound_select == 2)
                 {
+                    yes.SetActive(true);
+
                     compound_topping_active();
                 }
 
                 // 「焼く」を選択した場合の処理
                 if (compound_Main.compound_select == 5)
                 {
+                    yes.SetActive(true);
+
                     compound_roast_active();
                 }
 
                 // お菓子を「あげる」を選択した場合の処理
                 if (compound_Main.compound_select == 10)
                 {
+                    yes.SetActive(true);
+
                     Girl_present();
                 }
 
@@ -647,7 +656,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 CompoundMethod(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
-                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "調合にかかる時間" + databaseCompo.compoitems[pitemlistController.result_compID].cost_Time + "日" + "　調合しますか？" + "\n" + success_text;
+                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "　調合しますか？" + "\n" + success_text;
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
@@ -718,7 +727,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 CompoundMethod(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
-                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + "\n" + "調合にかかる時間" + databaseCompo.compoitems[pitemlistController.result_compID].cost_Time + "日　" +  success_text;
+                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + "\n" + "　調合しますか？" + success_text;
 
                 //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
 
@@ -1801,35 +1810,13 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     case true:
 
-                        //新しいアイテムが生成される。オリジナル調合として処理
-                        if ( compoDB_select_judge == true )
+                        //新しいアイテムを閃く
+                        if (compoDB_select_judge == true)
                         {
-                            //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
-
-                            if (judge_flag == 0)
-                            {
-                                exp_Controller.compound_success = true;
-                            }
-                            else if (judge_flag == 1)
-                            {
-                                //調合成功の判定
-                                CompoundSuccess_judge();
-
-                                if (compoundsuccess_flag == true)
-                                {
-                                    exp_Controller.compound_success = true;
-
-                                }
-                                else if (compoundsuccess_flag == false)
-                                {
-                                    exp_Controller.compound_success = false;
-                                    pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
-
-                                }
-                            }
+                            exp_Controller.compound_success = true;
 
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                            exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
+                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
 
                             exp_Controller.extreme_on = true;
                         }
@@ -1841,6 +1828,8 @@ public class itemSelectToggle : MonoBehaviour
 
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
+
+                            exp_Controller.extreme_on = false;
                         }
 
                         
@@ -1870,7 +1859,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 card_view.OKCard_DrawView03();
 
-                CompoundMethod(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
+                CompoundMethod(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
 
                 _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "　調合しますか？";
 
@@ -1888,35 +1877,13 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     case true:
 
-                        //新しいアイテムが生成される。オリジナル調合として処理
+                        //新しいアイテムを閃く
                         if (compoDB_select_judge == true)
                         {
-                            //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
-
-                            if (judge_flag == 0)
-                            {
-                                exp_Controller.compound_success = true;
-                            }
-                            else if (judge_flag == 1)
-                            {
-                                //調合成功の判定
-                                CompoundSuccess_judge();
-
-                                if (compoundsuccess_flag == true)
-                                {
-                                    exp_Controller.compound_success = true;
-
-                                }
-                                else if (compoundsuccess_flag == false)
-                                {
-                                    exp_Controller.compound_success = false;
-                                    pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
-
-                                }
-                            }
+                            exp_Controller.compound_success = true;
 
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                            exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
+                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
 
                             exp_Controller.extreme_on = true;
                         }
@@ -1928,6 +1895,8 @@ public class itemSelectToggle : MonoBehaviour
 
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
+
+                            exp_Controller.extreme_on = false;
                         }
 
                         compound_Main.compound_status = 4;

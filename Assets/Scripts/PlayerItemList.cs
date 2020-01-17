@@ -15,6 +15,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private string _file_name, _nameHyouji, _desc;
     private string _type;
     private string _subtype;
+    private string _koyutp;
 
     private string ev_itemName, ev_itemNameHyouji;
     private int ev_kosu;
@@ -184,12 +185,13 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _desc = database.items[i].itemDesc;
                 _type = database.items[i].itemType.ToString();
                 _subtype = database.items[i].itemType_sub.ToString();
+                _koyutp = database.items[i].koyu_toppingtype[0];
                 break;
             }
             ++i;
         }
 
-        player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _mp, _day, _quality, _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _itemkosu));
+        player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _mp, _day, _quality, _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp, _itemkosu));
     }
 
     public void deleteOriginalItem(int _id, int _kosu)

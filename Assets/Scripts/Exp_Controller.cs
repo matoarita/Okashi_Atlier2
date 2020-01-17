@@ -17,6 +17,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
+    private string _ex_text;
+
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
 
@@ -75,7 +77,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
 
-    private int i, j, sw, count;
+    private int i, j, n, sw, count;
 
     private int komugiko_id; //小麦粉を使っている、材料の_addID
     private int komugiko_flag; //使っていた場合、1にする。
@@ -414,60 +416,54 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     
                 }
 
-                pitemlistController_obj.SetActive(false);
-
                 //経験値の増減
                 if (compound_success == true)
                 {
                     compound_success = false;
 
                     //オリジナル調合なら、普通に生成
-                    if (extreme_on != true)
+
+                    //完成したアイテムの追加。
+                    //Topping_Compound_Method();
+
+                    Delete_playerItemList();
+                    result_kosu = 1;
+
+                    //店売りアイテムとして生成
+                    pitemlist.addPlayerItem(result_item, result_kosu);
+
+                    new_item = result_item;
+
+                    PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
+
+                    card_view.ResultCard_DrawView(0, new_item);
+
+
+                    //閃き済みかどうかをチェック
+                    if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
                     {
-                        //完成したアイテムの追加。
-                        Topping_Compound_Method();
+                        //完成アイテムの、レシピフラグをONにする。
+                        databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
 
-                        PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
+                        _ex_text = "新しいレシピを閃いた！" + "\n";
 
-                        StartCoroutine("renkin_exp_up");
-
-                        card_view.ResultCard_DrawView(1, new_item);
                     }
 
-                    //エクストリーム調合の場合、スロット計算などはせず、新しいアイテムのみ生成。
+                    //すでに閃いていた場合
                     else
                     {
-                        // アイテムリストの削除処理 //
-                        Delete_playerItemList();
-
-                        //新しく作ったアイテムをアイテムリストに追加。
-                        //プレイヤーアイテムリストに追加。
-                        pitemlist.addPlayerItem(result_item, 1);
-                        
-                        new_item = result_item;
-
-                        PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
-                        
-                        //エクストリームの場合は、アイテムを閃く！
-                        StartCoroutine("extreme_exp_up");
-                        
-                        card_view.ResultCard_DrawView(0, new_item);
+                        _ex_text = "";
                     }
 
-                    //完成アイテムの、レシピフラグをONにする。
-                    databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
 
                     //はじめて、アイテムを制作した場合は、フラグをONに。
                     if (compound_Main.First_Recipi_on != true)
                     {
                         compound_Main.First_Recipi_on = true;
                     }
-                                    
 
-                    pitemlistController_obj.SetActive(true);
-
-
-                } else
+                }
+                else
                 {
 
                     _text.text = "調合失敗..！ ";
@@ -481,8 +477,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     Delete_playerItemList();
 
                     card_view.ResultCard_DrawView(0, result_item);
-                        
-                    pitemlistController_obj.SetActive(true);
+                    
                 }
 
                 result_ok = false;
@@ -493,6 +488,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //日数の経過
                 PlayerStatus.player_day += databaseCompo.compoitems[result_ID].cost_Time;
 
+                //テキストの表示
+                renkin_default_exp_up();
+
+                _ex_text = "";
             }
 
 
@@ -555,12 +554,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 recipiresult_ok = false;
 
-
                 PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
 
-                StartCoroutine("renkin_exp_up");
-
-                
+                //テキストの表示
+                renkin_default_exp_up();
             }
 
 
@@ -620,21 +617,59 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //トッピング調合完了なので、リザルトアイテムのパラメータ計算と、プレイヤーアイテムリストに追加処理
                     Topping_Compound_Method();
 
+                    //新しいアイテムを閃くかチェック
+                    if (extreme_on != true)
+                    {
+                        _ex_text = "";
+                    }
+
+                    //新しいアイテムを閃くと、そのレシピを解禁
+                    else
+                    {
+                        //調合データベースのIDを代入
+                        result_ID = pitemlistController.result_compID;
+
+
+                        //閃き済みかどうかをチェック
+                        if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
+                        {
+                            //完成アイテムの、レシピフラグをONにする。
+                            databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
+
+                            _ex_text = "新しいレシピを閃いた！" + "\n";
+
+                            //はじめて、アイテムを制作した場合は、フラグをONに。
+                            if (compound_Main.First_Recipi_on != true)
+                            {
+                                compound_Main.First_Recipi_on = true;
+                            }
+                        }
+
+                        //すでに閃いていた場合
+                        else
+                        {
+                            _ex_text = "";
+                        }
+                                            
+
+                        extreme_on = false;
+                    }
+
                     card_view.ResultCard_DrawView(1, new_item);
 
                     pitemlistController.AddItemList(); //リスト描画の更新
 
-                    pitemlistController_obj.SetActive(false);
-
                     topping_result_ok = false;
 
-                    compound_success = false;
-
-                    StartCoroutine("renkin_exp_up");
-
-                    pitemlistController_obj.SetActive(true);
+                    compound_success = false;                   
 
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+
+                    //テキストの表示
+                    renkin_exp_up();
+
+                    //テキスト表示後、閃いた～をリセットしておく
+                    _ex_text = "";
                 }
 
             }
@@ -712,17 +747,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     pitemlistController.AddItemList(); //リスト描画の更新
 
-                    pitemlistController_obj.SetActive(false);
-
                     roast_result_ok = false;
 
                     compound_success = false;
 
-                    StartCoroutine("renkin_exp_up");
-
-                    pitemlistController_obj.SetActive(true);
-
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+
+                    //テキストの表示
+                    renkin_exp_up();
                 }       
             }
         }
@@ -1062,39 +1094,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 case 0: //新規調合
 
-                    if (komugiko_flag == 0) //小麦粉を使っていない
-                    {
-                        i = 0;
-                        Pate_flag = false;
+                    result_kosu = 1;
 
-                        while (i < _additemlist.Count) //かつ生地を使用している場合
-                        {
-                            if (_additemlist[i]._Add_itemType_sub == "Pate" || _additemlist[i]._Add_itemType_sub == "Cookie_base" || _additemlist[i]._Add_itemType_sub == "Pie_base" || _additemlist[i]._Add_itemType_sub == "Chocolate_base" || _additemlist[i]._Add_itemType_sub == "Cake_base")
-                            {
-                                Debug.Log("result_kosu: " + result_kosu);
-                                Pate_flag = true;
-                                result_kosu = _additemlist[i]._Addkosu;
-                                break;
-                            }
-                            i++;
-                        }
+                    //ランダム 0 ~ 2
+                    var rand = Random.Range(0, 2);
 
-                        if (Pate_flag != true)
-                        {
-                            result_kosu = total_kosu / _additemlist.Count;
-
-                            result_kosu *= 2; //2倍出来上がる。
-                        }
-                    }
-                    else //小麦粉を使っている
-                    {
-                        result_kosu = _additemlist[komugiko_id]._Addkosu; //小麦粉の個数をベースにする。
-
-                        //ランダム 0 ~ 2
-                        var rand = Random.Range(0, 2);
-
-                        result_kosu += rand;
-                    }
+                    result_kosu += rand;
 
                     break;
 
@@ -1440,6 +1445,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _tempquality += _additemlist[i]._Addquality * _additemlist[i]._Addkosu;
 
             total_kosu += _additemlist[i]._Addkosu;
+            //Debug.Log("各個数: " + _additemlist[i]._Addkosu);
         }
 
         //生地合成のときのみ、ベース個数を含む。
@@ -1522,7 +1528,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else
         {
-            Komugiko_Method();
+            //小麦粉を使っている場合、小麦粉のパラメータを基準に、他のパラメータを計算する。現状は使わない。
+            //Komugiko_Method();
 
             //最後に、ベースのパラメータに、_tempパラメータを加算する。
             //_basemp += _tempmp;
@@ -1545,9 +1552,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //③スロット同士の計算をする。
-
         AddSlot_Method();
-
 
         //④フルーツ・トッピングアイテムの加算処理
         for (i = 0; i < _additemlist.Count; i++)
@@ -1695,45 +1700,49 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         for (count = 0; count < _additemlist.Count; count++)
         {
 
-            i = 0;
-            while (i < _additemlist[count]._Addtp.Length)
+            for (n = 0; n < _additemlist[count]._Addkosu; n++)
             {
-                //Debug.Log(_addtp[i]);
+                i = 0;
 
-                if (_additemlist[count]._Addtp[i] != "Non") //Nonではない、＝いちごとかオレンジとか、何かが入っている場合は、次にベースのTPを見る。
+                while ( i < _additemlist[count]._Addtp.Length )
                 {
+                    //Debug.Log(_addtp[i]);
 
-                    j = 0;
-                    while (j < _basetp.Length) //ベースが全て空でない場合、全て無視したまま、処理だけ続く。
+                    if (_additemlist[count]._Addtp[i] != "Non") //Nonではない、＝いちごとかオレンジとか、何かが入っている場合は、次にベースのTPを見る。
                     {
 
-                        if (_basetp[j] == "Non") //ベースが空の場合は、そこに_addトッピングを入れる。
+                        j = 0;
+                        while (j < _basetp.Length) //ベースが全て空でない場合、全て無視したまま、処理だけ続く。
                         {
-                            //Debug.Log(_basetp[j]);
-                            _basetp[j] = _additemlist[count]._Addtp[i];
-                            break;
+
+                            if (_basetp[j] == "Non") //ベースが空の場合は、そこに_addトッピングを入れる。
+                            {
+                                //Debug.Log(_basetp[j]);
+                                _basetp[j] = _additemlist[count]._Addtp[i];
+                                break;
+                            }
+
+                            else if (_basetp[j] == _additemlist[count]._Addtp[i]) //ベースに入っているトッピングと、_addが重複の場合。
+                            {
+                                //無視して、次の_baseトッピングのスロットを見る。
+                            }
+
+                            else //ベースが空でない場合。
+                            {
+                                //無視して、次の_baseトッピングのスロットを見る。
+                            }
+
+                            j++;
                         }
 
-                        else if (_basetp[j] == _additemlist[count]._Addtp[i]) //ベースに入っているトッピングと、_addが重複の場合。
-                        {
-                            //無視して、次の_baseトッピングのスロットを見る。
-                        }
-
-                        else //ベースが空でない場合。
-                        {
-                            //無視して、次の_baseトッピングのスロットを見る。
-                        }
-
-                        j++;
+                    }
+                    else if (_additemlist[count]._Addtp[i] == "Non") //Nonの場合、そのスロットは無視して、次のスロットをみる
+                    {
+                        //break;
                     }
 
+                    i++;
                 }
-                else if (_additemlist[count]._Addtp[i] == "Non") //Nonの場合、そのスロットは無視して、次のスロットをみる
-                {
-                    //break;
-                }
-
-                i++;
             }
         }
     }
@@ -2294,7 +2303,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
 
 
-    IEnumerator renkin_exp_up()
+    void renkin_default_exp_up()
+    {
+
+        _text.text = "調合完了！ " +
+            database.items[result_item].itemNameHyouji +
+            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+            "錬金経験値" + databaseCompo.compoitems[result_ID].renkin_Bexp + "上がった！";
+
+        Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
+
+    }
+
+    void renkin_exp_up()
     {
 
         //_slotHyouji1[]は、一度名前を、全て空白に初期化
@@ -2322,27 +2343,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         _text.text = "調合完了！ " +
             _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
-            " が" + result_kosu + "個 できました！" + "\n" + 
+            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "錬金経験値" + databaseCompo.compoitems[result_ID].renkin_Bexp + "上がった！";
 
         Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
 
-        while (!Input.GetMouseButtonDown(0)) yield return null;
-
     }
 
-    IEnumerator extreme_exp_up()
-    {
-
-        _text.text = "調合完了！ " + database.items[new_item].itemNameHyouji +
-            " を閃いた！" + "\n" +
-            "錬金経験値" + databaseCompo.compoitems[result_ID].renkin_Bexp + "上がった！";
-
-        Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
-
-        while (!Input.GetMouseButtonDown(0)) yield return null;
-
-    }
+    
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
     float SujiMap(float value, float start1, float stop1, float start2, float stop2)

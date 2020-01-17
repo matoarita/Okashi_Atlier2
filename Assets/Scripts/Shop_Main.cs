@@ -40,10 +40,7 @@ public class Shop_Main : MonoBehaviour {
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
         shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
         shopon_toggle_watch = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Watch").gameObject;
-
-        //戻るボタンを取得
-        backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
-        backbutton_obj.SetActive(false);
+        backbutton_obj = shop_select.transform.Find("Viewport/Content/Button_modoru").gameObject;
 
         //自分の持ってるお金などのステータス
         money_status_obj = GameObject.FindWithTag("MoneyStatus_panel");

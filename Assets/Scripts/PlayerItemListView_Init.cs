@@ -23,6 +23,8 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
     private int i;
 
+    private bool GameStart_Init_flag;
+
     // Use this for initialization
     void Start () {
 
@@ -31,6 +33,8 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        GameStart_Init_flag = false;
     }
 	
 	// Update is called once per frame
@@ -50,8 +54,13 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         playeritemlist_onoff.transform.localPosition = new Vector3(-250,100, 0);
         playeritemlist_onoff.name = "PlayeritemList_ScrollView";
 
-        //初期アイテムの設定
-        pitem_init();
+        if (GameStart_Init_flag != true)
+        {
+            //初期アイテムの設定
+            pitem_init();
+            GameStart_Init_flag = true; //ゲーム開始最初だけ、初期アイテムを追加する。
+        }
+
     }
 
     public void RecipiList_ScrollView_Init()

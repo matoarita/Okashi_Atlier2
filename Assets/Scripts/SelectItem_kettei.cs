@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SelectItem_kettei : MonoBehaviour {
 
@@ -13,6 +14,8 @@ public class SelectItem_kettei : MonoBehaviour {
     {
         kettei1 = false;
         onclick = false;
+
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }
 	
 	// Update is called once per frame
@@ -34,5 +37,11 @@ public class SelectItem_kettei : MonoBehaviour {
         onclick = true;
 
         kettei1 = false;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        kettei1 = false;
+        onclick = false;
     }
 }

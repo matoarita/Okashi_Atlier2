@@ -273,7 +273,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
 
-                                if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" || database.items[i].itemType_sub.ToString() == "Source")
+                                if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" || database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil")
                                 {
                                     itemlist_hyouji();
                                 }
@@ -344,7 +344,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                     case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子タイプは表示しない。
 
-                        if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source")
+                        if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil")
                         {
                             original_itemlist_hyouji();
                         }
