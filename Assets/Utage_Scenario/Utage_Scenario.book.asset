@@ -3097,7 +3097,7 @@ MonoBehaviour:
     - rowIndex: 3
       debugIndex: 6
       strings:
-      - 
+      - Jump
       - "*\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
       - Read_recipi==2
       isEmpty: 0
@@ -3237,7 +3237,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Recipi_read
     type: 1
-    textLength: 356
+    textLength: 360
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -8622,7 +8622,7 @@ MonoBehaviour:
     - rowIndex: 6
       debugIndex: 6
       strings:
-      - 
+      - Jump
       - "*\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
       - Read_recipi==2
       isEmpty: 0
@@ -8984,7 +8984,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Recipi_read
     type: 1
-    textLength: 356
+    textLength: 360
     headerRow: 0
   - rows:
     - rowIndex: 0

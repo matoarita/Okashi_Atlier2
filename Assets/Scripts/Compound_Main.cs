@@ -231,6 +231,7 @@ public class Compound_Main : MonoBehaviour {
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
                         recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+                        yes.SetActive(false);
                         no.SetActive(true);
 
                         break;
@@ -243,6 +244,7 @@ public class Compound_Main : MonoBehaviour {
                         compound_select = 2; //トッピング調合を選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                        yes.SetActive(false);
                         no.SetActive(true);
 
                         break;
@@ -255,6 +257,7 @@ public class Compound_Main : MonoBehaviour {
                         compound_select = 3; //オリジナル調合を選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+                        yes.SetActive(false);
                         no.SetActive(true);
 
                         break;
@@ -271,6 +274,7 @@ public class Compound_Main : MonoBehaviour {
                         compound_select = 5; //焼くを選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                        yes.SetActive(false);
                         no.SetActive(true);
 
                         break;
@@ -283,6 +287,7 @@ public class Compound_Main : MonoBehaviour {
                         compound_select = 10; //あげるを選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                        yes.SetActive(false);
                         no.SetActive(true);
 
                         break;
@@ -306,6 +311,7 @@ public class Compound_Main : MonoBehaviour {
                         compound_status = 4;
                         compound_select = 99;
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        yes.SetActive(false);
                         no.SetActive(true);
 
                         break;
@@ -582,6 +588,7 @@ public class Compound_Main : MonoBehaviour {
         backbutton_obj.SetActive(false);
         text_area.SetActive(false);
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[i].ev_ItemID;
+        //Debug.Log("GameMgr.recipi_read_ID: " + GameMgr.recipi_read_ID);
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         while (!GameMgr.recipi_read_endflag)

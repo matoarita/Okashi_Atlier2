@@ -113,6 +113,7 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.recipi_read_flag = false;
                     recipi_read_ID = GameMgr.recipi_read_ID;
+                    //Debug.Log("recipi_read_ID: " + recipi_read_ID);
 
                     //イベントレシピを表示
                     StartCoroutine(Recipi_read_Hyouji());
@@ -427,7 +428,7 @@ public class Utage_scenario : MonoBehaviour
 
         scenario_loading = true;
 
-        //ここで、宴で呼び出したいイベント番号を設定する。
+        //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("Read_recipi", recipi_read_ID);
 
         //「宴」のシナリオを呼び出す
