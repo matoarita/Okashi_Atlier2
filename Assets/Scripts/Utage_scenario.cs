@@ -202,7 +202,7 @@ public class Utage_scenario : MonoBehaviour
 
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "Prologue";
+        scenarioLabel = "Chapter_1";
 
         scenario_loading = true;
 
@@ -222,7 +222,7 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // Case = 100
+    // 現状使用しない
     //
     IEnumerator Chapter1_Start()
     {
@@ -230,7 +230,7 @@ public class Utage_scenario : MonoBehaviour
 
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "Chapter1_1";
+        scenarioLabel = "Chapter1_1_old";
 
         scenario_loading = true;       
 

@@ -49,6 +49,10 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(chk_itemdatabase_init);
         chk_itemdatabase_init.tag = "check_ItemDataBase_obj";
 
+        //デバッグパネルの生成
+        var debugPanel_init = new GameObject("Debug_Panel_Init", typeof(Debug_Panel_Init));
+        GameObject.DontDestroyOnLoad(debugPanel_init);
+
         //女の子１のステータスリスト
         var girl1_status_init = new GameObject("Girl1_status", typeof(Girl1_status));
         girl1_status_init.AddComponent<AudioSource>();
@@ -93,6 +97,8 @@ public class RuntimeInitializer : MonoBehaviour
         var soundcontroller_init = new GameObject("SoundController", typeof(SoundController));
         GameObject.DontDestroyOnLoad(soundcontroller_init);
         soundcontroller_init.tag = "SoundController";
+
+        
 
     }
 

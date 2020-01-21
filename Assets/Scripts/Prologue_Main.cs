@@ -6,8 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class Prologue_Main : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    private Debug_Panel_Init debug_panel_init;
+
+    // Use this for initialization
+    void Start () {
+
+        //デバッグパネルの取得
+        debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
+        debug_panel_init.DebugPanel_init(); //パネルの初期化
+
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストウィンドウを読み込み。シーンにシーンを加算する形。
     }
 	
@@ -18,7 +25,7 @@ public class Prologue_Main : MonoBehaviour {
         {
             GameMgr.scenario_flag = 101; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。(!FadeManager.Instance.isFading)使うときは、アップデートを更新してないと、読み込まれない。
 
-            FadeManager.Instance.LoadScene("001_Chapter1", 0.3f);
+            FadeManager.Instance.LoadScene("Compound", 0.3f);
         }
 
     }

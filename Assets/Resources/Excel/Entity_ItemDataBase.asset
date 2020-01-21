@@ -780,7 +780,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Strawberry
+      topping01: Banana
       topping02: Non
       topping03: Non
       topping04: Non
@@ -794,7 +794,7 @@ MonoBehaviour:
     - ItemID: 21
       file_name: strawberry
       name: pear
-      nameHyouji: "\u306A\u3057"
+      nameHyouji: "\u68A8"
       desc: "\u308A\u3093\u3054\u306B\u3088\u304F\u4F3C\u3066\u3044\u308B\u3001\u7DD1\u8272\u306E\u679C\u5B9F\u3002\u3055\u304F\u3055\u304F\u3057\u305F\u611F\u89E6\u3067\u3001\u3055\u3063\u3071\u308A\u3057\u305F\u7518\u3055\u304C\u7279\u5FB4\u3002\u9999\u308A\u304C\u53E4\u98A8\u3067\u3001\u826F\u3044\u3002"
       mp: 0
       day: 0
@@ -817,7 +817,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Strawberry
+      topping01: Pear
       topping02: Non
       topping03: Non
       topping04: Non
@@ -1791,7 +1791,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping: Orange
+      koyu_topping: PinkBloodOrange
     - ItemID: 203
       file_name: orange_neko_cookie
       name: orange_neko_nuts
@@ -2050,7 +2050,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping: Non
+      koyu_topping: StarPowder
     - ItemID: 210
       file_name: orange_neko_cookie
       name: emerald_neko_cookie
@@ -3707,7 +3707,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Non
+      topping01: RowCream
       topping02: Non
       topping03: Non
       topping04: Non
@@ -3744,7 +3744,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Non
+      topping01: WhipeedCream
       topping02: Non
       topping03: Non
       topping04: Non
@@ -3781,7 +3781,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Non
+      topping01: StarPowder
       topping02: Non
       topping03: Non
       topping04: Non

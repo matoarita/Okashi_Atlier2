@@ -9,6 +9,8 @@ public class Shop_Main : MonoBehaviour {
     private GameObject text_area;
     private Text _text;
 
+    private Debug_Panel_Init debug_panel_init;
+
     private GameObject shopitemlist_onoff;
 
     private GameObject money_status_obj;
@@ -35,6 +37,10 @@ public class Shop_Main : MonoBehaviour {
 
         //キャンバスの取得
         canvas = GameObject.FindWithTag("Canvas");
+
+        //デバッグパネルの取得
+        debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
+        debug_panel_init.DebugPanel_init(); //パネルの初期化
 
         shop_select = canvas.transform.Find("Shop_Select").gameObject;
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;

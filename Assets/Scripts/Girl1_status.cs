@@ -105,8 +105,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl_comment_flag = false;
         girl_comment_endflag = false;
 
-        timeGirl_hungry_status = 0;
-
+        
         audioSource = GetComponent<AudioSource>();
 
         //Prefab内の、コンテンツ要素を取得
@@ -124,7 +123,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //テキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
-        Counter = canvas.transform.Find("Debug_Panel/TimeCount").gameObject.GetComponent<Text>(); //デバッグ用
+        //Counter = canvas.transform.Find("Debug_Panel/TimeCount").gameObject.GetComponent<Text>(); //デバッグ用
 
         //秒計算。　
         timeLeft = 1.0f;
@@ -132,6 +131,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //この時間ごとに、女の子は、お菓子を欲しがり始める。
         timeOut = 5.0f;
+
+        timeGirl_hungry_status = 0;
 
         girl1_Love_exp = 0;
 
@@ -202,7 +203,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             //ここに処理。デバッグ用。
             canvas = GameObject.FindWithTag("Canvas");
-            Counter = canvas.transform.Find("Debug_Panel/TimeCount").gameObject.GetComponent<Text>(); //デバッグ用
+            Counter = GameObject.FindWithTag("Debug_Panel").GetComponentInChildren<Text>(); //デバッグ用
 
             Counter.text = "PlayTime: " + timeCount + " s";
             //Debug.Log("経過時間: " + timeCount + " 秒");
@@ -348,5 +349,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         audioSource.PlayOneShot(sound2);
     }
 
+    public void Girl1_Status_Init()
+    {
+        timeOut = 5.0f;
 
+        timeGirl_hungry_status = 0;
+    }
 }

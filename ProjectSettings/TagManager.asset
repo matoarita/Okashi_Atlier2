@@ -42,6 +42,7 @@ TagManager:
   - RecipiListView_Init
   - SelectItem_kettei
   - Black_Effect
+  - Debug_Panel
   layers:
   - Default
   - TransparentFX

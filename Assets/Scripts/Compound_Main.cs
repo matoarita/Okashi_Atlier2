@@ -11,6 +11,10 @@ public class Compound_Main : MonoBehaviour {
 
     private GameObject canvas;
 
+    private Girl1_status girl1_status;
+
+    private Debug_Panel_Init debug_panel_init;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
@@ -47,6 +51,7 @@ public class Compound_Main : MonoBehaviour {
     private GameObject girleat_toggle;
     private GameObject shop_toggle;
     private GameObject getmaterial_toggle;
+    private GameObject stageclear_toggle;
 
     private GameObject backbutton_obj;
 
@@ -87,6 +92,13 @@ public class Compound_Main : MonoBehaviour {
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        //デバッグパネルの取得
+        debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
+        debug_panel_init.DebugPanel_init(); //パネルの初期化
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -150,6 +162,7 @@ public class Compound_Main : MonoBehaviour {
         girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
+        stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
 
         //初期メッセージ
         _text.text = "何の調合をする？";
@@ -162,6 +175,9 @@ public class Compound_Main : MonoBehaviour {
         Recipi_loading = false;
 
         First_Recipi_on = false;
+
+        //女の子　お菓子ハングリー状態のリセット
+        girl1_status.Girl1_Status_Init();
     }
 
     // Update is called once per frame
@@ -207,6 +223,12 @@ public class Compound_Main : MonoBehaviour {
                 else
                 {
                     recipi_toggle.SetActive(false);
+                }
+
+                //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
+                if( girl1_status.girl1_Love_exp >= 100 )
+                {
+                    stageclear_toggle.SetActive(true);
                 }
 
                 //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
@@ -479,6 +501,21 @@ public class Compound_Main : MonoBehaviour {
 
         }
     }
+
+    public void OnStageClear() //ステージクリアボタン
+    {
+        if (stageclear_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            yes_no_load();
+
+            _text.text = "次のお話に進みますか？";
+            //compound_status = 20;
+
+        }
+    }
+
 
     //イベント用レシピを見たときの処理。
     public void eventRecipi_ON()
