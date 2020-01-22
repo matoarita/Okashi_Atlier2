@@ -1170,6 +1170,10 @@ MonoBehaviour:
       debugIndex: 38
       strings:
       - 
+      - "\u30D2\u30ED\u30A4\u30F3"
+      - 
+      - 
+      - 
       - 
       - 
       - 
@@ -1745,7 +1749,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter_1
     type: 1
-    textLength: 1085
+    textLength: 1089
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -4540,7 +4544,7 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Arika/chara_megane.png
+      - Hikari/Hikari_1.png
       - 
       - 
       - 
@@ -4566,7 +4570,7 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Arika/chara_megane.png
+      - Hikari/Hikari_1.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4582,7 +4586,7 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Arika/chara_megane.png
+      - Hikari/Hikari_1.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4598,18 +4602,94 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Arika/chara_megane.png
+      - Hikari/Hikari_1.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 7
       debugIndex: 7
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - 
+      - "\u68D2\u76EE"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Hikari/Hikari_2.png
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 8
       debugIndex: 8
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 9
+      debugIndex: 9
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 10
+      debugIndex: 10
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 11
+      debugIndex: 11
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 12
+      debugIndex: 12
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 13
+      debugIndex: 13
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 14
+      debugIndex: 14
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 15
+      debugIndex: 15
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 16
+      debugIndex: 16
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 17
+      debugIndex: 17
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 18
+      debugIndex: 18
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 19
+      debugIndex: 19
       strings:
       - "\u304A\u3070\u3055\u3093"
       - <param=npcA_name>
@@ -4624,8 +4704,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 9
-      debugIndex: 9
+    - rowIndex: 20
+      debugIndex: 20
       strings:
       - 
       - 
@@ -4640,8 +4720,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 10
-      debugIndex: 10
+    - rowIndex: 21
+      debugIndex: 21
       strings:
       - 
       - 
@@ -4656,8 +4736,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 11
-      debugIndex: 11
+    - rowIndex: 22
+      debugIndex: 22
       strings:
       - 
       - 
@@ -4674,7 +4754,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 412
+    textLength: 424
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -4794,7 +4874,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - dlfanfanzensample.jpg
+      - 800dlfanfanzen.jpg
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4809,7 +4889,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - nexfan_01_800.600_sam.jpg
+      - nexfan_01_800.600.jpg
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4887,7 +4967,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Texture
     type: 1
-    textLength: 355
+    textLength: 348
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -6933,6 +7013,10 @@ MonoBehaviour:
       debugIndex: 38
       strings:
       - 
+      - "\u30D2\u30ED\u30A4\u30F3"
+      - 
+      - 
+      - 
       - 
       - 
       - 
@@ -7759,7 +7843,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter_1
     type: 1
-    textLength: 1085
+    textLength: 1089
     headerRow: 0
   - rows:
     - rowIndex: 0

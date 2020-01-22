@@ -15,6 +15,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static int player_ninki_param; //人気度。いるかな？とりあえず置き
 
+    public static bool First_recipi_on;
+
     public static List<bool> player_travelList = new List<bool>(); //旅行先。行ける場所が増えると、カウントも増える。
 
 
@@ -35,6 +37,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_renkin_exp = 0;
         player_ninki_param = 10;
         player_kaeru_coin = 0;
+
+        First_recipi_on = false;
 
         player_travelList.Add(true); //一つ目、「近くの森」解禁。これは初期設定。
         //player_travelList.Add(true); //二つ目

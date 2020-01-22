@@ -73,7 +73,7 @@ public class Compound_Main : MonoBehaviour {
 
     public int event_itemID; //イベントレシピ使用時のイベントのID
 
-    public bool First_Recipi_on; //何かお菓子を作り、はじめてレシピがONになったときのフラグ。これ以降、レシピトグルがONになる。
+    //public bool First_Recipi_on; //何かお菓子を作り、はじめてレシピがONになったときのフラグ。これ以降、レシピトグルがONになる。
 
 
     // Use this for initialization
@@ -174,8 +174,6 @@ public class Compound_Main : MonoBehaviour {
         ReadRecipi_ALLOK = false;
         Recipi_loading = false;
 
-        First_Recipi_on = false;
-
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
     }
@@ -216,7 +214,7 @@ public class Compound_Main : MonoBehaviour {
             else
             {
                 //はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
-                if (First_Recipi_on == true)
+                if (PlayerStatus.First_recipi_on == true)
                 {
                     recipi_toggle.SetActive(true);
                 }

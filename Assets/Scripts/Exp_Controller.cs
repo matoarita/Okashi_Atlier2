@@ -457,9 +457,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
 
                     //はじめて、アイテムを制作した場合は、フラグをONに。
-                    if (compound_Main.First_Recipi_on != true)
+                    if (PlayerStatus.First_recipi_on != true)
                     {
-                        compound_Main.First_Recipi_on = true;
+                        PlayerStatus.First_recipi_on = true;
                     }
 
                 }
@@ -639,9 +639,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                             _ex_text = "新しいレシピを閃いた！" + "\n";
 
                             //はじめて、アイテムを制作した場合は、フラグをONに。
-                            if (compound_Main.First_Recipi_on != true)
+                            if (PlayerStatus.First_recipi_on != true)
                             {
-                                compound_Main.First_Recipi_on = true;
+                                PlayerStatus.First_recipi_on = true;
                             }
                         }
 
