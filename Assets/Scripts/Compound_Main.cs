@@ -15,6 +15,8 @@ public class Compound_Main : MonoBehaviour {
 
     private Debug_Panel_Init debug_panel_init;
 
+    private GameObject getmatplace_panel;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
@@ -63,6 +65,8 @@ public class Compound_Main : MonoBehaviour {
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private Text no_text;
 
+    private GameObject yes_no_panel; //通常時のYes, noボタン
+
     private GameObject black_effect;
 
     private int i, j;
@@ -73,7 +77,6 @@ public class Compound_Main : MonoBehaviour {
 
     public int event_itemID; //イベントレシピ使用時のイベントのID
 
-    //public bool First_Recipi_on; //何かお菓子を作り、はじめてレシピがONになったときのフラグ。これ以降、レシピトグルがONになる。
 
 
     // Use this for initialization
@@ -128,6 +131,8 @@ public class Compound_Main : MonoBehaviour {
         no = playeritemlist_onoff.transform.Find("No").gameObject;
         no_text = no.GetComponentInChildren<Text>();
 
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -148,6 +153,10 @@ public class Compound_Main : MonoBehaviour {
         //黒半透明パネルの取得
         //black_effect = GameObject.FindWithTag("Black_Effect");
         //black_effect.SetActive(false);
+
+        //材料採取地パネルの取得
+        getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").gameObject;
+        //getmatplace_panel.SetActive(false);
 
         compoundselect_onoff_obj = GameObject.FindWithTag("CompoundSelect");
         saveload_panel = canvas.transform.Find("SaveLoadPanel").gameObject;
@@ -236,8 +245,10 @@ public class Compound_Main : MonoBehaviour {
 
                         recipilist_onoff.SetActive(false);
                         playeritemlist_onoff.SetActive(false);
+                        yes_no_panel.SetActive(false);
+                        getmatplace_panel.SetActive(false);
                         compoundselect_onoff_obj.SetActive(true);
-                        //saveload_panel.SetActive(true);
+
                         //backbutton_obj.SetActive(true);
                         text_area.SetActive(true);
 
@@ -247,7 +258,7 @@ public class Compound_Main : MonoBehaviour {
                     case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
 
                         compoundselect_onoff_obj.SetActive(false);
-                        saveload_panel.SetActive(false);
+
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
                         recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
@@ -259,7 +270,7 @@ public class Compound_Main : MonoBehaviour {
                     case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
 
                         compoundselect_onoff_obj.SetActive(false);
-                        saveload_panel.SetActive(false);
+
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 2; //トッピング調合を選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -272,7 +283,7 @@ public class Compound_Main : MonoBehaviour {
                     case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
 
                         compoundselect_onoff_obj.SetActive(false);
-                        saveload_panel.SetActive(false);
+
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 3; //オリジナル調合を選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -289,7 +300,7 @@ public class Compound_Main : MonoBehaviour {
                     case 5: //「焼く」を選択
 
                         compoundselect_onoff_obj.SetActive(false);
-                        saveload_panel.SetActive(false);
+
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 5; //焼くを選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -302,7 +313,7 @@ public class Compound_Main : MonoBehaviour {
                     case 10: //「あげる」を選択
 
                         compoundselect_onoff_obj.SetActive(false);
-                        saveload_panel.SetActive(false);
+
                         compound_status = 4; //あげるシーンに入っています、というフラグ
                         compound_select = 10; //あげるを選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -323,6 +334,16 @@ public class Compound_Main : MonoBehaviour {
                         compound_status = 0;
 
                         break;
+
+                    case 20: //材料採取地を選択中
+
+
+                        break;
+
+                    case 21: //材料採取地に到着。探索中
+
+                        break;
+
 
                     case 99:
 
@@ -466,7 +487,7 @@ public class Compound_Main : MonoBehaviour {
         }
     }
 
-    public void OnShop_toggle() //ショップへ移動　未使用
+    public void OnShop_toggle() //ショップへ移動
     {
         if (shop_toggle.GetComponent<Toggle>().isOn == true)
         {
@@ -480,9 +501,15 @@ public class Compound_Main : MonoBehaviour {
         if (getmaterial_toggle.GetComponent<Toggle>().isOn == true)
         {
             getmaterial_toggle.GetComponent<Toggle>().isOn = false;
+         
+            _text.text = "妹と一緒に材料を取りにいくよ！行き先を選んでね。";
+            compound_status = 20;
+  
+            //compoundselect_onoff_obj.SetActive(false);
+            getmatplace_panel.SetActive(true);
+            yes_no_panel.SetActive(true);
+            yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
 
-            //材料をランダムで３つ手に入れる処理
-            get_material.GetRandomMaterials();
         }
     }
 

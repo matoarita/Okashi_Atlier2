@@ -238,6 +238,29 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 }
             }
 
+            //status=20。材料採取地選択
+            else if (compound_Main.compound_status == 20)
+            {
+                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+                if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
+                {
+                    if (kettei_on_waiting == false) //トグルが押されていない時で、材料採取地選択最中の状態を表す。
+                    {
+                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                        {
+
+                            compound_Main.compound_status = 0; //何も選択していない状態にもどる。
+                            compound_Main.compound_select = 0;
+
+                            yes_selectitem_kettei.onclick = false;
+
+                        }
+                    }
+                }
+            }
+
             //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
             else
             {
@@ -289,7 +312,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         }
                     }
                 }
-            
+
 
                 if (compound_Main.compound_select == 2) //トッピング調合のときの処理
                 {

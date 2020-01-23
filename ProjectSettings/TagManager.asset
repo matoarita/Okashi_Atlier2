@@ -43,6 +43,8 @@ TagManager:
   - SelectItem_kettei
   - Black_Effect
   - Debug_Panel
+  - Yes_no_Panel
+  - GetMatPlace_Panel
   layers:
   - Default
   - TransparentFX
