@@ -12,6 +12,8 @@ public class GetMaterial : MonoBehaviour {
 
     private ItemDataBase database;
 
+    private ItemMatPlaceDataBase matplace_database;
+
     // アイテムのデータを保持する辞書
     Dictionary<int, string> itemInfo;
 
@@ -29,13 +31,16 @@ public class GetMaterial : MonoBehaviour {
     private string itemName;
 
     private int random;
-    private int i, count;
+    private int i, count, empty;
+    private int index;
 
     private string[] _a = new string[3];
+    private string[] _a_final = new string[3];
     private int[] kettei_item = new int[3];
     private int[] kettei_kosu = new int[3];
 
     private int mat_cost;
+    private float total;
 
     // Use this for initialization
     void Start () {
@@ -46,15 +51,15 @@ public class GetMaterial : MonoBehaviour {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
-        // 入手できるアイテムのデータベースの初期化後に、エクセルで設定できるようにする。
-        InitializeDicts();
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();        
 
         //テキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
 
         //材料採取のための、消費コスト
-        mat_cost = 30;
+        mat_cost = 0;
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -64,8 +69,15 @@ public class GetMaterial : MonoBehaviour {
 		
 	}
 
-    public void GetRandomMaterials() //材料を３つランダムでゲットする処理
+    public void GetRandomMaterials(int _index) //材料を３つランダムでゲットする処理
     {
+
+        index = _index; //採取地IDの決定
+
+        // 入手できるアイテムのデータベース
+        InitializeDicts();
+
+        mat_cost = matplace_database.matplace_lists[index].placeCost;
 
         //お金のチェック       
         if (PlayerStatus.player_money < mat_cost)
@@ -87,15 +99,15 @@ public class GetMaterial : MonoBehaviour {
                 itemKosu = ChooseKosu();
                 kettei_kosu[count] = itemKosu;
 
-                //今回のゲームでは、必ず何かアイテムが入手できる。
 
-                if (itemId == 0) //id = 0 のときは、何もなし
+                if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
                 {
                     _a[count] = "";
                     kettei_kosu[count] = 0;
                 }
                 else
                 {
+
                     //itemNameをもとに、アイテムデータベースのアイテムIDを取得
                     i = 0;
 
@@ -111,21 +123,58 @@ public class GetMaterial : MonoBehaviour {
 
 
                     _a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
+
+                    //アイテムの取得処理
+                    pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
                 }
+
 
             }
 
-
-            //アイテムの取得処理
-            pitemlist.addPlayerItem(kettei_item[0], kettei_kosu[0]);
-            pitemlist.addPlayerItem(kettei_item[1], kettei_kosu[1]);
-            pitemlist.addPlayerItem(kettei_item[2], kettei_kosu[2]);
 
             //音を鳴らす
             audioSource.PlayOneShot(sound1);
 
             //テキストに結果反映
-            _text.text = _a[0] + "\n" + _a[1] + "\n" + _a[2];
+
+            //まず初期化
+            count = 0;
+            empty = 0;
+
+            for (i = 0; i < _a_final.Length; i++)
+            {
+                _a_final[i] = "";
+            }
+
+            //空白は無視するように調整
+            for ( i = 0; i < _a.Length; i++)
+            {
+                if ( _a[i] == "") //空白は無視
+                {
+                    empty++;
+                }
+                else
+                {
+                    if ( count == 0 )
+                    {
+                        _a_final[count] = _a[i];
+                    }
+                    else
+                    {
+                        _a_final[count] = "\n" + _a[i];
+                    }
+                    count++;
+                }
+            }
+
+            if (_a_final.Length == empty)
+            {
+                _text.text = "特に何も見つからなかった。";
+            }
+            else
+            {
+                _text.text = _a_final[0] + _a_final[1] + _a_final[2];
+            }       
 
         }
 
@@ -134,22 +183,23 @@ public class GetMaterial : MonoBehaviour {
     void InitializeDicts()
     {
         itemInfo = new Dictionary<int, string>();
-        itemInfo.Add(0, "なし");
-        itemInfo.Add(1, "orange"); //アイテムデータベースに登録されているアイテム名と同じにする
-        itemInfo.Add(2, "grape");
-        itemInfo.Add(3, "nuts");
-        itemInfo.Add(4, "komugiko");
-        itemInfo.Add(5, "butter");
-        itemInfo.Add(6, "suger");
+
+        itemInfo.Add(0, matplace_database.matplace_lists[index].dropItem1); //アイテムデータベースに登録されているアイテム名と同じにする
+        itemInfo.Add(1, matplace_database.matplace_lists[index].dropItem2); 
+        itemInfo.Add(2, matplace_database.matplace_lists[index].dropItem3);
+        itemInfo.Add(3, matplace_database.matplace_lists[index].dropItem4);
+        itemInfo.Add(4, matplace_database.matplace_lists[index].dropItem5);
+        itemInfo.Add(5, matplace_database.matplace_lists[index].dropRare1);
+        itemInfo.Add(6, matplace_database.matplace_lists[index].dropRare2);
 
         itemDropDict = new Dictionary<int, float>();
-        //itemDropDict.Add(0, 60.0f); //0 なしが　60%
-        itemDropDict.Add(1, 25.0f); //1 が　25%
-        itemDropDict.Add(2, 12.0f); //2 が　12%
-        itemDropDict.Add(3, 3.0f);  //3 が　3%
-        itemDropDict.Add(4, 20.0f); //4 が　20%
-        itemDropDict.Add(5, 20.0f); //5 が　20%
-        itemDropDict.Add(6, 20.0f); //6 が　20%
+        itemDropDict.Add(0, matplace_database.matplace_lists[index].dropProb1); //こっちは確率テーブル
+        itemDropDict.Add(1, matplace_database.matplace_lists[index].dropProb2); 
+        itemDropDict.Add(2, matplace_database.matplace_lists[index].dropProb3); 
+        itemDropDict.Add(3, matplace_database.matplace_lists[index].dropProb4);  
+        itemDropDict.Add(4, matplace_database.matplace_lists[index].dropProb5); 
+        itemDropDict.Add(5, matplace_database.matplace_lists[index].dropRareProb1); 
+        itemDropDict.Add(6, matplace_database.matplace_lists[index].dropRareProb2); 
 
         itemDropKosuDict = new Dictionary<int, float>();
         itemDropKosuDict.Add(1, 60.0f); //1個　60%
@@ -160,7 +210,7 @@ public class GetMaterial : MonoBehaviour {
     int Choose()
     {
         // 確率の合計値を格納
-        float total = 0;
+        total = 0;
 
         // 敵ドロップ用の辞書からドロップ率を合計する
         foreach (KeyValuePair<int, float> elem in itemDropDict)
@@ -190,7 +240,7 @@ public class GetMaterial : MonoBehaviour {
     int ChooseKosu()
     {
         // 確率の合計値を格納
-        float total = 0;
+        total = 0;
 
         // 敵ドロップ用の辞書からドロップ率を合計する
         foreach (KeyValuePair<int, float> elem in itemDropKosuDict)

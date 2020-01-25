@@ -69,7 +69,7 @@ public class Compound_Main : MonoBehaviour {
 
     private GameObject black_effect;
 
-    private int i, j;
+    private int i, j, _id;
     private int comp_ID;
 
     public int compound_status;
@@ -185,6 +185,7 @@ public class Compound_Main : MonoBehaviour {
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
+
     }
 
     // Update is called once per frame

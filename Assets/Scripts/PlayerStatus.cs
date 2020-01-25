@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 {
-    
 
     public static int player_money; // 所持金
     public static int player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
@@ -38,11 +37,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_ninki_param = 10;
         player_kaeru_coin = 0;
 
-        First_recipi_on = false;
-
-        player_travelList.Add(true); //一つ目、「近くの森」解禁。これは初期設定。
-        //player_travelList.Add(true); //二つ目
-        //player_travelList.Add(true); //三つ目
+        First_recipi_on = true;
 
         //セーブデータがあれば、次にそこから読み込んで、更新
     }

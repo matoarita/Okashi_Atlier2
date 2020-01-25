@@ -18,6 +18,10 @@ public class RuntimeInitializer : MonoBehaviour
         var worlddatabase_init = new GameObject("WorldDataBase", typeof(WorldDataBase));
         GameObject.DontDestroyOnLoad(worlddatabase_init);
 
+        //採取地のデータベースリスト
+        var matplacedatabase_init = new GameObject("ItemMatPlaceDataBase", typeof(ItemMatPlaceDataBase));
+        GameObject.DontDestroyOnLoad(matplacedatabase_init);
+
         //スロットネーム変換リスト
         var slotnamedatabase_init = new GameObject("SlotNameDataBase", typeof(SlotNameDataBase));
         GameObject.DontDestroyOnLoad(slotnamedatabase_init);

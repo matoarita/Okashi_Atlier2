@@ -9,6 +9,8 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 {
     private ItemDataBase database;
 
+    private ItemCompoundDataBase databaseCompo;
+
     private PlayerItemList pitemlist;
 
     private GameObject playeritemlist_onoff;
@@ -30,6 +32,9 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //調合組み合わせデータベースの取得
+        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -58,7 +63,9 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         {
             //初期アイテムの設定
             pitem_init();
+
             GameStart_Init_flag = true; //ゲーム開始最初だけ、初期アイテムを追加する。
+           
         }
 
     }

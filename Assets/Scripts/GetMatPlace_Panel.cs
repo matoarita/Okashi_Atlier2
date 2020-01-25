@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GetMatPlace_Panel : MonoBehaviour {
 
+    private ItemMatPlaceDataBase matplace_database;
+
     private GameObject canvas;
 
     private GameObject compound_Main_obj;
@@ -37,6 +39,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private bool Slot_view_on;
     private int slot_view_status;
 
+    private int i;
+
     //SEを鳴らす
     public AudioClip sound1;
     AudioSource audioSource;
@@ -44,7 +48,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        Setup();
+        
+    }
+
+    void Setup()
+    {
         audioSource = GetComponent<AudioSource>();
+
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -76,6 +89,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         matplace_toggle1 = this.transform.Find("GetMatPlace_View/Viewport/Content/MatPlace_toggle1").gameObject;
         matplace_toggle2 = this.transform.Find("GetMatPlace_View/Viewport/Content/MatPlace_toggle2").gameObject;
 
+        matplace_toggle1.GetComponentInChildren<Text>().text = matplace_database.matplace_lists[0].placeNameHyouji;
+        matplace_toggle2.GetComponentInChildren<Text>().text = matplace_database.matplace_lists[1].placeNameHyouji;
+
         //採取地画面の取得
         slot_view = this.transform.Find("Slot_View").gameObject;
 
@@ -86,10 +102,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         Slot_view_on = false;
         slot_view_status = 0;
-}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
         if ( Slot_view_on == true )
         {
@@ -101,7 +117,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         if (matplace_toggle1.GetComponent<Toggle>().isOn == true)
         {
-            _text.text = "街の市場へ行きますか？";
+            _text.text = matplace_database.matplace_lists[0].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[0].placeCost.ToString() + "G";
             select_place_num = 0;
 
             Select_Pause();
@@ -113,7 +129,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         if (matplace_toggle2.GetComponent<Toggle>().isOn == true)
         {
-            _text.text = "近くの森へ行きますか？";
+            _text.text = matplace_database.matplace_lists[1].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[1].placeCost.ToString() + "G";
             select_place_num = 1;
 
             Select_Pause();
@@ -185,7 +201,22 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 slot_view_status = 1;
                 compound_Main.compound_status = 21;
 
-                _text.text = "すげぇ～～！森だー！";
+                switch (select_place_num)
+                {
+                    case 0:
+
+                        _text.text = "わ～～！市場だーー！";
+                        break;
+
+                    case 1:
+
+                        _text.text = "すげぇ～～！森だー！";
+                        break;
+
+                    default:
+                        break;
+                }
+                
                 break;
 
             case 1: //入力まち
@@ -195,7 +226,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     if (yes_selectitem_kettei.kettei1 == true) //探索ボタンをおした
                     {
 
-                        get_material.GetRandomMaterials();
+                        get_material.GetRandomMaterials(select_place_num);
 
                         yes_selectitem_kettei.onclick = false;
                     }
@@ -301,9 +332,34 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private void OnEnable()
     {
-        audioSource = GetComponent<AudioSource>();
+        Setup();
 
         //音を鳴らす
         audioSource.PlayOneShot(sound1);
+
+        //表示フラグにそって、採取地の表示/非表示の決定
+
+        if ( matplace_database.matplace_lists[0].placeFlag == 1)
+        {
+            matplace_toggle1.SetActive(true);
+            
+        }
+        else
+        {
+            matplace_toggle1.SetActive(false);
+        }
+
+        if (matplace_database.matplace_lists[1].placeFlag == 1)
+        {
+            matplace_toggle2.SetActive(true);
+            
+        }
+        else
+        {
+            matplace_toggle2.SetActive(false);
+        }
+
     }
+
+    
 }

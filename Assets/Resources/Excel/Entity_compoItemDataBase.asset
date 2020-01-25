@@ -311,7 +311,7 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 1
       cost_time: 1
       success_rate: 95
       renkin_Bexp: 3
