@@ -45,6 +45,7 @@ TagManager:
   - Debug_Panel
   - Yes_no_Panel
   - GetMatPlace_Panel
+  - Character
   layers:
   - Default
   - TransparentFX

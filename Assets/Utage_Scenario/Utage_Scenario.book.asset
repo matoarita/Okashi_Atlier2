@@ -4518,7 +4518,7 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Hikari/Hikari_1.png
+      - Hikari/Hikari_normal.png
       - 
       - 
       - 
@@ -4544,7 +4544,7 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Hikari/Hikari_1.png
+      - Hikari/Hikari_yorokobi.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4560,7 +4560,7 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Hikari/Hikari_1.png
+      - Hikari/Hikari_normal.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4576,7 +4576,7 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Hikari/Hikari_1.png
+      - Hikari/Hikari_normal.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4592,7 +4592,7 @@ MonoBehaviour:
       - 
       - 1.5
       - 
-      - Hikari/Hikari_2.png
+      - Hikari/Hikari_gokigen.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4728,7 +4728,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 424
+    textLength: 452
     headerRow: 0
   - rows:
     - rowIndex: 0

@@ -9,12 +9,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
+    private SpriteRenderer s;
+
     private float timeLeft;
     private int timeCount;
     private Text Counter;
 
     public float timeOut;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
+
+    public bool GirlEat_Judge_on;
 
     private GameObject text_area;
 
@@ -105,7 +109,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl_comment_flag = false;
         girl_comment_endflag = false;
 
-        
+        s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
+
         audioSource = GetComponent<AudioSource>();
 
         //Prefab内の、コンテンツ要素を取得
@@ -123,7 +128,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //テキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
-        //Counter = canvas.transform.Find("Debug_Panel/TimeCount").gameObject.GetComponent<Text>(); //デバッグ用
 
         //秒計算。　
         timeLeft = 1.0f;
@@ -135,6 +139,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeGirl_hungry_status = 0;
 
         girl1_Love_exp = 0;
+
+        GirlEat_Judge_on = false;
 
 
         // *** 下記のパラメータは旧タイプのもので、現在は未使用。 ***
@@ -193,7 +199,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             
 
         timeLeft -= Time.deltaTime;
-        timeOut -= Time.deltaTime;
+
+        if (GirlEat_Judge_on != true)
+        {
+            timeOut -= Time.deltaTime;
+        }
 
         //1秒ごとのタイムカウンター
         if (timeLeft <= 0.0)
@@ -246,6 +256,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             rnd = Random.Range(1.0f, 5.0f);
                             timeOut = 1.0f + rnd;
                             Girl_Full();
+
+                            //キャラクタ表情変更
+                            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
                             break;
 
                         default:

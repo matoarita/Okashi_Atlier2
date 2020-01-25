@@ -327,12 +327,14 @@ public class Compound_Main : MonoBehaviour {
                     case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
 
                         playeritemlist_onoff.SetActive(false);
-                        compound_status = 4;
+                        compound_status = 12;
 
                         //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
                         girlEat_judge.Girleat_Judge_method(pitemlistController.kettei_item1, pitemlistController._toggle_type1);
-                        
-                        compound_status = 0;
+
+                        break;
+
+                    case 12: //お菓子を判定中
 
                         break;
 

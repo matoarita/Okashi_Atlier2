@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class GirlEat_Judge : MonoBehaviour {
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -41,6 +44,16 @@ public class GirlEat_Judge : MonoBehaviour {
 
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
+
+    //判定中の女の子のアニメ用
+    private bool judge_anim_on;
+    private bool judge_end;
+    private int judge_anim_status;
+
+    private SpriteRenderer s;
+
+    //時間
+    private float timeOut;
 
     //アイテムのパラメータ
 
@@ -141,6 +154,11 @@ public class GirlEat_Judge : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
+
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
@@ -186,6 +204,13 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //バーの最大値の設定。ステージによって変わる。
         _slider.maxValue = 100;
+
+        //アニメーション用時間
+        timeOut = 5.0f;
+
+        judge_anim_on = false;
+        judge_end = false;
+        judge_anim_status = 0;
     }
 	
 	// Update is called once per frame
@@ -247,8 +272,59 @@ public class GirlEat_Judge : MonoBehaviour {
             }
         }
 
-    }
+        if (judge_anim_on == true)
+        {
+            switch(judge_anim_status)
+            {
+                case 0: //初期化 状態１
 
+                    girl1_status.GirlEat_Judge_on = true;
+
+                    timeOut = 1.0f;
+                    judge_anim_status = 1;
+                    s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_eat_start");
+
+                    _windowtext.text = ".";
+                    break;
+
+                case 1: // 状態2
+
+                    if( timeOut <= 0.0)
+                    {
+                        timeOut = 1.0f;
+                        judge_anim_status = 2;
+
+                        _windowtext.text = ". .";
+                    }
+                    break;
+
+                case 2:
+
+                    if (timeOut <= 0.0)
+                    {
+                        timeOut = 2.0f;
+                        judge_anim_status = 3;
+
+                    }
+                    break;
+
+                case 3: //アニメ終了。判定する
+
+                    
+                    judge_anim_on = false;
+                    judge_end = true;
+                    judge_anim_status = 0;
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            //時間減少
+            timeOut -= Time.deltaTime;
+        }
+    }
 
     //選んだアイテムと、女の子の好みを比較するメソッド
 
@@ -257,7 +333,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //一度、決定したアイテムのリスト番号と、タイプを取得
         kettei_item1 = value1;
-        _toggle_type1 = value2;
+        _toggle_type1 = value2;        
 
         //アイテムパラメータの取得
 
@@ -412,95 +488,29 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 _windowtext.text = "今はあまりお腹が減ってないらしい";
 
+                compound_Main.compound_status = 0;
+
                 break;
 
             case 1: //お腹が空いた状態。吹き出しがでる。
 
-                
+
                 //女の子が食べたいものを満たしているか、比較する
                 //OKだったら、正解し、さらに好感度の上昇値を計算する。
 
-                dislike_flag = true;
-                for (i = 0; i < itemslotScore.Count; i++)
-                {
-                    //0はNonなので、無視
-                    if (i != 0)
-                    {
-                        //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
-                        if (itemslotScore[i] >= girl1_status.girl1_hungryScore[i])
-                        {
+                //判定アニメ起動
+                judge_anim_on = true;
+                judge_end = false;
+                StartCoroutine("Girl_Judge_anim_co");
 
-                        }
-                        //一つでも満たしてないものがある場合は、NGフラグがたつ
-                        else
-                        {
-                            dislike_flag = false;
-                        }
-                    }
-                }
-
-                if (dislike_flag == true) //正解の場合
-                {
-
-                    hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                    _text = hukidashiitem.GetComponentInChildren<Text>();
-
-                    _text.text = "お兄ちゃん！ありがとー！！";
-
-                    //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
-                    LoveScoreCal();
-
-                    Debug.Log("GetMoney: " + GetMoney);
-                    PlayerStatus.player_money += GetMoney;
-
-                    //アイテムの削除
-                    delete_Item();                    
-
-                    //アニメーションをON
-                    loveanim_on = true;
-
-                    //音を鳴らす
-                    audioSource.PlayOneShot(sound1);
-
-                    //テキストウィンドウの更新
-                    _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Getlove_exp + "アップ！　" + "お金を" + GetMoney + "G ゲットした！";
-
-                    //お菓子をあげたあとの状態に移行する。
-                    girl1_status.timeGirl_hungry_status = 2;
-                    girl1_status.timeOut = 5.0f;
-                }
-                else //失敗の場合
-                {
-                    hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                    _text = hukidashiitem.GetComponentInChildren<Text>();
-
-                    _text.text = "コレ嫌いー！";
-
-                    //好感度取得
-                    Getlove_exp = -10;
-
-                    //アイテムの削除
-                    delete_Item();
-
-                    //アニメーションをON
-                    loveanim_on = true;
-
-                    //音を鳴らす
-                    audioSource.PlayOneShot(sound2);
-
-                    //テキストウィンドウの更新
-                    _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Math.Abs(Getlove_exp) + "下がった..。";
-
-                    //お菓子をあげたあとの状態に移行する。残り時間を、短く設定。
-                    girl1_status.timeGirl_hungry_status = 2;
-                    girl1_status.timeOut = 5.0f;
-                }
 
                 break;
 
             case 2:
 
                 _windowtext.text = "お菓子をあげたばかりだ。";
+
+                compound_Main.compound_status = 0;
 
                 break;
 
@@ -553,6 +563,107 @@ public class GirlEat_Judge : MonoBehaviour {
             + "\n" + "\n" + girl1_status.girl1_Subtype1 + "が好き " + "点数: " + subtype1_score
             + "\n" + "\n" + girl1_status.girl1_Subtype2 + "が好き " + "点数: " + subtype2_score
             + "\n" + "\n" + "総合得点: " + total_score;*/
+    }
+
+    IEnumerator Girl_Judge_anim_co()
+    {
+        while (judge_end != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        judge_result();
+    }
+
+    void judge_result()
+    {
+        //パラメータ初期化し、判定処理
+        dislike_flag = true;
+
+        for (i = 0; i < itemslotScore.Count; i++)
+        {
+            //0はNonなので、無視
+            if (i != 0)
+            {
+                //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                if (itemslotScore[i] >= girl1_status.girl1_hungryScore[i])
+                {
+
+                }
+                //一つでも満たしてないものがある場合は、NGフラグがたつ
+                else
+                {
+                    dislike_flag = false;
+                }
+            }
+        }
+
+        if (dislike_flag == true) //正解の場合
+        {
+
+            hukidashiitem = GameObject.FindWithTag("Hukidashi");
+            _text = hukidashiitem.GetComponentInChildren<Text>();
+
+            _text.text = "お兄ちゃん！ありがとー！！";
+
+            //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
+            LoveScoreCal();
+
+            Debug.Log("GetMoney: " + GetMoney);
+            PlayerStatus.player_money += GetMoney;
+
+            //アイテムの削除
+            delete_Item();
+
+            //アニメーションをON
+            loveanim_on = true;
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound1);
+
+            //テキストウィンドウの更新
+            _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Getlove_exp + "アップ！　" + "お金を" + GetMoney + "G ゲットした！";
+
+            //お菓子をあげたあとの状態に移行する。
+            girl1_status.timeGirl_hungry_status = 2;
+            girl1_status.timeOut = 5.0f;
+
+            //キャラクタ表情変更
+            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_yorokobi");
+        }
+        else //失敗の場合
+        {
+            hukidashiitem = GameObject.FindWithTag("Hukidashi");
+            _text = hukidashiitem.GetComponentInChildren<Text>();
+
+            _text.text = "コレ嫌いー！";
+
+            //好感度取得
+            Getlove_exp = -10;
+
+            //アイテムの削除
+            delete_Item();
+
+            //アニメーションをON
+            loveanim_on = true;
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound2);
+
+            //テキストウィンドウの更新
+            _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Math.Abs(Getlove_exp) + "下がった..。";
+
+            //お菓子をあげたあとの状態に移行する。残り時間を、短く設定。
+            girl1_status.timeGirl_hungry_status = 2;
+            girl1_status.timeOut = 5.0f;
+
+            //キャラクタ表情変更
+            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
+        }
+
+        compound_Main.compound_status = 0;
+
+        girl1_status.GirlEat_Judge_on = false; //またカウントが進み始める
     }
 
     void InitializeItemSlotDicts()
