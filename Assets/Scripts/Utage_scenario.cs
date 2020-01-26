@@ -264,7 +264,7 @@ public class Utage_scenario : MonoBehaviour
 
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "Chapter1_Compound_AtFirst";
+        scenarioLabel = "Tutorial";
 
         scenario_loading = true;
 

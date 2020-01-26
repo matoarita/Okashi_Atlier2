@@ -23,8 +23,9 @@ public class Prologue_Main : MonoBehaviour {
 
         if ( GameMgr.scenario_flag == 100 )
         {
-            GameMgr.scenario_flag = 101; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。(!FadeManager.Instance.isFading)使うときは、アップデートを更新してないと、読み込まれない。
+            //GameMgr.scenario_flag = 101; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。(!FadeManager.Instance.isFading)使うときは、アップデートを更新してないと、読み込まれない。
 
+            GameMgr.scenario_flag = 110;
             FadeManager.Instance.LoadScene("Compound", 0.3f);
         }
 

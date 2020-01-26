@@ -862,69 +862,69 @@ public class itemSelectToggle : MonoBehaviour
 
                 if (databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[2])
                 {
-                //if (databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu3)
-                //{
+                if (databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu3)
+                {
                         compoDB_select_judge = true; //一致するものがあった場合は、true
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[0][1][2]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[0][1][2]と合致");
                         break;
-                    //}
+                    }
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[2])
                 {
-                //if (databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu3)
-                //{
+                if (databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu3)
+                {
                         compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[0][2][1]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[0][2][1]と合致");
                         break;
-                    //}
+                    }
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[2])
                 {
-                //if (databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu3)
-                //{
+                if (databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu3)
+                {
                         compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[1][0][2]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[1][0][2]と合致");
                         break;
-                    //}
+                    }
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[2])
                 {
-                //if (databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu3)
-                //{
+                if (databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu3)
+                {
                         compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[1][2][0]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[1][2][0]と合致");
                         break;
-                    //}
+                    }
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[2])
                 {
-                //if (databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu3)
-                //{
+                if (databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu3)
+                {
                         compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[2][0][1]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[2][0][1]と合致");
                         break;
-                    //}
+                    }
                 }
                 else if (databaseCompo.compoitems[i].cmpitemID_3 == _itemIDtemp_result[0] && databaseCompo.compoitems[i].cmpitemID_2 == _itemIDtemp_result[1] && databaseCompo.compoitems[i].cmpitemID_1 == _itemIDtemp_result[2])
                 {
-                //if (databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu3)
-                //{
+                if (databaseCompo.compoitems[i].cmpitem_kosu3 == pitemlistController.final_kettei_kosu1 && databaseCompo.compoitems[i].cmpitem_kosu2 == pitemlistController.final_kettei_kosu2 && databaseCompo.compoitems[i].cmpitem_kosu1 == pitemlistController.final_kettei_kosu3)
+                {
                         compoDB_select_judge = true;
                         resultitemID = databaseCompo.compoitems[i].cmpitemID_result; //[2][1][0]の組み合わせ。3つの値が一致したときの、リザルトアイテムIDを決定。
                         result_compoID = i;//そのときのコンポデータベースの配列も、一緒に記録。
                                            //Debug.Log("[2][1][0]と合致");
                         break;
-                    //}
+                    }
                 }
 
                 ++i;
@@ -1418,6 +1418,7 @@ public class itemSelectToggle : MonoBehaviour
                 card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item); //選択したアイテムをカードで表示
 
                 SelectPaused();
+                
 
                 StartCoroutine("itemselect_kakunin_baseitem");
                 break;
@@ -1450,14 +1451,14 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.kettei1_bunki = 11;
 
-                _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。個数を選択してください。";
+                _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView02(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
-                updown_counter_obj.SetActive(true);
+                updown_counter_obj.SetActive(false);
 
                 SelectPaused();
 
@@ -1498,14 +1499,14 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.kettei1_bunki = 12;
 
-                _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。個数を選択してください。";
+                _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView03(pitemlistController._toggle_type2, pitemlistController.kettei_item2); //選択したアイテム2枚目をカードで表示
-                updown_counter_obj.SetActive(true);
+                updown_counter_obj.SetActive(false);
 
                 SelectPaused();
 
@@ -1550,14 +1551,14 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.kettei1_bunki = 13;
 
-                _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。個数を選択してください。";
+                _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView04(pitemlistController._toggle_type3, pitemlistController.kettei_item3); //選択したアイテム2枚目をカードで表示
-                updown_counter_obj.SetActive(true);
+                updown_counter_obj.SetActive(false);
 
                 SelectPaused();
 

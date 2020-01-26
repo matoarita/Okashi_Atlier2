@@ -91,7 +91,9 @@ public class Item
         Juice,
         Tea,
         Soup,
-        Coffee
+        Coffee,
+        Parfe,
+        IceCream
     }
 
     //ここでリスト化時に渡す引数をあてがいます   

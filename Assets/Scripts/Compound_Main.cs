@@ -625,6 +625,11 @@ public class Compound_Main : MonoBehaviour {
                 //もし、所持はしているのに、リードフラグは０のまま（＝読んでいないもの）がある場合、レシピを読む処理に入る。
                 if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ReadFlag == 0)
                 {
+                    //一度もレシピを読み込んでいなければ、レシピトグルをONに。
+                    if (PlayerStatus.First_recipi_on != true)
+                    {
+                        PlayerStatus.First_recipi_on = true;
+                    }
 
                     ReadRecipi_ALLOK = false;
                     Recipi_loading = true; //レシピを読み込み中ですよ～のフラグ
@@ -666,28 +671,29 @@ public class Compound_Main : MonoBehaviour {
 
     void Recipi_FlagON_Method()
     {
-        //レシピの番号チェック　
-        switch(pitemlist.eventitemlist[i].ev_ItemID)
+
+        //レシピの番号チェック
+        if (pitemlist.eventitemlist[i].event_itemName == "najya_start_recipi") //ナジャのお菓子作りの基本
         {
-            case 1: //ナジャのお菓子作りの基本
-
-                Find_compoitemdatabase("cookie_base");
-                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-
-                break;
-
-            case 2: //クッキー生地作り方のレシピ＜初級＞              
-
-                Find_compoitemdatabase("financier_base");
-                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-
-                Find_compoitemdatabase("appaleil");
-                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-                break;
-
-            default:
-                break;
+            Find_compoitemdatabase("neko_cookie");
+            databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
         }
+
+        if (pitemlist.eventitemlist[i].event_itemName == "cookie_base_recipi") //クッキー生地作り方のレシピ＜初級＞  
+        {
+            Find_compoitemdatabase("financier");
+            databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+
+            Find_compoitemdatabase("appaleil");
+            databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+        }
+
+        if (pitemlist.eventitemlist[i].event_itemName == "ice_cream_recipi") //アイスクリームの書
+        {
+            Find_compoitemdatabase("ice_cream");
+            databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+        }
+
     }
 
     //アイテム名を入力すると、該当するcompoIDを返す処理

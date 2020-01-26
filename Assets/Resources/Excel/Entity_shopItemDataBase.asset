@@ -35,6 +35,22 @@ MonoBehaviour:
       zaiko: 50
       itemType: 0
     - ItemID: 5
+      name: parfe_base
+      zaiko: 5
+      itemType: 0
+    - ItemID: 6
+      name: ice_cream
+      zaiko: 10
+      itemType: 0
+    - ItemID: 7
+      name: corn_frake
+      zaiko: 10
+      itemType: 0
+    - ItemID: 8
       name: cookie_base_recipi
+      zaiko: 1
+      itemType: 1
+    - ItemID: 9
+      name: ice_cream_recipi
       zaiko: 1
       itemType: 1

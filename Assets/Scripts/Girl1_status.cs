@@ -109,8 +109,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl_comment_flag = false;
         girl_comment_endflag = false;
 
-        s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
-
         audioSource = GetComponent<AudioSource>();
 
         //Prefab内の、コンテンツ要素を取得
@@ -220,60 +218,68 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
 
-        switch (SceneManager.GetActiveScene().name)
+        if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしない。
         {
-            case "Compound":
 
-                //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
-                if (timeOut <= 0.0)
-                {
-                    switch (timeGirl_hungry_status)
+        }
+        else { 
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Compound":
+
+                    s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
+
+                    //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
+                    if (timeOut <= 0.0)
                     {
-                        case 0:
+                        switch (timeGirl_hungry_status)
+                        {
+                            case 0:
 
-                            timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
+                                timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
-                            rnd = Random.Range(30.0f, 60.0f);
-                            timeOut = 5.0f + rnd;
-                            Girl_Hungry();
-                            break;
+                                rnd = Random.Range(30.0f, 60.0f);
+                                timeOut = 5.0f + rnd;
+                                Girl_Hungry();
+                                break;
 
-                        case 1:
+                            case 1:
 
-                            timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
+                                timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
-                            rnd = Random.Range(1.0f, 5.0f);
-                            timeOut = 2.0f + rnd;
-                            Girl_Full();
-                            break;
+                                rnd = Random.Range(1.0f, 5.0f);
+                                timeOut = 2.0f + rnd;
+                                Girl_Full();
+                                break;
 
-                        case 2:
+                            case 2:
 
-                            //お菓子をあげたあとの状態。
+                                //お菓子をあげたあとの状態。
 
-                            timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
+                                timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
-                            rnd = Random.Range(1.0f, 5.0f);
-                            timeOut = 1.0f + rnd;
-                            Girl_Full();
+                                rnd = Random.Range(1.0f, 5.0f);
+                                timeOut = 1.0f + rnd;
+                                Girl_Full();
 
-                            //キャラクタ表情変更
-                            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
-                            break;
+                                //キャラクタ表情変更
+                                s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
+                                break;
 
-                        default:
+                            default:
 
-                            timeOut = 5.0f;
-                            break;
+                                timeOut = 5.0f;
+                                break;
+                        }
+
+
+
                     }
+                    break;
 
-
-
-                }
-                break;
-
-            default:
-                break;
+                default:
+                    break;
+            }
         }
         
     }

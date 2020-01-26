@@ -7,16 +7,12 @@ public class MoneyStatus_Controller : MonoBehaviour {
 
     private GameObject _money_param;
 
-    private GameObject playeritemlist_obj;
-
     private Text _money_text;
 
     // Use this for initialization
     void Start () {
         _money_param = this.transform.Find("Money_param").gameObject;
         _money_text = _money_param.GetComponent<Text>();
-
-        playeritemlist_obj = GameObject.FindWithTag("PlayerItemList");
 
         _money_text.text = PlayerStatus.player_money.ToString();
     }

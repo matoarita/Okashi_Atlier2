@@ -158,3 +158,15 @@ MonoBehaviour:
       slot_Hyouki_2: "\u661F\u306E\u304D\u3089\u3081\u304D"
       slot_girlscore: 20
       slot_money: 120
+    - ItemID: 24
+      slot_Name: IceCream
+      slot_Hyouki_1: "\u30A2\u30A4\u30B9"
+      slot_Hyouki_2: "\u30A2\u30A4\u30B9"
+      slot_girlscore: 30
+      slot_money: 240
+    - ItemID: 25
+      slot_Name: CornFrake
+      slot_Hyouki_1: "\u30B3\u30FC\u30F3\u30D5\u30EC\u30FC\u30AF"
+      slot_Hyouki_2: "\u30B3\u30FC\u30F3\u30C8\u30C3\u30D4\u30F3\u30B0"
+      slot_girlscore: 5
+      slot_money: 30
