@@ -77,6 +77,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     public int final_kettei_kosu3;
     public int final_base_kettei_kosu;
 
+    public bool extremepanel_on; //extremeパネルからのエクストリーム調合かどうか。
+
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
@@ -135,6 +137,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         result_item = 0;
 
         i = 0;
+
+        extremepanel_on = false;
     }
 
     // Use this for initialization
@@ -167,9 +171,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             // トッピング調合を選択した場合の処理
             if (compound_Main.compound_select == 2)
             {
-                topping_DrawView_1();
+                if (kettei1_bunki == 0)
+                {
+                    topping_DrawView_1();
+                }
+                else
+                {
+                    topping_DrawView_2();
+                }
             }
-            else
+            else //トッピング調合以外
             {
                 reset_and_DrawView();
             }
@@ -180,6 +191,19 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             reset_and_DrawView();
         }
 
+    }
+
+    public void reset_and_DrawView_Topping()
+    {
+
+        if (kettei1_bunki == 0)
+        {
+            topping_DrawView_1();
+        }
+        else
+        {
+            topping_DrawView_2();
+        }
     }
 
     public void ResetKettei_item()
@@ -452,7 +476,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     }
 
 
-
+    
     //トッピング調合の時のみ使用。トッピング材料を決める時。
 
     public void topping_DrawView_2()
@@ -575,7 +599,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             {
                 if (slotnamedatabase.slotname_lists[count].slotName == pitemlist.player_originalitemlist[i].toppingtype[n].ToString())
                 {
-                    _slotHyouji1[n] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    if (pitemlist.player_originalitemlist[i].ExtremeKaisu <= 0) //残り回数０のときは灰色表示
+                    {
+                        _slotHyouji1[n] = "<color=#AAAAAA>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    }
+                    else
+                    {
+                        _slotHyouji1[n] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    }
                     break;
                 }
                 count++;
@@ -583,7 +614,19 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
 
         _text[0].text = _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + item_name;
-        _text[0].color = new Color(50f / 255f, 128f / 255f, 126f / 255f);
+
+        //エクストリーム残り回数が0の場合は、選択できない
+        if (pitemlist.player_originalitemlist[i].ExtremeKaisu <= 0)
+        {
+            _listitem[list_count].GetComponent<Toggle>().interactable = false;
+            _text[0].color = new Color(180f / 255f, 180f / 255f, 180f / 255f);
+        }
+        else
+        {
+            _text[0].color = new Color(50f / 255f, 128f / 255f, 126f / 255f);
+        }
+        
+        
 
         item_kosu = pitemlist.player_originalitemlist[i].ItemKosu;
 
@@ -591,6 +634,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _text[1].color = new Color(50f / 255f, 128f / 255f, 126f / 255f);
 
         //Debug.Log("Original: " + i + "　ItemID" + _toggle_itemID.toggleitem_ID + " アイテム名: " + item_name);
+
+        
+
         ++list_count;
     }
 

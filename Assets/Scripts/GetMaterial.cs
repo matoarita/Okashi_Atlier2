@@ -5,14 +5,22 @@ using UnityEngine.UI;
 
 public class GetMaterial : MonoBehaviour {
 
+    private GameObject canvas;
+
     private GameObject text_area;
     private Text _text;
+
+    private GameObject tansaku_panel;
+    private Button tansaku_yes;
+    private Button tansaku_no;
 
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
 
     private ItemMatPlaceDataBase matplace_database;
+
+    private FadeImage slot_view_fade;
 
     // アイテムのデータを保持する辞書
     Dictionary<int, string> itemInfo;
@@ -25,6 +33,7 @@ public class GetMaterial : MonoBehaviour {
 
     //SEを鳴らす
     public AudioClip sound1;
+    public AudioClip sound2;
     AudioSource audioSource;
 
     private int itemId, itemKosu;
@@ -42,8 +51,16 @@ public class GetMaterial : MonoBehaviour {
     private int mat_cost;
     private float total;
 
+    private bool mat_anim_on;
+    private bool mat_anim_end;
+    private int mat_anim_status;
+    private float timeOut;
+
     // Use this for initialization
     void Start () {
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -62,12 +79,74 @@ public class GetMaterial : MonoBehaviour {
         mat_cost = 0;
 
         audioSource = GetComponent<AudioSource>();
+
+        mat_anim_status = 0;
+        mat_anim_on = false;
+        mat_anim_end = false;
+
+        slot_view_fade = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Image").gameObject.GetComponent<FadeImage>();
+
+        tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Tansaku_panel").gameObject;
+        tansaku_yes = tansaku_panel.transform.Find("Yes").GetComponent<Button>();
+        tansaku_no = tansaku_panel.transform.Find("No").GetComponent<Button>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        if (mat_anim_on == true)
+        {
+            switch (mat_anim_status)
+            {
+                case 0: //初期化 状態１
+
+                    timeOut = 1.0f;
+                    mat_anim_status = 1;
+
+                    _text.text = "探索中 .";
+                    break;
+
+                case 1: // 状態2
+
+                    if (timeOut <= 0.0)
+                    {
+                        timeOut = 1.0f;
+                        mat_anim_status = 2;
+
+                        _text.text = "探索中 . .";
+                    }
+                    break;
+
+                case 2:
+
+                    if (timeOut <= 0.0)
+                    {
+                        timeOut = 2.0f;
+                        mat_anim_status = 3;
+
+                    }
+                    break;
+
+                case 3: //アニメ終了。判定する
+
+
+                    mat_anim_on = false;
+                    mat_anim_end = true;
+                    mat_anim_status = 0;
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            //時間減少
+            timeOut -= Time.deltaTime;
+        }
+
+    }
+
+
 
     public void GetRandomMaterials(int _index) //材料を３つランダムでゲットする処理
     {
@@ -89,96 +168,130 @@ public class GetMaterial : MonoBehaviour {
             //お金の消費
             PlayerStatus.player_money = PlayerStatus.player_money - mat_cost;
 
-            for (count = 0; count < 3; count++) //3回繰り返す
-            {
-                // ドロップアイテムの抽選
-                itemId = Choose();
-                itemName = itemInfo[itemId];
+            //ウェイトアニメ
+            mat_anim_on = true;
+            mat_anim_end = false;
+            slot_view_fade.FadeImageOff(); //ビュー画面を暗くフェード
 
-                //  個数の抽選
-                itemKosu = ChooseKosu();
-                kettei_kosu[count] = itemKosu;
-
-
-                if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
-                {
-                    _a[count] = "";
-                    kettei_kosu[count] = 0;
-                }
-                else
-                {
-
-                    //itemNameをもとに、アイテムデータベースのアイテムIDを取得
-                    i = 0;
-
-                    while (i < database.items.Count)
-                    {
-                        if (database.items[i].itemName == itemName)
-                        {
-                            kettei_item[count] = i; //一致したときのiが、DBのitemIDのこと
-                            break;
-                        }
-                        ++i;
-                    }
-
-
-                    _a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
-
-                    //アイテムの取得処理
-                    pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
-                }
-
-
-            }
-
-
-            //音を鳴らす
-            audioSource.PlayOneShot(sound1);
-
-            //テキストに結果反映
-
-            //まず初期化
-            count = 0;
-            empty = 0;
-
-            for (i = 0; i < _a_final.Length; i++)
-            {
-                _a_final[i] = "";
-            }
-
-            //空白は無視するように調整
-            for ( i = 0; i < _a.Length; i++)
-            {
-                if ( _a[i] == "") //空白は無視
-                {
-                    empty++;
-                }
-                else
-                {
-                    if ( count == 0 )
-                    {
-                        _a_final[count] = _a[i];
-                    }
-                    else
-                    {
-                        _a_final[count] = "\n" + _a[i];
-                    }
-                    count++;
-                }
-            }
-
-            if (_a_final.Length == empty)
-            {
-                _text.text = "特に何も見つからなかった。";
-            }
-            else
-            {
-                _text.text = _a_final[0] + _a_final[1] + _a_final[2];
-            }       
+            tansaku_panel.SetActive(false);
+            //tansaku_yes.interactable = false;
+            //tansaku_no.interactable = false;
+            StartCoroutine("Mat_Judge_anim_co");           
 
         }
 
     }
+
+    IEnumerator Mat_Judge_anim_co()
+    {
+        while (mat_anim_end != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        tansaku_panel.SetActive(true);
+        //tansaku_yes.interactable = true;
+        //tansaku_no.interactable = true;
+        slot_view_fade.FadeImageOn(); //ビュー画面を戻す
+
+        mat_result();
+    }
+
+    void mat_result()
+    {
+        for (count = 0; count < 3; count++) //3回繰り返す
+        {
+            // ドロップアイテムの抽選
+            itemId = Choose();
+            itemName = itemInfo[itemId];
+
+            //  個数の抽選
+            itemKosu = ChooseKosu();
+            kettei_kosu[count] = itemKosu;
+
+
+            if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
+            {
+                _a[count] = "";
+                kettei_kosu[count] = 0;
+            }
+            else
+            {
+
+                //itemNameをもとに、アイテムデータベースのアイテムIDを取得
+                i = 0;
+
+                while (i < database.items.Count)
+                {
+                    if (database.items[i].itemName == itemName)
+                    {
+                        kettei_item[count] = i; //一致したときのiが、DBのitemIDのこと
+                        break;
+                    }
+                    ++i;
+                }
+
+
+                _a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
+
+                //アイテムの取得処理
+                pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
+            }
+
+
+        }
+
+
+        
+
+        //テキストに結果反映
+
+        //まず初期化
+        count = 0;
+        empty = 0;
+
+        for (i = 0; i < _a_final.Length; i++)
+        {
+            _a_final[i] = "";
+        }
+
+        //空白は無視するように調整
+        for (i = 0; i < _a.Length; i++)
+        {
+            if (_a[i] == "") //空白は無視
+            {
+                empty++;
+            }
+            else
+            {
+                if (count == 0)
+                {
+                    _a_final[count] = _a[i];
+                }
+                else
+                {
+                    _a_final[count] = "\n" + _a[i];
+                }
+                count++;
+            }
+        }
+
+        if (_a_final.Length == empty) //何もなかったとき
+        {
+            _text.text = "特に何も見つからなかった。";
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound2);
+        }
+        else //何か一つでもアイテムを見つけた
+        {
+            _text.text = _a_final[0] + _a_final[1] + _a_final[2];
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound1);
+        }
+    }
+
 
     void InitializeDicts()
     {

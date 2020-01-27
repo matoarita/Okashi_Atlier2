@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Compound_Main : MonoBehaviour {
+public class Compound_Main : MonoBehaviour
+{
 
     private GameObject text_area;
     private Text _text;
@@ -34,6 +35,9 @@ public class Compound_Main : MonoBehaviour {
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
 
+    private GameObject Extremepanel_obj;
+    private ExtremePanel extreme_panel;
+
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -57,8 +61,9 @@ public class Compound_Main : MonoBehaviour {
 
     private GameObject backbutton_obj;
 
-    private bool ReadRecipi_ALLOK;
     private bool Recipi_loading;
+    private bool check_recipi_flag;
+    private int not_read_total;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
@@ -67,9 +72,13 @@ public class Compound_Main : MonoBehaviour {
 
     private GameObject yes_no_panel; //通常時のYes, noボタン
 
+    private GameObject selectitem_kettei_obj;
+    private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
+
     private GameObject black_effect;
 
     private int i, j, _id;
+    private int recipi_num;
     private int comp_ID;
 
     public int compound_status;
@@ -80,7 +89,8 @@ public class Compound_Main : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
 
         //Debug.Log("Compound scene loaded");
 
@@ -150,6 +160,13 @@ public class Compound_Main : MonoBehaviour {
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
 
+        //エクストリームパネルの取得
+        Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
+        extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
+
+        selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
         //黒半透明パネルの取得
         //black_effect = GameObject.FindWithTag("Black_Effect");
         //black_effect.SetActive(false);
@@ -180,8 +197,8 @@ public class Compound_Main : MonoBehaviour {
         compound_status = 0;
         compound_select = 0;
 
-        ReadRecipi_ALLOK = false;
         Recipi_loading = false;
+        check_recipi_flag = false;
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
@@ -189,7 +206,8 @@ public class Compound_Main : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
         switch (GameMgr.scenario_flag)
         {
@@ -206,21 +224,16 @@ public class Compound_Main : MonoBehaviour {
         if (GameMgr.scenario_ON == true)
         {
             compoundselect_onoff_obj.SetActive(false);
-            saveload_panel.SetActive(false);
-            backbutton_obj.SetActive(false);
             text_area.SetActive(false);
         }
-
         else //以下が、通常の処理
         {
-            //Debug.Log("調合シーン　処理　二番目");
 
             //読んでいないレシピがあれば、読む処理。優先順位二番目。
-            if (ReadRecipi_ALLOK == false)
+            if (check_recipi_flag == false)
             {
                 Check_RecipiFlag();
             }
-
             else
             {
                 //はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
@@ -234,7 +247,7 @@ public class Compound_Main : MonoBehaviour {
                 }
 
                 //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
-                if( girl1_status.girl1_Love_exp >= 100 )
+                if (girl1_status.girl1_Love_exp >= 100)
                 {
                     stageclear_toggle.SetActive(true);
                 }
@@ -244,6 +257,7 @@ public class Compound_Main : MonoBehaviour {
                 {
                     case 0:
 
+                        //Debug.Log("メインの調合シーン　スタート");
                         recipilist_onoff.SetActive(false);
                         playeritemlist_onoff.SetActive(false);
                         yes_no_panel.SetActive(false);
@@ -275,6 +289,7 @@ public class Compound_Main : MonoBehaviour {
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 2; //トッピング調合を選択
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        pitemlistController.extremepanel_on = false;
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
                         yes.SetActive(false);
                         no.SetActive(true);
@@ -317,20 +332,23 @@ public class Compound_Main : MonoBehaviour {
 
                         compound_status = 4; //あげるシーンに入っています、というフラグ
                         compound_select = 10; //あげるを選択
-                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                        yes.SetActive(false);
-                        no.SetActive(true);
+                        yes_no_panel.SetActive(true);
+                        yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+                        StartCoroutine("Girl_present_Final_select");
+                        //playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        //pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                        //yes.SetActive(false);
+                        //no.SetActive(true);
 
                         break;
 
                     case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
 
-                        playeritemlist_onoff.SetActive(false);
+                        //playeritemlist_onoff.SetActive(false);
                         compound_status = 12;
 
                         //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
-                        girlEat_judge.Girleat_Judge_method(pitemlistController.kettei_item1, pitemlistController._toggle_type1);
+                        girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype);
 
                         break;
 
@@ -504,10 +522,10 @@ public class Compound_Main : MonoBehaviour {
         if (getmaterial_toggle.GetComponent<Toggle>().isOn == true)
         {
             getmaterial_toggle.GetComponent<Toggle>().isOn = false;
-         
+
             _text.text = "妹と一緒に材料を取りにいくよ！行き先を選んでね。";
             compound_status = 20;
-  
+
             //compoundselect_onoff_obj.SetActive(false);
             getmatplace_panel.SetActive(true);
             yes_no_panel.SetActive(true);
@@ -523,9 +541,17 @@ public class Compound_Main : MonoBehaviour {
             girleat_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             yes_no_load();
+
+            if( extreme_panel.extreme_itemID != 9999 )
+            {
+                _text.text = "今、作ったお菓子をあげますか？";
+                compound_status = 10;
+            }
+            else //まだ作ってないときは
+            {
+                _text.text = "まだお菓子を作っていない。";
+            }
             
-            _text.text = "あげたいアイテムを選択してください。";
-            compound_status = 10;
 
         }
     }
@@ -617,10 +643,23 @@ public class Compound_Main : MonoBehaviour {
             //所持しているが、まだ読んでいないレシピがないか、チェックする。
 
             i = 0;
+            not_read_total = 0;
+            Recipi_loading = false;
 
             while (i < pitemlist.eventitemlist.Count)
             {
-                ReadRecipi_ALLOK = true;
+                //所持はしているのに、リードフラグは０のまま（＝読んでいないもの）のレシピの個数をカウントする。
+                if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ReadFlag == 0)
+                {
+                    not_read_total++;
+                }
+                i++;
+            }
+
+            i = 0;
+
+            while (i < pitemlist.eventitemlist.Count)
+            {
 
                 //もし、所持はしているのに、リードフラグは０のまま（＝読んでいないもの）がある場合、レシピを読む処理に入る。
                 if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ReadFlag == 0)
@@ -631,33 +670,39 @@ public class Compound_Main : MonoBehaviour {
                         PlayerStatus.First_recipi_on = true;
                     }
 
-                    ReadRecipi_ALLOK = false;
                     Recipi_loading = true; //レシピを読み込み中ですよ～のフラグ
 
-                    /* レシピを読む処理 */
-                    pitemlist.eventitemlist[i].ev_ReadFlag = 1; //該当のイベントアイテムのレシピのフラグをONにしておく（読んだ、という意味）
-                    Recipi_FlagON_Method();
-                    Debug.Log("レシピ: " + pitemlist.eventitemlist[i].event_itemNameHyouji + "を読んだ");
+                    recipi_num = i;
 
                     break;
                 }
+
                 ++i;
             }
 
-            if (Recipi_loading == true)
+            if (Recipi_loading != true)
             {
-                StartCoroutine(Recipi_Read_Method());
+            }
+            else
+            {
+                StartCoroutine("Recipi_Read_Method");
+            }
+
+            if (not_read_total <= 0)
+            {
+                //最後にチェック。全てのリードフラグが1になったら、全て読み終了。その場合は、レシピチェックをオフにする。
+                check_recipi_flag = true;
+                //Debug.Log("レシピ全て読み完了");
             }
         }
     }
 
-    IEnumerator Recipi_Read_Method() {
+    IEnumerator Recipi_Read_Method()
+    {
 
         compoundselect_onoff_obj.SetActive(false);
-        saveload_panel.SetActive(false);
-        backbutton_obj.SetActive(false);
         text_area.SetActive(false);
-        GameMgr.recipi_read_ID = pitemlist.eventitemlist[i].ev_ItemID;
+        GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
         //Debug.Log("GameMgr.recipi_read_ID: " + GameMgr.recipi_read_ID);
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
@@ -666,7 +711,16 @@ public class Compound_Main : MonoBehaviour {
             yield return null;
         }
 
+        not_read_total--;
+        GameMgr.recipi_read_endflag = false;
         Recipi_loading = false;
+
+        //Debug.Log("not_read_total: " + not_read_total);
+
+        /* レシピを読む処理 */
+        pitemlist.eventitemlist[recipi_num].ev_ReadFlag = 1; //該当のイベントアイテムのレシピのフラグをONにしておく（読んだ、という意味）
+        Recipi_FlagON_Method();
+        Debug.Log("レシピ: " + pitemlist.eventitemlist[i].event_itemNameHyouji + "を読んだ");
     }
 
     void Recipi_FlagON_Method()
@@ -700,7 +754,7 @@ public class Compound_Main : MonoBehaviour {
     void Find_compoitemdatabase(string compo_itemname)
     {
         j = 0;
-        while ( j < databaseCompo.compoitems.Count )
+        while (j < databaseCompo.compoitems.Count)
         {
             if (compo_itemname == databaseCompo.compoitems[j].cmpitem_Name)
             {
@@ -708,6 +762,40 @@ public class Compound_Main : MonoBehaviour {
                 break;
             }
             j++;
+        }
+    }
+
+
+    IEnumerator Girl_present_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                //女の子にアイテムをあげる処理
+                compound_status = 11; //status=11で処理。
+
+                yes_no_panel.SetActive(false);
+                yes_selectitem_kettei.onclick = false;
+                break;
+
+            case false:
+
+                //Debug.Log("一個目はcancel");
+
+                _text.text = "";
+                compound_status = 0;
+
+                yes_selectitem_kettei.onclick = false;
+                break;
+
         }
     }
 }

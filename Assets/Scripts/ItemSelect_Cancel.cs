@@ -500,13 +500,30 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             {
                 if (pitemlistController.kettei1_bunki == 10)
                 {
-                    _text.text = "ベースのお菓子を選択してね。";
+                    if (pitemlistController.extremepanel_on != true) //通常のエクストリーム調合。ベースアイテム選択に戻る
+                    {
+                        _text.text = "ベースのお菓子を選択してね。";
+
+                        pitemlistController.kettei1_bunki = 0;
+
+                        update_ListSelect_Flag = 0; //オールリセットするのみ。
+                        update_ListSelect(); //アイテム選択時の、リストの表示処理
+                    }
+                    else //エクストリームパネルから選んでいる。すぐに、プレイヤーアイテムリストをオフにする。
+                    {
+                        //Debug.Log("調合シーンキャンセル");
+
+                        _text.text = "";
+
+                        card_view.DeleteCard_DrawView();
+                        card_view.DeleteCard_DrawView();
+
+                        compound_Main.compound_status = 0; //何も選択していない状態にもどる。
+                        compound_Main.compound_select = 0;
+
+                    }
                 }
 
-                pitemlistController.kettei1_bunki = 0;
-
-                update_ListSelect_Flag = 0; //オールリセットするのみ。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
 
             //レシピ調合のときの処理

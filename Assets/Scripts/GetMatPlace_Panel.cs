@@ -9,6 +9,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private ItemMatPlaceDataBase matplace_database;
 
     private GameObject canvas;
+    private Texture2D texture2d;
 
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
@@ -16,6 +17,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject getmatplace_view;
     private GameObject slot_view;
     private GameObject slot_yes, slot_no;
+    private Image slot_view_image;
 
     private GameObject matplace_toggle1;
     private GameObject matplace_toggle2;
@@ -95,6 +97,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //採取地画面の取得
         slot_view = this.transform.Find("Slot_View").gameObject;
 
+        slot_view_image = this.transform.Find("Slot_View/Image").gameObject.GetComponent<Image>();
         slot_yes = slot_view.transform.Find("Tansaku_panel/Yes").gameObject;
         slot_no = slot_view.transform.Find("Tansaku_panel/No").gameObject;
 
@@ -109,6 +112,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 		
         if ( Slot_view_on == true )
         {
+            //移動中のウェイトアニメ
+
+            //採取地表示
             Slot_View();
         }
 	}
@@ -174,7 +180,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
                 Slot_view_on = true;
-                
+                //getmatplace_view.SetActive(false);
 
                 break;
 
@@ -205,10 +211,22 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 {
                     case 0:
 
+                        texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/ID003_Western-Castle_noon-1024x576");
+                        // texture2dを使い、Spriteを作って、反映させる
+                        slot_view_image.sprite = Sprite.Create(texture2d,
+                                                   new Rect(0, 0, texture2d.width, texture2d.height),
+                                                   Vector2.zero);
+
                         _text.text = "わ～～！市場だーー！";
                         break;
 
                     case 1:
+
+                        texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/1_forest_a");
+                        // texture2dを使い、Spriteを作って、反映させる
+                        slot_view_image.sprite = Sprite.Create(texture2d,
+                                                   new Rect(0, 0, texture2d.width, texture2d.height),
+                                                   Vector2.zero);
 
                         _text.text = "すげぇ～～！森だー！";
                         break;
@@ -236,7 +254,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         yes_selectitem_kettei.onclick = false;
 
-                        _text.text = "もう戻る？";
+                        _text.text = "家に戻る？";
 
                         slot_yes.GetComponent<Button>().interactable = false;
                         slot_no.GetComponent<Button>().interactable = false;
@@ -336,6 +354,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //音を鳴らす
         audioSource.PlayOneShot(sound1);
+
+        //スロットビューは最初Off
+        slot_view.SetActive(false);
+
+        //最初は、採取地選択画面をonに。
+        getmatplace_view.SetActive(true);
 
         //表示フラグにそって、採取地の表示/非表示の決定
 

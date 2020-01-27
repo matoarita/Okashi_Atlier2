@@ -35,8 +35,8 @@ MonoBehaviour:
       drop_rare_prob2: 0
     - ItemID: 1
       place_Name: Forest
-      place_Name_Hyouji: "\u30A8\u30E1\u30E9\u30EB\u30C9\u306E\u68EE"
-      place_cost: 30
+      place_Name_Hyouji: "\u8FD1\u304F\u306E\u68EE"
+      place_cost: 0
       place_flag: 1
       drop_item1: "\u306A\u3057"
       drop_item2: orange
@@ -55,7 +55,7 @@ MonoBehaviour:
     - ItemID: 2
       place_Name: Farm
       place_Name_Hyouji: "\u8FB2\u5712"
-      place_cost: 100
+      place_cost: 50
       place_flag: 0
       drop_item1: "\u306A\u3057"
       drop_item2: komugiko

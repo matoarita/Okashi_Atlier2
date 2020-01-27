@@ -963,8 +963,8 @@ MonoBehaviour:
       type: Mat
       subtype: Source
       girl1_like: 0
-      cost_price: 0
-      sell_price: 0
+      cost_price: 50
+      sell_price: 25
       topping01: Non
       topping02: Non
       topping03: Non
@@ -4001,8 +4001,8 @@ MonoBehaviour:
       type: Potion
       subtype: Source
       girl1_like: 0
-      cost_price: 0
-      sell_price: 0
+      cost_price: 30
+      sell_price: 15
       topping01: CornFrake
       topping02: Non
       topping03: Non

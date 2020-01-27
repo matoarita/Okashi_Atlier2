@@ -51,8 +51,8 @@ public class shopitemSelectToggle : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-
-    public int toggle_shopitem_ID; //リストの要素自体に、アイテムIDを保持する。
+    public int toggle_shop_ID; //こっちは、ショップデータベース上のIDを保持する。
+    public int toggle_shopitem_ID; //リストの要素自体に、アイテムDB上のアイテムIDを保持する。
     public int toggle_shopitem_type; //リストの要素に、通常アイテムか、イベントアイテム判定用のタイプを保持する。
 
     private int i;
@@ -170,14 +170,15 @@ public class shopitemSelectToggle : MonoBehaviour
         }
 
         shopitemlistController.shop_count = count; //カウントしたリスト番号を保持
+        shopitemlistController.shop_kettei_ID = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shop_ID; //ショップIDを入れる。
         shopitemlistController.shop_kettei_item1 = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_ID; //アイテムIDを入れる。
         shopitemlistController.shop_itemType = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_type; //判定用アイテムタイプを入れる。
 
-        _text.text = shop_database.shopitems[count].shop_itemNameHyouji + "を買いますか？個数を選択してください。";
 
-        
+        _text.text = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemNameHyouji + "を買いますか？個数を選択してください。";
+
         Debug.Log(count + "番が押されたよ");
-        Debug.Log("アイテム:" + shop_database.shopitems[count].shop_itemNameHyouji + "が選択されました。");
+        Debug.Log("アイテム:" + shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemNameHyouji + "が選択されました。");
 
         //Debug.Log("これでいいですか？");
 
@@ -231,12 +232,10 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 _text.text = "何にしますか？";
 
-                for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
-                {
-                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
-                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
-                }
+                //キャンセル時、リストのインタラクティブ解除。その時、プレイヤーの所持金をチェックし、足りないものはOFF表示にする。
+                Money_Check();
 
+               
                 yes_selectitem_kettei.kettei1 = false;
                 yes.SetActive(false);
                 no.SetActive(false);
@@ -253,7 +252,7 @@ public class shopitemSelectToggle : MonoBehaviour
     IEnumerator shop_buy_Final_select()
     {
 
-        _text.text = shop_database.shopitems[shopitemlistController.shop_count].shop_itemNameHyouji + "を" + shopitemlistController.shop_final_itemkosu_1 + "個買いますか？";
+        _text.text = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemNameHyouji + "を" + shopitemlistController.shop_final_itemkosu_1 + "個買いますか？";
 
         updown_button[0].interactable = false;
         updown_button[1].interactable = false;
@@ -298,11 +297,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 _text.text = "何にしますか？";
 
-                for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
-                {
-                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
-                    shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
-                }
+                //キャンセル時、リストのインタラクティブ解除。その時、プレイヤーの所持金をチェックし、足りないものはOFF表示にする。
+                Money_Check();
 
                 yes_selectitem_kettei.kettei1 = false;
                 yes.SetActive(false);
@@ -320,5 +316,22 @@ public class shopitemSelectToggle : MonoBehaviour
 
     }
 
+    void Money_Check()
+    {
+        for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
+        {
+            shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
 
+            //お金が足りない場合は、選択できないようにする。
+            if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice)
+            {
+                shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = false;
+            }
+            else
+            {
+                shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
+            }
+
+        }
+    }
 }

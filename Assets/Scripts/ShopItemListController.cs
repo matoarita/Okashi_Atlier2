@@ -35,6 +35,7 @@ public class ShopItemListController : MonoBehaviour
     private int i;
 
     public int shop_count; //選択したリスト番号が入る。
+    public int shop_kettei_ID; //ショップデータベースIDが入る。
     public int shop_kettei_item1; //選択したアイテムのアイテムIDが入る。通常アイテムなら、アイテムID、イベントアイテムならイベントリストのアイテムID。
     public int shop_itemType;
 
@@ -109,12 +110,13 @@ public class ShopItemListController : MonoBehaviour
             if (shop_database.shopitems[i].shop_itemzaiko > 0)
             {
 
-                //Debug.Log(i);
+                
                 _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
                 _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
 
                 _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
-                _toggle_itemID.toggle_shopitem_ID = shop_database.shopitems[i].shop_itemID; //ショップに登録されている、アイテムID
+                _toggle_itemID.toggle_shop_ID = shop_database.shopitems[i].shop_ID; //ショップに登録されている、ショップデータベース上のアイテムID。iと同じ値になる。
+                _toggle_itemID.toggle_shopitem_ID = shop_database.shopitems[i].shop_itemID; //ショップに登録されている、アイテムDB上のアイテムID
                 _toggle_itemID.toggle_shopitem_type = shop_database.shopitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
 
 
@@ -130,7 +132,20 @@ public class ShopItemListController : MonoBehaviour
 
                 _text[4].text = item_zaiko.ToString(); //在庫
 
+                //お金が足りない場合は、選択できないようにする。
+                if( PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice )
+                {
+                    _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                }
+                else
+                {
+                    _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
+                }
+                //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
+
                 ++list_count;
+
+                
             }
         }
 

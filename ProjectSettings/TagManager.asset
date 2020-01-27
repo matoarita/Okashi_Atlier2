@@ -46,6 +46,7 @@ TagManager:
   - Yes_no_Panel
   - GetMatPlace_Panel
   - Character
+  - ExtremePanel
   layers:
   - Default
   - TransparentFX

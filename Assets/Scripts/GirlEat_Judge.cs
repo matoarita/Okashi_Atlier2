@@ -9,6 +9,9 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject Extremepanel_obj;
+    private ExtremePanel extreme_panel;
+
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -177,6 +180,10 @@ public class GirlEat_Judge : MonoBehaviour {
         //比較値計算結果用のパネル　デバッグ用
         window_param_result_obj = GameObject.FindWithTag("Canvas").transform.Find("Window_Param_Result").gameObject;
         window_result_text = window_param_result_obj.transform.Find("Viewport/Content/Text").gameObject.GetComponent<Text>();
+
+        //エクストリームパネルの取得
+        Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
+        extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
 
         window_param_result_obj.SetActive(false);
 
@@ -695,6 +702,10 @@ public class GirlEat_Judge : MonoBehaviour {
             default:
                 break;
         }
+
+        //エクストリームアイテムのほうも、空にする。
+        extreme_panel.deleteExtreme_Item();
+
     }
 
     void LoveScoreCal()

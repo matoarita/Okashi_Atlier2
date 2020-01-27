@@ -141,7 +141,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                 //ここでリストに追加している
                 items.Add(new Item(_id, _file_name, _name, _name_hyouji, _desc, _mp, _day, _quality, 
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, 
-                    _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp, 0));
+                    _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp, 0, 3));
 
                 ++count;
             }
@@ -156,7 +156,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
                 for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
                 {
-                    items.Add(new Item(_id+i+1, "orange", "empty", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Non", "Non", 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0));
+                    items.Add(new Item(_id+i+1, "orange", "empty", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Non", "Non", 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 3));
                 }
 
                 sheet_topendID.Add(excel_itemdatabase.sheets[sheet_no].list[0].ItemID); // 次sheetの頭のIDを入れる。

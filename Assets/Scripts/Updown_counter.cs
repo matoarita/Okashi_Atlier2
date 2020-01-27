@@ -6,10 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class Updown_counter : MonoBehaviour {
 
+    private GameObject canvas;
+
     private ItemShopDataBase shop_database;
 
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
+
+    private GameObject text_area;
+    private Text _text;
 
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
@@ -38,6 +43,13 @@ public class Updown_counter : MonoBehaviour {
     void OnEnable()
     {
         //Debug.Log("Reset Updown Counter");
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //windowテキストエリアの取得
+        text_area = GameObject.FindWithTag("Message_Window");
+        _text = text_area.GetComponentInChildren<Text>();
 
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
@@ -257,12 +269,20 @@ public class Updown_counter : MonoBehaviour {
 
         else if (SceneManager.GetActiveScene().name == "Shop")
         { 
-            _zaiko_max = shop_database.shopitems[shopitemlistcontroller.shop_count].shop_itemzaiko;
+            _zaiko_max = shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_itemzaiko;
 
             ++updown_kosu;
             if (updown_kosu > _zaiko_max)
             {
                 updown_kosu = _zaiko_max;
+            }
+
+            if ( PlayerStatus.player_money < shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_costprice * updown_kosu)
+            {
+                //お金が足りない
+                _text.text = "お金が足りない。";
+
+                updown_kosu--;
             }
 
             _count_text.text = updown_kosu.ToString();
