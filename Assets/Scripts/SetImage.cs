@@ -15,6 +15,9 @@ public class SetImage : MonoBehaviour
 
     //private Sprite sprite;
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     private GameObject Card_param_obj;
 
     private PlayerItemList pitemlist;
@@ -598,4 +601,12 @@ public class SetImage : MonoBehaviour
 
     }
 
+    public void CompoundResult_DestroySelf()
+    {
+        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        compound_Main.compound_status = 0;
+        Destroy(this.gameObject);
+    }
 }

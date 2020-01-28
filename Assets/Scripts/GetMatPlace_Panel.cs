@@ -222,7 +222,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     case 1:
 
-                        texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/1_forest_a");
+                        texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300");
                         // texture2dを使い、Spriteを作って、反映させる
                         slot_view_image.sprite = Sprite.Create(texture2d,
                                                    new Rect(0, 0, texture2d.width, texture2d.height),

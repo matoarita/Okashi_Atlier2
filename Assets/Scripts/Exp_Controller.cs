@@ -77,6 +77,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private bool Pate_flag;
     private int result_kosu;
 
+    //成功確率
+    public int _success_rate;
+    public float _rate_final;
+    public int _success_judge_flag; // 0=必ず成功, 1=計算する, 2=必ず失敗
+    private int dice; //確率計算用サイコロ
+
     private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
 
@@ -95,7 +101,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public bool compound_success; //調合の成功か失敗
 
-    public int comp_judge_flag; //調合判定を行うかどうか。itemSelectToggleのjudge_flagと連動する。0の場合、必ず成功=生地に合成する処理。1の場合、新規調合を表す。
+    public int comp_judge_flag; //新規調合か生地合成の判定。0=新規調合。1=生地調合。
 
     public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
 
@@ -104,11 +110,25 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool topping_result_ok; //トッピング調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool roast_result_ok; //「焼く」完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
 
-    public bool blend_flag; //これがたっていたら、レシピ調合の際、プレイヤーが素材自体を変えたり、比率を変えている、というフラグ。現在は、とりあえずオフ。
+    //public bool blend_flag; //これがたっていたら、レシピ調合の際、プレイヤーが素材自体を変えたり、比率を変えている、というフラグ。現在は、とりあえずオフ。
 
     public bool girleat_ok; // 女の子にアイテムをあげた時の完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool shop_buy_ok; //購入完了のフラグ。これがたっていたら、購入の処理を行い、フラグをオフに。
     public bool qbox_ok; // クエスト納品時の完了フラグ。
+
+    //アニメーション用
+    private int compo_anim_status;
+    private bool compo_anim_on;
+    private bool compo_anim_end;
+    private float timeOut;
+
+    private GameObject Compo_Magic_effect_Prefab;
+    private List<GameObject> _listEffect = new List<GameObject>();
+
+    //SEを鳴らす
+    public AudioClip sound1;
+    public AudioClip sound2;
+    AudioSource audioSource;
 
 
     //トッピング調合用のパラメータ
@@ -267,7 +287,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
-
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
@@ -275,6 +294,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //エクストリームパネルオブジェクトの取得
         extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
+
+        //エフェクトプレファブの取得
+        Compo_Magic_effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -288,11 +310,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 break;
         }
 
+        audioSource = GetComponent<AudioSource>();
+
         result_ok = false;
         recipiresult_ok = false;
         girleat_ok = false;
 
-        blend_flag = false;
+        //blend_flag = false;
 
         compound_success = false;
 
@@ -305,6 +329,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         Comp_method_bunki = 0;
 
+        compo_anim_status = 0;
+        compo_anim_on = false;
+        compo_anim_end = false;
+
         //トッピングスロットの配列
         _basetp = new string[10];
         _addtp = new string[10];
@@ -315,7 +343,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 	void Update ()
     {
             
-
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
@@ -330,505 +357,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
             }
 
-            //
-            //オリジナル調合完了の場合、ここでアイテムリストの更新行う。
-            //
-
-            if (result_ok == true)
+            //調合中ウェイト+アニメ
+            if (compo_anim_on == true)
             {
-                pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-                text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                _text = text_area.GetComponentInChildren<Text>();
-
-                //オリジナル調合の設定
-                if (extreme_on != true)
-                {
-                    //**重要** 
-                    //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
-                    //店売りの場合は、実質アイテムIDと数字は一緒。
-                    //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
-
-                    kettei_item1 = pitemlistController.kettei_item1;
-                    kettei_item2 = pitemlistController.kettei_item2;
-                    kettei_item3 = pitemlistController.kettei_item3;
-
-                    toggle_type1 = pitemlistController._toggle_type1;
-                    toggle_type2 = pitemlistController._toggle_type2;
-                    toggle_type3 = pitemlistController._toggle_type3;
-
-                    final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
-                    final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
-                    final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
-                }
-
-                //エクストリーム調合から閃いた場合
-                else
-                {
-                    kettei_item1 = pitemlistController.base_kettei_item;
-                    kettei_item2 = pitemlistController.kettei_item1;
-                    kettei_item3 = pitemlistController.kettei_item2;
-
-                    toggle_type1 = pitemlistController._base_toggle_type;
-                    toggle_type2 = pitemlistController._toggle_type1;
-                    toggle_type3 = pitemlistController._toggle_type2;
-
-                    final_kette_kosu1 = pitemlistController.final_base_kettei_kosu;
-                    final_kette_kosu2 = pitemlistController.final_kettei_kosu1;
-                    final_kette_kosu3 = pitemlistController.final_kettei_kosu2;
-                }
-
-                /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
-                Debug.Log("pitemlistController.kettei_item2: " + kettei_item2);
-                Debug.Log("pitemlistController._toggle_type1: " + toggle_type1);
-                Debug.Log("pitemlistController._toggle_type2: " + toggle_type2);
-                Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
-                Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
-
-                //リザルトアイテムを代入
-                result_item = pitemlistController.result_item;
-
-                //調合データベースのIDを代入
-                result_ID = pitemlistController.result_compID;
-
-                //Debug.Log("comp_judge_flag: " + comp_judge_flag);
-
-                //トッピング調合用メソッドを流用するために、kettei_itemの変換
-
-                if (comp_judge_flag == 0) //新規調合の場合。
-                {
-                    Comp_method_bunki = 0;
-                }
-
-                else if (comp_judge_flag == 1) //生地を合成する処理で、新規にアイテムは作成されない場合
-                {
-                    Comp_method_bunki = 1; //生地を合成する時の分岐
-
-                    base_kettei_item = kettei_item1;
-                    kettei_item1 = kettei_item2;
-                    kettei_item2 = kettei_item3;
-                    kettei_item3 = 9999; //とりあえず、現状新規は3個までの調合なので、4個目のものは空に。
-
-                    base_toggle_type = toggle_type1;
-                    toggle_type1 = toggle_type2;
-                    toggle_type2 = toggle_type3;
-                    toggle_type3 = 0;
-
-                    base_kosu = pitemlistController.final_kettei_kosu1;
-                    final_kette_kosu1 = pitemlistController.final_kettei_kosu2;
-                    final_kette_kosu2 = pitemlistController.final_kettei_kosu3;
-                    final_kette_kosu3 = 0;
-
-                    if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、二個で調合している。
-                    {
-                        kettei_item2 = 9999;
-                        toggle_type2 = 0;
-                        final_kette_kosu2 = 0;
-                    }
-
-                    
-                }
-
-                //経験値の増減
-                if (compound_success == true)
-                {
-                    compound_success = false;
-
-                    //オリジナル調合なら、普通に生成
-
-                    //完成したアイテムの追加。
-                    //Topping_Compound_Method();
-
-                    Delete_playerItemList();
-                    result_kosu = 1;
-
-                    //店売りアイテムとして生成
-                    pitemlist.addPlayerItem(result_item, result_kosu);
-
-                    //右側パネルに、作ったやつを表示する。
-                    extremePanel.SetExtremeItem(result_item, 0);
-
-                    new_item = result_item;
-
-                    PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
-
-                    card_view.ResultCard_DrawView(0, new_item);
-
-
-                    //閃き済みかどうかをチェック
-                    if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
-                    {
-                        //完成アイテムの、レシピフラグをONにする。
-                        databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
-
-                        _ex_text = "新しいレシピを閃いた！" + "\n";
-
-                    }
-
-                    //すでに閃いていた場合
-                    else
-                    {
-                        _ex_text = "";
-                    }
-
-
-                    //はじめて、アイテムを制作した場合は、フラグをONに。
-                    if (PlayerStatus.First_recipi_on != true)
-                    {
-                        PlayerStatus.First_recipi_on = true;
-                    }
-
-                }
-                else
-                {
-
-                    _text.text = "調合失敗..！ ";
-
-                    Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
-
-                    //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
-                    pitemlist.addPlayerItem(result_item, result_kosu);
-
-                    //失敗した場合でも、アイテムは消える。
-                    Delete_playerItemList();
-
-                    card_view.ResultCard_DrawView(0, result_item);
-                    
-                }
-
-                result_ok = false;
-
-                pitemlistController.AddItemList(); //リスト描画の更新
-                pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-
-                //日数の経過
-                PlayerStatus.player_day += databaseCompo.compoitems[result_ID].cost_Time;
-
-                //テキストの表示
-                renkin_default_exp_up();
-
-                _ex_text = "";
+                //ウェイト
+                Compo_Magic_Animation();
             }
 
-
-
-
-            //
-            //レシピ調合完了の場合、ここでアイテムリストの更新行う。
-            //
-
-            if (recipiresult_ok == true)
-            {
-                recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
-                recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-
-                text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                _text = text_area.GetComponentInChildren<Text>();
-
-                //レシピの場合。今のところ、店売りアイテムのみでしか、レシピの材料にならないので、以下の定め方にしている。もし、オリジナルアイテムから使う場合は、toggle_typeなどの判定がちゃんと必要。
-
-                kettei_item1 = recipilistController.kettei_recipiitem1;
-                kettei_item2 = recipilistController.kettei_recipiitem2;
-                kettei_item3 = recipilistController.kettei_recipiitem3;
-
-                toggle_type1 = 0;
-                toggle_type2 = 0;
-                toggle_type3 = 0;
-
-                final_kette_kosu1 = recipilistController.final_kettei_recipikosu1;
-                final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
-                final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
-
-                result_kosu = recipilistController.final_select_kosu;
-
-                result_item = recipilistController.result_recipiitem;
-                result_ID = recipilistController.result_recipicompID;
-
-
-                //レシピ調合の場合、材料は、デフォルトで店売りのアイテムを使う。出来るアイテムも、デフォルトでは店売り。
-                //後々、ブレンドで比率を変えた場合は、アイテムの生成処理を、他の調合と同じメソッドを流用。
-
-                if (blend_flag == true) //プレイヤーが任意で、アイテムを変えたり、比率を変更した場合
-                {
-                    Comp_method_bunki = 0;
-
-                    //オリジナル調合のメソッドを流用する
-                    Topping_Compound_Method();
-
-                    card_view.ResultCard_DrawView(1, new_item);
-                }
-                else //こっちがデフォルト。店売りアイテムを使い、店売りアイテムを作成する。
-                {
-                    Comp_method_bunki = 0;
-
-                    Delete_playerItemList();
-                    pitemlist.addPlayerItem(result_item, result_kosu);
-
-                    //右側パネルに、作ったやつを表示する。
-                    extremePanel.SetExtremeItem(result_item, 0);
-
-                    card_view.ResultCard_DrawView(0, result_item);
-                }
-               
-
-                recipiresult_ok = false;
-
-                PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
-
-                //テキストの表示
-                renkin_default_exp_up();
-            }
-
-
-
-
-
-            //
-            //トッピング調合完了の場合、ここでアイテムリストの更新行う。
-            //
-
-            if (topping_result_ok == true)
-            {
-                pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-                text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                _text = text_area.GetComponentInChildren<Text>();
-
-
-                //プレイヤーリストコントローラーで更新した変数を、こっちでも一度代入
-                kettei_item1 = pitemlistController.kettei_item1;
-                kettei_item2 = pitemlistController.kettei_item2;
-                kettei_item3 = pitemlistController.kettei_item3;
-                base_kettei_item = pitemlistController.base_kettei_item;
-
-                toggle_type1 = pitemlistController._toggle_type1;
-                toggle_type2 = pitemlistController._toggle_type2;
-                toggle_type3 = pitemlistController._toggle_type3;
-                base_toggle_type = pitemlistController._base_toggle_type;
-                
-
-                if ( pitemlistController.final_kettei_item2 == 9999 ) //2個目が空の場合、トッピングは一個のみ。
-                {
-                    kettei_item2 = 9999;
-                    kettei_item3 = 9999;
-                }
-
-                if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、トッピングは二個のみ。
-                {
-                    kettei_item3 = 9999;
-                }
-
-
-                base_kosu = 1;
-                final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
-                final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
-                final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
-
-                //**ここまで**
-
-                Comp_method_bunki = 3; //トッピング調合の処理。
-
-                if (compound_success == true)
-                {
-                    Debug.Log("Topping_Compound_Sucess!!");
-
-                    //トッピング調合完了なので、リザルトアイテムのパラメータ計算と、プレイヤーアイテムリストに追加処理
-                    Topping_Compound_Method();
-
-                    //新しいアイテムを閃くかチェック
-                    if (extreme_on != true)
-                    {
-                        _ex_text = "";
-                    }
-
-                    //新しいアイテムを閃くと、そのレシピを解禁
-                    else
-                    {
-                        //調合データベースのIDを代入
-                        result_ID = pitemlistController.result_compID;
-
-
-                        //閃き済みかどうかをチェック
-                        if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
-                        {
-                            //完成アイテムの、レシピフラグをONにする。
-                            databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
-
-                            _ex_text = "新しいレシピを閃いた！" + "\n";
-
-                            //はじめて、アイテムを制作した場合は、フラグをONに。
-                            if (PlayerStatus.First_recipi_on != true)
-                            {
-                                PlayerStatus.First_recipi_on = true;
-                            }
-                        }
-
-                        //すでに閃いていた場合
-                        else
-                        {
-                            _ex_text = "";
-                        }
-                                            
-
-                        extreme_on = false;
-                    }
-
-
-                    //カードで表示
-                    card_view.ResultCard_DrawView(1, new_item);
-
-                    //右側パネルに、作ったやつを表示する。
-                    extremePanel.SetExtremeItem(new_item, 1);
-
-                    pitemlistController.AddItemList(); //リスト描画の更新
-
-                    topping_result_ok = false;
-
-                    compound_success = false;                   
-
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-
-                    //テキストの表示
-                    renkin_exp_up();
-
-                    //テキスト表示後、閃いた～をリセットしておく
-                    _ex_text = "";
-                }
-
-            }
-
-            //
-            //「焼く」完了の場合、ここでアイテムリストの更新行う。
-            //
-
-            if (roast_result_ok == true)
-            {
-                pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-                text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                _text = text_area.GetComponentInChildren<Text>();
-
-                //**重要** 
-                //焼く場合は、元となる生地アイテムを削除し、対応するお菓子アイテムを追加する。
-
-                kettei_item1 = pitemlistController.kettei_item1;
-                kettei_item2 = 9999;
-                kettei_item3 = 9999;
-
-                toggle_type1 = pitemlistController._toggle_type1;
-                toggle_type2 = pitemlistController._toggle_type2;
-                toggle_type3 = pitemlistController._toggle_type3;
-
-
-                final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
-                final_kette_kosu2 = 0;
-                final_kette_kosu3 = 0;
-
-                //result_kosu = pitemlistController.final_kettei_kosu1;
-
-                final_kettei_item1 = pitemlistController.final_kettei_item1;
-
-                Comp_method_bunki = 0;
-
-                
-                if (compound_success == true)
-                {
-                    Debug.Log("Roast_Okashi_Sucess!!");
-
-                    //焼くデータベースをもとに、決定したアイテムから、リザルトアイテムへ変換
-                    i = 0;
-                    result_item = 9999;
-
-                    while (i < databaseRoast.roastitems.Count)
-                    {
-                        if (databaseRoast.roastitems[i].roast_itemID == final_kettei_item1) //クッキー生地（final_kettei_item1=14）なら、「ねこクッキー」を作るパターン。サンプル。
-                        {
-                            result_item = databaseRoast.roastitems[i].roast_item_resultID;
-                            break;
-                        }
-                        i++;
-                    }
-
-                    //例外として、もし、焼くデータベースに登録されていない場合、ゴミが出来上がってしまう。
-                    if(result_item == 9999)
-                    {
-                        //例外発生
-                        Debug.Log("例外発生！焼きデータベースの登録がありません");
-                        result_item = 500;
-                        card_view.ResultCard_DrawView(0, result_item);
-
-                    }
-                    else
-                    {
-                        Topping_Compound_Method();
-                        card_view.ResultCard_DrawView(1, new_item);
-                    }
-                    
-                    
-                    
-
-                    pitemlistController.AddItemList(); //リスト描画の更新
-
-                    roast_result_ok = false;
-
-                    compound_success = false;
-
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-
-                    //テキストの表示
-                    renkin_exp_up();
-                }       
-            }
         }
-
-        if (SceneManager.GetActiveScene().name == "Shop") // ショップシーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {
-
-            //ここでアイテムリストの更新行う。
-            if (shop_buy_ok == true)
-            {
-                shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
-                shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                _text = text_area.GetComponentInChildren<Text>();
-
-                kettei_item1 = shopitemlistController.shop_kettei_item1;
-                //Debug.Log("決定したアイテムID: " + kettei_item1 + " リスト番号: " + shopitemlistController.shop_count);
-
-                toggle_type1 = shopitemlistController.shop_itemType;
-
-                result_kosu = shopitemlistController.shop_final_itemkosu_1; //買った個数
-
-                if (toggle_type1 == 0)
-                {
-                    //プレイヤーアイテムリストに追加。
-                    pitemlist.addPlayerItem(kettei_item1, result_kosu);
-                }
-                else if (toggle_type1 == 1) //shop_itemType=1のものは、レシピのこと。買うことで、あとでアトリエに戻ったときに、本を読み、いくつかのレシピを解禁するフラグになる。
-                {
-                    //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
-                    pitemlist.add_eventPlayerItem(kettei_item1, result_kosu);
-
-                }
-
-                //所持金をへらす
-                PlayerStatus.player_money -= shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu;
-
-                //ショップの在庫をへらす
-                shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
-
-                _text.text = "購入しました！他にはなにか買う？";
-
-                shopitemlistController.ShopList_DrawView(); //リスト描画の更新
-
-                shop_buy_ok = false;
-            }
-        }
-
+        
         if (SceneManager.GetActiveScene().name == "GirlEat") // ガールシーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
             //女の子にアイテムをあげた後の、アイテムリストの更新を行う。
@@ -930,8 +468,711 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _text.text = "お菓子を売った！　" + total_qbox_money + "Gを獲得！";
 
             }
-        }
+        }       
     }
+
+
+    //
+    //オリジナル調合完了の場合、ここでアイテムリストの更新行う。
+    //
+    public void ResultOK()
+    {
+
+        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+
+        //オリジナル調合の設定
+        if (extreme_on != true)
+        {
+            //**重要** 
+            //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
+            //店売りの場合は、実質アイテムIDと数字は一緒。
+            //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
+
+            kettei_item1 = pitemlistController.kettei_item1;
+            kettei_item2 = pitemlistController.kettei_item2;
+            kettei_item3 = pitemlistController.kettei_item3;
+
+            toggle_type1 = pitemlistController._toggle_type1;
+            toggle_type2 = pitemlistController._toggle_type2;
+            toggle_type3 = pitemlistController._toggle_type3;
+
+            final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
+            final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
+            final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+        }
+
+        //エクストリーム調合から閃いた場合
+        else
+        {
+            kettei_item1 = pitemlistController.base_kettei_item;
+            kettei_item2 = pitemlistController.kettei_item1;
+            kettei_item3 = pitemlistController.kettei_item2;
+
+            toggle_type1 = pitemlistController._base_toggle_type;
+            toggle_type2 = pitemlistController._toggle_type1;
+            toggle_type3 = pitemlistController._toggle_type2;
+
+            final_kette_kosu1 = pitemlistController.final_base_kettei_kosu;
+            final_kette_kosu2 = pitemlistController.final_kettei_kosu1;
+            final_kette_kosu3 = pitemlistController.final_kettei_kosu2;
+        }
+
+        /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
+        Debug.Log("pitemlistController.kettei_item2: " + kettei_item2);
+        Debug.Log("pitemlistController._toggle_type1: " + toggle_type1);
+        Debug.Log("pitemlistController._toggle_type2: " + toggle_type2);
+        Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+        Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
+
+        //リザルトアイテムを代入
+        result_item = pitemlistController.result_item;
+
+        //調合データベースのIDを代入
+        result_ID = pitemlistController.result_compID;
+
+        //Debug.Log("comp_judge_flag: " + comp_judge_flag);
+
+        //トッピング調合用メソッドを流用するために、kettei_itemの変換
+
+        if (comp_judge_flag == 0) //新規調合の場合。
+        {
+            Comp_method_bunki = 0;
+        }
+
+        else if (comp_judge_flag == 1) //生地を合成する処理で、新規にアイテムは作成されない場合
+        {
+            Comp_method_bunki = 1; //生地を合成する時の分岐
+
+            base_kettei_item = kettei_item1;
+            kettei_item1 = kettei_item2;
+            kettei_item2 = kettei_item3;
+            kettei_item3 = 9999; //とりあえず、現状新規は3個までの調合なので、4個目のものは空に。
+
+            base_toggle_type = toggle_type1;
+            toggle_type1 = toggle_type2;
+            toggle_type2 = toggle_type3;
+            toggle_type3 = 0;
+
+            base_kosu = pitemlistController.final_kettei_kosu1;
+            final_kette_kosu1 = pitemlistController.final_kettei_kosu2;
+            final_kette_kosu2 = pitemlistController.final_kettei_kosu3;
+            final_kette_kosu3 = 0;
+
+            if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、二個で調合している。
+            {
+                kettei_item2 = 9999;
+                toggle_type2 = 0;
+                final_kette_kosu2 = 0;
+            }
+
+
+        }
+
+        //ウェイトアニメーション開始
+        pitemlistController_obj.SetActive(false);
+        compo_anim_on = true; //アニメスタート
+
+        StartCoroutine("Original_Compo_anim");
+
+
+    }
+
+    IEnumerator Original_Compo_anim()
+    {
+        while (compo_anim_end != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        //pitemlistController_obj.SetActive(true);
+
+        compo_anim_on = false;
+        compo_anim_end = false;
+        compo_anim_status = 0;
+
+        //調合判定
+        CompoundSuccess_judge();
+
+        //調合成功
+        if (compound_success == true)
+        {
+
+            //オリジナル調合なら、普通に生成
+
+            Delete_playerItemList();
+            result_kosu = 1;
+
+            //店売りアイテムとして生成
+            pitemlist.addPlayerItem(result_item, result_kosu);
+
+            //右側パネルに、作ったやつを表示する。
+            extremePanel.SetExtremeItem(result_item, 0);
+
+            new_item = result_item;
+
+            PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
+
+            card_view.ResultCard_DrawView(0, new_item);
+
+
+            //閃き済みかどうかをチェック
+            if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
+            {
+                //完成アイテムの、レシピフラグをONにする。
+                databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
+
+                _ex_text = "新しいレシピを閃いた！" + "\n";
+
+            }
+
+            //すでに閃いていた場合
+            else
+            {
+                _ex_text = "";
+            }
+
+
+            //はじめて、アイテムを制作した場合は、フラグをONに。
+            if (PlayerStatus.First_recipi_on != true)
+            {
+                PlayerStatus.First_recipi_on = true;
+            }
+
+        }
+        else //調合失敗
+        {
+
+            _text.text = "調合失敗..！ ";
+
+            //ゴミアイテムを検索。
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+
+                if (database.items[i].itemName == "gomi_1")
+                {
+                    result_item = i; //プレイヤーコントローラーの変数に、アイテムIDを代入
+                    break;
+                }
+                ++i;
+            }
+
+            Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
+
+            result_kosu = 1;
+
+            //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
+            pitemlist.addPlayerItem(result_item, result_kosu);
+
+            //失敗した場合でも、アイテムは消える。
+            Delete_playerItemList();
+
+            card_view.ResultCard_DrawView(0, result_item);
+
+        }
+
+        result_ok = false;
+
+        compound_Main.compound_status = 0;
+
+        //日数の経過
+        PlayerStatus.player_day += databaseCompo.compoitems[result_ID].cost_Time;
+
+        //テキストの表示
+        renkin_default_exp_up();
+
+        _ex_text = "";
+
+    }
+
+
+
+    //
+    //レシピ調合完了の場合、ここでアイテムリストの更新行う。
+    //
+    public void Recipi_ResultOK()
+    {
+
+
+        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
+        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+
+
+        //レシピの場合。今のところ、店売りアイテムのみでしか、レシピの材料にならないので、以下の定め方にしている。もし、オリジナルアイテムから使う場合は、toggle_typeなどの判定がちゃんと必要。
+
+        kettei_item1 = recipilistController.kettei_recipiitem1;
+        kettei_item2 = recipilistController.kettei_recipiitem2;
+        kettei_item3 = recipilistController.kettei_recipiitem3;
+
+        toggle_type1 = 0;
+        toggle_type2 = 0;
+        toggle_type3 = 0;
+
+        final_kette_kosu1 = recipilistController.final_kettei_recipikosu1;
+        final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
+        final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
+
+        result_kosu = recipilistController.final_select_kosu;
+
+        result_item = recipilistController.result_recipiitem;
+        result_ID = recipilistController.result_recipicompID;
+
+        //ウェイトアニメーション開始
+        recipilistController_obj.SetActive(false);
+        compo_anim_on = true; //アニメスタート
+
+        StartCoroutine("Recipi_Compo_anim");
+
+    }
+
+    IEnumerator Recipi_Compo_anim()
+    {
+        while (compo_anim_end != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        //recipilistController_obj.SetActive(true);
+
+        compo_anim_on = false;
+        compo_anim_end = false;
+        compo_anim_status = 0;
+
+        //調合判定
+        CompoundSuccess_judge();
+
+        //調合成功
+        if (compound_success == true)
+        {
+
+            //ここからアイテムの処理
+
+            Comp_method_bunki = 0;
+
+            Delete_playerItemList();
+            pitemlist.addPlayerItem(result_item, result_kosu);
+
+            //右側パネルに、作ったやつを表示する。
+            extremePanel.SetExtremeItem(result_item, 0);
+
+            card_view.ResultCard_DrawView(0, result_item);
+        }
+        else //失敗した
+        {
+
+            _text.text = "調合失敗..！ ";
+
+            //ゴミアイテムを検索。
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+
+                if (database.items[i].itemName == "gomi_1")
+                {
+                    result_item = i; //プレイヤーコントローラーの変数に、アイテムIDを代入
+                    break;
+                }
+                ++i;
+            }
+
+            Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
+
+            result_kosu = 1;
+
+            //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
+            pitemlist.addPlayerItem(result_item, result_kosu);
+
+            //失敗した場合でも、アイテムは消える。
+            Delete_playerItemList();
+
+            card_view.ResultCard_DrawView(0, result_item);
+        }
+
+        recipiresult_ok = false;
+
+        compound_Main.compound_status = 0;
+
+        PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
+
+        //テキストの表示
+        renkin_default_exp_up();
+    }
+
+
+
+    //
+    //トッピング調合完了の場合、ここでアイテムリストの更新行う。
+    //
+    public void Topping_Result_OK()
+    {
+        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+
+        //プレイヤーリストコントローラーで更新した変数を、こっちでも一度代入
+        kettei_item1 = pitemlistController.kettei_item1;
+        kettei_item2 = pitemlistController.kettei_item2;
+        kettei_item3 = pitemlistController.kettei_item3;
+        base_kettei_item = pitemlistController.base_kettei_item;
+
+        toggle_type1 = pitemlistController._toggle_type1;
+        toggle_type2 = pitemlistController._toggle_type2;
+        toggle_type3 = pitemlistController._toggle_type3;
+        base_toggle_type = pitemlistController._base_toggle_type;
+
+
+        if (pitemlistController.final_kettei_item2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+        {
+            kettei_item2 = 9999;
+            kettei_item3 = 9999;
+        }
+
+        if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+        {
+            kettei_item3 = 9999;
+        }
+
+
+        base_kosu = 1;
+        final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
+        final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
+        final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+
+        //**ここまで**
+
+        Comp_method_bunki = 3; //トッピング調合の処理。
+
+        //ウェイトアニメーション開始
+        pitemlistController_obj.SetActive(false);
+        compo_anim_on = true; //アニメスタート
+
+        StartCoroutine("Topping_Compo_anim");
+
+    }
+
+    IEnumerator Topping_Compo_anim()
+    {
+        while (compo_anim_end != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        //pitemlistController_obj.SetActive(true);
+
+        compo_anim_on = false;
+        compo_anim_end = false;
+        compo_anim_status = 0;
+
+        //確率計算。エクストリーム調合の確率も含め計算する。
+        compound_success = true;
+
+        if (compound_success == true)
+        {
+            Debug.Log("Topping_Compound_Sucess!!");
+
+            //トッピング調合完了なので、リザルトアイテムのパラメータ計算と、プレイヤーアイテムリストに追加処理
+            Topping_Compound_Method();
+
+            //新しいアイテムを閃くかチェック
+            if (extreme_on != true)
+            {
+                _ex_text = "";
+            }
+
+            //新しいアイテムを閃くと、そのレシピを解禁
+            else
+            {
+                //調合データベースのIDを代入
+                result_ID = pitemlistController.result_compID;
+
+
+                //閃き済みかどうかをチェック
+                if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
+                {
+                    //完成アイテムの、レシピフラグをONにする。
+                    databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
+
+                    _ex_text = "新しいレシピを閃いた！" + "\n";
+
+                    //はじめて、アイテムを制作した場合は、フラグをONに。
+                    if (PlayerStatus.First_recipi_on != true)
+                    {
+                        PlayerStatus.First_recipi_on = true;
+                    }
+                }
+
+                //すでに閃いていた場合
+                else
+                {
+                    _ex_text = "";
+                }
+
+
+                extreme_on = false;
+            }
+
+
+            //カードで表示
+            card_view.ResultCard_DrawView(1, new_item);
+
+            //右側パネルに、作ったやつを表示する。
+            extremePanel.SetExtremeItem(new_item, 1);
+
+            
+        }
+        else //失敗の場合
+        {
+            _text.text = "調合失敗..！ ";
+
+            //ゴミアイテムを検索。
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+
+                if (database.items[i].itemName == "gomi_1")
+                {
+                    result_item = i; //プレイヤーコントローラーの変数に、アイテムIDを代入
+                    break;
+                }
+                ++i;
+            }
+
+            Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
+
+            result_kosu = 1;
+
+            //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
+            pitemlist.addPlayerItem(result_item, result_kosu);
+
+            //失敗した場合でも、アイテムは消える。
+            Delete_playerItemList();
+
+            card_view.ResultCard_DrawView(0, result_item);
+
+        }
+
+        topping_result_ok = false;
+
+        compound_Main.compound_status = 0;
+
+        //テキストの表示
+        renkin_exp_up();
+
+        //テキスト表示後、閃いた～をリセットしておく
+        _ex_text = "";
+    }
+
+    //
+    //「焼く」完了の場合、ここでアイテムリストの更新行う。
+    //
+    public void Roast_ResultOK()
+    {
+        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        //**重要** 
+        //焼く場合は、元となる生地アイテムを削除し、対応するお菓子アイテムを追加する。
+
+        kettei_item1 = pitemlistController.kettei_item1;
+        kettei_item2 = 9999;
+        kettei_item3 = 9999;
+
+        toggle_type1 = pitemlistController._toggle_type1;
+        toggle_type2 = pitemlistController._toggle_type2;
+        toggle_type3 = pitemlistController._toggle_type3;
+
+
+        final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
+        final_kette_kosu2 = 0;
+        final_kette_kosu3 = 0;
+
+        //result_kosu = pitemlistController.final_kettei_kosu1;
+
+        final_kettei_item1 = pitemlistController.final_kettei_item1;
+
+        Comp_method_bunki = 0;
+
+
+        //焼くは、必ず成功
+        Debug.Log("Roast_Okashi_Sucess!!");
+
+        //焼くデータベースをもとに、決定したアイテムから、リザルトアイテムへ変換
+        i = 0;
+        result_item = 9999;
+
+        while (i < databaseRoast.roastitems.Count)
+        {
+            if (databaseRoast.roastitems[i].roast_itemID == final_kettei_item1) //クッキー生地（final_kettei_item1=14）なら、「ねこクッキー」を作るパターン。サンプル。
+            {
+                result_item = databaseRoast.roastitems[i].roast_item_resultID;
+                break;
+            }
+            i++;
+        }
+
+        //例外として、もし、焼くデータベースに登録されていない場合、ゴミが出来上がってしまう。
+        if (result_item == 9999)
+        {
+            //例外発生
+            Debug.Log("例外発生！焼きデータベースの登録がありません");
+            result_item = 500;
+            card_view.ResultCard_DrawView(0, result_item);
+
+        }
+        else
+        {
+            Topping_Compound_Method();
+            card_view.ResultCard_DrawView(1, new_item);
+        }
+
+        pitemlistController.AddItemList(); //リスト描画の更新
+
+        roast_result_ok = false;
+
+        compound_success = false;
+
+        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+
+        //テキストの表示
+        renkin_exp_up();
+
+
+    }
+
+
+    //
+    //「ショップで購入」の場合、ここでアイテムリストの更新行う。
+    //
+    public void Shop_ResultOK()
+    {
+
+        shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
+        shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        kettei_item1 = shopitemlistController.shop_kettei_item1;
+        //Debug.Log("決定したアイテムID: " + kettei_item1 + " リスト番号: " + shopitemlistController.shop_count);
+
+        toggle_type1 = shopitemlistController.shop_itemType;
+
+        result_kosu = shopitemlistController.shop_final_itemkosu_1; //買った個数
+
+        if (toggle_type1 == 0)
+        {
+            //プレイヤーアイテムリストに追加。
+            pitemlist.addPlayerItem(kettei_item1, result_kosu);
+        }
+        else if (toggle_type1 == 1) //shop_itemType=1のものは、レシピのこと。買うことで、あとでアトリエに戻ったときに、本を読み、いくつかのレシピを解禁するフラグになる。
+        {
+            //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
+            pitemlist.add_eventPlayerItem(kettei_item1, result_kosu);
+
+        }
+
+        //所持金をへらす
+        PlayerStatus.player_money -= shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu;
+
+        //ショップの在庫をへらす
+        shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
+
+        _text.text = "購入しました！他にはなにか買う？";
+
+        shopitemlistController.ShopList_DrawView(); //リスト描画の更新
+
+        shop_buy_ok = false;
+
+    }
+
+
+    void Compo_Magic_Animation()
+    {
+        //ウェイトアニメ
+
+
+        switch (compo_anim_status)
+        {
+            case 0: //初期化 状態１
+
+                //エフェクト生成＋アニメ開始
+                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab));
+
+                //音を鳴らす
+                audioSource.PlayOneShot(sound1);
+
+                timeOut = 2.0f;
+                compo_anim_status = 1;
+
+                _text.text = "調合中 .";
+                break;
+
+            case 1: // 状態2
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    compo_anim_status = 2;
+
+                    _text.text = "調合中 . .";
+                }
+                break;
+
+            case 2:
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 0.5f;
+                    compo_anim_status = 3;
+
+                }
+                break;
+
+            case 3: //アニメ終了。判定する
+
+                Debug.Log("アニメ終了");
+                compo_anim_end = true;
+
+                //音を止める
+                audioSource.Stop();
+
+                //初期化しておく
+                for (i = 0; i < _listEffect.Count; i++)
+                {
+                    Destroy(_listEffect[i]);
+                }
+                _listEffect.Clear();
+                break;
+
+            default:
+                break;
+        }
+
+        //時間減少
+        timeOut -= Time.deltaTime;
+    }
+
+
+
+
+
 
 
 
@@ -2381,7 +2622,46 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     }
 
-    
+
+    //確率判定処理
+    void CompoundSuccess_judge()
+    {
+        switch (_success_judge_flag)
+        {
+            case 0: //必ず成功
+
+                compound_success = true;
+                break;
+
+            case 1: //判定処理を行う
+
+                _rate_final = _success_rate;
+
+                dice = Random.Range(1, 100); //1~100までのサイコロをふる。
+
+                Debug.Log("最終成功確率: " + _rate_final + " " + "ダイスの目: " + dice);
+
+                if (dice <= (int)_rate_final) //出た目が、成功率より下なら成功
+                {
+                    compound_success = true;
+                }
+                else //失敗
+                {
+                    compound_success = false;
+                }
+
+                break;
+
+            case 2: //必ず失敗
+
+                compound_success = false;
+                break;
+        }
+
+
+    }
+
+
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
     float SujiMap(float value, float start1, float stop1, float start2, float stop2)

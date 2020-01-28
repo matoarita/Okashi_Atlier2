@@ -10,6 +10,8 @@ public class ExtremePanel : MonoBehaviour {
 
     private int extreme_kaisu;
 
+    private GameObject image_effect;
+
     private GameObject canvas;
 
     private PlayerItemList pitemlist;
@@ -74,6 +76,9 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Param = this.transform.Find("ExtremeKaisu/Text/ExtremeKaisuParam").gameObject.GetComponent<Text>(); //エクストリーム残り回数
         extreme_Param.text = "-";
 
+        image_effect = this.transform.Find("Extreme_Image_effect").gameObject;
+        image_effect.SetActive(false);
+
         item_Icon.color = new Color(1, 1, 1, 0);
 
         extreme_itemID = 9999;
@@ -110,6 +115,9 @@ public class ExtremePanel : MonoBehaviour {
         //エクストリーム残り回数の表示更新。
         extreme_Param.text = extreme_kaisu.ToString();
 
+        //エフェクトの表示
+        image_effect.SetActive(true);
+
     }
 
     public void OnClick_ExtremeButton()
@@ -122,7 +130,7 @@ public class ExtremePanel : MonoBehaviour {
             pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
             pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-            compoundselect_onoff_obj = GameObject.FindWithTag("CompoundSelect");
+            compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
 
             //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
@@ -181,5 +189,7 @@ public class ExtremePanel : MonoBehaviour {
         item_Icon.color = new Color(1, 1, 1, 0);
 
         extreme_itemID = 9999;
+
+        image_effect.SetActive(false);
     }
 }

@@ -16,6 +16,8 @@ public class itemSelectToggle : MonoBehaviour
     Toggle m_Toggle;
     public Text m_Text; //デバッグ用。未使用。
 
+    private GameObject canvas;
+
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
@@ -24,6 +26,9 @@ public class itemSelectToggle : MonoBehaviour
 
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
+
+    private GameObject kakuritsuPanel_obj;
+    private KakuritsuPanel kakuritsuPanel;
 
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
@@ -84,7 +89,7 @@ public class itemSelectToggle : MonoBehaviour
 
     private int judge_flag; //調合判定を行うか否か
     private bool compoundsuccess_flag; //成功か失敗か
-    private float _success_rate;
+    private int _success_rate;
     private float _final_success_rate;
     private int dice;
     private string success_text;
@@ -107,16 +112,21 @@ public class itemSelectToggle : MonoBehaviour
             ToggleValueChanged(m_Toggle);
         });
 
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
         {
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+            kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+            kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
         }
 
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();        
 
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
@@ -239,9 +249,10 @@ public class itemSelectToggle : MonoBehaviour
                 // お菓子を「あげる」を選択した場合の処理
                 if (compound_Main.compound_select == 10)
                 {
-                    yes.SetActive(true);
+                    //yes.SetActive(true);
 
-                    Girl_present();
+                    //Compound_Main内で、直接プレゼント処理を行っているため、現在は未使用
+                    //Girl_present(); 
                 }
 
                 // 単にメニューを開いたとき
@@ -673,7 +684,7 @@ public class itemSelectToggle : MonoBehaviour
                     case true:
 
                         //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
-
+                        /*
                         if (judge_flag == 0)
                         {
                             exp_Controller.compound_success = true;
@@ -694,9 +705,9 @@ public class itemSelectToggle : MonoBehaviour
                                 pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
 
                             }
-                        }
+                        }*/
 
-                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                        //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
 
                         exp_Controller.extreme_on = false;
@@ -704,6 +715,8 @@ public class itemSelectToggle : MonoBehaviour
                         compound_Main.compound_status = 4;
 
                         Off_Flag_Setting();
+
+                        exp_Controller.ResultOK();
 
                         break;
 
@@ -743,7 +756,7 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     case true:
                         //選んだ三つをもとに、一つのアイテムを生成する。
-
+                        /*
                         if (judge_flag == 0)
                         {
                             exp_Controller.compound_success = true;
@@ -765,16 +778,18 @@ public class itemSelectToggle : MonoBehaviour
                                 pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
 
                             }
-                        }
+                        }*/
 
-                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
+                        //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
+                        exp_Controller.result_ok = true; //オリジナル調合完了のフラグをたてておく。
 
                         exp_Controller.extreme_on = false;
 
                         compound_Main.compound_status = 4;
 
                         Off_Flag_Setting();
+
+                        exp_Controller.ResultOK();
 
 
                         break;
@@ -1125,32 +1140,34 @@ public class itemSelectToggle : MonoBehaviour
 
             //Debug.Log("調合DBに該当する。");
 
-            
+            //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
+            _success_rate = databaseCompo.compoitems[pitemlistController.result_compID].success_Rate + (PlayerStatus.player_renkin_lv);
+
             //一個目が生地ではなく、小麦粉も使われていない。全く新しいアイテムが生成される。
             {
                 exp_Controller.comp_judge_flag = 0; //新規調合の場合は0にする。
 
-                if (databaseCompo.compoitems[pitemlistController.result_compID].success_Rate >= 0 && databaseCompo.compoitems[pitemlistController.result_compID].success_Rate < 20)
+                if (_success_rate >= 0 && _success_rate < 20)
                 {
                     //成功率超低い
                     success_text = "これは.. 奇跡が起こればあるいは・・。";
                 }
-                else if (databaseCompo.compoitems[pitemlistController.result_compID].success_Rate >= 20 && databaseCompo.compoitems[pitemlistController.result_compID].success_Rate < 40)
+                else if (_success_rate >= 20 && _success_rate < 40)
                 {
                     //成功率低め
                     success_text = "かなりきつい・・かも。";
                 }
-                else if (databaseCompo.compoitems[pitemlistController.result_compID].success_Rate >= 40 && databaseCompo.compoitems[pitemlistController.result_compID].success_Rate < 60)
+                else if (_success_rate >= 40 && _success_rate < 60)
                 {
                     //普通
                     success_text = "頑張れば、いける・・！";
                 }
-                else if (databaseCompo.compoitems[pitemlistController.result_compID].success_Rate >= 60 && databaseCompo.compoitems[pitemlistController.result_compID].success_Rate < 80)
+                else if (_success_rate >= 60 && _success_rate < 80)
                 {
                     //成功率高め
                     success_text = "問題なくいけそうだね。";
                 }
-                else if (databaseCompo.compoitems[pitemlistController.result_compID].success_Rate >= 80 && databaseCompo.compoitems[pitemlistController.result_compID].success_Rate < 100)
+                else if (_success_rate >= 80 && _success_rate < 100)
                 {
                     //成功率かなり高い
                     success_text = "これなら楽勝！！";
@@ -1161,6 +1178,11 @@ public class itemSelectToggle : MonoBehaviour
                     success_text = "100%パーフェクト！";
                 }
             }
+            
+            //調合判定を行うかどうか
+            exp_Controller._success_judge_flag = 1; //判定処理を行う。
+            exp_Controller._success_rate = _success_rate;
+            kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
         }
 
         //どの調合リストにも当てはまらなかった場合（result_item=500）、
@@ -1172,9 +1194,6 @@ public class itemSelectToggle : MonoBehaviour
             //オリジナル調合の場合は、生地合成、もしくは単純に失敗かの判定
             if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
             {
-
-
-
                 //一個目に選んだアイテムが、生地タイプのアイテムの場合で、2個目のアイテムが合成用のアイテムであれば、
                 //成功失敗の判定処理はせず、生地にアイテムを合成する処理になる。
 
@@ -1190,59 +1209,66 @@ public class itemSelectToggle : MonoBehaviour
                         case Item.ItemType_sub.Fruits:
 
                             success_text = "生地にアイテムを合成します。";
-                            judge_flag = 0; //必ず成功する
+                            exp_Controller._success_judge_flag = 0; //必ず成功する
                             exp_Controller.comp_judge_flag = 1; //1の場合、生地にアイテムを合成する処理のフラグ
+                            kakuritsuPanel.KakuritsuYosoku_Img(100);
                             break;
 
                         case Item.ItemType_sub.Nuts:
 
                             success_text = "生地にアイテムを合成します。";
-                            judge_flag = 0; //必ず成功する
+                            exp_Controller._success_judge_flag = 0; //必ず成功する
                             exp_Controller.comp_judge_flag = 1;
+                            kakuritsuPanel.KakuritsuYosoku_Img(100);
                             break;
 
                         case Item.ItemType_sub.Suger:
 
                             success_text = "生地にアイテムを合成します。";
-                            judge_flag = 0; //必ず成功する
+                            exp_Controller._success_judge_flag = 0; //必ず成功する
                             exp_Controller.comp_judge_flag = 1;
+                            kakuritsuPanel.KakuritsuYosoku_Img(100);
                             break;
 
                         case Item.ItemType_sub.Komugiko:
 
                             success_text = "生地にアイテムを合成します。";
-                            judge_flag = 0; //必ず成功する
+                            exp_Controller._success_judge_flag = 0; //必ず成功する
                             exp_Controller.comp_judge_flag = 1;
+                            kakuritsuPanel.KakuritsuYosoku_Img(100);
                             break;
 
                         case Item.ItemType_sub.Butter:
 
                             success_text = "生地にアイテムを合成します。";
-                            judge_flag = 0; //必ず成功する
+                            exp_Controller._success_judge_flag = 0; //必ず成功する
                             exp_Controller.comp_judge_flag = 1;
+                            kakuritsuPanel.KakuritsuYosoku_Img(100);
                             break;
 
                         case Item.ItemType_sub.Source:
 
                             success_text = "生地にアイテムを合成します。";
-                            judge_flag = 0; //必ず成功する
+                            exp_Controller._success_judge_flag = 0; //必ず成功する
                             exp_Controller.comp_judge_flag = 1;
+                            kakuritsuPanel.KakuritsuYosoku_Img(100);
                             break;
 
                         case Item.ItemType_sub.Potion:
 
                             success_text = "生地にアイテムを合成します。";
-                            judge_flag = 0; //必ず成功する
+                            exp_Controller._success_judge_flag = 0; //必ず成功する
                             exp_Controller.comp_judge_flag = 1;
+                            kakuritsuPanel.KakuritsuYosoku_Img(100);
                             break;
 
                         default:
 
                             //2個目のアイテムが、上記のパターンにあてはまらない場合は、失敗する。
 
-                            judge_flag = 1; //成功判定の処理をON
-                            compoundsuccess_flag = false;
+                            exp_Controller._success_judge_flag = 2; //必ず失敗する
                             success_text = "これは.. ダメかもしれぬ。";
+                            kakuritsuPanel.KakuritsuYosoku_Img(0);
                             break;
                     }
 
@@ -1254,9 +1280,9 @@ public class itemSelectToggle : MonoBehaviour
                 else
                 {
                     //失敗
-                    judge_flag = 1; //成功判定の処理をON
-                    compoundsuccess_flag = false;
+                    exp_Controller._success_judge_flag = 2; //必ず失敗する
                     success_text = "これは.. ダメかもしれぬ。";
+                    kakuritsuPanel.KakuritsuYosoku_Img(0);
                 }
             }
 
@@ -1341,34 +1367,6 @@ public class itemSelectToggle : MonoBehaviour
             }
 
             ++i;
-        }
-    }
-
-    void CompoundSuccess_judge()
-    {
-        if (pitemlistController.result_item == 500) //調合リストに含まれていないため、失敗が分かっているときの処理
-        {
-            _final_success_rate = 0;
-            compoundsuccess_flag = false;
-        }
-        else //調合リストに合致し、最後に調合成功か失敗かを判定
-        {
-            _success_rate = databaseCompo.compoitems[pitemlistController.result_compID].success_Rate;
-
-            _final_success_rate = _success_rate + (PlayerStatus.player_renkin_lv);
-
-            dice = Random.Range(1, 100); //1~100までのサイコロをふる。
-
-            Debug.Log("最終成功確率: " + _final_success_rate + " " + "ダイスの目: " + dice);
-
-            if (dice <= (int)_final_success_rate) //出た目が、成功率より下なら成功
-            {
-                compoundsuccess_flag = true;
-            }
-            else //失敗
-            {
-                compoundsuccess_flag = false;
-            }
         }
     }
 
@@ -1813,30 +1811,26 @@ public class itemSelectToggle : MonoBehaviour
 
                         //新しいアイテムを閃く
                         if (compoDB_select_judge == true)
-                        {
-                            exp_Controller.compound_success = true;
-
-                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-
+                        {                           
                             exp_Controller.extreme_on = true;
                         }
 
                         //コンポDBに該当していなければ、通常通りトッピングの処理
                         else
                         {
-                            exp_Controller.compound_success = true;
-
-                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-
                             exp_Controller.extreme_on = false;
                         }
 
-                        
+                        exp_Controller.compound_success = true;
+
+                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
+
                         compound_Main.compound_status = 4;
 
                         Off_Flag_Setting();
+
+                        exp_Controller.Topping_Result_OK();
 
                         break;
 
@@ -1880,29 +1874,26 @@ public class itemSelectToggle : MonoBehaviour
 
                         //新しいアイテムを閃く
                         if (compoDB_select_judge == true)
-                        {
-                            exp_Controller.compound_success = true;
-
-                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-
+                        {                           
                             exp_Controller.extreme_on = true;
                         }
 
                         //コンポDBに該当していなければ、通常通りトッピングの処理
                         else
                         {
-                            exp_Controller.compound_success = true;
-
-                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-
                             exp_Controller.extreme_on = false;
                         }
+
+                        exp_Controller.compound_success = true;
+
+                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
 
                         compound_Main.compound_status = 4;
 
                         Off_Flag_Setting();
+
+                        exp_Controller.Topping_Result_OK();
 
                         break;
 
@@ -1941,21 +1932,6 @@ public class itemSelectToggle : MonoBehaviour
                     case true:
                         //選んだ三つをもとに、一つのアイテムを生成する。
 
-                        /*//調合成功の判定
-                        CompoundSuccess_judge();
-
-                        if (compoundsuccess_flag == true)
-                        {
-                            exp_Controller.compound_success = true;
-
-                        }
-                        else if (compoundsuccess_flag == false)
-                        {
-                            exp_Controller.compound_success = false;
-                            pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
-
-                        }*/
-
                         exp_Controller.compound_success = true;
 
                         //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
@@ -1964,6 +1940,8 @@ public class itemSelectToggle : MonoBehaviour
                         compound_Main.compound_status = 4;
 
                         Off_Flag_Setting();
+
+                        exp_Controller.Topping_Result_OK();
 
                         break;
 
@@ -2044,6 +2022,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 compound_Main.compound_status = 4;
 
+                exp_Controller.Roast_ResultOK();
+
                 Off_Flag_Setting();
 
                 break;
@@ -2062,7 +2042,7 @@ public class itemSelectToggle : MonoBehaviour
 
 
     /* ### 調合シーンで、女の子にお菓子をあげる処理 ＜エクストリーム調合に方針変え＞ ### */
-
+    /*
     public void Girl_present()
     {
         count = 0;
@@ -2131,7 +2111,7 @@ public class itemSelectToggle : MonoBehaviour
 
         }
     }
-
+    */
 
 
 

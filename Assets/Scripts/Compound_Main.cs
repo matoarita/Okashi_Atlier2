@@ -18,6 +18,9 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject getmatplace_panel;
 
+    private GameObject kakuritsuPanel_obj;
+    private KakuritsuPanel kakuritsuPanel;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
@@ -143,6 +146,9 @@ public class Compound_Main : MonoBehaviour
 
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
 
+        //確率パネルの取得
+        kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+        kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -263,6 +269,7 @@ public class Compound_Main : MonoBehaviour
                         yes_no_panel.SetActive(false);
                         getmatplace_panel.SetActive(false);
                         compoundselect_onoff_obj.SetActive(true);
+                        kakuritsuPanel_obj.SetActive(false);
 
                         //backbutton_obj.SetActive(true);
                         text_area.SetActive(true);
@@ -276,7 +283,10 @@ public class Compound_Main : MonoBehaviour
 
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
+                        
                         recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+                        kakuritsuPanel_obj.SetActive(true);
+
                         yes.SetActive(false);
                         no.SetActive(true);
 
@@ -288,9 +298,13 @@ public class Compound_Main : MonoBehaviour
 
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 2; //トッピング調合を選択
+
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        kakuritsuPanel_obj.SetActive(true);
+
                         pitemlistController.extremepanel_on = false;
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+
                         yes.SetActive(false);
                         no.SetActive(true);
 
@@ -302,7 +316,10 @@ public class Compound_Main : MonoBehaviour
 
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 3; //オリジナル調合を選択
+
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                        kakuritsuPanel_obj.SetActive(true);
+
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
                         yes.SetActive(false);
                         no.SetActive(true);
@@ -319,6 +336,7 @@ public class Compound_Main : MonoBehaviour
 
                         compound_status = 4; //調合シーンに入っています、というフラグ
                         compound_select = 5; //焼くを選択
+
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
                         yes.SetActive(false);
@@ -332,6 +350,7 @@ public class Compound_Main : MonoBehaviour
 
                         compound_status = 4; //あげるシーンに入っています、というフラグ
                         compound_select = 10; //あげるを選択
+
                         yes_no_panel.SetActive(true);
                         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
                         StartCoroutine("Girl_present_Final_select");
@@ -358,7 +377,7 @@ public class Compound_Main : MonoBehaviour
 
                     case 20: //材料採取地を選択中
 
-
+                        
                         break;
 
                     case 21: //材料採取地に到着。探索中
@@ -434,6 +453,8 @@ public class Compound_Main : MonoBehaviour
             recipi_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
+            card_view.All_DeleteCard();
+
             //black_effect.SetActive(true);
 
             _text.text = "レシピから作るよ。何を作る？";
@@ -447,6 +468,8 @@ public class Compound_Main : MonoBehaviour
         {
             extreme_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
+
+            card_view.All_DeleteCard();
 
             //black_effect.SetActive(true);
 
@@ -462,6 +485,8 @@ public class Compound_Main : MonoBehaviour
         {
             original_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
+
+            card_view.All_DeleteCard();
 
             //black_effect.SetActive(true);
 
@@ -488,6 +513,8 @@ public class Compound_Main : MonoBehaviour
             roast_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
+            card_view.All_DeleteCard();
+
             //black_effect.SetActive(true);
 
             _text.text = "作った生地を焼きます。焼きたい生地を選んでください。";
@@ -502,6 +529,8 @@ public class Compound_Main : MonoBehaviour
             menu_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
+            card_view.All_DeleteCard();
+
             //black_effect.SetActive(true);
 
             compound_status = 99;
@@ -512,6 +541,8 @@ public class Compound_Main : MonoBehaviour
     {
         if (shop_toggle.GetComponent<Toggle>().isOn == true)
         {
+            card_view.All_DeleteCard();
+
             shop_toggle.GetComponent<Toggle>().isOn = false;
             FadeManager.Instance.LoadScene("Shop", 0.3f);
         }
@@ -523,6 +554,7 @@ public class Compound_Main : MonoBehaviour
         {
             getmaterial_toggle.GetComponent<Toggle>().isOn = false;
 
+            card_view.All_DeleteCard();
             _text.text = "妹と一緒に材料を取りにいくよ！行き先を選んでね。";
             compound_status = 20;
 
@@ -542,7 +574,9 @@ public class Compound_Main : MonoBehaviour
 
             yes_no_load();
 
-            if( extreme_panel.extreme_itemID != 9999 )
+            card_view.All_DeleteCard();
+
+            if ( extreme_panel.extreme_itemID != 9999 )
             {
                 _text.text = "今、作ったお菓子をあげますか？";
                 compound_status = 10;
@@ -563,6 +597,8 @@ public class Compound_Main : MonoBehaviour
             stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             yes_no_load();
+
+            card_view.All_DeleteCard();
 
             _text.text = "次のお話に進みますか？";
             //compound_status = 20;

@@ -84,6 +84,8 @@ public class RuntimeInitializer : MonoBehaviour
 
         //EXPコントローラー（アイテム増減・経験の増減処理を行う）
         var expcontroller_init = new GameObject("Exp_Controller", typeof(Exp_Controller));
+        expcontroller_init.AddComponent<AudioSource>();
+        expcontroller_init.GetComponent<AudioSource>().volume = 0.5f;
         GameObject.DontDestroyOnLoad(expcontroller_init);
         expcontroller_init.tag = "Exp_Controller";
 

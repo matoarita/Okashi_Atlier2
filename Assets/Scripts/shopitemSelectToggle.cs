@@ -287,8 +287,10 @@ public class shopitemSelectToggle : MonoBehaviour
                 updown_button[1].interactable = true;
                 updown_counter_obj.SetActive(false);
 
-
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+                exp_Controller.Shop_ResultOK();
+
                 break;
 
             case false:

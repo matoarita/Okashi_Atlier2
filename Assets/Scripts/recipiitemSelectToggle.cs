@@ -29,6 +29,9 @@ public class recipiitemSelectToggle : MonoBehaviour
     private Updown_counter_recipi updown_counter;
     private Button[] updown_button = new Button[2];
 
+    private GameObject kakuritsuPanel_obj;
+    private KakuritsuPanel kakuritsuPanel;
+
     private GameObject card_view_obj;
     private CardView card_view;
 
@@ -36,7 +39,6 @@ public class recipiitemSelectToggle : MonoBehaviour
     private ItemSelect_Cancel itemselect_cancel;
 
     private PlayerItemList pitemlist;
-    //private PlayerStatus player_status;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -89,10 +91,13 @@ public class recipiitemSelectToggle : MonoBehaviour
         {
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+            kakuritsuPanel_obj = GameObject.FindWithTag("KakuritsuPanel");
+            kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
         }
 
         recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
-        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();      
 
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
@@ -192,7 +197,7 @@ public class recipiitemSelectToggle : MonoBehaviour
         else if (recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleitemType == 1) 
         {
             compo_itemname = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;
-            compo_itemID = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID; //itemID_1という変数に、プレイヤーが選択したアイテムIDを格納する。
+            compo_itemID = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID;
             recipilistController.result_recipicompID = compo_itemID;
 
             //調合DBの生成されるアイテム名から、アイテムDBを検索し、IDを検出して、リザルトに代入
@@ -224,7 +229,12 @@ public class recipiitemSelectToggle : MonoBehaviour
             updown_counter_obj.SetActive(true);
             updown_counter.updown_keisan_Method();
 
-            StartCoroutine("recipiitemselect_kakunin");
+            //調合判定を行うかどうか
+            exp_Controller._success_judge_flag = 1; //判定処理を行う。
+            exp_Controller._success_rate = databaseCompo.compoitems[compo_itemID].success_Rate + (PlayerStatus.player_renkin_lv);
+            kakuritsuPanel.KakuritsuYosoku_Img(databaseCompo.compoitems[compo_itemID].success_Rate + (PlayerStatus.player_renkin_lv));
+
+            StartCoroutine("recipiitemselect_kakunin"); //選択後、個数も選ぶ
         }    
 
     }
@@ -309,6 +319,8 @@ public class recipiitemSelectToggle : MonoBehaviour
                 compound_Main.compound_status = 4;
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+                exp_Controller.Recipi_ResultOK();
 
                 Debug.Log("選択完了！");
                 break;

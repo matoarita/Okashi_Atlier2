@@ -205,24 +205,24 @@ MonoBehaviour:
       Comment2: "\u5375\u767D\xD7\u7802\u7CD6\uFF08\u53B3\u5BC6\u306B\u306F\u30B0\u30E9\u30CB\u30E5\u30FC\u7CD6\uFF09"
       Comment3: "\u5375\u767D\u30D9\u30FC\u30B9\u306E\u30A2\u30D1\u30EC\u30A4\u30E6"
     - ItemID: 10
-      cmpitemName: cookie_base_appaleil
-      cmpitemID_1: appaleil
-      cmpitemID_2: empty
-      cmpitemID_3: empty
-      cmp_subtype_1: empty
-      cmp_subtype_2: Komugiko
-      cmp_subtype_3: empty
-      result_itemID: cookie_base
-      cmpitem_kosu1: 1
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 1
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
       cmp_flag: 0
-      cost_time: 1
-      success_rate: 95
-      renkin_Bexp: 3
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
       Comment: 
-      Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
-      Comment3: "\u30D0\u30BF\u30FC\u3068\u7802\u7CD6\u3092\u6DF7\u305C\u305F\u751F\u5730"
+      Comment2: 
+      Comment3: 
     - ItemID: 11
       cmpitemName: 
       cmpitemID_1: 
@@ -332,7 +332,7 @@ MonoBehaviour:
       cmpitem_kosu3: 1
       cmp_flag: 0
       cost_time: 1
-      success_rate: 95
+      success_rate: 30
       renkin_Bexp: 3
       Comment: 
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
@@ -370,7 +370,7 @@ MonoBehaviour:
       cmpitem_kosu3: 9999
       cmp_flag: 0
       cost_time: 1
-      success_rate: 90
+      success_rate: 60
       renkin_Bexp: 34
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AF\u30EA\u30FC\u30E0\u30C1\u30FC\u30BA"
@@ -408,7 +408,7 @@ MonoBehaviour:
       cmpitem_kosu3: 9999
       cmp_flag: 0
       cost_time: 1
-      success_rate: 90
+      success_rate: 75
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30D4\u30F3\u30AF\u30D6\u30E9\u30C3\u30C9\u30AA\u30EC\u30F3\u30B8"
@@ -427,7 +427,7 @@ MonoBehaviour:
       cmpitem_kosu3: 9999
       cmp_flag: 0
       cost_time: 1
-      success_rate: 90
+      success_rate: 80
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
@@ -446,7 +446,7 @@ MonoBehaviour:
       cmpitem_kosu3: 9999
       cmp_flag: 0
       cost_time: 1
-      success_rate: 90
+      success_rate: 80
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30D1\u30A6\u30C0\u30FC"
@@ -465,7 +465,7 @@ MonoBehaviour:
       cmpitem_kosu3: 9999
       cmp_flag: 0
       cost_time: 1
-      success_rate: 90
+      success_rate: 80
       renkin_Bexp: 34
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
@@ -484,7 +484,7 @@ MonoBehaviour:
       cmpitem_kosu3: 9999
       cmp_flag: 0
       cost_time: 1
-      success_rate: 90
+      success_rate: 20
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u307B\u3057\u306E\u7C89"
@@ -579,7 +579,7 @@ MonoBehaviour:
       cmpitem_kosu3: 1
       cmp_flag: 0
       cost_time: 1
-      success_rate: 90
+      success_rate: 5
       renkin_Bexp: 34
       Comment: 
       Comment2: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7528\u306E\u7C89\xD7\u5375\u767D\xD7\u7802\u7CD6\xD7\u7126\u304C\u3057\u30D0\u30BF\u30FC"
@@ -655,7 +655,7 @@ MonoBehaviour:
       cmpitem_kosu3: 1
       cmp_flag: 0
       cost_time: 1
-      success_rate: 90
+      success_rate: 80
       renkin_Bexp: 20
       Comment: "\u30D1\u30F3\u30B1\u30FC\u30AD\u7CFB"
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u305F\u307E\u3054\xD7\u725B\u4E73"
@@ -693,7 +693,7 @@ MonoBehaviour:
       cmpitem_kosu3: 1
       cmp_flag: 0
       cost_time: 1
-      success_rate: 95
+      success_rate: 50
       renkin_Bexp: 5
       Comment: "\u30B1\u30FC\u30AD\u7CFB"
       Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"

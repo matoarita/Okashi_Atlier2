@@ -47,6 +47,7 @@ TagManager:
   - GetMatPlace_Panel
   - Character
   - ExtremePanel
+  - KakuritsuPanel
   layers:
   - Default
   - TransparentFX

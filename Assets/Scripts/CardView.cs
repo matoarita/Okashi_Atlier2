@@ -63,7 +63,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         //位置とスケール
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
 
         //デバッグ用
         if (SceneManager.GetActiveScene().name == "Hiroba")
@@ -99,7 +99,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // トッピング調合を選択した場合の処理
         if (compound_Main.compound_select == 2)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.9f, 0.9f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
         }
     }
@@ -121,7 +121,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 100, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(0, 100, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -132,7 +132,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 100, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(0, 100, 0);
         }
 
     }
@@ -189,7 +189,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(50, 100, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(0, 100, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -202,7 +202,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(50, 100, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(0, 100, 0);
         }       
     }
 
@@ -273,7 +273,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[2].transform.localPosition = new Vector3(100, 0, 0);
 
             _cardImage_obj[3].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[3].transform.localPosition = new Vector3(50, 100, 0);
+            _cardImage_obj[3].transform.localPosition = new Vector3(0, 100, 0);
         }       
     }
 
@@ -311,6 +311,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
     }
 
+    //リザルトカードの場合は、カード自体を押すと、消える
     public void ResultCard_DrawView(int _toggleType, int _result_item)
     {
         for (i = 0; i < _cardImage_obj.Count; i++)
@@ -323,14 +324,26 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
 
+        _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _result_item;
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
 
         audioSource.PlayOneShot(sound1);
 
+    }
+
+    public void All_DeleteCard()
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+
+        _cardImage_obj.Clear();
     }
 
     void Draw_Compound()

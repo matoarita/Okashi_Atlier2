@@ -36,7 +36,7 @@ MonoBehaviour:
     - ItemID: 1
       place_Name: Forest
       place_Name_Hyouji: "\u8FD1\u304F\u306E\u68EE"
-      place_cost: 0
+      place_cost: 10
       place_flag: 1
       drop_item1: "\u306A\u3057"
       drop_item2: orange
