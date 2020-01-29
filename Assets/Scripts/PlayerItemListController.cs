@@ -22,6 +22,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private string[] _slot = new string[10]; //とりあえず、スロットの数の設定用。
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。
 
+    private GameObject updown_counter_obj;
+    private Updown_counter updown_counter;
+
     private PlayerItemList pitemlist;
 
     private GameObject textPrefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
@@ -158,6 +161,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
+
+        updown_counter_obj = this.transform.Find("updown_counter").gameObject;
+        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+
+        updown_counter_obj.SetActive(false);
 
         ResetKettei_item();
         kettei1_bunki = 0;

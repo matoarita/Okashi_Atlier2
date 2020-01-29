@@ -245,11 +245,13 @@ public class Compound_Main : MonoBehaviour
                 //はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
                 if (PlayerStatus.First_recipi_on == true)
                 {
-                    recipi_toggle.SetActive(true);
+                    Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(true);
+                    //recipi_toggle.SetActive(true);
                 }
                 else
                 {
-                    recipi_toggle.SetActive(false);
+                    Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(false);
+                    //recipi_toggle.SetActive(false);
                 }
 
                 //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
@@ -270,6 +272,8 @@ public class Compound_Main : MonoBehaviour
                         getmatplace_panel.SetActive(false);
                         compoundselect_onoff_obj.SetActive(true);
                         kakuritsuPanel_obj.SetActive(false);
+
+                        extreme_panel.extremeButtonInteractOn();
 
                         //backbutton_obj.SetActive(true);
                         text_area.SetActive(true);
@@ -490,7 +494,7 @@ public class Compound_Main : MonoBehaviour
 
             //black_effect.SetActive(true);
 
-            _text.text = "何を作る？";
+            _text.text = "新しくお菓子を作るよ！材料を選んでね。"; ;
             compound_status = 3;
         }
     }

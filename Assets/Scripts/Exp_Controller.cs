@@ -11,6 +11,8 @@ using System.Linq;
 
 public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 {
+    private GameObject canvas;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -27,6 +29,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private GameObject recipilistController_obj;
     private RecipiListController recipilistController;
+
+    private GameObject kakuritsuPanel_obj;
+    private KakuritsuPanel kakuritsuPanel;
 
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
@@ -78,7 +83,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int result_kosu;
 
     //成功確率
-    public int _success_rate;
+    public float _temp_srate_1;
+    public float _temp_srate_2;
+    public float _temp_srate_3;
+
+    public float _success_rate;
     public float _rate_final;
     public int _success_judge_flag; // 0=必ず成功, 1=計算する, 2=必ず失敗
     private int dice; //確率計算用サイコロ
@@ -140,9 +149,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
 
     private string _basename;
-    private int _basemp;
+    private int _basehp;
     private int _baseday;
     private int _basequality;
+    private float _baseprobability;
     private int _baserich;
     private int _basesweat;
     private int _basebitter;
@@ -165,7 +175,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int _base_extreme_kaisu;
 
     private string _addname;
-    private int _addmp;
+    private int _addhp;
     private int _addday;
     private int _addquality;
     private int _addrich;
@@ -190,7 +200,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int _addkosu;
 
     //_baseに加算する前に、一時的に計算する用。
-    private int _tempmp;
+    private int _temphp;
     private int _tempday;
     private int _tempquality;
     private int _temprich;
@@ -268,6 +278,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void Start () {
 
         DontDestroyOnLoad(this);
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -355,6 +368,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
                 extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
+
+                //キャンバスの読み込み
+                canvas = GameObject.FindWithTag("Canvas");
+
+                //確率パネルの取得
+                kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
             }
 
             //調合中ウェイト+アニメ
@@ -613,6 +633,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //右側パネルに、作ったやつを表示する。
             extremePanel.SetExtremeItem(result_item, 0);
 
+            //お菓子のHPをセット
+            extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
+
             new_item = result_item;
 
             PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
@@ -643,6 +666,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 PlayerStatus.First_recipi_on = true;
             }
 
+            //テキストの表示
+            renkin_default_exp_up();
         }
         else //調合失敗
         {
@@ -672,8 +697,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             Delete_playerItemList();
+            extremePanel.deleteExtreme_Item();
 
             card_view.ResultCard_DrawView(0, result_item);
+
+            //テキストの表示
+            Failed_Text();
 
         }
 
@@ -681,14 +710,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         compound_Main.compound_status = 0;
 
-        //日数の経過
-        PlayerStatus.player_day += databaseCompo.compoitems[result_ID].cost_Time;
+        extremePanel.extremeButtonInteractOn();
 
-        //テキストの表示
-        renkin_default_exp_up();
+        //日数の経過
+        //PlayerStatus.player_day += databaseCompo.compoitems[result_ID].cost_Time;
 
         _ex_text = "";
-
+ 
     }
 
 
@@ -764,7 +792,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //右側パネルに、作ったやつを表示する。
             extremePanel.SetExtremeItem(result_item, 0);
 
+            //お菓子のHPをセット
+            extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
+
             card_view.ResultCard_DrawView(0, result_item);
+
+            PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
+
+            //テキストの表示
+            renkin_default_exp_up();
         }
         else //失敗した
         {
@@ -794,18 +830,21 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             Delete_playerItemList();
+            extremePanel.deleteExtreme_Item();
 
             card_view.ResultCard_DrawView(0, result_item);
+
+            //テキストの表示
+            Failed_Text();
         }
 
         recipiresult_ok = false;
 
-        compound_Main.compound_status = 0;
+        extremePanel.extremeButtonInteractOn();
 
-        PlayerStatus.player_renkin_exp += databaseCompo.compoitems[result_ID].renkin_Bexp; //調合完成のアイテムに対応した経験値がもらえる。
+        compound_Main.compound_status = 0;        
 
-        //テキストの表示
-        renkin_default_exp_up();
+        
     }
 
 
@@ -876,8 +915,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compo_anim_end = false;
         compo_anim_status = 0;
 
-        //確率計算。エクストリーム調合の確率も含め計算する。
-        compound_success = true;
+        //調合判定。エクストリーム調合の確率も含め計算する。
+        CompoundSuccess_judge();
 
         if (compound_success == true)
         {
@@ -931,7 +970,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //右側パネルに、作ったやつを表示する。
             extremePanel.SetExtremeItem(new_item, 1);
 
+            //お菓子のHPをセット
+            extremePanel.SetDegOkashiLife(pitemlist.player_originalitemlist[new_item].itemHP);
             
+            //テキストの表示
+            renkin_exp_up();
         }
         else //失敗の場合
         {
@@ -960,20 +1003,24 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             Delete_playerItemList();
+            extremePanel.deleteExtreme_Item();
 
             card_view.ResultCard_DrawView(0, result_item);
 
+            //テキストの表示
+            Failed_Text();
         }
 
         topping_result_ok = false;
 
         compound_Main.compound_status = 0;
 
-        //テキストの表示
-        renkin_exp_up();
+        extremePanel.extremeButtonInteractOn();
 
         //テキスト表示後、閃いた～をリセットしておく
         _ex_text = "";
+
+        
     }
 
     //
@@ -1032,7 +1079,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             //例外発生
             Debug.Log("例外発生！焼きデータベースの登録がありません");
-            result_item = 500;
+            result_item = 0;
             card_view.ResultCard_DrawView(0, result_item);
 
         }
@@ -1193,9 +1240,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //各パラメータを取得
             _basename = database.items[_id].itemName;
-            _basemp = 0;
+            _basehp = 0;
             _baseday = 0;
             _basequality = 0;
+            _baseprobability = database.items[_id].Ex_Probability;
             _baserich = 0;
             _basesweat = 0;
             _basebitter = 0;
@@ -1231,9 +1279,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     //各パラメータを取得
                     _basename = database.items[_id].itemName;
-                    _basemp = database.items[_id].itemMP;
+                    _basehp = database.items[_id].itemHP;
                     _baseday = database.items[_id].item_day;
                     _basequality = database.items[_id].Quality;
+                    _baseprobability = database.items[_id].Ex_Probability;
                     _baserich = database.items[_id].Rich;
                     _basesweat = database.items[_id].Sweat;
                     _basebitter = database.items[_id].Bitter;
@@ -1274,9 +1323,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     //各パラメータを取得
                     _basename = pitemlist.player_originalitemlist[_id].itemName;
-                    _basemp = pitemlist.player_originalitemlist[_id].itemMP;
+                    _basehp = pitemlist.player_originalitemlist[_id].itemHP;
                     _baseday = pitemlist.player_originalitemlist[_id].item_day;
                     _basequality = pitemlist.player_originalitemlist[_id].Quality;
+                    _baseprobability = pitemlist.player_originalitemlist[_id].Ex_Probability;
                     _baserich = pitemlist.player_originalitemlist[_id].Rich;
                     _basesweat = pitemlist.player_originalitemlist[_id].Sweat;
                     _basebitter = pitemlist.player_originalitemlist[_id].Bitter;
@@ -1403,7 +1453,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Delete_playerItemList();
         
         //新しく作ったアイテムをオリジナルアイテムリストに追加。
-        pitemlist.addOriginalItem(_basename, _basemp, _baseday, _basequality, _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basegirl1_like, _basecost, _basesell, _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9], result_kosu, _base_extreme_kaisu);
+        pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseprobability, _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basegirl1_like, _basecost, _basesell, _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9], result_kosu, _base_extreme_kaisu);
         new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
     
     }
@@ -1542,7 +1592,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //初期化
         _additemlist.Clear();
 
-        _tempmp = 0;
+        _temphp = 0;
         _tempday = 0;
         _tempquality = 0;
         _temprich = 0;
@@ -1712,7 +1762,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         for (i = 0; i < _additemlist.Count; i++) //入れた材料の数だけ、繰り返す。その後、総個数割り算。
         {
-            _tempmp += _additemlist[i]._Addmp * _additemlist[i]._Addkosu;
+            //_temphp += _additemlist[i]._Addhp * _additemlist[i]._Addkosu;
             _tempday += _additemlist[i]._Addday * _additemlist[i]._Addkosu;
             _tempquality += _additemlist[i]._Addquality * _additemlist[i]._Addkosu;
 
@@ -1728,11 +1778,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         if (total_kosu == 0) { total_kosu = 1; } //0で割り算する恐れがあるので、回避
 
-        _basemp += _tempmp;
+        //_basehp += _temphp;
         _baseday += _tempday;
         _basequality += _tempquality;
 
-        _basemp /= total_kosu;
+        //_basehp /= total_kosu;
         _baseday /= total_kosu;
         _basequality /= total_kosu;
 
@@ -2178,7 +2228,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
 
         _addname = database.items[_id].itemName;
-        _addmp = database.items[_id].itemMP;
+        _addhp = database.items[_id].itemHP;
         _addday = database.items[_id].item_day;
         _addquality = database.items[_id].Quality;
         _addrich = database.items[_id].Rich;
@@ -2205,13 +2255,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _addtp[i] = database.items[_id].toppingtype[i].ToString();
         }
 
-        _additemlist.Add(new ItemAdd(_addname, _addmp, _addday, _addquality, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkosu));
+        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkosu));
     }
 
     void Set_add_originparam()
     {
         _addname = pitemlist.player_originalitemlist[_id].itemName;
-        _addmp = pitemlist.player_originalitemlist[_id].itemMP;
+        _addhp = pitemlist.player_originalitemlist[_id].itemHP;
         _addday = pitemlist.player_originalitemlist[_id].item_day;
         _addquality = pitemlist.player_originalitemlist[_id].Quality;
         _addrich = pitemlist.player_originalitemlist[_id].Rich;
@@ -2238,7 +2288,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _addtp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
         }
 
-        _additemlist.Add(new ItemAdd(_addname, _addmp, _addday, _addquality, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkosu));
+        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkosu));
     }
 
 
@@ -2264,7 +2314,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //各パラメータを取得
                 _basename = database.items[_id].itemName;
-                _basemp = database.items[_id].itemMP;
+                _basehp = database.items[_id].itemHP;
                 _baseday = database.items[_id].item_day;
                 _basequality = database.items[_id].Quality;
                 _baserich = database.items[_id].Rich;
@@ -2301,7 +2351,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //各パラメータを取得
                 _basename = pitemlist.player_originalitemlist[_id].itemName;
-                _basemp = pitemlist.player_originalitemlist[_id].itemMP;
+                _basehp = pitemlist.player_originalitemlist[_id].itemHP;
                 _baseday = pitemlist.player_originalitemlist[_id].item_day;
                 _basequality = pitemlist.player_originalitemlist[_id].Quality;
                 _baserich = pitemlist.player_originalitemlist[_id].Rich;
@@ -2622,6 +2672,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     }
 
+    void Failed_Text()
+    {
+        _text.text = "調合失敗..！ ";
+
+        Debug.Log("失敗..！");
+    }
+
 
     //確率判定処理
     void CompoundSuccess_judge()
@@ -2635,8 +2692,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 1: //判定処理を行う
 
+                
                 _rate_final = _success_rate;
 
+                //サイコロをふる
                 dice = Random.Range(1, 100); //1~100までのサイコロをふる。
 
                 Debug.Log("最終成功確率: " + _rate_final + " " + "ダイスの目: " + dice);

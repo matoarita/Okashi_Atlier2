@@ -29,6 +29,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private GameObject kakuritsuPanel_obj;
+    private KakuritsuPanel kakuritsuPanel;
+
     private GameObject canvas;
 
     private GameObject shopitemlistController_obj;
@@ -84,6 +87,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             case "Compound":
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+                exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
                 break;
 
@@ -148,6 +156,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 {
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                    canvas = GameObject.FindWithTag("Canvas");
+                    kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+                    kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+                    exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
                 }
 
                 //プレイヤーアイテムリストオブジェクトの初期化
@@ -354,6 +368,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                         {
                                             //Debug.Log("一個目はcancel");
 
+                                            exp_Controller._success_rate = 100;
+                                            kakuritsuPanel.KakuritsuYosoku_Reset();
                                             Two_cancel();
                                         }
                                     }
@@ -372,6 +388,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                         {
                                             //Debug.Log("二個目はcancel");
 
+                                            exp_Controller._success_rate = exp_Controller._temp_srate_1;
+                                            kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
                                             Three_cancel();
                                         }
                                     }
@@ -625,6 +643,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             {
                 update_ListSelect_Flag = 10; //ベースアイテム選択のみの状態
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
+
 
                 pitemlistController._listitem[pitemlistController._count1].GetComponent<Toggle>().isOn = false;
 

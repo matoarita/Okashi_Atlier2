@@ -89,8 +89,7 @@ public class itemSelectToggle : MonoBehaviour
 
     private int judge_flag; //調合判定を行うか否か
     private bool compoundsuccess_flag; //成功か失敗か
-    private int _success_rate;
-    private float _final_success_rate;
+    private float _success_rate;
     private int dice;
     private string success_text;
 
@@ -163,7 +162,7 @@ public class itemSelectToggle : MonoBehaviour
         card_view = card_view_obj.GetComponent<CardView>();
 
         //黒半透明パネルの取得
-        black_effect = GameObject.FindWithTag("Black_Effect");
+        //black_effect = GameObject.FindWithTag("Black_Effect");
 
         i = 0;
 
@@ -1147,27 +1146,27 @@ public class itemSelectToggle : MonoBehaviour
             {
                 exp_Controller.comp_judge_flag = 0; //新規調合の場合は0にする。
 
-                if (_success_rate >= 0 && _success_rate < 20)
+                if (_success_rate >= 0.0 && _success_rate < 20.0)
                 {
                     //成功率超低い
                     success_text = "これは.. 奇跡が起こればあるいは・・。";
                 }
-                else if (_success_rate >= 20 && _success_rate < 40)
+                else if (_success_rate >= 20.0 && _success_rate < 40.0)
                 {
                     //成功率低め
                     success_text = "かなりきつい・・かも。";
                 }
-                else if (_success_rate >= 40 && _success_rate < 60)
+                else if (_success_rate >= 40.0 && _success_rate < 60.0)
                 {
                     //普通
                     success_text = "頑張れば、いける・・！";
                 }
-                else if (_success_rate >= 60 && _success_rate < 80)
+                else if (_success_rate >= 60.0 && _success_rate < 80.0)
                 {
                     //成功率高め
                     success_text = "問題なくいけそうだね。";
                 }
-                else if (_success_rate >= 80 && _success_rate < 100)
+                else if (_success_rate >= 80.0 && _success_rate < 99.9)
                 {
                     //成功率かなり高い
                     success_text = "これなら楽勝！！";
@@ -1178,11 +1177,23 @@ public class itemSelectToggle : MonoBehaviour
                     success_text = "100%パーフェクト！";
                 }
             }
-            
+
             //調合判定を行うかどうか
-            exp_Controller._success_judge_flag = 1; //判定処理を行う。
-            exp_Controller._success_rate = _success_rate;
-            kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+
+            //新規調合の場合　もしくは、　エクストリーム調合の場合で、新しいレシピをひらめきそうな場合
+            if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
+            {
+                exp_Controller._success_judge_flag = 1; //判定処理を行う。
+                exp_Controller._success_rate = _success_rate;
+                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+            }
+            else if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
+            {
+                //?? 新しいお菓子を思いつきそうだ
+                exp_Controller._success_judge_flag = 1; //判定処理を行う。
+                //kakuritsuPanel.KakuritsuYosoku_NewImg();
+                //success_text = "新しいお菓子を思いつきそうだ。";
+            }
         }
 
         //どの調合リストにも当てはまらなかった場合（result_item=500）、
@@ -1449,6 +1460,13 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.kettei1_bunki = 11;
 
+                //トッピングの場合、このタイミングで確率も計算。一個目
+                _success_rate = (100 * database.items[itemID_1].Ex_Probability) + PlayerStatus.player_renkin_lv;
+
+                exp_Controller._temp_srate_1 = _success_rate; //キャンセル時などに、すぐ表示できるよう一時保存
+                exp_Controller._success_rate = _success_rate;
+                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+
                 _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
@@ -1496,6 +1514,13 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_item2 = itemID_2;
 
                 pitemlistController.kettei1_bunki = 12;
+
+                //トッピングの場合、このタイミングで確率も計算。二個目
+                _success_rate = (exp_Controller._temp_srate_1 * database.items[itemID_2].Ex_Probability) + PlayerStatus.player_renkin_lv;
+
+                exp_Controller._temp_srate_2 = _success_rate; //キャンセル時などに、すぐ表示できるよう一時保存
+                exp_Controller._success_rate = _success_rate;
+                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
 
                 _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。これでいいですか？";
 
@@ -1548,6 +1573,13 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_item3 = itemID_3;
 
                 pitemlistController.kettei1_bunki = 13;
+
+                //トッピングの場合、このタイミングで確率も計算。三個目
+                _success_rate = (exp_Controller._temp_srate_2 * database.items[itemID_3].Ex_Probability) + PlayerStatus.player_renkin_lv;
+
+                exp_Controller._temp_srate_3 = _success_rate; //キャンセル時などに、すぐ表示できるよう一時保存
+                exp_Controller._success_rate = _success_rate;
+                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
 
                 _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。これでいいですか？";
 
@@ -1665,6 +1697,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("一個目はcancel");
 
+                exp_Controller._success_rate = 100;
+                kakuritsuPanel.KakuritsuYosoku_Reset();
                 itemselect_cancel.Two_cancel();
 
                 break;
@@ -1716,6 +1750,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("二個目はcancel");
 
+                exp_Controller._success_rate = exp_Controller._temp_srate_1;
+                kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
                 itemselect_cancel.Three_cancel();
 
                 break;
@@ -1767,6 +1803,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("三個目はcancel");
 
+                exp_Controller._success_rate = exp_Controller._temp_srate_2;
+                kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_2);
                 itemselect_cancel.Four_cancel();
 
                 break;
@@ -1838,6 +1876,8 @@ public class itemSelectToggle : MonoBehaviour
 
                         //Debug.Log("ベースアイテムを選択した状態に戻る");
 
+                        exp_Controller._success_rate = 100;
+                        kakuritsuPanel.KakuritsuYosoku_Reset();
                         itemselect_cancel.Two_cancel();
 
                         break;
@@ -1901,6 +1941,8 @@ public class itemSelectToggle : MonoBehaviour
 
                         //Debug.Log("1個目を選択した状態に戻る");
 
+                        exp_Controller._success_rate = exp_Controller._temp_srate_1;
+                        kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
                         itemselect_cancel.Three_cancel();
 
                         break;
@@ -1949,6 +1991,8 @@ public class itemSelectToggle : MonoBehaviour
 
                         //Debug.Log("2個目を選択した状態に戻る");
 
+                        exp_Controller._success_rate = exp_Controller._temp_srate_2;
+                        kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_2);
                         itemselect_cancel.Four_cancel();
 
                         break;

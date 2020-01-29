@@ -22,9 +22,10 @@ public class Entity_ItemDataBase : ScriptableObject
 		public string name;
 		public string nameHyouji;
 		public string desc;
-		public int mp;
+		public int hp;
 		public int day;
 		public int quality;
+		public float ex_probability;
 		public int rich;
 		public int sweat;
 		public int bitter;
