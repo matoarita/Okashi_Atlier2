@@ -25,6 +25,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int hp;
 		public int day;
 		public int quality;
+		public int exp;
 		public float ex_probability;
 		public int rich;
 		public int sweat;

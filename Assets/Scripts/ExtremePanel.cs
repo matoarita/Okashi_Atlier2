@@ -94,7 +94,7 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Param = this.transform.Find("ExtremeKaisu/Text/ExtremeKaisuParam").gameObject.GetComponent<Text>(); //エクストリーム残り回数
         extreme_Param.text = "-";
 
-        extreme_Button = this.transform.Find("Button").gameObject.GetComponent<Button>(); //エクストリームボタン
+        extreme_Button = this.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
         recipi_Button = this.transform.Find("RecipiButton").gameObject.GetComponent<Button>(); //レシピボタン
 
         image_effect = this.transform.Find("Extreme_Image_effect").gameObject;
@@ -128,8 +128,27 @@ public class ExtremePanel : MonoBehaviour {
 
                 if (Starthp <= 0) //0になったら、お菓子が壊れる。
                 {
+                    //所持品削除
+                    switch (extreme_itemtype)
+                    {
+                        case 0: //プレイヤーアイテムリストから選択している。
+
+                            pitemlist.deletePlayerItem(extreme_itemID, 1);
+                            break;
+
+                        case 1: //オリジナルアイテムリストから選択している。
+
+                            pitemlist.deleteOriginalItem(extreme_itemID, 1);
+                            break;
+
+                        default:
+                            break;
+                    }
+
                     deleteExtreme_Item();
-                    Life_anim_on = false;
+
+                    Life_anim_on = false;                   
+
                 }
             }
 
@@ -180,21 +199,20 @@ public class ExtremePanel : MonoBehaviour {
             extreme_Button.interactable = false;
             recipi_Button.interactable = false;
 
+            //Compound_Mainのトッピング時と処理が同じ
+            pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
             if (extreme_itemID != 9999)
             {
-                //Compound_Mainのトッピング時と処理が同じ
-                pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
+                
                 compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
 
                 //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
                 yes = pitemlistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = pitemlistController_obj.transform.Find("No").gameObject;
-                no_text = no.GetComponentInChildren<Text>();
-
-                _text.text = "エクストリーム調合をするよ！ 一個目の材料を選んでね。";
+                no_text = no.GetComponentInChildren<Text>();              
 
                 compoundselect_onoff_obj.SetActive(false);
 
@@ -208,7 +226,7 @@ public class ExtremePanel : MonoBehaviour {
                 yes.SetActive(false);
                 no.SetActive(true);
 
-
+                _text.text = "エクストリーム調合をするよ！ 一個目の材料を選んでね。";
 
 
                 //以下、エクストリーム用に再度パラメータを設定
@@ -222,7 +240,6 @@ public class ExtremePanel : MonoBehaviour {
                 {
                     pitemlistController.final_base_kettei_item = pitemlist.player_originalitemlist[extreme_itemID].itemID;
                 }
-
 
                 pitemlistController.base_kettei_item = extreme_itemID;
                 pitemlistController._base_toggle_type = extreme_itemtype;
@@ -242,12 +259,10 @@ public class ExtremePanel : MonoBehaviour {
             {
                 card_view.All_DeleteCard();
 
-                //black_effect.SetActive(true);
-
                 _text.text = "新しくお菓子を作るよ！材料を選んでね。";
                 compound_Main.compound_status = 3;
 
-                //_text.text = "エクストリームパネルは空だよ。";
+                pitemlistController.extremepanel_on = false;
             }
         }
     }
@@ -273,7 +288,10 @@ public class ExtremePanel : MonoBehaviour {
         item_Icon.color = new Color(1, 1, 1, 0);
 
         extreme_itemID = 9999;
+        _hpslider.value = 0;
+        Starthp = 0;
 
+        Life_anim_on = false;
         image_effect.SetActive(false);
     }
 

@@ -85,4 +85,13 @@ public class FadeImage : MonoBehaviour {
         fade_sw = 0;
     }
 
+    public void SetOff() //画像を透明にし、なくす。
+    {
+        this.GetComponent<Image>().color = new Color(red, green, blue, 0);
+    }
+
+    public void SetOn() //画像を不透明度=255にし、表示。
+    {
+        this.GetComponent<Image>().color = new Color(red, green, blue, 1);
+    }
 }

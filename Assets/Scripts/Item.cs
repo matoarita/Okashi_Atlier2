@@ -20,6 +20,7 @@ public class Item
     public int ItemKosu;
     public int ExtremeKaisu;        //エクストリーム残り回数
 
+    public int Exp;                 //おかし自体の経験値。エクストリームの際、それぞれ合計したものが取得経験値になる。
     public int Quality;             //おかしの品質を表す数値。
     public float Ex_Probability;    //エクストリーム調合時、確率乗算パラメータ
 
@@ -99,7 +100,7 @@ public class Item
     }
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public Item(int id, string file_name, string name, string nameHyouji, string desc, int hp, int day, int quality, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp, int itemkosu, int extreme_kaisu)
+    public Item(int id, string file_name, string name, string nameHyouji, string desc, int hp, int day, int quality, int _exp, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp, int itemkosu, int extreme_kaisu)
     {
         itemID = id;
         fileName = file_name;
@@ -112,6 +113,8 @@ public class Item
         itemDesc = desc;
         itemHP = hp;
         item_day = day;
+
+        Exp = _exp;
 
         Quality = quality;
         Ex_Probability = ex_pro;

@@ -14,6 +14,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static int player_ninki_param; //人気度。いるかな？とりあえず置き
 
+    public static int player_zairyobox; // 材料カゴの大きさ
+
     public static bool First_recipi_on;
 
     public static List<bool> player_travelList = new List<bool>(); //旅行先。行ける場所が増えると、カウントも増える。
@@ -36,6 +38,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_renkin_exp = 0;
         player_ninki_param = 10;
         player_kaeru_coin = 0;
+        player_zairyobox = 10;
 
         First_recipi_on = false;
 

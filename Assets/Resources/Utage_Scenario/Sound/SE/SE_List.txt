@@ -11,3 +11,5 @@ SE表
 ・SE_09		audiostock_66421.mp3
 ・SE_10		audiostock_66343.mp3
 ・SE_11		audiostock_175671_sample.mp3
+・SE_12		audiostock_7724_sample
+・SE_13		audiostock_65015_sample

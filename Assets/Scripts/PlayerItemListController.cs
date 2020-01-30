@@ -168,7 +168,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         updown_counter_obj.SetActive(false);
 
         ResetKettei_item();
-        kettei1_bunki = 0;
+
+        if ( extremepanel_on == true )
+        {
+
+        }
+        else
+        {
+            kettei1_bunki = 0;
+        }
+        
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
@@ -245,7 +254,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             // トッピング調合を選択した場合の処理
             if (compound_Main.compound_select == 2)
             {
-                topping_DrawView_1();
+                if (kettei1_bunki == 0)
+                {
+                    topping_DrawView_1();
+                }
+                else
+                {
+                    topping_DrawView_2();
+                }
             }
             else
             {

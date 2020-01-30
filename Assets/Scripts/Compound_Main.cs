@@ -41,6 +41,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
+    private GameObject black_panel_A;
+
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -77,8 +79,6 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
-
-    private GameObject black_effect;
 
     private int i, j, _id;
     private int recipi_num;
@@ -174,12 +174,12 @@ public class Compound_Main : MonoBehaviour
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
         //黒半透明パネルの取得
-        //black_effect = GameObject.FindWithTag("Black_Effect");
-        //black_effect.SetActive(false);
+        black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+        black_panel_A.SetActive(false);
 
         //材料採取地パネルの取得
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").gameObject;
-        //getmatplace_panel.SetActive(false);
+        getmatplace_panel.SetActive(false);
 
         compoundselect_onoff_obj = GameObject.FindWithTag("CompoundSelect");
         saveload_panel = canvas.transform.Find("SaveLoadPanel").gameObject;
@@ -272,10 +272,10 @@ public class Compound_Main : MonoBehaviour
                         getmatplace_panel.SetActive(false);
                         compoundselect_onoff_obj.SetActive(true);
                         kakuritsuPanel_obj.SetActive(false);
+                        black_panel_A.SetActive(false);
 
                         extreme_panel.extremeButtonInteractOn();
 
-                        //backbutton_obj.SetActive(true);
                         text_area.SetActive(true);
 
                         text_scenario();
@@ -290,6 +290,7 @@ public class Compound_Main : MonoBehaviour
                         
                         recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
                         kakuritsuPanel_obj.SetActive(true);
+                        black_panel_A.SetActive(true);
 
                         yes.SetActive(false);
                         no.SetActive(true);
@@ -305,8 +306,8 @@ public class Compound_Main : MonoBehaviour
 
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         kakuritsuPanel_obj.SetActive(true);
-
-                        pitemlistController.extremepanel_on = false;
+                        black_panel_A.SetActive(true);
+ 
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
 
                         yes.SetActive(false);
@@ -323,6 +324,7 @@ public class Compound_Main : MonoBehaviour
 
                         playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         kakuritsuPanel_obj.SetActive(true);
+                        black_panel_A.SetActive(true);
 
                         pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
                         yes.SetActive(false);
@@ -443,6 +445,9 @@ public class Compound_Main : MonoBehaviour
                     text_scenario();
 
                     GameMgr.event_recipi_endflag = false;
+
+                    compound_status = 0;
+                    compound_select = 0;
                 }
 
 
@@ -459,8 +464,6 @@ public class Compound_Main : MonoBehaviour
 
             card_view.All_DeleteCard();
 
-            //black_effect.SetActive(true);
-
             _text.text = "レシピから作るよ。何を作る？";
             compound_status = 1;
         }
@@ -473,10 +476,8 @@ public class Compound_Main : MonoBehaviour
             extreme_toggle.GetComponent<Toggle>().isOn = false;
             yes_no_load();
 
+            pitemlistController.extremepanel_on = false;
             card_view.All_DeleteCard();
-
-            //black_effect.SetActive(true);
-
 
             _text.text = "エクストリーム調合をするよ！ まずは、お菓子を選んでね。";
             compound_status = 2;
@@ -491,8 +492,6 @@ public class Compound_Main : MonoBehaviour
             yes_no_load();
 
             card_view.All_DeleteCard();
-
-            //black_effect.SetActive(true);
 
             _text.text = "新しくお菓子を作るよ！材料を選んでね。"; ;
             compound_status = 3;
@@ -519,8 +518,6 @@ public class Compound_Main : MonoBehaviour
 
             card_view.All_DeleteCard();
 
-            //black_effect.SetActive(true);
-
             _text.text = "作った生地を焼きます。焼きたい生地を選んでください。";
             compound_status = 5;
         }
@@ -534,8 +531,6 @@ public class Compound_Main : MonoBehaviour
             yes_no_load();
 
             card_view.All_DeleteCard();
-
-            //black_effect.SetActive(true);
 
             compound_status = 99;
         }
@@ -611,7 +606,7 @@ public class Compound_Main : MonoBehaviour
     }
 
 
-    //イベント用レシピを見たときの処理。
+    //イベント用レシピを見たときの処理。recipiitemselecttoggleから呼ばれる。
     public void eventRecipi_ON()
     {
         recipilist_onoff.SetActive(false);

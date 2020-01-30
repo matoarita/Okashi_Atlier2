@@ -11,10 +11,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private SpriteRenderer s;
 
-    private float timeLeft;
-    private int timeCount;
-    private Text Counter;
-
     public float timeOut;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
 
@@ -127,10 +123,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //テキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
 
-        //秒計算。　
-        timeLeft = 1.0f;
-        timeCount = 0; //1秒タイマー
-
         //この時間ごとに、女の子は、お菓子を欲しがり始める。
         timeOut = 5.0f;
 
@@ -194,29 +186,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //Prefab内の、コンテンツ要素を取得       
             hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
         }
-            
 
-        timeLeft -= Time.deltaTime;
 
         if (GirlEat_Judge_on != true)
         {
             timeOut -= Time.deltaTime;
         }
-
-        //1秒ごとのタイムカウンター
-        if (timeLeft <= 0.0)
-        {
-            timeLeft = 1.0f;
-            timeCount++;
-
-            //ここに処理。デバッグ用。
-            canvas = GameObject.FindWithTag("Canvas");
-            Counter = GameObject.FindWithTag("Debug_Panel").GetComponentInChildren<Text>(); //デバッグ用
-
-            Counter.text = "PlayTime: " + timeCount + " s";
-            //Debug.Log("経過時間: " + timeCount + " 秒");
-        }
-
 
         if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしない。
         {

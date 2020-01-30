@@ -167,7 +167,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     }
 
     //　トッピングで、調節したオリジナルアイテムを登録する。
-    public void addOriginalItem(string _name, int _mp, int _day, int _quality, float _ex_probabilty, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _girl1_like, int _cost, int _sell, string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10, int _itemkosu, int extreme_kaisu)
+    public void addOriginalItem(string _name, int _mp, int _day, int _quality, int _exp, float _ex_probabilty, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _girl1_like, int _cost, int _sell, string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10, int _itemkosu, int extreme_kaisu)
     {
         //トッピングアイテムを追加の際は、アイテム名（_name）＋任意の数字のパラメータ。ファイルネームやアイコンなどは共通なので、データベースから取得。
 
@@ -191,7 +191,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             ++i;
         }
 
-        player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _mp, _day, _quality, _ex_probabilty, _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp, _itemkosu, extreme_kaisu));
+        player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _mp, _day, _quality, _exp, _ex_probabilty, _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp, _itemkosu, extreme_kaisu));
     }
 
     public void deleteOriginalItem(int _id, int _kosu)

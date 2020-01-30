@@ -22,6 +22,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 3
       ex_probability: 0.95
       rich: 35
       sweat: 0
@@ -60,6 +61,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 5
       ex_probability: 0.95
       rich: 60
       sweat: 0
@@ -98,6 +100,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 7
       ex_probability: 0.9
       rich: 75
       sweat: 0
@@ -136,6 +139,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 3
       ex_probability: 0.9
       rich: 5
       sweat: 50
@@ -174,6 +178,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 10
       ex_probability: 0.85
       rich: 5
       sweat: 60
@@ -212,6 +217,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 12
       ex_probability: 0.8
       rich: 5
       sweat: 25
@@ -250,6 +256,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 20
       ex_probability: 0.7
       rich: 5
       sweat: 57
@@ -288,6 +295,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 30
       ex_probability: 0.7
       rich: 5
       sweat: 30
@@ -326,6 +334,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 5
       ex_probability: 0.95
       rich: 60
       sweat: 0
@@ -364,6 +373,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 5
       ex_probability: 0.95
       rich: 40
       sweat: 0
@@ -402,6 +412,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 5
       ex_probability: 0.95
       rich: 80
       sweat: 0
@@ -440,6 +451,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 20
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -478,6 +490,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 3
       ex_probability: 0.95
       rich: 35
       sweat: 0
@@ -516,6 +529,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 1
       ex_probability: 0.95
       rich: 35
       sweat: 0
@@ -554,6 +568,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 5
       ex_probability: 0.95
       rich: 60
       sweat: 0
@@ -592,6 +607,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 5
       ex_probability: 0.95
       rich: 0
       sweat: 7
@@ -630,6 +646,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 10
       ex_probability: 0.7
       rich: 0
       sweat: 10
@@ -668,6 +685,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 8
       ex_probability: 0.92
       rich: 0
       sweat: 10
@@ -706,6 +724,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 10
       ex_probability: 0.89
       rich: 0
       sweat: 7
@@ -744,6 +763,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 15
       ex_probability: 0.85
       rich: 0
       sweat: 12
@@ -782,6 +802,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 7
       ex_probability: 0.95
       rich: 0
       sweat: 12
@@ -820,6 +841,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 20
       ex_probability: 0.75
       rich: 0
       sweat: 12
@@ -858,6 +880,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 3
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -896,6 +919,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 8
       ex_probability: 0.95
       rich: 55
       sweat: 10
@@ -934,6 +958,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 23
       ex_probability: 0.95
       rich: 85
       sweat: 0
@@ -972,6 +997,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 0
       ex_probability: 0.95
       rich: 85
       sweat: 0
@@ -1010,6 +1036,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 30
       ex_probability: 0.95
       rich: 85
       sweat: 0
@@ -1048,6 +1075,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 10
       ex_probability: 0.95
       rich: 65
       sweat: 0
@@ -1086,6 +1114,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 13
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1124,6 +1153,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1162,6 +1192,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1200,6 +1231,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1238,6 +1270,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1276,6 +1309,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1314,6 +1348,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1352,6 +1387,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1390,6 +1426,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1428,6 +1465,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1466,6 +1504,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1504,6 +1543,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1542,6 +1582,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1580,6 +1621,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1618,6 +1660,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1656,6 +1699,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1694,6 +1738,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1732,6 +1777,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1770,6 +1816,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1810,6 +1857,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1848,6 +1896,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1886,6 +1935,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1924,6 +1974,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -1962,6 +2013,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -2000,6 +2052,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 40
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -2038,6 +2091,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -2076,6 +2130,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -2114,6 +2169,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -2152,6 +2208,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -2190,6 +2247,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -2228,6 +2286,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 20
@@ -2266,6 +2325,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 20
@@ -2304,6 +2364,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 50
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 20
@@ -2342,6 +2403,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 60
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 50
@@ -2380,6 +2442,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 60
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 50
@@ -2418,6 +2481,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 60
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 50
@@ -2456,6 +2520,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 40
@@ -2494,6 +2559,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 40
@@ -2532,6 +2598,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 40
@@ -2570,6 +2637,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 30
@@ -2608,6 +2676,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 70
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 67
@@ -2646,6 +2715,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 70
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 40
@@ -2684,6 +2754,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 40
@@ -2722,6 +2793,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 70
@@ -2760,6 +2832,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 150
       ex_probability: 0.95
       rich: 0
       sweat: 70
@@ -2798,6 +2871,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 90
+      exp: 2000
       ex_probability: 0.95
       rich: 0
       sweat: 70
@@ -2836,6 +2910,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 100
+      exp: 2000
       ex_probability: 0.95
       rich: 0
       sweat: 70
@@ -2874,6 +2949,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 50
+      exp: 3000
       ex_probability: 0.95
       rich: 0
       sweat: 50
@@ -2912,6 +2988,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 50
+      exp: 5656
       ex_probability: 0.95
       rich: 0
       sweat: 50
@@ -2950,6 +3027,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 50
+      exp: 100
       ex_probability: 0.95
       rich: 0
       sweat: 60
@@ -2988,6 +3066,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 6
@@ -3026,6 +3105,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 6
@@ -3064,6 +3144,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -3102,6 +3183,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3140,6 +3222,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3178,6 +3261,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3216,6 +3300,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3254,6 +3339,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3292,6 +3378,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3330,6 +3417,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3368,6 +3456,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3406,6 +3495,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3444,6 +3534,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3482,6 +3573,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3520,6 +3612,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3558,6 +3651,7 @@ MonoBehaviour:
       hp: 100
       day: 0
       quality: 20
+      exp: 0
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3598,6 +3692,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 50
       ex_probability: 0.95
       rich: 0
       sweat: 10
@@ -3636,6 +3731,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 50
       ex_probability: 0.95
       rich: 0
       sweat: 20
@@ -3674,6 +3770,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 50
       ex_probability: 0.95
       rich: 0
       sweat: 30
@@ -3712,6 +3809,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 50
       ex_probability: 0.85
       rich: 0
       sweat: 30
@@ -3750,6 +3848,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 50
       ex_probability: 0.6
       rich: 0
       sweat: 30
@@ -3788,6 +3887,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 50
       ex_probability: 0.5
       rich: 0
       sweat: 30
@@ -3826,6 +3926,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 50
       ex_probability: 0.95
       rich: 0
       sweat: 30
@@ -3864,6 +3965,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 50
       ex_probability: 0.95
       rich: 0
       sweat: 0
@@ -3902,6 +4004,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 50
       ex_probability: 0.88
       rich: 0
       sweat: 60
@@ -3940,6 +4043,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 50
       ex_probability: 0.88
       rich: 0
       sweat: 60
@@ -3978,6 +4082,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 10
       ex_probability: 0.95
       rich: 0
       sweat: 60
@@ -4016,6 +4121,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 10
       ex_probability: 0.95
       rich: 0
       sweat: 60
@@ -4054,6 +4160,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 300
       ex_probability: 0.5
       rich: 0
       sweat: 60
@@ -4092,6 +4199,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 50
+      exp: 10
       ex_probability: 0.95
       rich: 0
       sweat: 60
@@ -4132,6 +4240,7 @@ MonoBehaviour:
       hp: 0
       day: 0
       quality: 0
+      exp: 0
       ex_probability: 0
       rich: 0
       sweat: 0

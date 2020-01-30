@@ -43,8 +43,11 @@ public class GetMaterial : MonoBehaviour {
     private int i, count, empty;
     private int index;
 
+    private int cullent_total_mat;
+
     private string[] _a = new string[3];
     private string[] _a_final = new string[3];
+    private string _a_zairyomax;
     private int[] kettei_item = new int[3];
     private int[] kettei_kosu = new int[3];
 
@@ -83,6 +86,8 @@ public class GetMaterial : MonoBehaviour {
         mat_anim_status = 0;
         mat_anim_on = false;
         mat_anim_end = false;
+
+        cullent_total_mat = 0;
 
         slot_view_fade = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Image").gameObject.GetComponent<FadeImage>();
 
@@ -165,18 +170,28 @@ public class GetMaterial : MonoBehaviour {
         }
         else
         {
-            //お金の消費
-            PlayerStatus.player_money = PlayerStatus.player_money - mat_cost;
+            //カゴの大きさのチェック。取った数の総量がMAXを超えると、これ以上取れない。
+            if (PlayerStatus.player_zairyobox >= cullent_total_mat)
+            { 
 
-            //ウェイトアニメ
-            mat_anim_on = true;
-            mat_anim_end = false;
-            slot_view_fade.FadeImageOff(); //ビュー画面を暗くフェード
+              //お金の消費
+                PlayerStatus.player_money = PlayerStatus.player_money - mat_cost;
 
-            tansaku_panel.SetActive(false);
-            //tansaku_yes.interactable = false;
-            //tansaku_no.interactable = false;
-            StartCoroutine("Mat_Judge_anim_co");           
+                //ウェイトアニメ
+                mat_anim_on = true;
+                mat_anim_end = false;
+                slot_view_fade.FadeImageOff(); //ビュー画面を暗くフェード
+
+                tansaku_panel.SetActive(false);
+                //tansaku_yes.interactable = false;
+                //tansaku_no.interactable = false;
+                StartCoroutine("Mat_Judge_anim_co");
+
+            }
+            else
+            {
+                _text.text = "もうカゴがいっぱいだよ～。";
+            }
 
         }
 
@@ -231,14 +246,13 @@ public class GetMaterial : MonoBehaviour {
                     ++i;
                 }
 
+                cullent_total_mat += kettei_kosu[count]; //現在拾った材料の数
 
                 _a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
-            }
-
-
+            }           
         }
 
 
@@ -285,7 +299,17 @@ public class GetMaterial : MonoBehaviour {
         }
         else //何か一つでもアイテムを見つけた
         {
-            _text.text = _a_final[0] + _a_final[1] + _a_final[2];
+
+            if (PlayerStatus.player_zairyobox >= cullent_total_mat)
+            {
+                _a_zairyomax = "";
+            }
+            else
+            {
+                _a_zairyomax = "\n" + "もうカゴがいっぱい。";
+            }
+
+            _text.text = _a_final[0] + _a_final[1] + _a_final[2] + _a_zairyomax;
 
             //音を鳴らす
             audioSource.PlayOneShot(sound1);
@@ -378,5 +402,11 @@ public class GetMaterial : MonoBehaviour {
             }
         }
         return 0;
+    }
+
+    public void SetInit()
+    {
+        cullent_total_mat = 0;
+        _a_zairyomax = "";
     }
 }

@@ -19,6 +19,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject slot_yes, slot_no;
     private Image slot_view_image;
 
+    private GameObject moveanim_panel;
+    private GameObject moveanim_panel_image;
+    private GameObject moveanim_panel_image_text;
+
     private GameObject matplace_toggle1;
     private GameObject matplace_toggle2;
 
@@ -42,6 +46,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int slot_view_status;
 
     private int i;
+
+    private bool move_anim_on;
+    private bool move_anim_end;
+    private int move_anim_status;
+    private float timeOut;
+
+    private bool modoru_anim_on;
+    private bool modoru_anim_end;
+    private int modoru_anim_status;
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -74,6 +87,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //Yes no パネルの取得
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+
+        //移動中アニメーション用パネルの取得
+        moveanim_panel = this.transform.Find("MoveAnimPanel").gameObject;
+        moveanim_panel_image = this.transform.Find("MoveAnimPanel/moveImage").gameObject;
+        moveanim_panel_image_text = this.transform.Find("MoveAnimPanel/moveImage/Text").gameObject;
 
         //Yes no を判別する用のオブジェクトの取得
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
@@ -109,15 +127,47 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-        if ( Slot_view_on == true )
+
+        if (move_anim_on == true)
         {
             //移動中のウェイトアニメ
+            MoveAnim();
+        }
 
+        if (move_anim_end == true)
+        {
+            move_anim_end = false;
+            Slot_view_on = true;            
+        }
+
+        if ( Slot_view_on == true )
+        {
             //採取地表示
             Slot_View();
         }
-	}
+
+        if (modoru_anim_on == true)
+        {
+            //移動中のウェイトアニメ
+            ModoruAnim();
+        }
+
+        if (modoru_anim_end == true)
+        {
+            //帰還できたらリセット
+            modoru_anim_end = false;
+            compound_Main.compound_status = 0;
+
+            slot_yes.GetComponent<Button>().interactable = true;
+            slot_no.GetComponent<Button>().interactable = true;
+            
+
+            slot_view_status = 0;
+            slot_view.SetActive(false);
+
+            _text.text = "家に戻ってきた。";
+        }
+    }
 
     public void OnClick_Place1()
     {
@@ -179,8 +229,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
-                Slot_view_on = true;
-                //getmatplace_view.SetActive(false);
+
+                move_anim_on = true;
+                move_anim_status = 0;
 
                 break;
 
@@ -202,10 +253,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             case 0: //初期化
 
+                getmatplace_view.SetActive(false);
                 slot_view.SetActive(true);
                 yes_no_panel.SetActive(false);
                 slot_view_status = 1;
                 compound_Main.compound_status = 21;
+                get_material.SetInit();
 
                 switch (select_place_num)
                 {
@@ -298,19 +351,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //全ての処理が完了し、家に戻るときに、以下の処理でリセット
                 All_Off();
 
-                compound_Main.compound_status = 0;
-
-                slot_yes.GetComponent<Button>().interactable = true;
-                slot_no.GetComponent<Button>().interactable = true;
-                yes_no_panel.SetActive(false);
-
-                slot_view_status = 0;
-                Slot_view_on = false;
-                slot_view.SetActive(false);
-
-                yes_selectitem_kettei.onclick = false;
-
-                _text.text = "家に戻ってきた。";
+                modoru_anim_on = true;
+               
 
                 break;
 
@@ -361,6 +403,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //最初は、採取地選択画面をonに。
         getmatplace_view.SetActive(true);
 
+        moveanim_panel.SetActive(false);
+
+        move_anim_on = false;
+        modoru_anim_on = false;
+
         //表示フラグにそって、採取地の表示/非表示の決定
 
         if ( matplace_database.matplace_lists[0].placeFlag == 1)
@@ -385,5 +432,131 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     }
 
-    
+    void MoveAnim()
+    {
+        switch (move_anim_status)
+        {
+            case 0: //初期化 状態１
+
+                timeOut = 1.0f;
+                move_anim_status = 1;
+                move_anim_end = false;
+
+                yes_no_panel.SetActive(false);                
+
+                moveanim_panel.SetActive(true);
+                moveanim_panel.GetComponent<FadeImage>().SetOn();
+                moveanim_panel_image.SetActive(true);
+                moveanim_panel_image_text.SetActive(true);
+
+                _text.text = "移動中 .";
+                moveanim_panel_image_text.GetComponent<Text>().text = "移動中 .";
+                break;
+
+            case 1: // 状態2
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    move_anim_status = 2;
+
+                    _text.text = "移動中 . .";
+                    moveanim_panel_image_text.GetComponent<Text>().text = "移動中 . .";
+                }
+                break;
+
+            case 2:
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    move_anim_status = 3;
+
+                    
+                }
+                break;
+
+            case 3: //アニメ終了。判定する
+
+                move_anim_on = false;
+                move_anim_end = true;
+                moveanim_panel.GetComponent<FadeImage>().FadeImageOff();
+                moveanim_panel_image.SetActive(false);
+                moveanim_panel_image_text.SetActive(false);
+                move_anim_status = 0;
+
+                break;
+
+            default:
+                break;
+        }
+
+        //時間減少
+        timeOut -= Time.deltaTime;
+    }
+
+    void ModoruAnim()
+    {
+        switch (modoru_anim_status)
+        {
+            case 0: //初期化 状態１
+
+                timeOut = 1.0f;
+                modoru_anim_status = 1;
+                modoru_anim_end = false;
+
+                yes_no_panel.SetActive(false);
+
+                Slot_view_on = false;                
+
+                moveanim_panel.GetComponent<FadeImage>().FadeImageOn();
+                moveanim_panel_image.SetActive(true);
+                moveanim_panel_image_text.SetActive(true);
+
+                _text.text = "帰還中 .";
+                moveanim_panel_image_text.GetComponent<Text>().text = "帰還中 .";
+                break;
+
+            case 1: // 状態2
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    modoru_anim_status = 2;
+
+                    _text.text = "帰還中 . .";
+                    moveanim_panel_image_text.GetComponent<Text>().text = "帰還中 . .";
+                }
+                break;
+
+            case 2:
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    modoru_anim_status = 3;
+
+
+                }
+                break;
+
+            case 3: //アニメ終了。判定する
+
+                modoru_anim_on = false;
+                modoru_anim_end = true;
+
+                moveanim_panel.SetActive(false);
+                moveanim_panel_image.SetActive(false);
+                moveanim_panel_image_text.SetActive(false);
+                modoru_anim_status = 0;
+
+                break;
+
+            default:
+                break;
+        }
+
+        //時間減少
+        timeOut -= Time.deltaTime;
+    }
 }

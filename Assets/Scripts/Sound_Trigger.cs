@@ -31,14 +31,14 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(0);
                 break;
 
-            case "GetMaterial_Toggle": //Get_Materialを押したときのSE
+            case "ExtremeButton": //Get_Materialを押したときのSE
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
 
                 //クリックしたときに鳴る音。「GetMaterial」スクリプトで鳴らすようにした。
-                //SE_point_click(9);
+                SE_point_click(0);
                 break;
 
             default: //特に指定がない場合

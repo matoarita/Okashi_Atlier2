@@ -625,7 +625,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         _text = text_area.GetComponentInChildren<Text>();
 
         kettei_on_waiting = false;
-        //pitemlistController.kettei1_on = true; //トグル選択が持続している状態を表す
 
         if (pitemlistController.kettei1_bunki == 2)
             {

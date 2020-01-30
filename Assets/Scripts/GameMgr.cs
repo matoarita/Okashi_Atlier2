@@ -29,6 +29,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     private int i, j;
     private int ev_id;
 
+    private float timeLeft;
+    public static int Game_timeCount; //ゲーム内共通の時間
+
     //イベントフラグ管理用
     [SerializeField]
     private bool orange_recipi_get;
@@ -56,6 +59,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         talk_flag = false;
         talk_number = 0;
 
+        //秒計算。　
+        timeLeft = 1.0f;
+        Game_timeCount = 0; //1秒タイマー
     }
 	
 	// Update is called once per frame
@@ -63,6 +69,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //デバッグ用
         scenario_flag_cullent = scenario_flag;
+
+        //時間のカウント
+        timeLeft -= Time.deltaTime;
+
+        //1秒ごとのタイムカウンター
+        if (timeLeft <= 0.0)
+        {
+            timeLeft = 1.0f;
+            Game_timeCount++;
+        }
 
         if (Input.GetKeyDown(KeyCode.Space)) //Spaceキーをおすと、シナリオフラグの入力を手動で設定する。
         {
