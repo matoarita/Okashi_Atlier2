@@ -202,6 +202,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
 
+            selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+            yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
             //調合中か、あげる処理に入っているか、もしくはアイテムリストを開いているとき
             if (compound_Main.compound_status == 4)
             {
@@ -209,10 +212,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 {
                     yes = recipilistController_obj.transform.Find("Yes").gameObject;
                     yes_text = yes.GetComponentInChildren<Text>();
-                    no = recipilistController_obj.transform.Find("No").gameObject;
-
-                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+                    no = recipilistController_obj.transform.Find("No").gameObject;                    
 
                     updown_counter_obj = recipilistController_obj.transform.Find("updown_counter").gameObject;
                     updown_counter_recipi = updown_counter_obj.GetComponent<Updown_counter_recipi>();
@@ -222,10 +222,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 {
                     yes = pitemlistController_obj.transform.Find("Yes").gameObject;
                     yes_text = yes.GetComponentInChildren<Text>();
-                    no = pitemlistController_obj.transform.Find("No").gameObject;
-
-                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+                    no = pitemlistController_obj.transform.Find("No").gameObject;                    
 
                     updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
                     updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
@@ -254,9 +251,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             //status=20。材料採取地選択
             else if (compound_Main.compound_status == 20)
-            {
-                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+            {                
 
                 if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
                 {
@@ -277,7 +272,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
             else
-            {
+            {               
 
                 //調合選択中のとき、キャンセル待ち処理
                 if (compound_Main.compound_select == 3) //オリジナル調合のときの処理
@@ -407,13 +402,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         {
                             All_cancel();
 
-                            //カード表示を消す
-                            card_view.DeleteCard_DrawView();
-
-                            yes.SetActive(false);
-                            no.SetActive(true);
-
-                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                         }
                     }
                 }

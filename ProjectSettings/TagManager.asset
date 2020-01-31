@@ -47,6 +47,7 @@ TagManager:
   - Character
   - ExtremePanel
   - KakuritsuPanel
+  - OkashiParamKeisanMethod
   layers:
   - Default
   - TransparentFX

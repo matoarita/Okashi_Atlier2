@@ -711,6 +711,7 @@ public class GirlEat_Judge : MonoBehaviour {
     void LoveScoreCal()
     {
         //①アイテムそれぞれの固有の好感度: _basegirl1_like お金:_basecost + ②スロット単体の効果による得点 + ③スロットの役の組み合わせ（チョコバナナなど）
+        // - 品質補正（お菓子のHPが低いと、それに応じて、好感度・お金も下がる）ただ、かなり低くならない限りは、そこまで影響しない
 
         slot_girlscore = 0;
         slot_money = 0;

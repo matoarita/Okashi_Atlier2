@@ -11,8 +11,10 @@ public class ExtremePanel : MonoBehaviour {
     private int extreme_kaisu;
 
     private GameObject image_effect;
-
     private GameObject canvas;
+    private GameObject black_panel_A;
+
+    private OkashiParamKeisanMethod Okashi_keisan;
 
     private PlayerItemList pitemlist;
 
@@ -25,12 +27,18 @@ public class ExtremePanel : MonoBehaviour {
     private Text extreme_Param;
 
     private Slider _hpslider; //お菓子のHPバーを取得
-    private bool Life_anim_on;
+    public bool Life_anim_on;
     private float Starthp;
     private float _deg;
+    private float _moneydeg;
+
+    private Text CullentOkashi_money;
+    private float Okashi_moneyparam; //計算時はfloatだが、最終的にintになおして計算する
+    public int Okashi_moneypram_int;
 
     private Button extreme_Button;
     private Button recipi_Button;
+    private GameObject sell_Button;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -74,6 +82,9 @@ public class ExtremePanel : MonoBehaviour {
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
+        //お菓子パラム計算用メソッドの取得
+        Okashi_keisan = GameObject.FindWithTag("OkashiParamKeisanMethod").GetComponent<OkashiParamKeisanMethod>();
+
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
@@ -81,6 +92,9 @@ public class ExtremePanel : MonoBehaviour {
         //windowテキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
+
+        //黒半透明パネルの取得
+        black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
 
         //確率パネルの取得
         kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
@@ -94,8 +108,10 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Param = this.transform.Find("ExtremeKaisu/Text/ExtremeKaisuParam").gameObject.GetComponent<Text>(); //エクストリーム残り回数
         extreme_Param.text = "-";
 
+        //ボタンの取得
         extreme_Button = this.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
         recipi_Button = this.transform.Find("RecipiButton").gameObject.GetComponent<Button>(); //レシピボタン
+        sell_Button = this.transform.Find("SellButton").gameObject; //売るボタン        
 
         image_effect = this.transform.Find("Extreme_Image_effect").gameObject;
         image_effect.SetActive(false);
@@ -107,6 +123,11 @@ public class ExtremePanel : MonoBehaviour {
         //お菓子HPバーの取得
         _hpslider = this.transform.Find("Life_Bar").GetComponent<Slider>();
         _hpslider.value = 0;
+
+        //現在のお菓子の価格テキストを取得
+        CullentOkashi_money = this.transform.Find("SellButton/CullentOkashiMoney/GordParam").gameObject.GetComponent<Text>();
+        CullentOkashi_money.text = "-";
+        Okashi_moneyparam = 0;
 
         _deg = 1.0f; //1秒間あたりの減少量
 
@@ -125,6 +146,10 @@ public class ExtremePanel : MonoBehaviour {
 
                 Starthp -= _deg; //_degの分ずつ、減少していく。
                 _hpslider.value = Starthp; //それをバーにも反映。
+                
+                Okashi_moneyparam -= _moneydeg;
+                Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
+                CullentOkashi_money.text = Okashi_moneypram_int.ToString();
 
                 if (Starthp <= 0) //0になったら、お菓子が壊れる。
                 {
@@ -186,6 +211,8 @@ public class ExtremePanel : MonoBehaviour {
         //エフェクトの表示
         image_effect.SetActive(true);
 
+        //売るボタンを表示
+        sell_Button.SetActive(true);
     }
 
     public void OnClick_ExtremeButton()
@@ -222,6 +249,7 @@ public class ExtremePanel : MonoBehaviour {
                 kakuritsuPanel_obj.SetActive(true);
                 pitemlistController_obj.SetActive(true); //プレイヤーアイテム画面を表示。
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                black_panel_A.SetActive(true);
 
                 yes.SetActive(false);
                 no.SetActive(true);
@@ -275,8 +303,6 @@ public class ExtremePanel : MonoBehaviour {
 
         card_view.All_DeleteCard();
 
-        //black_effect.SetActive(true);
-
         _text.text = "レシピから作るよ。何を作る？";
         compound_Main.compound_status = 1;
     }
@@ -284,9 +310,13 @@ public class ExtremePanel : MonoBehaviour {
 
     public void deleteExtreme_Item() //削除
     {
+        card_view.DeleteCard_DrawView();
 
         item_Icon.color = new Color(1, 1, 1, 0);
 
+        extreme_Param.text = "-";
+        CullentOkashi_money.text = "-";
+        sell_Button.SetActive(false);
         extreme_itemID = 9999;
         _hpslider.value = 0;
         Starthp = 0;
@@ -309,6 +339,25 @@ public class ExtremePanel : MonoBehaviour {
         Starthp = Life; //floatで計算し、valueに反映する。
 
         timeOut = 1.0f;
+        Life_anim_on = true;
+
+        //お菓子の現在の価値もセット
+        Okashi_moneyparam = Okashi_keisan.Sell_Okashi(extreme_itemID, extreme_itemtype);
+        CullentOkashi_money.text = Okashi_moneyparam.ToString();
+
+        //減少量も決定
+        _moneydeg = Okashi_moneyparam / Starthp;
+        //Debug.Log("_moneydeg: " + _moneydeg);
+    }
+
+    //お菓子のHP減少を一時的にストップ。調合アニメ開始時などで使用
+    public void LifeAnimeOnFalse()
+    {
+        Life_anim_on = false;
+    }
+
+    public void LifeAnimeOnTrue()
+    {
         Life_anim_on = true;
     }
 }

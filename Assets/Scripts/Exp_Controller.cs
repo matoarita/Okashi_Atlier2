@@ -1186,6 +1186,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //音を鳴らす
                 audioSource.PlayOneShot(sound1);
 
+                //一時的にお菓子のHP減少をストップ
+                extremePanel.LifeAnimeOnFalse();
+
                 timeOut = 2.0f;
                 compo_anim_status = 1;
 
@@ -1215,7 +1218,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 3: //アニメ終了。判定する
 
-                Debug.Log("アニメ終了");
+                //Debug.Log("アニメ終了");
                 compo_anim_end = true;
 
                 //音を止める

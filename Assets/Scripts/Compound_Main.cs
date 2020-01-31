@@ -354,11 +354,13 @@ public class Compound_Main : MonoBehaviour
 
                         compoundselect_onoff_obj.SetActive(false);
 
-                        compound_status = 4; //あげるシーンに入っています、というフラグ
+                        compound_status = 13; //あげるシーンに入っています、というフラグ
                         compound_select = 10; //あげるを選択
 
                         yes_no_panel.SetActive(true);
                         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+
+                        extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                         StartCoroutine("Girl_present_Final_select");
                         //playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                         //pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
@@ -381,6 +383,10 @@ public class Compound_Main : MonoBehaviour
 
                         break;
 
+                    case 13: //あげるかあげないかを選択中
+
+                        break;
+
                     case 20: //材料採取地を選択中
 
                         
@@ -391,7 +397,7 @@ public class Compound_Main : MonoBehaviour
                         break;
 
 
-                    case 99:
+                    case 99: //アイテム画面を開いたとき
 
                         compoundselect_onoff_obj.SetActive(false);
                         saveload_panel.SetActive(false);
@@ -403,7 +409,8 @@ public class Compound_Main : MonoBehaviour
 
                         break;
 
-                    case 100: //調合中　退避用
+                    case 100: //退避用
+
                         break;
 
 
@@ -823,11 +830,12 @@ public class Compound_Main : MonoBehaviour
 
             case false:
 
-                //Debug.Log("一個目はcancel");
+                Debug.Log("cancel");
 
                 _text.text = "";
                 compound_status = 0;
 
+                extreme_panel.LifeAnimeOnTrue();
                 yes_selectitem_kettei.onclick = false;
                 break;
 
