@@ -14,6 +14,9 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject canvas;
     private GameObject black_panel_A;
 
+    private GameObject MoneyStatus_Panel_obj;
+    private MoneyStatus_Controller moneyStatus_Controller;
+
     private OkashiParamKeisanMethod Okashi_keisan;
 
     private PlayerItemList pitemlist;
@@ -39,6 +42,7 @@ public class ExtremePanel : MonoBehaviour {
     private Button extreme_Button;
     private Button recipi_Button;
     private GameObject sell_Button;
+    private GameObject present_Button;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -100,6 +104,10 @@ public class ExtremePanel : MonoBehaviour {
         kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
+        //お金の増減用パネルの取得
+        MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
+        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
@@ -111,7 +119,8 @@ public class ExtremePanel : MonoBehaviour {
         //ボタンの取得
         extreme_Button = this.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
         recipi_Button = this.transform.Find("RecipiButton").gameObject.GetComponent<Button>(); //レシピボタン
-        sell_Button = this.transform.Find("SellButton").gameObject; //売るボタン        
+        sell_Button = this.transform.Find("SellButton").gameObject; //売るボタン
+        present_Button = this.transform.Find("PresentButton").gameObject; //売るボタン 
 
         image_effect = this.transform.Find("Extreme_Image_effect").gameObject;
         image_effect.SetActive(false);
@@ -213,6 +222,9 @@ public class ExtremePanel : MonoBehaviour {
 
         //売るボタンを表示
         sell_Button.SetActive(true);
+
+        //あげるボタンを表示
+        present_Button.SetActive(true);
     }
 
     public void OnClick_ExtremeButton()
@@ -300,11 +312,69 @@ public class ExtremePanel : MonoBehaviour {
     {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
+        sell_Button.GetComponent<Button>().interactable = false;
+        present_Button.GetComponent<Button>().interactable = false;
 
         card_view.All_DeleteCard();
 
         _text.text = "レシピから作るよ。何を作る？";
         compound_Main.compound_status = 1;
+    }
+
+    public void OnClick_PresentButton()
+    {
+        extreme_Button.interactable = false;
+        recipi_Button.interactable = false;
+        sell_Button.GetComponent<Button>().interactable = false;
+        present_Button.GetComponent<Button>().interactable = false;
+
+        card_view.All_DeleteCard();
+
+        if (extreme_itemID != 9999)
+        {
+            _text.text = "今、作ったお菓子をあげますか？";
+            compound_Main.compound_status = 10;
+        }
+        else //まだ作ってないときは
+        {
+            _text.text = "まだお菓子を作っていない。";
+        }
+    }
+
+    public void OnClick_SellButton()
+    {
+        extreme_Button.interactable = false;
+        recipi_Button.interactable = false;
+        sell_Button.GetComponent<Button>().interactable = false;
+        present_Button.GetComponent<Button>().interactable = false;
+
+        card_view.All_DeleteCard();
+
+        if (extreme_itemID != 9999)
+        {
+            Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
+            _text.text = "作ったお菓子をショップへ卸しますか？" + "\n" + "現在の価格: " + Okashi_moneypram_int.ToString() + "G です。";
+            compound_Main.compound_status = 30;
+        }
+        else //まだ作ってないときは
+        {
+            _text.text = "まだお菓子を作っていない。";
+        }
+    }
+
+    public void Sell_Okashi()
+    {
+        Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
+
+        _text.text = "お菓子を売った！" + "\n" + Okashi_moneypram_int.ToString() + "G で売れた！";
+
+        //お金の取得
+        moneyStatus_Controller.GetMoney(Okashi_moneypram_int);
+
+        deleteExtreme_Item();
+
+        compound_Main.compound_status = 0;
+        compound_Main.compound_select = 0;
     }
 
 
@@ -316,10 +386,13 @@ public class ExtremePanel : MonoBehaviour {
 
         extreme_Param.text = "-";
         CullentOkashi_money.text = "-";
-        sell_Button.SetActive(false);
+        
         extreme_itemID = 9999;
         _hpslider.value = 0;
         Starthp = 0;
+
+        sell_Button.SetActive(false);
+        present_Button.SetActive(false);
 
         Life_anim_on = false;
         image_effect.SetActive(false);
@@ -330,6 +403,8 @@ public class ExtremePanel : MonoBehaviour {
     {
         extreme_Button.interactable = true;
         recipi_Button.interactable = true;
+        sell_Button.GetComponent<Button>().interactable = true;
+        present_Button.GetComponent<Button>().interactable = true;
     }
 
 

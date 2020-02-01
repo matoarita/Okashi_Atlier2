@@ -362,10 +362,7 @@ public class Compound_Main : MonoBehaviour
 
                         extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                         StartCoroutine("Girl_present_Final_select");
-                        //playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                        //pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                        //yes.SetActive(false);
-                        //no.SetActive(true);
+
 
                         break;
 
@@ -394,6 +391,33 @@ public class Compound_Main : MonoBehaviour
 
                     case 21: //材料採取地に到着。探索中
 
+                        break;
+
+                    case 30: //「売る」を選択
+
+                        compoundselect_onoff_obj.SetActive(false);
+
+                        compound_status = 31; //売るシーンに入っています、というフラグ
+                        compound_select = 30; //売るを選択
+
+                        yes_no_panel.SetActive(true);
+                        yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+
+                        extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                        StartCoroutine("Sell_Final_select");
+
+
+                        break;
+
+                    case 31: //売るかどうか、選択中
+
+                        break;
+
+                    case 32: //売る処理の実行
+
+                        compound_status = 32;
+
+                        extreme_panel.Sell_Okashi();
                         break;
 
 
@@ -823,6 +847,40 @@ public class Compound_Main : MonoBehaviour
 
                 //女の子にアイテムをあげる処理
                 compound_status = 11; //status=11で処理。
+
+                yes_no_panel.SetActive(false);
+                yes_selectitem_kettei.onclick = false;
+                break;
+
+            case false:
+
+                Debug.Log("cancel");
+
+                _text.text = "";
+                compound_status = 0;
+
+                extreme_panel.LifeAnimeOnTrue();
+                yes_selectitem_kettei.onclick = false;
+                break;
+
+        }
+    }
+
+    IEnumerator Sell_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                //売る処理
+                compound_status = 32; //status=32で処理。
 
                 yes_no_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;

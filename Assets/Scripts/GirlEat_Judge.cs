@@ -9,6 +9,9 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject MoneyStatus_Panel_obj;
+    private MoneyStatus_Controller moneyStatus_Controller;
+
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
@@ -184,6 +187,10 @@ public class GirlEat_Judge : MonoBehaviour {
         //エクストリームパネルの取得
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
         extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
+
+        //お金の増減用パネルの取得
+        MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
+        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         window_param_result_obj.SetActive(false);
 
@@ -616,8 +623,9 @@ public class GirlEat_Judge : MonoBehaviour {
             //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
             LoveScoreCal();
 
-            Debug.Log("GetMoney: " + GetMoney);
-            PlayerStatus.player_money += GetMoney;
+            //お金の取得
+            //Debug.Log("GetMoney: " + GetMoney);
+            moneyStatus_Controller.GetMoney(GetMoney);
 
             //アイテムの削除
             delete_Item();

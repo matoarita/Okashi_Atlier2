@@ -10,6 +10,9 @@ public class GetMaterial : MonoBehaviour {
     private GameObject text_area;
     private Text _text;
 
+    private GameObject MoneyStatus_Panel_obj;
+    private MoneyStatus_Controller moneyStatus_Controller;
+
     private GameObject tansaku_panel;
     private Button tansaku_yes;
     private Button tansaku_no;
@@ -77,6 +80,10 @@ public class GetMaterial : MonoBehaviour {
         //テキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
+
+        //お金の増減用パネルの取得
+        MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
+        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         //材料採取のための、消費コスト
         mat_cost = 0;
@@ -172,10 +179,10 @@ public class GetMaterial : MonoBehaviour {
         {
             //カゴの大きさのチェック。取った数の総量がMAXを超えると、これ以上取れない。
             if (PlayerStatus.player_zairyobox >= cullent_total_mat)
-            { 
+            {
 
-              //お金の消費
-                PlayerStatus.player_money = PlayerStatus.player_money - mat_cost;
+                //お金の消費
+                moneyStatus_Controller.UseMoney(mat_cost);
 
                 //ウェイトアニメ
                 mat_anim_on = true;
