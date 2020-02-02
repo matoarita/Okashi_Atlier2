@@ -20,6 +20,7 @@ public class ItemMatPlace
     public string dropItem5;
     public string dropRare1;
     public string dropRare2;
+    public string dropRare3;
     public float dropProb1;
     public float dropProb2;
     public float dropProb3;
@@ -27,11 +28,12 @@ public class ItemMatPlace
     public float dropProb5;
     public float dropRareProb1;
     public float dropRareProb2;
+    public float dropRareProb3;
 
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemMatPlace(int id, string place_name, string place_name_Hyouji, int place_cost, int place_flag, string drop_item1, string drop_item2, string drop_item3, string drop_item4, string drop_item5, string drop_rare1, string drop_rare2, float drop_prob1, float drop_prob2, float drop_prob3, float drop_prob4, float drop_prob5, float drop_rare_prob1, float drop_rare_prob2)
+    public ItemMatPlace(int id, string place_name, string place_name_Hyouji, int place_cost, int place_flag, string drop_item1, string drop_item2, string drop_item3, string drop_item4, string drop_item5, string drop_rare1, string drop_rare2, string drop_rare3, float drop_prob1, float drop_prob2, float drop_prob3, float drop_prob4, float drop_prob5, float drop_rare_prob1, float drop_rare_prob2, float drop_rare_prob3)
     {
         matplaceID = id;
 
@@ -48,6 +50,7 @@ public class ItemMatPlace
         dropItem5 = drop_item5;
         dropRare1 = drop_rare1;
         dropRare2 = drop_rare2;
+        dropRare3 = drop_rare3;
 
         dropProb1 = drop_prob1;
         dropProb2 = drop_prob2;
@@ -56,6 +59,7 @@ public class ItemMatPlace
         dropProb5 = drop_prob5;
         dropRareProb1 = drop_rare_prob1;
         dropRareProb2 = drop_rare_prob2;
+        dropRareProb3 = drop_rare_prob3;
     }
 
 }

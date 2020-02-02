@@ -21,6 +21,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private int _sell;
     private int _zaiko;
     private int _itemType;
+    private int _itemhyouji;
 
     private int i;
     private int count;
@@ -55,6 +56,9 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 _name = excel_shopitemdatabase.sheets[sheet_no].list[count].name;
                 _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
                 _itemType = excel_shopitemdatabase.sheets[sheet_no].list[count].itemType;
+                _cost = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_sell_price;
+                _sell = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_buy_price;
+                _itemhyouji = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji;
 
                 //Debug.Log("ショップ_itemType: " + _itemType);
 
@@ -69,10 +73,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                         {
                             _itemID = database.items[i].itemID;
                             _icon = database.items[i].itemIcon;
-                            _name_hyouji = database.items[i].itemNameHyouji;
-
-                            _cost = database.items[i].cost_price;
-                            _sell = database.items[i].sell_price;
+                            _name_hyouji = database.items[i].itemNameHyouji;                            
 
                             break;
                         }
@@ -99,9 +100,6 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                             _icon = database.items[0].itemIcon;
                             _name_hyouji = pitemlist.eventitemlist[i].event_itemNameHyouji;
 
-                            _cost = pitemlist.eventitemlist[i].event_cost_price;
-                            _sell = pitemlist.eventitemlist[i].event_sell_price;
-
                             break;
                         }
 
@@ -110,7 +108,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 }
 
                 //ここでリストに追加している
-                shopitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType));
+                shopitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji));
 
                 ++count;
             }

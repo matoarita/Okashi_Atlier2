@@ -20,9 +20,11 @@ public class ItemShop
     public int shop_sellprice; //アイテムの売却時の値段。アイテムDBから引っ張ってくる。
     public int shop_itemzaiko; //在庫数
 
+    public int shop_item_hyouji;
+
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemShop(int id, int _itemID, Texture2D _icon, string name, string nameHyouji, int cost, int sell, int zaiko, int _itemType)
+    public ItemShop(int id, int _itemID, Texture2D _icon, string name, string nameHyouji, int cost, int sell, int zaiko, int _itemType, int item_hyouji)
     {
         shop_ID = id;
         shop_itemID = _itemID;
@@ -38,6 +40,8 @@ public class ItemShop
         shop_costprice = cost;
         shop_sellprice = sell;
         shop_itemzaiko = zaiko;
+
+        shop_item_hyouji = item_hyouji;
     }
 
 }

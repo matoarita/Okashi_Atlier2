@@ -13,3 +13,5 @@ SE表
 ・SE_11		audiostock_175671_sample.mp3
 ・SE_12		audiostock_7724_sample
 ・SE_13		audiostock_65015_sample
+・SE_14		ファンファーレ9（ゲーム向け）.mp3
+・SE_15		NES-RPG01-11(Select).mp3

@@ -165,6 +165,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         updown_counter_obj = this.transform.Find("updown_counter").gameObject;
         updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
+        //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
+        updown_counter_obj.SetActive(true);
+        updown_counter.updown_kosu = 1;
+
         updown_counter_obj.SetActive(false);
 
         ResetKettei_item();
@@ -293,77 +297,82 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //まず、プレイヤーアイテムリストを、表示
         for (i = 0; i < max; i++)
         {
-            //Debug.Log("ID: " + i + "所持数: " + pitemlist.playeritemlist[i]);
-            if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+            if (database.items[i].item_Hyouji > 0) //item_hyoujiが1のものを表示する。未使用アイテムなどは0にして表示しない。
             {
-
-            } else {
-
-                if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
+                //Debug.Log("ID: " + i + "所持数: " + pitemlist.playeritemlist[i]);
+                if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
                 {
-                    
-                    if (SceneManager.GetActiveScene().name == "Compound")
+
+                }
+                else
+                {
+
+                    if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
                     {
-                        switch (compound_Main.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
+
+                        if (SceneManager.GetActiveScene().name == "Compound")
                         {
-                            case 1: //レシピ調合のとき。「レシピリストコントローラー」で処理を行うため、このスクリプト上では無視される。
+                            switch (compound_Main.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
+                            {
+                                case 1: //レシピ調合のとき。「レシピリストコントローラー」で処理を行うため、このスクリプト上では無視される。
 
-                                break;
+                                    break;
 
-                            case 2: //トッピング調合。ベース＝「お菓子」タイプのみ表示。その後、トッピングできるアイテムのみ表示。（フルーツ・ナッツ・チョコはOK。トッピング系アイテム。材料は×）
+                                case 2: //トッピング調合。ベース＝「お菓子」タイプのみ表示。その後、トッピングできるアイテムのみ表示。（フルーツ・ナッツ・チョコはOK。トッピング系アイテム。材料は×）
 
-                                if (database.items[i].itemType.ToString() == "Okashi" || database.items[i].itemType.ToString() == "Potion")
-                                {
+                                    if (database.items[i].itemType.ToString() == "Okashi" || database.items[i].itemType.ToString() == "Potion")
+                                    {
+                                        itemlist_hyouji();
+                                    }
+
+                                    break;
+
+                                case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
+
+                                    if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" || database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil" || database.items[i].itemType_sub.ToString() == "Chocolate" || database.items[i].itemType_sub.ToString() == "IceCream")
+                                    {
+                                        itemlist_hyouji();
+                                    }
+                                    break;
+
+                                case 5: //焼くとき。アイテムタイプサブが「生地」のみ表示。
+
+                                    if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" || database.items[i].itemType_sub.ToString() == "Pie_base" || database.items[i].itemType_sub.ToString() == "Chocorate_base" || database.items[i].itemType_sub.ToString() == "Cake_base")
+                                    {
+                                        itemlist_hyouji();
+                                    }
+                                    break;
+
+                                case 10: //お菓子をあげるとき。アイテムタイプが「お菓子」のみ表示
+
+                                    if (database.items[i].itemType.ToString() == "Okashi")
+                                    {
+                                        itemlist_hyouji();
+                                    }
+                                    break;
+
+                                case 99: //メニュー画面を開いたとき
+
                                     itemlist_hyouji();
-                                }
+                                    break;
 
-                                break;
+                                default:
 
-                            case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
-
-                                if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" || database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil" || database.items[i].itemType_sub.ToString() == "Chocolate")
-                                {
-                                    itemlist_hyouji();
-                                }
-                                break;
-
-                            case 5: //焼くとき。アイテムタイプサブが「生地」のみ表示。
-
-                                if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" || database.items[i].itemType_sub.ToString() == "Pie_base" || database.items[i].itemType_sub.ToString() == "Chocorate_base" || database.items[i].itemType_sub.ToString() == "Cake_base")
-                                {
-                                    itemlist_hyouji();
-                                }
-                                break;
-
-                            case 10: //お菓子をあげるとき。アイテムタイプが「お菓子」のみ表示
-
-                                if (database.items[i].itemType.ToString() == "Okashi")
-                                {
-                                    itemlist_hyouji();
-                                }
-                                break;
-
-                            case 99: //メニュー画面を開いたとき
-
-                                itemlist_hyouji();
-                                break;
-
-                            default:
-
-                                break;
+                                    break;
+                            }
                         }
-                    }
-                    else if (SceneManager.GetActiveScene().name == "GirlEat" || SceneManager.GetActiveScene().name == "QuestBox")
-                    {
-                        //お菓子のみ表示
-                        if (database.items[i].itemType.ToString() == "Okashi")
+                        else if (SceneManager.GetActiveScene().name == "GirlEat" || SceneManager.GetActiveScene().name == "QuestBox")
+                        {
+                            //お菓子のみ表示
+                            if (database.items[i].itemType.ToString() == "Okashi")
+                            {
+                                itemlist_hyouji();
+                            }
+                        }
+                        else //調合以外のシーンでは、所持アイテム全て表示
                         {
                             itemlist_hyouji();
                         }
-                    }
-                    else //調合以外のシーンでは、所持アイテム全て表示
-                    {
-                        itemlist_hyouji();
                     }
                 }
             }
@@ -372,68 +381,71 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
         for (i = 0; i < max_original; i++)
         {
-            //Debug.Log("ID: " + i + " 所持アイテム: " + pitemlist.player_originalitemlist[i].itemName);
-            if (SceneManager.GetActiveScene().name == "Compound")
+            if (pitemlist.player_originalitemlist[i].item_Hyouji > 0) //item_hyoujiが1のものを表示する。未使用アイテムなどは0にして表示しない。
             {
-                switch (compound_Main.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
+                //Debug.Log("ID: " + i + " 所持アイテム: " + pitemlist.player_originalitemlist[i].itemName);
+                if (SceneManager.GetActiveScene().name == "Compound")
                 {
-                    case 1: //レシピ調合のとき。「レシピリストコントローラー」で処理を行うため、このスクリプト上では無視される。
+                    switch (compound_Main.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
+                    {
+                        case 1: //レシピ調合のとき。「レシピリストコントローラー」で処理を行うため、このスクリプト上では無視される。
 
-                        break;
+                            break;
 
-                    case 2: //トッピング調合。お菓子と、トッピング系アイテムを表示し、ベース＝「お菓子」タイプのみ選択可能、その後、トッピングできるアイテムのみ選択可能。（フルーツ・ナッツ・チョコはOK。トッピング系アイテム。材料は×）                        
+                        case 2: //トッピング調合。お菓子と、トッピング系アイテムを表示し、ベース＝「お菓子」タイプのみ選択可能、その後、トッピングできるアイテムのみ選択可能。（フルーツ・ナッツ・チョコはOK。トッピング系アイテム。材料は×）                        
 
-                        if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi" || pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion")
-                        {
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi" || pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion")
+                            {
+                                original_itemlist_hyouji();
+                            }
+
+                            break;
+
+                        case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子タイプは表示しない。
+
+                            if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
+                            {
+                                original_itemlist_hyouji();
+                            }
+                            break;
+
+                        case 5: //焼くとき。アイテムタイプサブが「生地」のみ表示。
+
+                            if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Pate" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cookie_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Pie_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocorate_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cake_base")
+                            {
+                                original_itemlist_hyouji();
+                            }
+                            break;
+
+                        case 10: //お菓子をあげるとき。アイテムタイプが「お菓子」のみ表示
+
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                            {
+                                original_itemlist_hyouji();
+                            }
+                            break;
+
+                        case 99: //メニュー画面を開いたとき
+
                             original_itemlist_hyouji();
-                        }
+                            break;
 
-                        break;
-
-                    case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子タイプは表示しない。
-
-                        if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate")
-                        {
-                            original_itemlist_hyouji();
-                        }
-                        break;
-
-                    case 5: //焼くとき。アイテムタイプサブが「生地」のみ表示。
-
-                        if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Pate" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cookie_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Pie_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocorate_base" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cake_base")
-                        {
-                            original_itemlist_hyouji();
-                        }
-                        break;
-
-                    case 10: //お菓子をあげるとき。アイテムタイプが「お菓子」のみ表示
-
-                        if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
-                        {
-                            original_itemlist_hyouji();
-                        }
-                        break;
-
-                    case 99: //メニュー画面を開いたとき
-
+                        default:
+                            break;
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "GirlEat" || SceneManager.GetActiveScene().name == "QuestBox")
+                {
+                    //お菓子のみ表示
+                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                    {
                         original_itemlist_hyouji();
-                        break;
-
-                    default:
-                        break;
-                }               
-            }
-            else if (SceneManager.GetActiveScene().name == "GirlEat" || SceneManager.GetActiveScene().name == "QuestBox")
-            {
-                //お菓子のみ表示
-                if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                    }
+                }
+                else
                 {
                     original_itemlist_hyouji();
                 }
-            }
-            else
-            {
-                original_itemlist_hyouji();
             }
         }
     }
@@ -462,23 +474,26 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //まず、プレイヤーアイテムリストを、表示
         for (i = 0; i < max; i++)
         {
-            if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+            if ( database.items[i].item_Hyouji > 0 )
             {
-
-            }
-            else
-            {
-
-                if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
+                if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
                 {
-                    if (SceneManager.GetActiveScene().name == "Compound")
+
+                }
+                else
+                {
+
+                    if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
                     {
-                        //お菓子タイプのみ表示
-                        if (database.items[i].itemType.ToString() == "Okashi")
+                        if (SceneManager.GetActiveScene().name == "Compound")
                         {
-                            itemlist_hyouji();
+                            //お菓子タイプのみ表示
+                            if (database.items[i].itemType.ToString() == "Okashi")
+                            {
+                                itemlist_hyouji();
+                            }
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -486,14 +501,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
         for (i = 0; i < max_original; i++)
         {
-            //トッピング調合の時のみ使用。
-
-            if (SceneManager.GetActiveScene().name == "Compound")
+            if (pitemlist.player_originalitemlist[i].item_Hyouji > 0)
             {
-                //お菓子タイプのみ表示
-                if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                //トッピング調合の時のみ使用。
+
+                if (SceneManager.GetActiveScene().name == "Compound")
                 {
-                    original_itemlist_hyouji();
+                    //お菓子タイプのみ表示
+                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                    {
+                        original_itemlist_hyouji();
+                    }
                 }
             }
         }
@@ -521,21 +539,24 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //まず、プレイヤーアイテムリストを、表示
         for (i = 0; i < max; i++)
         {
-            if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+            if (database.items[i].item_Hyouji > 0)
             {
-
-            }
-            else
-            {
-
-                if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
+                if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
                 {
-                    if (SceneManager.GetActiveScene().name == "Compound")
+
+                }
+                else
+                {
+
+                    if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
                     {
-                        //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                        if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate" || database.items[i].itemType_sub.ToString() == "IceCream")
+                        if (SceneManager.GetActiveScene().name == "Compound")
                         {
-                            itemlist_hyouji();
+                            //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
+                            if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate" || database.items[i].itemType_sub.ToString() == "IceCream")
+                            {
+                                itemlist_hyouji();
+                            }
                         }
                     }
                 }
@@ -545,14 +566,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
         for (i = 0; i < max_original; i++)
         {
-            //トッピング調合の時のみ使用。
-
-            if (SceneManager.GetActiveScene().name == "Compound")
+            if (pitemlist.player_originalitemlist[i].item_Hyouji > 0)
             {
-                //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Nuts" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
+                //トッピング調合の時のみ使用。
+
+                if (SceneManager.GetActiveScene().name == "Compound")
                 {
-                    original_itemlist_hyouji();
+                    //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
+                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Nuts" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
+                    {
+                        original_itemlist_hyouji();
+                    }
                 }
             }
         }

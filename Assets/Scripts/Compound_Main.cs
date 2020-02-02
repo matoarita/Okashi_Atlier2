@@ -258,7 +258,8 @@ public class Compound_Main : MonoBehaviour
                 if (girl1_status.girl1_Love_exp >= 100)
                 {
                     stageclear_toggle.SetActive(true);
-                }
+                }                
+
 
                 //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
                 switch (compound_status)
@@ -361,6 +362,7 @@ public class Compound_Main : MonoBehaviour
                         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
                         extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                        black_panel_A.SetActive(true);
                         StartCoroutine("Girl_present_Final_select");
 
 
@@ -404,6 +406,7 @@ public class Compound_Main : MonoBehaviour
                         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
                         extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                        black_panel_A.SetActive(true);
                         StartCoroutine("Sell_Final_select");
 
 
@@ -679,6 +682,7 @@ public class Compound_Main : MonoBehaviour
 
     void text_scenario()
     {
+        /*
         switch (GameMgr.scenario_flag)
         {
             case 115:
@@ -693,7 +697,7 @@ public class Compound_Main : MonoBehaviour
 
             default:
                 break;
-        }
+        }*/
     }
 
 
@@ -841,6 +845,7 @@ public class Compound_Main : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        black_panel_A.SetActive(false);
         switch (yes_selectitem_kettei.kettei1)
         {
             case true:
@@ -874,6 +879,8 @@ public class Compound_Main : MonoBehaviour
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
+
+        black_panel_A.SetActive(false);
 
         switch (yes_selectitem_kettei.kettei1)
         {

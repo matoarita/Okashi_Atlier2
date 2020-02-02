@@ -21,6 +21,7 @@ public class SetImage : MonoBehaviour
     private GameObject Card_param_obj;
 
     private PlayerItemList pitemlist;
+    private ExpTable exp_table;
 
     private SlotNameDataBase slotnamedatabase;
 
@@ -603,10 +604,20 @@ public class SetImage : MonoBehaviour
 
     public void CompoundResult_DestroySelf()
     {
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
 
-        compound_Main.compound_status = 0;
-        Destroy(this.gameObject);
+        if (exp_table.check_on == true)
+        {
+            //レベルチェック中は、カードを消せないようにする。
+        }
+        else
+        {
+            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+            compound_Main.compound_status = 0;
+            Destroy(this.gameObject);
+        }
     }
 }

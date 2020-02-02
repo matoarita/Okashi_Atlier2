@@ -25,8 +25,17 @@ public class MoneyStatus_Controller : MonoBehaviour {
 
     private int list_size;
 
+    private float timeOut;
+
+    //SEを鳴らす
+    public AudioClip sound1;
+    AudioSource audioSource;
+
     // Use this for initialization
     void Start () {
+
+        //音の取得
+        audioSource = GetComponent<AudioSource>();
 
         _money_param = this.transform.Find("Money_param").gameObject;
         _money_text = _money_param.GetComponent<Text>();
@@ -69,7 +78,15 @@ public class MoneyStatus_Controller : MonoBehaviour {
                 _money_text.text = _before_pmoney.ToString();
             }
 
-            
+            //時間減少
+            timeOut -= Time.deltaTime;
+
+            if (timeOut <= 0.0)
+            {
+                timeOut = 0.1f;
+                //音を鳴らす
+                //audioSource.PlayOneShot(sound1);
+            }
         }
     }
 
@@ -87,6 +104,8 @@ public class MoneyStatus_Controller : MonoBehaviour {
         //お金の増減
         _before_pmoney = PlayerStatus.player_money;
         PlayerStatus.player_money += _getmoney;
+
+        timeOut = 0.1f;
 
         zougen_sw = 0; //増える処理
         _moneymax = _getmoney;
@@ -108,8 +127,11 @@ public class MoneyStatus_Controller : MonoBehaviour {
         _before_pmoney = PlayerStatus.player_money;
         PlayerStatus.player_money -= _usemoney;
 
+        timeOut = 0.1f;
+
         zougen_sw = 1; //減る処理
         _moneymax = _usemoney;
         moneyanim_on = true;
     }
+
 }

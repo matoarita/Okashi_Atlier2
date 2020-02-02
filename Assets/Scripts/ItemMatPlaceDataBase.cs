@@ -18,6 +18,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     private string drop_item5;
     private string drop_rare1;
     private string drop_rare2;
+    private string drop_rare3;
     private float drop_prob1;
     private float drop_prob2;
     private float drop_prob3;
@@ -25,6 +26,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     private float drop_prob5;
     private float drop_rare_prob1;
     private float drop_rare_prob2;
+    private float drop_rare_prob3;
 
     private int i;
     private int count;
@@ -61,6 +63,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
             drop_item5 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_item5;
             drop_rare1 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare1;
             drop_rare2 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare2;
+            drop_rare3 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare3;
             drop_prob1 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_prob1;
             drop_prob2 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_prob2;
             drop_prob3 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_prob3;
@@ -68,10 +71,11 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
             drop_prob5 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_prob5;
             drop_rare_prob1 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare_prob1;
             drop_rare_prob2 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare_prob2;
+            drop_rare_prob3 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare_prob3;
 
 
             //ここでリストに追加している
-            matplace_lists.Add(new ItemMatPlace(_id, placeName, placeName_Hyouji, place_cost, place_flag, drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_rare1, drop_rare2, drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_rare_prob1, drop_rare_prob2));
+            matplace_lists.Add(new ItemMatPlace(_id, placeName, placeName_Hyouji, place_cost, place_flag, drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_rare1, drop_rare2, drop_rare3, drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_rare_prob1, drop_rare_prob2, drop_rare_prob3));
 
             ++count;
         }

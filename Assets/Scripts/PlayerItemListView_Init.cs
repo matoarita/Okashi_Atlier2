@@ -107,6 +107,10 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
             {
                 pitemlist.addPlayerItem(i, 5);
             }
+            if (database.items[i].itemName == "orange")
+            {
+                pitemlist.addPlayerItem(i, 5);
+            }
         }
 
     }

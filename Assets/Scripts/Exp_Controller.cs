@@ -42,7 +42,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private GameObject MoneyStatus_Panel_obj;
+    private MoneyStatus_Controller moneyStatus_Controller;
+
+    private ExpTable exp_table;
+
     private PlayerItemList pitemlist;
+
+    private GameObject black_panel_A;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -121,8 +128,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool topping_result_ok; //トッピング調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool roast_result_ok; //「焼く」完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
 
-    //public bool blend_flag; //これがたっていたら、レシピ調合の際、プレイヤーが素材自体を変えたり、比率を変えている、というフラグ。現在は、とりあえずオフ。
-
     public bool girleat_ok; // 女の子にアイテムをあげた時の完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool shop_buy_ok; //購入完了のフラグ。これがたっていたら、購入の処理を行い、フラグをオフに。
     public bool qbox_ok; // クエスト納品時の完了フラグ。
@@ -176,6 +181,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private string _base_itemType;
     private string _base_itemType_sub;
     private int _base_extreme_kaisu;
+    private int _base_item_hyouji;
 
     private string _addname;
     private int _addhp;
@@ -303,13 +309,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
         //スロットの日本語表示用リストの取得
-        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();       
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
-        
+
 
         //エフェクトプレファブの取得
         Compo_Magic_effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
@@ -317,12 +323,22 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
+
+                //キャンバスの読み込み
+                canvas = GameObject.FindWithTag("Canvas");
+
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                 //エクストリームパネルオブジェクトの取得
                 extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
                 extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
+
+                //レベルアップチェック用オブジェクトの取得
+                exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
+
+                //黒半透明パネルの取得
+                black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
 
                 break;
 
@@ -382,6 +398,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //確率パネルの取得
                 kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+                //レベルアップチェック用オブジェクトの取得
+                exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
             }
 
             //調合中ウェイト+アニメ
@@ -719,15 +738,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         result_ok = false;
 
-        compound_Main.compound_status = 0;
+        //compound_Main.compound_status = 0;
 
         extremePanel.extremeButtonInteractOn();
+
+        black_panel_A.SetActive(true);
 
         //日数の経過
         //PlayerStatus.player_day += databaseCompo.compoitems[result_ID].cost_Time;
 
         _ex_text = "";
- 
+
+        //経験値の増減後、レベルアップしたかどうかをチェック
+        exp_table.Check_LevelUp();
     }
 
 
@@ -854,9 +877,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         extremePanel.extremeButtonInteractOn();
 
-        compound_Main.compound_status = 0;        
+        //compound_Main.compound_status = 0;
+        black_panel_A.SetActive(true);
 
-        
+        //経験値の増減後、レベルアップしたかどうかをチェック
+        exp_table.Check_LevelUp();
     }
 
 
@@ -1034,14 +1059,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         topping_result_ok = false;
 
-        compound_Main.compound_status = 0;
+        //compound_Main.compound_status = 0;
+        black_panel_A.SetActive(true);
 
         extremePanel.extremeButtonInteractOn();
 
         //テキスト表示後、閃いた～をリセットしておく
         _ex_text = "";
 
-        
+        //経験値の増減後、レベルアップしたかどうかをチェック
+        exp_table.Check_LevelUp();
     }
 
     //
@@ -1137,6 +1164,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
+        //お金の増減用パネルの取得
+        MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
+        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
         kettei_item1 = shopitemlistController.shop_kettei_item1;
         //Debug.Log("決定したアイテムID: " + kettei_item1 + " リスト番号: " + shopitemlistController.shop_count);
 
@@ -1157,7 +1188,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //所持金をへらす
-        PlayerStatus.player_money -= shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu;
+        //PlayerStatus.player_money -= shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu;
+        moneyStatus_Controller.UseMoney(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
 
         //ショップの在庫をへらす
         shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
@@ -1287,6 +1319,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _basesell = database.items[_id].sell_price;
             _base_itemType = database.items[_id].itemType.ToString();
             _base_itemType_sub = database.items[_id].itemType_sub.ToString();
+            _base_item_hyouji = database.items[_id].item_Hyouji;
 
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -1328,6 +1361,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _base_itemType = database.items[_id].itemType.ToString();
                     _base_itemType_sub = database.items[_id].itemType_sub.ToString();
                     _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
+                    _base_item_hyouji = database.items[_id].item_Hyouji;
 
                     _base_extreme_kaisu--;
 
@@ -1373,6 +1407,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _base_itemType = pitemlist.player_originalitemlist[_id].itemType.ToString();
                     _base_itemType_sub = pitemlist.player_originalitemlist[_id].itemType_sub.ToString();
                     _base_extreme_kaisu = pitemlist.player_originalitemlist[_id].ExtremeKaisu;
+                    _base_item_hyouji = pitemlist.player_originalitemlist[_id].item_Hyouji;
 
                     _base_extreme_kaisu--;
 
@@ -1480,7 +1515,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Delete_playerItemList();
         
         //新しく作ったアイテムをオリジナルアイテムリストに追加。
-        pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability, _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basegirl1_like, _basecost, _basesell, _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9], result_kosu, _base_extreme_kaisu);
+        pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability, 
+            _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, 
+            _basegirl1_like, _basecost, _basesell, 
+            _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
+            result_kosu, _base_extreme_kaisu, _base_item_hyouji);
         new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
     
     }

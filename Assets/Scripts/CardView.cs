@@ -92,8 +92,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -117,8 +117,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[1].transform.localPosition = new Vector3(0, 100, 0);
@@ -151,11 +151,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
+            _cardImage_obj[1].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[1].transform.localPosition = new Vector3(132, 108, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -171,6 +171,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void SelectCard_DrawView03(int _toggleType, int _kettei_item3)
     {
+        //Debug.Log("SelectCard_DrawView03 called");
+
         Draw_Compound();
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
@@ -182,11 +184,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
+            _cardImage_obj[1].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[1].transform.localPosition = new Vector3(132, 108, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[2].transform.localPosition = new Vector3(0, 100, 0);
@@ -220,14 +222,14 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 100, 0);
+            _cardImage_obj[1].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[1].transform.localPosition = new Vector3(132, 108, 0);
 
-            _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(100, 100, 0);
+            _cardImage_obj[2].transform.localScale = new Vector3(0.6f, 0.6f, 1);
+            _cardImage_obj[2].transform.localPosition = new Vector3(300, 108, 0);
         }
 
         // トッピング調合を選択した場合の処理

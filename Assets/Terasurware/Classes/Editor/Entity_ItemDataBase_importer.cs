@@ -89,6 +89,7 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(36); p.topping09 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(37); p.topping10 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(38); p.koyu_topping = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(39); p.item_hyouji = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

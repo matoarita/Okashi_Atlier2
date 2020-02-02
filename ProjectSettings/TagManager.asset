@@ -48,6 +48,7 @@ TagManager:
   - ExtremePanel
   - KakuritsuPanel
   - OkashiParamKeisanMethod
+  - ExpTable
   layers:
   - Default
   - TransparentFX

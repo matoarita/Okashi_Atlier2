@@ -62,13 +62,15 @@ public class Entity_matplaceItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(9); p.drop_item5 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(10); p.drop_rare1 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(11); p.drop_rare2 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(12); p.drop_prob1 = (float)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(13); p.drop_prob2 = (float)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(14); p.drop_prob3 = (float)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(15); p.drop_prob4 = (float)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(16); p.drop_prob5 = (float)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(17); p.drop_rare_prob1 = (float)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(18); p.drop_rare_prob2 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(12); p.drop_rare3 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(13); p.drop_prob1 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(14); p.drop_prob2 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(15); p.drop_prob3 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(16); p.drop_prob4 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(17); p.drop_prob5 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(18); p.drop_rare_prob1 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(19); p.drop_rare_prob2 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(20); p.drop_rare_prob3 = (float)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

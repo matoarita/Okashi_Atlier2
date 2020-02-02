@@ -18,39 +18,69 @@ MonoBehaviour:
       name: komugiko
       zaiko: 50
       itemType: 0
+      shop_sell_price: 10
+      shop_buy_price: 5
+      item_hyouji: 1
     - ItemID: 1
       name: butter
       zaiko: 50
       itemType: 0
+      shop_sell_price: 20
+      shop_buy_price: 10
+      item_hyouji: 1
     - ItemID: 2
       name: suger
       zaiko: 50
       itemType: 0
+      shop_sell_price: 10
+      shop_buy_price: 5
+      item_hyouji: 1
     - ItemID: 3
       name: egg
       zaiko: 50
       itemType: 0
+      shop_sell_price: 10
+      shop_buy_price: 5
+      item_hyouji: 1
     - ItemID: 4
       name: orange
       zaiko: 50
       itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
     - ItemID: 5
       name: parfe_base
       zaiko: 5
       itemType: 0
+      shop_sell_price: 50
+      shop_buy_price: 25
+      item_hyouji: 1
     - ItemID: 6
       name: ice_cream
       zaiko: 10
       itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
     - ItemID: 7
       name: corn_frake
       zaiko: 10
       itemType: 0
+      shop_sell_price: 20
+      shop_buy_price: 10
+      item_hyouji: 1
     - ItemID: 8
       name: cookie_base_recipi
       zaiko: 1
       itemType: 1
+      shop_sell_price: 1500
+      shop_buy_price: 750
+      item_hyouji: 1
     - ItemID: 9
       name: ice_cream_recipi
       zaiko: 1
       itemType: 1
+      shop_sell_price: 500
+      shop_buy_price: 250
+      item_hyouji: 1
