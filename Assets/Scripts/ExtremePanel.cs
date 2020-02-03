@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ExtremePanel : MonoBehaviour {
 
@@ -16,6 +17,8 @@ public class ExtremePanel : MonoBehaviour {
 
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
+
+    private Exp_Controller exp_Controller;
 
     private OkashiParamKeisanMethod Okashi_keisan;
 
@@ -69,6 +72,8 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject itemselect_cancel_obj;
     private ItemSelect_Cancel itemselect_cancel;
 
+    private bool myscene_loaded;
+
     //時間
     private float timeOut;
 
@@ -85,6 +90,9 @@ public class ExtremePanel : MonoBehaviour {
 
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //お菓子パラム計算用メソッドの取得
         Okashi_keisan = GameObject.FindWithTag("OkashiParamKeisanMethod").GetComponent<OkashiParamKeisanMethod>();
@@ -141,10 +149,34 @@ public class ExtremePanel : MonoBehaviour {
         _deg = 1.0f; //1秒間あたりの減少量
 
         Life_anim_on = false;
+
+        myscene_loaded = false;
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
     }
 	
 	// Update is called once per frame
 	void Update () {
+
+        //別シーンから、再度読み込まれたときに、すでにお菓子を作成済みだった場合は、初期化する。
+        if (myscene_loaded == true)
+        {
+            extreme_itemID = exp_Controller._temp_extreme_id; // 空の場合は、9999でリセット
+            
+
+            if (extreme_itemID != 9999)
+            {
+                extreme_itemtype = exp_Controller._temp_extreme_itemtype;
+                Starthp = exp_Controller._temp_Starthp;
+                Life_anim_on = exp_Controller._temp_life_anim_on;
+
+                Extreme_Hyouji();
+                //Debug.Log(exp_Controller._temp_extreme_id + " extreme_itemID");
+                //Debug.Log(exp_Controller._temp_extreme_itemtype + " exp_Controller._temp_extreme_itemtype");
+                //Debug.Log(exp_Controller._temp_Starthp + " exp_Controller._temp_Starthp");
+            }
+
+            myscene_loaded = false;
+        }
 
         if( Life_anim_on == true) //お菓子が完成したら、だんだんとHPが減っていく。０になると、お菓子が壊れる。
         {
@@ -154,6 +186,8 @@ public class ExtremePanel : MonoBehaviour {
                 timeOut = 1.0f; //１秒ずつ減少
 
                 Starthp -= _deg; //_degの分ずつ、減少していく。
+                exp_Controller._temp_Starthp = Starthp;
+
                 _hpslider.value = Starthp; //それをバーにも反映。
                 
                 Okashi_moneyparam -= _moneydeg;
@@ -181,7 +215,8 @@ public class ExtremePanel : MonoBehaviour {
 
                     deleteExtreme_Item();
 
-                    Life_anim_on = false;                   
+                    Life_anim_on = false;
+                    exp_Controller._temp_life_anim_on = false;
 
                 }
             }
@@ -197,7 +232,16 @@ public class ExtremePanel : MonoBehaviour {
         extreme_itemID = item_id;
         extreme_itemtype = itemtype;
 
-        if(extreme_itemtype == 0 ) //デフォルトアイテムの場合
+        //シーン移動用に保存
+        exp_Controller._temp_extreme_id = extreme_itemID;
+        exp_Controller._temp_extreme_itemtype = extreme_itemtype;
+
+        Extreme_Hyouji();
+    }
+
+    void Extreme_Hyouji()
+    {
+        if (extreme_itemtype == 0) //デフォルトアイテムの場合
         {
             texture2d = database.items[extreme_itemID].itemIcon;
             extreme_kaisu = database.items[extreme_itemID].ExtremeKaisu;
@@ -299,7 +343,7 @@ public class ExtremePanel : MonoBehaviour {
             {
                 card_view.All_DeleteCard();
 
-                _text.text = "新しくお菓子を作るよ！材料を選んでね。";
+                _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
                 compound_Main.compound_status = 3;
 
                 pitemlistController.extremepanel_on = false;
@@ -413,8 +457,11 @@ public class ExtremePanel : MonoBehaviour {
         _hpslider.value = Life;
         Starthp = Life; //floatで計算し、valueに反映する。
 
+        exp_Controller._temp_Starthp = Starthp;
+
         timeOut = 1.0f;
         Life_anim_on = true;
+        exp_Controller._temp_life_anim_on = true;
 
         //お菓子の現在の価値もセット
         Okashi_moneyparam = Okashi_keisan.Sell_Okashi(extreme_itemID, extreme_itemtype);
@@ -434,5 +481,16 @@ public class ExtremePanel : MonoBehaviour {
     public void LifeAnimeOnTrue()
     {
         Life_anim_on = true;
+    }
+
+    //別シーンからこのシーンが読み込まれたときに、読み込む
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        {
+            //Debug.Log(scene.name + " scene loaded");
+            myscene_loaded = true;
+
+        }
     }
 }

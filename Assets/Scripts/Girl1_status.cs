@@ -53,6 +53,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int girl1_Subtype1_p;
     public int girl1_Subtype2_p;
 
+    private string girl1_Subtype1_hyouji;
+
     public string girl1_Topping1; 
     public string girl1_Topping2;
 
@@ -90,11 +92,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int index;
 
     private float rnd;
+    private int random;
 
     //ランダムで変化する、女の子が今食べたいお菓子のテーブル
     public List<string> girl1_hungryInfo = new List<string>();
     public List<int> girl1_hungryScore = new List<int>();
     public List<int> girl1_hungrySet1 = new List<int>();
+    public List<string> girl1_hungrySubTypeSet1 = new List<string>();
+
+    //今食べたい味のテーブル
+    public int _rich_param;
+    public int _sweat_param;
+    public int _sour_param;
+    public int _bitter_param;
 
     // Use this for initialization
 
@@ -291,8 +301,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 girl1_hungrySet1.Add(i);
             }
         }
+
+        girl1_hungrySubTypeSet1.Add("");
+        girl1_hungrySubTypeSet1.Add("Cookie");
+
+
+        //現状は未実装
+        _rich_param = 0;
+        _sweat_param = 0;
+        _sour_param = 0;
+        _bitter_param = 0;
     }
 
+    //女の子が食べたいものの決定。ランダムでもいいし、ストーリーによっては、一つのイベントの感じで、同じものを合格するまで出し続けてもいい。
     void Girl_Hungry()
     {
         //前の残りの吹き出しアイテムを削除。
@@ -301,9 +322,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             Destroy(hukidashiitem);
         }
 
+
         //女の子の食べたいものが、ランダムで切り替わるテーブル            
-        var r = Random.Range(0, girl1_hungrySet1.Count);
-        index = girl1_hungrySet1[r];
+        random = Random.Range(0, girl1_hungrySet1.Count);
+        index = girl1_hungrySet1[random];
 
         //まず全ての値を0に初期化
         for (i = 0; i < girl1_hungryScore.Count; i++)
@@ -314,15 +336,58 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
         girl1_hungryScore[index]++;
 
+        //味を決定する。これに足りてないと、「甘さが足りない」といったコメントをもらえる。
+        girl1_Rich = _rich_param;
+        girl1_Sweat = _sweat_param;
+        girl1_Sour = _sour_param;
+        girl1_Bitter = _bitter_param;
+
+        //食べたいお菓子の種類を決定
+        random = Random.Range(0, girl1_hungrySubTypeSet1.Count);
+        girl1_Subtype1 = girl1_hungrySubTypeSet1[random];
+        //Debug.Log("random: " + random);
+
+        switch(girl1_Subtype1)
+        {
+            case "Cookie":
+
+                girl1_Subtype1_hyouji = "クッキー";
+                break;
+
+            case "Cake":
+
+                girl1_Subtype1_hyouji = "ケーキ";
+                break;
+
+            case "Chocolate":
+
+                girl1_Subtype1_hyouji = "チョコレート";
+                break;
+
+            default:
+                break;
+
+        }
+        
+
         //表示用吹き出しを生成
         hukidashiitem = Instantiate(hukidashiPrefab, canvas.transform);
         _text = hukidashiitem.GetComponentInChildren<Text>();
 
+
+
         //音を鳴らす
         audioSource.PlayOneShot(sound1);
 
-        //_text = text_area.GetComponentInChildren<Text>();
-        _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "のお菓子が食べたいなぁ";
+        if (girl1_Subtype1 == "") //種類は関係なく、なんでもいい
+        {
+            _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "のお菓子が食べたいなぁ";
+        }
+        else //食べたいお菓子の種類がある場合
+        {
+            _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "の" + "<color=#FF78B4>" + girl1_Subtype1_hyouji + "</color>" + "が食べたいなぁ";
+        }
+        
     }
 
     void Girl_Full()

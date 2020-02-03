@@ -34,7 +34,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //イベントフラグ管理用
     [SerializeField]
-    private bool orange_recipi_get;
+    private bool gamestart_recipi_get;
 
     // Use this for initialization
     void Start () {
@@ -54,7 +54,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         recipi_read_flag = false;
         recipi_read_endflag = false;
 
-        orange_recipi_get = false;
+        gamestart_recipi_get = false;
 
         talk_flag = false;
         talk_number = 0;
@@ -123,18 +123,24 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //ここまで
 
+
         //ゲーム中にイベントで入手したアイテムの管理
-        if (orange_recipi_get != true)
+
+        //ゲームの一番最初に絶対手に入れるレシピ
+        if (gamestart_recipi_get != true)
         {
             if (scenario_flag == 110)
             {
                 Find_eventitemdatabase("najya_start_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
 
-                Find_eventitemdatabase("ev01_orange_cookie_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //オレンジクッキーのレシピを追加
+                //Find_eventitemdatabase("ev01_orange_cookie_recipi");
+                //pitemlist.add_eventPlayerItem(ev_id, 1); //オレンジクッキーのレシピを追加
 
-                orange_recipi_get = true; //ゲットしたよフラグをONに。
+                Find_eventitemdatabase("ev02_neko_cookie_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
+
+                gamestart_recipi_get = true; //ゲットしたよフラグをONに。
             }
         }
     }

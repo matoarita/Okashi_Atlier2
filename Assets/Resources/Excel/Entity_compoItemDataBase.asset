@@ -308,7 +308,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: neko_cookie
-      cmpitem_kosu1: 1
+      cmpitem_kosu1: 2
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0

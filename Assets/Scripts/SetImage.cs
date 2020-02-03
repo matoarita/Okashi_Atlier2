@@ -138,9 +138,9 @@ public class SetImage : MonoBehaviour
         item_Quality_Bar = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Bar").gameObject.GetComponent<Text>(); //品質の★の数
         item_Quality_Score = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Score").gameObject.GetComponent<Text>(); //品質の★の数
 
-        item_Sweat = this.transform.Find("Item_card_template/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
-        item_Bitter = this.transform.Find("Item_card_template/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
-        item_Sour = this.transform.Find("Item_card_template/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
+        item_Sweat = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
+        item_Bitter = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
+        item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
 
         item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
         item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemCrispyScore").gameObject.GetComponent<Text>(); //さくさくの値

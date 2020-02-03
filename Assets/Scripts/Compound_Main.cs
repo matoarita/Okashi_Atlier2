@@ -231,6 +231,7 @@ public class Compound_Main : MonoBehaviour
         {
             compoundselect_onoff_obj.SetActive(false);
             text_area.SetActive(false);
+            check_recipi_flag = false;
         }
         else //以下が、通常の処理
         {
@@ -527,7 +528,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.All_DeleteCard();
 
-            _text.text = "新しくお菓子を作るよ！材料を選んでね。"; ;
+            _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
             compound_status = 3;
         }
     }
@@ -650,6 +651,7 @@ public class Compound_Main : MonoBehaviour
         saveload_panel.SetActive(false);
         backbutton_obj.SetActive(false);
         text_area.SetActive(false);
+        black_panel_A.SetActive(false);
 
         GameMgr.event_recipiID = event_itemID;
         GameMgr.event_recipi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -773,7 +775,6 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(false);
         text_area.SetActive(false);
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
-        //Debug.Log("GameMgr.recipi_read_ID: " + GameMgr.recipi_read_ID);
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         while (!GameMgr.recipi_read_endflag)
@@ -790,20 +791,20 @@ public class Compound_Main : MonoBehaviour
         /* レシピを読む処理 */
         pitemlist.eventitemlist[recipi_num].ev_ReadFlag = 1; //該当のイベントアイテムのレシピのフラグをONにしておく（読んだ、という意味）
         Recipi_FlagON_Method();
-        Debug.Log("レシピ: " + pitemlist.eventitemlist[i].event_itemNameHyouji + "を読んだ");
+        Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji + "を読んだ");
     }
 
     void Recipi_FlagON_Method()
     {
 
         //レシピの番号チェック
-        if (pitemlist.eventitemlist[i].event_itemName == "najya_start_recipi") //ナジャのお菓子作りの基本
+        if (pitemlist.eventitemlist[recipi_num].event_itemName == "najya_start_recipi") //ナジャのお菓子作りの基本
         {
-            Find_compoitemdatabase("neko_cookie");
-            databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+            //Find_compoitemdatabase("neko_cookie");
+            //databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
         }
 
-        if (pitemlist.eventitemlist[i].event_itemName == "cookie_base_recipi") //クッキー生地作り方のレシピ＜初級＞  
+        if (pitemlist.eventitemlist[recipi_num].event_itemName == "cookie_base_recipi") //クッキー生地作り方のレシピ＜初級＞  
         {
             Find_compoitemdatabase("financier");
             databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
@@ -812,7 +813,7 @@ public class Compound_Main : MonoBehaviour
             databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
         }
 
-        if (pitemlist.eventitemlist[i].event_itemName == "ice_cream_recipi") //アイスクリームの書
+        if (pitemlist.eventitemlist[recipi_num].event_itemName == "ice_cream_recipi") //アイスクリームの書
         {
             Find_compoitemdatabase("ice_cream");
             databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;

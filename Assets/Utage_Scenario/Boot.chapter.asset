@@ -873,9 +873,114 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 27
+      debugIndex: 27
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 28
+      debugIndex: 28
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 29
+      debugIndex: 29
+      strings:
+      - Ev_flag1
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 30
+      debugIndex: 30
+      strings:
+      - Ev_flag2
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 31
+      debugIndex: 31
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 32
+      debugIndex: 32
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 33
+      debugIndex: 33
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 34
+      debugIndex: 34
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 35
+      debugIndex: 35
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 36
+      debugIndex: 36
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 37
+      debugIndex: 37
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 38
+      debugIndex: 38
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 39
+      debugIndex: 39
+      strings:
+      - Re_flag1
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 40
+      debugIndex: 40
+      strings:
+      - Re_flag2
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 41
+      debugIndex: 41
+      strings:
+      - Re_flag3
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 162
+    textLength: 247
     headerRow: 0
   - rows:
     - rowIndex: 0

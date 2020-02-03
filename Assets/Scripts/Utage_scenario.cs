@@ -41,6 +41,9 @@ public class Utage_scenario : MonoBehaviour
 
     private int total_score;
 
+    private int j;
+    private string recipi_Name;
+
 
     // Use this for initialization
     void Start()
@@ -393,7 +396,36 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴で呼び出したいイベント番号を設定する。
-        engine.Param.TrySetParameter("Ev_recipi", event_ID);
+        //event_IDをもとに、宴の該当のフラグをONにする。
+
+        //event_IDから、レシピの名前を検索
+        j = 0;
+        while (j < pitemlist.eventitemlist.Count)
+        {
+            if (event_ID == pitemlist.eventitemlist[j].ev_ItemID)
+            {
+                recipi_Name = pitemlist.eventitemlist[j].event_itemName;
+                break;
+            }
+            j++;
+        }
+
+        switch (recipi_Name)
+        {
+            case "ev01_orange_cookie_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag1", true);
+                break;
+
+            case "ev02_neko_cookie_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag2", true);
+                break;
+
+            default:
+                break;
+        }
+
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -419,6 +451,7 @@ public class Utage_scenario : MonoBehaviour
 
     }
 
+
     
     IEnumerator Recipi_read_Hyouji()
     {
@@ -429,7 +462,40 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("Read_recipi", recipi_read_ID);
+
+        //event_IDから、レシピの名前を検索
+        j = 0;
+        while (j < pitemlist.eventitemlist.Count)
+        {
+            if (recipi_read_ID == pitemlist.eventitemlist[j].ev_ItemID)
+            {
+                recipi_Name = pitemlist.eventitemlist[j].event_itemName;
+                break;
+            }
+            j++;
+        }
+
+        switch (recipi_Name)
+        {
+            case "najya_start_recipi":
+
+                engine.Param.TrySetParameter("Re_flag1", true);
+                break;
+
+            case "cookie_base_recipi":
+
+                engine.Param.TrySetParameter("Re_flag2", true);
+                break;
+
+            case "ice_cream_recipi":
+
+                engine.Param.TrySetParameter("Re_flag3", true);
+                break;
+
+            default:
+                break;
+        }
+      
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);

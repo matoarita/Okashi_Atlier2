@@ -146,13 +146,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public AudioClip sound2;
     AudioSource audioSource;
 
+    //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
+    public int _temp_extreme_id;
+    public int _temp_extreme_itemtype;
+    public bool _temp_life_anim_on;
+    public float _temp_Starthp;
+
+
 
     //トッピング調合用のパラメータ
     private int _id;
 
     Dictionary<int, int> deleteOriginalList = new Dictionary<int, int>(); //オリジナルアイテムリストの削除用のリスト。ID, 個数のセット
-    //List<int> deleteOriginalList = new List<int>(); //オリジナルアイリストの削除用のリスト
-    //List<int> deleteOriginalList_result = new List<int>();
 
 
     private string _basename;
@@ -373,12 +378,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _basetp = new string[10];
         _addtp = new string[10];
         _temptp = new string[10];
+
+        _temp_extreme_id = 9999;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-            
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
@@ -401,6 +407,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //レベルアップチェック用オブジェクトの取得
                 exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
+
+                //黒半透明パネルの取得
+                black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
             }
 
             //調合中ウェイト+アニメ
@@ -1165,7 +1174,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text = text_area.GetComponentInChildren<Text>();
 
         //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
+        MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         kettei_item1 = shopitemlistController.shop_kettei_item1;

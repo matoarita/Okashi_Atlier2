@@ -68,6 +68,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _basesweat;
     private int _basebitter;
     private int _basesour;
+    private int _baserich;
     private int _basecrispy;
     private int _basefluffy;
     private int _basesmooth;
@@ -96,6 +97,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _girlsweat;
     private int _girlbitter;
     private int _girlsour;
+    private int _girlrich;
     private int _girlcrispy;
     private int _girlfluffy;
     private int _girlsmooth;
@@ -105,6 +107,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _girlpowdery;
     private int _girloily;
     private int _girlwatery;
+
+    private string _girl_subtype;
 
 
     //女の子の採点用パラメータ
@@ -156,6 +160,9 @@ public class GirlEat_Judge : MonoBehaviour {
     // スロットの点数
     List<int> itemslotScore = new List<int>();
 
+    private GameObject effect_Prefab;
+    private List<GameObject> _listEffect = new List<GameObject>();
+
 
     // Use this for initialization
     void Start () {
@@ -191,6 +198,9 @@ public class GirlEat_Judge : MonoBehaviour {
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
+        //エフェクトプレファブの取得
+        effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
 
         window_param_result_obj.SetActive(false);
 
@@ -360,6 +370,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basesweat = database.items[kettei_item1].Sweat;
                 _basebitter = database.items[kettei_item1].Bitter;
                 _basesour = database.items[kettei_item1].Sour;
+                _baserich = database.items[kettei_item1].Rich;
                 _basecrispy = database.items[kettei_item1].Crispy;
                 _basefluffy = database.items[kettei_item1].Fluffy;
                 _basesmooth = database.items[kettei_item1].Smooth;
@@ -393,6 +404,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basesweat = pitemlist.player_originalitemlist[kettei_item1].Sweat;
                 _basebitter = pitemlist.player_originalitemlist[kettei_item1].Bitter;
                 _basesour = pitemlist.player_originalitemlist[kettei_item1].Sour;
+                _baserich = pitemlist.player_originalitemlist[kettei_item1].Rich;
                 _basecrispy = pitemlist.player_originalitemlist[kettei_item1].Crispy;
                 _basefluffy = pitemlist.player_originalitemlist[kettei_item1].Fluffy;
                 _basesmooth = pitemlist.player_originalitemlist[kettei_item1].Smooth;
@@ -428,6 +440,7 @@ public class GirlEat_Judge : MonoBehaviour {
         _girlsweat = girl1_status.girl1_Sweat;
         _girlbitter = girl1_status.girl1_Bitter;
         _girlsour = girl1_status.girl1_Sour;
+        _girlrich = girl1_status.girl1_Rich;
         _girlcrispy = girl1_status.girl1_Crispy;
         _girlfluffy = girl1_status.girl1_Fluffy;
         _girlsmooth = girl1_status.girl1_Smooth;
@@ -437,6 +450,7 @@ public class GirlEat_Judge : MonoBehaviour {
         _girlpowdery = girl1_status.girl1_Powdery;
         _girloily = girl1_status.girl1_Oily;
         _girlwatery = girl1_status.girl1_Watery;
+        _girl_subtype = girl1_status.girl1_Subtype1;
 
 
         /* 古い処理、ここに入ってた。とりあえず、スクリプト下部へ避難 */
@@ -596,6 +610,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         for (i = 0; i < itemslotScore.Count; i++)
         {
+            //①トッピングスロットの計算
+
             //0はNonなので、無視
             if (i != 0)
             {
@@ -609,6 +625,39 @@ public class GirlEat_Judge : MonoBehaviour {
                 {
                     dislike_flag = false;
                 }
+            }
+
+
+            //②味パラメータの計算
+            if ( _baserich >= _girlrich ) {
+            }
+            else { dislike_flag = false; }
+
+            if ( _basesweat >= _girlsweat ) {
+            }
+            else { dislike_flag = false; }
+
+            if ( _basebitter >= _girlbitter ) {
+            }
+            else { dislike_flag = false; }
+
+            if ( _basesour >= _girlsour ) {
+            }
+            else { dislike_flag = false; }
+
+
+            //③お菓子の種別の計算
+            if (_girl_subtype == "" ) //特に指定なし
+            {
+
+            }
+            else if (_girl_subtype == _baseitemtype_sub) //お菓子の種別が一致している。
+            {
+
+            }
+            else
+            {
+                dislike_flag = false;
             }
         }
 
@@ -632,6 +681,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //アニメーションをON
             loveanim_on = true;
+
+            //エフェクト生成＋アニメ開始
+            _listEffect.Add(Instantiate(effect_Prefab));
+            StartCoroutine("Love_effect");
 
             //音を鳴らす
             audioSource.PlayOneShot(sound1);
@@ -748,6 +801,18 @@ public class GirlEat_Judge : MonoBehaviour {
         GetMoney = _basecost + slot_money;
     }
 
+    IEnumerator Love_effect()
+    {
+        //10秒待つ
+        yield return new WaitForSeconds(10);
+
+        //初期化しておく
+        for (i = 0; i < _listEffect.Count; i++)
+        {
+            Destroy(_listEffect[i]);
+        }
+        _listEffect.Clear();
+    }
         /*
             Debug.Log("###  好みの比較　結果　###");
 
