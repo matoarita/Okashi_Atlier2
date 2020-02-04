@@ -138,7 +138,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private bool compo_anim_end;
     private float timeOut;
 
-    private GameObject Compo_Magic_effect_Prefab;
+    private GameObject Compo_Magic_effect_Prefab1;
+    private GameObject Compo_Magic_effect_Prefab2;
+    private GameObject Compo_Magic_effect_Prefab3;
     private List<GameObject> _listEffect = new List<GameObject>();
 
     //SEを鳴らす
@@ -323,7 +325,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
 
         //エフェクトプレファブの取得
-        Compo_Magic_effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
+        Compo_Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
+        Compo_Magic_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo2");
+        Compo_Magic_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Particle_Compo3");
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -1222,7 +1226,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case 0: //初期化 状態１
 
                 //エフェクト生成＋アニメ開始
-                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab));
+                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
 
                 //音を鳴らす
                 audioSource.PlayOneShot(sound1);
@@ -1271,6 +1275,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     Destroy(_listEffect[i]);
                 }
                 _listEffect.Clear();
+
+
+                //リザルト時のエフェクト生成＋アニメ開始
+                StartCoroutine("ResultEffect");
+                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab2));
+                _listEffect[0].GetComponent<Canvas>().worldCamera = Camera.main;
+                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab3));
+                _listEffect[1].GetComponent<Canvas>().worldCamera = Camera.main;
+
                 break;
 
             default:
@@ -1281,7 +1294,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         timeOut -= Time.deltaTime;
     }
 
+    IEnumerator ResultEffect()
+    {
+        yield return new WaitForSeconds(5); //５秒待つ
 
+        //初期化しておく
+        for (i = 0; i < _listEffect.Count; i++)
+        {
+            Destroy(_listEffect[i]);
+        }
+        _listEffect.Clear();
+    }
 
 
 

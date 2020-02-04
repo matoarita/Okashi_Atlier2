@@ -620,4 +620,5 @@ public class SetImage : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
 }
