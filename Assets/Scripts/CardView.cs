@@ -24,14 +24,22 @@ public class CardView : SingletonMonoBehaviour<CardView>
     public AudioClip sound1;
     AudioSource audioSource;
 
-    Transform resulttransform;
-    Vector3 resultScale;
-    Vector3 resultPos;
+    private Transform resulttransform;
+    private Vector3 resultScale;
+    private Vector3 resultPos;
 
     private float maxScale, maxPos;
     private float _Scale,  _Pos;
     private float _degscale, _degpos;
     private bool result_anim_on;
+
+    private Vector3 _diff_pos;
+    private Vector3 _temp_nowpos;
+    private List<Vector3> _now_cardpos = new List<Vector3>();
+    private List<float> _diff_x = new List<float>();
+    private List<float> _diff_y = new List<float>();
+    private int _movetime;
+    public bool cardcompo_anim_on;
 
     // Use this for initialization
     void Start () {
@@ -51,6 +59,22 @@ public class CardView : SingletonMonoBehaviour<CardView>
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (cardcompo_anim_on == true)
+        {
+            for (i = 0; i < _cardImage_obj.Count; i++)
+            {
+
+                _temp_nowpos = _now_cardpos[i];
+                _temp_nowpos.x += (_diff_x[i] * (-1.0f));
+                _temp_nowpos.y += (_diff_y[i] * (-1.0f));
+
+                _now_cardpos[i] = _temp_nowpos;
+
+                _cardImage_obj[i].transform.localPosition = _now_cardpos[i];
+            }
+        }
+
 
         if (result_anim_on == true)
         {
@@ -373,6 +397,31 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     }
 
+    public void CardCompo_Anim()
+    {
+        _movetime = 120; //移動にかかるフレーム数
+        _diff_x.Clear();
+        _diff_y.Clear();
+        _now_cardpos.Clear();
+
+        //今存在している全てのカードに対して、アニメーション
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            _now_cardpos.Add(_cardImage_obj[i].transform.localPosition);
+
+            //今カードがある位置と、原点の差をだす。
+            _diff_pos = _cardImage_obj[i].transform.localPosition - Vector3.zero;
+
+            //移動にかかる秒数で割り、１フレームあたりの移動量をだす。各カードのリストに記録
+            _diff_x.Add(_diff_pos.x / _movetime);
+            _diff_y.Add(_diff_pos.y / _movetime);
+        }
+
+        //アニメーション開始。
+        cardcompo_anim_on = true;
+    }
+
+
     void Result_animOn()
     {
         resulttransform = _cardImage_obj[0].transform;
@@ -388,7 +437,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         //スケールの変動量を位置の変動量に変換
         _degpos = SujiMap(_degscale, 0, maxScale, 0, maxPos);
-        Debug.Log("_degpos: " + _degpos);
+        //Debug.Log("_degpos: " + _degpos);
 
         result_anim_on = true;
     }

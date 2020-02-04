@@ -13,6 +13,8 @@ using System.Linq;
 
 public class shopitemSelectToggle : MonoBehaviour
 {
+    private GameObject canvas;
+
     Toggle m_Toggle;
     public Text m_Text; //デバッグ用。未使用。
 
@@ -84,15 +86,13 @@ public class shopitemSelectToggle : MonoBehaviour
             ToggleValueChanged(m_Toggle);
         });
 
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
         shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
         back_ShopFirst_obj = shopitemlistController_obj.transform.Find("Back_ShopFirst").gameObject;
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
-
-        updown_counter_obj = shopitemlistController_obj.transform.Find("updown_counter").gameObject;
-        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-        updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
 
         yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
@@ -135,6 +135,13 @@ public class shopitemSelectToggle : MonoBehaviour
 
     void Update()
     {
+        if (updown_counter_obj == null)
+        {
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+            updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+        }
+
         if (shopitemlistController.shop_final_select_flag == true) //最後、これを買うかどうかを待つフラグ
         {
                 StartCoroutine("shop_buy_Final_select");
@@ -147,6 +154,7 @@ public class shopitemSelectToggle : MonoBehaviour
         //m_Text.text = "New Value : " + m_Toggle.isOn;
         if (m_Toggle.isOn == true)
         {
+            
             back_ShopFirst_btn.interactable = false;
             shop_buy_active();
         }

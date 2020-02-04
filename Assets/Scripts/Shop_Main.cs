@@ -27,6 +27,9 @@ public class Shop_Main : MonoBehaviour {
     private GameObject shopon_toggle_talk;
     private GameObject shopon_toggle_watch;
 
+    private GameObject updown_counter_obj;
+    private GameObject updown_counter_Prefab;
+
     public int shop_status;
 
     // Use this for initialization
@@ -37,6 +40,10 @@ public class Shop_Main : MonoBehaviour {
 
         //キャンバスの取得
         canvas = GameObject.FindWithTag("Canvas");
+
+        //シーン最初にカウンターも生成する。
+        updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
+        updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();

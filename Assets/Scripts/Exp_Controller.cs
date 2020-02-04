@@ -1201,7 +1201,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //所持金をへらす
-        //PlayerStatus.player_money -= shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu;
         moneyStatus_Controller.UseMoney(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
 
         //ショップの在庫をへらす
@@ -1266,6 +1265,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //Debug.Log("アニメ終了");
                 compo_anim_end = true;
 
+                //カードビューのカードアニメもストップ
+                card_view.cardcompo_anim_on = false;
+                card_view.DeleteCard_DrawView();
+
                 //音を止める
                 audioSource.Stop();
 
@@ -1296,7 +1299,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     IEnumerator ResultEffect()
     {
-        yield return new WaitForSeconds(5); //５秒待つ
+        yield return new WaitForSeconds(10); //10秒待つ
 
         //初期化しておく
         for (i = 0; i < _listEffect.Count; i++)

@@ -13,6 +13,8 @@ using System.Linq;
 
 public class recipiitemSelectToggle : MonoBehaviour
 {
+    private GameObject canvas;
+
     Toggle m_Toggle;
 
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
@@ -26,7 +28,7 @@ public class recipiitemSelectToggle : MonoBehaviour
     private Exp_Controller exp_Controller;
 
     private GameObject updown_counter_obj;
-    private Updown_counter_recipi updown_counter;
+    private Updown_counter updown_counter;
     private Button[] updown_button = new Button[2];
 
     private GameObject kakuritsuPanel_obj;
@@ -87,6 +89,9 @@ public class recipiitemSelectToggle : MonoBehaviour
             ToggleValueChanged(m_Toggle);
         });
 
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
         {
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
@@ -102,8 +107,8 @@ public class recipiitemSelectToggle : MonoBehaviour
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
-        updown_counter_obj = recipilistController_obj.transform.Find("updown_counter").gameObject;
-        updown_counter = updown_counter_obj.GetComponent<Updown_counter_recipi>();
+        updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
         yes = recipilistController_obj.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();

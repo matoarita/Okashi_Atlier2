@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListController>
 {
+    private GameObject canvas;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -160,16 +162,22 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     void OnEnable()
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
-        //Debug.Log("OnEnable");
+        //Debug.Log("OnEnable");      
 
-        updown_counter_obj = this.transform.Find("updown_counter").gameObject;
-        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+        if (compound_Main_obj != null) //ゲームのセットアップ時は無視
+        {
+            //キャンバスの読み込み
+            canvas = GameObject.FindWithTag("Canvas");
 
-        //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
-        updown_counter_obj.SetActive(true);
-        updown_counter.updown_kosu = 1;
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
-        updown_counter_obj.SetActive(false);
+            //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
+            updown_counter_obj.SetActive(true);
+            updown_counter.updown_kosu = 1;
+
+            updown_counter_obj.SetActive(false);
+        }
 
         ResetKettei_item();
 

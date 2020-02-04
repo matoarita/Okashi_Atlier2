@@ -77,6 +77,9 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject yes_no_panel; //通常時のYes, noボタン
 
+    private GameObject updown_counter_obj;
+    private GameObject updown_counter_Prefab;
+
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
@@ -145,6 +148,10 @@ public class Compound_Main : MonoBehaviour
         no_text = no.GetComponentInChildren<Text>();
 
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+
+        //シーン最初にカウンターも生成する。
+        updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
+        updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //確率パネルの取得
         kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;

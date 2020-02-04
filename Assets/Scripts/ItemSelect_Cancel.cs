@@ -39,7 +39,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
-    private Updown_counter_recipi updown_counter_recipi;
     private Button[] updown_button = new Button[2];
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
@@ -99,10 +98,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
                 shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                updown_counter_obj = shopitemlistController_obj.transform.Find("updown_counter").gameObject;
-                updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-                updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
 
                 yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
@@ -208,25 +203,21 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             //調合中か、あげる処理に入っているか、もしくはアイテムリストを開いているとき
             if (compound_Main.compound_status == 4)
             {
+                updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+                updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+                updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
                 if (compound_Main.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
                 {
                     yes = recipilistController_obj.transform.Find("Yes").gameObject;
                     yes_text = yes.GetComponentInChildren<Text>();
                     no = recipilistController_obj.transform.Find("No").gameObject;                    
-
-                    updown_counter_obj = recipilistController_obj.transform.Find("updown_counter").gameObject;
-                    updown_counter_recipi = updown_counter_obj.GetComponent<Updown_counter_recipi>();
-                    updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
                 }
                 else
                 {
                     yes = pitemlistController_obj.transform.Find("Yes").gameObject;
                     yes_text = yes.GetComponentInChildren<Text>();
-                    no = pitemlistController_obj.transform.Find("No").gameObject;                    
-
-                    updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
-                    updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-                    updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+                    no = pitemlistController_obj.transform.Find("No").gameObject;                                        
                 }
 
                 if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
@@ -464,16 +455,17 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         {
             compound_Main.compound_status = 4;
 
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+            updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
             //まずは、レシピ・それ以外の調合用にオブジェクト取得
             if (compound_Main.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
             {
                 yes = recipilistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = recipilistController_obj.transform.Find("No").gameObject;
-
-                updown_counter_obj = recipilistController_obj.transform.Find("updown_counter").gameObject;
-                updown_counter_recipi = updown_counter_obj.GetComponent<Updown_counter_recipi>();
-                updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+               
             }
             else
             {
@@ -481,9 +473,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = pitemlistController_obj.transform.Find("No").gameObject;
 
-                updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
-                updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-                updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
             }
 
 
@@ -579,6 +568,10 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         }
         else
         {
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+            updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
             no = pitemlistController_obj.transform.Find("No").gameObject;

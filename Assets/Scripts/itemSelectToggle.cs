@@ -130,7 +130,7 @@ public class itemSelectToggle : MonoBehaviour
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
-        updown_counter_obj = pitemlistController_obj.transform.Find("updown_counter").gameObject;
+        updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
         updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
         yes = pitemlistController_obj.transform.Find("Yes").gameObject;
@@ -683,28 +683,6 @@ public class itemSelectToggle : MonoBehaviour
                     case true:
 
                         //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
-                        /*
-                        if (judge_flag == 0)
-                        {
-                            exp_Controller.compound_success = true;
-                        }
-                        else if (judge_flag == 1)
-                        {
-                            //調合成功の判定
-                            CompoundSuccess_judge();
-
-                            if (compoundsuccess_flag == true)
-                            {
-                                exp_Controller.compound_success = true;
-
-                            }
-                            else if (compoundsuccess_flag == false)
-                            {
-                                exp_Controller.compound_success = false;
-                                pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
-
-                            }
-                        }*/
 
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
@@ -713,6 +691,8 @@ public class itemSelectToggle : MonoBehaviour
 
                         compound_Main.compound_status = 4;
 
+                        //card_view.DeleteCard_DrawView();
+                        card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
                         exp_Controller.ResultOK();
@@ -754,30 +734,8 @@ public class itemSelectToggle : MonoBehaviour
                 switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
+
                         //選んだ三つをもとに、一つのアイテムを生成する。
-                        /*
-                        if (judge_flag == 0)
-                        {
-                            exp_Controller.compound_success = true;
-                        }
-                        else if (judge_flag == 1)
-                        {
-
-                            //調合成功の判定
-                            CompoundSuccess_judge();
-
-                            if (compoundsuccess_flag == true)
-                            {
-                                exp_Controller.compound_success = true;
-
-                            }
-                            else if (compoundsuccess_flag == false)
-                            {
-                                exp_Controller.compound_success = false;
-                                pitemlistController.result_item = database.trash_ID_1; //失敗したので、ゴミが入る。
-
-                            }
-                        }*/
 
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.result_ok = true; //オリジナル調合完了のフラグをたてておく。
@@ -786,6 +744,8 @@ public class itemSelectToggle : MonoBehaviour
 
                         compound_Main.compound_status = 4;
 
+                        //card_view.DeleteCard_DrawView();
+                        card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
                         exp_Controller.ResultOK();
@@ -1866,6 +1826,8 @@ public class itemSelectToggle : MonoBehaviour
 
                         compound_Main.compound_status = 4;
 
+                        //card_view.DeleteCard_DrawView();
+                        card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
                         exp_Controller.Topping_Result_OK();
@@ -1931,6 +1893,8 @@ public class itemSelectToggle : MonoBehaviour
 
                         compound_Main.compound_status = 4;
 
+                        //card_view.DeleteCard_DrawView();
+                        card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
                         exp_Controller.Topping_Result_OK();
@@ -1981,6 +1945,8 @@ public class itemSelectToggle : MonoBehaviour
 
                         compound_Main.compound_status = 4;
 
+                        //card_view.DeleteCard_DrawView();
+                        card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
                         exp_Controller.Topping_Result_OK();
@@ -2068,6 +2034,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 exp_Controller.Roast_ResultOK();
 
+                card_view.DeleteCard_DrawView();
                 Off_Flag_Setting();
 
                 break;
@@ -2139,6 +2106,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 //女の子にアイテムをあげる処理
                 compound_Main.compound_status = 11; //status=11で処理。
+
+                card_view.DeleteCard_DrawView();
 
                 Off_Flag_Setting();
 
@@ -2225,6 +2194,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 exp_Controller.girleat_ok = true; //ガールにアイテムあげた完了のフラグをたてておく。
 
+                card_view.DeleteCard_DrawView();
+
                 Off_Flag_Setting();
 
                 break;
@@ -2309,6 +2280,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 exp_Controller.qbox_ok = true;
 
+                card_view.DeleteCard_DrawView();
+
                 Off_Flag_Setting();
                 
                 break;
@@ -2335,18 +2308,17 @@ public class itemSelectToggle : MonoBehaviour
             pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;
         }
 
-        card_view.DeleteCard_DrawView();
+        //カード全て削除
+        //card_view.DeleteCard_DrawView();
 
         pitemlistController.kettei1_bunki = 0;
-        //pitemlistController.kettei1_on = false;
+
         itemselect_cancel.kettei_on_waiting = false;
 
         updown_counter_obj.SetActive(false);
 
         yes_selectitem_kettei.kettei1 = false;
         yes.SetActive(false);
-        //no.SetActive(false);
-        //item_tsuika.SetActive(true);
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
