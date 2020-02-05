@@ -15,7 +15,7 @@ MonoBehaviour:
   - name: 01_event_recipi
     list:
     - ev_ItemID: 0
-      name: ev01_orange_cookie_recipi
+      name: ev00_orange_cookie_recipi
       nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4"
       cost_price: 0
       sell_price: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
       read_flag: 1
       list_hyouji_on: 1
     - ev_ItemID: 1
-      name: ev02_neko_cookie_recipi
+      name: ev01_neko_cookie_recipi
       nameHyouji: "\u7C21\u5358\uFF01\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4"
       cost_price: 0
       sell_price: 0
@@ -31,6 +31,14 @@ MonoBehaviour:
       read_flag: 1
       list_hyouji_on: 1
     - ev_ItemID: 2
+      name: ev02_orangeneko_cookie_memo
+      nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30CD\u30B3\u30AF\u30C3\u30AD\u30FC\u9583\u304D\u306E\u30E1\u30E2"
+      cost_price: 0
+      sell_price: 0
+      kosu: 0
+      read_flag: 0
+      list_hyouji_on: 1
+    - ev_ItemID: 3
       name: najya_start_recipi
       nameHyouji: "\u30CA\u30B8\u30E3\u306E\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C"
       cost_price: 0
@@ -38,7 +46,7 @@ MonoBehaviour:
       kosu: 0
       read_flag: 0
       list_hyouji_on: 0
-    - ev_ItemID: 3
+    - ev_ItemID: 4
       name: cookie_base_recipi
       nameHyouji: "\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u4F5C\u308A\u65B9\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
       cost_price: 1500
@@ -46,7 +54,7 @@ MonoBehaviour:
       kosu: 0
       read_flag: 0
       list_hyouji_on: 0
-    - ev_ItemID: 4
+    - ev_ItemID: 5
       name: ice_cream_recipi
       nameHyouji: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0\u306E\u66F8"
       cost_price: 500

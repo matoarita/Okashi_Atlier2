@@ -168,6 +168,8 @@ public class ExtremePanel : MonoBehaviour {
                 extreme_itemtype = exp_Controller._temp_extreme_itemtype;
                 Starthp = exp_Controller._temp_Starthp;
                 Life_anim_on = exp_Controller._temp_life_anim_on;
+                Okashi_moneyparam = exp_Controller._temp_extreme_money;
+                _moneydeg = exp_Controller._temp_moneydeg;
 
                 Extreme_Hyouji();
                 //Debug.Log(exp_Controller._temp_extreme_id + " extreme_itemID");
@@ -191,7 +193,8 @@ public class ExtremePanel : MonoBehaviour {
                 _hpslider.value = Starthp; //それをバーにも反映。
                 
                 Okashi_moneyparam -= _moneydeg;
-                Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
+                exp_Controller._temp_extreme_money = Okashi_moneyparam;
+                Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);                
                 CullentOkashi_money.text = Okashi_moneypram_int.ToString();
 
                 if (Starthp <= 0) //0になったら、お菓子が壊れる。
@@ -469,6 +472,7 @@ public class ExtremePanel : MonoBehaviour {
 
         //減少量も決定
         _moneydeg = Okashi_moneyparam / Starthp;
+        exp_Controller._temp_moneydeg = _moneydeg;
         //Debug.Log("_moneydeg: " + _moneydeg);
     }
 

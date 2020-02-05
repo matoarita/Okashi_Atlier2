@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198823046410828538}
   - component: {fileID: 199206303322737624}
   - component: {fileID: 223471524320539766}
+  - component: {fileID: 114914619174159496}
   m_Layer: 0
   m_Name: Particle_Compo3
   m_TagString: Untagged
@@ -29,6 +30,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114914619174159496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976287155199872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea83309f16990a24789c3e01741c0b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198823046410828538
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -89,14 +101,14 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2108862092
+  randomSeed: 526261453
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -179,7 +191,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.96247464, b: 0.45588237, a: 1}
+      maxColor: {r: 1, g: 0.96247464, b: 0.45588237, a: 0.503}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

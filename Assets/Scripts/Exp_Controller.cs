@@ -151,6 +151,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
     public int _temp_extreme_id;
     public int _temp_extreme_itemtype;
+    public float _temp_extreme_money;
+    public float _temp_moneydeg;
     public bool _temp_life_anim_on;
     public float _temp_Starthp;
 
@@ -836,11 +838,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             Delete_playerItemList();
             pitemlist.addPlayerItem(result_item, result_kosu);
 
-            //右側パネルに、作ったやつを表示する。
-            extremePanel.SetExtremeItem(result_item, 0);
+            if (database.items[result_item].itemType.ToString() == "Mat")
+            {
 
-            //お菓子のHPをセット
-            extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
+            }
+            else
+            {
+                //右側パネルに、作ったやつを表示する。
+                extremePanel.SetExtremeItem(result_item, 0);
+
+                //お菓子のHPをセット
+                extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
+            }
 
             card_view.ResultCard_DrawView(0, result_item);
 
@@ -991,7 +1000,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 result_ID = pitemlistController.result_compID;
 
 
-                //閃き済みかどうかをチェック
+                //閃き済みかどうかをチェック。
                 if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
                 {
                     //完成アイテムの、レシピフラグをONにする。
@@ -1281,7 +1290,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
 
                 //リザルト時のエフェクト生成＋アニメ開始
-                StartCoroutine("ResultEffect");
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab2));
                 _listEffect[0].GetComponent<Canvas>().worldCamera = Camera.main;
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab3));
@@ -1297,11 +1305,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         timeOut -= Time.deltaTime;
     }
 
-    IEnumerator ResultEffect()
+    public void EffectListClear()
     {
-        yield return new WaitForSeconds(10); //10秒待つ
-
-        //初期化しておく
+        //初期化
         for (i = 0; i < _listEffect.Count; i++)
         {
             Destroy(_listEffect[i]);

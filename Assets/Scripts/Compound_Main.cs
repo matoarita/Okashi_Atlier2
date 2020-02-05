@@ -660,8 +660,25 @@ public class Compound_Main : MonoBehaviour
         text_area.SetActive(false);
         black_panel_A.SetActive(false);
 
-        GameMgr.event_recipiID = event_itemID;
-        GameMgr.event_recipi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+        //GameMgr.event_recipiID = event_itemID;
+        //GameMgr.event_recipi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+        GameMgr.recipi_read_ID = event_itemID;
+        GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        StartCoroutine("eventRecipi_end");
+    }
+
+    IEnumerator eventRecipi_end()
+    {
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = false;
+        Recipi_loading = false;
+
+        compound_status = 0;
     }
 
 
@@ -782,6 +799,7 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(false);
         text_area.SetActive(false);
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
+        //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         while (!GameMgr.recipi_read_endflag)
@@ -805,26 +823,39 @@ public class Compound_Main : MonoBehaviour
     {
 
         //レシピの番号チェック
-        if (pitemlist.eventitemlist[recipi_num].event_itemName == "najya_start_recipi") //ナジャのお菓子作りの基本
+        switch(pitemlist.eventitemlist[recipi_num].event_itemName)
         {
-            //Find_compoitemdatabase("neko_cookie");
-            //databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+            case "ev02_orangeneko_cookie_memo": //オレンジネコクッキー閃きのメモ
+
+                //オレンジジャムの作り方を解禁
+                Find_compoitemdatabase("orange_jam");
+                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+                break;
+
+            case "najya_start_recipi": //ナジャのお菓子作りの基本
+
+                
+                break;
+
+            case "cookie_base_recipi": //クッキー生地作り方のレシピ＜初級＞  
+
+                Find_compoitemdatabase("financier");
+                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+
+                Find_compoitemdatabase("appaleil");
+                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+                break;
+
+            case "ice_cream_recipi": //アイスクリームの書
+
+                Find_compoitemdatabase("ice_cream");
+                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+                break;
+
+            default:
+                break;
         }
 
-        if (pitemlist.eventitemlist[recipi_num].event_itemName == "cookie_base_recipi") //クッキー生地作り方のレシピ＜初級＞  
-        {
-            Find_compoitemdatabase("financier");
-            databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-
-            Find_compoitemdatabase("appaleil");
-            databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-        }
-
-        if (pitemlist.eventitemlist[recipi_num].event_itemName == "ice_cream_recipi") //アイスクリームの書
-        {
-            Find_compoitemdatabase("ice_cream");
-            databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-        }
 
     }
 

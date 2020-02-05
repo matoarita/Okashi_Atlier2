@@ -137,7 +137,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                 //Find_eventitemdatabase("ev01_orange_cookie_recipi");
                 //pitemlist.add_eventPlayerItem(ev_id, 1); //オレンジクッキーのレシピを追加
 
-                Find_eventitemdatabase("ev02_neko_cookie_recipi");
+                Find_eventitemdatabase("ev01_neko_cookie_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
 
                 gamestart_recipi_get = true; //ゲットしたよフラグをONに。

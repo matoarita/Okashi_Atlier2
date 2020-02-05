@@ -102,16 +102,7 @@ public class Utage_scenario : MonoBehaviour
                     default:
                         break;
                 }
-
-                if ( GameMgr.event_recipi_flag == true)
-                {
-                    GameMgr.event_recipi_flag = false;
-                    event_ID = GameMgr.event_recipiID;
-
-                    //イベントレシピを表示
-                    StartCoroutine(Event_recipi_Hyouji());
-                }
-
+                
                 if (GameMgr.recipi_read_flag == true)
                 {
                     GameMgr.recipi_read_flag = false;
@@ -384,75 +375,10 @@ public class Utage_scenario : MonoBehaviour
 
     }
 
+
     //
     // イベントレシピ表示
     //
-    IEnumerator Event_recipi_Hyouji()
-    {
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        scenarioLabel = "Event_Recipi"; //イベントレシピタグのシナリオを再生。
-
-        scenario_loading = true;
-
-        //ここで、宴で呼び出したいイベント番号を設定する。
-        //event_IDをもとに、宴の該当のフラグをONにする。
-
-        //event_IDから、レシピの名前を検索
-        j = 0;
-        while (j < pitemlist.eventitemlist.Count)
-        {
-            if (event_ID == pitemlist.eventitemlist[j].ev_ItemID)
-            {
-                recipi_Name = pitemlist.eventitemlist[j].event_itemName;
-                break;
-            }
-            j++;
-        }
-
-        switch (recipi_Name)
-        {
-            case "ev01_orange_cookie_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag1", true);
-                break;
-
-            case "ev02_neko_cookie_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag2", true);
-                break;
-
-            default:
-                break;
-        }
-
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-
-        //オレンジクッキーのレシピをはじめて読みおえた
-        if (GameMgr.scenario_flag == 115)
-        {
-            if (event_ID == 0)
-            {
-                GameMgr.scenario_flag = 120; //レシピを読み終えた
-            }
-        }
-
-        GameMgr.event_recipi_endflag = true; //レシピを読み終えたフラグ
-
-        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
-
-    }
-
-
-    
     IEnumerator Recipi_read_Hyouji()
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
@@ -477,6 +403,21 @@ public class Utage_scenario : MonoBehaviour
 
         switch (recipi_Name)
         {
+            case "ev00_orange_cookie_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag1", true);
+                break;
+
+            case "ev01_neko_cookie_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag2", true);
+                break;
+
+            case "ev02_orangeneko_cookie_memo":
+
+                engine.Param.TrySetParameter("Ev_flag3", true);
+                break;
+
             case "najya_start_recipi":
 
                 engine.Param.TrySetParameter("Re_flag1", true);
@@ -506,6 +447,14 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
+        //オレンジクッキーのレシピをはじめて読みおえた
+        if (GameMgr.scenario_flag == 115)
+        {
+            if (event_ID == 0)
+            {
+                GameMgr.scenario_flag = 120; //レシピを読み終えた
+            }
+        }
 
         GameMgr.recipi_read_endflag = true; //レシピを読み終えたフラグ
 
