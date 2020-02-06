@@ -264,7 +264,7 @@ public class recipiitemSelectToggle : MonoBehaviour
                 recipilistController._recipi_listitem[count].GetComponent<Toggle>().interactable = false;
 
                 recipilistController.final_recipiselect_flag = true; //最後、これでよいかどうかを聞くフラグをオン
-
+               
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 Debug.Log("レシピ選択完了！");
@@ -320,6 +320,8 @@ public class recipiitemSelectToggle : MonoBehaviour
                 yes.SetActive(false);
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);
+
+                card_view.DeleteCard_DrawView();
 
                 compound_Main.compound_status = 4;
 

@@ -344,7 +344,7 @@ public class ExtremePanel : MonoBehaviour {
             }
             else //何もまだ作られていない場合は、新規調合
             {
-                card_view.All_DeleteCard();
+                card_view.DeleteCard_DrawView();
 
                 _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
                 compound_Main.compound_status = 3;
@@ -362,7 +362,7 @@ public class ExtremePanel : MonoBehaviour {
         sell_Button.GetComponent<Button>().interactable = false;
         present_Button.GetComponent<Button>().interactable = false;
 
-        card_view.All_DeleteCard();
+        card_view.DeleteCard_DrawView();
 
         _text.text = "レシピから作るよ。何を作る？";
         compound_Main.compound_status = 1;
@@ -375,7 +375,7 @@ public class ExtremePanel : MonoBehaviour {
         sell_Button.GetComponent<Button>().interactable = false;
         present_Button.GetComponent<Button>().interactable = false;
 
-        card_view.All_DeleteCard();
+        card_view.DeleteCard_DrawView();
 
         if (extreme_itemID != 9999)
         {
@@ -395,7 +395,7 @@ public class ExtremePanel : MonoBehaviour {
         sell_Button.GetComponent<Button>().interactable = false;
         present_Button.GetComponent<Button>().interactable = false;
 
-        card_view.All_DeleteCard();
+        card_view.DeleteCard_DrawView();
 
         if (extreme_itemID != 9999)
         {
@@ -443,6 +443,8 @@ public class ExtremePanel : MonoBehaviour {
 
         Life_anim_on = false;
         image_effect.SetActive(false);
+
+        exp_Controller._temp_extreme_id = 9999;
     }
 
 

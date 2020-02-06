@@ -12,6 +12,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
+    private GameObject PRenkinLv_Panel_obj;
+
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
@@ -199,6 +201,9 @@ public class GirlEat_Judge : MonoBehaviour {
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
+        //錬金レベルパネルの取得
+        PRenkinLv_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("PRenkinLevel_panel").gameObject;
+
         //エフェクトプレファブの取得
         effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
 
@@ -304,6 +309,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     girl1_status.GirlEat_Judge_on = true;
 
+                    Extremepanel_obj.SetActive(false);
+                    MoneyStatus_Panel_obj.SetActive(false);
+                    PRenkinLv_Panel_obj.SetActive(false);
+
                     timeOut = 1.0f;
                     judge_anim_status = 1;
                     s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_eat_start");
@@ -334,7 +343,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 case 3: //アニメ終了。判定する
 
-                    
+                    Extremepanel_obj.SetActive(true);
+                    MoneyStatus_Panel_obj.SetActive(true);
+                    PRenkinLv_Panel_obj.SetActive(true);
+
                     judge_anim_on = false;
                     judge_end = true;
                     judge_anim_status = 0;

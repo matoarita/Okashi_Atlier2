@@ -56,8 +56,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
         canvas = GameObject.FindWithTag("Canvas");
         cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
 
-        zero_point = canvas.transform.Find("ZeroPoint").gameObject;
-
         Pitem_or_Origin_judge = 0;
 
         audioSource = GetComponent<AudioSource>();
@@ -186,6 +184,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //店売りかオリジナルか、アイテムID
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item1;
+        _cardImage.SetInit();
 
         //位置とスケール
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
@@ -239,6 +238,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item2;
+        _cardImage.SetInit();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -306,6 +306,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item3;
+        _cardImage.SetInit();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -381,6 +382,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item4;
+        _cardImage.SetInit();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -456,6 +458,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _result_item;
+        _cardImage.SetInit();
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
@@ -463,6 +466,28 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
         audioSource.PlayOneShot(sound1);
 
+    }
+
+    public void PresentGirl(int _toggleType, int _result_item)
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+
+        _cardImage_obj.Clear();
+
+        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+
+        //_cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+
+        _cardImage.Pitem_or_Origin = _toggleType;
+        _cardImage.check_counter = _result_item;
+        _cardImage.SetInit();
+
+        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
     }
 
     public void CardCompo_Anim()
@@ -521,16 +546,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
     }
 
 
-    public void All_DeleteCard()
-    {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-
-        _cardImage_obj.Clear();
-    }
-
 
     void Draw_Compound()
     {
@@ -546,6 +561,17 @@ public class CardView : SingletonMonoBehaviour<CardView>
         cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
 
         Pitem_or_Origin_judge = 0;
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                zero_point = canvas.transform.Find("ZeroPoint").gameObject;
+                break;
+
+            default://シナリオ系のシーンでは読み込まない。
+                break;
+        }
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

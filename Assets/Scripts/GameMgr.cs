@@ -8,21 +8,23 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //↑シングルトンにすることで、ゲーム中、GameManagerオブジェクトは、必ず一つのみになる。
     //DontDestroyOnLoad（シーン間で移動してもオブジェクトが削除されない）と併用することで、シーンをまたいでも、常にそのゲームオブジェクトは生き残る。
 
-    public static int scenario_flag; //全シーンで共通。今、どのシナリオまできているか。
-    public static bool scenario_ON; //全シーンで共通。宴・シナリオを優先するフラグ。これがONのときは、調合シーンなどでも、宴の表示をまず優先する。宴を読み終えたらOFFにする。
-    public int scenario_flag_input; //デバッグ用。シナリオフラグをインスペクタから入力
-    public int scenario_flag_cullent; //デバッグ用。現在のシナリオフラグを確認用
+    public static int scenario_flag;    //全シーンで共通。今、どのシナリオまできているか。
+    public static bool scenario_ON;     //全シーンで共通。宴・シナリオを優先するフラグ。これがONのときは、調合シーンなどでも、宴の表示をまず優先する。宴を読み終えたらOFFにする。
+    public int scenario_flag_input;     //デバッグ用。シナリオフラグをインスペクタから入力
+    public int scenario_flag_cullent;   //デバッグ用。現在のシナリオフラグを確認用
 
-    public static bool event_recipi_flag; //イベントレシピを見たときに、宴を表示する用のフラグ
-    public static int event_recipiID; //その時のイベント番号
+    public static bool event_recipi_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ
+    public static int event_recipiID;       //その時のイベント番号
     public static bool event_recipi_endflag; //レシピを読み終えたときのフラグ
 
-    public static bool recipi_read_flag; //入手したレシピを読むときの、宴を表示する用のフラグ
-    public static int recipi_read_ID; //その時のイベント番号
+    public static bool recipi_read_flag;    //入手したレシピを読むときの、宴を表示する用のフラグ
+    public static int recipi_read_ID;       //その時のイベント番号
     public static bool recipi_read_endflag; //レシピを読み終えたときのフラグ
 
-    public static bool talk_flag; //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
-    public static int talk_number; //その時の会話番号。
+    public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
+    public static int talk_number;      //その時の会話番号。
+
+    public static int stage_number;     //ステージ番号
 
     private PlayerItemList pitemlist;
 
@@ -58,6 +60,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         talk_flag = false;
         talk_number = 0;
+
+        stage_number = 1;
 
         //秒計算。　
         timeLeft = 1.0f;
@@ -134,8 +138,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                 Find_eventitemdatabase("najya_start_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
 
-                //Find_eventitemdatabase("ev01_orange_cookie_recipi");
-                //pitemlist.add_eventPlayerItem(ev_id, 1); //オレンジクッキーのレシピを追加
 
                 Find_eventitemdatabase("ev01_neko_cookie_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加

@@ -144,6 +144,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             case "001_Chapter1":
                 break;
 
+            case "002_Stage2":
+                break;
+
             case "Compound":
 
                 //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化

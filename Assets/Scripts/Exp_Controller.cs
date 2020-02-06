@@ -56,6 +56,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private ItemRoastDataBase databaseRoast;
     private ItemShopDataBase shop_database;
     private SlotNameDataBase slotnamedatabase;
+    private SlotChangeName slotchangename;
 
     private GameObject extremePanel_obj;
     private ExtremePanel extremePanel;
@@ -351,6 +352,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //黒半透明パネルの取得
                 black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
 
+                slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+
                 break;
 
             default:
@@ -416,6 +419,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //黒半透明パネルの取得
                 black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+
+                //スロット名前変換用オブジェクトの取得
+                slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
             }
 
             //調合中ウェイト+アニメ
@@ -691,7 +697,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                 PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
 
-                _ex_text = "新しいレシピを閃いた！" + "\n";
+                _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！"  + "\n";
 
             }
 
@@ -1009,7 +1015,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                     PlayerStatus.player_renkin_exp += _getexp; //エクストリームで新しく閃いた場合の経験値
 
-                    _ex_text = "新しいレシピを閃いた！" + "\n";
+                    _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
 
                     //はじめて、アイテムを制作した場合は、フラグをONに。
                     if (PlayerStatus.First_recipi_on != true)
@@ -2762,21 +2768,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //カード正式名称（ついてるスロット名も含めた名前）
-        for (i = 0; i < _slot.Length; i++)
-        {
-            count = 0;
+        slotchangename.slotChangeName(1, new_item);
 
-            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
-            while (count < slotnamedatabase.slotname_lists.Count)
-            {
-                if (slotnamedatabase.slotname_lists[count].slotName == pitemlist.player_originalitemlist[new_item].toppingtype[i].ToString())
-                {
-                    _slotHyouji1[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
-                    break;
-                }
-                count++;
-            }
-        }
+        _slotHyouji1[0] = slotchangename._slotHyouji[0];
+        _slotHyouji1[1] = slotchangename._slotHyouji[1];
+        _slotHyouji1[2] = slotchangename._slotHyouji[2];
+        _slotHyouji1[3] = slotchangename._slotHyouji[3];
+        _slotHyouji1[4] = slotchangename._slotHyouji[4];
+        _slotHyouji1[5] = slotchangename._slotHyouji[5];
+        _slotHyouji1[6] = slotchangename._slotHyouji[6];
+        _slotHyouji1[7] = slotchangename._slotHyouji[7];
+        _slotHyouji1[8] = slotchangename._slotHyouji[8];
+        _slotHyouji1[9] = slotchangename._slotHyouji[9];
 
         _text.text = "調合完了！ " +
             _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 

@@ -20,6 +20,7 @@ public class Debug_Panel_Init : SingletonMonoBehaviour<Debug_Panel_Init>
 		
 	}
 
+    //キャンバス上に存在させるため、ランタイムイニシャライザー上では、あえてデバッグパネルは生成していない。各シーンごとで生成する。
     public void DebugPanel_init()
     {
         //キャンバスの読み込み

@@ -49,6 +49,7 @@ TagManager:
   - KakuritsuPanel
   - OkashiParamKeisanMethod
   - ExpTable
+  - SlotChangeName
   layers:
   - Default
   - TransparentFX

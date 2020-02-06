@@ -89,6 +89,11 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(expcontroller_init);
         expcontroller_init.tag = "Exp_Controller";
 
+        //スロット名前変更
+        var slotchangename_init = new GameObject("SlotChangeName", typeof(SlotChangeName));
+        GameObject.DontDestroyOnLoad(slotchangename_init);
+        slotchangename_init.tag = "SlotChangeName";
+
         //フェードマネージャー
         var fadeMgr_init = new GameObject("FadeManager", typeof(FadeManager));
         GameObject.DontDestroyOnLoad(fadeMgr_init);
@@ -103,8 +108,6 @@ public class RuntimeInitializer : MonoBehaviour
         var soundcontroller_init = new GameObject("SoundController", typeof(SoundController));
         GameObject.DontDestroyOnLoad(soundcontroller_init);
         soundcontroller_init.tag = "SoundController";
-
-        
 
     }
 

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 //主に、ウィンドウやその他のゲームオブジェクトのアクティブ／非アクティブを切り替え。
 //オブジェクト自体にスクリプトをつけると、非アクティブにしたときに、入力も効かなくなってしまうため、スクリプトを分けている。
 
+    //今は未使用。
+
 public class keyManager : SingletonMonoBehaviour<keyManager>
 {
     private GameObject pitemlistController_obj;
@@ -39,29 +41,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 	// Update is called once per frame
 	void Update ()
     {
-        switch (SceneManager.GetActiveScene().name)
-        {
-
-            case "000_Prologue": //シナリオ系のシーンでは読み込まない。
-                break;
-
-            case "001_Chapter1":
-                break;
-
-
-            default: //その他調合シーンなどでは読み込む。
-
-                //プレイヤーアイテムリストオブジェクトの初期化
-                if (pitemlistController_obj == null)
-                {
-                    canvas = GameObject.FindWithTag("Canvas");
-
-                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-                }
-
-                break;
-        }
         
 
         if (SceneManager.GetActiveScene().name == "Hiroba")

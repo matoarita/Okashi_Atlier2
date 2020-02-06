@@ -27,10 +27,10 @@ MonoBehaviour:
       drop_rare1: Non
       drop_rare2: Non
       drop_rare3: Non
-      drop_prob1: 60
-      drop_prob2: 25
-      drop_prob3: 12
-      drop_prob4: 3
+      drop_prob1: 10
+      drop_prob2: 30
+      drop_prob3: 30
+      drop_prob4: 30
       drop_prob5: 0
       drop_rare_prob1: 95
       drop_rare_prob2: 5
@@ -48,10 +48,10 @@ MonoBehaviour:
       drop_rare1: Non
       drop_rare2: emerald_suger
       drop_rare3: Non
-      drop_prob1: 60
+      drop_prob1: 40
       drop_prob2: 25
-      drop_prob3: 12
-      drop_prob4: 3
+      drop_prob3: 20
+      drop_prob4: 15
       drop_prob5: 0
       drop_rare_prob1: 90
       drop_rare_prob2: 10

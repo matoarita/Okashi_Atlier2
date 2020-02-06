@@ -67,17 +67,17 @@ public class Utage_scenario : MonoBehaviour
 
             }
 
-            if (SceneManager.GetActiveScene().name == "001_Chapter1")
+            if (SceneManager.GetActiveScene().name == "Stage2_Main")
             {
                     
                 switch (GameMgr.scenario_flag)
                 {
 
-                        case 100: //1話はじまり
+                        case 200: //1話はじまり
                             StartCoroutine(Chapter1_Start());
                             break;
 
-                        case 200: //1話調合パート終了
+                        case 290: //1話調合パート終了
                             StartCoroutine(Chapter1_Cookie_OK());
                             break;
 
@@ -85,6 +85,25 @@ public class Utage_scenario : MonoBehaviour
                             break;
                 }
                     
+            }
+
+            if (SceneManager.GetActiveScene().name == "Stage3_Main")
+            {
+
+                switch (GameMgr.scenario_flag)
+                {
+
+                    case 300: //1話はじまり
+                        StartCoroutine(Chapter1_Start());
+                        break;
+
+                    case 390: //1話調合パート終了
+                        StartCoroutine(Chapter1_Cookie_OK());
+                        break;
+
+                    default:
+                        break;
+                }
 
             }
 
@@ -220,7 +239,7 @@ public class Utage_scenario : MonoBehaviour
     //
     IEnumerator Chapter1_Start()
     {
-        GameMgr.scenario_flag = 101; //アップデートを繰り返さないようにする。
+        GameMgr.scenario_flag = 201; //アップデートを繰り返さないようにする。
 
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
@@ -244,7 +263,7 @@ public class Utage_scenario : MonoBehaviour
         //scenario_loading = false;
         pitemlist.add_eventPlayerItem(0, 1); //オレンジクッキーのレシピを追加
 
-        GameMgr.scenario_flag = 109; //110 最初の調合パートの開始 109で一度シーンを読み込み開始し、読み終えると110になる。
+        GameMgr.scenario_flag = 209; //110 最初の調合パートの開始 109で一度シーンを読み込み開始し、読み終えると110になる。
 
     }
 

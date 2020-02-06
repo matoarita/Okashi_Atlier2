@@ -59,6 +59,8 @@ public class SetImage : MonoBehaviour
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
     private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用
 
+    private SlotChangeName slotchangename;
+
     private Text item_Category;
     private string category;
     private string subcategory;
@@ -103,6 +105,12 @@ public class SetImage : MonoBehaviour
     void Start()
     {
 
+        SetData();
+
+    }
+
+    void SetData()
+    {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
@@ -131,7 +139,7 @@ public class SetImage : MonoBehaviour
         item_Rank = this.transform.Find("Item_card_template/ItemRank").gameObject.GetComponent<Text>(); //ランク表示
         item_Category = this.transform.Find("Item_card_template/ItemCategory").gameObject.GetComponent<Text>(); //カテゴリー
         item_RankDesc = this.transform.Find("Item_card_template/ItemRankDesc").gameObject.GetComponent<Text>(); //ランクに合わせて、おいしさや食感を表示するテキスト
-        
+
         item_Name_Full = this.transform.Find("Card_Param_window/Card_Name/Tx_Name").gameObject.GetComponent<Text>(); //名前（スロット名も含む正式名称）の値
 
         item_Quality = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Rank").gameObject.GetComponent<Text>(); //品質のランク
@@ -160,16 +168,26 @@ public class SetImage : MonoBehaviour
         item_Slot[7] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_08").gameObject.GetComponent<Text>(); //Slot08の値
         item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
         item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
-        
+
+        slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
 
         Card_param_obj.SetActive(false);
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        Card_draw(); 
+
+    }
+
+    private void OnEnable()
+    {
+        SetData();
+    }
+
+    public void SetInit()
+    {
+        Card_draw();
     }
 
     void Card_draw()
@@ -383,7 +401,7 @@ public class SetImage : MonoBehaviour
                 category = "アクセ";
                 break;
             case "Potion":
-                category = "くすり";
+                category = "トッピング";
                 break;
             case "Mat":
                 category = "材料";
@@ -451,6 +469,12 @@ public class SetImage : MonoBehaviour
                 break;
             case "Egg":
                 subcategory = "たまご";
+                break;
+            case "IceCream":
+                subcategory = "アイスクリーム";
+                break;
+            case "Parfe":
+                subcategory = "パフェ";
                 break;
             default:
                 // 処理３　指定がなかった場合
@@ -589,8 +613,23 @@ public class SetImage : MonoBehaviour
         }
         else if (item_type == "Okashi")
         {
+            //スロットの正式名称計算
+            slotchangename.slotChangeName(Pitem_or_Origin, check_counter);
+
+            _slotHyouji2[0] = slotchangename._slotHyouji[0];
+            _slotHyouji2[1] = slotchangename._slotHyouji[1];
+            _slotHyouji2[2] = slotchangename._slotHyouji[2];
+            _slotHyouji2[3] = slotchangename._slotHyouji[3];
+            _slotHyouji2[4] = slotchangename._slotHyouji[4];
+            _slotHyouji2[5] = slotchangename._slotHyouji[5];
+            _slotHyouji2[6] = slotchangename._slotHyouji[6];
+            _slotHyouji2[7] = slotchangename._slotHyouji[7];
+            _slotHyouji2[8] = slotchangename._slotHyouji[8];
+            _slotHyouji2[9] = slotchangename._slotHyouji[9];
+
             //スロット名+アイテム名の表示
             item_Name_Full.text = _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9] + item_Name.text;
+            //item_Name_Full.text = "<color=#0000FF>" + slot_Hyouji + "</color>" + item_Name.text;
             item_Name.text = item_Name_Full.text; //お菓子
             //Card_param_obj.SetActive(true);
         }

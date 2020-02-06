@@ -11,11 +11,15 @@ public class Prologue_Main : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストウィンドウを読み込み。シーンにシーンを加算する形。
+
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
-        SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストウィンドウを読み込み。シーンにシーンを加算する形。
+        GameMgr.stage_number = 1;
+
+        
     }
 	
 	// Update is called once per frame

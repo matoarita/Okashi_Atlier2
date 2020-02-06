@@ -174,10 +174,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Subtype2 = "Cake";
         girl1_Subtype2_p = 20;
 
-        //女の子が好きなトッピングの値。アイテムのトッピング欄に、該当するアイテムNoがあった場合、得点がプラスされる。
-        girl1_Topping1 = "nuts";
-        girl1_Topping2 = "grape";
-
         // *** ここまで *** 
 
     }
@@ -381,11 +377,58 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         if (girl1_Subtype1 == "") //種類は関係なく、なんでもいい
         {
-            _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "のお菓子が食べたいなぁ";
+            //_text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "のお菓子が食べたいなぁ";
+
+
+            switch (slotnamedatabase.slotname_lists[index].slotName)
+            {
+
+                case "Orange":
+
+                    _text.text = "<color=#FF78B4>" + "ちょっと酸っぱい、フルーティ" + "</color>" + "なお菓子が食べたいなぁ"; //フルーツ系のときはこれ。明言はしない。
+                    break;
+
+                case "Nuts":
+
+                    _text.text = "<color=#FF78B4>" + "カリっとした感触" + "</color>" + "のお菓子が食べたいなぁ～。"; //ナッツ系のときはこれ。明言はしない。
+                    break;
+
+                case "Grape":
+
+                    _text.text = "<color=#FF78B4>" + "かぐわしい芳醇な香り" + "</color>" + "のお菓子が食べたいなぁ"; //フルーツ系のときはこれ。明言はしない。
+                    break;
+
+                default:
+                    break;
+
+
+            }
         }
         else //食べたいお菓子の種類がある場合
         {
-            _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "の" + "<color=#FF78B4>" + girl1_Subtype1_hyouji + "</color>" + "が食べたいなぁ";
+            switch (slotnamedatabase.slotname_lists[index].slotName)
+            {
+
+                case "Orange":
+
+                    _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "の" + "<color=#FF78B4>" + girl1_Subtype1_hyouji + "</color>" + "が食べたいなぁ";
+                    break;
+
+                case "Nuts":
+
+                    _text.text = "<color=#FF78B4>" + "豆の香ばしい風味" + "</color>" + "の" + "<color=#FF78B4>" + girl1_Subtype1_hyouji + "</color>" + "が食べたいなぁ";
+                    break;
+
+                case "Grape":
+
+                    _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "の" + "<color=#FF78B4>" + girl1_Subtype1_hyouji + "</color>" + "が食べたいなぁ";
+                    break;
+
+                default:
+                    break;
+
+
+            } 
         }
         
     }
