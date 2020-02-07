@@ -686,7 +686,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.recipi_read_endflag = false;
         Recipi_loading = false;
 
-        Debug.Log("インタラクト on");
+        //Debug.Log("インタラクト on");
         compound_status = 0;
     }
 
@@ -908,7 +908,7 @@ public class Compound_Main : MonoBehaviour
 
             case false:
 
-                Debug.Log("cancel");
+                //Debug.Log("cancel");
 
                 _text.text = "";
                 compound_status = 0;

@@ -315,7 +315,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1625146995697978, guid: 01e0dc551b9cfab40a399c737122a631, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 01e0dc551b9cfab40a399c737122a631, type: 2}
@@ -1294,17 +1294,17 @@ Prefab:
     - target: {fileID: 114477618000980598, guid: 9fabaef16b9dc384a89e2c2ec606853c,
         type: 2}
       propertyPath: m_Color.r
-      value: 0.7709775
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114477618000980598, guid: 9fabaef16b9dc384a89e2c2ec606853c,
         type: 2}
       propertyPath: m_Color.g
-      value: 0.84768224
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114477618000980598, guid: 9fabaef16b9dc384a89e2c2ec606853c,
         type: 2}
       propertyPath: m_Color.b
-      value: 0.9117647
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224266450956834288, guid: 9fabaef16b9dc384a89e2c2ec606853c,
         type: 2}
@@ -1318,7 +1318,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1812583664601562, guid: 9fabaef16b9dc384a89e2c2ec606853c, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114477618000980598, guid: 9fabaef16b9dc384a89e2c2ec606853c,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0.766
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9fabaef16b9dc384a89e2c2ec606853c, type: 2}
@@ -3743,7 +3748,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2145115042
+  randomSeed: 2141009820
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7054,7 +7059,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 430, y: -33}
+  m_AnchoredPosition: {x: 439, y: -33}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &396572913
@@ -9772,7 +9777,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 3
+  m_LengthScale: 12
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_RenderAlignment: 0
@@ -9845,7 +9850,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1450898788
+  randomSeed: 743037263
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9997,7 +10002,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10296,7 +10301,7 @@ ParticleSystem:
     donutRadius: 0.5
     m_Position: {x: -1.5, y: 0, z: 0.3}
     m_Rotation: {x: 0, y: 20, z: 0}
-    m_Scale: {x: 0.8, y: 0, z: 0.2}
+    m_Scale: {x: 0.8, y: 0, z: 0.3}
     placementMode: 0
     m_Mesh: {fileID: 0}
     m_MeshRenderer: {fileID: 0}
@@ -10405,7 +10410,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 2
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -13683,7 +13688,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 175727192
+  randomSeed: 566449905
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -22450,14 +22455,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.328}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: b34ba7efe841c7346a2b42305022efd7, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24542,7 +24547,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 771b3a4044dbef34ea17ccfc933e6019, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a6cc7712edb566d4e8fc90235716dc1a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25056,12 +25061,12 @@ Prefab:
     - target: {fileID: 224404021432558028, guid: 9fabaef16b9dc384a89e2c2ec606853c,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -85.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224404021432558028, guid: 9fabaef16b9dc384a89e2c2ec606853c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 13
+      value: -72
       objectReference: {fileID: 0}
     - target: {fileID: 224404021432558028, guid: 9fabaef16b9dc384a89e2c2ec606853c,
         type: 2}

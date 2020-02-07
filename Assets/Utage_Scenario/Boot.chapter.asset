@@ -362,12 +362,6 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 6
       debugIndex: 6
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 7
-      debugIndex: 7
       strings:
       - "\u80CC\u666F\u5E83\u5834\u306E\u98A8\u666F"
       - Bg
@@ -379,6 +373,12 @@ MonoBehaviour:
       - 
       - ID003_Western-Castle_noon-1024x576.jpg
       isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 7
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 8
@@ -434,8 +434,17 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 12
       debugIndex: 12
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u30A2\u30C8\u30EA\u30A8\u5185\uFF08\u96E8\uFF09"
+      - Bg
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - Atlier_Rain.png
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 13
@@ -512,7 +521,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Texture
     type: 1
-    textLength: 398
+    textLength: 423
     headerRow: 0
   - rows:
     - rowIndex: 0

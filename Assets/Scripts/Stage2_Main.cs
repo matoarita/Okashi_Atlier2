@@ -32,8 +32,7 @@ public class Stage2_Main : MonoBehaviour
         {
             GameMgr.scenario_flag = 210; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。
 
-            FadeManager.Instance.LoadScene("Hiroba", 0.3f);
-            //SceneManager.LoadScene("Main");
+            FadeManager.Instance.LoadScene("Compound", 0.3f);
         }
     }
 }

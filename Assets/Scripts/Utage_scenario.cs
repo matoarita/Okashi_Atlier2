@@ -63,42 +63,59 @@ public class Utage_scenario : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "000_Prologue")
             { // hogehogeシーンでのみやりたい処理
 
-                StartCoroutine(Prologue_Start());
+                switch (GameMgr.scenario_flag)
+                {
+                    case 0:
+
+                        GameMgr.scenario_flag = 1; //アップデートを繰り返さないようにする。
+                        scenarioLabel = "Chapter_1";
+                        StartCoroutine(Scenario_Start());
+                        break;
+
+                    default:
+                        break;
+                }
 
             }
 
-            if (SceneManager.GetActiveScene().name == "Stage2_Main")
+            if (SceneManager.GetActiveScene().name == "002_Stage2")
             {
-                    
+
                 switch (GameMgr.scenario_flag)
                 {
 
-                        case 200: //1話はじまり
-                            StartCoroutine(Chapter1_Start());
-                            break;
+                    case 200: //2話はじまり
 
-                        case 290: //1話調合パート終了
-                            StartCoroutine(Chapter1_Cookie_OK());
-                            break;
+                        GameMgr.scenario_flag = 201; //アップデートを繰り返さないようにする。
+                        scenarioLabel = "Chapter_2";
+                        StartCoroutine(Scenario_Start());
+                        break;
 
-                        default:
-                            break;
+                    case 290: //1話調合パート終了
+
+                        break;
+
+                    default:
+                        break;
                 }
                     
             }
 
-            if (SceneManager.GetActiveScene().name == "Stage3_Main")
+            if (SceneManager.GetActiveScene().name == "003_Stage3")
             {
 
                 switch (GameMgr.scenario_flag)
                 {
 
                     case 300: //1話はじまり
-                        StartCoroutine(Chapter1_Start());
+
+                        GameMgr.scenario_flag = 301; //アップデートを繰り返さないようにする。
+                        scenarioLabel = "Chapter_3";
+                        StartCoroutine(Scenario_Start());
                         break;
 
                     case 390: //1話調合パート終了
-                        StartCoroutine(Chapter1_Cookie_OK());
+
                         break;
 
                     default:
@@ -115,7 +132,9 @@ public class Utage_scenario : MonoBehaviour
 
                     case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。また、何を作ればよいかを指示してくれる。
 
-                        StartCoroutine(Chapter1_Compound_AtFirst());
+                        GameMgr.scenario_flag = 111; //アップデートを繰り返さないようにする。
+                        scenarioLabel = "Tutorial";
+                        StartCoroutine(Scenario_Start());
                         break;
 
                     default:
@@ -187,8 +206,10 @@ public class Utage_scenario : MonoBehaviour
 
                     case 120: //調合パート開始時にショップへ初めて入る。お店のアイドル娘
 
+                        GameMgr.scenario_flag = 121;
                         GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。
-                        StartCoroutine(Chapter1_Shop_AtFirst());
+                        scenarioLabel = "Chapter1_Shop_AtFirst";
+                        StartCoroutine(Scenario_Start());
                         break;
 
                     default:
@@ -207,17 +228,13 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // Case = 0
+    // シナリオ読むだけの処理
     //
-    IEnumerator Prologue_Start()
+    IEnumerator Scenario_Start()
     {
-        GameMgr.scenario_flag = 1; //アップデートを繰り返さないようにする。
-
+        
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        scenarioLabel = "Chapter_1";
-
-        scenario_loading = true;
+      
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario( scenarioLabel );
@@ -228,15 +245,42 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
-        //scenario_loading = false; //プロローグ終了。シナリオ終了時は、0に戻す。
 
-        GameMgr.scenario_flag = 100; //プロローグ終了。一話＝100。
+        switch (GameMgr.scenario_flag)
+        {
+            case 1:
+
+                GameMgr.scenario_flag = 100; //プロローグ終了。一話＝100。
+                break;
+
+            case 111:
+
+                GameMgr.scenario_ON = false;
+                GameMgr.scenario_flag = 120;
+                break;
+
+            case 121:
+
+                GameMgr.scenario_ON = false;
+                GameMgr.scenario_flag = 130;
+                break;
+
+            case 201:
+
+                GameMgr.scenario_flag = 209; //プロローグ終了。一話＝100。
+                break;
+
+            default:
+                break;
+        }
+        
 
     }
 
     //
-    // 現状使用しない
+    // 現状使用しない（シナリオ内でアイテムを獲得するスクリプト）
     //
+    /*
     IEnumerator Chapter1_Start()
     {
         GameMgr.scenario_flag = 201; //アップデートを繰り返さないようにする。
@@ -244,8 +288,7 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         scenarioLabel = "Chapter1_1_old";
-
-        scenario_loading = true;       
+   
 
         engine.Param.TrySetParameter("Kaeru_Coin", PlayerStatus.player_kaeru_coin);
 
@@ -260,101 +303,12 @@ public class Utage_scenario : MonoBehaviour
 
         PlayerStatus.player_kaeru_coin = (int)engine.Param.GetParameter("Kaeru_Coin");
 
-        //scenario_loading = false;
         pitemlist.add_eventPlayerItem(0, 1); //オレンジクッキーのレシピを追加
 
         GameMgr.scenario_flag = 209; //110 最初の調合パートの開始 109で一度シーンを読み込み開始し、読み終えると110になる。
 
-    }
+    }*/
 
-    //
-    // Case = 110
-    //
-    IEnumerator Chapter1_Compound_AtFirst()
-    {
-
-        GameMgr.scenario_flag = 111; //アップデートを繰り返さないようにする。
-
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        scenarioLabel = "Tutorial";
-
-        scenario_loading = true;
-
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-
-        scenario_loading = false;
-
-        GameMgr.scenario_ON = false;
-        GameMgr.scenario_flag = 120;
-
-    }
-
-    //
-    // Case = 120
-    //
-    IEnumerator Chapter1_Shop_AtFirst()
-    {
-        GameMgr.scenario_flag = 121; //アップデートを繰り返さないようにする。
-
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        scenarioLabel = "Chapter1_Shop_AtFirst";
-
-        scenario_loading = true;
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-
-        scenario_loading = false;
-
-        GameMgr.scenario_ON = false;
-        GameMgr.scenario_flag = 130;
-
-    }
-
-    //
-    // Case = 200
-    //
-    IEnumerator Chapter1_Cookie_OK()
-    {
-        GameMgr.scenario_flag = 201; //アップデートを繰り返さないようにする。
-
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        scenarioLabel = "Chapter1_Cookie_OK";
-
-        scenario_loading = true;
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-
-        scenario_loading = false;
-
-        GameMgr.scenario_flag = 300;
-
-        
-    }
 
     //
     // 女の子の感想・コメント
