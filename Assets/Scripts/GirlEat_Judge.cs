@@ -263,6 +263,8 @@ public class GirlEat_Judge : MonoBehaviour {
                     Getlove_exp = 0;
                     _exp = 0;
                     loveanim_on = false;
+
+                    compound_Main.check_GirlLoveEvent_flag = false;
                 }
             }
 
@@ -274,6 +276,8 @@ public class GirlEat_Judge : MonoBehaviour {
                     Getlove_exp = 0;
                     _exp = 0;
                     loveanim_on = false;
+
+                    compound_Main.check_GirlLoveEvent_flag = false;
                 }
                 else
                 {
@@ -289,6 +293,8 @@ public class GirlEat_Judge : MonoBehaviour {
                         Getlove_exp = 0;
                         _exp = 0;
                         loveanim_on = false;
+
+                        compound_Main.check_GirlLoveEvent_flag = false;
                     }
                 }
             }
@@ -315,7 +321,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     timeOut = 1.0f;
                     judge_anim_status = 1;
-                    s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_eat_start");
+                    s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/GirlLoli1_eat");
 
                     _windowtext.text = ".";
                     break;
@@ -709,7 +715,7 @@ public class GirlEat_Judge : MonoBehaviour {
             girl1_status.timeOut = 5.0f;
 
             //キャラクタ表情変更
-            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_yorokobi");
+            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/GirlLoli1_smile");
         }
         else //失敗の場合
         {
@@ -738,7 +744,7 @@ public class GirlEat_Judge : MonoBehaviour {
             girl1_status.timeOut = 5.0f;
 
             //キャラクタ表情変更
-            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
+            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/GirlLoli1_normal");
         }
 
         compound_Main.compound_status = 0;

@@ -16,6 +16,8 @@ public class Utage_scenario : MonoBehaviour
     private int event_ID;
     private int recipi_read_ID;
 
+    private int girlloveev_read_ID;
+
     private PlayerItemList pitemlist;
 
     private Girl1_status girl1_status; //女の子１のステータスを取得。
@@ -137,10 +139,27 @@ public class Utage_scenario : MonoBehaviour
                         StartCoroutine(Scenario_Start());
                         break;
 
+                    case 130: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。また、何を作ればよいかを指示してくれる。
+                      
+                        GameMgr.scenario_flag = 131; //アップデートを繰り返さないようにする。
+                        scenarioLabel = "Chapter1_Story";                        
+                        StartCoroutine(Scenario_Start());
+                        break;
+
                     default:
                         break;
                 }
                 
+                if (GameMgr.girlloveevent_flag == true)
+                {
+                    GameMgr.girlloveevent_flag = false;
+                    girlloveev_read_ID = GameMgr.GirlLoveEvent_num;
+                    //Debug.Log("recipi_read_ID: " + recipi_read_ID);
+
+                    //イベントレシピを表示
+                    StartCoroutine(Girllove_event_Hyouji());
+                }
+
                 if (GameMgr.recipi_read_flag == true)
                 {
                     GameMgr.recipi_read_flag = false;
@@ -234,7 +253,8 @@ public class Utage_scenario : MonoBehaviour
     {
         
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-      
+
+        engine.Param.TrySetParameter("Story_num", GameMgr.scenario_flag);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario( scenarioLabel );
@@ -263,6 +283,12 @@ public class Utage_scenario : MonoBehaviour
 
                 GameMgr.scenario_ON = false;
                 GameMgr.scenario_flag = 130;
+                break;
+
+            case 131:
+
+                GameMgr.scenario_ON = false;
+                GameMgr.scenario_flag = 140;
                 break;
 
             case 201:
@@ -430,6 +456,36 @@ public class Utage_scenario : MonoBehaviour
         }
 
         GameMgr.recipi_read_endflag = true; //レシピを読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    //
+    // イベントレシピ表示
+    //
+    IEnumerator Girllove_event_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "GirlLove_Event"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("Girllove_event_num", girlloveev_read_ID);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+
+        GameMgr.girlloveevent_endflag = true; //レシピを読み終えたフラグ
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 

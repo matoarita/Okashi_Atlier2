@@ -244,7 +244,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 Girl_Full();
 
                                 //キャラクタ表情変更
-                                s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
+                                s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/GirlLoli1_normal");
                                 break;
 
                             default:

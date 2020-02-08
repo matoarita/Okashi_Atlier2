@@ -21,6 +21,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int recipi_read_ID;       //その時のイベント番号
     public static bool recipi_read_endflag; //レシピを読み終えたときのフラグ
 
+    public static int GirlLoveEvent_num;            //女の子の好感度に応じて発生するイベントの、イベント番号
+    public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
+    public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
+
+    public static bool GirlLoveEvent_01;            //各イベントの、読んだかどうかのチェック用フラグ。一度読んだイベントは、発生しない。
+
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
 
@@ -37,6 +43,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //イベントフラグ管理用
     [SerializeField]
     private bool gamestart_recipi_get;
+
+    
 
     // Use this for initialization
     void Start () {
@@ -66,6 +74,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //秒計算。　
         timeLeft = 1.0f;
         Game_timeCount = 0; //1秒タイマー
+
+        GirlLoveEvent_num = 0;
+        GirlLoveEvent_01 = false;
+        girlloveevent_flag = false;
+        girlloveevent_endflag = false;
+
     }
 	
 	// Update is called once per frame

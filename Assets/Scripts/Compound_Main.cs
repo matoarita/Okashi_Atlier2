@@ -12,6 +12,8 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject canvas;
 
+    private AudioSource sceneBGM;
+
     private Girl1_status girl1_status;
 
     private Debug_Panel_Init debug_panel_init;
@@ -72,7 +74,9 @@ public class Compound_Main : MonoBehaviour
     private GameObject present_Button;
 
     private bool Recipi_loading;
-    private bool check_recipi_flag;
+    private bool GirlLove_loading;
+    public bool check_recipi_flag;
+    public bool check_GirlLoveEvent_flag;
     private int not_read_total;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
@@ -126,6 +130,9 @@ public class Compound_Main : MonoBehaviour
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<AudioSource>();
 
         //戻るボタンを取得
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
@@ -216,13 +223,15 @@ public class Compound_Main : MonoBehaviour
 
         //初期メッセージ
         _text.text = "何の調合をする？";
-        text_area.SetActive(false);
+        text_area.SetActive(true);
 
         compound_status = 0;
         compound_select = 0;
 
         Recipi_loading = false;
+        GirlLove_loading = false;
         check_recipi_flag = false;
+        check_GirlLoveEvent_flag = false;
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
@@ -237,270 +246,289 @@ public class Compound_Main : MonoBehaviour
         {
 
             case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。また、何を作ればよいかを指示してくれる。
+
                 GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+                break;
+
+            case 130: //ショップから帰ってきた。
+
+                GameMgr.scenario_ON = true; 
                 break;
 
             default:
                 break;
         }
 
-        //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
+        //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
         if (GameMgr.scenario_ON == true)
         {
             compoundselect_onoff_obj.SetActive(false);
             text_area.SetActive(false);
             check_recipi_flag = false;
+
         }
         else //以下が、通常の処理
         {
 
-            //読んでいないレシピがあれば、読む処理。優先順位二番目。
-            if (check_recipi_flag == false)
+            //好感度チェック。好感度に応じて、イベントが発生。
+            if (check_GirlLoveEvent_flag == false)
             {
-                Check_RecipiFlag();
+                Check_GirlLoveEvent();
+
             }
             else
             {
-                //はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
-                if (PlayerStatus.First_recipi_on == true)
+
+                //読んでいないレシピがあれば、読む処理。優先順位二番目。
+                if (check_recipi_flag == false)
                 {
-                    Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(true);
-                    //recipi_toggle.SetActive(true);
+                    Check_RecipiFlag();
                 }
                 else
                 {
-                    Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(false);
-                    //recipi_toggle.SetActive(false);
-                }
-
-                //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
-                if (girl1_status.girl1_Love_exp >= 100)
-                {
-                    stageclear_toggle.SetActive(true);
-                } else
-                {
-                    if (stageclear_toggle.activeSelf == true)
+                    //はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
+                    if (PlayerStatus.First_recipi_on == true)
                     {
-                        stageclear_toggle.SetActive(false);
+                        Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(true);
+                        //recipi_toggle.SetActive(true);
                     }
-                }               
+                    else
+                    {
+                        Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(false);
+                        //recipi_toggle.SetActive(false);
+                    }
 
+                    //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
+                    if (girl1_status.girl1_Love_exp >= 100)
+                    {
+                        stageclear_toggle.SetActive(true);
+                    }
+                    else
+                    {
+                        if (stageclear_toggle.activeSelf == true)
+                        {
+                            stageclear_toggle.SetActive(false);
+                        }
+                    }
 
-                //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-                switch (compound_status)
-                {
-                    case 0:
 
-                        //Debug.Log("メインの調合シーン　スタート");
-                        recipilist_onoff.SetActive(false);
-                        playeritemlist_onoff.SetActive(false);
-                        yes_no_panel.SetActive(false);
-                        getmatplace_panel.SetActive(false);
-                        compoundselect_onoff_obj.SetActive(true);
-                        kakuritsuPanel_obj.SetActive(false);
-                        black_panel_A.SetActive(false);
+                    //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
+                    switch (compound_status)
+                    {
+                        case 0:
 
-                        extreme_panel.extremeButtonInteractOn();
+                            //Debug.Log("メインの調合シーン　スタート");
+                            recipilist_onoff.SetActive(false);
+                            playeritemlist_onoff.SetActive(false);
+                            yes_no_panel.SetActive(false);
+                            getmatplace_panel.SetActive(false);
+                            compoundselect_onoff_obj.SetActive(true);
+                            kakuritsuPanel_obj.SetActive(false);
+                            black_panel_A.SetActive(false);
+                            sceneBGM.mute = false;
 
-                        text_area.SetActive(true);
+                            extreme_panel.extremeButtonInteractOn();
 
-                        text_scenario();
-                        break;
+                            text_area.SetActive(true);
 
-                    case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
+                            text_scenario();
+                            break;
 
-                        compoundselect_onoff_obj.SetActive(false);
+                        case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
 
-                        compound_status = 4; //調合シーンに入っています、というフラグ
-                        compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
-                        
-                        recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
-                        kakuritsuPanel_obj.SetActive(true);
-                        black_panel_A.SetActive(true);
+                            compoundselect_onoff_obj.SetActive(false);
 
-                        yes.SetActive(false);
-                        no.SetActive(true);
+                            compound_status = 4; //調合シーンに入っています、というフラグ
+                            compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
 
-                        break;
+                            recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+                            kakuritsuPanel_obj.SetActive(true);
+                            black_panel_A.SetActive(true);
 
-                    case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
+                            yes.SetActive(false);
+                            no.SetActive(true);
 
-                        compoundselect_onoff_obj.SetActive(false);
+                            break;
 
-                        compound_status = 4; //調合シーンに入っています、というフラグ
-                        compound_select = 2; //トッピング調合を選択
+                        case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
 
-                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                        kakuritsuPanel_obj.SetActive(true);
-                        black_panel_A.SetActive(true);
- 
-                        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                            compoundselect_onoff_obj.SetActive(false);
 
-                        yes.SetActive(false);
-                        no.SetActive(true);
+                            compound_status = 4; //調合シーンに入っています、というフラグ
+                            compound_select = 2; //トッピング調合を選択
 
-                        break;
+                            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                            kakuritsuPanel_obj.SetActive(true);
+                            black_panel_A.SetActive(true);
 
-                    case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
+                            pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
 
-                        compoundselect_onoff_obj.SetActive(false);
+                            yes.SetActive(false);
+                            no.SetActive(true);
 
-                        compound_status = 4; //調合シーンに入っています、というフラグ
-                        compound_select = 3; //オリジナル調合を選択
+                            break;
 
-                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                        kakuritsuPanel_obj.SetActive(true);
-                        black_panel_A.SetActive(true);
+                        case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
 
-                        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-                        yes.SetActive(false);
-                        no.SetActive(true);
+                            compoundselect_onoff_obj.SetActive(false);
 
-                        break;
+                            compound_status = 4; //調合シーンに入っています、というフラグ
+                            compound_select = 3; //オリジナル調合を選択
 
-                    case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
+                            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                            kakuritsuPanel_obj.SetActive(true);
+                            black_panel_A.SetActive(true);
 
-                        break;
+                            pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+                            yes.SetActive(false);
+                            no.SetActive(true);
 
-                    case 5: //「焼く」を選択
+                            break;
 
-                        compoundselect_onoff_obj.SetActive(false);
+                        case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
 
-                        compound_status = 4; //調合シーンに入っています、というフラグ
-                        compound_select = 5; //焼くを選択
+                            break;
 
-                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                        yes.SetActive(false);
-                        no.SetActive(true);
+                        case 5: //「焼く」を選択
 
-                        break;
+                            compoundselect_onoff_obj.SetActive(false);
 
-                    case 10: //「あげる」を選択
+                            compound_status = 4; //調合シーンに入っています、というフラグ
+                            compound_select = 5; //焼くを選択
 
-                        compoundselect_onoff_obj.SetActive(false);
+                            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                            pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                            yes.SetActive(false);
+                            no.SetActive(true);
 
-                        compound_status = 13; //あげるシーンに入っています、というフラグ
-                        compound_select = 10; //あげるを選択
+                            break;
 
-                        yes_no_panel.SetActive(true);
-                        yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+                        case 10: //「あげる」を選択
 
-                        extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                        black_panel_A.SetActive(true);
+                            compoundselect_onoff_obj.SetActive(false);
 
-                        card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
-                        StartCoroutine("Girl_present_Final_select");
+                            compound_status = 13; //あげるシーンに入っています、というフラグ
+                            compound_select = 10; //あげるを選択
 
+                            yes_no_panel.SetActive(true);
+                            yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
-                        break;
+                            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                            black_panel_A.SetActive(true);
 
-                    case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
+                            card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
+                            StartCoroutine("Girl_present_Final_select");
 
-                        compound_status = 12;
 
-                        //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
-                        girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype);
+                            break;
 
-                        break;
+                        case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
 
-                    case 12: //お菓子を判定中
+                            compound_status = 12;
 
-                        break;
+                            //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
+                            girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype);
 
-                    case 13: //あげるかあげないかを選択中
+                            break;
 
-                        break;
+                        case 12: //お菓子を判定中
 
-                    case 20: //材料採取地を選択中
+                            break;
 
-                        
-                        break;
+                        case 13: //あげるかあげないかを選択中
 
-                    case 21: //材料採取地に到着。探索中
+                            break;
 
-                        break;
+                        case 20: //材料採取地を選択中
 
-                    case 30: //「売る」を選択
 
-                        compoundselect_onoff_obj.SetActive(false);
+                            break;
 
-                        compound_status = 31; //売るシーンに入っています、というフラグ
-                        compound_select = 30; //売るを選択
+                        case 21: //材料採取地に到着。探索中
 
-                        yes_no_panel.SetActive(true);
-                        yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+                            break;
 
-                        extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                        black_panel_A.SetActive(true);
-                        StartCoroutine("Sell_Final_select");
+                        case 30: //「売る」を選択
 
+                            compoundselect_onoff_obj.SetActive(false);
 
-                        break;
+                            compound_status = 31; //売るシーンに入っています、というフラグ
+                            compound_select = 30; //売るを選択
 
-                    case 31: //売るかどうか、選択中
+                            yes_no_panel.SetActive(true);
+                            yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
-                        break;
+                            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                            black_panel_A.SetActive(true);
+                            StartCoroutine("Sell_Final_select");
 
-                    case 32: //売る処理の実行
 
-                        compound_status = 32;
+                            break;
 
-                        extreme_panel.Sell_Okashi();
-                        break;
+                        case 31: //売るかどうか、選択中
 
-                    case 40: //ステージクリアを選択
+                            break;
 
-                        compoundselect_onoff_obj.SetActive(false);
+                        case 32: //売る処理の実行
 
-                        compound_status = 41; //売るシーンに入っています、というフラグ
-                        compound_select = 40; //売るを選択
+                            compound_status = 32;
 
-                        yes_no_panel.SetActive(true);
-                        yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+                            extreme_panel.Sell_Okashi();
+                            break;
 
-                        extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                        black_panel_A.SetActive(true);
-                        StartCoroutine("StageClear_Final_select");
-                        break;
+                        case 40: //ステージクリアを選択
 
-                    case 41: //クリアするかどうか、選択中
-                        break;
+                            compoundselect_onoff_obj.SetActive(false);
 
-                    case 99: //アイテム画面を開いたとき
+                            compound_status = 41; //売るシーンに入っています、というフラグ
+                            compound_select = 40; //売るを選択
 
-                        compoundselect_onoff_obj.SetActive(false);
-                        saveload_panel.SetActive(false);
-                        compound_status = 4;
-                        compound_select = 99;
-                        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                        yes.SetActive(false);
-                        no.SetActive(true);
+                            yes_no_panel.SetActive(true);
+                            yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
-                        break;
+                            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                            black_panel_A.SetActive(true);
+                            StartCoroutine("StageClear_Final_select");
+                            break;
 
-                    case 100: //退避用
+                        case 41: //クリアするかどうか、選択中
+                            break;
 
-                        break;
+                        case 99: //アイテム画面を開いたとき
 
+                            compoundselect_onoff_obj.SetActive(false);
+                            saveload_panel.SetActive(false);
+                            compound_status = 4;
+                            compound_select = 99;
+                            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                            yes.SetActive(false);
+                            no.SetActive(true);
 
-                    /*case 5: //ブレンド調合の処理（未使用）
+                            break;
 
-                        compoundselect_onoff_obj.SetActive(false);
-                        compound_status = 4; //調合シーンに入っています、というフラグ
-                        compound_select = 5; //ブレンド調合を選択
-                        recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
-                        no.SetActive(true);
+                        case 100: //退避用
 
-                        break;*/
+                            break;
 
 
+                        /*case 5: //ブレンド調合の処理（未使用）
 
-                    default:
-                        break;
+                            compoundselect_onoff_obj.SetActive(false);
+                            compound_status = 4; //調合シーンに入っています、というフラグ
+                            compound_select = 5; //ブレンド調合を選択
+                            recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+                            no.SetActive(true);
+
+                            break;*/
+
+
+
+                        default:
+                            break;
+                    }
+
+
                 }
-
-
             }
         }
     }
@@ -686,7 +714,6 @@ public class Compound_Main : MonoBehaviour
         GameMgr.recipi_read_endflag = false;
         Recipi_loading = false;
 
-        //Debug.Log("インタラクト on");
         compound_status = 0;
     }
 
@@ -991,5 +1018,69 @@ public class Compound_Main : MonoBehaviour
                 break;
 
         }
+    }
+
+
+    public void Check_GirlLoveEvent()
+    {
+        if (GirlLove_loading == true)
+        {
+
+        }
+        else
+        {
+            if (girl1_status.girl1_Love_exp >= 0 && girl1_status.girl1_Love_exp < 25)
+            {
+                check_GirlLoveEvent_flag = true;
+            }
+            else if (girl1_status.girl1_Love_exp >= 25 && girl1_status.girl1_Love_exp < 50)
+            {
+
+                if (GameMgr.GirlLoveEvent_01 != true)
+                {
+                    GameMgr.GirlLoveEvent_num = 1;
+                    GameMgr.GirlLoveEvent_01 = true;
+
+                    //_text.text = "イベント１をON。" + "\n" + "お兄ちゃん。誰かお客さんがきたよ。";
+
+                    StartCoroutine("ReadGirlLoveEvent");
+                }
+                else
+                {
+                    check_GirlLoveEvent_flag = true;
+                }
+            }
+            else
+            {
+                check_GirlLoveEvent_flag = true;
+            }
+        }
+    }
+
+    IEnumerator ReadGirlLoveEvent()
+    {
+        compoundselect_onoff_obj.SetActive(false);
+        text_area.SetActive(false);
+        Extremepanel_obj.SetActive(false);
+        sceneBGM.mute = true;
+        GirlLove_loading = true;
+
+        GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        while (!GameMgr.girlloveevent_endflag)
+        {
+            yield return null;
+        }
+
+        compoundselect_onoff_obj.SetActive(true);
+        text_area.SetActive(true);
+        Extremepanel_obj.SetActive(true);
+        sceneBGM.mute = false;
+
+        GirlLove_loading = false;
+
+        _text.text = "";
+
+        check_GirlLoveEvent_flag = true;
     }
 }

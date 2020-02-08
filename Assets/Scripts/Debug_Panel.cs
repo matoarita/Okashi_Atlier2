@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class Debug_Panel : MonoBehaviour {
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     private GameObject StoryNumber;
     private Text StoryNumber_text;
 
@@ -71,9 +74,14 @@ public class Debug_Panel : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
+            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
             //好感度バーの取得
             _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
             _slider.value = girllove_param;
+
+            compound_Main.check_GirlLoveEvent_flag = false;
         }
     }
 }

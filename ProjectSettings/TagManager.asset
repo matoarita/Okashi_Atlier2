@@ -50,6 +50,7 @@ TagManager:
   - OkashiParamKeisanMethod
   - ExpTable
   - SlotChangeName
+  - BGM
   layers:
   - Default
   - TransparentFX

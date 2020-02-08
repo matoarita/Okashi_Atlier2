@@ -154,8 +154,10 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 9
       debugIndex: 9
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u4E3B\u4EBA\u516C\u306E\u7236"
+      - <param=player_father_name>
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 10
@@ -276,9 +278,191 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 23
+      debugIndex: 23
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 24
+      debugIndex: 24
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 25
+      debugIndex: 25
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 26
+      debugIndex: 26
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 27
+      debugIndex: 27
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 28
+      debugIndex: 28
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 29
+      debugIndex: 29
+      strings:
+      - "\u6751\u9577"
+      - <param=npcB_name>
+      - "\u901A\u5E38"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Yukko/yukko.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 30
+      debugIndex: 30
+      strings:
+      - 
+      - 
+      - "\u7B11\u3044"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Yukko/yukko.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 31
+      debugIndex: 31
+      strings:
+      - 
+      - 
+      - "\u305F\u3081\u606F"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Yukko/yukko.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 32
+      debugIndex: 32
+      strings:
+      - 
+      - 
+      - "\u7167\u308C"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Yukko/yukko.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 33
+      debugIndex: 33
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 34
+      debugIndex: 34
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 35
+      debugIndex: 35
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 36
+      debugIndex: 36
+      strings:
+      - "\u30B7\u30E7\u30C3\u30D7\u306E\u5E97\u4E3B"
+      - <param=npcC_name>
+      - "\u901A\u5E38"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Yukko/yukko.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 37
+      debugIndex: 37
+      strings:
+      - 
+      - 
+      - "\u7B11\u3044"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Yukko/yukko.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 38
+      debugIndex: 38
+      strings:
+      - 
+      - 
+      - "\u305F\u3081\u606F"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Yukko/yukko.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 39
+      debugIndex: 39
+      strings:
+      - 
+      - 
+      - "\u7167\u308C"
+      - 
+      - 
+      - 
+      - 
+      - 1.5
+      - 
+      - Yukko/yukko.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 452
+    textLength: 688
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -443,7 +627,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - Atlier_Rain.png
+      - tyuubou000.jpg
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -521,7 +705,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Texture
     type: 1
-    textLength: 423
+    textLength: 422
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -740,8 +924,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 3
       debugIndex: 3
-      strings: []
-      isEmpty: 1
+      strings:
+      - MainGirl_name
+      - String
+      - "\u30D2\u30AB\u30EA"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 4
@@ -767,8 +954,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 7
       debugIndex: 7
-      strings: []
-      isEmpty: 1
+      strings:
+      - town_name
+      - String
+      - "\u30EB\u30A4"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 8
@@ -785,38 +975,44 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 10
       debugIndex: 10
-      strings: []
-      isEmpty: 1
+      strings:
+      - player_father_name
+      - String
+      - "\u30B3\u30A6\u30E8\u30A6"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 11
       debugIndex: 11
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 12
-      debugIndex: 12
-      strings:
-      - MainGirl_name
-      - String
-      - "\u30D2\u30AB\u30EA"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 13
-      debugIndex: 13
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 14
-      debugIndex: 14
       strings:
       - npcA_name
       - String
       - "\u30CA\u30B8\u30E3\u304A\u3070\u3055\u3093"
       isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 12
+      debugIndex: 12
+      strings:
+      - npcB_name
+      - String
+      - "\u30BD\u30A4\u30B6\u30E0"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 13
+      debugIndex: 13
+      strings:
+      - npcC_name
+      - String
+      - "\u30D7\u30EA\u30F3"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 14
+      debugIndex: 14
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 15
@@ -833,11 +1029,8 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 17
       debugIndex: 17
-      strings:
-      - town_name
-      - String
-      - "\u30EB\u30A4"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 18
@@ -866,14 +1059,20 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 22
       debugIndex: 22
-      strings: []
-      isEmpty: 1
+      strings:
+      - Story_num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 23
       debugIndex: 23
-      strings: []
-      isEmpty: 1
+      strings:
+      - Girllove_event_num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 24
@@ -1013,7 +1212,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 264
+    textLength: 364
     headerRow: 0
   - rows:
     - rowIndex: 0
