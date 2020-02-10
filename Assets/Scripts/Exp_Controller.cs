@@ -119,8 +119,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ
 
     public bool compound_success; //調合の成功か失敗
-
     public int comp_judge_flag; //新規調合か生地合成の判定。0=新規調合。1=生地調合。
+
+    public bool NewRecipiFlag;  //新しいレシピをひらめいたフラグをON
+    public int NewRecipi_compoID;   //そのときの、調合DBのID
 
     public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
 
@@ -142,11 +144,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab1;
     private GameObject Compo_Magic_effect_Prefab2;
     private GameObject Compo_Magic_effect_Prefab3;
+    private GameObject Compo_Magic_effect_Prefab4;
     private List<GameObject> _listEffect = new List<GameObject>();
 
     //SEを鳴らす
     public AudioClip sound1;
     public AudioClip sound2;
+    public AudioClip sound3;
+    public AudioClip sound4;
     AudioSource audioSource;
 
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
@@ -331,6 +336,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Compo_Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
         Compo_Magic_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo2");
         Compo_Magic_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Particle_Compo3");
+        Compo_Magic_effect_Prefab4 = (GameObject)Resources.Load("Prefabs/Particle_Compo4");
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -369,6 +375,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //blend_flag = false;
 
         compound_success = false;
+        NewRecipiFlag = false;
 
         extreme_on = false;
 
@@ -697,6 +704,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                 PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
 
+                NewRecipiFlag = true;
+                NewRecipi_compoID = result_ID;
+
                 _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！"  + "\n";
 
             }
@@ -719,6 +729,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //テキストの表示
             renkin_default_exp_up();
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound2);
+            audioSource.PlayOneShot(sound4);
+
+            //完成エフェクト
+            ResultEffect_OK();
         }
         else //調合失敗
         {
@@ -755,6 +772,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //テキストの表示
             Failed_Text();
 
+            //音を鳴らす
+            audioSource.PlayOneShot(sound3);
+
+            //完成エフェクト
+            ResultEffect_NG();
         }
 
         result_ok = false;
@@ -864,6 +886,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //テキストの表示
             renkin_default_exp_up();
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound2);
+            audioSource.PlayOneShot(sound4);
+
+            //完成エフェクト
+            ResultEffect_OK();
         }
         else //失敗した
         {
@@ -899,6 +928,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //テキストの表示
             Failed_Text();
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound3);
+
+            //完成エフェクト
+            ResultEffect_NG();
         }
 
         recipiresult_ok = false;
@@ -1015,6 +1050,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                     PlayerStatus.player_renkin_exp += _getexp; //エクストリームで新しく閃いた場合の経験値
 
+                    NewRecipiFlag = true;
+                    NewRecipi_compoID = result_ID;
+
                     _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
 
                     //はじめて、アイテムを制作した場合は、フラグをONに。
@@ -1049,6 +1087,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             
             //テキストの表示
             renkin_exp_up();
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound2);
+            audioSource.PlayOneShot(sound4);
+
+            //完成エフェクト
+            ResultEffect_OK();
         }
         else //失敗の場合
         {
@@ -1083,6 +1128,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //テキストの表示
             Failed_Text();
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound3);
+
+            //完成エフェクト
+            ResultEffect_NG();
         }
 
         topping_result_ok = false;
@@ -1287,20 +1338,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //音を止める
                 audioSource.Stop();
 
-                //初期化しておく
-                for (i = 0; i < _listEffect.Count; i++)
-                {
-                    Destroy(_listEffect[i]);
-                }
-                _listEffect.Clear();
-
-
-                //リザルト時のエフェクト生成＋アニメ開始
-                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab2));
-                _listEffect[0].GetComponent<Canvas>().worldCamera = Camera.main;
-                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab3));
-                _listEffect[1].GetComponent<Canvas>().worldCamera = Camera.main;
-
                 break;
 
             default:
@@ -1321,7 +1358,37 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect.Clear();
     }
 
+    void ResultEffect_OK()
+    {
+        //初期化しておく
+        for (i = 0; i < _listEffect.Count; i++)
+        {
+            Destroy(_listEffect[i]);
+        }
+        _listEffect.Clear();
 
+
+        //リザルト時のエフェクト生成＋アニメ開始
+        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab2));
+        _listEffect[0].GetComponent<Canvas>().worldCamera = Camera.main;
+        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab3));
+        _listEffect[1].GetComponent<Canvas>().worldCamera = Camera.main;
+    }
+
+    void ResultEffect_NG()
+    {
+        //初期化しておく
+        for (i = 0; i < _listEffect.Count; i++)
+        {
+            Destroy(_listEffect[i]);
+        }
+        _listEffect.Clear();
+
+
+        //リザルト時のエフェクト生成＋アニメ開始
+        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab4));
+        _listEffect[0].GetComponent<Canvas>().worldCamera = Camera.main;
+    }
 
 
 

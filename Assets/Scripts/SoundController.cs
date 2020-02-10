@@ -8,8 +8,12 @@ public class SoundController : MonoBehaviour {
 
     private Dictionary<string, int> seIndexes = new Dictionary<string, int>(); //読み込んだファイルにインデックスと、ファイル名をつける。
 
+    //結局使っていない。
     const int cNumChannel = 4;
     private AudioSource[] seSources = new AudioSource[cNumChannel]; //オーディオソース
+    //
+
+    private AudioSource audioSource;
 
 
     void Awake(){
@@ -19,6 +23,8 @@ public class SoundController : MonoBehaviour {
         {
             seSources[i] = gameObject.AddComponent<AudioSource>();
         }
+
+        audioSource = GetComponent<AudioSource>();
 
         //オーディオファイルを全て読み込みしている。
         seClips = Resources.LoadAll<AudioClip>("Utage_Scenario/Sound/SE");
@@ -45,7 +51,8 @@ public class SoundController : MonoBehaviour {
 
     public void PlaySe( int index )
     {
-        seSources[0].clip = seClips[index];
-        seSources[0].Play();
+        //seSources[0].clip = seClips[index];
+        //seSources[0].Play();
+        audioSource.PlayOneShot(seClips[index]);
     }
 }

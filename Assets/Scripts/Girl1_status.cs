@@ -106,8 +106,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int _sour_param;
     public int _bitter_param;
 
-    // Use this for initialization
+    //女の子イラストデータ
+    public Sprite Girl1_img_normal;
+    public Sprite Girl1_img_gokigen;
+    public Sprite Girl1_img_eat_start;
+    public Sprite Girl1_img_smile;
 
+    // Use this for initialization
     void Start () {
 
         DontDestroyOnLoad(this);
@@ -142,7 +147,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         GirlEat_Judge_on = false;
 
+        //好きなお菓子のサブタイプ。これは使用している。
+        girl1_Subtype1 = "Cookie";
 
+        //女の子のイラストデータ
+        Girl1_img_normal = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_normal");
+        Girl1_img_gokigen = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
+        Girl1_img_smile = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_yorokobi");
+        Girl1_img_eat_start = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_eat_start");
         // *** 下記のパラメータは旧タイプのもので、現在は未使用。 ***
 
         //アイテムそれぞれに、女の子の好き度を表す、基礎パラメータがある。エクセルのアイテムデータベースにgirl1_likeで登録している。
@@ -168,7 +180,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
 
         //女の子が好きなお菓子のタイプ。クッキー好きとか、ケーキ好きとか。_pは、どれぐらい好きかを数値化。
-        girl1_Subtype1 = "Cookie";
+        
         girl1_Subtype1_p = 10;
 
         girl1_Subtype2 = "Cake";
@@ -244,7 +256,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 Girl_Full();
 
                                 //キャラクタ表情変更
-                                s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/GirlLoli1_normal");
+                                s.sprite = Girl1_img_gokigen;
                                 break;
 
                             default:

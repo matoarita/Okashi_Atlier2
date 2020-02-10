@@ -465,7 +465,7 @@ public class ExtremePanel : MonoBehaviour {
         exp_Controller._temp_Starthp = Starthp;
 
         timeOut = 1.0f;
-        Life_anim_on = true;
+        //Life_anim_on = true;
         exp_Controller._temp_life_anim_on = true;
 
         //お菓子の現在の価値もセット

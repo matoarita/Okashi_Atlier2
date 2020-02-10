@@ -289,8 +289,8 @@ public class Compound_Main : MonoBehaviour
                     //はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
                     if (PlayerStatus.First_recipi_on == true)
                     {
-                        Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(true);
-                        //recipi_toggle.SetActive(true);
+                        //Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(true);
+                        recipi_toggle.SetActive(true);
                     }
                     else
                     {

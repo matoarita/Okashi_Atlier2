@@ -15,3 +15,11 @@ SE表
 ・SE_13		audiostock_65015_sample
 ・SE_14		ファンファーレ9（ゲーム向け）.mp3
 ・SE_15		NES-RPG01-11(Select).mp3
+・SE_16		shine2.mp3
+・SE_17		tin2.mp3
+・SE_18		audiostock_57727_sample.mp3
+・SE_19		audiostock_57729_sample.mp3
+・SE_20		audiostock_60177_sample.mp3
+・SE_21		audiostock_5538_sample.mp3
+・SE_22		decision22.mp3
+・SE_23		audiostock_145235_sample.mp3

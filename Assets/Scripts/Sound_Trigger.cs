@@ -21,6 +21,16 @@ public class Sound_Trigger : MonoBehaviour {
         
         switch (transform.name)
         {
+            case "Yes": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(19);
+                break;
+
             case "No": //noを押したときのSE
 
                 //ポインタが入ったときに鳴る音
@@ -28,7 +38,27 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(0);
+                SE_point_click(18);
+                break;
+
+            case "up": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(22);
+                break;
+
+            case "down": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(22);
                 break;
 
             case "ExtremeButton": //Get_Materialを押したときのSE
@@ -48,7 +78,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(0);
+                SE_point_click(22);
                 break;
         }
 

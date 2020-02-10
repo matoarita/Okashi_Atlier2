@@ -321,7 +321,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     timeOut = 1.0f;
                     judge_anim_status = 1;
-                    s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/GirlLoli1_eat");
+                    s.sprite = girl1_status.Girl1_img_eat_start;
 
                     _windowtext.text = ".";
                     break;
@@ -715,7 +715,7 @@ public class GirlEat_Judge : MonoBehaviour {
             girl1_status.timeOut = 5.0f;
 
             //キャラクタ表情変更
-            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/GirlLoli1_smile");
+            s.sprite = girl1_status.Girl1_img_eat_start;
         }
         else //失敗の場合
         {
@@ -744,7 +744,7 @@ public class GirlEat_Judge : MonoBehaviour {
             girl1_status.timeOut = 5.0f;
 
             //キャラクタ表情変更
-            s.sprite = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/GirlLoli1_normal");
+            s.sprite = girl1_status.Girl1_img_gokigen;
         }
 
         compound_Main.compound_status = 0;

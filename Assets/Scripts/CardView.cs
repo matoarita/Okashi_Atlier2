@@ -22,6 +22,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     //SEを鳴らす
     public AudioClip sound1;
+    public AudioClip sound2;
     AudioSource audioSource;
 
     private Transform resulttransform;
@@ -464,7 +465,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
 
         Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
-        audioSource.PlayOneShot(sound1);
+
+        //音鳴らす
+        //audioSource.PlayOneShot(sound1);
+        //audioSource.PlayOneShot(sound2);
 
     }
 

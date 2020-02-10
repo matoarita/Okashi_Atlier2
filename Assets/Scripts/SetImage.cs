@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class SetImage : MonoBehaviour
 {
+    private GameObject canvas;
 
     public Image item_screen;
     //public GameObject gameobject; //publicで宣言すると、unityヒエラルキー上で見えるようになる。そこに、他のゲームオブジェクトを紐づけすることができる。
@@ -20,8 +21,17 @@ public class SetImage : MonoBehaviour
 
     private GameObject Card_param_obj;
 
+    private GameObject NewRecipi_Prefab1;
+    private GameObject NewRecipi;
+    private int newrecipi_id;
+    private Text newrecipi_text;
+    private string newrecipi_name;
+    private Texture2D newrecipi_Img;
+    private Image newrecipi_Img_hyouji;
+
     private PlayerItemList pitemlist;
     private ExpTable exp_table;
+    private Exp_Controller exp_Controller;
 
     private SlotNameDataBase slotnamedatabase;
 
@@ -29,6 +39,10 @@ public class SetImage : MonoBehaviour
     private Texture2D card_template_1;
     private Texture2D card_template_2;
     private ItemDataBase database;
+    private ItemCompoundDataBase databaseCompo;
+
+    private GameObject extremePanel_obj;
+    private ExtremePanel extremePanel;
 
     private Image item_Icon;
     private Text item_Name;
@@ -100,6 +114,13 @@ public class SetImage : MonoBehaviour
     public int check_counter;
     public int Pitem_or_Origin; //プレイヤーアイテムか、オリジナルアイテムかの判定
 
+    //SEを鳴らす
+    public AudioClip sound1;
+    public AudioClip sound2;
+    AudioSource audioSource;
+
+    private SoundController sc;
+
 
     // Use this for initialization
     void Start()
@@ -111,11 +132,20 @@ public class SetImage : MonoBehaviour
 
     void SetData()
     {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
+        //調合組み合わせデータベースの取得
+        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>(); // ややこしいけど、ItemDataBaseという自作スクリプトをどこかに作ると、それ自体を型として扱える？っぽい。
                                                                        //　宣言の時に、ItemDataBase型で変数を宣言し、Start()内で、初期化する。ヒエラルキー内のGameobject（IteamDataBaseという名前）にC#スクリプト「ItemDataBase」は紐づけていて、
@@ -170,6 +200,11 @@ public class SetImage : MonoBehaviour
         item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
 
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+
+        //新レシピプレファブの取得
+        NewRecipi_Prefab1 = (GameObject)Resources.Load("Prefabs/NewRecipiMessage");
+
+        audioSource = GetComponent<AudioSource>();
 
         Card_param_obj.SetActive(false);
     }
@@ -641,10 +676,17 @@ public class SetImage : MonoBehaviour
 
     }
 
-    public void CompoundResult_DestroySelf()
+    public void CompoundResult_Button()
     {
         //レベルアップチェック用オブジェクトの取得
         exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //エクストリームパネルオブジェクトの取得
+        extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
+        extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
         if (exp_table.check_on == true)
         {
@@ -652,11 +694,62 @@ public class SetImage : MonoBehaviour
         }
         else
         {
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+            //新しいレシピをひらめいたかどうかチェック
+            if ( exp_Controller.NewRecipiFlag == true)
+            {
+                newrecipi_id = exp_Controller.NewRecipi_compoID;
 
-            compound_Main.compound_status = 0;
-            Destroy(this.gameObject);
+                //調合DBの名前と一致するものを、アイテムDBから検索。表示名前と画像を取得
+                i = 0;
+                while ( i < database.items.Count )
+                {
+                    if( database.items[i].itemName == databaseCompo.compoitems[newrecipi_id].cmpitemID_result)
+                    {
+                        newrecipi_name = database.items[i].itemNameHyouji;
+                        newrecipi_Img = database.items[i].itemIcon;
+                        break;
+                    }
+                    i++;
+                }
+
+                //取得
+                NewRecipi = Instantiate(NewRecipi_Prefab1, canvas.transform);
+                newrecipi_text = NewRecipi.transform.Find("Image/Text").gameObject.GetComponent<Text>();
+                newrecipi_Img_hyouji = NewRecipi.transform.Find("Image/ItemImage").gameObject.GetComponent<Image>();
+
+                //表示
+                newrecipi_text.text = "新しいレシピ" + "\n" + newrecipi_name + "\n" + "を閃いた！";
+
+                // texture2dを使い、Spriteを作って、反映させる
+                newrecipi_Img_hyouji.sprite = Sprite.Create(newrecipi_Img,
+                                           new Rect(0, 0, newrecipi_Img.width, newrecipi_Img.height),
+                                           Vector2.zero);
+
+                //音を鳴らす 新しいレシピ閃いたときの音 scのほうに音を送ると、途中で音が途切れない。
+                //audioSource.PlayOneShot(sound1);
+                sc.PlaySe(16);
+
+                exp_Controller.NewRecipiFlag = false; //オフにしておく。
+            }
+            else
+            {
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                compound_Main.compound_status = 0;
+
+                if (exp_Controller.compound_success == true)
+                {
+                    extremePanel.LifeAnimeOnTrue();
+                }
+                else
+                {
+
+                }
+
+                Destroy(this.gameObject);
+
+            }
         }
     }
 
