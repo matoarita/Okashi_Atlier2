@@ -32,6 +32,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int stage_number;     //ステージ番号
 
+    public static int stage1_girl1_loveexp; //ステージ１クリア時の好感度を保存
+
     private PlayerItemList pitemlist;
 
     private int i, j;

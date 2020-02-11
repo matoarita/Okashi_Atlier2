@@ -1239,18 +1239,18 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 2
       debugIndex: 2
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u74B0\u5883\u97F3\u96E8\u306E\u97F3"
+      - 
+      - Ambience
+      - VSQSE_0651_rain_5
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 3
       debugIndex: 3
-      strings:
-      - "\u30A2\u30A4\u30C6\u30E0\u53D6\u5F97\u97F3\uFF11"
-      - 
-      - Se
-      - SE_02.mp3
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 4
@@ -1261,42 +1261,30 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 5
       debugIndex: 5
-      strings:
-      - "BGM\u8857\u306E\u97F3\u697D\uFF11"
-      - 
-      - Bgm
-      - audiostock_113917_sample.mp3
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 6
       debugIndex: 6
-      strings:
-      - "BGM\u8857\u306E\u97F3\u697D\uFF12"
-      - 
-      - Bgm
-      - audiostock_205634_sample.mp3
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 7
       debugIndex: 7
       strings:
-      - "BGM\u8857\u306E\u97F3\u697D\uFF13"
+      - "\u30A2\u30A4\u30C6\u30E0\u53D6\u5F97\u97F3\uFF11"
       - 
-      - Bgm
-      - audiostock_199702_sample.mp3
+      - Se
+      - SE_02.mp3
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 8
       debugIndex: 8
-      strings:
-      - "\u307B\u306E\u307C\u306E\uFF11"
-      - 
-      - Bgm
-      - konekonoosanpo.mp3
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 9
@@ -1325,42 +1313,56 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 13
       debugIndex: 13
-      strings: []
-      isEmpty: 1
+      strings:
+      - "BGM\u8857\u306E\u97F3\u697D\uFF11"
+      - 
+      - Bgm
+      - audiostock_113917_sample.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 14
       debugIndex: 14
-      strings: []
-      isEmpty: 1
+      strings:
+      - "BGM\u8857\u306E\u97F3\u697D\uFF12"
+      - 
+      - Bgm
+      - audiostock_205634_sample.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 15
       debugIndex: 15
-      strings: []
-      isEmpty: 1
+      strings:
+      - "BGM\u8857\u306E\u97F3\u697D\uFF13"
+      - 
+      - Bgm
+      - audiostock_199702_sample.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 16
       debugIndex: 16
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u307B\u306E\u307C\u306E\uFF11"
+      - 
+      - Bgm
+      - konekonoosanpo.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 17
       debugIndex: 17
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u60B2\u3057\u307F\u306E\u97F3\u697D"
+      - 
+      - Bgm
+      - audiostock_257697_sample.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 18
       debugIndex: 18
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 19
-      debugIndex: 19
       strings:
       - "BGM\u65E5\u5E38\u98A8\u666F"
       - 
@@ -1371,7 +1373,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 273
+    textLength: 341
     headerRow: 0
   - rows:
     - rowIndex: 0

@@ -155,6 +155,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_img_gokigen = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
         Girl1_img_smile = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_yorokobi");
         Girl1_img_eat_start = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_eat_start");
+
         // *** 下記のパラメータは旧タイプのもので、現在は未使用。 ***
 
         //アイテムそれぞれに、女の子の好き度を表す、基礎パラメータがある。エクセルのアイテムデータベースにgirl1_likeで登録している。

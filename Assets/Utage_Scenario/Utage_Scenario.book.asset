@@ -1973,11 +1973,49 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u6539\u884C\u306F\u3001Alt+Enter"
+      - "BGM\u5019\u88DC"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 5
+      debugIndex: 8
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u60B2\u3057\u307F\u306E\u97F3\u697D"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 9
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u307B\u306E\u307C\u306E\uFF11"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
       debugIndex: 11
       strings:
       - Bg
@@ -1985,7 +2023,16 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 6
+    - rowIndex: 8
+      debugIndex: 12
+      strings:
+      - Ambience
+      - "\u74B0\u5883\u97F3\u96E8\u306E\u97F3"
+      - TRUE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 9
       debugIndex: 13
       strings:
       - 
@@ -2000,7 +2047,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 7
+    - rowIndex: 10
       debugIndex: 15
       strings:
       - 
@@ -2015,7 +2062,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 8
+    - rowIndex: 11
       debugIndex: 17
       strings:
       - 
@@ -2030,7 +2077,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 9
+    - rowIndex: 12
       debugIndex: 20
       strings:
       - 
@@ -2045,7 +2092,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 10
+    - rowIndex: 13
       debugIndex: 21
       strings:
       - 
@@ -2060,7 +2107,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 11
+    - rowIndex: 14
       debugIndex: 23
       strings:
       - 
@@ -2075,7 +2122,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 12
+    - rowIndex: 15
       debugIndex: 24
       strings:
       - 
@@ -2090,7 +2137,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 13
+    - rowIndex: 16
       debugIndex: 26
       strings:
       - 
@@ -2105,7 +2152,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 14
+    - rowIndex: 17
       debugIndex: 28
       strings:
       - 
@@ -2120,7 +2167,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 15
+    - rowIndex: 18
       debugIndex: 30
       strings:
       - 
@@ -2135,7 +2182,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 16
+    - rowIndex: 19
       debugIndex: 32
       strings:
       - 
@@ -2150,7 +2197,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 17
+    - rowIndex: 20
       debugIndex: 33
       strings:
       - 
@@ -2165,7 +2212,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 18
+    - rowIndex: 21
       debugIndex: 35
       strings:
       - 
@@ -2180,7 +2227,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 19
+    - rowIndex: 22
       debugIndex: 37
       strings:
       - 
@@ -2188,7 +2235,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 20
+    - rowIndex: 23
       debugIndex: 38
       strings:
       - 
@@ -2203,7 +2250,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 21
+    - rowIndex: 24
       debugIndex: 40
       strings:
       - 
@@ -2218,7 +2265,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 22
+    - rowIndex: 25
       debugIndex: 41
       strings:
       - 
@@ -2233,7 +2280,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 23
+    - rowIndex: 26
       debugIndex: 43
       strings:
       - 
@@ -2248,7 +2295,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 24
+    - rowIndex: 27
       debugIndex: 45
       strings:
       - 
@@ -2263,7 +2310,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 25
+    - rowIndex: 28
       debugIndex: 47
       strings:
       - 
@@ -2278,7 +2325,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 26
+    - rowIndex: 29
       debugIndex: 48
       strings:
       - 
@@ -2293,7 +2340,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 27
+    - rowIndex: 30
       debugIndex: 50
       strings:
       - 
@@ -2308,7 +2355,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 28
+    - rowIndex: 31
       debugIndex: 52
       strings:
       - 
@@ -2323,14 +2370,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 29
+    - rowIndex: 32
       debugIndex: 53
       strings:
       - CharacterOff
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 30
+    - rowIndex: 33
       debugIndex: 54
       strings:
       - 
@@ -2345,7 +2392,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 31
+    - rowIndex: 34
       debugIndex: 56
       strings:
       - 
@@ -2360,7 +2407,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 32
+    - rowIndex: 35
       debugIndex: 58
       strings:
       - 
@@ -2375,7 +2422,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 33
+    - rowIndex: 36
       debugIndex: 60
       strings:
       - 
@@ -2390,7 +2437,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 34
+    - rowIndex: 37
       debugIndex: 61
       strings:
       - 
@@ -2405,7 +2452,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 35
+    - rowIndex: 38
       debugIndex: 62
       strings:
       - 
@@ -2420,7 +2467,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 36
+    - rowIndex: 39
       debugIndex: 64
       strings:
       - 
@@ -2435,7 +2482,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 37
+    - rowIndex: 40
       debugIndex: 65
       strings:
       - 
@@ -2450,7 +2497,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 38
+    - rowIndex: 41
       debugIndex: 67
       strings:
       - 
@@ -2465,7 +2512,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 39
+    - rowIndex: 42
       debugIndex: 69
       strings:
       - 
@@ -2480,7 +2527,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 40
+    - rowIndex: 43
       debugIndex: 71
       strings:
       - 
@@ -2495,7 +2542,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 41
+    - rowIndex: 44
       debugIndex: 73
       strings:
       - 
@@ -2510,7 +2557,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 42
+    - rowIndex: 45
       debugIndex: 75
       strings:
       - 
@@ -2525,7 +2572,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 43
+    - rowIndex: 46
       debugIndex: 77
       strings:
       - 
@@ -2540,7 +2587,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 44
+    - rowIndex: 47
       debugIndex: 79
       strings:
       - 
@@ -2555,7 +2602,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 45
+    - rowIndex: 48
       debugIndex: 81
       strings:
       - 
@@ -2570,7 +2617,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 46
+    - rowIndex: 49
       debugIndex: 83
       strings:
       - 
@@ -2585,7 +2632,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 47
+    - rowIndex: 50
       debugIndex: 85
       strings:
       - 
@@ -2600,7 +2647,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 48
+    - rowIndex: 51
       debugIndex: 87
       strings:
       - 
@@ -2615,7 +2662,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 49
+    - rowIndex: 52
       debugIndex: 89
       strings:
       - 
@@ -2630,7 +2677,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 50
+    - rowIndex: 53
       debugIndex: 91
       strings:
       - 
@@ -2645,7 +2692,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 51
+    - rowIndex: 54
       debugIndex: 93
       strings:
       - 
@@ -2653,7 +2700,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 52
+    - rowIndex: 55
       debugIndex: 94
       strings:
       - 
@@ -2668,7 +2715,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 53
+    - rowIndex: 56
       debugIndex: 96
       strings:
       - 
@@ -2683,7 +2730,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 54
+    - rowIndex: 57
       debugIndex: 97
       strings:
       - 
@@ -2698,7 +2745,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 55
+    - rowIndex: 58
       debugIndex: 99
       strings:
       - 
@@ -2713,7 +2760,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 56
+    - rowIndex: 59
       debugIndex: 101
       strings:
       - 
@@ -2728,7 +2775,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 57
+    - rowIndex: 60
       debugIndex: 103
       strings:
       - 
@@ -2743,7 +2790,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 58
+    - rowIndex: 61
       debugIndex: 104
       strings:
       - 
@@ -2758,7 +2805,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 59
+    - rowIndex: 62
       debugIndex: 105
       strings:
       - 
@@ -2773,7 +2820,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 60
+    - rowIndex: 63
       debugIndex: 107
       strings:
       - 
@@ -2788,7 +2835,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 61
+    - rowIndex: 64
       debugIndex: 108
       strings:
       - 
@@ -2803,7 +2850,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 62
+    - rowIndex: 65
       debugIndex: 109
       strings:
       - 
@@ -2818,7 +2865,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 63
+    - rowIndex: 66
       debugIndex: 111
       strings:
       - 
@@ -2833,7 +2880,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 64
+    - rowIndex: 67
       debugIndex: 112
       strings:
       - 
@@ -2848,7 +2895,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 65
+    - rowIndex: 68
       debugIndex: 114
       strings:
       - 
@@ -2863,7 +2910,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 66
+    - rowIndex: 69
       debugIndex: 116
       strings:
       - 
@@ -2878,7 +2925,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 67
+    - rowIndex: 70
       debugIndex: 118
       strings:
       - 
@@ -2893,7 +2940,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 68
+    - rowIndex: 71
       debugIndex: 119
       strings:
       - 
@@ -2908,7 +2955,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 69
+    - rowIndex: 72
       debugIndex: 121
       strings:
       - 
@@ -2923,7 +2970,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 70
+    - rowIndex: 73
       debugIndex: 122
       strings:
       - 
@@ -2938,7 +2985,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 71
+    - rowIndex: 74
       debugIndex: 124
       strings:
       - 
@@ -2953,7 +3000,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 72
+    - rowIndex: 75
       debugIndex: 125
       strings:
       - 
@@ -2968,7 +3015,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 73
+    - rowIndex: 76
       debugIndex: 128
       strings:
       - 
@@ -2983,7 +3030,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 74
+    - rowIndex: 77
       debugIndex: 129
       strings:
       - 
@@ -2998,7 +3045,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 75
+    - rowIndex: 78
       debugIndex: 131
       strings:
       - 
@@ -3013,7 +3060,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 76
+    - rowIndex: 79
       debugIndex: 132
       strings:
       - 
@@ -3028,7 +3075,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 77
+    - rowIndex: 80
       debugIndex: 134
       strings:
       - 
@@ -3043,7 +3090,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 78
+    - rowIndex: 81
       debugIndex: 135
       strings:
       - 
@@ -3058,7 +3105,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 79
+    - rowIndex: 82
       debugIndex: 136
       strings:
       - 
@@ -3073,7 +3120,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 80
+    - rowIndex: 83
       debugIndex: 137
       strings:
       - 
@@ -3088,7 +3135,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 81
+    - rowIndex: 84
       debugIndex: 139
       strings:
       - 
@@ -3103,7 +3150,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 82
+    - rowIndex: 85
       debugIndex: 141
       strings:
       - 
@@ -3118,7 +3165,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 83
+    - rowIndex: 86
       debugIndex: 143
       strings:
       - 
@@ -3133,7 +3180,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 84
+    - rowIndex: 87
       debugIndex: 145
       strings:
       - 
@@ -3148,7 +3195,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 85
+    - rowIndex: 88
       debugIndex: 147
       strings:
       - 
@@ -3163,7 +3210,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 86
+    - rowIndex: 89
       debugIndex: 149
       strings:
       - 
@@ -3178,7 +3225,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 87
+    - rowIndex: 90
       debugIndex: 150
       strings:
       - 
@@ -3193,7 +3240,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 88
+    - rowIndex: 91
       debugIndex: 151
       strings:
       - 
@@ -3208,7 +3255,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 89
+    - rowIndex: 92
       debugIndex: 153
       strings:
       - 
@@ -3223,7 +3270,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 90
+    - rowIndex: 93
       debugIndex: 154
       strings:
       - 
@@ -3238,7 +3285,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 91
+    - rowIndex: 94
       debugIndex: 156
       strings:
       - 
@@ -3253,7 +3300,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 92
+    - rowIndex: 95
       debugIndex: 160
       strings:
       - EndScenario
@@ -3262,7 +3309,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter_2
     type: 1
-    textLength: 1474
+    textLength: 1495
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -8266,18 +8313,18 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 2
       debugIndex: 2
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u74B0\u5883\u97F3\u96E8\u306E\u97F3"
+      - 
+      - Ambience
+      - VSQSE_0651_rain_5
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 3
       debugIndex: 3
-      strings:
-      - "\u30A2\u30A4\u30C6\u30E0\u53D6\u5F97\u97F3\uFF11"
-      - 
-      - Se
-      - SE_02.mp3
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 4
@@ -8288,42 +8335,30 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 5
       debugIndex: 5
-      strings:
-      - "BGM\u8857\u306E\u97F3\u697D\uFF11"
-      - 
-      - Bgm
-      - audiostock_113917_sample.mp3
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 6
       debugIndex: 6
-      strings:
-      - "BGM\u8857\u306E\u97F3\u697D\uFF12"
-      - 
-      - Bgm
-      - audiostock_205634_sample.mp3
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 7
       debugIndex: 7
       strings:
-      - "BGM\u8857\u306E\u97F3\u697D\uFF13"
+      - "\u30A2\u30A4\u30C6\u30E0\u53D6\u5F97\u97F3\uFF11"
       - 
-      - Bgm
-      - audiostock_199702_sample.mp3
+      - Se
+      - SE_02.mp3
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 8
       debugIndex: 8
-      strings:
-      - "\u307B\u306E\u307C\u306E\uFF11"
-      - 
-      - Bgm
-      - konekonoosanpo.mp3
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 9
@@ -8352,42 +8387,56 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 13
       debugIndex: 13
-      strings: []
-      isEmpty: 1
+      strings:
+      - "BGM\u8857\u306E\u97F3\u697D\uFF11"
+      - 
+      - Bgm
+      - audiostock_113917_sample.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 14
       debugIndex: 14
-      strings: []
-      isEmpty: 1
+      strings:
+      - "BGM\u8857\u306E\u97F3\u697D\uFF12"
+      - 
+      - Bgm
+      - audiostock_205634_sample.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 15
       debugIndex: 15
-      strings: []
-      isEmpty: 1
+      strings:
+      - "BGM\u8857\u306E\u97F3\u697D\uFF13"
+      - 
+      - Bgm
+      - audiostock_199702_sample.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 16
       debugIndex: 16
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u307B\u306E\u307C\u306E\uFF11"
+      - 
+      - Bgm
+      - konekonoosanpo.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 17
       debugIndex: 17
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u60B2\u3057\u307F\u306E\u97F3\u697D"
+      - 
+      - Bgm
+      - audiostock_257697_sample.mp3
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 18
       debugIndex: 18
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 19
-      debugIndex: 19
       strings:
       - "BGM\u65E5\u5E38\u98A8\u666F"
       - 
@@ -8398,7 +8447,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 273
+    textLength: 341
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -11062,7 +11111,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u6539\u884C\u306F\u3001Alt+Enter"
+      - "BGM\u5019\u88DC"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -11084,7 +11133,11 @@ MonoBehaviour:
       - 
       - 
       - 
-      isEmpty: 1
+      - 
+      - 
+      - 
+      - "\u60B2\u3057\u307F\u306E\u97F3\u697D"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 9
@@ -11099,7 +11152,11 @@ MonoBehaviour:
       - 
       - 
       - 
-      isEmpty: 1
+      - 
+      - 
+      - 
+      - "\u307B\u306E\u307C\u306E\uFF11"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 10
@@ -11118,8 +11175,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 12
       debugIndex: 12
-      strings: []
-      isEmpty: 1
+      strings:
+      - Ambience
+      - "\u74B0\u5883\u97F3\u96E8\u306E\u97F3"
+      - TRUE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 13
@@ -12818,7 +12878,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter_2
     type: 1
-    textLength: 1474
+    textLength: 1495
     headerRow: 0
   - rows:
     - rowIndex: 0

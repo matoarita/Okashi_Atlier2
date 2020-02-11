@@ -715,7 +715,7 @@ public class GirlEat_Judge : MonoBehaviour {
             girl1_status.timeOut = 5.0f;
 
             //キャラクタ表情変更
-            s.sprite = girl1_status.Girl1_img_eat_start;
+            s.sprite = girl1_status.Girl1_img_smile;
         }
         else //失敗の場合
         {

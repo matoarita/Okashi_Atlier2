@@ -8,6 +8,7 @@ MonoImporter:
   - sound2: {fileID: 8300000, guid: 20f265ede9f368243b486dbe67263045, type: 3}
   - sound3: {fileID: 8300000, guid: 0b4cc0aa9836d3f45b3b5b1b7ef64807, type: 3}
   - sound4: {fileID: 8300000, guid: da0307ee6b710404db2bfc274dea4cf5, type: 3}
+  - sound5: {fileID: 8300000, guid: 9d7349930da0f5548b40ff95bc9949f6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

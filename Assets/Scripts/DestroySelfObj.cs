@@ -17,7 +17,7 @@ public class DestroySelfObj : MonoBehaviour {
 
     private void OnEnable()
     {
-        switch (transform.name)
+        /*switch (transform.name)
         {
             case "Particle_Compo2":
 
@@ -29,7 +29,7 @@ public class DestroySelfObj : MonoBehaviour {
 
             default:
                 break;
-        }
+        }*/
 
         StartCoroutine("DestroySelf");
     }

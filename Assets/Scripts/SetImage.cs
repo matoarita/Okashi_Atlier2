@@ -727,9 +727,11 @@ public class SetImage : MonoBehaviour
 
                 //音を鳴らす 新しいレシピ閃いたときの音 scのほうに音を送ると、途中で音が途切れない。
                 //audioSource.PlayOneShot(sound1);
-                sc.PlaySe(16);
+                sc.PlaySe(25);
 
                 exp_Controller.NewRecipiFlag = false; //オフにしておく。
+
+                Destroy(this.gameObject);
             }
             else
             {

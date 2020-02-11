@@ -7,6 +7,8 @@ public class Stage2_Main : MonoBehaviour
 {
     private Debug_Panel_Init debug_panel_init;
 
+    private Girl1_status girl1_status;
+
     // Use this for initialization
     void Start()
     {
@@ -15,12 +17,15 @@ public class Stage2_Main : MonoBehaviour
 
         GameMgr.scenario_flag = 200;
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive);
-        
+
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
+        girl1_status.girl1_Love_exp = 0;
         GameMgr.stage_number = 2;
     }
 

@@ -44,6 +44,7 @@ public class Compound_Main : MonoBehaviour
     private ExtremePanel extreme_panel;
 
     private GameObject black_panel_A;
+    private GameObject compoBG_A;
 
     private PlayerItemList pitemlist;
 
@@ -85,6 +86,7 @@ public class Compound_Main : MonoBehaviour
     private Text no_text;
 
     private GameObject yes_no_panel; //通常時のYes, noボタン
+    private GameObject yes_no_clear_panel; //クリア時のYes, noボタン
 
     private GameObject updown_counter_obj;
     private GameObject updown_counter_Prefab;
@@ -160,6 +162,7 @@ public class Compound_Main : MonoBehaviour
         no_text = no.GetComponentInChildren<Text>();
 
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+        yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel").gameObject;
 
         //シーン最初にカウンターも生成する。
         updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
@@ -201,6 +204,10 @@ public class Compound_Main : MonoBehaviour
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
         black_panel_A.SetActive(false);
+
+        //コンポBGパネルの取得
+        compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
+        compoBG_A.SetActive(false);
 
         //材料採取地パネルの取得
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").gameObject;
@@ -263,6 +270,7 @@ public class Compound_Main : MonoBehaviour
         if (GameMgr.scenario_ON == true)
         {
             compoundselect_onoff_obj.SetActive(false);
+            Extremepanel_obj.SetActive(false);
             text_area.SetActive(false);
             check_recipi_flag = false;
 
@@ -325,8 +333,10 @@ public class Compound_Main : MonoBehaviour
                             compoundselect_onoff_obj.SetActive(true);
                             kakuritsuPanel_obj.SetActive(false);
                             black_panel_A.SetActive(false);
+                            compoBG_A.SetActive(false);
                             sceneBGM.mute = false;
 
+                            Extremepanel_obj.SetActive(true);
                             extreme_panel.extremeButtonInteractOn();
 
                             text_area.SetActive(true);
@@ -344,6 +354,9 @@ public class Compound_Main : MonoBehaviour
                             recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
                             kakuritsuPanel_obj.SetActive(true);
                             black_panel_A.SetActive(true);
+                            compoBG_A.SetActive(true);
+                            extreme_panel.extremeButtonInteractOFF();
+                            text_area.SetActive(true);
 
                             yes.SetActive(false);
                             no.SetActive(true);
@@ -360,6 +373,8 @@ public class Compound_Main : MonoBehaviour
                             playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                             kakuritsuPanel_obj.SetActive(true);
                             black_panel_A.SetActive(true);
+                            compoBG_A.SetActive(true);
+                            extreme_panel.extremeButtonInteractOFF();
 
                             pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
 
@@ -378,6 +393,8 @@ public class Compound_Main : MonoBehaviour
                             playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                             kakuritsuPanel_obj.SetActive(true);
                             black_panel_A.SetActive(true);
+                            compoBG_A.SetActive(true);
+                            extreme_panel.extremeButtonInteractOFF();
 
                             pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
                             yes.SetActive(false);
@@ -483,8 +500,8 @@ public class Compound_Main : MonoBehaviour
                             compound_status = 41; //売るシーンに入っています、というフラグ
                             compound_select = 40; //売るを選択
 
-                            yes_no_panel.SetActive(true);
-                            yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+                            yes_no_clear_panel.SetActive(true);
+                            //yes_no_clear_panel.transform.Find("Yes_Clear").gameObject.SetActive(true);
 
                             extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                             black_panel_A.SetActive(true);
@@ -498,6 +515,7 @@ public class Compound_Main : MonoBehaviour
 
                             compoundselect_onoff_obj.SetActive(false);
                             saveload_panel.SetActive(false);
+                            black_panel_A.SetActive(true);
                             compound_status = 4;
                             compound_select = 99;
                             playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -692,9 +710,14 @@ public class Compound_Main : MonoBehaviour
 
         compoundselect_onoff_obj.SetActive(false);
         saveload_panel.SetActive(false);
+        kakuritsuPanel_obj.SetActive(false);
         backbutton_obj.SetActive(false);
         text_area.SetActive(false);
-        black_panel_A.SetActive(false);       
+        black_panel_A.SetActive(false);
+
+        compoBG_A.GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
+        Extremepanel_obj.SetActive(false);
+
 
         GameMgr.recipi_read_ID = event_itemID;
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -714,7 +737,9 @@ public class Compound_Main : MonoBehaviour
         GameMgr.recipi_read_endflag = false;
         Recipi_loading = false;
 
-        compound_status = 0;
+        compoBG_A.GetComponent<Image>().raycastTarget = true;
+        Extremepanel_obj.SetActive(true);
+        compound_status = 1;
     }
 
 
@@ -1000,15 +1025,19 @@ public class Compound_Main : MonoBehaviour
 
                 //ステージクリア処理
 
-                yes_no_panel.SetActive(false);
+                yes_no_clear_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
 
-                FadeManager.Instance.LoadScene("002_Stage2", 0.3f);
+                GameMgr.stage1_girl1_loveexp = girl1_status.girl1_Love_exp;
+
+                FadeManager.Instance.LoadScene("002_Stage2_eyecatch", 0.3f);
                 break;
 
             case false:
 
                 //Debug.Log("cancel");
+
+                yes_no_clear_panel.SetActive(false);
 
                 _text.text = "";
                 compound_status = 0;

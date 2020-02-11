@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 //クリック・ポインタが入ってきたときに音を鳴らすスクリプト。
@@ -28,7 +29,27 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(19);
+                SE_point_click(0);
+                break;
+
+            case "Yes_tansaku": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
+            case "Yes_Clear": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(28);
                 break;
 
             case "No": //noを押したときのSE
@@ -41,6 +62,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(18);
                 break;
 
+            case "No_tansaku": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(0);
+                break;
+
             case "up": //noを押したときのSE
 
                 //ポインタが入ったときに鳴る音
@@ -48,7 +79,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(22);
+                SE_point_click(23);
                 break;
 
             case "down": //noを押したときのSE
@@ -58,10 +89,30 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(22);
+                SE_point_click(23);
                 break;
 
             case "ExtremeButton": //Get_Materialを押したときのSE
+
+                //Debug.Log("this.transform.gameObject.GetComponent<Button>().IsInteractable(): " + this.transform.gameObject.GetComponent<Button>().IsInteractable());
+
+                if (this.transform.gameObject.GetComponent<Button>().IsInteractable() == false )
+                {
+                    
+                    Debug.Log("このボタンは、今触れない状態");
+                }
+                else
+                {
+                    //ポインタが入ったときに鳴る音
+                    SE_point_enter(2);
+
+
+                    //クリックしたときに鳴る音。「GetMaterial」スクリプトで鳴らすようにした。
+                    SE_point_click(0);
+                }
+                break;
+
+            case "CompoundResultButton":
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
@@ -72,22 +123,23 @@ public class Sound_Trigger : MonoBehaviour {
                 break;
 
             default: //特に指定がない場合
-
+                
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(22);
+                SE_point_click(0);
                 break;
         }
 
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+    // Update is called once per frame
+    void Update() {
+
+        
 	}
 
     void SE_point_enter( int index )
@@ -121,4 +173,5 @@ public class Sound_Trigger : MonoBehaviour {
 
         trigger2.triggers.Add(entry2);
     }
+
 }

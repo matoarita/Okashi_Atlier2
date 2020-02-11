@@ -50,6 +50,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private PlayerItemList pitemlist;
 
     private GameObject black_panel_A;
+    private GameObject compoBG_A;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -145,6 +146,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab2;
     private GameObject Compo_Magic_effect_Prefab3;
     private GameObject Compo_Magic_effect_Prefab4;
+    private GameObject Compo_Magic_effect_Prefab5;
     private List<GameObject> _listEffect = new List<GameObject>();
 
     //SEを鳴らす
@@ -152,6 +154,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public AudioClip sound2;
     public AudioClip sound3;
     public AudioClip sound4;
+    public AudioClip sound5;
     AudioSource audioSource;
 
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
@@ -329,14 +332,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
-
-
+       
 
         //エフェクトプレファブの取得
         Compo_Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
         Compo_Magic_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo2");
         Compo_Magic_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Particle_Compo3");
         Compo_Magic_effect_Prefab4 = (GameObject)Resources.Load("Prefabs/Particle_Compo4");
+        Compo_Magic_effect_Prefab5 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -357,6 +360,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //黒半透明パネルの取得
                 black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+
+                //コンポBGパネルの取得
+                compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;               
 
                 slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
 
@@ -426,6 +432,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //黒半透明パネルの取得
                 black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+
+                //コンポBGパネルの取得
+                compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
 
                 //スロット名前変換用オブジェクトの取得
                 slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
@@ -733,6 +742,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //音を鳴らす
             audioSource.PlayOneShot(sound2);
             audioSource.PlayOneShot(sound4);
+            audioSource.PlayOneShot(sound5);
 
             //完成エフェクト
             ResultEffect_OK();
@@ -780,10 +790,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         result_ok = false;
-
-        //compound_Main.compound_status = 0;
-
-        extremePanel.extremeButtonInteractOn();
 
         black_panel_A.SetActive(true);
 
@@ -890,6 +896,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //音を鳴らす
             audioSource.PlayOneShot(sound2);
             audioSource.PlayOneShot(sound4);
+            audioSource.PlayOneShot(sound5);
 
             //完成エフェクト
             ResultEffect_OK();
@@ -938,9 +945,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         recipiresult_ok = false;
 
-        extremePanel.extremeButtonInteractOn();
-
-        //compound_Main.compound_status = 0;
         black_panel_A.SetActive(true);
 
         //経験値の増減後、レベルアップしたかどうかをチェック
@@ -1091,6 +1095,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //音を鳴らす
             audioSource.PlayOneShot(sound2);
             audioSource.PlayOneShot(sound4);
+            audioSource.PlayOneShot(sound5);
 
             //完成エフェクト
             ResultEffect_OK();
@@ -1138,10 +1143,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         topping_result_ok = false;
 
-        //compound_Main.compound_status = 0;
         black_panel_A.SetActive(true);
-
-        extremePanel.extremeButtonInteractOn();
 
         //テキスト表示後、閃いた～をリセットしておく
         _ex_text = "";
@@ -1299,6 +1301,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //一時的にお菓子のHP減少をストップ
                 extremePanel.LifeAnimeOnFalse();
 
+                //背景変更
+                compoBG_A.SetActive(true);
+
                 timeOut = 2.0f;
                 compo_anim_status = 1;
 
@@ -1373,6 +1378,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect[0].GetComponent<Canvas>().worldCamera = Camera.main;
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab3));
         _listEffect[1].GetComponent<Canvas>().worldCamera = Camera.main;
+        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab5));
+        _listEffect[2].GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
     void ResultEffect_NG()

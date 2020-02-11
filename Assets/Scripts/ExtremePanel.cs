@@ -14,6 +14,7 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject image_effect;
     private GameObject canvas;
     private GameObject black_panel_A;
+    private GameObject compoBG_A;
 
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -74,6 +75,11 @@ public class ExtremePanel : MonoBehaviour {
 
     private bool myscene_loaded;
 
+    private GameObject Extreme_Failed_effect_Prefab;
+    private GameObject Extreme_Failed_effect;
+
+    private SoundController sc;
+
     //時間
     private float timeOut;
 
@@ -105,8 +111,14 @@ public class ExtremePanel : MonoBehaviour {
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
 
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+
+        //コンポBGパネルの取得
+        compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
 
         //確率パネルの取得
         kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
@@ -115,6 +127,9 @@ public class ExtremePanel : MonoBehaviour {
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
+        //エフェクト取得
+        Extreme_Failed_effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Extreme_Failed");
 
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
@@ -221,6 +236,12 @@ public class ExtremePanel : MonoBehaviour {
                     Life_anim_on = false;
                     exp_Controller._temp_life_anim_on = false;
 
+                    //エフェクト生成
+                    Extreme_Failed_effect = Instantiate(Extreme_Failed_effect_Prefab);
+                    Extreme_Failed_effect.GetComponent<Canvas>().worldCamera = Camera.main;
+
+                    //音を鳴らす
+                    sc.PlaySe(20);
                 }
             }
 
@@ -309,6 +330,8 @@ public class ExtremePanel : MonoBehaviour {
                 pitemlistController_obj.SetActive(true); //プレイヤーアイテム画面を表示。
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
                 black_panel_A.SetActive(true);
+                compoBG_A.SetActive(true);
+                extremeButtonInteractOFF();
 
                 yes.SetActive(false);
                 no.SetActive(true);
@@ -456,6 +479,14 @@ public class ExtremePanel : MonoBehaviour {
         present_Button.GetComponent<Button>().interactable = true;
     }
 
+    public void extremeButtonInteractOFF()
+    {
+        extreme_Button.interactable = false;
+        recipi_Button.interactable = false;
+        sell_Button.GetComponent<Button>().interactable = false;
+        present_Button.GetComponent<Button>().interactable = false;
+    }
+
 
     public void SetDegOkashiLife( int Life )
     {
@@ -486,7 +517,14 @@ public class ExtremePanel : MonoBehaviour {
 
     public void LifeAnimeOnTrue()
     {
-        Life_anim_on = true;
+        if (extreme_itemID != 9999)
+        {
+            Life_anim_on = true;
+        }
+        else
+        {
+
+        }
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

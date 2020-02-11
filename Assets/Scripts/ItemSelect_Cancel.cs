@@ -147,6 +147,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             case "002_Stage2":
                 break;
 
+            case "002_Stage2_eyecatch":
+                break;
+
             case "Compound":
 
                 //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化

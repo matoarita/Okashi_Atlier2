@@ -40,6 +40,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject get_material_obj;
     private GetMaterial get_material;
 
+    private GameObject map_imageBG;
+    private Texture2D texture2d_map;
+
     private int select_place_num;
 
     private bool Slot_view_on;
@@ -116,8 +119,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
         slot_view = this.transform.Find("Slot_View").gameObject;
 
         slot_view_image = this.transform.Find("Slot_View/Image").gameObject.GetComponent<Image>();
-        slot_yes = slot_view.transform.Find("Tansaku_panel/Yes").gameObject;
-        slot_no = slot_view.transform.Find("Tansaku_panel/No").gameObject;
+        slot_yes = slot_view.transform.Find("Tansaku_panel/Yes_tansaku").gameObject;
+        slot_no = slot_view.transform.Find("Tansaku_panel/No_tansaku").gameObject;
+
+        map_imageBG = this.transform.Find("Map_ImageBG").gameObject;
+        map_imageBG.SetActive(false);
 
         select_place_num = 0;
 
@@ -256,6 +262,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 getmatplace_view.SetActive(false);
                 slot_view.SetActive(true);
                 yes_no_panel.SetActive(false);
+                map_imageBG.SetActive(true);
                 slot_view_status = 1;
                 compound_Main.compound_status = 21;
                 get_material.SetInit();
@@ -270,6 +277,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                                    new Rect(0, 0, texture2d.width, texture2d.height),
                                                    Vector2.zero);
 
+                        
+
                         _text.text = "わ～～！市場だーー！";
                         break;
 
@@ -279,6 +288,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         // texture2dを使い、Spriteを作って、反映させる
                         slot_view_image.sprite = Sprite.Create(texture2d,
                                                    new Rect(0, 0, texture2d.width, texture2d.height),
+                                                   Vector2.zero);
+
+                        texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_");
+                        map_imageBG.GetComponent<Image>().sprite = Sprite.Create(texture2d_map,
+                                                   new Rect(0, 0, texture2d_map.width, texture2d_map.height),
                                                    Vector2.zero);
 
                         _text.text = "すげぇ～～！森だー！";
@@ -395,10 +409,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
         Setup();
 
         //音を鳴らす
-        audioSource.PlayOneShot(sound1);
+        //audioSource.PlayOneShot(sound1);
 
         //スロットビューは最初Off
         slot_view.SetActive(false);
+
+        //背景マップも最初はOff
+        map_imageBG.SetActive(false);
 
         //最初は、採取地選択画面をonに。
         getmatplace_view.SetActive(true);

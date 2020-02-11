@@ -42,6 +42,7 @@ public class GetMaterial : MonoBehaviour {
     //SEを鳴らす
     public AudioClip sound1;
     public AudioClip sound2;
+    public AudioClip sound3;
     AudioSource audioSource;
 
     private int itemId, itemKosu;
@@ -108,8 +109,8 @@ public class GetMaterial : MonoBehaviour {
         slot_view_fade = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Image").gameObject.GetComponent<FadeImage>();
 
         tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Tansaku_panel").gameObject;
-        tansaku_yes = tansaku_panel.transform.Find("Yes").GetComponent<Button>();
-        tansaku_no = tansaku_panel.transform.Find("No").GetComponent<Button>();
+        tansaku_yes = tansaku_panel.transform.Find("Yes_tansaku").GetComponent<Button>();
+        tansaku_no = tansaku_panel.transform.Find("No_tansaku").GetComponent<Button>();
     }
 	
 	// Update is called once per frame
@@ -120,6 +121,9 @@ public class GetMaterial : MonoBehaviour {
             switch (mat_anim_status)
             {
                 case 0: //初期化 状態１
+
+                    //音を鳴らす
+                    audioSource.PlayOneShot(sound3);
 
                     timeOut = 1.0f;
                     mat_anim_status = 1;
