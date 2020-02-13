@@ -321,7 +321,8 @@ public class recipiitemSelectToggle : MonoBehaviour
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);
 
-                card_view.DeleteCard_DrawView();
+                //card_view.DeleteCard_DrawView();
+                card_view.CardCompo_Anim();
 
                 compound_Main.compound_status = 4;
 

@@ -18,9 +18,11 @@ public class RecipiListController : MonoBehaviour {
     private PlayerItemList pitemlist;
 
     public List<GameObject> _cardImage_obj = new List<GameObject>(); //カード表示用のゲームオブジェクト
-    private SetImage _cardImage;
     private GameObject canvas;
     private GameObject cardPrefab;
+
+    private Texture2D texture2d;
+    private Image _Img;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -120,6 +122,7 @@ public class RecipiListController : MonoBehaviour {
 
                 _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
                 _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
+                _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
 
                 _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
                 _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
@@ -134,7 +137,13 @@ public class RecipiListController : MonoBehaviour {
                 _toggle_itemID.recipi_itemNameHyouji = item_name;
 
                 _text.text = item_name;
-                _text.color = new Color(132f / 255f, 68f / 255f, 205f / 255f);
+                _text.color = new Color(240f / 255f, 168f / 255f, 255f / 255f);
+
+                //画像を変更
+                texture2d = Resources.Load<Texture2D>("Sprites/Window/Book01");
+                _Img.sprite = Sprite.Create(texture2d,
+                               new Rect(0, 0, texture2d.width, texture2d.height),
+                               Vector2.zero);
 
                 ++list_count;
             }
@@ -150,6 +159,7 @@ public class RecipiListController : MonoBehaviour {
 
                 _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
                 _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
+                _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
 
                 _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
                 _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
@@ -164,6 +174,7 @@ public class RecipiListController : MonoBehaviour {
                     if (database.items[j].itemName == databaseCompo.compoitems[i].cmpitemID_result)
                     {
                         item_name = database.items[j].itemNameHyouji;
+                        texture2d = database.items[j].itemIcon;
                         _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
                         break;
                     }
@@ -173,6 +184,11 @@ public class RecipiListController : MonoBehaviour {
                 _toggle_itemID.recipi_itemNameHyouji = item_name;
 
                 _text.text = item_name;
+
+                //画像を変更              
+                _Img.sprite = Sprite.Create(texture2d,
+                               new Rect(0, 0, texture2d.width, texture2d.height),
+                               Vector2.zero);
 
                 ++list_count;
             }

@@ -18,6 +18,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool event_recipi_endflag; //レシピを読み終えたときのフラグ
 
     public static bool recipi_read_flag;    //入手したレシピを読むときの、宴を表示する用のフラグ
+    public static bool itemuse_recipi_flag;    //レシピリストから選択したときの、宴を表示する用のフラグ
     public static int recipi_read_ID;       //その時のイベント番号
     public static bool recipi_read_endflag; //レシピを読み終えたときのフラグ
 
@@ -33,6 +34,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage_number;     //ステージ番号
 
     public static int stage1_girl1_loveexp; //ステージ１クリア時の好感度を保存
+    public static int stage2_girl1_loveexp;
+    public static int stage3_girl1_loveexp;
+
+    public static int stage1_clear_love;
+    public static int stage2_clear_love;
+    public static int stage3_clear_love;
 
     private PlayerItemList pitemlist;
 
@@ -82,6 +89,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         girlloveevent_flag = false;
         girlloveevent_endflag = false;
 
+
+        //ステージごとの、クリア好感度の数値設定
+        stage1_clear_love = 100;
+        stage2_clear_love = 200;
+        stage3_clear_love = 450;
     }
 	
 	// Update is called once per frame

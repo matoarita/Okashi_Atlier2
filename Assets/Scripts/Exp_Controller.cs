@@ -693,11 +693,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //店売りアイテムとして生成
             pitemlist.addPlayerItem(result_item, result_kosu);
 
-            //右側パネルに、作ったやつを表示する。
-            extremePanel.SetExtremeItem(result_item, 0);
+            //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
+            if (database.items[result_item].itemType.ToString() == "Mat" || database.items[result_item].itemType.ToString() == "Potion")
+            {
+            }
+            else
+            {
+                //右側パネルに、作ったやつを表示する。
+                extremePanel.SetExtremeItem(result_item, 0);
 
-            //お菓子のHPをセット
-            extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
+                //お菓子のHPをセット
+                extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
+            }
 
             new_item = result_item;
 
@@ -872,7 +879,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             Delete_playerItemList();
             pitemlist.addPlayerItem(result_item, result_kosu);
 
-            if (database.items[result_item].itemType.ToString() == "Mat")
+            if (database.items[result_item].itemType.ToString() == "Mat" || database.items[result_item].itemType.ToString() == "Potion")
             {
 
             }
@@ -1271,7 +1278,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //所持金をへらす
         moneyStatus_Controller.UseMoney(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
 
-        //ショップの在庫をへらす
+        //ショップの在庫をへらす。
         shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
 
         _text.text = "購入しました！他にはなにか買う？";

@@ -62,3 +62,11 @@ MonoBehaviour:
       kosu: 0
       read_flag: 0
       list_hyouji_on: 0
+    - ev_ItemID: 6
+      name: financier_recipi
+      nameHyouji: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
+      cost_price: 500
+      sell_price: 150
+      kosu: 0
+      read_flag: 0
+      list_hyouji_on: 1

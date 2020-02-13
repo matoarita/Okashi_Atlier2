@@ -121,6 +121,7 @@ public class AddPlayerItemButton : MonoBehaviour {
             }
         }
 
+        //お菓子タイプ
         count = database.sheet_topendID[2];
 
         j = database.sheet_topendID[3] - database.sheet_topendID[2];
@@ -131,6 +132,7 @@ public class AddPlayerItemButton : MonoBehaviour {
             ++count;
         }
 
+        //ポーションタイプ
         count = database.sheet_topendID[4];
 
         j = database.sheet_topendID[5] - database.sheet_topendID[4];
@@ -140,7 +142,18 @@ public class AddPlayerItemButton : MonoBehaviour {
             pitemlist.addPlayerItem(count, 5);
             ++count;
         }
-                                 
+
+        //その他タイプ
+        count = database.sheet_topendID[6];
+
+        j = database.sheet_topendID[7] - database.sheet_topendID[6];
+
+        for (i = 0; i <= j; i++)
+        {
+            pitemlist.addPlayerItem(count, 5);
+            ++count;
+        }
+
         pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 5, 0.95f, 99, 99, 50, 30, 30, 0, 0, 0, 0, 0, 50, 50, 50, 20, 50, 50, "Orange", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5, 3, 1);
 
         pitemlistController.AddItemList();

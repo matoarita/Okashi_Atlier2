@@ -206,7 +206,6 @@ public class SetImage : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        Card_param_obj.SetActive(false);
     }
 
     // Update is called once per frame
@@ -233,6 +232,7 @@ public class SetImage : MonoBehaviour
             case 0: //プレイヤーアイテムリストを選択した場合
                 //Debug.Log("プレイヤーアイテムリスト　check_counter:" + check_counter);
 
+                Card_param_obj.SetActive(false);
                 Pitemlist_CardDraw();
                 break;
 
@@ -598,7 +598,7 @@ public class SetImage : MonoBehaviour
 
 
 
-        //スロット名の表示
+        //スロット名の表示+初期化
 
         for (i = 0; i < _slot.Length; i++)
         {
@@ -610,6 +610,10 @@ public class SetImage : MonoBehaviour
             item_Slot[i].text = _slotHyouji1[i]; //スロット表示１のほうが、スロットに表示する用のテキスト。スロット表示２は、アイテムのフルネームのほう。
         }
 
+        for ( i = 0; i < _slotHyouji2.Length; i++ )
+        {
+            _slotHyouji2[i] = "";
+        }
         
 
 
@@ -666,7 +670,7 @@ public class SetImage : MonoBehaviour
             item_Name_Full.text = _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9] + item_Name.text;
             //item_Name_Full.text = "<color=#0000FF>" + slot_Hyouji + "</color>" + item_Name.text;
             item_Name.text = item_Name_Full.text; //お菓子
-            //Card_param_obj.SetActive(true);
+            Card_param_obj.SetActive(true);
         }
         else
         {
@@ -755,4 +759,9 @@ public class SetImage : MonoBehaviour
         }
     }
 
+    //調合アニメ時、パラメータ部分はオフにする。
+    public void CardParamOFF()
+    {
+        Card_param_obj.SetActive(false);
+    }
 }

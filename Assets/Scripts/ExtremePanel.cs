@@ -292,7 +292,7 @@ public class ExtremePanel : MonoBehaviour {
         sell_Button.SetActive(true);
 
         //あげるボタンを表示
-        present_Button.SetActive(true);
+        //present_Button.SetActive(true);
     }
 
     public void OnClick_ExtremeButton()
@@ -383,7 +383,7 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
         sell_Button.GetComponent<Button>().interactable = false;
-        present_Button.GetComponent<Button>().interactable = false;
+        //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
 
@@ -396,7 +396,7 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
         sell_Button.GetComponent<Button>().interactable = false;
-        present_Button.GetComponent<Button>().interactable = false;
+        //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
 
@@ -416,7 +416,7 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
         sell_Button.GetComponent<Button>().interactable = false;
-        present_Button.GetComponent<Button>().interactable = false;
+        //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
 
@@ -462,7 +462,7 @@ public class ExtremePanel : MonoBehaviour {
         Starthp = 0;
 
         sell_Button.SetActive(false);
-        present_Button.SetActive(false);
+        //present_Button.SetActive(false);
 
         Life_anim_on = false;
         image_effect.SetActive(false);
@@ -476,7 +476,7 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Button.interactable = true;
         recipi_Button.interactable = true;
         sell_Button.GetComponent<Button>().interactable = true;
-        present_Button.GetComponent<Button>().interactable = true;
+        //present_Button.GetComponent<Button>().interactable = true;
     }
 
     public void extremeButtonInteractOFF()
@@ -484,7 +484,7 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
         sell_Button.GetComponent<Button>().interactable = false;
-        present_Button.GetComponent<Button>().interactable = false;
+        //present_Button.GetComponent<Button>().interactable = false;
     }
 
 

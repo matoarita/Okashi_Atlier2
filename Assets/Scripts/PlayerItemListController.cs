@@ -14,9 +14,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
-    private GameObject comp_text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
-    private Text _comp_text; //同じく、Scene「Compund」用。
-
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
@@ -30,7 +27,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private PlayerItemList pitemlist;
 
     private GameObject textPrefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
-    private Button getItemAddButton;
     private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
 
     public List<GameObject> _prelistitem = new List<GameObject>(); //リストビューの個数　表示用に、事前に格納しておくリスト。
@@ -40,6 +36,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private Text[] _text = new Text[2];
     private itemSelectToggle _toggle_itemID;
 
+    private Texture2D texture2d;
+    private Image _Img;
 
     private string item_name;
     private int item_kosu;
@@ -308,12 +306,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             if (database.items[i].item_Hyouji > 0) //item_hyoujiが1のものを表示する。未使用アイテムなどは0にして表示しない。
             {
                 //Debug.Log("ID: " + i + "所持数: " + pitemlist.playeritemlist[i]);
-                if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+                /*if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
                 {
 
                 }
                 else
-                {
+                {*/
 
                     if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
                     {
@@ -340,7 +338,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || 
                                         database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" || 
                                         database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil" || 
-                                        database.items[i].itemType_sub.ToString() == "Chocolate" || database.items[i].itemType_sub.ToString() == "IceCream")
+                                        database.items[i].itemType_sub.ToString() == "Chocolate" || database.items[i].itemType_sub.ToString() == "IceCream" ||
+                                        database.items[i].itemType_sub.ToString() == "Machine")
                                     {
                                         itemlist_hyouji();
                                     }
@@ -384,7 +383,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         {
                             itemlist_hyouji();
                         }
-                    }
+                    //}
                 }
             }
         }
@@ -605,6 +604,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //Debug.Log(i);
         _listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
+        _Img = _listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
@@ -622,6 +622,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         _text[1].text = item_kosu.ToString(); //プレイヤーがそのアイテムをもっている個数
 
+        //画像を変更
+        texture2d = database.items[i].itemIcon;
+        _Img.sprite = Sprite.Create(texture2d,
+                       new Rect(0, 0, texture2d.width, texture2d.height),
+                       Vector2.zero);
+
         ++list_count;
     }
 
@@ -632,7 +638,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     {
         _listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
-
+        _Img = _listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
@@ -697,7 +703,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         //Debug.Log("Original: " + i + "　ItemID" + _toggle_itemID.toggleitem_ID + " アイテム名: " + item_name);
 
-        
+        //画像を変更
+        texture2d = database.items[i].itemIcon;
+        _Img.sprite = Sprite.Create(texture2d,
+                       new Rect(0, 0, texture2d.width, texture2d.height),
+                       Vector2.zero);
 
         ++list_count;
     }

@@ -13,10 +13,11 @@ public class ShopItemListController : MonoBehaviour
     private int list_count; //リストビューに現在表示するリストの個数をカウント
 
     private Text[] _text = new Text[3];
+    private Texture2D texture2d;
+    private Image _Img;
     private shopitemSelectToggle _toggle_itemID;
 
     private GameObject shopitem_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
-    private Button getItemAddButton;
 
     private PlayerItemList pitemlist;
 
@@ -115,6 +116,7 @@ public class ShopItemListController : MonoBehaviour
 
                     _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
                     _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
+                    _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
 
                     _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
                     _toggle_itemID.toggle_shop_ID = shop_database.shopitems[i].shop_ID; //ショップに登録されている、ショップデータベース上のアイテムID。iと同じ値になる。
@@ -132,7 +134,12 @@ public class ShopItemListController : MonoBehaviour
 
                     item_zaiko = shop_database.shopitems[i].shop_itemzaiko;
 
-                    _text[4].text = item_zaiko.ToString(); //在庫
+                    //_text[4].text = item_zaiko.ToString(); //在庫
+
+                    texture2d = shop_database.shopitems[i].shop_itemIcon;
+                    _Img.sprite = Sprite.Create(texture2d,
+                                   new Rect(0, 0, texture2d.width, texture2d.height),
+                                   Vector2.zero);
 
                     //お金が足りない場合は、選択できないようにする。
                     if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)

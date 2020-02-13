@@ -206,7 +206,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
         }
 
-
+        //trueだと止まる。
         if (GirlEat_Judge_on != true)
         {
             timeOut -= Time.deltaTime;
@@ -217,6 +217,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         }
         else { 
+
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Compound":

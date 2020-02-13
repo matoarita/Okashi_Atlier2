@@ -46,7 +46,10 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
 
         if (itemType == 0)
         {
-
+            for (i = 0; i < _slot.Length; i++)
+            {
+                _slot[i] = "";
+            }
         }
         else
         {
@@ -85,7 +88,7 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
             count++;
         }
 
-        //頭からみていって、1以上のものを表示用リストに追加していく。
+        //頭からみていって、1以上のものを表示用リストに追加していく。Nonは省く。
         for (i = 0; i < slotScore.Count; i++)
         {
             if (slotScore[i] > 0)

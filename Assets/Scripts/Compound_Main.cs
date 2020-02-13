@@ -73,6 +73,7 @@ public class Compound_Main : MonoBehaviour
     private Button recipi_Button;
     private GameObject sell_Button;
     private GameObject present_Button;
+    private GameObject stageclear_Button;
 
     private bool Recipi_loading;
     private bool GirlLove_loading;
@@ -97,6 +98,7 @@ public class Compound_Main : MonoBehaviour
     private int i, j, _id;
     private int recipi_num;
     private int comp_ID;
+    private int clear_love;
 
     public int compound_status;
     public int compound_select;
@@ -228,6 +230,9 @@ public class Compound_Main : MonoBehaviour
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
 
+        stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
+        stageclear_Button.SetActive(false);
+
         //初期メッセージ
         _text.text = "何の調合をする？";
         text_area.SetActive(true);
@@ -242,6 +247,25 @@ public class Compound_Main : MonoBehaviour
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
+
+        //ステージクリア用の好感度数値
+        switch (GameMgr.stage_number)
+        {
+            case 1:
+
+                clear_love = GameMgr.stage1_clear_love;
+                break;
+
+            case 2:
+
+                clear_love = GameMgr.stage2_clear_love;
+                break;
+
+            case 3:
+
+                clear_love = GameMgr.stage3_clear_love;
+                break;
+        }
 
     }
 
@@ -294,7 +318,7 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
-                    //はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
+                    /*//はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
                     if (PlayerStatus.First_recipi_on == true)
                     {
                         //Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(true);
@@ -302,23 +326,9 @@ public class Compound_Main : MonoBehaviour
                     }
                     else
                     {
-                        Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(false);
-                        //recipi_toggle.SetActive(false);
-                    }
-
-                    //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
-                    if (girl1_status.girl1_Love_exp >= 100)
-                    {
-                        stageclear_toggle.SetActive(true);
-                    }
-                    else
-                    {
-                        if (stageclear_toggle.activeSelf == true)
-                        {
-                            stageclear_toggle.SetActive(false);
-                        }
-                    }
-
+                        //Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(false);
+                        recipi_toggle.SetActive(false);
+                    }*/
 
                     //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
                     switch (compound_status)
@@ -335,6 +345,24 @@ public class Compound_Main : MonoBehaviour
                             black_panel_A.SetActive(false);
                             compoBG_A.SetActive(false);
                             sceneBGM.mute = false;
+
+                            //腹減りカウント開始
+                            girl1_status.GirlEat_Judge_on = false;
+
+                            //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
+                            if (girl1_status.girl1_Love_exp >= clear_love)
+                            {
+                                //stageclear_toggle.SetActive(true);
+                                stageclear_Button.SetActive(true);
+                            }
+                            else
+                            {
+                                if (stageclear_toggle.activeSelf == true)
+                                {
+                                    //stageclear_toggle.SetActive(false);
+                                    stageclear_Button.SetActive(false);
+                                }
+                            }
 
                             Extremepanel_obj.SetActive(true);
                             extreme_panel.extremeButtonInteractOn();
@@ -358,6 +386,9 @@ public class Compound_Main : MonoBehaviour
                             extreme_panel.extremeButtonInteractOFF();
                             text_area.SetActive(true);
 
+                            //一時的に腹減りを止める。
+                            girl1_status.GirlEat_Judge_on = true;
+
                             yes.SetActive(false);
                             no.SetActive(true);
 
@@ -375,6 +406,9 @@ public class Compound_Main : MonoBehaviour
                             black_panel_A.SetActive(true);
                             compoBG_A.SetActive(true);
                             extreme_panel.extremeButtonInteractOFF();
+
+                            //一時的に腹減りを止める。
+                            girl1_status.GirlEat_Judge_on = true;
 
                             pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
 
@@ -395,6 +429,9 @@ public class Compound_Main : MonoBehaviour
                             black_panel_A.SetActive(true);
                             compoBG_A.SetActive(true);
                             extreme_panel.extremeButtonInteractOFF();
+
+                            //一時的に腹減りを止める。
+                            girl1_status.GirlEat_Judge_on = true;
 
                             pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
                             yes.SetActive(false);
@@ -433,6 +470,9 @@ public class Compound_Main : MonoBehaviour
                             extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                             black_panel_A.SetActive(true);
 
+                            //一時的に腹減りを止める。
+                            girl1_status.GirlEat_Judge_on = true;
+
                             card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
                             StartCoroutine("Girl_present_Final_select");
 
@@ -458,6 +498,8 @@ public class Compound_Main : MonoBehaviour
 
                         case 20: //材料採取地を選択中
 
+                            //一時的に腹減りを止める。
+                            girl1_status.GirlEat_Judge_on = true;
 
                             break;
 
@@ -468,12 +510,16 @@ public class Compound_Main : MonoBehaviour
                         case 30: //「売る」を選択
 
                             compoundselect_onoff_obj.SetActive(false);
+                            stageclear_Button.SetActive(false);
 
                             compound_status = 31; //売るシーンに入っています、というフラグ
                             compound_select = 30; //売るを選択
 
                             yes_no_panel.SetActive(true);
                             yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+
+                            //一時的に腹減りを止める。
+                            girl1_status.GirlEat_Judge_on = true;
 
                             extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                             black_panel_A.SetActive(true);
@@ -496,12 +542,15 @@ public class Compound_Main : MonoBehaviour
                         case 40: //ステージクリアを選択
 
                             compoundselect_onoff_obj.SetActive(false);
+                            stageclear_Button.SetActive(false);
 
                             compound_status = 41; //売るシーンに入っています、というフラグ
                             compound_select = 40; //売るを選択
 
                             yes_no_clear_panel.SetActive(true);
-                            //yes_no_clear_panel.transform.Find("Yes_Clear").gameObject.SetActive(true);
+
+                            //一時的に腹減りを止める。
+                            girl1_status.GirlEat_Judge_on = true;
 
                             extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                             black_panel_A.SetActive(true);
@@ -687,9 +736,9 @@ public class Compound_Main : MonoBehaviour
 
     public void OnStageClear() //ステージクリアボタン
     {
-        if (stageclear_toggle.GetComponent<Toggle>().isOn == true)
-        {
-            stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+        //if (stageclear_toggle.GetComponent<Toggle>().isOn == true)
+        //{
+            //stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             yes_no_load();
 
@@ -698,7 +747,7 @@ public class Compound_Main : MonoBehaviour
             _text.text = "次のお話に進みますか？";
             compound_status = 40;
 
-        }
+        //}
     }
 
 
@@ -715,12 +764,15 @@ public class Compound_Main : MonoBehaviour
         text_area.SetActive(false);
         black_panel_A.SetActive(false);
 
+        //一時的に腹減りを止める。
+        girl1_status.GirlEat_Judge_on = true;
+
         compoBG_A.GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
         Extremepanel_obj.SetActive(false);
 
 
         GameMgr.recipi_read_ID = event_itemID;
-        GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+        GameMgr.itemuse_recipi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         StartCoroutine("eventRecipi_end");
 
@@ -858,10 +910,15 @@ public class Compound_Main : MonoBehaviour
     {
 
         compoundselect_onoff_obj.SetActive(false);
+        Extremepanel_obj.SetActive(false);
         text_area.SetActive(false);
+
+        //一時的に腹減りを止める。
+        girl1_status.GirlEat_Judge_on = true;
+
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
-        //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                         //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
 
         while (!GameMgr.recipi_read_endflag)
         {
@@ -895,13 +952,15 @@ public class Compound_Main : MonoBehaviour
 
             case "najya_start_recipi": //ナジャのお菓子作りの基本
 
-                
+                Find_compoitemdatabase("kogashi_butter");
+                //databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+
                 break;
 
             case "cookie_base_recipi": //クッキー生地作り方のレシピ＜初級＞  
 
-                Find_compoitemdatabase("financier");
-                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+                //Find_compoitemdatabase("financier");
+                //databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
 
                 Find_compoitemdatabase("appaleil");
                 databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
@@ -1028,9 +1087,29 @@ public class Compound_Main : MonoBehaviour
                 yes_no_clear_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
 
-                GameMgr.stage1_girl1_loveexp = girl1_status.girl1_Love_exp;
+                switch(GameMgr.stage_number)
+                {
+                    case 1:
 
-                FadeManager.Instance.LoadScene("002_Stage2_eyecatch", 0.3f);
+                        GameMgr.stage1_girl1_loveexp = girl1_status.girl1_Love_exp;
+                        FadeManager.Instance.LoadScene("002_Stage2_eyecatch", 0.3f);
+                        break;
+
+                    case 2:
+
+                        GameMgr.stage2_girl1_loveexp = girl1_status.girl1_Love_exp;
+                        FadeManager.Instance.LoadScene("003_Stage3_eyecatch", 0.3f);
+                        break;
+
+                    case 3:
+
+                        GameMgr.stage3_girl1_loveexp = girl1_status.girl1_Love_exp;
+                        FadeManager.Instance.LoadScene("100_Ending", 0.3f);
+                        break;
+
+                }
+                
+
                 break;
 
             case false:
@@ -1049,7 +1128,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-
+    //好感度によって発生する、サブイベント達
     public void Check_GirlLoveEvent()
     {
         if (GirlLove_loading == true)
@@ -1058,30 +1137,53 @@ public class Compound_Main : MonoBehaviour
         }
         else
         {
-            if (girl1_status.girl1_Love_exp >= 0 && girl1_status.girl1_Love_exp < 25)
+            switch (GameMgr.stage_number)
             {
-                check_GirlLoveEvent_flag = true;
-            }
-            else if (girl1_status.girl1_Love_exp >= 25 && girl1_status.girl1_Love_exp < 50)
-            {
+                //ステージ１のサブイベント
+                case 1:
 
-                if (GameMgr.GirlLoveEvent_01 != true)
-                {
-                    GameMgr.GirlLoveEvent_num = 1;
-                    GameMgr.GirlLoveEvent_01 = true;
+                    if (girl1_status.girl1_Love_exp >= 0 && girl1_status.girl1_Love_exp < 25)
+                    {
+                        check_GirlLoveEvent_flag = true;
+                    }
+                    else if (girl1_status.girl1_Love_exp >= 25)
+                    {
 
-                    //_text.text = "イベント１をON。" + "\n" + "お兄ちゃん。誰かお客さんがきたよ。";
+                        if (GameMgr.GirlLoveEvent_01 != true)
+                        {
+                            GameMgr.GirlLoveEvent_num = 1;
+                            GameMgr.GirlLoveEvent_01 = true;
 
-                    StartCoroutine("ReadGirlLoveEvent");
-                }
-                else
-                {
+                            //_text.text = "イベント１をON。" + "\n" + "お兄ちゃん。誰かお客さんがきたよ。";
+
+                            StartCoroutine("ReadGirlLoveEvent");
+                        }
+                        else
+                        {
+                            check_GirlLoveEvent_flag = true;
+                        }
+                    }
+                    else
+                    {
+                        check_GirlLoveEvent_flag = true;
+                    }
+                    break;
+
+                //ステージ２のサブイベント
+                case 2:
+
                     check_GirlLoveEvent_flag = true;
-                }
-            }
-            else
-            {
-                check_GirlLoveEvent_flag = true;
+                    break;
+
+                //ステージ３のサブイベント
+                case 3:
+
+                    check_GirlLoveEvent_flag = true;
+                    break;
+
+                default:
+                    break;
+
             }
         }
     }

@@ -25,7 +25,7 @@ SE表
 ・SE_23		audiostock_145235_sample.mp3
 ・SE_24		button63.mp3
 ・SE_25		足音・雑草、茂み.mp3
-・SE_26		audiostock_104037_sample.mp3
-・SE_27		audiostock_39671_sample.mp3
-・SE_28		audiostock_219045_sample.mp3
-・SE_29		audiostock_104911_sample.mp3
+・SE_26		audiostock_104037.mp3
+・SE_27		audiostock_39671.mp3
+・SE_28		audiostock_219045.mp3
+・SE_29		audiostock_104911.mp3

@@ -80,6 +80,22 @@ public class Updown_counter : MonoBehaviour {
         updown_button[0].interactable = true;
         updown_button[1].interactable = true;
         //this.gameObject.SetActive(false);
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                this.transform.localPosition = new Vector3(0, -60, 0);
+                break;
+
+            case "Shop":
+
+                this.transform.localPosition = new Vector3(280, 0, 0);
+                break;
+
+            default:
+                break;
+        }
     }
 	
 	// Update is called once per frame

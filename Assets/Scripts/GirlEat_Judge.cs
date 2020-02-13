@@ -232,7 +232,24 @@ public class GirlEat_Judge : MonoBehaviour {
         loveanim_on = false;
 
         //バーの最大値の設定。ステージによって変わる。
-        _slider.maxValue = 100;
+        //ステージクリア用の好感度数値
+        switch (GameMgr.stage_number)
+        {
+            case 1:
+
+                _slider.maxValue = GameMgr.stage1_clear_love;
+                break;
+
+            case 2:
+
+                _slider.maxValue = GameMgr.stage2_clear_love;
+                break;
+
+            case 3:
+
+                _slider.maxValue = GameMgr.stage3_clear_love;
+                break;
+        }
 
         //アニメーション用時間
         timeOut = 5.0f;

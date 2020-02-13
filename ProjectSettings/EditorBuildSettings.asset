@@ -44,3 +44,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/002_Stage2_eyecatch.unity
     guid: 75f2b65202e9b294883de09181aadfe6
+  - enabled: 1
+    path: Assets/Scenes/003_Stage3.unity
+    guid: fb0e390380455c54580dd520fcbf3a97
+  - enabled: 1
+    path: Assets/Scenes/003_Stage3_eyecatch.unity
+    guid: 812626e238da3834f9505d2d84abc762
+  - enabled: 1
+    path: Assets/Scenes/100_Ending.unity
+    guid: b90242159df10c74baa935d0b6c453c3

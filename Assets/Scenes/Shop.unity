@@ -446,7 +446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: 35}
+  m_AnchoredPosition: {x: 160, y: 56}
   m_SizeDelta: {x: 300, y: 51.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &174115706
@@ -789,7 +789,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u773A\u3081\u308B"
+  m_Text: "\u304A\u83D3\u5B50\u3092\u58F2\u308B"
 --- !u!222 &229644712
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -826,8 +826,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2108662489}
-  - {fileID: 553217108}
   - {fileID: 1969419526}
+  - {fileID: 553217108}
   - {fileID: 223867555}
   m_Father: {fileID: 1693206425}
   m_RootOrder: 0
@@ -908,8 +908,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -92, y: 90}
-  m_SizeDelta: {x: 600, y: 300}
+  m_AnchoredPosition: {x: -30, y: 66}
+  m_SizeDelta: {x: 780, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &326899428
 MonoBehaviour:
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 601444766}
   m_HandleRect: {fileID: 601444765}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1061,7 +1061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000023461955, y: -0.000045776367}
+  m_AnchoredPosition: {x: 0.0000023461955, y: 0.0000056773424}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &326899433
@@ -1259,7 +1259,7 @@ RectTransform:
   m_Children:
   - {fileID: 1642224316}
   m_Father: {fileID: 307404801}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2084,7 +2084,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 387, y: -143}
+  m_AnchoredPosition: {x: 468, y: -157}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1086935420
@@ -2232,7 +2232,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 650, y: 360}
+  m_SizeDelta: {x: 830, y: 380}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1134014031
 MonoBehaviour:
@@ -2771,11 +2771,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114862328775129666, guid: 7c8a134542c555442bbb7e87590959f1,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c8a134542c555442bbb7e87590959f1, type: 2}
   m_IsPrefabParent: 0
@@ -3210,13 +3205,12 @@ MonoBehaviour:
 --- !u!114 &1522454428
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114685772708970246, guid: 072dd9ffef38db040a2d7b7450e8973c,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1522454425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -3225,11 +3219,12 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 180, y: 180}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 1
+  m_ConstraintCount: 4
 --- !u!1 &1579172401
 GameObject:
   m_ObjectHideFlags: 0
@@ -4225,7 +4220,7 @@ GameObject:
   - component: {fileID: 1969419528}
   - component: {fileID: 1969419527}
   m_Layer: 0
-  m_Name: ShopOn_Toggle_Watch
+  m_Name: ShopOn_Toggle_Quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4244,7 +4239,7 @@ RectTransform:
   m_Children:
   - {fileID: 1758431187}
   m_Father: {fileID: 307404801}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -225,7 +225,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // トッピング調合を選択した場合の処理
         if (compound_Main.compound_select == 2)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.9f, 0.9f, 1);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
         }
     }
@@ -256,7 +256,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         {
 
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[1].transform.localPosition = new Vector3(0, 100, 0);
@@ -289,10 +289,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (compound_Main.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
         }
     }
 
@@ -326,10 +326,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (compound_Main.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[2].transform.localPosition = new Vector3(0, 100, 0);
@@ -364,13 +364,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (compound_Main.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(100, 0, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(120, -15, 0);
         }
     }
 
@@ -395,13 +395,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (compound_Main.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(100, 0, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(120, -15, 0);
 
             _cardImage_obj[3].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[3].transform.localPosition = new Vector3(0, 100, 0);
@@ -429,16 +429,16 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (compound_Main.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(50, 0, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(100, 0, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(120, -15, 0);
 
             _cardImage_obj[3].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[3].transform.localPosition = new Vector3(150, 0, 0);
+            _cardImage_obj[3].transform.localPosition = new Vector3(270, -15, 0);
         }
     }
 
@@ -522,6 +522,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
             //回転ランダム
             _diff_rot.Add(new Vector3(Random.Range(0, 360)/30.0f, Random.Range(0, 360)/30.0f, Random.Range(0, 360)/30.0f));
+
+            _cardImage_obj[i].GetComponent<SetImage>().CardParamOFF();
         }
 
         //アニメーション開始。

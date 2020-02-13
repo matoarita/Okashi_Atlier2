@@ -15,6 +15,7 @@ public class Utage_scenario : MonoBehaviour
 
     private int event_ID;
     private int recipi_read_ID;
+    private int itemuse_recipi_ID;
 
     private int girlloveev_read_ID;
 
@@ -169,6 +170,17 @@ public class Utage_scenario : MonoBehaviour
                     //イベントレシピを表示
                     StartCoroutine(Recipi_read_Hyouji());
                 }
+
+                if (GameMgr.itemuse_recipi_flag == true)
+                {
+                    GameMgr.itemuse_recipi_flag = false;
+                    itemuse_recipi_ID = GameMgr.recipi_read_ID;
+                    //Debug.Log("recipi_read_ID: " + recipi_read_ID);
+
+                    //イベントレシピを表示
+                    StartCoroutine(ItemUse_Recipi_Hyouji());
+                }
+                
             }
                 
             //ガールシーンでのテキスト処理
@@ -293,7 +305,12 @@ public class Utage_scenario : MonoBehaviour
 
             case 201:
 
-                GameMgr.scenario_flag = 209; //プロローグ終了。一話＝100。
+                GameMgr.scenario_flag = 209;
+                break;
+
+            case 301:
+
+                GameMgr.scenario_flag = 309;
                 break;
 
             default:
@@ -402,21 +419,6 @@ public class Utage_scenario : MonoBehaviour
 
         switch (recipi_Name)
         {
-            case "ev00_orange_cookie_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag1", true);
-                break;
-
-            case "ev01_neko_cookie_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag2", true);
-                break;
-
-            case "ev02_orangeneko_cookie_memo":
-
-                engine.Param.TrySetParameter("Ev_flag3", true);
-                break;
-
             case "najya_start_recipi":
 
                 engine.Param.TrySetParameter("Re_flag1", true);
@@ -430,6 +432,11 @@ public class Utage_scenario : MonoBehaviour
             case "ice_cream_recipi":
 
                 engine.Param.TrySetParameter("Re_flag3", true);
+                break;
+
+            case "financier_recipi":
+
+                engine.Param.TrySetParameter("Re_flag4", true);
                 break;
 
             default:
@@ -462,7 +469,74 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // イベントレシピ表示
+    // レシピリストから使用したときの、イベントレシピ表示
+    //
+    IEnumerator ItemUse_Recipi_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Event_Recipi"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴のパラメータ設定
+
+        //event_IDから、レシピの名前を検索
+        j = 0;
+        while (j < pitemlist.eventitemlist.Count)
+        {
+            if (itemuse_recipi_ID == pitemlist.eventitemlist[j].ev_ItemID)
+            {
+                recipi_Name = pitemlist.eventitemlist[j].event_itemName;
+                break;
+            }
+            j++;
+        }
+
+        switch (recipi_Name)
+        {
+            case "ev00_orange_cookie_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag1", true);
+                break;
+
+            case "ev01_neko_cookie_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag2", true);
+                break;
+
+            case "ev02_orangeneko_cookie_memo":
+
+                engine.Param.TrySetParameter("Ev_flag3", true);
+                break;
+
+            case "financier_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag4", true);
+                break;
+
+            default:
+                break;
+        }
+
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = true; //レシピを読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    //
+    // 好感度イベント
     //
     IEnumerator Girllove_event_Hyouji()
     {

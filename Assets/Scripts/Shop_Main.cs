@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Shop_Main : MonoBehaviour {
 
+    private ItemShopDataBase shop_database;
+
     private GameObject text_area;
     private Text _text;
 
@@ -25,12 +27,14 @@ public class Shop_Main : MonoBehaviour {
     private GameObject shop_select;
     private GameObject shopon_toggle_buy;
     private GameObject shopon_toggle_talk;
-    private GameObject shopon_toggle_watch;
+    private GameObject shopon_toggle_quest;
 
     private GameObject updown_counter_obj;
     private GameObject updown_counter_Prefab;
 
     public int shop_status;
+
+    private int i;
 
     // Use this for initialization
     void Start () {
@@ -49,10 +53,26 @@ public class Shop_Main : MonoBehaviour {
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
+        //ショップデータベースの取得
+        shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
+
+        //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
+        for ( i= 0; i < shop_database.shopitems.Count; i++)
+        {
+            if (shop_database.shopitems[i].shop_itemType == 0)
+            {
+                shop_database.shopitems[i].shop_itemzaiko = 50;
+            }
+            else
+            {
+
+            }
+        }
+
         shop_select = canvas.transform.Find("Shop_Select").gameObject;
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
         shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
-        shopon_toggle_watch = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Watch").gameObject;
+        shopon_toggle_quest = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Quest").gameObject;
         backbutton_obj = shop_select.transform.Find("Viewport/Content/Button_modoru").gameObject;
 
         //自分の持ってるお金などのステータス
@@ -161,15 +181,15 @@ public class Shop_Main : MonoBehaviour {
 
     public void OnCheck_3() //眺める
     {
-        if (shopon_toggle_watch.GetComponent<Toggle>().isOn == true)
+        if (shopon_toggle_quest.GetComponent<Toggle>().isOn == true)
         {
-            shopon_toggle_watch.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+            shopon_toggle_quest.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             //shop_select.SetActive(false);
 
-            shop_status = 3; //眺めるを押したときのフラグ
+            shop_status = 3; //クエストを押したときのフラグ
 
-            _text.text = "なぁに？お話する？";
+            _text.text = "ありがとう！お菓子をぜひ買い取らせていただくわ。";
 
         }
     }

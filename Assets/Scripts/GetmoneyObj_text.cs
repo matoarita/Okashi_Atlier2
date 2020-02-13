@@ -18,7 +18,7 @@ public class GetmoneyObj_text : MonoBehaviour {
         //Debug.Log("GetmoneyObj_text_localPos: " + my_localPos);
         life = 5;
         _deg = 0.1f;
-        _posdeg = 0.005f;
+        _posdeg = 0.001f;
     }
 	
 	// Update is called once per frame

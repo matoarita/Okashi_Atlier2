@@ -19,7 +19,7 @@ public class Stage2_Main : MonoBehaviour
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive);
 
         //女の子データの取得
-        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
