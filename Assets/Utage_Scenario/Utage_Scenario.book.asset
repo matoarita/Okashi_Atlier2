@@ -7041,7 +7041,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#0000FFFF>\u7C21\u5358\uFF01\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4</color>\u306B\u3064\u3044\u3066\u3001\u66F8\u304B\u308C\u3066\u3042\u3063\u305F\u3002\n"
+      - "<color=#FF5CA1FF>\u7C21\u5358\uFF01\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4</color>\u306B\u3064\u3044\u3066\u3001\u66F8\u304B\u308C\u3066\u3042\u3063\u305F\u3002\n"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -7249,7 +7249,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#0000FFFF>\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u4F5C\u308A\u65B9</color>\u306B\u3064\u3044\u3066\u3001\u66F8\u304B\u308C\u3066\u3042\u3063\u305F\u3002"
+      - "<color=#FF5CA1FF>\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u4F5C\u308A\u65B9</color>\u306B\u3064\u3044\u3066\u3001\u66F8\u304B\u308C\u3066\u3042\u3063\u305F\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -7269,7 +7269,22 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 33
-      debugIndex: 61
+      debugIndex: 60
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "<color=#0000FFFF>\u7126\u304C\u3057\u30D0\u30BF\u30FC</color>\u306E\u4F5C\u308A\u65B9\u3092\u899A\u3048\u305F\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 34
+      debugIndex: 62
       strings:
       - 
       - 
@@ -7283,7 +7298,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 34
+    - rowIndex: 35
       debugIndex: 65
       strings:
       - Param
@@ -7291,7 +7306,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 35
+    - rowIndex: 36
       debugIndex: 67
       strings:
       - EndScenario
@@ -7300,7 +7315,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Recipi_read
     type: 1
-    textLength: 815
+    textLength: 855
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -19689,7 +19704,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#0000FFFF>\u7C21\u5358\uFF01\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4</color>\u306B\u3064\u3044\u3066\u3001\u66F8\u304B\u308C\u3066\u3042\u3063\u305F\u3002\n"
+      - "<color=#FF5CA1FF>\u7C21\u5358\uFF01\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4</color>\u306B\u3064\u3044\u3066\u3001\u66F8\u304B\u308C\u3066\u3042\u3063\u305F\u3002\n"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -19999,7 +20014,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#0000FFFF>\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u4F5C\u308A\u65B9</color>\u306B\u3064\u3044\u3066\u3001\u66F8\u304B\u308C\u3066\u3042\u3063\u305F\u3002"
+      - "<color=#FF5CA1FF>\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u4F5C\u308A\u65B9</color>\u306B\u3064\u3044\u3066\u3001\u66F8\u304B\u308C\u3066\u3042\u3063\u305F\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -20020,12 +20035,27 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 60
       debugIndex: 60
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "<color=#0000FFFF>\u7126\u304C\u3057\u30D0\u30BF\u30FC</color>\u306E\u4F5C\u308A\u65B9\u3092\u899A\u3048\u305F\u3002"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 61
       debugIndex: 61
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 62
+      debugIndex: 62
       strings:
       - 
       - 
@@ -20037,12 +20067,6 @@ MonoBehaviour:
       - 
       - "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u5F62\u72B6\u304C\u91D1\u584A\u306B\u8FD1\u3044\u306E\u3067\u3001\u300C\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u300D\u3068\u547C\u3070\u308C\u308B\u3053\u3068\u3092\u77E5\u3063\u305F\uFF01"
       isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 62
-      debugIndex: 62
-      strings: []
-      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 63
@@ -20080,7 +20104,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Recipi_read
     type: 1
-    textLength: 815
+    textLength: 855
     headerRow: 0
   - rows:
     - rowIndex: 0

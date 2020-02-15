@@ -1263,6 +1263,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         result_kosu = shopitemlistController.shop_final_itemkosu_1; //買った個数
 
+        //通常アイテム
         if (toggle_type1 == 0)
         {
             //プレイヤーアイテムリストに追加。
@@ -1273,6 +1274,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
             pitemlist.add_eventPlayerItem(kettei_item1, result_kosu);
 
+        }
+        else //機材・器具アイテムなど
+        {
+            //プレイヤーアイテムリストに追加。
+            pitemlist.addPlayerItem(kettei_item1, result_kosu);
         }
 
         //所持金をへらす
@@ -1692,7 +1698,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _id = kettei_item1;
                 //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
 
-                pitemlist.deletePlayerItem(_id, final_kette_kosu1);
+                //器具は、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                {
+
+                }
+                else
+                {
+                    pitemlist.deletePlayerItem(_id, final_kette_kosu1);
+                }
                 break;
 
             case 1: //オリジナルアイテムリストから選択している。オリジナルの場合は、一度削除用リストにIDを追加し、降順にしてから、後の削除メソッドでまとめて削除する。
@@ -1716,7 +1730,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _id = kettei_item2;
                     //Debug.Log("_id: " + _id + " final_kette_kosu2: " + final_kette_kosu2);
 
-                    pitemlist.deletePlayerItem(_id, final_kette_kosu2);
+                    //器具は、削除しない
+                    if (database.items[_id].itemType_sub.ToString() == "Machine")
+                    {
+
+                    }
+                    else
+                    {
+                        pitemlist.deletePlayerItem(_id, final_kette_kosu2);
+                    }
                     break;
 
                 case 1: //オリジナルアイテムリストから選択している。オリジナルの場合は、一度削除用リストにIDを追加し、降順にしてから、後の削除メソッドでまとめて削除する。
@@ -1741,7 +1763,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _id = kettei_item3;
                     //Debug.Log("_id: " + _id + " final_kette_kosu3: " + final_kette_kosu3);
 
-                    pitemlist.deletePlayerItem(_id, final_kette_kosu3);
+                    //器具は、削除しない
+                    if (database.items[_id].itemType_sub.ToString() == "Machine")
+                    {
+
+                    }
+                    else
+                    {
+                        pitemlist.deletePlayerItem(_id, final_kette_kosu3);
+                    }
                     break;
 
                 case 1: //オリジナルアイテムリストから選択している。オリジナルの場合は、一度削除用リストにIDを追加し、降順にしてから、後の削除メソッドでまとめて削除する。
@@ -1836,10 +1866,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //Debug.Log("一個目店アイテム");
 
                 _id = kettei_item1;
-                _addkosu = final_kette_kosu1;
-                //Debug.Log("_id: " + _id);
-                //各パラメータを取得
-                Set_addparam();
+
+                //器具は、除外
+                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                {
+
+                }
+                else
+                {
+                    _addkosu = final_kette_kosu1;
+                    //Debug.Log("_id: " + _id);
+                    //各パラメータを取得
+                    Set_addparam();
+                }
 
                 break;
 
@@ -1876,10 +1915,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //Debug.Log("二個目店アイテム");
 
                     _id = kettei_item2;
-                    _addkosu = final_kette_kosu2;
-                    //Debug.Log("_id: " + _id);
-                    //各パラメータを取得
-                    Set_addparam();
+
+                    //器具は、除外
+                    if (database.items[_id].itemType_sub.ToString() == "Machine")
+                    {
+
+                    }
+                    else
+                    {
+                        _addkosu = final_kette_kosu2;
+                        //Debug.Log("_id: " + _id);
+                        //各パラメータを取得
+                        Set_addparam();
+                    }
 
                     break;
 
@@ -1914,10 +1962,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 case 0: //プレイヤーアイテムリストから選択している。
 
                     _id = kettei_item3;
-                    _addkosu = final_kette_kosu3;
 
-                    //各パラメータを取得
-                    Set_addparam();
+                    //器具は、除外
+                    if (database.items[_id].itemType_sub.ToString() == "Machine")
+                    {
+
+                    }
+                    else
+                    {
+                        _addkosu = final_kette_kosu3;
+
+                        //各パラメータを取得
+                        Set_addparam();
+                    }
 
                     break;
 
@@ -1948,6 +2005,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     }
 
+    //実際のパラメータ計算
     void Comp_ParamAddMethod()
     {
 

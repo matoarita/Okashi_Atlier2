@@ -950,10 +950,7 @@ public class Compound_Main : MonoBehaviour
                 databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
                 break;
 
-            case "najya_start_recipi": //ナジャのお菓子作りの基本
-
-                Find_compoitemdatabase("kogashi_butter");
-                //databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+            case "najya_start_recipi": //ナジャのお菓子作りの基本                
 
                 break;
 
@@ -969,6 +966,12 @@ public class Compound_Main : MonoBehaviour
             case "ice_cream_recipi": //アイスクリームの書
 
                 Find_compoitemdatabase("ice_cream");
+                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+                break;
+
+            case "financier_recipi": //フィナンシェ
+
+                Find_compoitemdatabase("kogashi_butter");
                 databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
                 break;
 

@@ -34,6 +34,7 @@ public class SetImage : MonoBehaviour
     private Exp_Controller exp_Controller;
 
     private SlotNameDataBase slotnamedatabase;
+    private SlotChangeName slotchangename;
 
     private Texture2D texture2d;
     private Texture2D card_template_1;
@@ -71,9 +72,7 @@ public class SetImage : MonoBehaviour
 
     private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
-    private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用
-
-    private SlotChangeName slotchangename;
+    private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用  
 
     private Text item_Category;
     private string category;
@@ -199,6 +198,7 @@ public class SetImage : MonoBehaviour
         item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
         item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
 
+        //スロットをもとに、正式名称を計算するメソッド
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
 
         //新レシピプレファブの取得
@@ -418,9 +418,23 @@ public class SetImage : MonoBehaviour
                                    new Rect(0, 0, texture2d.width, texture2d.height),
                                    Vector2.zero);
 
-        item_screen.sprite = Sprite.Create(card_template_1,
+        //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
+        switch (item_type_sub)
+        {
+            //器具系は、枠の色が違う。
+            case "Machine":
+                item_screen.sprite = Sprite.Create(card_template_2,
+                                   new Rect(0, 0, card_template_2.width, card_template_2.height),
+                                   Vector2.zero);
+                break;
+
+            default:
+
+                item_screen.sprite = Sprite.Create(card_template_1,
                                    new Rect(0, 0, card_template_1.width, card_template_1.height),
                                    Vector2.zero);
+                break;
+        }
 
 
         /* カテゴリーの表示 ついでに、ランクによって、「ふわふわ感」などの表示も行う。*/
@@ -742,7 +756,27 @@ public class SetImage : MonoBehaviour
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                compound_Main.compound_status = 0;
+                switch(compound_Main.compound_select)
+                {
+                    case 3: //オリジナル調合
+
+                        if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                        {
+                            compound_Main.compound_status = 0;
+                        }
+                        else
+                        {
+                            compound_Main.compound_status = 3;
+                        }
+                        break;
+
+                    default:
+
+                        compound_Main.compound_status = 0;
+                        break;
+
+                }
+                
 
                 if (exp_Controller.compound_success == true)
                 {

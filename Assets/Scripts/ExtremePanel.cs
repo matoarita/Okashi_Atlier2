@@ -27,11 +27,17 @@ public class ExtremePanel : MonoBehaviour {
 
     private ItemDataBase database;
 
+    private SlotChangeName slotchangename;
+
     private Texture2D texture2d;
 
     private Image item_Icon;
     private Text item_Name;
     private Text extreme_Param;
+
+    private Text extreme_itemName;
+
+    private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用 
 
     private Slider _hpslider; //お菓子のHPバーを取得
     public bool Life_anim_on;
@@ -131,6 +137,9 @@ public class ExtremePanel : MonoBehaviour {
         //エフェクト取得
         Extreme_Failed_effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Extreme_Failed");
 
+        //スロットをもとに、正式名称を計算するメソッド
+        slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
@@ -138,6 +147,9 @@ public class ExtremePanel : MonoBehaviour {
 
         extreme_Param = this.transform.Find("ExtremeKaisu/Text/ExtremeKaisuParam").gameObject.GetComponent<Text>(); //エクストリーム残り回数
         extreme_Param.text = "-";
+        
+        extreme_itemName = this.transform.Find("ExtremeItemText").gameObject.GetComponent<Text>();
+        extreme_itemName.text = "";
 
         //ボタンの取得
         extreme_Button = this.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
@@ -269,11 +281,29 @@ public class ExtremePanel : MonoBehaviour {
         {
             texture2d = database.items[extreme_itemID].itemIcon;
             extreme_kaisu = database.items[extreme_itemID].ExtremeKaisu;
+            extreme_itemName.text = database.items[extreme_itemID].itemNameHyouji;
         }
         else if (extreme_itemtype == 1) //オリジナルアイテムの場合
         {
             texture2d = pitemlist.player_originalitemlist[extreme_itemID].itemIcon;
             extreme_kaisu = pitemlist.player_originalitemlist[extreme_itemID].ExtremeKaisu;
+
+            //スロットの正式名称計算
+            slotchangename.slotChangeName(extreme_itemtype, extreme_itemID);
+
+            _slotHyouji2[0] = slotchangename._slotHyouji[0];
+            _slotHyouji2[1] = slotchangename._slotHyouji[1];
+            _slotHyouji2[2] = slotchangename._slotHyouji[2];
+            _slotHyouji2[3] = slotchangename._slotHyouji[3];
+            _slotHyouji2[4] = slotchangename._slotHyouji[4];
+            _slotHyouji2[5] = slotchangename._slotHyouji[5];
+            _slotHyouji2[6] = slotchangename._slotHyouji[6];
+            _slotHyouji2[7] = slotchangename._slotHyouji[7];
+            _slotHyouji2[8] = slotchangename._slotHyouji[8];
+            _slotHyouji2[9] = slotchangename._slotHyouji[9];
+
+            //スロット名+アイテム名の表示
+            extreme_itemName.text = _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9] + pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
         }
 
 
@@ -455,6 +485,7 @@ public class ExtremePanel : MonoBehaviour {
         item_Icon.color = new Color(1, 1, 1, 0);
 
         extreme_Param.text = "-";
+        extreme_itemName.text = "";
         CullentOkashi_money.text = "-";
         
         extreme_itemID = 9999;

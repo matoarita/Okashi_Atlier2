@@ -1140,7 +1140,7 @@ public class itemSelectToggle : MonoBehaviour
 
             //調合判定を行うかどうか
 
-            //新規調合の場合　もしくは、　エクストリーム調合の場合で、新しいレシピをひらめきそうな場合
+            //新規調合の場合　もしくは、　エクストリーム調合の場合で、新しいレシピをひらめきそうな場合。下がエクストリーム調合
             if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
             {
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
@@ -1151,6 +1151,8 @@ public class itemSelectToggle : MonoBehaviour
             {
                 //?? 新しいお菓子を思いつきそうだ
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
+                exp_Controller._success_rate = _success_rate;
+                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
                 //kakuritsuPanel.KakuritsuYosoku_NewImg();
                 //success_text = "新しいお菓子を思いつきそうだ。";
             }
@@ -1797,7 +1799,7 @@ public class itemSelectToggle : MonoBehaviour
                     case true:
 
                         //新しいアイテムを閃く
-                        if (compoDB_select_judge == true)
+                        /*if (compoDB_select_judge == true)
                         {                           
                             exp_Controller.extreme_on = true;
                         }
@@ -1806,20 +1808,33 @@ public class itemSelectToggle : MonoBehaviour
                         else
                         {
                             exp_Controller.extreme_on = false;
-                        }
+                        }*/
 
                         exp_Controller.compound_success = true;
 
-                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-
                         compound_Main.compound_status = 4;
 
-                        //card_view.DeleteCard_DrawView();
+                                         
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
-                        exp_Controller.Topping_Result_OK();
+                        //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
+                        if (compoDB_select_judge == true)
+                        {
+                            exp_Controller.extreme_on = true;
+
+                            //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
+                            exp_Controller.ResultOK();
+                        }
+                        else
+                        {
+                            exp_Controller.extreme_on = false;
+
+                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
+                            exp_Controller.Topping_Result_OK();
+                        }
 
                         break;
 
@@ -1864,7 +1879,7 @@ public class itemSelectToggle : MonoBehaviour
                     case true:
 
                         //新しいアイテムを閃く
-                        if (compoDB_select_judge == true)
+                        /*if (compoDB_select_judge == true)
                         {                           
                             exp_Controller.extreme_on = true;
                         }
@@ -1873,12 +1888,9 @@ public class itemSelectToggle : MonoBehaviour
                         else
                         {
                             exp_Controller.extreme_on = false;
-                        }
+                        }*/
 
                         exp_Controller.compound_success = true;
-
-                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
 
                         compound_Main.compound_status = 4;
 
@@ -1886,7 +1898,23 @@ public class itemSelectToggle : MonoBehaviour
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
-                        exp_Controller.Topping_Result_OK();
+                        //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
+                        if (compoDB_select_judge == true)
+                        {
+                            exp_Controller.extreme_on = true;
+
+                            //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
+                            exp_Controller.ResultOK();
+                        }
+                        else
+                        {
+                            exp_Controller.extreme_on = false;
+
+                            //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
+                            exp_Controller.Topping_Result_OK();
+                        }
 
                         break;
 

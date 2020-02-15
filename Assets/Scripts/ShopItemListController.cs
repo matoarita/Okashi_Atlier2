@@ -13,7 +13,7 @@ public class ShopItemListController : MonoBehaviour
     private int list_count; //リストビューに現在表示するリストの個数をカウント
 
     private Text[] _text = new Text[3];
-    private Texture2D texture2d;
+    private Sprite texture2d;
     private Image _Img;
     private shopitemSelectToggle _toggle_itemID;
 
@@ -137,9 +137,7 @@ public class ShopItemListController : MonoBehaviour
                     //_text[4].text = item_zaiko.ToString(); //在庫
 
                     texture2d = shop_database.shopitems[i].shop_itemIcon;
-                    _Img.sprite = Sprite.Create(texture2d,
-                                   new Rect(0, 0, texture2d.width, texture2d.height),
-                                   Vector2.zero);
+                    _Img.sprite = texture2d;
 
                     //お金が足りない場合は、選択できないようにする。
                     if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)

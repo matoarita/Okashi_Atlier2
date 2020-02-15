@@ -79,7 +79,7 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         recipilist_onoff = Instantiate(recipilist_scrollview_init, canvas.transform);
 
         recipilist_onoff.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        recipilist_onoff.transform.localPosition = new Vector3(0, 50, 0);
+        recipilist_onoff.transform.localPosition = new Vector3(0, 70, 0);
         recipilist_onoff.name = "RecipiList_ScrollView";
     }
 

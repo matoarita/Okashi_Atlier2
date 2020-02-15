@@ -15,6 +15,7 @@ public class Item
     public int itemID;              //アイテムID
     public string itemDesc;         //アイテムの説明文
     public Texture2D itemIcon;      //アイコン
+    public Sprite itemIcon_sprite;      //アイコン
     public int itemHP;              //消費MP
     public int item_day;            //調合に必要な日数。アイテム同士で加算する。
     public int ItemKosu;
@@ -77,6 +78,7 @@ public class Item
         Pie,
         Pie_base,
         Chocolate,
+        Chocolate_Mat,
         Chocolate_base,
         Cake,
         Cake_base,
@@ -113,6 +115,7 @@ public class Item
         
         //アイコンはnameとイコールにするのでアイコンがあるパス＋nameで取ってきます    
         itemIcon = Resources.Load<Texture2D>("Sprites/Items/" + fileName);
+        itemIcon_sprite = Resources.Load<Sprite>("Sprites/Items/" + fileName);
         itemDesc = desc;
         itemHP = hp;
         item_day = day;

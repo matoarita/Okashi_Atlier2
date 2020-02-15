@@ -79,8 +79,8 @@ MonoBehaviour:
       item_hyouji: 1
     - ItemID: 9
       name: milkpan
-      zaiko: 50
-      itemType: 0
+      zaiko: 1
+      itemType: 2
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1

@@ -12,7 +12,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private PlayerItemList pitemlist;
 
     private int _id;
-    private Texture2D _icon;
+    private Sprite _icon;
     private string _name;
     private string _name_hyouji;
 
@@ -72,7 +72,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                         if (database.items[i].itemName == _name)
                         {
                             _itemID = database.items[i].itemID;
-                            _icon = database.items[i].itemIcon;
+                            _icon = database.items[i].itemIcon_sprite;
                             _name_hyouji = database.items[i].itemNameHyouji;                            
 
                             break;
@@ -97,7 +97,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
 
                             _itemID = pitemlist.eventitemlist[i].ev_ItemID;
                             //Debug.Log("イベントアイテムID: " + _itemID);
-                            _icon = Resources.Load<Texture2D>("Sprites/Items/" + "recipibook");
+                            _icon = Resources.Load<Sprite>("Sprites/Items/" + "recipibook");
                             _name_hyouji = pitemlist.eventitemlist[i].event_itemNameHyouji;
 
                             break;

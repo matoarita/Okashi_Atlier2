@@ -13,7 +13,7 @@ public class ItemShop
     public int shop_itemID;
     public string shop_itemName;        //名前、画像ファイル名
     public string shop_itemNameHyouji;  //名前　ゲーム中での表示用。日本語。
-    public Texture2D shop_itemIcon;     //アイコン
+    public Sprite shop_itemIcon;     //アイコン
     public int shop_itemType;
 
     public int shop_costprice; //アイテムの値段。アイテムDBから引っ張ってくる。
@@ -24,7 +24,7 @@ public class ItemShop
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemShop(int id, int _itemID, Texture2D _icon, string name, string nameHyouji, int cost, int sell, int zaiko, int _itemType, int item_hyouji)
+    public ItemShop(int id, int _itemID, Sprite _icon, string name, string nameHyouji, int cost, int sell, int zaiko, int _itemType, int item_hyouji)
     {
         shop_ID = id;
         shop_itemID = _itemID;

@@ -21,7 +21,7 @@ public class RecipiListController : MonoBehaviour {
     private GameObject canvas;
     private GameObject cardPrefab;
 
-    private Texture2D texture2d;
+    private Sprite texture2d;
     private Image _Img;
 
     private ItemDataBase database;
@@ -140,10 +140,8 @@ public class RecipiListController : MonoBehaviour {
                 _text.color = new Color(240f / 255f, 168f / 255f, 255f / 255f);
 
                 //画像を変更
-                texture2d = Resources.Load<Texture2D>("Sprites/Window/Book01");
-                _Img.sprite = Sprite.Create(texture2d,
-                               new Rect(0, 0, texture2d.width, texture2d.height),
-                               Vector2.zero);
+                texture2d = Resources.Load<Sprite>("Sprites/Window/Book01");
+                _Img.sprite = texture2d;
 
                 ++list_count;
             }
@@ -174,7 +172,7 @@ public class RecipiListController : MonoBehaviour {
                     if (database.items[j].itemName == databaseCompo.compoitems[i].cmpitemID_result)
                     {
                         item_name = database.items[j].itemNameHyouji;
-                        texture2d = database.items[j].itemIcon;
+                        texture2d = database.items[j].itemIcon_sprite;
                         _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
                         break;
                     }
@@ -186,9 +184,7 @@ public class RecipiListController : MonoBehaviour {
                 _text.text = item_name;
 
                 //画像を変更              
-                _Img.sprite = Sprite.Create(texture2d,
-                               new Rect(0, 0, texture2d.width, texture2d.height),
-                               Vector2.zero);
+                _Img.sprite = texture2d;
 
                 ++list_count;
             }

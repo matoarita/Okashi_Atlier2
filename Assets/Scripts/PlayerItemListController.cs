@@ -36,7 +36,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private Text[] _text = new Text[2];
     private itemSelectToggle _toggle_itemID;
 
-    private Texture2D texture2d;
+    private Sprite texture2d;
     private Image _Img;
 
     private string item_name;
@@ -338,7 +338,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || 
                                         database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" || 
                                         database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil" || 
-                                        database.items[i].itemType_sub.ToString() == "Chocolate" || database.items[i].itemType_sub.ToString() == "IceCream" ||
+                                        database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
                                         database.items[i].itemType_sub.ToString() == "Machine")
                                     {
                                         itemlist_hyouji();
@@ -416,7 +416,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" 
                                 || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" || 
                                 pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil" || 
-                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
                             {
                                 original_itemlist_hyouji();
                             }
@@ -566,7 +566,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         if (SceneManager.GetActiveScene().name == "Compound")
                         {
                             //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                            if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate" || database.items[i].itemType_sub.ToString() == "IceCream")
+                            if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Fruits" || 
+                                database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || 
+                                database.items[i].itemType_sub.ToString() == "IceCream")
                             {
                                 itemlist_hyouji();
                             }
@@ -623,10 +625,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _text[1].text = item_kosu.ToString(); //プレイヤーがそのアイテムをもっている個数
 
         //画像を変更
-        texture2d = database.items[i].itemIcon;
-        _Img.sprite = Sprite.Create(texture2d,
+        texture2d = database.items[i].itemIcon_sprite;
+        _Img.sprite = texture2d;
+        /*_Img.sprite = Sprite.Create(texture2d,
                        new Rect(0, 0, texture2d.width, texture2d.height),
-                       Vector2.zero);
+                       Vector2.zero);*/
 
         ++list_count;
     }
@@ -704,10 +707,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //Debug.Log("Original: " + i + "　ItemID" + _toggle_itemID.toggleitem_ID + " アイテム名: " + item_name);
 
         //画像を変更
-        texture2d = database.items[i].itemIcon;
-        _Img.sprite = Sprite.Create(texture2d,
+        texture2d = pitemlist.player_originalitemlist[i].itemIcon_sprite;
+        _Img.sprite = texture2d;
+        /*_Img.sprite = Sprite.Create(texture2d,
                        new Rect(0, 0, texture2d.width, texture2d.height),
-                       Vector2.zero);
+                       Vector2.zero);*/
 
         ++list_count;
     }

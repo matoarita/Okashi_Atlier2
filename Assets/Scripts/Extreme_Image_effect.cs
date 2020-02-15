@@ -29,7 +29,7 @@ public class Extreme_Image_effect : MonoBehaviour {
         alfa = this.gameObject.GetComponent<Image>().color.a;
 
         _deg = 0.003f;
-        _scaledeg = 0.003f;
+        _scaledeg = 0.0045f;
     }
 	
 	// Update is called once per frame
