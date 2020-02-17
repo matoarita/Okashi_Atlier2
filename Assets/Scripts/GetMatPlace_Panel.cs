@@ -16,8 +16,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject getmatplace_view;
     private GameObject slot_view;
+    private GameObject slot_tansaku_button;
     private GameObject slot_yes, slot_no;
     private Image slot_view_image;
+
+    private GameObject mapevent_panel;
 
     private GameObject moveanim_panel;
     private GameObject moveanim_panel_image;
@@ -119,8 +122,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
         slot_view = this.transform.Find("Slot_View").gameObject;
 
         slot_view_image = this.transform.Find("Slot_View/Image").gameObject.GetComponent<Image>();
+        slot_tansaku_button = slot_view.transform.Find("Tansaku_panel").gameObject;
         slot_yes = slot_view.transform.Find("Tansaku_panel/Yes_tansaku").gameObject;
         slot_no = slot_view.transform.Find("Tansaku_panel/No_tansaku").gameObject;
+
+        mapevent_panel = slot_view.transform.Find("EventPanel").gameObject;
+        mapevent_panel.SetActive(false);
 
         map_imageBG = this.transform.Find("Map_ImageBG").gameObject;
         map_imageBG.SetActive(false);
@@ -263,6 +270,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 slot_view.SetActive(true);
                 yes_no_panel.SetActive(false);
                 map_imageBG.SetActive(true);
+
                 slot_view_status = 1;
                 compound_Main.compound_status = 21;
                 get_material.SetInit();
@@ -282,7 +290,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         _text.text = "わ～～！市場だーー！";
                         break;
 
-                    case 1:
+                    case 1:                       
 
                         texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300");
                         // texture2dを使い、Spriteを作って、反映させる
@@ -294,8 +302,35 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         map_imageBG.GetComponent<Image>().sprite = Sprite.Create(texture2d_map,
                                                    new Rect(0, 0, texture2d_map.width, texture2d_map.height),
                                                    Vector2.zero);
+                        if (GameMgr.MapEvent_01 == false)
+                        {
+                            _text.text = "すげぇ～～！森だー！";
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん、今日も頑張っていっぱいとろう！";
+                        }
 
-                        _text.text = "すげぇ～～！森だー！";
+                        //イベントチェック
+                        if (GameMgr.MapEvent_01 == false)
+                        {
+                            GameMgr.MapEvent_01 = true;
+
+                            slot_view_status = 3;
+
+                            //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
+                            slot_tansaku_button.SetActive(false);
+
+                            mapevent_panel.SetActive(true);
+                            text_area.SetActive(false);
+
+                            GameMgr.map_ev_ID = 1;
+                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                            StartCoroutine("MapEventOn");
+                        }
+
+                        
                         break;
 
                     default:
@@ -335,6 +370,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 break;
 
             case 2: //戻るかどうかの入力まち
+                break;
+
+            case 3: //イベントよみこみ中
                 break;
 
             default:
@@ -575,5 +613,22 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //時間減少
         timeOut -= Time.deltaTime;
+    }
+
+    IEnumerator MapEventOn()
+    {
+        //Debug.Log("eventRecipi_end() on");
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = false;
+
+        text_area.SetActive(true);
+        slot_tansaku_button.SetActive(true);
+        mapevent_panel.SetActive(false);
+
+        slot_view_status = 1; //通常の材料集めシーンに切り替え
     }
 }

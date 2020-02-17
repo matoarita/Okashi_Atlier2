@@ -22,11 +22,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int recipi_read_ID;       //その時のイベント番号
     public static bool recipi_read_endflag; //レシピを読み終えたときのフラグ
 
+    //イベントフラグ
     public static int GirlLoveEvent_num;            //女の子の好感度に応じて発生するイベントの、イベント番号
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
     public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
 
     public static bool GirlLoveEvent_01;            //各イベントの、読んだかどうかのチェック用フラグ。一度読んだイベントは、発生しない。
+
+    //マップイベント
+    public static int　map_ev_ID;           //その時のイベント番号
+    public static bool map_event_flag;      //マップイベントの、宴を表示する用のフラグ
+
+    public static bool MapEvent_01;            //マップイベント。一度読んだイベントは、発生しない。
 
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
@@ -73,6 +80,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         recipi_read_flag = false;
         recipi_read_endflag = false;
 
+        itemuse_recipi_flag = false;
+        map_event_flag = false;
+
         gamestart_recipi_get = false;
 
         talk_flag = false;
@@ -84,10 +94,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         timeLeft = 1.0f;
         Game_timeCount = 0; //1秒タイマー
 
-        GirlLoveEvent_num = 0;
-        GirlLoveEvent_01 = false;
+        GirlLoveEvent_num = 0;       
         girlloveevent_flag = false;
         girlloveevent_endflag = false;
+
+        //イベントフラグの初期化
+        GirlLoveEvent_01 = false;
+
+        MapEvent_01 = false;
 
 
         //ステージごとの、クリア好感度の数値設定

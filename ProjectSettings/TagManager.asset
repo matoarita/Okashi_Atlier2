@@ -51,6 +51,7 @@ TagManager:
   - ExpTable
   - SlotChangeName
   - BGM
+  - RecipiMemo_ScrollView
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,7 @@ public class Utage_scenario : MonoBehaviour
     private int event_ID;
     private int recipi_read_ID;
     private int itemuse_recipi_ID;
+    private int map_ev_ID;
 
     private int girlloveev_read_ID;
 
@@ -175,12 +176,19 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.itemuse_recipi_flag = false;
                     itemuse_recipi_ID = GameMgr.recipi_read_ID;
-                    //Debug.Log("recipi_read_ID: " + recipi_read_ID);
 
                     //イベントレシピを表示
                     StartCoroutine(ItemUse_Recipi_Hyouji());
                 }
-                
+
+                if (GameMgr.map_event_flag == true)
+                {
+                    GameMgr.map_event_flag = false;
+                    map_ev_ID = GameMgr.map_ev_ID;
+
+                    //マップイベントのテキストを表示
+                    StartCoroutine(MapEvent_Hyouji());
+                }
             }
                 
             //ガールシーンでのテキスト処理
@@ -565,6 +573,45 @@ public class Utage_scenario : MonoBehaviour
 
     }
 
+    //
+    // マップイベント表示
+    //
+    IEnumerator MapEvent_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "MapEvent"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴のパラメータ設定
+
+        switch (map_ev_ID)
+        {
+            case 1:
+
+                engine.Param.TrySetParameter("MapEv_num", 1);
+                break;
+
+            default:
+                break;
+        }
+
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = true; //レシピを読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
 
     //
     // ショップの「話す」コマンド

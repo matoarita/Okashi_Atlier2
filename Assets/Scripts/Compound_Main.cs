@@ -31,6 +31,10 @@ public class Compound_Main : MonoBehaviour
     private RecipiListController recipilistController;
     private GameObject recipilist_scrollview_init_obj;
 
+    private GameObject recipimemoController_obj;
+    private GameObject recipiMemoButton;
+    private GameObject memoResult_obj;
+
     private GameObject card_view_obj;
     private CardView card_view;
 
@@ -155,6 +159,11 @@ public class Compound_Main : MonoBehaviour
         recipilist_onoff = GameObject.FindWithTag("RecipiList_ScrollView");
         recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
         recipilist_onoff.SetActive(false);
+
+        //レシピメモボタンを取得
+        recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
+        recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
+        memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
 
 
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
@@ -345,6 +354,7 @@ public class Compound_Main : MonoBehaviour
                             black_panel_A.SetActive(false);
                             compoBG_A.SetActive(false);
                             sceneBGM.mute = false;
+                            recipiMemoButton.SetActive(false);
 
                             //腹減りカウント開始
                             girl1_status.GirlEat_Judge_on = false;
@@ -366,6 +376,7 @@ public class Compound_Main : MonoBehaviour
 
                             Extremepanel_obj.SetActive(true);
                             extreme_panel.extremeButtonInteractOn();
+                            extreme_panel.LifeAnimeOnTrue();
 
                             text_area.SetActive(true);
 
@@ -429,6 +440,9 @@ public class Compound_Main : MonoBehaviour
                             black_panel_A.SetActive(true);
                             compoBG_A.SetActive(true);
                             extreme_panel.extremeButtonInteractOFF();
+                            recipiMemoButton.SetActive(true);
+                            recipimemoController_obj.SetActive(false);
+                            memoResult_obj.SetActive(false);
 
                             //一時的に腹減りを止める。
                             girl1_status.GirlEat_Judge_on = true;
@@ -497,6 +511,11 @@ public class Compound_Main : MonoBehaviour
                             break;
 
                         case 20: //材料採取地を選択中
+
+                            compoundselect_onoff_obj.SetActive(false);
+
+                            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                            Extremepanel_obj.SetActive(false);
 
                             //一時的に腹減りを止める。
                             girl1_status.GirlEat_Judge_on = true;
@@ -1027,7 +1046,7 @@ public class Compound_Main : MonoBehaviour
                 _text.text = "";
                 compound_status = 0;
 
-                extreme_panel.LifeAnimeOnTrue();
+                //extreme_panel.LifeAnimeOnTrue();
                 yes_selectitem_kettei.onclick = false;
                 break;
 
@@ -1063,7 +1082,7 @@ public class Compound_Main : MonoBehaviour
                 _text.text = "";
                 compound_status = 0;
 
-                extreme_panel.LifeAnimeOnTrue();
+                //extreme_panel.LifeAnimeOnTrue();
                 yes_selectitem_kettei.onclick = false;
                 break;
 
@@ -1124,7 +1143,7 @@ public class Compound_Main : MonoBehaviour
                 _text.text = "";
                 compound_status = 0;
 
-                extreme_panel.LifeAnimeOnTrue();
+                //extreme_panel.LifeAnimeOnTrue();
                 yes_selectitem_kettei.onclick = false;
                 break;
 
