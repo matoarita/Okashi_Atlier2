@@ -580,6 +580,24 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
     }
 
+    //一時的にカードのインタラクトをOFF
+    public void SetinteractiveOFF()
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            _cardImage_obj[i].transform.Find("CompoundResultButton").gameObject.SetActive(false);
+        }
+    }
+
+    //カードのインタラクトをOn
+    public void SetinteractiveOn()
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            _cardImage_obj[i].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+        }
+    }
+
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
     float SujiMap(float value, float start1, float stop1, float start2, float stop2)
     {

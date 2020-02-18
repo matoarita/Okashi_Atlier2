@@ -78,7 +78,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     public void Check_LevelUp()
     {
         //windowテキストエリアの取得
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         check_on = true; //チェック中

@@ -8,6 +8,8 @@ public class Memo_Result : MonoBehaviour {
     private GameObject canvas;
     private GameObject recipimemoController_obj;
 
+    private PlayerItemList pitemlist;
+
     private int event_ID;
 
     private Text _text;
@@ -15,8 +17,10 @@ public class Memo_Result : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+
+        
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,6 +32,8 @@ public class Memo_Result : MonoBehaviour {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
         recipimemoController_obj.SetActive(false);
@@ -36,30 +42,24 @@ public class Memo_Result : MonoBehaviour {
         _text = this.transform.Find("Viewport/Content/Text").gameObject.GetComponent<Text>();
 
         //メモのデータの読み込み
-        Set_text();
+        text_recipi_memo = pitemlist.eventitemlist[event_ID].ev_memo;
 
         _text.text = text_recipi_memo;
+
+        //チュートリアル時
+        if (GameMgr.tutorial_ON == true)
+        {
+            if (GameMgr.tutorial_Num == 30)
+            {
+                GameMgr.tutorial_Progress = true;
+                GameMgr.tutorial_Num = 40;
+            }
+        }
     }
 
     public void SeteventID(int _ev_id )
     {
         event_ID = _ev_id;
-    }
-
-    void Set_text()
-    {
-        //いべんとアイテムDBのIDと一致する。
-        switch(event_ID)
-        {
-            case 1:
-
-                text_recipi_memo = "小麦粉と砂糖とバター" + "\n" + "\n" + "2 : 1 : 1";
-                break;
-
-            default:
-                break;
-
-        }
     }
 
     public void CloseMemo()

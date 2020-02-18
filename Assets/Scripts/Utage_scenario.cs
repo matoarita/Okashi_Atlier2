@@ -48,6 +48,8 @@ public class Utage_scenario : MonoBehaviour
     private int j;
     private string recipi_Name;
 
+    private bool tutorial_flag;
+
 
     // Use this for initialization
     void Start()
@@ -138,7 +140,7 @@ public class Utage_scenario : MonoBehaviour
 
                         GameMgr.scenario_flag = 111; //アップデートを繰り返さないようにする。
                         scenarioLabel = "Tutorial";
-                        StartCoroutine(Scenario_Start());
+                        StartCoroutine(Tutorial_Start());
                         break;
 
                     case 130: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。また、何を作ればよいかを指示してくれる。
@@ -293,11 +295,11 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.scenario_flag = 100; //プロローグ終了。一話＝100。
                 break;
 
-            case 111:
+            /*case 111:
 
                 GameMgr.scenario_ON = false;
                 GameMgr.scenario_flag = 120;
-                break;
+                break;*/
 
             case 121:
 
@@ -324,8 +326,196 @@ public class Utage_scenario : MonoBehaviour
             default:
                 break;
         }
-        
+       
+    }
 
+    //
+    // チュートリアルの処理
+    //
+    IEnumerator Tutorial_Start()
+    {
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        tutorial_flag = (bool)engine.Param.GetParameter("Tutorial_Flag");
+
+        if(tutorial_flag) //チュートリアルを見る場合
+        {
+            StartCoroutine(Tutorial_Start_Content());
+        }
+        else //見ない場合
+        {
+            switch (GameMgr.scenario_flag)
+            {
+
+                case 111:
+
+                    GameMgr.scenario_ON = false;
+                    GameMgr.scenario_flag = 120;
+                    break;
+
+                default:
+                    break;
+            }
+        }        
+
+    }
+
+    //
+    // チュートリアル開始した場合の中身の処理
+    //
+    IEnumerator Tutorial_Start_Content()
+    {
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        //はいを押した時の処理。エクストリームパネルを表示する。コンテントも表示してもいいかもだけど、触れないようにしておく。
+        GameMgr.tutorial_ON = true;
+        GameMgr.tutorial_Num = 0;
+
+        //「宴」のシナリオを呼び出す
+        scenarioLabel = "Tutorial_Content";
+        Engine.JumpScenario(scenarioLabel);
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        //ゲームの再開処理を書く
+        GameMgr.tutorial_Num = 10;
+
+        while (!GameMgr.tutorial_Progress) //エクストリームパネルを押し待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 30;
+
+        while (!GameMgr.tutorial_Progress) //右のレシピメモ開き押し待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 50;
+
+        while (!GameMgr.tutorial_Progress) //調合完了待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 70;
+
+        while (!GameMgr.tutorial_Progress) //レシピ閃いた！ボタンの押し待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 90;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 100;
+
+        while (!GameMgr.tutorial_Progress) //あげるボタンの押し待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+
+
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        switch (GameMgr.scenario_flag)
+        {
+
+            case 111:
+
+                GameMgr.scenario_ON = false;
+                GameMgr.scenario_flag = 120;
+                GameMgr.tutorial_ON = false;
+                break;
+
+            default:
+                break;
+        }
     }
 
     //

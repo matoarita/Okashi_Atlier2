@@ -111,7 +111,7 @@ public class Updown_counter : MonoBehaviour {
         canvas = GameObject.FindWithTag("Canvas");
 
         //windowテキストエリアの取得
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         //アイテムデータベースの取得

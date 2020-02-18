@@ -113,6 +113,7 @@ public class RecipiListController : MonoBehaviour {
         list_count = 0;
         _recipi_listitem.Clear();
 
+        /*
         //イベント用レシピのフラグをチェック。レシピリストから、さらに読めるものを表示。章クリア用のメモなど。
         for(i = 0; i < pitemlist.eventitemlist.Count; i++)
         {
@@ -140,12 +141,12 @@ public class RecipiListController : MonoBehaviour {
                 _text.color = new Color(240f / 255f, 168f / 255f, 255f / 255f);
 
                 //画像を変更
-                texture2d = Resources.Load<Sprite>("Sprites/Window/Book01");
+                texture2d = Resources.Load<Sprite>("Sprites/Icon/Book01");
                 _Img.sprite = texture2d;
 
                 ++list_count;
             }
-        }
+        }*/
 
         //調合DBのフラグをチェック
         for (i = 0; i < databaseCompo.compoitems.Count; i++)

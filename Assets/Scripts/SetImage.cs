@@ -703,7 +703,7 @@ public class SetImage : MonoBehaviour
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //エクストリームパネルオブジェクトの取得
-        extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
+        extremePanel_obj = canvas.transform.Find("ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
         if (exp_table.check_on == true)

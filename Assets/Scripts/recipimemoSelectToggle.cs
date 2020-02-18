@@ -80,13 +80,13 @@ public class recipimemoSelectToggle : MonoBehaviour
 
         yes = recipimemoController_obj.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
-        no = recipimemoController_obj.transform.Find("CloseMemoWindow").gameObject;
+        no = recipimemoController_obj.transform.Find("No").gameObject;
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
 
-        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
 

@@ -50,6 +50,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject black_panel_A;
     private GameObject compoBG_A;
 
+    private GameObject SelectCompo_panel_1;
+
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -220,6 +222,10 @@ public class Compound_Main : MonoBehaviour
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
         compoBG_A.SetActive(false);
 
+        //調合選択画面の取得
+        SelectCompo_panel_1 = canvas.transform.Find("Compound_BGPanel_A/SelectPanel_1").gameObject;
+        SelectCompo_panel_1.SetActive(false);
+
         //材料採取地パネルの取得
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").gameObject;
         getmatplace_panel.SetActive(false);
@@ -302,10 +308,141 @@ public class Compound_Main : MonoBehaviour
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
         if (GameMgr.scenario_ON == true)
         {
-            compoundselect_onoff_obj.SetActive(false);
-            Extremepanel_obj.SetActive(false);
-            text_area.SetActive(false);
-            check_recipi_flag = false;
+
+            //チュートリアルモードがONになったら、この中の処理が始まる。
+            if (GameMgr.tutorial_ON == true) 
+            {
+                                       
+                switch (GameMgr.tutorial_Num)
+                {
+                    case 0: //最初にシナリオを読み始める。
+
+                        Extremepanel_obj.SetActive(true);
+
+                        //一時的に腹減りを止める。+腹減りステータスをリセット
+                        girl1_status.GirlEat_Judge_on = true;
+                        girl1_status.Girl_Full();
+                        girl1_status.Girl1_Status_Init();
+                        GameMgr.tutorial_Num = 1; //退避
+                        break;
+
+                    case 10: //宴ポーズ。エクストリームパネルを押そう！で、待機。
+
+                        MainCompoundMethod();
+                        compoundselect_onoff_obj.SetActive(false);
+                        _text.text = "左のエクストリームパネルを押してみよう！";
+                        break;
+
+                    case 20: //エクストリームパネルを押して、オリジナル調合画面を開いた
+                       
+                        MainCompoundMethod();
+
+                        compoundselect_onoff_obj.SetActive(false);
+                        text_area.SetActive(false);
+
+                        compoBG_A.GetComponent<Image>().raycastTarget = false;
+                        pitemlistController.Offinteract();
+                        kakuritsuPanel_obj.SetActive(false);
+                        no.SetActive(false);
+
+                        Extremepanel_obj.SetActive(false);
+
+                        break;
+
+                    case 30: //宴がポーズ状態。右のレシピメモを押そう。
+
+                        text_area.SetActive(true);
+                        _text.text = "右の「レシピメモ」ボタンを押してみよう！";
+                        break;
+
+                    case 40: //メモ画面を開いた。
+
+                        text_area.SetActive(false);
+                        break;
+
+                    case 50: //宴ポーズ。オリジナル調合をしてみるところ。
+
+                        pitemlistController.Oninteract();
+                        text_area.SetActive(true);
+                        _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
+
+                        GameMgr.tutorial_Num = 55;
+                        break;
+
+                    case 55: //調合中
+                        break;
+
+                    case 60: //調合完了！
+
+                        text_area.SetActive(false);
+                        
+                        break;
+
+                    case 70: //宴ポーズ。やったね！クッキーができた～から、レシピを閃き、ボタンを押し待ち。
+
+                        card_view.SetinteractiveOn();
+                        text_area.SetActive(true);
+                        GameMgr.tutorial_Num = 75; //退避
+                        break;
+
+                    case 80: //ボタンを押し、元の画面に戻る。
+
+                        MainCompoundMethod();
+
+                        compoundselect_onoff_obj.SetActive(false);
+
+                        extreme_Button.interactable = false;
+                        sell_Button.SetActive(false);
+
+                        //compoundselect_onoff_obj.SetActive(true);
+                        text_area.SetActive(false);
+                        break;
+
+                    case 90: //「あげる」ボタンを押すところ。「あげる」のみをON、他のボタンはオフ。
+
+                        //Debug.Log("GameMgr.チュートリアルNo: " + GameMgr.tutorial_Num);
+                        MainCompoundMethod();
+
+                        extreme_Button.interactable = false;
+                        sell_Button.SetActive(false);
+
+                        compoundselect_onoff_obj.SetActive(true);
+                        menu_toggle.GetComponent<Toggle>().interactable = false;
+                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
+                        shop_toggle.GetComponent<Toggle>().interactable = false;
+                        text_area.SetActive(false);
+
+                        girl1_status.Girl_Hungry();
+
+                        break;
+
+                    case 100:
+
+                        MainCompoundMethod();
+
+                        extreme_Button.interactable = false;
+                        sell_Button.SetActive(false);
+
+                        compoundselect_onoff_obj.SetActive(true);
+                        menu_toggle.GetComponent<Toggle>().interactable = false;
+                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
+                        shop_toggle.GetComponent<Toggle>().interactable = false;
+                        text_area.SetActive(true);
+                        break;
+
+                    default:
+                        break;
+                }
+                
+            }
+
+            else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
+            {
+                compoundselect_onoff_obj.SetActive(false);
+                Extremepanel_obj.SetActive(false);
+                text_area.SetActive(false);
+                check_recipi_flag = false;
+            }
 
         }
         else //以下が、通常の処理
@@ -327,297 +464,316 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
-                    /*//はじめて、お菓子を作り、どれかのレシピがONになっているなら、レシピ調合もON
-                    if (PlayerStatus.First_recipi_on == true)
-                    {
-                        //Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(true);
-                        recipi_toggle.SetActive(true);
-                    }
-                    else
-                    {
-                        //Extremepanel_obj.transform.Find("RecipiButton").gameObject.SetActive(false);
-                        recipi_toggle.SetActive(false);
-                    }*/
 
                     //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-                    switch (compound_status)
-                    {
-                        case 0:
-
-                            //Debug.Log("メインの調合シーン　スタート");
-                            recipilist_onoff.SetActive(false);
-                            playeritemlist_onoff.SetActive(false);
-                            yes_no_panel.SetActive(false);
-                            getmatplace_panel.SetActive(false);
-                            compoundselect_onoff_obj.SetActive(true);
-                            kakuritsuPanel_obj.SetActive(false);
-                            black_panel_A.SetActive(false);
-                            compoBG_A.SetActive(false);
-                            sceneBGM.mute = false;
-                            recipiMemoButton.SetActive(false);
-
-                            //腹減りカウント開始
-                            girl1_status.GirlEat_Judge_on = false;
-
-                            //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
-                            if (girl1_status.girl1_Love_exp >= clear_love)
-                            {
-                                //stageclear_toggle.SetActive(true);
-                                stageclear_Button.SetActive(true);
-                            }
-                            else
-                            {
-                                if (stageclear_toggle.activeSelf == true)
-                                {
-                                    //stageclear_toggle.SetActive(false);
-                                    stageclear_Button.SetActive(false);
-                                }
-                            }
-
-                            Extremepanel_obj.SetActive(true);
-                            extreme_panel.extremeButtonInteractOn();
-                            extreme_panel.LifeAnimeOnTrue();
-
-                            text_area.SetActive(true);
-
-                            text_scenario();
-                            break;
-
-                        case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
-
-                            compoundselect_onoff_obj.SetActive(false);
-
-                            compound_status = 4; //調合シーンに入っています、というフラグ
-                            compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
-
-                            recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
-                            kakuritsuPanel_obj.SetActive(true);
-                            black_panel_A.SetActive(true);
-                            compoBG_A.SetActive(true);
-                            extreme_panel.extremeButtonInteractOFF();
-                            text_area.SetActive(true);
-
-                            //一時的に腹減りを止める。
-                            girl1_status.GirlEat_Judge_on = true;
-
-                            yes.SetActive(false);
-                            no.SetActive(true);
-
-                            break;
-
-                        case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
-
-                            compoundselect_onoff_obj.SetActive(false);
-
-                            compound_status = 4; //調合シーンに入っています、というフラグ
-                            compound_select = 2; //トッピング調合を選択
-
-                            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                            kakuritsuPanel_obj.SetActive(true);
-                            black_panel_A.SetActive(true);
-                            compoBG_A.SetActive(true);
-                            extreme_panel.extremeButtonInteractOFF();
-
-                            //一時的に腹減りを止める。
-                            girl1_status.GirlEat_Judge_on = true;
-
-                            pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-
-                            yes.SetActive(false);
-                            no.SetActive(true);
-
-                            break;
-
-                        case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
-
-                            compoundselect_onoff_obj.SetActive(false);
-
-                            compound_status = 4; //調合シーンに入っています、というフラグ
-                            compound_select = 3; //オリジナル調合を選択
-
-                            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                            kakuritsuPanel_obj.SetActive(true);
-                            black_panel_A.SetActive(true);
-                            compoBG_A.SetActive(true);
-                            extreme_panel.extremeButtonInteractOFF();
-                            recipiMemoButton.SetActive(true);
-                            recipimemoController_obj.SetActive(false);
-                            memoResult_obj.SetActive(false);
-
-                            //一時的に腹減りを止める。
-                            girl1_status.GirlEat_Judge_on = true;
-
-                            pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-                            yes.SetActive(false);
-                            no.SetActive(true);
-
-                            break;
-
-                        case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
-
-                            break;
-
-                        case 5: //「焼く」を選択
-
-                            compoundselect_onoff_obj.SetActive(false);
-
-                            compound_status = 4; //調合シーンに入っています、というフラグ
-                            compound_select = 5; //焼くを選択
-
-                            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                            pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                            yes.SetActive(false);
-                            no.SetActive(true);
-
-                            break;
-
-                        case 10: //「あげる」を選択
-
-                            compoundselect_onoff_obj.SetActive(false);
-
-                            compound_status = 13; //あげるシーンに入っています、というフラグ
-                            compound_select = 10; //あげるを選択
-
-                            yes_no_panel.SetActive(true);
-                            yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
-
-                            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                            black_panel_A.SetActive(true);
-
-                            //一時的に腹減りを止める。
-                            girl1_status.GirlEat_Judge_on = true;
-
-                            card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
-                            StartCoroutine("Girl_present_Final_select");
-
-
-                            break;
-
-                        case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
-
-                            compound_status = 12;
-
-                            //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
-                            girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype);
-
-                            break;
-
-                        case 12: //お菓子を判定中
-
-                            break;
-
-                        case 13: //あげるかあげないかを選択中
-
-                            break;
-
-                        case 20: //材料採取地を選択中
-
-                            compoundselect_onoff_obj.SetActive(false);
-
-                            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                            Extremepanel_obj.SetActive(false);
-
-                            //一時的に腹減りを止める。
-                            girl1_status.GirlEat_Judge_on = true;
-
-                            break;
-
-                        case 21: //材料採取地に到着。探索中
-
-                            break;
-
-                        case 30: //「売る」を選択
-
-                            compoundselect_onoff_obj.SetActive(false);
-                            stageclear_Button.SetActive(false);
-
-                            compound_status = 31; //売るシーンに入っています、というフラグ
-                            compound_select = 30; //売るを選択
-
-                            yes_no_panel.SetActive(true);
-                            yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
-
-                            //一時的に腹減りを止める。
-                            girl1_status.GirlEat_Judge_on = true;
-
-                            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                            black_panel_A.SetActive(true);
-                            StartCoroutine("Sell_Final_select");
-
-
-                            break;
-
-                        case 31: //売るかどうか、選択中
-
-                            break;
-
-                        case 32: //売る処理の実行
-
-                            compound_status = 32;
-
-                            extreme_panel.Sell_Okashi();
-                            break;
-
-                        case 40: //ステージクリアを選択
-
-                            compoundselect_onoff_obj.SetActive(false);
-                            stageclear_Button.SetActive(false);
-
-                            compound_status = 41; //売るシーンに入っています、というフラグ
-                            compound_select = 40; //売るを選択
-
-                            yes_no_clear_panel.SetActive(true);
-
-                            //一時的に腹減りを止める。
-                            girl1_status.GirlEat_Judge_on = true;
-
-                            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                            black_panel_A.SetActive(true);
-                            StartCoroutine("StageClear_Final_select");
-                            break;
-
-                        case 41: //クリアするかどうか、選択中
-                            break;
-
-                        case 99: //アイテム画面を開いたとき
-
-                            compoundselect_onoff_obj.SetActive(false);
-                            saveload_panel.SetActive(false);
-                            black_panel_A.SetActive(true);
-                            compound_status = 4;
-                            compound_select = 99;
-                            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                            yes.SetActive(false);
-                            no.SetActive(true);
-
-                            break;
-
-                        case 100: //退避用
-
-                            break;
-
-
-                        /*case 5: //ブレンド調合の処理（未使用）
-
-                            compoundselect_onoff_obj.SetActive(false);
-                            compound_status = 4; //調合シーンに入っています、というフラグ
-                            compound_select = 5; //ブレンド調合を選択
-                            recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
-                            no.SetActive(true);
-
-                            break;*/
-
-
-
-                        default:
-                            break;
-                    }
-
-
+                    MainCompoundMethod();
+                    
                 }
             }
         }
     }
+
+    //メインの調合シーンの処理
+    void MainCompoundMethod()
+    {
+        switch (compound_status)
+        {
+            case 0:
+
+                if (GameMgr.tutorial_ON != true)
+                {
+                    compoundselect_onoff_obj.SetActive(true);
+
+                    //腹減りカウント開始
+                    girl1_status.GirlEat_Judge_on = false;
+                }
+
+                //Debug.Log("メインの調合シーン　スタート");
+                recipilist_onoff.SetActive(false);
+                playeritemlist_onoff.SetActive(false);
+                yes_no_panel.SetActive(false);
+                getmatplace_panel.SetActive(false);               
+                kakuritsuPanel_obj.SetActive(false);
+                black_panel_A.SetActive(false);
+                compoBG_A.SetActive(false);
+                sceneBGM.mute = false;
+                recipiMemoButton.SetActive(false);
+
+                
+
+                //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
+                if (girl1_status.girl1_Love_exp >= clear_love)
+                {
+                    //stageclear_toggle.SetActive(true);
+                    stageclear_Button.SetActive(true);
+                }
+                else
+                {
+                    if (stageclear_toggle.activeSelf == true)
+                    {
+                        //stageclear_toggle.SetActive(false);
+                        stageclear_Button.SetActive(false);
+                    }
+                }
+
+                Extremepanel_obj.SetActive(true);
+                extreme_panel.extremeButtonInteractOn();
+                extreme_panel.LifeAnimeOnTrue();
+
+                text_area.SetActive(true);
+
+                text_scenario();
+                break;
+
+            case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                compound_status = 4; //調合シーンに入っています、というフラグ
+                compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
+
+                recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+                kakuritsuPanel_obj.SetActive(true);
+                black_panel_A.SetActive(true);
+                compoBG_A.SetActive(true);
+                extreme_panel.extremeButtonInteractOFF();
+                text_area.SetActive(true);
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = true;
+
+                yes.SetActive(false);
+                no.SetActive(true);
+
+                break;
+
+            case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                compound_status = 4; //調合シーンに入っています、というフラグ
+                compound_select = 2; //トッピング調合を選択
+
+                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                kakuritsuPanel_obj.SetActive(true);
+                black_panel_A.SetActive(true);
+                compoBG_A.SetActive(true);
+                extreme_panel.extremeButtonInteractOFF();
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = true;
+
+                pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+
+                yes.SetActive(false);
+                no.SetActive(true);
+
+                break;
+
+            case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                compound_status = 4; //調合シーンに入っています、というフラグ
+                compound_select = 3; //オリジナル調合を選択
+
+                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                kakuritsuPanel_obj.SetActive(true);
+
+                //black_panel_A.SetActive(true);
+                compoBG_A.SetActive(true);
+                extreme_panel.extremeButtonInteractOFF();
+                recipiMemoButton.SetActive(true);
+                recipimemoController_obj.SetActive(false);
+                memoResult_obj.SetActive(false);
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = true;
+
+                pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+                yes.SetActive(false);
+                no.SetActive(true);
+
+                break;
+
+            case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
+
+                break;
+
+            case 5: //「焼く」を選択
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                compound_status = 4; //調合シーンに入っています、というフラグ
+                compound_select = 5; //焼くを選択
+
+                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                yes.SetActive(false);
+                no.SetActive(true);
+
+                break;
+
+            case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                compound_status = 4; //調合シーンに入っています、というフラグ
+
+                SelectCompo_panel_1.SetActive(true);
+                compoBG_A.SetActive(true);
+                extreme_panel.extremeButtonInteractOFF();
+                recipimemoController_obj.SetActive(false);
+                memoResult_obj.SetActive(false);
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = true;
+
+                break;
+
+            case 10: //「あげる」を選択
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                compound_status = 13; //あげるシーンに入っています、というフラグ
+                compound_select = 10; //あげるを選択
+
+                yes_no_panel.SetActive(true);
+                yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                black_panel_A.SetActive(true);
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = true;
+
+                card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
+                StartCoroutine("Girl_present_Final_select");
+
+
+                break;
+
+            case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
+
+                compound_status = 12;
+
+                //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
+                girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype);
+
+                break;
+
+            case 12: //お菓子を判定中
+
+                break;
+
+            case 13: //あげるかあげないかを選択中
+
+                break;
+
+            case 20: //材料採取地を選択中
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                Extremepanel_obj.SetActive(false);
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = true;
+
+                break;
+
+            case 21: //材料採取地に到着。探索中
+
+                break;
+
+            case 30: //「売る」を選択
+
+                compoundselect_onoff_obj.SetActive(false);
+                stageclear_Button.SetActive(false);
+
+                compound_status = 31; //売るシーンに入っています、というフラグ
+                compound_select = 30; //売るを選択
+
+                yes_no_panel.SetActive(true);
+                yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = true;
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                black_panel_A.SetActive(true);
+                StartCoroutine("Sell_Final_select");
+
+
+                break;
+
+            case 31: //売るかどうか、選択中
+
+                break;
+
+            case 32: //売る処理の実行
+
+                compound_status = 32;
+
+                extreme_panel.Sell_Okashi();
+                break;
+
+            case 40: //ステージクリアを選択
+
+                compoundselect_onoff_obj.SetActive(false);
+                stageclear_Button.SetActive(false);
+
+                compound_status = 41; //売るシーンに入っています、というフラグ
+                compound_select = 40; //売るを選択
+
+                yes_no_clear_panel.SetActive(true);
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = true;
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                black_panel_A.SetActive(true);
+                StartCoroutine("StageClear_Final_select");
+                break;
+
+            case 41: //クリアするかどうか、選択中
+                break;
+
+            case 99: //アイテム画面を開いたとき
+
+                compoundselect_onoff_obj.SetActive(false);
+                saveload_panel.SetActive(false);
+                black_panel_A.SetActive(true);
+                compound_status = 4;
+                compound_select = 99;
+                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                yes.SetActive(false);
+                no.SetActive(true);
+
+                break;
+
+            case 100: //退避用
+
+                break;
+
+
+            /*case 5: //ブレンド調合の処理（未使用）
+
+                compoundselect_onoff_obj.SetActive(false);
+                compound_status = 4; //調合シーンに入っています、というフラグ
+                compound_select = 5; //ブレンド調合を選択
+                recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+                no.SetActive(true);
+
+                break;*/
+
+
+
+            default:
+                break;
+        }
+    }
+
 
     public void OnCheck_1() //レシピ調合をON
     {
@@ -631,6 +787,15 @@ public class Compound_Main : MonoBehaviour
             _text.text = "レシピから作るよ。何を作る？";
             compound_status = 1;
         }
+    }
+
+    public void OnCheck_1_button()
+    {
+        card_view.DeleteCard_DrawView();
+        SelectCompo_panel_1.SetActive(false);
+
+        _text.text = "レシピから作るよ。何を作る？";
+        compound_status = 1;
     }
 
     public void OnCheck_2() //トッピング調合をON
@@ -662,6 +827,15 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    public void OnCheck_3_button() //調合選択画面からボタンを選択して、オリジナル調合をON
+    {
+        card_view.DeleteCard_DrawView();
+        SelectCompo_panel_1.SetActive(false);
+
+        _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
+        compound_status = 3;
+    }
+
     /*public void OnCheck_4() //ブレンド調合をON
     {
         if (blend_toggle.GetComponent<Toggle>().isOn == true)
@@ -685,6 +859,11 @@ public class Compound_Main : MonoBehaviour
             _text.text = "作った生地を焼きます。焼きたい生地を選んでください。";
             compound_status = 5;
         }
+    }
+
+    public void OnCancel_Select()
+    {
+        compound_status = 0;
     }
 
     public void OnMenu_toggle() //メニューをON
@@ -892,11 +1071,12 @@ public class Compound_Main : MonoBehaviour
                 //もし、所持はしているのに、リードフラグは０のまま（＝読んでいないもの）がある場合、レシピを読む処理に入る。
                 if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ReadFlag == 0)
                 {
+                    /*
                     //一度もレシピを読み込んでいなければ、レシピトグルをONに。
                     if (PlayerStatus.First_recipi_on != true)
                     {
                         PlayerStatus.First_recipi_on = true;
-                    }
+                    }*/
 
                     Recipi_loading = true; //レシピを読み込み中ですよ～のフラグ
 

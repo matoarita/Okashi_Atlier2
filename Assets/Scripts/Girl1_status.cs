@@ -49,14 +49,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int girl1_Watery;
 
     public string girl1_Subtype1;
-    public string girl1_Subtype2;
-    public int girl1_Subtype1_p;
-    public int girl1_Subtype2_p;
 
     private string girl1_Subtype1_hyouji;
-
-    public string girl1_Topping1; 
-    public string girl1_Topping2;
 
 
     public int girl1_Love_exp; //女の子の好感度値のこと。ゲーム中に、お菓子をあげることで変動する。
@@ -97,10 +91,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //ランダムで変化する、女の子が今食べたいお菓子のテーブル
     public List<string> girl1_hungryInfo = new List<string>();
     public List<int> girl1_hungryScore = new List<int>();
-    public List<int> girl1_hungrySet1 = new List<int>();
-    public List<string> girl1_hungrySubTypeSet1 = new List<string>();
 
-    //今食べたい味のテーブル
+    public List<int> girl1_hungrySet1 = new List<int>();                //①食べたいトッピングスロットのリスト
+    public List<string> girl1_hungrySubTypeSet1 = new List<string>();   //③食べたいお菓子の種類リスト
+    public List<string> girl1_hungryOkashi = new List<string>();        //④特定の食べたいお菓子リスト
+    public string girl1_likeOkashi;
+
+    //②今食べたい味
     public int _rich_param;
     public int _sweat_param;
     public int _sour_param;
@@ -181,11 +178,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
 
         //女の子が好きなお菓子のタイプ。クッキー好きとか、ケーキ好きとか。_pは、どれぐらい好きかを数値化。
-        
-        girl1_Subtype1_p = 10;
-
-        girl1_Subtype2 = "Cake";
-        girl1_Subtype2_p = 20;
 
         // *** ここまで *** 
 
@@ -279,52 +271,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
     }
 
-    void InitializeItemSlotDicts()
-    {
-
-        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
-        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
-        {
-            girl1_hungryInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
-            girl1_hungryScore.Add(0);
-        }
-    }
-
-    void InitializeStageGirlHungrySet()
-    {
-
-        //ステージごとに、女の子が欲しがるアイテムのセット
-
-        //ステージ１。オレンジ・ナッツ・ぶどう
-        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
-        {
-            if ( slotnamedatabase.slotname_lists[i].slotName == "Orange" )
-            {
-                girl1_hungrySet1.Add(i);
-            }
-            if (slotnamedatabase.slotname_lists[i].slotName == "Nuts")
-            {
-                girl1_hungrySet1.Add(i);
-            }
-            if (slotnamedatabase.slotname_lists[i].slotName == "Grape")
-            {
-                girl1_hungrySet1.Add(i);
-            }
-        }
-
-        girl1_hungrySubTypeSet1.Add("");
-        girl1_hungrySubTypeSet1.Add("Cookie");
-
-
-        //現状は未実装
-        _rich_param = 0;
-        _sweat_param = 0;
-        _sour_param = 0;
-        _bitter_param = 0;
-    }
-
     //女の子が食べたいものの決定。ランダムでもいいし、ストーリーによっては、一つのイベントの感じで、同じものを合格するまで出し続けてもいい。
-    void Girl_Hungry()
+    public void Girl_Hungry()
     {
         //前の残りの吹き出しアイテムを削除。
         if (hukidashiitem != null)
@@ -333,7 +281,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
 
-        //女の子の食べたいものが、ランダムで切り替わるテーブル            
+        //①女の子の食べたいトッピングが、ランダムで切り替わるテーブル。ランダムで一つの食べたいトッピングを選択し、indexに番号を入れてる。indexは、スロットのIDが入っている。          
         random = Random.Range(0, girl1_hungrySet1.Count);
         index = girl1_hungrySet1[random];
 
@@ -346,18 +294,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
         girl1_hungryScore[index]++;
 
-        //味を決定する。これに足りてないと、「甘さが足りない」といったコメントをもらえる。
+        //②味を決定する。これに足りてないと、「甘さが足りない」といったコメントをもらえる。
         girl1_Rich = _rich_param;
         girl1_Sweat = _sweat_param;
         girl1_Sour = _sour_param;
         girl1_Bitter = _bitter_param;
 
-        //食べたいお菓子の種類を決定
+        //③食べたいお菓子の種類を決定
         random = Random.Range(0, girl1_hungrySubTypeSet1.Count);
         girl1_Subtype1 = girl1_hungrySubTypeSet1[random];
-        //Debug.Log("random: " + random);
 
-        switch(girl1_Subtype1)
+        //④食べたいお菓子の種類を決定
+        random = Random.Range(0, girl1_hungryOkashi.Count);
+        girl1_likeOkashi= girl1_hungryOkashi[random];
+
+        //表示用ネームに変換
+        switch (girl1_Subtype1)
         {
             case "Cookie":
 
@@ -383,8 +335,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //表示用吹き出しを生成
         hukidashiitem = Instantiate(hukidashiPrefab, canvas.transform);
         _text = hukidashiitem.GetComponentInChildren<Text>();
-
-
 
         //音を鳴らす
         audioSource.PlayOneShot(sound1);
@@ -447,7 +397,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
     }
 
-    void Girl_Full()
+    public void Girl_Full()
     {
         //前の残りの吹き出しアイテムを削除。
         if (hukidashiitem != null)
@@ -470,5 +420,73 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeOut = 5.0f;
 
         timeGirl_hungry_status = 0;
+    }
+
+
+    void InitializeItemSlotDicts()
+    {
+
+        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
+        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
+        {
+            girl1_hungryInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
+            girl1_hungryScore.Add(0);
+        }
+    }
+
+    void InitializeStageGirlHungrySet()
+    {
+
+        //ステージごとに、女の子が欲しがるアイテムのセット
+
+        //セット例
+        //①スロット：　オレンジ・ナッツ・ぶどう
+        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
+        {
+            if (slotnamedatabase.slotname_lists[i].slotName == "Orange")
+            {
+                girl1_hungrySet1.Add(i);
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == "Nuts")
+            {
+                girl1_hungrySet1.Add(i);
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == "Grape")
+            {
+                girl1_hungrySet1.Add(i);
+            }
+        }        
+
+        //②味のパラメータ。現状は未実装
+        _rich_param = 0;
+        _sweat_param = 0;
+        _sour_param = 0;
+        _bitter_param = 0;
+
+        //③お菓子の種類：　空＝お菓子はなんでもよい　か　クッキー
+        girl1_hungrySubTypeSet1.Add("Non");
+        girl1_hungrySubTypeSet1.Add("Cookie");
+
+        //④特定のお菓子が食べたいかを決定。関係性は、④＞③。
+        //④が決まった場合、③は無視し、①と②だけ計算する。④が空の場合、③を計算。④も③も空の場合、お菓子の種類は関係なくなる。
+        girl1_hungryOkashi.Add("Non");
+        girl1_hungryOkashi.Add("neko_cookie");
+    }
+
+    //セットを変更できるメソッド
+    public void ChangeHungryStatus(int _id)
+    {
+        switch(_id)
+        {
+            case 0:
+                break;
+
+            default:
+
+                //初期セット。とりあえず、例として置き。
+                InitializeStageGirlHungrySet();
+                break;
+        }
+        
     }
 }

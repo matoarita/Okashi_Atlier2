@@ -64,7 +64,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private float timeOut;
 
     //アイテムのパラメータ
-
+    private string _basename;
     private string _basenameHyouji;
     private int _basequality;
     private int _basesweat;
@@ -111,6 +111,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _girlwatery;
 
     private string _girl_subtype;
+    private string _girl_likeokashi;
 
 
     //女の子の採点用パラメータ
@@ -400,6 +401,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             case 0:
 
+                _basename = database.items[kettei_item1].itemName;
                 _basenameHyouji = database.items[kettei_item1].itemNameHyouji;
                 _basequality = database.items[kettei_item1].Quality;
                 _basesweat = database.items[kettei_item1].Sweat;
@@ -434,6 +436,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case 1:
 
+                _basename = pitemlist.player_originalitemlist[kettei_item1].itemName;
                 _basenameHyouji = pitemlist.player_originalitemlist[kettei_item1].itemNameHyouji;
                 _basequality = pitemlist.player_originalitemlist[kettei_item1].Quality;
                 _basesweat = pitemlist.player_originalitemlist[kettei_item1].Sweat;
@@ -486,6 +489,7 @@ public class GirlEat_Judge : MonoBehaviour {
         _girloily = girl1_status.girl1_Oily;
         _girlwatery = girl1_status.girl1_Watery;
         _girl_subtype = girl1_status.girl1_Subtype1;
+        _girl_likeokashi = girl1_status.girl1_likeOkashi;
 
 
         /* 古い処理、ここに入ってた。とりあえず、スクリプト下部へ避難 */
@@ -630,12 +634,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
     IEnumerator Girl_Judge_anim_co()
     {
+        judge_result(); //先に判定し、マズイなどがあったら、アニメにも反映する。
+
         while (judge_end != true)
         {
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
-        judge_result();
+        Girl_reaction();
     }
 
     void judge_result()
@@ -643,6 +649,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //パラメータ初期化し、判定処理
         dislike_flag = true;
 
+        //判定処理　パターンA
         for (i = 0; i < itemslotScore.Count; i++)
         {
             //①トッピングスロットの計算
@@ -661,28 +668,35 @@ public class GirlEat_Judge : MonoBehaviour {
                     dislike_flag = false;
                 }
             }
+        }
 
+        //②味パラメータの計算
+        if (_baserich >= _girlrich)
+        {
+        }
+        else { dislike_flag = false; }
 
-            //②味パラメータの計算
-            if ( _baserich >= _girlrich ) {
-            }
-            else { dislike_flag = false; }
+        if (_basesweat >= _girlsweat)
+        {
+        }
+        else { dislike_flag = false; }
 
-            if ( _basesweat >= _girlsweat ) {
-            }
-            else { dislike_flag = false; }
+        if (_basebitter >= _girlbitter)
+        {
+        }
+        else { dislike_flag = false; }
 
-            if ( _basebitter >= _girlbitter ) {
-            }
-            else { dislike_flag = false; }
+        if (_basesour >= _girlsour)
+        {
+        }
+        else { dislike_flag = false; }
 
-            if ( _basesour >= _girlsour ) {
-            }
-            else { dislike_flag = false; }
-
-
+        
+        //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
+        if (_girl_likeokashi == "Non") //特に指定なし
+        {
             //③お菓子の種別の計算
-            if (_girl_subtype == "" ) //特に指定なし
+            if (_girl_subtype == "Non") //特に指定なし
             {
 
             }
@@ -695,7 +709,21 @@ public class GirlEat_Judge : MonoBehaviour {
                 dislike_flag = false;
             }
         }
+        else if (_girl_likeokashi == _basename) //お菓子の名前が一致している。
+        {
 
+        }
+        else
+        {
+            dislike_flag = false;
+        }
+
+
+        
+    }
+
+    void Girl_reaction()
+    {
         if (dislike_flag == true) //正解の場合
         {
 
@@ -768,6 +796,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         girl1_status.GirlEat_Judge_on = false; //またカウントが進み始める
     }
+
 
     void InitializeItemSlotDicts()
     {

@@ -56,6 +56,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     private float timeLeft;
     public static int Game_timeCount; //ゲーム内共通の時間
 
+    //チュートリアル用の管理フラグ
+    public static bool tutorial_ON;         //これがONになったら、ゲーム全体がチュートリアルモードになる。 
+    public static bool tutorial_Progress;   //進行したときにフラグをたてる。すると、次のテキストが流れる。
+    public static int tutorial_Num;         //チュートリアルの進行度
+
     //イベントフラグ管理用
     [SerializeField]
     private bool gamestart_recipi_get;
@@ -100,9 +105,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //イベントフラグの初期化
         GirlLoveEvent_01 = false;
-
         MapEvent_01 = false;
 
+        //チュートリアルフラグ
+        tutorial_ON = false;
+        tutorial_Progress = false;
+        tutorial_Num = 0;
 
         //ステージごとの、クリア好感度の数値設定
         stage1_clear_love = 100;

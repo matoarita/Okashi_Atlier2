@@ -30,6 +30,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject recipilistController_obj;
     private RecipiListController recipilistController;
 
+    private GameObject recipimemoController_obj;
+    private GameObject recipiMemoButton;
+    private GameObject memoResult_obj;
+
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
@@ -358,6 +362,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //レベルアップチェック用オブジェクトの取得
                 exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
 
+                //レシピメモボタンを取得
+                recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
+                recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
+                memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
+
                 //黒半透明パネルの取得
                 black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
 
@@ -426,6 +435,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //確率パネルの取得
                 kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+                //レシピメモボタンを取得
+                recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
+                recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
+                memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
 
                 //レベルアップチェック用オブジェクトの取得
                 exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
@@ -510,7 +524,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
                 pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-                text_area = GameObject.FindWithTag("Message_Window");
+                text_area = canvas.transform.Find("MessageWindow").gameObject;
                 _text = text_area.GetComponentInChildren<Text>();
 
                 kettei_item1 = pitemlistController.kettei_item1;
@@ -561,7 +575,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public void ResultOK()
     {
 
-        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
@@ -679,7 +693,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compo_anim_status = 0;
 
         //調合判定
-        CompoundSuccess_judge();
+        //チュートリアルモードのときは100%成功
+        if (GameMgr.tutorial_ON == true)
+        {
+            compound_success = true;
+        }
+        else
+        {
+            CompoundSuccess_judge();
+        }
 
         //調合成功
         if (compound_success == true)
@@ -709,6 +731,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             new_item = result_item;
 
             card_view.ResultCard_DrawView(0, new_item);
+
+            //チュートリアルのときは、一時的にOFF
+            if (GameMgr.tutorial_ON == true)
+            {
+                if (GameMgr.tutorial_Num == 60)
+                {
+                    card_view.SetinteractiveOFF();
+                }
+            }
 
 
             //閃き済みかどうかをチェック
@@ -818,7 +849,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
 
 
-        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
         recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
@@ -968,7 +999,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
 
@@ -1167,7 +1198,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
         //**重要** 
@@ -1245,11 +1276,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //
     public void Shop_ResultOK()
     {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
         shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
 
-        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
         //お金の増減用パネルの取得
@@ -1304,6 +1337,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         switch (compo_anim_status)
         {
             case 0: //初期化 状態１
+              
+                //メモは全てオフに
+                recipiMemoButton.SetActive(false);
+                recipimemoController_obj.SetActive(false);
+                memoResult_obj.SetActive(false);
 
                 //エフェクト生成＋アニメ開始
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
@@ -1315,7 +1353,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 extremePanel.LifeAnimeOnFalse();
 
                 //背景変更
-                compoBG_A.SetActive(true);
+                //compoBG_A.SetActive(true);
 
                 timeOut = 2.0f;
                 compo_anim_status = 1;
@@ -1355,6 +1393,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //音を止める
                 audioSource.Stop();
+
+                //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
+                if (GameMgr.tutorial_ON == true)
+                {
+                    GameMgr.tutorial_Progress = true;
+                    GameMgr.tutorial_Num = 60;
+                }
 
                 break;
 

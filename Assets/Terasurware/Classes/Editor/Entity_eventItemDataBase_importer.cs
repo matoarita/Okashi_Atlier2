@@ -58,6 +58,7 @@ public class Entity_eventItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(5); p.kosu = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(6); p.read_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(7); p.list_hyouji_on = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(8); p.memo = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

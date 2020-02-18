@@ -716,4 +716,21 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         ++list_count;
     }
 
+    //一時的に全てのアイテムを触れなくする。
+    public void Offinteract()
+    {
+        for(i=0; i < _listitem.Count; i++)
+        {
+            _listitem[i].GetComponent<Toggle>().interactable = false;
+        }
+    }
+
+    //全てのアイテムをONにする
+    public void Oninteract()
+    {
+        for (i = 0; i < _listitem.Count; i++)
+        {
+            _listitem[i].GetComponent<Toggle>().interactable = true;
+        }
+    }
 }

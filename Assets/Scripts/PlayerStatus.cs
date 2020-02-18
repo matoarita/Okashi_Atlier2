@@ -40,7 +40,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_kaeru_coin = 0;
         player_zairyobox = 10;
 
-        First_recipi_on = true;
+        First_recipi_on = false;
 
         //セーブデータがあれば、次にそこから読み込んで、更新
     }

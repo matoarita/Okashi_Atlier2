@@ -144,7 +144,7 @@ public class itemSelectToggle : MonoBehaviour
         item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;
 
         //テキストウィンドウの取得
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         //プレイヤー所持アイテムリストの取得

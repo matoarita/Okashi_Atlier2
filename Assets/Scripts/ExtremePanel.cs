@@ -399,10 +399,27 @@ public class ExtremePanel : MonoBehaviour {
             {
                 card_view.DeleteCard_DrawView();
 
-                _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
-                compound_Main.compound_status = 3;
+                if (PlayerStatus.First_recipi_on == false)
+                {
+                    _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
+                    compound_Main.compound_status = 3;
 
-                pitemlistController.extremepanel_on = false;
+                    pitemlistController.extremepanel_on = false;
+                }
+                else
+                {
+                    _text.text = "何の調合をする？";
+                    compound_Main.compound_status = 6;
+
+                    pitemlistController.extremepanel_on = false;
+                }
+
+                //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
+                if (GameMgr.tutorial_ON == true) 
+                {
+                    GameMgr.tutorial_Progress = true;
+                    GameMgr.tutorial_Num = 20;
+                }
             }
         }
     }
