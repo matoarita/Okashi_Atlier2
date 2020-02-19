@@ -11,6 +11,10 @@ public class ExtremePanel : MonoBehaviour {
 
     private int extreme_kaisu;
 
+    private BGM sceneBGM;
+
+    private Girl1_status girl1_status;
+
     private GameObject image_effect;
     private GameObject canvas;
     private GameObject black_panel_A;
@@ -103,6 +107,9 @@ public class ExtremePanel : MonoBehaviour {
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
@@ -119,6 +126,9 @@ public class ExtremePanel : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
@@ -363,6 +373,12 @@ public class ExtremePanel : MonoBehaviour {
                 compoBG_A.SetActive(true);
                 extremeButtonInteractOFF();
 
+                //BGMを変更
+                //sceneBGM.OnCompoundBGM();
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = false;
+
                 yes.SetActive(false);
                 no.SetActive(true);
 
@@ -488,6 +504,17 @@ public class ExtremePanel : MonoBehaviour {
         //お金の取得
         moneyStatus_Controller.GetMoney(Okashi_moneypram_int);
 
+        //持ち物から減らす。
+        if (extreme_itemtype == 0) //デフォルトアイテムの場合
+        {
+            pitemlist.deletePlayerItem(extreme_itemID, 1);
+        }
+        else if (extreme_itemtype == 1) //オリジナルアイテムの場合
+        {
+            pitemlist.deleteOriginalItem(extreme_itemID, 1);
+        }
+
+        //エクストリームパネルからも削除
         deleteExtreme_Item();
 
         compound_Main.compound_status = 0;

@@ -726,6 +726,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         count = 0;
 
+        Debug.Log("girl1_status.Set_Count: " + girl1_status.Set_Count);
         while (count < girl1_status.Set_Count) //セットの組み合わせの数だけ判定。最大３。どれか一つのセットが条件をクリアしていれば、正解。
         {
             //パラメータ初期化し、判定処理
@@ -939,11 +940,27 @@ public class GirlEat_Judge : MonoBehaviour {
             s.sprite = girl1_status.Girl1_img_gokigen;
         }
 
+        //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
+        if (GameMgr.tutorial_ON == true)
+        {
+            if (GameMgr.tutorial_Num == 100)
+            {                
+                StartCoroutine("WaitForSeconds");  //1秒まって次へ              
+            }
+        }
+
         compound_Main.compound_status = 0;
 
         girl1_status.GirlEat_Judge_on = true; //またカウントが進み始める
     }
 
+    IEnumerator WaitForSeconds()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        GameMgr.tutorial_Progress = true;
+        GameMgr.tutorial_Num = 110;
+    }
 
     void InitializeItemSlotDicts()
     {

@@ -12,7 +12,8 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject canvas;
 
-    private AudioSource sceneBGM;
+    private BGM sceneBGM;
+    private bool bgm_change_flag;
 
     private Girl1_status girl1_status;
 
@@ -142,7 +143,8 @@ public class Compound_Main : MonoBehaviour
         canvas = GameObject.FindWithTag("Canvas");
 
         //BGMの取得
-        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<AudioSource>();
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        bgm_change_flag = false;
 
         //戻るボタンを取得
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
@@ -330,6 +332,7 @@ public class Compound_Main : MonoBehaviour
 
                         MainCompoundMethod();
                         compoundselect_onoff_obj.SetActive(false);
+                        text_area.SetActive(true);
                         _text.text = "左のエクストリームパネルを押してみよう！";
                         break;
 
@@ -434,6 +437,14 @@ public class Compound_Main : MonoBehaviour
                         text_area.SetActive(true);
                         break;
 
+                    case 110:
+
+                        extreme_Button.interactable = false;
+                        compoundselect_onoff_obj.SetActive(false);
+
+                        text_area.SetActive(false);
+                        break;
+
                     default:
                         break;
                 }
@@ -500,10 +511,17 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(false);
                 black_panel_A.SetActive(false);
                 compoBG_A.SetActive(false);
-                sceneBGM.mute = false;
+                sceneBGM.MuteOFFBGM();
+                
                 recipiMemoButton.SetActive(false);
 
-                
+                if (bgm_change_flag == true)
+                {
+                    bgm_change_flag = false;
+                    sceneBGM.OnMainBGM();
+                }
+
+
 
                 //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
                 if (girl1_status.girl1_Love_exp >= clear_love)
@@ -527,6 +545,8 @@ public class Compound_Main : MonoBehaviour
                 text_area.SetActive(true);
 
                 text_scenario();
+
+                compound_status = 100; //退避
                 break;
 
             case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
@@ -564,6 +584,9 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A.SetActive(true);
                 extreme_panel.extremeButtonInteractOFF();
 
+                //BGMを変更
+                //sceneBGM.OnCompoundBGM();
+
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
 
@@ -590,6 +613,9 @@ public class Compound_Main : MonoBehaviour
                 recipiMemoButton.SetActive(true);
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
+
+                //BGMを変更
+                //sceneBGM.OnCompoundBGM();
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -903,6 +929,10 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
             _text.text = "妹と一緒に材料を取りにいくよ！行き先を選んでね。";
             compound_status = 20;
+
+            //BGMを変更
+            sceneBGM.OnGetMatStartBGM();
+            bgm_change_flag = true;
 
             //compoundselect_onoff_obj.SetActive(false);
             getmatplace_panel.SetActive(true);
@@ -1399,7 +1429,7 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(false);
         text_area.SetActive(false);
         Extremepanel_obj.SetActive(false);
-        sceneBGM.mute = true;
+        sceneBGM.MuteBGM();
         GirlLove_loading = true;
 
         GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -1412,7 +1442,7 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(true);
         text_area.SetActive(true);
         Extremepanel_obj.SetActive(true);
-        sceneBGM.mute = false;
+        sceneBGM.MuteOFFBGM();
 
         GirlLove_loading = false;
 

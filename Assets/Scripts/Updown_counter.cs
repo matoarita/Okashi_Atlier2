@@ -85,7 +85,7 @@ public class Updown_counter : MonoBehaviour {
         {
             case "Compound":
 
-                this.transform.localPosition = new Vector3(0, -60, 0);
+                this.transform.localPosition = new Vector3(100, -120, 0);
                 break;
 
             case "Shop":
@@ -161,6 +161,25 @@ public class Updown_counter : MonoBehaviour {
             else if (pitemlistController_obj.activeSelf == true)
             {
                 _p_or_recipi_flag = 0;
+            }
+
+            switch(compound_Main.compound_select)
+            {
+                case 1: //レシピ調合の場合
+
+                    this.transform.localPosition = new Vector3(0, -70, 0);
+                    break;
+
+                case 3: //オリジナル調合の場合の、カウンターの位置
+
+                    this.transform.localPosition = new Vector3(100, -120, 0);
+                    break;
+
+                default:
+
+                    this.transform.localPosition = new Vector3(100, -120, 0);
+                    break;
+
             }
         }
         else

@@ -11,6 +11,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject canvas;
     private Texture2D texture2d;
 
+    private BGM sceneBGM;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -86,6 +88,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //調合シーンメインオブジェクトの取得
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
         //windowテキストエリアの取得
         text_area = GameObject.FindWithTag("Message_Window");
@@ -302,6 +307,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         map_imageBG.GetComponent<Image>().sprite = Sprite.Create(texture2d_map,
                                                    new Rect(0, 0, texture2d_map.width, texture2d_map.height),
                                                    Vector2.zero);
+                        //森のBGM
+                        sceneBGM.OnGetMat_ForestBGM();
+
                         if (GameMgr.MapEvent_01 == false)
                         {
                             _text.text = "すげぇ～～！森だー！";

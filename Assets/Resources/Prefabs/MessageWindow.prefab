@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224195813488320586}
   - component: {fileID: 222280745806713640}
   - component: {fileID: 114460735325552046}
+  - component: {fileID: 114812625375822048}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -78,7 +79,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 728ca60ee9cada446b55a84a75eb7430, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8da04a1c7395764409a87202aa71af3e, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19852942, g: 0.09488538, b: 0.09488538, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -119,6 +120,21 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1.2
   m_Text: "\u8ABF\u5408\u753B\u9762\n\u30C6\u30B9\u30C8"
+--- !u!114 &114812625375822048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262041611775332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3388baca6ee49c448a8d53b7ebb080ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.33823532, g: 0.1891511, b: 0.13429932, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+  copyCount: 16
 --- !u!114 &114884804338819126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -227,8 +243,8 @@ RectTransform:
   m_Father: {fileID: 224173923846276404}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 650, y: 120}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -2.5}
+  m_SizeDelta: {x: -70, y: -55}
   m_Pivot: {x: 0.5, y: 0.5}

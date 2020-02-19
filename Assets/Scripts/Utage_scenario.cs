@@ -489,10 +489,24 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
         GameMgr.tutorial_Progress = false;
-
+        
         //続きから再度読み込み
         engine.ResumeScenario();
 
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 120;
+
+        while (!GameMgr.tutorial_Progress) //あげるボタンの押し待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
 
 
 

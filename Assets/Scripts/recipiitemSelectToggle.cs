@@ -227,7 +227,7 @@ public class recipiitemSelectToggle : MonoBehaviour
                 recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = false;
             }
 
-            card_view.SelectCard_DrawView(0, recipilistController.result_recipiitem); //選択したアイテムをカードで表示
+            card_view.RecipiCard_DrawView(0, recipilistController.result_recipiitem); //選択したアイテムをカードで表示
 
             yes.SetActive(true);
             no.SetActive(true);

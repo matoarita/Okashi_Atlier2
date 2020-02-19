@@ -7,6 +7,8 @@ public class GetmoneyObj_text : MonoBehaviour {
     private Transform myTransform;
     Vector3 my_localPos;
 
+    private Vector3 _tempPos;
+
     private float life; //自分の表示時間
     private float _deg;
     private float _posdeg;
@@ -15,17 +17,18 @@ public class GetmoneyObj_text : MonoBehaviour {
     void Start () {
         myTransform = this.transform;
         my_localPos = this.transform.localPosition;
+        _tempPos = my_localPos;
         //Debug.Log("GetmoneyObj_text_localPos: " + my_localPos);
         life = 5;
         _deg = 0.1f;
-        _posdeg = 0.001f;
+        _posdeg = 0.05f;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
         myTransform.Translate( 0.0f, _posdeg, 0.0f );
-        //my_localPos.y += 1.0f;
+
         life -= _deg;
 
         //Debug.Log("life: " + life);

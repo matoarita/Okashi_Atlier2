@@ -314,12 +314,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             //②その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
             //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。
+            
             random = Random.Range(0, girlLikeCompo_database.girllike_composet.Count);
-            glike_compID = girlLikeCompo_database.girllike_composet[random].ID;
-
+            glike_compID = random;
+            
             set1_ID = girlLikeCompo_database.girllike_composet[glike_compID].set1;
             set2_ID = girlLikeCompo_database.girllike_composet[glike_compID].set2;
             set3_ID = girlLikeCompo_database.girllike_composet[glike_compID].set3;
+ 
 
             set_ID.Clear();
 
@@ -338,18 +340,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
 
             Set_Count = set_ID.Count;
-            if(Set_Count == 0) { Set_Count = 1; } //例外処理。0ということは、基本無いが、なんらかのバグで0になっていたら、1を入れておく。
+            //if(Set_Count == 0) { Set_Count = 1; } //例外処理。0ということは、基本無いが、なんらかのバグで0になっていたら、1を入れておく。
 
+            Debug.Log("Set_Count: " + Set_Count);
+            
             //さきほどのset_IDをもとに、好みの値を決定する。
-            for (i = 0; i < Set_Count; i++)
+            for (count = 0; count < Set_Count; count++)
             {
                 //compNumの値で指定しているので、IDに変換する。
                 j = 0;
                 while (j < girlLikeSet_database.girllikeset.Count)
                 {
-                    if( set_ID[i] == girlLikeSet_database.girllikeset[j].girlLike_compNum )
+                    if( set_ID[count] == girlLikeSet_database.girllikeset[j].girlLike_compNum )
                     {
-                        InitializeStageGirlHungrySet(j, i);
+                        InitializeStageGirlHungrySet(j, count);
                         break;
                     }
                     j++;
@@ -357,7 +361,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 
             }
 
-            //テキストの設定。
+            //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
             _desc = girlLikeCompo_database.girllike_composet[glike_compID].desc;
 
         }            
@@ -469,6 +473,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         for (i = 0; i < girl1_hungryScoreSet1.Count; i++)
         {
             girl1_hungryScoreSet1[i] = 0;
+            girl1_hungryScoreSet2[i] = 0;
+            girl1_hungryScoreSet3[i] = 0;
         }
 
         //音を鳴らす
@@ -648,6 +654,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //コメントをセット
         girllike_desc[_set_num] = girlLikeSet_database.girllikeset[setID].set_kansou;
+
+        //外部から直接指定されたとき用に、_descの中身も更新。
+        _desc = girllike_desc[0];
     }
 
 }

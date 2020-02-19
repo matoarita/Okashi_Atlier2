@@ -318,7 +318,7 @@ public class itemSelectToggle : MonoBehaviour
         itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
         pitemlistController.final_kettei_item1 = itemID_1;
 
-        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1);
+        card_view.ItemListCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1);
 
         //あらためて新しく押されたやつ以外の表示をリセットする。
         count = 0;

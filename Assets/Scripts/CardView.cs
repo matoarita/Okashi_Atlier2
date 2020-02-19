@@ -188,8 +188,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.SetInit();
 
         //位置とスケール
-        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+        _cardImage_obj[0].transform.localScale = new Vector3(1.0f, 1.0f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(100, 80, 0);
 
         //デバッグ用
         if (SceneManager.GetActiveScene().name == "Hiroba")
@@ -218,15 +218,15 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
         }
 
         // トッピング調合を選択した場合の処理
         if (compound_Main.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
         }
     }
 
@@ -244,11 +244,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[1].transform.localScale = new Vector3(1.0f, 1.0f, 1);
+            _cardImage_obj[1].transform.localPosition = new Vector3(100, 80, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -259,7 +259,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(50, 100, 0);
         }
 
     }
@@ -278,11 +278,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(132, 108, 0);
+            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -292,7 +292,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
         }
     }
 
@@ -312,14 +312,14 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(132, 108, 0);
+            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
 
-            _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[2].transform.localScale = new Vector3(1.0f, 1.0f, 1);
+            _cardImage_obj[2].transform.localPosition = new Vector3(100, 80, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -329,10 +329,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(50, 100, 0);
         }       
     }
 
@@ -350,14 +350,14 @@ public class CardView : SingletonMonoBehaviour<CardView>
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
         {
-            _cardImage_obj[0].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(-36, 108, 0);
+            _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(132, 108, 0);
+            _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
 
-            _cardImage_obj[2].transform.localScale = new Vector3(0.6f, 0.6f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(300, 108, 0);
+            _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            _cardImage_obj[2].transform.localPosition = new Vector3(300, 150, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -367,10 +367,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(120, -15, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(140, -15, 0);
         }
     }
 
@@ -398,13 +398,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(120, -15, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(140, -15, 0);
 
             _cardImage_obj[3].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[3].transform.localPosition = new Vector3(0, 100, 0);
+            _cardImage_obj[3].transform.localPosition = new Vector3(50, 100, 0);
         }       
     }
 
@@ -432,13 +432,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(-30, -15, 0);
+            _cardImage_obj[1].transform.localPosition = new Vector3(0, -15, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(120, -15, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(140, -15, 0);
 
             _cardImage_obj[3].transform.localScale = new Vector3(0.5f, 0.5f, 1);
-            _cardImage_obj[3].transform.localPosition = new Vector3(270, -15, 0);
+            _cardImage_obj[3].transform.localPosition = new Vector3(280, -15, 0);
         }
     }
 
@@ -469,6 +469,56 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //音鳴らす
         //audioSource.PlayOneShot(sound1);
         //audioSource.PlayOneShot(sound2);
+
+    }
+
+    //レシピリストで、開いたときのカード表示処理
+    public void RecipiCard_DrawView(int _toggleType, int _kettei_item1)
+    {
+        //初期化しておく
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+        _cardImage_obj.Clear();
+
+
+        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+
+        //店売りかオリジナルか、アイテムID
+        _cardImage.Pitem_or_Origin = _toggleType;
+        _cardImage.check_counter = _kettei_item1;
+        _cardImage.SetInit();
+
+        //位置とスケール
+        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+
+    }
+
+    //持ち物リストで、開いたときのカード表示処理
+    public void ItemListCard_DrawView(int _toggleType, int _kettei_item1)
+    {
+        //初期化しておく
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+        _cardImage_obj.Clear();
+
+
+        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+
+        //店売りかオリジナルか、アイテムID
+        _cardImage.Pitem_or_Origin = _toggleType;
+        _cardImage.check_counter = _kettei_item1;
+        _cardImage.SetInit();
+
+        //位置とスケール
+        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
 
     }
 
