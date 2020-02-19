@@ -113,7 +113,7 @@ public class RecipiListController : MonoBehaviour {
         list_count = 0;
         _recipi_listitem.Clear();
 
-        /*
+        
         //イベント用レシピのフラグをチェック。レシピリストから、さらに読めるものを表示。章クリア用のメモなど。
         for(i = 0; i < pitemlist.eventitemlist.Count; i++)
         {
@@ -146,7 +146,7 @@ public class RecipiListController : MonoBehaviour {
 
                 ++list_count;
             }
-        }*/
+        }
 
         //調合DBのフラグをチェック
         for (i = 0; i < databaseCompo.compoitems.Count; i++)

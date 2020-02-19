@@ -198,7 +198,7 @@ public class Compound_Main : MonoBehaviour
         girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
 
         //windowテキストエリアの取得
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         //エクストリームパネルの取得
@@ -320,7 +320,7 @@ public class Compound_Main : MonoBehaviour
                         Extremepanel_obj.SetActive(true);
 
                         //一時的に腹減りを止める。+腹減りステータスをリセット
-                        girl1_status.GirlEat_Judge_on = true;
+                        girl1_status.GirlEat_Judge_on = false;
                         girl1_status.Girl_Full();
                         girl1_status.Girl1_Status_Init();
                         GameMgr.tutorial_Num = 1; //退避
@@ -412,7 +412,11 @@ public class Compound_Main : MonoBehaviour
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         text_area.SetActive(false);
 
+                        girl1_status.InitializeStageGirlHungrySet(0, 0);
                         girl1_status.Girl_Hungry();
+                        girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
+
+                        GameMgr.tutorial_Num = 95; //退避
 
                         break;
 
@@ -485,7 +489,7 @@ public class Compound_Main : MonoBehaviour
                     compoundselect_onoff_obj.SetActive(true);
 
                     //腹減りカウント開始
-                    girl1_status.GirlEat_Judge_on = false;
+                    girl1_status.GirlEat_Judge_on = true;
                 }
 
                 //Debug.Log("メインの調合シーン　スタート");
@@ -540,7 +544,7 @@ public class Compound_Main : MonoBehaviour
                 text_area.SetActive(true);
 
                 //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = true;
+                girl1_status.GirlEat_Judge_on = false;
 
                 yes.SetActive(false);
                 no.SetActive(true);
@@ -561,7 +565,7 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.extremeButtonInteractOFF();
 
                 //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = true;
+                girl1_status.GirlEat_Judge_on = false;
 
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
 
@@ -588,7 +592,7 @@ public class Compound_Main : MonoBehaviour
                 memoResult_obj.SetActive(false);
 
                 //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = true;
+                girl1_status.GirlEat_Judge_on = false;
 
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
                 yes.SetActive(false);
@@ -627,7 +631,7 @@ public class Compound_Main : MonoBehaviour
                 memoResult_obj.SetActive(false);
 
                 //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = true;
+                girl1_status.GirlEat_Judge_on = false;
 
                 break;
 
@@ -645,7 +649,7 @@ public class Compound_Main : MonoBehaviour
                 black_panel_A.SetActive(true);
 
                 //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = true;
+                girl1_status.GirlEat_Judge_on = false;
 
                 card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
                 StartCoroutine("Girl_present_Final_select");
@@ -678,7 +682,7 @@ public class Compound_Main : MonoBehaviour
                 Extremepanel_obj.SetActive(false);
 
                 //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = true;
+                girl1_status.GirlEat_Judge_on = false;
 
                 break;
 
@@ -698,7 +702,7 @@ public class Compound_Main : MonoBehaviour
                 yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
                 //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = true;
+                girl1_status.GirlEat_Judge_on = false;
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 black_panel_A.SetActive(true);
@@ -729,7 +733,7 @@ public class Compound_Main : MonoBehaviour
                 yes_no_clear_panel.SetActive(true);
 
                 //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = true;
+                girl1_status.GirlEat_Judge_on = false;
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 black_panel_A.SetActive(true);
@@ -963,7 +967,7 @@ public class Compound_Main : MonoBehaviour
         black_panel_A.SetActive(false);
 
         //一時的に腹減りを止める。
-        girl1_status.GirlEat_Judge_on = true;
+        girl1_status.GirlEat_Judge_on = false;
 
         compoBG_A.GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
         Extremepanel_obj.SetActive(false);
@@ -1113,7 +1117,7 @@ public class Compound_Main : MonoBehaviour
         text_area.SetActive(false);
 
         //一時的に腹減りを止める。
-        girl1_status.GirlEat_Judge_on = true;
+        girl1_status.GirlEat_Judge_on = false;
 
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」

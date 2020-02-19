@@ -57,11 +57,19 @@ public class RuntimeInitializer : MonoBehaviour
         var debugPanel_init = new GameObject("Debug_Panel_Init", typeof(Debug_Panel_Init));
         GameObject.DontDestroyOnLoad(debugPanel_init);
 
+        //女の子の好みのお菓子セットデータベースリスト
+        var girllikeset_database_init = new GameObject("GirlLikeSetDataBase", typeof(GirlLikeSetDataBase));
+        GameObject.DontDestroyOnLoad(girllikeset_database_init);
+
+        //女の子の好みのお菓子組み合わせセットデータベースリスト
+        var girllikecompo_database_init = new GameObject("GirlLikeCompoDataBase", typeof(GirlLikeCompoDataBase));
+        GameObject.DontDestroyOnLoad(girllikecompo_database_init);
+
         //女の子１のステータスリスト
         var girl1_status_init = new GameObject("Girl1_status", typeof(Girl1_status));
         girl1_status_init.AddComponent<AudioSource>();
         girl1_status_init.GetComponent<AudioSource>().volume = 0.5f;
-        GameObject.DontDestroyOnLoad(girl1_status_init);
+        GameObject.DontDestroyOnLoad(girl1_status_init);        
 
         //カード表示部分
         var cardview_init = new GameObject("CardView", typeof(CardView));

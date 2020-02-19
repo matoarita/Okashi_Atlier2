@@ -1,0 +1,64 @@
+﻿using UnityEngine;
+using System;
+using System.Collections;
+
+
+// アイテムの設定用データ　List型に対応している。　class Item 直下で、変数を宣言。　public Item(...)が、引数をうける関数？
+
+[System.Serializable]//この属性を使ってインスペクター上で表示
+
+public class GirlLikeSet
+{
+    public int girlLike_ID;
+    public int girlLike_compNum;    //DB固有の番号。IDは、リストの順番を入れ替えると、順番が崩れてしまうので、各リストに固有のIDとしてつけている。
+
+    public string girlLike_itemName;
+    public string girlLike_itemSubtype;
+
+    public int girlLike_rich;
+    public int girlLike_sweat;
+    public int girlLike_bitter;
+    public int girlLike_sour;
+    public int girlLike_crispy;
+    public int girlLike_fluffy;
+    public int girlLike_smooth;
+    public int girlLike_hardness;
+    public int girlLike_jiggly;
+    public int girlLike_chewy;
+    
+    public string[] girlLike_topping = new string[5];
+
+    public string set_kansou;
+
+
+    //ここでリスト化時に渡す引数をあてがいます   
+    public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, string tp01, string tp02, string tp03, string tp04, string tp05, string _setkansou)
+    {
+        girlLike_ID = id;
+        girlLike_compNum = _compnum;
+
+        girlLike_itemName = _itemname;
+        girlLike_itemSubtype = _itemsubtype;
+
+        girlLike_rich = _rich;
+        girlLike_sweat = _sweat;
+        girlLike_bitter = _bitter;
+        girlLike_sour = _sour;
+
+        girlLike_crispy = _crispy;
+        girlLike_fluffy = _fluffy;
+        girlLike_smooth = _smooth;
+        girlLike_hardness = _hardness;
+        girlLike_jiggly = _jiggly;
+        girlLike_chewy = _chewy;
+
+        girlLike_topping[0] = tp01;
+        girlLike_topping[1] = tp02;
+        girlLike_topping[2] = tp03;
+        girlLike_topping[3] = tp04;
+        girlLike_topping[4] = tp05;
+
+        set_kansou = _setkansou;
+    }
+
+}

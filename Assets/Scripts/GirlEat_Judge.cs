@@ -6,6 +6,13 @@ using UnityEngine.UI;
 
 public class GirlEat_Judge : MonoBehaviour {
 
+    private GameObject canvas;
+
+    //カメラ関連
+    private Camera main_cam;
+    private Animator maincam_animator;
+    private int trans; //トランジション用のパラメータ
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -27,8 +34,12 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject window_param_result_obj;
     private Text window_result_text;
 
-    private GameObject hukidashiitem;
+    private GameObject hukidashiitem;   
     private Text _text;
+
+    private GameObject eat_hukidashiPrefab;
+    private GameObject eat_hukidashiitem;
+    private Text eat_hukidashitext;
 
     private GameObject text_area;
     private Text _windowtext;
@@ -96,22 +107,23 @@ public class GirlEat_Judge : MonoBehaviour {
     //女の子の計算用パラメータ
 
     private int _girlquality;
-    private int _girlsweat;
-    private int _girlbitter;
-    private int _girlsour;
-    private int _girlrich;
-    private int _girlcrispy;
-    private int _girlfluffy;
-    private int _girlsmooth;
-    private int _girlhardness;
-    private int _girljiggly;
-    private int _girlchewy;
+    private int[] _girlsweat;
+    private int[] _girlbitter;
+    private int[] _girlsour;
+    private int[] _girlrich;
+    private int[] _girlcrispy;
+    private int[] _girlfluffy;
+    private int[] _girlsmooth;
+    private int[] _girlhardness;
+    private int[] _girljiggly;
+    private int[] _girlchewy;
+
     private int _girlpowdery;
     private int _girloily;
     private int _girlwatery;
 
-    private string _girl_subtype;
-    private string _girl_likeokashi;
+    private string[] _girl_subtype;
+    private string[] _girl_likeokashi;
 
 
     //女の子の採点用パラメータ
@@ -166,9 +178,18 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject effect_Prefab;
     private List<GameObject> _listEffect = new List<GameObject>();
 
+    
+
 
     // Use this for initialization
     void Start () {
+
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
 
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -208,10 +229,13 @@ public class GirlEat_Judge : MonoBehaviour {
         //エフェクトプレファブの取得
         effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
 
+        //Prefab内の、コンテンツ要素を取得
+        eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
+
         window_param_result_obj.SetActive(false);
 
         //windowテキストエリアの取得
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _windowtext = text_area.GetComponentInChildren<Text>();
 
         audioSource = GetComponent<AudioSource>();
@@ -258,6 +282,21 @@ public class GirlEat_Judge : MonoBehaviour {
         judge_anim_on = false;
         judge_end = false;
         judge_anim_status = 0;
+
+        //要素数の初期化
+        _girlsweat = new int[girl1_status.youso_count];
+        _girlbitter = new int[girl1_status.youso_count];
+        _girlsour = new int[girl1_status.youso_count];
+        _girlrich = new int[girl1_status.youso_count];
+        _girlcrispy = new int[girl1_status.youso_count];
+        _girlfluffy = new int[girl1_status.youso_count];
+        _girlsmooth = new int[girl1_status.youso_count];
+        _girlhardness = new int[girl1_status.youso_count];
+        _girljiggly = new int[girl1_status.youso_count];
+        _girlchewy = new int[girl1_status.youso_count];
+
+        _girl_subtype = new string[girl1_status.youso_count];
+        _girl_likeokashi = new string[girl1_status.youso_count];
     }
 	
 	// Update is called once per frame
@@ -331,17 +370,33 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 case 0: //初期化 状態１
 
-                    girl1_status.GirlEat_Judge_on = true;
+                   
+                    girl1_status.GirlEat_Judge_on = false;
 
                     Extremepanel_obj.SetActive(false);
                     MoneyStatus_Panel_obj.SetActive(false);
                     PRenkinLv_Panel_obj.SetActive(false);
+                    text_area.SetActive(false);
 
                     timeOut = 1.0f;
                     judge_anim_status = 1;
                     s.sprite = girl1_status.Girl1_img_eat_start;
 
-                    _windowtext.text = ".";
+                    //現在の吹き出しをオフ
+                    girl1_status.Girl_hukidashi_Off();
+
+                    //食べ中の表示用吹き出しを生成
+                    eat_hukidashiitem = Instantiate(eat_hukidashiPrefab, canvas.transform);
+                    eat_hukidashitext = eat_hukidashiitem.GetComponentInChildren<Text>();
+
+                    eat_hukidashitext.text = ".";
+
+                    //カメラ寄る。
+                    trans++; //transが1を超えたときに、ズームするように設定されている。
+
+                    //intパラメーターの値を設定する.
+                    maincam_animator.SetInteger("trans", trans);
+
                     break;
 
                 case 1: // 状態2
@@ -351,7 +406,8 @@ public class GirlEat_Judge : MonoBehaviour {
                         timeOut = 1.0f;
                         judge_anim_status = 2;
 
-                        _windowtext.text = ". .";
+                        eat_hukidashitext.text = ". .";
+                        
                     }
                     break;
 
@@ -370,10 +426,26 @@ public class GirlEat_Judge : MonoBehaviour {
                     Extremepanel_obj.SetActive(true);
                     MoneyStatus_Panel_obj.SetActive(true);
                     PRenkinLv_Panel_obj.SetActive(true);
+                    text_area.SetActive(true);
+
+                    //食べ中吹き出しの削除
+                    if (eat_hukidashiitem != null)
+                    {
+                        Destroy(eat_hukidashiitem);
+                    }
+
+                    //現在の吹き出しをオン
+                    girl1_status.Girl_hukidashi_On();
 
                     judge_anim_on = false;
                     judge_end = true;
                     judge_anim_status = 0;
+
+                    //カメラ寄る。
+                    trans--; //transが0以下のときに、ズームアウトするように設定されている。
+
+                    //intパラメーターの値を設定する.
+                    maincam_animator.SetInteger("trans", trans);
 
                     break;
 
@@ -473,24 +545,29 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
         }
 
-        //女の子の計算パラメータを代入
-        _girlquality = girl1_status.girl1_Quality;
-        _girlsweat = girl1_status.girl1_Sweat;
-        _girlbitter = girl1_status.girl1_Bitter;
-        _girlsour = girl1_status.girl1_Sour;
-        _girlrich = girl1_status.girl1_Rich;
-        _girlcrispy = girl1_status.girl1_Crispy;
-        _girlfluffy = girl1_status.girl1_Fluffy;
-        _girlsmooth = girl1_status.girl1_Smooth;
-        _girlhardness = girl1_status.girl1_Hardness;
-        _girljiggly = girl1_status.girl1_Jiggly;
-        _girlchewy = girl1_status.girl1_Chewy;
+        for (i = 0; i < girl1_status.youso_count; i++)
+        {
+            //女の子の計算パラメータを代入
+            _girlquality = girl1_status.girl1_Quality;
+            _girlsweat[i] = girl1_status.girl1_Sweat[i];
+            _girlbitter[i] = girl1_status.girl1_Bitter[i];
+            _girlsour[i] = girl1_status.girl1_Sour[i];
+            _girlrich[i] = girl1_status.girl1_Rich[i];
+            _girlcrispy[i] = girl1_status.girl1_Crispy[i];
+            _girlfluffy[i] = girl1_status.girl1_Fluffy[i];
+            _girlsmooth[i] = girl1_status.girl1_Smooth[i];
+            _girlhardness[i] = girl1_status.girl1_Hardness[i];
+            _girljiggly[i] = girl1_status.girl1_Jiggly[i];
+            _girlchewy[i] = girl1_status.girl1_Chewy[i];
+            
+            _girl_subtype[i] = girl1_status.girl1_likeSubtype[i];
+            _girl_likeokashi[i] = girl1_status.girl1_likeOkashi[i];
+        }
+
+        //一回だけ代入すればよい。
         _girlpowdery = girl1_status.girl1_Powdery;
         _girloily = girl1_status.girl1_Oily;
         _girlwatery = girl1_status.girl1_Watery;
-        _girl_subtype = girl1_status.girl1_Subtype1;
-        _girl_likeokashi = girl1_status.girl1_likeOkashi;
-
 
         /* 古い処理、ここに入ってた。とりあえず、スクリプト下部へ避難 */
 
@@ -646,79 +723,149 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void judge_result()
     {
-        //パラメータ初期化し、判定処理
-        dislike_flag = true;
 
-        //判定処理　パターンA
-        for (i = 0; i < itemslotScore.Count; i++)
+        count = 0;
+
+        while (count < girl1_status.Set_Count) //セットの組み合わせの数だけ判定。最大３。どれか一つのセットが条件をクリアしていれば、正解。
         {
+            //パラメータ初期化し、判定処理
+            dislike_flag = true;
+
+            //
+            //判定処理　パターンA
+            //
+
             //①トッピングスロットの計算
+            switch (count) {
 
-            //0はNonなので、無視
-            if (i != 0)
+                case 0:
+
+                    for (i = 0; i < itemslotScore.Count; i++)
+                    {
+                        
+                        //0はNonなので、無視
+                        if (i != 0)
+                        {
+                            //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                            if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet1[i])
+                            {
+                                break;
+                            }
+                            //一つでも満たしてないものがある場合は、NGフラグがたつ
+                            else
+                            {
+                                dislike_flag = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case 1:
+
+                    for (i = 0; i < itemslotScore.Count; i++)
+                    {
+                        //①トッピングスロットの計算
+
+                        //0はNonなので、無視
+                        if (i != 0)
+                        {
+                            //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                            if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet2[i])
+                            {
+                                break;
+                            }
+                            //一つでも満たしてないものがある場合は、NGフラグがたつ
+                            else
+                            {
+                                dislike_flag = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case 2:
+                    break;
+
+                default:
+
+                    for (i = 0; i < itemslotScore.Count; i++)
+                    {
+                        //①トッピングスロットの計算
+
+                        //0はNonなので、無視
+                        if (i != 0)
+                        {
+                            //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                            if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet3[i])
+                            {
+                                break;
+                            }
+                            //一つでも満たしてないものがある場合は、NGフラグがたつ
+                            else
+                            {
+                                dislike_flag = false;
+                            }
+                        }
+                    }
+                    break;
+            }
+            
+
+            //②味パラメータの計算
+            if (_baserich >= _girlrich[count])
             {
-                //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
-                if (itemslotScore[i] >= girl1_status.girl1_hungryScore[i])
-                {
+                break;
+            }
+            else { dislike_flag = false; }
 
+            if (_basesweat >= _girlsweat[count])
+            {
+                break;
+            }
+            else { dislike_flag = false; }
+
+            if (_basebitter >= _girlbitter[count])
+            {
+                break;
+            }
+            else { dislike_flag = false; }
+
+            if (_basesour >= _girlsour[count])
+            {
+                break;
+            }
+            else { dislike_flag = false; }
+
+
+            //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
+            if (_girl_likeokashi[count] == "Non") //特に指定なし
+            {
+                //③お菓子の種別の計算
+                if (_girl_subtype[count] == "Non") //特に指定なし
+                {
+                    break;
                 }
-                //一つでも満たしてないものがある場合は、NGフラグがたつ
+                else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
+                {
+                    break;
+                }
                 else
                 {
                     dislike_flag = false;
                 }
             }
-        }
-
-        //②味パラメータの計算
-        if (_baserich >= _girlrich)
-        {
-        }
-        else { dislike_flag = false; }
-
-        if (_basesweat >= _girlsweat)
-        {
-        }
-        else { dislike_flag = false; }
-
-        if (_basebitter >= _girlbitter)
-        {
-        }
-        else { dislike_flag = false; }
-
-        if (_basesour >= _girlsour)
-        {
-        }
-        else { dislike_flag = false; }
-
-        
-        //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
-        if (_girl_likeokashi == "Non") //特に指定なし
-        {
-            //③お菓子の種別の計算
-            if (_girl_subtype == "Non") //特に指定なし
+            else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
             {
-
-            }
-            else if (_girl_subtype == _baseitemtype_sub) //お菓子の種別が一致している。
-            {
-
+                //サブは計算せず、特定のお菓子自体が正解なら、正解
+                break;
             }
             else
             {
                 dislike_flag = false;
             }
-        }
-        else if (_girl_likeokashi == _basename) //お菓子の名前が一致している。
-        {
 
+            count++;
         }
-        else
-        {
-            dislike_flag = false;
-        }
-
-
         
     }
 
@@ -794,7 +941,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         compound_Main.compound_status = 0;
 
-        girl1_status.GirlEat_Judge_on = false; //またカウントが進み始める
+        girl1_status.GirlEat_Judge_on = true; //またカウントが進み始める
     }
 
 
