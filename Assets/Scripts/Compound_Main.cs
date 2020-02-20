@@ -19,6 +19,17 @@ public class Compound_Main : MonoBehaviour
 
     private Debug_Panel_Init debug_panel_init;
 
+    private GameObject selectPanel_1;
+    private GameObject select_original_button_obj;
+    private GameObject select_recipi_button_obj;
+    private GameObject select_extreme_button_obj;
+    private GameObject select_sister_shop_button_obj;
+    private Button select_original_button;
+    private Button select_recipi_button;
+    private Button select_extreme_button;
+    private Button select_sister_shop_button;
+    private Button select_no_button;
+
     private GameObject getmatplace_panel;
 
     private GameObject kakuritsuPanel_obj;
@@ -169,6 +180,17 @@ public class Compound_Main : MonoBehaviour
         recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
         memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
 
+        //調合セレクトパネルを取得
+        selectPanel_1 = canvas.transform.Find("Compound_BGPanel_A/SelectPanel_1").gameObject;
+        select_original_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/OriginalButton").gameObject;
+        select_original_button = select_original_button_obj.GetComponent<Button>();
+        select_recipi_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/RecipiButton").gameObject;
+        select_recipi_button = select_recipi_button_obj.GetComponent<Button>();
+        select_extreme_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/ExButton").gameObject;
+        select_extreme_button = select_extreme_button_obj.GetComponent<Button>();
+        select_sister_shop_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/SellButton").gameObject;
+        select_sister_shop_button = select_sister_shop_button_obj.GetComponent<Button>();
+        select_no_button = selectPanel_1.transform.Find("No").GetComponent<Button>();
 
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
         yes = playeritemlist_onoff.transform.Find("Yes").gameObject;
@@ -413,6 +435,7 @@ public class Compound_Main : MonoBehaviour
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
+                        girleat_toggle.GetComponent<Toggle>().interactable = false;
                         text_area.SetActive(false);
 
                         girl1_status.InitializeStageGirlHungrySet(0, 0);
@@ -434,10 +457,20 @@ public class Compound_Main : MonoBehaviour
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
+                        girleat_toggle.GetComponent<Toggle>().interactable = true;
                         text_area.SetActive(true);
+
+                        GameMgr.tutorial_Num = 105; //退避
+                        break;
+
+                    case 105:
+
+                        MainCompoundMethod();
                         break;
 
                     case 110:
+
+                        MainCompoundMethod();
 
                         extreme_Button.interactable = false;
                         compoundselect_onoff_obj.SetActive(false);
@@ -445,7 +478,107 @@ public class Compound_Main : MonoBehaviour
                         text_area.SetActive(false);
                         break;
 
+                    case 120:
+
+                        MainCompoundMethod();
+
+                        girl1_status.timeGirl_hungry_status = 2; //一回、画像を元に戻す。
+
+                        girl1_status.InitializeStageGirlHungrySet(10, 0);
+                        girl1_status.Girl_Hungry();
+                        girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
+
+                        //text_area.SetActive(true);
+
+                        GameMgr.tutorial_Num = 130;
+
+                        GameMgr.tutorial_Progress = true;
+                        break;
+
+                    case 130:
+
+                        text_area.SetActive(false);
+                        break;
+
+                    case 140:
+
+                        extreme_Button.interactable = true;
+                        text_area.SetActive(true);
+
+                        break;
+
+                    case 150: //レシピボタンでも～を説明中。ボタンは押せないようにしておく。
+
+                        MainCompoundMethod();
+
+                        select_original_button.interactable = false;
+                        select_recipi_button.interactable = false;
+                        select_no_button.interactable = false;
+
+                        text_area.SetActive(false);
+                        break;
+
+                    case 160:
+
+                        MainCompoundMethod();
+
+                        select_recipi_button.interactable = true;
+
+                        text_area.SetActive(true);
+
+                        GameMgr.tutorial_Num = 165;
+                        break;
+
+                    case 165: //レシピ調合中
+
+                        MainCompoundMethod();
+                        break;
+
+                    case 170: //れしぴ調合完了！
+
+                        text_area.SetActive(false);
+                        break;
+
+                    case 180:
+
+                        card_view.SetinteractiveOn();
+                        text_area.SetActive(false);
+                        break;
+
+                    case 190: //元の画面に戻る
+
+                        MainCompoundMethod();
+
+                        extreme_Button.interactable = false;
+                        sell_Button.SetActive(false);
+                        compoundselect_onoff_obj.SetActive(false);
+
+                        text_area.SetActive(false);
+
+                        break;
+
+                    case 200:
+
+                        MainCompoundMethod();
+
+                        extreme_Button.interactable = true;
+                        sell_Button.SetActive(false);
+                        text_area.SetActive(true);
+
+                        break;
+
+                    case 210: //エクストリーム調合　他のボタンは触れない
+
+                        MainCompoundMethod();
+
+                        select_original_button.interactable = false;
+                        select_recipi_button.interactable = false;
+                        text_area.SetActive(false);
+                        break;
+
                     default:
+
+                        text_area.SetActive(false);
                         break;
                 }
                 
@@ -519,6 +652,17 @@ public class Compound_Main : MonoBehaviour
                 {
                     bgm_change_flag = false;
                     sceneBGM.OnMainBGM();
+                }
+
+                //一度でも調合成功していれば、エクストリームボタンが出現になる。
+                if ( PlayerStatus.First_recipi_on == true )
+                {
+                    select_extreme_button_obj.SetActive(true);
+                   
+                }
+                else
+                {
+                    select_extreme_button_obj.SetActive(false);
                 }
 
 
@@ -595,6 +739,8 @@ public class Compound_Main : MonoBehaviour
                 yes.SetActive(false);
                 no.SetActive(true);
 
+                extreme_panel.extreme_Compo_Setup();
+
                 break;
 
             case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
@@ -650,11 +796,24 @@ public class Compound_Main : MonoBehaviour
 
                 compound_status = 4; //調合シーンに入っています、というフラグ
 
+                playeritemlist_onoff.SetActive(false);
+                recipilist_onoff.SetActive(false);
+
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
                 extreme_panel.extremeButtonInteractOFF();
+
+                recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
+
+                if (extreme_panel.extreme_itemID != 9999)
+                {
+                    select_extreme_button.interactable = true;
+                } else
+                {
+                    select_extreme_button.interactable = false;
+                }
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -843,6 +1002,19 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    public void OnCheck_2_button()
+    {
+
+        pitemlistController.extremepanel_on = false;
+
+        card_view.DeleteCard_DrawView();
+        SelectCompo_panel_1.SetActive(false);
+
+        _text.text = "エクストリーム調合をするよ！ 一個目の材料を選んでね。";
+        compound_status = 2;
+
+    }
+
     public void OnCheck_3() //オリジナル調合をON
     {
         if (original_toggle.GetComponent<Toggle>().isOn == true)
@@ -1023,6 +1195,7 @@ public class Compound_Main : MonoBehaviour
 
         compoBG_A.GetComponent<Image>().raycastTarget = true;
         Extremepanel_obj.SetActive(true);
+        text_area.SetActive(true);
         compound_status = 1;
     }
 

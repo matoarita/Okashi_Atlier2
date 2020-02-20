@@ -49,8 +49,14 @@ public class Debug_Panel : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
-        StoryNumber_text.text = "StoryNumber: " + GameMgr.scenario_flag;
+        if( GameMgr.tutorial_ON == true )
+        {
+            StoryNumber_text.text = "TutorialNumber: " + GameMgr.tutorial_Num;
+        } else
+        {
+            StoryNumber_text.text = "StoryNumber: " + GameMgr.scenario_flag;
+        }
+        
         StageNumber_text.text = "Stage: " + GameMgr.stage_number;
 
         //ここに処理。時間カウント。デバッグ用。

@@ -62,7 +62,7 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
             {
                 // 一旦代入
                 _id = excel_girlLikeset_database.sheets[sheet_no].list[count].setID;
-                _compnum = excel_girlLikeset_database.sheets[sheet_no].list[count].setID;
+                _compnum = excel_girlLikeset_database.sheets[sheet_no].list[count].compNum;
                 _itemname = excel_girlLikeset_database.sheets[sheet_no].list[count].girllike_itemname;
                 _itemsubtype = excel_girlLikeset_database.sheets[sheet_no].list[count].girllike_itemsubtype;
 

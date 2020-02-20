@@ -943,7 +943,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
         if (GameMgr.tutorial_ON == true)
         {
-            if (GameMgr.tutorial_Num == 100)
+            if (GameMgr.tutorial_Num == 105)
             {                
                 StartCoroutine("WaitForSeconds");  //1秒まって次へ              
             }

@@ -502,12 +502,86 @@ public class Utage_scenario : MonoBehaviour
         }
         GameMgr.tutorial_Num = 120;
 
-        while (!GameMgr.tutorial_Progress) //あげるボタンの押し待ち
+        while (!GameMgr.tutorial_Progress) //「オレンジネコクッキー」吹き出し待ち
         {
             yield return null;
         }
         GameMgr.tutorial_Progress = false;
 
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 140;
+
+        while (!GameMgr.tutorial_Progress) //2度目エクストリームパネルの押し待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 160;
+
+        while (!GameMgr.tutorial_Progress) //レシピから作るボタンの押し、調合完了待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 180;
+
+        while (!GameMgr.tutorial_Progress) //元の画面に戻るのを待つ
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 200;
+
+        while (!GameMgr.tutorial_Progress) //パネルを触れるように。パネルを押し待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
 
 
 

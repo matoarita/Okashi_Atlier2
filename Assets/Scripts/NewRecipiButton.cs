@@ -48,7 +48,40 @@ public class NewRecipiButton : MonoBehaviour {
             GameMgr.tutorial_Num = 80;
         }
 
-        compound_Main.compound_status = 0;
+        switch (compound_Main.compound_select)
+        {
+            case 1: //レシピ調合
+
+                if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                {
+                    compound_Main.compound_status = 0;
+                }
+                else
+                {
+                    compound_Main.compound_status = 1; // もう一回、オリジナル調合の画面に戻る。
+                }
+                break;
+
+            case 3: //オリジナル調合
+
+                if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                {
+                    compound_Main.compound_status = 0;
+                }
+                else
+                {
+                    compound_Main.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
+                }
+                break;
+
+            default:
+
+                compound_Main.compound_status = 0;
+                break;
+
+        }
+
+
         extremePanel.LifeAnimeOnTrue();
 
         card_view.DeleteCard_DrawView();

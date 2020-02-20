@@ -352,64 +352,19 @@ public class ExtremePanel : MonoBehaviour {
 
             if (extreme_itemID != 9999)
             {
-                
-                compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
+                compound_Main.compound_status = 6; //調合選択画面に移動 元々4にしてた
 
-                //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
-                yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-                yes_text = yes.GetComponentInChildren<Text>();
-                no = pitemlistController_obj.transform.Find("No").gameObject;
-                no_text = no.GetComponentInChildren<Text>();              
-
-                compoundselect_onoff_obj.SetActive(false);
-
-                compound_Main.compound_status = 4; //調合シーンに入っています、というフラグ
-                compound_Main.compound_select = 2; //トッピング調合を選択
-
-                kakuritsuPanel_obj.SetActive(true);
-                pitemlistController_obj.SetActive(true); //プレイヤーアイテム画面を表示。
-                pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                black_panel_A.SetActive(true);
-                compoBG_A.SetActive(true);
-                extremeButtonInteractOFF();
-
-                //BGMを変更
-                //sceneBGM.OnCompoundBGM();
-
-                //一時的に腹減りを止める。
-                girl1_status.GirlEat_Judge_on = false;
-
-                yes.SetActive(false);
-                no.SetActive(true);
-
-                _text.text = "エクストリーム調合をするよ！ 一個目の材料を選んでね。";
-
-
-                //以下、エクストリーム用に再度パラメータを設定
-                pitemlistController.extremepanel_on = true;
-
-                if (extreme_itemtype == 0) //デフォルトアイテムの場合
+                //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
+                if (GameMgr.tutorial_ON == true)
                 {
-                    pitemlistController.final_base_kettei_item = database.items[extreme_itemID].itemID;
-                }
-                else if (extreme_itemtype == 1) //オリジナルアイテムの場合
-                {
-                    pitemlistController.final_base_kettei_item = pitemlist.player_originalitemlist[extreme_itemID].itemID;
+                    if (GameMgr.tutorial_Num == 200)
+                    {
+                        GameMgr.tutorial_Progress = true;
+                        GameMgr.tutorial_Num = 210;
+                    }
+                    
                 }
 
-                pitemlistController.base_kettei_item = extreme_itemID;
-                pitemlistController._base_toggle_type = extreme_itemtype;
-
-                pitemlistController.final_base_kettei_kosu = 1;
-
-                pitemlistController.kettei1_bunki = 10; //トッピング材料から選び始める。
-                pitemlistController.reset_and_DrawView_Topping();
-
-                card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item);
-                card_view.OKCard_DrawView();
-
-                itemselect_cancel.update_ListSelect_Flag = 10; //ベースアイテムを選択できないようにする。
-                itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
             else //何もまだ作られていない場合は、新規調合
             {
@@ -433,13 +388,50 @@ public class ExtremePanel : MonoBehaviour {
                 //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
                 if (GameMgr.tutorial_ON == true) 
                 {
-                    GameMgr.tutorial_Progress = true;
-                    GameMgr.tutorial_Num = 20;
+                    if (GameMgr.tutorial_Num == 10)
+                    {
+                        GameMgr.tutorial_Progress = true;
+                        GameMgr.tutorial_Num = 20;
+                    }
+                    else if (GameMgr.tutorial_Num == 140)
+                    {
+                        GameMgr.tutorial_Progress = true;
+                        GameMgr.tutorial_Num = 150;
+                    }
                 }
             }
         }
     }
 
+    //CompoundMainから読みこむ用
+    public void extreme_Compo_Setup()
+    {
+        //以下、エクストリーム用に再度パラメータを設定
+        pitemlistController.extremepanel_on = true;
+
+        if (extreme_itemtype == 0) //デフォルトアイテムの場合
+        {
+            pitemlistController.final_base_kettei_item = database.items[extreme_itemID].itemID;
+        }
+        else if (extreme_itemtype == 1) //オリジナルアイテムの場合
+        {
+            pitemlistController.final_base_kettei_item = pitemlist.player_originalitemlist[extreme_itemID].itemID;
+        }
+
+        pitemlistController.base_kettei_item = extreme_itemID;
+        pitemlistController._base_toggle_type = extreme_itemtype;
+
+        pitemlistController.final_base_kettei_kosu = 1;
+
+        pitemlistController.kettei1_bunki = 10; //トッピング材料から選び始める。
+        pitemlistController.reset_and_DrawView_Topping();
+
+        card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item);
+        card_view.OKCard_DrawView();
+
+        itemselect_cancel.update_ListSelect_Flag = 10; //ベースアイテムを選択できないようにする。
+        itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
+    }
 
     public void OnClick_RecipiBook()
     {

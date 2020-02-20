@@ -56,6 +56,9 @@ public class RecipiListController : MonoBehaviour {
 
     public bool final_recipiselect_flag;
 
+    private GameObject yes_button;
+    private GameObject no_button;
+
     // Use this for initialization
     void Awake () {
 
@@ -90,8 +93,24 @@ public class RecipiListController : MonoBehaviour {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
 
+        yes_button = this.transform.Find("Yes").gameObject;
+        no_button = this.transform.Find("No").gameObject;
+
+        yes_button.SetActive(false);
+        if (GameMgr.tutorial_ON == true)
+        {
+            no_button.SetActive(false);
+        }
+        else
+        {
+            no_button.SetActive(true);
+        }
+            
+
+
         final_recipiselect_flag = false;
         reset_and_DrawView();
+
 
     }
 
@@ -113,38 +132,44 @@ public class RecipiListController : MonoBehaviour {
         list_count = 0;
         _recipi_listitem.Clear();
 
-        
-        //イベント用レシピのフラグをチェック。レシピリストから、さらに読めるものを表示。章クリア用のメモなど。
-        for(i = 0; i < pitemlist.eventitemlist.Count; i++)
+        if (GameMgr.tutorial_ON == true)
         {
-            if ( pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ListOn == 1) //イベントレシピを所持してる　かつ　リスト表示がONのものを表示
+            //チュートリアル中は、イベントレシピは見れないようにする。  
+        }
+        else
+        {
+            //イベント用レシピのフラグをチェック。レシピリストから、さらに読めるものを表示。章クリア用のメモなど。
+            for (i = 0; i < pitemlist.eventitemlist.Count; i++)
             {
-                //Debug.Log(i);
+                if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ListOn == 1) //イベントレシピを所持してる　かつ　リスト表示がONのものを表示
+                {
+                    //Debug.Log(i);
 
-                _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
-                _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
-                _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+                    _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+                    _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
+                    _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
 
-                _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
-                _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
-                _toggle_itemID.recipi_toggleitemType = 0; //イベントアイテムタイプなので、0
+                    _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
+                    _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
+                    _toggle_itemID.recipi_toggleitemType = 0; //イベントアイテムタイプなので、0
 
 
-                j = 0;
+                    j = 0;
 
-                //調合DBの生成アイテムはローマ字表記なので、データベースから、日本語表記をひっぱってくる。
-                item_name = pitemlist.eventitemlist[i].event_itemNameHyouji;
+                    //調合DBの生成アイテムはローマ字表記なので、データベースから、日本語表記をひっぱってくる。
+                    item_name = pitemlist.eventitemlist[i].event_itemNameHyouji;
 
-                _toggle_itemID.recipi_itemNameHyouji = item_name;
+                    _toggle_itemID.recipi_itemNameHyouji = item_name;
 
-                _text.text = item_name;
-                _text.color = new Color(240f / 255f, 168f / 255f, 255f / 255f);
+                    _text.text = item_name;
+                    _text.color = new Color(240f / 255f, 168f / 255f, 255f / 255f);
 
-                //画像を変更
-                texture2d = Resources.Load<Sprite>("Sprites/Icon/Book01");
-                _Img.sprite = texture2d;
+                    //画像を変更
+                    texture2d = Resources.Load<Sprite>("Sprites/Icon/Book01");
+                    _Img.sprite = texture2d;
 
-                ++list_count;
+                    ++list_count;
+                }
             }
         }
 

@@ -897,7 +897,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compo_anim_status = 0;
 
         //調合判定
-        CompoundSuccess_judge();
+        //チュートリアルモードのときは100%成功
+        if (GameMgr.tutorial_ON == true)
+        {
+            compound_success = true;
+        }
+        else
+        {
+            CompoundSuccess_judge();
+        }
 
         //調合成功
         if (compound_success == true)
@@ -924,6 +932,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             card_view.ResultCard_DrawView(0, result_item);
+
+            //チュートリアルのときは、一時的にOFF
+            if (GameMgr.tutorial_ON == true)
+            {
+                if (GameMgr.tutorial_Num == 170)
+                {
+                    card_view.SetinteractiveOFF();
+                }
+            }
 
             _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / 3;
             PlayerStatus.player_renkin_exp += _getexp; //レシピ調合の場合も同様。すでに作ったことがある場合、取得量は少なくなる
@@ -1397,8 +1414,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
                 if (GameMgr.tutorial_ON == true)
                 {
-                    GameMgr.tutorial_Progress = true;
-                    GameMgr.tutorial_Num = 60;
+                    if (GameMgr.tutorial_Num == 55)
+                    {
+                        GameMgr.tutorial_Progress = true;
+                        GameMgr.tutorial_Num = 60;
+                    }
+                    if (GameMgr.tutorial_Num == 165)
+                    {
+                        GameMgr.tutorial_Progress = true;
+                        GameMgr.tutorial_Num = 170;
+                    }
                 }
 
                 break;

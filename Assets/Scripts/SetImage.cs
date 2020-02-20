@@ -756,17 +756,49 @@ public class SetImage : MonoBehaviour
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
+                //調合完了後、また調合画面に戻るか、メイン画面に戻るか
                 switch(compound_Main.compound_select)
                 {
+                    case 1: //レシピ調合
+
+                        if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                        {
+                            compound_Main.compound_status = 0;
+
+                            if (GameMgr.tutorial_ON == true)
+                            {
+                                if (GameMgr.tutorial_Num == 180)
+                                {
+                                    GameMgr.tutorial_Progress = true;
+                                    GameMgr.tutorial_Num = 190;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            compound_Main.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
+                        }
+                        break;
+
                     case 3: //オリジナル調合
 
                         if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
                         {
                             compound_Main.compound_status = 0;
+
+
+                            if (GameMgr.tutorial_ON == true)
+                            {
+                                if (GameMgr.tutorial_Num == 180)
+                                {
+                                    GameMgr.tutorial_Progress = true;
+                                    GameMgr.tutorial_Num = 190;
+                                }
+                            }
                         }
                         else
                         {
-                            compound_Main.compound_status = 3;
+                            compound_Main.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
                         }
                         break;
 

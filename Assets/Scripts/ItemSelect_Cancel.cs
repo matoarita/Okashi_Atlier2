@@ -71,9 +71,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
-        //黒半透明パネルの取得
-        //black_effect = GameObject.FindWithTag("Black_Effect");
-
         canvas = GameObject.FindWithTag("Canvas");
 
         update_ListSelect_Flag = 0;
@@ -245,8 +242,17 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                             card_view.DeleteCard_DrawView();
 
-                            compound_Main.compound_status = 0; //何も選択していない状態にもどる。
+                            if( PlayerStatus.First_recipi_on == true )
+                            {
+                                compound_Main.compound_status = 6;
+                            }
+                            else
+                            {
+                                compound_Main.compound_status = 0; //何も選択していない状態にもどる。
+                            }
+                            
                             compound_Main.compound_select = 0;
+                            pitemlistController.extremepanel_on = false;
 
                             yes_selectitem_kettei.onclick = false;
 
@@ -461,7 +467,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     //一個目の選択をキャンセルする処理
     public void All_cancel()
     {
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         kettei_on_waiting = false;
@@ -599,14 +605,20 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         card_view.DeleteCard_DrawView();
 
         yes.SetActive(false);
-        no.SetActive(true);
+
+        if (GameMgr.tutorial_ON == true)
+        {
+            no.SetActive(false);
+        }
+        else
+        {
+            no.SetActive(true);
+        }
+        
         updown_counter_obj.SetActive(false);
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-        //黒半透明パネルの取得
-        //black_effect = GameObject.FindWithTag("Black_Effect");
-        //black_effect.SetActive(false); //黒半透明パネルをオフ
     }
 
 
@@ -617,7 +629,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     public void Two_cancel()
     {
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         kettei_on_waiting = false;
@@ -663,7 +675,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     //三個目の選択をキャンセルする処理
     public void Three_cancel()
     {
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         kettei_on_waiting = false;
@@ -708,7 +720,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     //四個目の選択をキャンセルする処理
     public void Four_cancel()
     {
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         //トッピング調合のときのみ、使う。

@@ -294,6 +294,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             Destroy(hukidashiitem);
         }
 
+        //デフォルトで１に設定。セット組み合わせの処理にいったときに、２や３に変わる。
+        Set_Count = 1;
+
         //テーブルの決定
         if (GameMgr.tutorial_ON == true)
         {
@@ -301,6 +304,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else
         {
+            Debug.Log("通常腹減りステータスON");
+
             /*
             //①イベントやチュートリアル、ある好感度をこえたときの条件によって、こちらの特定のアイテムを常に出すようにする。
             //ランダムで切り替わるテーブルセット。girlLikeSet_databaseのIDをランダムで抽選している。    
@@ -347,18 +352,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //さきほどのset_IDをもとに、好みの値を決定する。
             for (count = 0; count < Set_Count; count++)
             {
-                //compNumの値で指定しているので、IDに変換する。
-                j = 0;
-                while (j < girlLikeSet_database.girllikeset.Count)
-                {
-                    if( set_ID[count] == girlLikeSet_database.girllikeset[j].girlLike_compNum )
-                    {
-                        InitializeStageGirlHungrySet(j, count);
-                        break;
-                    }
-                    j++;
-                }
-                
+                InitializeStageGirlHungrySet(set_ID[count], count);
+
             }
 
             //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
@@ -377,87 +372,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //吹き出しのテキスト決定
         _text.text = _desc;
 
-
-        /*
-        //表示用ネームに変換
-        switch (girl1_Subtype1)
-        {
-            case "Cookie":
-
-                girl1_Subtype1_hyouji = "クッキー";
-                break;
-
-            case "Cake":
-
-                girl1_Subtype1_hyouji = "ケーキ";
-                break;
-
-            case "Chocolate":
-
-                girl1_Subtype1_hyouji = "チョコレート";
-                break;
-
-            default:
-                break;
-
-        }*/
-        /*
-        if (girl1_Subtype1 == "") //種類は関係なく、なんでもいい
-        {
-            //_text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "のお菓子が食べたいなぁ";
-
-
-            switch (slotnamedatabase.slotname_lists[index].slotName)
-            {
-
-                case "Orange":
-
-                    _text.text = "<color=#FF78B4>" + "ちょっと酸っぱい、フルーティ" + "</color>" + "なお菓子が食べたいなぁ"; //フルーツ系のときはこれ。明言はしない。
-                    break;
-
-                case "Nuts":
-
-                    _text.text = "<color=#FF78B4>" + "カリっとした感触" + "</color>" + "のお菓子が食べたいなぁ～。"; //ナッツ系のときはこれ。明言はしない。
-                    break;
-
-                case "Grape":
-
-                    _text.text = "<color=#FF78B4>" + "かぐわしい芳醇な香り" + "</color>" + "のお菓子が食べたいなぁ"; //フルーツ系のときはこれ。明言はしない。
-                    break;
-
-                default:
-                    break;
-
-
-            }
-        }
-        else //食べたいお菓子の種類がある場合
-        {
-            switch (slotnamedatabase.slotname_lists[index].slotName)
-            {
-
-                case "Orange":
-
-                    _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "の" + "<color=#FF78B4>" + girl1_Subtype1_hyouji + "</color>" + "が食べたいなぁ";
-                    break;
-
-                case "Nuts":
-
-                    _text.text = "<color=#FF78B4>" + "豆の香ばしい風味" + "</color>" + "の" + "<color=#FF78B4>" + girl1_Subtype1_hyouji + "</color>" + "が食べたいなぁ";
-                    break;
-
-                case "Grape":
-
-                    _text.text = "<color=#FF78B4>" + slotnamedatabase.slotname_lists[index].slot_Hyouki_1 + "</color>" + "の" + "<color=#FF78B4>" + girl1_Subtype1_hyouji + "</color>" + "が食べたいなぁ";
-                    break;
-
-                default:
-                    break;
-
-
-            } 
-        }
-        */
 
     }
 
@@ -522,8 +436,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void InitializeStageGirlHungrySet(int _id, int _set_num)
     {
-        //IDをセット
-        setID = _id;
+        //IDをセット。「compNum」の値で指定する。
+
+        //compNumの値で指定しているので、IDに変換する。
+        j = 0;
+        while (j < girlLikeSet_database.girllikeset.Count)
+        {
+            if (_id == girlLikeSet_database.girllikeset[j].girlLike_compNum)
+            {
+                
+                setID = j;
+                break;
+            }
+            j++;
+        }
 
         //初期化
         girl1_hungrySet.Clear();
@@ -657,6 +583,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //外部から直接指定されたとき用に、_descの中身も更新。
         _desc = girllike_desc[0];
+
+        //Debug.Log("_desc: " + _desc);
     }
 
 }
