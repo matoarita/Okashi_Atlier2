@@ -362,6 +362,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //レベルアップチェック用オブジェクトの取得
                 exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
 
+                //確率パネルの取得
+                kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
                 //レシピメモボタンを取得
                 recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
                 recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
@@ -739,6 +743,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 {
                     card_view.SetinteractiveOFF();
                 }
+
+                if (GameMgr.tutorial_Num == 250)
+                {
+                    card_view.SetinteractiveOFF();
+                }
+
             }
 
 
@@ -1075,7 +1085,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compo_anim_status = 0;
 
         //調合判定。エクストリーム調合の確率も含め計算する。
-        CompoundSuccess_judge();
+        //チュートリアルモードのときは100%成功
+        if (GameMgr.tutorial_ON == true)
+        {
+            compound_success = true;
+        }
+        else
+        {
+            CompoundSuccess_judge();
+        }
 
         if (compound_success == true)
         {
@@ -1137,6 +1155,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //カードで表示
             card_view.ResultCard_DrawView(1, new_item);
+
+            //チュートリアルのときは、一時的にOFF
+            if (GameMgr.tutorial_ON == true)
+            {
+                if (GameMgr.tutorial_Num == 250)
+                {
+                    card_view.SetinteractiveOFF();
+                }
+            }
 
             //右側パネルに、作ったやつを表示する。
             extremePanel.SetExtremeItem(new_item, 1);
@@ -1359,6 +1386,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
+                kakuritsuPanel_obj.SetActive(false);
 
                 //エフェクト生成＋アニメ開始
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
@@ -1401,9 +1429,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 3: //アニメ終了。判定する
 
-                //Debug.Log("アニメ終了");
-                compo_anim_end = true;
-
+                
                 //カードビューのカードアニメもストップ
                 card_view.cardcompo_anim_on = false;
                 card_view.DeleteCard_DrawView();
@@ -1424,7 +1450,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         GameMgr.tutorial_Progress = true;
                         GameMgr.tutorial_Num = 170;
                     }
+                    if (GameMgr.tutorial_Num == 245)
+                    {
+                        GameMgr.tutorial_Progress = true;
+                        GameMgr.tutorial_Num = 250;
+                    }
                 }
+
+                //Debug.Log("アニメ終了");
+                compo_anim_end = true;
 
                 break;
 

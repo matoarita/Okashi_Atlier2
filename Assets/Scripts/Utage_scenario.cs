@@ -584,6 +584,77 @@ public class Utage_scenario : MonoBehaviour
         engine.ResumeScenario();
 
 
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 220;
+
+        while (!GameMgr.tutorial_Progress) //エクストリーム調合をポチ
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 240;
+
+        while (!GameMgr.tutorial_Progress) //エクストリーム調合の、完了待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 260;
+
+        while (!GameMgr.tutorial_Progress) //カード押して、元画面に戻る待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Num = 280;
+
+        while (!GameMgr.tutorial_Progress) //再度、あげる待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)

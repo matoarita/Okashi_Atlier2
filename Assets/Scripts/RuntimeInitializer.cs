@@ -117,6 +117,10 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(soundcontroller_init);
         soundcontroller_init.tag = "SoundController";
 
+        //調合計算用メソッドオブジェクト
+        var combination_init = new GameObject("CombinationMain", typeof(CombinationMain));
+        GameObject.DontDestroyOnLoad(combination_init);
+
     }
 
 } // class RuntimeInitializer

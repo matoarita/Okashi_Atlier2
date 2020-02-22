@@ -82,6 +82,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public bool extremepanel_on; //extremeパネルからのエクストリーム調合かどうか。
 
+    private GameObject yes_button;
+    private GameObject no_button;
+
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
@@ -162,6 +165,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");      
 
+        yes_button = this.transform.Find("Yes").gameObject;
+        no_button = this.transform.Find("No").gameObject;
+
         if (compound_Main_obj != null) //ゲームのセットアップ時は無視
         {
             //キャンバスの読み込み
@@ -178,6 +184,15 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
 
         ResetKettei_item();
+
+        if (GameMgr.tutorial_ON == true)
+        {
+            no_button.SetActive(false);
+        }
+        else
+        {
+            no_button.SetActive(true);
+        }
 
         if ( extremepanel_on == true )
         {
@@ -565,13 +580,25 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     {
                         if (SceneManager.GetActiveScene().name == "Compound")
                         {
-                            //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                            if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Fruits" || 
-                                database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || 
-                                database.items[i].itemType_sub.ToString() == "IceCream")
+                            if (GameMgr.tutorial_ON == true)
                             {
-                                itemlist_hyouji();
+                                //チュートリアル時は、とりあえずオレンジだけ表示
+                                if (database.items[i].itemName == "orange")
+                                {
+                                    itemlist_hyouji();
+                                }
                             }
+                            else
+                            {
+                                //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
+                                if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Fruits" ||
+                                    database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate_Mat" ||
+                                    database.items[i].itemType_sub.ToString() == "IceCream")
+                                {
+                                    itemlist_hyouji();
+                                }
+                            }
+                            
                         }
                     }
                 }

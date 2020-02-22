@@ -635,39 +635,48 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         kettei_on_waiting = false;
 
         if (pitemlistController.kettei1_bunki == 2)
+        {
+            update_ListSelect_Flag = 1; //二個目まで、選択できないようにする。
+            update_ListSelect(); //アイテム選択時の、リストの表示処理
+
+            pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false; //選択していたものをキャンセル。
+
+            pitemlistController.kettei1_bunki = 1;
+
+            _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
+        }
+
+        if (pitemlistController.kettei1_bunki == 11)
+        {
+            update_ListSelect_Flag = 10; //ベースアイテム選択のみの状態
+            update_ListSelect(); //アイテム選択時の、リストの表示処理
+
+
+            pitemlistController._listitem[pitemlistController._count1].GetComponent<Toggle>().isOn = false;
+
+            pitemlistController.kettei1_bunki = 10;
+
+            _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一つ目のトッピングアイテムを選択してください。";
+
+            if (GameMgr.tutorial_ON == true)
             {
-                update_ListSelect_Flag = 1; //二個目まで、選択できないようにする。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
-
-                pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false; //選択していたものをキャンセル。
-
-                pitemlistController.kettei1_bunki = 1;
-
-                _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
+                no.SetActive(false);
             }
-
-            if (pitemlistController.kettei1_bunki == 11)
+            else
             {
-                update_ListSelect_Flag = 10; //ベースアイテム選択のみの状態
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
-
-
-                pitemlistController._listitem[pitemlistController._count1].GetComponent<Toggle>().isOn = false;
-
-                pitemlistController.kettei1_bunki = 10;
-
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一つ目のトッピングアイテムを選択してください。";
+                no.SetActive(true);
             }
+        }
 
 
-            card_view.DeleteCard_DrawView02();
-            card_view.OKCard_DrawView();
+        card_view.DeleteCard_DrawView02();
+        card_view.OKCard_DrawView();
 
-            yes.SetActive(false);
-            //no.SetActive(false);
-            updown_counter_obj.SetActive(false);
+        yes.SetActive(false);
+        //no.SetActive(false);
+        updown_counter_obj.SetActive(false);
 
-            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
 
@@ -682,38 +691,38 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //pitemlistController.kettei1_on = true; //トグル選択が持続している状態を表す
 
         if (pitemlistController.kettei1_bunki == 3)
-            {
-                update_ListSelect_Flag = 2; //二個目まで、選択できないようにする。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
+        {
+            update_ListSelect_Flag = 2; //二個目まで、選択できないようにする。
+            update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-                pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false; //三個目の選択はキャンセル
+            pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false; //三個目の選択はキャンセル
 
-                pitemlistController.kettei1_bunki = 2;
+            pitemlistController.kettei1_bunki = 2;
 
-                _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
-            }
+            _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+        }
 
-            if (pitemlistController.kettei1_bunki == 12)
-            {
-                update_ListSelect_Flag = 11; //ベース・一個目の選択の状態に戻る。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
+        if (pitemlistController.kettei1_bunki == 12)
+        {
+            update_ListSelect_Flag = 11; //ベース・一個目の選択の状態に戻る。
+            update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-                pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false;
+            pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false;
 
-                pitemlistController.kettei1_bunki = 11;
+            pitemlistController.kettei1_bunki = 11;
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
-            }
+            _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
+        }
 
-            card_view.DeleteCard_DrawView03();
-            card_view.OKCard_DrawView02();
+        card_view.DeleteCard_DrawView03();
+        card_view.OKCard_DrawView02();
 
-            yes_text.text = "決定";
-            //yes.SetActive(false);
-            //no.SetActive(false);
-            updown_counter_obj.SetActive(false);
+        yes_text.text = "決定";
+        //yes.SetActive(false);
+        //no.SetActive(false);
+        updown_counter_obj.SetActive(false);
 
-            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
 
@@ -728,25 +737,25 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         kettei_on_waiting = false;
         //pitemlistController.kettei1_on = true; //一個目は選択が持続している状態を表す
 
-            update_ListSelect_Flag = 12; //ベースアイテムと一個目・二個目を選択できないようにする。
-            update_ListSelect();
+        update_ListSelect_Flag = 12; //ベースアイテムと一個目・二個目を選択できないようにする。
+        update_ListSelect();
 
-            pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false;
+        pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false;
 
-            pitemlistController.kettei1_bunki = 12;
+        pitemlistController.kettei1_bunki = 12;
 
-            _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+        _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
 
-            card_view.DeleteCard_DrawView04();
-            card_view.OKCard_DrawView03();
+        card_view.DeleteCard_DrawView04();
+        card_view.OKCard_DrawView03();
 
 
-            yes_text.text = "決定";
-            //yes.SetActive(false);
-            //no.SetActive(false);
-            updown_counter_obj.SetActive(false);
+        yes_text.text = "決定";
+        //yes.SetActive(false);
+        //no.SetActive(false);
+        updown_counter_obj.SetActive(false);
 
-            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
     //リストからアイテム選択時に、選択したアイテムを再度入力できなくする処理

@@ -30,7 +30,7 @@ MonoBehaviour:
       comment: "\u3055\u304F\u3055\u304F\u611F\u304C20\u4EE5\u4E0A\u3001\u307E\u305F\u306F\u30E9\u30B9\u30AF"
     - ID: 2
       set_compID: 10
-      set1: 0
+      set1: 2
       set2: 20
       set3: 9999
       desc: "<color=#FF78B4>\u82B3\u9187\u306A\u9999\u308A\u306E\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"

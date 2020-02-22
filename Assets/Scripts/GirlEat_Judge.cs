@@ -943,10 +943,9 @@ public class GirlEat_Judge : MonoBehaviour {
         //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
         if (GameMgr.tutorial_ON == true)
         {
-            if (GameMgr.tutorial_Num == 105)
-            {                
+                           
                 StartCoroutine("WaitForSeconds");  //1秒まって次へ              
-            }
+            
         }
 
         compound_Main.compound_status = 0;
@@ -958,8 +957,16 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         yield return new WaitForSeconds(1.0f);
 
-        GameMgr.tutorial_Progress = true;
-        GameMgr.tutorial_Num = 110;
+        if (GameMgr.tutorial_Num == 105)
+        {
+            GameMgr.tutorial_Progress = true;
+            GameMgr.tutorial_Num = 110;
+        }
+        if (GameMgr.tutorial_Num == 280)
+        {
+            GameMgr.tutorial_Progress = true;
+            GameMgr.tutorial_Num = 290;
+        }
     }
 
     void InitializeItemSlotDicts()

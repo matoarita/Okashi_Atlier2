@@ -44,8 +44,16 @@ public class NewRecipiButton : MonoBehaviour {
 
         if (GameMgr.tutorial_ON == true)
         {
-            GameMgr.tutorial_Progress = true;
-            GameMgr.tutorial_Num = 80;
+            if (GameMgr.tutorial_Num == 75)
+            {
+                GameMgr.tutorial_Progress = true;
+                GameMgr.tutorial_Num = 80;
+            }
+            if (GameMgr.tutorial_Num == 265)
+            {
+                GameMgr.tutorial_Progress = true;
+                GameMgr.tutorial_Num = 270;
+            }
         }
 
         switch (compound_Main.compound_select)
