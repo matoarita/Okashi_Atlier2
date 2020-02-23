@@ -52,6 +52,7 @@ TagManager:
   - SlotChangeName
   - BGM
   - RecipiMemo_ScrollView
+  - Compound_Check
   layers:
   - Default
   - TransparentFX

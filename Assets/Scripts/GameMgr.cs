@@ -65,7 +65,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     [SerializeField]
     private bool gamestart_recipi_get;
 
-    
+
+    //ゲーム共通の固有の色
+    public static string ColorYellow;
+    public static string ColorPink;
+
 
     // Use this for initialization
     void Start () {
@@ -116,6 +120,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage1_clear_love = 100;
         stage2_clear_love = 200;
         stage3_clear_love = 450;
+
+        //各色の設定
+        ColorYellow = "<color=#FDFF80>";
+        ColorPink = "<color=#FF5CA1>";
     }
 	
 	// Update is called once per frame

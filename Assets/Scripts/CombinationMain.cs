@@ -6,6 +6,8 @@ using System.Linq;
 
 public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
 {
+    private ItemDataBase database;
+    private ItemCompoundDataBase databaseCompo;
 
     private int i, count;
     private int set_count;
@@ -26,8 +28,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
     public string resultitemName;
     public int result_compID;
 
-    private ItemDataBase database;
-    private ItemCompoundDataBase databaseCompo;
+    public bool kosu_Check;
 
     // Use this for initialization
     void Start () {
@@ -37,6 +38,9 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //個数も組み合わせ時判定するか
+        kosu_Check = true; //trueで個数判定あり 
 
         //CombinationSubSample();
     }
@@ -95,18 +99,36 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     databaseCompo.compoitems[count].cmpitemID_2 == itemset[youso[1]] &&
                     databaseCompo.compoitems[count].cmpitemID_3 == itemset[youso[2]])
                     {
-                    //更に、個数も確認。
-                    if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosuset[youso[0]] &&
-                        databaseCompo.compoitems[count].cmpitem_kosu2 == kosuset[youso[1]] &&
-                        databaseCompo.compoitems[count].cmpitem_kosu3 == kosuset[youso[2]])
-                        {
+
+                    switch(kosu_Check)
+                    {
+                        case false:
+
                             //一致していたら、true
                             Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
 
                             compFlag = true;
                             resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                             result_compID = count;
-                        }                    
+                            break;
+
+                        case true:
+
+                            //更に、個数も確認。
+                            if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosuset[youso[0]] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu2 == kosuset[youso[1]] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu3 == kosuset[youso[2]])
+                            {
+                                //一致していたら、true
+                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                            }
+                            break;
+                    }
+                                    
                     }
 
                 /*for (i = 0; i < youso.Count; i++) 
@@ -146,9 +168,31 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     //3個目がサブ
                     if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2])
                     {
-                        compFlag = true;
-                        resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                        result_compID = count;
+                        switch (kosu_Check)
+                        {
+                            case false:
+
+                                //一致していたら、true
+                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                                break;
+
+                            case true:
+
+                                //個数もチェック
+                                if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[0] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[1] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[2])
+                                {
+                                    compFlag = true;
+                                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                    result_compID = count;
+                                }
+                                break;
+                        }                        
 
                         break;
                     }
@@ -159,9 +203,32 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     //2個目がサブ
                     if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1])
                     {
-                        compFlag = true;
-                        resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                        result_compID = count;
+                        switch (kosu_Check)
+                        {
+                            case false:
+
+                                //一致していたら、true
+                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                                break;
+
+                            case true:
+
+                                //個数もチェック
+                                if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[0] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[2] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[1])
+                                {
+                                    compFlag = true;
+                                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                    result_compID = count;
+                                }
+                                break;
+                        }
+                        
 
                         break;
                     }
@@ -169,19 +236,65 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                 //2・3個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
                 else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[1] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2])
                 {
-                    //アイテム名＋サブ①＋サブ②。
-                    compFlag = true;
-                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                    result_compID = count;
+                    switch (kosu_Check)
+                    {
+                        case false:
+
+                            //一致していたら、true
+                            Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                            compFlag = true;
+                            resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                            result_compID = count;
+                            break;
+
+                        case true:
+
+                            //個数もチェック
+                            if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[0] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[1] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[2])
+                            {
+                                //アイテム名＋サブ①＋サブ②。
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                            }
+                            break;
+                    }
+                    
 
                     break;
                 }
                 else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[2] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1])
                 {
-                    //アイテム名＋サブ②＋サブ①。
-                    compFlag = true;
-                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                    result_compID = count;
+                    switch (kosu_Check)
+                    {
+                        case false:
+
+                            //一致していたら、true
+                            Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                            compFlag = true;
+                            resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                            result_compID = count;
+                            break;
+
+                        case true:
+
+                            //個数もチェック
+                            if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[0] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[2] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[1])
+                            {
+                                //アイテム名＋サブ②＋サブ①。
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                            }
+                            break;
+                    }
+                    
 
                     break;
                 }
@@ -196,9 +309,32 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     //3個目がサブ
                     if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2]) //3個目のサブも一致していた
                     {
-                        compFlag = true;
-                        resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                        result_compID = count;
+                        switch (kosu_Check)
+                        {
+                            case false:
+
+                                //一致していたら、true
+                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                                break;
+
+                            case true:
+
+                                //個数もチェック
+                                if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[1] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[0] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[2])
+                                {
+                                    compFlag = true;
+                                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                    result_compID = count;
+                                }
+                                break;
+                        }
+                        
 
                         break;
                     }
@@ -209,9 +345,32 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     //2個目がサブ
                     if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0]) //2個目のサブも一致していた
                     {
-                        compFlag = true;
-                        resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                        result_compID = count;
+                        switch (kosu_Check)
+                        {
+                            case false:
+
+                                //一致していたら、true
+                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                                break;
+
+                            case true:
+
+                                //個数もチェック
+                                if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[1] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[2] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[0])
+                                {
+                                    compFlag = true;
+                                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                    result_compID = count;
+                                }
+                                break;
+                        }
+                        
 
                         break;
                     }
@@ -219,17 +378,62 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                 //1・3個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
                 else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[0] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2])
                 {
-                    compFlag = true;
-                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                    result_compID = count;
+                    switch (kosu_Check)
+                    {
+                        case false:
+
+                            //一致していたら、true
+                            Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                            compFlag = true;
+                            resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                            result_compID = count;
+                            break;
+
+                        case true:
+
+                            //個数もチェック
+                            if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[1] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[0] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[2])
+                            {
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                            }
+                            break;
+                    }                   
 
                     break;
                 }
                 else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[2] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0])
                 {
-                    compFlag = true;
-                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                    result_compID = count;
+                    switch (kosu_Check)
+                    {
+                        case false:
+
+                            //一致していたら、true
+                            Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                            compFlag = true;
+                            resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                            result_compID = count;
+                            break;
+
+                        case true:
+
+                            //個数もチェック
+                            if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[1] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[2] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[0])
+                            {
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                            }
+                            break;
+                    }
+                    
 
                     break;
                 }
@@ -244,9 +448,31 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     //3個目がサブ
                     if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1])
                     {
-                        compFlag = true;
-                        resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                        result_compID = count;
+                        switch (kosu_Check)
+                        {
+                            case false:
+
+                                //一致していたら、true
+                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                                break;
+
+                            case true:
+
+                                //個数もチェック
+                                if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[2] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[0] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[1])
+                                {
+                                    compFlag = true;
+                                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                    result_compID = count;
+                                }
+                                break;
+                        }                       
 
                         break;
                     }
@@ -257,9 +483,32 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     //2個目がサブ
                     if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0])
                     {
-                        compFlag = true;
-                        resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                        result_compID = count;
+                        switch (kosu_Check)
+                        {
+                            case false:
+
+                                //一致していたら、true
+                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                                break;
+
+                            case true:
+
+                                //個数もチェック
+                                if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[2] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[1] &&
+                                    databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[0])
+                                {
+                                    compFlag = true;
+                                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                    result_compID = count;
+                                }
+                                break;
+                        }
+                        
 
                         break;
                     }
@@ -267,18 +516,62 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                 //1・2個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
                 if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[0] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1])
                 {
-                    compFlag = true;
-                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                    result_compID = count;
+                    switch (kosu_Check)
+                    {
+                        case false:
+
+                            //一致していたら、true
+                            Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                            compFlag = true;
+                            resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                            result_compID = count;
+                            break;
+
+                        case true:
+
+                            //個数もチェック
+                            if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[2] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[0] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[1])
+                            {
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                            }
+                            break;
+                    }                    
 
                     break;
                 }
                 //一致してた場合、残りの2個のサブタイプを見る
                 if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[1] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0])
                 {
-                    compFlag = true;
-                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
-                    result_compID = count;
+                    switch (kosu_Check)
+                    {
+                        case false:
+
+                            //一致していたら、true
+                            Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+
+                            compFlag = true;
+                            resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                            result_compID = count;
+                            break;
+
+                        case true:
+
+                            //個数もチェック
+                            if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosu[2] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu2 == kosu[1] &&
+                                databaseCompo.compoitems[count].cmpitem_kosu3 == kosu[0])
+                            {
+                                compFlag = true;
+                                resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                result_compID = count;
+                            }
+                            break;
+                    }                    
 
                     break;
                 }

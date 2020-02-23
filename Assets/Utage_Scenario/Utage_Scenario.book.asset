@@ -1184,7 +1184,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u5DE6\u306E\u6750\u6599\u30EA\u30B9\u30C8\u304B\u3089\u3001<color=#0000FFFF>\uFF12\u3064</color>\u3001\u3082\u3057\u304F\u306F<color=#0000FFFF>\uFF13\u3064</color>\u9078\u3093\u3067\u3001\u8ABF\u5408\u3057\u3066\u306D\u3002"
+      - "\u5DE6\u306E\u6750\u6599\u30EA\u30B9\u30C8\u304B\u3089\u3001<color=#FDFF80FF>\uFF12\u3064</color>\u3001\u3082\u3057\u304F\u306F<color=#FDFF80FF>\uFF13\u3064</color>\u9078\u3093\u3067\u3001\u8ABF\u5408\u3057\u3066\u306D\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -1469,7 +1469,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u4ECA\u5EA6\u306F<color=#0000FFFF>\u300C\u30A8\u30AF\u30B9\u30C8\u30EA\u30FC\u30E0\u8ABF\u5408\u300D</color>\u306B\u3064\u3044\u3066\u6559\u3048\u308B\u306D\uFF01"
+      - "\u4ECA\u5EA6\u306F<color=#FDFF80FF>\u300C\u30A8\u30AF\u30B9\u30C8\u30EA\u30FC\u30E0\u8ABF\u5408\u300D</color>\u306B\u3064\u3044\u3066\u6559\u3048\u308B\u306D\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -13160,7 +13160,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u5DE6\u306E\u6750\u6599\u30EA\u30B9\u30C8\u304B\u3089\u3001<color=#0000FFFF>\uFF12\u3064</color>\u3001\u3082\u3057\u304F\u306F<color=#0000FFFF>\uFF13\u3064</color>\u9078\u3093\u3067\u3001\u8ABF\u5408\u3057\u3066\u306D\u3002"
+      - "\u5DE6\u306E\u6750\u6599\u30EA\u30B9\u30C8\u304B\u3089\u3001<color=#FDFF80FF>\uFF12\u3064</color>\u3001\u3082\u3057\u304F\u306F<color=#FDFF80FF>\uFF13\u3064</color>\u9078\u3093\u3067\u3001\u8ABF\u5408\u3057\u3066\u306D\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -13481,7 +13481,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u4ECA\u5EA6\u306F<color=#0000FFFF>\u300C\u30A8\u30AF\u30B9\u30C8\u30EA\u30FC\u30E0\u8ABF\u5408\u300D</color>\u306B\u3064\u3044\u3066\u6559\u3048\u308B\u306D\uFF01"
+      - "\u4ECA\u5EA6\u306F<color=#FDFF80FF>\u300C\u30A8\u30AF\u30B9\u30C8\u30EA\u30FC\u30E0\u8ABF\u5408\u300D</color>\u306B\u3064\u3044\u3066\u6559\u3048\u308B\u306D\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 

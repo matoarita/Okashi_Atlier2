@@ -372,7 +372,7 @@ public class ExtremePanel : MonoBehaviour {
 
                 if (PlayerStatus.First_recipi_on == false)
                 {
-                    _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
+                    _text.text = compound_Main.originai_text;
                     compound_Main.compound_status = 3;
 
                     pitemlistController.extremepanel_on = false;

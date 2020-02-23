@@ -124,7 +124,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ
 
     public bool compound_success; //調合の成功か失敗
-    public int comp_judge_flag; //新規調合か生地合成の判定。0=新規調合。1=生地調合。
+    //public int comp_judge_flag; //新規調合か生地合成の判定。0=新規調合。1=生地調合。
 
     public bool NewRecipiFlag;  //新しいレシピをひらめいたフラグをON
     public int NewRecipi_compoID;   //そのときの、調合DBのID
@@ -636,43 +636,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //調合データベースのIDを代入
         result_ID = pitemlistController.result_compID;
 
-        //Debug.Log("comp_judge_flag: " + comp_judge_flag);
-
-        //トッピング調合用メソッドを流用するために、kettei_itemの変換
-
-        if (comp_judge_flag == 0) //新規調合の場合。
-        {
-            Comp_method_bunki = 0;
-        }
-
-        else if (comp_judge_flag == 1) //生地を合成する処理で、新規にアイテムは作成されない場合
-        {
-            Comp_method_bunki = 1; //生地を合成する時の分岐
-
-            base_kettei_item = kettei_item1;
-            kettei_item1 = kettei_item2;
-            kettei_item2 = kettei_item3;
-            kettei_item3 = 9999; //とりあえず、現状新規は3個までの調合なので、4個目のものは空に。
-
-            base_toggle_type = toggle_type1;
-            toggle_type1 = toggle_type2;
-            toggle_type2 = toggle_type3;
-            toggle_type3 = 0;
-
-            base_kosu = pitemlistController.final_kettei_kosu1;
-            final_kette_kosu1 = pitemlistController.final_kettei_kosu2;
-            final_kette_kosu2 = pitemlistController.final_kettei_kosu3;
-            final_kette_kosu3 = 0;
-
-            if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、二個で調合している。
-            {
-                kettei_item2 = 9999;
-                toggle_type2 = 0;
-                final_kette_kosu2 = 0;
-            }
-
-
-        }
+        Comp_method_bunki = 0;
+        
 
         //ウェイトアニメーション開始
         pitemlistController_obj.SetActive(false);
@@ -1712,29 +1677,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //最終的に生成されるアイテムの個数を決定
         if (result_ok == true) //オリジナル調合の場合
         {
-            switch (comp_judge_flag)
-            {
-                case 0: //新規調合
 
-                    result_kosu = 1;
+            result_kosu = 1;
 
-                    //ランダム 0 ~ 2
-                    var rand = Random.Range(0, 2);
+            //ランダム 0 ~ 2
+            var rand = Random.Range(0, 2);
 
-                    result_kosu += rand;
-
-                    break;
-
-                case 1: //トッピング　もしくは、生地合成
-
-                    result_kosu = pitemlistController.final_kettei_kosu1;
-                    break;
+            result_kosu += rand;
 
 
-                default:
-
-                    break;
-            }
         }
         else if (recipiresult_ok == true) //レシピ調合の場合
         {
@@ -2138,11 +2089,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (total_kosu == 0) { total_kosu = 1; } //0で割り算する恐れがあるので、回避
 
         //日数・品質は、全て加算したあとに、トータル個数で割り算
-        //_basehp += _temphp;
         _baseday += _tempday;
         _basequality += _tempquality;
 
-        //_basehp /= total_kosu;
         _baseday /= total_kosu;
         _basequality /= total_kosu;
 
@@ -3080,7 +3029,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
 
     }
-
 
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

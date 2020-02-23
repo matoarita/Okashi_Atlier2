@@ -23,6 +23,9 @@ public class recipiitemSelectToggle : MonoBehaviour
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject compound_Check_obj;
+    private Compound_Check compound_Check;
+
     private GameObject recipilistController_obj;
     private RecipiListController recipilistController;
     private Exp_Controller exp_Controller;
@@ -99,6 +102,9 @@ public class recipiitemSelectToggle : MonoBehaviour
 
             kakuritsuPanel_obj = GameObject.FindWithTag("KakuritsuPanel");
             kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+            compound_Check_obj = GameObject.FindWithTag("Compound_Check");
+            compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
         }
 
         recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
@@ -116,12 +122,10 @@ public class recipiitemSelectToggle : MonoBehaviour
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
         
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
-
-
+        
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
@@ -145,16 +149,7 @@ public class recipiitemSelectToggle : MonoBehaviour
 
     void Update()
     {
-        if (recipilistController.final_recipiselect_flag == true)
-        {
-            text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-            _text = text_area.GetComponentInChildren<Text>();
 
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-            StartCoroutine("recipiFinal_select");
-        }
     }
 
     //Output the new state of the Toggle into Text
@@ -263,8 +258,8 @@ public class recipiitemSelectToggle : MonoBehaviour
 
                 recipilistController._recipi_listitem[count].GetComponent<Toggle>().interactable = false;
 
-                recipilistController.final_recipiselect_flag = true; //最後、これでよいかどうかを聞くフラグをオン
-               
+                compound_Check.final_select_flag = true;
+
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 Debug.Log("レシピ選択完了！");
@@ -287,67 +282,5 @@ public class recipiitemSelectToggle : MonoBehaviour
         }
 
     }
-
-    IEnumerator recipiFinal_select()
-    {
-        _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "を" + recipilistController.final_select_kosu + "個 作成しますか？";
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-
-            case true: //決定が押された
-
-                //Debug.Log("ok");
-                //解除
-                for (i = 0; i < recipilistController._recipi_listitem.Count; i++)
-                {
-                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = true;
-                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
-                }
-                
-                recipilistController.final_recipiselect_flag = false;
-
-                exp_Controller.recipiresult_ok = true; //レシピ調合完了のフラグ。これがONになったら、アイテムリストを更新する。
-
-                itemselect_cancel.kettei_on_waiting = false;
-
-                yes.SetActive(false);
-                //no.SetActive(false);
-                updown_counter_obj.SetActive(false);
-
-                //card_view.DeleteCard_DrawView();
-                card_view.CardCompo_Anim();
-
-                compound_Main.compound_status = 4;
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
-                exp_Controller.Recipi_ResultOK();
-
-                Debug.Log("選択完了！");
-                break;
-
-            case false: //キャンセルが押された
-
-                //Debug.Log("一個目はcancel");
-
-                recipilistController.final_recipiselect_flag = false;
-
-                for (i = 0; i < recipilistController._recipi_listitem.Count; i++)
-                {
-                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = true;
-                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
-                }
-
-                itemselect_cancel.All_cancel();
-
-                break;
-        }
-    }
+ 
 }

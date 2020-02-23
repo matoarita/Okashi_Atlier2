@@ -22,6 +22,10 @@ public class Compound_Check : MonoBehaviour {
 
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
+
+    private GameObject recipilistController_obj;
+    private RecipiListController recipilistController;
+
     private Exp_Controller exp_Controller;
 
     private GameObject card_view_obj;
@@ -60,6 +64,8 @@ public class Compound_Check : MonoBehaviour {
     private int itemID_1;
     private int itemID_2;
     private int itemID_3;
+
+    public bool final_select_flag;
 
     private int i;
 
@@ -105,7 +111,7 @@ public class Compound_Check : MonoBehaviour {
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
-        
+        final_select_flag = false;
     }
 	
 	// Update is called once per frame
@@ -117,6 +123,9 @@ public class Compound_Check : MonoBehaviour {
             pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
             pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
+            recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+            recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
@@ -125,31 +134,49 @@ public class Compound_Check : MonoBehaviour {
             no = pitemlistController_obj.transform.Find("No").gameObject;
         }
 
-        if (compound_Main.compound_select == 3) //オリジナル調合のときの処理
+        if (final_select_flag == true) //最後、これで調合するかどうかを待つフラグ
         {
-            if (pitemlistController.final_select_flag == true) //最後、これで調合するかどうかを待つフラグ
+            if (compound_Main.compound_select == 1) //レシピ調合のときの処理
             {
+
+                compound_Main.compound_status = 110;
 
                 SelectPaused();
 
-                pitemlistController.final_select_flag = false;
+                final_select_flag = false;
+
+                StartCoroutine("recipiFinal_select");
+
+            }
+
+            if (compound_Main.compound_select == 2) //トッピング調合のときの処理
+            {
+
+                compound_Main.compound_status = 110;
+
+                SelectPaused();
+
+                final_select_flag = false;
+
+                StartCoroutine("topping_Final_select");
+
+            }
+
+            if (compound_Main.compound_select == 3) //オリジナル調合のときの処理
+            {
+
+                compound_Main.compound_status = 110;
+
+                SelectPaused();
+
+                final_select_flag = false;
 
                 StartCoroutine("Final_select");
+
             }
         }
         
-        else if (compound_Main.compound_select == 2) //トッピング調合のときの処理
-        {
-            if (pitemlistController.final_select_flag == true) //最後、これで調合するかどうかを待つフラグ
-            {
-
-                SelectPaused();
-
-                //pitemlistController.final_select_flag = false;
-
-                StartCoroutine("topping_Final_select");
-            }
-        }
+        
     }
 
     IEnumerator Final_select()
@@ -168,9 +195,11 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView02();
 
-                CompoundMethod(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+                CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
-                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "　調合しますか？" + "\n" + success_text;
+                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
+                    + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
+                    + "　調合しますか？" + "\n" + success_text;
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
@@ -204,6 +233,7 @@ public class Compound_Check : MonoBehaviour {
 
                         //Debug.Log("1個目を選択した状態に戻る");
 
+                        compound_Main.compound_status = 100;
                         itemselect_cancel.Two_cancel();
 
                         break;
@@ -218,9 +248,12 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView03();
 
-                CompoundMethod(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+                CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
-                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + "\n" + "　調合しますか？" + success_text;
+                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
+                    + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
+                    + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + "\n" 
+                    + "　調合しますか？" + success_text;
 
                 //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
 
@@ -256,6 +289,7 @@ public class Compound_Check : MonoBehaviour {
 
                         //Debug.Log("三個目はcancel");
 
+                        compound_Main.compound_status = 100;
                         itemselect_cancel.Three_cancel();
 
                         break;
@@ -280,7 +314,7 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView02();
 
-                CompoundMethod(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
+                CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
 
                 _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "をトッピングします。" + "\n" + "　調合しますか？";
 
@@ -291,8 +325,6 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
-
-                pitemlistController.final_select_flag = false;
 
                 switch (yes_selectitem_kettei.kettei1)
                 {
@@ -341,6 +373,7 @@ public class Compound_Check : MonoBehaviour {
                     case false:
 
                         //Debug.Log("ベースアイテムを選択した状態に戻る");
+                        compound_Main.compound_status = 100;
 
                         exp_Controller._success_rate = 100;
                         kakuritsuPanel.KakuritsuYosoku_Reset();
@@ -360,7 +393,7 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView03();
 
-                CompoundMethod(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
+                CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
 
                 _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "　調合しますか？";
 
@@ -371,8 +404,6 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
-
-                pitemlistController.final_select_flag = false;
 
                 switch (yes_selectitem_kettei.kettei1)
                 {
@@ -421,6 +452,7 @@ public class Compound_Check : MonoBehaviour {
                     case false:
 
                         //Debug.Log("1個目を選択した状態に戻る");
+                        compound_Main.compound_status = 100;
 
                         exp_Controller._success_rate = exp_Controller._temp_srate_1;
                         kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
@@ -471,6 +503,7 @@ public class Compound_Check : MonoBehaviour {
                     case false:
 
                         //Debug.Log("2個目を選択した状態に戻る");
+                        compound_Main.compound_status = 100;
 
                         exp_Controller._success_rate = exp_Controller._temp_srate_2;
                         kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_2);
@@ -482,7 +515,73 @@ public class Compound_Check : MonoBehaviour {
         }
     }
 
-    public void CompoundMethod()
+    IEnumerator recipiFinal_select()
+    {
+        _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "を" + recipilistController.final_select_kosu + "個 作成しますか？";
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された
+
+                //Debug.Log("ok");
+                //解除
+                for (i = 0; i < recipilistController._recipi_listitem.Count; i++)
+                {
+                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = true;
+                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                recipilistController.final_recipiselect_flag = false;
+
+                exp_Controller.recipiresult_ok = true; //レシピ調合完了のフラグ。これがONになったら、アイテムリストを更新する。
+
+                itemselect_cancel.kettei_on_waiting = false;
+
+                yes.SetActive(false);
+                //no.SetActive(false);
+                updown_counter_obj.SetActive(false);
+
+                //card_view.DeleteCard_DrawView();
+                card_view.CardCompo_Anim();
+
+                compound_Main.compound_status = 4;
+
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+                exp_Controller.Recipi_ResultOK();
+
+                Debug.Log("選択完了！");
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("一個目はcancel");
+
+                recipilistController.final_recipiselect_flag = false;
+
+                for (i = 0; i < recipilistController._recipi_listitem.Count; i++)
+                {
+                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = true;
+                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                compound_Main.compound_status = 100;
+                itemselect_cancel.All_cancel();
+
+                break;
+        }
+    }
+
+
+
+    void CompoundJudge()
     {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
@@ -620,9 +719,7 @@ public class Compound_Check : MonoBehaviour {
 
 
 
-        //新規調合で新しいアイテムが作成される場合の処理。
-        //さらに生地への合成か、全く新しいアイテムが作成されるかで変わる。
-        //コンポDBに一致するものがあった場合は、以下の処理を行う。
+        //調合判定
 
         if (compoDB_select_judge == true)
         {
@@ -630,45 +727,41 @@ public class Compound_Check : MonoBehaviour {
             //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
             _success_rate = databaseCompo.compoitems[pitemlistController.result_compID].success_Rate + (PlayerStatus.player_renkin_lv);
 
-            //一個目が生地ではなく、小麦粉も使われていない。全く新しいアイテムが生成される。
+            if (_success_rate >= 0.0 && _success_rate < 20.0)
             {
-                exp_Controller.comp_judge_flag = 0; //新規調合の場合は0にする。
-
-                if (_success_rate >= 0.0 && _success_rate < 20.0)
-                {
-                    //成功率超低い
-                    success_text = "これは.. 奇跡が起こればあるいは・・。";
-                }
-                else if (_success_rate >= 20.0 && _success_rate < 40.0)
-                {
-                    //成功率低め
-                    success_text = "かなりきつい・・かも。";
-                }
-                else if (_success_rate >= 40.0 && _success_rate < 60.0)
-                {
-                    //普通
-                    success_text = "頑張れば、いける・・！";
-                }
-                else if (_success_rate >= 60.0 && _success_rate < 80.0)
-                {
-                    //成功率高め
-                    success_text = "問題なくいけそうだね。";
-                }
-                else if (_success_rate >= 80.0 && _success_rate < 99.9)
-                {
-                    //成功率かなり高い
-                    success_text = "これなら楽勝！！";
-                }
-                else //100%~
-                {
-                    //１００％成功
-                    success_text = "100%パーフェクト！";
-                }
+                //成功率超低い
+                success_text = "これは.. 奇跡が起こればあるいは・・。";
             }
+            else if (_success_rate >= 20.0 && _success_rate < 40.0)
+            {
+                //成功率低め
+                success_text = "かなりきつい・・かも。";
+            }
+            else if (_success_rate >= 40.0 && _success_rate < 60.0)
+            {
+                //普通
+                success_text = "頑張れば、いける・・！";
+            }
+            else if (_success_rate >= 60.0 && _success_rate < 80.0)
+            {
+                //成功率高め
+                success_text = "問題なくいけそうだね。";
+            }
+            else if (_success_rate >= 80.0 && _success_rate < 99.9)
+            {
+                //成功率かなり高い
+                success_text = "これなら楽勝！！";
+            }
+            else //100%~
+            {
+                //１００％成功
+                success_text = "100%パーフェクト！";
+            }
+
 
             //調合判定を行うかどうか
 
-            //新規調合の場合　もしくは、　エクストリーム調合の場合で、新しいレシピをひらめきそうな場合。下がエクストリーム調合
+            //新規調合の場合　もしくは、　エクストリーム調合の場合で、新しいレシピをひらめきそうな場合。else ifがエクストリーム調合の場合
             if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
             {
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
@@ -681,117 +774,30 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
                 exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+
                 //kakuritsuPanel.KakuritsuYosoku_NewImg();
                 //success_text = "新しいお菓子を思いつきそうだ。";
             }
         }
 
-        //どの調合リストにも当てはまらなかった場合（result_item=500）、
-        //生地にアイテムを合成するのか、どの組み合わせにも当てはまらず単純に失敗するのか、の判定をさらに行う
+        //どの調合リストにも当てはまらなかった場合
         else
         {
-            //Debug.Log("どの調合リストにも当てはまらなかった。");
-
-            //オリジナル調合の場合は、生地合成、もしくは単純に失敗かの判定
-            if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
-            {
-                //一個目に選んだアイテムが、生地タイプのアイテムの場合で、2個目のアイテムが合成用のアイテムであれば、
-                //成功失敗の判定処理はせず、生地にアイテムを合成する処理になる。
-
-                if (database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pate ||
-                database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Cookie_base ||
-                database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Pie_base ||
-                database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Chocolate_base ||
-                database.items[pitemlistController.final_kettei_item1].itemType_sub == Item.ItemType_sub.Cake_base)
-                {
-
-                    switch (database.items[pitemlistController.final_kettei_item2].itemType_sub)
-                    {
-                        case Item.ItemType_sub.Fruits:
-
-                            success_text = "生地にアイテムを合成します。";
-                            exp_Controller._success_judge_flag = 0; //必ず成功する
-                            exp_Controller.comp_judge_flag = 1; //1の場合、生地にアイテムを合成する処理のフラグ
-                            kakuritsuPanel.KakuritsuYosoku_Img(100);
-                            break;
-
-                        case Item.ItemType_sub.Nuts:
-
-                            success_text = "生地にアイテムを合成します。";
-                            exp_Controller._success_judge_flag = 0; //必ず成功する
-                            exp_Controller.comp_judge_flag = 1;
-                            kakuritsuPanel.KakuritsuYosoku_Img(100);
-                            break;
-
-                        case Item.ItemType_sub.Suger:
-
-                            success_text = "生地にアイテムを合成します。";
-                            exp_Controller._success_judge_flag = 0; //必ず成功する
-                            exp_Controller.comp_judge_flag = 1;
-                            kakuritsuPanel.KakuritsuYosoku_Img(100);
-                            break;
-
-                        case Item.ItemType_sub.Komugiko:
-
-                            success_text = "生地にアイテムを合成します。";
-                            exp_Controller._success_judge_flag = 0; //必ず成功する
-                            exp_Controller.comp_judge_flag = 1;
-                            kakuritsuPanel.KakuritsuYosoku_Img(100);
-                            break;
-
-                        case Item.ItemType_sub.Butter:
-
-                            success_text = "生地にアイテムを合成します。";
-                            exp_Controller._success_judge_flag = 0; //必ず成功する
-                            exp_Controller.comp_judge_flag = 1;
-                            kakuritsuPanel.KakuritsuYosoku_Img(100);
-                            break;
-
-                        case Item.ItemType_sub.Source:
-
-                            success_text = "生地にアイテムを合成します。";
-                            exp_Controller._success_judge_flag = 0; //必ず成功する
-                            exp_Controller.comp_judge_flag = 1;
-                            kakuritsuPanel.KakuritsuYosoku_Img(100);
-                            break;
-
-                        case Item.ItemType_sub.Potion:
-
-                            success_text = "生地にアイテムを合成します。";
-                            exp_Controller._success_judge_flag = 0; //必ず成功する
-                            exp_Controller.comp_judge_flag = 1;
-                            kakuritsuPanel.KakuritsuYosoku_Img(100);
-                            break;
-
-                        default:
-
-                            //2個目のアイテムが、上記のパターンにあてはまらない場合は、失敗する。
-
-                            exp_Controller._success_judge_flag = 2; //必ず失敗する
-                            success_text = "これは.. ダメかもしれぬ。";
-                            kakuritsuPanel.KakuritsuYosoku_Img(0);
-                            break;
-                    }
-
-                }
-
-                //一個目が生地でない場合、
-                //DBにも登録されておらず、生地への合成でもないので、失敗する。
-
-                else
-                {
-                    //失敗
-                    exp_Controller._success_judge_flag = 2; //必ず失敗する
-                    success_text = "これは.. ダメかもしれぬ。";
-                    kakuritsuPanel.KakuritsuYosoku_Img(0);
-                }
-            }
+            //Debug.Log("どの調合リストにも当てはまらなかった。");            
 
             //エクストリーム調合の場合は、通常通りトッピングの処理を行う。
-            else if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
+            if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
             {
 
             }
+            else
+            {
+                //失敗
+                exp_Controller._success_judge_flag = 2; //必ず失敗する
+                success_text = "これは.. ダメかもしれぬ。";
+                kakuritsuPanel.KakuritsuYosoku_Img(0);
+            }
+                            
         }
 
         //判定予測処理　ここまで//
@@ -799,10 +805,20 @@ public class Compound_Check : MonoBehaviour {
 
     void SelectPaused()
     {
-        //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
-        for (i = 0; i < pitemlistController._listitem.Count; i++)
+        if (compound_Main.compound_select == 1) //レシピ調合のときの処理
         {
-            pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;
+            for (i = 0; i < recipilistController._recipi_listitem.Count; i++)
+            {
+                recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = false;
+            }
+        }
+        else //それ以外の調合
+        {
+            //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
+            for (i = 0; i < pitemlistController._listitem.Count; i++)
+            {
+                pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;
+            }
         }
 
         yes.SetActive(true);
@@ -812,7 +828,7 @@ public class Compound_Check : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "Compound")
         {
-            if (pitemlistController.final_select_flag == true)
+            if (final_select_flag == true)
             {
                 yes_text.text = "制作開始！";
             }

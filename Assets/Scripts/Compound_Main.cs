@@ -128,6 +128,10 @@ public class Compound_Main : MonoBehaviour
 
     public int event_itemID; //イベントレシピ使用時のイベントのID
 
+    public string originai_text;
+    public string extreme_text;
+    public string recipi_text;
+
 
     // Use this for initialization
     void Start()
@@ -314,6 +318,12 @@ public class Compound_Main : MonoBehaviour
                 break;
         }
 
+
+        //各調合時のシステムメッセージ集
+        originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
+        extreme_text = "エクストリーム調合をするよ！ 一個目の材料を選んでね。";
+        recipi_text = "レシピから作るよ。何を作る？";
+
     }
 
     // Update is called once per frame
@@ -397,7 +407,7 @@ public class Compound_Main : MonoBehaviour
 
                         pitemlistController.Oninteract();
                         text_area.SetActive(true);
-                        _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
+                        _text.text = originai_text;
 
                         GameMgr.tutorial_Num = 55;
                         break;
@@ -823,7 +833,7 @@ public class Compound_Main : MonoBehaviour
 
                 text_scenario();
 
-                compound_status = 100; //退避
+                compound_status = 110; //退避
                 break;
 
             case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
@@ -1066,7 +1076,7 @@ public class Compound_Main : MonoBehaviour
                 compoundselect_onoff_obj.SetActive(false);
                 saveload_panel.SetActive(false);
                 black_panel_A.SetActive(true);
-                compound_status = 4;
+                compound_status = 99;
                 compound_select = 99;
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
 
@@ -1104,7 +1114,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            _text.text = "レシピから作るよ。何を作る？";
+            _text.text = recipi_text;
             compound_status = 1;
         }
     }
@@ -1114,7 +1124,7 @@ public class Compound_Main : MonoBehaviour
         card_view.DeleteCard_DrawView();
         SelectCompo_panel_1.SetActive(false);
 
-        _text.text = "レシピから作るよ。何を作る？";
+        _text.text = recipi_text;
         compound_status = 1;
     }
 
@@ -1127,7 +1137,7 @@ public class Compound_Main : MonoBehaviour
             pitemlistController.extremepanel_on = false;
             card_view.DeleteCard_DrawView();
 
-            _text.text = "エクストリーム調合をするよ！ まずは、お菓子を選んでね。";
+            _text.text = extreme_text;
             compound_status = 2;
         }
     }
@@ -1147,7 +1157,7 @@ public class Compound_Main : MonoBehaviour
                 card_view.DeleteCard_DrawView();
                 SelectCompo_panel_1.SetActive(false);
 
-                _text.text = "エクストリーム調合をするよ！ 一個目の材料を選んでね。";
+                _text.text = extreme_text;
                 compound_status = 2;
 
                 if (GameMgr.tutorial_ON == true)
@@ -1168,7 +1178,7 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
             SelectCompo_panel_1.SetActive(false);
 
-            _text.text = "エクストリーム調合をするよ！ 一個目の材料を選んでね。";
+            _text.text = extreme_text;
             compound_status = 2;
 
         }
@@ -1183,7 +1193,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
+            _text.text = originai_text;
             compound_status = 3;
         }
     }
@@ -1193,7 +1203,7 @@ public class Compound_Main : MonoBehaviour
         card_view.DeleteCard_DrawView();
         SelectCompo_panel_1.SetActive(false);
 
-        _text.text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + "<color=#0000FF>" + "２つ" + "</color>" + "か" + "<color=#0000FF>" + "３つ" + "</color>" + "選んでね。";
+        _text.text = originai_text;
         compound_status = 3;
     }
 

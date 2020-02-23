@@ -4419,6 +4419,46 @@ MonoBehaviour:
       koyu_topping: Non
       item_hyouji: 1
     - ItemID: 410
+      file_name: maple_syrup
+      name: sakura_chip
+      nameHyouji: "\u3055\u304F\u3089\u306E\u82B1\u3073\u3089"
+      desc: "\u3055\u304F\u3089\u306E\u82B1\u3073\u3089\u3002\u3061\u3063\u3061\u3083\u304F\u3066\u53EF\u6190\u3067\u3001\u7F8E\u3057\u3044\u3002\u67D4\u3089\u304B\u306A\u30D4\u30F3\u30AF\u8272\u3092\u51FA\u305B\u308B\u3002"
+      hp: 0
+      day: 0
+      quality: 50
+      exp: 50
+      ex_probability: 0.88
+      rich: 0
+      sweat: 5
+      bitter: 0
+      sour: 0
+      crispy: 50
+      fluffy: 50
+      smooth: 50
+      hardness: 50
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 10
+      type: Potion
+      subtype: Source
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Maple
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping: Non
+      item_hyouji: 1
+    - ItemID: 411
       file_name: row_cream
       name: row_cream
       nameHyouji: "\u751F\u30AF\u30EA\u30FC\u30E0"
@@ -4458,7 +4498,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 411
+    - ItemID: 412
       file_name: row_cream
       name: whipped cream
       nameHyouji: "\u30DB\u30A4\u30C3\u30D7\u30AF\u30EA\u30FC\u30E0"
@@ -4498,7 +4538,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 412
+    - ItemID: 413
       file_name: star_powder
       name: star_powder
       nameHyouji: "\u307B\u3057\u306E\u7C89"
@@ -4538,7 +4578,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 413
+    - ItemID: 414
       file_name: cornFrake
       name: corn_frake
       nameHyouji: "\u30B3\u30FC\u30F3\u30D5\u30EC\u30FC\u30AF"
@@ -4578,7 +4618,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 414
+    - ItemID: 415
       file_name: cream_cheese
       name: cream_cheese
       nameHyouji: "\u30AF\u30EA\u30FC\u30E0\u30C1\u30FC\u30BA"

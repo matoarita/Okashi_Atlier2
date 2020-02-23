@@ -23,6 +23,9 @@ public class itemSelectToggle : MonoBehaviour
 
     private CombinationMain Combinationmain;
 
+    private GameObject compound_Check_obj;
+    private Compound_Check compound_Check;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -125,6 +128,9 @@ public class itemSelectToggle : MonoBehaviour
 
             kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
             kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+            compound_Check_obj = GameObject.FindWithTag("Compound_Check");
+            compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
         }
 
 
@@ -607,7 +613,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                pitemlistController.final_select_flag = true; //最後調合するかどうかのフラグをオンに。
+                compound_Check.final_select_flag = true;
+
 
                 break;
 
@@ -1017,7 +1024,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.final_kettei_kosu3 = updown_counter.updown_kosu;
 
-                pitemlistController.final_select_flag = true; //最後調合するかどうかのフラグをオンに。
+                compound_Check.final_select_flag = true;
 
 
                 yes_text.text = "トッピング開始！";
@@ -1035,8 +1042,6 @@ public class itemSelectToggle : MonoBehaviour
 
                 break;
         }
-
-
     }
     
 
@@ -1121,82 +1126,6 @@ public class itemSelectToggle : MonoBehaviour
      
         }
     }
-
-
-    /* ### 調合シーンで、女の子にお菓子をあげる処理 ＜エクストリーム調合に方針変え＞ ### */
-    /*
-    public void Girl_present()
-    {
-        count = 0;
-
-        while (count < pitemlistController._listitem.Count)
-        {
-            selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
-            if (selectToggle == true) break;
-            ++count;
-        }
-
-        //リスト中の選択された番号を格納。
-        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
-
-        //表示中リストの、リスト番号を保存。
-        pitemlistController._count1 = count;
-
-        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
-        pitemlistController.final_kettei_item1 = itemID_1;
-
-        pitemlistController.kettei1_bunki = 9999; //分岐なし。テキストの更新を避けるため、とりあえず適当な数字を入れて回避。
-
-        _text.text = database.items[itemID_1].itemNameHyouji + "をあげますか？";
-
-        //Debug.Log(count + "番が押されたよ");
-        //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
-        //Debug.Log("これでいいですか？");
-
-        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
-
-        SelectPaused();
-
-        StartCoroutine("Girl_present_Final_select");
-    }
-
-    IEnumerator Girl_present_Final_select()
-    {
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-            case true:
-
-                //女の子にアイテムをあげる処理
-                compound_Main.compound_status = 11; //status=11で処理。
-
-                card_view.DeleteCard_DrawView();
-
-                Off_Flag_Setting();
-
-                break;
-
-            case false:
-
-                //Debug.Log("一個目はcancel");
-
-                //_text.text = "焼きたい生地を選択してください。";
-
-                itemselect_cancel.All_cancel();
-                break;
-
-        }
-    }
-    */
-
 
 
 
@@ -1369,7 +1298,7 @@ public class itemSelectToggle : MonoBehaviour
     }
 
 
-
+    
     void Off_Flag_Setting()
     {
         //解除
@@ -1412,7 +1341,7 @@ public class itemSelectToggle : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Compound")
         {
-            if (pitemlistController.final_select_flag == true)
+            if (compound_Check.final_select_flag == true)
             {
                 yes_text.text = "制作開始！";
             }
