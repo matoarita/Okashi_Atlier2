@@ -22,6 +22,7 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
     private List<string> slot_HyoujiList = new List<string>();
 
     private int i, count;
+    private string color;
 
     // Use this for initialization
     void Start()
@@ -36,13 +37,14 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
     }
 
     //指定したIDの、プレイヤーオリジナルアイテムの、正式名称を表示する。 
-    public void slotChangeName( int _itemtype, int _itemID)
+    public void slotChangeName( int _itemtype, int _itemID, string _name_color)
     {
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
 
         itemID = _itemID;
         itemType = _itemtype;
+        color = _name_color;
 
         if (itemType == 0)
         {
@@ -113,10 +115,25 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
             }
         }
 
-        for (i = 0; i < slot_HyoujiList.Count; i++)
+        switch(color)
         {
-            _slotHyouji[i] = "<color=#0000FF>" + slot_HyoujiList[i] + "</color>";
+            case "blue":
+
+                for (i = 0; i < slot_HyoujiList.Count; i++)
+                {
+                    _slotHyouji[i] = GameMgr.ColorBlue + slot_HyoujiList[i] + "</color>";
+                }
+                break;
+
+            case "yellow":
+
+                for (i = 0; i < slot_HyoujiList.Count; i++)
+                {
+                    _slotHyouji[i] = GameMgr.ColorYellow + slot_HyoujiList[i] + "</color>";
+                }
+                break;
         }
+        
 
     }
 

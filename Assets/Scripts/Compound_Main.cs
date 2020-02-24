@@ -122,6 +122,7 @@ public class Compound_Main : MonoBehaviour
     private int recipi_num;
     private int comp_ID;
     private int clear_love;
+    private int recipi_id;
 
     public int compound_status;
     public int compound_select;
@@ -1693,10 +1694,13 @@ public class Compound_Main : MonoBehaviour
                     else if (girl1_status.girl1_Love_exp >= 25)
                     {
 
-                        if (GameMgr.GirlLoveEvent_01 != true)
+                        if (GameMgr.GirlLoveEvent_01 != true) //ステージ１　好感度イベント１
                         {
                             GameMgr.GirlLoveEvent_num = 1;
                             GameMgr.GirlLoveEvent_01 = true;
+
+                            recipi_id = Find_eventitemdatabase("rusk_recipi");
+                            pitemlist.add_eventPlayerItem(recipi_id, 1); //ナジャの基本のレシピを追加
 
                             //_text.text = "イベント１をON。" + "\n" + "お兄ちゃん。誰かお客さんがきたよ。";
 
@@ -1760,5 +1764,20 @@ public class Compound_Main : MonoBehaviour
 
         check_GirlLoveEvent_flag = true;
     }
-    
+
+    //アイテム名を入力すると、該当するeventitem_IDを返す処理
+    public int Find_eventitemdatabase(string compo_itemname)
+    {
+        j = 0;
+        while (j < pitemlist.eventitemlist.Count)
+        {
+            if (compo_itemname == pitemlist.eventitemlist[j].event_itemName)
+            {
+                return j;
+            }
+            j++;
+        }
+
+        return 9999; //該当するIDがない場合
+    }
 }

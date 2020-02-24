@@ -299,7 +299,7 @@ public class ExtremePanel : MonoBehaviour {
             extreme_kaisu = pitemlist.player_originalitemlist[extreme_itemID].ExtremeKaisu;
 
             //スロットの正式名称計算
-            slotchangename.slotChangeName(extreme_itemtype, extreme_itemID);
+            slotchangename.slotChangeName(extreme_itemtype, extreme_itemID, "yellow");
 
             _slotHyouji2[0] = slotchangename._slotHyouji[0];
             _slotHyouji2[1] = slotchangename._slotHyouji[1];
@@ -495,6 +495,9 @@ public class ExtremePanel : MonoBehaviour {
 
         //お金の取得
         moneyStatus_Controller.GetMoney(Okashi_moneypram_int);
+
+        //効果音
+        sc.PlaySe(31);
 
         //持ち物から減らす。
         if (extreme_itemtype == 0) //デフォルトアイテムの場合

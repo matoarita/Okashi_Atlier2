@@ -69,6 +69,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ゲーム共通の固有の色
     public static string ColorYellow;
     public static string ColorPink;
+    public static string ColorRed;
+    public static string ColorBlue;
 
 
     // Use this for initialization
@@ -124,6 +126,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //各色の設定
         ColorYellow = "<color=#FDFF80>";
         ColorPink = "<color=#FF5CA1>";
+        ColorRed = "<color=#FF0000>";
+        ColorBlue = "<color=#0000FF>";
     }
 	
 	// Update is called once per frame
@@ -193,11 +197,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             if (scenario_flag == 110)
             {
-                Find_eventitemdatabase("najya_start_recipi");
+                ev_id = Find_eventitemdatabase("najya_start_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
 
 
-                Find_eventitemdatabase("ev01_neko_cookie_recipi");
+                ev_id = Find_eventitemdatabase("ev01_neko_cookie_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
 
                 gamestart_recipi_get = true; //ゲットしたよフラグをONに。
@@ -206,17 +210,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     }
 
     //アイテム名を入力すると、該当するeventitem_IDを返す処理
-    void Find_eventitemdatabase(string compo_itemname)
+    public int Find_eventitemdatabase(string compo_itemname)
     {
         j = 0;
         while (j < pitemlist.eventitemlist.Count)
         {
             if (compo_itemname == pitemlist.eventitemlist[j].event_itemName)
             {
-                ev_id = j;
-                break;
+                return j;
             }
             j++;
         }
+
+        return 9999; //該当するIDがない場合
     }
 }

@@ -44,7 +44,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(0);
+                SE_point_click(30);
                 break;
 
             case "Yes_Clear": //noを押したときのSE
@@ -125,7 +125,7 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_enter(2);
 
 
-                //クリックしたときに鳴る音。「GetMaterial」スクリプトで鳴らすようにした。
+                //クリックしたときに鳴る音。
                 SE_point_click(0);
                 break;
 
@@ -139,7 +139,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(0);
+                SE_point_click(23); //23
                 break;
 
         }

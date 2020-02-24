@@ -1157,21 +1157,21 @@ MonoBehaviour:
     - ItemID: 60
       cmpitemName: rusk
       cmpitemID_1: bugget
-      cmpitemID_2: butter
-      cmpitemID_3: suger
+      cmpitemID_2: suger
+      cmpitemID_3: empty
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: rusk
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 1
+      cmpitem_kosu3: 9999
       cmp_flag: 0
       cost_time: 1
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30E9\u30B9\u30AF\u7CFB"
-      Comment2: "\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
+      Comment2: "\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
       Comment3: 
     - ItemID: 61
       cmpitemName: 

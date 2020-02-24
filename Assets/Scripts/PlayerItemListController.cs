@@ -354,7 +354,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                         database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" || 
                                         database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil" || 
                                         database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
-                                        database.items[i].itemType_sub.ToString() == "Machine")
+                                        database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Machine")
                                     {
                                         itemlist_hyouji();
                                     }
@@ -431,7 +431,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" 
                                 || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" || 
                                 pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil" || 
-                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread")
                             {
                                 original_itemlist_hyouji();
                             }

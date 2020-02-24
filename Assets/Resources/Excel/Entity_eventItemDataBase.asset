@@ -31,7 +31,7 @@ MonoBehaviour:
       kosu: 0
       read_flag: 1
       list_hyouji_on: 1
-      memo: "\u5C0F\u9EA6\u7C89\u3068\u7802\u7CD6\u3068\u30D0\u30BF\u30FC\n\n<color=#0000FFFF>2
+      memo: "\u5C0F\u9EA6\u7C89\u3068\u7802\u7CD6\u3068\u30D0\u30BF\u30FC\n\n<color=#0080FFFF>2
         : 1 : 1 </color>\n\n\u3067\u6DF7\u305C\u308B\u3068\u826F\u3044\u3089\u3057\u3044\u305C\uFF01"
     - ev_ItemID: 2
       name: ev02_orangeneko_cookie_memo
@@ -61,6 +61,17 @@ MonoBehaviour:
       list_hyouji_on: 0
       memo: non
     - ev_ItemID: 5
+      name: rusk_recipi
+      nameHyouji: "\u30AB\u30EA\u30AB\u30EA\u30B5\u30AF\u30B5\u30AF\u30E9\u30B9\u30AF\u306E\u30EC\u30B7\u30D4"
+      cost_price: 500
+      sell_price: 250
+      kosu: 0
+      read_flag: 1
+      list_hyouji_on: 1
+      memo: "\u3010\u30AB\u30EA\u30AB\u30EA\u30B5\u30AF\u30B5\u30AF\u3000\u30E9\u30B9\u30AF\u306E\u30EC\u30B7\u30D4\u3011\n\n<color=#0080FFFF>\u30D0\u30B2\u30C3\u30C8
+        </color>\u3000\u3092\u8584\u304F\u30B9\u30E9\u30A4\u30B9\u3057\u3066\u300110\u5206\u7A0B\u5EA6\u30AB\u30E9\u713C\u304D\u3059\u308B\u3002\n\n<color=#0080FFFF>\u7802\u7CD6
+        </color>\u3092\u307E\u3076\u3059\uFF01\n\n\u6700\u5F8C\u306B\u30AA\u30FC\u30D6\u30F3\u3067\u713C\u304D\u4E0A\u3052\u308C\u3070\u3001\u51FA\u6765\u4E0A\u304C\u308A\uFF01"
+    - ev_ItemID: 6
       name: ice_cream_recipi
       nameHyouji: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0\u306E\u66F8"
       cost_price: 500
@@ -69,7 +80,7 @@ MonoBehaviour:
       read_flag: 0
       list_hyouji_on: 0
       memo: non
-    - ev_ItemID: 6
+    - ev_ItemID: 7
       name: financier_recipi
       nameHyouji: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
       cost_price: 500

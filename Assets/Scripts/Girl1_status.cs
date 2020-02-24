@@ -318,10 +318,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             */
 
             //②その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
-            //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。
-            
-            random = Random.Range(0, girlLikeCompo_database.girllike_composet.Count);
-            glike_compID = random;
+            //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。            
+            //random = Random.Range(0, girlLikeCompo_database.girllike_composet.Count);
+
+            glike_compID = 0;
             
             set1_ID = girlLikeCompo_database.girllike_composet[glike_compID].set1;
             set2_ID = girlLikeCompo_database.girllike_composet[glike_compID].set2;

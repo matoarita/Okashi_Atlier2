@@ -561,21 +561,21 @@ public class Updown_counter : MonoBehaviour {
         cmpitem_kosu2_select = cmpitem_kosu2 * updown_kosu; //必要個数×選択している作成数
         cmpitem_kosu3_select = cmpitem_kosu3 * updown_kosu; //必要個数×選択している作成数
 
-        _a = cmpitem_1 + ": " + "<color=#0000ff>" + cmpitem_kosu1_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id1];
-        _b = cmpitem_2 + ": " + "<color=#0000ff>" + cmpitem_kosu2_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id2];
-        _c = cmpitem_3 + ": " + "<color=#0000ff>" + cmpitem_kosu3_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id3];
+        _a = cmpitem_1 + ": " + GameMgr.ColorYellow + cmpitem_kosu1_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id1];
+        _b = cmpitem_2 + ": " + GameMgr.ColorYellow + cmpitem_kosu2_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id2];
+        _c = cmpitem_3 + ": " + GameMgr.ColorYellow + cmpitem_kosu3_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id3];
 
         if (cmpitem_kosu1_select > pitemlist.playeritemlist[itemdb_id1])
         {
-            _a = "<color=#ff0000>" + cmpitem_1 + ": " + cmpitem_kosu1_select + "／" + pitemlist.playeritemlist[itemdb_id1] + "</color>";
+            _a = GameMgr.ColorRed + cmpitem_1 + ": " + cmpitem_kosu1_select + "／" + pitemlist.playeritemlist[itemdb_id1] + "</color>";
         }
         if (cmpitem_kosu2_select > pitemlist.playeritemlist[itemdb_id2])
         {
-            _b = "<color=#ff0000>" + cmpitem_2 + ": " + cmpitem_kosu2_select + "／" + pitemlist.playeritemlist[itemdb_id2] + "</color>";
+            _b = GameMgr.ColorRed + cmpitem_2 + ": " + cmpitem_kosu2_select + "／" + pitemlist.playeritemlist[itemdb_id2] + "</color>";
         }
         if (cmpitem_kosu3_select > pitemlist.playeritemlist[itemdb_id3])
         {
-            _c = "<color=#ff0000>" + cmpitem_3 + ": " + cmpitem_kosu3_select + "／" + pitemlist.playeritemlist[itemdb_id3] + "</color>";
+            _c = GameMgr.ColorRed + cmpitem_3 + ": " + cmpitem_kosu3_select + "／" + pitemlist.playeritemlist[itemdb_id3] + "</color>";
         }
 
 

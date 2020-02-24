@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroySelfObj : MonoBehaviour {
+public class DestroySelfObj2 : MonoBehaviour
+{
 
     private float time;
 
@@ -11,11 +12,12 @@ public class DestroySelfObj : MonoBehaviour {
     {
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     private void OnEnable()
     {
@@ -33,12 +35,12 @@ public class DestroySelfObj : MonoBehaviour {
                 break;
         }*/
 
-        StartCoroutine("DestroySelf_10");
+        StartCoroutine("DestroySelf_3");
     }
 
-    IEnumerator DestroySelf_10()
+    IEnumerator DestroySelf_3()
     {
-        yield return new WaitForSeconds(10f); //10秒待つ
+        yield return new WaitForSeconds(3f); //3秒待つ
 
         Destroy(this.gameObject);
     }

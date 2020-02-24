@@ -101,7 +101,8 @@ public class Item
         Coffee,
         Parfe,
         IceCream,
-        Machine
+        Machine,
+        Bread
     }
 
     //ここでリスト化時に渡す引数をあてがいます   

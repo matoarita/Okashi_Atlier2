@@ -159,6 +159,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public AudioClip sound3;
     public AudioClip sound4;
     public AudioClip sound5;
+    public AudioClip sound6;
     AudioSource audioSource;
 
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
@@ -1328,6 +1329,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //ショップの在庫をへらす。
         shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
+
+        //効果音
+        audioSource.PlayOneShot(sound6);
 
         _text.text = "購入しました！他にはなにか買う？";
 
@@ -2960,7 +2964,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //カード正式名称（ついてるスロット名も含めた名前）
-        slotchangename.slotChangeName(1, new_item);
+        slotchangename.slotChangeName(1, new_item, "yellow");
 
         _slotHyouji1[0] = slotchangename._slotHyouji[0];
         _slotHyouji1[1] = slotchangename._slotHyouji[1];

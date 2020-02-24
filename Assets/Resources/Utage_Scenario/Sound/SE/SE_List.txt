@@ -16,16 +16,21 @@ SE表
 ・SE_14		ファンファーレ9（ゲーム向け）.mp3
 ・SE_15		NES-RPG01-11(Select).mp3
 ・SE_16		shine2.mp3
-・SE_17		tin2.mp3
+・SE_17		tin2.mp3					電子レンジ
 ・SE_18		audiostock_57727_sample.mp3
-・SE_19		audiostock_57729.mp3
-・SE_20		audiostock_60177_sample.mp3
-・SE_21		audiostock_5538.mp3
-・SE_22		decision22.mp3
-・SE_23		audiostock_145235_sample.mp3
-・SE_24		button63.mp3
-・SE_25		足音・雑草、茂み.mp3
-・SE_26		audiostock_104037.mp3
-・SE_27		audiostock_39671.mp3
-・SE_28		audiostock_219045.mp3
-・SE_29		audiostock_104911.mp3
+・SE_19		audiostock_57729.mp3				キャンセル音
+・SE_20		audiostock_60177_sample.mp3			決定音　未使用
+・SE_21		audiostock_5538.mp3				失敗爆発音
+・SE_22		decision22.mp3					決定音　未使用？
+・SE_23		audiostock_145235_sample.mp3			カーソル選択音①　未使用
+・SE_24		button63.mp3					カーソル選択音②
+・SE_25		足音・雑草、茂み.mp3				探索中の音
+・SE_26		audiostock_104037.mp3				レシピ閃いた音
+・SE_27		audiostock_39671.mp3				アイキャッチ音
+・SE_28		audiostock_219045.mp3				調合完成音　低音シャキン
+・SE_29		audiostock_104911.mp3				ステージクリア音
+・SE_30		audiostock_221662_sample.mp3
+・SE_31		audiostock_251375_sample			ポコ音　探索時
+・SE_32		audiostock_52941_sample				お金キーーン
+・SE_33		audiostock_261320_sample			レジの音
+・SE_34		button64.mp3					ハートがゲージにヒットしたときの音

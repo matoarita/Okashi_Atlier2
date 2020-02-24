@@ -23,12 +23,19 @@ MonoBehaviour:
       comment: "\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044\u3002"
     - ID: 1
       set_compID: 1
+      set1: 10
+      set2: 9999
+      set3: 9999
+      desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      comment: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
+    - ID: 2
+      set_compID: 2
       set1: 30
       set2: 1
       set3: 9999
       desc: "<color=#FF78B4>\u30AB\u30EA\u3063\u3068\u3057\u305F</color>\u304A\u83D3\u5B50\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       comment: "\u3055\u304F\u3055\u304F\u611F\u304C20\u4EE5\u4E0A\u3001\u307E\u305F\u306F\u30E9\u30B9\u30AF"
-    - ID: 2
+    - ID: 3
       set_compID: 10
       set1: 2
       set2: 20

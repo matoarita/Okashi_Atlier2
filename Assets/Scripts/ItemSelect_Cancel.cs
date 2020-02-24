@@ -455,6 +455,19 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             }
                         }
                     }
+
+                    if (compound_Main.compound_select == 99) //カード一度開いた状態で、メニュー開いたのときの処理
+                    {
+                        if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
+                        {
+                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                            {
+                                All_cancel();
+
+                                compound_Main.compound_status = 99; //何も選択していない状態にもどる。
+                            }
+                        }
+                    }
                     break;
 
                 default://compound=110　最後調合するかどうかの確認中など、待機状態
@@ -568,6 +581,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         card_view.DeleteCard_DrawView();
                         card_view.DeleteCard_DrawView();
 
+                        pitemlistController.kettei1_bunki = 0;
+
                         compound_Main.compound_status = 0; //何も選択していない状態にもどる。
                         compound_Main.compound_select = 0;
 
@@ -598,7 +613,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             }
 
             //お菓子をあげるときの処理
-            if (compound_Main.compound_select == 10)
+            else if (compound_Main.compound_select == 10)
             {
                 _text.text = "あげるお菓子を選択してね。";
 
@@ -608,6 +623,15 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 update_ListSelect_Flag = 0; //オールリセットするのみ。
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
+
+            else if (compound_Main.compound_select == 99)
+            {                
+
+                update_ListSelect_Flag = 0; //オールリセットするのみ。
+                update_ListSelect(); //アイテム選択時の、リストの表示処理
+            }
+
+
 
         }
         else if (SceneManager.GetActiveScene().name == "GirlEat") // 女の子シーンでやりたい処理。

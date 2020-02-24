@@ -1,4 +1,4 @@
-﻿using System;
+﻿//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,6 +49,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int kettei_item1; //女の子にあげるアイテムの、アイテムリスト番号。
     private int _toggle_type1; //店売りか、オリジナルのアイテムなのかの判定用
 
+    private GameObject _slider_obj;
     private Slider _slider; //好感度バーを取得
     private int _exp;
     private int slot_girlscore, slot_money;
@@ -178,8 +179,15 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject effect_Prefab;
     private List<GameObject> _listEffect = new List<GameObject>();
 
-    
+    private GameObject heart_Prefab;
+    private List<GameObject> _listHeart = new List<GameObject>();
 
+    private GameObject hearthit_Prefab;
+    private List<GameObject> _listHeartHit = new List<GameObject>();
+
+    private Vector3 heartPos;
+
+    private int rnd, rnd2;
 
     // Use this for initialization
     void Start () {
@@ -229,6 +237,10 @@ public class GirlEat_Judge : MonoBehaviour {
         //エフェクトプレファブの取得
         effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
 
+        //ハートプレファブの取得
+        heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
+        hearthit_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect");
+
         //Prefab内の、コンテンツ要素を取得
         eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
 
@@ -249,6 +261,7 @@ public class GirlEat_Judge : MonoBehaviour {
         InitializeItemSlotDicts();
 
         //好感度バーの取得
+        _slider_obj = GameObject.FindWithTag("Girl_love_exp_bar").gameObject;
         _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
         _slider.value = girl1_status.girl1_Love_exp;
         _exp = 0;
@@ -305,6 +318,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //好感度バーアニメーションの処理
         if (loveanim_on == true)
         {
+            /*
             if (Getlove_exp > 0) //増える場合は、こっちの処理
             {
 
@@ -323,9 +337,9 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     compound_Main.check_GirlLoveEvent_flag = false;
                 }
-            }
+            }*/
 
-            else if (Getlove_exp < 0)//減る場合は、こっちの処理
+            if (Getlove_exp < 0)//減る場合は、こっちの処理
             {
                 //好感度が0の場合、0が下限。
                 if (girl1_status.girl1_Love_exp <= 0)
@@ -731,7 +745,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //パラメータ初期化し、判定処理
             dislike_flag = true;
-
+           
             //
             //判定処理　パターンA
             //
@@ -785,9 +799,6 @@ public class GirlEat_Judge : MonoBehaviour {
                     break;
 
                 case 2:
-                    break;
-
-                default:
 
                     for (i = 0; i < itemslotScore.Count; i++)
                     {
@@ -809,34 +820,38 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                     }
                     break;
+
+                default:
+
+                    break;
             }
-            
 
             //②味パラメータの計算
             if (_baserich >= _girlrich[count])
             {
-                break;
+                //break;
             }
             else { dislike_flag = false; }
 
             if (_basesweat >= _girlsweat[count])
             {
-                break;
+                //break;
             }
             else { dislike_flag = false; }
 
             if (_basebitter >= _girlbitter[count])
             {
-                break;
+                //break;
             }
             else { dislike_flag = false; }
 
             if (_basesour >= _girlsour[count])
             {
-                break;
+                //break;
             }
             else { dislike_flag = false; }
 
+            Debug.Log("②味パラメータの計算 OK");
 
             //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
             if (_girl_likeokashi[count] == "Non") //特に指定なし
@@ -844,11 +859,11 @@ public class GirlEat_Judge : MonoBehaviour {
                 //③お菓子の種別の計算
                 if (_girl_subtype[count] == "Non") //特に指定なし
                 {
-                    break;
+                    //break;
                 }
                 else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
                 {
-                    break;
+                    //break;
                 }
                 else
                 {
@@ -858,12 +873,18 @@ public class GirlEat_Judge : MonoBehaviour {
             else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
             {
                 //サブは計算せず、特定のお菓子自体が正解なら、正解
-                break;
+                //break;
             }
             else
             {
                 dislike_flag = false;
             }
+
+            Debug.Log("_girl_likeokashi[count]: " + _girl_likeokashi[count]);
+            Debug.Log("_basename: " + _basename);
+
+            //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
+            if (dislike_flag) { break; }
 
             count++;
         }
@@ -891,7 +912,8 @@ public class GirlEat_Judge : MonoBehaviour {
             delete_Item();
 
             //アニメーションをON
-            loveanim_on = true;
+            //loveanim_on = true;
+            loveGetAnimeON();
 
             //エフェクト生成＋アニメ開始
             _listEffect.Add(Instantiate(effect_Prefab));
@@ -930,7 +952,7 @@ public class GirlEat_Judge : MonoBehaviour {
             audioSource.PlayOneShot(sound2);
 
             //テキストウィンドウの更新
-            _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Math.Abs(Getlove_exp) + "下がった..。";
+            _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Mathf.Abs(Getlove_exp) + "下がった..。";
 
             //お菓子をあげたあとの状態に移行する。残り時間を、短く設定。
             girl1_status.timeGirl_hungry_status = 2;
@@ -1048,6 +1070,52 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         _listEffect.Clear();
     }
+
+    void loveGetAnimeON()
+    {
+        _listHeart.Clear();
+
+        //ハートのインスタンスを、獲得好感度分だけ生成する。
+        for (i = 0; i < Getlove_exp; i++)
+        {
+            _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
+           
+            heartPos = _listHeart[i].transform.localPosition;
+
+            rnd = Random.Range(-200, 200);
+            rnd2 = Random.Range(-200, 200);
+          
+            _listHeart[i].transform.localPosition = new Vector3(heartPos.x + rnd, heartPos.y + rnd2, heartPos.z);
+        }
+
+        //好感度　取得分増加
+        girl1_status.girl1_Love_exp += Getlove_exp;
+        Getlove_exp = 0;
+        compound_Main.check_GirlLoveEvent_flag = false;
+    }
+
+    public void GetHeartValue()
+    {
+        //１ずつ増加
+        //++_exp;
+        //++girl1_status.girl1_Love_exp;
+
+        //スライダにも反映
+        _slider.value++;
+        
+        //エフェクト
+        _listHeartHit.Add(Instantiate(hearthit_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
+        /*
+        if (_exp >= Getlove_exp)
+        {
+            Getlove_exp = 0;
+            _exp = 0;
+            loveanim_on = false;
+
+            compound_Main.check_GirlLoveEvent_flag = false;
+        }*/
+    }
+
         /*
             Debug.Log("###  好みの比較　結果　###");
 
@@ -1235,104 +1303,104 @@ public class GirlEat_Judge : MonoBehaviour {
             Debug.Log("酸味点: " + sour_score);
             */
 
-        /*
-        //食感の計算。基本的に、女の子の閾値を超えた分が、加算される。
-        if( crispy_result >= 0 )
-        {
-            crispy_score = Mathf.Abs(crispy_result);
-        }
-        if (fluffy_result >= 0)
-        {
-            fluffy_score = Mathf.Abs(fluffy_result);
-        }
-        if (smooth_result >= 0)
-        {
-            smooth_score = Mathf.Abs(smooth_result);
-        }
-        if (hardness_result >= 0)
-        {
-            hardness_score = Mathf.Abs(hardness_result);
-        }*/
-        /*if (jiggly_result >= 0) 未使用
-        {
-            jiggly_score = Mathf.Abs(jiggly_result);
-        }
-        if (chewy_result >= 0) 未使用
-        {
-            chewy_score = Mathf.Abs(chewy_result);
-        }*/
+    /*
+    //食感の計算。基本的に、女の子の閾値を超えた分が、加算される。
+    if( crispy_result >= 0 )
+    {
+        crispy_score = Mathf.Abs(crispy_result);
+    }
+    if (fluffy_result >= 0)
+    {
+        fluffy_score = Mathf.Abs(fluffy_result);
+    }
+    if (smooth_result >= 0)
+    {
+        smooth_score = Mathf.Abs(smooth_result);
+    }
+    if (hardness_result >= 0)
+    {
+        hardness_score = Mathf.Abs(hardness_result);
+    }*/
+    /*if (jiggly_result >= 0) 未使用
+    {
+        jiggly_score = Mathf.Abs(jiggly_result);
+    }
+    if (chewy_result >= 0) 未使用
+    {
+        chewy_score = Mathf.Abs(chewy_result);
+    }*/
 
 
 
-        /*
-        //サブジャンルごとに、比較の対象が限定される。例えば、クッキーなら、さくさく度だけを見る。
-        switch (_baseitemtype_sub)
-        {
-            case "Cookie":
+    /*
+    //サブジャンルごとに、比較の対象が限定される。例えば、クッキーなら、さくさく度だけを見る。
+    switch (_baseitemtype_sub)
+    {
+        case "Cookie":
 
-                Debug.Log(database.items[kettei_item1].itemNameHyouji + " のさくさく度: " + database.items[kettei_item1].Crispy + " 女の子の好みのさくさく度: " + girl1_status.girl1_crispy);
-                Debug.Log("サクサク度の差: " + crispy_result);
+            Debug.Log(database.items[kettei_item1].itemNameHyouji + " のさくさく度: " + database.items[kettei_item1].Crispy + " 女の子の好みのさくさく度: " + girl1_status.girl1_crispy);
+            Debug.Log("サクサク度の差: " + crispy_result);
 
-                if (crispy_result >= 0) //好みのしきい値を超えた
-                {
-                    crispy_score = crispy_result; //わかりやすく、サクサク度の数値がそのまま点数に。
-                    Debug.Log("サクサク度の点: " + crispy_score);
-                }
-                break;
+            if (crispy_result >= 0) //好みのしきい値を超えた
+            {
+                crispy_score = crispy_result; //わかりやすく、サクサク度の数値がそのまま点数に。
+                Debug.Log("サクサク度の点: " + crispy_score);
+            }
+            break;
 
-            case "Cake":
+        case "Cake":
 
-                Debug.Log(database.items[final_kettei_item1].itemNameHyouji + " のふわふわ度: " + database.items[final_kettei_item1].Fluffy + " 女の子の好みのふわふわ度: " + girl1_status.girl1_fluffy);
-                Debug.Log("ふわふわ度の差: " + fluffy_result);
+            Debug.Log(database.items[final_kettei_item1].itemNameHyouji + " のふわふわ度: " + database.items[final_kettei_item1].Fluffy + " 女の子の好みのふわふわ度: " + girl1_status.girl1_fluffy);
+            Debug.Log("ふわふわ度の差: " + fluffy_result);
 
-                if (fluffy_result >= 0) //好みのしきい値を超えた
-                {
-                    fluffy_score = fluffy_result;
-                    Debug.Log("ふわふわ度の点: " + fluffy_score);
-                }
-                break;
+            if (fluffy_result >= 0) //好みのしきい値を超えた
+            {
+                fluffy_score = fluffy_result;
+                Debug.Log("ふわふわ度の点: " + fluffy_score);
+            }
+            break;
 
-            case "Chocolate":
+        case "Chocolate":
 
-                Debug.Log(database.items[final_kettei_item1].itemNameHyouji + " のとろとろ度: " + database.items[final_kettei_item1].Smooth + " 女の子の好みのとろとろ度: " + girl1_status.girl1_smooth);
-                Debug.Log("とろとろ度の差: " + smooth_result);
+            Debug.Log(database.items[final_kettei_item1].itemNameHyouji + " のとろとろ度: " + database.items[final_kettei_item1].Smooth + " 女の子の好みのとろとろ度: " + girl1_status.girl1_smooth);
+            Debug.Log("とろとろ度の差: " + smooth_result);
 
-                if (smooth_result >= 0) //好みのしきい値を超えた
-                {
-                    smooth_score = smooth_result;
-                    Debug.Log("とろとろ度の点: " + smooth_score);
-                }
-                break;
+            if (smooth_result >= 0) //好みのしきい値を超えた
+            {
+                smooth_score = smooth_result;
+                Debug.Log("とろとろ度の点: " + smooth_score);
+            }
+            break;
 
-            default:
-                break;
-        }
-        */
+        default:
+            break;
+    }
+    */
 
-        /*
-        //クッキーが好き、ケーキが好きなどの、サブタイプの採点。一致していれば、加点。
-        if (_baseitemtype_sub == girl1_status.girl1_Subtype1)
-        {
-            subtype1_score = girl1_status.girl1_Subtype1_p;
-            Debug.Log(girl1_status.girl1_Subtype1 + "が好き: " + subtype1_score);
-        }
+    /*
+    //クッキーが好き、ケーキが好きなどの、サブタイプの採点。一致していれば、加点。
+    if (_baseitemtype_sub == girl1_status.girl1_Subtype1)
+    {
+        subtype1_score = girl1_status.girl1_Subtype1_p;
+        Debug.Log(girl1_status.girl1_Subtype1 + "が好き: " + subtype1_score);
+    }
 
-        if (_baseitemtype_sub == girl1_status.girl1_Subtype2)
-        {
-            subtype2_score = girl1_status.girl1_Subtype2_p;
-            Debug.Log(girl1_status.girl1_Subtype2 + "が好き: " + subtype2_score);
-        }
+    if (_baseitemtype_sub == girl1_status.girl1_Subtype2)
+    {
+        subtype2_score = girl1_status.girl1_Subtype2_p;
+        Debug.Log(girl1_status.girl1_Subtype2 + "が好き: " + subtype2_score);
+    }
 
-        //トッピングの採点。複雑なので、一度置き。
+    //トッピングの採点。複雑なので、一度置き。
 
 
-        //以上、全ての点数を合計。
-        total_score = itemLike_score + quality_score + sweat_score + bitter_score + sour_score + crispy_score + fluffy_score 
-            + smooth_score + hardness_score + jiggly_score + chewy_score + subtype1_score + subtype2_score;
+    //以上、全ての点数を合計。
+    total_score = itemLike_score + quality_score + sweat_score + bitter_score + sour_score + crispy_score + fluffy_score 
+        + smooth_score + hardness_score + jiggly_score + chewy_score + subtype1_score + subtype2_score;
 
-        Debug.Log("総合点: " + total_score);
+    Debug.Log("総合点: " + total_score);
 
-        Debug.Log("###  ###");
-        */
-    
+    Debug.Log("###  ###");
+    */
+
     }
