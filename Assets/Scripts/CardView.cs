@@ -188,8 +188,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.SetInit();
 
         //位置とスケール
-        _cardImage_obj[0].transform.localScale = new Vector3(1.0f, 1.0f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(100, 80, 0);
+        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
 
         //デバッグ用
         if (SceneManager.GetActiveScene().name == "Hiroba")
@@ -247,8 +247,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
 
-            _cardImage_obj[1].transform.localScale = new Vector3(1.0f, 1.0f, 1);
-            _cardImage_obj[1].transform.localPosition = new Vector3(100, 80, 0);
+            _cardImage_obj[1].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+            _cardImage_obj[1].transform.localPosition = new Vector3(0, 80, 0);
         }
 
         // トッピング調合を選択した場合の処理
@@ -318,8 +318,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
 
-            _cardImage_obj[2].transform.localScale = new Vector3(1.0f, 1.0f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(100, 80, 0);
+            _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+            _cardImage_obj[2].transform.localPosition = new Vector3(0, 80, 0);
         }
 
         // トッピング調合を選択した場合の処理

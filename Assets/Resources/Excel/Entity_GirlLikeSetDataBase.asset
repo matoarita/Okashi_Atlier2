@@ -76,6 +76,26 @@ MonoBehaviour:
       desc: "<color=#FF78B4>\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
     - setID: 3
       compNum: 10
+      girllike_itemname: Non
+      girllike_itemsubtype: Cookie
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Orange
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306E\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+    - setID: 4
+      compNum: 11
       girllike_itemname: orange_neko_cookie
       girllike_itemsubtype: Non
       rich: 0
@@ -94,7 +114,7 @@ MonoBehaviour:
       topping04: Non
       topping05: Non
       desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
-    - setID: 4
+    - setID: 5
       compNum: 20
       girllike_itemname: grape_cookie
       girllike_itemsubtype: Non
@@ -114,7 +134,7 @@ MonoBehaviour:
       topping04: Non
       topping05: Non
       desc: "<color=#FF78B4>\u3076\u3069\u3046\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
-    - setID: 5
+    - setID: 6
       compNum: 30
       girllike_itemname: rusk
       girllike_itemsubtype: Non

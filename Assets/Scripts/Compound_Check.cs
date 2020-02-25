@@ -316,7 +316,9 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "をトッピングします。" + "\n" + "　調合しますか？";
+                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + 
+                    database.items[itemID_1].itemNameHyouji + " " + 
+                    pitemlistController.final_kettei_kosu1 + "個" + "をトッピングします。" + "\n" + "　トッピングしますか？";
 
                 Debug.Log("ベースアイテム＋一個トッピング　調合確認中");
 
@@ -331,25 +333,27 @@ public class Compound_Check : MonoBehaviour {
                     case true:
 
                         //新しいアイテムを閃く
-                        /*if (compoDB_select_judge == true)
+                        if (compoDB_select_judge == true)
                         {                           
-                            exp_Controller.extreme_on = true;
+                            exp_Controller.NewRecipiflag_check = true;
                         }
 
                         //コンポDBに該当していなければ、通常通りトッピングの処理
                         else
                         {
-                            exp_Controller.extreme_on = false;
-                        }*/
-
-                        exp_Controller.compound_success = true;
+                            exp_Controller.NewRecipiflag_check = false;
+                        }
 
                         compound_Main.compound_status = 4;
-
 
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
+                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
+                        exp_Controller.Topping_Result_OK();
+
+                        /*
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
                         {
@@ -366,7 +370,7 @@ public class Compound_Check : MonoBehaviour {
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
                             exp_Controller.Topping_Result_OK();
-                        }
+                        }*/
 
                         break;
 
@@ -395,7 +399,10 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "　調合しますか？";
+                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + 
+                    "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + 
+                    "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + 
+                    "　トッピングしますか？";
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
@@ -410,25 +417,27 @@ public class Compound_Check : MonoBehaviour {
                     case true:
 
                         //新しいアイテムを閃く
-                        /*if (compoDB_select_judge == true)
+                        if (compoDB_select_judge == true)
                         {                           
-                            exp_Controller.extreme_on = true;
+                            exp_Controller.NewRecipiflag_check = true;
                         }
 
                         //コンポDBに該当していなければ、通常通りトッピングの処理
                         else
                         {
-                            exp_Controller.extreme_on = false;
-                        }*/
-
-                        exp_Controller.compound_success = true;
+                            exp_Controller.NewRecipiflag_check = false;
+                        }
 
                         compound_Main.compound_status = 4;
 
-                        //card_view.DeleteCard_DrawView();
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
+                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
+                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
+                        exp_Controller.Topping_Result_OK();
+
+                        /*
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
                         {
@@ -445,7 +454,7 @@ public class Compound_Check : MonoBehaviour {
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
                             exp_Controller.Topping_Result_OK();
-                        }
+                        }*/
 
                         break;
 
@@ -470,7 +479,11 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView04();
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + "　調合しますか？";
+                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + 
+                    "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + 
+                    "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + 
+                    "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + 
+                    "　トッピングしますか？";
 
                 //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
 
@@ -484,8 +497,6 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
                         //選んだ三つをもとに、一つのアイテムを生成する。
-
-                        exp_Controller.compound_success = true;
 
                         //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
@@ -759,7 +770,7 @@ public class Compound_Check : MonoBehaviour {
             }
 
 
-            //調合判定を行うかどうか
+            //調合判定を行うかどうか+成功確率の表示更新
 
             //新規調合の場合　もしくは、　エクストリーム調合の場合で、新しいレシピをひらめきそうな場合。else ifがエクストリーム調合の場合
             if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)

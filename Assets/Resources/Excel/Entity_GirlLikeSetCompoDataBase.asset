@@ -24,10 +24,10 @@ MonoBehaviour:
     - ID: 1
       set_compID: 1
       set1: 10
-      set2: 9999
+      set2: 11
       set3: 9999
       desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
-      comment: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
+      comment: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u304B\u3001\u30AA\u30EC\u30F3\u30B8\u6DFB\u3048\u306E\u30AF\u30C3\u30AD\u30FC\u7CFB"
     - ID: 2
       set_compID: 2
       set1: 30

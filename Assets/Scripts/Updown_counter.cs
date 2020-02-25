@@ -85,7 +85,7 @@ public class Updown_counter : MonoBehaviour {
         {
             case "Compound":
 
-                this.transform.localPosition = new Vector3(100, -120, 0);
+                this.transform.localPosition = new Vector3(0, -80, 0);
                 break;
 
             case "Shop":
@@ -172,7 +172,7 @@ public class Updown_counter : MonoBehaviour {
 
                 case 3: //オリジナル調合の場合の、カウンターの位置
 
-                    this.transform.localPosition = new Vector3(100, -120, 0);
+                    this.transform.localPosition = new Vector3(0, -80, 0);
                     break;
 
                 default:

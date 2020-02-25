@@ -43,6 +43,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
 
+    private Girl1_status girl1_status;
+
     private GameObject card_view_obj;
     private CardView card_view;
 
@@ -65,6 +67,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private GameObject extremePanel_obj;
     private ExtremePanel extremePanel;
+
+    private GameObject hukidashiitem;
+    private Text _hukidashitext;
 
     private int toggle_type1;
     private int toggle_type2;
@@ -124,11 +129,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ
 
     public bool compound_success; //調合の成功か失敗
-    //public int comp_judge_flag; //新規調合か生地合成の判定。0=新規調合。1=生地調合。
 
     public bool NewRecipiFlag;  //新しいレシピをひらめいたフラグをON
     public int NewRecipi_compoID;   //そのときの、調合DBのID
 
+    public bool NewRecipiflag_check;
     public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
 
     public bool result_ok; // 調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
@@ -228,6 +233,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int _addcost;
     private int _addsell;
     private string[] _addtp;
+    private string[] _addkoyutp;
     private string _add_itemType;
     private string _add_itemType_sub;
     private int _addkosu;
@@ -316,6 +322,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
@@ -398,6 +407,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         NewRecipiFlag = false;
 
         extreme_on = false;
+        NewRecipiflag_check = false;
 
         i = 0;
         j = 0;
@@ -414,6 +424,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _basetp = new string[10];
         _addtp = new string[10];
         _temptp = new string[10];
+
+        _addkoyutp = new string[3];
 
         _temp_extreme_id = 9999;
     }
@@ -1052,14 +1064,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //調合判定。エクストリーム調合の確率も含め計算する。
         //チュートリアルモードのときは100%成功
-        if (GameMgr.tutorial_ON == true)
+        /*if (GameMgr.tutorial_ON == true)
         {
             compound_success = true;
         }
         else
         {
             CompoundSuccess_judge();
-        }
+        }*/
+
+        //エクストリーム調合は必ず成功　トッピングなので。
+        compound_success = true;
 
         if (compound_success == true)
         {
@@ -1069,7 +1084,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             Topping_Compound_Method();
 
             //新しいアイテムを閃くかチェック
-            if (extreme_on != true)
+            if (NewRecipiflag_check != true)
             {
                 _getexp = _tempexp;
                 PlayerStatus.player_renkin_exp += _getexp; //エクストリーム経験値。確率が低いものほど、経験値が大きくなる。
@@ -2571,7 +2586,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _addtp[i] = database.items[_id].toppingtype[i].ToString();
         }
 
-        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkosu));
+        for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+        {
+            _addkoyutp[i] = database.items[_id].koyu_toppingtype[i].ToString();
+        }
+
+
+        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
 
     void Set_add_originparam()
@@ -2605,7 +2626,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _addtp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
         }
 
-        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkosu));
+        for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+        {
+            _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
+        }
+
+        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
 
 
@@ -2948,7 +2974,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text.text = "調合完了！ " +
             database.items[result_item].itemNameHyouji +
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-            "錬金経験値" + _getexp + "上がった！";
+            "錬金経験値 " + _getexp + "上がった！";
 
         Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
 
@@ -2980,7 +3006,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text.text = "調合完了！ " +
             _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-            "錬金経験値" + _getexp + "上がった！";
+            "錬金経験値 " + _getexp + "上がった！";
 
         Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
 
@@ -2992,6 +3018,37 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         Debug.Log("失敗..！");
     }
+
+    public void GirlLikeText(int _getlove_exp, int _getmoney)
+    {
+        if (girl1_status.hukidashiitem != null)
+        {
+            hukidashiitem = GameObject.FindWithTag("Hukidashi");
+            _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
+
+            _hukidashitext.text = "お兄ちゃん！ありがとー！！";
+        }
+
+
+        _text.text = "お菓子をあげた！" + "\n" + "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
+            + "お金を " + GameMgr.ColorYellow + _getmoney + "</color>" + "G ゲットした！";
+    }
+
+    public void GirlDisLikeText(int _getlove_exp)
+    {
+        if (girl1_status.hukidashiitem != null)
+        {
+            hukidashiitem = GameObject.FindWithTag("Hukidashi");
+            _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
+
+            _hukidashitext.text = "コレ嫌いー！";
+        }
+
+
+        _text.text = "お菓子をあげた！" + "\n" + "好感度が" + Mathf.Abs(_getlove_exp) + "下がった..。";
+    }
+
+
 
 
     //確率判定処理

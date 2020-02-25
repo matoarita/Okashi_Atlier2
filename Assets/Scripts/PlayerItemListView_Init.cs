@@ -56,7 +56,7 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         playeritemlist_onoff = Instantiate(pitemlist_scrollview_init, canvas.transform);
 
         playeritemlist_onoff.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
-        playeritemlist_onoff.transform.localPosition = new Vector3(-220,80, 0);
+        playeritemlist_onoff.transform.localPosition = new Vector3(-240,80, 0);
         playeritemlist_onoff.name = "PlayeritemList_ScrollView";
 
         if (GameStart_Init_flag != true)

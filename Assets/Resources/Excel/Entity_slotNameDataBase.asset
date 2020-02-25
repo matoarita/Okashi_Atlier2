@@ -23,7 +23,7 @@ MonoBehaviour:
     - ItemID: 1
       slot_Name: Orange
       slot_Hyouki_1: "\u30AA\u30EC\u30F3\u30B8"
-      slot_Hyouki_2: "\u30AA\u30EC\u30F3\u30B8"
+      slot_Hyouki_2: "\u30AA\u30EC\u30F3\u30B8\u6DFB\u3048"
       slot_girlscore: 3
       slot_money: 10
     - ItemID: 2
@@ -35,43 +35,43 @@ MonoBehaviour:
     - ItemID: 3
       slot_Name: Grape
       slot_Hyouki_1: "\u3076\u3069\u3046"
-      slot_Hyouki_2: "\u3076\u3069\u3046"
+      slot_Hyouki_2: "\u3076\u3069\u3046\u6DFB\u3048"
       slot_girlscore: 2
       slot_money: 12
     - ItemID: 4
       slot_Name: Blueberry
       slot_Hyouki_1: "\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC"
-      slot_Hyouki_2: "\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC"
+      slot_Hyouki_2: "\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC\u30C8\u30C3\u30D4\u30F3\u30B0"
       slot_girlscore: 4
       slot_money: 15
     - ItemID: 5
       slot_Name: Strawberry
       slot_Hyouki_1: "\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC"
-      slot_Hyouki_2: "\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC"
+      slot_Hyouki_2: "\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC\u30C8\u30C3\u30D4\u30F3\u30B0"
       slot_girlscore: 5
       slot_money: 30
     - ItemID: 6
       slot_Name: Banana
       slot_Hyouki_1: "\u30D0\u30CA\u30CA"
-      slot_Hyouki_2: "\u30D0\u30CA\u30CA"
+      slot_Hyouki_2: "\u30D0\u30CA\u30CA\u306E\u305B"
       slot_girlscore: 5
       slot_money: 30
     - ItemID: 7
       slot_Name: Pear
       slot_Hyouki_1: "\u68A8"
-      slot_Hyouki_2: "\u68A8"
+      slot_Hyouki_2: "\u68A8\u3092\u6DFB\u3048\u305F"
       slot_girlscore: 5
       slot_money: 30
     - ItemID: 8
       slot_Name: Nuts
       slot_Hyouki_1: "\u30CA\u30C3\u30C4"
-      slot_Hyouki_2: "\u30CA\u30C3\u30C4\u5165\u308A"
+      slot_Hyouki_2: "\u30CA\u30C3\u30C4\u30C8\u30C3\u30D4\u30F3\u30B0"
       slot_girlscore: 3
       slot_money: 20
     - ItemID: 9
       slot_Name: Shishamo
       slot_Hyouki_1: "\u3057\u3057\u3083\u3082"
-      slot_Hyouki_2: "\u3057\u3057\u3083\u3082"
+      slot_Hyouki_2: "\u3057\u3057\u3083\u3082\u306E\u305B"
       slot_girlscore: -30
       slot_money: 200
     - ItemID: 10
@@ -83,13 +83,13 @@ MonoBehaviour:
     - ItemID: 11
       slot_Name: Honey
       slot_Hyouki_1: "\u306F\u3061\u307F\u3064"
-      slot_Hyouki_2: "\u306F\u3061\u307F\u3064"
+      slot_Hyouki_2: "\u306F\u3061\u307F\u3064\u3092\u304B\u3051\u305F"
       slot_girlscore: 8
       slot_money: 50
     - ItemID: 12
       slot_Name: Maple
       slot_Hyouki_1: "\u30E1\u30FC\u30D7\u30EB"
-      slot_Hyouki_2: "\u30E1\u30FC\u30D7\u30EB"
+      slot_Hyouki_2: "\u30E1\u30FC\u30D7\u30EB\u304C\u3051"
       slot_girlscore: 8
       slot_money: 80
     - ItemID: 13
@@ -170,3 +170,9 @@ MonoBehaviour:
       slot_Hyouki_2: "\u30B3\u30FC\u30F3\u30C8\u30C3\u30D4\u30F3\u30B0"
       slot_girlscore: 5
       slot_money: 30
+    - ItemID: 26
+      slot_Name: Chocolate
+      slot_Hyouki_1: "\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
+      slot_Hyouki_2: "\u30C1\u30E7\u30B3\u304C\u3051"
+      slot_girlscore: 10
+      slot_money: 150

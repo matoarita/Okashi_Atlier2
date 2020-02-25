@@ -27,7 +27,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private GameObject hukidashiPrefab;
     private GameObject canvas;
 
-    private GameObject hukidashiitem;
+    public GameObject hukidashiitem;
     private Text _text;
 
     //SEを鳴らす

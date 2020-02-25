@@ -24,6 +24,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
+    private Exp_Controller exp_Controller;
+
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -226,6 +228,9 @@ public class GirlEat_Judge : MonoBehaviour {
         //エクストリームパネルの取得
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
         extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
@@ -896,11 +901,6 @@ public class GirlEat_Judge : MonoBehaviour {
         if (dislike_flag == true) //正解の場合
         {
 
-            hukidashiitem = GameObject.FindWithTag("Hukidashi");
-            _text = hukidashiitem.GetComponentInChildren<Text>();
-
-            _text.text = "お兄ちゃん！ありがとー！！";
-
             //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
             LoveScoreCal();
 
@@ -912,8 +912,7 @@ public class GirlEat_Judge : MonoBehaviour {
             delete_Item();
 
             //アニメーションをON
-            //loveanim_on = true;
-            loveGetAnimeON();
+            loveGetPlusAnimeON();
 
             //エフェクト生成＋アニメ開始
             _listEffect.Add(Instantiate(effect_Prefab));
@@ -923,7 +922,7 @@ public class GirlEat_Judge : MonoBehaviour {
             audioSource.PlayOneShot(sound1);
 
             //テキストウィンドウの更新
-            _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Getlove_exp + "アップ！　" + "お金を" + GetMoney + "G ゲットした！";
+            exp_Controller.GirlLikeText(Getlove_exp, GetMoney);
 
             //お菓子をあげたあとの状態に移行する。
             girl1_status.timeGirl_hungry_status = 2;
@@ -931,14 +930,13 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //キャラクタ表情変更
             s.sprite = girl1_status.Girl1_img_smile;
+
+            //リセット＋フラグチェック
+            Getlove_exp = 0;
+            compound_Main.check_GirlLoveEvent_flag = false;
         }
         else //失敗の場合
         {
-            hukidashiitem = GameObject.FindWithTag("Hukidashi");
-            _text = hukidashiitem.GetComponentInChildren<Text>();
-
-            _text.text = "コレ嫌いー！";
-
             //好感度取得
             Getlove_exp = -10;
 
@@ -952,7 +950,7 @@ public class GirlEat_Judge : MonoBehaviour {
             audioSource.PlayOneShot(sound2);
 
             //テキストウィンドウの更新
-            _windowtext.text = "お菓子をあげた！" + "\n" + "好感度が" + Mathf.Abs(Getlove_exp) + "下がった..。";
+            exp_Controller.GirlDisLikeText(Getlove_exp);
 
             //お菓子をあげたあとの状態に移行する。残り時間を、短く設定。
             girl1_status.timeGirl_hungry_status = 2;
@@ -960,19 +958,22 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //キャラクタ表情変更
             s.sprite = girl1_status.Girl1_img_gokigen;
+
+            //リセット＋フラグチェック
+            //減る場合は、update内でちぇっく
         }
+        
+        compound_Main.compound_status = 0;
+
+        girl1_status.GirlEat_Judge_on = true; //またカウントが進み始める
 
         //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
         if (GameMgr.tutorial_ON == true)
         {
-                           
-                StartCoroutine("WaitForSeconds");  //1秒まって次へ              
-            
+
+            StartCoroutine("WaitForSeconds");  //1秒まって次へ              
+
         }
-
-        compound_Main.compound_status = 0;
-
-        girl1_status.GirlEat_Judge_on = true; //またカウントが進み始める
     }
 
     IEnumerator WaitForSeconds()
@@ -1071,7 +1072,7 @@ public class GirlEat_Judge : MonoBehaviour {
         _listEffect.Clear();
     }
 
-    void loveGetAnimeON()
+    void loveGetPlusAnimeON()
     {
         _listHeart.Clear();
 
@@ -1089,9 +1090,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         //好感度　取得分増加
-        girl1_status.girl1_Love_exp += Getlove_exp;
-        Getlove_exp = 0;
-        compound_Main.check_GirlLoveEvent_flag = false;
+        girl1_status.girl1_Love_exp += Getlove_exp;        
     }
 
     public void GetHeartValue()
@@ -1105,15 +1104,7 @@ public class GirlEat_Judge : MonoBehaviour {
         
         //エフェクト
         _listHeartHit.Add(Instantiate(hearthit_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
-        /*
-        if (_exp >= Getlove_exp)
-        {
-            Getlove_exp = 0;
-            _exp = 0;
-            loveanim_on = false;
 
-            compound_Main.check_GirlLoveEvent_flag = false;
-        }*/
     }
 
         /*

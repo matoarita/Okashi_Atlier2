@@ -533,6 +533,8 @@ public class Compound_Main : MonoBehaviour
                         extreme_Button.interactable = true;
                         text_area.SetActive(true);
 
+                        _text.text = "ねこクッキーを作ってみよう！";
+
                         break;
 
                     case 150: //レシピボタンでも～を説明中。ボタンは押せないようにしておく。
@@ -628,7 +630,7 @@ public class Compound_Main : MonoBehaviour
 
                         MainCompoundMethod();
 
-                        kakuritsuPanel_obj.SetActive(true);
+                        //kakuritsuPanel_obj.SetActive(true);
                         text_area.SetActive(true);
 
                         GameMgr.tutorial_Num = 245; //退避
@@ -867,7 +869,7 @@ public class Compound_Main : MonoBehaviour
                 compound_select = 2; //トッピング調合を選択
 
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                kakuritsuPanel_obj.SetActive(true);
+                kakuritsuPanel_obj.SetActive(false);
                 black_panel_A.SetActive(true);
                 compoBG_A.SetActive(true);
                 extreme_panel.extremeButtonInteractOFF();
