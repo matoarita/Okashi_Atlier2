@@ -133,6 +133,7 @@ public class RecipiListController : MonoBehaviour {
         list_count = 0;
         _recipi_listitem.Clear();
 
+        /*
         if (GameMgr.tutorial_ON == true)
         {
             //チュートリアル中は、イベントレシピは見れないようにする。  
@@ -172,7 +173,7 @@ public class RecipiListController : MonoBehaviour {
                     ++list_count;
                 }
             }
-        }
+        }*/
 
         //調合DBのフラグをチェック
         for (i = 0; i < databaseCompo.compoitems.Count; i++)

@@ -187,6 +187,9 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject hearthit_Prefab;
     private List<GameObject> _listHeartHit = new List<GameObject>();
 
+    private GameObject hearthit2_Prefab;
+    private List<GameObject> _listHeartHit2 = new List<GameObject>();
+
     private Vector3 heartPos;
 
     private int rnd, rnd2;
@@ -245,6 +248,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //ハートプレファブの取得
         heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
         hearthit_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect");
+        hearthit2_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect2");
 
         //Prefab内の、コンテンツ要素を取得
         eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
@@ -1081,12 +1085,12 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
            
-            heartPos = _listHeart[i].transform.localPosition;
+            /*heartPos = _listHeart[i].transform.localPosition;
 
             rnd = Random.Range(-200, 200);
             rnd2 = Random.Range(-200, 200);
           
-            _listHeart[i].transform.localPosition = new Vector3(heartPos.x + rnd, heartPos.y + rnd2, heartPos.z);
+            _listHeart[i].transform.localPosition = new Vector3(heartPos.x + rnd, heartPos.y + rnd2, heartPos.z);*/
         }
 
         //好感度　取得分増加
@@ -1104,6 +1108,7 @@ public class GirlEat_Judge : MonoBehaviour {
         
         //エフェクト
         _listHeartHit.Add(Instantiate(hearthit_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
+        _listHeartHit2.Add(Instantiate(hearthit2_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
 
     }
 
