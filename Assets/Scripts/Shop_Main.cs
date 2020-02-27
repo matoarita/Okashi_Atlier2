@@ -14,6 +14,7 @@ public class Shop_Main : MonoBehaviour {
     private Debug_Panel_Init debug_panel_init;
 
     private GameObject shopitemlist_onoff;
+    private GameObject shopquestlist_obj;
 
     private GameObject money_status_obj;
 
@@ -87,9 +88,13 @@ public class Shop_Main : MonoBehaviour {
 
         playeritemlist_onoff.SetActive(false); //ショップ画面では使わないのでOFF
 
-        //ショップリスト画面を開く。初期設定で最初はOFF。
-        shopitemlist_onoff = GameObject.FindWithTag("ShopitemList_ScrollView");
+        //ショップリスト画面。初期設定で最初はOFF。
+        shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
         shopitemlist_onoff.SetActive(false);
+
+        //クエストリスト画面。初期設定で最初はOFF。
+        shopquestlist_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+        shopquestlist_obj.SetActive(false);
 
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
@@ -108,6 +113,7 @@ public class Shop_Main : MonoBehaviour {
         if (GameMgr.scenario_ON == true)
         {
             shopitemlist_onoff.SetActive(false);
+            shopquestlist_obj.SetActive(false);
             shop_select.SetActive(false);
             backbutton_obj.SetActive(false);
             text_area.SetActive(false);
@@ -123,6 +129,7 @@ public class Shop_Main : MonoBehaviour {
                 case 0:
 
                     shopitemlist_onoff.SetActive(false);
+                    shopquestlist_obj.SetActive(false);
                     shop_select.SetActive(true);
                     backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
@@ -130,12 +137,20 @@ public class Shop_Main : MonoBehaviour {
 
                     _text.text = "いらっしゃい～。";
 
+                    shop_status = 100;
+
                     break;
 
-                case 1:
+                case 1: //ショップのアイテム選択中
                     break;
 
                 case 2:
+                    break;
+
+                case 3: //クエスト選択中
+                    break;
+
+                case 100: //退避
                     break;
 
                 default:
@@ -179,18 +194,36 @@ public class Shop_Main : MonoBehaviour {
         }
     }
 
-    public void OnCheck_3() //眺める
+    public void OnCheck_3() //依頼
     {
         if (shopon_toggle_quest.GetComponent<Toggle>().isOn == true)
         {
             shopon_toggle_quest.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            //shop_select.SetActive(false);
+            shopquestlist_obj.SetActive(true); //ショップリスト画面を表示。
+            shop_select.SetActive(false);
+            money_status_obj.SetActive(false);
 
             shop_status = 3; //クエストを押したときのフラグ
 
             _text.text = "ありがとう！お菓子をぜひ買い取らせていただくわ。";
 
         }
+    }
+
+    public void QuestTakeOK()
+    {
+        StartCoroutine("QuestTakeWait");
+    }
+
+    IEnumerator QuestTakeWait()
+    {
+        while (!Input.GetMouseButtonDown(0))
+        {
+
+            yield return null; // 左クリックがtrueになるまでは、とりあえず待機
+        }
+
+        shop_status = 0;
     }
 }

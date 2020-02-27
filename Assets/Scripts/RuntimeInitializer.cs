@@ -69,7 +69,7 @@ public class RuntimeInitializer : MonoBehaviour
         var girl1_status_init = new GameObject("Girl1_status", typeof(Girl1_status));
         girl1_status_init.AddComponent<AudioSource>();
         girl1_status_init.GetComponent<AudioSource>().volume = 0.5f;
-        GameObject.DontDestroyOnLoad(girl1_status_init);        
+        GameObject.DontDestroyOnLoad(girl1_status_init);       
 
         //カード表示部分
         var cardview_init = new GameObject("CardView", typeof(CardView));
@@ -81,6 +81,10 @@ public class RuntimeInitializer : MonoBehaviour
         //ショップデータベースリスト
         var itemshopdatabase_init = new GameObject("ItemShopDataBase", typeof(ItemShopDataBase));
         GameObject.DontDestroyOnLoad(itemshopdatabase_init);
+
+        //クエストセットデータベースリスト
+        var questset_database_init = new GameObject("QuestSetDataBase", typeof(QuestSetDataBase));
+        GameObject.DontDestroyOnLoad(questset_database_init);
 
         //ゲームマネージャ
         var gamemgr_init = new GameObject("GameMgr", typeof(GameMgr));

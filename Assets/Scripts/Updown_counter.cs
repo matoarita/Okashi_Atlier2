@@ -90,7 +90,7 @@ public class Updown_counter : MonoBehaviour {
 
             case "Shop":
 
-                this.transform.localPosition = new Vector3(280, 0, 0);
+                this.transform.localPosition = new Vector3(280, -35, 0);
                 break;
 
             default:

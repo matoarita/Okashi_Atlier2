@@ -105,7 +105,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             case "Shop":
 
-                shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
+                shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
                 shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
 
                 yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
