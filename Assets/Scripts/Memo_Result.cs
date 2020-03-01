@@ -15,8 +15,10 @@ public class Memo_Result : MonoBehaviour {
     private Text _text;
     private string text_recipi_memo;
 
-	// Use this for initialization
-	void Start () {
+    private SoundController sc;
+
+    // Use this for initialization
+    void Start () {
 
         
 
@@ -31,6 +33,9 @@ public class Memo_Result : MonoBehaviour {
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -55,6 +60,9 @@ public class Memo_Result : MonoBehaviour {
                 GameMgr.tutorial_Num = 40;
             }
         }
+
+        //音鳴らす
+        //sc.PlaySe(34);
     }
 
     public void SeteventID(int _ev_id )

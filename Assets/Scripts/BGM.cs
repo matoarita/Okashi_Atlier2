@@ -15,12 +15,19 @@ public class BGM : MonoBehaviour {
     [Range(0, 1)]
     public float _mixRate = 0;
 
+    private int fade_status;
+    private float fade_volume;
+    private float _fadedeg;
+
     // Use this for initialization
     void Start () {
 
         //使用するAudioSource取得。２つを取得。
         _bgm = GetComponents<AudioSource>();
 
+        fade_status = 1; //0=fade_out 1=OFF 2=fade_in
+        fade_volume = 1.0f;
+        _fadedeg = 0.03f; //フェードの音量減少量
         //_bgm[1]のほうに、各シーンごとのBGMを切り替えては入れて、その後_bgm[0]から切り替える
 
         Play();
@@ -29,8 +36,32 @@ public class BGM : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        _bgm[0].volume = (1f - _mixRate) * 0.4f;
-        _bgm[1].volume = _mixRate * 0.4f;
+        _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume;
+        _bgm[1].volume = _mixRate * 0.4f * fade_volume;
+
+        if(fade_status == 0) //フェードアウトがON
+        {           
+            if(fade_volume <= 0)
+            {
+                fade_status = 1;
+            }
+            else
+            {
+                fade_volume -= _fadedeg;
+            }
+        }
+
+        if (fade_status == 2) //フェードインがON
+        {
+            if (fade_volume >= 1.0f)
+            {
+                fade_status = 1;
+            }
+            else
+            {
+                fade_volume += _fadedeg;
+            }
+        }
     }
 
     public void Play()
@@ -86,5 +117,25 @@ public class BGM : MonoBehaviour {
     {
         _bgm[0].mute = false;
         _bgm[1].mute = false;
+    }
+
+    public void FadeOutBGM()
+    {
+        fade_status = 0;
+    }
+
+    public void FadeInBGM()
+    {
+        fade_status = 2;
+    }
+
+    public void NowFadeVolumeONBGM() //ただちにフェードのボリュームをもとに戻す。
+    {
+        fade_volume = 1.0f;
+    }
+
+    public void NowFadeVolumeOFFBGM() //ただちにフェードのボリュームを0にする。ミュートと、効果的には一緒。
+    {
+        fade_volume = 0.0f;
     }
 }

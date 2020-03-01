@@ -183,6 +183,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
             slot_view_status = 0;
             slot_view.SetActive(false);
 
+            //音量フェードイン
+            sceneBGM.FadeInBGM();
+
             _text.text = "家に戻ってきた。";
         }
     }
@@ -251,6 +254,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 move_anim_on = true;
                 move_anim_status = 0;
 
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM();
+
                 break;
 
             case false: //キャンセルが押された
@@ -279,6 +285,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 slot_view_status = 1;
                 compound_Main.compound_status = 21;
                 get_material.SetInit();
+
+                //音量フェードイン
+                sceneBGM.FadeInBGM();
 
                 switch (select_place_num)
                 {
@@ -309,6 +318,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                                    Vector2.zero);
                         //森のBGM
                         sceneBGM.OnGetMat_ForestBGM();
+                        compound_Main.bgm_change_flag = true;
 
                         if (GameMgr.MapEvent_01 == false)
                         {
@@ -412,7 +422,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 All_Off();
 
                 modoru_anim_on = true;
-               
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM();
+
 
                 break;
 

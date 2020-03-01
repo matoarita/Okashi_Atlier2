@@ -90,6 +90,15 @@ public class MoneyStatus_Controller : MonoBehaviour {
         }
     }
 
+    private void OnEnable()
+    {
+        _money_param = this.transform.Find("Money_param").gameObject;
+        _money_text = _money_param.GetComponent<Text>();
+
+        _money_text.text = PlayerStatus.player_money.ToString();
+        moneyanim_on = false;
+    }
+
     //お金が増えた
     public void GetMoney( int _getmoney )
     {

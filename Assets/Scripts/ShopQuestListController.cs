@@ -43,6 +43,7 @@ public class ShopQuestListController : MonoBehaviour
     public int _count; //選択したリスト番号が入る。
     public int _ID; //ショップデータベースIDが入る。
     public int questID; //選択したアイテムのアイテムIDが入る。通常アイテムなら、アイテムID、イベントアイテムならイベントリストのアイテムID。
+    public int questType;
 
     public int qlist_status;
 
@@ -141,6 +142,7 @@ public class ShopQuestListController : MonoBehaviour
             _toggle_itemID = _quest_listitem[list_count].GetComponent<shopQuestSelectToggle>();
             _toggle_itemID.toggle_ID = quest_database.questRandomset[i]._ID; //DBのID。上から順番
             _toggle_itemID.toggle_quest_ID = quest_database.questRandomset[i].Quest_ID; //クエスト固有のID
+            _toggle_itemID.toggle_quest_type = quest_database.questRandomset[i].QuestType; //クエストのタイプ　0なら材料採取　1ならお菓子系。1は、プレイヤーが選択
 
 
             item_name = quest_database.questRandomset[i].Quest_Title; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
@@ -192,6 +194,7 @@ public class ShopQuestListController : MonoBehaviour
             _toggle_itemID = _quest_listitem[list_count].GetComponent<shopQuestSelectToggle>();
             _toggle_itemID.toggle_ID = quest_database.questTakeset[i]._ID; //DBのID。上から順番
             _toggle_itemID.toggle_quest_ID = quest_database.questTakeset[i].Quest_ID; //クエスト固有のID
+            _toggle_itemID.toggle_quest_type = quest_database.questTakeset[i].QuestType; //クエストのタイプ　0なら材料採取　1ならお菓子系。1は、プレイヤーが選択
 
 
             item_name = quest_database.questTakeset[i].Quest_Title; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。

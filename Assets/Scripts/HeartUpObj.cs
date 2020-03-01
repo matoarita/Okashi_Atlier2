@@ -61,7 +61,7 @@ public class HeartUpObj : MonoBehaviour {
 
         pos = startPos;
 
-        _startspeed = 0.02f;
+        _startspeed = 0.06f;
         _speed = 0.01f + Random.Range(0f, 0.015f);
 
 

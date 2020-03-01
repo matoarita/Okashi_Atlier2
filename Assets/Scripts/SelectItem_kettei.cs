@@ -9,11 +9,17 @@ public class SelectItem_kettei : MonoBehaviour {
     public bool kettei1;
     public bool onclick;
 
-	// Use this for initialization
-	void Start ()
+    public bool ketteiNouhin;
+    public bool onclick2;
+
+    // Use this for initialization
+    void Start ()
     {
         kettei1 = false;
         onclick = false;
+
+        ketteiNouhin = false;
+        onclick2 = false;
 
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }
@@ -39,9 +45,28 @@ public class SelectItem_kettei : MonoBehaviour {
         kettei1 = false;
     }
 
+    public void NouhinOnClick() //Yesが選択された時
+    { // 必ず public にする
+        //Debug.Log("clicked");
+        onclick2 = true; //押された～というフラグ
+
+        ketteiNouhin = true;
+    }
+
+    public void NouhinOnClick2() //Noが選択された時
+    { // 必ず public にする
+        //Debug.Log("clicked");
+        onclick2 = true;
+
+        ketteiNouhin = false;
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         kettei1 = false;
         onclick = false;
+
+        ketteiNouhin = false;
+        onclick2 = false;
     }
 }

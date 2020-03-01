@@ -32,12 +32,18 @@ public class itemSelectToggle : MonoBehaviour
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
 
+    private GameObject questjudge_obj;
+    private Quest_Judge questjudge;
+
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
     private Exp_Controller exp_Controller;
+
+    private GameObject shopquestlistController_obj;
+    private ShopQuestListController shopquestlistController;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -52,6 +58,7 @@ public class itemSelectToggle : MonoBehaviour
     private PlayerItemList pitemlist;
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private QuestSetDataBase quest_database;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
@@ -64,6 +71,8 @@ public class itemSelectToggle : MonoBehaviour
     private GameObject item_tsuika; //PlayeritemList_ScrollViewの子オブジェクト「item_tsuika」ボタン
 
     private GameObject black_effect;
+
+    private GameObject NouhinKetteiPanel_obj;
 
     public int toggleitem_ID; //リストの要素自体に、アイテムIDを保持する。
     public int toggleitem_type; //リストの要素に、プレイヤーアイテムリストか、オリジナルかを識別するための番号を割り振る。
@@ -83,6 +92,8 @@ public class itemSelectToggle : MonoBehaviour
     private int itemID_2;
     private int itemID_3;
     private int baseitemID;
+
+    private int kosusum;
 
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
     private List<string>  _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
@@ -166,6 +177,9 @@ public class itemSelectToggle : MonoBehaviour
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
+        //クエストデータベースの取得
+        quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -198,7 +212,6 @@ public class itemSelectToggle : MonoBehaviour
         if (m_Toggle.isOn == true)
         {
             
-
             if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理
             {
 
@@ -257,6 +270,20 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
                 qbox_active();
+            }
+
+            else if (SceneManager.GetActiveScene().name == "Shop") // ショップ（納品時の画面開いた時）でやりたい処理
+            {
+
+                NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+                shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+                questjudge_obj = GameObject.FindWithTag("Quest_Judge");
+                questjudge = questjudge_obj.GetComponent<Quest_Judge>();
+
+                nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
             }
 
             else // その他シーンでやりたい処理
@@ -1299,7 +1326,165 @@ public class itemSelectToggle : MonoBehaviour
     }
 
 
-    
+    /* ### 納品時のシーン ### */
+
+    public void nouhin_active()
+    {
+
+        //アイテムを選択したときの処理（トグルの処理）
+
+        count = 0;
+
+        while (count < pitemlistController._listitem.Count)
+        {
+            selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
+            if (selectToggle == true) break;
+            ++count;
+        }
+
+        //リスト中の選択された番号を格納。
+        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+
+
+        //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
+        pitemlistController._listcount.Add(count);
+
+        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+        pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
+
+        //Debug.Log(count + "番が押されたよ");
+        //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
+        //Debug.Log("これでいいですか？");
+
+        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+        updown_counter_obj.SetActive(true);
+        NouhinKetteiPanel_obj.SetActive(false);
+
+        SelectPaused();
+
+        StartCoroutine("nouhin_select_kakunin");
+
+    }
+
+    IEnumerator nouhin_select_kakunin()
+    {
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された　
+
+                //Debug.Log("ok");
+                for (i = 0; i < pitemlistController._listitem.Count; i++)
+                {
+                    //まずは、一度全て表示を初期化
+                    pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+
+                }
+
+                //Debug.Log("pitemlistController._listcount[i]: " + pitemlistController._listcount[pitemlistController._listcount.Count - 1]);
+
+                //選択済みのやつだけONにしておく。
+                for (i = 0; i < pitemlistController._listcount.Count; i++)
+                {
+                    Debug.Log("pitemlistController._listcount[i]: " + pitemlistController._listcount[i]);
+                    pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().interactable = false;
+                }
+
+                pitemlistController._listkosu.Add(updown_counter.updown_kosu);
+
+                kosusum = 0;
+                //個数を判定し、必要個数に達していたら、そのまま判定に。
+                for (i = 0; i < pitemlistController._listkosu.Count; i++)
+                {
+                    kosusum += pitemlistController._listkosu[i];
+                }
+
+                if (kosusum >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
+                {
+                    //NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(true);
+                    //お菓子の判定処理
+                    questjudge.Okashi_Judge(shopquestlistController._count);                    
+                }
+                else
+                {
+                    _text.text = "個数が足りないよ～";
+
+                    //リスト更新
+                    shopquestlistController.NouhinList_DrawView();
+                }
+
+                //判定処理後にリセットしておく。
+                pitemlistController._listkosu.Clear();
+                pitemlistController._listcount.Clear();
+
+                card_view.DeleteCard_DrawView();
+
+                updown_counter.OpenFlag = false;
+                updown_counter_obj.SetActive(false);
+                yes.SetActive(false);
+                no.SetActive(false);
+
+                NouhinKetteiPanel_obj.SetActive(false);
+
+                pitemlistController_obj.SetActive(false);
+
+                yes_selectitem_kettei.onclick = false;
+
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("一個目はcancel");
+
+                _text.text = "渡したいお菓子を選んでね。";
+
+                //Debug.Log("pitemlistController._listcount[i]を削除: " + pitemlistController._listcount[pitemlistController._listcount.Count - 1]);
+                pitemlistController._listcount.RemoveAt(pitemlistController._listcount.Count - 1); //一番最後に挿入されたやつを、そのまま削除
+
+                for (i = 0; i < pitemlistController._listitem.Count; i++)
+                {
+                    //まずは、一度全て表示を初期化
+                    pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+
+                }
+
+                
+                //選択済みのやつだけONにしておく。
+                for (i = 0; i < pitemlistController._listcount.Count; i++)
+                {
+                    Debug.Log("pitemlistController._listcount[i]: " + pitemlistController._listcount[i]);
+                    pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().interactable = false;
+                    //pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().isOn = true;
+                }               
+
+                card_view.DeleteCard_DrawView();
+
+                updown_counter.OpenFlag = false;
+                updown_counter_obj.SetActive(false);
+                yes.SetActive(false);
+                no.SetActive(false);
+                NouhinKetteiPanel_obj.SetActive(true);
+
+                yes_selectitem_kettei.onclick = false;
+                //itemselect_cancel.All_cancel();
+                break;
+        }
+    }
+
+
+
     void Off_Flag_Setting()
     {
         //解除

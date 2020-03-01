@@ -53,6 +53,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     public int _count3; //表示されているリスト中の選択番号 3
     public int _base_count;
 
+    public List<int> _listcount = new List<int>(); //納品時用の選択番号リスト型
+
     public int _toggle_type1; //選択したアイテムが、店売りかオリジナルかの判定用。アイテムごとに３つ。
     public int _toggle_type2;
     public int _toggle_type3;
@@ -79,6 +81,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     public int final_kettei_kosu2;
     public int final_kettei_kosu3;
     public int final_base_kettei_kosu;
+
+    public List<int> _listkosu = new List<int>(); //納品時用の個数リスト型
 
     public bool extremepanel_on; //extremeパネルからのエクストリーム調合かどうか。
 
@@ -168,68 +172,78 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;
 
-        if (compound_Main_obj != null) //ゲームのセットアップ時は無視
-        {
-            //キャンバスの読み込み
-            canvas = GameObject.FindWithTag("Canvas");
-
-            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-
-            //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
-            updown_counter_obj.SetActive(true);
-            updown_counter.updown_kosu = 1;
-
-            updown_counter_obj.SetActive(false);
-        }
-
-        ResetKettei_item();
-
-        if (GameMgr.tutorial_ON == true)
-        {
-            no_button.SetActive(false);
-        }
-        else
-        {
-            no_button.SetActive(true);
-        }
-
-        if ( extremepanel_on == true )
-        {
-
-        }
-        else
-        {
-            kettei1_bunki = 0;
-        }
-        
-
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
-
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-            // トッピング調合を選択した場合の処理
-            if (compound_Main.compound_select == 2)
+            if (compound_Main_obj != null) //ゲームのセットアップ時は無視
             {
-                if (kettei1_bunki == 0)
-                {
-                    topping_DrawView_1();
-                }
-                else
-                {
-                    topping_DrawView_2();
-                }
+                //キャンバスの読み込み
+                canvas = GameObject.FindWithTag("Canvas");
+
+                updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+                updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+
+                //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
+                updown_counter_obj.SetActive(true);
+                updown_counter.updown_kosu = 1;
+
+                updown_counter_obj.SetActive(false);
             }
-            else //トッピング調合以外
+
+            ResetKettei_item();
+
+            if (GameMgr.tutorial_ON == true)
+            {
+                no_button.SetActive(false);
+            }
+            else
+            {
+                no_button.SetActive(true);
+            }
+
+            if (extremepanel_on == true)
+            {
+
+            }
+            else
+            {
+                kettei1_bunki = 0;
+            }
+
+
+            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+            {
+
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                // トッピング調合を選択した場合の処理
+                if (compound_Main.compound_select == 2)
+                {
+                    if (kettei1_bunki == 0)
+                    {
+                        topping_DrawView_1();
+                    }
+                    else
+                    {
+                        topping_DrawView_2();
+                    }
+                }
+                else //トッピング調合以外
+                {
+                    reset_and_DrawView();
+                }
+
+            }
+            else
             {
                 reset_and_DrawView();
             }
-            
         }
-        else
+        else if (SceneManager.GetActiveScene().name == "Shop")
         {
+            //納品時にアイテムを選択するときの処理
+            yes_button.SetActive(false);
+            no_button.SetActive(false);
             reset_and_DrawView();
         }
 
@@ -394,7 +408,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 itemlist_hyouji();
                             }
                         }
-                        else //調合以外のシーンでは、所持アイテム全て表示
+
+                    else if (SceneManager.GetActiveScene().name == "Shop") //納品時にリストを開くとき
+                    {
+                        //お菓子のみ表示
+                        if (database.items[i].itemType.ToString() == "Okashi")
+                        {
+                            itemlist_hyouji();
+                        }
+                    }
+
+                    else //調合以外のシーンでは、所持アイテム全て表示
                         {
                             itemlist_hyouji();
                         }
@@ -464,6 +488,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     }
                 }
                 else if (SceneManager.GetActiveScene().name == "GirlEat" || SceneManager.GetActiveScene().name == "QuestBox")
+                {
+                    //お菓子のみ表示
+                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                    {
+                        original_itemlist_hyouji();
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "Shop") //納品時にリストを開くとき
                 {
                     //お菓子のみ表示
                     if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
@@ -698,14 +730,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             {
                 if (slotnamedatabase.slotname_lists[count].slotName == pitemlist.player_originalitemlist[i].toppingtype[n].ToString())
                 {
-                    if (pitemlist.player_originalitemlist[i].ExtremeKaisu <= 0) //残り回数０のときは灰色表示
-                    {
-                        _slotHyouji1[n] = "<color=#AAAAAA>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
-                    }
-                    else
-                    {
-                        _slotHyouji1[n] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
-                    }
+
+                    _slotHyouji1[n] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+
                     break;
                 }
                 count++;
@@ -713,19 +740,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
 
         _text[0].text = _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + item_name;
-
-        //エクストリーム残り回数が0の場合は、選択できない
-        if (pitemlist.player_originalitemlist[i].ExtremeKaisu <= 0)
-        {
-            _listitem[list_count].GetComponent<Toggle>().interactable = false;
-            _text[0].color = new Color(180f / 255f, 180f / 255f, 180f / 255f);
-        }
-        else
-        {
-            _text[0].color = new Color(50f / 255f, 128f / 255f, 126f / 255f);
-        }
-        
-        
+                
 
         item_kosu = pitemlist.player_originalitemlist[i].ItemKosu;
 

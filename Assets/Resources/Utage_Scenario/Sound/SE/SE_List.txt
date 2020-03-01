@@ -30,7 +30,10 @@ SE表
 ・SE_28		audiostock_219045.mp3				調合完成音　低音シャキン
 ・SE_29		audiostock_104911.mp3				ステージクリア音
 ・SE_30		audiostock_221662_sample.mp3
-・SE_31		audiostock_251375_sample			ポコ音　探索時
-・SE_32		audiostock_52941_sample				お金キーーン
-・SE_33		audiostock_261320_sample			レジの音
+・SE_31		audiostock_251375				ポコ音　探索時
+・SE_32		audiostock_52941				お金キーーン
+・SE_33		audiostock_261320				レジの音
 ・SE_34		button64.mp3					ハートがゲージにヒットしたときの音
+・SE_35		page09.mp3					レシピメモ開くときの軽い紙の音
+・SE_36		on-jin_doato_doaberu_01op.mp3			ショップ入店時のドアベル
+・SE_37		page10.mp3					材料採取地開くときの地図開く音

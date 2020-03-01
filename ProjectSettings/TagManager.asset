@@ -53,6 +53,7 @@ TagManager:
   - BGM
   - RecipiMemo_ScrollView
   - Compound_Check
+  - Quest_Judge
   layers:
   - Default
   - TransparentFX

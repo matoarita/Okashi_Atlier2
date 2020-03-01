@@ -10,11 +10,18 @@ public class Updown_counter : MonoBehaviour {
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private QuestSetDataBase quest_database;
 
     private ItemShopDataBase shop_database;
 
+    private GameObject shopquestlistController_obj;
+    private ShopQuestListController shopquestlistController;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
+
+    private GameObject shop_Main_obj;
+    private Shop_Main shop_Main;
 
     private GameObject text_area;
     private Text _text;
@@ -67,6 +74,8 @@ public class Updown_counter : MonoBehaviour {
 
     private int _p_or_recipi_flag;
 
+    public bool OpenFlag;
+
     // Use this for initialization
     void Start () {
 
@@ -79,7 +88,8 @@ public class Updown_counter : MonoBehaviour {
         updown_button = this.GetComponentsInChildren<Button>();
         updown_button[0].interactable = true;
         updown_button[1].interactable = true;
-        //this.gameObject.SetActive(false);
+
+        OpenFlag = false;
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -101,6 +111,80 @@ public class Updown_counter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //初期位置の更新がEnableだとうまくいかないので、強引にフラグを使って、Update内で処理
+        if (SceneManager.GetActiveScene().name == "Shop")
+        {
+            if (OpenFlag != true)
+            {
+                if (shop_Main.shop_scene == 1)
+                {
+                    this.transform.localPosition = new Vector3(280, -35, 0);
+                }
+                else if (shop_Main.shop_scene == 3)
+                {
+                    this.transform.localPosition = new Vector3(0, -80, 0);
+
+                    switch (pitemlistController._toggle_type1)
+                    {
+                        case 0:
+
+                            if (pitemlist.playeritemlist[pitemlistController.kettei_item1] < quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
+                            {
+                                _text.text = "数が足りない..。";
+                                yes.SetActive(false);
+
+                                _count_text.text = updown_kosu.ToString();
+                            }
+                            else
+                            {
+                                _text.text = database.items[pitemlistController.kettei_item1].itemNameHyouji + "を " + quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default + "個" + "\n" + "渡しますか？";
+                                updown_kosu = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default;
+
+                                _count_text.text = updown_kosu.ToString();
+                            }
+                            break;
+
+                        case 1:
+
+                            if (pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu < quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
+                            {
+                                _text.text = "数が足りない..。";
+                                yes.SetActive(false);
+
+                                _count_text.text = updown_kosu.ToString();
+                            }
+                            else
+                            {
+                                _text.text = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].itemNameHyouji + "を " + quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default + "個" + "\n" + "渡しますか？";
+                                updown_kosu = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default;
+
+                                _count_text.text = updown_kosu.ToString();
+                            }
+
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    updown_button[0].interactable = false;
+                    updown_button[1].interactable = false;
+                    /*
+                    if (quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default == 1)
+                    {
+                        //yesをon
+                        yes.SetActive(true);
+                    }
+                    else
+                    {
+                        yes.SetActive(false);
+                    }*/
+
+                }
+
+                OpenFlag = true;
+            }
+        }
     }
 
     void OnEnable()
@@ -127,16 +211,32 @@ public class Updown_counter : MonoBehaviour {
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
+        //クエストデータベースの取得
+        quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         if (SceneManager.GetActiveScene().name == "Shop")
         {
-            //ショップリスト画面を開く。初期設定で最初はOFF。
-            shopitemlistcontroller_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
+            shop_Main_obj = GameObject.FindWithTag("Shop_Main");
+            shop_Main = shop_Main_obj.GetComponent<Shop_Main>();
+
+            //ショップリスト画面の取得
+            shopitemlistcontroller_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
             shopitemlistcontroller = shopitemlistcontroller_obj.GetComponent<ShopItemListController>();
 
-            _p_or_recipi_flag = 0;
+            shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+            shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+            pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+            yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+            yes_text = yes.GetComponentInChildren<Text>();
+            no = pitemlistController_obj.transform.Find("No").gameObject;
+            yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
         }
         else if (SceneManager.GetActiveScene().name == "Compound")
         {
@@ -186,9 +286,6 @@ public class Updown_counter : MonoBehaviour {
         {
             _p_or_recipi_flag = 0;
         }
-
-        
-
 
         updown_kosu = 1;
         _zaiko_max = 0;
@@ -385,7 +482,7 @@ public class Updown_counter : MonoBehaviour {
                     updown_kosu = _zaiko_max;
                 }
 
-                
+
             }
             else //レシピリストのときの処理
             {
@@ -409,52 +506,110 @@ public class Updown_counter : MonoBehaviour {
         }
 
         else if (SceneManager.GetActiveScene().name == "Shop")
-        { 
-            _zaiko_max = shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_itemzaiko;
-
-            ++updown_kosu;
-            if (updown_kosu > _zaiko_max)
-            {
-                updown_kosu = _zaiko_max;
-            }
-
-            if ( PlayerStatus.player_money < shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_costprice * updown_kosu)
-            {
-                //お金が足りない
-                _text.text = "お金が足りない。";
-
-                updown_kosu--;
-            }
-
-            _count_text.text = updown_kosu.ToString();
-        }
-
-        else
         {
-            switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+            if (shop_Main.shop_scene == 1)
             {
-                case 0:
+                _zaiko_max = shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_itemzaiko;
 
-                    _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
-                    break;
+                ++updown_kosu;
+                if (updown_kosu > _zaiko_max)
+                {
+                    updown_kosu = _zaiko_max;
+                }
 
-                case 1:
+                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_costprice * updown_kosu)
+                {
+                    //お金が足りない
+                    _text.text = "お金が足りない。";
 
-                    _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
-                    break;
+                    updown_kosu--;
+                }
 
-                default:
-                    break;
+                _count_text.text = updown_kosu.ToString();
             }
 
-            ++updown_kosu;
-            if (updown_kosu > _zaiko_max)
+            if (shop_Main.shop_scene == 3)
             {
-                updown_kosu = _zaiko_max;
-            }
-            
+                switch (pitemlistController._toggle_type1)
+                {
+                    case 0:
 
-            _count_text.text = updown_kosu.ToString();
+                        if (pitemlist.playeritemlist[pitemlistController.kettei_item1] >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
+                        {
+                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default; //一個目の決定アイテムの所持数
+                        }
+                        else
+                        {
+                            
+                            _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1];
+                        }
+                        break;
+
+                    case 1:
+
+                        if (pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
+                        {
+                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default; //一個目の決定アイテムの所持数
+                        }
+                        else
+                        {
+                            
+                            _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                        }
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+                ++updown_kosu;
+                if (updown_kosu > _zaiko_max)
+                {
+                    updown_kosu = _zaiko_max;
+                }
+
+
+                if (updown_kosu >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
+                {
+                    //yesをon
+                    yes.SetActive(true);
+                }
+                else
+                {
+                    yes.SetActive(false);
+
+                }
+                _count_text.text = updown_kosu.ToString();
+            }
+            /*
+            else
+            {
+                switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                {
+                    case 0:
+
+                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
+                        break;
+
+                    case 1:
+
+                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                ++updown_kosu;
+                if (updown_kosu > _zaiko_max)
+                {
+                    updown_kosu = _zaiko_max;
+                }
+
+                _count_text.text = updown_kosu.ToString();
+            }
+            */
         }
     }
 
@@ -494,6 +649,23 @@ public class Updown_counter : MonoBehaviour {
             if (updown_kosu <= 1)
             {
                 updown_kosu = 1;
+            }
+
+            if (SceneManager.GetActiveScene().name == "Shop")
+            {
+                if (shop_Main.shop_scene == 3)
+                {
+                    if (updown_kosu >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
+                    {
+                        //yesをon
+                        yes.SetActive(true);
+                    }
+                    else
+                    {
+                        yes.SetActive(false);
+
+                    }
+                }
             }
 
             _count_text.text = updown_kosu.ToString();

@@ -13,10 +13,12 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject canvas;
 
+    private SoundController sc;
+
     private Exp_Controller exp_Controller;
 
     private BGM sceneBGM;
-    private bool bgm_change_flag;
+    public bool bgm_change_flag;
 
     private Girl1_status girl1_status;
 
@@ -169,6 +171,9 @@ public class Compound_Main : MonoBehaviour
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false;
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //戻るボタンを取得
         backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
@@ -733,15 +738,19 @@ public class Compound_Main : MonoBehaviour
             //好感度チェック。好感度に応じて、イベントが発生。
             if (check_GirlLoveEvent_flag == false)
             {
-                Check_GirlLoveEvent();
+                //腹減りカウント一時停止
+                girl1_status.GirlEat_Judge_on = false;
 
+                Check_GirlLoveEvent();
             }
             else
             {
                 //読んでいないレシピがあれば、読む処理。優先順位二番目。
                 if (check_recipi_flag != true)
                 {
-                    
+                    //腹減りカウント一時停止
+                    girl1_status.GirlEat_Judge_on = false;
+
                     Check_RecipiFlag();
                 }
                 else
@@ -1273,8 +1282,11 @@ public class Compound_Main : MonoBehaviour
             compound_status = 20;
 
             //BGMを変更
-            sceneBGM.OnGetMatStartBGM();
-            bgm_change_flag = true;
+            //sceneBGM.OnGetMatStartBGM();
+            //bgm_change_flag = true;
+
+            //音ならす
+            sc.PlaySe(36);
 
             //compoundselect_onoff_obj.SetActive(false);
             getmatplace_panel.SetActive(true);
@@ -1457,10 +1469,7 @@ public class Compound_Main : MonoBehaviour
 
         compoundselect_onoff_obj.SetActive(false);
         Extremepanel_obj.SetActive(false);
-        text_area.SetActive(false);
-
-        //一時的に腹減りを止める。
-        girl1_status.GirlEat_Judge_on = false;
+        text_area.SetActive(false);       
 
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」

@@ -518,7 +518,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         //位置とスケール
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
 
     }
 

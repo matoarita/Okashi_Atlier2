@@ -97,6 +97,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(23);
                 break;
 
+            case "recipiMemoSelectToggle(Clone)": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
             case "ExtremeButton": //Get_Materialを押したときのSE
 
                 //Debug.Log("this.transform.gameObject.GetComponent<Button>().IsInteractable(): " + this.transform.gameObject.GetComponent<Button>().IsInteractable());

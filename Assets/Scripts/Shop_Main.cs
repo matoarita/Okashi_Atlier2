@@ -6,7 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class Shop_Main : MonoBehaviour {
 
+    //カメラ関連
+    private Camera main_cam;
+    private Animator maincam_animator;
+    private int trans; //トランジション用のパラメータ
+
     private ItemShopDataBase shop_database;
+
+    private SoundController sc;
 
     private GameObject text_area;
     private Text _text;
@@ -34,11 +41,17 @@ public class Shop_Main : MonoBehaviour {
     private GameObject updown_counter_Prefab;
 
     public int shop_status;
+    public int shop_scene; //どのシーンを選択しているかを判別
 
     private int i;
 
     // Use this for initialization
     void Start () {
+
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
@@ -80,9 +93,13 @@ public class Shop_Main : MonoBehaviour {
         money_status_obj = GameObject.FindWithTag("MoneyStatus_panel");
         money_status_obj.SetActive(false);
 
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
         //プレイヤー所持アイテムリストパネルの初期化・取得
         pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
         pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
 
@@ -104,6 +121,10 @@ public class Shop_Main : MonoBehaviour {
         text_area.SetActive(false);
 
         shop_status = 0;
+        shop_scene = 0;
+
+        //入店の音
+        //sc.PlaySe(35);
     }
 	
 	// Update is called once per frame
@@ -120,6 +141,7 @@ public class Shop_Main : MonoBehaviour {
             money_status_obj.SetActive(false);
 
             shop_status = 0;
+            shop_scene = 0;
         }
         else
         {
@@ -137,7 +159,17 @@ public class Shop_Main : MonoBehaviour {
 
                     _text.text = "いらっしゃい～。";
 
+                    shop_scene = 0;
                     shop_status = 100;
+
+                    if(trans == 1) //カメラが寄っていたら、デフォに戻す。
+                    {
+                        //カメラ寄る。
+                        trans--; //transが1を超えたときに、ズームするように設定されている。
+
+                        //intパラメーターの値を設定する.
+                        maincam_animator.SetInteger("trans", trans);
+                    }
 
                     break;
 
@@ -172,6 +204,7 @@ public class Shop_Main : MonoBehaviour {
             shop_select.SetActive(false);
 
             shop_status = 1; //ショップのシーンに入っている、というフラグ
+            shop_scene = 1;
 
             _text.text = "何を買うの？";
             
@@ -185,6 +218,7 @@ public class Shop_Main : MonoBehaviour {
             shopon_toggle_talk.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             shop_status = 2; //眺めるを押したときのフラグ
+            shop_scene = 2;
 
             //_text.text = "なぁに？お話する？";
 
@@ -202,28 +236,19 @@ public class Shop_Main : MonoBehaviour {
 
             shopquestlist_obj.SetActive(true); //ショップリスト画面を表示。
             shop_select.SetActive(false);
-            money_status_obj.SetActive(false);
+            //money_status_obj.SetActive(false);
 
             shop_status = 3; //クエストを押したときのフラグ
+            shop_scene = 3;
 
             _text.text = "ありがとう！お菓子をぜひ買い取らせていただくわ。";
 
+            //カメラ寄る。
+            trans++; //transが1を超えたときに、ズームするように設定されている。
+
+            //intパラメーターの値を設定する.
+            maincam_animator.SetInteger("trans", trans);
+
         }
-    }
-
-    public void QuestTakeOK()
-    {
-        StartCoroutine("QuestTakeWait");
-    }
-
-    IEnumerator QuestTakeWait()
-    {
-        while (!Input.GetMouseButtonDown(0))
-        {
-
-            yield return null; // 左クリックがtrueになるまでは、とりあえず待機
-        }
-
-        shop_status = 0;
     }
 }
