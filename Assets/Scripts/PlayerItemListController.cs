@@ -731,7 +731,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 if (slotnamedatabase.slotname_lists[count].slotName == pitemlist.player_originalitemlist[i].toppingtype[n].ToString())
                 {
 
-                    _slotHyouji1[n] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    _slotHyouji1[n] = GameMgr.ColorYellow + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
 
                     break;
                 }

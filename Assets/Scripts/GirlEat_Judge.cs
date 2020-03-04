@@ -37,7 +37,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private Text window_result_text;
 
     private GameObject hukidashiitem;   
-    private Text _text;
+    private Text _hukidashitext;
 
     private GameObject eat_hukidashiPrefab;
     private GameObject eat_hukidashiitem;
@@ -78,6 +78,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private float timeOut;
 
     //アイテムのパラメータ
+    private int _baseID;
     private string _basename;
     private string _basenameHyouji;
     private int _basequality;
@@ -171,6 +172,7 @@ public class GirlEat_Judge : MonoBehaviour {
     public int total_score;
 
     private bool dislike_flag;
+    private int dislike_status;
 
     // スロットのデータを保持するリスト。点数とセット。
     List<string> itemslotInfo = new List<string>();
@@ -496,6 +498,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             case 0:
 
+                _baseID = database.items[kettei_item1].itemID;
                 _basename = database.items[kettei_item1].itemName;
                 _basenameHyouji = database.items[kettei_item1].itemNameHyouji;
                 _basequality = database.items[kettei_item1].Quality;
@@ -531,6 +534,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case 1:
 
+                _baseID = pitemlist.player_originalitemlist[kettei_item1].itemID;
                 _basename = pitemlist.player_originalitemlist[kettei_item1].itemName;
                 _basenameHyouji = pitemlist.player_originalitemlist[kettei_item1].itemNameHyouji;
                 _basequality = pitemlist.player_originalitemlist[kettei_item1].Quality;
@@ -754,156 +758,255 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //パラメータ初期化し、判定処理
             dislike_flag = true;
-           
+            dislike_status = 1;
+
             //
-            //判定処理　パターンA
+            //判定処理　パターンC
             //
 
-            //①トッピングスロットの計算
-            switch (count) {
+            //粉っぽさなどのマイナス判定。一番強い。ここであまりに粉っぽさなどが強い場合は、問答無用で嫌われる。
 
-                case 0:
+            if (_basepowdery > 50)
+            {
+                dislike_flag = false;
+                dislike_status = 3;
+            }
+            if (_baseoily > 50)
+            {
+                dislike_flag = false;
+                dislike_status = 3;
+            }
+            if (_basewatery > 50)
+            {
+                dislike_flag = false;
+                dislike_status = 3;
+            }
 
-                    for (i = 0; i < itemslotScore.Count; i++)
+            //嫌いな材料の判定
+            for (i = 0; i < itemslotScore.Count; i++)
+            {
+                //0はNonなので、無視
+                if (i != 0)
+                {
+                    //あげたアイテムに、女の子の嫌いな材料が使われていた！
+                    if (itemslotInfo[i] == "Shishamo" && itemslotScore[i] > 0)
                     {
-                        
-                        //0はNonなので、無視
-                        if (i != 0)
+                        dislike_flag = false;
+                        dislike_status = 4;
+                    }
+                }
+            }
+
+
+            if (dislike_status == 3 || dislike_status == 4)
+            {
+                //パターンCのマイナスフラグがたってしまったので、以下の判定処理を無視
+                break;
+            }
+            else
+            {
+                //
+                //判定処理　パターンA
+                //
+
+                //①トッピングスロットの計算
+                switch (count)
+                {
+
+                    case 0:
+
+                        for (i = 0; i < itemslotScore.Count; i++)
                         {
-                            //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
-                            if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet1[i])
+
+                            //0はNonなので、無視
+                            if (i != 0)
                             {
-                                break;
-                            }
-                            //一つでも満たしてないものがある場合は、NGフラグがたつ
-                            else
-                            {
-                                dislike_flag = false;
+                                //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                                if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet1[i])
+                                {
+                                    break;
+                                }
+                                //一つでも満たしてないものがある場合は、NGフラグがたつ
+                                else
+                                {
+                                    dislike_flag = false;
+                                }
                             }
                         }
-                    }
-                    break;
+                        break;
 
-                case 1:
+                    case 1:
 
-                    for (i = 0; i < itemslotScore.Count; i++)
-                    {
-                        //①トッピングスロットの計算
-
-                        //0はNonなので、無視
-                        if (i != 0)
+                        for (i = 0; i < itemslotScore.Count; i++)
                         {
-                            //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
-                            if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet2[i])
+                            //①トッピングスロットの計算
+
+                            //0はNonなので、無視
+                            if (i != 0)
                             {
-                                break;
-                            }
-                            //一つでも満たしてないものがある場合は、NGフラグがたつ
-                            else
-                            {
-                                dislike_flag = false;
+                                //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                                if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet2[i])
+                                {
+                                    break;
+                                }
+                                //一つでも満たしてないものがある場合は、NGフラグがたつ
+                                else
+                                {
+                                    dislike_flag = false;
+                                }
                             }
                         }
-                    }
-                    break;
+                        break;
 
-                case 2:
+                    case 2:
 
-                    for (i = 0; i < itemslotScore.Count; i++)
-                    {
-                        //①トッピングスロットの計算
-
-                        //0はNonなので、無視
-                        if (i != 0)
+                        for (i = 0; i < itemslotScore.Count; i++)
                         {
-                            //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
-                            if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet3[i])
+                            //①トッピングスロットの計算
+
+                            //0はNonなので、無視
+                            if (i != 0)
                             {
-                                break;
-                            }
-                            //一つでも満たしてないものがある場合は、NGフラグがたつ
-                            else
-                            {
-                                dislike_flag = false;
+                                //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                                if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet3[i])
+                                {
+                                    break;
+                                }
+                                //一つでも満たしてないものがある場合は、NGフラグがたつ
+                                else
+                                {
+                                    dislike_flag = false;
+                                }
                             }
                         }
-                    }
-                    break;
+                        break;
 
-                default:
+                    default:
 
-                    break;
-            }
+                        break;
+                }
 
-            //②味パラメータの計算
-            if (_baserich >= _girlrich[count])
-            {
-                //break;
-            }
-            else { dislike_flag = false; }
-
-            if (_basesweat >= _girlsweat[count])
-            {
-                //break;
-            }
-            else { dislike_flag = false; }
-
-            if (_basebitter >= _girlbitter[count])
-            {
-                //break;
-            }
-            else { dislike_flag = false; }
-
-            if (_basesour >= _girlsour[count])
-            {
-                //break;
-            }
-            else { dislike_flag = false; }
-
-            Debug.Log("②味パラメータの計算 OK");
-
-            //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
-            if (_girl_likeokashi[count] == "Non") //特に指定なし
-            {
-                //③お菓子の種別の計算
-                if (_girl_subtype[count] == "Non") //特に指定なし
+                //②味パラメータの計算
+                if (_baserich >= _girlrich[count])
                 {
                     //break;
                 }
-                else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
+                else { dislike_flag = false; }
+
+                if (_basesweat >= _girlsweat[count])
                 {
+                    //break;
+                }
+                else { dislike_flag = false; }
+
+                if (_basebitter >= _girlbitter[count])
+                {
+                    //break;
+                }
+                else { dislike_flag = false; }
+
+                if (_basesour >= _girlsour[count])
+                {
+                    //break;
+                }
+                else { dislike_flag = false; }
+
+                Debug.Log("②味パラメータの計算 OK");
+
+                //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
+                if (_girl_likeokashi[count] == "Non") //特に指定なし
+                {
+                    //③お菓子の種別の計算
+                    if (_girl_subtype[count] == "Non") //特に指定なし
+                    {
+                        //break;
+                    }
+                    else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
+                    {
+                        //break;
+                    }
+                    else
+                    {
+                        dislike_flag = false;
+                    }
+                }
+                else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
+                {
+                    //サブは計算せず、特定のお菓子自体が正解なら、正解
                     //break;
                 }
                 else
                 {
                     dislike_flag = false;
                 }
+
+                Debug.Log("_girl_likeokashi[count]: " + _girl_likeokashi[count]);
+                Debug.Log("_basename: " + _basename);
+
+                //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
+                if (dislike_flag) { break; }
+
+                count++;
             }
-            else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
+
+            //この時点で、嫌いなもの（吹き出しと違うもの）であれば、dislike_flagがたっている。
+
+            //
+            //判定処理　パターンB
+            //
+
+            //次に、それを新しく食べるものかどうかを判定。dislike_flagがたっているときのみ判定
+            if (dislike_flag == false)
             {
-                //サブは計算せず、特定のお菓子自体が正解なら、正解
-                //break;
+                if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
+                {
+                    dislike_flag = true;
+                    dislike_status = 2;
+                }
             }
-            else
-            {
-                dislike_flag = false;
-            }
-
-            Debug.Log("_girl_likeokashi[count]: " + _girl_likeokashi[count]);
-            Debug.Log("_basename: " + _basename);
-
-            //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
-            if (dislike_flag) { break; }
-
-            count++;
         }
-        
     }
 
     void Girl_reaction()
     {
         if (dislike_flag == true) //正解の場合
         {
+            switch (dislike_status)
+            {
+                //吹き出しのお菓子をあげた場合の処理
+                case 1:
+
+                    if (girl1_status.hukidashiitem != null)
+                    {
+                        hukidashiitem = GameObject.FindWithTag("Hukidashi");
+                        _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
+
+                        _hukidashitext.text = "お兄ちゃん！ありがとー！！";
+                    }
+                    break;
+
+                //新しいお菓子をあげた場合の処理
+                case 2:
+
+                    if (girl1_status.hukidashiitem != null)
+                    {
+                        hukidashiitem = GameObject.FindWithTag("Hukidashi");
+                        _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
+
+                        _hukidashitext.text = "む！今まで食べたことがないお菓子だ！！";
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        
+            
+
+            //お菓子をたべたフラグをON
+
+            if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
+            { database.items[_baseID].First_eat = 1; }
 
             //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
             LoveScoreCal();
@@ -941,6 +1044,46 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else //失敗の場合
         {
+            if (girl1_status.hukidashiitem != null)
+            {
+                hukidashiitem = GameObject.FindWithTag("Hukidashi");
+                _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
+
+            }
+
+            switch (dislike_status)
+            {
+
+                case 3:
+
+                    _hukidashitext.text = "げろげろ..。ま、まずいよ..。兄ちゃん。";
+
+                    //キャラクタ表情変更
+                    s.sprite = girl1_status.Girl1_img_verysad;
+
+                    break;
+
+                case 4:
+
+                    _hukidashitext.text = "ぐええ..。コレ嫌いー！..。";
+
+                    //キャラクタ表情変更
+                    s.sprite = girl1_status.Girl1_img_verysad_close;
+
+                    break;
+
+                default:
+
+                    _hukidashitext.text = "コレ嫌いー！";
+
+                    //キャラクタ表情変更
+                    s.sprite = girl1_status.Girl1_img_gokigen;
+
+                    break;
+            }
+
+            
+
             //好感度取得
             Getlove_exp = -10;
 
@@ -958,10 +1101,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //お菓子をあげたあとの状態に移行する。残り時間を、短く設定。
             girl1_status.timeGirl_hungry_status = 2;
-            girl1_status.timeOut = 5.0f;
-
-            //キャラクタ表情変更
-            s.sprite = girl1_status.Girl1_img_gokigen;
+            girl1_status.timeOut = 5.0f;           
 
             //リセット＋フラグチェック
             //減る場合は、update内でちぇっく

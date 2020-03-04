@@ -3021,13 +3021,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public void GirlLikeText(int _getlove_exp, int _getmoney)
     {
-        if (girl1_status.hukidashiitem != null)
+        /*if (girl1_status.hukidashiitem != null)
         {
             hukidashiitem = GameObject.FindWithTag("Hukidashi");
             _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
 
             _hukidashitext.text = "お兄ちゃん！ありがとー！！";
-        }
+        }*/
 
 
         _text.text = "お菓子をあげた！" + "\n" + "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
@@ -3036,13 +3036,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public void GirlDisLikeText(int _getlove_exp)
     {
-        if (girl1_status.hukidashiitem != null)
+        /*if (girl1_status.hukidashiitem != null)
         {
             hukidashiitem = GameObject.FindWithTag("Hukidashi");
             _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
 
             _hukidashitext.text = "コレ嫌いー！";
-        }
+        }*/
 
 
         _text.text = "お菓子をあげた！" + "\n" + "好感度が" + Mathf.Abs(_getlove_exp) + "下がった..。";

@@ -57,6 +57,7 @@ public class Entity_GirlLikeSetCompoDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(4); p.set3 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(5); p.desc = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(6); p.comment = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(7); p.set_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

@@ -517,7 +517,7 @@ public class Compound_Main : MonoBehaviour
 
                         girl1_status.timeGirl_hungry_status = 2; //一回、画像を元に戻す。
 
-                        girl1_status.InitializeStageGirlHungrySet(10, 0);
+                        girl1_status.InitializeStageGirlHungrySet(11, 0);
                         girl1_status.Girl_Hungry();
                         girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
 

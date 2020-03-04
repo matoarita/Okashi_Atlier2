@@ -1367,7 +1367,7 @@ MonoBehaviour:
       - "\u30A2\u30A4\u30C6\u30E0\u53D6\u5F97\u97F3\uFF11"
       - 
       - Se
-      - SE_02.mp3
+      - SE_05.mp3
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -1437,7 +1437,7 @@ MonoBehaviour:
       - "\u307B\u306E\u307C\u306E\uFF11"
       - 
       - Bgm
-      - konekonoosanpo.mp3
+      - BGM_01.mp3
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -1463,7 +1463,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 341
+    textLength: 333
     headerRow: 0
   - rows:
     - rowIndex: 0

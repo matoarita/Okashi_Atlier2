@@ -19,9 +19,11 @@ public class GirlLikeCompo
     public string desc;
     public string comment; //ゲーム中では使用しない。メモ用。
 
+    public int set_flag; //これがONだと、腹減りセットが選択されるようになる。
+
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public GirlLikeCompo(int id, int _set_id, int set1_id, int set2_id, int set3_id, string _desc, string _comment)
+    public GirlLikeCompo(int id, int _set_id, int set1_id, int set2_id, int set3_id, string _desc, string _comment, int _set_flag)
     {
         ID = id;
         set_ID = _set_id;
@@ -32,6 +34,8 @@ public class GirlLikeCompo
 
         desc = _desc;
         comment = _comment;
+
+        set_flag = _set_flag;
     }
 
 }

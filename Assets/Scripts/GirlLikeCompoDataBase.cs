@@ -16,6 +16,8 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
     private string _desc;
     private string _comment;
 
+    private int _set_flag;
+
     private int i;
     private int count;
     private int sheet_count;
@@ -24,6 +26,9 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
     public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
 
     public List<GirlLikeCompo> girllike_composet = new List<GirlLikeCompo>();
+
+    //ランダム選択用のセット
+    public List<GirlLikeCompo> girllike_compoRandomset = new List<GirlLikeCompo>();
 
     //リスト化をして下のvoid Start内でリストに値を追加、値は適当です。
     void Start()
@@ -56,8 +61,10 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
                 _desc = excel_girlLikecompo_database.sheets[sheet_no].list[count].desc;
                 _comment = excel_girlLikecompo_database.sheets[sheet_no].list[count].comment;
 
+                _set_flag = excel_girlLikecompo_database.sheets[sheet_no].list[count].set_flag;
+
                 //ここでリストに追加している
-                girllike_composet.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _desc, _comment));
+                girllike_composet.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _desc, _comment, _set_flag));
 
                 //Debug.Log("GirlLike_tp01: " + girllikeset[count].girlLike_topping[0]);
 
@@ -69,6 +76,39 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
             sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
 
             sheet_no++;
+        }
+    }
+
+    public void StageSet()
+    {
+        //flagが1のもののみのセットを作る。
+        girllike_compoRandomset.Clear();
+        count = 0;
+
+        while (count < girllike_composet.Count)
+        {
+            if (girllike_composet[count].set_flag == 1)
+            {
+                // 一旦代入
+                _id = girllike_composet[count].ID;
+                _setid = girllike_composet[count].set_ID;
+
+                _set1 = girllike_composet[count].set1;
+                _set2 = girllike_composet[count].set2;
+                _set3 = girllike_composet[count].set3;
+
+
+                _desc = girllike_composet[count].desc;
+                _comment = girllike_composet[count].comment;
+
+                _set_flag = girllike_composet[count].set_flag;
+
+                //ここでリストに追加している
+                girllike_compoRandomset.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _desc, _comment, _set_flag));
+
+            }
+
+            ++count;
         }
     }
 }

@@ -2259,7 +2259,7 @@ MonoBehaviour:
     - ItemID: 204
       file_name: neko_cookie
       name: cookie_nonsuger
-      nameHyouji: "\u8D85\u7C21\u5358\uFF01\u7802\u7CD6\u306A\u3057\u30C9\u30ED\u30C3\u30D7\u30AF\u30C3\u30AD\u30FC"
+      nameHyouji: "\u30CE\u30F3\u30B7\u30E5\u30AC\u30FC\u30C9\u30ED\u30C3\u30D7\u30AF\u30C3\u30AD\u30FC"
       desc: "\u7802\u7CD6\u3092\u4F7F\u308F\u305A\u3001\u7C89\u3068\u30D0\u30BF\u30FC\u3060\u3051\u3092\u6DF7\u305C\u305F\u30B7\u30F3\u30D7\u30EB\u306A\u30AF\u30C3\u30AD\u30FC\u3002\u8179\u6301\u3061\u304C\u826F\u3044\u3002"
       hp: 500
       day: 0
@@ -2276,7 +2276,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      powdery: 0
+      powdery: 55
       oily: 0
       watery: 0
       type: Okashi
@@ -2299,7 +2299,7 @@ MonoBehaviour:
     - ItemID: 205
       file_name: neko_cookie
       name: cookie_salad_oil
-      nameHyouji: "\u7C21\u5358\u30B5\u30AF\u30B5\u30AF\u30AF\u30C3\u30AD\u30FC"
+      nameHyouji: "\u30CE\u30F3\u30D0\u30BF\u30FC\u30B5\u30AF\u30B5\u30AF\u30AF\u30C3\u30AD\u30FC"
       desc: "\u30D0\u30BF\u30FC\u3092\u4F7F\u308F\u305A\u306B\u713C\u3044\u305F\u30B7\u30F3\u30D7\u30EB\u306A\u30AF\u30C3\u30AD\u30FC\u3002"
       hp: 300
       day: 0
@@ -2540,7 +2540,7 @@ MonoBehaviour:
       file_name: emerald_neko_cookie
       name: emerald_neko_cookie
       nameHyouji: "\u30A8\u30E1\u30E9\u30EB\u30C9\u30CD\u30B3\u30AF\u30C3\u30AD\u30FC"
-      desc: "\u30A8\u30E1\u30E9\u30EB\u30C9\u306E\u3088\u3046\u306A\u30AD\u30E9\u30AD\u30E9\u3057\u305F\u8272\u306E\u3001\u7518\u9178\u3063\u3071\u3044\u30AF\u30C3\u30AD\u30FC\u3002"
+      desc: "\u30A8\u30E1\u30E9\u30EB\u30C9\u306E\u3088\u3046\u306A\u30AD\u30E9\u30AD\u30E9\u3057\u305F\u8272\u306E\u3001\u7518\u9178\u3063\u3071\u3044\u30AF\u30C3\u30AD\u30FC\u3002\u30E1\u30ED\u30F3\u306E\u5473\u304C\u3059\u308B\u3002"
       hp: 300
       day: 0
       quality: 20
@@ -3981,7 +3981,7 @@ MonoBehaviour:
       name: bugget
       nameHyouji: "\u30D0\u30B2\u30C3\u30C8"
       desc: "\u786C\u304F\u3066\u7D30\u9577\u3044\u30D1\u30F3\u3002\u6B6F\u304C\u7815\u3051\u305D\u3046\u306B\u306A\u308B\u307B\u3069\u3001\u786C\u3044\u3002\u6C17\u6CE1\u306E\u30DC\u30B3\u30DC\u30B3\u304C\u304B\u3063\u3053\u3044\u3044\u3002"
-      hp: 0
+      hp: 300
       day: 0
       quality: 50
       exp: 3

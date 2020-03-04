@@ -124,6 +124,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public Sprite Girl1_img_gokigen;
     public Sprite Girl1_img_eat_start;
     public Sprite Girl1_img_smile;
+    public Sprite Girl1_img_verysad;
+    public Sprite Girl1_img_verysad_close;
 
     // Use this for initialization
     void Start () {
@@ -167,6 +169,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_img_gokigen = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
         Girl1_img_smile = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_yorokobi");
         Girl1_img_eat_start = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_eat_start");
+        Girl1_img_verysad = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_verysad");
+        Girl1_img_verysad_close = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_verysad_close");
 
         // *** パラメータ初期設定 ***
 
@@ -318,14 +322,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             */
 
             //②その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
-            //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。            
-            //random = Random.Range(0, girlLikeCompo_database.girllike_composet.Count);
+            //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。    
 
-            glike_compID = 0;
+            //まず、表示フラグが1のもののみのセットを作る。そこからランダムで選択
+            girlLikeCompo_database.StageSet();
+            random = Random.Range(0, girlLikeCompo_database.girllike_compoRandomset.Count);
+
+            glike_compID = random;
+
+            //Debug.Log("girlLikeCompo_database.girllike_compoRandomset.Count: " + girlLikeCompo_database.girllike_compoRandomset.Count);
             
-            set1_ID = girlLikeCompo_database.girllike_composet[glike_compID].set1;
-            set2_ID = girlLikeCompo_database.girllike_composet[glike_compID].set2;
-            set3_ID = girlLikeCompo_database.girllike_composet[glike_compID].set3;
+            set1_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set1;
+            set2_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set2;
+            set3_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set3;
  
 
             set_ID.Clear();

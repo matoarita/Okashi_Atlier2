@@ -332,6 +332,12 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
 
+                        compound_Main.compound_status = 4;
+
+                        card_view.CardCompo_Anim();
+                        Off_Flag_Setting();
+
+                        /*
                         //新しいアイテムを閃く
                         if (compoDB_select_judge == true)
                         {                           
@@ -343,17 +349,13 @@ public class Compound_Check : MonoBehaviour {
                         {
                             exp_Controller.NewRecipiflag_check = false;
                         }
-
-                        compound_Main.compound_status = 4;
-
-                        card_view.CardCompo_Anim();
-                        Off_Flag_Setting();
+                       
 
                         //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-                        exp_Controller.Topping_Result_OK();
+                        exp_Controller.Topping_Result_OK();*/
 
-                        /*
+                        
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
                         {
@@ -370,7 +372,7 @@ public class Compound_Check : MonoBehaviour {
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
                             exp_Controller.Topping_Result_OK();
-                        }*/
+                        }
 
                         break;
 
@@ -416,6 +418,12 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
 
+                        compound_Main.compound_status = 4;
+
+                        card_view.CardCompo_Anim();
+                        Off_Flag_Setting();
+
+                        /*
                         //新しいアイテムを閃く
                         if (compoDB_select_judge == true)
                         {                           
@@ -426,18 +434,13 @@ public class Compound_Check : MonoBehaviour {
                         else
                         {
                             exp_Controller.NewRecipiflag_check = false;
-                        }
-
-                        compound_Main.compound_status = 4;
-
-                        card_view.CardCompo_Anim();
-                        Off_Flag_Setting();
+                        }                       
 
                         //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-                        exp_Controller.Topping_Result_OK();
+                        exp_Controller.Topping_Result_OK();*/
 
-                        /*
+                        
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
                         {
@@ -454,7 +457,7 @@ public class Compound_Check : MonoBehaviour {
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
                             exp_Controller.Topping_Result_OK();
-                        }*/
+                        }
 
                         break;
 
