@@ -854,22 +854,27 @@ public class Utage_scenario : MonoBehaviour
         {
             case "ev00_orange_cookie_recipi":
 
-                engine.Param.TrySetParameter("Ev_flag1", true);
+                engine.Param.TrySetParameter("Ev_flag", 0);
                 break;
 
             case "ev01_neko_cookie_recipi":
 
-                engine.Param.TrySetParameter("Ev_flag2", true);
+                engine.Param.TrySetParameter("Ev_flag", 10);
                 break;
 
             case "ev02_orangeneko_cookie_memo":
 
-                engine.Param.TrySetParameter("Ev_flag3", true);
-                break;
+                engine.Param.TrySetParameter("Ev_flag", 20);
+                break;            
 
             case "financier_recipi":
 
-                engine.Param.TrySetParameter("Ev_flag4", true);
+                engine.Param.TrySetParameter("Ev_flag", 30);
+                break;
+
+            case "rusk_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag", 40);
                 break;
 
             default:

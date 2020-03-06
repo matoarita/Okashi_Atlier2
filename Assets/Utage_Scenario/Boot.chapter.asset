@@ -1147,73 +1147,52 @@ MonoBehaviour:
     - rowIndex: 33
       debugIndex: 33
       strings:
-      - Ev_flag1
-      - Bool
-      - FALSE
+      - Ev_flag
+      - Int
+      - 0
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 34
       debugIndex: 34
-      strings:
-      - Ev_flag2
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 35
       debugIndex: 35
-      strings:
-      - Ev_flag3
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 36
       debugIndex: 36
-      strings:
-      - Ev_flag4
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 37
       debugIndex: 37
-      strings:
-      - Ev_flag5
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 38
       debugIndex: 38
-      strings:
-      - Ev_flag6
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 39
       debugIndex: 39
-      strings:
-      - Ev_flag7
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 40
       debugIndex: 40
-      strings:
-      - Ev_flag8
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 41
@@ -1302,7 +1281,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 569
+    textLength: 444
     headerRow: 0
   - rows:
     - rowIndex: 0

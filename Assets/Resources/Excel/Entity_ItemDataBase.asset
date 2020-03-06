@@ -4017,6 +4017,46 @@ MonoBehaviour:
       koyu_topping: Non
       item_hyouji: 1
     - ItemID: 248
+      file_name: bugget
+      name: bugget_sliced
+      nameHyouji: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D1\u30F3"
+      desc: "\u8584\u304F\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D1\u30F3\u3002"
+      hp: 300
+      day: 0
+      quality: 50
+      exp: 3
+      ex_probability: 0.95
+      rich: 35
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 50
+      fluffy: 50
+      smooth: 50
+      hardness: 50
+      jiggly: 0
+      chewy: 0
+      powdery: 50
+      oily: 0
+      watery: 0
+      type: Okashi
+      subtype: Bread
+      girl1_like: 10
+      cost_price: 10
+      sell_price: 5
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping: Non
+      item_hyouji: 1
+    - ItemID: 249
       file_name: icecream
       name: ice_cream
       nameHyouji: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0"
@@ -4056,7 +4096,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: IceCream
       item_hyouji: 1
-    - ItemID: 249
+    - ItemID: 250
       file_name: orange_juice
       name: orange_juice
       nameHyouji: "\u6FC3\u7E2E\u30AA\u30EC\u30F3\u30B8\u30B8\u30E5\u30FC\u30B9"
@@ -4096,7 +4136,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 250
+    - ItemID: 251
       file_name: orange_juice
       name: haloween_juice
       nameHyouji: "\u30CF\u30ED\u30A6\u30A3\u30FC\u30F3\u30B8\u30E5\u30FC\u30B9"
@@ -4136,7 +4176,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 251
+    - ItemID: 252
       file_name: orange_juice
       name: mix_fruits_juice
       nameHyouji: "\u30DF\u30C3\u30AF\u30B9\u30D5\u30EB\u30FC\u30C4\u30B8\u30E5\u30FC\u30B9"
@@ -4176,7 +4216,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 252
+    - ItemID: 253
       file_name: cloud_cookie
       name: cloud_cookie
       nameHyouji: "\u3075\u308F\u3075\u308F\u96F2\u306E\u30AF\u30C3\u30AD\u30FC"
@@ -4216,7 +4256,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 253
+    - ItemID: 254
       file_name: neko_cookie
       name: maccha_choco
       nameHyouji: "\u62B9\u8336\u30AC\u30C8\u30FC\u30B7\u30E7\u30B3\u30E9"
@@ -4256,7 +4296,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 254
+    - ItemID: 255
       file_name: rich_tea
       name: rich_tea
       nameHyouji: "\u82F1\u56FD\u30A2\u30FC\u30EB\u30B0\u30EC\u30A4\u30C6\u30A3\u30FC"
@@ -4296,7 +4336,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 255
+    - ItemID: 256
       file_name: neko_cookie
       name: sinamon_pie
       nameHyouji: "\u30D0\u30BF\u30FC\u30B9\u30B3\u30C3\u30C1\u30B7\u30CA\u30E2\u30F3\u30D1\u30A4"
@@ -4336,7 +4376,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 256
+    - ItemID: 257
       file_name: rich_tea
       name: corn_soup
       nameHyouji: "\u30B3\u30FC\u30F3\u30B9\u30FC\u30D7"
@@ -4376,7 +4416,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
-    - ItemID: 257
+    - ItemID: 258
       file_name: coffee
       name: forest_coffee
       nameHyouji: "\u68EE\u306E\u30B3\u30FC\u30D2\u30FC"
@@ -4416,7 +4456,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
-    - ItemID: 258
+    - ItemID: 259
       file_name: coffee
       name: light_manderin
       nameHyouji: "\u5149\u306E\u30DE\u30F3\u30C7\u30EA\u30F3"
@@ -4456,7 +4496,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
-    - ItemID: 259
+    - ItemID: 260
       file_name: rich_tea
       name: kogyoku_apple_tea
       nameHyouji: "\u7D05\u7389\u30A2\u30C3\u30D7\u30EB\u30C6\u30A3\u30FC"
@@ -4496,7 +4536,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
-    - ItemID: 260
+    - ItemID: 261
       file_name: neko_cookie
       name: potato_bonbon
       nameHyouji: "\u30DD\u30C6\u30C8\u30DC\u30F3\u30DC\u30F3"
@@ -4536,7 +4576,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
-    - ItemID: 261
+    - ItemID: 262
       file_name: neko_cookie
       name: torte
       nameHyouji: "\u30C8\u30EB\u30C6"
@@ -4576,7 +4616,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
-    - ItemID: 262
+    - ItemID: 263
       file_name: coffee
       name: sea_losanonos
       nameHyouji: "\u6D77\u306E\u30ED\u30B9\u30A2\u30CE\u30CE\u30B9"
@@ -4616,7 +4656,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 263
+    - ItemID: 264
       file_name: strawberry_parfe
       name: vanilla_parfe
       nameHyouji: "\u30D0\u30CB\u30E9\u30D1\u30D5\u30A7"
@@ -4656,7 +4696,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-    - ItemID: 264
+    - ItemID: 265
       file_name: chocolate_parfe
       name: chocorate_parfe
       nameHyouji: "\u5473\u308F\u3044\u6FC3\u539A\u30C1\u30E7\u30B3\u30D1\u30D5\u30A7"
@@ -5385,6 +5425,46 @@ MonoBehaviour:
       name: milkpan
       nameHyouji: "\u30DF\u30EB\u30AF\u30D1\u30F3"
       desc: "\u30D0\u30BF\u30FC\u306A\u3069\u3092\u6EB6\u304B\u3059\u305F\u3081\u306E\u3001\u5C0F\u3055\u306A\u304A\u934B\u3002\u4F7F\u3044\u52DD\u624B\u304C\u3088\u3044\u3002"
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Machine
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping: Non
+      item_hyouji: 1
+    - ItemID: 502
+      file_name: milkpan
+      name: pan_knife
+      nameHyouji: "\u30D1\u30F3\u30CA\u30A4\u30D5"
+      desc: "\u5927\u304D\u3081\u306E\u30D1\u30F3\u306A\u3069\u3092\u30B9\u30E9\u30A4\u30B9\u3067\u304D\u308B\u30CA\u30A4\u30D5\u3002"
       hp: 0
       day: 0
       quality: 0

@@ -18,6 +18,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private SpriteRenderer s;
 
     public float timeOut;
+    public float timeOut2;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
 
     public bool GirlEat_Judge_on;
@@ -158,6 +159,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //この時間ごとに、女の子は、お菓子を欲しがり始める。
         timeOut = 5.0f;
+        timeOut2 = 10.0f;
         timeGirl_hungry_status = 0;
 
         girl1_Love_exp = 0;
@@ -220,6 +222,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (GirlEat_Judge_on == true)
         {
             timeOut -= Time.deltaTime;
+            timeOut2 -= Time.deltaTime;
         }
 
         if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしない。
@@ -277,8 +280,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 break;
                         }
 
+                    }
 
+                    //一定時間たつとヒントを出す。
+                    if (timeOut2 <= 0.0)
+                    {
+                        rnd = Random.Range(10.0f, 20.0f);
+                        timeOut2 = 20.0f + rnd;
 
+                        Girl1_Hint();
                     }
                     break;
 
@@ -429,6 +439,32 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeGirl_hungry_status = 0;
     }
 
+
+    public void Girl1_Hint()
+    {
+        //吹き出しが残っていたら、内容を変える。
+        if (hukidashiitem != null)
+        {
+            if (girl1_Love_exp <= 25 && PlayerStatus.First_recipi_on != true)
+            {
+                _text = hukidashiitem.GetComponentInChildren<Text>();
+                _text.text = "まずは、" + GameMgr.ColorBlue + "左のパネル" + "</color>" + "でお菓子を作ろうね！お兄ちゃん。";
+            }
+        }
+
+        //5秒ほど表示したら、また食べたいお菓子を表示
+        StartCoroutine("WaitHintDesc");
+    }
+
+    IEnumerator WaitHintDesc()
+    {
+        yield return new WaitForSeconds(10.0f);
+
+        if (hukidashiitem != null)
+        {
+            _text.text = _desc;
+        }
+    }
 
     void InitializeItemSlotDicts()
     {

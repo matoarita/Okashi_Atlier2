@@ -81,38 +81,45 @@ MonoBehaviour:
       name: milkpan
       zaiko: 1
       itemType: 2
-      shop_sell_price: 100
-      shop_buy_price: 50
+      shop_sell_price: 300
+      shop_buy_price: 150
       item_hyouji: 1
     - ItemID: 10
+      name: pan_knife
+      zaiko: 1
+      itemType: 2
+      shop_sell_price: 300
+      shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 11
       name: parfe_base
       zaiko: 50
       itemType: 0
       shop_sell_price: 50
       shop_buy_price: 25
       item_hyouji: 0
-    - ItemID: 11
+    - ItemID: 12
       name: ice_cream
       zaiko: 50
       itemType: 0
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 0
-    - ItemID: 12
+    - ItemID: 13
       name: corn_frake
       zaiko: 50
       itemType: 0
       shop_sell_price: 20
       shop_buy_price: 10
       item_hyouji: 0
-    - ItemID: 13
+    - ItemID: 14
       name: cookie_base_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 1500
       shop_buy_price: 750
       item_hyouji: 1
-    - ItemID: 14
+    - ItemID: 15
       name: financier_recipi
       zaiko: 1
       itemType: 1

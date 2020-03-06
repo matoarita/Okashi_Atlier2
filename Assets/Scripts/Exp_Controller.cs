@@ -449,6 +449,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //キャンバスの読み込み
                 canvas = GameObject.FindWithTag("Canvas");
 
+                text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+                _text = text_area.GetComponentInChildren<Text>();
+
                 //確率パネルの取得
                 kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();

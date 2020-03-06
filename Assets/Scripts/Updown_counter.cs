@@ -72,6 +72,9 @@ public class Updown_counter : MonoBehaviour {
 
     private Button[] updown_button = new Button[2];
 
+    private GameObject updown_button_Big;
+    private GameObject updown_button_Small;
+
     private int _p_or_recipi_flag;
 
     public bool OpenFlag;
@@ -87,7 +90,7 @@ public class Updown_counter : MonoBehaviour {
 
         updown_button = this.GetComponentsInChildren<Button>();
         updown_button[0].interactable = true;
-        updown_button[1].interactable = true;
+        updown_button[1].interactable = true;        
 
         OpenFlag = false;
 
@@ -100,7 +103,7 @@ public class Updown_counter : MonoBehaviour {
 
             case "Shop":
 
-                this.transform.localPosition = new Vector3(280, -35, 0);
+                this.transform.localPosition = new Vector3(280, -15, 0);
                 break;
 
             default:
@@ -118,7 +121,7 @@ public class Updown_counter : MonoBehaviour {
             {
                 if (shop_Main.shop_scene == 1)
                 {
-                    this.transform.localPosition = new Vector3(280, -35, 0);
+                    this.transform.localPosition = new Vector3(280, -15, 0);
                 }
                 else if (shop_Main.shop_scene == 3)
                 {
@@ -208,6 +211,11 @@ public class Updown_counter : MonoBehaviour {
         updown_button[0].interactable = true;
         updown_button[1].interactable = true;
 
+        updown_button_Big = this.transform.Find("up_big").gameObject;
+        updown_button_Big.SetActive(false);
+        updown_button_Small = this.transform.Find("up_small").gameObject;
+        updown_button_Small.SetActive(false);
+
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
@@ -236,6 +244,16 @@ public class Updown_counter : MonoBehaviour {
             yes_text = yes.GetComponentInChildren<Text>();
             no = pitemlistController_obj.transform.Find("No").gameObject;
             yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
+
+            if (shop_Main.shop_scene == 1)
+            {
+                updown_button_Big.SetActive(true);
+                updown_button_Small.SetActive(true);
+            } else
+            {
+                updown_button_Big.SetActive(false);
+                updown_button_Small.SetActive(false);
+            }
 
         }
         else if (SceneManager.GetActiveScene().name == "Compound")
@@ -582,34 +600,34 @@ public class Updown_counter : MonoBehaviour {
                 }
                 _count_text.text = updown_kosu.ToString();
             }
-            /*
-            else
+            
+        }
+    }
+
+    public void OnClickup_Big()
+    {
+        if (SceneManager.GetActiveScene().name == "Shop")
+        {
+            if (shop_Main.shop_scene == 1)
             {
-                switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
-                {
-                    case 0:
+                _zaiko_max = shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_itemzaiko;
 
-                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
-                        break;
-
-                    case 1:
-
-                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
-                        break;
-
-                    default:
-                        break;
-                }
-
-                ++updown_kosu;
+                updown_kosu = updown_kosu + 10;
                 if (updown_kosu > _zaiko_max)
                 {
                     updown_kosu = _zaiko_max;
                 }
 
+                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_costprice * updown_kosu)
+                {
+                    //お金が足りない
+                    _text.text = "お金が足りない。";
+
+                    updown_kosu = updown_kosu - 10;
+                }
+
                 _count_text.text = updown_kosu.ToString();
             }
-            */
         }
     }
 
@@ -672,6 +690,16 @@ public class Updown_counter : MonoBehaviour {
         }
     }
 
+    public void OnClickdown_Small()
+    {
+        updown_kosu = updown_kosu - 10;
+        if (updown_kosu <= 1)
+        {
+            updown_kosu = 1;
+        }
+
+        _count_text.text = updown_kosu.ToString();
+    }
 
     //レシピリストのときの処理
     public void updown_keisan_Method()
