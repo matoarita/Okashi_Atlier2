@@ -19,8 +19,6 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
-    private GameObject PRenkinLv_Panel_obj;
-
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
@@ -30,6 +28,11 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+
+    //女の子のお菓子の好きセットの組み合わせDB
+    private GirlLikeCompoDataBase girlLikeCompo_database;
+
+    private Dictionary<int, int> girlLikeCompoScore = new Dictionary<int, int>();
 
     private Girl1_status girl1_status;
 
@@ -125,6 +128,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _girlpowdery;
     private int _girloily;
     private int _girlwatery;
+
+    private int _set_compID;
 
     private string[] _girl_subtype;
     private string[] _girl_likeokashi;
@@ -223,6 +228,9 @@ public class GirlEat_Judge : MonoBehaviour {
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
+        //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
+        girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
+
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
@@ -241,8 +249,7 @@ public class GirlEat_Judge : MonoBehaviour {
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
-        //錬金レベルパネルの取得
-        PRenkinLv_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("PRenkinLevel_panel").gameObject;
+
 
         //エフェクトプレファブの取得
         effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
@@ -400,7 +407,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     Extremepanel_obj.SetActive(false);
                     MoneyStatus_Panel_obj.SetActive(false);
-                    PRenkinLv_Panel_obj.SetActive(false);
                     text_area.SetActive(false);
 
                     timeOut = 1.0f;
@@ -450,7 +456,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     Extremepanel_obj.SetActive(true);
                     MoneyStatus_Panel_obj.SetActive(true);
-                    PRenkinLv_Panel_obj.SetActive(true);
                     text_area.SetActive(true);
 
                     //食べ中吹き出しの削除
@@ -595,6 +600,8 @@ public class GirlEat_Judge : MonoBehaviour {
         _girlpowdery = girl1_status.girl1_Powdery;
         _girloily = girl1_status.girl1_Oily;
         _girlwatery = girl1_status.girl1_Watery;
+
+        _set_compID = girl1_status.Set_compID;
 
         /* 古い処理、ここに入ってた。とりあえず、スクリプト下部へ避難 */
 
@@ -753,7 +760,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         count = 0;
 
-        Debug.Log("girl1_status.Set_Count: " + girl1_status.Set_Count);
+        //Debug.Log("girl1_status.Set_Count: " + girl1_status.Set_Count);
         while (count < girl1_status.Set_Count) //セットの組み合わせの数だけ判定。最大３。どれか一つのセットが条件をクリアしていれば、正解。
         {
             //パラメータ初期化し、判定処理
@@ -940,8 +947,8 @@ public class GirlEat_Judge : MonoBehaviour {
                     dislike_flag = false;
                 }
 
-                Debug.Log("_girl_likeokashi[count]: " + _girl_likeokashi[count]);
-                Debug.Log("_basename: " + _basename);
+                //Debug.Log("_girl_likeokashi[count]: " + _girl_likeokashi[count]);
+                Debug.Log("あげたお菓子: " + _basename);
 
                 //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
                 if (dislike_flag) { break; }
@@ -979,10 +986,23 @@ public class GirlEat_Judge : MonoBehaviour {
                     if (girl1_status.hukidashiitem != null)
                     {
                         hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                        _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
-
+                        //hukidashiitem.GetComponent<TextController>().SetText("お兄ちゃん！ありがとー！！");
+                        _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
                         _hukidashitext.text = "お兄ちゃん！ありがとー！！";
                     }
+
+                    //そのお菓子セットをどれだけ食べたか。スコアを追加。
+                    for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                    {
+                        if (girlLikeCompo_database.girllike_composet[i].set_ID == _set_compID)
+                        {
+                            ++girlLikeCompo_database.girllike_composet[i].set_score;
+                        }
+                    }
+
+                    //3秒ほど表示したら、お菓子の感想を言ったり、なんか褒めてくれたりする。
+                    StartCoroutine("WaitCommentDesc");
+
                     break;
 
                 //新しいお菓子をあげた場合の処理
@@ -991,10 +1011,14 @@ public class GirlEat_Judge : MonoBehaviour {
                     if (girl1_status.hukidashiitem != null)
                     {
                         hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                        _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
-
+                        //hukidashiitem.GetComponent<TextController>().SetText("む！今まで食べたことがないお菓子だ！！");
+                        _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
                         _hukidashitext.text = "む！今まで食べたことがないお菓子だ！！";
                     }
+                    
+                    //3秒ほど表示したら、お菓子の感想を言ったり、なんか褒めてくれたりする。
+                    StartCoroutine("WaitCommentNewOkashiDesc");
+
                     break;
 
                 default:
@@ -1002,17 +1026,15 @@ public class GirlEat_Judge : MonoBehaviour {
             }
         
             
-
             //お菓子をたべたフラグをON
-
             if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
             { database.items[_baseID].First_eat = 1; }
 
+            
             //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
             LoveScoreCal();
 
             //お金の取得
-            //Debug.Log("GetMoney: " + GetMoney);
             moneyStatus_Controller.GetMoney(GetMoney);
 
             //アイテムの削除
@@ -1041,13 +1063,16 @@ public class GirlEat_Judge : MonoBehaviour {
             //リセット＋フラグチェック
             Getlove_exp = 0;
             compound_Main.check_GirlLoveEvent_flag = false;
+
+            //次の課題を、進行度に応じて決める。イベントお菓子を作るか、ランダムセットのままか。また、ランダムのフラグ解放もこのメソッド。
+            SelectNewOkashiSet();
         }
         else //失敗の場合
         {
             if (girl1_status.hukidashiitem != null)
             {
                 hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                _hukidashitext = hukidashiitem.GetComponentInChildren<Text>();
+                _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
 
             }
 
@@ -1056,7 +1081,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 case 3:
 
-                    _hukidashitext.text = "げろげろ..。ま、まずいよ..。兄ちゃん。";
+                    hukidashiitem.GetComponent<TextController>().SetText("げろげろ..。ま、まずいよ..。兄ちゃん。");
+                    //_hukidashitext.text = "げろげろ..。ま、まずいよ..。兄ちゃん。";
 
                     //キャラクタ表情変更
                     s.sprite = girl1_status.Girl1_img_verysad;
@@ -1065,7 +1091,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 case 4:
 
-                    _hukidashitext.text = "ぐええ..。コレ嫌いー！..。";
+                    hukidashiitem.GetComponent<TextController>().SetText("ぐええ..。コレ嫌いー！..。");
+                    //_hukidashitext.text = "ぐええ..。コレ嫌いー！..。";
 
                     //キャラクタ表情変更
                     s.sprite = girl1_status.Girl1_img_verysad_close;
@@ -1074,7 +1101,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 default:
 
-                    _hukidashitext.text = "コレ嫌いー！";
+                    hukidashiitem.GetComponent<TextController>().SetText("コレ嫌いー！");
+                    //_hukidashitext.text = "コレ嫌いー！";
 
                     //キャラクタ表情変更
                     s.sprite = girl1_status.Girl1_img_gokigen;
@@ -1136,6 +1164,35 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
+    IEnumerator WaitCommentDesc()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        if (hukidashiitem != null)
+        {
+            hukidashiitem.GetComponent<TextController>().SetText("腕をあげたねぇ、お兄ちゃん。");
+            //_hukidashitext.text = "腕をあげたねぇ、お兄ちゃん。";
+        }
+
+        girl1_status.timeOut += 3.0f; //少し表示時間をのばす
+    }
+
+    IEnumerator WaitCommentNewOkashiDesc()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        if (hukidashiitem != null)
+        {
+            hukidashiitem.GetComponent<TextController>().SetText(database.items[_baseID].itemNameHyouji + "うまいぞ！");
+            //_hukidashitext.text = database.items[_baseID].itemNameHyouji + "うまいぞ！";
+        }
+
+        girl1_status.timeOut += 3.0f; //少し表示時間をのばす
+    }
+
+
+
+
     void InitializeItemSlotDicts()
     {
 
@@ -1146,6 +1203,16 @@ public class GirlEat_Judge : MonoBehaviour {
             itemslotScore.Add(0);
         }
             
+    }
+
+    void InitializeGirlLikeCompoScore()
+    {
+        girlLikeCompoScore.Clear();
+
+        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+        {
+            girlLikeCompoScore.Add(girlLikeCompo_database.girllike_composet[i].set_ID, girlLikeCompo_database.girllike_composet[i].set_score);
+        }
     }
 
     void delete_Item()
@@ -1224,13 +1291,7 @@ public class GirlEat_Judge : MonoBehaviour {
         for (i = 0; i < Getlove_exp; i++)
         {
             _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
-           
-            /*heartPos = _listHeart[i].transform.localPosition;
 
-            rnd = Random.Range(-200, 200);
-            rnd2 = Random.Range(-200, 200);
-          
-            _listHeart[i].transform.localPosition = new Vector3(heartPos.x + rnd, heartPos.y + rnd2, heartPos.z);*/
         }
 
         //好感度　取得分増加
@@ -1239,9 +1300,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
     public void GetHeartValue()
     {
-        //１ずつ増加
-        //++_exp;
-        //++girl1_status.girl1_Love_exp;
 
         //スライダにも反映
         _slider.value++;
@@ -1252,6 +1310,97 @@ public class GirlEat_Judge : MonoBehaviour {
 
     }
 
+    void SelectNewOkashiSet()
+    {
+        //次の食べたいお菓子を決めるメソッド。
+
+        //特定のお菓子をクリアした場合は、1に戻す。
+        if (girl1_status.OkashiNew_Status == 0)
+        {
+            girl1_status.OkashiNew_Status = 1;
+
+            //その際、クリアしたお菓子に応じて特別報酬やイベントなどが進む。
+            switch(girl1_status.OkashiQuest_ID)
+            {
+                case 12:
+
+                    Debug.Log("Level2start: ラスクを欲しがる");
+                    GameMgr.OkashiQuest01_flag = true;
+
+                    //クッキー系をOFF
+                    SetGirlSetFlag(0, 0);
+                    SetGirlSetFlag(1, 0);
+                    SetGirlSetFlag(2, 0);
+
+                    //ラスクを欲しがる
+                    SetGirlSetFlag(10, 1);
+
+                    //イベントお菓子フラグのON/OFF。
+                    girl1_status.OkashiNew_Status = 0;
+                    girl1_status.OkashiQuest_ID = 30;
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+
+        //条件分岐
+        //点数をまず初期化
+        InitializeGirlLikeCompoScore();
+
+        //①ガールセットコンポのスコアを見る。or お菓子を食べたことがあるかどうかをみる。
+
+        //クッキー　＋　オレンジねこクッキーをあげてる場合、
+        //＜自由＞クッキー系が解放。IDは、「set_compID」のほうを選択。
+        //ちなみに自由課題は、「スペシャルお菓子」。クリアすると、通常よりもより大きな好感度が入る！
+        if (girlLikeCompoScore[0] >= 1 && girlLikeCompoScore[1] >= 1)
+        {
+            //set_compID=2を解放
+            if (GameMgr.OkashiQuest01_flag != true)
+            {
+                SetGirlSetFlag(2, 1); //set_ID=2, set_flag=1にする。これで、ランダムで2のお菓子セットを欲しがるようになる。
+                Debug.Log("Set2: ＜自由＞クッキー系　解放");
+
+                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                girl1_status.OkashiNew_Status = 0;
+                girl1_status.OkashiQuest_ID = 12;
+                Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
+            }
+
+        }
+        else if (database.GetItemFirstEat("neko_cookie") >= 1 && database.GetItemFirstEat("orange_neko_cookie") >= 1)
+        {
+            //set_compID=2を解放
+            if (GameMgr.OkashiQuest01_flag != true)
+            {
+                SetGirlSetFlag(2, 1); //set_ID=2, set_flag=1にする。これで、ランダムで2のお菓子セットを欲しがるようになる。
+                Debug.Log("Set2: ＜自由＞クッキー系　解放");
+
+                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                girl1_status.OkashiNew_Status = 0;
+                girl1_status.OkashiQuest_ID = 12;
+                Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
+            }
+        }
+
+        //②好感度で発生するイベントがあるかどうか。
+        //Compound_Main内で処理している。
+    }
+
+    //指定したコンプIDのフラグをONかOFFにする。
+    void SetGirlSetFlag(int _compID, int _flag)
+    {
+        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+        {
+            if (girlLikeCompo_database.girllike_composet[i].set_ID == _compID)
+            {
+                girlLikeCompo_database.girllike_composet[i].set_flag = _flag;
+            }
+        }
+    }
         /*
             Debug.Log("###  好みの比較　結果　###");
 

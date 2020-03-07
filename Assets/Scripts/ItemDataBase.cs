@@ -193,4 +193,19 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
         items.Add(new Item(1, "grape", "ぶどう", "budou desu", 4, 1, 20, 40, 0, 0, 1, 20, 1, 3, 5));*/
 
     }
+
+    public int GetItemFirstEat(string _itemname)
+    {
+        i = 0;
+        while(i<items.Count)
+        {
+            if(items[i].itemName == _itemname)
+            {
+                return items[i].First_eat;                
+            }
+            i++;
+        }
+
+        return 0;
+    }
 }

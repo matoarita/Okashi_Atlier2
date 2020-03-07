@@ -77,7 +77,6 @@ public class Compound_Main : MonoBehaviour
     private ItemCompoundDataBase databaseCompo;
 
     private GameObject compoundselect_onoff_obj;
-    private GameObject saveload_panel;
 
     private GameObject original_toggle;
     private GameObject recipi_toggle;
@@ -91,8 +90,6 @@ public class Compound_Main : MonoBehaviour
     private GameObject shop_toggle;
     private GameObject getmaterial_toggle;
     private GameObject stageclear_toggle;
-
-    private GameObject backbutton_obj;
 
     private Button extreme_Button;
     private Button recipi_Button;
@@ -174,10 +171,6 @@ public class Compound_Main : MonoBehaviour
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-        //戻るボタンを取得
-        backbutton_obj = GameObject.FindWithTag("Canvas").transform.Find("Button_modoru").gameObject;
-        backbutton_obj.SetActive(false);
 
         //プレイヤー所持アイテムリストパネルの取得
         pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
@@ -272,8 +265,7 @@ public class Compound_Main : MonoBehaviour
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").gameObject;
         getmatplace_panel.SetActive(false);
 
-        compoundselect_onoff_obj = GameObject.FindWithTag("CompoundSelect");
-        saveload_panel = canvas.transform.Find("SaveLoadPanel").gameObject;
+        compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
 
         original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
         recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
@@ -1086,7 +1078,6 @@ public class Compound_Main : MonoBehaviour
             case 99: //アイテム画面を開いたとき
 
                 compoundselect_onoff_obj.SetActive(false);
-                saveload_panel.SetActive(false);
                 black_panel_A.SetActive(true);
                 compound_status = 99;
                 compound_select = 99;
@@ -1340,9 +1331,7 @@ public class Compound_Main : MonoBehaviour
         Debug.Log("イベントレシピID: " + event_itemID + "　レシピ名: " + pitemlist.eventitemlist[event_itemID].event_itemNameHyouji);
 
         compoundselect_onoff_obj.SetActive(false);
-        saveload_panel.SetActive(false);
         kakuritsuPanel_obj.SetActive(false);
-        backbutton_obj.SetActive(false);
         text_area.SetActive(false);
         black_panel_A.SetActive(false);
 
@@ -1710,10 +1699,22 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_num = 1;
                             GameMgr.GirlLoveEvent_01 = true;
 
+                            //レシピの追加
                             recipi_id = Find_eventitemdatabase("rusk_recipi");
                             pitemlist.add_eventPlayerItem(recipi_id, 1); //ナジャの基本のレシピを追加
 
-                            //_text.text = "イベント１をON。" + "\n" + "お兄ちゃん。誰かお客さんがきたよ。";
+                            //オリジナルクッキー作りのクエスト発生
+                            if (GameMgr.OkashiQuest01_flag != true)
+                            {
+                                Debug.Log("Set2: ＜自由＞クッキー系　解放");
+
+                                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                                girl1_status.OkashiNew_Status = 0;
+                                girl1_status.OkashiQuest_ID = 12;
+                                Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
+                            }
+
+                            Debug.Log("好感度イベント１をON: お兄ちゃん。誰かお客さんがきたよ。");
 
                             StartCoroutine("ReadGirlLoveEvent");
                         }

@@ -113,6 +113,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
 
     //女の子の好み組み合わせセットのデータ
+    public int Set_compID;
     private int glike_compID;
     private int set1_ID;
     private int set2_ID;
@@ -127,6 +128,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public Sprite Girl1_img_smile;
     public Sprite Girl1_img_verysad;
     public Sprite Girl1_img_verysad_close;
+
+    //特定のお菓子か、ランダムから選ぶかのフラグ
+    public int OkashiNew_Status;
+    public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
 
     // Use this for initialization
     void Start () {
@@ -163,6 +168,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeGirl_hungry_status = 0;
 
         girl1_Love_exp = 0;
+        OkashiNew_Status = 1;
 
         GirlEat_Judge_on = true;
 
@@ -318,77 +324,107 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else
         {
-            Debug.Log("通常腹減りステータスON");
+            //Debug.Log("通常腹減りステータスON");
 
-            /*
-            //①イベントやチュートリアル、ある好感度をこえたときの条件によって、こちらの特定のアイテムを常に出すようにする。
-            //ランダムで切り替わるテーブルセット。girlLikeSet_databaseのIDをランダムで抽選している。    
-            random = Random.Range(0, girlLikeSet_database.girllikeset.Count);
-            //番号を入れると、女の子の好みデータベースから、値を取得し、セット。とりあえずセット１(_set_num=0)に入れて、使いまわし。
-            InitializeStageGirlHungrySet(random, 0);
-            
-             //テキストの設定。直接しているか、セット組み合わせエクセルにかかれたキャプションのどちらかが入る。
-            _desc = girllike_desc[0];
-            */
-
-            //②その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
-            //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。    
-
-            //まず、表示フラグが1のもののみのセットを作る。そこからランダムで選択
-            girlLikeCompo_database.StageSet();
-            random = Random.Range(0, girlLikeCompo_database.girllike_compoRandomset.Count);
-
-            glike_compID = random;
-
-            //Debug.Log("girlLikeCompo_database.girllike_compoRandomset.Count: " + girlLikeCompo_database.girllike_compoRandomset.Count);
-            
-            set1_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set1;
-            set2_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set2;
-            set3_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set3;
- 
-
-            set_ID.Clear();
-
-            //set_idにリストの番号をセット
-            if (set1_ID != 9999)
+            switch (OkashiNew_Status)
             {
-                set_ID.Add(set1_ID);
+                case 0:
+
+                    //
+                    //①特定の課題お菓子。
+                    //
+                    //イベントやチュートリアル、ある好感度をこえたときの条件によって、こちらの特定のアイテムを常に出すようにする。
+
+                    //番号を入れると、女の子の好みデータベースから、値を取得し、セット。OkashiQuest_IDは、外部から指定。
+                    glike_compID = OkashiQuest_ID;
+
+                    InitializeStageGirlHungrySet(glike_compID, 0);
+
+                     //テキストの設定。直接しているか、セット組み合わせエクセルにかかれたキャプションのどちらかが入る。
+                    _desc = girllike_desc[0];
+                    
+                    break;
+
+                case 1:
+
+                    //
+                    //②通常ステージ、ランダムセット。
+                    //
+                    //その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
+                    //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。    
+
+                    //まず、表示フラグが1のもののみのセットを作る。そこからランダムで選択
+                    girlLikeCompo_database.StageSet();
+                    random = Random.Range(0, girlLikeCompo_database.girllike_compoRandomset.Count);
+
+                    glike_compID = random;
+
+                    //今選んだやつの、compIDも保存しておく。
+                    Set_compID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set_ID;
+
+                    set1_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set1;
+                    set2_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set2;
+                    set3_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set3;
+
+
+                    set_ID.Clear();
+
+                    //set_idにリストの番号をセット
+                    if (set1_ID != 9999)
+                    {
+                        set_ID.Add(set1_ID);
+                    }
+                    if (set2_ID != 9999)
+                    {
+                        set_ID.Add(set2_ID);
+                    }
+                    if (set3_ID != 9999)
+                    {
+                        set_ID.Add(set3_ID);
+                    }
+
+                    Set_Count = set_ID.Count;
+
+                    //Debug.Log("Set_Count: " + Set_Count);
+
+                    //さきほどのset_IDをもとに、好みの値を決定する。
+                    for (count = 0; count < Set_Count; count++)
+                    {
+                        InitializeStageGirlHungrySet(set_ID[count], count);
+
+                    }
+
+                    //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
+                    _desc = girlLikeCompo_database.girllike_compoRandomset[glike_compID].desc;
+                    break;
+
+                default:
+                    break;
             }
-            if (set2_ID != 9999)
-            {
-                set_ID.Add(set2_ID);
-            }
-            if (set3_ID != 9999)
-            {
-                set_ID.Add(set3_ID);
-            }
-
-            Set_Count = set_ID.Count;
-            //if(Set_Count == 0) { Set_Count = 1; } //例外処理。0ということは、基本無いが、なんらかのバグで0になっていたら、1を入れておく。
-
-            Debug.Log("Set_Count: " + Set_Count);
-            
-            //さきほどのset_IDをもとに、好みの値を決定する。
-            for (count = 0; count < Set_Count; count++)
-            {
-                InitializeStageGirlHungrySet(set_ID[count], count);
-
-            }
-
-            //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-            _desc = girlLikeCompo_database.girllike_composet[glike_compID].desc;
-
         }            
         
 
         //表示用吹き出しを生成
         hukidashiitem = Instantiate(hukidashiPrefab, canvas.transform);
-        _text = hukidashiitem.GetComponentInChildren<Text>();
+
+        if (OkashiNew_Status == 0)
+        {
+            hukidashiitem.transform.Find("Image_special").gameObject.SetActive(true);
+            hukidashiitem.transform.Find("Image").gameObject.SetActive(false);
+        }
+        else
+        {
+            hukidashiitem.transform.Find("Image_special").gameObject.SetActive(false);
+            hukidashiitem.transform.Find("Image").gameObject.SetActive(true);
+        }
+        
 
         //音を鳴らす
         audioSource.PlayOneShot(sound1);
 
         //吹き出しのテキスト決定
+        //hukidashiitem.GetComponent<TextController>().SetText(_desc);
+        _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
         _text.text = _desc;
 
 
@@ -432,6 +468,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
+
+
+    //
+    // らんだむで表示される女の子のセリフ。ヒントか、とりとめもないこと
+    //
     public void Girl1_Status_Init()
     {
         timeOut = 5.0f;
@@ -447,8 +488,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             if (girl1_Love_exp <= 25 && PlayerStatus.First_recipi_on != true)
             {
-                _text = hukidashiitem.GetComponentInChildren<Text>();
-                _text.text = "まずは、" + GameMgr.ColorBlue + "左のパネル" + "</color>" + "でお菓子を作ろうね！お兄ちゃん。";
+                hukidashiitem.GetComponent<TextController>().SetText("まずは、左のパネルでお菓子を作ろうね！お兄ちゃん。");
+                //_text = hukidashiitem.GetComponentInChildren<Text>();
+                //_text.text = "まずは、" + GameMgr.ColorBlue + "左のパネル" + "</color>" + "でお菓子を作ろうね！お兄ちゃん。";
             }
         }
 
@@ -462,9 +504,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         if (hukidashiitem != null)
         {
+            //hukidashiitem.GetComponent<TextController>().SetText(_desc);
             _text.text = _desc;
         }
     }
+
+
+
+
 
     void InitializeItemSlotDicts()
     {

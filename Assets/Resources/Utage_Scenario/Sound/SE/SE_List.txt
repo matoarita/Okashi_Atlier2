@@ -37,3 +37,5 @@ SE表
 ・SE_35		page09.mp3					レシピメモ開くときの軽い紙の音
 ・SE_36		on-jin_doato_doaberu_01op.mp3			ショップ入店時のドアベル
 ・SE_37		page10.mp3					材料採取地開くときの地図開く音
+・SE_38		SNES-RPG01-07(Message)				メッセージ音
+・SE_39		door-cl01.mp3					ドアの音開く音

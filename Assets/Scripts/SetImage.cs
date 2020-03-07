@@ -736,7 +736,7 @@ public class SetImage : MonoBehaviour
                 newrecipi_Img_hyouji = NewRecipi.transform.Find("Image/ItemImage").gameObject.GetComponent<Image>();
 
                 //表示
-                newrecipi_text.text = "新しいレシピ" + "\n" + newrecipi_name + "\n" + "を閃いた！";
+                newrecipi_text.text = GameMgr.ColorYellow + newrecipi_name + "</color>" + "\n" + "を閃いた！";
 
                 // texture2dを使い、Spriteを作って、反映させる
                 newrecipi_Img_hyouji.sprite = Sprite.Create(newrecipi_Img,

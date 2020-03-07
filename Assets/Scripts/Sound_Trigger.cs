@@ -87,6 +87,26 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(23);
                 break;
 
+            case "up_big": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(23);
+                break;
+
+            case "up_small": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(23);
+                break;
+
             case "down": //noを押したときのSE
 
                 //ポインタが入ったときに鳴る音

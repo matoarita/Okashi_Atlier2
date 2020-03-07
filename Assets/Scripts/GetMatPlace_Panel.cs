@@ -12,6 +12,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Texture2D texture2d;
 
     private BGM sceneBGM;
+    private SoundController sc;
 
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
@@ -99,6 +100,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //Yes no パネルの取得
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
 
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
         //移動中アニメーション用パネルの取得
         moveanim_panel = this.transform.Find("MoveAnimPanel").gameObject;
         moveanim_panel_image = this.transform.Find("MoveAnimPanel/moveImage").gameObject;
@@ -185,6 +189,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             //音量フェードイン
             sceneBGM.FadeInBGM();
+
+            //ガチャン音鳴らす。
+            sc.PlaySe(38);
 
             _text.text = "家に戻ってきた。";
         }

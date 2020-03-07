@@ -65,12 +65,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     [SerializeField]
     private bool gamestart_recipi_get;
 
+    //お菓子イベントのフラグ
+    public static bool OkashiQuest01_flag;
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
     public static string ColorPink;
     public static string ColorRed;
     public static string ColorBlue;
+    public static string ColorOrange;
 
 
     // Use this for initialization
@@ -109,9 +112,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         girlloveevent_flag = false;
         girlloveevent_endflag = false;
 
-        //イベントフラグの初期化
+        //好感度イベントフラグの初期化
         GirlLoveEvent_01 = false;
+
+        //マップイベントの初期化
         MapEvent_01 = false;
+
+        //お菓子フラグの初期化
+        OkashiQuest01_flag = false;
 
         //チュートリアルフラグ
         tutorial_ON = false;
@@ -128,6 +136,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ColorPink = "<color=#FF5CA1>";
         ColorRed = "<color=#FF0000>";
         ColorBlue = "<color=#0000FF>";
+        ColorOrange = "<color=#FF8400>";
     }
 	
 	// Update is called once per frame
