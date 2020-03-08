@@ -52,7 +52,7 @@ public class TextController : MonoBehaviour
                 lastUpdateCharacter = displayCharacterCount;
 
                 //音を鳴らす。
-                sc.PlaySe(37);
+                //sc.PlaySe(37);
             }
         }
     }

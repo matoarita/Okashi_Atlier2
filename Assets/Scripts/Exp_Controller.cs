@@ -823,7 +823,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         black_panel_A.SetActive(true);
 
         //日数の経過
-        //PlayerStatus.player_day += databaseCompo.compoitems[result_ID].cost_Time;
+        PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
 
         _ex_text = "";
 
@@ -992,6 +992,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         recipiresult_ok = false;
 
         black_panel_A.SetActive(true);
+
+        //日数の経過
+        PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         exp_table.Check_LevelUp();

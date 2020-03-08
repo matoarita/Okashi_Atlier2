@@ -483,7 +483,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 95
       renkin_Bexp: 3
       Comment: "\u30AF\u30C3\u30AD\u30FC\u7CFB"
@@ -502,7 +502,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 95
       renkin_Bexp: 2
       Comment: 
@@ -521,7 +521,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 30
       renkin_Bexp: 65
       Comment: 
@@ -540,7 +540,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 95
       renkin_Bexp: 3
       Comment: 
@@ -559,7 +559,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 95
       renkin_Bexp: 3
       Comment: 
@@ -578,7 +578,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 60
       renkin_Bexp: 34
       Comment: 
@@ -597,7 +597,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
@@ -616,7 +616,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
@@ -635,7 +635,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 75
       renkin_Bexp: 10
       Comment: 
@@ -654,7 +654,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 80
       renkin_Bexp: 11
       Comment: 
@@ -673,7 +673,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 80
       renkin_Bexp: 11
       Comment: 
@@ -692,7 +692,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 80
       renkin_Bexp: 34
       Comment: 
@@ -711,7 +711,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 20
       renkin_Bexp: 10
       Comment: 
@@ -730,7 +730,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 95
       renkin_Bexp: 3
       Comment: 
@@ -768,7 +768,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 12
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30D1\u30F3\u7CFB"
@@ -788,7 +788,7 @@ MonoBehaviour:
       cmpitem_kosu3: 9999
       cmp_flag: 0
       cost_time: 1
-      success_rate: 95
+      success_rate: 100
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30D0\u30B2\u30C3\u30C8\xD7\u30D1\u30F3\u30CA\u30A4\u30D5"
@@ -825,7 +825,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7CFB"
@@ -844,7 +844,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 5
       renkin_Bexp: 34
       Comment: 
@@ -863,7 +863,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 1
+      cost_time: 3
       success_rate: 95
       renkin_Bexp: 8
       Comment: 

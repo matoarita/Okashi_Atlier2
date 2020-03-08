@@ -36,9 +36,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private Girl1_status girl1_status;
 
-    private GameObject window_param_result_obj;
-    private Text window_result_text;
-
     private GameObject hukidashiitem;   
     private Text _hukidashitext;
 
@@ -234,10 +231,6 @@ public class GirlEat_Judge : MonoBehaviour {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
-        //比較値計算結果用のパネル　デバッグ用
-        window_param_result_obj = GameObject.FindWithTag("Canvas").transform.Find("Window_Param_Result").gameObject;
-        window_result_text = window_param_result_obj.transform.Find("Viewport/Content/Text").gameObject.GetComponent<Text>();
-
         //エクストリームパネルの取得
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
         extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
@@ -261,8 +254,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //Prefab内の、コンテンツ要素を取得
         eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
-
-        window_param_result_obj.SetActive(false);
 
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;

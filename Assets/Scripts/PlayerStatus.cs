@@ -7,7 +7,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static int player_money; // 所持金
     public static int player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
-    public static int player_day; //残り日数　ちょっとまだ考え中.. 一日なのか、○○時間なのか
+    public static int player_day; //現在の日付
+    public static int player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
 
     public static int player_renkin_lv; //錬金レベル
     public static int player_renkin_exp; //錬金経験
@@ -34,6 +35,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         //プレイヤー初期設定
         player_money = 2000;
         player_day = 91;
+        player_time = 0; //8:00始まり
         player_renkin_lv = 1;
         player_renkin_exp = 0;
         player_ninki_param = 10;

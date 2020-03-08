@@ -35,6 +35,9 @@ public class Compound_Main : MonoBehaviour
     private Button select_sister_shop_button;
     private Button select_no_button;
 
+    private GameObject TimePanel_obj1;
+    private GameObject TimePanel_obj2;
+
     private GameObject getmatplace_panel;
 
     private GameObject kakuritsuPanel_obj;
@@ -164,7 +167,11 @@ public class Compound_Main : MonoBehaviour
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-       
+        //時間表示パネルの取得
+        TimePanel_obj1 = canvas.transform.Find("TimePanel/TimeHyouji_1").gameObject;
+        TimePanel_obj2 = canvas.transform.Find("TimePanel/TimeHyouji_2").gameObject;
+        TimePanel_obj2.SetActive(false);
+
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false;
@@ -782,6 +789,9 @@ public class Compound_Main : MonoBehaviour
                 black_panel_A.SetActive(false);
                 compoBG_A.SetActive(false);
 
+                TimePanel_obj1.SetActive(true);
+                TimePanel_obj2.SetActive(false);
+
                 select_original_button.interactable = true;
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
@@ -1262,7 +1272,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    public void OnGetMaterial_toggle() //材料をランダムで入手する処理
+    public void OnGetMaterial_toggle() //材料採取地選択
     {
         if (getmaterial_toggle.GetComponent<Toggle>().isOn == true)
         {
@@ -1279,11 +1289,12 @@ public class Compound_Main : MonoBehaviour
             //音ならす
             sc.PlaySe(36);
 
-            //compoundselect_onoff_obj.SetActive(false);
             getmatplace_panel.SetActive(true);
             yes_no_panel.SetActive(true);
             yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
 
+            TimePanel_obj1.SetActive(false);
+            TimePanel_obj2.SetActive(true);
         }
     }
 

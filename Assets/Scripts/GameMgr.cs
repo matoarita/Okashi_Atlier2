@@ -48,6 +48,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage2_clear_love;
     public static int stage3_clear_love;
 
+    public static int stage1_start_day;
+    public static int stage2_start_day;
+    public static int stage3_start_day;
+
     private PlayerItemList pitemlist;
 
     private int i, j;
@@ -131,6 +135,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage2_clear_love = 200;
         stage3_clear_love = 450;
 
+        //ステージごとの、始まりの日数
+        stage1_start_day = 91;
+        stage2_start_day = 121;
+        stage3_start_day = 151;
+
         //各色の設定
         ColorYellow = "<color=#FDFF80>";
         ColorPink = "<color=#FF5CA1>";
@@ -155,6 +164,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             Game_timeCount++;
         }
 
+        /*
         if (Input.GetKeyDown(KeyCode.Space)) //Spaceキーをおすと、シナリオフラグの入力を手動で設定する。
         {
             scenario_flag = scenario_flag_input;
@@ -195,7 +205,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             //SceneManager.LoadScene("Shop");
             FadeManager.Instance.LoadScene("QuestBox", 0.3f);
         }
-
+        */
         //ここまで
 
 
