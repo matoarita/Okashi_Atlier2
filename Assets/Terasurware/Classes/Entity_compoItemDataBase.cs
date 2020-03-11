@@ -26,6 +26,7 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public string cmp_subtype_2;
 		public string cmp_subtype_3;
 		public string result_itemID;
+		public int result_kosu;
 		public int cmpitem_kosu1;
 		public int cmpitem_kosu2;
 		public int cmpitem_kosu3;
@@ -35,7 +36,6 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public int renkin_Bexp;
 		public string Comment;
 		public string Comment2;
-		public string Comment3;
 	}
 }
 

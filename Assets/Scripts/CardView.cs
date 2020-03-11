@@ -466,9 +466,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
 
-        //音鳴らす
-        //audioSource.PlayOneShot(sound1);
-        //audioSource.PlayOneShot(sound2);
 
     }
 
@@ -493,7 +490,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         //位置とスケール
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
 
     }
 
@@ -588,7 +585,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         resultScale = resulttransform.localScale;
 
         maxScale = 0.85f;
-        maxPos = 100.0f;
+        maxPos = 80.0f;
         _Scale = 0.0f;
         _Pos = 0.0f;
 

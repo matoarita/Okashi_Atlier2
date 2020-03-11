@@ -68,6 +68,7 @@ public class Compound_Check : MonoBehaviour {
     public bool final_select_flag;
 
     private int i;
+    private int _rate;
 
     // Use this for initialization
     void Start () {
@@ -531,7 +532,8 @@ public class Compound_Check : MonoBehaviour {
 
     IEnumerator recipiFinal_select()
     {
-        _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "を" + recipilistController.final_select_kosu + "個 作成しますか？";
+        _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "が" +
+            databaseCompo.compoitems[recipilistController.result_recipicompID].cmpitem_result_kosu * recipilistController.final_select_kosu + "個　出来ます。" + "\n" + "作る？";
 
         while (yes_selectitem_kettei.onclick != true)
         {
@@ -739,7 +741,8 @@ public class Compound_Check : MonoBehaviour {
         {
 
             //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
-            _success_rate = databaseCompo.compoitems[pitemlistController.result_compID].success_Rate + (PlayerStatus.player_renkin_lv);
+            _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
+
 
             if (_success_rate >= 0.0 && _success_rate < 20.0)
             {
@@ -884,4 +887,23 @@ public class Compound_Check : MonoBehaviour {
 
         //Debug.Log("選択完了！");
     }
+
+    //確率計算式
+    public int Kakuritsu_Keisan(int _compID)
+    {
+        _rate = databaseCompo.compoitems[_compID].success_Rate + (PlayerStatus.player_renkin_lv);
+
+        if (_rate >= 100)
+        {
+            _rate = 100;
+        }
+
+        if (_rate < 0)
+        {
+            _rate = 0;
+        }
+
+        return _rate;
+    }
+ 
 }

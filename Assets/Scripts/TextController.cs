@@ -23,6 +23,9 @@ public class TextController : MonoBehaviour
 
     private SoundController sc;
 
+    public bool hint_on;
+    public bool textend_flag;
+
     void Start()
     {
         //サウンドコントローラーの取得
@@ -33,8 +36,9 @@ public class TextController : MonoBehaviour
 
     void Update()
     {
-        /*
-        if (currentLine < scenarios.Length && Input.GetMouseButtonDown(0))
+
+        //まだ文章が残っていて、左クリックが押されたら、次の文章へ
+        /*if (currentLine < scenarios.Count && Input.GetMouseButtonDown(0))
         {
             SetNextLine();
         }*/
@@ -53,6 +57,25 @@ public class TextController : MonoBehaviour
 
                 //音を鳴らす。
                 //sc.PlaySe(37);
+            }
+            else //更新終了
+            {
+                //ヒント読み出し中のときだけ、途中キャンセルできるようにする。
+                if (hint_on == true)
+                {
+                    if (currentLine >= scenarios.Count && Input.GetMouseButtonDown(0))
+                    {
+                        if (Input.GetMouseButtonDown(0))
+                        {
+
+                            uiText.text = scenarios[currentLine - 1];
+
+                            textend_flag = true;
+                            OnReadFlag = false;
+                            hint_on = false;
+                        }
+                    }
+                }
             }
         }
     }
@@ -78,8 +101,10 @@ public class TextController : MonoBehaviour
         currentLine = 0;
         currentText = string.Empty;
         uiText.text = "";
+        textend_flag = false;
+        hint_on = false;
 
-        Debug.Log("_contents: " + _contents);
+        //Debug.Log("_contents: " + _contents);
         scenarios.Add(_contents);
 
         SetNextLine();

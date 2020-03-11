@@ -78,48 +78,97 @@ MonoBehaviour:
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 9
+      name: silver_chip
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 10
+      name: kirakira_heart
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 11
+      name: juwely_suger
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 12
+      name: mix_color_spread
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 13
+      name: decopen_choco
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 14
+      name: decopen_choco_white
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 15
+      name: sakura_chip
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 16
       name: milkpan
       zaiko: 1
       itemType: 2
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 10
+    - ItemID: 17
       name: pan_knife
       zaiko: 1
       itemType: 2
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 11
+    - ItemID: 18
       name: parfe_base
       zaiko: 50
       itemType: 0
       shop_sell_price: 50
       shop_buy_price: 25
       item_hyouji: 0
-    - ItemID: 12
+    - ItemID: 19
       name: ice_cream
       zaiko: 50
       itemType: 0
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 0
-    - ItemID: 13
+    - ItemID: 20
       name: corn_frake
       zaiko: 50
       itemType: 0
       shop_sell_price: 20
       shop_buy_price: 10
       item_hyouji: 0
-    - ItemID: 14
+    - ItemID: 21
       name: cookie_base_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 1500
       shop_buy_price: 750
       item_hyouji: 1
-    - ItemID: 15
+    - ItemID: 22
       name: financier_recipi
       zaiko: 1
       itemType: 1

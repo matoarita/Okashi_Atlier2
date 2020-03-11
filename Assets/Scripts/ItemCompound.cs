@@ -17,6 +17,7 @@ public class ItemCompound
     public string cmp_subtype_2;
     public string cmp_subtype_3;
     public string cmpitemID_result;
+    public int cmpitem_result_kosu;
     public int cmpitem_kosu1;
     public int cmpitem_kosu2;
     public int cmpitem_kosu3;
@@ -29,7 +30,7 @@ public class ItemCompound
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, string result_item, int _kosu1, int _kosu2, int _kosu3, int _flag, int cost_time, int srate, int renkin_bexp)
+    public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, string result_item, int _result_kosu, int _kosu1, int _kosu2, int _kosu3, int _flag, int cost_time, int srate, int renkin_bexp)
     {
         cmpitemID = id;
         cmpitem_Name = cmpname;
@@ -39,7 +40,9 @@ public class ItemCompound
         cmp_subtype_1 = subtype1;
         cmp_subtype_2 = subtype2;
         cmp_subtype_3 = subtype3;
+
         cmpitemID_result = result_item;
+        cmpitem_result_kosu = _result_kosu;
 
         cmpitem_kosu1 = _kosu1;
         cmpitem_kosu2 = _kosu2;

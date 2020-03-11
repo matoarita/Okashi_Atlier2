@@ -69,6 +69,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject black_panel_A;
     private GameObject compoBG_A;
+    private GameObject ResultBGimage;
 
     private GameObject SelectCompo_panel_1;
 
@@ -263,6 +264,8 @@ public class Compound_Main : MonoBehaviour
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
         compoBG_A.SetActive(false);
+        ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
+        ResultBGimage.SetActive(false);
 
         //調合選択画面の取得
         SelectCompo_panel_1 = canvas.transform.Find("Compound_BGPanel_A/SelectPanel_1").gameObject;
@@ -496,7 +499,14 @@ public class Compound_Main : MonoBehaviour
 
                         MainCompoundMethod();
 
-                        //text_area.SetActive(true);
+                        extreme_Button.interactable = false;
+                        sell_Button.SetActive(false);
+
+                        menu_toggle.GetComponent<Toggle>().interactable = false;
+                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
+                        shop_toggle.GetComponent<Toggle>().interactable = false;
+                        girleat_toggle.GetComponent<Toggle>().interactable = true;
+
                         _text.text = "お菓子をあげてみよう！";
                         break;
 
@@ -693,6 +703,22 @@ public class Compound_Main : MonoBehaviour
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
 
                         text_area.SetActive(true);
+
+                        GameMgr.tutorial_Num = 285; //退避
+                        break;
+
+                    case 285:
+
+                        MainCompoundMethod();
+
+                        extreme_Button.interactable = false;
+                        sell_Button.SetActive(false);
+
+                        menu_toggle.GetComponent<Toggle>().interactable = false;
+                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
+                        shop_toggle.GetComponent<Toggle>().interactable = false;
+                        girleat_toggle.GetComponent<Toggle>().interactable = true;
+
                         break;
 
                     case 290:
@@ -713,7 +739,7 @@ public class Compound_Main : MonoBehaviour
 
                     default:
 
-                        //text_area.SetActive(false);
+                        
                         break;
                 }
                 
@@ -787,6 +813,7 @@ public class Compound_Main : MonoBehaviour
                 getmatplace_panel.SetActive(false);               
                 kakuritsuPanel_obj.SetActive(false);
                 black_panel_A.SetActive(false);
+                ResultBGimage.SetActive(false);
                 compoBG_A.SetActive(false);
 
                 TimePanel_obj1.SetActive(true);
@@ -1582,6 +1609,12 @@ public class Compound_Main : MonoBehaviour
 
                 //extreme_panel.LifeAnimeOnTrue();
                 yes_selectitem_kettei.onclick = false;
+
+                //ボタンなどの状態の初期設定
+                if (GameMgr.tutorial_ON == true)
+                {
+                    compoundselect_onoff_obj.SetActive(true);
+                }
                 break;
 
         }

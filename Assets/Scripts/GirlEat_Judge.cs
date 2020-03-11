@@ -909,7 +909,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
                 else { dislike_flag = false; }
 
-                Debug.Log("②味パラメータの計算 OK");
+                //Debug.Log("②味パラメータの計算 OK");
 
                 //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
                 if (_girl_likeokashi[count] == "Non") //特に指定なし
@@ -1148,7 +1148,7 @@ public class GirlEat_Judge : MonoBehaviour {
             GameMgr.tutorial_Progress = true;
             GameMgr.tutorial_Num = 110;
         }
-        if (GameMgr.tutorial_Num == 280)
+        if (GameMgr.tutorial_Num == 285)
         {
             GameMgr.tutorial_Progress = true;
             GameMgr.tutorial_Num = 290;
@@ -1301,9 +1301,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
     }
 
+
+    //
+    //次の食べたいお菓子を決めるメソッド。
+    //
     void SelectNewOkashiSet()
     {
-        //次の食べたいお菓子を決めるメソッド。
+        
+        //スペシャルお菓子クエストをクリアした場合の条件分岐
 
         //特定のお菓子をクリアした場合は、1に戻す。
         if (girl1_status.OkashiNew_Status == 0)
@@ -1337,6 +1342,9 @@ public class GirlEat_Judge : MonoBehaviour {
             }
         }
 
+
+
+        //その他、通常の状態で、何らかの条件を満たした場合
 
         //条件分岐
         //点数をまず初期化
@@ -1380,6 +1388,8 @@ public class GirlEat_Judge : MonoBehaviour {
         //②好感度で発生するイベントがあるかどうか。
         //Compound_Main内で処理している。
     }
+
+
 
     //指定したコンプIDのフラグをONかOFFにする。
     void SetGirlSetFlag(int _compID, int _flag)

@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 222953379509474494}
   - component: {fileID: 114256632605710060}
   - component: {fileID: 114230661750483450}
+  - component: {fileID: 114911177407874596}
   - component: {fileID: 114884804338819126}
   m_Layer: 0
   m_Name: MessageWindow
@@ -199,6 +200,20 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114911177407874596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936480507059974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd65338f26cb3a6459cc8038a9febc7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenarios: []
+  uiText: {fileID: 114460735325552046}
+  intervalForCharacterDisplay: 0.07
 --- !u!222 &222280745806713640
 CanvasRenderer:
   m_ObjectHideFlags: 1

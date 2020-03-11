@@ -24,6 +24,7 @@ public class GetMaterial : MonoBehaviour {
     private ItemMatPlaceDataBase matplace_database;
 
     private FadeImage slot_view_fade;
+    private FadeImage character_fade;
 
     // アイテムのデータを保持する辞書
     Dictionary<int, string> itemInfo;
@@ -107,6 +108,7 @@ public class GetMaterial : MonoBehaviour {
         cullent_total_mat = 0;
 
         slot_view_fade = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Image").gameObject.GetComponent<FadeImage>();
+        character_fade = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Image/CharacterSD").gameObject.GetComponent<FadeImage>();
 
         tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Tansaku_panel").gameObject;
         tansaku_yes = tansaku_panel.transform.Find("Yes_tansaku").GetComponent<Button>();
@@ -201,6 +203,7 @@ public class GetMaterial : MonoBehaviour {
                 mat_anim_on = true;
                 mat_anim_end = false;
                 slot_view_fade.FadeImageOff(); //ビュー画面を暗くフェード
+                character_fade.FadeImageOff();
 
                 tansaku_panel.SetActive(false);
                 //tansaku_yes.interactable = false;
@@ -228,6 +231,7 @@ public class GetMaterial : MonoBehaviour {
         //tansaku_yes.interactable = true;
         //tansaku_no.interactable = true;
         slot_view_fade.FadeImageOn(); //ビュー画面を戻す
+        character_fade.FadeImageOn();
 
         mat_result();
     }

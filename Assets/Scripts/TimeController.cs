@@ -152,6 +152,7 @@ public class TimeController : MonoBehaviour
             _time_count2.text = " ";
             _time_minute2.text = minute.ToString("00");
         }
+
     }
 
     void TimeKeisan()

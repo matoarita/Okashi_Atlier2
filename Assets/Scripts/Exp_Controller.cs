@@ -158,6 +158,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab5;
     private List<GameObject> _listEffect = new List<GameObject>();
 
+    private GameObject ResultBGimage;
+
     //SEを鳴らす
     public AudioClip sound1;
     public AudioClip sound2;
@@ -388,6 +390,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;               
 
                 slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+                ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
+                ResultBGimage.SetActive(false);
 
                 break;
 
@@ -469,6 +473,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //コンポBGパネルの取得
                 compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
+                ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
+                ResultBGimage.SetActive(false);
 
                 //スロット名前変換用オブジェクトの取得
                 slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
@@ -649,7 +655,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //リザルトアイテムを代入
         result_item = pitemlistController.result_item;
 
-        //調合データベースのIDを代入
+        //コンポ調合データベースのIDを代入
         result_ID = pitemlistController.result_compID;
 
         Comp_method_bunki = 0;
@@ -695,7 +701,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //オリジナル調合なら、普通に生成
 
             Delete_playerItemList();
-            result_kosu = 1;
+
+            //個数の決定
+            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu;
 
             //店売りアイテムとして生成
             pitemlist.addPlayerItem(result_item, result_kosu);
@@ -860,11 +868,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         final_kette_kosu1 = recipilistController.final_kettei_recipikosu1;
         final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
         final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
-
-        result_kosu = recipilistController.final_select_kosu;
-
+        
         result_item = recipilistController.result_recipiitem;
         result_ID = recipilistController.result_recipicompID;
+
+        //個数の決定
+        result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * recipilistController.final_select_kosu;
 
         //ウェイトアニメーション開始
         recipilistController_obj.SetActive(false);
@@ -1487,6 +1496,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect[1].GetComponent<Canvas>().worldCamera = Camera.main;
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab5));
         _listEffect[2].GetComponent<Canvas>().worldCamera = Camera.main;
+
+        //ResultBGimage.SetActive(true);
     }
 
     void ResultEffect_NG()

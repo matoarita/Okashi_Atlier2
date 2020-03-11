@@ -160,7 +160,7 @@ public class Utage_scenario : MonoBehaviour
                     girlloveev_read_ID = GameMgr.GirlLoveEvent_num;
                     //Debug.Log("recipi_read_ID: " + recipi_read_ID);
 
-                    //イベントレシピを表示
+                    //好感度イベントを表示
                     StartCoroutine(Girllove_event_Hyouji());
                 }
 
@@ -170,7 +170,7 @@ public class Utage_scenario : MonoBehaviour
                     recipi_read_ID = GameMgr.recipi_read_ID;
                     //Debug.Log("recipi_read_ID: " + recipi_read_ID);
 
-                    //イベントレシピを表示
+                    //レシピを手に入れて読むときの表示
                     StartCoroutine(Recipi_read_Hyouji());
                 }
 

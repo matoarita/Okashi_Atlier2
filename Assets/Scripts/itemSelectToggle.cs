@@ -1552,6 +1552,16 @@ public class itemSelectToggle : MonoBehaviour
     {
         _success_rate = (100 * database.items[itemID_1].Ex_Probability) + PlayerStatus.player_renkin_lv;
 
+        if(_success_rate >= 100 )
+        {
+            _success_rate = 100;
+        }
+
+        if (_success_rate < 0)
+        {
+            _success_rate = 0;
+        }
+
         exp_Controller._temp_srate_1 = _success_rate; //キャンセル時などに、すぐ表示できるよう一時保存
         exp_Controller._success_rate = _success_rate;
         kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
@@ -1561,6 +1571,16 @@ public class itemSelectToggle : MonoBehaviour
     {
         _success_rate = (exp_Controller._temp_srate_1 * database.items[itemID_2].Ex_Probability * 0.75f) + PlayerStatus.player_renkin_lv;
 
+        if (_success_rate >= 100)
+        {
+            _success_rate = 100;
+        }
+
+        if (_success_rate < 0)
+        {
+            _success_rate = 0;
+        }
+
         exp_Controller._temp_srate_2 = _success_rate; //キャンセル時などに、すぐ表示できるよう一時保存
         exp_Controller._success_rate = _success_rate;
         kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
@@ -1569,6 +1589,16 @@ public class itemSelectToggle : MonoBehaviour
     void Compo_KakuritsuKeisan_3()
     {
         _success_rate = (exp_Controller._temp_srate_2 * database.items[itemID_3].Ex_Probability * 0.5f) + PlayerStatus.player_renkin_lv;
+
+        if (_success_rate >= 100)
+        {
+            _success_rate = 100;
+        }
+
+        if (_success_rate < 0)
+        {
+            _success_rate = 0;
+        }
 
         exp_Controller._temp_srate_3 = _success_rate; //キャンセル時などに、すぐ表示できるよう一時保存
         exp_Controller._success_rate = _success_rate;

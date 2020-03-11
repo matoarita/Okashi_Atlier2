@@ -54,6 +54,10 @@ public class Updown_counter : MonoBehaviour {
     private string cmpitem_2;
     private string cmpitem_3;
 
+    private int cmpitem1_type;
+    private int cmpitem2_type;
+    private int cmpitem3_type;
+
     private string _a;
     private string _b;
     private string _c;
@@ -708,7 +712,7 @@ public class Updown_counter : MonoBehaviour {
         itemID_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID; //itemID_1という変数に、プレイヤーが選択した調合DBの配列番号を格納する。
         itemname_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;
 
-        recipilistController.final_select_kosu = updown_kosu; //最終的に作る個数
+        recipilistController.final_select_kosu = updown_kosu; //選択個数
 
         //必要アイテム・個数の代入
         cmpitem_kosu1 = databaseCompo.compoitems[itemID_1].cmpitem_kosu1;
@@ -722,6 +726,12 @@ public class Updown_counter : MonoBehaviour {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_1)
             {
                 cmpitem_1 = database.items[i].itemNameHyouji; //調合DB一個目の番号を保存。また、nameを日本語表示に。
+
+                if (database.items[i].itemType_sub.ToString() == "Machine") {
+                    cmpitem1_type = 1;//機材アイテムなどの、個数が関係ないアイテムかどうかをチェック
+                }
+                else { cmpitem1_type = 0; }
+
                 itemdb_id1 = i; //その時のアイテムDB番号も、保存
                 break;
             }
@@ -735,6 +745,13 @@ public class Updown_counter : MonoBehaviour {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_2)
             {
                 cmpitem_2 = database.items[i].itemNameHyouji; //調合DB二個目のnameを日本語表示に。
+
+                if (database.items[i].itemType_sub.ToString() == "Machine")
+                {
+                    cmpitem2_type = 1;//機材アイテムなどの、個数が関係ないアイテムかどうかをチェック
+                }
+                else { cmpitem2_type = 0; }
+
                 itemdb_id2 = i; //その時のアイテムDB番号も、保存
                 break;
             }
@@ -750,21 +767,52 @@ public class Updown_counter : MonoBehaviour {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_3)
             {
                 cmpitem_3 = database.items[i].itemNameHyouji; //調合DB三個目のnameを日本語表示に。
+
+                if (database.items[i].itemType_sub.ToString() == "Machine")
+                {
+                    cmpitem3_type = 1;//機材アイテムなどの、個数が関係ないアイテムかどうかをチェック
+                }
+                else { cmpitem3_type = 0; }
+
                 itemdb_id3 = i; //その時のアイテムDB番号も、保存
                 break;
             }
             ++i;
         }
 
+        if(cmpitem1_type == 0)
+        {
+            cmpitem_kosu1_select = cmpitem_kosu1 * updown_kosu; //必要個数×選択している作成数
+        }
+        else
+        {
+            cmpitem_kosu1_select = cmpitem_kosu1; //機材アイテムなどは、個数が反映されない。基本は1
+        }
 
-        cmpitem_kosu1_select = cmpitem_kosu1 * updown_kosu; //必要個数×選択している作成数
-        cmpitem_kosu2_select = cmpitem_kosu2 * updown_kosu; //必要個数×選択している作成数
-        cmpitem_kosu3_select = cmpitem_kosu3 * updown_kosu; //必要個数×選択している作成数
+        if (cmpitem2_type == 0)
+        {
+            cmpitem_kosu2_select = cmpitem_kosu2 * updown_kosu; //必要個数×選択している作成数
+        }
+        else
+        {
+            cmpitem_kosu2_select = cmpitem_kosu2; //機材アイテムなどは、個数が反映されない。基本は1
+        }
+
+        if (cmpitem3_type == 0)
+        {
+            cmpitem_kosu3_select = cmpitem_kosu3 * updown_kosu; //必要個数×選択している作成数
+        }
+        else
+        {
+            cmpitem_kosu3_select = cmpitem_kosu3; //機材アイテムなどは、個数が反映されない。基本は1
+        }
+        
 
         _a = cmpitem_1 + ": " + GameMgr.ColorYellow + cmpitem_kosu1_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id1];
         _b = cmpitem_2 + ": " + GameMgr.ColorYellow + cmpitem_kosu2_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id2];
         _c = cmpitem_3 + ": " + GameMgr.ColorYellow + cmpitem_kosu3_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id3];
 
+        //材料個数が足りてるかの判定
         if (cmpitem_kosu1_select > pitemlist.playeritemlist[itemdb_id1])
         {
             _a = GameMgr.ColorRed + cmpitem_1 + ": " + cmpitem_kosu1_select + "／" + pitemlist.playeritemlist[itemdb_id1] + "</color>";
@@ -778,9 +826,7 @@ public class Updown_counter : MonoBehaviour {
             _c = GameMgr.ColorRed + cmpitem_3 + ": " + cmpitem_kosu3_select + "／" + pitemlist.playeritemlist[itemdb_id3] + "</color>";
         }
 
-
-
-        //材料個数が足りてるかの判定
+        
 
         if (databaseCompo.compoitems[itemID_1].cmpitemID_3 == "empty") //2個のアイテムが必要な場合
         {
