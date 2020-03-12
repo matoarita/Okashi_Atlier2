@@ -163,9 +163,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         text_area = canvas.transform.Find("MessageWindow").gameObject;
 
         //この時間ごとに、女の子は、お菓子を欲しがり始める。
-        timeOut = 5.0f;
+        timeOut = 1.0f;
         timeOut2 = 10.0f;
-        timeGirl_hungry_status = 0;
+        timeGirl_hungry_status = 1;
 
         girl1_Love_exp = 0;
         OkashiNew_Status = 1;
@@ -348,8 +348,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 case 1:
 
                     //
-                    //②通常ステージ、ランダムセット。
+                    //②通常ステージ、ランダムセット。基本、新しいお菓子で好感度をあげる仕様にしたので、現在未使用。
                     //
+
+                    /*
                     //その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
                     //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。    
 
@@ -395,7 +397,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
 
                     //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-                    _desc = girlLikeCompo_database.girllike_compoRandomset[glike_compID].desc;
+                    _desc = girlLikeCompo_database.girllike_compoRandomset[glike_compID].desc;*/
                     break;
 
                 default:
@@ -405,49 +407,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
 
         //表示用吹き出しを生成
-        hukidashiitem = Instantiate(hukidashiPrefab, canvas.transform);
-
-        if (OkashiNew_Status == 0)
-        {
-            hukidashiitem.transform.Find("Image_special").gameObject.SetActive(true);
-            hukidashiitem.transform.Find("Image").gameObject.SetActive(false);
-        }
-        else
-        {
-            hukidashiitem.transform.Find("Image_special").gameObject.SetActive(false);
-            hukidashiitem.transform.Find("Image").gameObject.SetActive(true);
-        }
-        
-
-        //音を鳴らす
-        audioSource.PlayOneShot(sound1);
+        /*
+        hukidasiInit();        
 
         //吹き出しのテキスト決定
         //hukidashiitem.GetComponent<TextController>().SetText(_desc);
         _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-        _text.text = _desc;
+        _text.text = _desc;*/
 
 
     }
 
     public void Girl_Full()
     {
-        //前の残りの吹き出しアイテムを削除。
-        if (hukidashiitem != null)
-        {
-            Destroy(hukidashiitem);
-        }
-
-        //まず全ての値を0に初期化
-        for (i = 0; i < girl1_hungryScoreSet1.Count; i++)
-        {
-            girl1_hungryScoreSet1[i] = 0;
-            girl1_hungryScoreSet2[i] = 0;
-            girl1_hungryScoreSet3[i] = 0;
-        }
-
-        //音を鳴らす
-        audioSource.PlayOneShot(sound2);
+        DeleteHukidashi();       
     }
 
     public void Girl_hukidashi_Off()
@@ -483,6 +456,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void Girl1_Hint()
     {
+        if (hukidashiitem == null)
+        {
+            hukidasiInit();
+        }
+
         //吹き出しが残っていたら、内容を変える。
         if (hukidashiitem != null)
         {
@@ -502,16 +480,60 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         yield return new WaitForSeconds(10.0f);
 
+        //何秒か表示したら削除
+        DeleteHukidashi();
+
+        //音を鳴らす
+        audioSource.PlayOneShot(sound2);
+
+        /*
         if (hukidashiitem != null)
         {
             //hukidashiitem.GetComponent<TextController>().SetText(_desc);
             _text.text = _desc;
-        }
+        }*/
     }
 
 
+    void hukidasiInit()
+    {
+        hukidashiitem = Instantiate(hukidashiPrefab, canvas.transform);
+
+        if (OkashiNew_Status == 0)
+        {
+            hukidashiitem.transform.Find("Image_special").gameObject.SetActive(true);
+            hukidashiitem.transform.Find("Image").gameObject.SetActive(false);
+        }
+        else
+        {
+            hukidashiitem.transform.Find("Image_special").gameObject.SetActive(false);
+            hukidashiitem.transform.Find("Image").gameObject.SetActive(true);
+        }
 
 
+        //音を鳴らす
+        audioSource.PlayOneShot(sound1);
+
+        _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+    }
+
+    void DeleteHukidashi()
+    {
+        //前の残りの吹き出しアイテムを削除。
+        if (hukidashiitem != null)
+        {
+            Destroy(hukidashiitem);
+        }
+
+        //まず全ての値を0に初期化
+        for (i = 0; i < girl1_hungryScoreSet1.Count; i++)
+        {
+            girl1_hungryScoreSet1[i] = 0;
+            girl1_hungryScoreSet2[i] = 0;
+            girl1_hungryScoreSet3[i] = 0;
+        }
+       
+    }
 
     void InitializeItemSlotDicts()
     {
