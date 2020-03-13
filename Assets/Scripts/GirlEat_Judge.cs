@@ -1318,7 +1318,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //その際、クリアしたお菓子に応じて特別報酬やイベントなどが進む。
             switch(girl1_status.OkashiQuest_ID)
             {
-                case 12:
+                case 1000:
 
                     Debug.Log("Level2start: ラスクを欲しがる");
                     GameMgr.OkashiQuest01_flag = true;
@@ -1333,7 +1333,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     //イベントお菓子フラグのON/OFF。
                     girl1_status.OkashiNew_Status = 0;
-                    girl1_status.OkashiQuest_ID = 30;
+                    girl1_status.OkashiQuest_ID = 10;
 
                     break;
 
@@ -1346,7 +1346,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //その他、通常の状態で、何らかの条件を満たした場合
 
-        //条件分岐
         //点数をまず初期化
         InitializeGirlLikeCompoScore();
 
@@ -1360,12 +1359,11 @@ public class GirlEat_Judge : MonoBehaviour {
             //set_compID=2を解放
             if (GameMgr.OkashiQuest01_flag != true)
             {
-                SetGirlSetFlag(2, 1); //set_ID=2, set_flag=1にする。これで、ランダムで2のお菓子セットを欲しがるようになる。
                 Debug.Log("Set2: ＜自由＞クッキー系　解放");
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                 girl1_status.OkashiNew_Status = 0;
-                girl1_status.OkashiQuest_ID = 12;
+                girl1_status.OkashiQuest_ID = 1000;
                 Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
             }
 
@@ -1375,12 +1373,11 @@ public class GirlEat_Judge : MonoBehaviour {
             //set_compID=2を解放
             if (GameMgr.OkashiQuest01_flag != true)
             {
-                SetGirlSetFlag(2, 1); //set_ID=2, set_flag=1にする。これで、ランダムで2のお菓子セットを欲しがるようになる。
                 Debug.Log("Set2: ＜自由＞クッキー系　解放");
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                 girl1_status.OkashiNew_Status = 0;
-                girl1_status.OkashiQuest_ID = 12;
+                girl1_status.OkashiQuest_ID = 1000;
                 Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
             }
         }

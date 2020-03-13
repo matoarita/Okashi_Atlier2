@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class HukidashiAction : MonoBehaviour {
 
+    //女の子のお菓子の好きセット
+    private GirlLikeSetDataBase girlLikeSet_database;
+
+    //女の子のお菓子の好きセットの組み合わせDB
+    private GirlLikeCompoDataBase girlLikeCompo_database;
+
     //カメラ関連
     private Camera main_cam;
     private Animator maincam_animator;
@@ -23,6 +29,9 @@ public class HukidashiAction : MonoBehaviour {
     private GameObject hukidasi_text;
 
     private int hukidasi_action_status;
+    private int i, _id;
+
+    private string _hint;
 
     // Use this for initialization
     void Start () {
@@ -35,6 +44,12 @@ public class HukidashiAction : MonoBehaviour {
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        //女の子の好みのお菓子セットの取得
+        girlLikeSet_database = GirlLikeSetDataBase.Instance.GetComponent<GirlLikeSetDataBase>();
+
+        //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
+        girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
 
         //カメラの取得
         main_cam = Camera.main;
@@ -105,8 +120,9 @@ public class HukidashiAction : MonoBehaviour {
         //intパラメーターの値を設定する.
         maincam_animator.SetInteger("trans", trans);
 
-        //Debug.Log("ヒントを表示する");        
-        text_area.GetComponent<TextController>().SetText("ヒントが表示されるよ～！");
+        //Debug.Log("ヒントを表示する");    
+        _hint = girlLikeCompo_database.girllike_compoRandomset[girl1_status.Set_compID].hint_text;
+        text_area.GetComponent<TextController>().SetText(_hint);
         text_area.GetComponent<TextController>().hint_on = true;
         //_text.text = "ヒントが表示されるよ～！";
     }
@@ -127,18 +143,22 @@ public class HukidashiAction : MonoBehaviour {
         //intパラメーターの値を設定する.
         maincam_animator.SetInteger("trans", trans);
 
-        switch ( girl1_status.OkashiQuest_ID)
+        //_compIDをもとに_IDを決定
+        i = 0;
+        while (i < girlLikeCompo_database.girllike_composet.Count)
         {
-            case 12: //クエスト　＜自由＞お兄ちゃんのオリジナルクッキーが食べたい
-
-                text_area.GetComponent<TextController>().SetText("お兄ちゃんの作ったクッキーが食べたいなあ。" + "\n" + "見た目がかわいいのがいいな～！");
-                text_area.GetComponent<TextController>().hint_on = true;
-
+            if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+            {
+                _id = i;
                 break;
-
-            default:
-                break;
+            }
+            i++;
         }
+
+        _hint = girlLikeCompo_database.girllike_composet[_id].hint_text;
+        text_area.GetComponent<TextController>().SetText(_hint);
+        text_area.GetComponent<TextController>().hint_on = true;
+
     }
 
     public void ScaleUP()

@@ -99,6 +99,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int i, j, count;
     private int index;
     private int setID;
+    private int _compID;
 
     private float rnd;
     private int random;
@@ -307,13 +308,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     //女の子が食べたいものの決定。ランダムでもいいし、ストーリーによっては、一つのイベントの感じで、同じものを合格するまで出し続けてもいい。
     public void Girl_Hungry()
-    {
-        //前の残りの吹き出しアイテムを削除。
-        if (hukidashiitem != null)
-        {
-            Destroy(hukidashiitem);
-        }
-
+    { 
         //デフォルトで１に設定。セット組み合わせの処理にいったときに、２や３に変わる。
         Set_Count = 1;
 
@@ -330,97 +325,160 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 case 0:
 
+                    //前の残りの吹き出しアイテムを削除。
+                    if (hukidashiitem != null)
+                    {
+                        Destroy(hukidashiitem);
+                    }
+
                     //
                     //①特定の課題お菓子。
-                    //
                     //イベントやチュートリアル、ある好感度をこえたときの条件によって、こちらの特定のアイテムを常に出すようにする。
+                    //
 
                     //番号を入れると、女の子の好みデータベースから、値を取得し、セット。OkashiQuest_IDは、外部から指定。
                     glike_compID = OkashiQuest_ID;
 
-                    InitializeStageGirlHungrySet(glike_compID, 0);
+                    //OkashiQuest_ID = compIDを指定すると、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
+                    //SetOneQuest(glike_compID);
+                    SetQuestRandomSet(glike_compID, false);
 
-                     //テキストの設定。直接しているか、セット組み合わせエクセルにかかれたキャプションのどちらかが入る。
-                    _desc = girllike_desc[0];
-                    
+                    //表示用吹き出しを生成                   
+                    hukidasiInit();        
+
+                    //吹き出しのテキスト決定
+                    //hukidashiitem.GetComponent<TextController>().SetText(_desc);
+                    _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+                    _text.text = _desc;
+
                     break;
 
                 case 1:
 
+                    //前の残りの吹き出しアイテムを削除。
+                    if (hukidashiitem != null)
+                    {
+                        Destroy(hukidashiitem);
+                    }
+
                     //
-                    //②通常ステージ、ランダムセット。基本、新しいお菓子で好感度をあげる仕様にしたので、現在未使用。
+                    //②通常ステージ、ランダムセット。
                     //
 
-                    /*
                     //その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
                     //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。    
 
-                    //まず、表示フラグが1のもののみのセットを作る。そこからランダムで選択
+                    //まず、表示フラグが1のもののみのセットを作る。
                     girlLikeCompo_database.StageSet();
+
+                    //そこからランダムで選択。compIDを指定しているわけではないので、注意！
                     random = Random.Range(0, girlLikeCompo_database.girllike_compoRandomset.Count);
 
                     glike_compID = random;
 
-                    //今選んだやつの、compIDも保存しておく。
+                    //今選んだやつの、randomsetのIDも保存しておく。
                     Set_compID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set_ID;
 
-                    set1_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set1;
-                    set2_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set2;
-                    set3_ID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set3;
+                    //ランダムセットから、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
+                    SetQuestRandomSet(glike_compID, true);                   
 
+                    //表示用吹き出しを生成                    
+                    hukidasiInit();        
 
-                    set_ID.Clear();
+                    //吹き出しのテキスト決定
+                    //hukidashiitem.GetComponent<TextController>().SetText(_desc);
+                    _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+                    _text.text = _desc;
 
-                    //set_idにリストの番号をセット
-                    if (set1_ID != 9999)
-                    {
-                        set_ID.Add(set1_ID);
-                    }
-                    if (set2_ID != 9999)
-                    {
-                        set_ID.Add(set2_ID);
-                    }
-                    if (set3_ID != 9999)
-                    {
-                        set_ID.Add(set3_ID);
-                    }
-
-                    Set_Count = set_ID.Count;
-
-                    //Debug.Log("Set_Count: " + Set_Count);
-
-                    //さきほどのset_IDをもとに、好みの値を決定する。
-                    for (count = 0; count < Set_Count; count++)
-                    {
-                        InitializeStageGirlHungrySet(set_ID[count], count);
-
-                    }
-
-                    //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-                    _desc = girlLikeCompo_database.girllike_compoRandomset[glike_compID].desc;*/
                     break;
 
                 default:
                     break;
             }
         }            
+
+    }
+
+    //未使用
+    void SetOneQuest(int _ID)
+    {
+        InitializeStageGirlHungrySet(_ID, 0);
+
+        Set_Count = 1;
+
+        //テキストの設定。直接しているか、セット組み合わせエクセルにかかれたキャプションのどちらかが入る。
+        _desc = girllike_desc[0];
+    }
+
+    
+    void SetQuestRandomSet(int _ID, bool _rndset)
+    {
+        if (_rndset == true)
+        {
+            //ランダムセットから一つを選ぶ。
+            set1_ID = girlLikeCompo_database.girllike_compoRandomset[_ID].set1;
+            set2_ID = girlLikeCompo_database.girllike_compoRandomset[_ID].set2;
+            set3_ID = girlLikeCompo_database.girllike_compoRandomset[_ID].set3;
+
+            //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
+            _desc = girlLikeCompo_database.girllike_compoRandomset[_ID].desc;
+        }
+        else
+        {
+            //直接組み合わせセットの_compIDを元に選ぶ。
+            i = 0;
+            while(i < girlLikeCompo_database.girllike_composet.Count)
+            {
+                if (girlLikeCompo_database.girllike_composet[i].set_ID == _ID)
+                {
+                    _compID = i;
+                    break;
+                }
+                i++;
+            }
+
+            set1_ID = girlLikeCompo_database.girllike_composet[_compID].set1;
+            set2_ID = girlLikeCompo_database.girllike_composet[_compID].set2;
+            set3_ID = girlLikeCompo_database.girllike_composet[_compID].set3;
+
+            //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
+            _desc = girlLikeCompo_database.girllike_composet[_compID].desc;
+        }
+
+        set_ID.Clear();
+
+        //set_idにリストの番号をセット
+        if (set1_ID != 9999)
+        {
+            set_ID.Add(set1_ID);
+        }
+        if (set2_ID != 9999)
+        {
+            set_ID.Add(set2_ID);
+        }
+        if (set3_ID != 9999)
+        {
+            set_ID.Add(set3_ID);
+        }
+
+        Set_Count = set_ID.Count;
+
+        //Debug.Log("Set_Count: " + Set_Count);
+
+        //さきほどのset_IDをもとに、好みの値を決定する。
+        for (count = 0; count < Set_Count; count++)
+        {
+            InitializeStageGirlHungrySet(set_ID[count], count);
+
+        }
+
         
-
-        //表示用吹き出しを生成
-        /*
-        hukidasiInit();        
-
-        //吹き出しのテキスト決定
-        //hukidashiitem.GetComponent<TextController>().SetText(_desc);
-        _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-        _text.text = _desc;*/
-
-
     }
 
     public void Girl_Full()
     {
-        DeleteHukidashi();       
+        DeleteHukidashi();
+
     }
 
     public void Girl_hukidashi_Off()
@@ -456,23 +514,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void Girl1_Hint()
     {
-        if (hukidashiitem == null)
+        if (girl1_Love_exp <= 25 && PlayerStatus.First_recipi_on != true)
         {
-            hukidasiInit();
-        }
-
-        //吹き出しが残っていたら、内容を変える。
-        if (hukidashiitem != null)
-        {
-            if (girl1_Love_exp <= 25 && PlayerStatus.First_recipi_on != true)
+            if (hukidashiitem == null)
             {
-                hukidashiitem.GetComponent<TextController>().SetText("まずは、左のパネルでお菓子を作ろうね！お兄ちゃん。");
-                //_text = hukidashiitem.GetComponentInChildren<Text>();
-                //_text.text = "まずは、" + GameMgr.ColorBlue + "左のパネル" + "</color>" + "でお菓子を作ろうね！お兄ちゃん。";
+                hukidasiInit();
             }
+            //吹き出しが残っていたら、内容を変える。
+            else if (hukidashiitem != null)
+            {
+
+            }
+
+            hukidashiitem.GetComponent<TextController>().SetText("まずは、左のパネルでお菓子を作ろうね！お兄ちゃん。");
         }
 
-        //5秒ほど表示したら、また食べたいお菓子を表示
+        //5秒ほど表示したら、また食べたいお菓子を表示か削除
         StartCoroutine("WaitHintDesc");
     }
 
@@ -480,18 +537,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         yield return new WaitForSeconds(10.0f);
 
-        //何秒か表示したら削除
-        DeleteHukidashi();
-
-        //音を鳴らす
-        audioSource.PlayOneShot(sound2);
-
-        /*
+        //吹き出しが残っていたら、内容を変える。
         if (hukidashiitem != null)
         {
-            //hukidashiitem.GetComponent<TextController>().SetText(_desc);
             _text.text = _desc;
-        }*/
+        }
+        
     }
 
 
@@ -532,8 +583,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             girl1_hungryScoreSet2[i] = 0;
             girl1_hungryScoreSet3[i] = 0;
         }
-       
+
+        //音を鳴らす
+        audioSource.PlayOneShot(sound2);
     }
+    
+
 
     void InitializeItemSlotDicts()
     {

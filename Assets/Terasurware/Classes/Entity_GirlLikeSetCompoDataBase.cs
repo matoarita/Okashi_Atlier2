@@ -26,6 +26,7 @@ public class Entity_GirlLikeSetCompoDataBase : ScriptableObject
 		public string comment;
 		public int set_flag;
 		public int set_score;
+		public string hint_text;
 	}
 }
 
