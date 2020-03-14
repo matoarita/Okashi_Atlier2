@@ -464,6 +464,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             {
                                 All_cancel();
 
+                                pitemlistController._count1 = 9999;
+
                                 compound_Main.compound_status = 99; //何も選択していない状態にもどる。
                             }
                         }

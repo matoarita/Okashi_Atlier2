@@ -1136,7 +1136,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 compound_Main.compound_status = 4;
 
-                exp_Controller.Roast_ResultOK();
+                //exp_Controller.Roast_ResultOK();
 
                 card_view.DeleteCard_DrawView();
                 Off_Flag_Setting();

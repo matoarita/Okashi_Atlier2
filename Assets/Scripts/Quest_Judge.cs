@@ -25,6 +25,8 @@ public class Quest_Judge : MonoBehaviour {
     private Button questListButton;
     private Button nouhinButton;
 
+    private Exp_Controller exp_Controller;
+
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
 
@@ -161,6 +163,9 @@ public class Quest_Judge : MonoBehaviour {
 
         //クエストデータベースの取得
         quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
@@ -428,11 +433,28 @@ public class Quest_Judge : MonoBehaviour {
             {
                 case 0:
 
+                    //もし、エクストリームパネルにセットされているお菓子を納品し、個数が０になった場合。処理が必要。
+                    if (exp_Controller._temp_extreme_id == _id)
+                    {
+                        if (pitemlist.playeritemlist[_id] == _kosu_default)
+                        {
+                            exp_Controller._temp_extreme_id = 9999;
+                        }
+                    }
                     //所持アイテムを削除
                     pitemlist.deletePlayerItem(_id, _kosu_default);
                     break;
 
                 case 1:
+
+                    //もし、エクストリームパネルにセットされているお菓子を納品し、個数が０になった場合。処理が必要。
+                    if (exp_Controller._temp_extreme_id == _id)
+                    {
+                        if (pitemlist.player_originalitemlist[_id].ItemKosu == _kosu_default)
+                        {
+                            exp_Controller._temp_extreme_id = 9999;
+                        }
+                    }
 
                     //所持アイテムをリストに追加し、あとで降順に削除
                     deleteOriginalList.Add(_id, _kosu_default);
@@ -454,6 +476,9 @@ public class Quest_Judge : MonoBehaviour {
                 //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }
         }
+
+        
+
 
         //0なら正解
         if (nouhinOK_flag == 0)

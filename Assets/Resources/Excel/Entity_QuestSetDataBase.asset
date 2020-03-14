@@ -180,8 +180,8 @@ MonoBehaviour:
       QuestID: 6
       QuestType: 0
       file_name: rusk
-      quest_itemName: rusk
-      quest_itemsubtype: Non
+      quest_itemName: Non
+      quest_itemsubtype: rusk
       kosu_default: 0
       kosu_min: 1
       kosu_max: 7

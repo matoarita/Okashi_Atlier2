@@ -484,9 +484,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
 
         //店売りかオリジナルか、アイテムID
-        _cardImage.Pitem_or_Origin = _toggleType;
-        _cardImage.check_counter = _kettei_item1;
-        _cardImage.SetInit();
+        //_cardImage.Pitem_or_Origin = _toggleType;
+        //_cardImage.check_counter = _kettei_item1;
+        _cardImage.SetYosokuInit();
 
         //位置とスケール
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);

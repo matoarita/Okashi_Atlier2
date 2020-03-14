@@ -18,10 +18,10 @@ MonoBehaviour:
       compNum: 0
       girllike_itemname: neko_cookie
       girllike_itemsubtype: Non
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
+      rich: 30
+      sweat: 30
+      bitter: 50
+      sour: 50
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -38,10 +38,10 @@ MonoBehaviour:
       compNum: 1
       girllike_itemname: Non
       girllike_itemsubtype: Non
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
+      rich: 30
+      sweat: 30
+      bitter: 50
+      sour: 50
       crispy: 20
       fluffy: 0
       smooth: 0
@@ -59,9 +59,9 @@ MonoBehaviour:
       girllike_itemname: Non
       girllike_itemsubtype: Cookie
       rich: 30
-      sweat: 0
-      bitter: 0
-      sour: 0
+      sweat: 30
+      bitter: 50
+      sour: 50
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -78,10 +78,10 @@ MonoBehaviour:
       compNum: 10
       girllike_itemname: Non
       girllike_itemsubtype: Cookie
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
+      rich: 30
+      sweat: 30
+      bitter: 50
+      sour: 50
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -98,10 +98,10 @@ MonoBehaviour:
       compNum: 11
       girllike_itemname: orange_neko_cookie
       girllike_itemsubtype: Non
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
+      rich: 30
+      sweat: 30
+      bitter: 50
+      sour: 50
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -118,10 +118,10 @@ MonoBehaviour:
       compNum: 12
       girllike_itemname: Non
       girllike_itemsubtype: Cookie
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
+      rich: 30
+      sweat: 50
+      bitter: 50
+      sour: 50
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -138,10 +138,10 @@ MonoBehaviour:
       compNum: 20
       girllike_itemname: grape_cookie
       girllike_itemsubtype: Non
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
+      rich: 30
+      sweat: 30
+      bitter: 50
+      sour: 50
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -158,10 +158,10 @@ MonoBehaviour:
       compNum: 30
       girllike_itemname: rusk
       girllike_itemsubtype: Non
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
+      rich: 30
+      sweat: 30
+      bitter: 50
+      sour: 50
       crispy: 0
       fluffy: 0
       smooth: 0

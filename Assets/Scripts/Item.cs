@@ -32,7 +32,7 @@ public class Item
 
     public int Crispy;              //おかしの食感　さくさく
     public int Fluffy;              //おかしの食感　ふわふわ
-    public int Smooth;              //おかしの食感　口溶けの良さ。とろとろ（なめらかさ）
+    public int Smooth;              //おかしの食感　しっとり　口溶けの良さ。とろとろ（なめらかさ）
     public int Hardness;            //おかしの食感　ほろほろ　強いとざっくり、どっしりした歯ごたえ
     public int Jiggly;              //おかしの食感　ぷるぷる
     public int Chewy;               //おかしの食感　もちもち

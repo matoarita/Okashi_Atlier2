@@ -178,7 +178,7 @@ public class RecipiListController : MonoBehaviour {
         //調合DBのフラグをチェック
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
-            if (databaseCompo.compoitems[i].cmpitem_flag > 0) //調合DBのフラグが1以上のアイテムのみ、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
+            if (databaseCompo.compoitems[i].cmpitem_flag == 1) //調合DBのフラグが1のアイテムのみ、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
             {
 
                 //Debug.Log(i);

@@ -21314,6 +21314,7 @@ MonoBehaviour:
   sound2: {fileID: 8300000, guid: a36c633e0446fca4490f1b56e604a1dc, type: 3}
   itemLike_score: 0
   quality_score: 0
+  rich_score: 0
   sweat_score: 0
   bitter_score: 0
   sour_score: 0
@@ -24716,9 +24717,34 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 224558301603994532, guid: 846aac05d6c97eb4eb74c58b4c94e3c3,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.39900002
+      objectReference: {fileID: 0}
+    - target: {fileID: 224558301603994532, guid: 846aac05d6c97eb4eb74c58b4c94e3c3,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1118836723063402, guid: 846aac05d6c97eb4eb74c58b4c94e3c3, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224659193929231854, guid: 846aac05d6c97eb4eb74c58b4c94e3c3,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.39900002
+      objectReference: {fileID: 0}
+    - target: {fileID: 224659193929231854, guid: 846aac05d6c97eb4eb74c58b4c94e3c3,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.39900002
+      objectReference: {fileID: 0}
+    - target: {fileID: 224659193929231854, guid: 846aac05d6c97eb4eb74c58b4c94e3c3,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 846aac05d6c97eb4eb74c58b4c94e3c3, type: 2}
@@ -30043,6 +30069,76 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1442058547}
+--- !u!1 &1446282017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1446282019}
+  - component: {fileID: 1446282018}
+  m_Layer: 0
+  m_Name: Compound_Keisan
+  m_TagString: Compound_Keisan
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1446282018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1446282017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d57c111c2a54245b29037122443d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseID: 0
+  _basename: 
+  _basehp: 0
+  _baseday: 0
+  _basequality: 0
+  _baseexp: 0
+  _baseprobability: 0
+  _baserich: 0
+  _basesweat: 0
+  _basebitter: 0
+  _basesour: 0
+  _basecrispy: 0
+  _basefluffy: 0
+  _basesmooth: 0
+  _basehardness: 0
+  _basejiggly: 0
+  _basechewy: 0
+  _basepowdery: 0
+  _baseoily: 0
+  _basewatery: 0
+  _basegirl1_like: 0
+  _basecost: 0
+  _basesell: 0
+  _basetp: []
+  _base_itemType: 
+  _base_itemType_sub: 
+  _base_extreme_kaisu: 0
+  _base_item_hyouji: 0
+  _base_itemdesc: 
+  _getExp: 0
+--- !u!4 &1446282019
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1446282017}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.5009527, y: 3.700225, z: -0.296875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1452007742
 GameObject:
   m_ObjectHideFlags: 0

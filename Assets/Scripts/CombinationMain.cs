@@ -40,7 +40,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         //個数も組み合わせ時判定するか
-        kosu_Check = true; //trueで個数判定あり 
+        kosu_Check = false; //trueで個数判定あり 
 
         //CombinationSubSample();
     }
@@ -98,9 +98,9 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                 if (databaseCompo.compoitems[count].cmpitemID_1 == itemset[youso[0]] &&
                     databaseCompo.compoitems[count].cmpitemID_2 == itemset[youso[1]] &&
                     databaseCompo.compoitems[count].cmpitemID_3 == itemset[youso[2]])
-                    {
+                {
 
-                    switch(kosu_Check)
+                    switch (kosu_Check)
                     {
                         case false:
 
@@ -128,8 +128,8 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                             }
                             break;
                     }
-                                    
-                    }
+
+                }
 
                 /*for (i = 0; i < youso.Count; i++) 
                 {

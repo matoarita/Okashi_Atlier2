@@ -33,6 +33,8 @@ public class SetImage : MonoBehaviour
     private ExpTable exp_table;
     private Exp_Controller exp_Controller;
 
+    private Compound_Keisan compound_keisan;
+
     private SlotNameDataBase slotnamedatabase;
     private SlotChangeName slotchangename;
 
@@ -57,18 +59,6 @@ public class SetImage : MonoBehaviour
 
     private string _quality;
     private string _quality_bar;
-
-    private string _rich;
-    private string _sweat;
-    private string _sour;
-    private string _bitter;
-
-    private string _crispy;
-    private string _fluffy;
-    private string _smooth;
-    private string _hardness;
-    private string _jiggly;
-    private string _chewy;
 
     private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
@@ -95,6 +85,10 @@ public class SetImage : MonoBehaviour
     private Text item_Jiggly;
     private Text item_Chewy;
 
+    private Text item_Powdery;
+    private Text item_Oily;
+    private Text item_Watery;
+
     private Text[] item_Slot = new Text[10];
 
     private int i, count;
@@ -109,6 +103,14 @@ public class SetImage : MonoBehaviour
     private int _fluffy_score;
     private int _smooth_score;
     private int _hardness_score;
+    private int _jiggly_score;
+    private int _chewy_score;
+
+    private int _powdery_score;
+    private int _oily_score;
+    private int _watery_score;
+
+    private Slider _Crispy_slider;
 
     public int check_counter;
     public int Pitem_or_Origin; //プレイヤーアイテムか、オリジナルアイテムかの判定
@@ -180,12 +182,16 @@ public class SetImage : MonoBehaviour
         item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
 
         item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
-        item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemCrispyScore").gameObject.GetComponent<Text>(); //さくさくの値
+        item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemCrispyScore").gameObject.GetComponent<Text>(); //さくさくの値
         item_Fluffy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemFluffyScore").gameObject.GetComponent<Text>(); //ふわふわの値
-        item_Smooth = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSmoothScore").gameObject.GetComponent<Text>(); //口溶けの値
-        item_Hardness = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemHardnessScore").gameObject.GetComponent<Text>(); //歯ごたえの値
+        item_Smooth = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSmoothScore").gameObject.GetComponent<Text>(); //しっとりの値
+        item_Hardness = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemHardnessScore").gameObject.GetComponent<Text>(); //ほろほろの値
         item_Jiggly = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemJigglyScore").gameObject.GetComponent<Text>(); //ぷるぷるの値
         item_Chewy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemChewyScore").gameObject.GetComponent<Text>(); //ぐみぐみの値
+
+        item_Powdery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemPowdery").gameObject.GetComponent<Text>(); //粉っぽいの値
+        item_Oily = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemOily").gameObject.GetComponent<Text>(); //粉っぽいの値
+        item_Watery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemWatery").gameObject.GetComponent<Text>(); //粉っぽいの値
 
         item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
         item_Slot[1] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_02").gameObject.GetComponent<Text>(); //Slot02の値
@@ -197,6 +203,9 @@ public class SetImage : MonoBehaviour
         item_Slot[7] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_08").gameObject.GetComponent<Text>(); //Slot08の値
         item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
         item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
+
+        //各パラメータバーの取得
+        _Crispy_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemCrispyScore/Slider").gameObject.GetComponent<Slider>();
 
         //スロットをもとに、正式名称を計算するメソッド
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
@@ -222,6 +231,14 @@ public class SetImage : MonoBehaviour
     public void SetInit()
     {
         Card_draw();
+    }
+
+    public void SetYosokuInit() //生成するカードのパラメータを、あらかじめ予測して表示する
+    {
+        //合成計算オブジェクトの取得
+        compound_keisan = GameObject.FindWithTag("Compound_Keisan").GetComponent<Compound_Keisan>();
+
+        Card_YosokuDraw();
     }
 
     void Card_draw()
@@ -255,7 +272,7 @@ public class SetImage : MonoBehaviour
     }
 
 
-    //カード描画部分
+    //カード描画用のパラメータ読み込み
     void Pitemlist_CardDraw() {
 
         switch (Pitem_or_Origin)
@@ -281,19 +298,6 @@ public class SetImage : MonoBehaviour
                 _quality = database.items[check_counter].Quality.ToString();
 
                 //甘さなどのパラメータを代入
-                _rich = database.items[check_counter].Rich.ToString();
-                _sweat = database.items[check_counter].Sweat.ToString();
-                _bitter = database.items[check_counter].Bitter.ToString();
-                _sour = database.items[check_counter].Sour.ToString();              
-
-                _crispy = database.items[check_counter].Crispy.ToString();
-                _fluffy = database.items[check_counter].Fluffy.ToString();
-                _smooth = database.items[check_counter].Smooth.ToString();
-                _hardness = database.items[check_counter].Hardness.ToString();
-                _jiggly = database.items[check_counter].Jiggly.ToString();
-                _chewy = database.items[check_counter].Chewy.ToString();
-
-                //数値として代入
                 _quality_score = database.items[check_counter].Quality;
                 _rich_score = database.items[check_counter].Rich;
                 _sweat_score = database.items[check_counter].Sweat;
@@ -305,13 +309,16 @@ public class SetImage : MonoBehaviour
                 _smooth_score = database.items[check_counter].Smooth;
                 _hardness_score = database.items[check_counter].Hardness;
 
+                _powdery_score = database.items[check_counter].Powdery;
+                _oily_score = database.items[check_counter].Oily;
+                _watery_score = database.items[check_counter].Watery;
 
-                for (i=0; i<_slot.Length; i++)
+                for (i = 0; i < _slot.Length; i++)
                 {
                     _slot[i] = database.items[check_counter].toppingtype[i].ToString();
                 }
 
-                
+
                 //カード正式名称（ついてるスロット名も含めた名前）
 
                 for (i = 0; i < _slot.Length; i++)
@@ -319,7 +326,7 @@ public class SetImage : MonoBehaviour
                     count = 0;
 
                     //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
-                    while ( count < slotnamedatabase.slotname_lists.Count)
+                    while (count < slotnamedatabase.slotname_lists.Count)
                     {
                         if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
                         {
@@ -355,20 +362,6 @@ public class SetImage : MonoBehaviour
                 _quality = pitemlist.player_originalitemlist[check_counter].Quality.ToString();
 
                 //甘さなどのパラメータを代入
-                _rich = pitemlist.player_originalitemlist[check_counter].Rich.ToString();
-                _sweat = pitemlist.player_originalitemlist[check_counter].Sweat.ToString();
-                _bitter = pitemlist.player_originalitemlist[check_counter].Bitter.ToString();
-                _sour = pitemlist.player_originalitemlist[check_counter].Sour.ToString();               
-
-                _crispy = pitemlist.player_originalitemlist[check_counter].Crispy.ToString();
-                _fluffy = pitemlist.player_originalitemlist[check_counter].Fluffy.ToString();
-                _smooth = pitemlist.player_originalitemlist[check_counter].Smooth.ToString();
-                _hardness = pitemlist.player_originalitemlist[check_counter].Hardness.ToString();
-                _jiggly = pitemlist.player_originalitemlist[check_counter].Jiggly.ToString();
-                _chewy = pitemlist.player_originalitemlist[check_counter].Chewy.ToString();
-
-
-                //数値として代入
                 _quality_score = pitemlist.player_originalitemlist[check_counter].Quality;
                 _rich_score = pitemlist.player_originalitemlist[check_counter].Rich;
                 _sweat_score = pitemlist.player_originalitemlist[check_counter].Sweat;
@@ -380,7 +373,9 @@ public class SetImage : MonoBehaviour
                 _smooth_score = pitemlist.player_originalitemlist[check_counter].Smooth;
                 _hardness_score = pitemlist.player_originalitemlist[check_counter].Hardness;
 
-
+                _powdery_score = pitemlist.player_originalitemlist[check_counter].Powdery;
+                _oily_score = pitemlist.player_originalitemlist[check_counter].Oily;
+                _watery_score = pitemlist.player_originalitemlist[check_counter].Watery;
 
                 for (i = 0; i < _slot.Length; i++)
                 {
@@ -413,6 +408,79 @@ public class SetImage : MonoBehaviour
                 break;
         }
 
+        DrawCard();
+    }
+
+    void Card_YosokuDraw()
+    {
+        check_counter = compound_keisan._baseID;
+
+        //アイテムタイプを代入//
+        item_type = compound_keisan._base_itemType;
+
+        //サブカテゴリーの代入
+        item_type_sub = compound_keisan._base_itemType_sub;
+
+        /* アイテム解説の表示 */
+        item_RankDesc.text = compound_keisan._base_itemdesc;
+
+        // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
+        texture2d = database.items[check_counter].itemIcon;
+
+        //カードのアイテム名
+        item_Name.text = database.items[check_counter].itemNameHyouji;
+
+        //アイテムの品質値
+        _quality = compound_keisan._basequality.ToString();
+
+        //甘さなどのパラメータを代入
+        _quality_score = compound_keisan._basequality;
+        _rich_score = compound_keisan._baserich;
+        _sweat_score = compound_keisan._basesweat;
+        _bitter_score = compound_keisan._basebitter;
+        _sour_score = compound_keisan._basesour;
+
+        _crispy_score = compound_keisan._basecrispy;
+        _fluffy_score = compound_keisan._basefluffy;
+        _smooth_score = compound_keisan._basesmooth;
+        _hardness_score = compound_keisan._basehardness;
+
+        _powdery_score = compound_keisan._basepowdery;
+        _oily_score = compound_keisan._baseoily;
+        _watery_score = compound_keisan._basewatery;
+
+
+        for (i = 0; i < _slot.Length; i++)
+        {
+            _slot[i] = compound_keisan._basetp[i].ToString();
+        }
+
+
+        //カード正式名称（ついてるスロット名も含めた名前）
+
+        for (i = 0; i < _slot.Length; i++)
+        {
+            count = 0;
+
+            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
+            while (count < slotnamedatabase.slotname_lists.Count)
+            {
+                if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
+                {
+                    _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
+                    _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    break;
+                }
+                count++;
+            }
+        }
+
+        DrawCard();
+    }
+
+    void DrawCard()
+    {
+    
         // texture2dを使い、Spriteを作って、反映させる
         item_Icon.sprite = Sprite.Create(texture2d,
                                    new Rect(0, 0, texture2d.width, texture2d.height),
@@ -537,17 +605,46 @@ public class SetImage : MonoBehaviour
         /* カテゴリーここまで */
 
         //甘さ・苦さ・酸味の表示
-        item_Rich.text = _rich;
-        item_Sweat.text = _sweat;
-        item_Bitter.text = _bitter;
-        item_Sour.text = _sour;
+        item_Rich.text = _rich_score.ToString();
+        item_Sweat.text = _sweat_score.ToString();
+        item_Bitter.text = _bitter_score.ToString();
+        item_Sour.text = _sour_score.ToString();
 
-        item_Crispy.text = _crispy;
-        item_Fluffy.text = _fluffy;
-        item_Smooth.text = _smooth;
-        item_Hardness.text = _hardness;
-        item_Jiggly.text = _jiggly;
-        item_Chewy.text = _chewy;
+        item_Crispy.text = _crispy_score.ToString();
+        item_Fluffy.text = _fluffy_score.ToString();
+        item_Smooth.text = _smooth_score.ToString();
+        item_Hardness.text = _hardness_score.ToString();
+        item_Jiggly.text = _jiggly_score.ToString();
+        item_Chewy.text = _chewy_score.ToString();
+
+        //ゲージの更新
+        _Crispy_slider.value = _crispy_score;
+
+
+        //粉っぽさなどの、マイナス要素の表示
+        if( _powdery_score > 50 )
+        {
+            item_Powdery.text = "粉っぽい";
+        } else
+        {
+            item_Powdery.text = "";
+        }
+        if (_oily_score > 50)
+        {
+            item_Oily.text = "油っぽい";
+        }
+        else
+        {
+            item_Oily.text = "";
+        }
+        if (_watery_score > 50)
+        {
+            item_Watery.text = "水っぽい";
+        }
+        else
+        {
+            item_Watery.text = "";
+        }
 
 
         //品質の表示

@@ -499,11 +499,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
+    public void ResetHukidashi()
+    {
+        //一度吹き出しを削除し、クエスト吹き出しなどを表示する。
+        timeOut = 5.0f;
+        timeOut2 = 10.0f;
+        timeGirl_hungry_status = 0;
+
+        DeleteHukidashi();
+    }
 
 
-    //
-    // らんだむで表示される女の子のセリフ。ヒントか、とりとめもないこと
-    //
+
+    
     public void Girl1_Status_Init()
     {
         timeOut = 5.0f;
@@ -511,20 +519,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeGirl_hungry_status = 0;
     }
 
-
+    //
+    // らんだむで表示される女の子のセリフ。ヒントか、とりとめもないこと
+    //
     public void Girl1_Hint()
     {
+        //好感度25以下で、かつまだ一度も調合していない
         if (girl1_Love_exp <= 25 && PlayerStatus.First_recipi_on != true)
         {
             if (hukidashiitem == null)
             {
                 hukidasiInit();
-            }
-            //吹き出しが残っていたら、内容を変える。
-            else if (hukidashiitem != null)
-            {
-
-            }
+            }            
 
             hukidashiitem.GetComponent<TextController>().SetText("まずは、左のパネルでお菓子を作ろうね！お兄ちゃん。");
         }

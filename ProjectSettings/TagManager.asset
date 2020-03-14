@@ -54,6 +54,7 @@ TagManager:
   - RecipiMemo_ScrollView
   - Compound_Check
   - Quest_Judge
+  - Compound_Keisan
   layers:
   - Default
   - TransparentFX

@@ -45,6 +45,8 @@ public class recipiitemSelectToggle : MonoBehaviour
 
     private PlayerItemList pitemlist;
 
+    private Compound_Keisan compound_keisan;
+
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private ItemShopDataBase shop_database;
@@ -140,6 +142,9 @@ public class recipiitemSelectToggle : MonoBehaviour
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
+        //合成計算オブジェクトの取得
+        compound_keisan = GameObject.FindWithTag("Compound_Keisan").GetComponent<Compound_Keisan>();
+
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
@@ -224,6 +229,7 @@ public class recipiitemSelectToggle : MonoBehaviour
                 recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = false;
             }
 
+            compound_keisan.Topping_Compound_Method(1); //予測用にパラメータを計算。
             card_view.RecipiCard_DrawView(0, recipilistController.result_recipiitem); //選択したアイテムをカードで表示
 
             yes.SetActive(true);

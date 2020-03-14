@@ -1754,7 +1754,8 @@ public class Compound_Main : MonoBehaviour
 
                                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                                 girl1_status.OkashiNew_Status = 0;
-                                girl1_status.OkashiQuest_ID = 12;
+                                girl1_status.OkashiQuest_ID = 1000;
+                                girl1_status.ResetHukidashi();
                                 Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
                             }
 
