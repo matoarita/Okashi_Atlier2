@@ -271,7 +271,7 @@ public class Compound_Keisan : MonoBehaviour {
         {
             _id = result_item;
 
-            if (database.items[_id].itemType_sub.ToString() == "Bread" || database.items[_id].itemType.ToString() == "Mat")
+            if (database.items[_id].itemComp_Hosei == 0) //アイテム自体が持っている値を加算しない場合
             {
                 //各パラメータを取得
                 _baseID = database.items[_id].itemID;
@@ -303,7 +303,7 @@ public class Compound_Keisan : MonoBehaviour {
                 _base_item_hyouji = database.items[_id].item_Hyouji;
                 _base_itemdesc = database.items[_id].itemDesc;
             }
-            else
+            else //アイテム自体が持っている値を加算する場合。使わないかも。
             {
                 //各パラメータを取得
                 _baseID = database.items[_id].itemID;

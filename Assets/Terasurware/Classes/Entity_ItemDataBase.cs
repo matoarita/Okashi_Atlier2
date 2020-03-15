@@ -22,6 +22,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public string name;
 		public string nameHyouji;
 		public string desc;
+		public int comp_hosei;
 		public int hp;
 		public int day;
 		public int quality;

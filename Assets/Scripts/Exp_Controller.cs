@@ -714,13 +714,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (compound_success == true)
         {
 
-            //①調合処理
-            compound_keisan.Topping_Compound_Method(0);
+            //①調合処理＜予測で処理＞
+            compound_keisan.Topping_Compound_Method(1);
 
-            result_item = pitemlist.player_originalitemlist.Count - 1;
+            //result_item = pitemlist.player_originalitemlist.Count - 1;
 
-            renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
+            //renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
 
+            /*
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
             if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
             {
@@ -732,14 +733,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //お菓子のHPをセット
                 extremePanel.SetDegOkashiLife(pitemlist.player_originalitemlist[result_item].itemHP);
-            }
+            }*/
 
-            new_item = result_item;
+            //new_item = result_item;
 
-            card_view.ResultCard_DrawView(1, new_item);
+            //card_view.ResultCard_DrawView(1, new_item);
 
-            /*
-            //②店売りアイテムとして生成
+            
+            //②店売りアイテムとして生成し、実際にアイテムを追加。
             compound_keisan.Delete_playerItemList();
             renkin_hyouji = database.items[result_item].itemNameHyouji;
             pitemlist.addPlayerItem(result_item, result_kosu);
@@ -757,7 +758,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
             }
 
-            card_view.ResultCard_DrawView(0, result_item);*/
+            card_view.RecipiResultCard_DrawView(0, result_item);
 
             //チュートリアルのときは、一時的にOFF
             if (GameMgr.tutorial_ON == true)
@@ -1377,7 +1378,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text.text = "お菓子をあげた！" + "\n" + "好感度が" + Mathf.Abs(_getlove_exp) + "下がった..。";
     }
 
-
+    public void GirlNotEatText()
+    {
+        _text.text = "今はこのお菓子じゃない気分のようだ。";
+    }
 
 
     //確率判定処理

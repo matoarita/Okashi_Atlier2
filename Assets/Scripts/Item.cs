@@ -16,6 +16,7 @@ public class Item
     public string itemDesc;         //アイテムの説明文
     public Texture2D itemIcon;      //アイコン
     public Sprite itemIcon_sprite;      //アイコン
+    public int itemComp_Hosei;      //材料が生成される際、お菓子自体のパラメータを加算するかどうか。1だと加算する。現状使ってない。いらないかも。
     public int itemHP;              //消費MP
     public int item_day;            //調合に必要な日数。アイテム同士で加算する。
     public int ItemKosu;
@@ -108,7 +109,7 @@ public class Item
     }
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public Item(int id, string file_name, string name, string nameHyouji, string desc, int hp, int day, int quality, int _exp, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, int itemkosu, int extreme_kaisu, int _item_hyouji, int _first_eat)
+    public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, int itemkosu, int extreme_kaisu, int _item_hyouji, int _first_eat)
     {
         itemID = id;
         fileName = file_name;
@@ -122,6 +123,7 @@ public class Item
         itemDesc = desc;
         itemHP = hp;
         item_day = day;
+        itemComp_Hosei = _comp_hosei;
 
         Exp = _exp;
 
