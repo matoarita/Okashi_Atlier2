@@ -22,6 +22,8 @@ public class Compound_Main : MonoBehaviour
 
     private Girl1_status girl1_status;
 
+    private Special_Quest special_quest;
+
     private Debug_Panel_Init debug_panel_init;
 
     private GameObject selectPanel_1;
@@ -156,7 +158,7 @@ public class Compound_Main : MonoBehaviour
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         //女の子データの取得
-        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子        
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -165,8 +167,11 @@ public class Compound_Main : MonoBehaviour
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
+        //スペシャルお菓子クエストの取得
+        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+
         //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
+        canvas = GameObject.FindWithTag("Canvas");        
 
         //時間表示パネルの取得
         TimePanel_obj1 = canvas.transform.Find("TimePanel/TimeHyouji_1").gameObject;
@@ -1747,16 +1752,14 @@ public class Compound_Main : MonoBehaviour
                             recipi_id = Find_eventitemdatabase("rusk_recipi");
                             pitemlist.add_eventPlayerItem(recipi_id, 1); //ナジャの基本のレシピを追加
 
-                            //オリジナルクッキー作りのクエスト発生
-                            if (GameMgr.OkashiQuest01_flag != true)
+                            //ラスク作りのクエスト発生
+                            if (GameMgr.OkashiQuest02_flag != true)
                             {
-                                Debug.Log("Set2: ＜自由＞クッキー系　解放");
+                                Debug.Log("スペシャルクエスト: ラスクが食べたい　開始");
 
                                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                girl1_status.OkashiNew_Status = 0;
-                                girl1_status.OkashiQuest_ID = 1000;
-                                girl1_status.ResetHukidashi();
-                                Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
+                                special_quest.SetSpecialOkashi(1);
+                                                                
                             }
 
                             Debug.Log("好感度イベント１をON: お兄ちゃん。誰かお客さんがきたよ。");

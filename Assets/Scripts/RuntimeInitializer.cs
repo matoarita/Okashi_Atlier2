@@ -86,6 +86,10 @@ public class RuntimeInitializer : MonoBehaviour
         var questset_database_init = new GameObject("QuestSetDataBase", typeof(QuestSetDataBase));
         GameObject.DontDestroyOnLoad(questset_database_init);
 
+        //スペシャルお菓子クエストデータベースリスト
+        var specialquestset_database_init = new GameObject("Special_Quest", typeof(Special_Quest));
+        GameObject.DontDestroyOnLoad(specialquestset_database_init);
+
         //ゲームマネージャ
         var gamemgr_init = new GameObject("GameMgr", typeof(GameMgr));
         GameObject.DontDestroyOnLoad(gamemgr_init);

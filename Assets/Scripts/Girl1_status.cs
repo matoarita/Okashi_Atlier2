@@ -64,6 +64,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private string[] girllike_desc;
     private string _desc;
 
+    public int[] girl1_like_set_score;
+
     public int youso_count; //GirlEat_judgeでも、パラメータ初期化の際使う。
     public int Set_Count;
 
@@ -199,10 +201,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Chewy = new int[youso_count];
         girl1_Jiggly = new int[youso_count];
 
+        girl1_like_set_score = new int[youso_count];
+
         girl1_likeSubtype = new string[youso_count];
         girl1_likeOkashi = new string[youso_count];
         girllike_desc = new string[youso_count];
-
+        
         //ステージごとに、女の子が食べたいお菓子のセットを初期化
         InitializeStageGirlHungrySet(0, 0); //とりあえず0で初期化
 
@@ -256,6 +260,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 rnd = Random.Range(30.0f, 60.0f);
                                 timeOut = 5.0f + rnd;
                                 Girl_Hungry();
+
+                                //キャラクタ表情変更
+                                s.sprite = Girl1_img_gokigen;
                                 break;
 
                             case 1:
@@ -272,13 +279,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 //お菓子をあげたあとの状態。
 
                                 timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
-
-                                rnd = Random.Range(1.0f, 5.0f);
-                                timeOut = 1.0f + rnd;
+                                
+                                timeOut = 5.0f;
                                 Girl_Full();
 
                                 //キャラクタ表情変更
-                                s.sprite = Girl1_img_gokigen;
+                                //s.sprite = Girl1_img_gokigen;
                                 break;
 
                             default:
@@ -377,7 +383,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     glike_compID = random;
 
                     //今選んだやつの、randomsetのIDも保存しておく。
-                    Set_compID = girlLikeCompo_database.girllike_compoRandomset[glike_compID].set_ID;
+                    Set_compID = glike_compID;
 
                     //ランダムセットから、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
                     SetQuestRandomSet(glike_compID, true);                   
@@ -592,6 +598,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //音を鳴らす
         audioSource.PlayOneShot(sound2);
+
+        //キャラクタ表情変更
+        s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
+        s.sprite = Girl1_img_gokigen;
     }
     
 
@@ -753,11 +763,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //④が決まった場合、③は無視し、①と②だけ計算する。④が空=Nonの場合、③を計算。④も③も空の場合、お菓子の種類は関係なくなる。
         girl1_likeOkashi[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_itemName;
 
+        //セットごとの固有の好感度をセット
+        girl1_like_set_score[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_set_score;
+
         //コメントをセット
         girllike_desc[_set_num] = girlLikeSet_database.girllikeset[setID].set_kansou;
 
         //外部から直接指定されたとき用に、_descの中身も更新。
-        _desc = girllike_desc[0];
+        //_desc = girllike_desc[0];
 
         //Debug.Log("_desc: " + _desc);
     }

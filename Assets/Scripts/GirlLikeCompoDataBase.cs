@@ -121,4 +121,16 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
             ++count;
         }
     }
+
+    //指定したコンプIDのフラグをONかOFFにする。
+    public void SetGirlSetFlag(int _compID, int _flag)
+    {
+        for (i = 0; i < girllike_composet.Count; i++)
+        {
+            if (girllike_composet[i].set_ID == _compID)
+            {
+                girllike_composet[i].set_flag = _flag;
+            }
+        }
+    }
 }

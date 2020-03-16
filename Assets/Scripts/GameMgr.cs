@@ -70,7 +70,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     private bool gamestart_recipi_get;
 
     //お菓子イベントのフラグ
-    public static bool OkashiQuest01_flag;
+    public static bool OkashiQuest01_flag; //オリジナルクッキー
+    public static bool OkashiQuest02_flag; //ラスクを欲しがる
 
     //ゲーム共通の固有の色
     public static string ColorYellow;

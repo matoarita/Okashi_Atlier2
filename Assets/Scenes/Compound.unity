@@ -21328,6 +21328,7 @@ MonoBehaviour:
   subtype1_score: 0
   subtype2_score: 0
   total_score: 0
+  girllike_point: 0
 --- !u!4 &712120331
 Transform:
   m_ObjectHideFlags: 0

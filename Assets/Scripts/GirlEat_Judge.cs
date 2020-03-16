@@ -26,8 +26,13 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private PlayerItemList pitemlist;
 
+    private Special_Quest special_quest;
+
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+
+    //女の子のお菓子の好きセット
+    private GirlLikeSetDataBase girlLikeSet_database;
 
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
@@ -132,6 +137,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private string[] _girl_subtype;
     private string[] _girl_likeokashi;
 
+    private int[] _girl_set_score;
+
 
     //女の子の採点用パラメータ
 
@@ -178,6 +185,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private bool dislike_flag;
     private int dislike_status;
+
+    public int girllike_point;
 
     // スロットのデータを保持するリスト。点数とセット。
     List<string> itemslotInfo = new List<string>();
@@ -229,6 +238,9 @@ public class GirlEat_Judge : MonoBehaviour {
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
+        //女の子の好みのお菓子セットの取得
+        girlLikeSet_database = GirlLikeSetDataBase.Instance.GetComponent<GirlLikeSetDataBase>();
+
         //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
         girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
 
@@ -246,6 +258,8 @@ public class GirlEat_Judge : MonoBehaviour {
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
+        //スペシャルお菓子クエストの取得
+        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
 
 
         //エフェクトプレファブの取得
@@ -323,6 +337,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         _girl_subtype = new string[girl1_status.youso_count];
         _girl_likeokashi = new string[girl1_status.youso_count];
+
+        _girl_set_score = new int[girl1_status.youso_count];
     }
 	
 	// Update is called once per frame
@@ -589,6 +605,8 @@ public class GirlEat_Judge : MonoBehaviour {
             
             _girl_subtype[i] = girl1_status.girl1_likeSubtype[i];
             _girl_likeokashi[i] = girl1_status.girl1_likeOkashi[i];
+
+            _girl_set_score[i] = girl1_status.girl1_like_set_score[i];
         }
 
         //一回だけ代入すればよい。
@@ -763,7 +781,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //パラメータ初期化し、判定処理
             dislike_flag = true;
             dislike_status = 1;
-            set_id = count;
+            set_id = count;            
 
             //
             //判定処理　パターンC
@@ -990,6 +1008,9 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void judge_score()
     {
+        //初期化。
+        girllike_point = 0;
+
         if (dislike_flag == true) //正解の場合のみ、味を採点する。好感度とお金に反映される。
         {
             switch (dislike_status)
@@ -1000,7 +1021,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //クッキーの場合はさくさく感など。大きいパラメータをまず見る。次に甘さ・苦さ・酸味が、女の子の好みに近いかどうか。
                     //新しいお菓子の場合、少し採点甘め。
 
-                    //お菓子そのものの好み。豪華、レアなお菓子ほど高得点。
+                    //お菓子そのものの好み。トータルスコアに反映される。豪華、レアなお菓子ほど高得点。
                     itemLike_score = _basegirl1_like;
 
                     //未使用。
@@ -1017,6 +1038,10 @@ public class GirlEat_Judge : MonoBehaviour {
                     sweat_result = _basesweat - _girlsweat[set_id];
                     bitter_result = _basebitter - _girlbitter[set_id];
                     sour_result = _basesour - _girlsour[set_id];
+
+                    //セットごとの固有の好感度得点。最終的な好感度の値に加算する。難しいものほど、好感度の上昇値も大きい。
+                    girllike_point = _girl_set_score[set_id];
+                    Debug.Log("girllike_point: " + girllike_point);
 
 
                     //あまみ・にがみ・さんみに対して、それぞれの評価。差の値により、6段階で評価する。
@@ -1225,7 +1250,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     //少し好感度は大きく入るが、採点はあまりせず、値が平坦。
 
-                    total_score = _basegirl1_like * 5;
+                    total_score = _basegirl1_like * 3;
 
                     break;
 
@@ -1253,7 +1278,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         _hukidashitext.text = "お兄ちゃん！ありがとー！！";
                     }
 
-                    //そのお菓子セットをどれだけ食べたか。スコアを追加。
+                    //そのお菓子セットをどれだけ食べたか。回数を増やす。
                     for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
                     {
                         if (girlLikeCompo_database.girllike_composet[i].set_ID == _set_compID)
@@ -1288,9 +1313,8 @@ public class GirlEat_Judge : MonoBehaviour {
             }
         
             
-            //お菓子をたべたフラグをON
-            if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
-            { database.items[_baseID].First_eat += 1; }
+            //お菓子をたべたフラグをON + 食べた回数もカウント
+            database.items[_baseID].First_eat += 1;
 
             
             //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
@@ -1557,7 +1581,7 @@ public class GirlEat_Judge : MonoBehaviour {
         slot_girlscore = 0;
         slot_money = 0;
 
-        //スロットの計算。該当するスロット効果があれば、それを得点にする。
+        //スロットの計算。該当するスロット効果があれば、それを得点にする。スロットの好感度への影響は、トータルスコアのほうで計算するので、こっちでは未使用にした。
         for ( i = 0; i < _basetp.Length; i++)
         {
             count = 0;
@@ -1565,7 +1589,7 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 if(_basetp[i] == slotnamedatabase.slotname_lists[count].slotName)
                 {                   
-                    slot_girlscore += slotnamedatabase.slotname_lists[count].slot_girlScore;
+                    slot_girlscore += slotnamedatabase.slotname_lists[count].slot_girlScore; //未使用
                     slot_money += slotnamedatabase.slotname_lists[count].slot_Money;
                     break;
                 }
@@ -1575,28 +1599,50 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //前に計算したトータルスコアを元に計算。
 
+        switch (dislike_status)
+        {
 
-        //好感度取得
-        if (total_score >= 0 && total_score < 100)
-        {
-            Getlove_exp = (int)(total_score * 0.2f) + slot_girlscore;
-        }
-        else if(total_score > 100) //100点を超えた場合、2倍程度増加
-        {
-            Getlove_exp = (int)(total_score * 0.4f) + slot_girlscore;
-        }
-        Debug.Log("取得好感度: " + Getlove_exp);
+            case 2: //吹き出しと違うけど、新しいお菓子をあげた場合の処理
 
-        //お金の取得
-        if (total_score >= 0 && total_score < 100)
-        {
-            GetMoney = _basecost + total_score + slot_money;
+                //好感度取得
+
+                Getlove_exp = total_score;
+
+                Debug.Log("取得好感度: " + Getlove_exp);
+
+                //お金の取得
+
+                GetMoney = _basecost + total_score + slot_money;
+
+                Debug.Log("取得お金: " + GetMoney);
+                break;
+
+
+            default: //通常
+
+                //好感度取得
+                if (total_score >= 0 && total_score < 100)
+                {
+                    Getlove_exp = (int)(total_score * 0.2f) + girllike_point;
+                }
+                else if (total_score > 100) //100点を超えた場合、2倍程度増加
+                {
+                    Getlove_exp = (int)(total_score * 0.4f) + girllike_point;
+                }
+                Debug.Log("取得好感度: " + Getlove_exp);
+
+                //お金の取得
+                if (total_score >= 0 && total_score < 100)
+                {
+                    GetMoney = _basecost + total_score + slot_money;
+                }
+                else if (total_score > 100) //100点を超えた場合、2倍程度増加
+                {
+                    GetMoney = (_basecost + total_score + slot_money) * 2;
+                }
+                Debug.Log("取得お金: " + GetMoney);
+                break;
         }
-        else if (total_score > 100) //100点を超えた場合、2倍程度増加
-        {
-            GetMoney = (_basecost + total_score + slot_money) * 2;
-        }
-        Debug.Log("取得お金: " + GetMoney);
     }
 
     IEnumerator Love_effect()
@@ -1656,22 +1702,18 @@ public class GirlEat_Judge : MonoBehaviour {
             //その際、クリアしたお菓子に応じて特別報酬やイベントなどが進む。
             switch(girl1_status.OkashiQuest_ID)
             {
-                case 1000:
-
-                    Debug.Log("Level2start: ラスクを欲しがる");
+                case 1000: //オリジナルクッキークリア
+                   
                     GameMgr.OkashiQuest01_flag = true;
 
-                    //クッキー系をOFF
-                    SetGirlSetFlag(0, 0);
-                    SetGirlSetFlag(1, 0);
-                    //SetGirlSetFlag(1000, 0);
+                    //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                    special_quest.SetSpecialOkashi(1);
 
-                    //ラスクを欲しがる
-                    SetGirlSetFlag(1010, 1);
+                    break;
 
-                    //イベントお菓子フラグのON/OFF。
-                    girl1_status.OkashiNew_Status = 0;
-                    girl1_status.OkashiQuest_ID = 1010;
+                case 1010: //ラスククリア
+
+                    GameMgr.OkashiQuest02_flag = true;
 
                     break;
 
@@ -1689,36 +1731,28 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //①ガールセットコンポのスコアを見る。or お菓子を食べたことがあるかどうかをみる。
 
-        //クッキー　＋　オレンジねこクッキーをあげてる場合、
-        //＜自由＞クッキー系が解放。IDは、「set_compID」のほうを選択。
-        //ちなみに自由課題は、「スペシャルお菓子」。クリアすると、通常よりもより大きな好感度が入る！
-        if (girlLikeCompoScore[0] >= 1 && girlLikeCompoScore[1] >= 1)
-        {
-            //set_compID=2を解放
-            if (GameMgr.OkashiQuest01_flag != true)
-            {
-                Debug.Log("Set2: ＜自由＞クッキー系　解放");
+        //クッキー　＋　オレンジねこクッキーをあげてる場合。またラスクのイベントが発生していないとき。
 
-                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                girl1_status.OkashiNew_Status = 0;
-                girl1_status.OkashiQuest_ID = 1000;
-                girl1_status.ResetHukidashi();
-                Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
+        if (GameMgr.OkashiQuest02_flag != true)
+        {
+            if (girlLikeCompoScore[0] >= 1 && girlLikeCompoScore[1] >= 1)
+            {
+                //set_compID=2を解放
+                if (GameMgr.OkashiQuest01_flag != true)
+                {
+                    //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                    special_quest.SetSpecialOkashi(0);
+                }
+
             }
-
-        }
-        else if (database.GetItemFirstEat("neko_cookie") >= 1 && database.GetItemFirstEat("orange_neko_cookie") >= 1)
-        {
-            //set_compID=2を解放
-            if (GameMgr.OkashiQuest01_flag != true)
+            else if (database.GetItemFirstEat("neko_cookie") >= 1 && database.GetItemFirstEat("orange_neko_cookie") >= 1)
             {
-                Debug.Log("Set2: ＜自由＞クッキー系　解放");
-
-                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                girl1_status.OkashiNew_Status = 0;
-                girl1_status.OkashiQuest_ID = 1000;
-                girl1_status.ResetHukidashi();
-                Debug.Log("お菓子Quest1: ＜自由＞オリジナルなクッキー　を作る");
+                //set_compID=2を解放
+                if (GameMgr.OkashiQuest01_flag != true)
+                {
+                    //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                    special_quest.SetSpecialOkashi(0);
+                }
             }
         }
 
@@ -1727,17 +1761,5 @@ public class GirlEat_Judge : MonoBehaviour {
     }
 
 
-
-    //指定したコンプIDのフラグをONかOFFにする。
-    void SetGirlSetFlag(int _compID, int _flag)
-    {
-        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
-        {
-            if (girlLikeCompo_database.girllike_composet[i].set_ID == _compID)
-            {
-                girlLikeCompo_database.girllike_composet[i].set_flag = _flag;
-            }
-        }
-    }
        
-    }
+}

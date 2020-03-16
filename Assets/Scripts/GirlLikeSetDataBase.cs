@@ -12,6 +12,8 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
     private string _itemname;
     private string _itemsubtype;
 
+    private int _set_score;
+
     private int _rich;
     private int _sweat;
     private int _bitter;
@@ -66,6 +68,8 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
                 _itemname = excel_girlLikeset_database.sheets[sheet_no].list[count].girllike_itemname;
                 _itemsubtype = excel_girlLikeset_database.sheets[sheet_no].list[count].girllike_itemsubtype;
 
+                _set_score = excel_girlLikeset_database.sheets[sheet_no].list[count].set_score;
+
                 _rich = excel_girlLikeset_database.sheets[sheet_no].list[count].rich;
                 _sweat = excel_girlLikeset_database.sheets[sheet_no].list[count].sweat;
                 _bitter = excel_girlLikeset_database.sheets[sheet_no].list[count].bitter;
@@ -87,7 +91,7 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
                 _setkansou = excel_girlLikeset_database.sheets[sheet_no].list[count].desc;
 
                 //ここでリストに追加している
-                girllikeset.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype,
+                girllikeset.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy,
                     _tp01, _tp02, _tp03, _tp04, _tp05, _setkansou));
 

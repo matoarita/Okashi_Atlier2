@@ -15,6 +15,8 @@ public class GirlLikeSet
     public string girlLike_itemName;
     public string girlLike_itemSubtype;
 
+    public int girlLike_set_score; //そのセットをクリアしたときの好感度上昇値
+
     public int girlLike_rich;
     public int girlLike_sweat;
     public int girlLike_bitter;
@@ -32,13 +34,15 @@ public class GirlLikeSet
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, string tp01, string tp02, string tp03, string tp04, string tp05, string _setkansou)
+    public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _set_score, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, string tp01, string tp02, string tp03, string tp04, string tp05, string _setkansou)
     {
         girlLike_ID = id;
         girlLike_compNum = _compnum;
 
         girlLike_itemName = _itemname;
         girlLike_itemSubtype = _itemsubtype;
+
+        girlLike_set_score = _set_score;
 
         girlLike_rich = _rich;
         girlLike_sweat = _sweat;

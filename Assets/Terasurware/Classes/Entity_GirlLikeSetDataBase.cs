@@ -21,6 +21,7 @@ public class Entity_GirlLikeSetDataBase : ScriptableObject
 		public int compNum;
 		public string girllike_itemname;
 		public string girllike_itemsubtype;
+		public int set_score;
 		public int rich;
 		public int sweat;
 		public int bitter;
