@@ -198,7 +198,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private List<GameObject> _listEffect = new List<GameObject>();
 
     private GameObject heart_Prefab;
-    private List<GameObject> _listHeart = new List<GameObject>();
+    public List<GameObject> _listHeart = new List<GameObject>();
+    public int heart_count; //画面上に存在するハートの個数
 
     private GameObject hearthit_Prefab;
     private List<GameObject> _listHeartHit = new List<GameObject>();
@@ -1045,130 +1046,155 @@ public class GirlEat_Judge : MonoBehaviour {
 
 
                     //あまみ・にがみ・さんみに対して、それぞれの評価。差の値により、6段階で評価する。
+                    //元のセットの値が0のときは、計算せずスコアに加点しない。
 
-                    //甘味
-                    if (Mathf.Abs(sweat_result) == 0)
+                    if (_girlsweat[set_id] == 0)
                     {
-                        Debug.Log("甘み: Perfect!!");
-                        sweat_score = (int)(_basesweat * 2.0f);
-                    }
-                    else if (Mathf.Abs(sweat_result) < 5)
-                    {
-                        Debug.Log("甘み: Great!!");
-                        sweat_score = (int)(_basesweat * 1.0f);
-                    }
-                    else if (Mathf.Abs(sweat_result) < 15)
-                    {
-                        Debug.Log("甘み: Well!");
-                        sweat_score = (int)(_basesweat * 0.5f);
-                    }
-                    else if (Mathf.Abs(sweat_result) < 30)
-                    {
-                        Debug.Log("甘み: Good!");
-                        sweat_score = 5;
-                    }
-                    else if (Mathf.Abs(sweat_result) < 50)
-                    {
-                        Debug.Log("甘み: Normal");
-                        sweat_score = 2;
-                    }
-                    else if (Mathf.Abs(sweat_result) < 80)
-                    {
-                        Debug.Log("甘み: poor");
-                        sweat_score = -35;
-                    }
-                    else if (Mathf.Abs(sweat_result) <= 100)
-                    {
-                        Debug.Log("甘み: death..");
-                        sweat_score = -80;
+                        Debug.Log("甘み: 判定なし");
+                        sweat_score = 0;
                     }
                     else
                     {
-                        Debug.Log("100を超える場合はなし");
+                        //甘味
+                        if (Mathf.Abs(sweat_result) == 0)
+                        {
+                            Debug.Log("甘み: Perfect!!");
+                            sweat_score = (int)(_basesweat * 2.0f);
+                        }
+                        else if (Mathf.Abs(sweat_result) < 5)
+                        {
+                            Debug.Log("甘み: Great!!");
+                            sweat_score = (int)(_basesweat * 1.0f);
+                        }
+                        else if (Mathf.Abs(sweat_result) < 15)
+                        {
+                            Debug.Log("甘み: Well!");
+                            sweat_score = (int)(_basesweat * 0.5f);
+                        }
+                        else if (Mathf.Abs(sweat_result) < 30)
+                        {
+                            Debug.Log("甘み: Good!");
+                            sweat_score = 5;
+                        }
+                        else if (Mathf.Abs(sweat_result) < 50)
+                        {
+                            Debug.Log("甘み: Normal");
+                            sweat_score = 2;
+                        }
+                        else if (Mathf.Abs(sweat_result) < 80)
+                        {
+                            Debug.Log("甘み: poor");
+                            sweat_score = -35;
+                        }
+                        else if (Mathf.Abs(sweat_result) <= 100)
+                        {
+                            Debug.Log("甘み: death..");
+                            sweat_score = -80;
+                        }
+                        else
+                        {
+                            Debug.Log("100を超える場合はなし");
+                        }                       
                     }
                     Debug.Log("甘み点: " + sweat_score);
 
-                    //苦味
-                    if (Mathf.Abs(bitter_result) == 0)
+                    if (_girlbitter[set_id] == 0)
                     {
-                        Debug.Log("苦味: Perfect!!");
-                        bitter_score = (int)(_basebitter * 3.0f);
-                    }
-                    else if (Mathf.Abs(bitter_result) < 5)
-                    {
-                        Debug.Log("苦味: Great!!");
-                        bitter_score = (int)(_basebitter * 2.0f);
-                    }
-                    else if (Mathf.Abs(bitter_result) < 15)
-                    {
-                        Debug.Log("苦味: Well!");
-                        bitter_score = (int)(_basebitter * 0.5f);
-                    }
-                    else if (Mathf.Abs(bitter_result) < 30)
-                    {
-                        Debug.Log("苦味: Good!");
-                        bitter_score = 5;
-                    }
-                    else if (Mathf.Abs(bitter_result) < 50)
-                    {
-                        Debug.Log("苦味: Normal");
-                        bitter_score = 2;
-                    }
-                    else if (Mathf.Abs(bitter_result) < 80)
-                    {
-                        Debug.Log("苦味: poor");
-                        bitter_score = -35;
-                    }
-                    else if (Mathf.Abs(bitter_result) <= 100)
-                    {
-                        Debug.Log("苦味: death..");
-                        bitter_score = -80;
+                        Debug.Log("苦み: 判定なし");
+                        bitter_score = 0;
                     }
                     else
                     {
-                        Debug.Log("100を超える場合はなし");
+                        //苦味
+                        if (Mathf.Abs(bitter_result) == 0)
+                        {
+                            Debug.Log("苦味: Perfect!!");
+                            bitter_score = (int)(_basebitter * 3.0f);
+                        }
+                        else if (Mathf.Abs(bitter_result) < 5)
+                        {
+                            Debug.Log("苦味: Great!!");
+                            bitter_score = (int)(_basebitter * 2.0f);
+                        }
+                        else if (Mathf.Abs(bitter_result) < 15)
+                        {
+                            Debug.Log("苦味: Well!");
+                            bitter_score = (int)(_basebitter * 0.5f);
+                        }
+                        else if (Mathf.Abs(bitter_result) < 30)
+                        {
+                            Debug.Log("苦味: Good!");
+                            bitter_score = 5;
+                        }
+                        else if (Mathf.Abs(bitter_result) < 50)
+                        {
+                            Debug.Log("苦味: Normal");
+                            bitter_score = 2;
+                        }
+                        else if (Mathf.Abs(bitter_result) < 80)
+                        {
+                            Debug.Log("苦味: poor");
+                            bitter_score = -35;
+                        }
+                        else if (Mathf.Abs(bitter_result) <= 100)
+                        {
+                            Debug.Log("苦味: death..");
+                            bitter_score = -80;
+                        }
+                        else
+                        {
+                            Debug.Log("100を超える場合はなし");
+                        }
                     }
                     Debug.Log("苦味点: " + bitter_score);
 
-                    //酸味
-                    if (Mathf.Abs(sour_result) == 0)
+                    if (_girlsour[set_id] == 0)
                     {
-                        Debug.Log("酸味: Perfect!!");
-                        sour_score = (int)(_basesour * 3.0f);
-                    }
-                    else if (Mathf.Abs(sour_result) < 5)
-                    {
-                        Debug.Log("酸味: Great!!");
-                        sour_score = (int)(_basesour * 1.2f);
-                    }
-                    else if (Mathf.Abs(sour_result) < 15)
-                    {
-                        Debug.Log("酸味: Well!");
-                        sour_score = (int)(_basesour * 0.5f);
-                    }
-                    else if (Mathf.Abs(sour_result) < 30)
-                    {
-                        Debug.Log("酸味: Good!");
-                        sour_score = 5;
-                    }
-                    else if (Mathf.Abs(sour_result) < 50)
-                    {
-                        Debug.Log("酸味: Normal");
-                        sour_score = 2;
-                    }
-                    else if (Mathf.Abs(sour_result) < 80)
-                    {
-                        Debug.Log("酸味: poor");
-                        sour_score = -35;
-                    }
-                    else if (Mathf.Abs(sour_result) <= 100)
-                    {
-                        Debug.Log("酸味: death..");
-                        sour_score = -80;
+                        Debug.Log("酸味: 判定なし");
+                        sour_score = 0;
                     }
                     else
                     {
-                        Debug.Log("100を超える場合はなし");
+                        //酸味
+                        if (Mathf.Abs(sour_result) == 0)
+                        {
+                            Debug.Log("酸味: Perfect!!");
+                            sour_score = (int)(_basesour * 3.0f);
+                        }
+                        else if (Mathf.Abs(sour_result) < 5)
+                        {
+                            Debug.Log("酸味: Great!!");
+                            sour_score = (int)(_basesour * 1.2f);
+                        }
+                        else if (Mathf.Abs(sour_result) < 15)
+                        {
+                            Debug.Log("酸味: Well!");
+                            sour_score = (int)(_basesour * 0.5f);
+                        }
+                        else if (Mathf.Abs(sour_result) < 30)
+                        {
+                            Debug.Log("酸味: Good!");
+                            sour_score = 5;
+                        }
+                        else if (Mathf.Abs(sour_result) < 50)
+                        {
+                            Debug.Log("酸味: Normal");
+                            sour_score = 2;
+                        }
+                        else if (Mathf.Abs(sour_result) < 80)
+                        {
+                            Debug.Log("酸味: poor");
+                            sour_score = -35;
+                        }
+                        else if (Mathf.Abs(sour_result) <= 100)
+                        {
+                            Debug.Log("酸味: death..");
+                            sour_score = -80;
+                        }
+                        else
+                        {
+                            Debug.Log("100を超える場合はなし");
+                        }
                     }
                     Debug.Log("酸味点: " + sour_score);
 
@@ -1661,9 +1687,10 @@ public class GirlEat_Judge : MonoBehaviour {
     void loveGetPlusAnimeON()
     {
         _listHeart.Clear();
+        heart_count = Getlove_exp;
 
         //ハートのインスタンスを、獲得好感度分だけ生成する。
-        for (i = 0; i < Getlove_exp; i++)
+        for (i = 0; i < heart_count; i++)
         {
             _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
 

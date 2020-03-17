@@ -2200,18 +2200,18 @@ MonoBehaviour:
       quality: 20
       exp: 0
       ex_probability: 0.95
-      rich: 5
-      sweat: 10
+      rich: 0
+      sweat: 0
       bitter: 0
       sour: 0
-      crispy: 30
-      fluffy: 30
-      smooth: 20
-      hardness: 50
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
       jiggly: 0
       chewy: 0
-      powdery: 20
-      oily: 20
+      powdery: 0
+      oily: 0
       watery: 0
       type: Okashi
       subtype: Cookie
@@ -2358,7 +2358,7 @@ MonoBehaviour:
       name: cookie_nonsuger
       nameHyouji: "\u30CE\u30F3\u30B7\u30E5\u30AC\u30FC\u30C9\u30ED\u30C3\u30D7\u30AF\u30C3\u30AD\u30FC"
       desc: "\u7802\u7CD6\u3092\u4F7F\u308F\u305A\u3001\u7C89\u3068\u30D0\u30BF\u30FC\u3060\u3051\u3092\u6DF7\u305C\u305F\u30B7\u30F3\u30D7\u30EB\u306A\u30AF\u30C3\u30AD\u30FC\u3002\u8179\u6301\u3061\u304C\u826F\u3044\u3002"
-      comp_hosei: 0
+      comp_hosei: 1
       hp: 500
       day: 0
       quality: 20

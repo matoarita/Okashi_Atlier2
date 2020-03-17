@@ -1764,6 +1764,7 @@ public class Compound_Main : MonoBehaviour
 
                             Debug.Log("好感度イベント１をON: お兄ちゃん。誰かお客さんがきたよ。");
 
+                            //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
                         }
                         else
@@ -1801,6 +1802,15 @@ public class Compound_Main : MonoBehaviour
     IEnumerator ReadGirlLoveEvent()
     {
         compoundselect_onoff_obj.SetActive(false);
+        extreme_Button.interactable = false;
+        sell_Button.SetActive(false);
+
+        while (girlEat_judge.heart_count > 0)
+        {
+            yield return null;
+        }
+
+        compoundselect_onoff_obj.SetActive(false);
         text_area.SetActive(false);
         Extremepanel_obj.SetActive(false);
         sceneBGM.MuteBGM();
@@ -1816,6 +1826,8 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(true);
         text_area.SetActive(true);
         Extremepanel_obj.SetActive(true);
+        extreme_Button.interactable = true;
+        sell_Button.SetActive(true);
         sceneBGM.MuteOFFBGM();
 
         GirlLove_loading = false;

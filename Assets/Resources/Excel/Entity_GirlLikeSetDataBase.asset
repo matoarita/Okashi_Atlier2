@@ -21,8 +21,8 @@ MonoBehaviour:
       set_score: 2
       rich: 30
       sweat: 30
-      bitter: 30
-      sour: 30
+      bitter: 0
+      sour: 0
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -42,8 +42,8 @@ MonoBehaviour:
       set_score: 5
       rich: 30
       sweat: 30
-      bitter: 30
-      sour: 30
+      bitter: 0
+      sour: 0
       crispy: 20
       fluffy: 0
       smooth: 0
@@ -63,8 +63,8 @@ MonoBehaviour:
       set_score: 5
       rich: 60
       sweat: 30
-      bitter: 30
-      sour: 30
+      bitter: 0
+      sour: 0
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
       set_score: 5
       rich: 30
       sweat: 30
-      bitter: 30
+      bitter: 0
       sour: 30
       crispy: 0
       fluffy: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
       set_score: 5
       rich: 30
       sweat: 30
-      bitter: 30
+      bitter: 0
       sour: 30
       crispy: 0
       fluffy: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
       set_score: 30
       rich: 30
       sweat: 50
-      bitter: 30
+      bitter: 0
       sour: 30
       crispy: 0
       fluffy: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
       set_score: 10
       rich: 30
       sweat: 30
-      bitter: 30
+      bitter: 0
       sour: 30
       crispy: 0
       fluffy: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
       set_score: 10
       rich: 30
       sweat: 30
-      bitter: 30
+      bitter: 0
       sour: 30
       crispy: 0
       fluffy: 0
@@ -186,11 +186,11 @@ MonoBehaviour:
       compNum: 30
       girllike_itemname: rusk
       girllike_itemsubtype: Non
-      set_score: 5
+      set_score: 8
       rich: 30
       sweat: 20
-      bitter: 3
-      sour: 3
+      bitter: 0
+      sour: 0
       crispy: 0
       fluffy: 0
       smooth: 0

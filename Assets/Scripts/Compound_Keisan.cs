@@ -22,6 +22,7 @@ public class Compound_Keisan : MonoBehaviour {
     private Exp_Controller exp_Controller;
 
     private int i, j, n, count;
+    private int itemNum, DBcount;
 
     private int total_qbox_money;
 
@@ -236,6 +237,41 @@ public class Compound_Keisan : MonoBehaviour {
         _temptp = new string[10];
 
         _addkoyutp = new string[3];
+
+
+        //
+        //アイテムデータベースの味パラムを初期化
+        //
+        
+        for (DBcount = 0; DBcount < databaseCompo.compoitems.Count; DBcount++)
+        {
+            if (databaseCompo.compoitems[DBcount].cmpitem_Name != "") //名前が空白の場合は無視する
+            {
+                //パラメータを取得
+                itemNum = 0;
+                while (itemNum < database.items.Count)
+                {
+                    if (databaseCompo.compoitems[DBcount].cmpitem_Name == database.items[itemNum].itemName)
+                    {
+                        result_item = itemNum;
+                        break;
+                    }
+                    itemNum++;
+                }
+
+                if (itemNum >= database.items.Count) //なかった場合は、次を見る。
+                {
+
+                }
+                else
+                {
+                    //コンポ調合データベースのIDを代入
+                    result_ID = DBcount;
+
+                    Topping_Compound_Method(99);
+                }
+            }
+        }
     }
 	
 	// Update is called once per frame
@@ -259,12 +295,18 @@ public class Compound_Keisan : MonoBehaviour {
             //パラメータを取得
             SetParamInit();
         }
-        else
+        else if (_mstatus == 1)
         {
             //パラメータを取得。予測用
             SetParamYosokuInit();
         }
-       
+
+        else if (_mstatus == 99)
+        {
+            //パラメータを取得。アイテムデータベースを、ここで計算して初期化する。
+            SetParamDatabaseInit();
+        }
+
 
         //ベースアイテム　タイプを見て、プレイヤリストアイテムかオリジナルアイテムかを識別する。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //新規にアイテムを作成する場合 or レシピ調合の場合。空のパラメータに、材料のパラメータを総計していく。
@@ -467,7 +509,11 @@ public class Compound_Keisan : MonoBehaviour {
         //全て完了。最終的に完成された_baseのパラムを基に、新しくアイテムを生成し、ベースとトッピングアイテムは削除する。
 
         //ここまでで、生成されるアイテムの予測が出来る。
-        Debug_TastePanel();
+
+        if (_mstatus != 99)
+        {
+            Debug_TastePanel();
+        }
 
 
         //以下、実際にアイテムリスト削除と、プレイヤーアイテムへの所持追加処理
@@ -503,9 +549,26 @@ public class Compound_Keisan : MonoBehaviour {
 
             new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
         }
-        else //予測の場合、アイテムの追加処理はいらない。
+        else if (_mstatus == 1) //予測の場合、アイテムの追加処理はいらない。
         {
 
+        }
+        else if (_mstatus == 99 ) //初期化の場合
+        {
+            //味のパラメータのみ、上書きする。
+            database.items[itemNum].Sweat = _basesweat;
+            database.items[itemNum].Bitter = _basebitter;
+            database.items[itemNum].Sour = _basesour;
+            database.items[itemNum].Rich = _baserich;
+            database.items[itemNum].Crispy = _basecrispy;
+            database.items[itemNum].Fluffy = _basefluffy;
+            database.items[itemNum].Smooth = _basesmooth;
+            database.items[itemNum].Hardness = _basehardness;
+            database.items[itemNum].Jiggly = _basejiggly;
+            database.items[itemNum].Chewy = _basechewy;
+            database.items[itemNum].Powdery = _basepowdery;
+            database.items[itemNum].Oily = _baseoily;
+            database.items[itemNum].Watery = _basewatery;
         }
     }
 
@@ -583,7 +646,7 @@ public class Compound_Keisan : MonoBehaviour {
 
             kettei_item1 = recipilistController.kettei_recipiitem1;
             kettei_item2 = recipilistController.kettei_recipiitem2;
-            kettei_item3 = recipilistController.kettei_recipiitem3;
+            kettei_item3 = recipilistController.kettei_recipiitem3;            
 
             toggle_type1 = 0;
             toggle_type2 = 0;
@@ -592,6 +655,17 @@ public class Compound_Keisan : MonoBehaviour {
             final_kette_kosu1 = recipilistController.final_kettei_recipikosu1;
             final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
             final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
+
+            if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+            {
+                kettei_item2 = 9999;
+                kettei_item3 = 9999;
+            }
+
+            if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+            {
+                kettei_item3 = 9999;
+            }
 
             //パラメータを取得
             result_item = recipilistController.result_recipiitem;
@@ -654,11 +728,12 @@ public class Compound_Keisan : MonoBehaviour {
         Comp_method_bunki = 2;
 
         i = 0;
-        while( i < database.items.Count )
+        while (i < database.items.Count)
         {
-            if(databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
+            if (databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
             {
                 kettei_item1 = i;
+                break;
             }
             i++;
         }
@@ -669,6 +744,7 @@ public class Compound_Keisan : MonoBehaviour {
             if (databaseCompo.compoitems[result_ID].cmpitemID_2 == database.items[i].itemName)
             {
                 kettei_item2 = i;
+                break;
             }
             i++;
         }
@@ -679,6 +755,7 @@ public class Compound_Keisan : MonoBehaviour {
             if (databaseCompo.compoitems[result_ID].cmpitemID_3 == database.items[i].itemName)
             {
                 kettei_item3 = i;
+                break;
             }
             i++;
         }
@@ -690,6 +767,80 @@ public class Compound_Keisan : MonoBehaviour {
         final_kette_kosu1 = databaseCompo.compoitems[result_ID].cmpitem_kosu1;
         final_kette_kosu2 = databaseCompo.compoitems[result_ID].cmpitem_kosu2;
         final_kette_kosu3 = databaseCompo.compoitems[result_ID].cmpitem_kosu3;
+
+        if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+        {
+            kettei_item2 = 9999;
+            kettei_item3 = 9999;
+        }
+
+        if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+        {
+            kettei_item3 = 9999;
+        }
+
+        //**ここまで**
+    }
+
+    //ゲーム最初に、アイテムデータベースの味パラメータを、コンポDBから計算して初期化
+    void SetParamDatabaseInit()
+    {       
+
+        Comp_method_bunki = 2;
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
+            {
+                kettei_item1 = i;
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_2 == database.items[i].itemName)
+            {
+                kettei_item2 = i;
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_3 == database.items[i].itemName)
+            {
+                kettei_item3 = i;
+                break;
+            }
+            i++;
+        }
+
+
+
+        toggle_type1 = 0;
+        toggle_type2 = 0;
+        toggle_type3 = 0;
+
+        final_kette_kosu1 = databaseCompo.compoitems[result_ID].cmpitem_kosu1;
+        final_kette_kosu2 = databaseCompo.compoitems[result_ID].cmpitem_kosu2;
+        final_kette_kosu3 = databaseCompo.compoitems[result_ID].cmpitem_kosu3;
+
+        if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+        {
+            kettei_item2 = 9999;
+            kettei_item3 = 9999;
+        }
+
+        if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+        {
+            kettei_item3 = 9999;
+        }
 
         //**ここまで**
     }

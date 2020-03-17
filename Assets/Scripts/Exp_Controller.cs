@@ -715,13 +715,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
 
             //①調合処理＜予測で処理＞
-            compound_keisan.Topping_Compound_Method(1);
-
-            //result_item = pitemlist.player_originalitemlist.Count - 1;
-
-            //renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
-
+            //compound_keisan.Topping_Compound_Method(1);
             /*
+            result_item = pitemlist.player_originalitemlist.Count - 1;
+
+            renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
+
+            
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
             if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
             {
@@ -733,11 +733,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //お菓子のHPをセット
                 extremePanel.SetDegOkashiLife(pitemlist.player_originalitemlist[result_item].itemHP);
-            }*/
+            }
 
-            //new_item = result_item;
+            new_item = result_item;
 
-            //card_view.ResultCard_DrawView(1, new_item);
+            card_view.ResultCard_DrawView(1, new_item);*/
 
             
             //②店売りアイテムとして生成し、実際にアイテムを追加。
@@ -759,6 +759,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             card_view.RecipiResultCard_DrawView(0, result_item);
+            
 
             //チュートリアルのときは、一時的にOFF
             if (GameMgr.tutorial_ON == true)

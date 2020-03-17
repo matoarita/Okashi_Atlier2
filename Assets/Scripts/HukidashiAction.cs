@@ -100,6 +100,8 @@ public class HukidashiAction : MonoBehaviour {
             maincam_animator.SetInteger("trans", trans);
 
             text_area.GetComponent<TextController>().textend_flag = false;
+
+            girl1_status.GirlEat_Judge_on = true;
         }
 	}
 
@@ -125,6 +127,8 @@ public class HukidashiAction : MonoBehaviour {
         text_area.GetComponent<TextController>().SetText(_hint);
         text_area.GetComponent<TextController>().hint_on = true;
         //_text.text = "ヒントが表示されるよ～！";
+
+        girl1_status.GirlEat_Judge_on = false;
     }
 
     public void SpecialHint()
@@ -159,6 +163,7 @@ public class HukidashiAction : MonoBehaviour {
         text_area.GetComponent<TextController>().SetText(_hint);
         text_area.GetComponent<TextController>().hint_on = true;
 
+        girl1_status.GirlEat_Judge_on = false;
     }
 
     public void ScaleUP()

@@ -229,7 +229,6 @@ public class recipiitemSelectToggle : MonoBehaviour
                 recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = false;
             }
 
-            compound_keisan.Topping_Compound_Method(1); //予測用にパラメータを計算。
             card_view.RecipiCard_DrawView(0, recipilistController.result_recipiitem); //選択したアイテムをカードで表示
 
             yes.SetActive(true);

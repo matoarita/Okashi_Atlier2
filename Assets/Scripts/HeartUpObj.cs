@@ -178,6 +178,7 @@ public class HeartUpObj : MonoBehaviour {
         //好感度ゲージを上昇
         girlEat_judge.GetHeartValue();
 
+        girlEat_judge.heart_count--;
         Destroy(this.gameObject);
     }
 
