@@ -22,7 +22,12 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
+    private GameObject ScoreHyoujiPanel;
+    private Text Okashi_Score;
+    private Text Manzoku_Score;
+
     private Exp_Controller exp_Controller;
+    private Touch_Controller touch_controller;
 
     private PlayerItemList pitemlist;
 
@@ -30,6 +35,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+
+    //女の子の反映用ハートエフェクト
+    private GameObject GirlHeartEffect_obj;
+    private Particle_Heart_Character GirlHeartEffect;
 
     //女の子のお菓子の好きセット
     private GirlLikeSetDataBase girlLikeSet_database;
@@ -252,6 +261,9 @@ public class GirlEat_Judge : MonoBehaviour {
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
         extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
 
+        //タッチ判定オブジェクトの取得
+        touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
@@ -261,7 +273,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
-
+        
+        //女の子の反映用ハートエフェクト取得
+        GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
+        GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
 
         //エフェクトプレファブの取得
         effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
@@ -277,6 +292,12 @@ public class GirlEat_Judge : MonoBehaviour {
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _windowtext = text_area.GetComponentInChildren<Text>();
+
+        //お菓子採点結果表示用パネルの取得
+        ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel").gameObject;
+        Okashi_Score = ScoreHyoujiPanel.transform.Find("Image/Okashi_Score").GetComponent<Text>();
+        Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
+        ScoreHyoujiPanel.SetActive(false);
 
         audioSource = GetComponent<AudioSource>();
 
@@ -429,7 +450,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     girl1_status.Girl_hukidashi_Off();
 
                     //食べ中の表示用吹き出しを生成
-                    eat_hukidashiitem = Instantiate(eat_hukidashiPrefab, canvas.transform);
+                    eat_hukidashiitem = Instantiate(eat_hukidashiPrefab);
                     eat_hukidashitext = eat_hukidashiitem.GetComponentInChildren<Text>();
 
                     eat_hukidashitext.text = ".";
@@ -1305,13 +1326,27 @@ public class GirlEat_Judge : MonoBehaviour {
                     }
 
                     //そのお菓子セットをどれだけ食べたか。回数を増やす。
-                    for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                    if (girl1_status.OkashiNew_Status == 0)　//スペシャルクエストの場合
                     {
-                        if (girlLikeCompo_database.girllike_composet[i].set_ID == _set_compID)
+                        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
                         {
-                            ++girlLikeCompo_database.girllike_composet[i].set_score;
+                            if (_set_compID == girlLikeCompo_database.girllike_composet[i].set_ID)
+                            {
+                                ++girlLikeCompo_database.girllike_composet[i].set_score;
+                            }
                         }
                     }
+                    else if (girl1_status.OkashiNew_Status == 1) //ランダムセットから選んだ場合
+                    {
+                        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                        {
+                            if (girlLikeCompo_database.girllike_compoRandomset[_set_compID].set_ID == girlLikeCompo_database.girllike_composet[i].set_ID)
+                            {
+                                ++girlLikeCompo_database.girllike_composet[i].set_score;
+                            }
+                        }
+                    }
+                    else { } //チュートリアルモードなどで、直接GirlLikeSetを指定している場合、composetのスコアは取得しないので、回避用
 
                     //3秒ほど表示したら、お菓子の感想を言ったり、なんか褒めてくれたりする。
                     StartCoroutine("WaitCommentDesc");
@@ -1342,7 +1377,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //お菓子をたべたフラグをON + 食べた回数もカウント
             database.items[_baseID].First_eat += 1;
 
-            
+
             //エクストリームの効果や、アイテム自体の得点をもとに、好感度とお金を計算
             LoveScoreCal();
 
@@ -1352,32 +1387,33 @@ public class GirlEat_Judge : MonoBehaviour {
             //アイテムの削除
             delete_Item();
 
-            //アニメーションをON
-            loveGetPlusAnimeON();
+            
+            switch (dislike_status)
+            {
+                case 1: //吹き出しのお菓子をあげた場合の処理
 
-            //エフェクト生成＋アニメ開始
-            _listEffect.Add(Instantiate(effect_Prefab));
-            StartCoroutine("Love_effect");
+                    if (girl1_status.OkashiNew_Status == 0)　//スペシャルクエストの場合
+                    {
+                        //新しく食べた、またはスペシャルお菓子をクリアした場合、感想を言う。その後、好感度とお金の計算
+                        StartCoroutine("Okashi_Comment");
+                    }
+                    else
+                    {
+                        Okashi_Result();
+                    }
+                    break;
 
-            //音を鳴らす
-            audioSource.PlayOneShot(sound1);
+                case 2: //新しいお菓子をあげた場合の処理
 
-            //テキストウィンドウの更新
-            exp_Controller.GirlLikeText(Getlove_exp, GetMoney);
+                    Okashi_Result();
 
-            //お菓子をあげたあとの状態に移行する。
-            girl1_status.timeGirl_hungry_status = 2;
-            girl1_status.timeOut = 5.0f;
+                    break;
 
-            //キャラクタ表情変更
-            s.sprite = girl1_status.Girl1_img_smile;
+                default:
 
-            //リセット＋フラグチェック
-            Getlove_exp = 0;
-            compound_Main.check_GirlLoveEvent_flag = false;
-
-            //次の課題を、進行度に応じて決める。イベントお菓子を作るか、ランダムセットのままか。また、ランダムのフラグ解放もこのメソッド。
-            SelectNewOkashiSet();
+                    Okashi_Result();
+                    break;
+            }
         }
         else //失敗の場合
         {
@@ -1483,8 +1519,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     break;
             }
-
-                       
+                      
 
             //お菓子をあげたあとの状態に移行する。残り時間を、短く設定。
             girl1_status.timeGirl_hungry_status = 2;
@@ -1554,6 +1589,105 @@ public class GirlEat_Judge : MonoBehaviour {
     }
 
 
+    IEnumerator Okashi_Comment() //スペシャルお菓子などクリアしたときの、食べた後の感想。宴を呼び出す。
+    {
+        
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();
+
+        GameMgr.scenario_ON = true;
+        GameMgr.sp_okashi_ID = _set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
+        GameMgr.sp_okashi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                         //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.scenario_ON = false;
+        GameMgr.recipi_read_endflag = false;
+
+        girl1_status.GirlEat_Judge_on = true;
+        girl1_status.hukidasiOn();
+        canvas.SetActive(true);
+        touch_controller.Touch_OnAllON();
+
+        //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
+        ScoreHyoujiPanel.SetActive(true);
+        Okashi_Score.text = total_score.ToString();
+
+        if (total_score >= 0 && total_score < 30)
+        {
+            Manzoku_Score.text = "★";
+        }
+        else if (total_score >= 30 && total_score < 60)
+        {
+            Manzoku_Score.text = "★★";
+        }
+        else if (total_score >= 60 && total_score < 80)
+        {
+            Manzoku_Score.text = "★★★";
+        }
+        else if (total_score >= 80 && total_score < 95)
+        {
+            Manzoku_Score.text = "★★★★";
+        }
+        else if (total_score >= 95)
+        {
+            Manzoku_Score.text = "★★★★★";
+        }
+
+        //StartCoroutine("WaitScoreHyoujiPanel");
+        Okashi_Result();
+    }
+
+    IEnumerator WaitScoreHyoujiPanel()
+    {
+        yield return new WaitForSeconds(5.0f); //3秒後に自動で消える
+
+        ScoreHyoujiPanel.SetActive(false);
+    }
+
+    public void ScoreHyouji_OFF()
+    {
+        ScoreHyoujiPanel.SetActive(false);
+    }
+
+
+    void Okashi_Result()
+    {
+        //アニメーションをON。好感度パラメータの反映もここ。
+        loveGetPlusAnimeON();
+
+        //エフェクト生成＋アニメ開始
+        _listEffect.Add(Instantiate(effect_Prefab));
+        StartCoroutine("Love_effect");
+
+        //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
+        GirlHeartEffect.LoveRateChange();
+
+        //音を鳴らす
+        audioSource.PlayOneShot(sound1);
+
+        //テキストウィンドウの更新
+        exp_Controller.GirlLikeText(Getlove_exp, GetMoney);
+
+        //お菓子をあげたあとの状態に移行する。
+        girl1_status.timeGirl_hungry_status = 2;
+        girl1_status.timeOut = 5.0f;
+
+        //キャラクタ表情変更
+        s.sprite = girl1_status.Girl1_img_smile;
+
+        //リセット＋フラグチェック
+        Getlove_exp = 0;
+        compound_Main.check_GirlLoveEvent_flag = false;
+
+        //次の課題を、進行度に応じて決める。イベントお菓子を作るか、ランダムセットのままか。また、ランダムのフラグ解放もこのメソッド。
+        SelectNewOkashiSet();
+    }
 
 
     void InitializeItemSlotDicts()
@@ -1732,6 +1866,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 case 1000: //オリジナルクッキークリア
                    
                     GameMgr.OkashiQuest01_flag = true;
+                    girl1_status.special_animatFirst = false;
 
                     //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                     special_quest.SetSpecialOkashi(1);
@@ -1741,6 +1876,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 case 1010: //ラスククリア
 
                     GameMgr.OkashiQuest02_flag = true;
+                    girl1_status.special_animatFirst = false;
 
                     break;
 
@@ -1756,13 +1892,15 @@ public class GirlEat_Judge : MonoBehaviour {
         //点数をまず初期化
         InitializeGirlLikeCompoScore();
 
+
+
         //①ガールセットコンポのスコアを見る。or お菓子を食べたことがあるかどうかをみる。
 
         //クッキー　＋　オレンジねこクッキーをあげてる場合。またラスクのイベントが発生していないとき。
 
         if (GameMgr.OkashiQuest02_flag != true)
         {
-            if (girlLikeCompoScore[0] >= 1 && girlLikeCompoScore[1] >= 1)
+            if (girlLikeCompoScore[0] >= 5 && girlLikeCompoScore[1] >= 5)
             {
                 //set_compID=2を解放
                 if (GameMgr.OkashiQuest01_flag != true)
@@ -1772,7 +1910,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
 
             }
-            else if (database.GetItemFirstEat("neko_cookie") >= 1 && database.GetItemFirstEat("orange_neko_cookie") >= 1)
+            else if (database.GetItemFirstEat("neko_cookie") >= 5 && database.GetItemFirstEat("orange_neko_cookie") >= 5)
             {
                 //set_compID=2を解放
                 if (GameMgr.OkashiQuest01_flag != true)
@@ -1783,6 +1921,10 @@ public class GirlEat_Judge : MonoBehaviour {
             }
         }
 
+        if(girlLikeCompoScore[20] >= 1) //ぶどうクッキーを食べた。
+        {
+            special_quest.SetNextRandomOkashi(1);
+        }
         //②好感度で発生するイベントがあるかどうか。
         //Compound_Main内で処理している。
     }

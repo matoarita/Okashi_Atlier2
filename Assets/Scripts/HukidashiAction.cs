@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
 
 public class HukidashiAction : MonoBehaviour {
 
@@ -25,13 +27,23 @@ public class HukidashiAction : MonoBehaviour {
 
     private GameObject hukidasi;
     private GameObject hukidasi_sp;
-    private GameObject hukidasi1, hukidasi2;
     private GameObject hukidasi_text;
 
     private int hukidasi_action_status;
     private int i, _id;
 
     private string _hint;
+
+    private CubismModel _model;
+
+    private Vector3 _mypos;
+    private Vector3 _temppos;
+    private Vector3 _Startpos;
+    private Vector3 _myscale;
+
+    private bool _enter_flag;
+    private Animator _thisanim;
+    private int _enteranim_trans; 
 
     // Use this for initialization
     void Start () {
@@ -58,12 +70,26 @@ public class HukidashiAction : MonoBehaviour {
 
         //吹き出しオブジェクトの取得
         hukidasi = this.gameObject.transform.Find("Image").gameObject;
-        hukidasi1 = this.gameObject.transform.Find("Image (1)").gameObject;
-        hukidasi2 = this.gameObject.transform.Find("Image (2)").gameObject;
         hukidasi_text = this.gameObject.transform.Find("hukidashi_Text").gameObject;
 
         //スペシャル用の吹きだしオブジェクト
         hukidasi_sp = this.gameObject.transform.Find("Image_special").gameObject;
+
+        //Live2Dモデルの取得
+        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+        
+        //自分のアニメーターを取得
+        _thisanim = this.GetComponent<Animator>();
+        _enteranim_trans = _thisanim.GetInteger("trans");
+
+        //自分のポジションを取得
+        _mypos = this.transform.position;
+        _temppos = _mypos;
+
+        _Startpos = new Vector3(1.9f, 2.0f, -0.2f);
+        _myscale = this.transform.localScale;
+
+        _enter_flag = false;
     }
 	
 	// Update is called once per frame
@@ -78,8 +104,7 @@ public class HukidashiAction : MonoBehaviour {
                     hukidasi.GetComponent<Image>().raycastTarget = true;
                     hukidasi_text.SetActive(true);
                     hukidasi.SetActive(true);
-                    hukidasi1.SetActive(true);
-                    hukidasi2.SetActive(true);
+
                     break;
 
                 case 1:
@@ -87,8 +112,7 @@ public class HukidashiAction : MonoBehaviour {
                     hukidasi_sp.GetComponent<Image>().raycastTarget = true;
                     hukidasi_text.SetActive(true);
                     hukidasi_sp.SetActive(true);
-                    hukidasi1.SetActive(true);
-                    hukidasi2.SetActive(true);
+
                     break;
             }
             
@@ -103,7 +127,29 @@ public class HukidashiAction : MonoBehaviour {
 
             girl1_status.GirlEat_Judge_on = true;
         }
-	}
+
+    }
+
+    void LateUpdate()
+    {
+        /*
+        _mypos = _model.transform.position + _Startpos;
+
+        //Live2D値を取得
+        var parameter = _model.Parameters[22];
+        //Debug.Log(parameter);
+        //Debug.Log("parameter: " + parameter.Value);
+
+        //吹き出し＜全体＞の位置を更新
+        this.transform.position = _mypos;
+        _temppos = _mypos;
+       
+        _temppos.x += parameter.Value * 0.02f;
+        _temppos.y += parameter.Value * -0.01f;
+        this.transform.position = _temppos;
+        //Debug.Log("_temppos: " + _temppos);
+        */
+    }
 
     public void NormalHint()
     {
@@ -111,8 +157,6 @@ public class HukidashiAction : MonoBehaviour {
         hukidasi.GetComponent<Image>().raycastTarget = false;
         hukidasi_text.SetActive(false);
         hukidasi.SetActive(false);
-        hukidasi1.SetActive(false);
-        hukidasi2.SetActive(false);
 
         hukidasi_action_status = 0;
 
@@ -136,8 +180,6 @@ public class HukidashiAction : MonoBehaviour {
         hukidasi_sp.GetComponent<Image>().raycastTarget = false;
         hukidasi_text.SetActive(false);
         hukidasi_sp.SetActive(false);
-        hukidasi1.SetActive(false);
-        hukidasi2.SetActive(false);
 
         hukidasi_action_status = 1;
 
@@ -166,8 +208,30 @@ public class HukidashiAction : MonoBehaviour {
         girl1_status.GirlEat_Judge_on = false;
     }
 
-    public void ScaleUP()
+    public void PointEnter()
     {
+        //Debug.Log("Enter");
 
+        if (!_enter_flag)
+        {
+            //this.transform.localScale = new Vector3(0.013f, 0.013f, 1);
+            _enteranim_trans = 1; //transが1を超えたときに、ズームするように設定されている。
+
+            //intパラメーターの値を設定する.
+            _thisanim.SetInteger("trans", _enteranim_trans);
+            _enter_flag = true;
+        }
+    }
+
+    public void PointExit()
+    {
+        //Debug.Log("Exit");
+
+        //this.transform.localScale = _myscale;
+        _enteranim_trans = 0; //transが1を超えたときに、ズームするように設定されている。
+
+        //intパラメーターの値を設定する.
+        _thisanim.SetInteger("trans", _enteranim_trans);
+        _enter_flag = false;
     }
 }

@@ -35,6 +35,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static bool MapEvent_01;            //マップイベント。一度読んだイベントは、発生しない。
 
+    //スペシャルお菓子を食べる前の会話フラグ
+    public static bool sp_okashi_hintflag;
+
+    //スペシャルお菓子を食べた後の感想フラグ
+    public static int sp_okashi_ID;
+    public static bool sp_okashi_flag;
+
+    //ショップの話すコマンド
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
 
@@ -123,8 +131,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //マップイベントの初期化
         MapEvent_01 = false;
 
+        //お菓子感想フラグ
+        sp_okashi_hintflag = false;
+        sp_okashi_flag = false;
+
         //お菓子フラグの初期化
         OkashiQuest01_flag = false;
+        OkashiQuest02_flag = false;
 
         //チュートリアルフラグ
         tutorial_ON = false;

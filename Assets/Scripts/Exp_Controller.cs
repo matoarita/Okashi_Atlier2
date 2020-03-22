@@ -678,6 +678,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //個数の決定
         result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * recipilistController.final_select_kosu;
 
+        extreme_on = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。
+
         Comp_method_bunki = 2;
 
         //ウェイトアニメーション開始

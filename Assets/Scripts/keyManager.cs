@@ -68,6 +68,12 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) //１キーでMain
+        {
+            //SceneManager.LoadScene("Main");
+            FadeManager.Instance.LoadScene("000_Prologue", 0.3f);
+        }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -94,4 +100,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
         playeritemlist_sw = false;
     }
+
+    
 }

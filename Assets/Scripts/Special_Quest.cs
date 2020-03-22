@@ -70,4 +70,27 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 break;
         }
     }
+
+    public void SetNextRandomOkashi(int _num)
+    {
+        switch (_num)
+        {
+            case 0:
+
+                break;
+
+            case 1: //ぶどうクッキーを食べた
+
+                //OFF
+                girlLikeCompo_database.SetGirlSetFlag(20, 0); //ぶどうクッキー
+                girlLikeCompo_database.SetGirlSetFlag(30, 0); //ラスク
+
+                //ON
+                girlLikeCompo_database.SetGirlSetFlag(40, 1); //たまごの入ったクッキー
+                break;
+
+            default:
+                break;
+        }
+    }
 }

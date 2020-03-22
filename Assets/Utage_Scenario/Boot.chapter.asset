@@ -1087,7 +1087,7 @@ MonoBehaviour:
     - rowIndex: 25
       debugIndex: 25
       strings:
-      - Ev_recipi
+      - SpOkashiBefore_num
       - Int
       - 0
       isEmpty: 0
@@ -1096,7 +1096,7 @@ MonoBehaviour:
     - rowIndex: 26
       debugIndex: 26
       strings:
-      - Read_recipi
+      - SpOkashiAfter_num
       - Int
       - 0
       isEmpty: 0
@@ -1105,7 +1105,7 @@ MonoBehaviour:
     - rowIndex: 27
       debugIndex: 27
       strings:
-      - Shop_Talk_Num
+      - Ev_recipi
       - Int
       - 0
       isEmpty: 0
@@ -1114,22 +1114,28 @@ MonoBehaviour:
     - rowIndex: 28
       debugIndex: 28
       strings:
-      - Tutorial_Flag
-      - Bool
-      - FALSE
+      - Read_recipi
+      - Int
+      - 0
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 29
       debugIndex: 29
-      strings: []
-      isEmpty: 1
+      strings:
+      - Shop_Talk_Num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 30
       debugIndex: 30
-      strings: []
-      isEmpty: 1
+      strings:
+      - Tutorial_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 31
@@ -1146,11 +1152,8 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 33
       debugIndex: 33
-      strings:
-      - Ev_flag
-      - Int
-      - 0
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 34
@@ -1161,8 +1164,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 35
       debugIndex: 35
-      strings: []
-      isEmpty: 1
+      strings:
+      - Ev_flag
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 36
@@ -1209,26 +1215,20 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 43
       debugIndex: 43
-      strings:
-      - Re_flag1
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 44
       debugIndex: 44
-      strings:
-      - Re_flag2
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 45
       debugIndex: 45
       strings:
-      - Re_flag3
+      - Re_flag1
       - Bool
       - FALSE
       isEmpty: 0
@@ -1237,7 +1237,7 @@ MonoBehaviour:
     - rowIndex: 46
       debugIndex: 46
       strings:
-      - Re_flag4
+      - Re_flag2
       - Bool
       - FALSE
       isEmpty: 0
@@ -1246,7 +1246,7 @@ MonoBehaviour:
     - rowIndex: 47
       debugIndex: 47
       strings:
-      - Re_flag5
+      - Re_flag3
       - Bool
       - FALSE
       isEmpty: 0
@@ -1255,7 +1255,7 @@ MonoBehaviour:
     - rowIndex: 48
       debugIndex: 48
       strings:
-      - Re_flag6
+      - Re_flag4
       - Bool
       - FALSE
       isEmpty: 0
@@ -1264,7 +1264,7 @@ MonoBehaviour:
     - rowIndex: 49
       debugIndex: 49
       strings:
-      - Re_flag7
+      - Re_flag5
       - Bool
       - FALSE
       isEmpty: 0
@@ -1272,6 +1272,24 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 50
       debugIndex: 50
+      strings:
+      - Re_flag6
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 51
+      debugIndex: 51
+      strings:
+      - Re_flag7
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 52
+      debugIndex: 52
       strings:
       - Re_flag8
       - Bool
@@ -1281,7 +1299,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 444
+    textLength: 487
     headerRow: 0
   - rows:
     - rowIndex: 0

@@ -29,6 +29,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject moveanim_panel_image;
     private GameObject moveanim_panel_image_text;
 
+    public List<GameObject> matplace_toggle = new List<GameObject>();
     private GameObject matplace_toggle1;
     private GameObject matplace_toggle2;
 
@@ -69,11 +70,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public AudioClip sound1;
     AudioSource audioSource;
 
+    private GameObject sister_stand_img1;
+
     // Use this for initialization
     void Start () {
 
-        Setup();
-        
+        //Setup();
+       
     }
 
     void Setup()
@@ -121,11 +124,26 @@ public class GetMatPlace_Panel : MonoBehaviour {
         get_material = get_material_obj.GetComponent<GetMaterial>();
 
         getmatplace_view = this.transform.Find("GetMatPlace_View").gameObject;
-        matplace_toggle1 = this.transform.Find("GetMatPlace_View/Viewport/Content/MatPlace_toggle1").gameObject;
-        matplace_toggle2 = this.transform.Find("GetMatPlace_View/Viewport/Content/MatPlace_toggle2").gameObject;
 
-        matplace_toggle1.GetComponentInChildren<Text>().text = matplace_database.matplace_lists[0].placeNameHyouji;
-        matplace_toggle2.GetComponentInChildren<Text>().text = matplace_database.matplace_lists[1].placeNameHyouji;
+
+        //初期化
+        matplace_toggle.Clear();
+
+        i = 0;
+        foreach (Transform child in getmatplace_view.transform.Find("Viewport/Content/").transform)
+        {
+            //Debug.Log(child.name);           
+            matplace_toggle.Add(child.gameObject);
+            matplace_toggle[i].GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+            i++;
+        }
+
+        //matplace_toggle1 = this.transform.Find("GetMatPlace_View/Viewport/Content/MatPlace_toggle1").gameObject;
+        //matplace_toggle2 = this.transform.Find("GetMatPlace_View/Viewport/Content/MatPlace_toggle2").gameObject;
+
+
+        //matplace_toggle1.GetComponentInChildren<Text>().text = matplace_database.matplace_lists[0].placeNameHyouji;
+        //matplace_toggle2.GetComponentInChildren<Text>().text = matplace_database.matplace_lists[1].placeNameHyouji;
 
         //採取地画面の取得
         slot_view = this.transform.Find("Slot_View").gameObject;
@@ -140,6 +158,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         map_imageBG = this.transform.Find("Map_ImageBG").gameObject;
         map_imageBG.SetActive(false);
+
+        //妹立ち絵の取得
+        sister_stand_img1 = this.transform.Find("Slot_View/SisterPanel/Girl_Tachie").gameObject;
+        sister_stand_img1.SetActive(false);
 
         select_place_num = 0;
 
@@ -183,7 +205,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
             slot_yes.GetComponent<Button>().interactable = true;
             slot_no.GetComponent<Button>().interactable = true;
             
-
             slot_view_status = 0;
             slot_view.SetActive(false);
 
@@ -193,19 +214,34 @@ public class GetMatPlace_Panel : MonoBehaviour {
             //ガチャン音鳴らす。
             sc.PlaySe(38);
 
+            //立ち絵もオフ
+            sister_stand_img1.SetActive(false);
+
             _text.text = "家に戻ってきた。";
         }
     }
 
     public void OnClick_Place1()
     {
+        for (i = 0; i < matplace_toggle.Count; i++)
+        {
+            if (matplace_toggle[i].GetComponent<Toggle>().isOn == true)
+            {
+                _text.text = matplace_database.matplace_lists[i].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
+                select_place_num = i;
+
+                Select_Pause();
+            }
+
+        }
+        /*
         if (matplace_toggle1.GetComponent<Toggle>().isOn == true)
         {
             _text.text = matplace_database.matplace_lists[0].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[0].placeCost.ToString() + "G";
             select_place_num = 0;
 
             Select_Pause();
-        }
+        }*/
         
     }
 
@@ -224,8 +260,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         itemselect_cancel.kettei_on_waiting = true; //今、トグルをおして、選択中の状態
 
-        matplace_toggle1.GetComponent<Toggle>().interactable = false; //一時的に触れなくする
-        matplace_toggle2.GetComponent<Toggle>().interactable = false;
+        for(i = 0; i < matplace_toggle.Count; i++ )
+        {
+            matplace_toggle[i].GetComponent<Toggle>().interactable = false;
+        }
+        //matplace_toggle1.GetComponent<Toggle>().interactable = false; //一時的に触れなくする
+        //matplace_toggle2.GetComponent<Toggle>().interactable = false;
 
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
@@ -456,11 +496,17 @@ public class GetMatPlace_Panel : MonoBehaviour {
     void All_Off()
     {
         //再度、セレクトできるようにする
-        matplace_toggle1.GetComponent<Toggle>().isOn = false;
+        for (i = 0; i < matplace_toggle.Count; i++)
+        {
+            matplace_toggle[i].GetComponent<Toggle>().interactable = true;
+            matplace_toggle[i].GetComponent<Toggle>().isOn = false;
+            //Debug.Log(matplace_toggle[i].GetComponent<Toggle>().interactable);
+        }
+        /*matplace_toggle1.GetComponent<Toggle>().isOn = false;
         matplace_toggle1.GetComponent<Toggle>().interactable = true;
 
         matplace_toggle2.GetComponent<Toggle>().isOn = false;
-        matplace_toggle2.GetComponent<Toggle>().interactable = true;
+        matplace_toggle2.GetComponent<Toggle>().interactable = true;*/
 
 
         itemselect_cancel.kettei_on_waiting = false;
@@ -492,7 +538,18 @@ public class GetMatPlace_Panel : MonoBehaviour {
         modoru_anim_on = false;
 
         //表示フラグにそって、採取地の表示/非表示の決定
-
+        for (i = 0; i < matplace_toggle.Count; i++)
+        {
+            if (matplace_database.matplace_lists[i].placeFlag == 1)
+            {
+                matplace_toggle[i].SetActive(true);
+            }
+            else
+            {
+                matplace_toggle[i].SetActive(false);
+            }
+        }
+        /*
         if ( matplace_database.matplace_lists[0].placeFlag == 1)
         {
             matplace_toggle1.SetActive(true);
@@ -511,7 +568,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         else
         {
             matplace_toggle2.SetActive(false);
-        }
+        }*/
 
     }
 
@@ -658,5 +715,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
         mapevent_panel.SetActive(false);
 
         slot_view_status = 1; //通常の材料集めシーンに切り替え
+    }
+
+    public void SisterOn1()
+    {
+        sister_stand_img1.SetActive(true);
+    }
+
+    public void SisterOff1()
+    {
+        sister_stand_img1.SetActive(false);
     }
 }

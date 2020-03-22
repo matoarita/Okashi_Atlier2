@@ -17,6 +17,9 @@ public class GetMaterial : MonoBehaviour {
     private Button tansaku_yes;
     private Button tansaku_no;
 
+    private GameObject getmatplace_panel_obj;
+    private GetMatPlace_Panel getmatplace_panel;
+
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -95,6 +98,10 @@ public class GetMaterial : MonoBehaviour {
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
+        //材料採取地パネルの取得
+        getmatplace_panel_obj = canvas.transform.Find("GetMatPlace_Panel").gameObject;
+        getmatplace_panel = getmatplace_panel_obj.GetComponent<GetMatPlace_Panel>();
 
         //材料採取のための、消費コスト
         mat_cost = 0;
@@ -315,7 +322,7 @@ public class GetMaterial : MonoBehaviour {
 
                 cullent_total_mat += kettei_kosu[count]; //現在拾った材料の数
 
-                _b[count] = "<color=#E37BB5>" + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！";
+                _b[count] = "\n" + "<color=#E37BB5>" + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！";
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
@@ -375,6 +382,7 @@ public class GetMaterial : MonoBehaviour {
             else
             {
                 _a_zairyomax = "\n" + "もうカゴがいっぱい。";
+                getmatplace_panel.SisterOn1();
             }
 
             if(_a_final.Length == empty)
@@ -382,7 +390,7 @@ public class GetMaterial : MonoBehaviour {
                 _text.text = _b[0] + _a_zairyomax;
             } else
             {
-                _text.text = _a_final[0] + _a_final[1] + _a_final[2] + _a_zairyomax + "\n" + _b[0];
+                _text.text = _a_final[0] + _a_final[1] + _a_final[2] + _b[0] + _a_zairyomax ;
             }
             
 

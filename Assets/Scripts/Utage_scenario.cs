@@ -17,6 +17,7 @@ public class Utage_scenario : MonoBehaviour
     private int recipi_read_ID;
     private int itemuse_recipi_ID;
     private int map_ev_ID;
+    private int sp_Okashi_ID;
 
     private int girlloveev_read_ID;
 
@@ -56,6 +57,8 @@ public class Utage_scenario : MonoBehaviour
     {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
         scenario_loading = false; //「Utage」シーンを最初に読み込むときに、falseに初期化。宴のシナリオを読み中はtrue。コルーチンのリセットを回避する。
     }
@@ -190,6 +193,24 @@ public class Utage_scenario : MonoBehaviour
 
                     //マップイベントのテキストを表示
                     StartCoroutine(MapEvent_Hyouji());
+                }
+
+                if (GameMgr.sp_okashi_hintflag == true)
+                {
+                    GameMgr.sp_okashi_hintflag = false;
+                    sp_Okashi_ID = GameMgr.sp_okashi_ID;
+
+                    //SPお菓子食べたあとの感想テキストを表示
+                    StartCoroutine(SpOkashiComment_HintHyouji());
+                }
+
+                if (GameMgr.sp_okashi_flag == true)
+                {
+                    GameMgr.sp_okashi_flag = false;
+                    sp_Okashi_ID = GameMgr.sp_okashi_ID;
+
+                    //SPお菓子食べたあとの感想テキストを表示
+                    StartCoroutine(SpOkashiComment_Hyouji());
                 }
             }
                 
@@ -670,6 +691,8 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.scenario_ON = false;
                 GameMgr.scenario_flag = 120;
                 GameMgr.tutorial_ON = false;
+                girl1_status.Girl1_Status_Init();
+                girl1_status.OkashiNew_Status = 1;
                 break;
 
             default:
@@ -961,11 +984,96 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
-        GameMgr.recipi_read_endflag = true; //レシピを読み終えたフラグ
+        GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 
     }
+
+
+
+    //
+    // SPお菓子吹き出し、初回のみ表示
+    //
+    IEnumerator SpOkashiComment_HintHyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "SpOkashiBefore"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴のパラメータ設定
+
+        switch (sp_Okashi_ID)
+        {
+            case 1010: //ラスク作るときの最初
+
+                engine.Param.TrySetParameter("SpOkashiBefore_num", 1);
+                break;
+
+            default:
+                break;
+        }
+
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = true; //読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    //
+    // お菓子感想表示
+    //
+    IEnumerator SpOkashiComment_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "SpOkashiAfter"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴のパラメータ設定
+
+        switch (sp_Okashi_ID)
+        {
+            case 1010: //ラスクの感想
+
+                engine.Param.TrySetParameter("SpOkashiAfter_num", 1);
+                break;
+
+            default:
+                break;
+        }
+
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = true; //読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+
+
 
     //
     // ショップの「話す」コマンド

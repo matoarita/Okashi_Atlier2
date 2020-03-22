@@ -1282,14 +1282,44 @@ public class Compound_Keisan : MonoBehaviour {
         _add_itemType = database.items[_id].itemType.ToString();
         _add_itemType_sub = database.items[_id].itemType_sub.ToString();
 
-        for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時は固有トッピングの値は計算しない。
         {
-            _addtp[i] = database.items[_id].toppingtype[i].ToString();
-        }
+            if (exp_Controller.extreme_on) //エクストリームから新規作成される場合はトッピングの計算をしない。
+            {
+                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+                {
+                    _addtp[i] = "Non";
+                }
 
-        for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+                {
+                    _addkoyutp[i] = "Non";
+                }
+            }
+            else //通常のオリジナル・レシピ調合の場合は、トッピングの値だけ計算する。固有は無視。
+            {
+                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+                {
+                    _addtp[i] = database.items[_id].toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+                {
+                    _addkoyutp[i] = "Non";
+                }
+            }
+        }
+        else if (Comp_method_bunki == 3) //トッピング時は、通常トッピング＋固有トッピングどちらも計算
         {
-            _addkoyutp[i] = database.items[_id].koyu_toppingtype[i].ToString();
+            for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+            {
+                _addtp[i] = database.items[_id].toppingtype[i].ToString();
+            }
+
+            for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+            {
+                _addkoyutp[i] = database.items[_id].koyu_toppingtype[i].ToString();
+            }
         }
 
 
@@ -1322,14 +1352,44 @@ public class Compound_Keisan : MonoBehaviour {
         _add_itemType = pitemlist.player_originalitemlist[_id].itemType.ToString();
         _add_itemType_sub = pitemlist.player_originalitemlist[_id].itemType_sub.ToString();
 
-        for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時は固有トッピングの値は計算しない。
         {
-            _addtp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
-        }
+            if (exp_Controller.extreme_on) //エクストリームから新規作成される場合はトッピングの計算をしない。
+            {
+                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+                {
+                    _addtp[i] = "Non";
+                }
 
-        for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+                {
+                    _addkoyutp[i] = "Non";
+                }
+            }
+            else //通常のオリジナル・レシピ調合の場合は、トッピングの値だけ計算する。固有は無視。
+            {
+                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+                {
+                    _addtp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+                {
+                    _addkoyutp[i] = "Non";
+                }
+            }
+        }
+        else if (Comp_method_bunki == 3) //トッピング時は、通常トッピング＋固有トッピングどちらも計算
         {
-            _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
+            for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+            {
+                _addtp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
+            }
+
+            for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+            {
+                _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
+            }
         }
 
         _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
@@ -1457,7 +1517,7 @@ public class Compound_Keisan : MonoBehaviour {
         //あまりに小麦粉の量に対して、材料を多く入れすぎていると、マイナス。
 
         komugiko_distance = (komugiko_ratio - (float)0.5); //0.5は、小麦粉*材料=2:1の場合の値。材料ごとに設定してもよいかも。
-        Debug.Log("小麦粉と " + _additemlist[i]._Addname + " との距離: " + komugiko_ratio  + " - 0.5 = " + komugiko_distance);
+        //Debug.Log("小麦粉と " + _additemlist[i]._Addname + " との距離: " + komugiko_ratio  + " - 0.5 = " + komugiko_distance);
 
         //誤差が、-0.3以上　極端に小麦粉を入れすぎた場合
         if (komugiko_distance < -0.3)

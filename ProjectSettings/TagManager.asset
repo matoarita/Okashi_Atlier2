@@ -55,6 +55,10 @@ TagManager:
   - Compound_Check
   - Quest_Judge
   - Compound_Keisan
+  - CharacterLive2D
+  - Touch_Controller
+  - BG
+  - Particle_Heart_Character
   layers:
   - Default
   - TransparentFX
