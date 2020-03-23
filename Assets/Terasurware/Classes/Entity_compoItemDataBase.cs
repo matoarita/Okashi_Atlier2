@@ -36,6 +36,7 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public int renkin_Bexp;
 		public string Comment;
 		public string Comment2;
+		public string KeisanMethod;
 	}
 }
 

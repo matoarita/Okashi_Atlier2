@@ -1016,13 +1016,14 @@ public class Compound_Main : MonoBehaviour
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
 
-                if (extreme_panel.extreme_itemID != 9999)
+                if (extreme_panel.extreme_itemID != 9999 && extreme_panel.extreme_kaisu > 0)
                 {
                     select_extreme_button.interactable = true;
                 } else
                 {
                     select_extreme_button.interactable = false;
                 }
+
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1432,22 +1433,7 @@ public class Compound_Main : MonoBehaviour
 
     void text_scenario()
     {
-        /*
-        switch (GameMgr.scenario_flag)
-        {
-            case 115:
-                _text.text = "何の調合をする？" + "\n" + "(さっきのレシピを見てみるか。)";
 
-                break;
-
-            case 120:
-                _text.text = "何の調合をする？" + "\n" + "(まずは、お菓子の材料を買わないとな..。)";
-
-                break;
-
-            default:
-                break;
-        }*/
     }
 
 

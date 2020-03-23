@@ -41,7 +41,7 @@ MonoBehaviour:
       itemType: 0
       shop_sell_price: 10
       shop_buy_price: 5
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 4
       name: honey
       zaiko: 50
@@ -62,9 +62,9 @@ MonoBehaviour:
       itemType: 0
       shop_sell_price: 5
       shop_buy_price: 2
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 7
-      name: bugget
+      name: bugget_powder
       zaiko: 50
       itemType: 0
       shop_sell_price: 30
@@ -76,53 +76,53 @@ MonoBehaviour:
       itemType: 0
       shop_sell_price: 100
       shop_buy_price: 50
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 9
       name: silver_chip
       zaiko: 50
-      itemType: 0
+      itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 10
       name: kirakira_heart
       zaiko: 50
-      itemType: 0
+      itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 11
       name: juwely_suger
       zaiko: 50
-      itemType: 0
+      itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 12
       name: mix_color_spread
       zaiko: 50
-      itemType: 0
+      itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 13
       name: decopen_choco
       zaiko: 50
-      itemType: 0
+      itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 14
       name: decopen_choco_white
       zaiko: 50
-      itemType: 0
+      itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 15
       name: sakura_chip
       zaiko: 50
-      itemType: 0
+      itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1

@@ -15,7 +15,7 @@ public class Stage3_Main : MonoBehaviour {
 
         Debug.Log("Stage3_lodingOK");
 
-        GameMgr.scenario_flag = 300;
+        GameMgr.scenario_flag = 3000;
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive);
 
         //女の子データの取得
@@ -33,9 +33,9 @@ public class Stage3_Main : MonoBehaviour {
     void Update()
     {
 
-        if (GameMgr.scenario_flag == 309)
+        if (GameMgr.scenario_flag == 3009)
         {
-            GameMgr.scenario_flag = 310; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。
+            GameMgr.scenario_flag = 3010; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。
 
             FadeManager.Instance.LoadScene("Compound", 0.3f);
         }

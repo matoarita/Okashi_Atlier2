@@ -21,6 +21,9 @@ public class Utage_scenario : MonoBehaviour
 
     private int girlloveev_read_ID;
 
+    private int story_num;
+    private int shop_talk_number;
+
     private PlayerItemList pitemlist;
 
     private Girl1_status girl1_status; //女の子１のステータスを取得。
@@ -78,6 +81,7 @@ public class Utage_scenario : MonoBehaviour
 
                         GameMgr.scenario_flag = 1; //アップデートを繰り返さないようにする。
                         scenarioLabel = "Chapter_1";
+                        story_num = GameMgr.scenario_flag;
                         StartCoroutine(Scenario_Start());
                         break;
 
@@ -93,14 +97,15 @@ public class Utage_scenario : MonoBehaviour
                 switch (GameMgr.scenario_flag)
                 {
 
-                    case 200: //2話はじまり
+                    case 2000: //2話はじまり
 
-                        GameMgr.scenario_flag = 201; //アップデートを繰り返さないようにする。
+                        GameMgr.scenario_flag = 2001; //アップデートを繰り返さないようにする。
                         scenarioLabel = "Chapter_2";
+                        story_num = GameMgr.scenario_flag;
                         StartCoroutine(Scenario_Start());
                         break;
 
-                    case 290: //1話調合パート終了
+                    case 2900: //2話調合パート終了
 
                         break;
 
@@ -116,14 +121,15 @@ public class Utage_scenario : MonoBehaviour
                 switch (GameMgr.scenario_flag)
                 {
 
-                    case 300: //1話はじまり
+                    case 3000: //1話はじまり
 
-                        GameMgr.scenario_flag = 301; //アップデートを繰り返さないようにする。
+                        GameMgr.scenario_flag = 3001; //アップデートを繰り返さないようにする。
                         scenarioLabel = "Chapter_3";
+                        story_num = GameMgr.scenario_flag;
                         StartCoroutine(Scenario_Start());
                         break;
 
-                    case 390: //1話調合パート終了
+                    case 3900: //1話調合パート終了
 
                         break;
 
@@ -149,7 +155,8 @@ public class Utage_scenario : MonoBehaviour
                     case 130: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。また、何を作ればよいかを指示してくれる。
                       
                         GameMgr.scenario_flag = 131; //アップデートを繰り返さないようにする。
-                        scenarioLabel = "Chapter1_Story";                        
+                        scenarioLabel = "Chapter1_Story";
+                        story_num = 130;
                         StartCoroutine(Scenario_Start());
                         break;
 
@@ -269,8 +276,16 @@ public class Utage_scenario : MonoBehaviour
                     case 120: //調合パート開始時にショップへ初めて入る。お店のアイドル娘
 
                         GameMgr.scenario_flag = 121;
-                        GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。
-                        scenarioLabel = "Chapter1_Shop_AtFirst";
+                        scenarioLabel = "Shop_Event";
+                        story_num = 120;
+                        StartCoroutine(Scenario_Start());
+                        break;
+
+                    case 150: //ラスク材料買いにきた
+
+                        GameMgr.scenario_flag = 151;
+                        scenarioLabel = "Shop_Event";
+                        story_num = 150;
                         StartCoroutine(Scenario_Start());
                         break;
 
@@ -280,8 +295,7 @@ public class Utage_scenario : MonoBehaviour
 
                 if ( GameMgr.talk_flag == true )
                 {
-
-                    GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。
+                    shop_talk_number = GameMgr.talk_number;
                     StartCoroutine(Shop_Talk());
 
                 }
@@ -297,7 +311,7 @@ public class Utage_scenario : MonoBehaviour
         
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        engine.Param.TrySetParameter("Story_num", GameMgr.scenario_flag);
+        engine.Param.TrySetParameter("Story_num", story_num);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario( scenarioLabel );
@@ -334,14 +348,20 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.scenario_flag = 140;
                 break;
 
-            case 201:
+            case 151:
 
-                GameMgr.scenario_flag = 209;
+                GameMgr.scenario_ON = false;
+                GameMgr.scenario_flag = 160;
                 break;
 
-            case 301:
+            case 2001:
 
-                GameMgr.scenario_flag = 309;
+                GameMgr.scenario_flag = 2009;
+                break;
+
+            case 3001:
+
+                GameMgr.scenario_flag = 3009;
                 break;
 
             default:
@@ -1088,7 +1108,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴で呼び出したいイベント番号を設定する。
-        engine.Param.TrySetParameter("Shop_Talk_Num", GameMgr.talk_number);
+        engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);

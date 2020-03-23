@@ -13,6 +13,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Animator maincam_animator;
     private int trans; //トランジション用のパラメータ
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
@@ -51,12 +54,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private List<string> _touchface_comment_lib = new List<string>();
     private string _touchface_comment;
+    private string MazuiHintComment;
+    private int MazuiStatus;
 
     private List<string> _touchtwintail_comment_lib = new List<string>();
     private string _touchtwintail_comment;
 
     private bool WaitHint_on;
-    private float timeOutHint;
+    public float timeOutHint;
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -100,6 +105,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public bool girl_comment_flag; //女の子が感想をいうときに、宴をON/OFFにするフラグ
     public bool girl_comment_endflag; //感想を全て言い終えたフラグ
+
+    public bool girl_Mazui_flag; //一度目にまずいお菓子を食べたときのフラグ。このフラグがたつと、女の子の口を押したときに次のヒントを教えてもらえる。
 
     private bool special_animstart_flag;
     private bool special_animstart_endflag;
@@ -168,6 +175,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public Sprite Girl1_img_verysad_close;
     public Sprite Girl1_img_hirameki;
     public Sprite Girl1_img_tereru;
+    public Sprite Girl1_img_angry;
+    public Sprite Girl1_img_iya;
 
     //女の子タッチのカウント
     public bool Girl1_touchhair_start;
@@ -218,10 +227,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girlLikeSet_database = GirlLikeSetDataBase.Instance.GetComponent<GirlLikeSetDataBase>();
 
         //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
-        girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
-
-        //タッチ判定オブジェクトの取得
-        touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+        girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();        
 
         //Live2Dモデルの取得
         _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
@@ -263,9 +269,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         special_timeOut = 3.0f;
         special_animatFirst = false;
 
+        MazuiStatus = 0;
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
+
+                //タッチ判定オブジェクトの取得
+                touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                 s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
                 break;
@@ -280,6 +294,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_img_verysad_close = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_verysad_close");
         Girl1_img_hirameki = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_hirameki");
         Girl1_img_tereru = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_tereru");
+        Girl1_img_angry = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_angry");
+        Girl1_img_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_iya");
 
         Girl1_touchhair_start = false;
         Girl1_touchhair_count = 0;
@@ -287,6 +303,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         Girl1_touchtwintail_count = 0;
         Girl1_touchtwintail_flag = false;
+
+        girl_Mazui_flag = false;
 
         touch_status = 0;
 
@@ -343,6 +361,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Compound":
+
+                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                     character = GameObject.FindWithTag("Character");
 
@@ -416,6 +437,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //髪の毛触り始めたらカウントスタート
                 if (Girl1_touchhair_start)
                 {
+                    WaitHint_on = false;
                     timeOut3 -= Time.deltaTime;
 
                     if (timeOut3 <= 0.0f)
@@ -471,63 +493,66 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 case "Compound":
 
-                    //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
-                    if (timeOut <= 0.0)
+                    if (compound_Main.compound_status == 110) //トップ画面のときだけ発動
                     {
-                        switch (timeGirl_hungry_status)
+                        //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
+                        if (timeOut <= 0.0)
                         {
-                            case 0:
+                            switch (timeGirl_hungry_status)
+                            {
+                                case 0:
 
-                                timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
+                                    timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
-                                rnd = Random.Range(30.0f, 60.0f);
-                                timeOut = 5.0f + rnd;
-                                Girl_Hungry();
+                                    rnd = Random.Range(30.0f, 60.0f);
+                                    timeOut = 5.0f + rnd;
+                                    Girl_Hungry();
 
-                                //キャラクタ表情変更
-                                s.sprite = Girl1_img_gokigen;
-                                break;
+                                    //キャラクタ表情変更
+                                    s.sprite = Girl1_img_gokigen;
+                                    break;
 
-                            case 1:
+                                case 1:
 
-                                timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
+                                    timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
-                                rnd = Random.Range(1.0f, 5.0f);
-                                timeOut = 2.0f + rnd;
-                                Girl_Full();
+                                    rnd = Random.Range(1.0f, 5.0f);
+                                    timeOut = 2.0f + rnd;
+                                    Girl_Full();
 
-                                //キャラクタ表情変更
-                                s.sprite = Girl1_img_gokigen;
-                                break;
+                                    //キャラクタ表情変更
+                                    s.sprite = Girl1_img_gokigen;
+                                    break;
 
-                            case 2:
+                                case 2:
 
-                                //お菓子をあげたあとの状態。
+                                    //お菓子をあげたあとの状態。
 
-                                timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
-                                
-                                timeOut = 5.0f;
-                                Girl_Full();
+                                    timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
-                                //キャラクタ表情変更
-                                //s.sprite = Girl1_img_gokigen;
-                                break;
+                                    timeOut = 5.0f;
+                                    Girl_Full();
 
-                            default:
+                                    //キャラクタ表情変更
+                                    //s.sprite = Girl1_img_gokigen;
+                                    break;
 
-                                timeOut = 5.0f;
-                                break;
+                                default:
+
+                                    timeOut = 5.0f;
+                                    break;
+                            }
+
                         }
 
-                    }
+                        //一定時間たつとヒントを出す。
+                        if (timeOut2 <= 0.0)
+                        {
+                            rnd = Random.Range(10.0f, 20.0f);
+                            timeOut2 = 20.0f + rnd;
 
-                    //一定時間たつとヒントを出す。
-                    if (timeOut2 <= 0.0)
-                    {
-                        rnd = Random.Range(10.0f, 20.0f);
-                        timeOut2 = 20.0f + rnd;
-
-                        Girl1_Hint();
+                            Girl1_Hint();
+                        }
                     }
                     break;
 
@@ -727,6 +752,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             while (!GameMgr.recipi_read_endflag)
             {
                 yield return null;
+            }
+
+            //シナリオも進む。
+            switch(Set_compID)
+            {
+                case 1010:
+
+                    GameMgr.scenario_flag = 150;
+                    break;
+
+                default:
+
+                    break;
             }
 
             GameMgr.scenario_ON = false;
@@ -1258,6 +1296,98 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 7:
 
                 timeOut3 = 3.0f;
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 8;
+                }
+
+                break;
+
+            case 8:
+
+                timeOut3 = 5.0f;
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 9;
+
+                if (hukidashiitem == null)
+                {
+                    hukidasiInit();
+                }
+
+                hukidashiitem.GetComponent<TextController>().SetText("..。");
+
+                //キャラクタ表情変更
+                s.sprite = Girl1_img_tereru;
+                break;
+
+            case 9:
+
+                timeOut3 = 3.0f;
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 10;
+                }
+
+                break;
+
+            case 10:
+
+                timeOut3 = 5.0f;
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 11;
+
+                if (hukidashiitem == null)
+                {
+                    hukidasiInit();
+                }
+
+                hukidashiitem.GetComponent<TextController>().SetText(".. ..。");
+
+                //キャラクタ表情変更
+                s.sprite = Girl1_img_iya;
+                break;
+
+            case 11:
+
+                timeOut3 = 3.0f;
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 12;
+                }
+
+                break;
+
+            case 12:
+
+                timeOut3 = 5.0f;
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 13;
+
+                if (hukidashiitem == null)
+                {
+                    hukidasiInit();
+                }
+
+                hukidashiitem.GetComponent<TextController>().SetText("キシャーーーーー！！！！");
+
+                //音鳴らす
+                sc.PlaySe(45);
+
+                //キャラクタ表情変更
+                s.sprite = Girl1_img_angry;
+                break;
+
+            case 13:
+
+                timeOut3 = 3.0f;
+                Girl1_touchhair_count++;               
+
                 break;
 
             default:
@@ -1282,9 +1412,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidasiInit();
         }
 
-        //コメントランダム
-        random = Random.Range(0, _touchface_comment_lib.Count);
-        _touchface_comment = _touchface_comment_lib[random];
+        if (girl_Mazui_flag) //まずいフラグがたっていた場合、その時のクエストのヒントを教えてくれる。
+        {
+            Init_MazuiHintComment();
+            _touchface_comment = MazuiHintComment;
+        }
+        else
+        {
+            //コメントランダム
+            random = Random.Range(0, _touchface_comment_lib.Count);
+            _touchface_comment = _touchface_comment_lib[random];
+        }
 
         hukidashiitem.GetComponent<TextController>().SetText(_touchface_comment);
 
@@ -1408,5 +1546,39 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
         _touchtwintail_comment_lib.Add("..。");
         _touchtwintail_comment_lib.Add("（さらさら..。）");
+    }
+
+    void Init_MazuiHintComment()
+    {
+        switch(OkashiQuest_ID)
+        {
+            case 1010:
+
+                switch(MazuiStatus)
+                {
+                    case 0:
+
+                        MazuiHintComment = "兄ちゃん..。ちょっとパンが粉っぽい気がする。";
+                        break;
+
+                    case 1:
+
+                        MazuiHintComment = "粉っぽさをなんとか消せないかなぁ。";
+                        break;
+                }
+                
+
+                MazuiStatus++;
+                if(MazuiStatus >= 2)
+                {
+                    MazuiStatus = 0;
+                }
+
+                break;
+
+            default:
+
+                break;
+        }
     }
 }

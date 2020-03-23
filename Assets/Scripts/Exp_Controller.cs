@@ -1150,7 +1150,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.add_eventPlayerItem(kettei_item1, result_kosu);
 
         }
-        else //機材・器具アイテムなど
+        else //トッピング・機材アイテムなど
         {
             //プレイヤーアイテムリストに追加。
             pitemlist.addPlayerItem(kettei_item1, result_kosu);
@@ -1167,7 +1167,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         _text.text = "購入しました！他にはなにか買う？";
 
-        shopitemlistController.ShopList_DrawView(); //リスト描画の更新
+        shopitemlistController.ReDraw(); //リスト描画の更新
 
         shop_buy_ok = false;
 

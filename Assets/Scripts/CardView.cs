@@ -488,6 +488,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _result_item;
         _cardImage.SetInit(); //予測の場合は、Compound_Keisan.csで調合を事前に計算し、その数値を表示する。
+        //_cardImage.SetYosokuInit();
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
@@ -516,8 +517,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.SetInit();
 
         //位置とスケール
-        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
+        Draw1();
 
     }
 
@@ -542,8 +542,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.SetInit();
 
         //位置とスケール
-        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
+        Draw1();
 
     }
 
@@ -566,8 +565,14 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _result_item;
         _cardImage.SetInit();
 
+        //位置とスケール
+        Draw1();
+    }
+
+    void Draw1()
+    {
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 100, 0);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
     }
 
     public void CardCompo_Anim()

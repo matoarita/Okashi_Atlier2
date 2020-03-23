@@ -28,9 +28,11 @@ public class ItemCompound
     public int success_Rate;
     public int renkin_Bexp;
 
+    public string KeisanMethod; //値を加算するか、比率で計算するか。Nonの場合、加算。何らかのアイテム名が入ってる場合、それを基準に（例えば小麦粉）他の材料の値を計算する。
+
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, string result_item, int _result_kosu, int _kosu1, int _kosu2, int _kosu3, int _flag, int cost_time, int srate, int renkin_bexp)
+    public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, string result_item, int _result_kosu, int _kosu1, int _kosu2, int _kosu3, int _flag, int cost_time, int srate, int renkin_bexp, string _keisanm)
     {
         cmpitemID = id;
         cmpitem_Name = cmpname;
@@ -53,6 +55,8 @@ public class ItemCompound
 
         success_Rate = srate;
         renkin_Bexp = renkin_bexp;
+
+        KeisanMethod = _keisanm;
     }
 
 }

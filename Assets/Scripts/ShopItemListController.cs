@@ -44,6 +44,9 @@ public class ShopItemListController : MonoBehaviour
 
     public bool shop_final_select_flag;
 
+    public List<GameObject> category_toggle = new List<GameObject>();
+    private int category_status;
+
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
@@ -62,7 +65,14 @@ public class ShopItemListController : MonoBehaviour
         content = GameObject.FindWithTag("ShopitemListContent");
         shopitem_Prefab = (GameObject)Resources.Load("Prefabs/shopitemSelectToggle");
 
+        foreach (Transform child in this.transform.Find("CategoryView/Viewport/Content/").transform)
+        {
+            //Debug.Log(child.name);           
+            category_toggle.Add(child.gameObject);
+        }
+
         i = 0;
+        category_status = 0;
         shop_final_select_flag = false;
     }
 
@@ -89,9 +99,65 @@ public class ShopItemListController : MonoBehaviour
 
     public void ShopList_DrawView()
     {
-        //アイテムリストを表示中に、アイテムを追加した場合、リアルタイムに表示を更新する
+        if (category_toggle[0].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 0;
+            reset_and_DrawView();
+        }
+    }
 
-        reset_and_DrawView();
+    public void ShopList_DrawView2()
+    {
+        if (category_toggle[1].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 1;
+            reset_and_DrawView_Topping();
+        }
+    }
+
+    public void ShopList_DrawView3()
+    {
+        if (category_toggle[2].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 2;
+            reset_and_DrawView_Machine();
+        }
+    }
+
+    public void ShopList_DrawView4()
+    {
+        if (category_toggle[3].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 3;
+            reset_and_DrawView_Recipi();
+        }
+    }
+
+    public void ReDraw()
+    {
+        switch(category_status)
+        {
+            case 0:
+
+                reset_and_DrawView();
+                break;
+
+            case 1:
+
+                reset_and_DrawView_Topping();
+                break;
+
+            case 2:
+
+                reset_and_DrawView_Machine();
+                break;
+
+            case 3:
+
+                reset_and_DrawView_Recipi();
+                break;
+
+        }
     }
 
     // リストビューの描画部分。重要。
@@ -108,55 +174,136 @@ public class ShopItemListController : MonoBehaviour
 
         for (i = 0; i < shop_database.shopitems.Count; i++)
         {
-            if (shop_database.shopitems[i].shop_item_hyouji > 0) //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。
+            //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemType=0は基本の材料系
+            if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_itemType == 0) 
             {
                 if (shop_database.shopitems[i].shop_itemzaiko > 0)
                 {
 
-
-                    _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
-                    _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
-                    _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
-
-                    _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
-                    _toggle_itemID.toggle_shop_ID = shop_database.shopitems[i].shop_ID; //ショップに登録されている、ショップデータベース上のアイテムID。iと同じ値になる。
-                    _toggle_itemID.toggle_shopitem_ID = shop_database.shopitems[i].shop_itemID; //ショップに登録されている、アイテムDB上のアイテムID
-                    _toggle_itemID.toggle_shopitem_type = shop_database.shopitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
-
-
-                    item_name = shop_database.shopitems[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
-
-                    _text[0].text = item_name;
-
-                    item_cost = shop_database.shopitems[i].shop_costprice;
-
-                    _text[2].text = item_cost.ToString(); //価格
-
-                    item_zaiko = shop_database.shopitems[i].shop_itemzaiko;
-
-                    //_text[4].text = item_zaiko.ToString(); //在庫
-
-                    texture2d = shop_database.shopitems[i].shop_itemIcon;
-                    _Img.sprite = texture2d;
-
-                    //お金が足りない場合は、選択できないようにする。
-                    if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)
-                    {
-                        _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
-                    }
-                    else
-                    {
-                        _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
-                    }
-                    //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
-
-                    ++list_count;
-
+                    drawItem();
 
                 }
             }
         }
+    }
 
+    // トッピング系
+    void reset_and_DrawView_Topping()
+    {
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        list_count = 0;
+        _shop_listitem.Clear();
+        //Debug.Log(shop_database.shopitems.Count);
+
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+            if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_itemType == 3) 
+            {
+                if (shop_database.shopitems[i].shop_itemzaiko > 0)
+                {
+
+                    drawItem();
+
+                }
+            }
+        }
+    }
+
+    // 器材系
+    void reset_and_DrawView_Machine()
+    {
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        list_count = 0;
+        _shop_listitem.Clear();
+        //Debug.Log(shop_database.shopitems.Count);
+
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+            if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_itemType == 2) 
+            {
+                if (shop_database.shopitems[i].shop_itemzaiko > 0)
+                {
+
+                    drawItem();
+
+                }
+            }
+        }
+    }
+
+    // レシピ系
+    void reset_and_DrawView_Recipi()
+    {
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        list_count = 0;
+        _shop_listitem.Clear();
+        //Debug.Log(shop_database.shopitems.Count);
+
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+            if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_itemType == 1) 
+            {
+                if (shop_database.shopitems[i].shop_itemzaiko > 0)
+                {
+
+                    drawItem();
+
+                }
+            }
+        }
+    }
+
+    void drawItem()
+    {
+        _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
+        _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+
+        _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
+        _toggle_itemID.toggle_shop_ID = shop_database.shopitems[i].shop_ID; //ショップに登録されている、ショップデータベース上のアイテムID。iと同じ値になる。
+        _toggle_itemID.toggle_shopitem_ID = shop_database.shopitems[i].shop_itemID; //ショップに登録されている、アイテムDB上のアイテムID
+        _toggle_itemID.toggle_shopitem_type = shop_database.shopitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
+
+
+        item_name = shop_database.shopitems[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+
+        _text[0].text = item_name;
+
+        item_cost = shop_database.shopitems[i].shop_costprice;
+
+        _text[2].text = item_cost.ToString(); //価格
+
+        item_zaiko = shop_database.shopitems[i].shop_itemzaiko;
+
+        //_text[4].text = item_zaiko.ToString(); //在庫
+
+        texture2d = shop_database.shopitems[i].shop_itemIcon;
+        _Img.sprite = texture2d;
+
+        //お金が足りない場合は、選択できないようにする。
+        if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)
+        {
+            _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
+        }
+        else
+        {
+            _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
+        }
+        //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
+
+        ++list_count;
     }
 
 }

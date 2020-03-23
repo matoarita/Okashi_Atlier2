@@ -608,6 +608,9 @@ public class Compound_Keisan : MonoBehaviour {
                 final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
                 final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
                 final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+
+                //Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+                //Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);
             }
 
             //エクストリーム調合から閃いた場合
@@ -1120,6 +1123,7 @@ public class Compound_Keisan : MonoBehaviour {
             _baseoily += _tempoily;
             _basewatery += _tempwatery;
 
+            
         }
 
 
@@ -1217,43 +1221,7 @@ public class Compound_Keisan : MonoBehaviour {
         }
     }
 
-    void AddTasteParam()
-    {
-        //そのまま加算する。
-
-        _temprich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
-        _tempsweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
-        _tempbitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
-        _tempsour += _additemlist[i]._Addsour * _additemlist[i]._Addkosu;
-        _tempcrispy += _additemlist[i]._Addcrispy * _additemlist[i]._Addkosu;
-        _tempfluffy += _additemlist[i]._Addfluffy * _additemlist[i]._Addkosu;
-        _tempsmooth += _additemlist[i]._Addsmooth * _additemlist[i]._Addkosu;
-        _temphardness += _additemlist[i]._Addhardness * _additemlist[i]._Addkosu;
-        _tempjiggly += _additemlist[i]._Addjiggly * _additemlist[i]._Addkosu;
-        _tempchewy += _additemlist[i]._Addchewy * _additemlist[i]._Addkosu;
-        _temppowdery += _additemlist[i]._Addpowdery * _additemlist[i]._Addkosu;
-        _tempoily += _additemlist[i]._Addoily * _additemlist[i]._Addkosu;
-        _tempwatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
-    }
-
-    void DivisionTasteparam()
-    {
-        //総個数で割り算する
-
-        _temprich /= total_kosu;
-        _tempsweat /= total_kosu;
-        _tempbitter /= total_kosu;
-        _tempsour /= total_kosu;
-        _tempcrispy /= total_kosu;
-        _tempfluffy /= total_kosu;
-        _tempsmooth /= total_kosu;
-        _temphardness /= total_kosu;
-        _tempjiggly /= total_kosu;
-        _tempchewy /= total_kosu;
-        _temppowdery /= total_kosu;
-        _tempoily /= total_kosu;
-        _tempwatery /= total_kosu;
-    }
+    
 
     void Set_addparam()
     {
@@ -1322,7 +1290,7 @@ public class Compound_Keisan : MonoBehaviour {
             }
         }
 
-
+        //Debug.Log("_addkosu: " + _addkosu);
         _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
 
@@ -1392,6 +1360,7 @@ public class Compound_Keisan : MonoBehaviour {
             }
         }
 
+        //Debug.Log("_addkosu: " + _addkosu);
         _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
 
@@ -1410,21 +1379,24 @@ public class Compound_Keisan : MonoBehaviour {
         etc_mat_count = 0;
 
 
-        //まず、材料に小麦粉を使ってるか否かをチェック。小麦粉の種類が複数の場合、現状バグるので、その処理は後に実装すること。
-        for (i = 0; i < _additemlist.Count; i++)
-        {
-
-            if (_additemlist[i]._Add_itemType_sub == "Komugiko")
-            {
-                komugiko_id = i;
-                komugiko_flag = 1;
-                Komugiko_count++;
-            }
-        }
-        //ただし特定のアイテムの場合は、加算のみでOK。例えばアマンドファリーヌのような、粉同士を組み合わせただけ、など。
-        if(database.items[result_item].itemName == "financier_powder" || database.items[result_item].itemName == "bugget")
+        
+        //特定のアイテムの場合は、加算のみでOK。例えばアマンドファリーヌのような、粉同士を組み合わせただけ、など。
+        if(databaseCompo.compoitems[result_ID].KeisanMethod == "Non")
         {
             komugiko_flag = 0;
+        }
+        else
+        {
+            //比率計算。キーとなるアイテム（例えば、小麦粉）をベースに、他の材料の比率がどのぐらいかを計算
+            for (i = 0; i < _additemlist.Count; i++)
+            {
+                if (_additemlist[i]._Addname == databaseCompo.compoitems[result_ID].KeisanMethod)
+                {
+                    komugiko_id = i;
+                    komugiko_flag = 1;
+                    Komugiko_count++;
+                }
+            }
         }
 
         //材料に小麦粉を使っているか否かで処理を分岐
@@ -1436,7 +1408,7 @@ public class Compound_Keisan : MonoBehaviour {
 
                 for (i = 0; i < _additemlist.Count; i++)
                 {
-                        AddTasteParam(); //各材料を加算していく。                   
+                    AddTasteParam(); //各材料を加算していく。     
                 }
 
                 //DivisionTasteparam(); //その後、個数で割り算する。
@@ -1508,8 +1480,46 @@ public class Compound_Keisan : MonoBehaviour {
         }
     }
 
+    void AddTasteParam()
+    {
+        //そのまま加算する。
 
-    
+        _temprich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
+        _tempsweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
+        _tempbitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
+        _tempsour += _additemlist[i]._Addsour * _additemlist[i]._Addkosu;
+        _tempcrispy += _additemlist[i]._Addcrispy * _additemlist[i]._Addkosu;
+        _tempfluffy += _additemlist[i]._Addfluffy * _additemlist[i]._Addkosu;
+        _tempsmooth += _additemlist[i]._Addsmooth * _additemlist[i]._Addkosu;
+        _temphardness += _additemlist[i]._Addhardness * _additemlist[i]._Addkosu;
+        _tempjiggly += _additemlist[i]._Addjiggly * _additemlist[i]._Addkosu;
+        _tempchewy += _additemlist[i]._Addchewy * _additemlist[i]._Addkosu;
+        _temppowdery += _additemlist[i]._Addpowdery * _additemlist[i]._Addkosu;
+        _tempoily += _additemlist[i]._Addoily * _additemlist[i]._Addkosu;
+        _tempwatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
+
+        //Debug.Log("_additemlist[i]._Addkosu: " + _additemlist[i]._Addkosu);
+    }
+
+    void DivisionTasteparam()
+    {
+        //総個数で割り算する
+
+        _temprich /= total_kosu;
+        _tempsweat /= total_kosu;
+        _tempbitter /= total_kosu;
+        _tempsour /= total_kosu;
+        _tempcrispy /= total_kosu;
+        _tempfluffy /= total_kosu;
+        _tempsmooth /= total_kosu;
+        _temphardness /= total_kosu;
+        _tempjiggly /= total_kosu;
+        _tempchewy /= total_kosu;
+        _temppowdery /= total_kosu;
+        _tempoily /= total_kosu;
+        _tempwatery /= total_kosu;
+    }
+
     void AddRatioTasteParam()
     {
         //小麦粉 1に対して、 バターや砂糖などの材料の比率で、加算する値が変わる。

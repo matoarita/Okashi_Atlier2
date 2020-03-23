@@ -15,7 +15,7 @@ public class Stage2_Main : MonoBehaviour
         
         Debug.Log("Stage2_lodingOK");
 
-        GameMgr.scenario_flag = 200;
+        GameMgr.scenario_flag = 2000;
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive);
 
         //女の子データの取得
@@ -33,9 +33,9 @@ public class Stage2_Main : MonoBehaviour
     void Update()
     {
 
-        if (GameMgr.scenario_flag == 209) //1話の最初の調合パートに入るので、調合パートの玄関となるシーンへ遷移する
+        if (GameMgr.scenario_flag == 2009) //1話の最初の調合パートに入るので、調合パートの玄関となるシーンへ遷移する
         {
-            GameMgr.scenario_flag = 210; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。
+            GameMgr.scenario_flag = 2010; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。
 
             FadeManager.Instance.LoadScene("Compound", 0.3f);
         }

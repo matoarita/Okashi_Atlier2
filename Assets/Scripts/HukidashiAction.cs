@@ -170,7 +170,6 @@ public class HukidashiAction : MonoBehaviour {
         _hint = girlLikeCompo_database.girllike_compoRandomset[girl1_status.Set_compID].hint_text;
         text_area.GetComponent<TextController>().SetText(_hint);
         text_area.GetComponent<TextController>().hint_on = true;
-        //_text.text = "ヒントが表示されるよ～！";
 
         girl1_status.GirlEat_Judge_on = false;
     }
@@ -201,7 +200,21 @@ public class HukidashiAction : MonoBehaviour {
             i++;
         }
 
-        _hint = girlLikeCompo_database.girllike_composet[_id].hint_text;
+        if (girl1_status.girl_Mazui_flag) //まずいフラグがたっていた場合、その時のクエストのヒントを教えてくれる。口と違い、下のウィンドウに表示される。
+        {
+            switch (girl1_status.OkashiQuest_ID)
+            {
+                case 1010:
+
+                    _hint = "兄ちゃん、パンのことは、プリンお姉ちゃんが何か知ってるんじゃないかなぁ？";
+                    break;
+            }
+
+        }
+        else
+        {
+            _hint = girlLikeCompo_database.girllike_composet[_id].hint_text;
+        }
         text_area.GetComponent<TextController>().SetText(_hint);
         text_area.GetComponent<TextController>().hint_on = true;
 

@@ -63,10 +63,10 @@ MonoBehaviour:
       - <param=MainGirl_name>
       - "\u901A\u5E38"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Hikari/Hikari_normal.png
       - 
@@ -87,12 +87,12 @@ MonoBehaviour:
       strings:
       - 
       - 
-      - "\u7B11\u3044"
+      - "\u559C\u3073"
+      - 
+      - -45
       - 
       - 
-      - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Hikari/Hikari_yorokobi.png
       isEmpty: 0
@@ -103,14 +103,14 @@ MonoBehaviour:
       strings:
       - 
       - 
-      - "\u305F\u3081\u606F"
+      - "\u56F0\u308A"
+      - 
+      - -45
       - 
       - 
+      - 1.7
       - 
-      - 
-      - 1.5
-      - 
-      - Hikari/Hikari_normal.png
+      - Hikari/Hikari_komari.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -121,12 +121,12 @@ MonoBehaviour:
       - 
       - "\u7167\u308C"
       - 
+      - -45
       - 
       - 
+      - 1.7
       - 
-      - 1.5
-      - 
-      - Hikari/Hikari_normal.png
+      - Hikari/Hikari_tereru.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -137,10 +137,10 @@ MonoBehaviour:
       - 
       - "\u68D2\u76EE"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Hikari/Hikari_gokigen.png
       isEmpty: 0
@@ -148,15 +148,33 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 8
       debugIndex: 8
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - 
+      - "\u9583\u304D"
+      - 
+      - -45
+      - 
+      - 
+      - 1.7
+      - 
+      - Hikari/Hikari_hirameki.png
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 9
       debugIndex: 9
       strings:
-      - "\u4E3B\u4EBA\u516C\u306E\u7236"
-      - <param=player_father_name>
+      - 
+      - 
+      - "\u307E\u305A\u3044"
+      - 
+      - -45
+      - 
+      - 
+      - 1.7
+      - 
+      - Hikari/Hikari_verysad.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -174,8 +192,10 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 12
       debugIndex: 12
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u4E3B\u4EBA\u516C\u306E\u7236"
+      - <param=player_father_name>
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 13
@@ -221,10 +241,10 @@ MonoBehaviour:
       - <param=npcA_name>
       - "\u901A\u5E38"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -237,10 +257,10 @@ MonoBehaviour:
       - 
       - "\u7B11\u3044"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -253,10 +273,10 @@ MonoBehaviour:
       - 
       - "\u305F\u3081\u606F"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -269,10 +289,10 @@ MonoBehaviour:
       - 
       - "\u7167\u308C"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -321,10 +341,10 @@ MonoBehaviour:
       - <param=npcB_name>
       - "\u901A\u5E38"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -337,10 +357,10 @@ MonoBehaviour:
       - 
       - "\u7B11\u3044"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -353,10 +373,10 @@ MonoBehaviour:
       - 
       - "\u305F\u3081\u606F"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -369,10 +389,10 @@ MonoBehaviour:
       - 
       - "\u7167\u308C"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -403,10 +423,10 @@ MonoBehaviour:
       - <param=npcC_name>
       - "\u901A\u5E38"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -419,10 +439,10 @@ MonoBehaviour:
       - 
       - "\u7B11\u3044"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -435,10 +455,10 @@ MonoBehaviour:
       - 
       - "\u305F\u3081\u606F"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -451,10 +471,10 @@ MonoBehaviour:
       - 
       - "\u7167\u308C"
       - 
+      - -45
       - 
       - 
-      - 
-      - 1.5
+      - 1.7
       - 
       - Yukko/yukko.png
       isEmpty: 0
@@ -462,7 +482,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 688
+    textLength: 806
     headerRow: 0
   - rows:
     - rowIndex: 0

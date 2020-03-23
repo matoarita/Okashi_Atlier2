@@ -69,6 +69,7 @@ public class Entity_compoItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(16); p.renkin_Bexp = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(17); p.Comment = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(18); p.Comment2 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(20); p.KeisanMethod = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

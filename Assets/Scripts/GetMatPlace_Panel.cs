@@ -30,8 +30,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject moveanim_panel_image_text;
 
     public List<GameObject> matplace_toggle = new List<GameObject>();
-    private GameObject matplace_toggle1;
-    private GameObject matplace_toggle2;
 
     private GameObject text_area;
     private Text _text;
@@ -55,7 +53,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private bool Slot_view_on;
     private int slot_view_status;
 
-    private int i;
+    private int i, j;
 
     private bool move_anim_on;
     private bool move_anim_end;
@@ -138,13 +136,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
             i++;
         }
 
-        //matplace_toggle1 = this.transform.Find("GetMatPlace_View/Viewport/Content/MatPlace_toggle1").gameObject;
-        //matplace_toggle2 = this.transform.Find("GetMatPlace_View/Viewport/Content/MatPlace_toggle2").gameObject;
-
-
-        //matplace_toggle1.GetComponentInChildren<Text>().text = matplace_database.matplace_lists[0].placeNameHyouji;
-        //matplace_toggle2.GetComponentInChildren<Text>().text = matplace_database.matplace_lists[1].placeNameHyouji;
-
         //採取地画面の取得
         slot_view = this.transform.Find("Slot_View").gameObject;
 
@@ -223,7 +214,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     public void OnClick_Place1()
     {
-        for (i = 0; i < matplace_toggle.Count; i++)
+        i = 0;
+        while (i < matplace_toggle.Count)
         {
             if (matplace_toggle[i].GetComponent<Toggle>().isOn == true)
             {
@@ -231,28 +223,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 select_place_num = i;
 
                 Select_Pause();
+                break;
             }
-
-        }
-        /*
-        if (matplace_toggle1.GetComponent<Toggle>().isOn == true)
-        {
-            _text.text = matplace_database.matplace_lists[0].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[0].placeCost.ToString() + "G";
-            select_place_num = 0;
-
-            Select_Pause();
-        }*/
-        
-    }
-
-    public void OnClick_Place2()
-    {
-        if (matplace_toggle2.GetComponent<Toggle>().isOn == true)
-        {
-            _text.text = matplace_database.matplace_lists[1].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[1].placeCost.ToString() + "G";
-            select_place_num = 1;
-
-            Select_Pause();
+            i++;
         }
     }
 
@@ -260,12 +233,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         itemselect_cancel.kettei_on_waiting = true; //今、トグルをおして、選択中の状態
 
-        for(i = 0; i < matplace_toggle.Count; i++ )
+        for(j = 0; j < matplace_toggle.Count; j++ )
         {
             matplace_toggle[i].GetComponent<Toggle>().interactable = false;
         }
-        //matplace_toggle1.GetComponent<Toggle>().interactable = false; //一時的に触れなくする
-        //matplace_toggle2.GetComponent<Toggle>().interactable = false;
 
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
@@ -502,12 +473,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
             matplace_toggle[i].GetComponent<Toggle>().isOn = false;
             //Debug.Log(matplace_toggle[i].GetComponent<Toggle>().interactable);
         }
-        /*matplace_toggle1.GetComponent<Toggle>().isOn = false;
-        matplace_toggle1.GetComponent<Toggle>().interactable = true;
-
-        matplace_toggle2.GetComponent<Toggle>().isOn = false;
-        matplace_toggle2.GetComponent<Toggle>().interactable = true;*/
-
 
         itemselect_cancel.kettei_on_waiting = false;
 
@@ -549,26 +514,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 matplace_toggle[i].SetActive(false);
             }
         }
-        /*
-        if ( matplace_database.matplace_lists[0].placeFlag == 1)
-        {
-            matplace_toggle1.SetActive(true);
-            
-        }
-        else
-        {
-            matplace_toggle1.SetActive(false);
-        }
-
-        if (matplace_database.matplace_lists[1].placeFlag == 1)
-        {
-            matplace_toggle2.SetActive(true);
-            
-        }
-        else
-        {
-            matplace_toggle2.SetActive(false);
-        }*/
 
     }
 

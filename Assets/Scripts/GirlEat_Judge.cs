@@ -13,6 +13,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private Animator maincam_animator;
     private int trans; //トランジション用のパラメータ
 
+    private SoundController sc;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -24,7 +26,9 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private GameObject ScoreHyoujiPanel;
     private Text Okashi_Score;
+    private List<GameObject> Manzoku_star = new List<GameObject>();
     private Text Manzoku_Score;
+    private Text Delicious_Text;
 
     private Exp_Controller exp_Controller;
     private Touch_Controller touch_controller;
@@ -49,6 +53,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private Dictionary<int, int> girlLikeCompoScore = new Dictionary<int, int>();
 
     private Girl1_status girl1_status;
+    private GameObject character;
 
     private GameObject hukidashiitem;   
     private Text _hukidashitext;
@@ -221,6 +226,11 @@ public class GirlEat_Judge : MonoBehaviour {
     private int rnd, rnd2;
     private int set_id;
 
+    //エフェクト
+    private GameObject Score_effect_Prefab1;
+    private GameObject Score_effect_Prefab2;
+    private List<GameObject> _listScoreEffect = new List<GameObject>();
+
     // Use this for initialization
     void Start () {
 
@@ -257,6 +267,9 @@ public class GirlEat_Judge : MonoBehaviour {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
         //エクストリームパネルの取得
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
         extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
@@ -266,6 +279,9 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //キャラクタ取得
+        character = GameObject.FindWithTag("Character");
 
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
@@ -280,6 +296,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //エフェクトプレファブの取得
         effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
+        Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
+        Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
 
         //ハートプレファブの取得
         heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
@@ -296,7 +314,16 @@ public class GirlEat_Judge : MonoBehaviour {
         //お菓子採点結果表示用パネルの取得
         ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel").gameObject;
         Okashi_Score = ScoreHyoujiPanel.transform.Find("Image/Okashi_Score").GetComponent<Text>();
+        i = 0;
+        foreach (Transform child in ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score_star/Viewport/Content").transform)
+        {
+            //Debug.Log(child.name);           
+            Manzoku_star.Add(child.gameObject);
+            Manzoku_star[i].SetActive(false);
+            i++;
+        }
         Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
+        Delicious_Text = ScoreHyoujiPanel.transform.Find("DeliciousPanel/Text").GetComponent<Text>();
         ScoreHyoujiPanel.SetActive(false);
 
         audioSource = GetComponent<AudioSource>();
@@ -1015,14 +1042,21 @@ public class GirlEat_Judge : MonoBehaviour {
             }
             else if (dislike_flag == false) //吹き出しに合っていない場合
             {
-                if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
-                {
-                    dislike_flag = true;
-                    dislike_status = 2;
-                }
-                else //二回目以降食べる。新しくない場合。
+                if (girl1_status.OkashiNew_Status == 0) //スペシャルクエストだった場合は、これじゃないという。
                 {
                     dislike_status = 5;
+                }
+                else
+                {
+                    if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
+                    {
+                        dislike_flag = true;
+                        dislike_status = 2;
+                    }
+                    else //二回目以降食べる。新しくない場合。
+                    {
+                        dislike_status = 5;
+                    }
                 }
             }
         }
@@ -1432,6 +1466,12 @@ public class GirlEat_Judge : MonoBehaviour {
                     hukidashiitem.GetComponent<TextController>().SetText("げろげろ..。ま、まずいよ..。兄ちゃん。");
                     //_hukidashitext.text = "げろげろ..。ま、まずいよ..。兄ちゃん。";
 
+                    //スペシャルクエストだった場合は、まずいフラグがたつ。
+                    if (girl1_status.OkashiNew_Status == 0) 
+                    {
+                        girl1_status.girl_Mazui_flag = true;
+                    }
+
                     //キャラクタ表情変更
                     s.sprite = girl1_status.Girl1_img_verysad;
 
@@ -1591,11 +1631,17 @@ public class GirlEat_Judge : MonoBehaviour {
 
     IEnumerator Okashi_Comment() //スペシャルお菓子などクリアしたときの、食べた後の感想。宴を呼び出す。
     {
-        
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
         touch_controller.Touch_OnAllOFF();
+
+        while (main_cam.transform.position.z != -10)
+        {
+            yield return null;
+        }
+
+        character.GetComponent<FadeCharacter>().FadeImageOff();       
 
         GameMgr.scenario_ON = true;
         GameMgr.sp_okashi_ID = _set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
@@ -1609,10 +1655,9 @@ public class GirlEat_Judge : MonoBehaviour {
         GameMgr.scenario_ON = false;
         GameMgr.recipi_read_endflag = false;
 
-        girl1_status.GirlEat_Judge_on = true;
-        girl1_status.hukidasiOn();
+        character.GetComponent<FadeCharacter>().FadeImageOn();        
         canvas.SetActive(true);
-        touch_controller.Touch_OnAllON();
+        
 
         //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
         ScoreHyoujiPanel.SetActive(true);
@@ -1620,24 +1665,60 @@ public class GirlEat_Judge : MonoBehaviour {
 
         if (total_score >= 0 && total_score < 30)
         {
-            Manzoku_Score.text = "★";
+            //Manzoku_Score.text = "★";
+            for (i = 0; i < 1; i++) {
+                Delicious_Text.text = "Death";
+                Manzoku_star[i].SetActive(true);
+            }
         }
         else if (total_score >= 30 && total_score < 60)
         {
-            Manzoku_Score.text = "★★";
+            //Manzoku_Score.text = "★★";
+            for (i = 0; i < 2; i++)
+            {
+                Delicious_Text.text = "Good";
+                Manzoku_star[i].SetActive(true);
+            }
         }
         else if (total_score >= 60 && total_score < 80)
         {
-            Manzoku_Score.text = "★★★";
+            //Manzoku_Score.text = "★★★";
+            for (i = 0; i < 3; i++)
+            {
+                Delicious_Text.text = "Delicious";
+                Manzoku_star[i].SetActive(true);
+            }
         }
         else if (total_score >= 80 && total_score < 95)
         {
-            Manzoku_Score.text = "★★★★";
+            //Manzoku_Score.text = "★★★★";
+            for (i = 0; i < 4; i++)
+            {
+                Delicious_Text.text = "De molt Bene";
+                Manzoku_star[i].SetActive(true);
+            }
         }
         else if (total_score >= 95)
         {
-            Manzoku_Score.text = "★★★★★";
+            //Manzoku_Score.text = "★★★★★";
+            for (i = 0; i < 5; i++)
+            {
+                Delicious_Text.text = "God";
+                Manzoku_star[i].SetActive(true);
+            }
         }
+
+        _listScoreEffect.Clear();
+
+        //エフェクト生成＋アニメ開始
+        _listScoreEffect.Add(Instantiate(Score_effect_Prefab1));
+        //_listScoreEffect.Add(Instantiate(Score_effect_Prefab2));
+
+        //音鳴らす。
+        sc.PlaySe(41);
+        sc.PlaySe(42);
+        sc.PlaySe(43);
+        sc.PlaySe(44);
 
         //StartCoroutine("WaitScoreHyoujiPanel");
         Okashi_Result();
@@ -1652,6 +1733,19 @@ public class GirlEat_Judge : MonoBehaviour {
 
     public void ScoreHyouji_OFF()
     {
+        girl1_status.GirlEat_Judge_on = true;
+        girl1_status.hukidasiOn();
+        touch_controller.Touch_OnAllON();
+
+        sc.PlaySe(18);
+
+        //初期化
+        for (i = 0; i < _listScoreEffect.Count; i++)
+        {
+            Destroy(_listScoreEffect[i]);
+        }
+        _listScoreEffect.Clear();
+
         ScoreHyoujiPanel.SetActive(false);
     }
 

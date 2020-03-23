@@ -130,6 +130,25 @@ public class Shop_Main : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        switch (GameMgr.scenario_flag)
+        {
+
+            case 120: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+
+                GameMgr.scenario_ON = true;
+
+                break;
+
+            case 150: //ショップ二度目。ラスク作りの材料を買いにきた。
+
+                GameMgr.scenario_ON = true;
+
+                break;
+
+            default:
+                break;
+        }
+
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {
@@ -222,8 +241,9 @@ public class Shop_Main : MonoBehaviour {
 
             //_text.text = "なぁに？お話する？";
 
+            GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
-            GameMgr.talk_number = 100; //ショップ関係は、100番台
+            GameMgr.talk_number = 100;
 
         }
     }

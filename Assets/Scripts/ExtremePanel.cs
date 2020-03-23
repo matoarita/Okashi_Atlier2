@@ -9,7 +9,7 @@ public class ExtremePanel : MonoBehaviour {
     public int extreme_itemID;
     public int extreme_itemtype;
 
-    private int extreme_kaisu;
+    public int extreme_kaisu;
 
     private BGM sceneBGM;
 
@@ -329,7 +329,7 @@ public class ExtremePanel : MonoBehaviour {
         image_effect.SetActive(true);
 
         //売るボタンを表示
-        sell_Button.SetActive(true);
+        //sell_Button.SetActive(true);
 
         //あげるボタンを表示
         //present_Button.SetActive(true);
@@ -337,70 +337,65 @@ public class ExtremePanel : MonoBehaviour {
 
     public void OnClick_ExtremeButton()
     {
-        if (extreme_itemID != 9999 && extreme_kaisu <= 0)
-        { //残り回数０のときは、もうエクストリーム出来ない
-            _text.text = "エクストリーム回数が限度に達したよ！" + "\n" + "これ以上はもう調合出来ないよ。" + "\n" + "あげるか、売るかしてね。";
-        }
-        else
+
+        extreme_Button.interactable = false;
+        recipi_Button.interactable = false;
+
+        //Compound_Mainのトッピング時と処理が同じ
+        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        if (extreme_itemID != 9999)
         {
-            extreme_Button.interactable = false;
-            recipi_Button.interactable = false;
+            compound_Main.compound_status = 6; //調合選択画面に移動 元々4にしてた
 
-            //Compound_Mainのトッピング時と処理が同じ
-            pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-            if (extreme_itemID != 9999)
+            //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
+            if (GameMgr.tutorial_ON == true)
             {
-                compound_Main.compound_status = 6; //調合選択画面に移動 元々4にしてた
-
-                //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
-                if (GameMgr.tutorial_ON == true)
+                if (GameMgr.tutorial_Num == 200)
                 {
-                    if (GameMgr.tutorial_Num == 200)
-                    {
-                        GameMgr.tutorial_Progress = true;
-                        GameMgr.tutorial_Num = 210;
-                    }
-                    
+                    GameMgr.tutorial_Progress = true;
+                    GameMgr.tutorial_Num = 210;
                 }
 
             }
-            else //何もまだ作られていない場合は、新規調合
+
+        }
+        else //何もまだ作られていない場合は、新規調合
+        {
+            card_view.DeleteCard_DrawView();
+
+            if (PlayerStatus.First_recipi_on == false)
             {
-                card_view.DeleteCard_DrawView();
+                _text.text = compound_Main.originai_text;
+                compound_Main.compound_status = 3;
 
-                if (PlayerStatus.First_recipi_on == false)
+                pitemlistController.extremepanel_on = false;
+            }
+            else
+            {
+                _text.text = "何の調合をする？";
+                compound_Main.compound_status = 6;
+
+                pitemlistController.extremepanel_on = false;
+            }
+
+            //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
+            if (GameMgr.tutorial_ON == true)
+            {
+                if (GameMgr.tutorial_Num == 10)
                 {
-                    _text.text = compound_Main.originai_text;
-                    compound_Main.compound_status = 3;
-
-                    pitemlistController.extremepanel_on = false;
+                    GameMgr.tutorial_Progress = true;
+                    GameMgr.tutorial_Num = 20;
                 }
-                else
+                else if (GameMgr.tutorial_Num == 140)
                 {
-                    _text.text = "何の調合をする？";
-                    compound_Main.compound_status = 6;
-
-                    pitemlistController.extremepanel_on = false;
-                }
-
-                //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
-                if (GameMgr.tutorial_ON == true) 
-                {
-                    if (GameMgr.tutorial_Num == 10)
-                    {
-                        GameMgr.tutorial_Progress = true;
-                        GameMgr.tutorial_Num = 20;
-                    }
-                    else if (GameMgr.tutorial_Num == 140)
-                    {
-                        GameMgr.tutorial_Progress = true;
-                        GameMgr.tutorial_Num = 150;
-                    }
+                    GameMgr.tutorial_Progress = true;
+                    GameMgr.tutorial_Num = 150;
                 }
             }
         }
+
     }
 
     //CompoundMainから読みこむ用
@@ -437,7 +432,7 @@ public class ExtremePanel : MonoBehaviour {
     {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
-        sell_Button.GetComponent<Button>().interactable = false;
+        //sell_Button.GetComponent<Button>().interactable = false;
         //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
@@ -450,7 +445,7 @@ public class ExtremePanel : MonoBehaviour {
     {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
-        sell_Button.GetComponent<Button>().interactable = false;
+        //sell_Button.GetComponent<Button>().interactable = false;
         //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
@@ -470,7 +465,7 @@ public class ExtremePanel : MonoBehaviour {
     {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
-        sell_Button.GetComponent<Button>().interactable = false;
+        //sell_Button.GetComponent<Button>().interactable = false;
         //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
@@ -531,7 +526,7 @@ public class ExtremePanel : MonoBehaviour {
         _hpslider.value = 0;
         Starthp = 0;
 
-        sell_Button.SetActive(false);
+        //sell_Button.SetActive(false);
         //present_Button.SetActive(false);
 
         Life_anim_on = false;
@@ -545,7 +540,7 @@ public class ExtremePanel : MonoBehaviour {
     {
         extreme_Button.interactable = true;
         recipi_Button.interactable = true;
-        sell_Button.GetComponent<Button>().interactable = true;
+        //sell_Button.GetComponent<Button>().interactable = true;
         //present_Button.GetComponent<Button>().interactable = true;
     }
 
@@ -553,7 +548,7 @@ public class ExtremePanel : MonoBehaviour {
     {
         extreme_Button.interactable = false;
         recipi_Button.interactable = false;
-        sell_Button.GetComponent<Button>().interactable = false;
+        //sell_Button.GetComponent<Button>().interactable = false;
         //present_Button.GetComponent<Button>().interactable = false;
     }
 

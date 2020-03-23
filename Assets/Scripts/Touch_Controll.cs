@@ -93,6 +93,10 @@ public class Touch_Controll : MonoBehaviour
         {
             //Debug.Log("EndDrag_Hair");
 
+            if(girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
+            {                
+                girl1_status.girl1_Love_exp -= 1;
+            }
             //girl1_status.Girl1_touchhair_start = false;
             draghair_count = 0;
         }
@@ -163,9 +167,9 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Window");
 
             //音を鳴らす。被り無し
-            audioSource.clip = sound1;
-            audioSource.Play();
-            //sc.PlaySe(40);
+            //audioSource.clip = sound1;
+            //audioSource.PlayOneShot(sound1);
+            sc.PlaySe(40);
         }
     }
 
