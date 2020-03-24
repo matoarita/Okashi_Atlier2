@@ -114,10 +114,10 @@ public class GetMaterial : MonoBehaviour {
 
         cullent_total_mat = 0;
 
-        slot_view_fade = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Image").gameObject.GetComponent<FadeImage>();
-        character_fade = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Image/CharacterSD").gameObject.GetComponent<FadeImage>();
+        slot_view_fade = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Image").gameObject.GetComponent<FadeImage>();
+        character_fade = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Image/CharacterSD").gameObject.GetComponent<FadeImage>();
 
-        tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Slot_View/Tansaku_panel").gameObject;
+        tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Tansaku_panel").gameObject;
         tansaku_yes = tansaku_panel.transform.Find("Yes_tansaku").GetComponent<Button>();
         tansaku_no = tansaku_panel.transform.Find("No_tansaku").GetComponent<Button>();
     }

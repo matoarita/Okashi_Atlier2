@@ -39,10 +39,10 @@ SE表
 ・SE_37		page10.mp3					材料採取地開くときの地図開く音
 ・SE_38		SNES-RPG01-07(Message)				メッセージ音
 ・SE_39		door-cl01.mp3					ドアの音開く音
-・SE_40		audiostock_397394_sample.mp3			キュピーン閃きの音
-・SE_41		audiostock_114553_sample.mp3			鳥の鳴き声の音
+・SE_40		audiostock_397394.mp3				キュピーン閃きの音
+・SE_41		audiostock_114553.mp3				鳥の鳴き声の音
 ・SE_42		audiostock_23329_sample.mp3			ラッパファンファーレの音
 ・SE_43		audiostock_400744_sample.mp3			キラリ～ンの音
-・SE_44		audiostock_400507_sample.mp3			拍手の音
+・SE_44		audiostock_400507.mp3				拍手の音
 ・SE_45		audiostock_425526_sample.mp3			女性声で「YeaHHH～」
-・SE_46		audiostock_108713_sample.mp3			ちょっと怒ってプイって音
+・SE_46		audiostock_108713.mp3				ちょっと怒ってプイって音

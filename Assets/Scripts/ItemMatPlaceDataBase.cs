@@ -7,6 +7,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     private Entity_matplaceItemDataBase excel_matplace_itemdatabase;
 
     private int _id;
+    private string placeFileName;
     private string placeName;
     private string placeName_Hyouji;
     private int place_cost;
@@ -52,6 +53,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
         {
             // 一旦代入
             _id = excel_matplace_itemdatabase.sheets[sheet_no].list[count].ItemID;
+            placeFileName = excel_matplace_itemdatabase.sheets[sheet_no].list[count].file_name;
             placeName = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_Name;
             placeName_Hyouji = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_Name_Hyouji;
             place_cost = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_cost;
@@ -75,10 +77,21 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
 
 
             //ここでリストに追加している
-            matplace_lists.Add(new ItemMatPlace(_id, placeName, placeName_Hyouji, place_cost, place_flag, drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_rare1, drop_rare2, drop_rare3, drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_rare_prob1, drop_rare_prob2, drop_rare_prob3));
+            matplace_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_cost, place_flag, drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_rare1, drop_rare2, drop_rare3, drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_rare_prob1, drop_rare_prob2, drop_rare_prob3));
 
             ++count;
         }
 
+    }
+
+    public void matPlaceKaikin(string _name)
+    {
+        for (i = 0; i < matplace_lists.Count; i++)
+        {
+            if (matplace_lists[i].placeName == _name)
+            {
+                matplace_lists[i].placeFlag = 1;
+            }
+        }
     }
 }

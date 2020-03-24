@@ -33,7 +33,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int　map_ev_ID;           //その時のイベント番号
     public static bool map_event_flag;      //マップイベントの、宴を表示する用のフラグ
 
-    public static bool MapEvent_01;            //マップイベント。一度読んだイベントは、発生しない。
+    public static bool MapEvent_01;         //マップイベント。一度読んだイベントは、発生しない。近くの森へはじめてきた。
+    public static bool MapEvent_02;         //井戸へはじめてきた。
 
     //スペシャルお菓子を食べる前の会話フラグ
     public static bool sp_okashi_hintflag;
@@ -45,6 +46,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ショップの話すコマンド
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
+    public static bool shop_hint;
 
     public static int stage_number;     //ステージ番号
 
@@ -114,6 +116,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         talk_flag = false;
         talk_number = 0;
+        shop_hint = false;
 
         stage_number = 1;
 
@@ -178,50 +181,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             Game_timeCount++;
         }
 
-        /*
-        if (Input.GetKeyDown(KeyCode.Space)) //Spaceキーをおすと、シナリオフラグの入力を手動で設定する。
-        {
-            scenario_flag = scenario_flag_input;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) //１キーでMain
-        {
-            //SceneManager.LoadScene("Main");
-            FadeManager.Instance.LoadScene("Hiroba", 0.3f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2)) //２キーでCompound 調合シーン
-        {
-            //SceneManager.LoadScene("Compound");
-            FadeManager.Instance.LoadScene("Compound", 0.3f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3)) //３キーでGirlEat 試食シーン
-        {
-            //SceneManager.LoadScene("GirlEat");
-            FadeManager.Instance.LoadScene("GirlEat", 0.3f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4)) //４キーでTravel 採取シーン
-        {
-            //SceneManager.LoadScene("Travel");
-            FadeManager.Instance.LoadScene("Travel", 0.3f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5)) //５キーでShop ショップシーン
-        {
-            //SceneManager.LoadScene("Shop");
-            FadeManager.Instance.LoadScene("Shop", 0.3f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha6)) //６キーでQuestBox ショップシーン
-        {
-            //SceneManager.LoadScene("Shop");
-            FadeManager.Instance.LoadScene("QuestBox", 0.3f);
-        }
-        */
-        //ここまで
-
 
         //ゲーム中にイベントで入手したアイテムの管理
 
@@ -257,4 +216,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         return 9999; //該当するIDがない場合
     }
+
+
 }

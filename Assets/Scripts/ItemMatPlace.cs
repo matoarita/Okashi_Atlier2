@@ -30,10 +30,10 @@ public class ItemMatPlace
     public float dropRareProb2;
     public float dropRareProb3;
 
-
+    public Sprite mapIcon_sprite;
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemMatPlace(int id, string place_name, string place_name_Hyouji, int place_cost, int place_flag, string drop_item1, string drop_item2, string drop_item3, string drop_item4, string drop_item5, string drop_rare1, string drop_rare2, string drop_rare3, float drop_prob1, float drop_prob2, float drop_prob3, float drop_prob4, float drop_prob5, float drop_rare_prob1, float drop_rare_prob2, float drop_rare_prob3)
+    public ItemMatPlace(int id, string fileName, string place_name, string place_name_Hyouji, int place_cost, int place_flag, string drop_item1, string drop_item2, string drop_item3, string drop_item4, string drop_item5, string drop_rare1, string drop_rare2, string drop_rare3, float drop_prob1, float drop_prob2, float drop_prob3, float drop_prob4, float drop_prob5, float drop_rare_prob1, float drop_rare_prob2, float drop_rare_prob3)
     {
         matplaceID = id;
 
@@ -60,6 +60,8 @@ public class ItemMatPlace
         dropRareProb1 = drop_rare_prob1;
         dropRareProb2 = drop_rare_prob2;
         dropRareProb3 = drop_rare_prob3;
+
+        mapIcon_sprite = Resources.Load<Sprite>("Sprites/BG_Icon/" + fileName);
     }
 
 }

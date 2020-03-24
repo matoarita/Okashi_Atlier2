@@ -42,6 +42,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject TimePanel_obj2;
 
     private GameObject getmatplace_panel;
+    private GetMatPlace_Panel getmatplace;
+    private ItemMatPlaceDataBase matplace_database;
 
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
@@ -170,6 +172,9 @@ public class Compound_Main : MonoBehaviour
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
 
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");        
 
@@ -277,7 +282,8 @@ public class Compound_Main : MonoBehaviour
         SelectCompo_panel_1.SetActive(false);
 
         //材料採取地パネルの取得
-        getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").gameObject;
+        getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel/Comp").gameObject;
+        getmatplace = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
         getmatplace_panel.SetActive(false);
 
         //タッチ判定オブジェクトの取得
@@ -345,27 +351,37 @@ public class Compound_Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        switch (GameMgr.scenario_flag)
+        if (GameMgr.scenario_ON != true)
         {
+            switch (GameMgr.scenario_flag)
+            {
 
-            case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+                case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
 
-                GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
-                girl1_status.Girl_Full();
-                girl1_status.Girl1_Status_Init();
-                girl1_status.OkashiNew_Status = 1;
-                break;
+                    GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+                    girl1_status.Girl_Full();
+                    girl1_status.Girl1_Status_Init();
+                    girl1_status.OkashiNew_Status = 1;
+                    break;
 
-            case 130: //ショップから帰ってきた。
+                case 130: //ショップから帰ってきた。
 
-                GameMgr.scenario_ON = true;
-                girl1_status.Girl_Full();
-                girl1_status.Girl1_Status_Init();
-                break;
+                    GameMgr.scenario_ON = true;
+                    girl1_status.Girl_Full();
+                    girl1_status.Girl1_Status_Init();
+                    break;
 
-            default:
-                break;
+                case 165: //パンの作り方をきいてきた。
+
+                    matplace_database.matPlaceKaikin("Ido"); //井戸解禁
+                    GameMgr.scenario_ON = true;
+                    girl1_status.Girl_Full();
+                    girl1_status.Girl1_Status_Init();
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
@@ -463,7 +479,7 @@ public class Compound_Main : MonoBehaviour
                         compoundselect_onoff_obj.SetActive(false);
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
 
                         //compoundselect_onoff_obj.SetActive(true);
                         text_area.SetActive(false);
@@ -475,7 +491,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
 
                         compoundselect_onoff_obj.SetActive(true);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
@@ -497,7 +513,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
 
                         compoundselect_onoff_obj.SetActive(true);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
@@ -514,7 +530,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
 
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
@@ -610,7 +626,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
                         compoundselect_onoff_obj.SetActive(false);
 
                         text_area.SetActive(false);
@@ -622,7 +638,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = true;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
                         text_area.SetActive(true);
 
                         break;
@@ -692,7 +708,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
 
                         compoundselect_onoff_obj.SetActive(true);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
@@ -708,7 +724,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
 
                         compoundselect_onoff_obj.SetActive(true);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
@@ -726,7 +742,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
 
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
@@ -740,7 +756,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        sell_Button.SetActive(false);
+                        //sell_Button.SetActive(false);
 
                         compoundselect_onoff_obj.SetActive(true);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
@@ -1342,6 +1358,7 @@ public class Compound_Main : MonoBehaviour
             //音ならす
             sc.PlaySe(36);
 
+            getmatplace.SetInit();
             getmatplace_panel.SetActive(true);
             yes_no_panel.SetActive(true);
             yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
@@ -1462,6 +1479,8 @@ public class Compound_Main : MonoBehaviour
                 i++;
             }
 
+            //Debug.Log("not_read_total: " + not_read_total);
+
             if (not_read_total <= 0) //全て読み終えた
             {
                 //最後にチェック。全てのリードフラグが1になったら、全て読み終了。その場合は、レシピチェックをオフにする。
@@ -1478,13 +1497,7 @@ public class Compound_Main : MonoBehaviour
 
                     //もし、所持はしているのに、リードフラグは０のまま（＝読んでいないもの）がある場合、レシピを読む処理に入る。
                     if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ReadFlag == 0)
-                    {
-                        /*
-                        //一度もレシピを読み込んでいなければ、レシピトグルをONに。
-                        if (PlayerStatus.First_recipi_on != true)
-                        {
-                            PlayerStatus.First_recipi_on = true;
-                        }*/                      
+                    {                   
 
                         recipi_num = i; //読んでない本のIDを取得
 
@@ -1518,7 +1531,6 @@ public class Compound_Main : MonoBehaviour
             yield return null;
         }
 
-        //not_read_total--;
         GameMgr.recipi_read_endflag = false;
         Recipi_loading = false;
 
@@ -1531,7 +1543,7 @@ public class Compound_Main : MonoBehaviour
     void Recipi_FlagON_Method()
     {
 
-        //レシピの番号チェック
+        //レシピの番号チェック。コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。
         switch(pitemlist.eventitemlist[recipi_num].event_itemName)
         {
             case "ev02_orangeneko_cookie_memo": //オレンジネコクッキー閃きのメモ
@@ -1546,9 +1558,6 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case "cookie_base_recipi": //クッキー生地作り方のレシピ＜初級＞  
-
-                //Find_compoitemdatabase("financier");
-                //databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
 
                 Find_compoitemdatabase("appaleil");
                 databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
@@ -1756,7 +1765,7 @@ public class Compound_Main : MonoBehaviour
 
                             //レシピの追加
                             recipi_id = Find_eventitemdatabase("rusk_recipi");
-                            pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加
+                            pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加                            
 
                             //ラスク作りのクエスト発生
                             if (GameMgr.OkashiQuest02_flag != true)
@@ -1805,7 +1814,7 @@ public class Compound_Main : MonoBehaviour
         touch_controller.Touch_OnAllOFF();
         compoundselect_onoff_obj.SetActive(false);
         extreme_Button.interactable = false;
-        sell_Button.SetActive(false);
+        //sell_Button.SetActive(false);
         GirlLove_loading = true;
 
         while (girlEat_judge.heart_count > 0)
@@ -1830,7 +1839,7 @@ public class Compound_Main : MonoBehaviour
         text_area.SetActive(true);
         Extremepanel_obj.SetActive(true);
         extreme_Button.interactable = true;
-        sell_Button.SetActive(true);
+        //sell_Button.SetActive(true);
         sceneBGM.MuteOFFBGM();
 
         GirlLove_loading = false;
@@ -1838,6 +1847,7 @@ public class Compound_Main : MonoBehaviour
         _text.text = "";
 
         check_GirlLoveEvent_flag = true;
+        check_recipi_flag = false;
     }
 
     //アイテム名を入力すると、該当するeventitem_IDを返す処理

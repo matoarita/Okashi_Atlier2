@@ -23,6 +23,9 @@ public class Debug_Panel : MonoBehaviour {
     private int scenario_num;
     private int girllove_param;
 
+    private Toggle Mazui_toggle;
+    private Toggle Mazui_toggle_input;
+
     private Text Counter;
 
     private Girl1_status girl1_status;
@@ -39,6 +42,9 @@ public class Debug_Panel : MonoBehaviour {
 
         input_scenario = this.transform.Find("InputField").gameObject.GetComponent<InputField>();
         input_girllove = this.transform.Find("InputField_GirlLove").gameObject.GetComponent<InputField>();
+
+        Mazui_toggle = this.transform.Find("MazuiToggle").gameObject.GetComponent<Toggle>();
+        Mazui_toggle_input = this.transform.Find("MazuiToggleInput").gameObject.GetComponent<Toggle>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
@@ -58,6 +64,7 @@ public class Debug_Panel : MonoBehaviour {
         }
         
         StageNumber_text.text = "Stage: " + GameMgr.stage_number;
+        Mazui_toggle.isOn = girl1_status.girl_Mazui_flag;
 
         //ここに処理。時間カウント。デバッグ用。
         Counter = this.transform.Find("TimeCount").gameObject.GetComponentInChildren<Text>(); //デバッグ用
@@ -89,5 +96,18 @@ public class Debug_Panel : MonoBehaviour {
 
             compound_Main.check_GirlLoveEvent_flag = false;
         }
+    }
+
+    public void InputMazuiFlag()
+    {
+        if(Mazui_toggle_input.isOn) //まずいフラグをONにする。
+        {
+            girl1_status.girl_Mazui_flag = true;
+            
+        } else
+        {
+            girl1_status.girl_Mazui_flag = false;
+        }
+        Mazui_toggle.isOn = Mazui_toggle_input.isOn;
     }
 }

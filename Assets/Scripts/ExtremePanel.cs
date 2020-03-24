@@ -17,7 +17,6 @@ public class ExtremePanel : MonoBehaviour {
 
     private GameObject image_effect;
     private GameObject canvas;
-    private GameObject black_panel_A;
     private GameObject compoBG_A;
 
     private GameObject MoneyStatus_Panel_obj;
@@ -129,9 +128,6 @@ public class ExtremePanel : MonoBehaviour {
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-
-        //黒半透明パネルの取得
-        black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
 
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;

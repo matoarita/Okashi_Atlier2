@@ -3,3 +3,4 @@
 ・BGM_01		konekonoosanpo.mp3			ノベルほのぼのシーン
 ・BGM_02		audiostock_215419.mp3			調合シーンメインBGM
 ・BGM_03		audiostock_227319.mp3			近くの森のBGM
+・BGM_04		audiostock_251363.mp3			ショップのBGM

@@ -60,7 +60,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private List<string> _touchtwintail_comment_lib = new List<string>();
     private string _touchtwintail_comment;
 
-    private bool WaitHint_on;
+    public bool WaitHint_on;
     public float timeOutHint;
 
     //SEを鳴らす
@@ -352,15 +352,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             canvas = GameObject.FindWithTag("Canvas");
 
             
-            //カメラの取得
-            main_cam = Camera.main;
-            maincam_animator = main_cam.GetComponent<Animator>();
-            trans = maincam_animator.GetInteger("trans");
+            
            
             
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Compound":
+
+                    //カメラの取得
+                    main_cam = Camera.main;
+                    maincam_animator = main_cam.GetComponent<Animator>();
+                    trans = maincam_animator.GetInteger("trans");
 
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -384,6 +386,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //Live2Dモデルの取得
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     break;
+
+                case "Shop":
+
+                    //カメラの取得
+                    main_cam = Camera.main;
+                    maincam_animator = main_cam.GetComponent<Animator>();
+                    trans = maincam_animator.GetInteger("trans");
+                    
+                    break;
             }
         }
 
@@ -400,7 +411,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             timeOut2 -= Time.deltaTime;
         }
 
-        if(WaitHint_on)
+        if(WaitHint_on) //感想や触ったコメント表示したあと、_descの内容に戻す。
         {
             timeOutHint -= Time.deltaTime;
 
@@ -1554,24 +1565,31 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             case 1010:
 
-                switch(MazuiStatus)
+                if (GameMgr.scenario_flag == 160)
                 {
-                    case 0:
+                    switch (MazuiStatus)
+                    {
+                        case 0:
 
-                        MazuiHintComment = "兄ちゃん..。ちょっとパンが粉っぽい気がする。";
-                        break;
+                            MazuiHintComment = "兄ちゃん..。ちょっとパンが粉っぽい気がする。";
+                            break;
 
-                    case 1:
+                        case 1:
 
-                        MazuiHintComment = "粉っぽさをなんとか消せないかなぁ。";
-                        break;
+                            MazuiHintComment = "でもカリカリ..。";
+                            break;
+                    }
+
+                    MazuiStatus++;
+                    if (MazuiStatus >= 2)
+                    {
+                        MazuiStatus = 0;
+                    }
                 }
-                
 
-                MazuiStatus++;
-                if(MazuiStatus >= 2)
+                if (GameMgr.scenario_flag == 170)
                 {
-                    MazuiStatus = 0;
+                    MazuiHintComment = "兄ちゃん。井戸へ行こう！";
                 }
 
                 break;

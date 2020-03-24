@@ -11,6 +11,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound2;  //
     public AudioClip sound3;  //材料採取画面
     public AudioClip sound4;  //「近くの森」BGM
+    public AudioClip sound5;  //「井戸」BGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -102,6 +103,15 @@ public class BGM : MonoBehaviour {
     {
         _bgm[1].Stop();
         _bgm[1].clip = sound4;
+        _bgm[1].Play();
+
+        _mixRate = 1;
+    }
+
+    public void OnGetMat_IdoBGM()
+    {
+        _bgm[1].Stop();
+        _bgm[1].clip = sound5;
         _bgm[1].Play();
 
         _mixRate = 1;

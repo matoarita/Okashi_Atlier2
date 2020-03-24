@@ -97,6 +97,7 @@ public class HukidashiAction : MonoBehaviour {
 		
         if(text_area.GetComponent<TextController>().textend_flag == true)
         {
+            Debug.Log("text end: " + text_area.GetComponent<TextController>().textend_flag);
             switch(hukidasi_action_status)
             {
                 case 0:
@@ -126,6 +127,8 @@ public class HukidashiAction : MonoBehaviour {
             text_area.GetComponent<TextController>().textend_flag = false;
 
             girl1_status.GirlEat_Judge_on = true;
+            //吹き出しも一旦リセット
+            girl1_status.ResetHukidashi();
         }
 
     }
@@ -153,25 +156,30 @@ public class HukidashiAction : MonoBehaviour {
 
     public void NormalHint()
     {
+        if (girlLikeCompo_database.girllike_compoRandomset.Count > 0) //一番最初の状態。Randomsetに何も入ってないときは無視
+        {
+            hukidasi.GetComponent<Image>().raycastTarget = false;
+            hukidasi_text.SetActive(false);
+            hukidasi.SetActive(false);
 
-        hukidasi.GetComponent<Image>().raycastTarget = false;
-        hukidasi_text.SetActive(false);
-        hukidasi.SetActive(false);
+            hukidasi_action_status = 0;
 
-        hukidasi_action_status = 0;
+            //カメラ寄る。
+            trans = 1; //transが1を超えたときに、ズームするように設定されている。
 
-        //カメラ寄る。
-        trans = 1; //transが1を超えたときに、ズームするように設定されている。
+            //intパラメーターの値を設定する.
+            maincam_animator.SetInteger("trans", trans);
 
-        //intパラメーターの値を設定する.
-        maincam_animator.SetInteger("trans", trans);
+            //Debug.Log("ヒントを表示する");    
 
-        //Debug.Log("ヒントを表示する");    
-        _hint = girlLikeCompo_database.girllike_compoRandomset[girl1_status.Set_compID].hint_text;
-        text_area.GetComponent<TextController>().SetText(_hint);
-        text_area.GetComponent<TextController>().hint_on = true;
+            _hint = girlLikeCompo_database.girllike_compoRandomset[girl1_status.Set_compID].hint_text;
+            text_area.GetComponent<TextController>().SetText(_hint);
+            text_area.GetComponent<TextController>().hint_on = true;
 
-        girl1_status.GirlEat_Judge_on = false;
+
+            girl1_status.GirlEat_Judge_on = false;
+            girl1_status.WaitHint_on = false;
+        }
     }
 
     public void SpecialHint()
@@ -202,14 +210,7 @@ public class HukidashiAction : MonoBehaviour {
 
         if (girl1_status.girl_Mazui_flag) //まずいフラグがたっていた場合、その時のクエストのヒントを教えてくれる。口と違い、下のウィンドウに表示される。
         {
-            switch (girl1_status.OkashiQuest_ID)
-            {
-                case 1010:
-
-                    _hint = "兄ちゃん、パンのことは、プリンお姉ちゃんが何か知ってるんじゃないかなぁ？";
-                    break;
-            }
-
+            Init_HukidashiHint();            
         }
         else
         {
@@ -219,6 +220,7 @@ public class HukidashiAction : MonoBehaviour {
         text_area.GetComponent<TextController>().hint_on = true;
 
         girl1_status.GirlEat_Judge_on = false;
+        girl1_status.WaitHint_on = false;
     }
 
     public void PointEnter()
@@ -246,5 +248,23 @@ public class HukidashiAction : MonoBehaviour {
         //intパラメーターの値を設定する.
         _thisanim.SetInteger("trans", _enteranim_trans);
         _enter_flag = false;
+    }
+
+    void Init_HukidashiHint()
+    {
+        switch (girl1_status.OkashiQuest_ID)
+        {
+            case 1010:
+
+                if (GameMgr.scenario_flag == 160)
+                {
+                    _hint = "兄ちゃん、パンがちょっと粉っぽいかも。";
+                }
+                if (GameMgr.scenario_flag == 170)
+                {
+                    _hint = "兄ちゃん！井戸で水を汲んでこよう！";
+                }
+                break;
+        }
     }
 }

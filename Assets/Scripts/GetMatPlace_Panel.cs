@@ -10,6 +10,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject canvas;
     private Texture2D texture2d;
+    private Sprite map_icon;
 
     private BGM sceneBGM;
     private SoundController sc;
@@ -17,13 +18,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private Girl1_status girl1_status;
+
     private GameObject getmatplace_view;
     private GameObject slot_view;
     private GameObject slot_tansaku_button;
     private GameObject slot_yes, slot_no;
     private Image slot_view_image;
 
-    private GameObject mapevent_panel;
+    private List<GameObject> mapevent_panel = new List<GameObject>();
 
     private GameObject moveanim_panel;
     private GameObject moveanim_panel_image;
@@ -49,6 +52,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Texture2D texture2d_map;
 
     private int select_place_num;
+    private string select_place_name;
 
     private bool Slot_view_on;
     private int slot_view_status;
@@ -71,14 +75,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject sister_stand_img1;
 
     // Use this for initialization
-    void Start () {
-
-        //Setup();
-       
-    }
-
-    void Setup()
+    void Start()
     {
+
         audioSource = GetComponent<AudioSource>();
 
         //採取地データベースの取得
@@ -104,10 +103,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
+
         //移動中アニメーション用パネルの取得
-        moveanim_panel = this.transform.Find("MoveAnimPanel").gameObject;
-        moveanim_panel_image = this.transform.Find("MoveAnimPanel/moveImage").gameObject;
-        moveanim_panel_image_text = this.transform.Find("MoveAnimPanel/moveImage/Text").gameObject;
+        moveanim_panel = this.transform.Find("Comp/MoveAnimPanel").gameObject;
+        moveanim_panel_image = this.transform.Find("Comp/MoveAnimPanel/moveImage").gameObject;
+        moveanim_panel_image_text = this.transform.Find("Comp/MoveAnimPanel/moveImage/Text").gameObject;
 
         //Yes no を判別する用のオブジェクトの取得
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
@@ -121,44 +123,52 @@ public class GetMatPlace_Panel : MonoBehaviour {
         get_material_obj = GameObject.FindWithTag("GetMaterial");
         get_material = get_material_obj.GetComponent<GetMaterial>();
 
-        getmatplace_view = this.transform.Find("GetMatPlace_View").gameObject;
+        getmatplace_view = this.transform.Find("Comp/GetMatPlace_View").gameObject;
 
-
-        //初期化
-        matplace_toggle.Clear();
-
+        
         i = 0;
         foreach (Transform child in getmatplace_view.transform.Find("Viewport/Content/").transform)
         {
             //Debug.Log(child.name);           
             matplace_toggle.Add(child.gameObject);
+            map_icon = matplace_database.matplace_lists[i].mapIcon_sprite;
+            matplace_toggle[i].transform.Find("Background").GetComponent<Image>().sprite = map_icon;
             matplace_toggle[i].GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
             i++;
         }
 
         //採取地画面の取得
-        slot_view = this.transform.Find("Slot_View").gameObject;
-
-        slot_view_image = this.transform.Find("Slot_View/Image").gameObject.GetComponent<Image>();
+        slot_view = this.transform.Find("Comp/Slot_View").gameObject;
+        slot_view_image = this.transform.Find("Comp/Slot_View/Image").gameObject.GetComponent<Image>();
         slot_tansaku_button = slot_view.transform.Find("Tansaku_panel").gameObject;
         slot_yes = slot_view.transform.Find("Tansaku_panel/Yes_tansaku").gameObject;
         slot_no = slot_view.transform.Find("Tansaku_panel/No_tansaku").gameObject;
 
-        mapevent_panel = slot_view.transform.Find("EventPanel").gameObject;
-        mapevent_panel.SetActive(false);
+        i = 0;
+        foreach (Transform child in slot_view.transform.Find("EventPanel/").transform)
+        {
+            //Debug.Log(child.name);           
+            mapevent_panel.Add(child.gameObject);
+            mapevent_panel[i].SetActive(false);
+            i++;
+        }
 
-        map_imageBG = this.transform.Find("Map_ImageBG").gameObject;
+
+        map_imageBG = this.transform.Find("Comp/Map_ImageBG").gameObject;
         map_imageBG.SetActive(false);
 
         //妹立ち絵の取得
-        sister_stand_img1 = this.transform.Find("Slot_View/SisterPanel/Girl_Tachie").gameObject;
+        sister_stand_img1 = this.transform.Find("Comp/Slot_View/SisterPanel/Girl_Tachie").gameObject;
         sister_stand_img1.SetActive(false);
 
         select_place_num = 0;
 
         Slot_view_on = false;
         slot_view_status = 0;
+
     }
+
+    
 
     // Update is called once per frame
     void Update () {
@@ -199,6 +209,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
             slot_view_status = 0;
             slot_view.SetActive(false);
 
+            girl1_status.hukidasiOn();
+
             //音量フェードイン
             sceneBGM.FadeInBGM();
 
@@ -221,6 +233,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             {
                 _text.text = matplace_database.matplace_lists[i].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
                 select_place_num = i;
+                select_place_name = matplace_database.matplace_lists[i].placeName;
 
                 Select_Pause();
                 break;
@@ -272,6 +285,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 move_anim_on = true;
                 move_anim_status = 0;
 
+                girl1_status.hukidasiOff();
+
                 //音量フェードアウト
                 sceneBGM.FadeOutBGM();
 
@@ -307,33 +322,19 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //音量フェードイン
                 sceneBGM.FadeInBGM();
 
-                switch (select_place_num)
+                switch (select_place_name)
                 {
-                    case 0:
+                    case "Hiroba":
 
-                        texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/ID003_Western-Castle_noon-1024x576");
-                        // texture2dを使い、Spriteを作って、反映させる
-                        slot_view_image.sprite = Sprite.Create(texture2d,
-                                                   new Rect(0, 0, texture2d.width, texture2d.height),
-                                                   Vector2.zero);
-
-                        
+                        SetMapBG(select_place_name);
 
                         _text.text = "わ～～！市場だーー！";
                         break;
 
-                    case 1:                       
+                    case "Forest":
 
-                        texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300");
-                        // texture2dを使い、Spriteを作って、反映させる
-                        slot_view_image.sprite = Sprite.Create(texture2d,
-                                                   new Rect(0, 0, texture2d.width, texture2d.height),
-                                                   Vector2.zero);
-
-                        texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_");
-                        map_imageBG.GetComponent<Image>().sprite = Sprite.Create(texture2d_map,
-                                                   new Rect(0, 0, texture2d_map.width, texture2d_map.height),
-                                                   Vector2.zero);
+                        SetMapBG(select_place_name);
+                        
                         //森のBGM
                         sceneBGM.OnGetMat_ForestBGM();
                         compound_Main.bgm_change_flag = true;
@@ -352,12 +353,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         {
                             GameMgr.MapEvent_01 = true;
 
-                            slot_view_status = 3;
+                            slot_view_status = 3; //イベント読み込み中用に退避
 
                             //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
                             slot_tansaku_button.SetActive(false);
 
-                            mapevent_panel.SetActive(true);
+                            mapevent_panel[0].SetActive(true);
                             text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 1;
@@ -367,6 +368,42 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
 
                         
+                        break;
+
+                    case "Ido":
+
+                        SetMapBG(select_place_name);
+                        
+                        //井戸のBGM
+                        sceneBGM.OnGetMat_IdoBGM();
+                        compound_Main.bgm_change_flag = true;
+
+                        if (GameMgr.MapEvent_02 == false)
+                        {
+                            _text.text = "いっぱい水を汲もう。兄ちゃん。";
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん、今日も水汲み？私も手伝うー！";
+                        }
+
+                        //イベントチェック
+                        if (GameMgr.MapEvent_02 == false)
+                        {
+                            GameMgr.MapEvent_02 = true;
+
+                            slot_view_status = 3; //イベント読み込み中用に退避
+                           
+                            slot_tansaku_button.SetActive(false);
+
+                            mapevent_panel[1].SetActive(true);
+                            text_area.SetActive(false);
+
+                            GameMgr.map_ev_ID = 2;
+                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                            StartCoroutine("MapEventOn");
+                        }
                         break;
 
                     default:
@@ -481,13 +518,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
     }
 
-    private void OnEnable()
+    //外から読み込む。初期化用。
+    public void SetInit()
     {
-        Setup();
-
-        //音を鳴らす
-        //audioSource.PlayOneShot(sound1);
-
         //スロットビューは最初Off
         slot_view.SetActive(false);
 
@@ -514,7 +547,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 matplace_toggle[i].SetActive(false);
             }
         }
-
     }
 
     void MoveAnim()
@@ -657,7 +689,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         text_area.SetActive(true);
         slot_tansaku_button.SetActive(true);
-        mapevent_panel.SetActive(false);
+        for(i=0; i<mapevent_panel.Count; i++)
+        {
+            mapevent_panel[i].SetActive(false);
+        }
+        
 
         slot_view_status = 1; //通常の材料集めシーンに切り替え
     }
@@ -670,5 +706,39 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public void SisterOff1()
     {
         sister_stand_img1.SetActive(false);
+    }
+
+    void SetMapBG(string _place_name)
+    {
+        switch(_place_name)
+        {
+            case "Hiroba":
+
+                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/ID003_Western-Castle_noon-1024x576");
+                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_");
+                break;
+
+            case "Forest":
+
+                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300"); //真ん中枠
+                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_"); //背景
+
+                break;
+
+            case "Ido":
+
+                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/2_ido_a_600_300");
+                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/nexfan_01_800.600");
+
+                break;
+        }
+        // texture2dを使い、Spriteを作って、反映させる
+        slot_view_image.sprite = Sprite.Create(texture2d,
+                                   new Rect(0, 0, texture2d.width, texture2d.height),
+                                   Vector2.zero);
+
+        map_imageBG.GetComponent<Image>().sprite = Sprite.Create(texture2d_map,
+                                   new Rect(0, 0, texture2d_map.width, texture2d_map.height),
+                                   Vector2.zero);
     }
 }

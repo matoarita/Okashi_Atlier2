@@ -14,6 +14,7 @@ public class Shop_Main : MonoBehaviour {
     private ItemShopDataBase shop_database;
 
     private SoundController sc;
+    private Girl1_status girl1_status;
 
     private GameObject text_area;
     private Text _text;
@@ -24,6 +25,9 @@ public class Shop_Main : MonoBehaviour {
     private GameObject shopquestlist_obj;
 
     private GameObject money_status_obj;
+
+    public GameObject hukidasi_sub;
+    private GameObject hukidasi_sub_Prefab;
 
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
@@ -43,6 +47,8 @@ public class Shop_Main : MonoBehaviour {
     public int shop_status;
     public int shop_scene; //どのシーンを選択しているかを判別
 
+    private bool hukidasi_oneshot; //吹き出しの作成は一つのみ
+
     private int i;
 
     // Use this for initialization
@@ -59,6 +65,9 @@ public class Shop_Main : MonoBehaviour {
         //キャンバスの取得
         canvas = GameObject.FindWithTag("Canvas");
 
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
         //シーン最初にカウンターも生成する。
         updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
         updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
@@ -69,6 +78,11 @@ public class Shop_Main : MonoBehaviour {
 
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
+
+        //吹き出しプレファブの取得
+        hukidasi_sub_Prefab = (GameObject)Resources.Load("Prefabs/hukidashi_sub");
+
+        hukidasi_oneshot = false;
 
         //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
         for ( i= 0; i < shop_database.shopitems.Count; i++)
@@ -142,6 +156,22 @@ public class Shop_Main : MonoBehaviour {
             case 150: //ショップ二度目。ラスク作りの材料を買いにきた。
 
                 GameMgr.scenario_ON = true;
+
+                break;
+
+            case 160: //ラスク作り中。まずかったときにヒントをだす。
+
+                if(girl1_status.girl_Mazui_flag)
+                {
+                    if (hukidasi_oneshot != true)
+                    {
+                        hukidasi_oneshot = true;
+                        hukidasi_sub = Instantiate(hukidasi_sub_Prefab);
+                    }
+                }
+                break;
+
+            case 165: //ヒント後
 
                 break;
 

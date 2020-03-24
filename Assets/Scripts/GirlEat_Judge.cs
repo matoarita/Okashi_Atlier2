@@ -1382,6 +1382,12 @@ public class GirlEat_Judge : MonoBehaviour {
                     }
                     else { } //チュートリアルモードなどで、直接GirlLikeSetを指定している場合、composetのスコアは取得しないので、回避用
 
+                    //スペシャルクエストだった場合は、まずいフラグがたつ。
+                    if (girl1_status.OkashiNew_Status == 0)
+                    {
+                        girl1_status.girl_Mazui_flag = false;
+                    }
+
                     //3秒ほど表示したら、お菓子の感想を言ったり、なんか褒めてくれたりする。
                     StartCoroutine("WaitCommentDesc");
 
@@ -1463,15 +1469,15 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 case 3: //粉っぽいなど、マイナスの値が超えた。
 
-                    hukidashiitem.GetComponent<TextController>().SetText("げろげろ..。ま、まずいよ..。兄ちゃん。");
-                    //_hukidashitext.text = "げろげろ..。ま、まずいよ..。兄ちゃん。";
-
                     //スペシャルクエストだった場合は、まずいフラグがたつ。
-                    if (girl1_status.OkashiNew_Status == 0) 
+                    if (girl1_status.OkashiNew_Status == 0)
                     {
                         girl1_status.girl_Mazui_flag = true;
                     }
 
+                    hukidashiitem.GetComponent<TextController>().SetText("げろげろ..。ま、まずいよ..。兄ちゃん。");
+                    //_hukidashitext.text = "げろげろ..。ま、まずいよ..。兄ちゃん。";
+                    
                     //キャラクタ表情変更
                     s.sprite = girl1_status.Girl1_img_verysad;
 
@@ -1493,6 +1499,12 @@ public class GirlEat_Judge : MonoBehaviour {
                     break;
 
                 case 4: //嫌いな材料が使われていた
+
+                    //スペシャルクエストだった場合は、まずいフラグがたつ。
+                    if (girl1_status.OkashiNew_Status == 0)
+                    {
+                        girl1_status.girl_Mazui_flag = true;
+                    }
 
                     hukidashiitem.GetComponent<TextController>().SetText("ぐええ..。コレ嫌いー！..。");
                     //_hukidashitext.text = "ぐええ..。コレ嫌いー！..。";
@@ -1535,6 +1547,12 @@ public class GirlEat_Judge : MonoBehaviour {
                     break;
 
                 default:
+
+                    //スペシャルクエストだった場合は、まずいフラグがたつ。
+                    if (girl1_status.OkashiNew_Status == 0)
+                    {
+                        girl1_status.girl_Mazui_flag = true;
+                    }
 
                     hukidashiitem.GetComponent<TextController>().SetText("コレ嫌いー！");
                     //_hukidashitext.text = "コレ嫌いー！";
@@ -1667,7 +1685,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //Manzoku_Score.text = "★";
             for (i = 0; i < 1; i++) {
-                Delicious_Text.text = "Death";
+                Delicious_Text.text = "Morte..";
                 Manzoku_star[i].SetActive(true);
             }
         }
@@ -1676,7 +1694,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //Manzoku_Score.text = "★★";
             for (i = 0; i < 2; i++)
             {
-                Delicious_Text.text = "Good";
+                Delicious_Text.text = "Bene!";
                 Manzoku_star[i].SetActive(true);
             }
         }
@@ -1685,7 +1703,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //Manzoku_Score.text = "★★★";
             for (i = 0; i < 3; i++)
             {
-                Delicious_Text.text = "Delicious";
+                Delicious_Text.text = "Di molto Bene!";
                 Manzoku_star[i].SetActive(true);
             }
         }
@@ -1694,7 +1712,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //Manzoku_Score.text = "★★★★";
             for (i = 0; i < 4; i++)
             {
-                Delicious_Text.text = "De molt Bene";
+                Delicious_Text.text = "Benissimo!!";
                 Manzoku_star[i].SetActive(true);
             }
         }
@@ -1703,7 +1721,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //Manzoku_Score.text = "★★★★★";
             for (i = 0; i < 5; i++)
             {
-                Delicious_Text.text = "God";
+                Delicious_Text.text = "Vittoria!!";
                 Manzoku_star[i].SetActive(true);
             }
         }
@@ -1718,7 +1736,7 @@ public class GirlEat_Judge : MonoBehaviour {
         sc.PlaySe(41);
         sc.PlaySe(42);
         sc.PlaySe(43);
-        sc.PlaySe(44);
+        //sc.PlaySe(44);
 
         //StartCoroutine("WaitScoreHyoujiPanel");
         Okashi_Result();
@@ -1940,6 +1958,15 @@ public class GirlEat_Judge : MonoBehaviour {
 
     }
 
+    //好感度が下がるときの処理。外部からアクセス用。ゲージにも反映される。
+    public void DegHeart(int _param)
+    {
+        //好感度取得
+        Getlove_exp = _param;
+
+        //アニメーションをON
+        loveanim_on = true;
+    }
 
     //
     //次の食べたいお菓子を決めるメソッド。

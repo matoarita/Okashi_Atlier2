@@ -18,6 +18,7 @@ public class Entity_matplaceItemDataBase : ScriptableObject
 	{
 		
 		public int ItemID;
+		public string file_name;
 		public string place_Name;
 		public string place_Name_Hyouji;
 		public int place_cost;
