@@ -18,6 +18,7 @@ public class Utage_scenario : MonoBehaviour
     private int itemuse_recipi_ID;
     private int map_ev_ID;
     private int sp_Okashi_ID;
+    private int mainClear_ID;
 
     private int girlloveev_read_ID;
 
@@ -221,6 +222,15 @@ public class Utage_scenario : MonoBehaviour
 
                     //SPお菓子食べたあとの感想テキストを表示
                     StartCoroutine(SpOkashiComment_Hyouji());
+                }
+
+                if (GameMgr.mainClear_flag == true)
+                {
+                    GameMgr.mainClear_flag = false;
+                    mainClear_ID = GameMgr.mainquest_ID;
+
+                    //SPお菓子食べたあとの感想テキストを表示
+                    StartCoroutine(MainQuestClear_Hyouji());
                 }
             }
                 
@@ -1115,6 +1125,51 @@ public class Utage_scenario : MonoBehaviour
             case 1010: //ラスクの感想
 
                 engine.Param.TrySetParameter("SpOkashiAfter_num", 1);
+                break;
+
+            default:
+                break;
+        }
+
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = true; //読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    //
+    // メインクエストクリア表示
+    //
+    IEnumerator MainQuestClear_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "MainQuestClear"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴のパラメータ設定
+
+        switch (mainClear_ID)
+        {
+            case 1010: //ラスク通常クリア「カリカリラスクマン」
+
+                engine.Param.TrySetParameter("MainClear_num", 1010);
+                break;
+
+            case 1011: //ラスク特別クリア「ラスクとありんこ」
+
+                engine.Param.TrySetParameter("MainClear_num", 1011);
                 break;
 
             default:

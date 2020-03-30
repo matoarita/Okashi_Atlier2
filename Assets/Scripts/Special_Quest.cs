@@ -33,8 +33,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         {
             case 0: //オリジナルクッキー
 
-                Debug.Log("Level1start: ＜自由＞オリジナルなクッキー　を作る");
-
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                 girl1_status.OkashiNew_Status = 0;
                 girl1_status.OkashiQuest_ID = 1000;
@@ -43,8 +41,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 break;
 
             case 1: //ラスク食べたい
-
-                Debug.Log("Level2start: ラスクを欲しがる");
 
                 //ランダムで選ばられるセットのON/OFF
                 //クッキー系をOFF

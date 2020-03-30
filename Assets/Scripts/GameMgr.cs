@@ -42,6 +42,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //スペシャルお菓子を食べた後の感想フラグ
     public static int sp_okashi_ID;
     public static bool sp_okashi_flag;
+    public static int mainquest_ID;
+    public static bool mainClear_flag;
+
+    //お菓子イベントクリアのフラグ
+    public static bool[] OkashiQuest_flag = new bool[100];
+    //00 = オリジナルクッキークリア
+    //01 = ラスククリア
 
     //ショップの話すコマンド
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
@@ -78,10 +85,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //イベントフラグ管理用
     [SerializeField]
     private bool gamestart_recipi_get;
-
-    //お菓子イベントのフラグ
-    public static bool OkashiQuest01_flag; //オリジナルクッキー
-    public static bool OkashiQuest02_flag; //ラスクを欲しがる
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
@@ -139,8 +142,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sp_okashi_flag = false;
 
         //お菓子フラグの初期化
-        OkashiQuest01_flag = false;
-        OkashiQuest02_flag = false;
+        for (i = 0; i < OkashiQuest_flag.Length; i++) {
+            OkashiQuest_flag[i] = false;
+        }
 
         //チュートリアルフラグ
         tutorial_ON = false;

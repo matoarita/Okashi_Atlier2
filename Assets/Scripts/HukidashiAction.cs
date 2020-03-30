@@ -43,7 +43,10 @@ public class HukidashiAction : MonoBehaviour {
 
     private bool _enter_flag;
     private Animator _thisanim;
-    private int _enteranim_trans; 
+    private int _enteranim_trans;
+
+    private bool _temp_status1;
+    private bool _temp_status2;
 
     // Use this for initialization
     void Start () {
@@ -90,6 +93,9 @@ public class HukidashiAction : MonoBehaviour {
         _myscale = this.transform.localScale;
 
         _enter_flag = false;
+
+        _temp_status1 = false;
+        _temp_status2 = false;
     }
 	
 	// Update is called once per frame
@@ -126,9 +132,15 @@ public class HukidashiAction : MonoBehaviour {
 
             text_area.GetComponent<TextController>().textend_flag = false;
 
-            girl1_status.GirlEat_Judge_on = true;
-            //吹き出しも一旦リセット
-            girl1_status.ResetHukidashi();
+            //吹き出しのカウントを元に戻す
+            if(_temp_status1)
+            {
+                girl1_status.GirlEat_Judge_on = true;
+            }
+            else if(_temp_status2)
+            {
+                girl1_status.WaitHint_on = true;
+            }
         }
 
     }
@@ -176,6 +188,9 @@ public class HukidashiAction : MonoBehaviour {
             text_area.GetComponent<TextController>().SetText(_hint);
             text_area.GetComponent<TextController>().hint_on = true;
 
+            //一時的にどっちのカウントが進んでいたか保存
+            _temp_status1 = girl1_status.GirlEat_Judge_on;
+            _temp_status2 = girl1_status.WaitHint_on;
 
             girl1_status.GirlEat_Judge_on = false;
             girl1_status.WaitHint_on = false;
@@ -218,6 +233,10 @@ public class HukidashiAction : MonoBehaviour {
         }
         text_area.GetComponent<TextController>().SetText(_hint);
         text_area.GetComponent<TextController>().hint_on = true;
+
+        //一時的にどっちのカウントが進んでいたか保存
+        _temp_status1 = girl1_status.GirlEat_Judge_on;
+        _temp_status2 = girl1_status.WaitHint_on;
 
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;

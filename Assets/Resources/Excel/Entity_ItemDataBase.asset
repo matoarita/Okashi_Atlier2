@@ -6168,6 +6168,47 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+    - ItemID: 425
+      file_name: neko_cookie
+      name: ALL_potion
+      nameHyouji: "ALL\u30DD\u30FC\u30B7\u30E7\u30F3"
+      desc: "\u30C7\u30D0\u30C3\u30B0\u7528\u3002\u5168\u3066\u306E\u5473\u306E\u5024\u304C+100\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 50
+      exp: 23
+      ex_probability: 0.95
+      rich: 100
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 100
+      fluffy: 100
+      smooth: 100
+      hardness: 100
+      jiggly: 100
+      chewy: 100
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Potion
+      subtype: Potion
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping: Non
+      item_hyouji: 1
   - name: 04_ItemDB_Etc
     list:
     - ItemID: 500

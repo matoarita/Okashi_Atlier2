@@ -1780,7 +1780,7 @@ public class Compound_Keisan : MonoBehaviour {
         Debug.Log("甘さ: " + _basesweat + " 苦さ: " + _basebitter + " 酸味: " + _basesour);
         Debug.Log("コク: " + _baserich);
         Debug.Log("さくさく感: " + _basecrispy + " ふわふわ感: " + _basefluffy);
-        Debug.Log("しっとり感: " + _basesmooth + " ほろほろ感: " + _basehardness);
+        Debug.Log("しっとり感: " + _basesmooth + " 歯ごたえ: " + _basehardness);
         Debug.Log("_basejiggly: " + _basejiggly + " _basechewy: " + _basechewy);
         Debug.Log("粉っぽさ: " + _basepowdery + " 油っぽさ: " + _baseoily + " 水っぽさ: " + _basewatery);
         Debug.Log("_basegirl1_like:" + _basegirl1_like + " _basecost:" + _basecost + " _basesell:" + _basesell);

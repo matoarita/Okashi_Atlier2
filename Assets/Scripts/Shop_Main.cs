@@ -29,6 +29,8 @@ public class Shop_Main : MonoBehaviour {
     public GameObject hukidasi_sub;
     private GameObject hukidasi_sub_Prefab;
 
+    private GameObject character;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
@@ -80,7 +82,9 @@ public class Shop_Main : MonoBehaviour {
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
         //吹き出しプレファブの取得
-        hukidasi_sub_Prefab = (GameObject)Resources.Load("Prefabs/hukidashi_sub");
+        hukidasi_sub_Prefab = (GameObject)Resources.Load("Prefabs/Emo_Hukidashi_Anim");
+
+        character = GameObject.FindWithTag("Character");
 
         hukidasi_oneshot = false;
 

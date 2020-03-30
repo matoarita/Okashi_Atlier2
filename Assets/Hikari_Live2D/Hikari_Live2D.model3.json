@@ -4,7 +4,8 @@
 		"Moc": "Hikari_Live2D.moc3",
 		"Textures": [
 			"Hikari_Live2D.1024/texture_00.png"
-		]
+		],
+		"Physics": "Hikari_Live2D.physics3.json"
 	},
 	"Groups": [
 		{

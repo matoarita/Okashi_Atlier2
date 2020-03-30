@@ -193,6 +193,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //エフェクト関係
     private GameObject Emo_effect_Prefab1;
     private GameObject Emo_effect_Prefab2;
+    private GameObject Emo_effect_Prefab3;
     private List<GameObject> _listEffect = new List<GameObject>();
     private GameObject character;
 
@@ -340,6 +341,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //エフェクトプレファブの取得
         Emo_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Emo_Hirameki_Anim");
         Emo_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Emo_Kirari_Anim");
+        Emo_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Emo_Angry_Anim");
 
     }
 
@@ -1392,6 +1394,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //キャラクタ表情変更
                 s.sprite = Girl1_img_angry;
+
+                //エモ
+                _listEffect.Add(Instantiate(Emo_effect_Prefab3, character.transform));
                 break;
 
             case 13:

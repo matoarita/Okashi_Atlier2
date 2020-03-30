@@ -63,6 +63,8 @@ public class shopitemSelectToggle : MonoBehaviour
     private int count;
     private bool selectToggle;
 
+    private List<GameObject> category_toggle = new List<GameObject>();
+
     private int kettei_item1; //このスクリプトは、プレファブのインスタンスに取り付けているので、各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
 
     private int count_1;
@@ -119,6 +121,15 @@ public class shopitemSelectToggle : MonoBehaviour
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
+
+
+        //カテゴリータブの取得
+        category_toggle.Clear();
+        foreach (Transform child in shopitemlistController_obj.transform.Find("CategoryView/Viewport/Content/").transform)
+        {
+            //Debug.Log(child.name);           
+            category_toggle.Add(child.gameObject);
+        }        
 
 
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
@@ -195,8 +206,12 @@ public class shopitemSelectToggle : MonoBehaviour
         {
             shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = false;
         }
+        for (i = 0; i < category_toggle.Count; i++)
+        { 
+            category_toggle[i].GetComponent<Toggle>().interactable = false;
+        }
 
-        yes.SetActive(true);
+    yes.SetActive(true);
         no.SetActive(true);
         updown_counter_obj.SetActive(true);
 
@@ -286,6 +301,10 @@ public class shopitemSelectToggle : MonoBehaviour
                     shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
                     shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
+                for (i = 0; i < category_toggle.Count; i++)
+                {
+                    category_toggle[i].GetComponent<Toggle>().interactable = true;
+                }
 
                 yes.SetActive(false);
                 no.SetActive(false);
@@ -342,6 +361,11 @@ public class shopitemSelectToggle : MonoBehaviour
                 shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
             }
 
+        }
+
+        for (i = 0; i < category_toggle.Count; i++)
+        {
+            category_toggle[i].GetComponent<Toggle>().interactable = true;
         }
     }
 }

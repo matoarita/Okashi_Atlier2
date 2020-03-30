@@ -14,6 +14,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int trans; //トランジション用のパラメータ
 
     private SoundController sc;
+    private BGM sceneBGM;
 
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
@@ -25,6 +26,13 @@ public class GirlEat_Judge : MonoBehaviour {
     private ExtremePanel extreme_panel;
 
     private GameObject ScoreHyoujiPanel;
+    private GameObject MainQuestOKPanel;
+    private Text MainQuestText;
+    private string _mainquest_name;
+    private int _set_MainQuestID;
+    private Text Hint_Text;
+    private string temp_hint_text;
+
     private Text Okashi_Score;
     private List<GameObject> Manzoku_star = new List<GameObject>();
     private Text Manzoku_Score;
@@ -39,6 +47,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+
+    private bool subQuestClear_check;
+    private bool HighScore_flag;
+    private bool kansou_on; //採点表示の際、事前に「うんめー」などのお菓子の感想を表示するか否か。specialクエストの場合は、表示する。
 
     //女の子の反映用ハートエフェクト
     private GameObject GirlHeartEffect_obj;
@@ -311,9 +323,18 @@ public class GirlEat_Judge : MonoBehaviour {
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _windowtext = text_area.GetComponentInChildren<Text>();
 
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
         //お菓子採点結果表示用パネルの取得
-        ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel").gameObject;
+        ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
         Okashi_Score = ScoreHyoujiPanel.transform.Find("Image/Okashi_Score").GetComponent<Text>();
+        MainQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/MainQuestOKPanel").gameObject;
+        MainQuestText = MainQuestOKPanel.transform.Find("Image/QuestClearText").GetComponent<Text>();
+        Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
+        ScoreHyoujiPanel.SetActive(false);
+        MainQuestOKPanel.SetActive(false);
+
         i = 0;
         foreach (Transform child in ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score_star/Viewport/Content").transform)
         {
@@ -388,6 +409,11 @@ public class GirlEat_Judge : MonoBehaviour {
         _girl_likeokashi = new string[girl1_status.youso_count];
 
         _girl_set_score = new int[girl1_status.youso_count];
+
+        //サブクエストチェック用フラグ
+        subQuestClear_check = false;
+        HighScore_flag = false;
+        kansou_on = false;
     }
 	
 	// Update is called once per frame
@@ -1434,11 +1460,16 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     if (girl1_status.OkashiNew_Status == 0)　//スペシャルクエストの場合
                     {
-                        //新しく食べた、またはスペシャルお菓子をクリアした場合、感想を言う。その後、好感度とお金の計算
+                        //感想を言う。その後、好感度とお金の計算
+                        kansou_on = true;
                         StartCoroutine("Okashi_Comment");
                     }
                     else
                     {
+                        //感想を言う。その後、好感度とお金の計算
+                        //kansou_on = false;
+                        //StartCoroutine("Okashi_Comment");
+
                         Okashi_Result();
                     }
                     break;
@@ -1647,7 +1678,7 @@ public class GirlEat_Judge : MonoBehaviour {
     }
 
 
-    IEnumerator Okashi_Comment() //スペシャルお菓子などクリアしたときの、食べた後の感想。宴を呼び出す。
+    IEnumerator Okashi_Comment() //スペシャルお菓子などクリアしたときの、食べた後の感想。
     {
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.hukidasiOff();
@@ -1659,22 +1690,26 @@ public class GirlEat_Judge : MonoBehaviour {
             yield return null;
         }
 
-        character.GetComponent<FadeCharacter>().FadeImageOff();       
-
-        GameMgr.scenario_ON = true;
-        GameMgr.sp_okashi_ID = _set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
-        GameMgr.sp_okashi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-                                         //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
-        while (!GameMgr.recipi_read_endflag)
+        if (kansou_on)
         {
-            yield return null;
-        }
+            //宴を呼び出す。
+            character.GetComponent<FadeCharacter>().FadeImageOff();
 
-        GameMgr.scenario_ON = false;
-        GameMgr.recipi_read_endflag = false;
+            GameMgr.scenario_ON = true;
+            GameMgr.sp_okashi_ID = _set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
+            GameMgr.sp_okashi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                           //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
+            while (!GameMgr.recipi_read_endflag)
+            {
+                yield return null;
+            }
 
-        character.GetComponent<FadeCharacter>().FadeImageOn();        
-        canvas.SetActive(true);
+            GameMgr.scenario_ON = false;
+            GameMgr.recipi_read_endflag = false;
+
+            character.GetComponent<FadeCharacter>().FadeImageOn();
+            canvas.SetActive(true);
+        } else { }
         
 
         //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
@@ -1688,6 +1723,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 Delicious_Text.text = "Morte..";
                 Manzoku_star[i].SetActive(true);
             }
+
+            SetHintText(0); //通常得点時
+            Hint_Text.text = temp_hint_text;
         }
         else if (total_score >= 30 && total_score < 60)
         {
@@ -1697,6 +1735,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 Delicious_Text.text = "Bene!";
                 Manzoku_star[i].SetActive(true);
             }
+
+            SetHintText(0); //通常得点時
+            Hint_Text.text = temp_hint_text;
         }
         else if (total_score >= 60 && total_score < 80)
         {
@@ -1706,6 +1747,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 Delicious_Text.text = "Di molto Bene!";
                 Manzoku_star[i].SetActive(true);
             }
+
+            SetHintText(0); //通常得点時
+            Hint_Text.text = temp_hint_text;
         }
         else if (total_score >= 80 && total_score < 95)
         {
@@ -1715,6 +1759,10 @@ public class GirlEat_Judge : MonoBehaviour {
                 Delicious_Text.text = "Benissimo!!";
                 Manzoku_star[i].SetActive(true);
             }
+
+            SetHintText(1); //高得点時
+            Hint_Text.text = temp_hint_text;
+            HighScore_flag = true; //高得点をとれた！その場合、サブクエストが発生したり、特別なイベントが発生することもある。
         }
         else if (total_score >= 95)
         {
@@ -1724,6 +1772,10 @@ public class GirlEat_Judge : MonoBehaviour {
                 Delicious_Text.text = "Vittoria!!";
                 Manzoku_star[i].SetActive(true);
             }
+
+            SetHintText(1); //高得点時
+            Hint_Text.text = temp_hint_text;
+            HighScore_flag = true;
         }
 
         _listScoreEffect.Clear();
@@ -1738,7 +1790,6 @@ public class GirlEat_Judge : MonoBehaviour {
         sc.PlaySe(43);
         //sc.PlaySe(44);
 
-        //StartCoroutine("WaitScoreHyoujiPanel");
         Okashi_Result();
     }
 
@@ -1749,25 +1800,7 @@ public class GirlEat_Judge : MonoBehaviour {
         ScoreHyoujiPanel.SetActive(false);
     }
 
-    public void ScoreHyouji_OFF()
-    {
-        girl1_status.GirlEat_Judge_on = true;
-        girl1_status.hukidasiOn();
-        touch_controller.Touch_OnAllON();
-
-        sc.PlaySe(18);
-
-        //初期化
-        for (i = 0; i < _listScoreEffect.Count; i++)
-        {
-            Destroy(_listScoreEffect[i]);
-        }
-        _listScoreEffect.Clear();
-
-        ScoreHyoujiPanel.SetActive(false);
-    }
-
-
+    
     void Okashi_Result()
     {
         //アニメーションをON。好感度パラメータの反映もここ。
@@ -1981,12 +2014,11 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             girl1_status.OkashiNew_Status = 1;
 
-            //その際、クリアしたお菓子に応じて特別報酬やイベントなどが進む。
-            switch(girl1_status.OkashiQuest_ID)
+            //その際、クリアしたお菓子に応じて特別報酬やイベントなどが進む。ScoreHyouji_OFF()で処理。リザルトのボタンを押したときに発動する。
+            switch (girl1_status.OkashiQuest_ID)
             {
                 case 1000: //オリジナルクッキークリア
                    
-                    GameMgr.OkashiQuest01_flag = true;
                     girl1_status.special_animatFirst = false;
 
                     //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
@@ -1995,8 +2027,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     break;
 
                 case 1010: //ラスククリア
-
-                    GameMgr.OkashiQuest02_flag = true;
+                    
                     girl1_status.special_animatFirst = false;
 
                     break;
@@ -2004,6 +2035,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 default:
                     break;
             }
+
+            subQuestClear_check = true;
         }
 
 
@@ -2019,12 +2052,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //クッキー　＋　オレンジねこクッキーをあげてる場合。またラスクのイベントが発生していないとき。
 
-        if (GameMgr.OkashiQuest02_flag != true)
+        if (GameMgr.OkashiQuest_flag[1] != true)
         {
             if (girlLikeCompoScore[0] >= 5 && girlLikeCompoScore[1] >= 5)
             {
                 //set_compID=2を解放
-                if (GameMgr.OkashiQuest01_flag != true)
+                if (GameMgr.OkashiQuest_flag[0] != true)
                 {
                     //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                     special_quest.SetSpecialOkashi(0);
@@ -2034,7 +2067,7 @@ public class GirlEat_Judge : MonoBehaviour {
             else if (database.GetItemFirstEat("neko_cookie") >= 5 && database.GetItemFirstEat("orange_neko_cookie") >= 5)
             {
                 //set_compID=2を解放
-                if (GameMgr.OkashiQuest01_flag != true)
+                if (GameMgr.OkashiQuest_flag[0] != true)
                 {
                     //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                     special_quest.SetSpecialOkashi(0);
@@ -2051,5 +2084,156 @@ public class GirlEat_Judge : MonoBehaviour {
     }
 
 
-       
+    public void ResultPanel_On()
+    {
+        ScoreHyoujiPanel.SetActive(false);
+
+        if (subQuestClear_check)
+        {            
+
+            switch (girl1_status.OkashiQuest_ID)
+            {
+                case 1000: //オリジナルクッキー
+
+                    if (GameMgr.OkashiQuest_flag[0] != true) //まだクエストクリアフラグがたってない
+                    {
+                        GameMgr.OkashiQuest_flag[0] = true;
+                        _mainquest_name = "出来たて　オリジナルクッキー！";
+
+                        MainQuestText.text = _mainquest_name;
+                        MainQuestOKPanel.SetActive(true);
+                    }
+
+                    break;
+
+                case 1010: //ラスク
+
+                    if (GameMgr.OkashiQuest_flag[1] != true) //まだクエストクリアフラグがたってない
+                    {
+                        if (HighScore_flag) //さらに高得点だったら、特別なイベントや報酬などが発生
+                        {
+                            GameMgr.OkashiQuest_flag[1] = true;
+                            _mainquest_name = "ラスクとありんこ";
+
+                            MainQuestText.text = _mainquest_name;
+                            _set_MainQuestID = 1011;
+                            StartCoroutine("SubQuestClearEvent");
+
+                            //SubQuestOKPanel.SetActive(true);
+                        }
+                        else //こっちは通常クリア
+                        {
+                            GameMgr.OkashiQuest_flag[1] = true;
+                            _mainquest_name = "カリカリラスクマン";
+
+                            MainQuestText.text = _mainquest_name;
+                            _set_MainQuestID = 1010;
+                            StartCoroutine("SubQuestClearEvent");
+                            //SubQuestOKPanel.SetActive(true);
+                        }
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            ResultOFF();
+        }       
+    }
+
+    IEnumerator SubQuestClearEvent()
+    {
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();
+        sceneBGM.MuteBGM();
+
+        character.GetComponent<FadeCharacter>().FadeImageOff();
+
+        GameMgr.scenario_ON = true;
+        GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
+        GameMgr.mainClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = false;
+        sceneBGM.MuteOFFBGM();
+
+        character.GetComponent<FadeCharacter>().FadeImageOn();
+        canvas.SetActive(true);
+
+        //表示の音を鳴らす。
+        sc.PlaySe(25);
+
+        MainQuestOKPanel.SetActive(true);
+    }
+
+    public void ResultOFF()
+    {
+        MainQuestOKPanel.SetActive(false);
+
+        subQuestClear_check = false;
+
+        girl1_status.GirlEat_Judge_on = true;
+        girl1_status.hukidasiOn();
+        touch_controller.Touch_OnAllON();
+
+        sc.PlaySe(18);
+
+        //初期化
+        for (i = 0; i < _listScoreEffect.Count; i++)
+        {
+            Destroy(_listScoreEffect[i]);
+        }
+        _listScoreEffect.Clear();
+
+        GameMgr.scenario_ON = false;
+    }
+
+    void SetHintText(int _status)
+    {
+        //_statusが０なら、通常得点、１なら、高得点時の感想
+
+        switch (girl1_status.OkashiQuest_ID)
+        {
+            case 1000: //オリジナルクッキーのヒント
+
+
+
+                break;
+
+            case 1010: //ラスクのヒント
+
+                switch (_status)
+                {
+
+                    case 0:
+
+                        temp_hint_text = "兄ちゃん！" + "\n" + "バターを入れると、" + "\n" + "もっとさくさくになるかも！";
+;
+                        break;
+
+                    case 1:
+
+                        temp_hint_text = "兄ちゃん！" + "\n" + "何もいうことはないよ！" + "\n" + "素晴らしいラスクだ。";
+                        break;
+
+                    default:
+                        break;
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
 }

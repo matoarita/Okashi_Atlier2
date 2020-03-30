@@ -514,7 +514,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //店売りかオリジナルか、アイテムID
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item1;
-        _cardImage.SetInit();
+        //_cardImage.SetInit();
+        _cardImage.SetYosokuInit();
 
         //位置とスケール
         Draw1();

@@ -1768,7 +1768,7 @@ public class Compound_Main : MonoBehaviour
                             pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加                            
 
                             //ラスク作りのクエスト発生
-                            if (GameMgr.OkashiQuest02_flag != true)
+                            if (GameMgr.OkashiQuest_flag[1] != true)
                             {
                                 Debug.Log("スペシャルクエスト: ラスクが食べたい　開始");
 
