@@ -21,6 +21,7 @@ public class Entity_matplaceItemDataBase : ScriptableObject
 		public string file_name;
 		public string place_Name;
 		public string place_Name_Hyouji;
+		public string comment;
 		public int place_cost;
 		public int place_flag;
 		public string drop_item1;

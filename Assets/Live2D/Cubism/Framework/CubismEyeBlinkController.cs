@@ -1,8 +1,8 @@
-﻿/*
+﻿/**
  * Copyright(c) Live2D Inc. All rights reserved.
- * 
+ *
  * Use of this source code is governed by the Live2D Open Software license
- * that can be found at http://live2d.com/eula/live2d-open-software-license-agreement_en.html.
+ * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
 
@@ -15,7 +15,7 @@ namespace Live2D.Cubism.Framework
     /// <summary>
     /// <see cref="CubismEyeBlinkParameter"/> controller.
     /// </summary>
-    public sealed class CubismEyeBlinkController : MonoBehaviour
+    public sealed class CubismEyeBlinkController : MonoBehaviour, ICubismUpdatable
     {
         /// <summary>
         /// Blend mode.
@@ -36,6 +36,12 @@ namespace Live2D.Cubism.Framework
         /// </summary>
         private CubismParameter[] Destinations { get; set; }
 
+
+        /// <summary>
+        /// Model has update controller component.
+        /// </summary>
+        [HideInInspector]
+        public bool HasUpdateController { get; set; }
 
         /// <summary>
         /// Refreshes controller. Call this method after adding and/or removing <see cref="CubismEyeBlinkParameter"/>s.
@@ -65,9 +71,45 @@ namespace Live2D.Cubism.Framework
             {
                 Destinations[i] = tags[i].GetComponent<CubismParameter>();
             }
+
+            // Get cubism update controller.
+            HasUpdateController = (GetComponent<CubismUpdateController>() != null);
+        }
+
+        /// <summary>
+        /// Called by cubism update controller. Order to invoke OnLateUpdate.
+        /// </summary>
+        public int ExecutionOrder
+        {
+            get { return CubismUpdateExecutionOrder.CubismEyeBlinkController; }
+        }
+
+        /// <summary>
+        /// Called by cubism update controller. Needs to invoke OnLateUpdate on Editing.
+        /// </summary>
+        public bool NeedsUpdateOnEditing
+        {
+            get { return false; }
+        }
+
+        /// <summary>
+        /// Called by cubism update controller. Updates controller.
+        /// </summary>
+        public void OnLateUpdate()
+        {
+            // Fail silently.
+            if (!enabled || Destinations == null)
+            {
+                return;
+            }
+
+
+            // Apply value.
+            Destinations.BlendToValue(BlendMode, EyeOpening);
         }
 
         #region Unity Event Handling
+
 
         /// <summary>
         /// Called by Unity. Makes sure cache is initialized.
@@ -78,21 +120,15 @@ namespace Live2D.Cubism.Framework
             Refresh();
         }
 
-
         /// <summary>
-        /// Called by Unity. Updates controller.
+        /// Called by Unity.
         /// </summary>
         private void LateUpdate()
         {
-            // Fail silently.
-            if (Destinations == null)
+            if(!HasUpdateController)
             {
-                return;
+                OnLateUpdate();
             }
-
-
-            // Apply value.
-            Destinations.BlendToValue(BlendMode, EyeOpening);
         }
 
         #endregion

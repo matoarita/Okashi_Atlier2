@@ -1,10 +1,6 @@
-# Live2D Proprietary Software License
+## Live2D Proprietary Software License
 
-*English*
+Live2D Cubism Core is available under Live2D Proprietary Software License.
 
-[http://www.live2d.com/eula/live2d-proprietary-software-license-agreement_en.html]()
-
-
-*Japanese*
-
-[http://www.live2d.com/eula/live2d-proprietary-software-license-agreement_jp.html]()
+* [Live2D Proprietary Software License Agreement](https://www.live2d.com/eula/live2d-proprietary-software-license-agreement_en.html)
+* [Live2D Proprietary Software 使用許諾契約書](https://www.live2d.com/eula/live2d-proprietary-software-license-agreement_jp.html)

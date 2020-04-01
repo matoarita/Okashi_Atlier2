@@ -1,8 +1,8 @@
-/*
+﻿/**
  * Copyright(c) Live2D Inc. All rights reserved.
- * 
+ *
  * Use of this source code is governed by the Live2D Open Software license
- * that can be found at http://live2d.com/eula/live2d-open-software-license-agreement_en.html.
+ * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
 
@@ -20,7 +20,7 @@ namespace Live2D.Cubism.Rendering
     /// Controls rendering of a <see cref="CubismModel"/>.
     /// </summary>
     [ExecuteInEditMode, CubismDontMoveOnReimport]
-    public sealed class CubismRenderController : MonoBehaviour
+    public sealed class CubismRenderController : MonoBehaviour, ICubismUpdatable
     {
         /// <summary>
         /// Model opacity.
@@ -269,7 +269,7 @@ namespace Live2D.Cubism.Rendering
         /// The value to offset the <see cref="CubismDrawable"/>s by.
         /// </summary>
         /// <remarks>
-        /// You only need to adjust this value when using perspetive cameras.
+        /// You only need to adjust this value when using perspective cameras.
         /// </remarks>
         [SerializeField, HideInInspector]
         public float _depthOffset = 0.00001f;
@@ -363,6 +363,13 @@ namespace Live2D.Cubism.Rendering
 
 
         /// <summary>
+        /// Model has update controller component.
+        /// </summary>
+        [HideInInspector]
+        public bool HasUpdateController { get; set; }
+
+
+        /// <summary>
         /// Makes sure all <see cref="CubismDrawable"/>s have <see cref="CubismRenderer"/>s attached to them.
         /// </summary>
         private void TryInitializeRenderers()
@@ -381,10 +388,10 @@ namespace Live2D.Cubism.Rendering
 
 
                 renderers = drawables.AddComponentEach<CubismRenderer>();
-                
+
                 // Store renderers.
                 Renderers = renderers;
-                
+
             }
 
 
@@ -443,13 +450,33 @@ namespace Live2D.Cubism.Rendering
             }
         }
 
-        #region Unity Event Handling
+        /// <summary>
+        /// Called by cubism update controller. Order to invoke OnLateUpdate.
+        /// </summary>
+        public int ExecutionOrder
+        {
+            get { return CubismUpdateExecutionOrder.CubismRenderController; }
+        }
 
         /// <summary>
-        /// Called by Unity. Applies billboarding.
+        /// Called by cubism update controller. Needs to invoke OnLateUpdate on Editing.
         /// </summary>
-        private void LateUpdate()
+        public bool NeedsUpdateOnEditing
         {
+            get { return true; }
+        }
+
+        /// <summary>
+        /// Called by cubism update controller. Applies billboarding.
+        /// </summary>
+        public void OnLateUpdate()
+        {
+            // Fail silently...
+            if(!enabled)
+            {
+                return;
+            }
+
             // Update opacity if necessary.
             UpdateOpacity();
 
@@ -465,6 +492,16 @@ namespace Live2D.Cubism.Rendering
             DrawablesRootTransform.rotation = (Quaternion.LookRotation(CameraToFace.transform.forward, Vector3.up));
         }
 
+        #region Unity Event Handling
+
+        /// <summary>
+        /// Called by Unity.
+        /// </summary>
+        private void Start()
+        {
+            // Get cubism update controller.
+            HasUpdateController = (GetComponent<CubismUpdateController>() != null);
+        }
 
         /// <summary>
         /// Called by Unity. Enables listening to render data updates.
@@ -507,7 +544,18 @@ namespace Live2D.Cubism.Rendering
         #region Cubism Event Handling
 
         /// <summary>
-        /// Called whenever new render data is available. 
+        /// Called by Unity.
+        /// </summary>
+        private void LateUpdate()
+        {
+            if(!HasUpdateController)
+            {
+                OnLateUpdate();
+            }
+        }
+
+        /// <summary>
+        /// Called whenever new render data is available.
         /// </summary>
         /// <param name="sender">Model with new render data.</param>
         /// <param name="data">New render data.</param>
@@ -553,8 +601,8 @@ namespace Live2D.Cubism.Rendering
                 if (data[i].IsRenderOrderDirty)
                 {
                     renderers[i].OnDrawableRenderOrderDidChange(data[i].RenderOrder);
-                    
-                    
+
+
                     swapMeshes = true;
                 }
 

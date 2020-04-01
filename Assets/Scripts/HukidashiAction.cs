@@ -103,7 +103,7 @@ public class HukidashiAction : MonoBehaviour {
 		
         if(text_area.GetComponent<TextController>().textend_flag == true)
         {
-            Debug.Log("text end: " + text_area.GetComponent<TextController>().textend_flag);
+            //Debug.Log("text end: " + text_area.GetComponent<TextController>().textend_flag);
             switch(hukidasi_action_status)
             {
                 case 0:

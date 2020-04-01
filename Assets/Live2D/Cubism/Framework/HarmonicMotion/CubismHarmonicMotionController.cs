@@ -1,8 +1,8 @@
-﻿/*
+﻿/**
  * Copyright(c) Live2D Inc. All rights reserved.
- * 
+ *
  * Use of this source code is governed by the Live2D Open Software license
- * that can be found at http://live2d.com/eula/live2d-open-software-license-agreement_en.html.
+ * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
 
@@ -15,7 +15,7 @@ namespace Live2D.Cubism.Framework.HarmonicMotion
     /// <summary>
     /// Controller for <see cref="CubismHarmonicMotionParameter"/>s.
     /// </summary>
-    public sealed class CubismHarmonicMotionController : MonoBehaviour
+    public sealed class CubismHarmonicMotionController : MonoBehaviour, ICubismUpdatable
     {
         /// <summary>
         /// Default number of channels.
@@ -47,6 +47,12 @@ namespace Live2D.Cubism.Framework.HarmonicMotion
         /// </summary>
         private CubismParameter[] Destinations { get; set; }
 
+        /// <summary>
+        /// Model has update controller component.
+        /// </summary>
+        [HideInInspector]
+        public bool HasUpdateController { get; set; }
+
 
         /// <summary>
         /// Refreshes the controller. Call this method after adding and/or removing <see cref="CubismHarmonicMotionParameter"/>.
@@ -67,6 +73,47 @@ namespace Live2D.Cubism.Framework.HarmonicMotion
             {
                 Destinations[i] = Sources[i].GetComponent<CubismParameter>();
             }
+
+            // Get cubism update controller.
+            HasUpdateController = (GetComponent<CubismUpdateController>() != null);
+        }
+
+        /// <summary>
+        /// Called by cubism update controller. Order to invoke OnLateUpdate.
+        /// </summary>
+        public int ExecutionOrder
+        {
+            get { return CubismUpdateExecutionOrder.CubismHarmonicMotionController; }
+        }
+
+        /// <summary>
+        /// Called by cubism update controller. Needs to invoke OnLateUpdate on Editing.
+        /// </summary>
+        public bool NeedsUpdateOnEditing
+        {
+            get { return false; }
+        }
+
+        /// <summary>
+        /// Called by cubism update controller. Updates controller.
+        /// </summary>
+        public void OnLateUpdate()
+        {
+            // Return if it is not valid or there's nothing to update.
+            if (!enabled || Sources == null)
+            {
+                return;
+            }
+
+
+            // Update sources and destinations.
+            for (var i = 0; i < Sources.Length; ++i)
+            {
+                Sources[i].Play(ChannelTimescales);
+
+
+                Destinations[i].BlendToValue(BlendMode, Sources[i].Evaluate());
+            }
         }
 
         #region Unity Events Handling
@@ -86,20 +133,9 @@ namespace Live2D.Cubism.Framework.HarmonicMotion
         /// </summary>
         private void LateUpdate()
         {
-            // Return early in case there's nothing to update.
-            if (Sources == null)
+            if (!HasUpdateController)
             {
-                return;
-            }
-
-
-            // Update sources and destinations.
-            for (var i = 0; i < Sources.Length; ++i)
-            {
-                Sources[i].Play(ChannelTimescales);
-
-
-                Destinations[i].BlendToValue(BlendMode, Sources[i].Evaluate());
+                OnLateUpdate();
             }
         }
 

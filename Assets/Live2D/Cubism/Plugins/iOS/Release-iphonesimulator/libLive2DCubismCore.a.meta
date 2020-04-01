@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: d4c789665003b4c98a88f12a5359bae3
-timeCreated: 1525935214
-licenseType: Pro
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -21,8 +19,10 @@ PluginImporter:
         Exclude Linux64: 1
         Exclude LinuxUniversal: 1
         Exclude OSXUniversal: 1
+        Exclude WebGL: 1
         Exclude Win: 1
         Exclude Win64: 1
+        Exclude WindowsStoreApps: 1
         Exclude iOS: 1
   - first:
       Android: Android
@@ -91,6 +91,16 @@ PluginImporter:
       enabled: 0
       settings:
         CPU: AnyCPU
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: X86
+        DontProcess: False
+        PlaceholderPath: 
+        SDK: AnySDK
+        ScriptingBackend: AnyScriptingBackend
   - first:
       iPhone: iOS
     second:

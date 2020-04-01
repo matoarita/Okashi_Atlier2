@@ -421,7 +421,7 @@ public class Compound_Main : MonoBehaviour
                         compoundselect_onoff_obj.SetActive(false);
                         text_area.SetActive(false);
 
-                        compoBG_A.GetComponent<Image>().raycastTarget = false;
+                        compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = false;
                         pitemlistController.Offinteract();
                         kakuritsuPanel_obj.SetActive(false);
                         no.SetActive(false);
@@ -841,6 +841,8 @@ public class Compound_Main : MonoBehaviour
                     girl1_status.GirlEat_Judge_on = true;                    
 
                     touch_controller.Touch_OnAllON();
+
+                    compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
                 }
                 
                 recipilist_onoff.SetActive(false);
@@ -923,7 +925,6 @@ public class Compound_Main : MonoBehaviour
 
                 recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
                 kakuritsuPanel_obj.SetActive(true);
-                black_panel_A.SetActive(true);
                 compoBG_A.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
@@ -946,7 +947,6 @@ public class Compound_Main : MonoBehaviour
 
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 kakuritsuPanel_obj.SetActive(false);
-                black_panel_A.SetActive(true);
                 compoBG_A.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
@@ -976,7 +976,6 @@ public class Compound_Main : MonoBehaviour
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 kakuritsuPanel_obj.SetActive(true);
 
-                //black_panel_A.SetActive(true);
                 compoBG_A.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
@@ -1419,7 +1418,7 @@ public class Compound_Main : MonoBehaviour
         //一時的に腹減りを止める。
         girl1_status.GirlEat_Judge_on = false;
 
-        compoBG_A.GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
+        compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
         Extremepanel_obj.SetActive(false);
 
 
@@ -1441,7 +1440,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.recipi_read_endflag = false;
         Recipi_loading = false;
 
-        compoBG_A.GetComponent<Image>().raycastTarget = true;
+        compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(true);
         compound_status = 1;

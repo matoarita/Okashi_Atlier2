@@ -1709,9 +1709,17 @@ public class GirlEat_Judge : MonoBehaviour {
 
             character.GetComponent<FadeCharacter>().FadeImageOn();
             canvas.SetActive(true);
-        } else { }
-        
 
+            OkashiSaitenhyouji();
+        } else
+        {
+            OkashiSaitenhyouji();
+        }
+        
+    }
+
+    void OkashiSaitenhyouji()
+    {
         //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
         ScoreHyoujiPanel.SetActive(true);
         Okashi_Score.text = total_score.ToString();
@@ -1719,7 +1727,8 @@ public class GirlEat_Judge : MonoBehaviour {
         if (total_score >= 0 && total_score < 30)
         {
             //Manzoku_Score.text = "★";
-            for (i = 0; i < 1; i++) {
+            for (i = 0; i < 1; i++)
+            {
                 Delicious_Text.text = "Morte..";
                 Manzoku_star[i].SetActive(true);
             }
@@ -1791,13 +1800,6 @@ public class GirlEat_Judge : MonoBehaviour {
         //sc.PlaySe(44);
 
         Okashi_Result();
-    }
-
-    IEnumerator WaitScoreHyoujiPanel()
-    {
-        yield return new WaitForSeconds(5.0f); //3秒後に自動で消える
-
-        ScoreHyoujiPanel.SetActive(false);
     }
 
     
