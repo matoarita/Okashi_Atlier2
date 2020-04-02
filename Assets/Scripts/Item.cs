@@ -51,6 +51,7 @@ public class Item
     public int sell_price; //ショップに売るときの値段
 
     public int item_Hyouji;
+    public int SetJudge_Num;
 
     public int First_eat;
 
@@ -109,7 +110,7 @@ public class Item
     }
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, int itemkosu, int extreme_kaisu, int _item_hyouji, int _first_eat)
+    public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, int itemkosu, int extreme_kaisu, int _item_hyouji, int _judge_num, int _first_eat)
     {
         itemID = id;
         fileName = file_name;
@@ -175,6 +176,7 @@ public class Item
         ExtremeKaisu = extreme_kaisu; //エクストリームは3回まで
 
         item_Hyouji = _item_hyouji;
+        SetJudge_Num = _judge_num;
 
         First_eat = _first_eat;
     }

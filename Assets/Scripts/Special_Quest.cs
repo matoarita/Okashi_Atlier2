@@ -44,12 +44,12 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //ランダムで選ばられるセットのON/OFF
                 //クッキー系をOFF
-                girlLikeCompo_database.SetGirlSetFlag(0, 0);
+                /*girlLikeCompo_database.SetGirlSetFlag(0, 0);
                 girlLikeCompo_database.SetGirlSetFlag(1, 0);            
 
                 //ON
                 girlLikeCompo_database.SetGirlSetFlag(20, 1); //ぶどうクッキーON
-                girlLikeCompo_database.SetGirlSetFlag(30, 1); //ラスクON
+                girlLikeCompo_database.SetGirlSetFlag(30, 1); //ラスクON*/
                 //** ここまで **//
 
                 girl1_status.OkashiNew_Status = 0;

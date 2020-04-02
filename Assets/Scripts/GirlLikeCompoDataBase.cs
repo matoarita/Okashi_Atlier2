@@ -87,7 +87,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
 
     public void StageSet()
     {
-        //flagが1のもののみのセットを作る。
+        //flagが1のもののみのセットを作る。+食べたことがないものだけ。
         girllike_compoRandomset.Clear();
         count = 0;
 

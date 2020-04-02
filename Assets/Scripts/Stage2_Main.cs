@@ -26,6 +26,7 @@ public class Stage2_Main : MonoBehaviour
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
         girl1_status.girl1_Love_exp = 0;
+        PlayerStatus.player_day = GameMgr.stage2_start_day;
         GameMgr.stage_number = 2;
     }
 

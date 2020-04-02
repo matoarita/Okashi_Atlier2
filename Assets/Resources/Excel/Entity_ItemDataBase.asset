@@ -55,6 +55,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 1
       file_name: butter
       name: butter
@@ -96,6 +97,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 2
       file_name: kogashi_butter
       name: kogashi_butter
@@ -137,6 +139,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 3
       file_name: suger
       name: suger
@@ -178,6 +181,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 4
       file_name: suger
       name: granusuger
@@ -219,6 +223,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 5
       file_name: suger
       name: powder_suger
@@ -260,6 +265,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 6
       file_name: pink_suger
       name: pink_suger
@@ -301,6 +307,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 7
       file_name: emerald_suger
       name: emerald_suger
@@ -342,6 +349,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 8
       file_name: egg
       name: egg
@@ -383,6 +391,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 9
       file_name: egg
       name: egg_white
@@ -424,6 +433,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 10
       file_name: egg
       name: egg_yellow
@@ -465,6 +475,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 11
       file_name: cacao_beans
       name: cacao_beans
@@ -506,6 +517,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 12
       file_name: komugiko
       name: kyorikiko
@@ -547,6 +559,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 13
       file_name: butter
       name: salad_Oil
@@ -588,6 +601,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 14
       file_name: butter
       name: butter_salt
@@ -629,6 +643,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 15
       file_name: orange
       name: orange
@@ -670,6 +685,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 16
       file_name: pinkblood_orange
       name: pink_bloodorange
@@ -711,6 +727,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 17
       file_name: orange
       name: orange_pele
@@ -752,6 +769,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 18
       file_name: grape
       name: grape
@@ -793,6 +811,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 19
       file_name: blue_berry
       name: blue_berry
@@ -834,6 +853,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 20
       file_name: strawberry
       name: strawberry
@@ -875,6 +895,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 21
       file_name: banana
       name: banana
@@ -916,6 +937,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 22
       file_name: pear
       name: pear
@@ -957,6 +979,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 23
       file_name: nuts
       name: nuts
@@ -998,6 +1021,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 24
       file_name: water
       name: water
@@ -1039,6 +1063,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 25
       file_name: milk
       name: milk
@@ -1080,6 +1105,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 26
       file_name: parfe_base
       name: parfe_base
@@ -1121,6 +1147,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 27
       file_name: ice_ball
       name: ice_ball
@@ -1162,6 +1189,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 28
       file_name: armond_powder
       name: armond_powder
@@ -1203,6 +1231,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 29
       file_name: orange
       name: orange_jam
@@ -1244,6 +1273,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 30
       file_name: apareiyu
       name: appaleil
@@ -1285,6 +1315,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 31
       file_name: apareiyu
       name: appaleil_mixer
@@ -1326,6 +1357,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 32
       file_name: apareiyu
       name: appaleil_honey
@@ -1367,6 +1399,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 33
       file_name: apareiyu
       name: appaleil_milk
@@ -1408,6 +1441,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 34
       file_name: apareiyu
       name: custard_cream
@@ -1449,6 +1483,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 35
       file_name: apareiyu
       name: appaleil_yellow
@@ -1490,6 +1525,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 36
       file_name: apareiyu
       name: meringue
@@ -1531,6 +1567,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 37
       file_name: powder_bowl
       name: financier_powder
@@ -1572,6 +1609,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 38
       file_name: apareiyu
       name: whitekiji
@@ -1613,6 +1651,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 39
       file_name: apareiyu
       name: mazekiji
@@ -1654,6 +1693,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 40
       file_name: apareiyu
       name: cookie_base
@@ -1695,6 +1735,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 41
       file_name: apareiyu
       name: cookie_base_salad_Oil
@@ -1736,6 +1777,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 42
       file_name: apareiyu
       name: cookie_base_nosuger
@@ -1777,6 +1819,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 43
       file_name: apareiyu
       name: cookie_base_cheese
@@ -1818,6 +1861,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 44
       file_name: apareiyu
       name: cookie_base_orange
@@ -1859,6 +1903,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 45
       file_name: apareiyu
       name: cookie_base_grape
@@ -1900,6 +1945,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 46
       file_name: apareiyu
       name: cookie_base_cocoa
@@ -1941,6 +1987,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 47
       file_name: apareiyu
       name: cookie_base_icebox
@@ -1982,6 +2029,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 48
       file_name: apareiyu
       name: cookie_base_honey
@@ -2023,6 +2071,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 49
       file_name: apareiyu
       name: cake_base
@@ -2064,6 +2113,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 50
       file_name: apareiyu
       name: financier_base
@@ -2105,6 +2155,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 51
       file_name: apareiyu
       name: cake_base_cheese
@@ -2146,6 +2197,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 52
       file_name: apareiyu
       name: chocolate_base
@@ -2187,6 +2239,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 53
       file_name: apareiyu
       name: pie_base
@@ -2228,6 +2281,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
   - name: 02_ItemDB_Okashi
     list:
     - ItemID: 200
@@ -2271,6 +2325,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 201
       file_name: orange_neko_cookie
       name: orange_neko_cookie
@@ -2312,6 +2367,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Orange
       item_hyouji: 1
+      Set_JudgeNum: 11
     - ItemID: 202
       file_name: pink_neko_cookie
       name: pinkorange_neko_cookie
@@ -2353,6 +2409,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: PinkBloodOrange
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 203
       file_name: orange_neko_cookie
       name: orange_neko_nuts
@@ -2394,6 +2451,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 204
       file_name: neko_cookie
       name: egg_neko_cookie
@@ -2435,6 +2493,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 205
       file_name: neko_cookie
       name: cookie_nonsuger
@@ -2476,6 +2535,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 206
       file_name: neko_cookie
       name: cookie_salad_oil
@@ -2517,6 +2577,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 207
       file_name: neko_cookie
       name: cheese_cookie
@@ -2558,6 +2619,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 208
       file_name: grape_neko_cookie
       name: grape_cookie
@@ -2599,6 +2661,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Grape
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 209
       file_name: honey_neko_cookie
       name: honey_cookie
@@ -2640,6 +2703,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 210
       file_name: cocoa_neko_cookie
       name: cocoa_cookie
@@ -2681,6 +2745,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 211
       file_name: star_cookie
       name: star_cookie
@@ -2722,6 +2787,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: StarPowder
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 212
       file_name: emerald_neko_cookie
       name: emerald_neko_cookie
@@ -2763,6 +2829,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: EmeraldSuger
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 213
       file_name: neko_cookie
       name: sugerbutter_cookie
@@ -2804,6 +2871,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 214
       file_name: rusk
       name: rusk
@@ -2845,6 +2913,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 215
       file_name: rusk
       name: rusk_orange
@@ -2886,6 +2955,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 216
       file_name: strawberry_milfiyu
       name: crepe
@@ -2927,6 +2997,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 217
       file_name: strawberry_milfiyu
       name: strawberry_milfiyu
@@ -2968,6 +3039,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 218
       file_name: financier
       name: financier
@@ -3009,6 +3081,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Kogashi_Butter
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 219
       file_name: financier_Orange
       name: financier_Orange
@@ -3050,6 +3123,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Kogashi_Butter
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 220
       file_name: castella
       name: castella
@@ -3091,6 +3165,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 221
       file_name: sponge_cake
       name: sponge_cake
@@ -3132,6 +3207,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 222
       file_name: cheese_cake
       name: cheese_cake
@@ -3173,6 +3249,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 223
       file_name: pan_cake
       name: pan_cake
@@ -3214,6 +3291,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 224
       file_name: pan_cake
       name: choco_banana_pan_cake
@@ -3255,6 +3333,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 225
       file_name: pan_cake
       name: blueberry_pan_cake
@@ -3296,6 +3375,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 226
       file_name: pan_cake
       name: threeberry_banana_pan_cake
@@ -3337,6 +3417,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 227
       file_name: dorayaki
       name: dorayaki
@@ -3378,6 +3459,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 228
       file_name: huwakoro
       name: huwakoro
@@ -3419,6 +3501,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 229
       file_name: huwakoro
       name: macaron
@@ -3460,6 +3543,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 230
       file_name: huwakoro
       name: eclair
@@ -3501,6 +3585,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 231
       file_name: baumcoohen
       name: charlotte
@@ -3542,6 +3627,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 232
       file_name: baumcoohen
       name: choco_baumcoohen
@@ -3583,6 +3669,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 233
       file_name: baumcoohen
       name: baumcoohen
@@ -3624,6 +3711,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 234
       file_name: stairway_to_Heaven
       name: stairway_to_Heaven
@@ -3665,6 +3753,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 235
       file_name: eden
       name: Eden
@@ -3706,6 +3795,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 236
       file_name: eden
       name: TheRoseOfAriandel
@@ -3747,6 +3837,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 237
       file_name: eden
       name: TheMemoryOfTime
@@ -3788,6 +3879,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 238
       file_name: eden
       name: sumire_suger
@@ -3829,6 +3921,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 239
       file_name: eden
       name: victrorias_cake
@@ -3870,6 +3963,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 240
       file_name: eden
       name: sorbetOfCatori
@@ -3911,6 +4005,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 241
       file_name: eden
       name: marrys_kouglof
@@ -3952,6 +4047,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 242
       file_name: kinshi_gyokuyo
       name: kinshi_gyokuyo
@@ -3993,6 +4089,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 243
       file_name: chocolate
       name: green_chocolate
@@ -4034,6 +4131,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Chocolate
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 244
       file_name: chocolate
       name: chocolate
@@ -4075,6 +4173,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Chocolate
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 245
       file_name: magical_torte
       name: magical_torte
@@ -4116,6 +4215,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Chocolate
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 246
       file_name: magical_torf
       name: magical_torf
@@ -4157,6 +4257,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Chocolate
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 247
       file_name: chocolate
       name: aquamarine
@@ -4198,6 +4299,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Chocolate
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 248
       file_name: forget_me_not
       name: forget_me_not
@@ -4239,6 +4341,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Chocolate
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 249
       file_name: bugget
       name: bugget
@@ -4280,6 +4383,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 250
       file_name: bugget
       name: bugget_powder
@@ -4321,6 +4425,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 251
       file_name: bugget
       name: bugget_orange
@@ -4362,6 +4467,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 252
       file_name: bugget_sliced
       name: bugget_sliced
@@ -4403,6 +4509,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 253
       file_name: bugget_sliced
       name: bugget_orange_sliced
@@ -4444,6 +4551,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 254
       file_name: icecream
       name: ice_cream
@@ -4485,6 +4593,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: IceCream
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 255
       file_name: orange_juice
       name: orange_juice
@@ -4526,6 +4635,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 256
       file_name: orange_juice
       name: haloween_juice
@@ -4567,6 +4677,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 257
       file_name: orange_juice
       name: mix_fruits_juice
@@ -4608,6 +4719,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 258
       file_name: cloud_cookie
       name: cloud_cookie
@@ -4649,6 +4761,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 259
       file_name: neko_cookie
       name: maccha_choco
@@ -4690,6 +4803,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 260
       file_name: rich_tea
       name: rich_tea
@@ -4731,6 +4845,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 261
       file_name: neko_cookie
       name: sinamon_pie
@@ -4772,6 +4887,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 262
       file_name: rich_tea
       name: corn_soup
@@ -4813,6 +4929,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 263
       file_name: coffee
       name: forest_coffee
@@ -4854,6 +4971,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 264
       file_name: coffee
       name: light_manderin
@@ -4895,6 +5013,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 265
       file_name: rich_tea
       name: kogyoku_apple_tea
@@ -4936,6 +5055,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 266
       file_name: neko_cookie
       name: potato_bonbon
@@ -4977,6 +5097,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 267
       file_name: neko_cookie
       name: torte
@@ -5018,6 +5139,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 0
+      Set_JudgeNum: 0
     - ItemID: 268
       file_name: coffee
       name: sea_losanonos
@@ -5059,6 +5181,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 269
       file_name: strawberry_parfe
       name: vanilla_parfe
@@ -5100,6 +5223,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 270
       file_name: chocolate_parfe
       name: chocorate_parfe
@@ -5141,6 +5265,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
   - name: 03_ItemDB_Potion
     list:
     - ItemID: 400
@@ -5184,6 +5309,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 401
       file_name: neko_cookie
       name: jam_bullet
@@ -5225,6 +5351,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 402
       file_name: neko_cookie
       name: kirakira_heart
@@ -5266,6 +5393,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 403
       file_name: neko_cookie
       name: juwely_suger
@@ -5307,6 +5435,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 404
       file_name: neko_cookie
       name: colorful_suger
@@ -5348,6 +5477,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 405
       file_name: neko_cookie
       name: mix_color_spread
@@ -5389,6 +5519,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 406
       file_name: neko_cookie
       name: mix_choco_spread
@@ -5430,6 +5561,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 407
       file_name: neko_cookie
       name: decopen_choco
@@ -5471,6 +5603,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 408
       file_name: neko_cookie
       name: decopen_choco_white
@@ -5512,6 +5645,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 409
       file_name: neko_cookie
       name: decopen_choco_pink
@@ -5553,6 +5687,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 410
       file_name: neko_cookie
       name: decopen_choco_blue
@@ -5594,6 +5729,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 411
       file_name: zarame
       name: zarame
@@ -5635,6 +5771,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 412
       file_name: cocoa_powder
       name: cocoa_powder
@@ -5676,6 +5813,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 413
       file_name: macha_powder
       name: macha_powder
@@ -5717,6 +5855,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 414
       file_name: crystal_suger
       name: crystal_suger
@@ -5758,6 +5897,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 415
       file_name: miracle_tapioka
       name: miracle_tapioka
@@ -5799,6 +5939,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 416
       file_name: shishamo
       name: shishamo
@@ -5840,6 +5981,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 417
       file_name: honey
       name: honey
@@ -5881,6 +6023,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 418
       file_name: maple_syrup
       name: maple_syrup
@@ -5922,6 +6065,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 419
       file_name: maple_syrup
       name: sakura_chip
@@ -5963,6 +6107,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 420
       file_name: row_cream
       name: row_cream
@@ -6004,6 +6149,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 421
       file_name: row_cream
       name: whipped cream
@@ -6045,6 +6191,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 422
       file_name: star_powder
       name: star_powder
@@ -6086,6 +6233,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 423
       file_name: cornFrake
       name: corn_frake
@@ -6127,6 +6275,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 424
       file_name: cream_cheese
       name: cream_cheese
@@ -6168,6 +6317,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 425
       file_name: neko_cookie
       name: ALL_potion
@@ -6209,6 +6359,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
   - name: 04_ItemDB_Etc
     list:
     - ItemID: 500
@@ -6252,6 +6403,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 501
       file_name: milkpan
       name: milkpan
@@ -6293,6 +6445,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0
     - ItemID: 502
       file_name: pan_knife
       name: pan_knife
@@ -6334,3 +6487,4 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
+      Set_JudgeNum: 0

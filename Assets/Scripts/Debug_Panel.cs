@@ -22,6 +22,7 @@ public class Debug_Panel : MonoBehaviour {
     private string input_text2;
     private int scenario_num;
     private int girllove_param;
+    private Text girl_lv;
 
     private Toggle Mazui_toggle;
     private Toggle Mazui_toggle_input;
@@ -92,7 +93,17 @@ public class Debug_Panel : MonoBehaviour {
 
             //好感度バーの取得
             _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
+
+            //女の子のレベル取得
+            girl_lv = GameObject.FindWithTag("Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+
+            while (girllove_param >= _slider.maxValue)
+            {
+                    girllove_param -= (int)_slider.maxValue;
+                    girl1_status.girl1_Love_lv++;               
+            }
             _slider.value = girllove_param;
+            girl_lv.text = girl1_status.girl1_Love_lv.ToString();
 
             compound_Main.check_GirlLoveEvent_flag = false;
         }

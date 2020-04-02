@@ -232,6 +232,16 @@ public class Utage_scenario : MonoBehaviour
                     //SPお菓子食べたあとの感想テキストを表示
                     StartCoroutine(MainQuestClear_Hyouji());
                 }
+
+                if (GameMgr.sleep_flag == true)
+                {
+                    GameMgr.sleep_flag = false;
+                    scenarioLabel = "Sleep";
+
+                    //寝るイベントを表示
+                    story_num = 9999;
+                    StartCoroutine(Scenario_Start());
+                }
             }
                 
             //ガールシーンでのテキスト処理
@@ -406,6 +416,8 @@ public class Utage_scenario : MonoBehaviour
         }
 
         scenario_loading = false;
+
+        GameMgr.scenario_read_endflag = true; //レシピを読み終えたフラグ
     }
 
     //

@@ -17,7 +17,7 @@ public class Touch_Controller : MonoBehaviour {
         BG = GameObject.FindWithTag("BG");
         Character = GameObject.FindWithTag("Character");
 
-        touch_obj.Add(BG.transform.Find("TouchBell").gameObject);
+        //touch_obj.Add(BG.transform.Find("TouchBell").gameObject);
         touch_obj.Add(BG.transform.Find("TouchFlower").gameObject);
         touch_obj.Add(BG.transform.Find("TouchWindow").gameObject);
         //touch_obj.Add(BG.transform.Find("TouchWindow2").gameObject);

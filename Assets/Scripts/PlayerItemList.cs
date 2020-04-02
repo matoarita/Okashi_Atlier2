@@ -17,6 +17,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private string _type;
     private string _subtype;
     private string _koyutp;
+    private int _judge_num;
     private int _first_eat;
 
     private string ev_itemName, ev_itemNameHyouji;
@@ -193,13 +194,14 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _type = database.items[i].itemType.ToString();
                 _subtype = database.items[i].itemType_sub.ToString();
                 _koyutp = database.items[i].koyu_toppingtype[0];
+                _judge_num = database.items[i].SetJudge_Num;
                 _first_eat = database.items[i].First_eat;
                 break;
             }
             ++i;
         }
 
-        player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty, _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp, _itemkosu, extreme_kaisu, _item_hyouji, _first_eat));
+        player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty, _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp, _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _first_eat));
     }
 
     public void deleteOriginalItem(int _id, int _kosu)

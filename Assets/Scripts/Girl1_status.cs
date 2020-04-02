@@ -62,6 +62,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public bool WaitHint_on;
     public float timeOutHint;
+    private string _hint1;
+    private string _hintrandom;
+    private List<string> _hintrandomDict = new List<string>();
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -102,6 +105,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int Set_Count;
 
     public int girl1_Love_exp; //女の子の好感度値のこと。ゲーム中に、お菓子をあげることで変動する。
+    public int girl1_Love_lv; //好感度のレベル。100ごとに１上がる。
 
     public bool girl_comment_flag; //女の子が感想をいうときに、宴をON/OFFにするフラグ
     public bool girl_comment_endflag; //感想を全て言い終えたフラグ
@@ -201,7 +205,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private CubismModel _model;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         DontDestroyOnLoad(this);
 
@@ -228,13 +233,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girlLikeSet_database = GirlLikeSetDataBase.Instance.GetComponent<GirlLikeSetDataBase>();
 
         //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
-        girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();        
+        girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
 
         //Live2Dモデルの取得
         _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
 
         // スロットの効果と点数データベースの初期化
-        InitializeItemSlotDicts();        
+        InitializeItemSlotDicts();
 
         //テキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -258,6 +263,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeGirl_hungry_status = 1;
 
         girl1_Love_exp = 0;
+        girl1_Love_lv = 1;
         OkashiNew_Status = 1;
 
         GirlEat_Judge_on = true;
@@ -309,9 +315,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         touch_status = 0;
 
-       // *** パラメータ初期設定 ***
+        // *** パラメータ初期設定 ***
 
-       youso_count = 3; //配列3のサイズ
+        youso_count = 3; //配列3のサイズ
         Set_Count = 1;   //デフォルトで１。
 
         //女の子の好み。初期化。甘さ・苦さ・酸味は近いものほど高得点。
@@ -332,7 +338,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_likeSubtype = new string[youso_count];
         girl1_likeOkashi = new string[youso_count];
         girllike_desc = new string[youso_count];
-        
+
         //ステージごとに、女の子が食べたいお菓子のセットを初期化
         InitializeStageGirlHungrySet(0, 0); //とりあえず0で初期化
 
@@ -343,6 +349,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Emo_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Emo_Kirari_Anim");
         Emo_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Emo_Angry_Anim");
 
+        //ヒントテキストをセッティング
+        _hint1 = "まずは、左のパネルでお菓子を作ろうね！お兄ちゃん。";
+        RandomHintInit();
     }
 
     // Update is called once per frame
@@ -353,10 +362,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             canvas = GameObject.FindWithTag("Canvas");
 
-            
-            
            
-            
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Compound":
@@ -419,7 +425,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             if (timeOutHint <= 0.0f)
             {
-                //吹き出しが残っていたら、内容を変える。
+                //吹き出しが残っていたら、削除。
                 if (hukidashiitem != null)
                 {
                     if (_desc == "")
@@ -428,7 +434,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     else
                     {
-                        _text.text = _desc;
+                        DeleteHukidashi();
+                        //_text.text = _desc;
                     }
                 }
 
@@ -701,6 +708,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
                     //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。    
 
+                    
                     //まず、表示フラグが1のもののみのセットを作る。
                     girlLikeCompo_database.StageSet();
 
@@ -716,12 +724,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     SetQuestRandomSet(glike_compID, true);                   
 
                     //表示用吹き出しを生成                    
-                    hukidasiInit();        
+                    //hukidasiInit();  
+                    
 
                     //吹き出しのテキスト決定
                     //hukidashiitem.GetComponent<TextController>().SetText(_desc);
-                    _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-                    _text.text = _desc;
+                    //_text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+                    //_text.text = _desc;
 
                     break;
 
@@ -878,8 +887,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void Girl_Full()
     {
-        DeleteHukidashi();
-
+        if (hukidashiitem != null)
+        {
+            DeleteHukidashi();
+        }
     }
 
     public void Girl_hukidashi_Off()
@@ -893,7 +904,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void Girl_hukidashi_On()
     {
-        //前の残りの吹き出しアイテムを一時的にオフ
+        //前の残りの吹き出しアイテムを一時的にオン
         if (hukidashiitem != null)
         {
             hukidashiitem.SetActive(true);
@@ -910,12 +921,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         DeleteHukidashi();
     }
 
-
-
     
     public void Girl1_Status_Init()
     {
         timeOut = 5.0f;
+
+        timeGirl_hungry_status = 0;
+    }
+
+    public void Girl1_Status_Init2()
+    {
+        timeOut = 1.0f;
 
         timeGirl_hungry_status = 0;
     }
@@ -925,23 +941,30 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //
     public void Girl1_Hint()
     {
-        //好感度25以下で、かつまだ一度も調合していない
-        if (girl1_Love_exp <= 25 && PlayerStatus.First_recipi_on != true)
+        if (hukidashiitem == null)
         {
-            if (hukidashiitem == null)
-            {
-                hukidasiInit();
-            }            
-
-            hukidashiitem.GetComponent<TextController>().SetText("まずは、左のパネルでお菓子を作ろうね！お兄ちゃん。");
+            hukidasiInit();
         }
 
-        //5秒ほど表示したら、また食べたいお菓子を表示か削除
+        //好感度25以下で、かつまだ一度も調合していない
+        if (girl1_Love_exp <= 25 && PlayerStatus.First_recipi_on != true)
+        {                      
+            hukidashiitem.GetComponent<TextController>().SetText(_hint1);
+        }
+        else
+        {
+            //ランダムで、吹き出しの内容を決定
+            random = Random.Range(0, _hintrandomDict.Count);
+            _hintrandom = _hintrandomDict[random];
+
+            hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
+        }
+
+        //15秒ほど表示したら、また食べたいお菓子を表示か削除
         WaitHint_on = true;
-        timeOutHint = 5.0f;
+        timeOutHint = 15.0f;
         GirlEat_Judge_on = false;
-        //StartCoroutine("WaitHintDesc");
-    }
+    }    
 
     IEnumerator WaitHintDesc()
     {
@@ -966,7 +989,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
 
-    void hukidasiInit()
+    public void hukidasiInit()
     {
         hukidashiitem = Instantiate(hukidashiPrefab);
 
@@ -1028,6 +1051,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //キャラクタ表情変更
         //s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
         //s.sprite = Girl1_img_gokigen;
+    }
+
+    public void DeleteHukidashiOnly() //こっちは消すだけ
+    {
+        //前の残りの吹き出しアイテムを削除。
+        if (hukidashiitem != null)
+        {
+            Destroy(hukidashiitem);
+        }
     }
     
 
@@ -1562,6 +1594,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
         _touchtwintail_comment_lib.Add("..。");
         _touchtwintail_comment_lib.Add("（さらさら..。）");
+    }
+
+    void RandomHintInit()
+    {
+        _hintrandomDict.Add("いい朝だねぇ～。お兄ちゃん～。");
+        _hintrandomDict.Add("エメラルどんぐり、拾いにいこうよ～。お兄ちゃん。");
     }
 
     void Init_MazuiHintComment()

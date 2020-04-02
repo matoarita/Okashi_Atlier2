@@ -220,7 +220,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             //立ち絵もオフ
             sister_stand_img1.SetActive(false);
 
-            _text.text = "家に戻ってきた。";
+            _text.text = "家に戻ってきた。どうしようかなぁ？";
         }
     }
 

@@ -13,6 +13,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public int scenario_flag_input;     //デバッグ用。シナリオフラグをインスペクタから入力
     public int scenario_flag_cullent;   //デバッグ用。現在のシナリオフラグを確認用
 
+    public static bool scenario_read_endflag; //シナリオ（メインなどのイベント用）を読み終えたフラグ
+
     public static bool event_recipi_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ
     public static int event_recipiID;       //その時のイベント番号
     public static bool event_recipi_endflag; //レシピを読み終えたときのフラグ
@@ -45,6 +47,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int mainquest_ID;
     public static bool mainClear_flag;
 
+    //寝るイベントフラグ
+    public static bool sleep_flag;
+
     //お菓子イベントクリアのフラグ
     public static bool[] OkashiQuest_flag = new bool[100];
     //00 = オリジナルクッキークリア
@@ -68,6 +73,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage1_start_day;
     public static int stage2_start_day;
     public static int stage3_start_day;
+
+    public static int stage1_limit_day;
+    public static int stage2_limit_day;
+    public static int stage3_limit_day;
 
     private PlayerItemList pitemlist;
 
@@ -131,6 +140,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         girlloveevent_flag = false;
         girlloveevent_endflag = false;
 
+        sleep_flag = false;
+        scenario_read_endflag = false;
+
         //好感度イベントフラグの初期化
         GirlLoveEvent_01 = false;
 
@@ -160,6 +172,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage1_start_day = 91;
         stage2_start_day = 121;
         stage3_start_day = 151;
+
+        //ステージごとの締め切りの日数
+        stage1_limit_day = 98;
+        stage2_limit_day = 151;
+        stage3_limit_day = 211;
 
         //各色の設定
         ColorYellow = "<color=#FDFF80>";

@@ -24,6 +24,7 @@ public class Compound_Main : MonoBehaviour
     private Special_Quest special_quest;
     private Touch_Controller touch_controller;
 
+    private TimeController time_controller;
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -37,6 +38,9 @@ public class Compound_Main : MonoBehaviour
     private Button select_extreme_button;
     private Button select_sister_shop_button;
     private Button select_no_button;
+
+    private GameObject girl_love_exp_bar;
+    private GameObject moneystatus_panel;
 
     private GameObject TimePanel_obj1;
     private GameObject TimePanel_obj2;
@@ -183,6 +187,12 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj2 = canvas.transform.Find("TimePanel/TimeHyouji_2").gameObject;
         TimePanel_obj2.SetActive(false);
 
+        //好感度バーの取得
+        girl_love_exp_bar = canvas.transform.Find("Girl_love_exp_bar").gameObject;
+
+        //お金ステータスパネルの取得
+        moneystatus_panel = canvas.transform.Find("MoneyStatus_panel").gameObject;
+
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false;
@@ -289,6 +299,9 @@ public class Compound_Main : MonoBehaviour
         //タッチ判定オブジェクトの取得
         touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
+        //時間管理オブジェクトの取得
+        time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
+
         compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
 
         original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
@@ -305,11 +318,7 @@ public class Compound_Main : MonoBehaviour
 
         stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
         stageclear_Button.SetActive(false);
-
-        //初期メッセージ
-        _text.text = "何の調合をする？";
-        text_area.SetActive(true);
-
+        
         compound_status = 0;
         compound_select = 0;
 
@@ -340,6 +349,9 @@ public class Compound_Main : MonoBehaviour
                 break;
         }
 
+        //初期メッセージ
+        _text.text = "どうしようかなぁ？";
+        text_area.SetActive(true);
 
         //各調合時のシステムメッセージ集
         originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
@@ -782,6 +794,9 @@ public class Compound_Main : MonoBehaviour
                 Extremepanel_obj.SetActive(false);
                 text_area.SetActive(false);
                 check_recipi_flag = false;
+                TimePanel_obj1.SetActive(false);
+                girl_love_exp_bar.SetActive(false);
+                moneystatus_panel.SetActive(false);
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEat_Judge_on = false;                
@@ -857,7 +872,11 @@ public class Compound_Main : MonoBehaviour
 
                 TimePanel_obj1.SetActive(true);
                 TimePanel_obj2.SetActive(false);
+                time_controller.TimeCheck_flag = true;
+                time_controller.TimeKoushin(); //時間の更新
 
+                girl_love_exp_bar.SetActive(true);
+                moneystatus_panel.SetActive(true);
                 select_original_button.interactable = true;
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
@@ -893,15 +912,15 @@ public class Compound_Main : MonoBehaviour
                 //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
                 if (girl1_status.girl1_Love_exp >= clear_love)
                 {
-                    //stageclear_toggle.SetActive(true);
-                    stageclear_Button.SetActive(true);
+                    stageclear_toggle.SetActive(true);
+                    //stageclear_Button.SetActive(true);
                 }
                 else
                 {
                     if (stageclear_toggle.activeSelf == true)
                     {
-                        //stageclear_toggle.SetActive(false);
-                        stageclear_Button.SetActive(false);
+                        stageclear_toggle.SetActive(false);
+                        //stageclear_Button.SetActive(false);
                     }
                 }
 
@@ -929,6 +948,7 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 text_area.SetActive(true);
+                time_controller.TimeCheck_flag = false;
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -950,6 +970,7 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
+                time_controller.TimeCheck_flag = false;
 
                 //BGMを変更
                 //sceneBGM.OnCompoundBGM();
@@ -981,6 +1002,7 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.extremeButtonInteractOFF();
                 recipiMemoButton.SetActive(true);
                 recipimemoController_obj.SetActive(false);
+                time_controller.TimeCheck_flag = false;
                 memoResult_obj.SetActive(false);
 
                 //BGMを変更
@@ -1026,6 +1048,7 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
+                time_controller.TimeCheck_flag = false;
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -1103,7 +1126,7 @@ public class Compound_Main : MonoBehaviour
             case 30: //「売る」を選択
 
                 compoundselect_onoff_obj.SetActive(false);
-                stageclear_Button.SetActive(false);
+                //stageclear_Button.SetActive(false);
 
                 compound_status = 31; //売るシーンに入っています、というフラグ
                 compound_select = 30; //売るを選択
@@ -1135,7 +1158,7 @@ public class Compound_Main : MonoBehaviour
             case 40: //ステージクリアを選択
 
                 compoundselect_onoff_obj.SetActive(false);
-                stageclear_Button.SetActive(false);
+                //stageclear_Button.SetActive(false);
 
                 compound_status = 41; //売るシーンに入っています、というフラグ
                 compound_select = 40; //売るを選択
@@ -1391,16 +1414,16 @@ public class Compound_Main : MonoBehaviour
 
     public void OnStageClear() //ステージクリアボタン
     {
-        //if (stageclear_toggle.GetComponent<Toggle>().isOn == true)
-        //{
-            //stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+        if (stageclear_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             card_view.DeleteCard_DrawView();
 
             _text.text = "次のお話に進みますか？";
             compound_status = 40;
 
-        //}
+        }
     }
 
 
@@ -1841,6 +1864,7 @@ public class Compound_Main : MonoBehaviour
         //sell_Button.SetActive(true);
         sceneBGM.MuteOFFBGM();
 
+        girl1_status.Girl1_Status_Init2();
         GirlLove_loading = false;
 
         _text.text = "";

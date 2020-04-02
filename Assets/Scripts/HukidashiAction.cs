@@ -277,7 +277,7 @@ public class HukidashiAction : MonoBehaviour {
 
                 if (GameMgr.scenario_flag == 160)
                 {
-                    _hint = "兄ちゃん、パンがちょっと粉っぽいかも。";
+                    _hint = "兄ちゃん、このラスクってやつ、あまりうまくないかも。。" + "\n" + "パンがちょっと粉っぽいのかなぁ？";
                 }
                 if (GameMgr.scenario_flag == 170)
                 {

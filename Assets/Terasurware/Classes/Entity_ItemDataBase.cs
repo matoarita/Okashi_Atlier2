@@ -58,6 +58,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public string topping10;
 		public string koyu_topping;
 		public int item_hyouji;
+		public int Set_JudgeNum;
 	}
 }
 

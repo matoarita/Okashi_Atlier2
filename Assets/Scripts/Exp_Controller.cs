@@ -83,6 +83,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int result_kosu;
 
     private int _getexp;
+    private string comment_text;
 
     //成功確率(外部スクリプトから保存・読み込み用）
     public float _temp_srate_1;
@@ -1368,11 +1369,32 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Debug.Log("失敗..！");
     }
 
-    public void GirlLikeText(int _getlove_exp, int _getmoney)
+    public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score)
     {
+        if (total_score >= 0 && total_score < 30)
+        {
+            comment_text = "（かなり我慢して食べたようだ..。）　" + total_score.ToString() + "点。";
+        }
+        else if (total_score >= 30 && total_score < 60)
+        {
+            comment_text = "まあまあおいしい、かな？　" + total_score.ToString() + "点。";
+        }
+        else if (total_score >= 60 && total_score < 80)
+        {
+            comment_text = "なかなかに、おいしい！　" + total_score.ToString() + "点。";
+        }
+        else if (total_score >= 80 && total_score < 95)
+        {
+            comment_text = "大満足！！　" + total_score.ToString() + "点。";
+        }
+        else if (total_score >= 95)
+        {
+            comment_text = "（あまりのおいしさに恍惚の表情を浮かべている）　" + total_score.ToString() + "点。";
+        }
 
         _text.text = "お菓子をあげた！" + "\n" + "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
-            + "お金を " + GameMgr.ColorYellow + _getmoney + "</color>" + "G ゲットした！";
+            + "お金を " + GameMgr.ColorYellow + _getmoney + "</color>" + "G ゲットした！" + "\n"
+            + comment_text;
     }
 
     public void GirlDisLikeText(int _getlove_exp)
