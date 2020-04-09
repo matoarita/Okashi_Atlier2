@@ -1127,11 +1127,21 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     }
                 }
-                else if (dislike_flag == false) //吹き出しに合っていない場合
+                else if (dislike_flag == false) //吹き出しに合っていない場合でも、普通に食べたときの反応になる。
                 {
-                    if (girl1_status.OkashiNew_Status == 0) //スペシャルクエストだった場合は、これじゃないという。
+                    if (girl1_status.OkashiNew_Status == 0) 
                     {
-                        dislike_status = 5;
+                        //dislike_status = 5; //スペシャルクエストだった場合は、これじゃないという。
+                        if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
+                        {
+                            dislike_flag = true;
+                            dislike_status = 2;
+                        }
+                        else
+                        {
+                            dislike_flag = true;
+                            dislike_status = 6;
+                        }
                     }
                     else
                     {
@@ -1164,8 +1174,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     //クッキーの場合はさくさく感など。大きいパラメータをまず見る。次に甘さ・苦さ・酸味が、女の子の好みに近いかどうか。
 
-                    //お菓子そのものの好み。トータルスコアに反映される。豪華、レアなお菓子ほど高得点。
-                    itemLike_score = _basegirl1_like;
+                    //お菓子そのものの好み。取得好感度に直接反映。
+                    itemLike_score = 0;
 
                     //未使用。
                     quality_score = 0;
@@ -1183,8 +1193,9 @@ public class GirlEat_Judge : MonoBehaviour {
                     sour_result = _basesour - _girlsour[set_id];
 
                     //セットごとの固有の好感度得点。最終的な好感度の値に加算する。難しいものほど、好感度の上昇値も大きい。
-                    girllike_point = _girl_set_score[set_id];
-                    Debug.Log("girllike_point: " + girllike_point);
+                    //girllike_point = _girl_set_score[set_id];
+                    //Debug.Log("girllike_point: " + girllike_point);
+                    girllike_point = 0;
 
 
                     //あまみ・にがみ・さんみに対して、それぞれの評価。差の値により、6段階で評価する。
@@ -1460,15 +1471,20 @@ public class GirlEat_Judge : MonoBehaviour {
                     }
                     else if (girl1_status.OkashiNew_Status == 1) //通常の場合
                     {
-                        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                        if (GameMgr.tutorial_ON == true) //チュートリアルモードなど回避用
+                        { }
+                        else
                         {
-                            if (girlLikeCompo_database.girllike_compoRandomset[_set_compID].set_ID == girlLikeCompo_database.girllike_composet[i].set_ID)
+                            for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
                             {
-                                ++girlLikeCompo_database.girllike_composet[i].set_score;
+                                if (girlLikeCompo_database.girllike_compoRandomset[_set_compID].set_ID == girlLikeCompo_database.girllike_composet[i].set_ID)
+                                {
+                                    ++girlLikeCompo_database.girllike_composet[i].set_score;
+                                }
                             }
                         }
                     }
-                    else { } //チュートリアルモードなどで、直接GirlLikeSetを指定している場合、composetのスコアは取得しないので、回避用
+                    else { } 
 
                     //スペシャルクエストだった場合は、まずいフラグがたつ。
                     if (girl1_status.OkashiNew_Status == 0)
@@ -1541,6 +1557,11 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     break;
 
+                case 6: //スペシャルクエストだが、吹き出しと違うアイテムの場合、通常の計算処理。
+
+                    Okashi_Result();
+                    break;
+
                 default:
 
                     Okashi_Result();
@@ -1554,6 +1575,13 @@ public class GirlEat_Judge : MonoBehaviour {
                 hukidashiitem = GameObject.FindWithTag("Hukidashi");
                 _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
 
+            }
+            else
+            {
+                girl1_status.hukidasiInit();
+
+                hukidashiitem = GameObject.FindWithTag("Hukidashi");
+                _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
             }
 
             switch (dislike_status)
@@ -1992,24 +2020,56 @@ public class GirlEat_Judge : MonoBehaviour {
             default: //通常
 
                 //好感度取得
-                if (total_score >= 0 && total_score < 100)
+                if (total_score >= 0 && total_score < 15)
                 {
-                    Getlove_exp = (int)(total_score * 0.2f) + girllike_point;
+                    Getlove_exp = (int)(_basegirl1_like * 0.5f) + (int)(total_score * 0.3f) + girllike_point;
                 }
-                else if (total_score > 100) //100点を超えた場合、2倍程度増加
+                else if (total_score >= 15 && total_score < 45)
                 {
-                    Getlove_exp = (int)(total_score * 0.4f) + girllike_point;
+                    Getlove_exp = (int)(_basegirl1_like * 1.0f) + (int)(total_score * 0.3f) + girllike_point;
+                }
+                else if (total_score >= 45 && total_score < 60)
+                {
+                    Getlove_exp = (int)(_basegirl1_like * 1.5f) + (int)(total_score * 0.3f) + girllike_point;
+                }
+                else if (total_score >= 60 && total_score < 80)
+                {
+                    Getlove_exp = (int)(_basegirl1_like * 2.0f) + (int)(total_score * 0.3f) + girllike_point;
+                }
+                else if (total_score >= 80 && total_score < 100)
+                {
+                    Getlove_exp = (int)(_basegirl1_like * 5.0f) + (int)(total_score * 0.3f) + girllike_point;
+                }
+                else if (total_score >= 100) //100点を超えた場合、10倍程度増加
+                {
+                    Getlove_exp = (int)(_basegirl1_like * 10.0f) + (int)(total_score * 0.6f) + girllike_point;
                 }
                 Debug.Log("取得好感度: " + Getlove_exp);
 
                 //お金の取得
-                if (total_score >= 0 && total_score < 100)
+                if (total_score >= 0 && total_score < 15)
                 {
-                    GetMoney = _basecost + total_score + slot_money;
+                    GetMoney = (int)(_basecost  * 0.5f) + (int)(total_score * 0.3f) + slot_money;
                 }
-                else if (total_score > 100) //100点を超えた場合、2倍程度増加
+                else if (total_score >= 15 && total_score < 45)
                 {
-                    GetMoney = (_basecost + total_score + slot_money) * 2;
+                    GetMoney = (int)(_basecost * 1.0f) + (int)(total_score * 0.3f) + slot_money;
+                }
+                else if (total_score >= 45 && total_score < 60)
+                {
+                    GetMoney = (int)(_basecost * 1.5f) + (int)(total_score * 0.3f) + slot_money;
+                }
+                else if (total_score >= 60 && total_score < 80)
+                {
+                    GetMoney = (int)(_basecost * 2.0f) + (int)(total_score * 0.3f) + slot_money;
+                }
+                else if (total_score >= 80 && total_score < 100)
+                {
+                    GetMoney = (int)(_basecost * 5.0f) + (int)(total_score * 0.3f) + slot_money;
+                }
+                else if (total_score >= 100) //100点を超えた場合、2倍程度増加
+                {
+                    GetMoney = (_basecost + slot_money) + (int)(total_score * 0.6f) * 10;
                 }
                 Debug.Log("取得お金: " + GetMoney);
                 break;
@@ -2038,7 +2098,7 @@ public class GirlEat_Judge : MonoBehaviour {
         for (i = 0; i < heart_count; i++)
         {
             _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
-
+            _listHeart[i].GetComponent<HeartUpObj>()._id = i;
         }
 
         //好感度　取得分増加
@@ -2080,39 +2140,84 @@ public class GirlEat_Judge : MonoBehaviour {
     //
     void SelectNewOkashiSet()
     {
-        
+
         //スペシャルお菓子クエストをクリアした場合の条件分岐
 
-        //特定のお菓子をクリアした場合は、1に戻す。
-        if (girl1_status.OkashiNew_Status == 0)
+        if (dislike_status == 1)
         {
-            girl1_status.OkashiNew_Status = 1;
-
-            //その際、クリアしたお菓子に応じて特別報酬やイベントなどが進む。ScoreHyouji_OFF()で処理。リザルトのボタンを押したときに発動する。
-            switch (girl1_status.OkashiQuest_ID)
+            //特定のお菓子をクリアした場合は、1に戻す。
+            if (girl1_status.OkashiNew_Status == 0)
             {
-                case 1000: //オリジナルクッキークリア
-                   
-                    girl1_status.special_animatFirst = false;
+                girl1_status.OkashiNew_Status = 1;
 
-                    //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                    special_quest.SetSpecialOkashi(1);
+                //その際、クリアしたお菓子に応じて特別報酬やイベントなどが進む。ScoreHyouji_OFF()で処理。リザルトのボタンを押したときに発動する。
+                switch (girl1_status.OkashiQuest_ID)
+                {
+                    case 1000: //オリジナルクッキークリア
 
-                    break;
+                        girl1_status.special_animatFirst = false;
 
-                case 1010: //ラスククリア
-                    
-                    girl1_status.special_animatFirst = false;
+                        //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                        special_quest.SetSpecialOkashi(1);
 
-                    break;
+                        break;
 
-                default:
-                    break;
+                    case 1010: //ラスククリア
+
+                        girl1_status.special_animatFirst = false;
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+                subQuestClear_check = true;
             }
-
-            subQuestClear_check = true;
         }
+        else if (dislike_status == 6)
+        {
+            //スペシャルを無視するたびに、無視カウントが増える。一定こえると、現在のスペシャルは無くなる。（未クリアとなる。）
+            girl1_status.Special_ignore_count++;
 
+            if( girl1_status.Special_ignore_count > 3)
+            {
+                girl1_status.Special_ignore_count = 0;
+                girl1_status.OkashiNew_Status = 1;
+
+                switch (girl1_status.OkashiQuest_ID)
+                {
+                    case 1000: //オリジナルクッキー
+
+                        if (GameMgr.OkashiQuest_flag[0] != true) //クエスト終了のフラグはたてる
+                        {
+                            GameMgr.OkashiQuest_flag[0] = true;
+                        }
+
+                        break;
+
+                    case 1010: //ラスク
+
+                        if (GameMgr.OkashiQuest_flag[1] != true) //クエスト終了のフラグはたてる
+                        {
+                            GameMgr.OkashiQuest_flag[1] = true;                            
+                        }
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+                for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                {
+                    if (girlLikeCompo_database.girllike_composet[i].ID == girl1_status.OkashiQuest_ID)
+                    {
+                        girlLikeCompo_database.girllike_composet[i].clearFlag = false; //未クリア
+                    }
+                }
+            }
+        }
 
 
         //その他、通常の状態で、何らかの条件を満たした場合
@@ -2187,6 +2292,14 @@ public class GirlEat_Judge : MonoBehaviour {
                         if (HighScore_flag) //さらに高得点だったら、特別なイベントや報酬などが発生
                         {
                             GameMgr.OkashiQuest_flag[1] = true;
+                            for(i=0; i< girlLikeCompo_database.girllike_composet.Count; i++)
+                            {
+                                if(girlLikeCompo_database.girllike_composet[i].ID == girl1_status.OkashiQuest_ID )
+                                {
+                                    girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
+                                }
+                            }
+                            
                             _mainquest_name = "ラスクとありんこ";
 
                             MainQuestText.text = _mainquest_name;
@@ -2198,6 +2311,13 @@ public class GirlEat_Judge : MonoBehaviour {
                         else //こっちは通常クリア
                         {
                             GameMgr.OkashiQuest_flag[1] = true;
+                            for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                            {
+                                if (girlLikeCompo_database.girllike_composet[i].ID == girl1_status.OkashiQuest_ID)
+                                {
+                                    girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
+                                }
+                            }
                             _mainquest_name = "カリカリラスクマン";
 
                             MainQuestText.text = _mainquest_name;

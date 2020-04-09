@@ -63,6 +63,26 @@ public class BGM : MonoBehaviour {
                 fade_volume += _fadedeg;
             }
         }
+
+        if (fade_status == 3) //ミックスフェードで切り替え　0 -> 1
+        {
+            _mixRate += _fadedeg;
+            if (_mixRate >= 1.0f)
+            {
+                _mixRate = 1;
+                fade_status = 1;
+            }
+        }
+
+        if (fade_status == 4) //ミックスフェードで切り替え　1 -> 0
+        {
+            _mixRate -= _fadedeg;
+            if (_mixRate < 0.0f)
+            {
+                _mixRate = 0;
+                fade_status = 1;
+            }
+        }
     }
 
     public void Play()
@@ -80,6 +100,11 @@ public class BGM : MonoBehaviour {
 
         _mixRate = 0;
     }
+    public void OnMainBGMFade()
+    {
+
+        fade_status = 4;
+    }
 
     public void OnCompoundBGM()
     {
@@ -87,7 +112,8 @@ public class BGM : MonoBehaviour {
         _bgm[1].clip = sound2;
         _bgm[1].Play();
 
-        _mixRate = 1;
+        fade_status = 3;
+        //_mixRate = 1;
     }
 
     public void OnGetMatStartBGM()

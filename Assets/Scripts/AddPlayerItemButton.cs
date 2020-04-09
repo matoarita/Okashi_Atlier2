@@ -105,7 +105,7 @@ public class AddPlayerItemButton : MonoBehaviour {
         //デバッグ用　すべてのアイテムを追加する。
         for (i = 0; i <= database.sheet_topendID[1]; i++)
         {
-            if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" || database.items[i].itemType_sub.ToString() == "Appaleil")
+            if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base")
             {
                 //生地タイプ、クッキーベースタイプ、アパレイユを無視する。
             }
@@ -115,10 +115,10 @@ public class AddPlayerItemButton : MonoBehaviour {
             }
 
             //アパレイユ追加。
-            if (database.items[i].itemName == "appaleil")
+            /*if (database.items[i].itemName == "appaleil")
             {
                 pitemlist.addPlayerItem(i, 5);
-            }
+            }*/
         }
 
         //お菓子タイプ

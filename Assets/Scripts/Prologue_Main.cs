@@ -18,8 +18,10 @@ public class Prologue_Main : MonoBehaviour {
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
         GameMgr.stage_number = 1;
+        GameMgr.scenario_flag = 0;
 
-        
+
+
     }
 	
 	// Update is called once per frame

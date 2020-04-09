@@ -64,7 +64,7 @@ MonoBehaviour:
       shop_buy_price: 2
       item_hyouji: 0
     - ItemID: 7
-      name: bugget_powder
+      name: bugget
       zaiko: 50
       itemType: 0
       shop_sell_price: 30
@@ -127,40 +127,40 @@ MonoBehaviour:
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 16
-      name: milkpan
-      zaiko: 1
-      itemType: 2
-      shop_sell_price: 300
-      shop_buy_price: 150
-      item_hyouji: 1
-    - ItemID: 17
-      name: pan_knife
-      zaiko: 1
-      itemType: 2
-      shop_sell_price: 300
-      shop_buy_price: 150
-      item_hyouji: 1
-    - ItemID: 18
       name: parfe_base
       zaiko: 50
       itemType: 0
       shop_sell_price: 50
       shop_buy_price: 25
       item_hyouji: 0
-    - ItemID: 19
+    - ItemID: 17
       name: ice_cream
       zaiko: 50
       itemType: 0
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 0
-    - ItemID: 20
+    - ItemID: 18
       name: corn_frake
       zaiko: 50
       itemType: 0
       shop_sell_price: 20
       shop_buy_price: 10
       item_hyouji: 0
+    - ItemID: 19
+      name: milkpan
+      zaiko: 1
+      itemType: 2
+      shop_sell_price: 300
+      shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 20
+      name: pan_knife
+      zaiko: 1
+      itemType: 2
+      shop_sell_price: 300
+      shop_buy_price: 150
+      item_hyouji: 1
     - ItemID: 21
       name: cookie_base_recipi
       zaiko: 1
@@ -174,4 +174,32 @@ MonoBehaviour:
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 23
+      name: crepe_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 1200
+      shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 24
+      name: maffin_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 300
+      shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 25
+      name: bisucouti_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 300
+      shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 26
+      name: princesstota_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 5000
+      shop_buy_price: 2500
       item_hyouji: 1

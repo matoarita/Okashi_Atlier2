@@ -176,3 +176,9 @@ MonoBehaviour:
       slot_Hyouki_2: "\u30C1\u30E7\u30B3\u304C\u3051"
       slot_girlscore: 10
       slot_money: 150
+    - ItemID: 27
+      slot_Name: SakuraChip
+      slot_Hyouki_1: "\u3055\u304F\u3089\u306E\u82B1\u3073\u3089"
+      slot_Hyouki_2: "\u307B\u306E\u304B\u306A\u3055\u304F\u3089\u306E\u9999\u308A"
+      slot_girlscore: 10
+      slot_money: 150

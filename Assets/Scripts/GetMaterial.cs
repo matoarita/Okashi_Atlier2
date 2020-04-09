@@ -13,6 +13,8 @@ public class GetMaterial : MonoBehaviour {
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
+    private TimeController time_controller;
+
     private GameObject tansaku_panel;
     private Button tansaku_yes;
     private Button tansaku_no;
@@ -92,8 +94,11 @@ public class GetMaterial : MonoBehaviour {
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();        
 
         //テキストエリアの取得
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+
+        //時間管理オブジェクトの取得
+        time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
 
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
@@ -205,6 +210,10 @@ public class GetMaterial : MonoBehaviour {
 
                 //お金の消費
                 moneyStatus_Controller.UseMoney(mat_cost);
+
+                //日数の経過
+                PlayerStatus.player_time += 3;
+                time_controller.TimeKoushin();
 
                 //ウェイトアニメ
                 mat_anim_on = true;

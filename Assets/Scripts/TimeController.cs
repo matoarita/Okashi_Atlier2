@@ -107,7 +107,28 @@ public class TimeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        //時間のカウント
+        timeLeft -= Time.deltaTime;
+
+        //1秒ごとのタイムカウンター
+        if (timeLeft <= 0.0)
+        {
+            timeLeft = 1.0f;
+            count_switch = !count_switch;
+        }
+
+        if (count_switch)
+        {
+            //表示
+            _time_count1.text = ":";
+            _time_count2.text = ":";
+        }
+        else
+        {
+            //表示
+            _time_count1.text = " ";
+            _time_count2.text = " ";
+        }
     }
 
     public void TimeKoushin()
@@ -166,36 +187,13 @@ public class TimeController : MonoBehaviour
         TimeKeisan();
 
 
-        //時間のカウント
-        timeLeft -= Time.deltaTime;
 
-        //1秒ごとのタイムカウンター
-        if (timeLeft <= 0.0)
-        {
-            timeLeft = 1.0f;
-            count_switch = !count_switch;
-        }
+        //表示
+        _time_hour1.text = hour.ToString("00");
+        _time_minute1.text = minute.ToString("00");
+        _time_hour2.text = hour.ToString("00");
+        _time_minute2.text = minute.ToString("00");
 
-        if (count_switch)
-        {
-            //表示
-            _time_hour1.text = hour.ToString("00");
-            _time_count1.text = ":";
-            _time_minute1.text = minute.ToString("00");
-            _time_hour2.text = hour.ToString("00");
-            _time_count2.text = ":";
-            _time_minute2.text = minute.ToString("00");
-        }
-        else
-        {
-            //表示
-            _time_hour1.text = hour.ToString("00");
-            _time_count1.text = " ";
-            _time_minute1.text = minute.ToString("00");
-            _time_hour2.text = hour.ToString("00");
-            _time_count2.text = " ";
-            _time_minute2.text = minute.ToString("00");
-        }
     }
 
     void TimeKeisan()
@@ -207,14 +205,15 @@ public class TimeController : MonoBehaviour
 
         //10分刻みなので、6ごとに時間を+1
         count = 0;
-        while (count < max_time)
+        while (_cullent_time > 0)
         {
             if (_cullent_time >= 6)
             {
                 hour++;
                 _cullent_time -= 6;
+                ++count;
 
-                if(hour > 24 )
+                if (hour > 24 )
                 {
                     PlayerStatus.player_day++;
                     hour = 0; //0時にリセット
@@ -225,7 +224,7 @@ public class TimeController : MonoBehaviour
                 minute = _cullent_time * 10; //残り時間 * 10分
                 break;
             }
-            ++count;
+            
         }
 
         if (count >= max_time)
@@ -234,6 +233,7 @@ public class TimeController : MonoBehaviour
             if (TimeCheck_flag)
             {
 
+                TimeCheck_flag = false;
                 //寝るイベントが発生
                 GameMgr.scenario_ON = true;
                 StartCoroutine("SleepDayEnd");
@@ -271,5 +271,7 @@ public class TimeController : MonoBehaviour
         //リセット。
         PlayerStatus.player_day++;
         PlayerStatus.player_time = 0;
+
+        TimeKeisan();
     }
 }

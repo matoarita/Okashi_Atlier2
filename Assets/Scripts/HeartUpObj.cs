@@ -34,6 +34,9 @@ public class HeartUpObj : MonoBehaviour {
 
     private SoundController sc;
 
+    private int _deg;
+    public int _id; //ハート一個一個にIDをつけとく
+
     // Use this for initialization
     void Start () {
 
@@ -171,9 +174,34 @@ public class HeartUpObj : MonoBehaviour {
 
     void DestObj()
     {
+        if (girlEat_judge._listHeart.Count < 50)
+        {
+            _deg = 3;
+        }
+        else if (girlEat_judge._listHeart.Count >= 50 && girlEat_judge._listHeart.Count < 100)
+        {
+            _deg = 5;
+        }
+        else if (girlEat_judge._listHeart.Count >= 100 && girlEat_judge._listHeart.Count < 200)
+        {
+            _deg = 7;
+        }
+        else if (girlEat_judge._listHeart.Count >= 200)
+        {
+            _deg = 10;
+        }
+
         //音鳴らす
-        sc.PlaySe(33);
-        //sc.PlaySe(34);
+        if (_id % _deg == 0)
+        {
+            //Debug.Log("bang");
+            sc.PlaySe(33);
+            //sc.PlaySe(34);
+        }
+        else
+        {
+            
+        }
 
         //好感度ゲージを上昇
         girlEat_judge.GetHeartValue();

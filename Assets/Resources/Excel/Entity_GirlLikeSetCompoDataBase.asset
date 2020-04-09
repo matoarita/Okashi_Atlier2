@@ -24,6 +24,7 @@ MonoBehaviour:
       set_flag: 1
       set_score: 0
       hint_text: "\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306F\u3001\u306D\u3053\u306E\u5473\uFF01"
+      clear: 0
     - ID: 1
       set_compID: 1
       set1: 10
@@ -34,6 +35,7 @@ MonoBehaviour:
       set_flag: 1
       set_score: 0
       hint_text: "\u30AA\u30EC\u30F3\u30B8\u306F\u3001\u8FD1\u304F\u306E\u68EE\u3067\u3082\u63A1\u308C\u308B\u3088\uFF01\u304A\u5144\u3061\u3083\u3093\uFF01"
+      clear: 0
     - ID: 2
       set_compID: 15
       set1: 30
@@ -44,6 +46,7 @@ MonoBehaviour:
       set_flag: 2
       set_score: 0
       hint_text: "\u30B5\u30AF\u30B5\u30AF\u3057\u305F\u304A\u83D3\u5B50\u304C\u98DF\u3079\u305F\u3044\u3088\uFF5E\uFF01"
+      clear: 0
     - ID: 3
       set_compID: 20
       set1: 20
@@ -54,6 +57,7 @@ MonoBehaviour:
       set_flag: 2
       set_score: 0
       hint_text: "\u7D2B\u8272\u306E\u3001\u3064\u3076\u3064\u3076\u306E\u30D5\u30EB\u30FC\u30C4\u304C\u306E\u3063\u3066\u308B\u3084\u3064..\u3002\n\u3042\u308C\u3001\u306A\u3093\u3060\u3063\u3051\u3002"
+      clear: 0
     - ID: 4
       set_compID: 30
       set1: 30
@@ -64,6 +68,7 @@ MonoBehaviour:
       set_flag: 2
       set_score: 0
       hint_text: "\u5144\u3061\u3083\u3093\u3001\u3042\u306E\u30AB\u30EA\u30AB\u30EA\u306E\u7518\u3044\u30D1\u30F3\u98DF\u3079\u305F\u3044\uFF01"
+      clear: 0
     - ID: 5
       set_compID: 40
       set1: 40
@@ -75,6 +80,7 @@ MonoBehaviour:
       set_score: 0
       hint_text: "\u5144\u3061\u3083\u3093\u3001\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306B\u305F\u307E\u3054\u3092\u5165\u308C\u3066\u3082\u304A\u3044\u3057\u3044\u304B\u3082\uFF01\n\u751F\u5730\u306E\u4F5C\u308A\u65B9\u306F..
         \u3046\uFF5E\u3093\u3068\u3001\u3048\uFF5E\u3068..\u3000\u5C0F\u9EA6\u7C89\u306F\u3001\u4E00\u756A\u6700\u5F8C\u306B\u5165\u308C\u305F\u3088\u3046\u306A..\u3002"
+      clear: 0
     - ID: 6
       set_compID: 1000
       set1: 12
@@ -85,6 +91,7 @@ MonoBehaviour:
       set_flag: 0
       set_score: 0
       hint_text: "\u304A\u5144\u3061\u3083\u3093\u306E\u4F5C\u3063\u305F\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044\u306A\u3042\u3002\n\u898B\u305F\u76EE\u304C\u304B\u308F\u3044\u3044\u306E\u304C\u3044\u3044\u306A\uFF5E\uFF01"
+      clear: 0
     - ID: 7
       set_compID: 1010
       set1: 30
@@ -95,3 +102,4 @@ MonoBehaviour:
       set_flag: 0
       set_score: 0
       hint_text: "\u5144\u3061\u3083\u3093\u3001\u3058\u3044\u3061\u3083\u3093\u304B\u3089\u30E9\u30B9\u30AF\u306E\u4F5C\u308A\u65B9\u3092\u6559\u3048\u3066\u3082\u3089\u3063\u305F\u304B\u3089\u3001\n\u65E9\u901F\u4F5C\u3063\u3066\u307F\u3088\u3046\u3088\uFF01"
+      clear: 0

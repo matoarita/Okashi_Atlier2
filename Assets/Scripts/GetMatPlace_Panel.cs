@@ -20,6 +20,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private Girl1_status girl1_status;
 
+    private TimeController time_controller;
+
     private GameObject getmatplace_view;
     private GameObject slot_view;
     private GameObject slot_tansaku_button;
@@ -53,6 +55,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private int select_place_num;
     private string select_place_name;
+    private int select_place_day;
 
     private bool Slot_view_on;
     private int slot_view_status;
@@ -94,7 +97,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
         //windowテキストエリアの取得
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         //Yes no パネルの取得
@@ -102,6 +105,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //時間管理オブジェクトの取得
+        time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
@@ -234,6 +240,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 _text.text = matplace_database.matplace_lists[i].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
                 select_place_num = i;
                 select_place_name = matplace_database.matplace_lists[i].placeName;
+                select_place_day = matplace_database.matplace_lists[i].placeDay;
 
                 Select_Pause();
                 break;
@@ -290,6 +297,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //音量フェードアウト
                 sceneBGM.FadeOutBGM();
 
+                //日数の経過。場所ごとに、移動までの日数が変わる。
+                PlayerStatus.player_time += select_place_day;
+                time_controller.TimeKoushin();
+
                 break;
 
             case false: //キャンセルが押された
@@ -345,7 +356,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、今日も頑張っていっぱいとろう！";
+                            _text.text = "兄ちゃん、いっぱいとろうね！";
                         }
 
                         //イベントチェック
@@ -367,7 +378,27 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             StartCoroutine("MapEventOn");
                         }
 
-                        
+                        /*
+                        if (GameMgr.MapEvent_03 == false)
+                        {
+                            GameMgr.MapEvent_03 = true;
+
+                            slot_view_status = 3; //イベント読み込み中用に退避
+
+                            //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
+                            slot_tansaku_button.SetActive(false);
+
+                            mapevent_panel[0].SetActive(true);
+                            text_area.SetActive(false);
+
+                            GameMgr.map_ev_ID = 3;
+                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                            StartCoroutine("MapEventOn");
+                        }
+                        */
+
+
                         break;
 
                     case "Ido":

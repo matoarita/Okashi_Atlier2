@@ -37,6 +37,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static bool MapEvent_01;         //マップイベント。一度読んだイベントは、発生しない。近くの森へはじめてきた。
     public static bool MapEvent_02;         //井戸へはじめてきた。
+    public static bool MapEvent_03;         //森へきたとき。草笛のイベント
 
     //スペシャルお菓子を食べる前の会話フラグ
     public static bool sp_okashi_hintflag;
@@ -91,15 +92,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool tutorial_Progress;   //進行したときにフラグをたてる。すると、次のテキストが流れる。
     public static int tutorial_Num;         //チュートリアルの進行度
 
+    //ステージ最初の読み込みフラグ
+    public static bool stage1_load_ok;
+
     //イベントフラグ管理用
     [SerializeField]
     private bool gamestart_recipi_get;
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
+    public static string ColorLemon;
     public static string ColorPink;
     public static string ColorRed;
     public static string ColorBlue;
+    public static string ColorCyan;
     public static string ColorOrange;
 
 
@@ -131,6 +137,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         shop_hint = false;
 
         stage_number = 1;
+
+        stage1_load_ok = false;
 
         //秒計算。　
         timeLeft = 1.0f;
@@ -177,12 +185,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage1_limit_day = 98;
         stage2_limit_day = 151;
         stage3_limit_day = 211;
-
+        
         //各色の設定
-        ColorYellow = "<color=#FDFF80>";
+        ColorYellow = "<color=#BA9535>"; // かなり薄い黄色FDFF80
+        ColorLemon = "<color=#FDFF80>"; // かなり薄い黄色FDFF80
         ColorPink = "<color=#FF5CA1>";
         ColorRed = "<color=#FF0000>";
         ColorBlue = "<color=#0000FF>";
+        ColorCyan = "<color=#44A2FF>";
         ColorOrange = "<color=#FF8400>";
     }
 	

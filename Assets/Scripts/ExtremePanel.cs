@@ -120,7 +120,7 @@ public class ExtremePanel : MonoBehaviour {
         card_view = card_view_obj.GetComponent<CardView>();
 
         //windowテキストエリアの取得
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         //サウンドコントローラーの取得

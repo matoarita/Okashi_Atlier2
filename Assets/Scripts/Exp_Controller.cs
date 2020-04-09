@@ -1371,7 +1371,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score)
     {
-        if (total_score >= 0 && total_score < 30)
+        /*if (total_score >= 0 && total_score < 30)
         {
             comment_text = "（かなり我慢して食べたようだ..。）　" + total_score.ToString() + "点。";
         }
@@ -1390,7 +1390,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else if (total_score >= 95)
         {
             comment_text = "（あまりのおいしさに恍惚の表情を浮かべている）　" + total_score.ToString() + "点。";
-        }
+        }*/
+        comment_text = "";
 
         _text.text = "お菓子をあげた！" + "\n" + "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
             + "お金を " + GameMgr.ColorYellow + _getmoney + "</color>" + "G ゲットした！" + "\n"

@@ -28,6 +28,8 @@ public class Utage_scenario : MonoBehaviour
 
     private PlayerItemList pitemlist;
 
+    private ItemMatPlaceDataBase matplace_database;
+
     private Girl1_status girl1_status; //女の子１のステータスを取得。
 
     //採点結果を取得
@@ -64,6 +66,9 @@ public class Utage_scenario : MonoBehaviour
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         scenario_loading = false; //「Utage」シーンを最初に読み込むときに、falseに初期化。宴のシナリオを読み中はtrue。コルーチンのリセットを回避する。
     }
@@ -901,6 +906,26 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("Re_flag", 40);
                 break;
 
+            case "crepe_recipi":
+
+                engine.Param.TrySetParameter("Re_flag", 50);
+                break;
+
+            case "maffin_recipi":
+
+                engine.Param.TrySetParameter("Re_flag", 60);
+                break;
+
+            case "bisucouti_recipi":
+
+                engine.Param.TrySetParameter("Re_flag", 70);
+                break;
+
+            case "princesstota_recipi":
+
+                engine.Param.TrySetParameter("Re_flag", 80);
+                break;
+
             default:
                 break;
         }
@@ -1055,6 +1080,16 @@ public class Utage_scenario : MonoBehaviour
             case 1:
 
                 engine.Param.TrySetParameter("MapEv_num", 1);
+                break;
+
+            case 2: //はじめて井戸へきた
+
+                engine.Param.TrySetParameter("MapEv_num", 2);
+                break;
+
+            case 3: //草笛のイベント
+
+                engine.Param.TrySetParameter("MapEv_num", 3);
                 break;
 
             default:
@@ -1229,6 +1264,11 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        if( (bool)engine.Param.GetParameter("Farm_Flag") )
+        {
+            matplace_database.matPlaceKaikin("Farm"); //モタリケ牧場解禁
+        }               
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 

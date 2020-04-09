@@ -193,6 +193,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //特定のお菓子か、ランダムから選ぶかのフラグ
     public int OkashiNew_Status;
     public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
+    public int Special_ignore_count; //スペシャルを無視した場合、カウント。3回あたりをこえると、スペシャルは無視される。
 
     //エフェクト関係
     private GameObject Emo_effect_Prefab1;
@@ -210,11 +211,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         DontDestroyOnLoad(this);
 
-        //カメラの取得
-        main_cam = Camera.main;
-        maincam_animator = main_cam.GetComponent<Animator>();
-        trans = maincam_animator.GetInteger("trans");
-
+        
         girl_comment_flag = false;
         girl_comment_endflag = false;
         _desc = "";
@@ -244,11 +241,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //テキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
 
-        //エクストリームパネルの取得
-        Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
-
-        //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
+        
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -265,6 +258,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Love_exp = 0;
         girl1_Love_lv = 1;
         OkashiNew_Status = 1;
+        Special_ignore_count = 0;
 
         GirlEat_Judge_on = true;
         WaitHint_on = false;
@@ -281,6 +275,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
+
+                //カメラの取得
+                main_cam = Camera.main;
+                maincam_animator = main_cam.GetComponent<Animator>();
+                trans = maincam_animator.GetInteger("trans");
+
+                //エクストリームパネルの取得
+                Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
+
+                //お金の増減用パネルの取得
+                MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
 
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -807,13 +812,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         GirlEat_Judge_on = true;
     }
 
-    //
+    //チュートリアルで使用
     public void SetOneQuest(int _ID)
     {
         InitializeStageGirlHungrySet(_ID, 0);
 
         Set_Count = 1;
-        OkashiNew_Status = 99; //回避用
+        OkashiNew_Status = 1; //回避用
         Set_compID = _ID;
 
         //テキストの設定。直接しているか、セット組み合わせエクセルにかかれたキャプションのどちらかが入る。

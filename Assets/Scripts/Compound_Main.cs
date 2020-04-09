@@ -19,6 +19,7 @@ public class Compound_Main : MonoBehaviour
 
     private BGM sceneBGM;
     public bool bgm_change_flag;
+    public bool bgm_change_flag2;
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -196,6 +197,7 @@ public class Compound_Main : MonoBehaviour
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false;
+        bgm_change_flag2 = false;
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -335,6 +337,11 @@ public class Compound_Main : MonoBehaviour
         {
             case 1:
 
+                if (GameMgr.stage1_load_ok != true)
+                {
+                    GameMgr.stage1_load_ok = true;
+                    GameMgr.scenario_flag = 110;                   
+                }
                 clear_love = GameMgr.stage1_clear_love;
                 break;
 
@@ -533,6 +540,7 @@ public class Compound_Main : MonoBehaviour
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
                         text_area.SetActive(true);
+                        _text.text = "お菓子をあげてみよう！";
 
                         GameMgr.tutorial_Num = 105; //退避
                         break;
@@ -548,8 +556,7 @@ public class Compound_Main : MonoBehaviour
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
-
-                        _text.text = "お菓子をあげてみよう！";
+                        
                         break;
 
                     case 110:
@@ -653,6 +660,8 @@ public class Compound_Main : MonoBehaviour
                         //sell_Button.SetActive(false);
                         text_area.SetActive(true);
 
+                        _text.text = "もう一度パネルを押してみよう！";
+
                         break;
 
                     case 210: //エクストリーム調合　他のボタンは触れない
@@ -670,6 +679,8 @@ public class Compound_Main : MonoBehaviour
 
                         //MainCompoundMethod();
                         text_area.SetActive(true);
+
+                        _text.text = "「仕上げる」を押してみよう！";
 
                         break;
 
@@ -871,9 +882,7 @@ public class Compound_Main : MonoBehaviour
                 
 
                 TimePanel_obj1.SetActive(true);
-                TimePanel_obj2.SetActive(false);
-                time_controller.TimeCheck_flag = true;
-                time_controller.TimeKoushin(); //時間の更新
+                TimePanel_obj2.SetActive(false);                
 
                 girl_love_exp_bar.SetActive(true);
                 moneystatus_panel.SetActive(true);
@@ -892,6 +901,11 @@ public class Compound_Main : MonoBehaviour
                 {
                     bgm_change_flag = false;
                     sceneBGM.OnMainBGM();
+                }
+                if (bgm_change_flag2 == true)
+                {
+                    bgm_change_flag2 = false;
+                    sceneBGM.OnMainBGMFade();
                 }
                 sceneBGM.MuteOFFBGM();
 
@@ -930,7 +944,9 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(true);
 
-                text_scenario();
+                //時間のチェック
+                time_controller.TimeCheck_flag = true;
+                time_controller.TimeKoushin(); //時間の更新
 
                 compound_status = 110; //退避
                 break;
@@ -949,6 +965,13 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.extremeButtonInteractOFF();
                 text_area.SetActive(true);
                 time_controller.TimeCheck_flag = false;
+
+                //BGMを変更
+                if (bgm_change_flag2 != true)
+                {
+                    sceneBGM.OnCompoundBGM();
+                    bgm_change_flag2 = true;
+                }
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -971,9 +994,14 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
+                text_area.SetActive(true);
 
                 //BGMを変更
-                //sceneBGM.OnCompoundBGM();
+                if (bgm_change_flag2 != true)
+                {
+                    sceneBGM.OnCompoundBGM();
+                    bgm_change_flag2 = true;
+                }
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1004,9 +1032,14 @@ public class Compound_Main : MonoBehaviour
                 recipimemoController_obj.SetActive(false);
                 time_controller.TimeCheck_flag = false;
                 memoResult_obj.SetActive(false);
+                text_area.SetActive(true);
 
                 //BGMを変更
-                //sceneBGM.OnCompoundBGM();
+                if (bgm_change_flag2 != true)
+                {
+                    sceneBGM.OnCompoundBGM();
+                    bgm_change_flag2 = true;
+                }
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1037,6 +1070,13 @@ public class Compound_Main : MonoBehaviour
 
             case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
 
+                //BGMを変更
+                if (bgm_change_flag2 != true)
+                {
+                    sceneBGM.OnCompoundBGM();
+                    bgm_change_flag2 = true;
+                }
+
                 compoundselect_onoff_obj.SetActive(false);
 
                 compound_status = 4; //調合シーンに入っています、というフラグ
@@ -1049,10 +1089,13 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
+                text_area.SetActive(false);
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
+
+                
 
                 if (extreme_panel.extreme_itemID != 9999 && extreme_panel.extreme_kaisu > 0)
                 {
@@ -1113,6 +1156,7 @@ public class Compound_Main : MonoBehaviour
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 Extremepanel_obj.SetActive(false);
+                text_area.SetActive(true);
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1420,7 +1464,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            _text.text = "次のお話に進みますか？";
+            _text.text = "コンテストに出場しますか？" + "\n" + "（次のお話へ進みます。）";
             compound_status = 40;
 
         }
@@ -1560,63 +1604,6 @@ public class Compound_Main : MonoBehaviour
         pitemlist.eventitemlist[recipi_num].ev_ReadFlag = 1; //該当のイベントアイテムのレシピのフラグをONにしておく（読んだ、という意味）
         Recipi_FlagON_Method();
         Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji + "を読んだ");
-    }
-
-    void Recipi_FlagON_Method()
-    {
-
-        //レシピの番号チェック。コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。
-        switch(pitemlist.eventitemlist[recipi_num].event_itemName)
-        {
-            case "ev02_orangeneko_cookie_memo": //オレンジネコクッキー閃きのメモ
-
-                //オレンジジャムの作り方を解禁
-                Find_compoitemdatabase("orange_jam");
-                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-                break;
-
-            case "najya_start_recipi": //ナジャのお菓子作りの基本                
-
-                break;
-
-            case "cookie_base_recipi": //クッキー生地作り方のレシピ＜初級＞  
-
-                Find_compoitemdatabase("appaleil");
-                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-                break;
-
-            case "ice_cream_recipi": //アイスクリームの書
-
-                Find_compoitemdatabase("ice_cream");
-                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-                break;
-
-            case "financier_recipi": //フィナンシェ
-
-                Find_compoitemdatabase("kogashi_butter");
-                databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-                break;
-
-            default:
-                break;
-        }
-
-
-    }
-
-    //アイテム名を入力すると、該当するcompoIDを返す処理
-    void Find_compoitemdatabase(string compo_itemname)
-    {
-        j = 0;
-        while (j < databaseCompo.compoitems.Count)
-        {
-            if (compo_itemname == databaseCompo.compoitems[j].cmpitem_Name)
-            {
-                comp_ID = j;
-                break;
-            }
-            j++;
-        }
     }
 
 
@@ -1773,11 +1760,7 @@ public class Compound_Main : MonoBehaviour
                 //ステージ１のサブイベント
                 case 1:
 
-                    if (girl1_status.girl1_Love_exp >= 0 && girl1_status.girl1_Love_exp < 50)
-                    {
-                        
-                    }
-                    else if (girl1_status.girl1_Love_exp >= 50)
+                    if (girl1_status.girl1_Love_exp >= 50)
                     {
 
                         if (GameMgr.GirlLoveEvent_01 != true) //ステージ１　好感度イベント１
@@ -1873,6 +1856,72 @@ public class Compound_Main : MonoBehaviour
         check_recipi_flag = false;
     }
 
+    //レシピの番号チェック。コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。
+    void Recipi_FlagON_Method()
+    {
+        
+        switch (pitemlist.eventitemlist[recipi_num].event_itemName)
+        {
+            case "ev02_orangeneko_cookie_memo": //オレンジネコクッキー閃きのメモ
+
+                //オレンジジャムの作り方を解禁
+                CompoON_compoitemdatabase("orange_jam");
+
+                break;
+
+            case "najya_start_recipi": //ナジャのお菓子作りの基本                
+
+                break;
+
+            case "cookie_base_recipi": //クッキー生地作り方のレシピ＜初級＞  
+
+                CompoON_compoitemdatabase("appaleil");
+
+                break;
+
+            case "ice_cream_recipi": //アイスクリームの書
+
+                CompoON_compoitemdatabase("ice_cream");
+
+                break;
+
+            case "financier_recipi": //フィナンシェ
+
+                CompoON_compoitemdatabase("kogashi_butter");
+
+                break;
+
+            case "crepe_recipi": //クレープ
+
+                CompoON_compoitemdatabase("appaleil_milk");
+                CompoON_compoitemdatabase("crepe");
+
+                break;
+
+            case "maffin_recipi": //マフィン
+
+                CompoON_compoitemdatabase("maffin");
+
+                break;
+
+            case "bisucouti_recipi": //ビスコッティ
+
+                CompoON_compoitemdatabase("biscotti");
+
+                break;
+
+            case "princesstota_recipi": //プリンセストータ
+
+                CompoON_compoitemdatabase("princess_tota");
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
     //アイテム名を入力すると、該当するeventitem_IDを返す処理
     public int Find_eventitemdatabase(string compo_itemname)
     {
@@ -1887,5 +1936,22 @@ public class Compound_Main : MonoBehaviour
         }
 
         return 9999; //該当するIDがない場合
+    }
+   
+    //アイテム名を入力すると、該当するcompoIDをOnにする
+    void CompoON_compoitemdatabase(string compo_itemname)
+    {
+        j = 0;
+        while (j < databaseCompo.compoitems.Count)
+        {
+            if (compo_itemname == databaseCompo.compoitems[j].cmpitem_Name)
+            {
+                comp_ID = j;
+                break;
+            }
+            j++;
+        }
+
+        databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
     }
 }

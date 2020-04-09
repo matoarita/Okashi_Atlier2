@@ -93,6 +93,7 @@ public class Item
         Komugiko,
         Egg,
         Suger,
+        Salt,
         Butter,
         Fruits,
         Nuts,
