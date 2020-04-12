@@ -20,7 +20,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int _judge_num;
     private int _first_eat;
 
-    private string ev_itemName, ev_itemNameHyouji;
+    private string ev_fileName, ev_itemName, ev_itemNameHyouji;
     private int ev_kosu;
     private int ev_cost, ev_sell;
     private int ev_read_flag; //そのレシピを読み終えたかどうかをチェックするフラグ
@@ -105,6 +105,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             {
                 // 一旦代入 IDだけを取る。
                 _id = excel_eventitemdatabase.sheets[sheet_no].list[count].ev_ItemID;
+                ev_fileName = excel_eventitemdatabase.sheets[sheet_no].list[count].fileName;
                 ev_itemName = excel_eventitemdatabase.sheets[sheet_no].list[count].name;
                 ev_itemNameHyouji = excel_eventitemdatabase.sheets[sheet_no].list[count].nameHyouji;
                 ev_cost = excel_eventitemdatabase.sheets[sheet_no].list[count].cost_price;
@@ -115,7 +116,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_memo = excel_eventitemdatabase.sheets[sheet_no].list[count].memo;
 
                 //ここでリストに追加している
-                eventitemlist.Add(new ItemEvent(_id, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_list_on, ev_memo));
+                eventitemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_list_on, ev_memo));
 
                 ++count;
             }
@@ -128,7 +129,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
                 for (i = 0; i < excel_eventitemdatabase.sheets[sheet_no].list[0].ev_ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
                 {
-                    eventitemlist.Add(new ItemEvent(_id + i + 1, "", "", 0, 0, 0, 0, 0, "")); //エクセルに登録されていないアイテムID分、空をいれている。
+                    eventitemlist.Add(new ItemEvent(_id + i + 1, "", "", "", 0, 0, 0, 0, 0, "")); //エクセルに登録されていないアイテムID分、空をいれている。
                 }
             }
         }

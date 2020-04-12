@@ -848,7 +848,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 12
+      cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30D1\u30F3\u7CFB"
@@ -868,7 +868,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 12
+      cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -888,7 +888,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 12
+      cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -1057,7 +1057,7 @@ MonoBehaviour:
     - ItemID: 52
       cmpitemName: maffin
       cmpitemID_1: appaleil
-      cmpitemID_2: butter
+      cmpitemID_2: komugiko
       cmpitemID_3: salt
       cmp_subtype_1: empty
       cmp_subtype_2: empty
@@ -1068,11 +1068,11 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 12
+      cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30DE\u30D5\u30A3\u30F3\u7CFB"
-      Comment2: "\u30A2\u30D1\u30EC\u30A4\u30E6\xD7\u30D0\u30BF\u30FC\xD7\u5869"
+      Comment2: "\u30A2\u30D1\u30EC\u30A4\u30E6\xD7\u5C0F\u9EA6\u7C89\xD7\u5869"
       KeisanMethod: Non
     - ItemID: 53
       cmpitemName: 
@@ -1108,7 +1108,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 6
+      cost_time: 12
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u7CFB"
@@ -1188,7 +1188,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 3
+      cost_time: 6
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30E9\u30B9\u30AF\u7CFB"
@@ -1208,7 +1208,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 3
+      cost_time: 6
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -1228,7 +1228,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 3
+      cost_time: 6
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -1248,7 +1248,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 3
+      cost_time: 6
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -1268,7 +1268,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 3
+      cost_time: 6
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -1288,7 +1288,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 3
+      cost_time: 6
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -1308,7 +1308,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 3
+      cost_time: 6
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -1328,7 +1328,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 3
+      cost_time: 6
       success_rate: 95
       renkin_Bexp: 5
       Comment: 
@@ -1388,7 +1388,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 2
+      cost_time: 18
       success_rate: 95
       renkin_Bexp: 20
       Comment: "\u30D1\u30F3\u30B1\u30FC\u30AD\u7CFB"
@@ -1408,7 +1408,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 2
+      cost_time: 18
       success_rate: 95
       renkin_Bexp: 20
       Comment: 
@@ -1428,7 +1428,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       cmp_flag: 0
-      cost_time: 2
+      cost_time: 18
       success_rate: 95
       renkin_Bexp: 20
       Comment: 
@@ -1528,7 +1528,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       cmp_flag: 0
-      cost_time: 2
+      cost_time: 12
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30AF\u30EC\u30FC\u30D7\u7CFB"

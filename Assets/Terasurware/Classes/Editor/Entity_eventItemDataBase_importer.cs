@@ -51,14 +51,15 @@ public class Entity_eventItemDataBase_importer : AssetPostprocessor {
 						Entity_eventItemDataBase.Param p = new Entity_eventItemDataBase.Param ();
 						
 					cell = row.GetCell(0); p.ev_ItemID = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(1); p.name = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(2); p.nameHyouji = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(3); p.cost_price = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(4); p.sell_price = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(5); p.kosu = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(6); p.read_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(7); p.list_hyouji_on = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(8); p.memo = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(1); p.fileName = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(2); p.name = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(3); p.nameHyouji = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(4); p.cost_price = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(5); p.sell_price = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(6); p.kosu = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(7); p.read_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(8); p.list_hyouji_on = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.memo = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

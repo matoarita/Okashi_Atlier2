@@ -18,6 +18,7 @@ public class Entity_eventItemDataBase : ScriptableObject
 	{
 		
 		public int ev_ItemID;
+		public string fileName;
 		public string name;
 		public string nameHyouji;
 		public int cost_price;

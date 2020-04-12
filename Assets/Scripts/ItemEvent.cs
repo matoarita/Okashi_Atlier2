@@ -9,6 +9,7 @@ using System.Collections;
 public class ItemEvent
 {
     public int ev_ItemID;
+    public string event_fileName;
     public string event_itemName;
     public string event_itemNameHyouji;
     public int event_cost_price;
@@ -22,9 +23,10 @@ public class ItemEvent
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemEvent(int id, string ev_item, string ev_itemNameHyouji, int _cost, int _sell, int kosu, int flag, int list_on, string _memo)
+    public ItemEvent(int id, string file_Name, string ev_item, string ev_itemNameHyouji, int _cost, int _sell, int kosu, int flag, int list_on, string _memo)
     {
         ev_ItemID = id;
+        event_fileName = file_Name;
         event_itemName = ev_item;
         event_itemNameHyouji = ev_itemNameHyouji;
 

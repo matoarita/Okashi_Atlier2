@@ -97,7 +97,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
 
                             _itemID = pitemlist.eventitemlist[i].ev_ItemID;
                             //Debug.Log("イベントアイテムID: " + _itemID);
-                            _icon = Resources.Load<Sprite>("Sprites/Items/" + "recipibook");
+                            _icon = Resources.Load<Sprite>("Sprites/" + pitemlist.eventitemlist[i].event_fileName);
                             _name_hyouji = pitemlist.eventitemlist[i].event_itemNameHyouji;
 
                             break;

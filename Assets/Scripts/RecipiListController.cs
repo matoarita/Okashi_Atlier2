@@ -164,7 +164,7 @@ public class RecipiListController : MonoBehaviour {
                     _toggle_itemID.recipi_itemNameHyouji = item_name;
 
                     _text.text = item_name;
-                    _text.color = new Color(255f / 255f, 216f / 255f, 0f / 255f);
+                    //_text.color = new Color(153f / 255f, 89f / 255f, 201f / 255f); //9959C980
 
                     //画像を変更
                     texture2d = Resources.Load<Sprite>("Sprites/Icon/Book01");

@@ -92,7 +92,7 @@ MonoBehaviour:
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 11
-      name: juwely_suger
+      name: jewely_suger
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
@@ -111,14 +111,14 @@ MonoBehaviour:
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 14
       name: decopen_choco_white
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 15
       name: sakura_chip
       zaiko: 50

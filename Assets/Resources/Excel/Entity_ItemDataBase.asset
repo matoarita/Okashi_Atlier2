@@ -2436,7 +2436,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 5
+      girl1_like: 1
       cost_price: 50
       sell_price: 50
       topping01: Non
@@ -2478,7 +2478,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 10
+      girl1_like: 2
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -2520,7 +2520,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 10
+      girl1_like: 3
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -2562,7 +2562,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 13
+      girl1_like: 3
       cost_price: 70
       sell_price: 60
       topping01: Non
@@ -2604,7 +2604,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 5
+      girl1_like: 2
       cost_price: 50
       sell_price: 50
       topping01: Non
@@ -2646,7 +2646,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 13
+      girl1_like: 2
       cost_price: 20
       sell_price: 10
       topping01: Non
@@ -2688,7 +2688,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 13
+      girl1_like: 2
       cost_price: 80
       sell_price: 60
       topping01: Non
@@ -2730,7 +2730,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 13
+      girl1_like: 2
       cost_price: 90
       sell_price: 60
       topping01: Non
@@ -2772,7 +2772,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 13
+      girl1_like: 2
       cost_price: 100
       sell_price: 60
       topping01: Non
@@ -2814,7 +2814,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 13
+      girl1_like: 2
       cost_price: 200
       sell_price: 60
       topping01: Non
@@ -2856,7 +2856,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 13
+      girl1_like: 2
       cost_price: 200
       sell_price: 60
       topping01: Non
@@ -2898,7 +2898,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 13
+      girl1_like: 2
       cost_price: 200
       sell_price: 60
       topping01: Non
@@ -2940,7 +2940,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 10
+      girl1_like: 5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -2982,7 +2982,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 5
+      girl1_like: 4
       cost_price: 50
       sell_price: 50
       topping01: Non
@@ -3024,7 +3024,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 30
+      girl1_like: 2
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -3066,7 +3066,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 30
+      girl1_like: 2
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -3108,7 +3108,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 50
+      girl1_like: 2
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -3150,7 +3150,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 50
+      girl1_like: 2
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -3192,7 +3192,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 50
+      girl1_like: 2
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -3234,7 +3234,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 10
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -3276,7 +3276,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 4
       cost_price: 500
       sell_price: 80
       topping01: Non
@@ -3318,7 +3318,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 4
       cost_price: 500
       sell_price: 80
       topping01: Non
@@ -3360,7 +3360,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 8
       cost_price: 700
       sell_price: 300
       topping01: Non
@@ -3402,7 +3402,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 1
       cost_price: 800
       sell_price: 500
       topping01: Non
@@ -3444,7 +3444,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 10
       cost_price: 800
       sell_price: 500
       topping01: Non
@@ -3486,7 +3486,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 10
       cost_price: 1000
       sell_price: 500
       topping01: Non
@@ -3528,7 +3528,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 10
       cost_price: 1000
       sell_price: 500
       topping01: Non
@@ -3570,7 +3570,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 10
       cost_price: 1000
       sell_price: 500
       topping01: Non
@@ -3612,7 +3612,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 12
       cost_price: 1000
       sell_price: 500
       topping01: Non
@@ -3654,7 +3654,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 8
       cost_price: 1100
       sell_price: 150
       topping01: Non
@@ -3738,7 +3738,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 4
       cost_price: 1200
       sell_price: 180
       topping01: Non
@@ -3780,7 +3780,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 6
       cost_price: 1200
       sell_price: 180
       topping01: Non
@@ -3906,7 +3906,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 10
       cost_price: 1300
       sell_price: 350
       topping01: Non
@@ -3948,7 +3948,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 10
       cost_price: 1500
       sell_price: 700
       topping01: Non
@@ -3990,7 +3990,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 50
       cost_price: 7777
       sell_price: 1200
       topping01: Non
@@ -4032,7 +4032,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 50
       cost_price: 10000
       sell_price: 5000
       topping01: Non
@@ -4074,7 +4074,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 30
       cost_price: 10000
       sell_price: 5000
       topping01: Non
@@ -4116,7 +4116,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 35
       cost_price: 10000
       sell_price: 5000
       topping01: Non
@@ -4158,7 +4158,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 35
       cost_price: 10000
       sell_price: 5000
       topping01: Non
@@ -4242,7 +4242,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 30
       cost_price: 10000
       sell_price: 5000
       topping01: Non
@@ -4284,7 +4284,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cake
-      girl1_like: 20
+      girl1_like: 50
       cost_price: 10000
       sell_price: 5000
       topping01: Non
@@ -4368,7 +4368,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Chocolate
-      girl1_like: 20
+      girl1_like: 30
       cost_price: 3000
       sell_price: 1600
       topping01: Non
@@ -4620,7 +4620,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Bread
-      girl1_like: 10
+      girl1_like: 1
       cost_price: 10
       sell_price: 5
       topping01: Non
@@ -4662,7 +4662,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Bread
-      girl1_like: 10
+      girl1_like: 1
       cost_price: 10
       sell_price: 5
       topping01: Non
@@ -4704,7 +4704,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Bread
-      girl1_like: 10
+      girl1_like: 1
       cost_price: 10
       sell_price: 5
       topping01: Non
@@ -4746,7 +4746,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Bread
-      girl1_like: 10
+      girl1_like: 1
       cost_price: 10
       sell_price: 5
       topping01: Non
@@ -4788,7 +4788,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Bread
-      girl1_like: 10
+      girl1_like: 1
       cost_price: 10
       sell_price: 5
       topping01: Non
@@ -4830,7 +4830,7 @@ MonoBehaviour:
       watery: 10
       type: Okashi
       subtype: IceCream
-      girl1_like: 30
+      girl1_like: 12
       cost_price: 20
       sell_price: 300
       topping01: Non
@@ -4872,7 +4872,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Juice
-      girl1_like: 10
+      girl1_like: 2
       cost_price: 50
       sell_price: 10
       topping01: Non
@@ -4914,7 +4914,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Juice
-      girl1_like: 10
+      girl1_like: 2
       cost_price: 100
       sell_price: 30
       topping01: Non
@@ -4956,7 +4956,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Juice
-      girl1_like: 20
+      girl1_like: 2
       cost_price: 500
       sell_price: 250
       topping01: Non
@@ -4998,7 +4998,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 10
+      girl1_like: 5
       cost_price: 1200
       sell_price: 300
       topping01: Non
@@ -5418,7 +5418,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Coffee
-      girl1_like: 10
+      girl1_like: 5
       cost_price: 7777
       sell_price: 800
       topping01: Non
@@ -5460,7 +5460,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Parfe
-      girl1_like: 10
+      girl1_like: 30
       cost_price: 7777
       sell_price: 800
       topping01: Non
@@ -5502,7 +5502,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Parfe
-      girl1_like: 10
+      girl1_like: 30
       cost_price: 7777
       sell_price: 800
       topping01: Non
@@ -5549,7 +5549,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Orange
+      topping01: SilverChip
       topping02: Non
       topping03: Non
       topping04: Non
@@ -5591,7 +5591,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Jam
+      topping01: JamBullet
       topping02: Non
       topping03: Non
       topping04: Non
@@ -5633,7 +5633,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Orange
+      topping01: KirakiraHeart
       topping02: Non
       topping03: Non
       topping04: Non
@@ -5648,7 +5648,7 @@ MonoBehaviour:
       Set_JudgeNum: 0
     - ItemID: 403
       file_name: neko_cookie
-      name: juwely_suger
+      name: jewely_suger
       nameHyouji: "\u30B8\u30E5\u30A8\u30EA\u30FC\u30B7\u30E5\u30AC\u30FC"
       desc: "\u30AF\u30EA\u30B9\u30BF\u30EB\u306E\u3088\u3046\u306A\u898B\u305F\u76EE\u306E\u3001\u5C0F\u3055\u306A\u3064\u3076\u3064\u3076\u7802\u7CD6\u3002"
       comp_hosei: 0
@@ -5675,7 +5675,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Orange
+      topping01: JewerySuger
       topping02: Non
       topping03: Non
       topping04: Non
@@ -5759,7 +5759,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Orange
+      topping01: MixColor
       topping02: Non
       topping03: Non
       topping04: Non
@@ -5801,7 +5801,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Orange
+      topping01: MixChoco
       topping02: Non
       topping03: Non
       topping04: Non

@@ -198,6 +198,8 @@ public class TimeController : MonoBehaviour
 
     void TimeKeisan()
     {
+        //Debug.Log("時間の更新");
+
         //時間を計算
         _cullent_time = PlayerStatus.player_time;
         hour = 8; //8時始まり
@@ -222,6 +224,7 @@ public class TimeController : MonoBehaviour
             else //その月の日付
             {
                 minute = _cullent_time * 10; //残り時間 * 10分
+                _cullent_time = 0;
                 break;
             }
             
@@ -272,6 +275,6 @@ public class TimeController : MonoBehaviour
         PlayerStatus.player_day++;
         PlayerStatus.player_time = 0;
 
-        TimeKeisan();
+        //TimeKeisan();
     }
 }

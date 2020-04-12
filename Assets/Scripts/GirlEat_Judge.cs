@@ -874,6 +874,51 @@ public class GirlEat_Judge : MonoBehaviour {
         Girl_reaction();
     }
 
+    void Dislike_Okashi_Judge()
+    {
+        //粉っぽさなどのマイナス判定。一番強い。ここであまりに粉っぽさなどが強い場合は、問答無用で嫌われる。
+
+        if (_basepowdery > 50)
+        {
+            dislike_flag = false;
+            dislike_status = 3;
+        }
+        if (_baseoily > 50)
+        {
+            dislike_flag = false;
+            dislike_status = 3;
+        }
+        if (_basewatery > 50)
+        {
+            dislike_flag = false;
+            dislike_status = 3;
+        }
+        if (_basesweat <= 0) //甘さが０は嫌われる。普通のパンとかあげても、ダメ。ということ。
+        {
+            dislike_flag = false;
+            dislike_status = 4;
+        }
+        if (_basegirl1_like <= 0) //女の子の好みが-のものも、嫌われる。お菓子それ自体が嫌い、ということ。
+        {
+            dislike_flag = false;
+            dislike_status = 4;
+        }
+
+        for (i = 0; i < itemslotScore.Count; i++) //トッピングスロットを計算。嫌いなトッピングが使われていると、嫌われる。
+        {
+            //0はNonなので、無視
+            if (i != 0)
+            {
+                //あげたアイテムに、女の子の嫌いな材料が使われていた！
+                if (itemslotInfo[i] == "Shishamo" && itemslotScore[i] > 0)
+                {
+                    dislike_flag = false;
+                    dislike_status = 4;
+                }
+            }
+        }
+    }
+
     void judge_result()
     {
 
@@ -881,34 +926,18 @@ public class GirlEat_Judge : MonoBehaviour {
         if(girl1_status.OkashiNew_Status == 1)
         {
             dislike_flag = true;
-            dislike_status = 1;
+            dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。 6=普通に食べて判定。ただしスペシャルを無視。
             set_id = 0;
 
             //
             //判定処理　パターンCのみ
             //
+            Dislike_Okashi_Judge();
 
-            //粉っぽさなどのマイナス判定。一番強い。ここであまりに粉っぽさなどが強い場合は、問答無用で嫌われる。
-
-            if (_basepowdery > 50)
-            {
-                dislike_flag = false;
-                dislike_status = 3;
-            }
-            if (_baseoily > 50)
-            {
-                dislike_flag = false;
-                dislike_status = 3;
-            }
-            if (_basewatery > 50)
-            {
-                dislike_flag = false;
-                dislike_status = 3;
-            }
-            
         }
         //スペシャルお菓子の場合
         else if ( girl1_status.OkashiNew_Status == 0) {
+
             count = 0;
 
             //Debug.Log("girl1_status.Set_Count: " + girl1_status.Set_Count);
@@ -920,42 +949,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 set_id = count;
 
                 //
-                //判定処理　パターンC
+                //判定処理　パターンCのみ
                 //
-
-                //粉っぽさなどのマイナス判定。一番強い。ここであまりに粉っぽさなどが強い場合は、問答無用で嫌われる。
-
-                if (_basepowdery > 50)
-                {
-                    dislike_flag = false;
-                    dislike_status = 3;
-                }
-                if (_baseoily > 50)
-                {
-                    dislike_flag = false;
-                    dislike_status = 3;
-                }
-                if (_basewatery > 50)
-                {
-                    dislike_flag = false;
-                    dislike_status = 3;
-                }
-
-                //嫌いな材料の判定
-                for (i = 0; i < itemslotScore.Count; i++)
-                {
-                    //0はNonなので、無視
-                    if (i != 0)
-                    {
-                        //あげたアイテムに、女の子の嫌いな材料が使われていた！
-                        if (itemslotInfo[i] == "Shishamo" && itemslotScore[i] > 0)
-                        {
-                            dislike_flag = false;
-                            dislike_status = 4;
-                        }
-                    }
-                }
-
+                Dislike_Okashi_Judge();              
 
                 if (dislike_status == 3 || dislike_status == 4)
                 {
@@ -1163,7 +1159,6 @@ public class GirlEat_Judge : MonoBehaviour {
     void judge_score()
     {
         //初期化。
-        girllike_point = 0;
 
         if (dislike_flag == true) //正解の場合のみ、味を採点する。好感度とお金に反映される。
         {
@@ -1191,11 +1186,6 @@ public class GirlEat_Judge : MonoBehaviour {
                     sweat_result = _basesweat - _girlsweat[set_id];
                     bitter_result = _basebitter - _girlbitter[set_id];
                     sour_result = _basesour - _girlsour[set_id];
-
-                    //セットごとの固有の好感度得点。最終的な好感度の値に加算する。難しいものほど、好感度の上昇値も大きい。
-                    //girllike_point = _girl_set_score[set_id];
-                    //Debug.Log("girllike_point: " + girllike_point);
-                    girllike_point = 0;
 
 
                     //あまみ・にがみ・さんみに対して、それぞれの評価。差の値により、6段階で評価する。
@@ -1602,7 +1592,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     s.sprite = girl1_status.Girl1_img_verysad;
 
                     //好感度取得
-                    Getlove_exp = -10;
+                    Getlove_exp = -1 * _basegirl1_like;
 
                     //アイテムの削除
                     delete_Item();
@@ -1633,7 +1623,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     s.sprite = girl1_status.Girl1_img_verysad_close;
 
                     //好感度取得
-                    Getlove_exp = -10;
+                    Getlove_exp = -2 * _basegirl1_like;
 
                     //アイテムの削除
                     delete_Item();
@@ -2001,11 +1991,11 @@ public class GirlEat_Judge : MonoBehaviour {
         switch (dislike_status)
         {
 
-            case 2: //吹き出しと違うけど、新しいお菓子をあげた場合の処理
+            case 2: //吹き出しと違うけど、新しいお菓子をあげた場合の処理。今は使ってない。
 
                 //好感度取得
 
-                Getlove_exp = total_score;
+                Getlove_exp = (int)(_basegirl1_like * 5.0f);
 
                 Debug.Log("取得好感度: " + Getlove_exp);
 
@@ -2020,30 +2010,51 @@ public class GirlEat_Judge : MonoBehaviour {
             default: //通常
 
                 //好感度取得
-                if (total_score >= 0 && total_score < 15)
+                if (total_score >= 0 && total_score < 20) //問答無用で１
                 {
-                    Getlove_exp = (int)(_basegirl1_like * 0.5f) + (int)(total_score * 0.3f) + girllike_point;
+                    Getlove_exp = 1;
                 }
-                else if (total_score >= 15 && total_score < 45)
+                else if (total_score >= 20 && total_score < 45) //ベース×5
                 {
-                    Getlove_exp = (int)(_basegirl1_like * 1.0f) + (int)(total_score * 0.3f) + girllike_point;
+                    Getlove_exp = (int)(_basegirl1_like * 5.0f);
                 }
-                else if (total_score >= 45 && total_score < 60)
+                else if (total_score >= 45 && total_score < 60) //ベース×5
                 {
-                    Getlove_exp = (int)(_basegirl1_like * 1.5f) + (int)(total_score * 0.3f) + girllike_point;
+                    Getlove_exp = (int)(_basegirl1_like * 5.0f);
                 }
-                else if (total_score >= 60 && total_score < 80)
+                else if (total_score >= 60 && total_score < 80) //ベース×10
                 {
-                    Getlove_exp = (int)(_basegirl1_like * 2.0f) + (int)(total_score * 0.3f) + girllike_point;
+                    Getlove_exp = (int)(_basegirl1_like * 10.0f);
                 }
-                else if (total_score >= 80 && total_score < 100)
+                else if (total_score >= 80 && total_score < 100) //ベース×15
                 {
-                    Getlove_exp = (int)(_basegirl1_like * 5.0f) + (int)(total_score * 0.3f) + girllike_point;
+                    Getlove_exp = (int)(_basegirl1_like * 15.0f);
                 }
-                else if (total_score >= 100) //100点を超えた場合、10倍程度増加
+                else if (total_score >= 100) //100点を超えた場合、ベース×25
                 {
-                    Getlove_exp = (int)(_basegirl1_like * 10.0f) + (int)(total_score * 0.6f) + girllike_point;
+                    Getlove_exp = (int)(_basegirl1_like * 25.0f);
                 }
+
+                //トッピングの値も加算する。
+                for (i = 0; i < itemslotScore.Count; i++)
+                {
+                    //0はNonなので、無視
+                    if (i != 0)
+                    {                        
+                        if (itemslotScore[i] > 0)
+                        {
+                            Getlove_exp += slotnamedatabase.slotname_lists[i].slot_girlScore;
+                        }
+                    }
+                }
+
+                //そのお菓子を食べた回数で割り算。
+                if (database.items[_baseID].First_eat == 0)
+                {
+                    database.items[_baseID].First_eat = 1; //0で割り算を回避。
+                }
+                Getlove_exp /= database.items[_baseID].First_eat;
+                if(Getlove_exp <= 1) { Getlove_exp = 1; }
                 Debug.Log("取得好感度: " + Getlove_exp);
 
                 //お金の取得

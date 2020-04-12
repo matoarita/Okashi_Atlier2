@@ -244,8 +244,7 @@ public class Utage_scenario : MonoBehaviour
                     scenarioLabel = "Sleep";
 
                     //寝るイベントを表示
-                    story_num = 9999;
-                    StartCoroutine(Scenario_Start());
+                    StartCoroutine(Sleep_Start());
                 }
             }
                 
@@ -408,16 +407,41 @@ public class Utage_scenario : MonoBehaviour
 
             case 2000:
 
+                GameMgr.scenario_ON = false;
                 GameMgr.scenario_flag = 2009;
                 break;
 
             case 3000:
 
+                GameMgr.scenario_ON = false;
                 GameMgr.scenario_flag = 3009;
                 break;
 
             default:
                 break;
+        }
+
+        scenario_loading = false;
+
+        GameMgr.scenario_read_endflag = true; //レシピを読み終えたフラグ
+    }
+
+    //
+    //寝る
+    //
+    IEnumerator Sleep_Start()
+    {
+        scenario_loading = true;
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
         }
 
         scenario_loading = false;
@@ -438,7 +462,6 @@ public class Utage_scenario : MonoBehaviour
         Engine.JumpScenario(scenarioLabel);
 
         
-
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
         {
@@ -488,6 +511,54 @@ public class Utage_scenario : MonoBehaviour
         scenarioLabel = "Tutorial_Content";
         Engine.JumpScenario(scenarioLabel);
 
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        tutorial_flag = (bool)engine.Param.GetParameter("Tutorial_Flag");
+
+        if (tutorial_flag) //作り方チュートリアルを見る場合
+        {
+            StartCoroutine(Tutorial_Make_Content());
+        }
+        else //見ない場合
+        {
+            switch (GameMgr.scenario_flag)
+            {
+
+                case 110:
+
+                    GameMgr.scenario_ON = false;
+                    GameMgr.tutorial_ON = false;
+                    GameMgr.scenario_flag = 120;
+                    break;
+
+                default:
+                    break;
+            }
+
+            scenario_loading = false;
+        }
+       
+    }
+
+    //
+    // チュートリアル開始した場合の中身の処理
+    //
+    IEnumerator Tutorial_Make_Content()
+    {
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        //はいを押した時の処理。エクストリームパネルを表示する。コンテントも表示してもいいかもだけど、触れないようにしておく。
+        //GameMgr.tutorial_ON = true;
+        GameMgr.tutorial_Num = 0;
+
+        //「宴」のシナリオを呼び出す
+        scenarioLabel = "Tutorial_Content2";
+        Engine.JumpScenario(scenarioLabel);
 
         //
         //「宴」のポーズ終了待ち
@@ -590,7 +661,7 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
         GameMgr.tutorial_Progress = false;
-        
+
         //続きから再度読み込み
         engine.ResumeScenario();
 
@@ -1010,6 +1081,16 @@ public class Utage_scenario : MonoBehaviour
             case "bugget_recipi":
 
                 engine.Param.TrySetParameter("Ev_flag", 50);
+                break;
+
+            case "crepe_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag", 60);
+                break;
+
+            case "maffin_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag", 70);
                 break;
 
             default:
