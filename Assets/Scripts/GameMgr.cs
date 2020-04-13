@@ -39,6 +39,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool MapEvent_02;         //井戸へはじめてきた。
     public static bool MapEvent_03;         //森へきたとき。草笛のイベント
 
+    //通常お菓子を食べた後の感想
+    public static int OkashiComment_ID;
+    public static bool OkashiComment_flag;
+
     //スペシャルお菓子を食べる前の会話フラグ
     public static bool sp_okashi_hintflag;
 
@@ -156,6 +160,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //マップイベントの初期化
         MapEvent_01 = false;
+
+        //通常お菓子感想フラグ
+        OkashiComment_flag = false;
 
         //お菓子感想フラグ
         sp_okashi_hintflag = false;

@@ -96,6 +96,7 @@ public class Debug_Panel : MonoBehaviour {
 
             //女の子のレベル取得
             girl_lv = GameObject.FindWithTag("Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+            girl1_status.girl1_Love_lv = 1;
 
             while (girllove_param >= _slider.maxValue)
             {

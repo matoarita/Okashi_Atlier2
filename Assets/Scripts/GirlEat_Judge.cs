@@ -571,9 +571,6 @@ public class GirlEat_Judge : MonoBehaviour {
                         Destroy(eat_hukidashiitem);
                     }
 
-                    //現在の吹き出しをオン
-                    //girl1_status.Girl_hukidashi_On();
-
                     judge_anim_on = false;
                     judge_end = true;
                     judge_anim_status = 0;
@@ -870,6 +867,52 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
+
+        if (GameMgr.tutorial_ON != true)
+        {
+            //お菓子を食べた後のちょっとした感想をだす。
+            if (dislike_status == 1 || dislike_status == 2 || dislike_status == 6)
+            {
+                StartCoroutine("Girl_Comment");
+                //Girl_reaction();
+            }
+            else //まずいときは、吹き出しでまずい感想だすだけ
+            {
+                Girl_reaction();
+            }
+        }
+        else
+        {
+            Girl_reaction();
+        }
+    }
+
+    IEnumerator Girl_Comment()
+    {
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();
+
+        //character.GetComponent<FadeCharacter>().FadeImageOff();
+
+        GameMgr.scenario_ON = true;
+        GameMgr.OkashiComment_ID = _baseID; //アイテムIDが入っている。
+        GameMgr.OkashiComment_flag = true;
+
+        while (!GameMgr.scenario_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.scenario_ON = false;
+        GameMgr.scenario_read_endflag = false;
+
+        //character.GetComponent<FadeCharacter>().FadeImageOn();
+        canvas.SetActive(true);
+
+        //表示の音を鳴らす。
+        //sc.PlaySe(25);
 
         Girl_reaction();
     }
@@ -1591,14 +1634,13 @@ public class GirlEat_Judge : MonoBehaviour {
                     //キャラクタ表情変更
                     s.sprite = girl1_status.Girl1_img_verysad;
 
-                    //好感度取得
-                    Getlove_exp = -1 * _basegirl1_like;
+                    //好感度取得+アニメーションをON
+                    Getlove_exp = -1 * Mathf.Abs(_basecrispy);
+                    DegHeart(Getlove_exp);
 
                     //アイテムの削除
                     delete_Item();
 
-                    //アニメーションをON
-                    loveanim_on = true;
 
                     //音を鳴らす
                     audioSource.PlayOneShot(sound2);
@@ -1622,14 +1664,13 @@ public class GirlEat_Judge : MonoBehaviour {
                     //キャラクタ表情変更
                     s.sprite = girl1_status.Girl1_img_verysad_close;
 
-                    //好感度取得
-                    Getlove_exp = -2 * _basegirl1_like;
+                    //好感度取得+アニメーションをON
+                    Getlove_exp = -2 * Mathf.Abs(_basecrispy);
+                    DegHeart(Getlove_exp);
 
                     //アイテムの削除
                     delete_Item();
 
-                    //アニメーションをON
-                    loveanim_on = true;
 
                     //音を鳴らす
                     audioSource.PlayOneShot(sound2);
@@ -1672,6 +1713,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     //好感度取得
                     Getlove_exp = -10;
+                    DegHeart(Getlove_exp);
 
                     //アイテムの削除
                     delete_Item();

@@ -1871,12 +1871,15 @@ public class Compound_Main : MonoBehaviour
 
             case "najya_start_recipi": //ナジャのお菓子作りの基本                
 
+                CompoON_compoitemdatabase("neko_cookie");
+                CompoON_compoitemdatabase("appaleil");
+
                 break;
 
             case "cookie_base_recipi": //クッキー生地作り方のレシピ＜初級＞  
 
-                CompoON_compoitemdatabase("appaleil");
-
+                CompoON_compoitemdatabase("cookie_nonsuger");
+                CompoON_compoitemdatabase("emerald_neko_cookie");
                 break;
 
             case "ice_cream_recipi": //アイスクリームの書
@@ -1906,6 +1909,7 @@ public class Compound_Main : MonoBehaviour
 
             case "bisucouti_recipi": //ビスコッティ
 
+                CompoON_compoitemdatabase("baking_mix"); 
                 CompoON_compoitemdatabase("biscotti");
 
                 break;

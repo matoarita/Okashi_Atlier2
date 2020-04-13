@@ -17,6 +17,7 @@ public class Utage_scenario : MonoBehaviour
     private int recipi_read_ID;
     private int itemuse_recipi_ID;
     private int map_ev_ID;
+    private int Okashicomment_ID;
     private int sp_Okashi_ID;
     private int mainClear_ID;
 
@@ -209,6 +210,15 @@ public class Utage_scenario : MonoBehaviour
 
                     //マップイベントのテキストを表示
                     StartCoroutine(MapEvent_Hyouji());
+                }
+
+                if (GameMgr.OkashiComment_flag == true)
+                {
+                    GameMgr.OkashiComment_flag = false;
+                    Okashicomment_ID = GameMgr.OkashiComment_ID;
+
+                    //SPお菓子食べたあとの感想テキストを表示
+                    StartCoroutine(OkashiComment_Hyouji());
                 }
 
                 if (GameMgr.sp_okashi_hintflag == true)
@@ -1193,6 +1203,37 @@ public class Utage_scenario : MonoBehaviour
 
     }
 
+
+
+    //
+    // 通常お菓子感想表示
+    //
+    IEnumerator OkashiComment_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "OkashiEatComment"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("OkashiComment_num", Okashicomment_ID);
+
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        scenario_loading = false;
+
+        GameMgr.scenario_read_endflag = true; //レシピを読み終えたフラグ
+
+    }
 
 
     //

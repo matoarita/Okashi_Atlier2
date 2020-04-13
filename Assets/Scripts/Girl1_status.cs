@@ -37,6 +37,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
 
     public bool GirlEat_Judge_on;
+    public int GirlGokigenStatus; //女の子の現在のご機嫌の状態。6段階ほどあり、好感度が上がるにつれて、だんだん見た目が元気になっていく。
 
     private GameObject text_area;
 
@@ -204,6 +205,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     //Live2Dモデルの取得
     private CubismModel _model;
+    private Animator live2d_animator;
+    private int trans_expression;
 
     // Use this for initialization
     void Start()
@@ -231,18 +234,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
         girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
-
-        //Live2Dモデルの取得
-        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
-
+       
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
 
         //テキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
-
         
-
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
@@ -255,6 +253,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeOut2 = 10.0f;
         timeGirl_hungry_status = 1;
 
+        GirlGokigenStatus = 0;
         girl1_Love_exp = 0;
         girl1_Love_lv = 1;
         OkashiNew_Status = 1;
@@ -280,6 +279,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 main_cam = Camera.main;
                 maincam_animator = main_cam.GetComponent<Animator>();
                 trans = maincam_animator.GetInteger("trans");
+
+                //Live2Dモデルの取得
+                _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                live2d_animator = _model.GetComponent<Animator>();
+                trans_expression = live2d_animator.GetInteger("trans_expression");
 
                 //エクストリームパネルの取得
                 Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
@@ -366,7 +370,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if( canvas == null )
         {
             canvas = GameObject.FindWithTag("Canvas");
-
            
             switch (SceneManager.GetActiveScene().name)
             {
@@ -376,6 +379,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     main_cam = Camera.main;
                     maincam_animator = main_cam.GetComponent<Animator>();
                     trans = maincam_animator.GetInteger("trans");
+
+                    //Live2Dモデルの取得
+                    _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                    live2d_animator = _model.GetComponent<Animator>();
+                    trans_expression = live2d_animator.GetInteger("trans_expression");
 
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -409,6 +417,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     
                     break;
             }
+        }
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+                //女の子の今のご機嫌チェック
+                CheckGokigen();
+                break;
         }
 
         if (hukidashiPrefab == null)
@@ -534,7 +550,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     Girl_Hungry();
 
                                     //キャラクタ表情変更
-                                    s.sprite = Girl1_img_gokigen;
+                                    //s.sprite = Girl1_img_gokigen;
+
+                                    //intパラメーターの値を設定する.  
+                                    //trans_expression = 2; //各表情に遷移。
+                                    //live2d_animator.SetInteger("trans_expression", trans_expression);
                                     break;
 
                                 case 1:
@@ -546,7 +566,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     Girl_Full();
 
                                     //キャラクタ表情変更
-                                    s.sprite = Girl1_img_gokigen;
+                                    //s.sprite = Girl1_img_gokigen;
                                     break;
 
                                 case 2:
@@ -652,6 +672,48 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             special_timeOut -= Time.deltaTime;
         }
     }
+
+    void CheckGokigen()
+    {
+        //女の子の今のご機嫌
+        if (girl1_Love_exp >= 0 && girl1_Love_exp < 25)
+        {
+            GirlGokigenStatus = 0;
+
+            //intパラメーターの値を設定する.  
+            trans_expression = 3; //各表情に遷移。
+            live2d_animator.SetInteger("trans_expression", trans_expression);
+        }
+        else if (girl1_Love_exp >= 25 && girl1_Love_exp < 50)
+        {
+            GirlGokigenStatus = 1;
+
+            //intパラメーターの値を設定する.  
+            trans_expression = 1; //各表情に遷移。
+            live2d_animator.SetInteger("trans_expression", trans_expression);
+        }
+        else if (girl1_Love_exp >= 50 && girl1_Love_exp < 100)
+        {
+            GirlGokigenStatus = 2;
+        }
+        else if (girl1_Love_exp >= 100 && girl1_Love_exp < 150)
+        {
+            GirlGokigenStatus = 3;
+        }
+        else if (girl1_Love_exp >= 150 && girl1_Love_exp < 200)
+        {
+            GirlGokigenStatus = 4;
+
+            //intパラメーターの値を設定する.  
+            trans_expression = 2; //各表情に遷移。
+            live2d_animator.SetInteger("trans_expression", trans_expression);
+        }
+        else if (girl1_Love_exp >= 200)
+        {
+            GirlGokigenStatus = 5;
+        }
+    }
+
 
     //女の子が食べたいものの決定。ランダムでもいいし、ストーリーによっては、一つのイベントの感じで、同じものを合格するまで出し続けてもいい。
     public void Girl_Hungry()
@@ -1253,6 +1315,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 {
                     hukidasiInit();
                 }
+
+                trans_expression = 1; //各表情に遷移。
+
+                //intパラメーターの値を設定する.                                   
+                live2d_animator.SetInteger("trans_expression", trans_expression);
 
                 hukidashiitem.GetComponent<TextController>().SetText("ん、どうした？兄。");
                
