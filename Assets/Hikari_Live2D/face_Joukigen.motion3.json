@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 10,
-		"TotalSegmentCount": 10,
-		"TotalPointCount": 20,
+		"CurveCount": 13,
+		"TotalSegmentCount": 13,
+		"TotalPointCount": 26,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -80,7 +80,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param7",
+			"Id": "ParamCheek",
 			"Segments": [
 				0,
 				0,
@@ -91,7 +91,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param5",
+			"Id": "ParamSad",
 			"Segments": [
 				0,
 				0,
@@ -102,7 +102,29 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param4",
+			"Id": "ParamCry",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamNormal",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamGokigen",
 			"Segments": [
 				0,
 				1,
@@ -113,7 +135,18 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param8",
+			"Id": "ParamAngry",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamYorokobi",
 			"Segments": [
 				0,
 				0,

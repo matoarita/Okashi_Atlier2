@@ -32,6 +32,9 @@ public class Debug_Panel : MonoBehaviour {
     private Girl1_status girl1_status;
     private Slider _slider; //好感度バーを取得
 
+    private GameObject GirlHeartEffect_obj;
+    private Particle_Heart_Character GirlHeartEffect;
+
     // Use this for initialization
     void Start () {
 
@@ -50,7 +53,10 @@ public class Debug_Panel : MonoBehaviour {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
 
-       
+        //女の子の反映用ハートエフェクト取得
+        GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
+        GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
+
     }
 
     // Update is called once per frame
@@ -105,6 +111,13 @@ public class Debug_Panel : MonoBehaviour {
             }
             _slider.value = girllove_param;
             girl_lv.text = girl1_status.girl1_Love_lv.ToString();
+
+            //表情も即時変更
+            girl1_status.CheckGokigen();
+            girl1_status.DefaultFace();
+
+            //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
+            GirlHeartEffect.LoveRateChange();
 
             compound_Main.check_GirlLoveEvent_flag = false;
         }

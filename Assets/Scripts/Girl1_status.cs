@@ -285,6 +285,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 live2d_animator = _model.GetComponent<Animator>();
                 trans_expression = live2d_animator.GetInteger("trans_expression");
 
+                //初期表情の設定
+                CheckGokigen();
+                DefaultFace();
+
                 //エクストリームパネルの取得
                 Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
 
@@ -406,6 +410,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //Live2Dモデルの取得
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+
+                    //初期表情の設定
+                    CheckGokigen();
+                    DefaultFace();
                     break;
 
                 case "Shop":
@@ -550,11 +558,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     Girl_Hungry();
 
                                     //キャラクタ表情変更
+                                    DefaultFace();
                                     //s.sprite = Girl1_img_gokigen;
 
-                                    //intパラメーターの値を設定する.  
-                                    //trans_expression = 2; //各表情に遷移。
-                                    //live2d_animator.SetInteger("trans_expression", trans_expression);
                                     break;
 
                                 case 1:
@@ -566,6 +572,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     Girl_Full();
 
                                     //キャラクタ表情変更
+                                    DefaultFace();
                                     //s.sprite = Girl1_img_gokigen;
                                     break;
 
@@ -579,6 +586,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     Girl_Full();
 
                                     //キャラクタ表情変更
+                                    DefaultFace();
                                     //s.sprite = Girl1_img_gokigen;
                                     break;
 
@@ -673,44 +681,68 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
-    void CheckGokigen()
+    public void CheckGokigen()
     {
         //女の子の今のご機嫌
         if (girl1_Love_exp >= 0 && girl1_Love_exp < 25)
         {
             GirlGokigenStatus = 0;
-
-            //intパラメーターの値を設定する.  
-            trans_expression = 3; //各表情に遷移。
-            live2d_animator.SetInteger("trans_expression", trans_expression);
+           
         }
         else if (girl1_Love_exp >= 25 && girl1_Love_exp < 50)
         {
             GirlGokigenStatus = 1;
-
-            //intパラメーターの値を設定する.  
-            trans_expression = 1; //各表情に遷移。
-            live2d_animator.SetInteger("trans_expression", trans_expression);
+           
         }
         else if (girl1_Love_exp >= 50 && girl1_Love_exp < 100)
         {
             GirlGokigenStatus = 2;
+            
         }
         else if (girl1_Love_exp >= 100 && girl1_Love_exp < 150)
         {
             GirlGokigenStatus = 3;
+            
         }
         else if (girl1_Love_exp >= 150 && girl1_Love_exp < 200)
         {
             GirlGokigenStatus = 4;
-
-            //intパラメーターの値を設定する.  
-            trans_expression = 2; //各表情に遷移。
-            live2d_animator.SetInteger("trans_expression", trans_expression);
+            
         }
         else if (girl1_Love_exp >= 200)
         {
             GirlGokigenStatus = 5;
+            
+        }
+    }
+
+    public void DefaultFace()
+    {
+        switch(GirlGokigenStatus)
+        {
+            case 0:
+                face_girl_Bad();
+                break;
+
+            case 1:
+                face_girl_Little_Fine();
+                break;
+
+            case 2:
+                face_girl_Fine();
+                break;
+
+            case 3:
+                face_girl_Normal();
+                break;
+
+            case 4:
+                face_girl_Joukigen();
+                break;
+
+            case 5:
+                face_girl_Joukigen();
+                break;
         }
     }
 
@@ -1314,12 +1346,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (hukidashiitem == null)
                 {
                     hukidasiInit();
-                }
-
-                trans_expression = 1; //各表情に遷移。
-
-                //intパラメーターの値を設定する.                                   
-                live2d_animator.SetInteger("trans_expression", trans_expression);
+                }                
 
                 hukidashiitem.GetComponent<TextController>().SetText("ん、どうした？兄。");
                
@@ -1349,7 +1376,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 hukidashiitem.GetComponent<TextController>().SetText("えへへ..。");
 
                 //キャラクタ表情変更
-                s.sprite = Girl1_img_tereru;
+                //s.sprite = Girl1_img_tereru;
+                //intパラメーターの値を設定する.    
+                trans_expression = 6; //各表情に遷移。
+                live2d_animator.SetInteger("trans_expression", trans_expression);
 
                 break;
 
@@ -1377,7 +1407,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 hukidashiitem.GetComponent<TextController>().SetText("気持ちいい。さわさわ..。");
 
                 //キャラクタ表情変更
-                s.sprite = Girl1_img_tereru;
+                //s.sprite = Girl1_img_tereru;
 
                 break;
 
@@ -1497,7 +1527,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 sc.PlaySe(45);
 
                 //キャラクタ表情変更
-                s.sprite = Girl1_img_angry;
+                //s.sprite = Girl1_img_angry;
+                //intパラメーターの値を設定する.    
+                trans_expression = 8; //各表情に遷移。
+                live2d_animator.SetInteger("trans_expression", trans_expression);
 
                 //エモ
                 _listEffect.Add(Instantiate(Emo_effect_Prefab3, character.transform));
@@ -1563,7 +1596,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //random = Random.Range(0, _touchface_comment_lib.Count);
         //_touchface_comment = _touchface_comment_lib[random];
 
-        hukidashiitem.GetComponent<TextController>().SetText("兄ちゃんが誕生日にくれたリボンだよ～。うひひ。");
+        hukidashiitem.GetComponent<TextController>().SetText("お母さんが誕生日にくれたリボンだよ～。うひひ。");
 
         //5秒ほど表示したら、また食べたいお菓子を表示か削除
         WaitHint_on = true;
@@ -1713,5 +1746,62 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
         }
+    }
+
+    //表情を変更するメソッド
+    public void face_girl_Bad()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 3; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
+    public void face_girl_Little_Fine()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 4; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
+    public void face_girl_Fine()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 5; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
+    public void face_girl_Normal()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 1; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
+    public void face_girl_Joukigen()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 2; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
+    public void face_girl_Tereru()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 6; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
+    public void face_girl_Yorokobi()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 7; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
+    public void face_girl_Angry()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 8; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
     }
 }

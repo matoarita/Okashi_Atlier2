@@ -797,7 +797,6 @@ public class Compound_Main : MonoBehaviour
                 }
 
             }
-
             else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
             {
 

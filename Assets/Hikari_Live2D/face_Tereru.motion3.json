@@ -17,10 +17,10 @@
 			"Id": "ParamEyeLOpen",
 			"Segments": [
 				0,
-				0.2,
+				1,
 				0,
 				1,
-				0.2
+				1
 			]
 		},
 		{
@@ -28,10 +28,10 @@
 			"Id": "ParamEyeROpen",
 			"Segments": [
 				0,
-				0.2,
+				1,
 				0,
 				1,
-				0.2
+				1
 			]
 		},
 		{
@@ -39,10 +39,10 @@
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
-				1,
+				0,
 				0,
 				1,
-				1
+				0
 			]
 		},
 		{
@@ -50,10 +50,10 @@
 			"Id": "ParamBrowRForm",
 			"Segments": [
 				0,
-				1,
+				0,
 				0,
 				1,
-				1
+				0
 			]
 		},
 		{
@@ -94,10 +94,10 @@
 			"Id": "ParamSad",
 			"Segments": [
 				0,
-				0.2,
+				0,
 				0,
 				1,
-				0.2
+				0
 			]
 		},
 		{
@@ -105,10 +105,10 @@
 			"Id": "ParamCry",
 			"Segments": [
 				0,
-				1,
+				0,
 				0,
 				1,
-				1
+				0
 			]
 		},
 		{
@@ -116,10 +116,10 @@
 			"Id": "ParamNormal",
 			"Segments": [
 				0,
-				0,
+				1,
 				0,
 				1,
-				0
+				1
 			]
 		},
 		{
@@ -138,10 +138,10 @@
 			"Id": "ParamAngry",
 			"Segments": [
 				0,
-				1,
+				0,
 				0,
 				1,
-				1
+				0
 			]
 		},
 		{

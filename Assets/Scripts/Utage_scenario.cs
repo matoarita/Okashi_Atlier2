@@ -511,11 +511,7 @@ public class Utage_scenario : MonoBehaviour
     IEnumerator Tutorial_Start_Content()
     {
 
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        //はいを押した時の処理。エクストリームパネルを表示する。コンテントも表示してもいいかもだけど、触れないようにしておく。
-        GameMgr.tutorial_ON = true;
-        GameMgr.tutorial_Num = 0;
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち        
 
         //「宴」のシナリオを呼び出す
         scenarioLabel = "Tutorial_Content";
@@ -563,7 +559,7 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         //はいを押した時の処理。エクストリームパネルを表示する。コンテントも表示してもいいかもだけど、触れないようにしておく。
-        //GameMgr.tutorial_ON = true;
+        GameMgr.tutorial_ON = true;
         GameMgr.tutorial_Num = 0;
 
         //「宴」のシナリオを呼び出す

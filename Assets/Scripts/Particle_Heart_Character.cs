@@ -27,8 +27,8 @@ public class Particle_Heart_Character : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        //LoveRateChange();
+    }
 
     public void LoveRateChange()
     {

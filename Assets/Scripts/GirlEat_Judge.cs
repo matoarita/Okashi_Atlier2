@@ -1950,7 +1950,8 @@ public class GirlEat_Judge : MonoBehaviour {
         girl1_status.timeOut = 5.0f;
 
         //キャラクタ表情変更
-        s.sprite = girl1_status.Girl1_img_smile;
+        girl1_status.face_girl_Yorokobi();
+        //s.sprite = girl1_status.Girl1_img_smile;
 
         //リセット＋フラグチェック
         Getlove_exp = 0;
