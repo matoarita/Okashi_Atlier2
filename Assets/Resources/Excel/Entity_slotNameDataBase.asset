@@ -96,13 +96,13 @@ MonoBehaviour:
       slot_Name: PinkSuger
       slot_Hyouki_1: "\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC"
       slot_Hyouki_2: "\u30D4\u30F3\u30AF\u306B\u714C\u3081\u304F"
-      slot_girlscore: 20
+      slot_girlscore: 10
       slot_money: 200
     - ItemID: 14
       slot_Name: EmeraldSuger
       slot_Hyouki_1: "\u30A8\u30E1\u30E9\u30EB\u30C9\u30B7\u30E5\u30AC\u30FC"
       slot_Hyouki_2: "\u6DF1\u7DD1\u8272\u306E\u7518\u3044"
-      slot_girlscore: 50
+      slot_girlscore: 10
       slot_money: 500
     - ItemID: 15
       slot_Name: JamBullet

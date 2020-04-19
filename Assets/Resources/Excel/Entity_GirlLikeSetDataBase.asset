@@ -15,7 +15,7 @@ MonoBehaviour:
   - name: 01_GirlLikeSetData
     list:
     - setID: 0
-      compNum: 0
+      compNum: 200
       girllike_itemname: neko_cookie
       girllike_itemsubtype: Non
       set_score: 2
@@ -99,7 +99,7 @@ MonoBehaviour:
       topping05: Non
       desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
     - setID: 4
-      compNum: 11
+      compNum: 201
       girllike_itemname: orange_neko_cookie
       girllike_itemsubtype: Non
       set_score: 5
@@ -141,14 +141,14 @@ MonoBehaviour:
       topping05: Non
       desc: "\u304A\u5144\u3061\u3083\u3093\u306E<color=#FF78B4>\u30AA\u30EA\u30B8\u30CA\u30EB</color>\u306E\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u3055\u305B\u3066\uFF01"
     - setID: 6
-      compNum: 20
+      compNum: 208
       girllike_itemname: grape_cookie
       girllike_itemsubtype: Non
       set_score: 10
       rich: 30
       sweat: 30
       bitter: 0
-      sour: 30
+      sour: 0
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
       rich: 30
       sweat: 30
       bitter: 0
-      sour: 30
+      sour: 0
       crispy: 0
       fluffy: 0
       smooth: 0

@@ -1264,11 +1264,12 @@ public class Compound_Keisan : MonoBehaviour {
                     _addkoyutp[i] = "Non";
                 }
             }
-            else //通常のオリジナル・レシピ調合の場合は、トッピングの値だけ計算する。固有は無視。
+            else //通常のオリジナル・レシピ調合の場合も、トッピングの計算はしない。ただし、プレイヤーが好みで種類を変えて、かつトッピングがついているものは、トッピングの計算をする。現状必要なさそうなので、未実装。
             {
                 for (i = 0; i < database.items[_id].toppingtype.Length; i++)
                 {
-                    _addtp[i] = database.items[_id].toppingtype[i].ToString();
+                    _addtp[i] = "Non";
+                    //_addtp[i] = database.items[_id].toppingtype[i].ToString(); //フリーで制作した場合のみ、トッピングがつく。その場合の計算方法。
                 }
 
                 for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)

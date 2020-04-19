@@ -132,6 +132,14 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
                     _slotHyouji[i] = GameMgr.ColorYellow + slot_HyoujiList[i] + "</color>";
                 }
                 break;
+
+            case "lemon":
+
+                for (i = 0; i < slot_HyoujiList.Count; i++)
+                {
+                    _slotHyouji[i] = GameMgr.ColorLemon + slot_HyoujiList[i] + "</color>";
+                }
+                break;
         }
         
 

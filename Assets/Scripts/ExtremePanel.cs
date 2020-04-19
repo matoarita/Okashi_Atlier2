@@ -295,7 +295,7 @@ public class ExtremePanel : MonoBehaviour {
             extreme_kaisu = pitemlist.player_originalitemlist[extreme_itemID].ExtremeKaisu;
 
             //スロットの正式名称計算
-            slotchangename.slotChangeName(extreme_itemtype, extreme_itemID, "yellow");
+            slotchangename.slotChangeName(extreme_itemtype, extreme_itemID, "lemon");
 
             _slotHyouji2[0] = slotchangename._slotHyouji[0];
             _slotHyouji2[1] = slotchangename._slotHyouji[1];

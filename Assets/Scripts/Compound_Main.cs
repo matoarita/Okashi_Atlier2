@@ -73,6 +73,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
+    public bool girlEat_ON;
 
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
@@ -324,6 +325,7 @@ public class Compound_Main : MonoBehaviour
         compound_status = 0;
         compound_select = 0;
 
+        girlEat_ON = false;
         Recipi_loading = false;
         GirlLove_loading = false;
         check_recipi_flag = false;
@@ -376,26 +378,21 @@ public class Compound_Main : MonoBehaviour
             {
 
                 case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
-
-                    GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
-                    girl1_status.Girl_Full();
-                    girl1_status.Girl1_Status_Init();
-                    girl1_status.OkashiNew_Status = 1;
+                    
+                    StartScenario();
                     break;
 
                 case 130: //ショップから帰ってきた。
 
-                    GameMgr.scenario_ON = true;
-                    girl1_status.Girl_Full();
-                    girl1_status.Girl1_Status_Init();
+                    StartScenario();
+
                     break;
 
                 case 165: //パンの作り方をきいてきた。
 
                     matplace_database.matPlaceKaikin("Ido"); //井戸解禁
-                    GameMgr.scenario_ON = true;
-                    girl1_status.Girl_Full();
-                    girl1_status.Girl1_Status_Init();
+                    StartScenario();
+
                     break;
 
                 default:
@@ -512,7 +509,7 @@ public class Compound_Main : MonoBehaviour
                         extreme_Button.interactable = false;
                         //sell_Button.SetActive(false);
 
-                        compoundselect_onoff_obj.SetActive(true);
+                        compoundselect_onoff_obj.SetActive(false);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
@@ -733,7 +730,7 @@ public class Compound_Main : MonoBehaviour
                         extreme_Button.interactable = false;
                         //sell_Button.SetActive(false);
 
-                        compoundselect_onoff_obj.SetActive(true);
+                        compoundselect_onoff_obj.SetActive(false);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
@@ -754,6 +751,7 @@ public class Compound_Main : MonoBehaviour
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
+                        girl1_status.timeGirl_hungry_status = 1;
 
                         text_area.SetActive(true);
 
@@ -771,7 +769,7 @@ public class Compound_Main : MonoBehaviour
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
-
+                        
                         break;
 
                     case 290:
@@ -781,7 +779,7 @@ public class Compound_Main : MonoBehaviour
                         extreme_Button.interactable = false;
                         //sell_Button.SetActive(false);
 
-                        compoundselect_onoff_obj.SetActive(true);
+                        compoundselect_onoff_obj.SetActive(false);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
@@ -799,7 +797,6 @@ public class Compound_Main : MonoBehaviour
             }
             else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
             {
-
                 compoundselect_onoff_obj.SetActive(false);
                 Extremepanel_obj.SetActive(false);
                 text_area.SetActive(false);
@@ -809,7 +806,9 @@ public class Compound_Main : MonoBehaviour
                 moneystatus_panel.SetActive(false);
 
                 //腹減りカウント一時停止
-                girl1_status.GirlEat_Judge_on = false;                
+                girl1_status.GirlEat_Judge_on = false;
+                girl1_status.Girl_Full();
+                girl1_status.Girl1_Status_Init();
 
                 touch_controller.Touch_OnAllOFF();
 
@@ -819,34 +818,47 @@ public class Compound_Main : MonoBehaviour
         else //以下が、通常の処理
         {
 
-            //好感度チェック。好感度に応じて、イベントが発生。
-            if (check_GirlLoveEvent_flag == false)
+            if (girlEat_ON) //お菓子判定中の間は、無条件で、メインの処理は無視する。
             {
-                //腹減りカウント一時停止
-                girl1_status.GirlEat_Judge_on = false;
 
-                Check_GirlLoveEvent();
             }
             else
             {
-                //読んでいないレシピがあれば、読む処理。優先順位二番目。
-                if (check_recipi_flag != true)
+                //好感度チェック。好感度に応じて、イベントが発生。
+                if (check_GirlLoveEvent_flag == false)
                 {
                     //腹減りカウント一時停止
                     girl1_status.GirlEat_Judge_on = false;
 
-                    Check_RecipiFlag();
+                    Check_GirlLoveEvent();
                 }
                 else
                 {
-                    //Debug.Log("compound_status: " + compound_status);
-                    //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-                    MainCompoundMethod();
-                    
+                    //読んでいないレシピがあれば、読む処理。優先順位二番目。
+                    if (check_recipi_flag != true)
+                    {
+                        //腹減りカウント一時停止
+                        girl1_status.GirlEat_Judge_on = false;
+
+                        Check_RecipiFlag();
+                    }
+                    else
+                    {
+                        //Debug.Log("compound_status: " + compound_status);
+                        //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
+                        MainCompoundMethod();
+
+                    }
                 }
             }
         }
     }
+
+    void StartScenario()
+    {
+        GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+    }
+
 
     //メインの調合シーンの処理
     void MainCompoundMethod()
@@ -863,11 +875,11 @@ public class Compound_Main : MonoBehaviour
                     compoundselect_onoff_obj.SetActive(true);
 
                     //腹減りカウント開始
-                    girl1_status.GirlEat_Judge_on = true;                    
-
+                    girl1_status.GirlEat_Judge_on = true;   
+                    
                     touch_controller.Touch_OnAllON();
-
                     compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
+                    GameMgr.scenario_read_endflag = false;
                 }
                 
                 recipilist_onoff.SetActive(false);
@@ -975,8 +987,8 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
 
-                //yes.SetActive(false);
-                //no.SetActive(true);
+                //吹き出しも消す
+                girl1_status.DeleteHukidashiOnly();
 
                 break;
 
@@ -1005,10 +1017,10 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
 
-                pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                //吹き出しも消す
+                girl1_status.DeleteHukidashiOnly();
 
-                //yes.SetActive(false);
-                //no.SetActive(true);
+                pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
 
                 extreme_panel.extreme_Compo_Setup();
 
@@ -1043,9 +1055,10 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
 
+                //吹き出しも消す
+                girl1_status.DeleteHukidashiOnly();
+
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-                //yes.SetActive(false);
-                //no.SetActive(true);
 
                 break;
 
@@ -1108,6 +1121,9 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
 
+                //吹き出しも消す
+                girl1_status.DeleteHukidashiOnly();
+
                 break;
 
             case 10: //「あげる」を選択
@@ -1135,6 +1151,7 @@ public class Compound_Main : MonoBehaviour
             case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
 
                 compound_status = 12;
+                girlEat_ON = true; //お菓子判定中フラグ
 
                 //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
                 girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype);
@@ -1159,6 +1176,9 @@ public class Compound_Main : MonoBehaviour
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
+
+                //吹き出しも消す
+                girl1_status.DeleteHukidashiOnly();
 
                 break;
 
@@ -1818,7 +1838,6 @@ public class Compound_Main : MonoBehaviour
         touch_controller.Touch_OnAllOFF();
         compoundselect_onoff_obj.SetActive(false);
         extreme_Button.interactable = false;
-        //sell_Button.SetActive(false);
         GirlLove_loading = true;
 
         while (girlEat_judge.heart_count > 0)
@@ -1826,12 +1845,10 @@ public class Compound_Main : MonoBehaviour
             yield return null;
         }
 
-        compoundselect_onoff_obj.SetActive(false);
         text_area.SetActive(false);
         Extremepanel_obj.SetActive(false);
         sceneBGM.MuteBGM();
         
-
         GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         while (!GameMgr.girlloveevent_endflag)
@@ -1839,11 +1856,6 @@ public class Compound_Main : MonoBehaviour
             yield return null;
         }
 
-        compoundselect_onoff_obj.SetActive(true);
-        text_area.SetActive(true);
-        Extremepanel_obj.SetActive(true);
-        extreme_Button.interactable = true;
-        //sell_Button.SetActive(true);
         sceneBGM.MuteOFFBGM();
 
         girl1_status.Girl1_Status_Init2();

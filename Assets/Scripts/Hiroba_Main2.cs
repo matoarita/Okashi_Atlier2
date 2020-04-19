@@ -20,8 +20,7 @@ public class Hiroba_Main2 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        //Debug.Log("main scene loaded");
+        //Debug.Log("Hiroba scene loaded");
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
@@ -55,12 +54,9 @@ public class Hiroba_Main2 : MonoBehaviour
     {
         switch (GameMgr.scenario_flag)
         {
-            case 120:
-                _text.text = "材料か..。どうするかな？";
-                break;
 
             default:
-                _text.text = "ここは、村のメイン広場のようだ。人々が佇んでいる。";
+                _text.text = "ここは、村の中央広場のようだ。いろんな人がいるみたいだ。";
                 break;
         }
     }

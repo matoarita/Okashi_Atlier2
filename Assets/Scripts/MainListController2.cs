@@ -78,7 +78,7 @@ public class MainListController2 : MonoBehaviour
     {
         if (hiroba1_toggle.isOn == true)
         {
-            FadeManager.Instance.LoadScene("Hiroba", 0.3f);
+            FadeManager.Instance.LoadScene("Compound", 0.3f);
         }
     }
 }

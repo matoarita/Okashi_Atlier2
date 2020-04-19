@@ -194,7 +194,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage3_limit_day = 211;
         
         //各色の設定
-        ColorYellow = "<color=#BA9535>"; // かなり薄い黄色FDFF80
+        ColorYellow = "<color=#BA9535>"; // ゴールドに近いくすんだ黄色
         ColorLemon = "<color=#FDFF80>"; // かなり薄い黄色FDFF80
         ColorPink = "<color=#FF5CA1>";
         ColorRed = "<color=#FF0000>";

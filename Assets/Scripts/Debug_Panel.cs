@@ -53,9 +53,7 @@ public class Debug_Panel : MonoBehaviour {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
 
-        //女の子の反映用ハートエフェクト取得
-        GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
-        GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
+        
 
     }
 
@@ -96,6 +94,10 @@ public class Debug_Panel : MonoBehaviour {
         {
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+            //女の子の反映用ハートエフェクト取得
+            GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
+            GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
 
             //好感度バーの取得
             _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();

@@ -193,8 +193,21 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         if ( Slot_view_on == true )
         {
-            //採取地表示
-            Slot_View();
+            //シーン移動のマップは、そのままシーン移動
+            switch (select_place_name)
+            {
+                case "Hiroba":
+
+                    Slot_view_on = false;
+                    FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
+                    break;
+
+                default:
+                    
+                    //採取地表示
+                    Slot_View();
+                    break;
+            }                    
         }
 
         if (modoru_anim_on == true)
@@ -321,6 +334,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             case 0: //初期化
 
+                moveanim_panel.GetComponent<FadeImage>().FadeImageOff();
+                moveanim_panel_image.SetActive(false);
+                moveanim_panel_image_text.SetActive(false);
+
                 getmatplace_view.SetActive(false);
                 slot_view.SetActive(true);
                 yes_no_panel.SetActive(false);
@@ -335,12 +352,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 switch (select_place_name)
                 {
-                    case "Hiroba":
-
-                        SetMapBG(select_place_name);
-
-                        _text.text = "わ～～！市場だーー！";
-                        break;
 
                     case "Forest":
 
@@ -627,10 +638,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case 3: //アニメ終了。判定する
 
                 move_anim_on = false;
-                move_anim_end = true;
-                moveanim_panel.GetComponent<FadeImage>().FadeImageOff();
-                moveanim_panel_image.SetActive(false);
-                moveanim_panel_image_text.SetActive(false);
+                move_anim_end = true;                
                 move_anim_status = 0;
 
                 break;

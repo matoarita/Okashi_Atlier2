@@ -178,7 +178,6 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.girlloveevent_flag = false;
                     girlloveev_read_ID = GameMgr.GirlLoveEvent_num;
-                    //Debug.Log("recipi_read_ID: " + recipi_read_ID);
 
                     //好感度イベントを表示
                     StartCoroutine(Girllove_event_Hyouji());
@@ -188,7 +187,6 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.recipi_read_flag = false;
                     recipi_read_ID = GameMgr.recipi_read_ID;
-                    //Debug.Log("recipi_read_ID: " + recipi_read_ID);
 
                     //レシピを手に入れて読むときの表示
                     StartCoroutine(Recipi_read_Hyouji());
@@ -1273,7 +1271,7 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // お菓子感想表示
+    // SPお菓子感想表示
     //
     IEnumerator SpOkashiComment_Hyouji()
     {

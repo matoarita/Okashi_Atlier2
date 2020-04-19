@@ -2451,7 +2451,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 200
     - ItemID: 201
       file_name: orange_neko_cookie
       name: orange_neko_cookie
@@ -2493,7 +2493,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Orange
       item_hyouji: 1
-      Set_JudgeNum: 11
+      Set_JudgeNum: 201
     - ItemID: 202
       file_name: pink_neko_cookie
       name: pinkorange_neko_cookie
@@ -2646,7 +2646,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 2
+      girl1_like: 1
       cost_price: 20
       sell_price: 10
       topping01: Non
@@ -2688,7 +2688,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 2
+      girl1_like: 1
       cost_price: 80
       sell_price: 60
       topping01: Non
@@ -2787,7 +2787,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Grape
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 208
     - ItemID: 209
       file_name: honey_neko_cookie
       name: honey_cookie
