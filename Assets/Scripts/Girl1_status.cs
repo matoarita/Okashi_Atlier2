@@ -209,6 +209,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Animator live2d_animator;
     private int trans_expression;
 
+    //ハートレベルのテーブル
+    public List<int> stage1_lvTable = new List<int>();
+
     // Use this for initialization
     void Start()
     {
@@ -248,6 +251,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //女の子の顔を触った時のヒントライブラリー初期化
         Init_touchFaceComment();
         Init_touchTwintailComment();
+
+        //好感度レベルのテーブル初期化
+        Init_Stage1_LVTable();
 
         //この時間ごとに、女の子は、お菓子を欲しがり始める。
         Default_hungry_cooltime = 2.0f;
@@ -568,8 +574,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                     //キャラクタ表情変更
                                     DefaultFace();
-                                    //s.sprite = Girl1_img_gokigen;
-
+                                    
                                     break;
 
                                 case 1:
@@ -582,7 +587,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                     //キャラクタ表情変更
                                     DefaultFace();
-                                    //s.sprite = Girl1_img_gokigen;
                                     break;
 
                                 case 2:
@@ -596,7 +600,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                     //キャラクタ表情変更
                                     DefaultFace();
-                                    //s.sprite = Girl1_img_gokigen;
                                     break;
 
                                 default:
@@ -728,7 +731,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void DefaultFace()
     {
-        switch(GirlGokigenStatus)
+        //s.sprite = Girl1_img_gokigen;
+        switch (GirlGokigenStatus)
         {
             case 0:
                 face_girl_Bad();
@@ -1904,5 +1908,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator.SetInteger("trans_expression", trans_expression);
 
         //s.sprite = Girl1_img_angry;
+    }
+
+    void Init_Stage1_LVTable()
+    {
+        stage1_lvTable.Clear();
+        stage1_lvTable.Add(25); //LV1で、次のレベルが上がるまでの好感度値
+        stage1_lvTable.Add(50);　//LV2
+        stage1_lvTable.Add(100); //LV3
+        stage1_lvTable.Add(150); //LV4
+        stage1_lvTable.Add(200); //LV5以上
     }
 }

@@ -202,6 +202,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
                     break;
 
+                case "Farm":
+
+                    Slot_view_on = false;
+                    FadeManager.Instance.LoadScene("Farm", 0.3f);
+                    break;
+
                 default:
                     
                     //採取地表示

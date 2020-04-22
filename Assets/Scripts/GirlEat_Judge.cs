@@ -27,6 +27,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private GameObject ScoreHyoujiPanel;
     private GameObject MainQuestOKPanel;
+    public bool ScoreHyouji_ON;
     private Text MainQuestText;
     private string _mainquest_name;
     private int _set_MainQuestID;
@@ -254,8 +255,11 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject Score_effect_Prefab2;
     private List<GameObject> _listScoreEffect = new List<GameObject>();
 
+    //好感度レベルテーブルの取得
+    private List<int> stage_levelTable = new List<int>();
+
     // Use this for initialization
-    void Start () {
+    void Start() {
 
         canvas = GameObject.FindWithTag("Canvas");
 
@@ -312,7 +316,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
-        
+
         //女の子の反映用ハートエフェクト取得
         GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
         GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
@@ -348,6 +352,7 @@ public class GirlEat_Judge : MonoBehaviour {
         MainQuestText = MainQuestOKPanel.transform.Find("Image/QuestClearText").GetComponent<Text>();
         Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
         ScoreHyoujiPanel.SetActive(false);
+        ScoreHyouji_ON = false;
         MainQuestOKPanel.SetActive(false);
 
         i = 0;
@@ -376,38 +381,56 @@ public class GirlEat_Judge : MonoBehaviour {
         _slider_obj = GameObject.FindWithTag("Girl_love_exp_bar").gameObject;
         _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
 
-        girllove_param = girl1_status.girl1_Love_exp;
-        while (girllove_param >= _slider.maxValue)
-        {
-            girllove_param -= (int)_slider.maxValue;
-        }
-        _slider.value = girllove_param;
-
         _exp = 0;
         Getlove_exp = 0;
         GetMoney = 0;
         loveanim_on = false;
 
-        //バーの最大値の設定。ステージによって変わる。
-        //ステージクリア用の好感度数値
-        /*switch (GameMgr.stage_number)
+        stage_levelTable.Clear();
+
+        //バーの最大値の設定。テーブルの初期設定はGirl1_statusで行っている。ここではそれをもとにコピーしてるだけ。
+        switch (GameMgr.stage_number)
         {
             case 1:
 
-                _slider.maxValue = GameMgr.stage1_clear_love;
+                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++) {
+                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                }
+
                 break;
 
             case 2:
 
-                _slider.maxValue = GameMgr.stage2_clear_love;
+                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                {
+                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                }
                 break;
 
             case 3:
 
-                _slider.maxValue = GameMgr.stage3_clear_love;
+                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                {
+                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                }
                 break;
-        }*/
-        _slider.maxValue = 100; //100で固定
+        }
+
+        //スライダのMAXを設定。現在の好感度レベルで変わる。
+        Love_Slider_Setting();        
+
+        //スライダ表示を更新
+        i = 0;
+        girllove_param = girl1_status.girl1_Love_exp;
+        while (i < girl1_status.girl1_Love_lv - 1 )
+        {
+            girllove_param -= stage_levelTable[i];
+            i++;
+        }
+        _slider.value = girllove_param;
+
+        //レベルを表示
+        girl_lv.text = girl1_status.girl1_Love_lv.ToString();
 
         //アニメーション用時間
         timeOut = 5.0f;
@@ -448,28 +471,8 @@ public class GirlEat_Judge : MonoBehaviour {
         //好感度バーアニメーションの処理
         if (loveanim_on == true)
         {
-            /*
-            if (Getlove_exp > 0) //増える場合は、こっちの処理
-            {
 
-                //１ずつ増加
-                ++_exp;
-                ++girl1_status.girl1_Love_exp;
-
-                //スライダにも反映
-                _slider.value = girl1_status.girl1_Love_exp;
-
-                if (_exp >= Getlove_exp)
-                {
-                    Getlove_exp = 0;
-                    _exp = 0;
-                    loveanim_on = false;
-
-                    compound_Main.check_GirlLoveEvent_flag = false;
-                }
-            }*/
-
-            if (Getlove_exp < 0)//減る場合は、こっちの処理。レベルが下がることはない。
+            if (Getlove_exp < 0)//減る場合は、こっちの処理。レベルが下がることはない。増えるアニメ処理は、別メソッドで行う。
             {
                 //好感度が0の場合、0が下限。
                 if (girl1_status.girl1_Love_exp <= 0)
@@ -484,10 +487,18 @@ public class GirlEat_Judge : MonoBehaviour {
                 {
                     //１ずつ減少
                     --_exp;
-                    --girl1_status.girl1_Love_exp;
-
+                    
                     //スライダにも反映
-                    _slider.value = girl1_status.girl1_Love_exp;
+                    _slider.value -= 1;
+
+                    if(_slider.value <= 0) //スライダが0になった場合、そこが下限。girl1_Love_expは、それ以上減少しない。
+                    {
+
+                    }
+                    else
+                    {
+                        --girl1_status.girl1_Love_exp;
+                    }
 
                     if (_exp <= Getlove_exp)
                     {
@@ -1885,6 +1896,7 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
         ScoreHyoujiPanel.SetActive(true);
+        ScoreHyouji_ON = true;
         Okashi_Score.text = total_score.ToString();
 
         if (total_score > 0 && total_score < 30)
@@ -2220,6 +2232,12 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
+
+
+    //
+    //好感度計算処理のメソッド
+    //
+
     IEnumerator Love_effect()
     {
         //10秒待つ
@@ -2257,10 +2275,15 @@ public class GirlEat_Judge : MonoBehaviour {
         //スライダにも反映
         _slider.value++;
 
+        //現在のスライダ上限に好感度が達したら、次のレベルへ。
         if(_slider.value >= _slider.maxValue)
         {
             girl1_status.girl1_Love_lv++;
             _slider.value = 0;
+
+            //Maxバリューを再設定
+            Love_Slider_Setting();
+
             girl_lv.text = girl1_status.girl1_Love_lv.ToString();
         }
         
@@ -2279,6 +2302,20 @@ public class GirlEat_Judge : MonoBehaviour {
         //アニメーションをON
         loveanim_on = true;
     }
+
+    void Love_Slider_Setting()
+    {
+        if (girl1_status.girl1_Love_lv <= 5)
+        {
+            _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+        }
+        else //5以上は、現状、同じ数値
+        {
+            _slider.maxValue = stage_levelTable[stage_levelTable.Count - 1];
+        }
+    }
+
+
 
     //
     //次の食べたいお菓子を決めるメソッド。
@@ -2534,6 +2571,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         _listScoreEffect.Clear();
 
+        ScoreHyouji_ON = false;
         GameMgr.scenario_ON = false;
     }
 

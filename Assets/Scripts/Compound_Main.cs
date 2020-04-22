@@ -1173,6 +1173,7 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 Extremepanel_obj.SetActive(false);
                 text_area.SetActive(true);
+                touch_controller.Touch_OnAllOFF();
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1728,19 +1729,19 @@ public class Compound_Main : MonoBehaviour
                 {
                     case 1:
 
-                        GameMgr.stage1_girl1_loveexp = girl1_status.girl1_Love_exp;
+                        GameMgr.stage1_girl1_loveexp = girl1_status.girl1_Love_exp; //クリア時の好感度を保存
                         FadeManager.Instance.LoadScene("002_Stage2_eyecatch", 0.3f);
                         break;
 
                     case 2:
 
-                        GameMgr.stage2_girl1_loveexp = girl1_status.girl1_Love_exp;
+                        GameMgr.stage2_girl1_loveexp = girl1_status.girl1_Love_exp; //クリア時の好感度を保存
                         FadeManager.Instance.LoadScene("003_Stage3_eyecatch", 0.3f);
                         break;
 
                     case 3:
 
-                        GameMgr.stage3_girl1_loveexp = girl1_status.girl1_Love_exp;
+                        GameMgr.stage3_girl1_loveexp = girl1_status.girl1_Love_exp; //クリア時の好感度を保存
                         FadeManager.Instance.LoadScene("100_Ending", 0.3f);
                         break;
 
@@ -1751,14 +1752,11 @@ public class Compound_Main : MonoBehaviour
 
             case false:
 
-                //Debug.Log("cancel");
-
                 yes_no_clear_panel.SetActive(false);
 
                 _text.text = "";
                 compound_status = 0;
 
-                //extreme_panel.LifeAnimeOnTrue();
                 yes_selectitem_kettei.onclick = false;
                 break;
 
@@ -1779,32 +1777,52 @@ public class Compound_Main : MonoBehaviour
                 //ステージ１のサブイベント
                 case 1:
 
-                    if (girl1_status.girl1_Love_exp >= 50)
+                    if (girl1_status.girl1_Love_exp >= girl1_status.stage1_lvTable[1]) //レベル２のときのイベント。１より優先度が高く、２が先になったら、１はクリアしたことになる。イベントは見れない。
                     {
 
-                        if (GameMgr.GirlLoveEvent_01 != true) //ステージ１　好感度イベント１
+                        if (GameMgr.GirlLoveEvent_stage1[1] != true) //ステージ１　好感度イベント２
                         {
-                            GameMgr.GirlLoveEvent_num = 1;
-                            GameMgr.GirlLoveEvent_01 = true;
+                            GameMgr.GirlLoveEvent_num = 2;
+                            GameMgr.GirlLoveEvent_stage1[1] = true;                         
 
-                            //レシピの追加
-                            recipi_id = Find_eventitemdatabase("rusk_recipi");
-                            pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加                            
-
-                            //ラスク作りのクエスト発生
-                            if (GameMgr.OkashiQuest_flag[1] != true)
-                            {
-                                Debug.Log("スペシャルクエスト: ラスクが食べたい　開始");
-
-                                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                special_quest.SetSpecialOkashi(1);
-                                                                
-                            }
-
-                            Debug.Log("好感度イベント１をON: お兄ちゃん。誰かお客さんがきたよ。");
+                            Debug.Log("好感度イベント２をON: お兄ちゃん。またお客さんだ");
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
+
+                            //イベント１はクリアしたことになる。
+                            GameMgr.GirlLoveEvent_stage1[0] = true;
+                        }
+                    }
+                    else
+                    {
+                        if (girl1_status.girl1_Love_exp >= girl1_status.stage1_lvTable[0]) //レベル１のときのイベント
+                        {
+
+                            if (GameMgr.GirlLoveEvent_stage1[0] != true) //ステージ１　好感度イベント１
+                            {
+                                GameMgr.GirlLoveEvent_num = 1;
+                                GameMgr.GirlLoveEvent_stage1[0] = true;
+
+                                //レシピの追加
+                                recipi_id = Find_eventitemdatabase("rusk_recipi");
+                                pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加                            
+
+                                //ラスク作りのクエスト発生
+                                if (GameMgr.OkashiQuest_flag[1] != true)
+                                {
+                                    Debug.Log("スペシャルクエスト: ラスクが食べたい　開始");
+
+                                    //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                                    special_quest.SetSpecialOkashi(1);
+
+                                }
+
+                                Debug.Log("好感度イベント１をON: お兄ちゃん。誰かお客さんがきたよ。");
+
+                                //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+                                StartCoroutine("ReadGirlLoveEvent");
+                            }
                         }
                     }
 
@@ -1840,7 +1858,7 @@ public class Compound_Main : MonoBehaviour
         extreme_Button.interactable = false;
         GirlLove_loading = true;
 
-        while (girlEat_judge.heart_count > 0)
+        while (girlEat_judge.heart_count > 0 || girlEat_judge.ScoreHyouji_ON)
         {
             yield return null;
         }

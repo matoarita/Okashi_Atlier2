@@ -28,12 +28,16 @@ public class Debug_Panel : MonoBehaviour {
     private Toggle Mazui_toggle_input;
 
     private Text Counter;
+    private int i;
 
     private Girl1_status girl1_status;
     private Slider _slider; //好感度バーを取得
 
     private GameObject GirlHeartEffect_obj;
     private Particle_Heart_Character GirlHeartEffect;
+
+    //好感度レベルテーブルの取得
+    private List<int> stage_levelTable = new List<int>();
 
     // Use this for initialization
     void Start () {
@@ -106,12 +110,56 @@ public class Debug_Panel : MonoBehaviour {
             girl_lv = GameObject.FindWithTag("Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
             girl1_status.girl1_Love_lv = 1;
 
-            while (girllove_param >= _slider.maxValue)
+            stage_levelTable.Clear();
+            //好感度レベルテーブルを取得
+            switch (GameMgr.stage_number)
             {
-                    girllove_param -= (int)_slider.maxValue;
-                    girl1_status.girl1_Love_lv++;               
+                case 1:
+
+                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                    {
+                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                    }
+
+                    break;
+
+                case 2:
+
+                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                    {
+                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                    }
+                    break;
+
+                case 3:
+
+                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                    {
+                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                    }
+                    break;
+            }
+
+            i = 0;
+            while (girllove_param >= stage_levelTable[i])
+            {
+                    girllove_param -= stage_levelTable[i];
+                    girl1_status.girl1_Love_lv++;
+                i++;
             }
             _slider.value = girllove_param;
+
+            //スライダマックスバリューも更新
+            if (girl1_status.girl1_Love_lv <= 5)
+            {
+                _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+            }
+            else //5以上は、現状、同じ数値
+            {
+                _slider.maxValue = stage_levelTable[stage_levelTable.Count - 1];
+            }
+
+            //レベル表示も更新
             girl_lv.text = girl1_status.girl1_Love_lv.ToString();
 
             //表情も即時変更

@@ -186,14 +186,14 @@ MonoBehaviour:
       name: financier_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 300
+      shop_sell_price: 1500
       shop_buy_price: 150
       item_hyouji: 1
     - ItemID: 25
       name: crepe_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 1200
+      shop_sell_price: 800
       shop_buy_price: 150
       item_hyouji: 1
     - ItemID: 26

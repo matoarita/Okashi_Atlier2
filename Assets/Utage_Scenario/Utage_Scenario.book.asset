@@ -8869,21 +8869,59 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 57
+      debugIndex: 95
+      strings:
+      - Bgm
+      - "\u307B\u306E\u307C\u306E\uFF11"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 58
       debugIndex: 96
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30C8\u30F3\u3000\u30C8\u30F3"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 59
+      debugIndex: 97
+      strings:
+      - 
+      - <param=MainGirl_name>
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u5144\u3061\u3083\u3093\u3001\u307E\u305F\u8AB0\u304B\u304D\u305F\u307F\u305F\u3044\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 60
+      debugIndex: 105
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 58
-      debugIndex: 99
+    - rowIndex: 61
+      debugIndex: 108
       strings:
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_03"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 59
-      debugIndex: 103
+    - rowIndex: 62
+      debugIndex: 112
       strings:
       - EndScenario
       isEmpty: 0
@@ -8891,7 +8929,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:GirlLove_Event
     type: 1
-    textLength: 1765
+    textLength: 1814
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -9564,21 +9602,6 @@ MonoBehaviour:
       debugIndex: 21
       strings:
       - Selection
-      - "*\u4F9D\u983C\u306B\u3064\u3044\u3066"
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u4F9D\u983C\u3063\u3066\u4F55\uFF1F"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 10
-      debugIndex: 22
-      strings:
-      - Selection
       - "*\u5C0F\u9EA6\u7C89\u306E\u6027\u8CEA"
       - 
       - 
@@ -9590,8 +9613,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 11
-      debugIndex: 23
+    - rowIndex: 10
+      debugIndex: 22
       strings:
       - Selection
       - "*\u30D0\u30BF\u30FC\u306E\u6027\u8CEA"
@@ -9602,6 +9625,21 @@ MonoBehaviour:
       - 
       - 
       - "\u30D0\u30BF\u30FC\u306E\u6027\u8CEA\u306B\u3064\u3044\u3066\u805E\u304F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 11
+      debugIndex: 23
+      strings:
+      - Selection
+      - "*\u305F\u307E\u3054\u306E\u6027\u8CEA"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u305F\u307E\u3054\u306E\u6027\u8CEA\u306B\u3064\u3044\u3066\u805E\u304F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -9646,14 +9684,14 @@ MonoBehaviour:
       debugIndex: 30
       strings:
       - Selection
-      - "*\u305F\u307E\u3054\u306E\u6027\u8CEA"
+      - "*\u4F9D\u983C\u306B\u3064\u3044\u3066"
       - 
       - 
       - 
       - 
       - 
       - 
-      - "\u305F\u307E\u3054\u306E\u6027\u8CEA\u306B\u3064\u3044\u3066\u805E\u304F"
+      - "\u4F9D\u983C\u3063\u3066\u4F55\uFF1F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -10002,7 +10040,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u30E2\u30BF\u30EA\u30B1\u3055\u3093\u306E\u7267\u5834\u306E\u3068\u3053\u308D\u306B\u884C\u3063\u3066\u307F\u3066\u304F\u308C\u308B\uFF1F"
+      - "<color=#FDFF80FF>\u30E2\u30BF\u30EA\u30B1\u3055\u3093\u306E\u7267\u5834</color>\u306E\u3068\u3053\u308D\u306B\u884C\u3063\u3066\u307F\u3066\u304F\u308C\u308B\uFF1F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -10112,7 +10150,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Shop_Talk
     type: 1
-    textLength: 1316
+    textLength: 1341
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -11562,15 +11600,24 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 11
-      debugIndex: 14
+      debugIndex: 12
+      strings:
+      - Jump
+      - "*\u30D2\u30F3\u30C8_\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u306E\u30EC\u30B7\u30D4"
+      - Ev_flag==80
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 12
+      debugIndex: 15
       strings:
       - Jump
       - "*\u30A4\u30D9\u30F3\u30C8\u30EC\u30B7\u30D4\u8A72\u5F53\u7121\u3057"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 12
-      debugIndex: 15
+    - rowIndex: 13
+      debugIndex: 16
       strings:
       - 
       - 
@@ -11584,37 +11631,37 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 13
-      debugIndex: 17
+    - rowIndex: 14
+      debugIndex: 18
       strings:
       - "*\u30A4\u30D9\u30F3\u30C8\u30EC\u30B7\u30D4\u8A72\u5F53\u7121\u3057"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 14
-      debugIndex: 20
+    - rowIndex: 15
+      debugIndex: 21
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 15
-      debugIndex: 24
+    - rowIndex: 16
+      debugIndex: 25
       strings:
       - "*\u30D2\u30F3\u30C8_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 16
-      debugIndex: 26
+    - rowIndex: 17
+      debugIndex: 27
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 17
-      debugIndex: 27
+    - rowIndex: 18
+      debugIndex: 28
       strings:
       - 
       - 
@@ -11628,8 +11675,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 18
-      debugIndex: 29
+    - rowIndex: 19
+      debugIndex: 30
       strings:
       - 
       - 
@@ -11643,8 +11690,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 19
-      debugIndex: 31
+    - rowIndex: 20
+      debugIndex: 32
       strings:
       - 
       - 
@@ -11658,8 +11705,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 20
-      debugIndex: 33
+    - rowIndex: 21
+      debugIndex: 34
       strings:
       - 
       - 
@@ -11670,21 +11717,6 @@ MonoBehaviour:
       - 
       - 
       - "\u2462\u51FA\u6765\u305F\u751F\u5730\u306B\u3001<color=#FF5CA1FF>\u8584\u529B\u7C89</color>\u3000\u3092\u52A0\u3048\u3001\u5207\u308B\u3088\u3046\u306B\u6DF7\u305C\u308B\u3002\n\uFF5E\u3053\u3053\u307E\u3067\u30D9\u30FC\u30B9\u306E\u751F\u5730\u306E\u4F5C\u308A\u65B9\uFF5E"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 21
-      debugIndex: 35
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u2463<color=#FF5CA1FF>\u30AA\u30EC\u30F3\u30B8\u30D4\u30FC\u30EB</color>\u3092\u52A0\u3048\u308B\u3002\n"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -11699,7 +11731,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u203B\u3053\u306E\u5730\u65B9\u3067\u3088\u304F\u63A1\u308C\u308B\u9178\u5473\u304C\u5F37\u3081\u306A<color=#FF5CA1FF>\u25A0\u25A0\u3000\u25A0\u25A0\u30AA\u30EC\u30F3\u30B8</color>\u304C\u826F\u3044\u3002"
+      - "\u2463<color=#FF5CA1FF>\u30AA\u30EC\u30F3\u30B8\u30D4\u30FC\u30EB</color>\u3092\u52A0\u3048\u308B\u3002\n"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -11714,12 +11746,12 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u2464\u3053\u306E\u6642 .. \u3067\u3000\u98A8\u5473\u304C.. .."
+      - "\u203B\u3053\u306E\u5730\u65B9\u3067\u3088\u304F\u63A1\u308C\u308B\u9178\u5473\u304C\u5F37\u3081\u306A<color=#FF5CA1FF>\u25A0\u25A0\u3000\u25A0\u25A0\u30AA\u30EC\u30F3\u30B8</color>\u304C\u826F\u3044\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 24
-      debugIndex: 39
+      debugIndex: 38
       strings:
       - 
       - 
@@ -11729,7 +11761,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF08\u6700\u5F8C\u306E\u307B\u3046\u306F\u3001\u7126\u3052\u8DE1\u306E\u305B\u3044\u3067\u3001\u8AAD\u3081\u306A\u3044\u306A\u3002\uFF09"
+      - "\u2464\u3053\u306E\u6642 .. \u3067\u3000\u98A8\u5473\u304C.. .."
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -11744,7 +11776,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF08..\u3068\u308A\u3042\u3048\u305A\u6750\u6599\u3092\u8CB7\u3046\u304B\u3002\uFF09"
+      - "\uFF08\u6700\u5F8C\u306E\u307B\u3046\u306F\u3001\u7126\u3052\u8DE1\u306E\u305B\u3044\u3067\u3001\u8AAD\u3081\u306A\u3044\u306A\u3002\uFF09"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -11759,44 +11791,44 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF08\u30AF\u30C3\u30AD\u30FC\u306E\u57FA\u672C\u306F\u3001\u751F\u5730\u4F5C\u308A\u3060\u3002\u751F\u5730\u306E\u6750\u6599\u3092\u8CB7\u3063\u3066\u3053\u3088\u3046\u3002\uFF09"
+      - "\uFF08..\u3068\u308A\u3042\u3048\u305A\u6750\u6599\u3092\u8CB7\u3046\u304B\u3002\uFF09"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 27
-      debugIndex: 44
+      debugIndex: 42
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\uFF08\u30AF\u30C3\u30AD\u30FC\u306E\u57FA\u672C\u306F\u3001\u751F\u5730\u4F5C\u308A\u3060\u3002\u751F\u5730\u306E\u6750\u6599\u3092\u8CB7\u3063\u3066\u3053\u3088\u3046\u3002\uFF09"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 28
+      debugIndex: 45
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 28
-      debugIndex: 47
+    - rowIndex: 29
+      debugIndex: 48
       strings:
       - "*\u30D2\u30F3\u30C8_\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 29
-      debugIndex: 49
-      strings:
-      - BgEvent
-      - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 30
       debugIndex: 50
       strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u3010\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u306E\u30EC\u30B7\u30D4\u3011"
+      - BgEvent
+      - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -11811,44 +11843,44 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#FDFF80FF>\u5C0F\u9EA6\u7C89: \u30D0\u30BF\u30FC: \u7802\u7CD6</color>\u3092<color=#FDFF80FF>2:1:1</color>\u3067\u6DF7\u305C\u308B\u3068\n\u826F\u3044\u5473\u306B\u306A\u308B\u3089\u3057\u3044\u305C\u3002"
+      - "\u3010\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u306E\u30EC\u30B7\u30D4\u3011"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 32
-      debugIndex: 54
+      debugIndex: 52
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "<color=#FDFF80FF>\u5C0F\u9EA6\u7C89: \u30D0\u30BF\u30FC: \u7802\u7CD6</color>\u3092<color=#FDFF80FF>2:1:1</color>\u3067\u6DF7\u305C\u308B\u3068\n\u826F\u3044\u5473\u306B\u306A\u308B\u3089\u3057\u3044\u305C\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 33
+      debugIndex: 55
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 33
-      debugIndex: 57
+    - rowIndex: 34
+      debugIndex: 58
       strings:
       - "*\u30D2\u30F3\u30C8_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u9583\u304D\u30E1\u30E2"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 34
-      debugIndex: 59
-      strings:
-      - BgEvent
-      - "\u30A4\u30D9\u30F3\u30C802_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30D2\u30F3\u30C8"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 35
       debugIndex: 60
       strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u5F85\u3066\u3088..?"
+      - BgEvent
+      - "\u30A4\u30D9\u30F3\u30C802_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30D2\u30F3\u30C8"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -11863,7 +11895,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3053\u3053\u3067\u3001\u751F\u5730\u306B\u3001\u30AA\u30EC\u30F3\u30B8\u306E\u30DA\u30FC\u30B9\u30C8\u3092\u6DF7\u305C\u3066\u3001\u4E00\u7DD2\u306B\u713C\u3044\u305F\u3089"
+      - "\u5F85\u3066\u3088..?"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -11878,34 +11910,49 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u30AA\u30EC\u30F3\u30B8\u306E\u98A8\u5473\u3092\u6FC3\u539A\u306B\u697D\u3057\u3081\u308B\u30AF\u30C3\u30AD\u30FC\u3092\u4F5C\u308C\u308B\u3093\u3058\u3083\u306A\u3044\u304B..?"
+      - "\u3053\u3053\u3067\u3001\u751F\u5730\u306B\u3001\u30AA\u30EC\u30F3\u30B8\u306E\u30DA\u30FC\u30B9\u30C8\u3092\u6DF7\u305C\u3066\u3001\u4E00\u7DD2\u306B\u713C\u3044\u305F\u3089"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 38
-      debugIndex: 64
+      debugIndex: 63
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30AA\u30EC\u30F3\u30B8\u306E\u98A8\u5473\u3092\u6FC3\u539A\u306B\u697D\u3057\u3081\u308B\u30AF\u30C3\u30AD\u30FC\u3092\u4F5C\u308C\u308B\u3093\u3058\u3083\u306A\u3044\u304B..?"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 39
+      debugIndex: 65
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 39
-      debugIndex: 70
+    - rowIndex: 40
+      debugIndex: 71
       strings:
       - "*\u30D2\u30F3\u30C8_\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 40
-      debugIndex: 72
+    - rowIndex: 41
+      debugIndex: 73
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 41
-      debugIndex: 74
+    - rowIndex: 42
+      debugIndex: 75
       strings:
       - 
       - 
@@ -11919,8 +11966,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 42
-      debugIndex: 76
+    - rowIndex: 43
+      debugIndex: 77
       strings:
       - 
       - 
@@ -11934,8 +11981,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 43
-      debugIndex: 78
+    - rowIndex: 44
+      debugIndex: 79
       strings:
       - 
       - 
@@ -11949,8 +11996,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 44
-      debugIndex: 80
+    - rowIndex: 45
+      debugIndex: 81
       strings:
       - 
       - 
@@ -11964,8 +12011,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 45
-      debugIndex: 82
+    - rowIndex: 46
+      debugIndex: 83
       strings:
       - 
       - 
@@ -11979,30 +12026,30 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 46
-      debugIndex: 85
+    - rowIndex: 47
+      debugIndex: 86
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 47
-      debugIndex: 87
+    - rowIndex: 48
+      debugIndex: 88
       strings:
       - "*\u30D2\u30F3\u30C8_\u30E9\u30B9\u30AF\u306E\u30EC\u30B7\u30D4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 48
-      debugIndex: 89
+    - rowIndex: 49
+      debugIndex: 90
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 49
-      debugIndex: 90
+    - rowIndex: 50
+      debugIndex: 91
       strings:
       - 
       - 
@@ -12016,8 +12063,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 50
-      debugIndex: 92
+    - rowIndex: 51
+      debugIndex: 93
       strings:
       - 
       - 
@@ -12031,8 +12078,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 51
-      debugIndex: 94
+    - rowIndex: 52
+      debugIndex: 95
       strings:
       - 
       - 
@@ -12046,8 +12093,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 52
-      debugIndex: 96
+    - rowIndex: 53
+      debugIndex: 97
       strings:
       - 
       - 
@@ -12061,23 +12108,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 53
-      debugIndex: 98
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\uFF08\u3080\u3080..\u3002\u3046\u3061\u306B\u306F\u3001\u78BA\u304B\u30B9\u30E9\u30A4\u30B5\u30FC\u306F\u7121\u304B\u3063\u305F\u306A..\u3002\uFF09"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 54
-      debugIndex: 100
+      debugIndex: 99
       strings:
       - 
       - 
@@ -12087,34 +12119,49 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF08\u3069\u3053\u304B\u3067\u30B2\u30C3\u30C8\u3067\u304D\u306A\u304B\u3063\u305F\u304B\u306A\u3002\uFF09"
+      - "\uFF08\u3080\u3080..\u3002\u3046\u3061\u306B\u306F\u3001\u78BA\u304B\u30D1\u30F3\u5207\u308A\u30CA\u30A4\u30D5\u304C\u7121\u304B\u3063\u305F\u3088\u3046\u306A..\u3002\uFF09"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 55
-      debugIndex: 102
+      debugIndex: 101
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\uFF08\u3069\u3053\u304B\u3067\u8CB7\u3046\u304B\u3002\uFF09"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 56
+      debugIndex: 103
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 56
-      debugIndex: 104
+    - rowIndex: 57
+      debugIndex: 105
       strings:
       - "*\u30D2\u30F3\u30C8_\u30D0\u30B2\u30C3\u30C8\u306E\u30EC\u30B7\u30D4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 57
-      debugIndex: 106
+    - rowIndex: 58
+      debugIndex: 107
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 58
-      debugIndex: 107
+    - rowIndex: 59
+      debugIndex: 108
       strings:
       - 
       - 
@@ -12128,8 +12175,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 59
-      debugIndex: 109
+    - rowIndex: 60
+      debugIndex: 110
       strings:
       - 
       - 
@@ -12144,8 +12191,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 60
-      debugIndex: 111
+    - rowIndex: 61
+      debugIndex: 112
       strings:
       - 
       - 
@@ -12159,8 +12206,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 61
-      debugIndex: 113
+    - rowIndex: 62
+      debugIndex: 114
       strings:
       - 
       - 
@@ -12174,30 +12221,30 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 62
-      debugIndex: 115
+    - rowIndex: 63
+      debugIndex: 116
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 63
-      debugIndex: 118
+    - rowIndex: 64
+      debugIndex: 119
       strings:
       - "*\u30D2\u30F3\u30C8_\u30AF\u30EC\u30FC\u30D7\u306E\u30EC\u30B7\u30D4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 64
-      debugIndex: 120
+    - rowIndex: 65
+      debugIndex: 121
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 65
-      debugIndex: 121
+    - rowIndex: 66
+      debugIndex: 122
       strings:
       - 
       - 
@@ -12211,8 +12258,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 66
-      debugIndex: 123
+    - rowIndex: 67
+      debugIndex: 124
       strings:
       - 
       - 
@@ -12226,8 +12273,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 67
-      debugIndex: 125
+    - rowIndex: 68
+      debugIndex: 126
       strings:
       - 
       - 
@@ -12237,12 +12284,12 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001\u5C0F\u9EA6\u7C89\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002"
+      - "\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001<color=#FDFF80FF>\u5C0F\u9EA6\u7C89</color>\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 68
-      debugIndex: 127
+    - rowIndex: 69
+      debugIndex: 128
       strings:
       - 
       - 
@@ -12256,30 +12303,30 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 69
-      debugIndex: 129
+    - rowIndex: 70
+      debugIndex: 130
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 70
-      debugIndex: 132
+    - rowIndex: 71
+      debugIndex: 133
       strings:
       - "*\u30D2\u30F3\u30C8_\u30DE\u30D5\u30A3\u30F3\u306E\u30EC\u30B7\u30D4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 71
-      debugIndex: 134
+    - rowIndex: 72
+      debugIndex: 135
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 72
-      debugIndex: 135
+    - rowIndex: 73
+      debugIndex: 136
       strings:
       - 
       - 
@@ -12293,8 +12340,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 73
-      debugIndex: 137
+    - rowIndex: 74
+      debugIndex: 138
       strings:
       - 
       - 
@@ -12308,8 +12355,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 74
-      debugIndex: 139
+    - rowIndex: 75
+      debugIndex: 140
       strings:
       - 
       - 
@@ -12323,8 +12370,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 75
-      debugIndex: 141
+    - rowIndex: 76
+      debugIndex: 142
       strings:
       - 
       - 
@@ -12338,8 +12385,90 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 76
-      debugIndex: 143
+    - rowIndex: 77
+      debugIndex: 144
+      strings:
+      - EndScenario
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 78
+      debugIndex: 147
+      strings:
+      - "*\u30D2\u30F3\u30C8_\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u306E\u30EC\u30B7\u30D4"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 79
+      debugIndex: 149
+      strings:
+      - BgEvent
+      - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 80
+      debugIndex: 150
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u3010\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u306E\u30EC\u30B7\u30D4\u3011"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 81
+      debugIndex: 152
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "<color=#FDFF80FF>\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9</color>\u3068<color=#FDFF80FF>\u305F\u307E\u3054</color>\u3092\u6DF7\u305C\u3066\u751F\u5730\u3092\u4F5C\u308B\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 82
+      debugIndex: 154
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9\u306F\u3001<color=#FDFF80FF>\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC\u306B\u5C0F\u9EA6\u7C89</color>\u3001\u305D\u308C\u306B<color=#FDFF80FF>\u7802\u7CD6</color>\u3092\u6DF7\u305C\u5408\u308F\u305B\u3066\u4F5C\u308B\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 83
+      debugIndex: 156
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30AB\u30C3\u30D7\u306B\u5165\u308C\u3066\u3001\u30AA\u30FC\u30D6\u30F3\u3067\u713C\u304F\uFF01"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 84
+      debugIndex: 158
       strings:
       - EndScenario
       isEmpty: 0
@@ -12347,7 +12476,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Event_Recipi
     type: 1
-    textLength: 2057
+    textLength: 2345
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -27523,21 +27652,40 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 95
       debugIndex: 95
-      strings: []
-      isEmpty: 1
+      strings:
+      - Bgm
+      - "\u307B\u306E\u307C\u306E\uFF11"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 96
       debugIndex: 96
       strings:
-      - EndScenario
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30C8\u30F3\u3000\u30C8\u30F3"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 97
       debugIndex: 97
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - <param=MainGirl_name>
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u5144\u3061\u3083\u3093\u3001\u307E\u305F\u8AB0\u304B\u304D\u305F\u307F\u305F\u3044\u3002"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 98
@@ -27548,9 +27696,8 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 99
       debugIndex: 99
-      strings:
-      - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_03"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 100
@@ -27573,6 +27720,62 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 103
       debugIndex: 103
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 104
+      debugIndex: 104
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 105
+      debugIndex: 105
+      strings:
+      - EndScenario
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 106
+      debugIndex: 106
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 107
+      debugIndex: 107
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 108
+      debugIndex: 108
+      strings:
+      - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_03"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 109
+      debugIndex: 109
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 110
+      debugIndex: 110
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 111
+      debugIndex: 111
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 112
+      debugIndex: 112
       strings:
       - EndScenario
       isEmpty: 0
@@ -27580,7 +27783,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:GirlLove_Event
     type: 1
-    textLength: 1765
+    textLength: 1814
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -28629,21 +28832,6 @@ MonoBehaviour:
       debugIndex: 21
       strings:
       - Selection
-      - "*\u4F9D\u983C\u306B\u3064\u3044\u3066"
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u4F9D\u983C\u3063\u3066\u4F55\uFF1F"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 22
-      debugIndex: 22
-      strings:
-      - Selection
       - "*\u5C0F\u9EA6\u7C89\u306E\u6027\u8CEA"
       - 
       - 
@@ -28655,8 +28843,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 23
-      debugIndex: 23
+    - rowIndex: 22
+      debugIndex: 22
       strings:
       - Selection
       - "*\u30D0\u30BF\u30FC\u306E\u6027\u8CEA"
@@ -28667,6 +28855,21 @@ MonoBehaviour:
       - 
       - 
       - "\u30D0\u30BF\u30FC\u306E\u6027\u8CEA\u306B\u3064\u3044\u3066\u805E\u304F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 23
+      debugIndex: 23
+      strings:
+      - Selection
+      - "*\u305F\u307E\u3054\u306E\u6027\u8CEA"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u305F\u307E\u3054\u306E\u6027\u8CEA\u306B\u3064\u3044\u3066\u805E\u304F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -28729,14 +28932,14 @@ MonoBehaviour:
       debugIndex: 30
       strings:
       - Selection
-      - "*\u305F\u307E\u3054\u306E\u6027\u8CEA"
+      - "*\u4F9D\u983C\u306B\u3064\u3044\u3066"
       - 
       - 
       - 
       - 
       - 
       - 
-      - "\u305F\u307E\u3054\u306E\u6027\u8CEA\u306B\u3064\u3044\u3066\u805E\u304F"
+      - "\u4F9D\u983C\u3063\u3066\u4F55\uFF1F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -29280,7 +29483,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u30E2\u30BF\u30EA\u30B1\u3055\u3093\u306E\u7267\u5834\u306E\u3068\u3053\u308D\u306B\u884C\u3063\u3066\u307F\u3066\u304F\u308C\u308B\uFF1F"
+      - "<color=#FDFF80FF>\u30E2\u30BF\u30EA\u30B1\u3055\u3093\u306E\u7267\u5834</color>\u306E\u3068\u3053\u308D\u306B\u884C\u3063\u3066\u307F\u3066\u304F\u308C\u308B\uFF1F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -29444,7 +29647,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Shop_Talk
     type: 1
-    textLength: 1316
+    textLength: 1341
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -31479,8 +31682,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 12
       debugIndex: 12
-      strings: []
-      isEmpty: 1
+      strings:
+      - Jump
+      - "*\u30D2\u30F3\u30C8_\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u306E\u30EC\u30B7\u30D4"
+      - Ev_flag==80
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 13
@@ -31491,14 +31697,20 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 14
       debugIndex: 14
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 15
+      debugIndex: 15
       strings:
       - Jump
       - "*\u30A4\u30D9\u30F3\u30C8\u30EC\u30B7\u30D4\u8A72\u5F53\u7121\u3057"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 15
-      debugIndex: 15
+    - rowIndex: 16
+      debugIndex: 16
       strings:
       - 
       - 
@@ -31512,23 +31724,17 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 16
-      debugIndex: 16
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 17
       debugIndex: 17
-      strings:
-      - "*\u30A4\u30D9\u30F3\u30C8\u30EC\u30B7\u30D4\u8A72\u5F53\u7121\u3057"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 18
       debugIndex: 18
-      strings: []
-      isEmpty: 1
+      strings:
+      - "*\u30A4\u30D9\u30F3\u30C8\u30EC\u30B7\u30D4\u8A72\u5F53\u7121\u3057"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 19
@@ -31539,15 +31745,15 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 20
       debugIndex: 20
-      strings:
-      - EndScenario
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 21
       debugIndex: 21
-      strings: []
-      isEmpty: 1
+      strings:
+      - EndScenario
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 22
@@ -31564,27 +31770,33 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 24
       debugIndex: 24
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 25
+      debugIndex: 25
       strings:
       - "*\u30D2\u30F3\u30C8_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 25
-      debugIndex: 25
+    - rowIndex: 26
+      debugIndex: 26
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 26
-      debugIndex: 26
+    - rowIndex: 27
+      debugIndex: 27
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 27
-      debugIndex: 27
+    - rowIndex: 28
+      debugIndex: 28
       strings:
       - 
       - 
@@ -31598,14 +31810,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 28
-      debugIndex: 28
+    - rowIndex: 29
+      debugIndex: 29
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 29
-      debugIndex: 29
+    - rowIndex: 30
+      debugIndex: 30
       strings:
       - 
       - 
@@ -31619,14 +31831,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 30
-      debugIndex: 30
+    - rowIndex: 31
+      debugIndex: 31
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 31
-      debugIndex: 31
+    - rowIndex: 32
+      debugIndex: 32
       strings:
       - 
       - 
@@ -31640,14 +31852,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 32
-      debugIndex: 32
+    - rowIndex: 33
+      debugIndex: 33
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 33
-      debugIndex: 33
+    - rowIndex: 34
+      debugIndex: 34
       strings:
       - 
       - 
@@ -31661,25 +31873,10 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 34
-      debugIndex: 34
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 35
       debugIndex: 35
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u2463<color=#FF5CA1FF>\u30AA\u30EC\u30F3\u30B8\u30D4\u30FC\u30EB</color>\u3092\u52A0\u3048\u308B\u3002\n"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 36
@@ -31693,7 +31890,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u203B\u3053\u306E\u5730\u65B9\u3067\u3088\u304F\u63A1\u308C\u308B\u9178\u5473\u304C\u5F37\u3081\u306A<color=#FF5CA1FF>\u25A0\u25A0\u3000\u25A0\u25A0\u30AA\u30EC\u30F3\u30B8</color>\u304C\u826F\u3044\u3002"
+      - "\u2463<color=#FF5CA1FF>\u30AA\u30EC\u30F3\u30B8\u30D4\u30FC\u30EB</color>\u3092\u52A0\u3048\u308B\u3002\n"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -31708,18 +31905,12 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u2464\u3053\u306E\u6642 .. \u3067\u3000\u98A8\u5473\u304C.. .."
+      - "\u203B\u3053\u306E\u5730\u65B9\u3067\u3088\u304F\u63A1\u308C\u308B\u9178\u5473\u304C\u5F37\u3081\u306A<color=#FF5CA1FF>\u25A0\u25A0\u3000\u25A0\u25A0\u30AA\u30EC\u30F3\u30B8</color>\u304C\u826F\u3044\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 38
       debugIndex: 38
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 39
-      debugIndex: 39
       strings:
       - 
       - 
@@ -31729,8 +31920,14 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF08\u6700\u5F8C\u306E\u307B\u3046\u306F\u3001\u7126\u3052\u8DE1\u306E\u305B\u3044\u3067\u3001\u8AAD\u3081\u306A\u3044\u306A\u3002\uFF09"
+      - "\u2464\u3053\u306E\u6642 .. \u3067\u3000\u98A8\u5473\u304C.. .."
       isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 39
+      debugIndex: 39
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 40
@@ -31744,7 +31941,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF08..\u3068\u308A\u3042\u3048\u305A\u6750\u6599\u3092\u8CB7\u3046\u304B\u3002\uFF09"
+      - "\uFF08\u6700\u5F8C\u306E\u307B\u3046\u306F\u3001\u7126\u3052\u8DE1\u306E\u305B\u3044\u3067\u3001\u8AAD\u3081\u306A\u3044\u306A\u3002\uFF09"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -31759,14 +31956,23 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF08\u30AF\u30C3\u30AD\u30FC\u306E\u57FA\u672C\u306F\u3001\u751F\u5730\u4F5C\u308A\u3060\u3002\u751F\u5730\u306E\u6750\u6599\u3092\u8CB7\u3063\u3066\u3053\u3088\u3046\u3002\uFF09"
+      - "\uFF08..\u3068\u308A\u3042\u3048\u305A\u6750\u6599\u3092\u8CB7\u3046\u304B\u3002\uFF09"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 42
       debugIndex: 42
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\uFF08\u30AF\u30C3\u30AD\u30FC\u306E\u57FA\u672C\u306F\u3001\u751F\u5730\u4F5C\u308A\u3060\u3002\u751F\u5730\u306E\u6750\u6599\u3092\u8CB7\u3063\u3066\u3053\u3088\u3046\u3002\uFF09"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 43
@@ -31777,15 +31983,15 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 44
       debugIndex: 44
-      strings:
-      - EndScenario
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 45
       debugIndex: 45
-      strings: []
-      isEmpty: 1
+      strings:
+      - EndScenario
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 46
@@ -31796,37 +32002,28 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 47
       debugIndex: 47
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 48
+      debugIndex: 48
       strings:
       - "*\u30D2\u30F3\u30C8_\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 48
-      debugIndex: 48
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 49
       debugIndex: 49
-      strings:
-      - BgEvent
-      - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 50
       debugIndex: 50
       strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u3010\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u306E\u30EC\u30B7\u30D4\u3011"
+      - BgEvent
+      - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -31841,14 +32038,23 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#FDFF80FF>\u5C0F\u9EA6\u7C89: \u30D0\u30BF\u30FC: \u7802\u7CD6</color>\u3092<color=#FDFF80FF>2:1:1</color>\u3067\u6DF7\u305C\u308B\u3068\n\u826F\u3044\u5473\u306B\u306A\u308B\u3089\u3057\u3044\u305C\u3002"
+      - "\u3010\u30AF\u30C3\u30AD\u30FC\u751F\u5730\u306E\u30EC\u30B7\u30D4\u3011"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 52
       debugIndex: 52
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "<color=#FDFF80FF>\u5C0F\u9EA6\u7C89: \u30D0\u30BF\u30FC: \u7802\u7CD6</color>\u3092<color=#FDFF80FF>2:1:1</color>\u3067\u6DF7\u305C\u308B\u3068\n\u826F\u3044\u5473\u306B\u306A\u308B\u3089\u3057\u3044\u305C\u3002"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 53
@@ -31859,15 +32065,15 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 54
       debugIndex: 54
-      strings:
-      - EndScenario
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 55
       debugIndex: 55
-      strings: []
-      isEmpty: 1
+      strings:
+      - EndScenario
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 56
@@ -31878,37 +32084,28 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 57
       debugIndex: 57
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 58
+      debugIndex: 58
       strings:
       - "*\u30D2\u30F3\u30C8_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u9583\u304D\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 58
-      debugIndex: 58
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 59
       debugIndex: 59
-      strings:
-      - BgEvent
-      - "\u30A4\u30D9\u30F3\u30C802_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30D2\u30F3\u30C8"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 60
       debugIndex: 60
       strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u5F85\u3066\u3088..?"
+      - BgEvent
+      - "\u30A4\u30D9\u30F3\u30C802_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30D2\u30F3\u30C8"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -31923,7 +32120,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3053\u3053\u3067\u3001\u751F\u5730\u306B\u3001\u30AA\u30EC\u30F3\u30B8\u306E\u30DA\u30FC\u30B9\u30C8\u3092\u6DF7\u305C\u3066\u3001\u4E00\u7DD2\u306B\u713C\u3044\u305F\u3089"
+      - "\u5F85\u3066\u3088..?"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -31938,27 +32135,36 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u30AA\u30EC\u30F3\u30B8\u306E\u98A8\u5473\u3092\u6FC3\u539A\u306B\u697D\u3057\u3081\u308B\u30AF\u30C3\u30AD\u30FC\u3092\u4F5C\u308C\u308B\u3093\u3058\u3083\u306A\u3044\u304B..?"
+      - "\u3053\u3053\u3067\u3001\u751F\u5730\u306B\u3001\u30AA\u30EC\u30F3\u30B8\u306E\u30DA\u30FC\u30B9\u30C8\u3092\u6DF7\u305C\u3066\u3001\u4E00\u7DD2\u306B\u713C\u3044\u305F\u3089"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 63
       debugIndex: 63
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30AA\u30EC\u30F3\u30B8\u306E\u98A8\u5473\u3092\u6FC3\u539A\u306B\u697D\u3057\u3081\u308B\u30AF\u30C3\u30AD\u30FC\u3092\u4F5C\u308C\u308B\u3093\u3058\u3083\u306A\u3044\u304B..?"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 64
       debugIndex: 64
-      strings:
-      - EndScenario
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 65
       debugIndex: 65
-      strings: []
-      isEmpty: 1
+      strings:
+      - EndScenario
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 66
@@ -31987,38 +32193,29 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 70
       debugIndex: 70
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 71
+      debugIndex: 71
       strings:
       - "*\u30D2\u30F3\u30C8_\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 71
-      debugIndex: 71
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 72
       debugIndex: 72
-      strings:
-      - BgEvent
-      - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 73
       debugIndex: 73
       strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      isEmpty: 1
+      - BgEvent
+      - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 74
@@ -32032,18 +32229,33 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3010\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u30EC\u30B7\u30D4\u3011"
-      isEmpty: 0
+      - 
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 75
       debugIndex: 75
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u3010\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u30EC\u30B7\u30D4\u3011"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 76
       debugIndex: 76
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 77
+      debugIndex: 77
       strings:
       - 
       - 
@@ -32057,14 +32269,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 77
-      debugIndex: 77
+    - rowIndex: 78
+      debugIndex: 78
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 78
-      debugIndex: 78
+    - rowIndex: 79
+      debugIndex: 79
       strings:
       - 
       - 
@@ -32078,14 +32290,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 79
-      debugIndex: 79
+    - rowIndex: 80
+      debugIndex: 80
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 80
-      debugIndex: 80
+    - rowIndex: 81
+      debugIndex: 81
       strings:
       - 
       - 
@@ -32099,14 +32311,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 81
-      debugIndex: 81
+    - rowIndex: 82
+      debugIndex: 82
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 82
-      debugIndex: 82
+    - rowIndex: 83
+      debugIndex: 83
       strings:
       - 
       - 
@@ -32120,12 +32332,6 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 83
-      debugIndex: 83
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 84
       debugIndex: 84
       strings: []
@@ -32134,40 +32340,46 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 85
       debugIndex: 85
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 86
+      debugIndex: 86
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 86
-      debugIndex: 86
+    - rowIndex: 87
+      debugIndex: 87
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 87
-      debugIndex: 87
+    - rowIndex: 88
+      debugIndex: 88
       strings:
       - "*\u30D2\u30F3\u30C8_\u30E9\u30B9\u30AF\u306E\u30EC\u30B7\u30D4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 88
-      debugIndex: 88
+    - rowIndex: 89
+      debugIndex: 89
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 89
-      debugIndex: 89
+    - rowIndex: 90
+      debugIndex: 90
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 90
-      debugIndex: 90
+    - rowIndex: 91
+      debugIndex: 91
       strings:
       - 
       - 
@@ -32181,14 +32393,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 91
-      debugIndex: 91
+    - rowIndex: 92
+      debugIndex: 92
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 92
-      debugIndex: 92
+    - rowIndex: 93
+      debugIndex: 93
       strings:
       - 
       - 
@@ -32202,14 +32414,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 93
-      debugIndex: 93
+    - rowIndex: 94
+      debugIndex: 94
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 94
-      debugIndex: 94
+    - rowIndex: 95
+      debugIndex: 95
       strings:
       - 
       - 
@@ -32223,14 +32435,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 95
-      debugIndex: 95
+    - rowIndex: 96
+      debugIndex: 96
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 96
-      debugIndex: 96
+    - rowIndex: 97
+      debugIndex: 97
       strings:
       - 
       - 
@@ -32244,35 +32456,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 97
-      debugIndex: 97
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 98
       debugIndex: 98
-      strings:
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\uFF08\u3080\u3080..\u3002\u3046\u3061\u306B\u306F\u3001\u78BA\u304B\u30B9\u30E9\u30A4\u30B5\u30FC\u306F\u7121\u304B\u3063\u305F\u306A..\u3002\uFF09"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 99
       debugIndex: 99
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 100
-      debugIndex: 100
       strings:
       - 
       - 
@@ -32282,52 +32473,73 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\uFF08\u3069\u3053\u304B\u3067\u30B2\u30C3\u30C8\u3067\u304D\u306A\u304B\u3063\u305F\u304B\u306A\u3002\uFF09"
+      - "\uFF08\u3080\u3080..\u3002\u3046\u3061\u306B\u306F\u3001\u78BA\u304B\u30D1\u30F3\u5207\u308A\u30CA\u30A4\u30D5\u304C\u7121\u304B\u3063\u305F\u3088\u3046\u306A..\u3002\uFF09"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 101
-      debugIndex: 101
+    - rowIndex: 100
+      debugIndex: 100
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 101
+      debugIndex: 101
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\uFF08\u3069\u3053\u304B\u3067\u8CB7\u3046\u304B\u3002\uFF09"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     - rowIndex: 102
       debugIndex: 102
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 103
+      debugIndex: 103
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 103
-      debugIndex: 103
+    - rowIndex: 104
+      debugIndex: 104
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 104
-      debugIndex: 104
+    - rowIndex: 105
+      debugIndex: 105
       strings:
       - "*\u30D2\u30F3\u30C8_\u30D0\u30B2\u30C3\u30C8\u306E\u30EC\u30B7\u30D4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 105
-      debugIndex: 105
+    - rowIndex: 106
+      debugIndex: 106
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 106
-      debugIndex: 106
+    - rowIndex: 107
+      debugIndex: 107
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 107
-      debugIndex: 107
+    - rowIndex: 108
+      debugIndex: 108
       strings:
       - 
       - 
@@ -32341,14 +32553,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 108
-      debugIndex: 108
+    - rowIndex: 109
+      debugIndex: 109
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 109
-      debugIndex: 109
+    - rowIndex: 110
+      debugIndex: 110
       strings:
       - 
       - 
@@ -32363,14 +32575,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 110
-      debugIndex: 110
+    - rowIndex: 111
+      debugIndex: 111
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 111
-      debugIndex: 111
+    - rowIndex: 112
+      debugIndex: 112
       strings:
       - 
       - 
@@ -32384,14 +32596,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 112
-      debugIndex: 112
+    - rowIndex: 113
+      debugIndex: 113
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 113
-      debugIndex: 113
+    - rowIndex: 114
+      debugIndex: 114
       strings:
       - 
       - 
@@ -32405,23 +32617,17 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 114
-      debugIndex: 114
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 115
       debugIndex: 115
-      strings:
-      - EndScenario
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 116
       debugIndex: 116
-      strings: []
-      isEmpty: 1
+      strings:
+      - EndScenario
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 117
@@ -32432,27 +32638,33 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 118
       debugIndex: 118
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 119
+      debugIndex: 119
       strings:
       - "*\u30D2\u30F3\u30C8_\u30AF\u30EC\u30FC\u30D7\u306E\u30EC\u30B7\u30D4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 119
-      debugIndex: 119
+    - rowIndex: 120
+      debugIndex: 120
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 120
-      debugIndex: 120
+    - rowIndex: 121
+      debugIndex: 121
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 121
-      debugIndex: 121
+    - rowIndex: 122
+      debugIndex: 122
       strings:
       - 
       - 
@@ -32466,14 +32678,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 122
-      debugIndex: 122
+    - rowIndex: 123
+      debugIndex: 123
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 123
-      debugIndex: 123
+    - rowIndex: 124
+      debugIndex: 124
       strings:
       - 
       - 
@@ -32487,14 +32699,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 124
-      debugIndex: 124
+    - rowIndex: 125
+      debugIndex: 125
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 125
-      debugIndex: 125
+    - rowIndex: 126
+      debugIndex: 126
       strings:
       - 
       - 
@@ -32504,18 +32716,18 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001\u5C0F\u9EA6\u7C89\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002"
+      - "\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001<color=#FDFF80FF>\u5C0F\u9EA6\u7C89</color>\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002"
       isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 126
-      debugIndex: 126
-      strings: []
-      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 127
       debugIndex: 127
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 128
+      debugIndex: 128
       strings:
       - 
       - 
@@ -32529,23 +32741,17 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 128
-      debugIndex: 128
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 129
       debugIndex: 129
-      strings:
-      - EndScenario
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 130
       debugIndex: 130
-      strings: []
-      isEmpty: 1
+      strings:
+      - EndScenario
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 131
@@ -32556,27 +32762,33 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 132
       debugIndex: 132
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 133
+      debugIndex: 133
       strings:
       - "*\u30D2\u30F3\u30C8_\u30DE\u30D5\u30A3\u30F3\u306E\u30EC\u30B7\u30D4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 133
-      debugIndex: 133
+    - rowIndex: 134
+      debugIndex: 134
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 134
-      debugIndex: 134
+    - rowIndex: 135
+      debugIndex: 135
       strings:
       - BgEvent
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 135
-      debugIndex: 135
+    - rowIndex: 136
+      debugIndex: 136
       strings:
       - 
       - 
@@ -32590,14 +32802,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 136
-      debugIndex: 136
+    - rowIndex: 137
+      debugIndex: 137
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 137
-      debugIndex: 137
+    - rowIndex: 138
+      debugIndex: 138
       strings:
       - 
       - 
@@ -32611,14 +32823,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 138
-      debugIndex: 138
+    - rowIndex: 139
+      debugIndex: 139
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 139
-      debugIndex: 139
+    - rowIndex: 140
+      debugIndex: 140
       strings:
       - 
       - 
@@ -32632,14 +32844,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 140
-      debugIndex: 140
+    - rowIndex: 141
+      debugIndex: 141
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 141
-      debugIndex: 141
+    - rowIndex: 142
+      debugIndex: 142
       strings:
       - 
       - 
@@ -32653,14 +32865,138 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 142
-      debugIndex: 142
+    - rowIndex: 143
+      debugIndex: 143
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 143
-      debugIndex: 143
+    - rowIndex: 144
+      debugIndex: 144
+      strings:
+      - EndScenario
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 145
+      debugIndex: 145
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 146
+      debugIndex: 146
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 147
+      debugIndex: 147
+      strings:
+      - "*\u30D2\u30F3\u30C8_\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u306E\u30EC\u30B7\u30D4"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 148
+      debugIndex: 148
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 149
+      debugIndex: 149
+      strings:
+      - BgEvent
+      - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 150
+      debugIndex: 150
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u3010\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u306E\u30EC\u30B7\u30D4\u3011"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 151
+      debugIndex: 151
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 152
+      debugIndex: 152
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "<color=#FDFF80FF>\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9</color>\u3068<color=#FDFF80FF>\u305F\u307E\u3054</color>\u3092\u6DF7\u305C\u3066\u751F\u5730\u3092\u4F5C\u308B\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 153
+      debugIndex: 153
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 154
+      debugIndex: 154
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9\u306F\u3001<color=#FDFF80FF>\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC\u306B\u5C0F\u9EA6\u7C89</color>\u3001\u305D\u308C\u306B<color=#FDFF80FF>\u7802\u7CD6</color>\u3092\u6DF7\u305C\u5408\u308F\u305B\u3066\u4F5C\u308B\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 155
+      debugIndex: 155
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 156
+      debugIndex: 156
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30AB\u30C3\u30D7\u306B\u5165\u308C\u3066\u3001\u30AA\u30FC\u30D6\u30F3\u3067\u713C\u304F\uFF01"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 157
+      debugIndex: 157
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 158
+      debugIndex: 158
       strings:
       - EndScenario
       isEmpty: 0
@@ -32668,7 +33004,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Event_Recipi
     type: 1
-    textLength: 2057
+    textLength: 2345
     headerRow: 0
   - rows:
     - rowIndex: 0

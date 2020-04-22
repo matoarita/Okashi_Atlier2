@@ -29,7 +29,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
     public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
 
-    public static bool GirlLoveEvent_01;            //各イベントの、読んだかどうかのチェック用フラグ。一度読んだイベントは、発生しない。
+    public static bool[] GirlLoveEvent_stage1 = new bool[30];  //各イベントの、読んだかどうかのチェック用フラグ。一度読んだイベントは、発生しない。
+    public static bool[] GirlLoveEvent_stage2 = new bool[30];
+    public static bool[] GirlLoveEvent_stage3 = new bool[30];
 
     //マップイベント
     public static int　map_ev_ID;           //その時のイベント番号
@@ -156,7 +158,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         scenario_read_endflag = false;
 
         //好感度イベントフラグの初期化
-        GirlLoveEvent_01 = false;
+        for (i = 0; i < GirlLoveEvent_stage1.Length; i++)
+        {
+            GirlLoveEvent_stage1[i] = false;
+            GirlLoveEvent_stage2[i] = false;
+            GirlLoveEvent_stage3[i] = false;
+        }
 
         //マップイベントの初期化
         MapEvent_01 = false;

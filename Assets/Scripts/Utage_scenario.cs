@@ -21,7 +21,7 @@ public class Utage_scenario : MonoBehaviour
     private int sp_Okashi_ID;
     private int mainClear_ID;
 
-    private int girlloveev_read_ID;
+    private int GirlLoveEvent_num;
 
     private int story_num;
     private int shop_talk_number;
@@ -177,7 +177,7 @@ public class Utage_scenario : MonoBehaviour
                 if (GameMgr.girlloveevent_flag == true)
                 {
                     GameMgr.girlloveevent_flag = false;
-                    girlloveev_read_ID = GameMgr.GirlLoveEvent_num;
+                    GirlLoveEvent_num = GameMgr.GirlLoveEvent_num;
 
                     //好感度イベントを表示
                     StartCoroutine(Girllove_event_Hyouji());
@@ -1097,6 +1097,16 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("Ev_flag", 70);
                 break;
 
+            case "bisucouti_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag", 80);
+                break;
+
+            case "princesstota_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag", 90);
+                break;
+
             default:
                 break;
         }
@@ -1129,7 +1139,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("Girllove_event_num", girlloveev_read_ID);
+        engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);

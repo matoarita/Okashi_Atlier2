@@ -7,11 +7,13 @@ public class BGM : MonoBehaviour {
     //[SerializeField]
     private AudioSource[] _bgm = new AudioSource[2];
 
-    public AudioClip sound1;  //Mainの調合BGM
-    public AudioClip sound2;  //
+    public AudioClip sound1;  //Stage1MainのBGM
+    public AudioClip sound2;  //調合中のBGM
     public AudioClip sound3;  //材料採取画面
     public AudioClip sound4;  //「近くの森」BGM
     public AudioClip sound5;  //「井戸」BGM
+    public AudioClip sound6;  //Stage2のBGM
+    public AudioClip sound7;  //Stage3のBGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -87,7 +89,24 @@ public class BGM : MonoBehaviour {
 
     public void Play()
     {
-        _bgm[0].clip = sound1;
+        switch (GameMgr.stage_number)
+        {
+            case 1:
+
+                _bgm[0].clip = sound1;
+                break;
+
+            case 2:
+
+                _bgm[0].clip = sound6;
+                break;
+
+            case 3:
+
+                _bgm[0].clip = sound7;
+                break;
+        }
+        
         _bgm[0].Play();
 
         _bgm[1].clip = sound2;
