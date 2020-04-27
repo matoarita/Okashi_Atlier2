@@ -16,7 +16,7 @@ MonoBehaviour:
     list:
     - ID: 0
       set_compID: 0
-      set1: 0
+      set1: 200
       set2: 9999
       set3: 9999
       desc: "<color=#FF78B4>\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
@@ -28,7 +28,7 @@ MonoBehaviour:
     - ID: 1
       set_compID: 1
       set1: 10
-      set2: 11
+      set2: 201
       set3: 9999
       desc: "<color=#FF8400>\u30AA\u30EC\u30F3\u30B8</color>\u306E\u98A8\u5473\u306E<color=#FF78B4>\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       comment: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u304B\u3001\u30AA\u30EC\u30F3\u30B8\u6DFB\u3048\u306E\u30AF\u30C3\u30AD\u30FC\u7CFB"
@@ -38,7 +38,7 @@ MonoBehaviour:
       clear: 0
     - ID: 2
       set_compID: 15
-      set1: 30
+      set1: 221
       set2: 1
       set3: 9999
       desc: "<color=#FF78B4>\u30AB\u30EA\u30AB\u30EA\u3057\u305F</color>\u304A\u83D3\u5B50\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
@@ -49,7 +49,7 @@ MonoBehaviour:
       clear: 0
     - ID: 3
       set_compID: 20
-      set1: 20
+      set1: 208
       set2: 21
       set3: 9999
       desc: "<color=#FF78B4>\u7D2B\u306E\u3001\u3064\u3076\u3064\u3076\u304C\u306E\u3063\u3066\u308B\u30AF\u30C3\u30AD\u30FC..</color>\u306A\u3093\u3060\u3063\u3051\uFF1F"
@@ -60,7 +60,7 @@ MonoBehaviour:
       clear: 0
     - ID: 4
       set_compID: 30
-      set1: 30
+      set1: 221
       set2: 9999
       set3: 9999
       desc: "<color=#FF78B4>\u30E9\u30B9\u30AF</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
@@ -94,7 +94,7 @@ MonoBehaviour:
       clear: 0
     - ID: 7
       set_compID: 1010
-      set1: 30
+      set1: 221
       set2: 9999
       set3: 9999
       desc: "\u5144\u3061\u3083\u3093\u3001<color=#FF78B4>\u30E9\u30B9\u30AF</color>\u3092\u98DF\u3079\u3066\u307F\u305F\u3044\uFF01"

@@ -33,6 +33,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _set_MainQuestID;
     private Text Hint_Text;
     private string temp_hint_text;
+    private Text Result_Text;
+    private string _result_text;
     private string _sweat_kansou, _bitter_kansou, _sour_kansou;
     private string _shokukan_kansou;
     private bool Mazui_flag;
@@ -339,7 +341,7 @@ public class GirlEat_Judge : MonoBehaviour {
         eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
 
         //windowテキストエリアの取得
-        text_area = canvas.transform.Find("MessageWindow").gameObject;
+        text_area = canvas.transform.Find("MessageWindowMain").gameObject;
         _windowtext = text_area.GetComponentInChildren<Text>();
 
         //BGMの取得
@@ -351,6 +353,7 @@ public class GirlEat_Judge : MonoBehaviour {
         MainQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/MainQuestOKPanel").gameObject;
         MainQuestText = MainQuestOKPanel.transform.Find("Image/QuestClearText").GetComponent<Text>();
         Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
+        Result_Text = ScoreHyoujiPanel.transform.Find("Image/Result_Text").GetComponent<Text>();
         ScoreHyoujiPanel.SetActive(false);
         ScoreHyouji_ON = false;
         MainQuestOKPanel.SetActive(false);
@@ -1527,6 +1530,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
             }
 
+            //作ったお菓子の点数が、前回より高い場合は、最高得点を更新。
+            if( total_score > database.items[_baseID].last_total_score )
+            {
+                database.items[_baseID].last_total_score = total_score;
+            }
+
         }
         else
         {  }
@@ -1785,7 +1794,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //お菓子をあげたあとの状態に移行する。残り時間を、短く設定。
             girl1_status.timeGirl_hungry_status = 2;
-            girl1_status.timeOut = 5.0f;           
+            girl1_status.timeOut = 5.0f;
+
+            //お菓子判定終了
+            compound_Main.girlEat_ON = false;
 
             //リセット＋フラグチェック
             //減る場合は、update内でちぇっく
@@ -1950,6 +1962,7 @@ public class GirlEat_Judge : MonoBehaviour {
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
             HighScore_flag = true; //高得点をとれた！その場合、サブクエストが発生したり、特別なイベントが発生することもある。
+            database.items[_baseID].HighScore_flag = true;
         }
         else if (total_score >= 95)
         {
@@ -1963,6 +1976,7 @@ public class GirlEat_Judge : MonoBehaviour {
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
             HighScore_flag = true;
+            database.items[_baseID].HighScore_flag = true;
         }
         else if (total_score <= 0) //0以下。つまりまずかった
         {
@@ -2154,11 +2168,11 @@ public class GirlEat_Judge : MonoBehaviour {
                 else
                 {
                     //好感度取得
-                    if (total_score >= 0 && total_score < 20) //問答無用で１
+                    if (total_score >= 0 && total_score < 10) //問答無用で１
                     {
                         Getlove_exp = 1;
                     }
-                    else if (total_score >= 20 && total_score < 45) //ベース×5
+                    else if (total_score >= 10 && total_score < 45) //ベース×5
                     {
                         Getlove_exp = (int)(_basegirl1_like * 5.0f);
                     }
@@ -2408,7 +2422,7 @@ public class GirlEat_Judge : MonoBehaviour {
         InitializeGirlLikeCompoScore();
 
 
-
+        /*
         //①ガールセットコンポのスコアを見る。or お菓子を食べたことがあるかどうかをみる。現在、未使用。
 
         //クッキー　＋　オレンジねこクッキーをあげてる場合。またラスクのイベントが発生していないとき。
@@ -2442,6 +2456,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         //②好感度で発生するイベントがあるかどうか。
         //Compound_Main内で処理している。
+        */
     }
 
 
@@ -2697,7 +2712,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if (shokukan_score >= 40 && shokukan_score < 60) //
         {
-            _shokukan_kansou = "";
+            _shokukan_kansou = "\n" + "さくさく感がほしい";
         }
         else if (shokukan_score >= 60 && shokukan_score < 80) //
         {
@@ -2731,6 +2746,10 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
         }
 
+        database.items[_baseID].last_hinttext = temp_hint_text;
+
+        _result_text = "好感度が " + Getlove_exp  + " アップ！　" + "お金を " + GetMoney + "G ゲットした！";
+        Result_Text.text = _result_text;
     }
 
     void CommentTextInit()

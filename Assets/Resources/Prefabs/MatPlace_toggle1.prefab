@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224033653106317578}
   - component: {fileID: 114009784146464446}
+  - component: {fileID: 114693045002451038}
   - component: {fileID: 114266936545403316}
   m_Layer: 0
   m_Name: MatPlace_toggle1
@@ -122,8 +123,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClick_Place1
+      - m_Target: {fileID: 114693045002451038}
+        m_MethodName: OnClick_Place
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -201,6 +202,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114693045002451038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871174273239862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13cc52785d01c7843a750049c9f40bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeNum: 0
 --- !u!114 &114928593437150082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,10 +295,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100, y: -80}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224153167193638376
 RectTransform:

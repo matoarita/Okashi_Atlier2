@@ -89,7 +89,15 @@ public class SetImage : MonoBehaviour
     private Text item_Oily;
     private Text item_Watery;
 
+    private Text item_LastTotalScore;
+    private Text item_Hint;
+
     private Text[] item_Slot = new Text[10];
+
+    private GameObject item_HighScoreFlag;
+
+    private GameObject kosu_panel;
+    private Text kosu_text;
 
     private int i, count;
 
@@ -110,7 +118,15 @@ public class SetImage : MonoBehaviour
     private int _oily_score;
     private int _watery_score;
 
+    private int _first_eat;
+    private bool _highscore_flag;
+    private int _lasttotal_score;
+    private string _lasthint_text;
+
     private Slider _Crispy_slider;
+    private Slider _Sweat_slider;
+    private Slider _Bitter_slider;
+    private Slider _Sour_slider;
 
     public int check_counter;
     public int Pitem_or_Origin; //プレイヤーアイテムか、オリジナルアイテムかの判定
@@ -173,9 +189,9 @@ public class SetImage : MonoBehaviour
 
         item_Name_Full = this.transform.Find("Card_Param_window/Card_Name/Tx_Name").gameObject.GetComponent<Text>(); //名前（スロット名も含む正式名称）の値
 
-        item_Quality = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Rank").gameObject.GetComponent<Text>(); //品質のランク
-        item_Quality_Bar = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Bar").gameObject.GetComponent<Text>(); //品質の★の数
-        item_Quality_Score = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Quality/Quality_Score").gameObject.GetComponent<Text>(); //品質の★の数
+        item_Quality = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/Quality_Rank").gameObject.GetComponent<Text>(); //品質のランク
+        item_Quality_Bar = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/Quality_Bar").gameObject.GetComponent<Text>(); //品質の★の数
+        item_Quality_Score = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/Quality_Score").gameObject.GetComponent<Text>(); //品質の★の数
 
         item_Sweat = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
         item_Bitter = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
@@ -193,6 +209,10 @@ public class SetImage : MonoBehaviour
         item_Oily = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemOily").gameObject.GetComponent<Text>(); //粉っぽいの値
         item_Watery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemWatery").gameObject.GetComponent<Text>(); //粉っぽいの値
 
+        item_LastTotalScore = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemLastTotalScore").gameObject.GetComponent<Text>(); //最高得点
+        item_Hint = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemHint").gameObject.GetComponent<Text>(); //前回の妹からのヒント
+        item_HighScoreFlag = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/HighScoreFlag").gameObject; //ハイスコア時、星のエンブレムがでる。
+
         item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
         item_Slot[1] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_02").gameObject.GetComponent<Text>(); //Slot02の値
         item_Slot[2] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_03").gameObject.GetComponent<Text>(); //Slot03の値
@@ -204,14 +224,21 @@ public class SetImage : MonoBehaviour
         item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
         item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
 
+        kosu_panel = this.transform.Find("Item_card_template/ItemKosu_Panel").gameObject;
+        kosu_panel.SetActive(false);
+        kosu_text = this.transform.Find("Item_card_template/ItemKosu_Panel/ItemKosu").gameObject.GetComponent<Text>();
+
         //各パラメータバーの取得
-        _Crispy_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemCrispyScore/Slider").gameObject.GetComponent<Slider>();
+        _Crispy_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemCrispyBar").gameObject.GetComponent<Slider>();
+        _Sweat_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
+        _Bitter_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBitterBar").gameObject.GetComponent<Slider>();
+        _Sour_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourBar").gameObject.GetComponent<Slider>();
 
         //スロットをもとに、正式名称を計算するメソッド
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
 
         //新レシピプレファブの取得
-        NewRecipi_Prefab1 = (GameObject)Resources.Load("Prefabs/NewRecipiMessage");
+        NewRecipi_Prefab1 = (GameObject)Resources.Load("Prefabs/NewRecipiMessage");        
 
         audioSource = GetComponent<AudioSource>();
 
@@ -313,6 +340,11 @@ public class SetImage : MonoBehaviour
                 _oily_score = database.items[check_counter].Oily;
                 _watery_score = database.items[check_counter].Watery;
 
+                _first_eat = database.items[check_counter].First_eat;
+                _highscore_flag = database.items[check_counter].HighScore_flag;
+                _lasttotal_score = database.items[check_counter].last_total_score;
+                _lasthint_text = database.items[check_counter].last_hinttext;
+
                 for (i = 0; i < _slot.Length; i++)
                 {
                     _slot[i] = database.items[check_counter].toppingtype[i].ToString();
@@ -376,6 +408,11 @@ public class SetImage : MonoBehaviour
                 _powdery_score = pitemlist.player_originalitemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_originalitemlist[check_counter].Oily;
                 _watery_score = pitemlist.player_originalitemlist[check_counter].Watery;
+
+                _first_eat = pitemlist.player_originalitemlist[check_counter].First_eat;
+                _highscore_flag = pitemlist.player_originalitemlist[check_counter].HighScore_flag;
+                _lasttotal_score = pitemlist.player_originalitemlist[check_counter].last_total_score;
+                _lasthint_text = pitemlist.player_originalitemlist[check_counter].last_hinttext;
 
                 for (i = 0; i < _slot.Length; i++)
                 {
@@ -449,6 +486,10 @@ public class SetImage : MonoBehaviour
         _oily_score = compound_keisan._baseoily;
         _watery_score = compound_keisan._basewatery;
 
+        _first_eat = database.items[check_counter].First_eat;
+        _highscore_flag = database.items[check_counter].HighScore_flag;
+        _lasttotal_score = database.items[check_counter].last_total_score;
+        _lasthint_text = database.items[check_counter].last_hinttext;
 
         for (i = 0; i < _slot.Length; i++)
         {
@@ -523,6 +564,9 @@ public class SetImage : MonoBehaviour
             case "Mat":
                 category = "材料";
                 break;
+            case "Etc":
+                category = "その他";
+                break;
             default:
                 category = "";
                 break;
@@ -533,23 +577,18 @@ public class SetImage : MonoBehaviour
         {
             case "Non":
                 subcategory = "";
-                //RankDesc_Hyouji();
                 break;
             case "Cookie":
                 subcategory = "クッキー系";
-                //RankDesc_Hyouji();
                 break;
             case "Pie":
                 subcategory = "パイ系";
-                //RankDesc_Hyouji();
                 break;
             case "Chocolate":
                 subcategory = "チョコレート系";
-                //RankDesc_Hyouji();
                 break;
             case "Cake":
                 subcategory = "ケーキ系";
-                //RankDesc_Hyouji();
                 break;
             case "Fruits":
                 subcategory = "フルーツ";
@@ -559,6 +598,9 @@ public class SetImage : MonoBehaviour
                 break;
             case "Source":
                 subcategory = "お菓子材料";
+                break;
+            case "Appaleil":
+                subcategory = "生地";
                 break;
             case "Pate":
                 subcategory = "生地";
@@ -593,6 +635,10 @@ public class SetImage : MonoBehaviour
             case "Parfe":
                 subcategory = "パフェ";
                 break;
+            case "Machine":
+                subcategory = "器具";
+                break;
+            
             default:
                 // 処理３　指定がなかった場合
                 subcategory = "";
@@ -619,10 +665,13 @@ public class SetImage : MonoBehaviour
 
         //ゲージの更新
         _Crispy_slider.value = _crispy_score;
+        _Sweat_slider.value = _sweat_score;
+        _Bitter_slider.value = _bitter_score;
+        _Sour_slider.value = _sour_score;
 
 
         //粉っぽさなどの、マイナス要素の表示
-        if( _powdery_score > 50 )
+        if ( _powdery_score > 50 )
         {
             item_Powdery.text = "粉っぽい";
         } else
@@ -644,6 +693,29 @@ public class SetImage : MonoBehaviour
         else
         {
             item_Watery.text = "";
+        }
+
+        if (_first_eat > 0)
+        {
+            //最高得点の表示
+            item_LastTotalScore.text = _lasttotal_score.ToString();
+            item_Hint.text = _lasthint_text;
+        }
+        else
+        {
+            //最高得点の表示
+            item_LastTotalScore.text = "";
+            item_Hint.text = "";
+        }
+
+        //ハイスコアゲットできたら、星マーク
+        if (_highscore_flag)
+        {
+            item_HighScoreFlag.SetActive(true);
+        }
+        else
+        {
+            item_HighScoreFlag.SetActive(false);
         }
 
 
@@ -785,7 +857,7 @@ public class SetImage : MonoBehaviour
         }
         else
         {
-            //Card_param_obj.SetActive(true);
+            //Card_param_obj.SetActive(false);
         }
 
 
@@ -926,5 +998,16 @@ public class SetImage : MonoBehaviour
     public void CardParamOFF()
     {
         Card_param_obj.SetActive(false);
+    }
+
+    public void Kosu_ON(int _kosu)
+    {
+        kosu_panel.SetActive(true);
+        kosu_text.text = _kosu.ToString();
+    }
+
+    public void Kosu_OFF()
+    {
+        kosu_panel.SetActive(false);
     }
 }

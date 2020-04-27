@@ -22,6 +22,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private TimeController time_controller;
 
+    private GameObject content;
+
     private GameObject getmatplace_view;
     private GameObject slot_view;
     private GameObject slot_tansaku_button;
@@ -34,6 +36,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject moveanim_panel_image;
     private GameObject moveanim_panel_image_text;
 
+    private GameObject matplace_toggle_obj;
     public List<GameObject> matplace_toggle = new List<GameObject>();
 
     private GameObject text_area;
@@ -131,16 +134,24 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         getmatplace_view = this.transform.Find("Comp/GetMatPlace_View").gameObject;
 
-        
-        i = 0;
-        foreach (Transform child in getmatplace_view.transform.Find("Viewport/Content/").transform)
+        content = getmatplace_view.transform.Find("Viewport/Content").gameObject;
+        matplace_toggle_obj = (GameObject)Resources.Load("Prefabs/MatPlace_toggle1");
+
+        matplace_toggle.Clear();
+
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (i = 0; i < matplace_database.matplace_lists.Count; i++)
         {
             //Debug.Log(child.name);           
-            matplace_toggle.Add(child.gameObject);
+            matplace_toggle.Add(Instantiate(matplace_toggle_obj, content.transform));
             map_icon = matplace_database.matplace_lists[i].mapIcon_sprite;
             matplace_toggle[i].transform.Find("Background").GetComponent<Image>().sprite = map_icon;
             matplace_toggle[i].GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
-            i++;
+            matplace_toggle[i].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにIDを割り振っておく。
         }
 
         //採取地画面の取得
@@ -202,6 +213,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
                     break;
 
+                case "Shop":
+
+                    Slot_view_on = false;
+                    FadeManager.Instance.LoadScene("Shop", 0.3f);
+                    break;
+
                 case "Farm":
 
                     Slot_view_on = false;
@@ -249,17 +266,25 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
     }
 
-    public void OnClick_Place1()
+    public void OnClick_Place(int place_num)
     {
         i = 0;
         while (i < matplace_toggle.Count)
         {
             if (matplace_toggle[i].GetComponent<Toggle>().isOn == true)
             {
-                _text.text = matplace_database.matplace_lists[i].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
-                select_place_num = i;
-                select_place_name = matplace_database.matplace_lists[i].placeName;
-                select_place_day = matplace_database.matplace_lists[i].placeDay;
+                if (matplace_database.matplace_lists[i].placeCost == 0)
+                {
+                    _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
+                }
+                else
+                {
+                    _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
+                }
+                
+                select_place_num = place_num;
+                select_place_name = matplace_database.matplace_lists[place_num].placeName;
+                select_place_day = matplace_database.matplace_lists[place_num].placeDay;
 
                 Select_Pause();
                 break;

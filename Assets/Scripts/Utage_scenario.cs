@@ -20,6 +20,7 @@ public class Utage_scenario : MonoBehaviour
     private int Okashicomment_ID;
     private int sp_Okashi_ID;
     private int mainClear_ID;
+    private int touchhint_ID;
 
     private int GirlLoveEvent_num;
 
@@ -252,10 +253,20 @@ public class Utage_scenario : MonoBehaviour
                     scenarioLabel = "Sleep";
 
                     //寝るイベントを表示
-                    StartCoroutine(Sleep_Start());
+                    StartCoroutine(Text_Read());
+                }
+
+                if (GameMgr.touchhint_flag == true)
+                {
+                    GameMgr.touchhint_flag = false;
+                    touchhint_ID = GameMgr.touchhint_ID;
+
+                    //ヒントを表示
+                    StartCoroutine(TouchHint_Hyouji());
                 }
             }
                 
+            /*
             //ガールシーンでのテキスト処理
             if (SceneManager.GetActiveScene().name == "GirlEat")
             {
@@ -300,7 +311,7 @@ public class Utage_scenario : MonoBehaviour
                     StartCoroutine(Girl_Comment());
 
                 }
-            }
+            }*/
 
             //ショップシーンでのテキスト処理
             if (SceneManager.GetActiveScene().name == "Shop")
@@ -362,7 +373,7 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // シナリオ読むだけの処理
+    // イベント・シナリオの読み処理。フラグ管理も行う。
     //
     IEnumerator Scenario_Start()
     {
@@ -431,13 +442,13 @@ public class Utage_scenario : MonoBehaviour
 
         scenario_loading = false;
 
-        GameMgr.scenario_read_endflag = true; //レシピを読み終えたフラグ
+        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
     }
 
     //
-    //寝る
+    //寝るなど、テキスト表示するだけの処理（シナリオフラグの判定なども行わない）
     //
-    IEnumerator Sleep_Start()
+    IEnumerator Text_Read()
     {
         scenario_loading = true;
 
@@ -454,7 +465,7 @@ public class Utage_scenario : MonoBehaviour
 
         scenario_loading = false;
 
-        GameMgr.scenario_read_endflag = true; //レシピを読み終えたフラグ
+        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
     }
 
     //
@@ -1366,6 +1377,35 @@ public class Utage_scenario : MonoBehaviour
     }
 
 
+    //
+    // ヒント表示
+    //
+    IEnumerator TouchHint_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenario_loading = true;
+
+        scenarioLabel = "TouchFaceHint";
+
+        //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("TouchHint_num", touchhint_ID);
+
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
 
 
     //

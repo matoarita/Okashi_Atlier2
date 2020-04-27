@@ -129,6 +129,10 @@ public class RuntimeInitializer : MonoBehaviour
         var combination_init = new GameObject("CombinationMain", typeof(CombinationMain));
         GameObject.DontDestroyOnLoad(combination_init);
 
+        //調合計算用オブジェクト２　主に、調合時のパラメータとトッピングの加算処理。お菓子の味の初期化処理もここで行っている。
+        var compound_keisan_init = new GameObject("Compound_Keisan", typeof(Compound_Keisan));
+        GameObject.DontDestroyOnLoad(compound_keisan_init);
+        compound_keisan_init.tag = "Compound_Keisan";
     }
 
 } // class RuntimeInitializer

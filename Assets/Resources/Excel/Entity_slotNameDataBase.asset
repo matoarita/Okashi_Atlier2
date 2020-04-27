@@ -209,7 +209,7 @@ MonoBehaviour:
     - ItemID: 32
       slot_Name: Chocolate
       slot_Hyouki_1: "\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
-      slot_Hyouki_2: "\u30C1\u30E7\u30B3"
+      slot_Hyouki_2: "\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8"
       slot_girlscore: 10
       slot_money: 150
     - ItemID: 33
@@ -233,18 +233,18 @@ MonoBehaviour:
     - ItemID: 36
       slot_Name: JewerySuger
       slot_Hyouki_1: "\u30B8\u30E5\u30A8\u30EA\u30FC\u30B7\u30E5\u30AC\u30FC"
-      slot_Hyouki_2: "\u5B9D\u77F3\u30AD\u30E9\u30AD\u30E9"
+      slot_Hyouki_2: "\u30AD\u30E9\u30AD\u30E9"
       slot_girlscore: 13
       slot_money: 150
     - ItemID: 37
       slot_Name: MixColor
       slot_Hyouki_1: "\u30DF\u30C3\u30AF\u30B9\u30AB\u30E9\u30FC\u30B9\u30D7\u30EC\u30FC"
-      slot_Hyouki_2: "\u30AB\u30E9\u30D5\u30EB\u3064\u3076"
+      slot_Hyouki_2: "\u30DF\u30C3\u30AF\u30B9\u30AB\u30E9\u30FC"
       slot_girlscore: 6
       slot_money: 150
     - ItemID: 38
       slot_Name: MixChoco
       slot_Hyouki_1: "\u30DF\u30C3\u30AF\u30B9\u30C1\u30E7\u30B3\u30B9\u30D7\u30EC\u30FC"
-      slot_Hyouki_2: "\u30C1\u30E7\u30B3\u3064\u3076"
+      slot_Hyouki_2: "\u30DF\u30C3\u30AF\u30B9\u30C1\u30E7\u30B3"
       slot_girlscore: 6
       slot_money: 150

@@ -34,6 +34,7 @@ MonoBehaviour:
       Comment: "\u30B8\u30E5\u30FC\u30B9\u7CFB"
       Comment2: "\u30AA\u30EC\u30F3\u30B8\u3068\u30AA\u30EC\u30F3\u30B8"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 1
       cmpitemName: haloween_juice
       cmpitemID_1: orange
@@ -54,6 +55,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 2
       cmpitemName: mix_fruits_juice
       cmpitemID_1: empty
@@ -74,6 +76,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 3
       cmpitemName: 
       cmpitemID_1: 
@@ -94,6 +97,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 4
       cmpitemName: 
       cmpitemID_1: 
@@ -114,6 +118,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 5
       cmpitemName: appaleil
       cmpitemID_1: suger
@@ -134,6 +139,7 @@ MonoBehaviour:
       Comment: "\u30A2\u30D1\u30EC\u30A4\u30E6\uFF08\u751F\u5730\u306E\u7D20\uFF09"
       Comment2: "\u7802\u7CD6\xD7\u305F\u307E\u3054\xD7\u7121\u7E01\u30D0\u30BF\u30FC"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 6
       cmpitemName: appaleil_honey
       cmpitemID_1: suger
@@ -154,6 +160,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u7802\u7CD6\xD7\u305F\u307E\u3054\xD7\u306F\u3061\u307F\u3064"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 7
       cmpitemName: appaleil_milk
       cmpitemID_1: suger
@@ -174,6 +181,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u7802\u7CD6\xD7\u305F\u307E\u3054\xD7\u725B\u4E73"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 8
       cmpitemName: baking_mix
       cmpitemID_1: suger
@@ -194,6 +202,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u7802\u7CD6\xD7\u5C0F\u9EA6\u7C89\xD7\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 9
       cmpitemName: whitekiji
       cmpitemID_1: empty
@@ -214,6 +223,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u7121\u5869\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 10
       cmpitemName: appaleil_whitekiji
       cmpitemID_1: whitekiji
@@ -234,6 +244,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u767D\u751F\u5730\xD7\u305F\u307E\u3054"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 11
       cmpitemName: mazekiji
       cmpitemID_1: empty
@@ -254,6 +265,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u305F\u307E\u3054\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 12
       cmpitemName: appaleil_yellow
       cmpitemID_1: egg_yellow
@@ -274,6 +286,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5375\u9EC4\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 13
       cmpitemName: meringue
       cmpitemID_1: egg_white
@@ -294,6 +307,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5375\u767D\xD7\u7802\u7CD6\uFF08\u53B3\u5BC6\u306B\u306F\u30B0\u30E9\u30CB\u30E5\u30FC\u7CD6\uFF09"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 14
       cmpitemName: custard_cream
       cmpitemID_1: appaleil_yellow
@@ -314,6 +328,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5375\u9EC4\xD7\u7802\u7CD6\xD7\u5C0F\u9EA6\u7C89\xD7\u6E29\u304B\u3044\u30DF\u30EB\u30AF"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 15
       cmpitemName: financier_powder
       cmpitemID_1: komugiko
@@ -334,6 +349,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30A2\u30FC\u30E2\u30F3\u30C9\u30D1\u30A6\u30C0\u30FC"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 16
       cmpitemName: 
       cmpitemID_1: 
@@ -354,6 +370,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 17
       cmpitemName: orange_jam
       cmpitemID_1: orange
@@ -374,6 +391,7 @@ MonoBehaviour:
       Comment: "\u30B8\u30E3\u30E0"
       Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 18
       cmpitemName: 
       cmpitemID_1: 
@@ -394,6 +412,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 19
       cmpitemName: kogashi_butter
       cmpitemID_1: butter
@@ -414,6 +433,7 @@ MonoBehaviour:
       Comment: "\u7126\u304C\u3057\u30D0\u30BF\u30FC"
       Comment2: "\u30D0\u30BF\u30FC\xD7\u30DF\u30EB\u30AF\u30D1\u30F3"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 20
       cmpitemName: 
       cmpitemID_1: 
@@ -434,6 +454,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 21
       cmpitemName: 
       cmpitemID_1: 
@@ -454,6 +475,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 22
       cmpitemName: 
       cmpitemID_1: 
@@ -474,6 +496,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 23
       cmpitemName: 
       cmpitemID_1: 
@@ -494,6 +517,7 @@ MonoBehaviour:
       Comment: "//\u3053\u308C\u3088\u308A\u4E0B\u3000\u304A\u83D3\u5B50\u306E\u30EC\u30B7\u30D4"
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 24
       cmpitemName: 
       cmpitemID_1: 
@@ -514,6 +538,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 25
       cmpitemName: neko_cookie
       cmpitemID_1: komugiko
@@ -534,6 +559,7 @@ MonoBehaviour:
       Comment: "\u30AF\u30C3\u30AD\u30FC\u7CFB"
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: komugiko
+      comp_count: 0
     - ItemID: 26
       cmpitemName: kogashi_neko_cookie
       cmpitemID_1: komugiko
@@ -554,6 +580,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u7126\u304C\u3057\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: komugiko
+      comp_count: 0
     - ItemID: 27
       cmpitemName: cookie_nonsuger
       cmpitemID_1: komugiko
@@ -574,6 +601,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30D0\u30BF\u30FC"
       KeisanMethod: komugiko
+      comp_count: 0
     - ItemID: 28
       cmpitemName: emerald_neko_cookie
       cmpitemID_1: komugiko
@@ -594,6 +622,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: komugiko
+      comp_count: 0
     - ItemID: 29
       cmpitemName: neko_cookie_Free
       cmpitemID_1: komugiko
@@ -614,6 +643,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30D0\u30BF\u30FC\u7802\u7CD6\u306F\u597D\u304D\u306A\u3082\u306E"
       KeisanMethod: komugiko
+      comp_count: 0
     - ItemID: 30
       cmpitemName: cookie_salad_oil
       cmpitemID_1: komugiko
@@ -634,6 +664,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30B5\u30E9\u30C0\u6CB9\xD7\u7802\u7CD6"
       KeisanMethod: komugiko
+      comp_count: 0
     - ItemID: 31
       cmpitemName: egg_neko_cookie
       cmpitemID_1: komugiko
@@ -654,6 +685,7 @@ MonoBehaviour:
       Comment: "\u30AF\u30C3\u30AD\u30FC\u7CFB"
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: komugiko
+      comp_count: 0
     - ItemID: 32
       cmpitemName: cheese_cookie
       cmpitemID_1: neko_cookie
@@ -674,6 +706,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AF\u30EA\u30FC\u30E0\u30C1\u30FC\u30BA"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 33
       cmpitemName: orange_neko_cookie
       cmpitemID_1: neko_cookie
@@ -694,6 +727,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 34
       cmpitemName: orange_neko_cookie_jam
       cmpitemID_1: neko_cookie
@@ -714,6 +748,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8\u30B8\u30E3\u30E0"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 35
       cmpitemName: pinkorange_neko_cookie
       cmpitemID_1: neko_cookie
@@ -734,6 +769,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30D4\u30F3\u30AF\u30D6\u30E9\u30C3\u30C9\u30AA\u30EC\u30F3\u30B8"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 36
       cmpitemName: grape_cookie
       cmpitemID_1: neko_cookie
@@ -754,6 +790,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 37
       cmpitemName: strawberry_cookie
       cmpitemID_1: neko_cookie
@@ -774,6 +811,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 38
       cmpitemName: banana_cookie
       cmpitemID_1: neko_cookie
@@ -794,6 +832,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 39
       cmpitemName: blueberry_cookie
       cmpitemID_1: neko_cookie
@@ -814,6 +853,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 40
       cmpitemName: pear_cookie
       cmpitemID_1: neko_cookie
@@ -834,6 +874,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 41
       cmpitemName: peach_cookie
       cmpitemID_1: neko_cookie
@@ -854,6 +895,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 42
       cmpitemName: sakura_cookie
       cmpitemID_1: neko_cookie
@@ -874,6 +916,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 43
       cmpitemName: honey_cookie
       cmpitemID_1: neko_cookie
@@ -894,6 +937,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 44
       cmpitemName: cocoa_cookie
       cmpitemID_1: neko_cookie
@@ -914,6 +958,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30D1\u30A6\u30C0\u30FC"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 45
       cmpitemName: cookie_base_icebox
       cmpitemID_1: cookie_base
@@ -934,6 +979,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 46
       cmpitemName: star_cookie
       cmpitemID_1: neko_cookie
@@ -954,6 +1000,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u307B\u3057\u306E\u7C89"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 47
       cmpitemName: sugerbutter_cookie
       cmpitemID_1: neko_cookie
@@ -974,6 +1021,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC*\u30B6\u30E9\u30E1*\u30DB\u30A4\u30C3\u30D7\u30AF\u30EA\u30FC\u30E0"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 48
       cmpitemName: 
       cmpitemID_1: 
@@ -994,6 +1042,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 49
       cmpitemName: bugget
       cmpitemID_1: komugiko
@@ -1014,6 +1063,7 @@ MonoBehaviour:
       Comment: "\u30D1\u30F3\u7CFB"
       Comment2: "\u8584\u529B\u7C89\xD7\u6C34"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 50
       cmpitemName: bugget_powder
       cmpitemID_1: komugiko
@@ -1034,6 +1084,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u8584\u529B\u7C89\xD7\u6C34(\u3084\u3084\u7C89\u3063\u307D\u3044)"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 51
       cmpitemName: bugget_orange
       cmpitemID_1: komugiko
@@ -1054,6 +1105,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u8584\u529B\u7C89\xD7\u6C34\xD7\u30AA\u30EC\u30F3\u30B8\u30D4\u30FC\u30EB"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 52
       cmpitemName: bugget_sliced
       cmpitemID_1: bugget
@@ -1074,6 +1126,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D0\u30B2\u30C3\u30C8\xD7\u30D1\u30F3\u30CA\u30A4\u30D5"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 53
       cmpitemName: bugget_sliced_powder
       cmpitemID_1: bugget_powder
@@ -1094,6 +1147,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D0\u30B2\u30C3\u30C8\xD7\u30D1\u30F3\u30CA\u30A4\u30D5"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 54
       cmpitemName: bugget_orange_sliced
       cmpitemID_1: bugget_orange
@@ -1114,6 +1168,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D0\u30B2\u30C3\u30C8\uFF1C\u30AA\u30EC\u30F3\u30B8\uFF1E\xD7\u30D1\u30F3\u30CA\u30A4\u30D5"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 55
       cmpitemName: 
       cmpitemID_1: 
@@ -1134,6 +1189,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 56
       cmpitemName: financier
       cmpitemID_1: appaleil_honey
@@ -1154,6 +1210,7 @@ MonoBehaviour:
       Comment: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7CFB"
       Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30FC\u30E2\u30F3\u30C9\u30D7\u30FC\u30C9\u30EB\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 57
       cmpitemName: financier_Hard
       cmpitemID_1: financier_powder
@@ -1174,6 +1231,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7528\u306E\u7C89\xD7\u5375\u767D\xD7\u7802\u7CD6\xD7\u7126\u304C\u3057\u30D0\u30BF\u30FC"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 58
       cmpitemName: financier_Orange
       cmpitemID_1: financier
@@ -1194,6 +1252,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7528\u306E\u7C89\xD7\u5375\u767D\xD7\u7802\u7CD6\xD7\u7126\u304C\u3057\u30D0\u30BF\u30FC"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 59
       cmpitemName: 
       cmpitemID_1: 
@@ -1214,6 +1273,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 60
       cmpitemName: maffin
       cmpitemID_1: appaleil
@@ -1234,6 +1294,7 @@ MonoBehaviour:
       Comment: "\u30DE\u30D5\u30A3\u30F3\u7CFB"
       Comment2: "\u30A2\u30D1\u30EC\u30A4\u30E6\xD7\u5C0F\u9EA6\u7C89\xD7\u5869"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 61
       cmpitemName: 
       cmpitemID_1: 
@@ -1254,6 +1315,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 62
       cmpitemName: biscotti
       cmpitemID_1: baking_mix
@@ -1274,6 +1336,7 @@ MonoBehaviour:
       Comment: "\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u7CFB"
       Comment2: "\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9\xD7\u305F\u307E\u3054"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 63
       cmpitemName: 
       cmpitemID_1: 
@@ -1294,6 +1357,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 64
       cmpitemName: 
       cmpitemID_1: 
@@ -1314,6 +1378,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 65
       cmpitemName: 
       cmpitemID_1: 
@@ -1334,6 +1399,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 66
       cmpitemName: rusk
       cmpitemID_1: bugget_sliced
@@ -1354,6 +1420,7 @@ MonoBehaviour:
       Comment: "\u30E9\u30B9\u30AF\u7CFB"
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 67
       cmpitemName: rusk_butter
       cmpitemID_1: bugget_sliced
@@ -1374,6 +1441,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 68
       cmpitemName: rusk_orange
       cmpitemID_1: bugget_orange_sliced
@@ -1394,6 +1462,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 69
       cmpitemName: rusk_orange_butter
       cmpitemID_1: bugget_orange_sliced
@@ -1414,6 +1483,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 70
       cmpitemName: rusk_Free
       cmpitemID_1: bugget_sliced
@@ -1434,6 +1504,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 71
       cmpitemName: rusk_butter_Free
       cmpitemID_1: bugget_sliced
@@ -1454,6 +1525,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 72
       cmpitemName: rusk_orange_Free
       cmpitemID_1: bugget_orange_sliced
@@ -1474,6 +1546,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 73
       cmpitemName: rusk_orange_butter_Free
       cmpitemID_1: bugget_orange_sliced
@@ -1494,6 +1567,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 74
       cmpitemName: 
       cmpitemID_1: 
@@ -1514,6 +1588,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 75
       cmpitemName: 
       cmpitemID_1: 
@@ -1534,6 +1609,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 76
       cmpitemName: pan_cake
       cmpitemID_1: komugiko
@@ -1554,6 +1630,7 @@ MonoBehaviour:
       Comment: "\u30D1\u30F3\u30B1\u30FC\u30AD\u7CFB"
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6\u30DF\u30EB\u30AF\xD7\u30D0\u30BF\u30FC"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 77
       cmpitemName: choco_banana_pan_cake
       cmpitemID_1: pan_cake
@@ -1574,6 +1651,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D1\u30F3\u30B1\u30FC\u30AD*\u30C1\u30E7\u30B3*\u30D0\u30CA\u30CA*\u30DB\u30A4\u30C3\u30D7"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 78
       cmpitemName: blueberry_pan_cake
       cmpitemID_1: pan_cake
@@ -1594,6 +1672,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30D1\u30F3\u30B1\u30FC\u30AD*\u30C1\u30E7\u30B3*\u30D0\u30CA\u30CA*\u30DB\u30A4\u30C3\u30D7"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 79
       cmpitemName: 
       cmpitemID_1: 
@@ -1614,6 +1693,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 80
       cmpitemName: sponge_cake
       cmpitemID_1: komugiko
@@ -1634,6 +1714,7 @@ MonoBehaviour:
       Comment: "\u30B1\u30FC\u30AD\u7CFB"
       Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 81
       cmpitemName: princess_tota
       cmpitemID_1: sponge_cake
@@ -1654,6 +1735,7 @@ MonoBehaviour:
       Comment: 
       Comment2: "\u30B9\u30DD\u30F3\u30B8\u30B1\u30FC\u30AD\xD7\u751F\u30AF\u30EA\u30FC\u30E0\xD7"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 82
       cmpitemName: 
       cmpitemID_1: 
@@ -1674,6 +1756,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 83
       cmpitemName: crepe
       cmpitemID_1: komugiko
@@ -1694,6 +1777,7 @@ MonoBehaviour:
       Comment: "\u30AF\u30EC\u30FC\u30D7\u7CFB"
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6\u30DF\u30EB\u30AF"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 84
       cmpitemName: 
       cmpitemID_1: 
@@ -1714,6 +1798,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 85
       cmpitemName: chocolate_base
       cmpitemID_1: cacao_beans
@@ -1734,6 +1819,7 @@ MonoBehaviour:
       Comment: "\u30C1\u30E7\u30B3\u7CFB"
       Comment2: "\u30AB\u30AB\u30AA\u8C46\xD7\u7802\u7CD6"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 86
       cmpitemName: 
       cmpitemID_1: 
@@ -1754,6 +1840,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 87
       cmpitemName: vanilla_parfe
       cmpitemID_1: parfe_base
@@ -1774,6 +1861,7 @@ MonoBehaviour:
       Comment: "\u30D1\u30D5\u30A7\u7CFB"
       Comment2: "\u30D1\u30D5\u30A7\u5BB9\u5668\xD7\u30B3\u30FC\u30F3\u30D5\u30EC\u30FC\u30AF\uFF12\xD7\u30A2\u30A4\u30B9\uFF11"
       KeisanMethod: Non
+      comp_count: 0
     - ItemID: 88
       cmpitemName: 
       cmpitemID_1: 
@@ -1794,6 +1882,7 @@ MonoBehaviour:
       Comment: 
       Comment2: 
       KeisanMethod: 
+      comp_count: 0
     - ItemID: 89
       cmpitemName: ice_cream
       cmpitemID_1: milk
@@ -1814,3 +1903,4 @@ MonoBehaviour:
       Comment: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0\u7CFB"
       Comment2: "\u30DF\u30EB\u30AF\xD7\u7802\u7CD6\xD7\u30A2\u30A4\u30B9\u306E\u5B9F"
       KeisanMethod: Non
+      comp_count: 0

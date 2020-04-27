@@ -31,6 +31,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private int _renkin_bexp;
 
     private string _keisan_method;
+    private int _comp_count;
 
     private int i;
     private int count;
@@ -79,9 +80,10 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
             _renkin_bexp = excel_compoitemdatabase.sheets[sheet_no].list[count].renkin_Bexp;
 
             _keisan_method = excel_compoitemdatabase.sheets[sheet_no].list[count].KeisanMethod;
+            _comp_count = excel_compoitemdatabase.sheets[sheet_no].list[count].comp_count;
 
             //ここでリストに追加している
-            compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method));
+            compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count));
 
             ++count;
         }

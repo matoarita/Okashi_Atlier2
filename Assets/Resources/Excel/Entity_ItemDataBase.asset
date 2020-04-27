@@ -32,7 +32,7 @@ MonoBehaviour:
       crispy: 10
       fluffy: 30
       smooth: 0
-      hardness: 50
+      hardness: 20
       jiggly: 0
       chewy: 0
       powdery: 20
@@ -3543,7 +3543,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 221
     - ItemID: 222
       file_name: rusk
       name: rusk_orange
@@ -3585,7 +3585,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Orange
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 221
     - ItemID: 223
       file_name: crepe
       name: crepe
@@ -3671,10 +3671,10 @@ MonoBehaviour:
       item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 225
-      file_name: bugget
+      file_name: biscouti
       name: biscotti
       nameHyouji: "\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3"
-      desc: "\u56FA\u304F\u713C\u3044\u305F\u3001\u30D3\u30B9\u30B1\u30C3\u30C8\u306B\u4F3C\u305F\u96F0\u56F2\u6C17\u306E\u3001\u30D1\u30F3\u306E\u304A\u83D3\u5B50\u3002\u7D05\u8336\u306A\u3069\u306B\u6D78\u3057\u3066\u98DF\u3079\u308B\u3068\u304A\u3044\u3057\u3044\u3002"
+      desc: "\u56FA\u304F\u713C\u3044\u305F\u30D1\u30F3\u306E\u3088\u3046\u306A\u304A\u83D3\u5B50\u3002\u6CB9\u5206\u3092\u4E00\u5207\u4F7F\u308F\u306A\u3044\u306E\u304C\u7279\u5FB4\u3002\u7D05\u8336\u306A\u3069\u306B\u6D78\u3057\u3066\u98DF\u3079\u308B\u3068\u304A\u3044\u3057\u3044\u3002"
       comp_hosei: 0
       hp: 300
       day: 0
@@ -5103,7 +5103,7 @@ MonoBehaviour:
       name: bugget
       nameHyouji: "\u30D0\u30B2\u30C3\u30C8"
       desc: "\u786C\u304F\u3066\u7D30\u9577\u3044\u30D1\u30F3\u3002\u6B6F\u304C\u7815\u3051\u305D\u3046\u306B\u306A\u308B\u307B\u3069\u3001\u786C\u3044\u3002\u6C17\u6CE1\u306E\u30DC\u30B3\u30DC\u30B3\u304C\u304B\u3063\u3053\u3044\u3044\u3002"
-      comp_hosei: 0
+      comp_hosei: 1
       hp: 300
       day: 0
       quality: 50
@@ -6027,7 +6027,7 @@ MonoBehaviour:
     - ItemID: 400
       file_name: silver_aizan
       name: silver_chip
-      nameHyouji: "\u30B7\u30EB\u30D0\u30FC\u30C1\u30C3\u30D7"
+      nameHyouji: "\u30A2\u30A4\u30B6\u30F3"
       desc: "\u9280\u8272\u306E\u3064\u3076\u3064\u3076\u3002\u30AF\u30C3\u30AD\u30FC\u306E\u30A2\u30AF\u30BB\u30F3\u30C8\u306A\u3069\u306B\u4F7F\u3048\u308B\u3002\u30AB\u30EA\u3063\u3068\u3057\u3066\u307B\u3093\u306E\u308A\u7518\u3044\u3002"
       comp_hosei: 0
       hp: 0
@@ -6235,8 +6235,8 @@ MonoBehaviour:
       item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 405
-      file_name: neko_cookie
-      name: mix_color_spread
+      file_name: mix_color_sprinkles
+      name: mix_color_sprinkles
       nameHyouji: "\u30DF\u30C3\u30AF\u30B9\u30AB\u30E9\u30FC\u30B9\u30D7\u30EC\u30FC"
       desc: "\u30AB\u30E9\u30D5\u30EB\u306A\u3064\u3076\u3064\u3076\u306E\u7D30\u9577\u3044\u7802\u7CD6\u3002\u30C1\u30E7\u30B3\u30C9\u30FC\u30CA\u30C4\u306A\u3069\u306B\u304B\u3051\u308B\u3068\u304A\u3044\u3057\u3044\u3002"
       comp_hosei: 0

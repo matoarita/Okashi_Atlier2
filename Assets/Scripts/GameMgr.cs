@@ -54,6 +54,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int mainquest_ID;
     public static bool mainClear_flag;
 
+    //妹の口をクリックしたときのヒント表示フラグ
+    public static int touchhint_ID;
+    public static bool touchhint_flag;
+
     //寝るイベントフラグ
     public static bool sleep_flag;
 
@@ -132,6 +136,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         recipi_read_flag = false;
         recipi_read_endflag = false;
+
+        touchhint_flag = false; 
 
         itemuse_recipi_flag = false;
         map_event_flag = false;

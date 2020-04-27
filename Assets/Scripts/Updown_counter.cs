@@ -23,6 +23,9 @@ public class Updown_counter : MonoBehaviour {
     private GameObject shop_Main_obj;
     private Shop_Main shop_Main;
 
+    private GameObject farm_Main_obj;
+    private Farm_Main farm_Main;
+
     private GameObject text_area;
     private Text _text;
 
@@ -106,6 +109,11 @@ public class Updown_counter : MonoBehaviour {
                 break;
 
             case "Shop":
+
+                this.transform.localPosition = new Vector3(280, -15, 0);
+                break;
+
+            case "Farm":
 
                 this.transform.localPosition = new Vector3(280, -15, 0);
                 break;
@@ -253,12 +261,25 @@ public class Updown_counter : MonoBehaviour {
             {
                 updown_button_Big.SetActive(true);
                 updown_button_Small.SetActive(true);
-            } else
+            }
+            else
             {
                 updown_button_Big.SetActive(false);
                 updown_button_Small.SetActive(false);
             }
 
+        }
+        else if (SceneManager.GetActiveScene().name == "Farm")
+        {
+            farm_Main_obj = GameObject.FindWithTag("Farm_Main");
+            farm_Main = farm_Main_obj.GetComponent<Farm_Main>();
+
+            //ショップリスト画面の取得
+            shopitemlistcontroller_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+            shopitemlistcontroller = shopitemlistcontroller_obj.GetComponent<ShopItemListController>();
+
+            updown_button_Big.SetActive(true);
+            updown_button_Small.SetActive(true);
         }
         else if (SceneManager.GetActiveScene().name == "Compound")
         {
@@ -285,7 +306,7 @@ public class Updown_counter : MonoBehaviour {
                 _p_or_recipi_flag = 0;
             }
 
-            switch(compound_Main.compound_select)
+            switch (compound_Main.compound_select)
             {
                 case 1: //レシピ調合の場合
 
@@ -562,7 +583,7 @@ public class Updown_counter : MonoBehaviour {
                         }
                         else
                         {
-                            
+
                             _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1];
                         }
                         break;
@@ -575,7 +596,7 @@ public class Updown_counter : MonoBehaviour {
                         }
                         else
                         {
-                            
+
                             _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
                         }
 
@@ -604,7 +625,30 @@ public class Updown_counter : MonoBehaviour {
                 }
                 _count_text.text = updown_kosu.ToString();
             }
-            
+
+        }
+        else if (SceneManager.GetActiveScene().name == "Farm")
+        {
+
+            _zaiko_max = shop_database.farmitems[shopitemlistcontroller.shop_kettei_ID].shop_itemzaiko;
+
+            ++updown_kosu;
+            if (updown_kosu > _zaiko_max)
+            {
+                updown_kosu = _zaiko_max;
+            }
+
+            if (PlayerStatus.player_money < shop_database.farmitems[shopitemlistcontroller.shop_kettei_ID].shop_costprice * updown_kosu)
+            {
+                //お金が足りない
+                _text.text = "お金が足りない。";
+
+                updown_kosu--;
+            }
+
+            _count_text.text = updown_kosu.ToString();
+
+
         }
     }
 
@@ -632,6 +676,28 @@ public class Updown_counter : MonoBehaviour {
 
                 _count_text.text = updown_kosu.ToString();
             }
+        }
+        else if (SceneManager.GetActiveScene().name == "Farm")
+        {
+
+            _zaiko_max = shop_database.farmitems[shopitemlistcontroller.shop_kettei_ID].shop_itemzaiko;
+
+            updown_kosu = updown_kosu + 10;
+            if (updown_kosu > _zaiko_max)
+            {
+                updown_kosu = _zaiko_max;
+            }
+
+            if (PlayerStatus.player_money < shop_database.farmitems[shopitemlistcontroller.shop_kettei_ID].shop_costprice * updown_kosu)
+            {
+                //お金が足りない
+                _text.text = "お金が足りない。";
+
+                updown_kosu = updown_kosu - 10;
+            }
+
+            _count_text.text = updown_kosu.ToString();
+
         }
     }
 

@@ -18,8 +18,11 @@ public class Shop_Main : MonoBehaviour {
 
     private GameObject text_area;
     private Text _text;
+    private string shopdefault_text;
 
     private Debug_Panel_Init debug_panel_init;
+
+    private GameObject placename_panel;
 
     private GameObject shopitemlist_onoff;
     private GameObject shopquestlist_obj;
@@ -105,11 +108,14 @@ public class Shop_Main : MonoBehaviour {
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
         shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
         shopon_toggle_quest = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Quest").gameObject;
-        backbutton_obj = shop_select.transform.Find("Viewport/Content/Button_modoru").gameObject;
+        //backbutton_obj = shop_select.transform.Find("Viewport/Content/Button_modoru").gameObject;
 
         //自分の持ってるお金などのステータス
         money_status_obj = GameObject.FindWithTag("MoneyStatus_panel");
         money_status_obj.SetActive(false);
+
+        //場所名前パネル
+        placename_panel = canvas.transform.Find("PlaceNamePanel").gameObject;
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -135,7 +141,8 @@ public class Shop_Main : MonoBehaviour {
         _text = text_area.GetComponentInChildren<Text>();
 
         //初期メッセージ
-        _text.text = "いらっしゃい～。";
+        shopdefault_text = "いらっしゃい～。";
+        _text.text = shopdefault_text;
         text_area.SetActive(false);
 
         shop_status = 0;
@@ -189,9 +196,9 @@ public class Shop_Main : MonoBehaviour {
             shopitemlist_onoff.SetActive(false);
             shopquestlist_obj.SetActive(false);
             shop_select.SetActive(false);
-            backbutton_obj.SetActive(false);
             text_area.SetActive(false);
             money_status_obj.SetActive(false);
+            placename_panel.SetActive(false);
 
             shop_status = 0;
             shop_scene = 0;
@@ -206,11 +213,11 @@ public class Shop_Main : MonoBehaviour {
                     shopitemlist_onoff.SetActive(false);
                     shopquestlist_obj.SetActive(false);
                     shop_select.SetActive(true);
-                    backbutton_obj.SetActive(true);
                     text_area.SetActive(true);
                     money_status_obj.SetActive(true);
+                    placename_panel.SetActive(true);
 
-                    _text.text = "いらっしゃい～。";
+                    _text.text = shopdefault_text;
 
                     shop_scene = 0;
                     shop_status = 100;
@@ -255,6 +262,7 @@ public class Shop_Main : MonoBehaviour {
 
             shopitemlist_onoff.SetActive(true); //ショップリスト画面を表示。
             shop_select.SetActive(false);
+            placename_panel.SetActive(false);
 
             shop_status = 1; //ショップのシーンに入っている、というフラグ
             shop_scene = 1;
@@ -290,6 +298,7 @@ public class Shop_Main : MonoBehaviour {
 
             shopquestlist_obj.SetActive(true); //ショップリスト画面を表示。
             shop_select.SetActive(false);
+            placename_panel.SetActive(false);
             //money_status_obj.SetActive(false);
 
             shop_status = 3; //クエストを押したときのフラグ

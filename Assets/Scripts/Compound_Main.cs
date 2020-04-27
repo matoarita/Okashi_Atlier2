@@ -11,6 +11,9 @@ public class Compound_Main : MonoBehaviour
     private GameObject text_area;
     private Text _text;
 
+    private GameObject text_area_Main;
+    private Text _textmain;
+
     private GameObject canvas;
 
     private SoundController sc;
@@ -117,6 +120,7 @@ public class Compound_Main : MonoBehaviour
     public bool check_recipi_flag;
     public bool check_GirlLoveEvent_flag;
     private int not_read_total;
+    private int _checkexp;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
@@ -266,6 +270,8 @@ public class Compound_Main : MonoBehaviour
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
+        _textmain = text_area_Main.GetComponentInChildren<Text>();
 
         //エクストリームパネルの取得
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
@@ -273,9 +279,6 @@ public class Compound_Main : MonoBehaviour
 
         //ボタンの取得
         extreme_Button = Extremepanel_obj.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
-        recipi_Button = Extremepanel_obj.transform.Find("RecipiButton").gameObject.GetComponent<Button>(); //レシピボタン
-        sell_Button = Extremepanel_obj.transform.Find("SellButton").gameObject; //売るボタン
-        present_Button = Extremepanel_obj.transform.Find("PresentButton").gameObject; //売るボタン 
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
@@ -359,12 +362,12 @@ public class Compound_Main : MonoBehaviour
         }
 
         //初期メッセージ
-        _text.text = "どうしようかなぁ？";
-        text_area.SetActive(true);
+        _textmain.text = "どうしようかなぁ？";
+        text_area_Main.SetActive(true);
 
         //各調合時のシステムメッセージ集
         originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
-        extreme_text = "エクストリーム調合をするよ！ 一個目の材料を選んでね。";
+        extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
         recipi_text = "レシピから作るよ。何を作る？";
 
     }
@@ -426,7 +429,7 @@ public class Compound_Main : MonoBehaviour
 
                         MainCompoundMethod();
                         compoundselect_onoff_obj.SetActive(false);
-                        text_area.SetActive(true);
+                        //text_area.SetActive(true);
                         _text.text = "左のエクストリームパネルを押してみよう！";
                         break;
 
@@ -536,7 +539,7 @@ public class Compound_Main : MonoBehaviour
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
-                        text_area.SetActive(true);
+                        //text_area.SetActive(true);
                         _text.text = "お菓子をあげてみよう！";
 
                         GameMgr.tutorial_Num = 105; //退避
@@ -591,7 +594,7 @@ public class Compound_Main : MonoBehaviour
                     case 140:
 
                         extreme_Button.interactable = true;
-                        text_area.SetActive(true);
+                        //text_area.SetActive(true);
 
                         _text.text = "ねこクッキーを作ってみよう！";
 
@@ -655,7 +658,7 @@ public class Compound_Main : MonoBehaviour
 
                         extreme_Button.interactable = true;
                         //sell_Button.SetActive(false);
-                        text_area.SetActive(true);
+                        //text_area.SetActive(true);
 
                         _text.text = "もう一度パネルを押してみよう！";
 
@@ -753,7 +756,7 @@ public class Compound_Main : MonoBehaviour
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
                         girl1_status.timeGirl_hungry_status = 1;
 
-                        text_area.SetActive(true);
+                        //text_area.SetActive(true);
 
                         GameMgr.tutorial_Num = 285; //退避
                         break;
@@ -800,6 +803,7 @@ public class Compound_Main : MonoBehaviour
                 compoundselect_onoff_obj.SetActive(false);
                 Extremepanel_obj.SetActive(false);
                 text_area.SetActive(false);
+                text_area_Main.SetActive(false);
                 check_recipi_flag = false;
                 TimePanel_obj1.SetActive(false);
                 girl_love_exp_bar.SetActive(false);
@@ -875,8 +879,9 @@ public class Compound_Main : MonoBehaviour
                     compoundselect_onoff_obj.SetActive(true);
 
                     //腹減りカウント開始
-                    girl1_status.GirlEat_Judge_on = true;   
-                    
+                    girl1_status.GirlEat_Judge_on = true;
+                    girl1_status.WaitHint_on = true;
+
                     touch_controller.Touch_OnAllON();
                     compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
@@ -953,7 +958,8 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.extremeButtonInteractOn();
                 extreme_panel.LifeAnimeOnTrue();
 
-                text_area.SetActive(true);
+                text_area.SetActive(false);
+                text_area_Main.SetActive(true);
 
                 //時間のチェック
                 time_controller.TimeCheck_flag = true;
@@ -975,6 +981,7 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 text_area.SetActive(true);
+                text_area_Main.SetActive(false);
                 time_controller.TimeCheck_flag = false;
 
                 //BGMを変更
@@ -986,6 +993,7 @@ public class Compound_Main : MonoBehaviour
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
+                girl1_status.WaitHint_on = false;
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1006,6 +1014,7 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
                 text_area.SetActive(true);
+                text_area_Main.SetActive(false);
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1016,6 +1025,7 @@ public class Compound_Main : MonoBehaviour
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
+                girl1_status.WaitHint_on = false;
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1044,6 +1054,7 @@ public class Compound_Main : MonoBehaviour
                 time_controller.TimeCheck_flag = false;
                 memoResult_obj.SetActive(false);
                 text_area.SetActive(true);
+                text_area_Main.SetActive(false);
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1054,6 +1065,7 @@ public class Compound_Main : MonoBehaviour
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
+                girl1_status.WaitHint_on = false;
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1102,13 +1114,12 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
                 text_area.SetActive(false);
+                text_area_Main.SetActive(false);
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
-
                 
-
                 if (extreme_panel.extreme_itemID != 9999 && extreme_panel.extreme_kaisu > 0)
                 {
                     select_extreme_button.interactable = true;
@@ -1120,6 +1131,7 @@ public class Compound_Main : MonoBehaviour
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
+                girl1_status.WaitHint_on = false;
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1173,10 +1185,12 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 Extremepanel_obj.SetActive(false);
                 text_area.SetActive(true);
+                text_area_Main.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
+                girl1_status.WaitHint_on = false;
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1247,7 +1261,6 @@ public class Compound_Main : MonoBehaviour
                 compound_status = 99;
                 compound_select = 99;
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-
 
                 break;
 
@@ -1464,12 +1477,12 @@ public class Compound_Main : MonoBehaviour
 
             if ( extreme_panel.extreme_itemID != 9999 )
             {
-                _text.text = "今、作ったお菓子をあげますか？";
+                _textmain.text = "今、作ったお菓子をあげますか？";
                 compound_status = 10;
             }
             else //まだ作ってないときは
             {
-                _text.text = "まだお菓子を作っていない。";
+                _textmain.text = "まだお菓子を作っていない。";
             }
             
 
@@ -1484,7 +1497,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            _text.text = "コンテストに出場しますか？" + "\n" + "（次のお話へ進みます。）";
+            _textmain.text = "コンテストに出場しますか？" + "\n" + "（次のお話へ進みます。）";
             compound_status = 40;
 
         }
@@ -1500,6 +1513,7 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(false);
         kakuritsuPanel_obj.SetActive(false);
         text_area.SetActive(false);
+        text_area_Main.SetActive(false);
         black_panel_A.SetActive(false);
 
         //一時的に腹減りを止める。
@@ -1529,7 +1543,8 @@ public class Compound_Main : MonoBehaviour
 
         compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
         Extremepanel_obj.SetActive(true);
-        text_area.SetActive(true);
+        text_area.SetActive(false);
+        text_area_Main.SetActive(true);
         compound_status = 1;
     }
 
@@ -1606,7 +1621,8 @@ public class Compound_Main : MonoBehaviour
         touch_controller.Touch_OnAllOFF();
         compoundselect_onoff_obj.SetActive(false);
         Extremepanel_obj.SetActive(false);
-        text_area.SetActive(false);       
+        text_area.SetActive(false);
+        text_area_Main.SetActive(false);
 
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -1653,7 +1669,7 @@ public class Compound_Main : MonoBehaviour
 
                 //Debug.Log("cancel");
 
-                _text.text = "";
+                _textmain.text = "";
                 compound_status = 0;
 
                 //extreme_panel.LifeAnimeOnTrue();
@@ -1754,7 +1770,7 @@ public class Compound_Main : MonoBehaviour
 
                 yes_no_clear_panel.SetActive(false);
 
-                _text.text = "";
+                _textmain.text = "";
                 compound_status = 0;
 
                 yes_selectitem_kettei.onclick = false;
@@ -1777,7 +1793,7 @@ public class Compound_Main : MonoBehaviour
                 //ステージ１のサブイベント
                 case 1:
 
-                    if (girl1_status.girl1_Love_exp >= girl1_status.stage1_lvTable[1]) //レベル２のときのイベント。１より優先度が高く、２が先になったら、１はクリアしたことになる。イベントは見れない。
+                    if (girl1_status.girl1_Love_exp >= CheckLoveExp(2) ) //レベル３のときのイベント。１より優先度が高く、２が先になったら、１はクリアしたことになる。イベントは見れない。
                     {
 
                         if (GameMgr.GirlLoveEvent_stage1[1] != true) //ステージ１　好感度イベント２
@@ -1796,7 +1812,7 @@ public class Compound_Main : MonoBehaviour
                     }
                     else
                     {
-                        if (girl1_status.girl1_Love_exp >= girl1_status.stage1_lvTable[0]) //レベル１のときのイベント
+                        if (girl1_status.girl1_Love_exp >= CheckLoveExp(1)) //レベル２のときのイベント
                         {
 
                             if (GameMgr.GirlLoveEvent_stage1[0] != true) //ステージ１　好感度イベント１
@@ -1851,6 +1867,18 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    //好感度イベント発生用の閾値を計算
+    int CheckLoveExp(int kaisu)
+    {
+        _checkexp = 0;
+
+        for (i=0; i < kaisu; i++)
+        {
+            _checkexp += girl1_status.stage1_lvTable[i];
+        }
+        return _checkexp;
+    }
+
     IEnumerator ReadGirlLoveEvent()
     {
         touch_controller.Touch_OnAllOFF();
@@ -1863,8 +1891,7 @@ public class Compound_Main : MonoBehaviour
             yield return null;
         }
 
-        text_area.SetActive(false);
-        Extremepanel_obj.SetActive(false);
+        canvas.SetActive(false);
         sceneBGM.MuteBGM();
         
         GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -1874,12 +1901,17 @@ public class Compound_Main : MonoBehaviour
             yield return null;
         }
 
+        GameMgr.girlloveevent_endflag = false;
         sceneBGM.MuteOFFBGM();
+
+        canvas.SetActive(true);
+        extreme_Button.interactable = true;
+        touch_controller.Touch_OnAllON();
 
         girl1_status.Girl1_Status_Init2();
         GirlLove_loading = false;
 
-        _text.text = "";
+        _textmain.text = "";
 
         check_GirlLoveEvent_flag = true;
         check_recipi_flag = false;

@@ -83,7 +83,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int result_kosu;
 
     private int _getexp;
-    private string comment_text;
 
     //成功確率(外部スクリプトから保存・読み込み用）
     public float _temp_srate_1;
@@ -182,7 +181,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
         //スロットの日本語表示用リストの取得
-        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();       
+        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
+        //合成計算オブジェクトの取得
+        compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -212,9 +214,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //レベルアップチェック用オブジェクトの取得
                 exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
-
-                //合成計算オブジェクトの取得
-                compound_keisan = GameObject.FindWithTag("Compound_Keisan").GetComponent<Compound_Keisan>();
 
                 //確率パネルの取得
                 kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
@@ -267,9 +266,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         _temp_extreme_id = 9999;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
@@ -302,9 +301,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //レベルアップチェック用オブジェクトの取得
                 exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
 
-                //合成計算オブジェクトの取得
-                compound_keisan = GameObject.FindWithTag("Compound_Keisan").GetComponent<Compound_Keisan>();
-
                 //黒半透明パネルの取得
                 black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
 
@@ -326,110 +322,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
         }
-        
-        if (SceneManager.GetActiveScene().name == "GirlEat") // ガールシーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {
-            //女の子にアイテムをあげた後の、アイテムリストの更新を行う。
-            if (girleat_ok == true)
-            {
-
-                GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
-                girlEat_scene = GirlEat_scene_obj.GetComponent<GirlEat_Main>();
-
-                GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
-                girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
-
-                pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-
-                //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
-                girlEat_judge.Girleat_Judge_method(pitemlistController.kettei_item1, pitemlistController._toggle_type1);
-
-
-                //アイテムリストの更新。選んだアイテムをリストから削除
-
-                //削除の処理
-                switch (pitemlistController._toggle_type1)
-                {
-                    case 0: //プレイヤーアイテムリストから選択している。
-
-                        pitemlist.deletePlayerItem(pitemlistController.kettei_item1, 1);
-                        break;
-
-                    case 1: //オリジナルアイテムリストから選択している。
-
-                        pitemlist.deleteOriginalItem(pitemlistController.kettei_item1, 1);
-                        break;
-
-                    default:
-                        break;
-                }
-
-                pitemlistController.reset_and_DrawView();//リスト描画の更新
-
-                girleat_ok = false;
-
-
-              
-                //お菓子に対して、コメントを言う女の子
-                pitemlistController_obj.SetActive(false);
-                girlEat_scene.girleat_status = 2; //アイテムあげたあとの処理へ移行できるフラグをたてる　-> GirlEat_Main.csへ移動
-            }
-        }
-
-        if (SceneManager.GetActiveScene().name == "QuestBox") // Qboxシーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {
-
-            if (qbox_ok == true)
-            {
-
-                pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-                text_area = canvas.transform.Find("MessageWindow").gameObject;
-                _text = text_area.GetComponentInChildren<Text>();
-
-                kettei_item1 = pitemlistController.kettei_item1;
-                toggle_type1 = pitemlistController._toggle_type1;
-
-                result_kosu = pitemlistController.final_kettei_kosu1;
-
-                //アイテムの採点。良いお菓子は高く売れる。
-                //Judge_QuestOkashi();
-
-
-                //アイテムリストの更新。選んだアイテムをリストから削除
-
-                //削除の処理
-                switch (pitemlistController._toggle_type1)
-                {
-                    case 0: //プレイヤーアイテムリストから選択している。
-
-                        pitemlist.deletePlayerItem(pitemlistController.kettei_item1, result_kosu);
-                        break;
-
-                    case 1: //オリジナルアイテムリストから選択している。
-
-                        pitemlist.deleteOriginalItem(pitemlistController.kettei_item1, result_kosu);
-                        break;
-
-                    default:
-                        break;
-                }
-
-                pitemlistController.reset_and_DrawView();//リスト描画の更新
-
-                qbox_ok = false;
-
-                //所持金を増やす
-                //PlayerStatus.player_money += total_qbox_money;
-
-                //_text.text = "お菓子を売った！　" + total_qbox_money + "Gを獲得！";
-
-            }
-        }       
-    }
+    }        
 
 
     //
@@ -504,7 +397,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
             else
             {
-                //右側パネルに、作ったやつを表示する。
+                //パネルに、作ったやつを表示する。
                 extremePanel.SetExtremeItem(result_item, 1);
 
                 //お菓子のHPをセット
@@ -557,9 +450,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
 
-            //閃き済みかどうかをチェック
-            if (databaseCompo.compoitems[result_ID].cmpitem_flag == 0)
+            //作ったことがあるかどうかをチェック
+            if (databaseCompo.compoitems[result_ID].comp_count == 0)
             {
+                //作った回数をカウント
+                databaseCompo.compoitems[result_ID].comp_count++;
+
                 //完成アイテムの、レシピフラグをONにする。
                 databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
 
@@ -572,11 +468,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！"  + "\n";
 
             }
-
-            //すでに閃いていた場合
-            else
+            //すでに作っていたことがある場合
+            else if (databaseCompo.compoitems[result_ID].comp_count > 0)
             {
-                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / 3;
+                //作った回数をカウント
+                databaseCompo.compoitems[result_ID].comp_count++;
+
+                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
                 PlayerStatus.player_renkin_exp += _getexp; //すでに作ったことがある場合、取得量は少なくなる
 
                 _ex_text = "";
@@ -773,11 +671,26 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 }
             }
 
-            _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / 3;
-            PlayerStatus.player_renkin_exp += _getexp; //レシピ調合の場合も同様。すでに作ったことがある場合、取得量は少なくなる
+            //作ったことがあるかどうかをチェック
+            if (databaseCompo.compoitems[result_ID].comp_count == 0)
+            {
+                //作った回数をカウント
+                databaseCompo.compoitems[result_ID].comp_count++;
 
-            //テキストの表示
-            
+                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
+                PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
+            }
+            else if (databaseCompo.compoitems[result_ID].comp_count > 0)
+            {
+                //作った回数をカウント
+                databaseCompo.compoitems[result_ID].comp_count++;
+
+                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
+                PlayerStatus.player_renkin_exp += _getexp; //レシピ調合の場合も同様。すでに作ったことがある場合、取得量は少なくなる
+
+            }
+
+            //テキストの表示            
             renkin_default_exp_up();
 
             //音を鳴らす
@@ -919,6 +832,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //閃き済みかどうかをチェック。
                 if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
                 {
+                    //作った回数をカウント
+                    databaseCompo.compoitems[result_ID].comp_count++;
+
                     //完成アイテムの、レシピフラグをONにする。
                     databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
 
@@ -940,7 +856,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //すでに閃いていた場合
                 else
                 {
-                    _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / 3;
+                    //作った回数をカウント
+                    databaseCompo.compoitems[result_ID].comp_count++;
+
+                    _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
                     PlayerStatus.player_renkin_exp += _getexp; //エクストリームで新しく閃いた場合の経験値
 
                     _ex_text = "";
@@ -1022,8 +941,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         topping_result_ok = false;
-
-        //black_panel_A.SetActive(true);
 
         //テキスト表示後、閃いた～をリセットしておく
         _ex_text = "";
@@ -1371,41 +1288,26 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score)
     {
-        /*if (total_score >= 0 && total_score < 30)
-        {
-            comment_text = "（かなり我慢して食べたようだ..。）　" + total_score.ToString() + "点。";
-        }
-        else if (total_score >= 30 && total_score < 60)
-        {
-            comment_text = "まあまあおいしい、かな？　" + total_score.ToString() + "点。";
-        }
-        else if (total_score >= 60 && total_score < 80)
-        {
-            comment_text = "なかなかに、おいしい！　" + total_score.ToString() + "点。";
-        }
-        else if (total_score >= 80 && total_score < 95)
-        {
-            comment_text = "大満足！！　" + total_score.ToString() + "点。";
-        }
-        else if (total_score >= 95)
-        {
-            comment_text = "（あまりのおいしさに恍惚の表情を浮かべている）　" + total_score.ToString() + "点。";
-        }*/
-        comment_text = "";
+        text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
 
-        _text.text = "お菓子をあげた！" + "\n" + "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
-            + "お金を " + GameMgr.ColorYellow + _getmoney + "</color>" + "G ゲットした！" + "\n"
-            + comment_text;
+        _text.text = "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
+            + "お金を " + GameMgr.ColorLemon + _getmoney + "</color>" + "G ゲットした！";
     }
 
     public void GirlDisLikeText(int _getlove_exp)
     {
+        text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
 
-        _text.text = "お菓子をあげた！" + "\n" + "好感度が" + Mathf.Abs(_getlove_exp) + "下がった..。";
+        _text.text = "好感度が" + Mathf.Abs(_getlove_exp) + "下がった..。";
     }
 
     public void GirlNotEatText()
     {
+        text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
         _text.text = "今はこのお菓子じゃない気分のようだ。";
     }
 

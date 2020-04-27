@@ -29,6 +29,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private int sheet_no; //アイテムが格納されているシート番号
 
     public List<ItemShop> shopitems = new List<ItemShop>();
+    public List<ItemShop> farmitems = new List<ItemShop>();
 
     // Use this for initialization
     void Start () {
@@ -44,75 +45,46 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
         excel_shopitemdatabase = Resources.Load("Excel/Entity_shopItemDataBase") as Entity_shopItemDataBase;
 
 
+        //ショップのデータの読み込み
         sheet_no = 0;
+        sheet_count = 0;
 
-        while (sheet_no < excel_shopitemdatabase.sheets.Count)
+        while (sheet_count < 1)
         {
             count = 0;
 
             while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
             {
 
-                _name = excel_shopitemdatabase.sheets[sheet_no].list[count].name;
-                _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
-                _itemType = excel_shopitemdatabase.sheets[sheet_no].list[count].itemType;
-                _cost = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_sell_price;
-                _sell = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_buy_price;
-                _itemhyouji = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji;
-
-                //Debug.Log("ショップ_itemType: " + _itemType);
-
-                if (_itemType != 1)
-                {
-                    i = 0;
-
-                    while (i < database.items.Count)
-                    {
-
-                        if (database.items[i].itemName == _name)
-                        {
-                            _itemID = database.items[i].itemID;
-                            _icon = database.items[i].itemIcon_sprite;
-                            _name_hyouji = database.items[i].itemNameHyouji;                            
-
-                            break;
-                        }
-
-                        ++i;
-                    }
-                }
-                else if (_itemType == 1)
-                {
-
-                    i = 0;
-                    //Debug.Log("イベントアイテムを検出");
-
-                    //Debug.Log("イベントアイテムリストカウント: " + pitemlist.eventitemlist.Count);
-
-                    while (i < pitemlist.eventitemlist.Count)
-                    {
-                        if (pitemlist.eventitemlist[i].event_itemName == _name)
-                        {
-                            //Debug.Log("ショップアイテム名: " + _name);
-
-                            _itemID = pitemlist.eventitemlist[i].ev_ItemID;
-                            //Debug.Log("イベントアイテムID: " + _itemID);
-                            _icon = Resources.Load<Sprite>("Sprites/" + pitemlist.eventitemlist[i].event_fileName);
-                            _name_hyouji = pitemlist.eventitemlist[i].event_itemNameHyouji;
-
-                            break;
-                        }
-
-                        i++;
-                    }
-                }
+                InitShopDB_Common();
 
                 //ここでリストに追加している
                 shopitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji));
 
                 ++count;
             }
-            ++sheet_no;
+            ++sheet_count;
+        }
+
+        //ファームのデータの読み込み
+        sheet_no = 1;
+        sheet_count = 0;
+
+        while (sheet_count < 1)
+        {
+            count = 0;
+
+            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
+            {
+
+                InitShopDB_Common();
+
+                //ここでリストに追加している
+                farmitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji));
+
+                ++count;
+            }
+            ++sheet_count;
         }
 
 
@@ -123,6 +95,63 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
 
     }
 	
+    void InitShopDB_Common()
+    {
+        _name = excel_shopitemdatabase.sheets[sheet_no].list[count].name;
+        _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
+        _itemType = excel_shopitemdatabase.sheets[sheet_no].list[count].itemType;
+        _cost = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_sell_price;
+        _sell = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_buy_price;
+        _itemhyouji = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji;
+
+        //Debug.Log("ショップ_itemType: " + _itemType);
+
+        if (_itemType != 1)
+        {
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+
+                if (database.items[i].itemName == _name)
+                {
+                    _itemID = database.items[i].itemID;
+                    _icon = database.items[i].itemIcon_sprite;
+                    _name_hyouji = database.items[i].itemNameHyouji;
+
+                    break;
+                }
+
+                ++i;
+            }
+        }
+        else if (_itemType == 1)
+        {
+
+            i = 0;
+            //Debug.Log("イベントアイテムを検出");
+
+            //Debug.Log("イベントアイテムリストカウント: " + pitemlist.eventitemlist.Count);
+
+            while (i < pitemlist.eventitemlist.Count)
+            {
+                if (pitemlist.eventitemlist[i].event_itemName == _name)
+                {
+                    //Debug.Log("ショップアイテム名: " + _name);
+
+                    _itemID = pitemlist.eventitemlist[i].ev_ItemID;
+                    //Debug.Log("イベントアイテムID: " + _itemID);
+                    _icon = Resources.Load<Sprite>("Sprites/" + pitemlist.eventitemlist[i].event_fileName);
+                    _name_hyouji = pitemlist.eventitemlist[i].event_itemNameHyouji;
+
+                    break;
+                }
+
+                i++;
+            }
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
 		

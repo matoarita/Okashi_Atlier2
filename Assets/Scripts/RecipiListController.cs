@@ -23,6 +23,7 @@ public class RecipiListController : MonoBehaviour {
 
     private Sprite texture2d;
     private Image _Img;
+    private GameObject _HighStar;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -150,6 +151,7 @@ public class RecipiListController : MonoBehaviour {
                     _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
                     _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
                     _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+                    _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
 
                     _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
                     _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
@@ -170,6 +172,8 @@ public class RecipiListController : MonoBehaviour {
                     texture2d = Resources.Load<Sprite>("Sprites/Icon/Book01");
                     _Img.sprite = texture2d;
 
+                    _HighStar.SetActive(false);
+
                     ++list_count;
                 }
             }
@@ -186,11 +190,13 @@ public class RecipiListController : MonoBehaviour {
                 _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
                 _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
                 _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+                _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
 
                 _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
                 _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
                 _toggle_itemID.recipi_toggleitemType = 1; //コンポ調合アイテムタイプなので、1
 
+                
 
                 j = 0;
 
@@ -202,6 +208,15 @@ public class RecipiListController : MonoBehaviour {
                         item_name = database.items[j].itemNameHyouji;
                         texture2d = database.items[j].itemIcon_sprite;
                         _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
+
+                        if (database.items[j].HighScore_flag) {
+                            _HighStar.SetActive(true);
+                        }
+                        else
+                        {
+                            _HighStar.SetActive(false);
+                        }                        
+
                         break;
                     }
                     ++j;

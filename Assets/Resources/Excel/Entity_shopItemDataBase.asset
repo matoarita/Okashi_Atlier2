@@ -113,7 +113,7 @@ MonoBehaviour:
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 14
-      name: mix_color_spread
+      name: mix_color_sprinkles
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
@@ -217,3 +217,208 @@ MonoBehaviour:
       shop_sell_price: 5000
       shop_buy_price: 2500
       item_hyouji: 1
+  - name: FarmItemDB_1
+    list:
+    - ItemID: 100
+      name: egg
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 10
+      shop_buy_price: 5
+      item_hyouji: 1
+    - ItemID: 101
+      name: milk
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 20
+      shop_buy_price: 10
+      item_hyouji: 1
+    - ItemID: 102
+      name: suger
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 10
+      shop_buy_price: 5
+      item_hyouji: 0
+    - ItemID: 103
+      name: salt
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 8
+      shop_buy_price: 4
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0
+    - ItemID: 0
+      name: 
+      zaiko: 0
+      itemType: 0
+      shop_sell_price: 0
+      shop_buy_price: 0
+      item_hyouji: 0

@@ -67,7 +67,7 @@ public class TimeController : MonoBehaviour
         _month_obj1 = this.transform.Find("TimeHyouji_1/Image/Month").gameObject;
         _day_text1 = _month_obj1.GetComponent<Text>();
 
-        _month_obj2 = this.transform.Find("TimeHyouji_2/Image/Month").gameObject;
+        _month_obj2 = this.transform.Find("TimeHyouji_2/Month").gameObject;
         _day_text2 = _month_obj2.GetComponent<Text>();
 
         _time_obj1_hour = this.transform.Find("TimeHyouji_1/Image/Hour").gameObject;
@@ -79,19 +79,19 @@ public class TimeController : MonoBehaviour
         _time_obj1_minute = this.transform.Find("TimeHyouji_1/Image/Minute").gameObject;
         _time_minute1 = _time_obj1_minute.GetComponent<Text>();
 
-        _time_obj2_hour = this.transform.Find("TimeHyouji_2/Image/Hour").gameObject;
+        _time_obj2_hour = this.transform.Find("TimeHyouji_2/Hour").gameObject;
         _time_hour2 = _time_obj2_hour.GetComponent<Text>();
 
-        _time_obj2_count = this.transform.Find("TimeHyouji_2/Image/TimeCount").gameObject;
+        _time_obj2_count = this.transform.Find("TimeHyouji_2/TimeCount").gameObject;
         _time_count2 = _time_obj2_count.GetComponent<Text>();
 
-        _time_obj2_minute = this.transform.Find("TimeHyouji_2/Image/Minute").gameObject;
+        _time_obj2_minute = this.transform.Find("TimeHyouji_2/Minute").gameObject;
         _time_minute2 = _time_obj2_minute.GetComponent<Text>();
 
         _time_obj1_limit = this.transform.Find("TimeHyouji_1/NokoriTimeParam").gameObject;
         _time_limit1 = _time_obj1_limit.GetComponent<Text>();
 
-        _time_obj2_limit = this.transform.Find("TimeHyouji_2/Image/NokoriTimeParam").gameObject;
+        _time_obj2_limit = this.transform.Find("TimeHyouji_2/NokoriTimeParam").gameObject;
         _time_limit2 = _time_obj2_limit.GetComponent<Text>();
 
         _cullent_day = PlayerStatus.player_day;

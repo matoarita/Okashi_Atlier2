@@ -25,6 +25,8 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
     private GameObject canvas;
 
+    private Debug_Panel debug_panel;
+
     private bool playeritemlist_sw;
 
     // Use this for initialization
@@ -35,44 +37,33 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
             Setup_Hiroba();          
         }
 
+        //debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }
 	
 	// Update is called once per frame
 	void Update ()
-    {
-        
-
-        if (SceneManager.GetActiveScene().name == "Hiroba")
-        {
-            if (Input.GetKeyDown(KeyCode.Z)) //Zキーでアイテムメニューを開く。デバッグ用
-            {
-                
-                if (playeritemlist_sw == true)
-                {
-                    pitemlistController_obj.SetActive(false);
-                    playeritemlist_sw = false;
-
-                    card_view.DeleteCard_DrawView();
-
-                }
-                else
-                {
-                    pitemlistController_obj.SetActive(true);
-
-                    playeritemlist_sw = true;
-
-                    pitemlistController.ResetKettei_item();
-
-
-                }
-            }
-        }
+    {       
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) //１キーでMain
         {
             //SceneManager.LoadScene("Main");
             FadeManager.Instance.LoadScene("000_Prologue", 0.3f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) //Spaceキーでデバッグ入力受付のON/OFF
+        {
+            debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
+
+            //SceneManager.LoadScene("Main");
+            if (debug_panel.Debug_INPUT_ON)
+            {
+                debug_panel.Debug_INPUT_ON = false;
+            }
+            else
+            {
+                debug_panel.Debug_INPUT_ON = true;
+            }
         }
     }
 
@@ -84,6 +75,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         {
             Setup_Hiroba();
         }
+        
     }
 
     void Setup_Hiroba()

@@ -72,11 +72,11 @@ public class HukidashiAction : MonoBehaviour {
         trans = maincam_animator.GetInteger("trans");
 
         //吹き出しオブジェクトの取得
-        hukidasi = this.gameObject.transform.Find("Image").gameObject;
+        hukidasi = this.gameObject.transform.Find("hukidashi_Image").gameObject;
         hukidasi_text = this.gameObject.transform.Find("hukidashi_Text").gameObject;
 
         //スペシャル用の吹きだしオブジェクト
-        hukidasi_sp = this.gameObject.transform.Find("Image_special").gameObject;
+        hukidasi_sp = this.gameObject.transform.Find("hukidashi_Image_special").gameObject;
 
         //Live2Dモデルの取得
         _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
@@ -168,6 +168,7 @@ public class HukidashiAction : MonoBehaviour {
 
     public void NormalHint()
     {
+        /*
         if (girlLikeCompo_database.girllike_compoRandomset.Count > 0) //一番最初の状態。Randomsetに何も入ってないときは無視
         {
             hukidasi.GetComponent<Image>().raycastTarget = false;
@@ -195,10 +196,12 @@ public class HukidashiAction : MonoBehaviour {
             girl1_status.GirlEat_Judge_on = false;
             girl1_status.WaitHint_on = false;
         }
+        */
     }
 
     public void SpecialHint()
     {
+        /*
         hukidasi_sp.GetComponent<Image>().raycastTarget = false;
         hukidasi_text.SetActive(false);
         hukidasi_sp.SetActive(false);
@@ -240,6 +243,7 @@ public class HukidashiAction : MonoBehaviour {
 
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
+        */
     }
 
     public void PointEnter()

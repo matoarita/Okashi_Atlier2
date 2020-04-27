@@ -378,7 +378,7 @@ public class itemSelectToggle : MonoBehaviour
                 //押したタイミングで、分岐＝１に。
                 pitemlistController.kettei1_bunki = 1;
 
-                //もし生地アイテムを一個目に選んだ場合、生地にアイテムを混ぜ込む処理になる。
+                //もし生地アイテムを一個目に選んだ場合、生地にアイテムを混ぜ込む処理になる。現在は未使用。
                 if (database.items[itemID_1].itemType_sub == Item.ItemType_sub.Pate)
                 {
                     _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
@@ -433,7 +433,7 @@ public class itemSelectToggle : MonoBehaviour
                 //押したタイミングで、分岐＝２に。
                 pitemlistController.kettei1_bunki = 2;
 
-                _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。個数を選択してください。";
+                _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
@@ -482,7 +482,7 @@ public class itemSelectToggle : MonoBehaviour
                 //押したタイミングで、分岐＝３に。
                 pitemlistController.kettei1_bunki = 3;
 
-                _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。個数を選択してください。";
+                _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
@@ -522,13 +522,12 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 1; //一個目を選択したものを選択できないようにするときの番号。
                 itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-                card_view.OKCard_DrawView();
+                pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu;
+                card_view.OKCard_DrawView(pitemlistController.final_kettei_kosu1);
 
                 yes.SetActive(false);
                 //no.SetActive(false);
-                updown_counter_obj.SetActive(false);
-
-                pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu;
+                updown_counter_obj.SetActive(false);                
 
                 itemselect_cancel.kettei_on_waiting = false;
 
@@ -580,13 +579,12 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 2; //二個目まで、選択できないようにする。
                 itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-                card_view.OKCard_DrawView02();
+                pitemlistController.final_kettei_kosu2 = updown_counter.updown_kosu;
+                card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
 
                 //yes.SetActive(false);
                 //no.SetActive(false);
-                updown_counter_obj.SetActive(false);
-
-                pitemlistController.final_kettei_kosu2 = updown_counter.updown_kosu;
+                updown_counter_obj.SetActive(false);               
 
                 itemselect_cancel.kettei_on_waiting = false;
 
@@ -635,9 +633,9 @@ public class itemSelectToggle : MonoBehaviour
 
                 updown_counter_obj.SetActive(false);
 
-                card_view.OKCard_DrawView03();
-
                 pitemlistController.final_kettei_kosu3 = updown_counter.updown_kosu;
+                card_view.OKCard_DrawView03(pitemlistController.final_kettei_kosu3);
+                
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
@@ -737,7 +735,7 @@ public class itemSelectToggle : MonoBehaviour
                 //トッピングの場合、このタイミングで確率も計算。一個目
                 Compo_KakuritsuKeisan_1();
 
-                _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。これでいいですか？";
+                _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
@@ -788,7 +786,7 @@ public class itemSelectToggle : MonoBehaviour
                 //トッピングの場合、このタイミングで確率も計算。二個目
                 Compo_KakuritsuKeisan_2();
 
-                _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。これでいいですか？";
+                _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
@@ -844,7 +842,7 @@ public class itemSelectToggle : MonoBehaviour
                 Compo_KakuritsuKeisan_3();
                 
 
-                _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。これでいいですか？";
+                _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
@@ -890,7 +888,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 10; //ベースアイテムを選択できないようにする。
                 itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-                card_view.OKCard_DrawView();
+                card_view.OKCard_DrawView(1);
 
                 yes.SetActive(false);
                 //no.SetActive(false);
@@ -938,7 +936,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 11; //ベースアイテムと一個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
 
-                card_view.OKCard_DrawView02();
+                card_view.OKCard_DrawView02(1);
                 //yes.SetActive(false);
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);
@@ -991,7 +989,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 12; //ベースアイテムと一個目・二個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
 
-                card_view.OKCard_DrawView03();
+                card_view.OKCard_DrawView03(1);
                 //yes.SetActive(false);
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);

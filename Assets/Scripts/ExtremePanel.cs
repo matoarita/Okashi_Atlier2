@@ -53,9 +53,6 @@ public class ExtremePanel : MonoBehaviour {
     public int Okashi_moneypram_int;
 
     private Button extreme_Button;
-    private Button recipi_Button;
-    private GameObject sell_Button;
-    private GameObject present_Button;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -159,9 +156,6 @@ public class ExtremePanel : MonoBehaviour {
 
         //ボタンの取得
         extreme_Button = this.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
-        recipi_Button = this.transform.Find("RecipiButton").gameObject.GetComponent<Button>(); //レシピボタン
-        sell_Button = this.transform.Find("SellButton").gameObject; //売るボタン
-        present_Button = this.transform.Find("PresentButton").gameObject; //売るボタン 
 
         image_effect = this.transform.Find("Extreme_Image_effect").gameObject;
         image_effect.SetActive(false);
@@ -175,8 +169,6 @@ public class ExtremePanel : MonoBehaviour {
         _hpslider.value = 0;
 
         //現在のお菓子の価格テキストを取得
-        CullentOkashi_money = this.transform.Find("SellButton/CullentOkashiMoney/GordParam").gameObject.GetComponent<Text>();
-        CullentOkashi_money.text = "-";
         Okashi_moneyparam = 0;
 
         _deg = 1.0f; //1秒間あたりの減少量
@@ -228,7 +220,6 @@ public class ExtremePanel : MonoBehaviour {
                 Okashi_moneyparam -= _moneydeg;
                 exp_Controller._temp_extreme_money = Okashi_moneyparam;
                 Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);                
-                CullentOkashi_money.text = Okashi_moneypram_int.ToString();
 
                 if (Starthp <= 0) //0になったら、お菓子が壊れる。
                 {
@@ -335,7 +326,6 @@ public class ExtremePanel : MonoBehaviour {
     {
 
         extreme_Button.interactable = false;
-        recipi_Button.interactable = false;
 
         //Compound_Mainのトッピング時と処理が同じ
         pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
@@ -418,7 +408,7 @@ public class ExtremePanel : MonoBehaviour {
         pitemlistController.reset_and_DrawView_Topping();
 
         card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item);
-        card_view.OKCard_DrawView();
+        card_view.OKCard_DrawView(pitemlistController.final_base_kettei_kosu);
 
         itemselect_cancel.update_ListSelect_Flag = 10; //ベースアイテムを選択できないようにする。
         itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -427,9 +417,6 @@ public class ExtremePanel : MonoBehaviour {
     public void OnClick_RecipiBook()
     {
         extreme_Button.interactable = false;
-        recipi_Button.interactable = false;
-        //sell_Button.GetComponent<Button>().interactable = false;
-        //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
 
@@ -440,9 +427,6 @@ public class ExtremePanel : MonoBehaviour {
     public void OnClick_PresentButton()
     {
         extreme_Button.interactable = false;
-        recipi_Button.interactable = false;
-        //sell_Button.GetComponent<Button>().interactable = false;
-        //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
 
@@ -460,9 +444,6 @@ public class ExtremePanel : MonoBehaviour {
     public void OnClick_SellButton()
     {
         extreme_Button.interactable = false;
-        recipi_Button.interactable = false;
-        //sell_Button.GetComponent<Button>().interactable = false;
-        //present_Button.GetComponent<Button>().interactable = false;
 
         card_view.DeleteCard_DrawView();
 
@@ -516,7 +497,6 @@ public class ExtremePanel : MonoBehaviour {
 
         extreme_Param.text = "-";
         extreme_itemName.text = "";
-        CullentOkashi_money.text = "-";
         
         extreme_itemID = 9999;
         _hpslider.value = 0;
@@ -535,17 +515,11 @@ public class ExtremePanel : MonoBehaviour {
     public void extremeButtonInteractOn()
     {
         extreme_Button.interactable = true;
-        recipi_Button.interactable = true;
-        //sell_Button.GetComponent<Button>().interactable = true;
-        //present_Button.GetComponent<Button>().interactable = true;
     }
 
     public void extremeButtonInteractOFF()
     {
         extreme_Button.interactable = false;
-        recipi_Button.interactable = false;
-        //sell_Button.GetComponent<Button>().interactable = false;
-        //present_Button.GetComponent<Button>().interactable = false;
     }
 
 
@@ -562,7 +536,6 @@ public class ExtremePanel : MonoBehaviour {
 
         //お菓子の現在の価値もセット
         Okashi_moneyparam = Okashi_keisan.Sell_Okashi(extreme_itemID, extreme_itemtype);
-        CullentOkashi_money.text = Okashi_moneyparam.ToString();
 
         //減少量も決定
         _moneydeg = Okashi_moneyparam / Starthp;

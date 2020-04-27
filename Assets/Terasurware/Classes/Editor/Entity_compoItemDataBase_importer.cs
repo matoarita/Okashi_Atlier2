@@ -70,6 +70,7 @@ public class Entity_compoItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(17); p.Comment = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(18); p.Comment2 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(20); p.KeisanMethod = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(21); p.comp_count = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

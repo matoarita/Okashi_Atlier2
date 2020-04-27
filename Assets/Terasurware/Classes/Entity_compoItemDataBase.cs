@@ -37,6 +37,7 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public string Comment;
 		public string Comment2;
 		public string KeisanMethod;
+		public int comp_count;
 	}
 }
 

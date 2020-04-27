@@ -211,7 +211,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     }
 
-    public void OKCard_DrawView()
+    public void OKCard_DrawView(int _kosu)
     {
         Draw_Compound();
 
@@ -220,6 +220,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
+            _cardImage_obj[0].GetComponent<SetImage>().Kosu_ON(_kosu);
         }
 
         // トッピング調合を選択した場合の処理
@@ -271,7 +272,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj.RemoveAt(1);
     }
 
-    public void OKCard_DrawView02()
+    public void OKCard_DrawView02(int _kosu)
     {
         Draw_Compound();
 
@@ -283,6 +284,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
+            _cardImage_obj[1].GetComponent<SetImage>().Kosu_ON(_kosu);
         }
 
         // トッピング調合を選択した場合の処理
@@ -319,7 +321,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-            _cardImage_obj[2].transform.localPosition = new Vector3(0, 80, 0);
+            _cardImage_obj[2].transform.localPosition = new Vector3(0, 80, 0);           
         }
 
         // トッピング調合を選択した場合の処理
@@ -343,7 +345,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj.RemoveAt(2);
     }
 
-    public void OKCard_DrawView03()
+    public void OKCard_DrawView03(int _kosu)
     {
         Draw_Compound();
 
@@ -358,6 +360,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
             _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[2].transform.localPosition = new Vector3(300, 150, 0);
+            _cardImage_obj[2].GetComponent<SetImage>().Kosu_ON(_kosu);
         }
 
         // トッピング調合を選択した場合の処理
@@ -606,6 +609,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _diff_rot.Add(new Vector3(Random.Range(0, 360)/30.0f, Random.Range(0, 360)/30.0f, Random.Range(0, 360)/30.0f));
 
             _cardImage_obj[i].GetComponent<SetImage>().CardParamOFF();
+            _cardImage_obj[i].GetComponent<SetImage>().Kosu_OFF();
         }
 
         //アニメーション開始。

@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class Compound_Keisan : MonoBehaviour {
+public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
+{
 
     private GameObject canvas;
 
@@ -240,7 +241,7 @@ public class Compound_Keisan : MonoBehaviour {
 
 
         //
-        //アイテムデータベースの味パラムを初期化
+        //アイテムデータベースの味パラムを初期化。初期化は、ゲーム起動時の一回のみ。
         //
         
         for (DBcount = 0; DBcount < databaseCompo.compoitems.Count; DBcount++)
@@ -288,6 +289,15 @@ public class Compound_Keisan : MonoBehaviour {
 
     public void Topping_Compound_Method(int _mstatus)
     {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //トッピングスロットの配列初期化
+        _basetp = new string[10];
+        _addtp = new string[10];
+        _temptp = new string[10];
+        _addkoyutp = new string[3];
+
         //ベースアイテムのパラメータを取得する。その後、各トッピングアイテムの値を取得し、加算する。
 
         if (_mstatus == 0)
@@ -345,7 +355,7 @@ public class Compound_Keisan : MonoBehaviour {
                 _base_item_hyouji = database.items[_id].item_Hyouji;
                 _base_itemdesc = database.items[_id].itemDesc;
             }
-            else //アイテム自体が持っている値を加算する場合。使わないかも。
+            else //アイテム自体が持っている値を加算する補正の処理。
             {
                 //各パラメータを取得
                 _baseID = database.items[_id].itemID;

@@ -735,7 +735,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
 
         card_view.DeleteCard_DrawView02();
-        card_view.OKCard_DrawView();
+        card_view.OKCard_DrawView(pitemlistController.final_kettei_kosu1);
 
         yes.SetActive(false);
         //no.SetActive(false);
@@ -777,7 +777,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         }
 
         card_view.DeleteCard_DrawView03();
-        card_view.OKCard_DrawView02();
+        card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
 
         yes_text.text = "決定";
         //yes.SetActive(false);
@@ -806,7 +806,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
 
         card_view.DeleteCard_DrawView04();
-        card_view.OKCard_DrawView03();
+        card_view.OKCard_DrawView03(1);
 
 
         yes_text.text = "決定";

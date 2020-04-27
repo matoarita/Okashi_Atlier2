@@ -54,8 +54,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public int touch_status; //今どこを触っているかの状態。TimeOutが入り組んで、ぐちゃぐちゃにならないように分ける。
 
+    private List<string> _touchhead_comment_lib = new List<string>();
+    private string _touchhead_comment;
     private List<string> _touchface_comment_lib = new List<string>();
     private string _touchface_comment;
+
     private string MazuiHintComment;
     private int MazuiStatus;
 
@@ -463,7 +466,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             timeOut2 -= Time.deltaTime;
         }
 
-        if(WaitHint_on) //感想や触ったコメント表示したあと、_descの内容に戻す。
+        if(WaitHint_on) //吹き出しヒントを表示中
         {
             timeOutHint -= Time.deltaTime;
 
@@ -472,15 +475,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //吹き出しが残っていたら、削除。
                 if (hukidashiitem != null)
                 {
-                    if (_desc == "")
-                    {
+
                         DeleteHukidashi();
-                    }
-                    else
-                    {
-                        DeleteHukidashi();
-                        //_text.text = _desc;
-                    }
+
                 }
 
                 WaitHint_on = false;
@@ -613,8 +610,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         //一定時間たつとヒントを出す。
                         if (timeOut2 <= 0.0)
                         {
-                            rnd = Random.Range(10.0f, 20.0f);
-                            timeOut2 = 20.0f + rnd;
+                            timeOut2 = 5.0f;
                             timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
                             Girl1_Hint();
@@ -637,9 +633,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     special_timeOut = 1.0f;
 
-                    Extremepanel_obj.SetActive(false);
-                    MoneyStatus_Panel_obj.SetActive(false);
-                    text_area.SetActive(false);
+                    canvas.SetActive(false);
 
                     //カメラ寄る。
                     trans = 1; //transが1を超えたときに、ズームするように設定されている。
@@ -670,9 +664,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 2:
 
-                    Extremepanel_obj.SetActive(true);
-                    MoneyStatus_Panel_obj.SetActive(true);
-                    text_area.SetActive(true);
+                    canvas.SetActive(true);
 
                     _listEffect.Clear();
 
@@ -755,6 +747,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 5:
+                face_girl_Joukigen();
+                break;
+
+            default:
                 face_girl_Joukigen();
                 break;
         }
@@ -1034,7 +1030,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         DeleteHukidashi();
     }
 
-    
+    //デフォルト・共通の腹減り初期化設定
     public void Girl1_Status_Init()
     {
         timeOut = Default_hungry_cooltime;
@@ -1042,9 +1038,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeGirl_hungry_status = 0;
     }
 
+    //好感度イベントの腹減り初期化設定
     public void Girl1_Status_Init2()
     {
-        timeOut = Default_hungry_cooltime;
+        timeOut = 0.5f;
 
         timeGirl_hungry_status = 0;
     }
@@ -1059,10 +1056,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidasiInit();
         }
 
-        //好感度25以下で、かつまだ一度も調合していない
-        if (girl1_Love_exp <= 25 && PlayerStatus.First_recipi_on != true)
+        //まだ一度も調合していない
+        if (PlayerStatus.First_recipi_on != true)
         {
-            _hint1 = "..。左のパネルで、お菓子を作れるよ..。";            
+            _hint1 = "左のパネルを押して、お菓子を作ろうね。お兄ちゃん。";            
             hukidashiitem.GetComponent<TextController>().SetText(_hint1);
         }
         else
@@ -1110,13 +1107,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         if (OkashiNew_Status == 0)
         {
-            hukidashiitem.transform.Find("Image_special").gameObject.SetActive(true);
-            hukidashiitem.transform.Find("Image").gameObject.SetActive(false);
+            hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(true);
+            hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(false);
         }
         else
         {
-            hukidashiitem.transform.Find("Image_special").gameObject.SetActive(false);
-            hukidashiitem.transform.Find("Image").gameObject.SetActive(true);
+            hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(false);
+            hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(true);
         }
 
 
@@ -1359,9 +1356,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (hukidashiitem == null)
                 {
                     hukidasiInit();
-                }                
+                }
 
-                hukidashiitem.GetComponent<TextController>().SetText("ん、どうした？兄。");
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[0];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
                
                 break;
 
@@ -1386,11 +1385,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     hukidasiInit();
                 }
 
-                hukidashiitem.GetComponent<TextController>().SetText("えへへ..。");
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[1];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //キャラクタ表情変更
                 //s.sprite = Girl1_img_tereru;
-                //intパラメーターの値を設定する.    
+  
                 trans_expression = 6; //各表情に遷移。
                 live2d_animator.SetInteger("trans_expression", trans_expression);
 
@@ -1417,7 +1418,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     hukidasiInit();
                 }
 
-                hukidashiitem.GetComponent<TextController>().SetText("気持ちいい。さわさわ..。");
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[2];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //キャラクタ表情変更
                 //s.sprite = Girl1_img_tereru;
@@ -1447,7 +1450,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     hukidasiInit();
                 }
 
-                hukidashiitem.GetComponent<TextController>().SetText("あ～～～..。");
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[3];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //キャラクタ表情変更
                 //s.sprite = Girl1_img_tereru;
@@ -1476,7 +1481,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     hukidasiInit();
                 }
 
-                hukidashiitem.GetComponent<TextController>().SetText("..。");
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[4];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //キャラクタ表情変更
                 //s.sprite = Girl1_img_tereru;
@@ -1505,7 +1512,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     hukidasiInit();
                 }
 
-                hukidashiitem.GetComponent<TextController>().SetText(".. ..。");
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[5];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //キャラクタ表情変更
                 //s.sprite = Girl1_img_iya;
@@ -1534,13 +1543,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     hukidasiInit();
                 }
 
-                hukidashiitem.GetComponent<TextController>().SetText("キシャーーーーー！！！！");
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[6];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //音鳴らす
                 sc.PlaySe(45);
 
                 //キャラクタ表情変更                
-                //intパラメーターの値を設定する.    
+   
                 trans_expression = 8; //各表情に遷移。
                 live2d_animator.SetInteger("trans_expression", trans_expression);
 
@@ -1570,13 +1581,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeOut3 = 7.0f;
     }
 
+    //口のあたりをクリックすると、ヒントを表示する。
     public void TouchSisterFace()
     {
+        /*
         if (hukidashiitem == null)
         {
             hukidasiInit();
         }
-
+        
         if (girl_Mazui_flag) //まずいフラグがたっていた場合、その時のクエストのヒントを教えてくれる。
         {
             Init_MazuiHintComment();
@@ -1588,14 +1601,56 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             Init_touchFaceComment();
             random = Random.Range(0, _touchface_comment_lib.Count);
             _touchface_comment = _touchface_comment_lib[random];
+        }*/
+
+        //hukidashiitem.GetComponent<TextController>().SetText(_touchface_comment);
+
+        //5個の中からランダムで選ぶ。宴のヒントの数と合わせているので、数には注意。
+        random = Random.Range(0, 5);
+
+        StartCoroutine("TouchFaceHintHyouji");
+
+    }
+
+    IEnumerator TouchFaceHintHyouji()
+    {
+        WaitHint_on = false;
+        GirlEat_Judge_on = false;
+        hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();
+
+        GameMgr.touchhint_ID = random; //GirlLikeCompoSetの_set_compIDが入っている。
+        GameMgr.touchhint_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        //カメラ寄る。
+        trans = 1; //transが1を超えたときに、ズームするように設定されている。
+
+        //intパラメーターの値を設定する.
+        maincam_animator.SetInteger("trans", trans);
+
+        while (!GameMgr.scenario_read_endflag)
+        {
+            yield return null;
         }
 
-        hukidashiitem.GetComponent<TextController>().SetText(_touchface_comment);
+        GameMgr.scenario_read_endflag = false;
+
+        hukidasiOn();
+        canvas.SetActive(true);
+        touch_controller.Touch_OnAllON();
 
         //5秒ほど表示したら、また食べたいお菓子を表示か削除
         WaitHint_on = true;
         timeOutHint = 5.0f;
+        timeOut2 = 5.0f;
         GirlEat_Judge_on = false;
+
+        //カメラ元に戻す
+        trans = 0; //transが1を超えたときに、ズームするように設定されている。
+
+        //intパラメーターの値を設定する.
+        maincam_animator.SetInteger("trans", trans);
     }
 
     public void TouchSisterRibbon()
@@ -1655,8 +1710,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
         //コメント順番に表示
-        //random = Random.Range(0, _touchtwintail_comment_lib.Count);                  
-        if(Girl1_touchtwintail_count >= _touchtwintail_comment_lib.Count)
+        Init_touchTwintailComment();
+        //random = Random.Range(0, _touchtwintail_comment_lib.Count);  
+
+        if (Girl1_touchtwintail_count >= _touchtwintail_comment_lib.Count)
         {
             Girl1_touchtwintail_flag = true;
             Girl1_touchtwintail_count = 0;
@@ -1685,6 +1742,83 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         yield return new WaitForSeconds(10.0f);
 
         Girl1_touchtwintail_flag = false;
+    }
+
+
+    void Init_touchHeadComment()
+    {
+        //髪の毛触るときは、上から順番に表示されていく。回数に注意。
+        _touchhead_comment_lib.Clear();
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+
+                _touchhead_comment_lib.Add("..!");
+                _touchhead_comment_lib.Add("..");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add("（頭をなでられると嬉しいようだ..。）");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add(".. ..。");
+                _touchhead_comment_lib.Add("..ガウゥ！！！！");
+                break;
+
+            case 1:
+
+                _touchhead_comment_lib.Add("..!!");
+                _touchhead_comment_lib.Add("..");
+                _touchhead_comment_lib.Add("頭なでなで..。");
+                _touchhead_comment_lib.Add("..♪");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add(".. ..。");
+                _touchhead_comment_lib.Add("..ウガーー!!");
+                break;
+
+            case 2:
+
+                _touchhead_comment_lib.Add("ん、どうした？兄。");
+                _touchhead_comment_lib.Add("えへへ..。");
+                _touchhead_comment_lib.Add("気持ちいい。さわさわ..。");
+                _touchhead_comment_lib.Add("あ～～～..。");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add(".. ..。");
+                _touchhead_comment_lib.Add("キィーーーーー！！！！");
+                break;
+
+            case 3:
+
+                _touchhead_comment_lib.Add("ん、なでなでしてくれるの？");
+                _touchhead_comment_lib.Add("えへへ..。頭なでなで。");
+                _touchhead_comment_lib.Add("気持ちいい..。");
+                _touchhead_comment_lib.Add("あ～～～..。");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add(".. ..。");
+                _touchhead_comment_lib.Add("ハゲるの！！！！");
+                break;
+
+            case 4:
+
+                _touchhead_comment_lib.Add("ん、なでなでして。兄ちゃん");
+                _touchhead_comment_lib.Add("えへへ..。");
+                _touchhead_comment_lib.Add("兄ちゃんの手、あったかい..。");
+                _touchhead_comment_lib.Add("ほわ～～～..。");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add(".. ..。");
+                _touchhead_comment_lib.Add("ギニャーーーー！！！！");
+                break;
+
+            case 5:
+
+                _touchhead_comment_lib.Add("ん、いつものなでなでタイム..。");
+                _touchhead_comment_lib.Add("えへへ..。");
+                _touchhead_comment_lib.Add("兄ちゃんの手、あったかくて気持ちいい。");
+                _touchhead_comment_lib.Add("お菓子のにおい..。");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add(".. ..。");
+                _touchhead_comment_lib.Add("ヤメロ！！！！");
+                break;
+        }
+
     }
 
     void Init_touchFaceComment()
@@ -1751,13 +1885,76 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         //touchTwintailは、上から順番に表示される。
         _touchtwintail_comment_lib.Clear();
-        _touchtwintail_comment_lib.Add("髪の毛が気になるの？");
-        _touchtwintail_comment_lib.Add("お母さんゆずりで、さらさらなんだよ～。");
-        _touchtwintail_comment_lib.Add("お母さん、元気かなぁ～..。");
-        _touchtwintail_comment_lib.Add("..。");
-        _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
-        _touchtwintail_comment_lib.Add("..。");
-        _touchtwintail_comment_lib.Add("（さらさら..。）");
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+
+                _touchtwintail_comment_lib.Add("..");
+                _touchtwintail_comment_lib.Add("（髪の毛さらさら）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..さらさら。");
+                _touchtwintail_comment_lib.Add("..。");
+                break;
+
+            case 1:
+
+                _touchtwintail_comment_lib.Add("..!");
+                _touchtwintail_comment_lib.Add("（髪の毛さらさら）");
+                _touchtwintail_comment_lib.Add("..気持ちいい。");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（ちょっと元気になってきたかな？）");
+                break;
+
+            case 2:
+
+                _touchtwintail_comment_lib.Add("髪の毛が気になるの？");
+                _touchtwintail_comment_lib.Add("お母さんゆずりで、さらさらなんだよ～。");
+                _touchtwintail_comment_lib.Add("お母さん、元気かなぁ～..。");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（さらさら..。）");
+                break;
+
+            case 3:
+
+                _touchtwintail_comment_lib.Add("へへ。兄ちゃんに髪触られた♪");
+                _touchtwintail_comment_lib.Add("さらさら。気持ちいい。");
+                _touchtwintail_comment_lib.Add("うひひ。");
+                _touchtwintail_comment_lib.Add("あ～..。");
+                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（さらさら..。）");
+                break;
+
+            case 4:
+
+                _touchtwintail_comment_lib.Add("わ～い♪");
+                _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
+                _touchtwintail_comment_lib.Add("しゃらら～ん");
+                _touchtwintail_comment_lib.Add("あ～..♪");
+                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（さらさら..。）");
+                break;
+
+            case 5:
+
+                _touchtwintail_comment_lib.Add("わ～い♪");
+                _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
+                _touchtwintail_comment_lib.Add("しゃらら～ん");
+                _touchtwintail_comment_lib.Add("あ～..♪");
+                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（さらさら..。）");
+                break;
+        }
+        
     }
 
     void RandomHintInit()

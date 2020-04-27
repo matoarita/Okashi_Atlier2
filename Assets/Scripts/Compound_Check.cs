@@ -194,7 +194,7 @@ public class Compound_Check : MonoBehaviour {
                 pitemlistController.kettei_item3 = 9999;
                 pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
 
-                card_view.OKCard_DrawView02();
+                card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
 
                 CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
@@ -247,7 +247,7 @@ public class Compound_Check : MonoBehaviour {
                 itemID_2 = pitemlistController.final_kettei_item2;
                 itemID_3 = pitemlistController.final_kettei_item3;
 
-                card_view.OKCard_DrawView03();
+                card_view.OKCard_DrawView03(pitemlistController.final_kettei_kosu3);
 
                 CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
@@ -313,7 +313,7 @@ public class Compound_Check : MonoBehaviour {
                 pitemlistController.final_kettei_item2 = 9999; //9999は空を表す数字                
                 pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
 
-                card_view.OKCard_DrawView02();
+                card_view.OKCard_DrawView02(1);
 
                 CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
 
@@ -398,7 +398,7 @@ public class Compound_Check : MonoBehaviour {
                 pitemlistController.kettei_item3 = 9999;
                 pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
 
-                card_view.OKCard_DrawView03();
+                card_view.OKCard_DrawView03(1);
 
                 CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
 

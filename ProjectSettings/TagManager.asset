@@ -59,6 +59,7 @@ TagManager:
   - Touch_Controller
   - BG
   - Particle_Heart_Character
+  - Farm_Main
   layers:
   - Default
   - TransparentFX
