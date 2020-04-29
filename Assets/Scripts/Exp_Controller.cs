@@ -1238,7 +1238,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void renkin_default_exp_up()
     {
 
-        _text.text = "調合完了！ " +
+        _text.text = "やったね！ " +
             renkin_hyouji +
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "錬金経験値 " + _getexp + "上がった！";
@@ -1270,7 +1270,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _slotHyouji1[8] = slotchangename._slotHyouji[8];
         _slotHyouji1[9] = slotchangename._slotHyouji[9];
 
-        _text.text = "調合完了！ " +
+        _text.text = "やったね！ " +
             _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "錬金経験値 " + _getexp + "上がった！";
@@ -1291,8 +1291,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
-        _text.text = "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
-            + "お金を " + GameMgr.ColorLemon + _getmoney + "</color>" + "G ゲットした！";
+        _text.text = "";
+        /*_text.text = "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
+            + "お金を " + GameMgr.ColorLemon + _getmoney + "</color>" + "G ゲットした！";*/
     }
 
     public void GirlDisLikeText(int _getlove_exp)

@@ -215,6 +215,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //ハートレベルのテーブル
     public List<int> stage1_lvTable = new List<int>();
 
+    private int _sum;
+    private int _temp_lvTablecount;
+
     // Use this for initialization
     void Start()
     {
@@ -689,32 +692,32 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void CheckGokigen()
     {
         //女の子の今のご機嫌
-        if (girl1_Love_exp >= 0 && girl1_Love_exp < 25)
+        if (girl1_Love_exp >= 0 && girl1_Love_exp < SumLvTable(1))
         {
             GirlGokigenStatus = 0;
            
         }
-        else if (girl1_Love_exp >= 25 && girl1_Love_exp < 50)
+        else if (girl1_Love_exp >= SumLvTable(1) && girl1_Love_exp < SumLvTable(2))
         {
             GirlGokigenStatus = 1;
            
         }
-        else if (girl1_Love_exp >= 50 && girl1_Love_exp < 100)
+        else if (girl1_Love_exp >= SumLvTable(2) && girl1_Love_exp < SumLvTable(3))
         {
             GirlGokigenStatus = 2;
             
         }
-        else if (girl1_Love_exp >= 100 && girl1_Love_exp < 150)
+        else if (girl1_Love_exp >= SumLvTable(3) && girl1_Love_exp < SumLvTable(4))
         {
             GirlGokigenStatus = 3;
             
         }
-        else if (girl1_Love_exp >= 150 && girl1_Love_exp < 200)
+        else if (girl1_Love_exp >= SumLvTable(4) && girl1_Love_exp < SumLvTable(5))
         {
             GirlGokigenStatus = 4;
             
         }
-        else if (girl1_Love_exp >= 200)
+        else if (girl1_Love_exp >= SumLvTable(5))
         {
             GirlGokigenStatus = 5;
             
@@ -2110,10 +2113,30 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     void Init_Stage1_LVTable()
     {
         stage1_lvTable.Clear();
-        stage1_lvTable.Add(25); //LV1で、次のレベルが上がるまでの好感度値
-        stage1_lvTable.Add(50);　//LV2
-        stage1_lvTable.Add(100); //LV3
-        stage1_lvTable.Add(150); //LV4
-        stage1_lvTable.Add(200); //LV5以上
+        stage1_lvTable.Add(20); //LV1で、次のレベルが上がるまでの好感度値
+        stage1_lvTable.Add(25);　//LV2 LV1の分も含めている。トータルだと75。の意味。
+        stage1_lvTable.Add(50); //LV3　LV1~LV2の分も含めている。
+        stage1_lvTable.Add(100); //LV4
+        stage1_lvTable.Add(150); //LV5以上
+
+        _temp_lvTablecount = stage1_lvTable.Count;
+
+        //LV6以上～99まで　200ごとに上がるように設定
+        for (i=0; i < ( 99 - _temp_lvTablecount); i++)
+        {
+            stage1_lvTable.Add(200);
+        }
+    }
+
+    public int SumLvTable(int _count)
+    {
+        _sum = 0;
+
+        for(i=0; i < _count; i++)
+        {
+            _sum += stage1_lvTable[i];
+        }
+
+        return _sum;
     }
 }

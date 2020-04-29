@@ -183,39 +183,53 @@ MonoBehaviour:
       shop_buy_price: 750
       item_hyouji: 1
     - ItemID: 24
-      name: financier_recipi
-      zaiko: 1
-      itemType: 1
-      shop_sell_price: 1500
-      shop_buy_price: 150
-      item_hyouji: 1
-    - ItemID: 25
-      name: crepe_recipi
-      zaiko: 1
-      itemType: 1
-      shop_sell_price: 800
-      shop_buy_price: 150
-      item_hyouji: 1
-    - ItemID: 26
       name: maffin_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 27
+    - ItemID: 25
       name: bisucouti_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
+    - ItemID: 26
+      name: crepe_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 800
+      shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 27
+      name: financier_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 1500
+      shop_buy_price: 750
+      item_hyouji: 1
     - ItemID: 28
+      name: creampuff_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 1500
+      shop_buy_price: 750
+      item_hyouji: 1
+    - ItemID: 29
+      name: slimejelly_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 3000
+      shop_buy_price: 1500
+      item_hyouji: 1
+    - ItemID: 30
       name: princesstota_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 5000
-      shop_buy_price: 2500
+      shop_sell_price: 10000
+      shop_buy_price: 5000
       item_hyouji: 1
   - name: FarmItemDB_1
     list:

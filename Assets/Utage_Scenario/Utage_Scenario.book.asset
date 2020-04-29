@@ -1835,7 +1835,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3061\u306A\u307F\u306B\u3001\u4E0B\u306E\u9EC4\u8272\u3044\u30B2\u30FC\u30B8\u304C\uFF10\u306B\u306A\u3063\u305F\u3089\u3001\u304A\u83D3\u5B50\u306F\u8150\u3063\u3066\u6D88\u3048\u3061\u3083\u3046\u304B\u3089\u6C17\u3092\u4ED8\u3051\u3066\uFF01"
+      - "\u3061\u306A\u307F\u306B\u3001\u30D1\u30CD\u30EB\u306E\u304A\u83D3\u5B50\u306F\u3001<color=#FDFF80FF>\u9577\u3044\u9593\u307B\u3063\u3068\u304F\u3068\u3001\u8150\u3063\u3066\u6D88\u3048\u3061\u3083\u3046</color>\u304B\u3089\u6C17\u3092\u4ED8\u3051\u3066\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2109,7 +2109,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Tutorial_Content2
     type: 1
-    textLength: 2210
+    textLength: 2233
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -18492,7 +18492,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3061\u306A\u307F\u306B\u3001\u4E0B\u306E\u9EC4\u8272\u3044\u30B2\u30FC\u30B8\u304C\uFF10\u306B\u306A\u3063\u305F\u3089\u3001\u304A\u83D3\u5B50\u306F\u8150\u3063\u3066\u6D88\u3048\u3061\u3083\u3046\u304B\u3089\u6C17\u3092\u4ED8\u3051\u3066\uFF01"
+      - "\u3061\u306A\u307F\u306B\u3001\u30D1\u30CD\u30EB\u306E\u304A\u83D3\u5B50\u306F\u3001<color=#FDFF80FF>\u9577\u3044\u9593\u307B\u3063\u3068\u304F\u3068\u3001\u8150\u3063\u3066\u6D88\u3048\u3061\u3083\u3046</color>\u304B\u3089\u6C17\u3092\u4ED8\u3051\u3066\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -18934,7 +18934,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Tutorial_Content2
     type: 1
-    textLength: 2210
+    textLength: 2233
     headerRow: 0
   - rows:
     - rowIndex: 0

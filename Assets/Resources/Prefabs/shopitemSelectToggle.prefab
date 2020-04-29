@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Text: {fileID: 0}
   toggle_shop_ID: 0
   toggle_shopitem_ID: 0
+  toggle_shopitem_nameHyouji: 
   toggle_shopitem_type: 0
 --- !u!114 &114684868802076956
 MonoBehaviour:
@@ -475,7 +476,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a6cc7712edb566d4e8fc90235716dc1a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 771b3a4044dbef34ea17ccfc933e6019, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

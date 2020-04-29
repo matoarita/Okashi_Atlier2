@@ -14,7 +14,9 @@ public class ShopItemListController : MonoBehaviour
 
     private Text[] _text = new Text[3];
     private Sprite texture2d;
+    private Sprite touchon, touchoff;
     private Image _Img;
+    private Image _togglebg;
     private shopitemSelectToggle _toggle_itemID;
 
     private GameObject shopitem_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
@@ -65,6 +67,10 @@ public class ShopItemListController : MonoBehaviour
         //スクロールビュー内の、コンテンツ要素を取得
         content = GameObject.FindWithTag("ShopitemListContent");
         shopitem_Prefab = (GameObject)Resources.Load("Prefabs/shopitemSelectToggle");
+
+        //アイコン背景画像データの取得
+        touchon = Resources.Load<Sprite>("Sprites/Window/sabwindowB");
+        touchoff = Resources.Load<Sprite>("Sprites/Window/checkbox");
 
         foreach (Transform child in this.transform.Find("CategoryView/Viewport/Content/").transform)
         {
@@ -381,6 +387,7 @@ public class ShopItemListController : MonoBehaviour
         _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
         _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _togglebg = _shop_listitem[list_count].transform.Find("Background").GetComponent<Image>(); //アイコン背景データ
 
         _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
         _toggle_itemID.toggle_shop_ID = shop_database.shopitems[i].shop_ID; //ショップに登録されている、ショップデータベース上のアイテムID。iと同じ値になる。
@@ -408,10 +415,12 @@ public class ShopItemListController : MonoBehaviour
         if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
+            _togglebg.sprite = touchoff;
         }
         else
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
+            _togglebg.sprite = touchon;
         }
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 
@@ -423,6 +432,7 @@ public class ShopItemListController : MonoBehaviour
         _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
         _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _togglebg = _shop_listitem[list_count].transform.Find("Background").GetComponent<Image>(); //アイコン背景データ
 
         _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
         _toggle_itemID.toggle_shop_ID = shop_database.farmitems[i].shop_ID; //ショップに登録されている、ショップデータベース上のアイテムID。iと同じ値になる。
@@ -450,10 +460,12 @@ public class ShopItemListController : MonoBehaviour
         if (PlayerStatus.player_money < shop_database.farmitems[i].shop_costprice)
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
+            _togglebg.sprite = touchoff;
         }
         else
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
+            _togglebg.sprite = touchon;
         }
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 

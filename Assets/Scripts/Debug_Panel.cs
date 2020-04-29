@@ -131,6 +131,7 @@ public class Debug_Panel : MonoBehaviour {
                 girl1_status.girl1_Love_lv = 1;
 
                 stage_levelTable.Clear();
+
                 //好感度レベルテーブルを取得
                 switch (GameMgr.stage_number)
                 {
@@ -139,6 +140,7 @@ public class Debug_Panel : MonoBehaviour {
                         for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
                         {
                             stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                            //Debug.Log("stage1_levelTable: " + stage_levelTable[i]);
                         }
 
                         break;
@@ -170,14 +172,8 @@ public class Debug_Panel : MonoBehaviour {
                 _slider.value = girllove_param;
 
                 //スライダマックスバリューも更新
-                if (girl1_status.girl1_Love_lv <= 5)
-                {
-                    _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
-                }
-                else //5以上は、現状、同じ数値
-                {
-                    _slider.maxValue = stage_levelTable[stage_levelTable.Count - 1];
-                }
+                _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+
 
                 //レベル表示も更新
                 girl_lv.text = girl1_status.girl1_Love_lv.ToString();
