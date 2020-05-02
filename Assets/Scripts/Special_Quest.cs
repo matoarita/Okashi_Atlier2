@@ -31,7 +31,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     {
         switch(_num)
         {
-            case 0: //オリジナルクッキー
+            case 0: //オリジナルクッキーを食べたい
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                 girl1_status.OkashiNew_Status = 0;

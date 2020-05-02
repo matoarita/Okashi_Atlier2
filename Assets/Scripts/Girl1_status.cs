@@ -891,7 +891,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //シナリオも進む。
             switch(Set_compID)
             {
-                case 1010:
+                case 1010: //ラスク
 
                     GameMgr.scenario_flag = 150;
                     break;
@@ -911,7 +911,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidasiInit();
 
         //吹き出しのテキスト決定
-        //hukidashiitem.GetComponent<TextController>().SetText(_desc);
         _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
         _text.text = _desc;
 

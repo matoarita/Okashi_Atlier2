@@ -21,7 +21,7 @@ MonoBehaviour:
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30C9\u30A4\u30C4\u3000\u30B2\u30F3\u30B2\u30F3\u30D0\u30C3\u30CF\u3000\u304B\u308F\u3044\u3044\u30AB\u30E9\u30D5\u30EB\u306A\u5BB6\u3084\u30B7\u30E7\u30C3\u30D7\u304C\u7ACB\u3061\u4E26\u3076\u3002"
       place_day: 2
       place_cost: 0
-      place_flag: 1
+      place_flag: 0
       drop_item1: "\u306A\u3057"
       drop_item2: Non
       drop_item3: Non
@@ -45,7 +45,7 @@ MonoBehaviour:
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30B7\u30E7\u30C3\u30D7\u3002\u304B\u308F\u3044\u3044\u611F\u3058\u3002"
       place_day: 1
       place_cost: 0
-      place_flag: 1
+      place_flag: 0
       drop_item1: "\u306A\u3057"
       drop_item2: Non
       drop_item3: Non

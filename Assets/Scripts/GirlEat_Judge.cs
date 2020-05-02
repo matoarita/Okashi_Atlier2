@@ -2318,9 +2318,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
                         girl1_status.special_animatFirst = false;
 
-                        //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                        special_quest.SetSpecialOkashi(1);
-
                         break;
 
                     case 1010: //ラスククリア

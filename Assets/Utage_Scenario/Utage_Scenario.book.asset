@@ -1899,22 +1899,6 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 39
-      debugIndex: 77
-      strings:
-      - 
-      - <param=MainGirl_name>
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u4E00\u5EA6\u306B\u6700\u5927\uFF13\u3064\u307E\u3067\u3001\u30C8\u30C3\u30D4\u30F3\u30B0\u3067\u304D\u308B\u3088\uFF01\u305F\u3060\u3057\u3001\u65B0\u3057\u3044\u304A\u83D3\u5B50\u304C\u3067\u304D\u308B\u304B\u3082..
-        \u306A\u306E\u306F\u3001\uFF12\u3064\u307E\u3067\u3060\u304B\u3089\u3001\u6C17\u3092\u3064\u3051\u3066\u306D\u3002"
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 40
       debugIndex: 78
       strings:
       - 
@@ -1929,14 +1913,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 41
+    - rowIndex: 40
       debugIndex: 80
       strings:
       - PauseScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 42
+    - rowIndex: 41
       debugIndex: 82
       strings:
       - 
@@ -1951,7 +1935,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 43
+    - rowIndex: 42
       debugIndex: 83
       strings:
       - 
@@ -1966,14 +1950,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 44
+    - rowIndex: 43
       debugIndex: 86
       strings:
       - PauseScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 45
+    - rowIndex: 44
       debugIndex: 89
       strings:
       - 
@@ -1988,14 +1972,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 46
+    - rowIndex: 45
       debugIndex: 91
       strings:
       - PauseScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 47
+    - rowIndex: 46
       debugIndex: 93
       strings:
       - 
@@ -2010,7 +1994,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 48
+    - rowIndex: 47
       debugIndex: 94
       strings:
       - 
@@ -2025,7 +2009,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 49
+    - rowIndex: 48
       debugIndex: 97
       strings:
       - 
@@ -2040,7 +2024,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 50
+    - rowIndex: 49
       debugIndex: 100
       strings:
       - 
@@ -2055,7 +2039,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 51
+    - rowIndex: 50
       debugIndex: 102
       strings:
       - 
@@ -2070,7 +2054,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 52
+    - rowIndex: 51
       debugIndex: 104
       strings:
       - 
@@ -2085,7 +2069,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 53
+    - rowIndex: 52
       debugIndex: 105
       strings:
       - 
@@ -2100,7 +2084,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 54
+    - rowIndex: 53
       debugIndex: 109
       strings:
       - EndScenario
@@ -2109,7 +2093,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Tutorial_Content2
     type: 1
-    textLength: 2233
+    textLength: 2154
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -18623,18 +18607,8 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 77
       debugIndex: 77
-      strings:
-      - 
-      - <param=MainGirl_name>
-      - 
-      - 
-      - 
-      - 
-      - 
-      - 
-      - "\u4E00\u5EA6\u306B\u6700\u5927\uFF13\u3064\u307E\u3067\u3001\u30C8\u30C3\u30D4\u30F3\u30B0\u3067\u304D\u308B\u3088\uFF01\u305F\u3060\u3057\u3001\u65B0\u3057\u3044\u304A\u83D3\u5B50\u304C\u3067\u304D\u308B\u304B\u3082..
-        \u306A\u306E\u306F\u3001\uFF12\u3064\u307E\u3067\u3060\u304B\u3089\u3001\u6C17\u3092\u3064\u3051\u3066\u306D\u3002"
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 78
@@ -18934,7 +18908,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Tutorial_Content2
     type: 1
-    textLength: 2233
+    textLength: 2154
     headerRow: 0
   - rows:
     - rowIndex: 0

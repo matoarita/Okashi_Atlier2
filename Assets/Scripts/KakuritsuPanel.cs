@@ -22,16 +22,19 @@ public class KakuritsuPanel : MonoBehaviour {
 
     public void KakuritsuYosoku_Img( float _srate )
     {
+        srate_hyouji = this.transform.Find("Image/Kakuritsu_param").gameObject.GetComponent<Text>();
         srate_hyouji.text = _srate.ToString("f1");
     }
 
     public void KakuritsuYosoku_NewImg()
     {
+        srate_hyouji = this.transform.Find("Image/Kakuritsu_param").gameObject.GetComponent<Text>();
         srate_hyouji.text = "??";
     }
 
     public void KakuritsuYosoku_Reset()
     {
+        srate_hyouji = this.transform.Find("Image/Kakuritsu_param").gameObject.GetComponent<Text>();
         srate_hyouji.text = "-";
     }
 

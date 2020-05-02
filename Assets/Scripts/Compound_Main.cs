@@ -137,6 +137,7 @@ public class Compound_Main : MonoBehaviour
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
     private int i, j, _id;
+    private int event_num;
     private int recipi_num;
     private int comp_ID;
     private int clear_love;
@@ -1795,19 +1796,23 @@ public class Compound_Main : MonoBehaviour
 
                     if (girl1_status.girl1_Love_exp >= CheckLoveExp(2) ) //レベル３のときのイベント。１より優先度が高く、２が先になったら、１はクリアしたことになる。イベントは見れない。
                     {
+                        event_num = 2;
 
-                        if (GameMgr.GirlLoveEvent_stage1[1] != true) //ステージ１　好感度イベント２
+                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント２
                         {
                             GameMgr.GirlLoveEvent_num = 2;
-                            GameMgr.GirlLoveEvent_stage1[1] = true;                         
+                            GameMgr.GirlLoveEvent_stage1[event_num] = true;                         
 
                             Debug.Log("好感度イベント２をON: お兄ちゃん。またお客さんだ");
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
 
-                            //イベント１はクリアしたことになる。
-                            GameMgr.GirlLoveEvent_stage1[0] = true;
+                            //これまでのイベントはクリアしたことになる。
+                            for (i = 0; i < event_num; i++)
+                            {
+                                GameMgr.GirlLoveEvent_stage1[i] = true;
+                            }
                         }
                     }
                     else
@@ -1815,10 +1820,12 @@ public class Compound_Main : MonoBehaviour
                         if (girl1_status.girl1_Love_exp >= CheckLoveExp(1)) //レベル２のときのイベント
                         {
 
-                            if (GameMgr.GirlLoveEvent_stage1[0] != true) //ステージ１　好感度イベント１
+                            event_num = 1;
+
+                            if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント１
                             {
                                 GameMgr.GirlLoveEvent_num = 1;
-                                GameMgr.GirlLoveEvent_stage1[0] = true;
+                                GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
                                 //レシピの追加
                                 recipi_id = Find_eventitemdatabase("rusk_recipi");
@@ -1838,6 +1845,35 @@ public class Compound_Main : MonoBehaviour
 
                                 //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                                 StartCoroutine("ReadGirlLoveEvent");
+
+                                //これまでのイベントはクリアしたことになる。
+                                for (i = 0; i < event_num; i++)
+                                {
+                                    GameMgr.GirlLoveEvent_stage1[i] = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (girl1_status.girl1_Love_exp >= CheckLoveExp(0)) //レベル１のときのイベント
+                            {
+                                event_num = 0;
+
+                                if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント０
+                                {
+                                    GameMgr.GirlLoveEvent_num = 0;
+                                    GameMgr.GirlLoveEvent_stage1[event_num] = true;                          
+
+                                    //ラスク作りのクエスト発生
+                                    if (GameMgr.OkashiQuest_flag[1] != true)
+                                    {
+                                        Debug.Log("スペシャルクエスト１: クッキーが食べたい　開始");
+
+                                        //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                                        special_quest.SetSpecialOkashi(0);
+
+                                    }
+                                }
                             }
                         }
                     }
