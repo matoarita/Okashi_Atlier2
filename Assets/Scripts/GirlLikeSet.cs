@@ -29,12 +29,13 @@ public class GirlLikeSet
     public int girlLike_chewy;
     
     public string[] girlLike_topping = new string[5];
+    public int[] girlLike_topping_score = new int[5];
 
     public string set_kansou;
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _set_score, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, string tp01, string tp02, string tp03, string tp04, string tp05, string _setkansou)
+    public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _set_score, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, string tp01, string tp02, string tp03, string tp04, string tp05, int tp_score01, int tp_score02, int tp_score03, int tp_score04, int tp_score05, string _setkansou)
     {
         girlLike_ID = id;
         girlLike_compNum = _compnum;
@@ -61,6 +62,12 @@ public class GirlLikeSet
         girlLike_topping[2] = tp03;
         girlLike_topping[3] = tp04;
         girlLike_topping[4] = tp05;
+
+        girlLike_topping_score[0] = tp_score01;
+        girlLike_topping_score[1] = tp_score02;
+        girlLike_topping_score[2] = tp_score03;
+        girlLike_topping_score[3] = tp_score04;
+        girlLike_topping_score[4] = tp_score05;
 
         set_kansou = _setkansou;
     }

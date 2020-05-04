@@ -1263,18 +1263,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-
-        switch (sp_Okashi_ID)
-        {
-            case 1010: //ラスク作るときの最初
-
-                engine.Param.TrySetParameter("SpOkashiBefore_num", 1);
-                break;
-
-            default:
-                break;
-        }
-
+        engine.Param.TrySetParameter("SpOkashiBefore_num", sp_Okashi_ID);       
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -1343,23 +1332,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-
-        switch (mainClear_ID)
-        {
-            case 1010: //ラスク通常クリア「カリカリラスクマン」
-
-                engine.Param.TrySetParameter("MainClear_num", 1010);
-                break;
-
-            case 1011: //ラスク特別クリア「ラスクとありんこ」
-
-                engine.Param.TrySetParameter("MainClear_num", 1011);
-                break;
-
-            default:
-                break;
-        }
-
+        engine.Param.TrySetParameter("MainClear_num", mainClear_ID);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);

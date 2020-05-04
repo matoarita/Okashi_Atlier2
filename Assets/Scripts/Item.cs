@@ -82,6 +82,7 @@ public class Item
         Non,
         Cookie,
         Cookie_base,
+        Rusk,
         Pie,
         Pie_base,
         Chocolate,

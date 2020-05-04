@@ -70,7 +70,12 @@ public class Entity_GirlLikeSetDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(17); p.topping03 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(18); p.topping04 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(19); p.topping05 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(20); p.desc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(20); p.tp_score01 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(21); p.tp_score02 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(22); p.tp_score03 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(23); p.tp_score04 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(24); p.tp_score05 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(25); p.desc = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

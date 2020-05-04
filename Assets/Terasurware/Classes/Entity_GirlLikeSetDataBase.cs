@@ -37,6 +37,11 @@ public class Entity_GirlLikeSetDataBase : ScriptableObject
 		public string topping03;
 		public string topping04;
 		public string topping05;
+		public int tp_score01;
+		public int tp_score02;
+		public int tp_score03;
+		public int tp_score04;
+		public int tp_score05;
 		public string desc;
 	}
 }

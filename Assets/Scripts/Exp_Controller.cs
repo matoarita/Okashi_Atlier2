@@ -1257,7 +1257,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //カード正式名称（ついてるスロット名も含めた名前）
-        slotchangename.slotChangeName(1, new_item, "yellow");
+        slotchangename.slotChangeName(1, new_item, "lemon");
 
         _slotHyouji1[0] = slotchangename._slotHyouji[0];
         _slotHyouji1[1] = slotchangename._slotHyouji[1];

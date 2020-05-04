@@ -1429,7 +1429,7 @@ MonoBehaviour:
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
-      result_itemID: rusk
+      result_itemID: rusk_butter
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
@@ -1513,7 +1513,7 @@ MonoBehaviour:
       cmp_subtype_1: empty
       cmp_subtype_2: Suger
       cmp_subtype_3: Butter
-      result_itemID: rusk
+      result_itemID: rusk_butter
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1

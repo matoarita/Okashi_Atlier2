@@ -137,6 +137,7 @@ public class Compound_Main : MonoBehaviour
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
     private int i, j, _id;
+    private int nokori_kaisu;
     private int event_num;
     private int recipi_num;
     private int comp_ID;
@@ -311,10 +312,10 @@ public class Compound_Main : MonoBehaviour
 
         compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
 
-        original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
-        recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
-        extreme_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Extreme_Toggle").gameObject;
-        roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
+        //original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
+        //recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
+        //extreme_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Extreme_Toggle").gameObject;
+        //roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
@@ -367,7 +368,7 @@ public class Compound_Main : MonoBehaviour
         text_area_Main.SetActive(true);
 
         //各調合時のシステムメッセージ集
-        originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
+        originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorLemon + "２つ" + "</color>" + "か" + GameMgr.ColorLemon + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
         recipi_text = "レシピから作るよ。何を作る？";
 
@@ -829,7 +830,7 @@ public class Compound_Main : MonoBehaviour
             }
             else
             {
-                //好感度チェック。好感度に応じて、イベントが発生。
+                //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
                 if (check_GirlLoveEvent_flag == false)
                 {
                     //腹減りカウント一時停止
@@ -965,6 +966,10 @@ public class Compound_Main : MonoBehaviour
                 //時間のチェック
                 time_controller.TimeCheck_flag = true;
                 time_controller.TimeKoushin(); //時間の更新
+
+                //残りあげる回数の更新
+                nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
+                girleat_toggle.transform.Find("Background/kaisu_param").GetComponent<Text>().text = nokori_kaisu.ToString();
 
                 compound_status = 110; //退避
                 break;
@@ -1164,6 +1169,7 @@ public class Compound_Main : MonoBehaviour
             case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
 
                 compound_status = 12;
+                text_area.SetActive(false);
                 girlEat_ON = true; //お菓子判定中フラグ
 
                 //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
@@ -1478,7 +1484,9 @@ public class Compound_Main : MonoBehaviour
 
             if ( extreme_panel.extreme_itemID != 9999 )
             {
-                _textmain.text = "今、作ったお菓子をあげますか？";
+                text_area.SetActive(true);
+                nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
+                _text.text = "今、作ったお菓子をあげますか？" + "\n" + "あと " + GameMgr.ColorLemon + nokori_kaisu + "</color>" + "回　あげれるよ。";
                 compound_status = 10;
             }
             else //まだ作ってないときは
@@ -1794,86 +1802,73 @@ public class Compound_Main : MonoBehaviour
                 //ステージ１のサブイベント
                 case 1:
 
-                    if (girl1_status.girl1_Love_exp >= CheckLoveExp(2) ) //レベル３のときのイベント。１より優先度が高く、２が先になったら、１はクリアしたことになる。イベントは見れない。
+                    if (GameMgr.OkashiQuest_flag[1]) //レベル３のときのイベント。
                     {
                         event_num = 2;
 
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント２
                         {
                             GameMgr.GirlLoveEvent_num = 2;
-                            GameMgr.GirlLoveEvent_stage1[event_num] = true;                         
+                            GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            //クエスト発生
+                            Debug.Log("スペシャルクエスト: ビスコッティが食べたい　開始");
+
+                            //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                            special_quest.SetSpecialOkashi(2);
 
                             Debug.Log("好感度イベント２をON: お兄ちゃん。またお客さんだ");
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
-
-                            //これまでのイベントはクリアしたことになる。
-                            for (i = 0; i < event_num; i++)
-                            {
-                                GameMgr.GirlLoveEvent_stage1[i] = true;
-                            }
                         }
                     }
-                    else
+
+                    if (GameMgr.OkashiQuest_flag[0]) //レベル２のときのイベント
                     {
-                        if (girl1_status.girl1_Love_exp >= CheckLoveExp(1)) //レベル２のときのイベント
+
+                        event_num = 1;
+
+                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント１
                         {
+                            GameMgr.GirlLoveEvent_num = 1;
+                            GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
-                            event_num = 1;
+                            //レシピの追加
+                            recipi_id = Find_eventitemdatabase("rusk_recipi");
+                            pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加                            
 
-                            if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント１
-                            {
-                                GameMgr.GirlLoveEvent_num = 1;
-                                GameMgr.GirlLoveEvent_stage1[event_num] = true;
+                            //クエスト発生
+                            Debug.Log("スペシャルクエスト: ラスクが食べたい　開始");
 
-                                //レシピの追加
-                                recipi_id = Find_eventitemdatabase("rusk_recipi");
-                                pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加                            
+                            //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                            special_quest.SetSpecialOkashi(1);
 
-                                //ラスク作りのクエスト発生
-                                if (GameMgr.OkashiQuest_flag[1] != true)
-                                {
-                                    Debug.Log("スペシャルクエスト: ラスクが食べたい　開始");
 
-                                    //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                    special_quest.SetSpecialOkashi(1);
+                            Debug.Log("好感度イベント１をON: お兄ちゃん。誰かお客さんがきたよ。");
 
-                                }
-
-                                Debug.Log("好感度イベント１をON: お兄ちゃん。誰かお客さんがきたよ。");
-
-                                //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
-                                StartCoroutine("ReadGirlLoveEvent");
-
-                                //これまでのイベントはクリアしたことになる。
-                                for (i = 0; i < event_num; i++)
-                                {
-                                    GameMgr.GirlLoveEvent_stage1[i] = true;
-                                }
-                            }
+                            //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+                            StartCoroutine("ReadGirlLoveEvent");
                         }
-                        else
+                    }
+
+                    if (!GameMgr.OkashiQuest_flag[0]) //レベル１のときのイベント。一番最初で起こるイベント。
+                    {
+                        event_num = 0;
+
+                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント０
                         {
-                            if (girl1_status.girl1_Love_exp >= CheckLoveExp(0)) //レベル１のときのイベント
+                            GameMgr.GirlLoveEvent_num = 0;
+                            GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            //ラスク作りのクエスト発生
+                            if (GameMgr.OkashiQuest_flag[1] != true)
                             {
-                                event_num = 0;
+                                Debug.Log("スペシャルクエスト１: クッキーが食べたい　開始");
 
-                                if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント０
-                                {
-                                    GameMgr.GirlLoveEvent_num = 0;
-                                    GameMgr.GirlLoveEvent_stage1[event_num] = true;                          
+                                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                                special_quest.SetSpecialOkashi(0);
 
-                                    //ラスク作りのクエスト発生
-                                    if (GameMgr.OkashiQuest_flag[1] != true)
-                                    {
-                                        Debug.Log("スペシャルクエスト１: クッキーが食べたい　開始");
-
-                                        //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                        special_quest.SetSpecialOkashi(0);
-
-                                    }
-                                }
                             }
                         }
                     }

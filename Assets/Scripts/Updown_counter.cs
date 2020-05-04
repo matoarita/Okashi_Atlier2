@@ -874,9 +874,9 @@ public class Updown_counter : MonoBehaviour {
         }
         
 
-        _a = cmpitem_1 + ": " + GameMgr.ColorYellow + cmpitem_kosu1_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id1];
-        _b = cmpitem_2 + ": " + GameMgr.ColorYellow + cmpitem_kosu2_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id2];
-        _c = cmpitem_3 + ": " + GameMgr.ColorYellow + cmpitem_kosu3_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id3];
+        _a = cmpitem_1 + ": " + GameMgr.ColorLemon + cmpitem_kosu1_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id1];
+        _b = cmpitem_2 + ": " + GameMgr.ColorLemon + cmpitem_kosu2_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id2];
+        _c = cmpitem_3 + ": " + GameMgr.ColorLemon + cmpitem_kosu3_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id3];
 
         //材料個数が足りてるかの判定
         if (cmpitem_kosu1_select > pitemlist.playeritemlist[itemdb_id1])

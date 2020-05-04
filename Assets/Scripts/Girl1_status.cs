@@ -162,8 +162,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public List<int> girl1_hungryScoreSet1 = new List<int>();
     public List<int> girl1_hungryScoreSet2 = new List<int>();
     public List<int> girl1_hungryScoreSet3 = new List<int>();
+    public List<int> girl1_hungryToppingScoreSet1 = new List<int>();
+    public List<int> girl1_hungryToppingScoreSet2 = new List<int>();
+    public List<int> girl1_hungryToppingScoreSet3 = new List<int>();
 
     public List<int> girl1_hungrySet = new List<int>();  //①食べたいトッピングスロットのリスト
+    public List<int> girl1_hungrytoppingSet = new List<int>();
 
 
     //女の子の好み組み合わせセットのデータ
@@ -262,7 +266,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Init_Stage1_LVTable();
 
         //この時間ごとに、女の子は、お菓子を欲しがり始める。
-        Default_hungry_cooltime = 2.0f;
+        Default_hungry_cooltime = 0.5f;
         timeOut = Default_hungry_cooltime;
         timeOut2 = 10.0f;
         timeGirl_hungry_status = 1;
@@ -376,8 +380,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Emo_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Emo_Kirari_Anim");
         Emo_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Emo_Angry_Anim");
 
-        //ヒントテキストをセッティング        
-        RandomHintInit();
+        //好感度ステータスで変わる吹き出しテキストをセッティング        
+        RandomGenkiInit();
     }
 
     // Update is called once per frame
@@ -478,9 +482,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //吹き出しが残っていたら、削除。
                 if (hukidashiitem != null)
                 {
-
-                        DeleteHukidashi();
-
+                    DeleteHukidashi();
                 }
 
                 WaitHint_on = false;
@@ -787,7 +789,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //
                     //①特定の課題お菓子。
-                    //イベントやチュートリアル、ある好感度をこえたときの条件によって、こちらの特定のアイテムを常に出すようにする。
                     //
 
                     //番号を入れると、女の子の好みデータベースから、値を取得し、セット。OkashiQuest_IDは、外部から指定。
@@ -1035,7 +1036,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //デフォルト・共通の腹減り初期化設定
     public void Girl1_Status_Init()
     {
-        timeOut = Default_hungry_cooltime;
+        timeOut = 5.0f;
 
         timeGirl_hungry_status = 0;
     }
@@ -1049,7 +1050,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
     //
-    // らんだむで表示される女の子のセリフ。ヒントか、とりとめもないこと
+    // らんだむで表示される女の子のセリフ。ヒントか、好感度によって変わる反応
     //
     public void Girl1_Hint()
     {
@@ -1067,11 +1068,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         else
         {
             //ランダムで、吹き出しの内容を決定
-            RandomHintInit();
+            RandomGenkiInit();
             random = Random.Range(0, _hintrandomDict.Count);
             _hintrandom = _hintrandomDict[random];
 
-            hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
+            //ヒントをだすか、今食べたいもののどちらかを表示する。
+            random = Random.Range(0, 100);
+            if(random < 50)
+            {
+                hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
+            }
+            else
+            {
+                hukidashiitem.GetComponent<TextController>().SetText(_desc);
+            }
+            
         }
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
@@ -1160,6 +1171,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             girl1_hungryScoreSet1[i] = 0;
             girl1_hungryScoreSet2[i] = 0;
             girl1_hungryScoreSet3[i] = 0;
+            girl1_hungryToppingScoreSet1[i] = 0;
+            girl1_hungryToppingScoreSet2[i] = 0;
+            girl1_hungryToppingScoreSet3[i] = 0;
         }        
 
     }
@@ -1178,13 +1192,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     void InitializeItemSlotDicts()
     {
 
-        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
+        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコア(所持数)と、追加得点用のスコアをつける
         for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
         {
             girl1_hungryInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
             girl1_hungryScoreSet1.Add(0);
             girl1_hungryScoreSet2.Add(0);
             girl1_hungryScoreSet3.Add(0);
+            girl1_hungryToppingScoreSet1.Add(0);
+            girl1_hungryToppingScoreSet2.Add(0);
+            girl1_hungryToppingScoreSet3.Add(0);
         }
     }
 
@@ -1207,6 +1224,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //初期化
         girl1_hungrySet.Clear();
+        girl1_hungrytoppingSet.Clear();
 
 
         //ステージごとに、女の子が欲しがるアイテムのセット
@@ -1223,6 +1241,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if(girlLikeSet_database.girllikeset[setID].girlLike_topping[0] != "Non")
                 {
                     girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[0]);
                 }
 
             }
@@ -1231,6 +1250,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (girlLikeSet_database.girllikeset[setID].girlLike_topping[1] != "Non")
                 {
                     girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[1]);
                 }
 
             }
@@ -1239,6 +1259,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (girlLikeSet_database.girllikeset[setID].girlLike_topping[2] != "Non")
                 {
                     girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[2]);
                 }
 
             }
@@ -1247,6 +1268,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (girlLikeSet_database.girllikeset[setID].girlLike_topping[3] != "Non")
                 {
                     girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[3]);
                 }
 
             }
@@ -1255,6 +1277,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (girlLikeSet_database.girllikeset[setID].girlLike_topping[4] != "Non")
                 {
                     girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[4]);
                 }
             }
         }
@@ -1272,6 +1295,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 for (i = 0; i < girl1_hungryScoreSet1.Count; i++)
                 {
                     girl1_hungryScoreSet1[i] = 0;
+                    girl1_hungryToppingScoreSet1[i] = 0;
                 }
 
                 //トッピングの値を加算
@@ -1279,6 +1303,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 {
                     //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
                     girl1_hungryScoreSet1[girl1_hungrySet[i]]++;
+                    girl1_hungryToppingScoreSet1[girl1_hungrySet[i]] = girl1_hungrytoppingSet[i];
                 }
                 break;
 
@@ -1288,6 +1313,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 for (i = 0; i < girl1_hungryScoreSet2.Count; i++)
                 {
                     girl1_hungryScoreSet2[i] = 0;
+                    girl1_hungryToppingScoreSet2[i] = 0;
                 }
 
                 //トッピングの値を加算
@@ -1295,6 +1321,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 {
                     //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
                     girl1_hungryScoreSet2[girl1_hungrySet[i]]++;
+                    girl1_hungryToppingScoreSet2[girl1_hungrySet[i]] = girl1_hungrytoppingSet[i];
                 }
                 break;
 
@@ -1304,6 +1331,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 for (i = 0; i < girl1_hungryScoreSet3.Count; i++)
                 {
                     girl1_hungryScoreSet3[i] = 0;
+                    girl1_hungryToppingScoreSet3[i] = 0;
                 }
 
                 //トッピングの値を加算
@@ -1311,6 +1339,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 {
                     //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
                     girl1_hungryScoreSet3[girl1_hungrySet[i]]++;
+                    girl1_hungryToppingScoreSet3[girl1_hungrySet[i]] = girl1_hungrytoppingSet[i];
                 }
                 break;
 
@@ -1959,7 +1988,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
     }
 
-    void RandomHintInit()
+    void RandomGenkiInit()
     {
         _hintrandomDict.Clear();
 
