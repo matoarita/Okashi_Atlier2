@@ -190,9 +190,9 @@ MonoBehaviour:
       topping03: JewerySuger
       topping04: SakuraChip
       topping05: Non
-      tp_score01: 5
-      tp_score02: 10
-      tp_score03: 20
+      tp_score01: 10
+      tp_score02: 40
+      tp_score03: 30
       tp_score04: 10
       tp_score05: 0
       desc: "\u304A\u5144\u3061\u3083\u3093\u306E<color=#FF78B4>\u30AA\u30EA\u30B8\u30CA\u30EB</color>\u306E\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u3055\u305B\u3066\uFF01"

@@ -944,7 +944,9 @@ public class itemSelectToggle : MonoBehaviour
                 //pitemlistController.final_kettei_item1 = itemID_1;
                 pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu;
 
-                itemselect_cancel.kettei_on_waiting = false;
+                compound_Check.final_select_flag = true;
+
+                //itemselect_cancel.kettei_on_waiting = false;
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 

@@ -49,10 +49,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool sp_okashi_hintflag;
 
     //スペシャルお菓子を食べた後の感想フラグ
-    public static int sp_okashi_ID;
-    public static bool sp_okashi_flag;
-    public static int mainquest_ID;
-    public static bool mainClear_flag;
+    public static int sp_okashi_ID;         //食べた瞬間に表示する感想
+    public static bool sp_okashi_flag;      //食べた瞬間に表示する感想
+    public static int okashiafter_ID;       //採点表示のあとに表示する感想
+    public static bool okashiafter_flag;    //採点表示のあとに表示する感想
+    public static int mainquest_ID;         //クエストクリア時のイベント
+    public static bool mainClear_flag;      //クエストクリア時のイベント
 
     //妹の口をクリックしたときのヒント表示フラグ
     public static int touchhint_ID;
@@ -180,6 +182,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //お菓子感想フラグ
         sp_okashi_hintflag = false;
         sp_okashi_flag = false;
+        okashiafter_flag = false;
 
         //お菓子フラグの初期化
         for (i = 0; i < OkashiQuest_flag.Length; i++) {

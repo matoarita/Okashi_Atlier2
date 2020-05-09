@@ -92,139 +92,146 @@ MonoBehaviour:
       shop_buy_price: 50
       item_hyouji: 0
     - ItemID: 11
+      name: shishamo
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 70
+      shop_buy_price: 35
+      item_hyouji: 1
+    - ItemID: 12
       name: silver_chip
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 12
+    - ItemID: 13
       name: kirakira_heart
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 13
+    - ItemID: 14
       name: jewely_suger
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 14
+    - ItemID: 15
       name: mix_color_sprinkles
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 15
+    - ItemID: 16
       name: decopen_choco
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 0
-    - ItemID: 16
+    - ItemID: 17
       name: decopen_choco_white
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 0
-    - ItemID: 17
+    - ItemID: 18
       name: sakura_chip
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 18
+    - ItemID: 19
       name: parfe_base
       zaiko: 50
       itemType: 0
       shop_sell_price: 50
       shop_buy_price: 25
       item_hyouji: 0
-    - ItemID: 19
+    - ItemID: 20
       name: ice_cream
       zaiko: 50
       itemType: 0
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 0
-    - ItemID: 20
+    - ItemID: 21
       name: corn_frake
       zaiko: 50
       itemType: 0
       shop_sell_price: 20
       shop_buy_price: 10
       item_hyouji: 0
-    - ItemID: 21
+    - ItemID: 22
       name: milkpan
       zaiko: 1
       itemType: 2
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 22
+    - ItemID: 23
       name: pan_knife
       zaiko: 1
       itemType: 2
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 23
+    - ItemID: 24
       name: cookie_base_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 1500
       shop_buy_price: 750
       item_hyouji: 1
-    - ItemID: 24
+    - ItemID: 25
       name: maffin_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 25
+    - ItemID: 26
       name: bisucouti_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 26
+    - ItemID: 27
       name: crepe_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 800
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 27
+    - ItemID: 28
       name: financier_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 1500
       shop_buy_price: 750
       item_hyouji: 1
-    - ItemID: 28
+    - ItemID: 29
       name: creampuff_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 1500
       shop_buy_price: 750
       item_hyouji: 1
-    - ItemID: 29
+    - ItemID: 30
       name: slimejelly_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 3000
       shop_buy_price: 1500
       item_hyouji: 1
-    - ItemID: 30
+    - ItemID: 31
       name: princesstota_recipi
       zaiko: 1
       itemType: 1

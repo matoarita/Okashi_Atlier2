@@ -238,6 +238,15 @@ public class Utage_scenario : MonoBehaviour
                     StartCoroutine(SpOkashiComment_Hyouji());
                 }
 
+                if (GameMgr.okashiafter_flag == true)
+                {
+                    GameMgr.okashiafter_flag = false;
+                    sp_Okashi_ID = GameMgr.okashiafter_ID;
+
+                    //SPお菓子食べたあとの感想テキストを表示
+                    StartCoroutine(OkashiAfterComment_Hyouji());
+                }
+
                 if (GameMgr.mainClear_flag == true)
                 {
                     GameMgr.mainClear_flag = false;
@@ -264,54 +273,7 @@ public class Utage_scenario : MonoBehaviour
                     //ヒントを表示
                     StartCoroutine(TouchHint_Hyouji());
                 }
-            }
-                
-            /*
-            //ガールシーンでのテキスト処理
-            if (SceneManager.GetActiveScene().name == "GirlEat")
-            {
-
-                //女の子データの取得。
-                //感想コメントフラグの管理も、girl1_statusで行っている。なぜか別シーンのオブジェクトの検索ができないため、
-                //最初にstaticで生成するオブジェクトを介して、GirlEat_MainとUtageシーンのUtageScenarioスクリプトを連携させることにする。
-                girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
-
-
-                //女の子の、お菓子に対する感想の処理
-                //お菓子のスコアによって、感想を分岐する。
-
-                if (girl1_status.girl_comment_flag == true) //GirlEatから、フラグをONにしたら、お菓子の感想前セリフを言う
-                {
-
-                    //Debug.Log(girl1_status.girl_comment_flag);
-                    girl1_status.girl_comment_flag = false;
-
-                    //感想の前に、お菓子の得点から、表示するコメントを決定する。
-                    girl_kettei_item = girl1_status.girl_final_kettei_item;
-                    itemLike_score = girl1_status.itemLike_score_final;
-
-                    quality_score = girl1_status.quality_score_final;
-                    sweat_score = girl1_status.sweat_score_final;
-                    bitter_score = girl1_status.bitter_score_final;
-                    sour_score = girl1_status.sour_score_final;
-
-                    crispy_score = girl1_status.crispy_score_final;
-                    fluffy_score = girl1_status.fluffy_score_final;
-                    smooth_score = girl1_status.smooth_score_final;
-                    hardness_score = girl1_status.hardness_score_final;
-                    jiggly_score = girl1_status.jiggly_score_final;
-                    chewy_score = girl1_status.chewy_score_final;
-
-                    subtype1_score = girl1_status.subtype1_score_final;
-                    subtype2_score = girl1_status.subtype2_score_final;
-
-                    total_score = girl1_status.total_score_final;
-
-                    //感想を表示
-                    StartCoroutine(Girl_Comment());
-
-                }
-            }*/
+            }               
 
             //ショップシーンでのテキスト処理
             if (SceneManager.GetActiveScene().name == "Shop")
@@ -1281,9 +1243,38 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // SPお菓子感想表示
+    // SPお菓子 食べた瞬間の感想表示
     //
     IEnumerator SpOkashiComment_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "SpOkashi"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("SpOkashi_num", sp_Okashi_ID);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = true; //読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    //
+    // お菓子 食べたあと　採点表示のあとの感想表示
+    //
+    IEnumerator OkashiAfterComment_Hyouji()
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
@@ -1295,9 +1286,14 @@ public class Utage_scenario : MonoBehaviour
 
         switch (sp_Okashi_ID)
         {
+            case 1000: //クッキーの感想　トッピングごとに感想が変わる。
+
+                engine.Param.TrySetParameter("SpOkashiAfter_num", 1000);
+                break;
+
             case 1010: //ラスクの感想
 
-                engine.Param.TrySetParameter("SpOkashiAfter_num", 1);
+                engine.Param.TrySetParameter("SpOkashiAfter_num", 1010);
                 break;
 
             default:
