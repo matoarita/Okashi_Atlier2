@@ -3,6 +3,9 @@ using System.Collections;
 using Utage;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
+using Live2D.Cubism.Rendering;
 
 public class Utage_scenario : MonoBehaviour
 {
@@ -60,6 +63,16 @@ public class Utage_scenario : MonoBehaviour
 
     private bool tutorial_flag;
 
+    private bool FadeAnim_flag;
+    private int FadeAnim_status;
+
+    //Live2Dモデルの取得
+    private CubismModel _model;
+    private CubismRenderController _renderController;
+
+    //シーン中のキャラクタ画像を取得（NPCなど）
+    private GameObject character;
+
 
     // Use this for initialization
     void Start()
@@ -77,6 +90,21 @@ public class Utage_scenario : MonoBehaviour
 
     void Update()
     {
+        //フェードアニメ用
+        if(FadeAnim_flag)
+        {
+            //1のときはOFF
+            if (FadeAnim_status == 1)
+            {
+                _renderController.Opacity -= 0.25f;
+
+                if (_renderController.Opacity <= 0.0f)
+                {
+                    _renderController.Opacity = 0.0f;
+                    FadeAnim_flag = false;
+                }
+            }
+        }
 
         if (!scenario_loading) // scenario_loading=false のときは、中の処理を実行する。
         {
@@ -88,7 +116,7 @@ public class Utage_scenario : MonoBehaviour
                 {
                     case 0:
                        
-                        scenarioLabel = "Chapter_1";
+                        scenarioLabel = "Prologue";
                         story_num = GameMgr.scenario_flag;
                         StartCoroutine(Scenario_Start());
                         break;
@@ -98,6 +126,8 @@ public class Utage_scenario : MonoBehaviour
                 }
 
             }
+
+            //1話はプロローグからの流れで自動で始まる。
 
             if (SceneManager.GetActiveScene().name == "002_Stage2")
             {
@@ -148,6 +178,13 @@ public class Utage_scenario : MonoBehaviour
             //調合シーンでのテキスト処理
             if (SceneManager.GetActiveScene().name == "Compound")
             {
+                if (!_model)
+                {
+                    //Live2Dモデルの取得
+                    _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                    _renderController = _model.GetComponent<CubismRenderController>();
+                }
+
                 switch (GameMgr.scenario_flag)
                 {
 
@@ -278,13 +315,17 @@ public class Utage_scenario : MonoBehaviour
             //ショップシーンでのテキスト処理
             if (SceneManager.GetActiveScene().name == "Shop")
             {
+                character = GameObject.FindWithTag("Character");
+               
                 switch (GameMgr.scenario_flag)
                 {
-
+                    
                     case 120: //調合パート開始時にショップへ初めて入る。お店のアイドル娘
 
                         scenarioLabel = "Shop_Event";
                         story_num = 120;
+                        CharacterSpriteSetOFF();
+
                         StartCoroutine(Scenario_Start());
                         break;
 
@@ -292,6 +333,8 @@ public class Utage_scenario : MonoBehaviour
 
                         scenarioLabel = "Shop_Event";
                         story_num = 150;
+                        CharacterSpriteSetOFF();
+
                         StartCoroutine(Scenario_Start());
                         break;
 
@@ -400,6 +443,11 @@ public class Utage_scenario : MonoBehaviour
 
             default:
                 break;
+        }
+
+        if (SceneManager.GetActiveScene().name == "Shop")
+        {
+            CharacterSpriteFadeON();
         }
 
         scenario_loading = false;
@@ -532,6 +580,7 @@ public class Utage_scenario : MonoBehaviour
         //はいを押した時の処理。エクストリームパネルを表示する。コンテントも表示してもいいかもだけど、触れないようにしておく。
         GameMgr.tutorial_ON = true;
         GameMgr.tutorial_Num = 0;
+        CharacterLive2DImageOFF();
 
         //「宴」のシナリオを呼び出す
         scenarioLabel = "Tutorial_Content2";
@@ -546,6 +595,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ゲームの再開処理を書く
         GameMgr.tutorial_Num = 10;
+        CharacterLive2DImageON();
 
         while (!GameMgr.tutorial_Progress) //エクストリームパネルを押し待ち
         {
@@ -609,6 +659,8 @@ public class Utage_scenario : MonoBehaviour
         }
         GameMgr.tutorial_Progress = false;
 
+        CharacterLive2DImageOFF();
+
         //続きから再度読み込み
         engine.ResumeScenario();
 
@@ -632,12 +684,15 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
         GameMgr.tutorial_Num = 100;
+        CharacterLive2DImageON();
 
-        while (!GameMgr.tutorial_Progress) //あげるボタンの押し待ち
+        while (!GameMgr.tutorial_Progress) //採点表示パネルをオフにするボタンの押し待ち
         {
             yield return null;
         }
         GameMgr.tutorial_Progress = false;
+
+        GameMgr.tutorial_Num = 110;
 
         //続きから再度読み込み
         engine.ResumeScenario();
@@ -650,6 +705,7 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
         GameMgr.tutorial_Num = 120;
+        CharacterLive2DImageOFF();
 
         while (!GameMgr.tutorial_Progress) //「オレンジネコクッキー」吹き出し待ち
         {
@@ -668,6 +724,7 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
         GameMgr.tutorial_Num = 140;
+        CharacterLive2DImageON();
 
         while (!GameMgr.tutorial_Progress) //2度目エクストリームパネルの押し待ち
         {
@@ -710,6 +767,7 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
         GameMgr.tutorial_Progress = false;
+        CharacterLive2DImageOFF();
 
         //続きから再度読み込み
         engine.ResumeScenario();
@@ -722,6 +780,7 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
         GameMgr.tutorial_Num = 200;
+        CharacterLive2DImageON();
 
         while (!GameMgr.tutorial_Progress) //パネルを触れるように。パネルを押し待ち
         {
@@ -795,11 +854,15 @@ public class Utage_scenario : MonoBehaviour
         }
         GameMgr.tutorial_Num = 280;
 
-        while (!GameMgr.tutorial_Progress) //再度、あげる待ち
+        while (!GameMgr.tutorial_Progress) //再度、採点表示パネルをオフにするボタンの押し待ち
         {
             yield return null;
         }
         GameMgr.tutorial_Progress = false;
+
+        GameMgr.tutorial_Num = 290;
+
+        CharacterLive2DImageOFF();
 
         //続きから再度読み込み
         engine.ResumeScenario();
@@ -810,6 +873,8 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        CharacterLive2DImageON();
 
         switch (GameMgr.scenario_flag)
         {
@@ -1114,6 +1179,9 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
 
+        //ゲーム上のキャラクタOFF
+        CharacterLive2DImageOFF();
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -1123,6 +1191,8 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
 
         GameMgr.girlloveevent_endflag = true; //レシピを読み終えたフラグ
 
@@ -1196,6 +1266,8 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("OkashiComment_num", Okashicomment_ID);
 
+        //ゲーム上のキャラクタOFF
+        CharacterLive2DImageOFF();
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -1205,6 +1277,9 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
 
         scenario_loading = false;
 
@@ -1283,23 +1358,10 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("SpOkashiAfter_num", sp_Okashi_ID);
 
-        switch (sp_Okashi_ID)
-        {
-            case 1000: //クッキーの感想　トッピングごとに感想が変わる。
-
-                engine.Param.TrySetParameter("SpOkashiAfter_num", 1000);
-                break;
-
-            case 1010: //ラスクの感想
-
-                engine.Param.TrySetParameter("SpOkashiAfter_num", 1010);
-                break;
-
-            default:
-                break;
-        }
-
+        //ゲーム上のキャラクタOFF
+        CharacterLive2DImageOFF();
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -1309,6 +1371,9 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 
@@ -1330,6 +1395,9 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("MainClear_num", mainClear_ID);
 
+        //ゲーム上のキャラクタOFF
+        CharacterLive2DImageOFF();
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -1338,6 +1406,9 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 
@@ -1436,5 +1507,42 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
+    }
+
+    //表示中のLive2DキャラクタをONにする。
+    void CharacterLive2DImageON()
+    {
+        
+        _renderController.Opacity = 1.0f;
+    }
+
+    //表示中のLive2DキャラクタをOFFにする。
+    void CharacterLive2DImageOFF()
+    {
+        
+        _renderController.Opacity = 1.0f;
+        FadeAnim_flag = true;
+        FadeAnim_status = 1;
+    }
+
+    //キャラクタスプライト画像をONにする
+    void CharacterSpriteFadeON()
+    {
+        character.GetComponent<FadeCharacter>().FadeImageOn();
+    }
+
+    void CharacterSpriteFadeOFF()
+    {
+        character.GetComponent<FadeCharacter>().FadeImageOff();
+    }
+
+    void CharacterSpriteSetON()
+    {
+        character.GetComponent<FadeCharacter>().SetOn();
+    }
+
+    void CharacterSpriteSetOFF()
+    {
+        character.GetComponent<FadeCharacter>().SetOff();
     }
 }

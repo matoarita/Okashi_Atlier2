@@ -330,7 +330,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
         //女の子のイラストデータ
-        Girl1_img_normal = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_normal");
+        /*Girl1_img_normal = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_normal");
         Girl1_img_gokigen = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
         Girl1_img_smile = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_yorokobi");
         Girl1_img_eat_start = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_eat_start");
@@ -339,7 +339,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_img_hirameki = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_hirameki");
         Girl1_img_tereru = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_tereru");
         Girl1_img_angry = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_angry");
-        Girl1_img_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_iya");
+        Girl1_img_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_iya");*/
 
         Girl1_touchhair_start = false;
         Girl1_touchhair_count = 0;
@@ -426,7 +426,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //お金の増減用パネルの取得
                     MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
 
-                    s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
+                    //s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
 
                     //タッチ判定オブジェクトの取得
                     touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -661,7 +661,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     sc.PlaySe(39);
 
                     //キャラクタ表情変更
-                    s.sprite = Girl1_img_hirameki;
+                    face_girl_Hirameki();                    
 
                     special_animstart_status = 1;
                     break;
@@ -687,7 +687,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     maincam_animator.SetInteger("trans", trans);
 
                     //キャラクタ表情変更
-                    s.sprite = Girl1_img_smile;
+                    DefaultFace();                    
 
                     special_animstart_flag = false;
                     special_animstart_endflag = true;
@@ -735,7 +735,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void DefaultFace()
     {
-        //s.sprite = Girl1_img_gokigen;
         switch (GirlGokigenStatus)
         {
             case 0:
@@ -1402,7 +1401,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void TouchSisterHair()
     {
-        switch(Girl1_touchhair_status)
+        switch (Girl1_touchhair_status)
         {
 
             case 0: //初期化
@@ -1419,14 +1418,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[0];
                 hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
-               
+
+                //キャラクタ表情変更
+                face_girl_Surprise();
+
                 break;
 
             case 1: //髪の毛触る回数カウント中
 
                 Girl1_touchhair_count++;
 
-                if(Girl1_touchhair_count >= 3) //〇回以上触ると、ステータスが1段階上がる。
+                if (Girl1_touchhair_count >= 3) //〇回以上触ると、ステータスが1段階上がる。
                 {
                     Girl1_touchhair_status = 2;
                 }
@@ -1448,10 +1450,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //キャラクタ表情変更
-                //s.sprite = Girl1_img_tereru;
-  
-                trans_expression = 6; //各表情に遷移。
-                live2d_animator.SetInteger("trans_expression", trans_expression);
+                face_girl_Tereru();
 
                 break;
 
@@ -1574,8 +1573,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment = _touchhead_comment_lib[5];
                 hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
-                //キャラクタ表情変更
-                //s.sprite = Girl1_img_iya;
+                //キャラクタ表情変更　ちょっと嫌そう？真顔に。
+                face_girl_Iya();
+
                 break;
 
             case 11:
@@ -1608,10 +1608,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //音鳴らす
                 sc.PlaySe(45);
 
-                //キャラクタ表情変更                
-   
-                trans_expression = 8; //各表情に遷移。
-                live2d_animator.SetInteger("trans_expression", trans_expression);
+                //キャラクタ表情変更  怒る              
+                face_girl_Angry();
 
                 //エモ
                 _listEffect.Add(Instantiate(Emo_effect_Prefab3, character.transform));
@@ -1620,7 +1618,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 13:
 
                 timeOut3 = 3.0f;
-                Girl1_touchhair_count++;               
+                Girl1_touchhair_count++;
 
                 break;
 
@@ -1812,7 +1810,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             case 0:
 
-                _touchhead_comment_lib.Add("..!");
+                _touchhead_comment_lib.Add("兄ちゃん、頭なでなで?");
                 _touchhead_comment_lib.Add("..");
                 _touchhead_comment_lib.Add("..。");
                 _touchhead_comment_lib.Add("（頭をなでられると嬉しいようだ..。）");
@@ -1823,7 +1821,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1:
 
-                _touchhead_comment_lib.Add("..!!");
+                _touchhead_comment_lib.Add("なでなで..!!");
                 _touchhead_comment_lib.Add("..");
                 _touchhead_comment_lib.Add("頭なでなで..。");
                 _touchhead_comment_lib.Add("..♪");
@@ -1851,7 +1849,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment_lib.Add("あ～～～..。");
                 _touchhead_comment_lib.Add("..。");
                 _touchhead_comment_lib.Add(".. ..。");
-                _touchhead_comment_lib.Add("ハゲるの！！！！");
+                _touchhead_comment_lib.Add("ガァーーー！！！！");
                 break;
 
             case 4:
@@ -1873,7 +1871,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment_lib.Add("お菓子のにおい..。");
                 _touchhead_comment_lib.Add("..。");
                 _touchhead_comment_lib.Add(".. ..。");
-                _touchhead_comment_lib.Add("ヤメロ！！！！");
+                _touchhead_comment_lib.Add("さわりすぎ！！！！");
                 break;
         }
 
@@ -2105,6 +2103,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
     //表情を変更するメソッド
+    public void face_girl_Normal()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 1; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
+    public void face_girl_Joukigen()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 2; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+    }
+
     public void face_girl_Bad()
     {
         //intパラメーターの値を設定する.  
@@ -2124,21 +2136,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //intパラメーターの値を設定する.  
         trans_expression = 5; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
-    }
-
-    public void face_girl_Normal()
-    {
-        //intパラメーターの値を設定する.  
-        trans_expression = 1; //各表情に遷移。
-        live2d_animator.SetInteger("trans_expression", trans_expression);
-    }
-
-    public void face_girl_Joukigen()
-    {
-        //intパラメーターの値を設定する.  
-        trans_expression = 2; //各表情に遷移。
-        live2d_animator.SetInteger("trans_expression", trans_expression);
-    }
+    }    
 
     public void face_girl_Tereru()
     {
@@ -2164,6 +2162,48 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //s.sprite = Girl1_img_angry;
     }
+
+    public void face_girl_Hirameki()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 9; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+        //s.sprite = Girl1_img_hirameki;
+    }
+
+    public void face_girl_Mazui()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 10; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Mazui2()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 11; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Iya()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 12; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Surprise()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 13; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
 
     void Init_Stage1_LVTable()
     {

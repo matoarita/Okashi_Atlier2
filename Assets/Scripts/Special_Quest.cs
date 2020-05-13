@@ -77,6 +77,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.ResetHukidashi();
                 break;
 
+            case 3:
+
+                girl1_status.OkashiNew_Status = 0;
+                girl1_status.OkashiQuest_ID = 1030;
+                girl1_status.ResetHukidashi();
+                break;
+
             default:
                 break;
         }

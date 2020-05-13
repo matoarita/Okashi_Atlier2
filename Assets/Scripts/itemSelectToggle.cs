@@ -944,15 +944,14 @@ public class itemSelectToggle : MonoBehaviour
                 //pitemlistController.final_kettei_item1 = itemID_1;
                 pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu;
 
-                compound_Check.final_select_flag = true;
-
-                //itemselect_cancel.kettei_on_waiting = false;
+                compound_Check.final_select_flag = true; //ここにfinalをいれることで、一個だけしかトッピングできないようにする。
+                //itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 yes_text.text = "調合する";
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
+                //_text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
                 //Debug.Log("二個目選択完了！");
                 break;
 

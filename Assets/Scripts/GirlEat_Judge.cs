@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
+using Live2D.Cubism.Rendering;
 
 public class GirlEat_Judge : MonoBehaviour {
 
@@ -266,6 +269,13 @@ public class GirlEat_Judge : MonoBehaviour {
     //好感度レベルテーブルの取得
     private List<int> stage_levelTable = new List<int>();
 
+    //Live2Dモデルの取得
+    private CubismModel _model;
+    private Animator live2d_animator;
+    private CubismRenderController _renderController;
+
+    private GameObject questclear_toggle;
+
     // Use this for initialization
     void Start() {
 
@@ -278,8 +288,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-        s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -316,7 +324,12 @@ public class GirlEat_Judge : MonoBehaviour {
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //キャラクタ取得
-        character = GameObject.FindWithTag("Character");
+        //character = GameObject.FindWithTag("Character");
+
+        //Live2Dモデルの取得
+        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+        live2d_animator = _model.GetComponent<Animator>();
+        _renderController = _model.GetComponent<CubismRenderController>();
 
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
@@ -363,6 +376,9 @@ public class GirlEat_Judge : MonoBehaviour {
         ScoreHyoujiPanel.SetActive(false);
         ScoreHyouji_ON = false;
         MainQuestOKPanel.SetActive(false);
+
+        //クエストクリアボタンの取得
+        questclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/QuestClear_Toggle").gameObject;
 
         i = 0;
         foreach (Transform child in ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score_star/Viewport/Content").transform)
@@ -543,7 +559,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     timeOut = 1.0f;
                     judge_anim_status = 1;
-                    s.sprite = girl1_status.Girl1_img_eat_start;
+                    //s.sprite = girl1_status.Girl1_img_eat_start;
 
                     //現在の吹き出しを削除
                     girl1_status.DeleteHukidashiOnly();
@@ -892,7 +908,7 @@ public class GirlEat_Judge : MonoBehaviour {
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
-        if (GameMgr.tutorial_ON != true)
+        if (!GameMgr.tutorial_ON)
         {
             //お菓子を食べた後のちょっとした感想をだす。
             if (dislike_status == 1 || dislike_status == 2 || dislike_status == 6)
@@ -900,53 +916,21 @@ public class GirlEat_Judge : MonoBehaviour {
                 StartCoroutine("Girl_Comment");
                 //Girl_reaction();
             }
-            else //まずいときは、吹き出しでまずい感想だすだけ
+            else if (dislike_status == 3 || dislike_status == 4)//まずいとき
             {
                 StartCoroutine("Girl_Comment");
                 //Girl_reaction();
+            }
+            else if (dislike_status == 5)
+            {
+                Girl_reaction();
             }
         }
         else
         {
             Girl_reaction();
         }
-    }
-
-    //
-    //お菓子食べた直後の、おいしい・まずいといった感想。トッピングに対する感想もここで。
-    //
-    IEnumerator Girl_Comment()
-    {
-        //Debug.Log("Girl_Comment");
-
-        girl1_status.GirlEat_Judge_on = false;
-        girl1_status.hukidasiOff();
-        canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
-        //character.GetComponent<FadeCharacter>().FadeImageOff();
-
-        if (Mazui_flag) //味がまずかった場合（total_scoreがマイナスだったとき）
-        {
-            GameMgr.OkashiComment_ID = 9999; //
-        }
-        else
-        {
-            GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + topping_flag; //クエストID+topping_flag(1~5)で指定する。ねこクッキーで、アイザン入りなら、1000+1で、1001。
-        }
-        GameMgr.OkashiComment_flag = true;
-       
-        while (!GameMgr.scenario_read_endflag)
-        {
-            yield return null;
-        }
-
-        GameMgr.scenario_read_endflag = false;
-
-        //character.GetComponent<FadeCharacter>().FadeImageOn();
-        canvas.SetActive(true);
-
-        Girl_reaction();
-    }
+    }    
 
     void Dislike_Okashi_Judge()
     {
@@ -1451,16 +1435,13 @@ public class GirlEat_Judge : MonoBehaviour {
                             {
                                 topping_score += girl1_status.girl1_hungryToppingScoreSet1[i];
 
-                                //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。
+                                //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。今のとこ、一番後ろのTPに反応する。
                                 topping_flag = girl1_status.girl1_hungryToppingNumberSet1[i];
-                                //Debug.Log("topping_flag: " + topping_flag);
                             }
                             else
                             {
                             }
                         }
-
-                        //Debug.Log("girl1_status.girl1_hungryScoreSet1: " + girl1_status.girl1_hungryScoreSet1[i]);
                     }
                     break;
 
@@ -1703,7 +1684,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     total_score = 0;
 
                     //キャラクタ表情変更
-                    s.sprite = girl1_status.Girl1_img_verysad;
+                    //s.sprite = girl1_status.Girl1_img_verysad;
 
                     //好感度取得+アニメーションをON
                     Getlove_exp = -10;
@@ -1738,7 +1719,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     total_score = 0;
 
                     //キャラクタ表情変更
-                    s.sprite = girl1_status.Girl1_img_verysad_close;
+                    //s.sprite = girl1_status.Girl1_img_verysad_close;
 
                     //好感度取得+アニメーションをON
                     Getlove_exp = -10;
@@ -1762,7 +1743,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     hukidashiitem.GetComponent<TextController>().SetText("今はこれの気分じゃない！");
 
                     //キャラクタ表情変更
-                    s.sprite = girl1_status.Girl1_img_verysad_close;
+                    //s.sprite = girl1_status.Girl1_img_verysad_close;
 
                     //好感度は変わらず、お菓子も減りはしない。
 
@@ -1829,7 +1810,7 @@ public class GirlEat_Judge : MonoBehaviour {
         girl1_status.GirlEat_Judge_on = true; //またカウントが進み始める
 
         //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
-        if (GameMgr.tutorial_ON == true)
+        if (GameMgr.tutorial_ON)
         {
 
             StartCoroutine("WaitForSeconds");  //1秒まって次へ              
@@ -1841,6 +1822,7 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         yield return new WaitForSeconds(1.0f);
 
+        /*
         if (GameMgr.tutorial_Num == 105)
         {
             GameMgr.tutorial_Progress = true;
@@ -1850,7 +1832,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             GameMgr.tutorial_Progress = true;
             GameMgr.tutorial_Num = 290;
-        }
+        }*/
     }
 
 
@@ -1884,48 +1866,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         girl1_status.timeOut += 3.0f; //少し表示時間をのばす
-    }
-    //
-    //スペシャルお菓子 食べたときの感想。アニメーション終了後で発生する。
-    //
-    /*IEnumerator Sp_Okashi_Comment() 
-    {
-        girl1_status.GirlEat_Judge_on = false;
-        girl1_status.hukidasiOff();
-        canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
-
-        while (main_cam.transform.position.z != -10)
-        {
-            yield return null;
-        }
-
-        if (kansou_on)
-        {
-            //宴を呼び出す。
-            character.GetComponent<FadeCharacter>().FadeImageOff();
-
-            GameMgr.sp_okashi_ID = _set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
-            GameMgr.sp_okashi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-                                           //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
-            while (!GameMgr.recipi_read_endflag)
-            {
-                yield return null;
-            }
-
-            GameMgr.recipi_read_endflag = false;
-
-            character.GetComponent<FadeCharacter>().FadeImageOn();
-            canvas.SetActive(true);
-
-            OkashiSaitenhyouji();
-        } else
-        {
-            canvas.SetActive(true);
-            OkashiSaitenhyouji();
-        }
-        
-    }*/
+    }    
 
     void OkashiSaitenhyouji()
     {
@@ -2079,21 +2020,30 @@ public class GirlEat_Judge : MonoBehaviour {
         //キャラクタ表情変更
         girl1_status.face_girl_Yorokobi();
         StartCoroutine("DefaultFaceChange");//2秒ぐらいしたら、表情だけすぐに戻す。
-
-        //フラグチェック        
-        compound_Main.check_GirlLoveEvent_flag = false;
-       
+               
         //その時点での点数を保持。（マズイときは、失敗フラグ＝0点）
         special_quest.special_score_record[special_quest.spquest_set_num, special_quest.special_kaisu] = total_score;
 
-        //クエスト挑戦回数を増やす。
-        special_quest.special_kaisu++;
-
-        //もしクエスト回数が３回まできたら、判定する。通常クリアなら、次のクエストへ進行する
-        if(special_quest.special_kaisu >= special_quest.special_kaisu_max)
+        if (!GameMgr.tutorial_ON)
         {
-            //クエストクリア時のイベントやフラグ管理
-            SelectNewOkashiSet();
+            //フラグチェック        
+            compound_Main.check_GirlLoveEvent_flag = false;
+
+            //クエスト挑戦回数を増やす。
+            special_quest.special_kaisu++;
+
+            //60点以上だったら、そのクエストをクリアできる、スキップボタンが表示
+            if (total_score >= 60)
+            {
+                questclear_toggle.SetActive(true);
+            }
+
+            //もしクエスト回数が３回まできたら、判定する。通常クリアなら、次のクエストへ進行する
+            if (special_quest.special_kaisu >= special_quest.special_kaisu_max)
+            {
+                //クエストクリア時のイベントやフラグ管理
+                SelectNewOkashiSet();
+            }
         }
 
         //お菓子の判定処理を終了
@@ -2388,12 +2338,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
         for (i=0; i < special_quest.special_score_record.GetLength(1); i++)
         {
-            if(special_quest.special_score_record[special_quest.spquest_set_num, i] < 85 || 
+            if(special_quest.special_score_record[special_quest.spquest_set_num, i] < 85 && 
                 special_quest.special_score_record[special_quest.spquest_set_num, i] >= 60 ) //60点~85点でノーマル合格
             {
                 Gameover_flag = false;
             }
-            if (special_quest.special_score_record[special_quest.spquest_set_num, i] >= 85) //85点以上でハイスコア合格
+            else if (special_quest.special_score_record[special_quest.spquest_set_num, i] >= 85) //85点以上でハイスコア合格
             {
                 HighScore_flag = true;
                 Gameover_flag = false;
@@ -2418,7 +2368,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
     }
 
-
+    //
+    //クエストクリアトグルをおして、スキップした場合に処理されるメソッド。
+    //
+    public void QuestClearMethod()
+    {
+        SelectNewOkashiSet();
+        ResultPanel_On();
+    }
 
 
 
@@ -2510,11 +2467,18 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else
         {
-            //クエストまだクリアでなければ、お菓子の感想を表示する。
-            //_set_MainQuestID = girl1_status.OkashiQuest_ID;
-            //StartCoroutine("OkashiAfter_Comment");
+            if (!GameMgr.tutorial_ON)
+            {
+                //クエストまだクリアでなければ、お菓子の感想を表示する。
+                StartCoroutine("OkashiAfter_Comment");
 
-            ResultOFF();
+                //ResultOFF();
+            }
+            else
+            {
+                GameMgr.tutorial_Progress = true; //チュートリアル時、パネルを押したよ～のフラグ
+                ResultOFF();
+            }
         }      
     }
 
@@ -2530,64 +2494,6 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
-    IEnumerator OkashiAfter_Comment()
-    {
-        girl1_status.GirlEat_Judge_on = false;
-        girl1_status.hukidasiOff();
-        canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
-
-        //宴を呼び出す。
-        character.GetComponent<FadeCharacter>().FadeImageOff();
-
-        GameMgr.okashiafter_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
-        GameMgr.okashiafter_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-                                       //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
-        while (!GameMgr.recipi_read_endflag)
-        {
-            yield return null;
-        }
-
-        GameMgr.recipi_read_endflag = false;
-
-        character.GetComponent<FadeCharacter>().FadeImageOn();
-        canvas.SetActive(true);
-
-        ResultOFF();
-
-    }
-
-    IEnumerator SubQuestClearEvent()
-    {
-        girl1_status.GirlEat_Judge_on = false;
-        girl1_status.hukidasiOff();
-        canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
-        sceneBGM.MuteBGM();
-
-        character.GetComponent<FadeCharacter>().FadeImageOff();
-
-        GameMgr.scenario_ON = true;
-        GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
-        GameMgr.mainClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-        while (!GameMgr.recipi_read_endflag)
-        {
-            yield return null;
-        }
-
-        GameMgr.recipi_read_endflag = false;
-        sceneBGM.MuteOFFBGM();
-
-        character.GetComponent<FadeCharacter>().FadeImageOn();
-        canvas.SetActive(true);
-
-        //表示の音を鳴らす。
-        sc.PlaySe(25);
-
-        MainQuestOKPanel.SetActive(true);
-    }
-
     public void ResultOFF()
     {
         MainQuestOKPanel.SetActive(false);
@@ -2596,7 +2502,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         girl1_status.GirlEat_Judge_on = true;
         girl1_status.hukidasiOn();
-        touch_controller.Touch_OnAllON();
+        touch_controller.Touch_OnAllON();        
 
         sc.PlaySe(18);
 
@@ -2611,6 +2517,145 @@ public class GirlEat_Judge : MonoBehaviour {
         GameMgr.scenario_ON = false;
         compound_Main.check_GirlLoveEvent_flag = false;
     }
+
+    //
+    //通常お菓子食べた直後の、おいしい・まずいといった感想。トッピングに対する感想もここで。
+    //
+    IEnumerator Girl_Comment()
+    {
+        //Debug.Log("Girl_Comment");
+
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();
+
+        //カメラが元の位置にもどってから、キャラ表示を切り替え
+        while (main_cam.transform.position.z != -10)
+        {
+            yield return null;
+        }
+
+        if (Mazui_flag) //味がまずかった場合（total_scoreがマイナスだったとき）
+        {
+            GameMgr.OkashiComment_ID = 9999; //
+        }
+        else
+        {
+            GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + topping_flag; //クエストID+topping_flag(1~5)で指定する。ねこクッキーで、アイザン入りなら、1000+1で、1001。
+        }
+        GameMgr.OkashiComment_flag = true;
+
+        while (!GameMgr.scenario_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.scenario_read_endflag = false;
+
+        canvas.SetActive(true);
+
+        Girl_reaction();
+    }
+
+    //
+    //スペシャルお菓子 食べたときの感想。アニメーション終了後で発生する。
+    //
+    /*IEnumerator Sp_Okashi_Comment() 
+    {
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();
+
+        while (main_cam.transform.position.z != -10)
+        {
+            yield return null;
+        }
+
+        if (kansou_on)
+        {
+
+            //宴を呼び出す。
+            
+            GameMgr.sp_okashi_ID = _set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
+            GameMgr.sp_okashi_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                           //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
+            while (!GameMgr.recipi_read_endflag)
+            {
+                yield return null;
+            }
+
+            GameMgr.recipi_read_endflag = false;
+
+            canvas.SetActive(true);
+
+            OkashiSaitenhyouji();
+        } else
+        {
+            canvas.SetActive(true);
+            OkashiSaitenhyouji();
+        }
+        
+    }*/
+
+    //
+    //採点表示後にお菓子の感想を表示する
+    //
+    IEnumerator OkashiAfter_Comment()
+    {
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();        
+
+        //宴を呼び出す。
+        GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID + topping_flag; //GirlLikeCompoSetの_set_compIDが入っている。
+        GameMgr.okashiafter_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                       //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = false;
+
+        canvas.SetActive(true);
+
+        ResultOFF();
+    }
+
+    //
+    //クエストクリア時の感想を表示する。
+    //
+    IEnumerator SubQuestClearEvent()
+    {
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();
+        sceneBGM.MuteBGM();
+
+        GameMgr.scenario_ON = true;
+        GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
+        GameMgr.mainClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = false;
+        sceneBGM.MuteOFFBGM();
+
+        canvas.SetActive(true);
+        questclear_toggle.SetActive(false);
+
+        //表示の音を鳴らす。
+        sc.PlaySe(25);
+
+        MainQuestOKPanel.SetActive(true);
+    }    
 
     void SetHintText(int _status)
     {

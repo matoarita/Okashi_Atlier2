@@ -35,7 +35,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
-    private Button[] updown_button = new Button[2];
+    private Button[] updown_button = new Button[4];
 
     private GameObject itemselect_cancel_obj;
     private ItemSelect_Cancel itemselect_cancel;
@@ -282,6 +282,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
         updown_button[0].interactable = false;
         updown_button[1].interactable = false;
+        updown_button[2].interactable = false;
+        updown_button[3].interactable = false;
 
         while (yes_selectitem_kettei.onclick != true)
         {
@@ -315,6 +317,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 updown_button[0].interactable = true;
                 updown_button[1].interactable = true;
+                updown_button[2].interactable = true;
+                updown_button[3].interactable = true;
                 updown_counter_obj.SetActive(false);
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
@@ -340,6 +344,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 updown_button[0].interactable = true;
                 updown_button[1].interactable = true;
+                updown_button[2].interactable = true;
+                updown_button[3].interactable = true;
                 updown_counter_obj.SetActive(false);
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。

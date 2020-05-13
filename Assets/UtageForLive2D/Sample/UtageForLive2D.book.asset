@@ -1,0 +1,2131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9856eecfcd6b8df42ac2ebd73cc36dff, type: 3}
+  m_Name: UtageForLive2D.book
+  m_EditorClassIdentifier: 
+  importVersion: 0
+  importGridList:
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - Command
+      - Arg1
+      - Arg2
+      - Arg3
+      - Arg4
+      - Arg5
+      - Arg6
+      - WaitType
+      - Text
+      - PageCtrl
+      - Voice
+      - WindowType
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 1
+      strings:
+      - Bg
+      - "\u80CC\u666F\u305D\u306E1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 3
+      strings:
+      - Jump
+      - '*Live2DSample'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/UtageForLive2D/Sample/UtageForLive2D.xls:Start
+    type: 1
+    textLength: 90
+    headerRow: 0
+    entityIndexTbl: 
+    entityDataList: []
+  - rows:
+    - rowIndex: 0
+      debugIndex: 0
+      strings:
+      - 
+      - Command
+      - Arg1
+      - Arg2
+      - Arg3
+      - Arg4
+      - Arg5
+      - Arg6
+      - WaitType
+      - Text
+      - PageCtrl
+      - Voice
+      - WindowType
+      - English
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 1
+      debugIndex: 3
+      strings:
+      - 
+      - '*Live2DSample'
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 2
+      debugIndex: 4
+      strings:
+      - 
+      - "**\u9078\u629E\u80A2\u30C8\u30C3\u30D7"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 3
+      debugIndex: 5
+      strings:
+      - 
+      - CharacterOff
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 4
+      debugIndex: 7
+      strings:
+      - 
+      - Selection
+      - "**\u901A\u5E38"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u7C21\u6613"
+      - 
+      - 
+      - 
+      - Simplicity
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 5
+      debugIndex: 8
+      strings:
+      - 
+      - Selection
+      - "**\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F"
+      - 
+      - 
+      - 
+      - Texture drawing
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 6
+      debugIndex: 11
+      strings:
+      - 
+      - "**\u901A\u5E38"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 7
+      debugIndex: 12
+      strings:
+      - 
+      - CharacterOff
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 8
+      debugIndex: 13
+      strings:
+      - 
+      - Selection
+      - "**\u57FA\u672C"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u57FA\u672C\u8868\u793A"
+      - 
+      - 
+      - 
+      - Basic display
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 9
+      debugIndex: 14
+      strings:
+      - 
+      - Selection
+      - "**\u30D1\u30BF\u30FC\u30F3\u5909\u66F4"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D1\u30BF\u30FC\u30F3\u5909\u66F4"
+      - 
+      - 
+      - 
+      - Pattern change
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 10
+      debugIndex: 15
+      strings:
+      - 
+      - Selection
+      - "**\u30D5\u30A7\u30FC\u30C9"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D5\u30A7\u30FC\u30C9"
+      - 
+      - 
+      - 
+      - fade
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 11
+      debugIndex: 16
+      strings:
+      - 
+      - Selection
+      - "**\u9078\u629E\u80A2\u30C8\u30C3\u30D7"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u623B\u308B"
+      - 
+      - 
+      - 
+      - Return
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 12
+      debugIndex: 18
+      strings:
+      - 
+      - "**\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 13
+      debugIndex: 19
+      strings:
+      - 
+      - CharacterOff
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 14
+      debugIndex: 20
+      strings:
+      - 
+      - Selection
+      - "**\u57FA\u672C\uFF08\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F\uFF09"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u57FA\u672C\u8868\u793A"
+      - 
+      - 
+      - 
+      - Basic display
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 15
+      debugIndex: 21
+      strings:
+      - 
+      - Selection
+      - "**\u30D1\u30BF\u30FC\u30F3\u5909\u66F4\uFF08\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F\uFF09"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D1\u30BF\u30FC\u30F3\u5909\u66F4"
+      - 
+      - 
+      - 
+      - Pattern change
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 16
+      debugIndex: 22
+      strings:
+      - 
+      - Selection
+      - "**\u30D5\u30A7\u30FC\u30C9\uFF08\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F\uFF09"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D5\u30A7\u30FC\u30C9"
+      - 
+      - 
+      - 
+      - fade
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 17
+      debugIndex: 23
+      strings:
+      - 
+      - Selection
+      - "**\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3\uFF08\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F\uFF09"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3"
+      - 
+      - 
+      - 
+      - Transition
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 18
+      debugIndex: 24
+      strings:
+      - 
+      - Selection
+      - "**\u9078\u629E\u80A2\u30C8\u30C3\u30D7"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u623B\u308B"
+      - 
+      - 
+      - 
+      - Return
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 19
+      debugIndex: 29
+      strings:
+      - 
+      - "**\u57FA\u672C"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 20
+      debugIndex: 30
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EB"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u3002"
+      - 
+      - 
+      - 
+      - It is a mouthpak test.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 21
+      debugIndex: 31
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EB"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u3002\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059"
+      - 
+      - 
+      - 
+      - It is a mouthpak test. Test of the mouth It is a mouthpak test It is a mouthpak
+        test It is a mouthpak test
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 22
+      debugIndex: 32
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EB"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30A4\u30B9\u518D\u751F\u306B\u5408\u308F\u305B\u305F\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3002\u30DC\u30A4\u30B9\u518D\u751F\u306B\u5408\u308F\u305B\u305F\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8"
+      - 
+      - voice_test1
+      - 
+      - A mouthpak test according to voice reproduction. Test of mouthpiece according
+        to voice reproduction
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 23
+      debugIndex: 35
+      strings:
+      - 
+      - Jump
+      - "**\u901A\u5E38"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 24
+      debugIndex: 37
+      strings:
+      - 
+      - "**\u30D1\u30BF\u30FC\u30F3\u5909\u66F4"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 25
+      debugIndex: 38
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EB"
+      - face01
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u8868\u60C5\u5207\u308A\u66FF\u3048\u306E\u30C6\u30B9\u30C8"
+      - 
+      - 
+      - 
+      - Uniform - Long - Normal
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 26
+      debugIndex: 39
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EB"
+      - face02
+      - 
+      - 
+      - 
+      - 
+      - 
+      - face02
+      - 
+      - 
+      - 
+      - Uniform - Long - Anger
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 27
+      debugIndex: 40
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EB"
+      - face01
+      - 
+      - 
+      - 
+      - 
+      - 
+      - face01
+      - 
+      - 
+      - 
+      - Uniform - Long - Shy
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 28
+      debugIndex: 41
+      strings:
+      - 
+      - Jump
+      - "**\u901A\u5E38"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 29
+      debugIndex: 44
+      strings:
+      - 
+      - "**\u30D5\u30A7\u30FC\u30C9"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 30
+      debugIndex: 45
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EB"
+      - 
+      - 
+      - 
+      - 
+      - 1
+      - 
+      - "\u30D5\u30A7\u30FC\u30C9\u7CFB\u51E6\u7406\u306E\u30C6\u30B9\u30C8"
+      - 
+      - 
+      - 
+      - Test of fade type processing
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 31
+      debugIndex: 46
+      strings:
+      - 
+      - CharacterOff
+      - "\u30B3\u30CF\u30EB"
+      - 
+      - 
+      - 
+      - 
+      - 1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 32
+      debugIndex: 47
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D5\u30A7\u30FC\u30C9\u30A2\u30A6\u30C8\u3057\u307E\u3059"
+      - 
+      - 
+      - 
+      - Fade out
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 33
+      debugIndex: 50
+      strings:
+      - 
+      - Jump
+      - "**\u901A\u5E38"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 34
+      debugIndex: 54
+      strings:
+      - 
+      - "**\u57FA\u672C\uFF08\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F\uFF09"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 35
+      debugIndex: 55
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u3002"
+      - 
+      - 
+      - 
+      - It is a mouthpak test.
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 36
+      debugIndex: 56
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u3002\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3067\u3059"
+      - 
+      - 
+      - 
+      - It is a mouthpak test. Test of the mouth It is a mouthpak test It is a mouthpak
+        test It is a mouthpak test
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 37
+      debugIndex: 57
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30DC\u30A4\u30B9\u518D\u751F\u306B\u5408\u308F\u305B\u305F\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8\u3002\u30DC\u30A4\u30B9\u518D\u751F\u306B\u5408\u308F\u305B\u305F\u53E3\u30D1\u30AF\u306E\u30C6\u30B9\u30C8"
+      - 
+      - voice_test1
+      - 
+      - A mouthpak test according to voice reproduction. Test of mouthpiece according
+        to voice reproduction
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 38
+      debugIndex: 60
+      strings:
+      - 
+      - Jump
+      - "**\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 39
+      debugIndex: 62
+      strings:
+      - 
+      - "**\u30D1\u30BF\u30FC\u30F3\u5909\u66F4\uFF08\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F\uFF09"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 40
+      debugIndex: 63
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - face01
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u8868\u60C5\u5207\u308A\u66FF\u3048\u306E\u30C6\u30B9\u30C8"
+      - 
+      - 
+      - 
+      - Private Wear - Long - Normal
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 41
+      debugIndex: 64
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - face02
+      - 
+      - 
+      - 
+      - 
+      - 
+      - face02
+      - 
+      - 
+      - 
+      - Clothes - Long - Anger
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 42
+      debugIndex: 65
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - face01
+      - 
+      - 
+      - 
+      - 
+      - 
+      - face01
+      - 
+      - 
+      - 
+      - Clothes - Long - embarrassment
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 43
+      debugIndex: 66
+      strings:
+      - 
+      - Jump
+      - "**\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 44
+      debugIndex: 69
+      strings:
+      - 
+      - "**\u30D5\u30A7\u30FC\u30C9\uFF08\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F\uFF09"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 45
+      debugIndex: 70
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - 
+      - 
+      - 
+      - 
+      - 1
+      - 
+      - "\u30D5\u30A7\u30FC\u30C9\u7CFB\u51E6\u7406\u306E\u30C6\u30B9\u30C8"
+      - 
+      - 
+      - 
+      - Test of fade type processing
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 46
+      debugIndex: 71
+      strings:
+      - 
+      - CharacterOff
+      - "\u30B3\u30CF\u30EBRT"
+      - 
+      - 
+      - 
+      - 
+      - 1
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 47
+      debugIndex: 72
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30D5\u30A7\u30FC\u30C9\u30A2\u30A6\u30C8\u3057\u307E\u3059"
+      - 
+      - 
+      - 
+      - Fade out
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 48
+      debugIndex: 75
+      strings:
+      - 
+      - Jump
+      - "**\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 49
+      debugIndex: 78
+      strings:
+      - 
+      - "**\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3\uFF08\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F\uFF09"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 50
+      debugIndex: 79
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 51
+      debugIndex: 80
+      strings:
+      - 
+      - RuleFadeIn
+      - "\u30B3\u30CF\u30EBRT"
+      - Clockwise
+      - 
+      - 
+      - 
+      - 1
+      - PageWait
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 52
+      debugIndex: 81
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3\u3064\u304D\u30D5\u30A7\u30FC\u30C9\u30A4\u30F3"
+      - 
+      - 
+      - 
+      - Fade in with transition
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 53
+      debugIndex: 82
+      strings:
+      - 
+      - RuleFadeOut
+      - "\u30B3\u30CF\u30EBRT"
+      - Clockwise
+      - 
+      - 
+      - 
+      - 1
+      - PageWait
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 54
+      debugIndex: 83
+      strings:
+      - 
+      - 
+      - "\u30B3\u30CF\u30EBRT"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30C8\u30E9\u30F3\u30B8\u30B7\u30E7\u30F3\u3064\u304D\u30D5\u30A7\u30FC\u30C9\u30A2\u30A6\u30C8"
+      - 
+      - 
+      - 
+      - Fade out with transition
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 55
+      debugIndex: 86
+      strings:
+      - 
+      - Jump
+      - "**\u30C6\u30AF\u30B9\u30C1\u30E3\u63CF\u304D\u8FBC\u307F"
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    name: Assets/UtageForLive2D/Sample/UtageForLive2D.xls:SampleLive2D
+    type: 1
+    textLength: 1945
+    headerRow: 0
+    entityIndexTbl: 
+    entityDataList: []

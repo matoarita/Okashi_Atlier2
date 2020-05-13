@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f183272568e6f94382e3b59c0de76cd, type: 3}
+  m_Name: UtageForLive2D.project
+  m_EditorClassIdentifier: 
+  excelList: []
+  chapterDataList:
+  - chapterName: Boot
+    excelList:
+    - {fileID: 102900000, guid: ac6c9db6fa6b72a488aaf4ba73f79229, type: 3}
+    excelDir: {fileID: 0}
+  checkWaitType: 0
+  checkWhiteSpaceEndOfCell: 1
+  checkTextCount: 1
+  scenarios: {fileID: 11400000, guid: f3a2f719309ca884b98047374ffdb3bd, type: 2}
+  autoImportType: 0
+  convertPath: 
+  convertVersion: 0
+  isAutoUpdateVersionAfterConvert: 0
+  isAutoConvertOnImport: 0
+  customInportSpriteFolders:
+  - {fileID: 102900000, guid: d97e829d429b213488efc7b996d5b2c3, type: 3}
+  - {fileID: 102900000, guid: d3d960fca55795c4ebdc038174c36131, type: 3}
+  - {fileID: 102900000, guid: 432ace0660f3c4c498f19f9971de75d2, type: 3}
+  - {fileID: 102900000, guid: 228beb5bd4d1d7f4ba1ac60b85a8fc16, type: 3}
+  - {fileID: 102900000, guid: afca4796d00abb446b799f7bef862325, type: 3}
+  customInportAudioFolders:
+  - {fileID: 102900000, guid: a1373807e8095e84982c4c612cab140b, type: 3}
+  - {fileID: 102900000, guid: ff78b6b407df2594b8f80438f0dde173, type: 3}
+  - {fileID: 102900000, guid: a00b696790cf1df49a6dd0049b102200, type: 3}
+  - {fileID: 102900000, guid: 6a41b062b4bdd1b438dad9d9e06b35a2, type: 3}
+  customInportMovieFolders: []
+  quickImport: 0
+  parseFormula: 0

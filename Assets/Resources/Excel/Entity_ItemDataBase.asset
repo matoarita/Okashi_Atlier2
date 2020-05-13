@@ -3653,7 +3653,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Okashi
-      subtype: Cake
+      subtype: Crepe
       girl1_like: 2
       cost_price: 300
       sell_price: 150

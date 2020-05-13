@@ -101,6 +101,7 @@ public class HukidashiAction : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+        /*
         if(text_area.GetComponent<TextController>().textend_flag == true)
         {
             //Debug.Log("text end: " + text_area.GetComponent<TextController>().textend_flag);
@@ -142,7 +143,7 @@ public class HukidashiAction : MonoBehaviour {
                 girl1_status.WaitHint_on = true;
             }
         }
-
+        */
     }
 
     void LateUpdate()

@@ -108,6 +108,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject shop_toggle;
     private GameObject getmaterial_toggle;
     private GameObject stageclear_toggle;
+    private GameObject questclear_toggle;
 
     private Button extreme_Button;
     private Button recipi_Button;
@@ -323,6 +324,7 @@ public class Compound_Main : MonoBehaviour
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
+        questclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/QuestClear_Toggle").gameObject;
 
         stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
         stageclear_Button.SetActive(false);
@@ -417,7 +419,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     case 0: //最初にシナリオを読み始める。
 
-                        Extremepanel_obj.SetActive(true);
+                        canvas.SetActive(false);
 
                         //一時的に腹減りを止める。+腹減りステータスをリセット
                         girl1_status.GirlEat_Judge_on = false;
@@ -431,8 +433,9 @@ public class Compound_Main : MonoBehaviour
 
                         MainCompoundMethod();
                         compoundselect_onoff_obj.SetActive(false);
-                        //text_area.SetActive(true);
-                        _text.text = "左のエクストリームパネルを押してみよう！";
+                        canvas.SetActive(true);
+
+                        _textmain.text = "左のエクストリームパネルを押してみよう！";
                         break;
 
                     case 20: //エクストリームパネルを押して、オリジナル調合画面を開いた
@@ -454,7 +457,7 @@ public class Compound_Main : MonoBehaviour
                     case 30: //宴がポーズ状態。右のレシピメモを押そう。
 
                         text_area.SetActive(true);
-                        _text.text = "右の「レシピメモ」ボタンを押してみよう！";
+                        _textmain.text = "右の「レシピメモ」ボタンを押してみよう！";
                         break;
 
                     case 40: //メモ画面を開いた。
@@ -466,7 +469,7 @@ public class Compound_Main : MonoBehaviour
 
                         pitemlistController.Oninteract();
                         text_area.SetActive(true);
-                        _text.text = originai_text;
+                        _textmain.text = originai_text;
 
                         GameMgr.tutorial_Num = 55;
                         break;
@@ -497,13 +500,8 @@ public class Compound_Main : MonoBehaviour
 
                         MainCompoundMethod();
 
-                        compoundselect_onoff_obj.SetActive(false);
+                        canvas.SetActive(false);
 
-                        extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
-
-                        //compoundselect_onoff_obj.SetActive(true);
-                        text_area.SetActive(false);
                         break;
 
                     case 90: //「あげる」ボタンを押すところ。「あげる」のみをON、他のボタンはオフ。
@@ -512,14 +510,13 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
 
                         compoundselect_onoff_obj.SetActive(false);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = false;
-                        text_area.SetActive(false);
+                        text_area.SetActive(false);                       
 
                         girl1_status.SetOneQuest(0);
                         girl1_status.Girl_Hungry();
@@ -531,58 +528,46 @@ public class Compound_Main : MonoBehaviour
 
                     case 100:
 
-                        MainCompoundMethod();
-
-                        extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
-
+                        MainCompoundMethod();                        
+                        canvas.SetActive(true);
                         compoundselect_onoff_obj.SetActive(true);
-                        menu_toggle.GetComponent<Toggle>().interactable = false;
-                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-                        shop_toggle.GetComponent<Toggle>().interactable = false;
-                        girleat_toggle.GetComponent<Toggle>().interactable = true;
-                        //text_area.SetActive(true);
-                        _text.text = "お菓子をあげてみよう！";
+
+                        _textmain.text = "お菓子をあげてみよう！";
 
                         GameMgr.tutorial_Num = 105; //退避
                         break;
 
                     case 105:
-
+                        
                         MainCompoundMethod();
-
+                        
                         extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
-
                         menu_toggle.GetComponent<Toggle>().interactable = false;
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
-                        
                         break;
 
                     case 110:
 
                         MainCompoundMethod();
+                        girl1_status.DeleteHukidashiOnly();
+                        canvas.SetActive(false);
 
-                        extreme_Button.interactable = false;
-                        compoundselect_onoff_obj.SetActive(false);
-
-                        text_area.SetActive(false);
                         break;
 
                     case 120:
 
                         MainCompoundMethod();
 
+                        compoundselect_onoff_obj.SetActive(false);
+
                         girl1_status.timeGirl_hungry_status = 2; //一回、画像を元に戻す。
 
                         girl1_status.SetOneQuest(11);
                         girl1_status.Girl_Hungry();
                         girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
-
-                        //text_area.SetActive(true);
-
+                        
                         GameMgr.tutorial_Num = 130;
 
                         GameMgr.tutorial_Progress = true;
@@ -596,9 +581,9 @@ public class Compound_Main : MonoBehaviour
                     case 140:
 
                         extreme_Button.interactable = true;
-                        //text_area.SetActive(true);
+                        canvas.SetActive(true);
 
-                        _text.text = "ねこクッキーを作ってみよう！";
+                        _textmain.text = "ねこクッキーを作ってみよう！";
 
                         break;
 
@@ -618,7 +603,6 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         select_recipi_button.interactable = true;
-
                         text_area.SetActive(true);
 
                         GameMgr.tutorial_Num = 165;
@@ -645,12 +629,7 @@ public class Compound_Main : MonoBehaviour
                     case 190: //元の画面に戻る
 
                         MainCompoundMethod();
-
-                        extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
-                        compoundselect_onoff_obj.SetActive(false);
-
-                        text_area.SetActive(false);
+                        canvas.SetActive(false);
 
                         break;
 
@@ -659,10 +638,9 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         extreme_Button.interactable = true;
-                        //sell_Button.SetActive(false);
-                        //text_area.SetActive(true);
+                        canvas.SetActive(true);
 
-                        _text.text = "もう一度パネルを押してみよう！";
+                        _textmain.text = "もう一度パネルを押してみよう！";
 
                         break;
 
@@ -731,25 +709,17 @@ public class Compound_Main : MonoBehaviour
                     case 270: //再び、元画面に戻る。
 
                         MainCompoundMethod();
+                        canvas.SetActive(false);
 
-                        extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
 
-                        compoundselect_onoff_obj.SetActive(false);
-                        menu_toggle.GetComponent<Toggle>().interactable = false;
-                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-                        shop_toggle.GetComponent<Toggle>().interactable = false;
-                        girleat_toggle.GetComponent<Toggle>().interactable = false;
-
-                        text_area.SetActive(false);
                         break;
 
                     case 280:
 
                         MainCompoundMethod();
+                        canvas.SetActive(true);
 
                         extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
 
                         compoundselect_onoff_obj.SetActive(true);
                         menu_toggle.GetComponent<Toggle>().interactable = false;
@@ -758,7 +728,7 @@ public class Compound_Main : MonoBehaviour
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
                         girl1_status.timeGirl_hungry_status = 1;
 
-                        //text_area.SetActive(true);
+                        _textmain.text = "お菓子をあげてみよう！";
 
                         GameMgr.tutorial_Num = 285; //退避
                         break;
@@ -766,35 +736,18 @@ public class Compound_Main : MonoBehaviour
                     case 285:
 
                         MainCompoundMethod();
-
-                        extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
-
-                        menu_toggle.GetComponent<Toggle>().interactable = false;
-                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-                        shop_toggle.GetComponent<Toggle>().interactable = false;
-                        girleat_toggle.GetComponent<Toggle>().interactable = true;
                         
                         break;
 
                     case 290:
 
                         MainCompoundMethod();
+                        girl1_status.DeleteHukidashiOnly();
+                        canvas.SetActive(false);
 
-                        extreme_Button.interactable = false;
-                        //sell_Button.SetActive(false);
-
-                        compoundselect_onoff_obj.SetActive(false);
-                        menu_toggle.GetComponent<Toggle>().interactable = false;
-                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-                        shop_toggle.GetComponent<Toggle>().interactable = false;
-                        girleat_toggle.GetComponent<Toggle>().interactable = false;
-
-                        text_area.SetActive(false);
                         break;
 
                     default:
-
 
                         break;
                 }
@@ -878,6 +831,7 @@ public class Compound_Main : MonoBehaviour
                 //ボタンなどの状態の初期設定
                 if (GameMgr.tutorial_ON != true)
                 {
+                    canvas.SetActive(true);
                     compoundselect_onoff_obj.SetActive(true);
 
                     //腹減りカウント開始
@@ -1512,6 +1466,22 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    public void OnQuestClear() //クエストクリアボタン
+    {
+        if (questclear_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            questclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+            questclear_toggle.SetActive(false);
+
+            card_view.DeleteCard_DrawView();
+
+            girlEat_judge.QuestClearMethod();
+            //_textmain.text = "コンテストに出場しますか？" + "\n" + "（次のお話へ進みます。）";
+            //compound_status = 40;
+
+        }
+    }
+
 
     //レシピを見たときの処理。recipiitemselecttoggleから呼ばれる。
     public void eventRecipi_ON()
@@ -1802,25 +1772,25 @@ public class Compound_Main : MonoBehaviour
                 //ステージ１のサブイベント
                 case 1:
 
-                    if (GameMgr.OkashiQuest_flag[1]) //レベル３のときのイベント。
+                    
+                    if (!GameMgr.OkashiQuest_flag[0]) //レベル１のときのイベント。一番最初で起こるイベント。
                     {
-                        event_num = 2;
+                        event_num = 0;
 
-                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント２
+                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント０
                         {
-                            GameMgr.GirlLoveEvent_num = 2;
+                            GameMgr.GirlLoveEvent_num = 0;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
-                            //クエスト発生
-                            Debug.Log("スペシャルクエスト: ビスコッティが食べたい　開始");
+                            //ラスク作りのクエスト発生
+                            if (GameMgr.OkashiQuest_flag[1] != true)
+                            {
+                                Debug.Log("スペシャルクエスト１: クッキーが食べたい　開始");
 
-                            //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                            special_quest.SetSpecialOkashi(2);
+                                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                                special_quest.SetSpecialOkashi(0);
 
-                            Debug.Log("好感度イベント２をON: お兄ちゃん。またお客さんだ");
-
-                            //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
-                            StartCoroutine("ReadGirlLoveEvent");
+                            }
                         }
                     }
 
@@ -1852,26 +1822,51 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (!GameMgr.OkashiQuest_flag[0]) //レベル１のときのイベント。一番最初で起こるイベント。
+                    if (GameMgr.OkashiQuest_flag[1]) //レベル３のときのイベント。
                     {
-                        event_num = 0;
+                        event_num = 2;
 
-                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント０
+                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント２
                         {
-                            GameMgr.GirlLoveEvent_num = 0;
+                            GameMgr.GirlLoveEvent_num = 2;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
-                            //ラスク作りのクエスト発生
-                            if (GameMgr.OkashiQuest_flag[1] != true)
-                            {
-                                Debug.Log("スペシャルクエスト１: クッキーが食べたい　開始");
+                            //クエスト発生
+                            Debug.Log("スペシャルクエスト: ビスコッティが食べたい　開始");
 
-                                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                special_quest.SetSpecialOkashi(0);
+                            //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                            special_quest.SetSpecialOkashi(2);
 
-                            }
+                            Debug.Log("好感度イベント２をON: お兄ちゃん。またお客さんだ");
+
+                            //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+                            StartCoroutine("ReadGirlLoveEvent");
                         }
                     }
+
+                    if (GameMgr.OkashiQuest_flag[2]) //レベル４のときのイベント。
+                    {
+                        event_num = 3;
+
+                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント３
+                        {
+                            GameMgr.GirlLoveEvent_num = 3;
+                            GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            //クエスト発生
+                            Debug.Log("スペシャルクエスト: クレープが食べたい　開始");
+
+                            //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                            special_quest.SetSpecialOkashi(3);
+
+                            Debug.Log("好感度イベント３をON: クレープに興味津々");
+
+                            //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+                            StartCoroutine("ReadGirlLoveEvent");
+                        }
+                    }
+
+
 
                     break;
 
@@ -1917,7 +1912,7 @@ public class Compound_Main : MonoBehaviour
         extreme_Button.interactable = false;
         GirlLove_loading = true;
 
-        while (girlEat_judge.heart_count > 0 || girlEat_judge.ScoreHyouji_ON)
+        while (girlEat_judge.heart_count > 0 && girlEat_judge.ScoreHyouji_ON)
         {
             yield return null;
         }
