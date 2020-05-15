@@ -15,17 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/GirlEat.unity
     guid: 318a95ee7430bb4419b5dd057121d419
   - enabled: 1
-    path: Assets/Scenes/Travel.unity
-    guid: 29f667c2e94d7784491b5240ea4589a9
-  - enabled: 1
-    path: Assets/Scenes/Travel_Map01.unity
-    guid: 3f4f908f5ed270641b1634134fa46f6c
-  - enabled: 1
     path: Assets/Scenes/Shop.unity
     guid: 7357b5f50d998e940a46f6de237f0ee8
-  - enabled: 0
-    path: Assets/Scenes/QuestBox.unity
-    guid: 23ac1959b0a3b364d874dcf09d089b1a
   - enabled: 1
     path: Assets/Scenes/Farm.unity
     guid: 6bc5305ee68810d48ad4c33ff2c6d841
@@ -53,3 +44,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/100_Ending.unity
     guid: b90242159df10c74baa935d0b6c453c3
+  - enabled: 1
+    path: Assets/Scenes/999_Gameover.unity
+    guid: 69b0fbf9d000a8545bccc6df513d7015

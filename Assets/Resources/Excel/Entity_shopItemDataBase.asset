@@ -92,39 +92,39 @@ MonoBehaviour:
       shop_buy_price: 50
       item_hyouji: 0
     - ItemID: 11
-      name: shishamo
-      zaiko: 50
-      itemType: 0
-      shop_sell_price: 70
-      shop_buy_price: 35
-      item_hyouji: 1
-    - ItemID: 12
       name: silver_chip
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 13
+    - ItemID: 12
       name: kirakira_heart
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 14
+    - ItemID: 13
       name: jewely_suger
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 15
+    - ItemID: 14
       name: mix_color_sprinkles
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 15
+      name: shishamo
+      zaiko: 50
+      itemType: 3
+      shop_sell_price: 70
+      shop_buy_price: 35
       item_hyouji: 1
     - ItemID: 16
       name: decopen_choco

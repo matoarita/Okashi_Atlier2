@@ -171,6 +171,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             case "100_Ending":
                 break;
 
+            case "999_Gameover":
+                break;
+
             case "Farm":
                 break;
 

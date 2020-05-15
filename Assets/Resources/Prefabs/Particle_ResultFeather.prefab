@@ -89,7 +89,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 55752123
+  randomSeed: 548941530
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -540,7 +540,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: -1}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 700, y: 700, z: 400}
+    m_Scale: {x: 500, y: 700, z: 400}
     placementMode: 0
     m_Mesh: {fileID: 0}
     m_MeshRenderer: {fileID: 0}
@@ -3381,7 +3381,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 300
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0

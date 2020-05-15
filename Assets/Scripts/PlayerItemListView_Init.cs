@@ -78,7 +78,7 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         recipilist_scrollview_init = (GameObject)Resources.Load("Prefabs/RecipiList_ScrollView");
         recipilist_onoff = Instantiate(recipilist_scrollview_init, canvas.transform);
 
-        recipilist_onoff.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        recipilist_onoff.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
         recipilist_onoff.transform.localPosition = new Vector3(0, 70, 0);
         recipilist_onoff.name = "RecipiList_ScrollView";
     }

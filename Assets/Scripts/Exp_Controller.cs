@@ -277,15 +277,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
             if (compound_Main_obj == null)
             {
+
+                //キャンバスの読み込み
+                canvas = GameObject.FindWithTag("Canvas");
+
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                 extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
                 extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
-
-                //キャンバスの読み込み
-                canvas = GameObject.FindWithTag("Canvas");
-
+                
                 text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
                 _text = text_area.GetComponentInChildren<Text>();
 
