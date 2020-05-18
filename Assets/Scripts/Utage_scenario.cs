@@ -35,28 +35,7 @@ public class Utage_scenario : MonoBehaviour
 
     private ItemMatPlaceDataBase matplace_database;
 
-    private Girl1_status girl1_status; //女の子１のステータスを取得。
-
-    //採点結果を取得
-    private int girl_kettei_item;
-    private int itemLike_score;
-
-    private int quality_score;
-    private int sweat_score;
-    private int bitter_score;
-    private int sour_score;
-
-    private int crispy_score;
-    private int fluffy_score;
-    private int smooth_score;
-    private int hardness_score;
-    private int jiggly_score;
-    private int chewy_score;
-
-    private int subtype1_score;
-    private int subtype2_score;
-
-    private int total_score;
+    private Girl1_status girl1_status; //女の子１のステータスを取得。    
 
     private int j;
     private string recipi_Name;
@@ -253,7 +232,7 @@ public class Utage_scenario : MonoBehaviour
                     GameMgr.OkashiComment_flag = false;
                     Okashicomment_ID = GameMgr.OkashiComment_ID;
 
-                    //SPお菓子食べたあとの感想テキストを表示
+                    //お菓子食べた直後（採点表示パネル前）の通常感想テキストを表示
                     StartCoroutine(OkashiComment_Hyouji());
                 }
 
@@ -280,7 +259,7 @@ public class Utage_scenario : MonoBehaviour
                     GameMgr.okashiafter_flag = false;
                     sp_Okashi_ID = GameMgr.okashiafter_ID;
 
-                    //SPお菓子食べたあとの感想テキストを表示
+                    //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
                     StartCoroutine(OkashiAfterComment_Hyouji());
                 }
 

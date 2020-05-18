@@ -93,7 +93,7 @@ MonoBehaviour:
       hint_text: "\u898B\u305F\u76EE\u304C\u304B\u308F\u3044\u3044\u306E\u304C\u3044\u3044\uFF01"
       clear: 0
     - ID: 7
-      set_compID: 1010
+      set_compID: 1100
       set1: 30
       set2: 9999
       set3: 9999
@@ -104,7 +104,7 @@ MonoBehaviour:
       hint_text: "\u5144\u3061\u3083\u3093\u3001\u30D0\u30BF\u30FC\u3092\u3044\u308C\u308B\u3068\u3001\u3055\u304F\u3055\u304F\u306B\u306A\u308B\u304B\u3082..\uFF1F"
       clear: 0
     - ID: 8
-      set_compID: 1020
+      set_compID: 1200
       set1: 60
       set2: 9999
       set3: 9999

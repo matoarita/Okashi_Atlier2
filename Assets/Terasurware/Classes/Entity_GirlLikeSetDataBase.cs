@@ -43,6 +43,7 @@ public class Entity_GirlLikeSetDataBase : ScriptableObject
 		public int tp_score04;
 		public int tp_score05;
 		public string desc;
+		public int commet_flag;
 	}
 }
 

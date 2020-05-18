@@ -40,6 +40,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "0\u30B5\u30F3\u30D7\u30EB\u3002\u30B2\u30FC\u30E0\u4E2D\u3067\u306F\u672A\u4F7F\u7528\u3002"
+      commet_flag: 0
     - setID: 1
       compNum: 200
       girllike_itemname: neko_cookie
@@ -66,6 +67,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 2
       compNum: 1
       girllike_itemname: Non
@@ -92,6 +94,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u3055\u304F\u3055\u304F\u3057\u305F\u304A\u83D3\u5B50</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
+      commet_flag: 0
     - setID: 3
       compNum: 2
       girllike_itemname: Non
@@ -118,6 +121,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
+      commet_flag: 0
     - setID: 4
       compNum: 10
       girllike_itemname: Non
@@ -144,6 +148,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 5
       compNum: 201
       girllike_itemname: orange_neko_cookie
@@ -170,6 +175,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 6
       compNum: 12
       girllike_itemname: Non
@@ -189,13 +195,14 @@ MonoBehaviour:
       topping02: SakuraChip
       topping03: JewerySuger
       topping04: KirakiraHeart
-      topping05: Non
+      topping05: MixColor
       tp_score01: 15
-      tp_score02: 22
+      tp_score02: 25
       tp_score03: 30
       tp_score04: 40
-      tp_score05: 0
+      tp_score05: 20
       desc: "\u304A\u5144\u3061\u3083\u3093\u306E<color=#FF78B4>\u30AA\u30EA\u30B8\u30CA\u30EB</color>\u306E\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u3055\u305B\u3066\uFF01"
+      commet_flag: 1
     - setID: 7
       compNum: 208
       girllike_itemname: grape_cookie
@@ -222,6 +229,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u3076\u3069\u3046\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 8
       compNum: 21
       girllike_itemname: Non
@@ -248,6 +256,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u3076\u3069\u3046\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 9
       compNum: 221
       girllike_itemname: rusk
@@ -274,6 +283,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u30E9\u30B9\u30AF</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 10
       compNum: 30
       girllike_itemname: Non
@@ -300,6 +310,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u30E9\u30B9\u30AF</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 11
       compNum: 40
       girllike_itemname: Non
@@ -326,6 +337,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u305F\u307E\u3054\u306E\u5165\u3063\u305F\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 12
       compNum: 50
       girllike_itemname: biscotti
@@ -352,6 +364,7 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u30E9\u30B9\u30AF</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
     - setID: 13
       compNum: 60
       girllike_itemname: Non
@@ -378,3 +391,4 @@ MonoBehaviour:
       tp_score04: 0
       tp_score05: 0
       desc: "<color=#FF78B4>\u30E9\u30B9\u30AF</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0

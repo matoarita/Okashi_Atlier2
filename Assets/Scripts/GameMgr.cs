@@ -29,7 +29,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
     public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
 
-    public static bool[] GirlLoveEvent_stage1 = new bool[30];  //各イベントの、読んだかどうかのチェック用フラグ。一度読んだイベントは、発生しない。
+    public static bool[] GirlLoveEvent_stage1 = new bool[30];  //各イベントの、現在読み中かどうかのフラグ。
     public static bool[] GirlLoveEvent_stage2 = new bool[30];
     public static bool[] GirlLoveEvent_stage3 = new bool[30];
 
@@ -64,9 +64,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool sleep_flag;
 
     //お菓子イベントクリアのフラグ
-    public static bool[] OkashiQuest_flag = new bool[100];
-    //00 = オリジナルクッキークリア
-    //01 = ラスククリア
+    public static bool[] OkashiQuest_flag_stage1 = new bool[30]; //各イベントのクリアしたかどうかのフラグ。
+    public static bool[] OkashiQuest_flag_stage2 = new bool[30];
+    public static bool[] OkashiQuest_flag_stage3 = new bool[30];
+
+    //お菓子イベント現在のナンバー
+    public static int OkashiQuest_Num;
+
+    //お菓子の点数基準値
+    public static int low_score;
+    public static int high_score;
 
     //ショップの話すコマンド
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
@@ -185,16 +192,23 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         okashiafter_flag = false;
 
         //お菓子フラグの初期化
-        for (i = 0; i < OkashiQuest_flag.Length; i++) {
-            OkashiQuest_flag[i] = false;
+        for (i = 0; i < OkashiQuest_flag_stage1.Length; i++) {
+            OkashiQuest_flag_stage1[i] = false;
+            OkashiQuest_flag_stage2[i] = false;
+            OkashiQuest_flag_stage3[i] = false;
         }
+        OkashiQuest_Num = 0;
+
+        //お菓子のクリア基準値
+        low_score = 60;
+        high_score = 85;
 
         //チュートリアルフラグ
         tutorial_ON = false;
         tutorial_Progress = false;
         tutorial_Num = 0;
 
-        //ステージごとの、クリア好感度の数値設定
+        //ステージごとの、クリア好感度の数値設定。現在は未使用
         stage1_clear_love = 100;
         stage2_clear_love = 200;
         stage3_clear_love = 450;

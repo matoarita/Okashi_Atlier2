@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Prologue_Main : MonoBehaviour {
+public class AAA_Prologue_Main : MonoBehaviour {
 
     private Debug_Panel_Init debug_panel_init;
 

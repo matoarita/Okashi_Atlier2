@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Stage3_eyecatch_Main : MonoBehaviour {
+public class AAA_Stage2_eyecatch_Main : MonoBehaviour {
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -13,21 +13,19 @@ public class Stage3_eyecatch_Main : MonoBehaviour {
     AudioSource audioSource;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start () {
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
     }
+	
+	// Update is called once per frame
+	void Update () {
 
-    // Update is called once per frame
-    void Update()
-    {
+        
 
-
-
-    }
+    }    
 
     private void OnEnable()
     {
@@ -42,7 +40,7 @@ public class Stage3_eyecatch_Main : MonoBehaviour {
 
             //音終わりにこの中の処理
 
-            FadeManager.Instance.LoadScene("003_Stage3", 0.3f);
+            FadeManager.Instance.LoadScene("002_Stage2", 0.3f);
         }));
     }
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Ending_Main : MonoBehaviour {
-
+public class AAA_Stage2_Main : MonoBehaviour
+{
     private Debug_Panel_Init debug_panel_init;
 
     private Girl1_status girl1_status;
@@ -12,10 +12,10 @@ public class Ending_Main : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        
+        Debug.Log("Stage2_lodingOK");
 
-        Debug.Log("Ending_lodingOK");
-
-        GameMgr.scenario_flag = 1000;
+        GameMgr.scenario_flag = 2000;
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive);
 
         //女の子データの取得
@@ -26,18 +26,20 @@ public class Ending_Main : MonoBehaviour {
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
         girl1_status.girl1_Love_exp = 0;
-        GameMgr.stage_number = 100;
+        girl1_status.girl1_Love_lv = 1;
+        PlayerStatus.player_day = GameMgr.stage2_start_day;
+        GameMgr.stage_number = 2;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        /*if (GameMgr.scenario_flag == 309)
+        if (GameMgr.scenario_flag == 2009) //1話の最初の調合パートに入るので、調合パートの玄関となるシーンへ遷移する
         {
-            GameMgr.scenario_flag = 310; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。
+            GameMgr.scenario_flag = 2010; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。
 
             FadeManager.Instance.LoadScene("Compound", 0.3f);
-        }*/
+        }
     }
 }

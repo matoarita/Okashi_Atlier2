@@ -40,6 +40,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     {
         special_kaisu = 0; //0回にリセット
         spquest_set_num = _num;
+        GameMgr.OkashiQuest_Num = _num;
 
         switch (_num)
         {
@@ -65,22 +66,22 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 //** ここまで **//
 
                 girl1_status.OkashiNew_Status = 0;
-                girl1_status.OkashiQuest_ID = 1010;
+                girl1_status.OkashiQuest_ID = 1100;
                 girl1_status.ResetHukidashi();
 
                 break;
 
-            case 2:
+            case 2: //クレープ食べたい
 
                 girl1_status.OkashiNew_Status = 0;
-                girl1_status.OkashiQuest_ID = 1020;
+                girl1_status.OkashiQuest_ID = 1200;
                 girl1_status.ResetHukidashi();
                 break;
 
             case 3:
 
                 girl1_status.OkashiNew_Status = 0;
-                girl1_status.OkashiQuest_ID = 1030;
+                girl1_status.OkashiQuest_ID = 1300;
                 girl1_status.ResetHukidashi();
                 break;
 

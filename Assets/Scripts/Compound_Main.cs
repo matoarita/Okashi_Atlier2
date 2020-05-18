@@ -895,8 +895,8 @@ public class Compound_Main : MonoBehaviour
 
 
 
-                //好感度がステージの、一定の数値を超えたら、クリアボタンがでる。
-                if (girl1_status.girl1_Love_exp >= clear_love)
+                //5個クエストをクリアしたら、クリアボタンがでる。
+                if (GameMgr.OkashiQuest_flag_stage1[4])
                 {
                     stageclear_toggle.SetActive(true);
                     //stageclear_Button.SetActive(true);
@@ -1106,13 +1106,16 @@ public class Compound_Main : MonoBehaviour
                 compound_select = 10; //あげるを選択
 
                 yes_no_panel.SetActive(true);
-                yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+                yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);                
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 black_panel_A.SetActive(true);
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
+
+                Extremepanel_obj.SetActive(false);
+                text_area_Main.SetActive(false);
 
                 card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
                 StartCoroutine("Girl_present_Final_select");
@@ -1165,7 +1168,6 @@ public class Compound_Main : MonoBehaviour
             case 30: //「売る」を選択
 
                 compoundselect_onoff_obj.SetActive(false);
-                //stageclear_Button.SetActive(false);
 
                 compound_status = 31; //売るシーンに入っています、というフラグ
                 compound_select = 30; //売るを選択
@@ -1197,7 +1199,6 @@ public class Compound_Main : MonoBehaviour
             case 40: //ステージクリアを選択
 
                 compoundselect_onoff_obj.SetActive(false);
-                //stageclear_Button.SetActive(false);
 
                 compound_status = 41; //売るシーンに入っています、というフラグ
                 compound_select = 40; //売るを選択
@@ -1208,6 +1209,9 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.GirlEat_Judge_on = false;
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+
+                Extremepanel_obj.SetActive(false);
+                text_area_Main.SetActive(false);
                 black_panel_A.SetActive(true);
                 StartCoroutine("StageClear_Final_select");
                 break;
@@ -1222,6 +1226,9 @@ public class Compound_Main : MonoBehaviour
                 compound_status = 99;
                 compound_select = 99;
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+
+                Extremepanel_obj.SetActive(false);
+                text_area_Main.SetActive(false);
 
                 break;
 
@@ -1773,7 +1780,7 @@ public class Compound_Main : MonoBehaviour
                 case 1:
 
                     
-                    if (!GameMgr.OkashiQuest_flag[0]) //レベル１のときのイベント。一番最初で起こるイベント。
+                    if (!GameMgr.OkashiQuest_flag_stage1[0]) //レベル１のときのイベント。一番最初で起こるイベント。
                     {
                         event_num = 0;
 
@@ -1783,18 +1790,14 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
                             //ラスク作りのクエスト発生
-                            if (GameMgr.OkashiQuest_flag[1] != true)
-                            {
-                                Debug.Log("スペシャルクエスト１: クッキーが食べたい　開始");
+                            Debug.Log("好感度イベント１をON: クッキーが食べたい　開始");
 
-                                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                special_quest.SetSpecialOkashi(0);
-
-                            }
+                            //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                            special_quest.SetSpecialOkashi(0);
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag[0]) //レベル２のときのイベント
+                    if (GameMgr.OkashiQuest_flag_stage1[0] && GameMgr.GirlLoveEvent_stage1[0]) //レベル２のときのイベント
                     {
 
                         event_num = 1;
@@ -1809,20 +1812,17 @@ public class Compound_Main : MonoBehaviour
                             pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加                            
 
                             //クエスト発生
-                            Debug.Log("スペシャルクエスト: ラスクが食べたい　開始");
+                            Debug.Log("好感度イベント２をON: ラスクが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                             special_quest.SetSpecialOkashi(1);
-
-
-                            Debug.Log("好感度イベント１をON: お兄ちゃん。誰かお客さんがきたよ。");
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag[1]) //レベル３のときのイベント。
+                    if (GameMgr.OkashiQuest_flag_stage1[1] && GameMgr.GirlLoveEvent_stage1[1]) //レベル３のときのイベント。
                     {
                         event_num = 2;
 
@@ -1832,19 +1832,17 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
                             //クエスト発生
-                            Debug.Log("スペシャルクエスト: ビスコッティが食べたい　開始");
+                            Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                             special_quest.SetSpecialOkashi(2);
-
-                            Debug.Log("好感度イベント２をON: お兄ちゃん。またお客さんだ");
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag[2]) //レベル４のときのイベント。
+                    if (GameMgr.OkashiQuest_flag_stage1[2] && GameMgr.GirlLoveEvent_stage1[2]) //レベル４のときのイベント。
                     {
                         event_num = 3;
 
@@ -1854,12 +1852,10 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
                             //クエスト発生
-                            Debug.Log("スペシャルクエスト: クレープが食べたい　開始");
+                            Debug.Log("好感度イベント４をON: ○○が食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                             special_quest.SetSpecialOkashi(3);
-
-                            Debug.Log("好感度イベント３をON: クレープに興味津々");
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");

@@ -103,6 +103,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private string[] girllike_desc;
     private string _desc;
+    public int[] girllike_comment_flag;
 
     public int[] girl1_like_set_score;
 
@@ -122,30 +123,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int special_animstart_status;
     private float special_timeOut;
     public bool special_animatFirst;
-
-
-    //採点結果　宴と共有する用のパラメータ。採点は、GirlEat_Judgeで行っている。
-    public int girl_final_kettei_item;
-    public int itemLike_score_final;
-
-    public int quality_score_final;
-
-    public int rich_score_final;
-    public int sweat_score_final;
-    public int bitter_score_final;
-    public int sour_score_final;
-
-    public int crispy_score_final;
-    public int fluffy_score_final;
-    public int smooth_score_final;
-    public int hardness_score_final;
-    public int jiggly_score_final;
-    public int chewy_score_final;
-
-    public int subtype1_score_final;
-    public int subtype2_score_final;
-
-    public int total_score_final;
 
     private int i, j, count;
     private int index;
@@ -375,6 +352,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_likeSubtype = new string[youso_count];
         girl1_likeOkashi = new string[youso_count];
         girllike_desc = new string[youso_count];
+        girllike_comment_flag = new int[youso_count];
 
         //ステージごとに、女の子が食べたいお菓子のセットを初期化
         InitializeStageGirlHungrySet(0, 0); //とりあえず0で初期化
@@ -1392,6 +1370,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //コメントをセット
         girllike_desc[_set_num] = girlLikeSet_database.girllikeset[setID].set_kansou;
+
+        //お菓子食べた後の感想用フラグのセット
+        girllike_comment_flag[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_comment_flag;
 
         //外部から直接指定されたとき用に、_descの中身も更新。
         //_desc = girllike_desc[0];

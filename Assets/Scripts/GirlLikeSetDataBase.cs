@@ -40,6 +40,8 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
 
     private string _setkansou;
 
+    private int _comment_flag;
+
     private int i;
     private int count;
     private int sheet_count;
@@ -102,10 +104,12 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
 
                 _setkansou = excel_girlLikeset_database.sheets[sheet_no].list[count].desc;
 
+                _comment_flag = excel_girlLikeset_database.sheets[sheet_no].list[count].commet_flag;
+
                 //ここでリストに追加している
                 girllikeset.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy,
-                    _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _setkansou));
+                    _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _setkansou, _comment_flag));
 
                 //Debug.Log("GirlLike_tp01: " + girllikeset[count].girlLike_topping[0]);
 

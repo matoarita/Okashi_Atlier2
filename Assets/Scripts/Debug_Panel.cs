@@ -13,16 +13,22 @@ public class Debug_Panel : MonoBehaviour {
     private GameObject StoryNumber;
     private Text StoryNumber_text;
 
+    private GameObject EventNumber;
+    private Text EventNumber_text;
+
     private GameObject StageNumber;
     private Text StageNumber_text;
 
     private Text DebugInputOn;
 
     private InputField input_scenario;
+    private InputField input_event;
     private InputField input_girllove;
     private string input_text;
     private string input_text2;
+    private string input_text3;
     private int scenario_num;
+    private int event_num;
     private int girllove_param;
     private Text girl_lv;
     public bool Debug_INPUT_ON; //デバッグ外部からの入力受け付けるかどうか。PSコントローラーでやるときはOFFにしたほうがよい。バグがでるため。
@@ -34,6 +40,8 @@ public class Debug_Panel : MonoBehaviour {
     private int i;
 
     private Girl1_status girl1_status;
+    private GirlEat_Judge girlEat_judge;
+    private Special_Quest special_quest;
     private Slider _slider; //好感度バーを取得
 
     private GameObject GirlHeartEffect_obj;
@@ -48,11 +56,16 @@ public class Debug_Panel : MonoBehaviour {
         StoryNumber = this.transform.Find("StoryNumber").gameObject;
         StoryNumber_text = StoryNumber.GetComponent<Text>();
 
+        EventNumber = this.transform.Find("EventNumber").gameObject;
+        EventNumber_text = EventNumber.GetComponent<Text>();
+
         StageNumber = this.transform.Find("StageNumber").gameObject;
         StageNumber_text = StageNumber.GetComponent<Text>();
 
         input_scenario = this.transform.Find("InputField").gameObject.GetComponent<InputField>();
+        input_event = this.transform.Find("InputField_EventNum").gameObject.GetComponent<InputField>();
         input_girllove = this.transform.Find("InputField_GirlLove").gameObject.GetComponent<InputField>();
+
 
         Mazui_toggle = this.transform.Find("MazuiToggle").gameObject.GetComponent<Toggle>();
         Mazui_toggle_input = this.transform.Find("MazuiToggleInput").gameObject.GetComponent<Toggle>();
@@ -62,9 +75,7 @@ public class Debug_Panel : MonoBehaviour {
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
-
         
-
     }
 
     // Update is called once per frame
@@ -75,7 +86,7 @@ public class Debug_Panel : MonoBehaviour {
             StoryNumber_text.text = "TutorialNumber: " + GameMgr.tutorial_Num;
         } else
         {
-            StoryNumber_text.text = "StoryNumber: " + GameMgr.scenario_flag;
+            StoryNumber_text.text = "StNum: " + GameMgr.scenario_flag;
         }
 
         if(Debug_INPUT_ON)
@@ -86,7 +97,9 @@ public class Debug_Panel : MonoBehaviour {
         {
             DebugInputOn.text = "Input:OFF";
         }
-        
+
+        EventNumber_text.text = "Event: " + GameMgr.OkashiQuest_Num;
+
         StageNumber_text.text = "Stage: " + GameMgr.stage_number;
         Mazui_toggle.isOn = girl1_status.girl_Mazui_flag;
 
@@ -103,6 +116,80 @@ public class Debug_Panel : MonoBehaviour {
             input_text = input_scenario.text;
             Int32.TryParse(input_text, out scenario_num);
             GameMgr.scenario_flag = scenario_num;
+        }
+    }
+
+    //イベント番号を指定し、そこからスタート。２を入れると、クレープから始まり、それまでのイベントはクリアしたことになる。
+    public void InputEventNum()
+    {
+        if (Debug_INPUT_ON)
+        {
+            input_text3 = input_event.text;
+            Int32.TryParse(input_text3, out event_num);
+
+            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+            {
+                //女の子判定データの取得
+                girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+
+                //スペシャルお菓子クエストの取得
+                special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();                                               
+
+                switch (GameMgr.stage_number)
+                {
+                    case 1:
+
+                        //初期化
+                        for (i = 0; i < GameMgr.OkashiQuest_flag_stage1.Length; i++)
+                        {
+                            GameMgr.OkashiQuest_flag_stage1[i] = false;
+                        }
+
+                        for (i = 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
+                        {
+                            GameMgr.GirlLoveEvent_stage1[i] = false;
+                        }
+
+                        //クエストクリアフラグをたてる
+                        for (i = 0; i < event_num; i++)
+                        {
+                            GameMgr.OkashiQuest_flag_stage1[i] = true;
+
+                            //点数は、60点でクリアしたことにする。
+                            special_quest.special_score_record[i, 0] = 60;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                //**              
+
+                //現在のクエストを再度設定
+                if (event_num != 0)
+                {
+                    special_quest.SetSpecialOkashi(event_num - 1);
+                    GameMgr.GirlLoveEvent_stage1[event_num - 1] = true;
+                    Debug.Log("event_num: " + event_num);
+                }
+
+                //** 初期化
+                girl1_status.OkashiNew_Status = 1; //クエストクリアで、1に戻す。0にすると、次のクエストが開始する。（スペシャル吹き出し登場する）
+                girlEat_judge.subQuestClear_check = true;
+                girlEat_judge.Gameover_flag = false;
+                special_quest.special_kaisu = 0;
+                girl1_status.special_animatFirst = false;
+
+                if (event_num != 0)
+                {
+                    girlEat_judge.ResultPanel_On();
+                }
+                else
+                {
+                    girlEat_judge.subQuestClear_check = false;
+                    girlEat_judge.ResultOFF();
+                }
+            }
         }
     }
 
