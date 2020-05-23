@@ -1,10 +1,10 @@
 SE表
 
-・SE_01		audiostock_56181
-・SE_02		audiostock_66347_sample
-・SE_03		audiostock_78242
-・SE_04		audiostock_130297
-・SE_05		audiostock_104038.mp3
+・SE_01		audiostock_56181				決定音　ウィンドウを開いたイメージ
+・SE_02		audiostock_66347_sample				【#未使用】アイテム取得音　カエルコイン系
+・SE_03		audiostock_78242				汎用クリック音
+・SE_04		audiostock_130297				【#未使用】　なにかの決定音　ちょっと機械的
+・SE_05		audiostock_104038.mp3				調合の成功音
 ・SE_06		audiostock_66345.mp3
 ・SE_07		audiostock_126643.mp3
 ・SE_08		audiostock_60258.mp3
@@ -17,32 +17,44 @@ SE表
 ・SE_15		NES-RPG01-11(Select).mp3
 ・SE_16		shine2.mp3
 ・SE_17		tin2.mp3					電子レンジ
-・SE_18		audiostock_57727_sample.mp3
+・SE_18		audiostock_57727_sample.mp3			【#未使用】決定音　未使用。（OPのボタン押したときっぽい）
 ・SE_19		audiostock_57729.mp3				キャンセル音
-・SE_20		audiostock_60177_sample.mp3			決定音　未使用
+・SE_20		audiostock_60177_sample.mp3			【#未使用】決定音　未使用　なにかにつかえそう。
 ・SE_21		audiostock_5538.mp3				失敗爆発音
 ・SE_22		decision22.mp3					決定音　未使用？
-・SE_23		audiostock_145235_sample.mp3			カーソル選択音①　未使用
+・SE_23		audiostock_60838_sample.mp3			【#未使用】　カーソル選択音①　未使用
 ・SE_24		button63.mp3					カーソル選択音②
 ・SE_25		足音・雑草、茂み.mp3				探索中の音
 ・SE_26		audiostock_104037.mp3				レシピ閃いた音
 ・SE_27		audiostock_39671.mp3				アイキャッチ音
 ・SE_28		audiostock_219045.mp3				調合完成音　低音シャキン
 ・SE_29		audiostock_104911.mp3				ステージクリア音
-・SE_30		audiostock_221662_sample.mp3
+・SE_30		audiostock_221662_sample.mp3			【#未使用】　カッ　鍵なんかを締めたような音（決定音に使える？）
 ・SE_31		audiostock_251375				ポコ音　探索時
 ・SE_32		audiostock_52941				お金キーーン
 ・SE_33		audiostock_261320				レジの音
 ・SE_34		button64.mp3					ハートがゲージにヒットしたときの音
 ・SE_35		page09.mp3					レシピメモ開くときの軽い紙の音
-・SE_36		on-jin_doato_doaberu_01op.mp3			ショップ入店時のドアベル
+・SE_36		on-jin_doato_doaberu_01op.mp3			【#未使用】　（最初、ベル音で使ってた。現在未使用）
 ・SE_37		page10.mp3					材料採取地開くときの地図開く音
-・SE_38		SNES-RPG01-07(Message)				メッセージ音
-・SE_39		door-cl01.mp3					ドアの音開く音
+・SE_38		SNES-RPG01-07(Message)				【#未使用】　メッセージ音
+・SE_39		door-cl01.mp3					ドアの音開く音。チャイムは無し。
 ・SE_40		audiostock_397394.mp3				キュピーン閃きの音
 ・SE_41		audiostock_114553.mp3				鳥の鳴き声の音
-・SE_42		audiostock_23329_sample.mp3			ラッパファンファーレの音
-・SE_43		audiostock_400744_sample.mp3			キラリ～ンの音
+・SE_42		audiostock_23329_sample.mp3			【#未使用】　ラッパファンファーレの音（現在未使用）
+・SE_43		audiostock_400744_sample.mp3			お菓子採点時　キラリ～ンの音
 ・SE_44		audiostock_400507.mp3				拍手の音
-・SE_45		audiostock_425526_sample.mp3			女性声で「YeaHHH～」
+・SE_45		audiostock_425526_sample.mp3			【#未使用】　女性声で「YeaHHH～」
 ・SE_46		audiostock_108713.mp3				ちょっと怒ってプイって音
+・SE_47		audiostock_59503.mp3				決定音（YES決定音）
+・SE_48		audiostock_784832_sample			お菓子採点時の音
+・SE_49		audiostock_208458				イベント中にアイテムをもらったときの音
+・SE_50		audiostock_155440_sample			ドラムロール＋シンバルの音　驚きでジャーン
+・SE_51		audiostock_712907_sample			ドア開けた時のベル音１　ホーム用
+・SE_52		audiostock_237378_sample			ドア開けた時のベル音２　ショップ用
+・SE_53		sei_ge_doa_nokkun04				ドアノック音
+・SE_54		audiostock_63552_sample				モンスター咆哮音（妹が襲撃したときの音）
+・SE_55		中キック.mp3					殴る音（妹が襲撃したときの音）
+・SE_56		audiostock_42215_sample				かわいい足音
+・SE_57		大キック.mp3					強く殴る音（妹が襲撃したときの音）
+・SE_58		audiostock_645487_sample			ボウルを落とした音

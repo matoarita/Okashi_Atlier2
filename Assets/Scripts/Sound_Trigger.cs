@@ -27,17 +27,17 @@ public class Sound_Trigger : MonoBehaviour {
     {
         switch (transform.name)
         {
-            case "Yes": //noを押したときのSE
+            case "Yes": //yesを押したときのSE
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(0);
+                SE_point_click(46);
                 break;
 
-            case "Yes_tansaku": //noを押したときのSE
+            case "Yes_tansaku": //yes 探索時決定を押したときのSE
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
@@ -125,6 +125,26 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音
                 SE_point_click(34);
+                break;
+
+            case "itemSelectToggle(Clone)": //アイテム欄で、アイテム選択するときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(2);
+                break;
+
+            case "recipiitemSelectToggle(Clone)": //レシピリストで、アイテム選択するときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(2);
                 break;
 
             case "ExtremeButton": //Get_Materialを押したときのSE

@@ -374,11 +374,22 @@ public class Compound_Main : MonoBehaviour
         extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
         recipi_text = "レシピから作るよ。何を作る？";
 
+        if (GameMgr.Scene_back_home)
+        {
+            GameMgr.Scene_back_home = false;
+
+            //入店の音
+            sc.PlaySe(38); //ドア
+            sc.PlaySe(50); //ベル
+        }
+
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (GameMgr.scenario_ON != true)
         {
             switch (GameMgr.scenario_flag)
@@ -389,21 +400,39 @@ public class Compound_Main : MonoBehaviour
                     StartScenario();
                     break;
 
-                case 130: //ショップから帰ってきた。
-
-                    StartScenario();
-
-                    break;
-
-                case 165: //パンの作り方をきいてきた。
-
-                    matplace_database.matPlaceKaikin("Ido"); //井戸解禁
-                    StartScenario();
-
-                    break;
-
                 default:
                     break;
+            }            
+        }
+
+        //上のイベントが先に発生した場合、以下の処理は無視される。以下は、別シーンから戻ってきたときに、何かイベントが発生するかどうか。
+        if (GameMgr.scenario_ON != true)
+        {
+            if (GameMgr.CompoundEvent_flag)
+            {
+                GameMgr.CompoundEvent_flag = false;
+
+                switch (GameMgr.CompoundEvent_num)
+                {
+
+                    case 0: //ショップから帰ってきた。
+
+                        GameMgr.CompoundEvent_storynum = 130;
+                        GameMgr.CompoundEvent_storyflag = true;
+                        StartScenario();
+
+                        break;
+
+                    /*case 1: //パンの作り方をきいてきた。
+
+                        matplace_database.matPlaceKaikin("Ido"); //井戸解禁
+                        StartScenario();
+
+                        break;*/
+
+                    default:
+                        break;
+                }
             }
         }
 
@@ -1447,7 +1476,7 @@ public class Compound_Main : MonoBehaviour
             {
                 text_area.SetActive(true);
                 nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
-                _text.text = "今、作ったお菓子をあげますか？" + "\n" + "あと " + GameMgr.ColorLemon + nokori_kaisu + "</color>" + "回　あげれるよ。";
+                _text.text = "今、作ったお菓子をあげますか？" + "\n" + "あと " + GameMgr.ColorLemon + nokori_kaisu + "</color>" + "回　あげられるよ。";
                 compound_status = 10;
             }
             else //まだ作ってないときは
@@ -1787,7 +1816,7 @@ public class Compound_Main : MonoBehaviour
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント０
                         {
                             GameMgr.GirlLoveEvent_num = 0;
-                            GameMgr.GirlLoveEvent_stage1[event_num] = true;
+                            GameMgr.GirlLoveEvent_stage1[event_num] = true;　//0番がtrueになってたら、現在は、ステージ１－１のクエストが発生中という意味。
 
                             //ラスク作りのクエスト発生
                             Debug.Log("好感度イベント１をON: クッキーが食べたい　開始");
@@ -1805,7 +1834,7 @@ public class Compound_Main : MonoBehaviour
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント１
                         {
                             GameMgr.GirlLoveEvent_num = 1;
-                            GameMgr.GirlLoveEvent_stage1[event_num] = true;
+                            GameMgr.GirlLoveEvent_stage1[event_num] = true;　//1番がtrueになってたら、現在は、ステージ１－２のクエストが発生中という意味。
 
                             //レシピの追加
                             recipi_id = Find_eventitemdatabase("rusk_recipi");
@@ -1830,6 +1859,10 @@ public class Compound_Main : MonoBehaviour
                         {
                             GameMgr.GirlLoveEvent_num = 2;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            //レシピの追加
+                            recipi_id = Find_eventitemdatabase("crepe_recipi");
+                            pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加     
 
                             //クエスト発生
                             Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
@@ -2040,5 +2073,14 @@ public class Compound_Main : MonoBehaviour
         }
 
         databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
+    }
+
+    //別シーンからこのシーンが読み込まれたときに、読み込む
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        {
+            
+        }
     }
 }

@@ -41,6 +41,7 @@ public class ShopItemListController : MonoBehaviour
     public int shop_kettei_ID; //ショップデータベースIDが入る。
     public int shop_kettei_item1; //選択したアイテムのアイテムIDが入る。通常アイテムなら、アイテムID、イベントアイテムならイベントリストのアイテムID。
     public int shop_itemType;
+    public int shop_costprice; //金額
     public string shop_itemName_Hyouji; //最終的に買うアイテム名がはいる。
 
     public int shop_final_itemkosu_1; //選択したアイテムIDの個数が入る。
@@ -99,7 +100,11 @@ public class ShopItemListController : MonoBehaviour
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
-
+        for (i = 0; i < category_toggle.Count; i++)
+        {
+            category_toggle[i].GetComponent<Toggle>().isOn = false;
+        }
+        category_toggle[0].GetComponent<Toggle>().isOn = true;
         reset_and_DrawView();
 
     }
@@ -394,6 +399,7 @@ public class ShopItemListController : MonoBehaviour
         _toggle_itemID.toggle_shopitem_ID = shop_database.shopitems[i].shop_itemID; //ショップに登録されている、アイテムDB上のアイテムID
         _toggle_itemID.toggle_shopitem_type = shop_database.shopitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
         _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.shopitems[i].shop_itemNameHyouji; //表示用の名前
+        _toggle_itemID.toggle_shopitem_costprice = shop_database.shopitems[i].shop_costprice; //単価
 
 
         item_name = shop_database.shopitems[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
@@ -439,6 +445,7 @@ public class ShopItemListController : MonoBehaviour
         _toggle_itemID.toggle_shopitem_ID = shop_database.farmitems[i].shop_itemID; //ショップに登録されている、アイテムDB上のアイテムID
         _toggle_itemID.toggle_shopitem_type = shop_database.farmitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
         _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.farmitems[i].shop_itemNameHyouji; //表示用の名前
+        _toggle_itemID.toggle_shopitem_costprice = shop_database.farmitems[i].shop_costprice; //単価
 
 
         item_name = shop_database.farmitems[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。

@@ -76,9 +76,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int high_score;
 
     //ショップの話すコマンド
+    public static bool shop_event_flag;  //ショップで発生するイベントのフラグ。
+    public static int shop_event_num;
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
     public static bool shop_hint;
+    public static int shop_hint_num;
 
     public static int stage_number;     //ステージ番号
 
@@ -97,6 +100,17 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage1_limit_day;
     public static int stage2_limit_day;
     public static int stage3_limit_day;
+
+    //ショップのイベントリスト
+    public static bool[] ShopEvent_stage1 = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+    public static bool[] ShopEvent_stage2 = new bool[30];
+    public static bool[] ShopEvent_stage3 = new bool[30];
+
+    //別シーンから家にもどってきたときに、イベント発生するかどうかのフラグ
+    public static bool CompoundEvent_flag;
+    public static int CompoundEvent_num; //別シーンから、どのイベントを呼び出すかを、指定する。
+    public static bool CompoundEvent_storyflag;
+    public static int CompoundEvent_storynum; //メインシーンから、宴に移る際に、どのシナリオを読むかを指定する。
 
     private PlayerItemList pitemlist;
 
@@ -127,6 +141,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string ColorCyan;
     public static string ColorOrange;
 
+    public static bool Scene_back_home; //シーンから、メイン画面にもどるときの、ドア開閉時の音を鳴らす用のフラグ。
+
 
     // Use this for initialization
     void Start () {
@@ -153,13 +169,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         gamestart_recipi_get = false;
 
+        shop_event_flag = false;
+        shop_event_num = 0;
         talk_flag = false;
         talk_number = 0;
         shop_hint = false;
+        shop_hint_num = 0;
 
         stage_number = 1;
 
         stage1_load_ok = false;
+
+        Scene_back_home = false;
 
         //秒計算。　
         timeLeft = 1.0f;
@@ -172,12 +193,25 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sleep_flag = false;
         scenario_read_endflag = false;
 
+        CompoundEvent_flag = false;
+        CompoundEvent_num = 0;
+        CompoundEvent_storyflag = false;
+        CompoundEvent_storynum = 0;
+
         //好感度イベントフラグの初期化
         for (i = 0; i < GirlLoveEvent_stage1.Length; i++)
         {
             GirlLoveEvent_stage1[i] = false;
             GirlLoveEvent_stage2[i] = false;
             GirlLoveEvent_stage3[i] = false;
+        }
+
+        //ショップイベントフラグの初期化
+        for (i = 0; i < GirlLoveEvent_stage1.Length; i++)
+        {
+            ShopEvent_stage1[i] = false;
+            ShopEvent_stage2[i] = false;
+            ShopEvent_stage3[i] = false;
         }
 
         //マップイベントの初期化

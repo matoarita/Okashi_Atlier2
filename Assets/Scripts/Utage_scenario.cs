@@ -173,6 +173,7 @@ public class Utage_scenario : MonoBehaviour
                         StartCoroutine(Tutorial_Start());
                         break;
 
+                        /*
                     case 130:
                       
                         scenarioLabel = "Chapter1_Story";
@@ -185,13 +186,22 @@ public class Utage_scenario : MonoBehaviour
                         scenarioLabel = "Chapter1_Story";
                         story_num = 165;
                         StartCoroutine(Scenario_Start());
-                        break;
+                        break;*/
 
                     default:
                         break;
                 }
+
+                if(GameMgr.CompoundEvent_storyflag)
+                {
+                    GameMgr.CompoundEvent_storyflag = false;
+
+                    scenarioLabel = "Chapter1_Story";
+                    story_num = GameMgr.CompoundEvent_storynum;
+                    StartCoroutine(Scenario_Start());
+                }
                 
-                if (GameMgr.girlloveevent_flag == true)
+                if (GameMgr.girlloveevent_flag)
                 {
                     GameMgr.girlloveevent_flag = false;
                     GirlLoveEvent_num = GameMgr.GirlLoveEvent_num;
@@ -200,7 +210,7 @@ public class Utage_scenario : MonoBehaviour
                     StartCoroutine(Girllove_event_Hyouji());
                 }
 
-                if (GameMgr.recipi_read_flag == true)
+                if (GameMgr.recipi_read_flag)
                 {
                     GameMgr.recipi_read_flag = false;
                     recipi_read_ID = GameMgr.recipi_read_ID;
@@ -291,34 +301,20 @@ public class Utage_scenario : MonoBehaviour
                 }
             }               
 
-            //ショップシーンでのテキスト処理
+            //ショップシーンでのイベント処理
             if (SceneManager.GetActiveScene().name == "Shop")
             {
                 character = GameObject.FindWithTag("Character");
                
-                switch (GameMgr.scenario_flag)
+                if(GameMgr.shop_event_flag)
                 {
-                    
-                    case 120: //調合パート開始時にショップへ初めて入る。お店のアイドル娘
+                    GameMgr.shop_event_flag = false;
+                    story_num = GameMgr.shop_event_num;
+                    CharacterSpriteSetOFF();
 
-                        scenarioLabel = "Shop_Event";
-                        story_num = 120;
-                        CharacterSpriteSetOFF();
+                    scenarioLabel = "Shop_Event";
+                    StartCoroutine(Scenario_Start());
 
-                        StartCoroutine(Scenario_Start());
-                        break;
-
-                    case 150: //ラスク材料買いにきた
-
-                        scenarioLabel = "Shop_Event";
-                        story_num = 150;
-                        CharacterSpriteSetOFF();
-
-                        StartCoroutine(Scenario_Start());
-                        break;
-
-                    default:
-                        break;
                 }
 
                 if ( GameMgr.talk_flag == true )
@@ -331,26 +327,9 @@ public class Utage_scenario : MonoBehaviour
 
                 if((GameMgr.shop_hint == true))
                 {
-                    switch (GameMgr.scenario_flag)
-                    {
-
-                        case 160:
-                            GameMgr.scenario_flag = 165;
-                            GameMgr.shop_hint = false;
-                            shop_hint_number = 160;
-                            StartCoroutine(Shop_Hint());
-                            break;
-
-                        case 165:
-
-                            GameMgr.shop_hint = false;
-                            shop_hint_number = 165;
-                            StartCoroutine(Shop_Hint());
-                            break;
-
-                        default:
-                            break;
-                    }
+                    GameMgr.shop_hint = false;
+                    shop_hint_number = GameMgr.shop_hint_num;
+                    StartCoroutine(Shop_Hint());
                 }
             }
         }
@@ -384,30 +363,6 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.scenario_flag = 100; //プロローグ終了。一話＝100。
                 break;
 
-            case 120:
-
-                GameMgr.scenario_ON = false;
-                GameMgr.scenario_flag = 130;
-                break;
-
-            case 130:
-
-                GameMgr.scenario_ON = false;
-                GameMgr.scenario_flag = 140;
-                break;
-
-            case 150:
-
-                GameMgr.scenario_ON = false;
-                GameMgr.scenario_flag = 160;
-                break;
-
-            case 165:
-
-                GameMgr.scenario_ON = false;
-                GameMgr.scenario_flag = 170;
-                break;
-
             case 2000:
 
                 GameMgr.scenario_ON = false;
@@ -421,6 +376,8 @@ public class Utage_scenario : MonoBehaviour
                 break;
 
             default:
+
+                GameMgr.scenario_ON = false;
                 break;
         }
 

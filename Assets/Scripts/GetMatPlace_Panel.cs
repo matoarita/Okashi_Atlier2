@@ -256,8 +256,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
             //音量フェードイン
             sceneBGM.FadeInBGM();
 
-            //ガチャン音鳴らす。
+            //ガチャン ドア開く音鳴らす。
             sc.PlaySe(38);
+            sc.PlaySe(50);
 
             //立ち絵もオフ
             sister_stand_img1.SetActive(false);

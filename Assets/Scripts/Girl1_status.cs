@@ -2005,7 +2005,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _hintrandomDict.Add("..。");
                 _hintrandomDict.Add("..ママ。");
                 _hintrandomDict.Add("..ぐすん。");
-                _hintrandomDict.Add("..どこにいるの。");
+                _hintrandomDict.Add("..おなか、すいた。");
                 break;
 
             case 1:
@@ -2018,7 +2018,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 2:
 
                 _hintrandomDict.Add("（ちょっと元気）");
-                _hintrandomDict.Add("おかし.. たべたい。");
+                _hintrandomDict.Add("兄ちゃんのおかし.. たべたいなぁ～。");
                 _hintrandomDict.Add("おいしい。兄ちゃんのお菓子。");
                 break;
 

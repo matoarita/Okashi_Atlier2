@@ -38,10 +38,15 @@ public class Character_Shop : MonoBehaviour {
 
     public void TouchCharacterFace() //ヒントをだしてくれるときもある。
     {
-        switch (GameMgr.scenario_flag)
+        //イベント発生フラグをチェック
+        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
         {
 
-            case 160: //ラスク作り中。まずかったときにヒントをだす。
+            case 0: //
+
+                break;
+
+            case 1: //ラスク作り中。まずかったとき
 
                 if (girl1_status.girl_Mazui_flag)
                 {
@@ -53,20 +58,24 @@ public class Character_Shop : MonoBehaviour {
                     shop_Main.hukidasi_sub.SetActive(false);
 
                     GameMgr.scenario_ON = true;
+                    GameMgr.shop_hint_num = 160;
                     GameMgr.shop_hint = true; //->宴の処理へ移行する。「Utage_scenario.cs」
                 }
-                break;
 
-            case 165: //ヒント出した後。
-
+                /*
                 if (girl1_status.girl_Mazui_flag)
                 {
                     shop_Main.hukidasi_sub.SetActive(false);
 
                     GameMgr.scenario_ON = true;
                     GameMgr.shop_hint = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-                }
+                }*/
                 break;
+
+            case 2: //
+
+                break;
+
 
             default:
                 break;

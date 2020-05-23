@@ -52,6 +52,7 @@ public class SetImage : MonoBehaviour
 
     private Text item_Rank;
     private Text item_RankDesc;
+    private Text item_Shokukan_Type;
     private string rank;
 
     private string item_type;
@@ -186,6 +187,7 @@ public class SetImage : MonoBehaviour
         item_Rank = this.transform.Find("Item_card_template/ItemRank").gameObject.GetComponent<Text>(); //ランク表示
         item_Category = this.transform.Find("Item_card_template/ItemCategory").gameObject.GetComponent<Text>(); //カテゴリー
         item_RankDesc = this.transform.Find("Item_card_template/ItemRankDesc").gameObject.GetComponent<Text>(); //ランクに合わせて、おいしさや食感を表示するテキスト
+        item_Shokukan_Type = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/TxCrispy").gameObject.GetComponent<Text>(); //お菓子のタイプによって、食感表示を変える
 
         item_Name_Full = this.transform.Find("Card_Param_window/Card_Name/Tx_Name").gameObject.GetComponent<Text>(); //名前（スロット名も含む正式名称）の値
 
@@ -572,6 +574,9 @@ public class SetImage : MonoBehaviour
                 break;
         }
 
+
+        item_Shokukan_Type.text = "";
+
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
         switch (item_type_sub)
         {
@@ -580,15 +585,23 @@ public class SetImage : MonoBehaviour
                 break;
             case "Cookie":
                 subcategory = "クッキー系";
+                item_Shokukan_Type.text = "さくさく感";
                 break;
             case "Pie":
                 subcategory = "パイ系";
+                item_Shokukan_Type.text = "さくさく感";
                 break;
             case "Chocolate":
                 subcategory = "チョコレート系";
+                item_Shokukan_Type.text = "くちどけ感";
                 break;
             case "Cake":
                 subcategory = "ケーキ系";
+                item_Shokukan_Type.text = "ふわふわ感";
+                break;
+            case "Crepe":
+                subcategory = "クレープ系";
+                item_Shokukan_Type.text = "ふわふわ感";
                 break;
             case "Fruits":
                 subcategory = "フルーツ";
@@ -631,6 +644,7 @@ public class SetImage : MonoBehaviour
                 break;
             case "IceCream":
                 subcategory = "アイスクリーム";
+                item_Shokukan_Type.text = "ふわふわ感";
                 break;
             case "Parfe":
                 subcategory = "パフェ";

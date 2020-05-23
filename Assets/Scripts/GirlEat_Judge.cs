@@ -238,6 +238,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
     public int girllike_point;
 
+    private string shokukan_mes;
+
     // スロットのデータを保持するリスト。点数とセット。
     List<string> itemslotInfo = new List<string>();
 
@@ -1314,6 +1316,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     crispy_score = _basecrispy; //わかりやすく、サクサク度の数値がそのまま点数に。
                     shokukan_score = crispy_score;
+                    shokukan_mes = "さくさく感";
                     Debug.Log("サクサク度の点: " + crispy_score);
 
                     break;
@@ -1322,6 +1325,16 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     fluffy_score = _basefluffy;
                     shokukan_score = fluffy_score;
+                    shokukan_mes = "ふわふわ感";
+                    Debug.Log("ふわふわ度の点: " + fluffy_score);
+
+                    break;
+
+                case "Crepe":
+
+                    fluffy_score = _basefluffy;
+                    shokukan_score = fluffy_score;
+                    shokukan_mes = "ふわふわ感";
                     Debug.Log("ふわふわ度の点: " + fluffy_score);
 
                     break;
@@ -1330,6 +1343,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     smooth_score = _basesmooth;
                     shokukan_score = smooth_score;
+                    shokukan_mes = "くちどけ感";
                     Debug.Log("くちどけの点: " + smooth_score);
 
                     break;
@@ -1338,6 +1352,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     smooth_score = _basesmooth;
                     shokukan_score = smooth_score;
+                    shokukan_mes = "くちどけ感";
                     Debug.Log("くちどけの点: " + smooth_score);
 
                     break;
@@ -1346,6 +1361,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     crispy_score = _basecrispy;
                     shokukan_score = crispy_score;
+                    shokukan_mes = "さくさく感";
                     Debug.Log("サクサク度の点: " + crispy_score);
 
                     break;
@@ -1354,6 +1370,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     smooth_score = _basesmooth;
                     shokukan_score = smooth_score;
+                    shokukan_mes = "くちどけ感";
                     Debug.Log("くちどけの点: " + smooth_score);
 
                     sweat_score *= 2;
@@ -1370,7 +1387,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //トッピングの値も計算する。①基本的に上がるやつ　+　②クエスト固有でさらに上がるやつ　の2点
 
-            //①  スロットネームDBのtotal_scoreを加算する。
+            //①  スロットがついていれば、絶対に加算される。スロットネームDBのtotal_scoreを加算する。
             for (i = 0; i < itemslotScore.Count; i++)
             {
 
@@ -1386,7 +1403,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
             }
 
-            //②　ガールライクセットDBに設定した、各tp_scoreを加算する。（スロットが一致しているものだけに限る）
+            //②　ガールライクセットDBに設定があるトッピングのみ、さらに追加で各tp_scoreを加算する。（スロットが一致しているものだけに限る）
             switch (set_id)
             {
 
@@ -1885,9 +1902,9 @@ public class GirlEat_Judge : MonoBehaviour {
             //_listScoreEffect.Add(Instantiate(Score_effect_Prefab2));
 
             //音鳴らす。
-            sc.PlaySe(41); //ファンファーレ
-            sc.PlaySe(42);
-            sc.PlaySe(43);
+            //sc.PlaySe(41); //ファンファーレ
+            sc.PlaySe(42); //キラリ～ン 42か47
+            sc.PlaySe(43); //拍手
         }
         
         Okashi_Result();
@@ -2147,7 +2164,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     {
                         GetMoney = (_basecost + slot_money) + (int)(total_score * 0.6f) * 10;
                     }
-                    Debug.Log("取得お金: " + GetMoney);
+                    //Debug.Log("取得お金: " + GetMoney);
                 }
                 break;
         }
@@ -2465,7 +2482,26 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else
         {
-            GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + topping_flag; //クエストID+topping_flag(1~5)で指定する。ねこクッキーで、アイザン入りなら、1000+1で、1001。
+            //宴を呼び出す。GirlLikeSetのフラグで、スロットに関する感想か、total_scoreに関する感想のどちらかを表示する。
+            if (_girl_comment_flag[set_id] == 0)
+            {
+                if (total_score < GameMgr.low_score)
+                {
+                    GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + 50; //スロットの感想 1050番台~
+                }
+                else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
+                {
+                    GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + 51; //スロットの感想 1050番台~
+                }
+                else
+                {
+                    GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + 52; //スロットの感想 1050番台~
+                }
+            }
+            else if (_girl_comment_flag[set_id] == 1)
+            {
+                GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + topping_flag; //クエストID+topping_flag(1~5)で指定する。ねこクッキーで、アイザン入りなら、1000+1で、1001。
+            }
         }
         GameMgr.OkashiComment_flag = true;
 
@@ -2604,22 +2640,21 @@ public class GirlEat_Judge : MonoBehaviour {
     void SetHintText(int _status)
     {
         
-        //ヒントを表示するか否か。
-        switch (GameMgr.stage_number)
+        //ヒントを表示する。０のものは、判定なしなので、表示もしない。
+
+        SweatHintHyouji();
+
+        if (bitter_level != 0)
         {
-            case 1:
-
-                SweatHintHyouji();
-                break;
-
-            default:
-
-                SweatHintHyouji();
-                BitterHintHyouji();
-                SourHintHyouji();
-                ShokukanHintHyouji();
-                break;
+            BitterHintHyouji();
         }
+        if (sour_level != 0)
+        {
+            SourHintHyouji();
+        }
+
+        ShokukanHintHyouji();
+
 
         //トータルスコアが低いときは、そのクスエトをクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
         if (total_score < GameMgr.low_score)
@@ -2805,17 +2840,17 @@ public class GirlEat_Judge : MonoBehaviour {
         //食感に関するヒント
         if (shokukan_score >= 0 && shokukan_score < 40) //
         {
-            _shokukan_kansou = "\n" + "さくさく感がもっとほしい";
+            _shokukan_kansou = "\n" + shokukan_mes + "がもっとほしい";
         }
-        else if (shokukan_score >= 40 && shokukan_score < 60) //
+        else if (shokukan_score >= 40 && shokukan_score < GameMgr.low_score) //
         {
-            _shokukan_kansou = "\n" + "さくさく感がほしい";
+            _shokukan_kansou = "\n" + shokukan_mes + "がほしい";
         }
-        else if (shokukan_score >= 60 && shokukan_score < 80) //
+        else if (shokukan_score >= GameMgr.low_score && shokukan_score < GameMgr.high_score) //
         {
             _shokukan_kansou = "";
         }
-        else if (shokukan_score >= 80) //
+        else if (shokukan_score >= GameMgr.high_score) //
         {
             _shokukan_kansou = "";
         }

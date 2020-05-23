@@ -149,46 +149,64 @@ public class Shop_Main : MonoBehaviour {
         shop_scene = 0;
 
         //入店の音
-        //sc.PlaySe(35);
+        sc.PlaySe(51);
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        switch (GameMgr.scenario_flag)
+        //イベント発生フラグをチェック
+        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
         {
 
-            case 120: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+            case 0: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
 
-                GameMgr.scenario_ON = true;
+                if (!GameMgr.ShopEvent_stage1[0])
+                {
+                    GameMgr.ShopEvent_stage1[0] = true;
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.shop_event_num = 120;
+                    GameMgr.shop_event_flag = true;
+
+                    //メイン画面にもどったときに、イベントを発生させるフラグをON
+                    GameMgr.CompoundEvent_num = 0;
+                    GameMgr.CompoundEvent_flag = true;
+                }
 
                 break;
 
-            case 150: //ショップ二度目。ラスク作りの材料を買いにきた。
+            case 1: //ショップ二度目。ラスク作りの材料を買いにきた。
 
-                GameMgr.scenario_ON = true;
+                if (!GameMgr.ShopEvent_stage1[1])
+                {
+                    GameMgr.ShopEvent_stage1[1] = true;
+                    GameMgr.scenario_ON = true;
 
-                break;
+                    GameMgr.shop_event_num = 150;
+                    GameMgr.shop_event_flag = true;
+                }
 
-            case 160: //ラスク作り中。まずかったときにヒントをだす。
-
-                if(girl1_status.girl_Mazui_flag)
+                /*
+                if (girl1_status.girl_Mazui_flag)
                 {
                     if (hukidasi_oneshot != true)
                     {
                         hukidasi_oneshot = true;
-                        hukidasi_sub = Instantiate(hukidasi_sub_Prefab);
+                        hukidasi_sub = Instantiate(hukidasi_sub_Prefab);                        
                     }
-                }
+                }*/
                 break;
 
-            case 165: //ヒント後
+            case 2: //
 
                 break;
+
 
             default:
                 break;
         }
+        
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)

@@ -209,7 +209,7 @@ MonoBehaviour:
       itemType: 1
       shop_sell_price: 800
       shop_buy_price: 150
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 28
       name: financier_recipi
       zaiko: 1

@@ -56,6 +56,7 @@ public class shopitemSelectToggle : MonoBehaviour
     public int toggle_shop_ID; //こっちは、ショップデータベース上のIDを保持する。
     public int toggle_shopitem_ID; //リストの要素自体に、アイテムDB上のアイテムIDを保持する。
     public string toggle_shopitem_nameHyouji; //表示用名前
+    public int toggle_shopitem_costprice; //金額も保持
     public int toggle_shopitem_type; //リストの要素に、通常アイテムか、イベントアイテム判定用のタイプを保持する。
 
     private int i;
@@ -196,6 +197,7 @@ public class shopitemSelectToggle : MonoBehaviour
         shopitemlistController.shop_itemType = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_type; //判定用アイテムタイプを入れる。
         _item_Namehyouji = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_nameHyouji; //表示用ネームを入れる。
         shopitemlistController.shop_itemName_Hyouji = _item_Namehyouji;
+        shopitemlistController.shop_costprice = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_costprice;
 
         _text.text = _item_Namehyouji + "を買いますか？個数を選択してください。";
 
@@ -278,7 +280,8 @@ public class shopitemSelectToggle : MonoBehaviour
     IEnumerator shop_buy_Final_select()
     {
 
-        _text.text = shopitemlistController.shop_itemName_Hyouji + "を" + shopitemlistController.shop_final_itemkosu_1 + "個買いますか？";
+        _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" + 
+            "お金が　" + GameMgr.ColorLemon + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + "G</color>" + "かかります。";
 
         updown_button[0].interactable = false;
         updown_button[1].interactable = false;
