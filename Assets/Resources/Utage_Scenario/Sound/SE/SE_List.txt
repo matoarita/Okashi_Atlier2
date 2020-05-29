@@ -49,12 +49,12 @@ SE表
 ・SE_47		audiostock_59503.mp3				決定音（YES決定音）
 ・SE_48		audiostock_784832_sample			お菓子採点時の音
 ・SE_49		audiostock_208458				イベント中にアイテムをもらったときの音
-・SE_50		audiostock_155440_sample			ドラムロール＋シンバルの音　驚きでジャーン
-・SE_51		audiostock_712907_sample			ドア開けた時のベル音１　ホーム用
-・SE_52		audiostock_237378_sample			ドア開けた時のベル音２　ショップ用
+・SE_50		audiostock_155440				ドラムロール＋シンバルの音　驚きでジャーン
+・SE_51		audiostock_712907				ドア開けた時のベル音１　ホーム用
+・SE_52		audiostock_237378				ドア開けた時のベル音２　ショップ用
 ・SE_53		sei_ge_doa_nokkun04				ドアノック音
-・SE_54		audiostock_63552_sample				モンスター咆哮音（妹が襲撃したときの音）
+・SE_54		audiostock_63552				モンスター咆哮音（妹が襲撃したときの音）
 ・SE_55		中キック.mp3					殴る音（妹が襲撃したときの音）
-・SE_56		audiostock_42215_sample				かわいい足音
+・SE_56		audiostock_42215				かわいい足音
 ・SE_57		大キック.mp3					強く殴る音（妹が襲撃したときの音）
-・SE_58		audiostock_645487_sample			ボウルを落とした音
+・SE_58		audiostock_645487				ボウルを落とした音

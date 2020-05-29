@@ -1842,7 +1842,7 @@ GameObject:
   - component: {fileID: 114912435951529970}
   - component: {fileID: 114735578726262092}
   m_Layer: 0
-  m_Name: ItemCrispyScore
+  m_Name: ItemShokukanScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

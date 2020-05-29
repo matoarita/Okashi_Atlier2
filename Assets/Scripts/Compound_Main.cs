@@ -417,18 +417,20 @@ public class Compound_Main : MonoBehaviour
 
                     case 0: //ショップから帰ってきた。
 
-                        GameMgr.CompoundEvent_storynum = 130;
+                        GameMgr.CompoundEvent_storynum = 0;
                         GameMgr.CompoundEvent_storyflag = true;
                         StartScenario();
 
                         break;
 
-                    /*case 1: //パンの作り方をきいてきた。
+                    case 10: //牧場から帰ってきた。
 
-                        matplace_database.matPlaceKaikin("Ido"); //井戸解禁
+                        //matplace_database.matPlaceKaikin("Ido"); //井戸解禁
+                        GameMgr.CompoundEvent_storynum = 10;
+                        GameMgr.CompoundEvent_storyflag = true;
                         StartScenario();
 
-                        break;*/
+                        break;
 
                     default:
                         break;
@@ -443,6 +445,7 @@ public class Compound_Main : MonoBehaviour
             //チュートリアルモードがONになったら、この中の処理が始まる。
             if (GameMgr.tutorial_ON == true)
             {
+                touch_controller.Touch_OnAllOFF();
 
                 switch (GameMgr.tutorial_Num)
                 {

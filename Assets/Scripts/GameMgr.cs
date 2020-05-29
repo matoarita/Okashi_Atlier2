@@ -102,9 +102,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage3_limit_day;
 
     //ショップのイベントリスト
-    public static bool[] ShopEvent_stage1 = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
-    public static bool[] ShopEvent_stage2 = new bool[30];
-    public static bool[] ShopEvent_stage3 = new bool[30];
+    public static bool[] ShopEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+
+    //牧場のイベントリスト
+    public static bool[] FarmEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+    public static bool farm_event_flag;  //ショップで発生するイベントのフラグ。
+    public static int farm_event_num;
 
     //別シーンから家にもどってきたときに、イベント発生するかどうかのフラグ
     public static bool CompoundEvent_flag;
@@ -176,6 +179,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         shop_hint = false;
         shop_hint_num = 0;
 
+        farm_event_flag = false;
+        farm_event_num = 0;
+
         stage_number = 1;
 
         stage1_load_ok = false;
@@ -209,9 +215,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //ショップイベントフラグの初期化
         for (i = 0; i < GirlLoveEvent_stage1.Length; i++)
         {
-            ShopEvent_stage1[i] = false;
-            ShopEvent_stage2[i] = false;
-            ShopEvent_stage3[i] = false;
+            ShopEvent_stage[i] = false;
+            FarmEvent_stage[i] = false;
         }
 
         //マップイベントの初期化

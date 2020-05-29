@@ -435,6 +435,28 @@ MonoBehaviour:
     - rowIndex: 32
       debugIndex: 32
       strings:
+      - "\u7267\u5834\u306E\u5973\u4E3B\u4EBA"
+      - <param=npcD_name>
+      - "\u901A\u5E38"
+      - 
+      - -250
+      - 
+      - 
+      - .5
+      - 
+      - Motarike/heroine01_01.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 33
+      debugIndex: 33
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 34
+      debugIndex: 34
+      strings:
       - "\u30DC\u30B9A"
       - <param=bossA_name>
       - "\u901A\u5E38"
@@ -450,7 +472,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 912
+    textLength: 968
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -1012,14 +1034,23 @@ MonoBehaviour:
     - rowIndex: 13
       debugIndex: 13
       strings:
+      - npcD_name
+      - String
+      - "\u30E2\u30BF\u30EA\u30B1"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 14
+      debugIndex: 14
+      strings:
       - bossA_name
       - String
       - "\u30A2\u30DE\u30AF\u30B5"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 14
-      debugIndex: 14
+    - rowIndex: 15
+      debugIndex: 15
       strings:
       - bossA_fullname
       - String
@@ -1027,19 +1058,13 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 15
-      debugIndex: 15
+    - rowIndex: 16
+      debugIndex: 16
       strings:
       - unknown_name
       - String
       - ???
       isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 16
-      debugIndex: 16
-      strings: []
-      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 17
@@ -1062,17 +1087,17 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 20
       debugIndex: 20
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 21
+      debugIndex: 21
       strings:
       - Kaeru_Coin
       - Int
       - 0
       isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 21
-      debugIndex: 21
-      strings: []
-      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 22
@@ -1083,17 +1108,14 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 23
       debugIndex: 23
-      strings:
-      - Story_num
-      - Int
-      - 0
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 24
       debugIndex: 24
       strings:
-      - Girllove_event_num
+      - Story_num
       - Int
       - 0
       isEmpty: 0
@@ -1102,7 +1124,7 @@ MonoBehaviour:
     - rowIndex: 25
       debugIndex: 25
       strings:
-      - MapEv_num
+      - Girllove_event_num
       - Int
       - 0
       isEmpty: 0
@@ -1111,7 +1133,7 @@ MonoBehaviour:
     - rowIndex: 26
       debugIndex: 26
       strings:
-      - OkashiComment_num
+      - MapEv_num
       - Int
       - 0
       isEmpty: 0
@@ -1120,7 +1142,7 @@ MonoBehaviour:
     - rowIndex: 27
       debugIndex: 27
       strings:
-      - SpOkashiBefore_num
+      - OkashiComment_num
       - Int
       - 0
       isEmpty: 0
@@ -1129,7 +1151,7 @@ MonoBehaviour:
     - rowIndex: 28
       debugIndex: 28
       strings:
-      - SpOkashi_num
+      - SpOkashiBefore_num
       - Int
       - 0
       isEmpty: 0
@@ -1138,7 +1160,7 @@ MonoBehaviour:
     - rowIndex: 29
       debugIndex: 29
       strings:
-      - SpOkashiAfter_num
+      - SpOkashi_num
       - Int
       - 0
       isEmpty: 0
@@ -1147,7 +1169,7 @@ MonoBehaviour:
     - rowIndex: 30
       debugIndex: 30
       strings:
-      - TouchHint_num
+      - SpOkashiAfter_num
       - Int
       - 0
       isEmpty: 0
@@ -1156,7 +1178,7 @@ MonoBehaviour:
     - rowIndex: 31
       debugIndex: 31
       strings:
-      - MainClear_num
+      - TouchHint_num
       - Int
       - 0
       isEmpty: 0
@@ -1165,7 +1187,7 @@ MonoBehaviour:
     - rowIndex: 32
       debugIndex: 32
       strings:
-      - Ev_recipi
+      - MainClear_num
       - Int
       - 0
       isEmpty: 0
@@ -1174,7 +1196,7 @@ MonoBehaviour:
     - rowIndex: 33
       debugIndex: 33
       strings:
-      - Read_recipi
+      - Ev_recipi
       - Int
       - 0
       isEmpty: 0
@@ -1183,7 +1205,7 @@ MonoBehaviour:
     - rowIndex: 34
       debugIndex: 34
       strings:
-      - Shop_Talk_Num
+      - Read_recipi
       - Int
       - 0
       isEmpty: 0
@@ -1192,7 +1214,7 @@ MonoBehaviour:
     - rowIndex: 35
       debugIndex: 35
       strings:
-      - Shop_Hint_Num
+      - Shop_Talk_Num
       - Int
       - 0
       isEmpty: 0
@@ -1201,16 +1223,16 @@ MonoBehaviour:
     - rowIndex: 36
       debugIndex: 36
       strings:
-      - Tutorial_Flag
-      - Bool
-      - FALSE
+      - Shop_Hint_Num
+      - Int
+      - 0
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 37
       debugIndex: 37
       strings:
-      - Farm_Flag
+      - Tutorial_Flag
       - Bool
       - FALSE
       isEmpty: 0
@@ -1218,8 +1240,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 38
       debugIndex: 38
-      strings: []
-      isEmpty: 1
+      strings:
+      - Farm_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 39
@@ -1236,6 +1261,12 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 41
       debugIndex: 41
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 42
+      debugIndex: 42
       strings:
       - Ev_flag
       - Int
@@ -1243,8 +1274,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 42
-      debugIndex: 42
+    - rowIndex: 43
+      debugIndex: 43
       strings:
       - Re_flag
       - Int
@@ -1254,7 +1285,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 610
+    textLength: 629
     headerRow: 0
   - rows:
     - rowIndex: 0

@@ -1151,7 +1151,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 //Debug.Log("フルーツ・トッピングの加算処理 ON");
                 //各材料を加算していく。
-                if (_additemlist[i]._Add_itemType_sub == "Fruits" || _additemlist[i]._Add_itemType_sub == "Potion")
+                if (_additemlist[i]._Add_itemType_sub == "Fruits" || _additemlist[i]._Add_itemType_sub == "Potion" || _additemlist[i]._Add_itemType_sub == "Source" ||
+                     _additemlist[i]._Add_itemType_sub == "Chocolate" || _additemlist[i]._Add_itemType_sub == "Chocolate_Mat" || _additemlist[i]._Add_itemType_sub == "IceCream")
                 {
                     _baserich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
                     _basesweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;

@@ -173,21 +173,6 @@ public class Utage_scenario : MonoBehaviour
                         StartCoroutine(Tutorial_Start());
                         break;
 
-                        /*
-                    case 130:
-                      
-                        scenarioLabel = "Chapter1_Story";
-                        story_num = 130;
-                        StartCoroutine(Scenario_Start());
-                        break;
-
-                    case 165:
-
-                        scenarioLabel = "Chapter1_Story";
-                        story_num = 165;
-                        StartCoroutine(Scenario_Start());
-                        break;*/
-
                     default:
                         break;
                 }
@@ -301,8 +286,8 @@ public class Utage_scenario : MonoBehaviour
                 }
             }               
 
-            //ショップシーンでのイベント処理
-            if (SceneManager.GetActiveScene().name == "Shop")
+            //ショップ・牧場シーンでのイベント処理
+            if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm")
             {
                 character = GameObject.FindWithTag("Character");
                
@@ -330,6 +315,17 @@ public class Utage_scenario : MonoBehaviour
                     GameMgr.shop_hint = false;
                     shop_hint_number = GameMgr.shop_hint_num;
                     StartCoroutine(Shop_Hint());
+                }
+
+                if (GameMgr.farm_event_flag)
+                {
+                    GameMgr.farm_event_flag = false;
+                    story_num = GameMgr.farm_event_num;
+                    CharacterSpriteSetOFF();
+
+                    scenarioLabel = "Farm_Event";
+                    StartCoroutine(Scenario_Start());
+
                 }
             }
         }
@@ -381,7 +377,7 @@ public class Utage_scenario : MonoBehaviour
                 break;
         }
 
-        if (SceneManager.GetActiveScene().name == "Shop")
+        if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm")
         {
             CharacterSpriteFadeON();
         }

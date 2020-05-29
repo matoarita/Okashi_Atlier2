@@ -161,12 +161,12 @@ public class Shop_Main : MonoBehaviour {
 
             case 0: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
 
-                if (!GameMgr.ShopEvent_stage1[0])
+                if (!GameMgr.ShopEvent_stage[0])
                 {
-                    GameMgr.ShopEvent_stage1[0] = true;
+                    GameMgr.ShopEvent_stage[0] = true;
                     GameMgr.scenario_ON = true;
 
-                    GameMgr.shop_event_num = 120;
+                    GameMgr.shop_event_num = 0;
                     GameMgr.shop_event_flag = true;
 
                     //メイン画面にもどったときに、イベントを発生させるフラグをON
@@ -178,12 +178,12 @@ public class Shop_Main : MonoBehaviour {
 
             case 1: //ショップ二度目。ラスク作りの材料を買いにきた。
 
-                if (!GameMgr.ShopEvent_stage1[1])
+                if (!GameMgr.ShopEvent_stage[1])
                 {
-                    GameMgr.ShopEvent_stage1[1] = true;
+                    GameMgr.ShopEvent_stage[1] = true;
                     GameMgr.scenario_ON = true;
 
-                    GameMgr.shop_event_num = 150;
+                    GameMgr.shop_event_num = 10;
                     GameMgr.shop_event_flag = true;
                 }
 

@@ -79,12 +79,7 @@ public class SetImage : MonoBehaviour
     private Text item_Bitter;
     private Text item_Sour;
 
-    private Text item_Crispy;
-    private Text item_Fluffy;
-    private Text item_Smooth;
-    private Text item_Hardness;
-    private Text item_Jiggly;
-    private Text item_Chewy;
+    private Text item_Shokukan;
 
     private Text item_Powdery;
     private Text item_Oily;
@@ -200,12 +195,7 @@ public class SetImage : MonoBehaviour
         item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
 
         item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
-        item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemCrispyScore").gameObject.GetComponent<Text>(); //さくさくの値
-        item_Fluffy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemFluffyScore").gameObject.GetComponent<Text>(); //ふわふわの値
-        item_Smooth = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemSmoothScore").gameObject.GetComponent<Text>(); //しっとりの値
-        item_Hardness = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemHardnessScore").gameObject.GetComponent<Text>(); //ほろほろの値
-        item_Jiggly = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemJigglyScore").gameObject.GetComponent<Text>(); //ぷるぷるの値
-        item_Chewy = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemChewyScore").gameObject.GetComponent<Text>(); //ぐみぐみの値
+        item_Shokukan = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanScore").gameObject.GetComponent<Text>(); //さくさくの値
 
         item_Powdery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemPowdery").gameObject.GetComponent<Text>(); //粉っぽいの値
         item_Oily = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemOily").gameObject.GetComponent<Text>(); //粉っぽいの値
@@ -586,22 +576,52 @@ public class SetImage : MonoBehaviour
             case "Cookie":
                 subcategory = "クッキー系";
                 item_Shokukan_Type.text = "さくさく感";
+                item_Shokukan.text = _crispy_score.ToString();
+                break;
+            case "Rusk":
+                subcategory = "ラスク系";
+                item_Shokukan_Type.text = "さくさく感";
+                item_Shokukan.text = _crispy_score.ToString();
                 break;
             case "Pie":
                 subcategory = "パイ系";
                 item_Shokukan_Type.text = "さくさく感";
+                item_Shokukan.text = _crispy_score.ToString();
                 break;
             case "Chocolate":
                 subcategory = "チョコレート系";
                 item_Shokukan_Type.text = "くちどけ感";
+                item_Shokukan.text = _smooth_score.ToString();
+                break;
+            case "Chocolate_Mat":
+                subcategory = "チョコレート系";
+                item_Shokukan_Type.text = "くちどけ感";
+                item_Shokukan.text = _smooth_score.ToString();
+                break;
+            case "Bread":
+                subcategory = "パン系";
+                item_Shokukan_Type.text = "ふわふわ感";
+                item_Shokukan.text = _fluffy_score.ToString();
                 break;
             case "Cake":
                 subcategory = "ケーキ系";
                 item_Shokukan_Type.text = "ふわふわ感";
+                item_Shokukan.text = _fluffy_score.ToString();
                 break;
             case "Crepe":
                 subcategory = "クレープ系";
                 item_Shokukan_Type.text = "ふわふわ感";
+                item_Shokukan.text = _fluffy_score.ToString();
+                break;
+            case "IceCream":
+                subcategory = "アイスクリーム";
+                item_Shokukan_Type.text = "くちどけ感";
+                item_Shokukan.text = _smooth_score.ToString();
+                break;
+            case "Parfe":
+                subcategory = "パフェ";
+                item_Shokukan_Type.text = "くちどけ感";
+                item_Shokukan.text = _smooth_score.ToString();
                 break;
             case "Fruits":
                 subcategory = "フルーツ";
@@ -611,12 +631,15 @@ public class SetImage : MonoBehaviour
                 break;
             case "Source":
                 subcategory = "お菓子材料";
+                item_Shokukan_Type.text = "食感";
                 break;
             case "Appaleil":
                 subcategory = "生地";
+                item_Shokukan_Type.text = "食感";
                 break;
             case "Pate":
                 subcategory = "生地";
+                item_Shokukan_Type.text = "食感";
                 break;
             case "Cookie_base":
                 subcategory = "生地";
@@ -641,14 +664,7 @@ public class SetImage : MonoBehaviour
                 break;
             case "Egg":
                 subcategory = "たまご";
-                break;
-            case "IceCream":
-                subcategory = "アイスクリーム";
-                item_Shokukan_Type.text = "ふわふわ感";
-                break;
-            case "Parfe":
-                subcategory = "パフェ";
-                break;
+                break;           
             case "Machine":
                 subcategory = "器具";
                 break;
@@ -669,13 +685,7 @@ public class SetImage : MonoBehaviour
         item_Sweat.text = _sweat_score.ToString();
         item_Bitter.text = _bitter_score.ToString();
         item_Sour.text = _sour_score.ToString();
-
-        item_Crispy.text = _crispy_score.ToString();
-        item_Fluffy.text = _fluffy_score.ToString();
-        item_Smooth.text = _smooth_score.ToString();
-        item_Hardness.text = _hardness_score.ToString();
-        item_Jiggly.text = _jiggly_score.ToString();
-        item_Chewy.text = _chewy_score.ToString();
+       
 
         //ゲージの更新
         _Crispy_slider.value = _crispy_score;

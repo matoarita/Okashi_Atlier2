@@ -79,7 +79,7 @@ public class Farm_Main : MonoBehaviour {
         _text = text_area.GetComponentInChildren<Text>();
 
         //初期メッセージ
-        _text.text = "あら、かわいい男の子ねぇ～ん";
+        _text.text = "ここは牧場だ。";
         text_area.SetActive(false);
 
         farm_status = 0;
@@ -101,6 +101,27 @@ public class Farm_Main : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        //イベント発生フラグをチェック
+        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+        {
+            default:
+
+                if (!GameMgr.FarmEvent_stage[0])　//はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
+                {
+                    GameMgr.FarmEvent_stage[0] = true;
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.farm_event_num = 0;
+                    GameMgr.farm_event_flag = true;
+
+                    //メイン画面にもどったときに、イベントを発生させるフラグをON
+                    GameMgr.CompoundEvent_num = 10;
+                    GameMgr.CompoundEvent_flag = true;
+                }
+               
+                break;
+        }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
@@ -139,6 +160,8 @@ public class Farm_Main : MonoBehaviour {
                         maincam_animator.SetInteger("trans", trans);
                     }
 
+                    _text.text = "ここは牧場だ。";
+
                     break;
 
                 case 1: //ショップのアイテム選択中
@@ -171,7 +194,7 @@ public class Farm_Main : MonoBehaviour {
             farm_status = 1; //ショップのシーンに入っている、というフラグ
             farm_scene = 1;
 
-            _text.text = "何を買うの？";
+            _text.text = "ぎょ～さん買っていきぃ！";
 
         }
     }
