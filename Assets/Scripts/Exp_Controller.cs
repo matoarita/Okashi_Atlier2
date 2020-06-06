@@ -1075,11 +1075,29 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.addPlayerItem(kettei_item1, result_kosu);
         }
 
-        //所持金をへらす
-        moneyStatus_Controller.UseMoney(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Shop":
 
-        //ショップの在庫をへらす。
-        shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
+                //所持金をへらす
+                moneyStatus_Controller.UseMoney(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
+
+                //ショップの在庫をへらす。
+                shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
+                break;
+
+            case "Farm":
+
+                //所持金をへらす
+                moneyStatus_Controller.UseMoney(shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
+
+                //ショップの在庫をへらす。
+                shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
+                break;
+
+            default:
+                break;
+        }
 
         //効果音
         audioSource.PlayOneShot(sound6);

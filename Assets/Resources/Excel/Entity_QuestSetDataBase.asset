@@ -44,13 +44,13 @@ MonoBehaviour:
     - ID: 1
       QuestID: 1
       QuestType: 0
-      file_name: grape
+      file_name: neko_cookie
       quest_itemName: Non
-      quest_itemsubtype: Non
+      quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 7
-      buy_price: 30
+      kosu_max: 4
+      buy_price: 120
       rich: 0
       sweat: 0
       bitter: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
     - ID: 2
       QuestID: 2
       QuestType: 0
-      file_name: grape
+      file_name: neko_cookie
       quest_itemName: Non
       quest_itemsubtype: Cookie
       kosu_default: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
     - ID: 3
       QuestID: 3
       QuestType: 0
-      file_name: grape
+      file_name: orange_neko_cookie
       quest_itemName: Non
       quest_itemsubtype: Cookie
       kosu_default: 0
@@ -124,33 +124,6 @@ MonoBehaviour:
       desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306E\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
     - ID: 4
       QuestID: 4
-      QuestType: 0
-      file_name: orange_neko_cookie
-      quest_itemName: orange_neko_cookie
-      quest_itemsubtype: Non
-      kosu_default: 0
-      kosu_min: 1
-      kosu_max: 7
-      buy_price: 60
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 0
-      fluffy: 0
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      quest_Title: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1"
-      desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
-    - ID: 5
-      QuestID: 5
       QuestType: 1
       file_name: grape
       quest_itemName: grape
@@ -176,12 +149,12 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u3076\u3069\u3046\u306E\u5165\u624B"
       desc: "<color=#FF78B4>\u3076\u3069\u3046</color>\u304C\u3042\u308B\u3068\u8CB7\u53D6\u308B\u308F\u3088\u3002\n\u4ECA\u8DB3\u308A\u306A\u304F\u3066\u56F0\u3063\u3066\u3044\u308B\u306E\u3002"
-    - ID: 6
-      QuestID: 6
+    - ID: 5
+      QuestID: 5
       QuestType: 0
       file_name: rusk
       quest_itemName: Non
-      quest_itemsubtype: rusk
+      quest_itemsubtype: Rusk
       kosu_default: 0
       kosu_min: 1
       kosu_max: 7

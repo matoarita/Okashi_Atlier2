@@ -1339,6 +1339,15 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     break;
 
+                case "Creampuff":
+
+                    fluffy_score = _basefluffy;
+                    shokukan_score = fluffy_score;
+                    shokukan_mes = "ふわふわ感";
+                    Debug.Log("ふわふわ度の点: " + fluffy_score);
+
+                    break;
+
                 case "Chocolate":
 
                     smooth_score = _basesmooth;
@@ -1946,9 +1955,12 @@ public class GirlEat_Judge : MonoBehaviour {
         //キャラクタ表情変更
         girl1_status.face_girl_Yorokobi();
         StartCoroutine("DefaultFaceChange");//2秒ぐらいしたら、表情だけすぐに戻す。
-               
-        //その時点での点数を保持。（マズイときは、失敗フラグ＝0点）
-        special_quest.special_score_record[special_quest.spquest_set_num, special_quest.special_kaisu] = total_score;
+
+        //そのクエストでの最高得点を保持。（マズイときは、失敗フラグ＝0点）
+        if (special_quest.special_score_record[special_quest.spquest_set_num, 0] <= total_score)
+        {
+            special_quest.special_score_record[special_quest.spquest_set_num, 0] = total_score;
+        }
 
         if (!GameMgr.tutorial_ON)
         {
@@ -1970,11 +1982,11 @@ public class GirlEat_Judge : MonoBehaviour {
             }
 
             //もしクエスト回数が３回まできたら、判定する。通常クリアなら、次のクエストへ進行する
-            if (special_quest.special_kaisu >= special_quest.special_kaisu_max)
-            {
+            //if (special_quest.special_kaisu >= special_quest.special_kaisu_max)
+            //{
                 //クエストクリア時のイベントやフラグ管理
-                SelectNewOkashiSet();
-            }
+                //SelectNewOkashiSet();
+            //}
         }
 
         //お菓子の判定処理を終了
@@ -2261,12 +2273,17 @@ public class GirlEat_Judge : MonoBehaviour {
     void SelectNewOkashiSet()
     {
 
-        //3回のお菓子終了・クエストクリアかどうかを判定        
+        //クエストクリアかどうかを判定  回数制限はとりあえず無し。
 
         //判定
         HighScore_flag = false;
-        Gameover_flag = true;
+        Gameover_flag = false;
 
+        if (total_score >= GameMgr.high_score) //85点以上で、ハイスコア判定
+        {
+            HighScore_flag = true;
+        } 
+        /*
         for (i=0; i < special_quest.special_score_record.GetLength(1); i++)
         {
             if(special_quest.special_score_record[special_quest.spquest_set_num, i] < 85 && 
@@ -2284,7 +2301,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Debug.Log("ゲームオーバーフラグ ON");                
                 //ゲーム終了　ぐええ
             }
-        }
+        }*/
 
         //初期化
         girl1_status.OkashiNew_Status = 1; //クエストクリアで、1に戻す。0にすると、次のクエストが開始する。（スペシャル吹き出し登場する）
@@ -2366,6 +2383,21 @@ public class GirlEat_Judge : MonoBehaviour {
                         else //さらに高得点だったら、特別なイベントや報酬などが発生
                         {
                             _mainquest_name = "クレープでしあわせ";
+                        }
+
+                        break;
+
+                    case 1300: //シュークリーム
+
+                        GameMgr.OkashiQuest_flag_stage1[3] = true;
+
+                        if (!HighScore_flag) //通常クリア
+                        {
+                            _mainquest_name = "お店でみかけたお菓子の正体";
+                        }
+                        else //さらに高得点だったら、特別なイベントや報酬などが発生
+                        {
+                            _mainquest_name = "幻！シュークリーム！！";
                         }
 
                         break;

@@ -255,33 +255,40 @@ MonoBehaviour:
       shop_buy_price: 10
       item_hyouji: 1
     - ItemID: 102
+      name: row_cream
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 20
+      shop_buy_price: 10
+      item_hyouji: 1
+    - ItemID: 103
       name: suger
       zaiko: 50
       itemType: 0
       shop_sell_price: 10
       shop_buy_price: 5
       item_hyouji: 0
-    - ItemID: 103
+    - ItemID: 104
       name: salt
       zaiko: 50
       itemType: 0
       shop_sell_price: 8
       shop_buy_price: 4
       item_hyouji: 0
-    - ItemID: 0
-      name: 
-      zaiko: 0
-      itemType: 0
-      shop_sell_price: 0
-      shop_buy_price: 0
-      item_hyouji: 0
-    - ItemID: 0
-      name: 
-      zaiko: 0
-      itemType: 0
-      shop_sell_price: 0
-      shop_buy_price: 0
-      item_hyouji: 0
+    - ItemID: 105
+      name: siboribukuro
+      zaiko: 1
+      itemType: 2
+      shop_sell_price: 300
+      shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 106
+      name: whisk
+      zaiko: 1
+      itemType: 2
+      shop_sell_price: 300
+      shop_buy_price: 150
+      item_hyouji: 1
     - ItemID: 0
       name: 
       zaiko: 0

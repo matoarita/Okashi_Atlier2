@@ -17,6 +17,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     public int[,] special_score_record; //そのときの、点数も記録。一つの列に3個点数を保持。
     public int spquest_set_num;
 
+    private int i;
+
     // Use this for initialization
     void Start () {
 
@@ -27,8 +29,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
 
         special_kaisu = 0;
-        special_kaisu_max = 3;
+        special_kaisu_max = 1;
         special_score_record = new int[30, special_kaisu_max];
+
+        for (i = 0; i < special_score_record.GetLength(0); i++)
+        {
+            special_score_record[i, 0] = 0;
+        }
     }
 	
 	// Update is called once per frame
@@ -78,10 +85,17 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.ResetHukidashi();
                 break;
 
-            case 3:
+            case 3: //シュークリーム食べたい
 
                 girl1_status.OkashiNew_Status = 0;
                 girl1_status.OkashiQuest_ID = 1300;
+                girl1_status.ResetHukidashi();
+                break;
+
+            case 4: //なんか食べたい
+
+                girl1_status.OkashiNew_Status = 0;
+                girl1_status.OkashiQuest_ID = 1400;
                 girl1_status.ResetHukidashi();
                 break;
 

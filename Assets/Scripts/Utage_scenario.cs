@@ -971,6 +971,11 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("Re_flag", 80);
                 break;
 
+            case "creampuff_recipi":
+
+                engine.Param.TrySetParameter("Re_flag", 90);
+                break;
+
             default:
                 break;
         }
@@ -1075,6 +1080,11 @@ public class Utage_scenario : MonoBehaviour
             case "princesstota_recipi":
 
                 engine.Param.TrySetParameter("Ev_flag", 90);
+                break;
+
+            case "creampuff_recipi":
+
+                engine.Param.TrySetParameter("Ev_flag", 100);
                 break;
 
             default:

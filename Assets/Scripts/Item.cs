@@ -90,6 +90,7 @@ public class Item
         Chocolate_base,
         Cake,
         Cake_base,
+        Creampuff,
         Crepe,
         Jelly,
         Omochi,
