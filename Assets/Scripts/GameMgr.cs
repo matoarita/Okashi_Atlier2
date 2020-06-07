@@ -68,6 +68,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] OkashiQuest_flag_stage2 = new bool[30];
     public static bool[] OkashiQuest_flag_stage3 = new bool[30];
 
+    public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
+
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num;
 
@@ -237,6 +239,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             OkashiQuest_flag_stage3[i] = false;
         }
         OkashiQuest_Num = 0;
+        QuestClearflag = false;
 
         //お菓子のクリア基準値
         low_score = 60;

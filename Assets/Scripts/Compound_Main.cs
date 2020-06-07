@@ -330,7 +330,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_Button.SetActive(false);
         
         compound_status = 0;
-        compound_select = 0;
+        compound_select = 0;       
 
         girlEat_ON = false;
         Recipi_loading = false;
@@ -948,6 +948,11 @@ public class Compound_Main : MonoBehaviour
                     {
                         stageclear_toggle.SetActive(false);
                         //stageclear_Button.SetActive(false);
+                    }
+
+                    if (GameMgr.QuestClearflag)
+                    {
+                        questclear_toggle.SetActive(true);
                     }
                 }
 
@@ -1814,7 +1819,8 @@ public class Compound_Main : MonoBehaviour
 
         }
         else
-        {
+        {            
+
             switch (GameMgr.stage_number)
             {
                 //ステージ１のサブイベント

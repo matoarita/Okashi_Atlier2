@@ -12,6 +12,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     public int special_kaisu; //一回のクエストで、3回まで挑戦できる。
     public int special_kaisu_max;
     public int[,] special_score_record; //そのときの、点数も記録。一つの列に3個点数を保持。
@@ -27,6 +30,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
         girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
+
+        
 
         special_kaisu = 0;
         special_kaisu_max = 1;
@@ -45,9 +50,11 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
     public void SetSpecialOkashi(int _num)
     {
+
         special_kaisu = 0; //0回にリセット
         spquest_set_num = _num;
         GameMgr.OkashiQuest_Num = _num;
+        GameMgr.QuestClearflag = false;
 
         switch (_num)
         {
@@ -92,7 +99,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.ResetHukidashi();
                 break;
 
-            case 4: //なんか食べたい
+            case 4: //ドーナツ食べたい
 
                 girl1_status.OkashiNew_Status = 0;
                 girl1_status.OkashiQuest_ID = 1400;

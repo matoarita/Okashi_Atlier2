@@ -123,6 +123,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private SpriteRenderer s;
 
+    private GameObject EatAnimPanel;
+    private Image EatAnimPanel_itemImage;
+    private Texture2D texture2d;
+
     //時間
     private float timeOut;
 
@@ -278,6 +282,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private CubismRenderController _renderController;
 
     private GameObject questclear_toggle;
+    private GameObject stageclear_toggle;
 
     // Use this for initialization
     void Start() {
@@ -369,6 +374,10 @@ public class GirlEat_Judge : MonoBehaviour {
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
+        //食べ始めアニメオブジェクトの取得
+        EatAnimPanel = canvas.transform.Find("EatAnimPanel").gameObject;
+        EatAnimPanel_itemImage = EatAnimPanel.transform.Find("ItemImage").GetComponent<Image>();
+
         //お菓子採点結果表示用パネルの取得
         ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
         Okashi_Score = ScoreHyoujiPanel.transform.Find("Image/Okashi_Score").GetComponent<Text>();
@@ -382,6 +391,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //クエストクリアボタンの取得
         questclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/QuestClear_Toggle").gameObject;
+        stageclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
 
         i = 0;
         foreach (Transform child in ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score_star/Viewport/Content").transform)
@@ -561,21 +571,28 @@ public class GirlEat_Judge : MonoBehaviour {
                     MoneyStatus_Panel_obj.SetActive(false);
                     text_area.SetActive(false);
 
-                    timeOut = 1.0f;
+                    timeOut = 4.0f;
                     judge_anim_status = 1;
-                    //s.sprite = girl1_status.Girl1_img_eat_start;
 
                     //現在の吹き出しを削除
                     girl1_status.DeleteHukidashiOnly();
 
                     //食べ中の表示用吹き出しを生成
-                    eat_hukidashiitem = Instantiate(eat_hukidashiPrefab);
-                    eat_hukidashitext = eat_hukidashiitem.GetComponentInChildren<Text>();
+                    //eat_hukidashiitem = Instantiate(eat_hukidashiPrefab);
+                    //eat_hukidashitext = eat_hukidashiitem.GetComponentInChildren<Text>();
 
-                    eat_hukidashitext.text = ".";
+                    //eat_hukidashitext.text = ".";
+
+                    //食べ始めのアニメーションをスタート
+                    EatAnimPanel.SetActive(true);
+                    texture2d = database.items[_baseID].itemIcon;
+                    EatAnimPanel_itemImage.sprite = Sprite.Create(texture2d,
+                                   new Rect(0, 0, texture2d.width, texture2d.height),
+                                   Vector2.zero);
+                    
 
                     //カメラ寄る。
-                    trans++; //transが1を超えたときに、ズームするように設定されている。
+                    trans = 2; //transが1を超えたときに、ズームするように設定されている。
 
                     //intパラメーターの値を設定する.
                     maincam_animator.SetInteger("trans", trans);
@@ -587,9 +604,9 @@ public class GirlEat_Judge : MonoBehaviour {
                     if( timeOut <= 0.0)
                     {
                         timeOut = 1.0f;
-                        judge_anim_status = 2;
+                        judge_anim_status = 3;
 
-                        eat_hukidashitext.text = ". .";
+                        //eat_hukidashitext.text = ". .";
                         
                     }
                     break;
@@ -621,10 +638,12 @@ public class GirlEat_Judge : MonoBehaviour {
                     judge_anim_status = 0;
 
                     //カメラ寄る。
-                    trans--; //transが0以下のときに、ズームアウトするように設定されている。
+                    trans = 0; //transが0以下のときに、ズームアウトするように設定されている。
 
                     //intパラメーターの値を設定する.
                     maincam_animator.SetInteger("trans", trans);
+
+                    EatAnimPanel.SetActive(false);
 
                     break;
 
@@ -1973,7 +1992,17 @@ public class GirlEat_Judge : MonoBehaviour {
             //60点以上だったら、そのクエストをクリアできる、スキップボタンが表示
             if (total_score >= GameMgr.low_score)
             {
-                questclear_toggle.SetActive(true);
+                GameMgr.QuestClearflag = true;
+
+                //5個クエストをクリアしていたら、クリアボタンがでる。
+                if (GameMgr.OkashiQuest_flag_stage1[4])
+                {
+                    stageclear_toggle.SetActive(true);
+                }
+                else
+                {
+                    questclear_toggle.SetActive(true);
+                }
                 _windowtext.text = "満足しているようだ。";
             }
             else

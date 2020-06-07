@@ -58,3 +58,5 @@ SE表
 ・SE_56		audiostock_42215				かわいい足音
 ・SE_57		大キック.mp3					強く殴る音（妹が襲撃したときの音）
 ・SE_58		audiostock_645487				ボウルを落とした音
+・SE_59		audiostock_159330_sample			宿屋ジングル
+・SE_60		audiostock_262999_sample			にわとりの鳴き声

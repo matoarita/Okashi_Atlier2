@@ -52,6 +52,9 @@ public class Utage_scenario : MonoBehaviour
     //シーン中のキャラクタ画像を取得（NPCなど）
     private GameObject character;
 
+    //BGMの取得
+    private BGM sceneBGM;
+
 
     // Use this for initialization
     void Start()
@@ -65,6 +68,7 @@ public class Utage_scenario : MonoBehaviour
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         scenario_loading = false; //「Utage」シーンを最初に読み込むときに、falseに初期化。宴のシナリオを読み中はtrue。コルーチンのリセットを回避する。
+        
     }
 
     void Update()
@@ -162,6 +166,12 @@ public class Utage_scenario : MonoBehaviour
                     //Live2Dモデルの取得
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     _renderController = _model.GetComponent<CubismRenderController>();
+                }
+
+                if (!sceneBGM)
+                {
+                    //BGMの取得
+                    sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
                 }
 
                 switch (GameMgr.scenario_flag)
@@ -273,7 +283,7 @@ public class Utage_scenario : MonoBehaviour
                     scenarioLabel = "Sleep";
 
                     //寝るイベントを表示
-                    StartCoroutine(Text_Read());
+                    StartCoroutine(Sleep());
                 }
 
                 if (GameMgr.touchhint_flag == true)
@@ -380,6 +390,8 @@ public class Utage_scenario : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm")
         {
             CharacterSpriteFadeON();
+
+            GameMgr.scenario_ON = false;
         }
 
         scenario_loading = false;
@@ -388,7 +400,7 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    //寝るなど、テキスト表示するだけの処理（シナリオフラグの判定なども行わない）
+    //テキスト表示するだけの処理（シナリオフラグの判定なども行わない）
     //
     IEnumerator Text_Read()
     {
@@ -404,6 +416,45 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        scenario_loading = false;
+
+        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+    }
+
+    //
+    //寝る時の処理（シナリオフラグの判定なども行わない）
+    //
+    IEnumerator Sleep()
+    {
+        scenario_loading = true;
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        //音を止めて、宿屋のジングル
+        sceneBGM.MuteBGM();
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        //BGMを再開
+        sceneBGM.MuteOFFBGM();
 
         scenario_loading = false;
 
