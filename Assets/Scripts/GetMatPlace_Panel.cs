@@ -74,6 +74,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private bool modoru_anim_end;
     private int modoru_anim_status;
 
+    private int _yosokutime;
+
     //SEを鳴らす
     public AudioClip sound1;
     AudioSource audioSource;
@@ -263,6 +265,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
             //立ち絵もオフ
             sister_stand_img1.SetActive(false);
 
+            //日数の経過。帰りも同じ時間かかる。
+            PlayerStatus.player_time += select_place_day;
+            time_controller.TimeKoushin();
+
             _text.text = "家に戻ってきた。どうしようかなぁ？";
         }
     }
@@ -274,21 +280,32 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             if (matplace_toggle[i].GetComponent<Toggle>().isOn == true)
             {
-                if (matplace_database.matplace_lists[i].placeCost == 0)
+                //時間が20時をこえないかチェック
+                _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay * 2);
+                if (_yosokutime >= time_controller.max_time * 6)
                 {
-                    _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
+                    //20時を超えるので、妹に止められる。
+                    _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
+                    All_Off();
                 }
                 else
                 {
-                    _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
-                }
-                
-                select_place_num = place_num;
-                select_place_name = matplace_database.matplace_lists[place_num].placeName;
-                select_place_day = matplace_database.matplace_lists[place_num].placeDay;
+                    if (matplace_database.matplace_lists[i].placeCost == 0)
+                    {
+                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
+                    }
+                    else
+                    {
+                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
+                    }
 
-                Select_Pause();
-                break;
+                    select_place_num = place_num;
+                    select_place_name = matplace_database.matplace_lists[place_num].placeName;
+                    select_place_day = matplace_database.matplace_lists[place_num].placeDay;
+
+                    Select_Pause();
+                    break;
+                }
             }
             i++;
         }

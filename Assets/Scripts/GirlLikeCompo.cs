@@ -16,6 +16,9 @@ public class GirlLikeCompo
     public int set2;
     public int set3;
 
+    public string spquest_name1;
+    public string spquest_name2;
+
     public string desc;
     public string comment; //ゲーム中では使用しない。メモ用。
 
@@ -28,7 +31,7 @@ public class GirlLikeCompo
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public GirlLikeCompo(int id, int _set_id, int set1_id, int set2_id, int set3_id, string _desc, string _comment, int _set_flag, int _set_score, string _hint, bool clear_flag)
+    public GirlLikeCompo(int id, int _set_id, int set1_id, int set2_id, int set3_id, string _quest_name1, string _quest_name2, string _desc, string _comment, int _set_flag, int _set_score, string _hint, bool clear_flag)
     {
         ID = id;
         set_ID = _set_id;
@@ -36,6 +39,9 @@ public class GirlLikeCompo
         set1 = set1_id;
         set2 = set2_id;
         set3 = set3_id;
+
+        spquest_name1 = _quest_name1;
+        spquest_name2 = _quest_name2;
 
         desc = _desc;
         comment = _comment;

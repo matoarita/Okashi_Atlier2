@@ -55,12 +55,14 @@ public class Entity_GirlLikeSetCompoDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(2); p.set1 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(3); p.set2 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(4); p.set3 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(5); p.desc = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(6); p.comment = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(7); p.set_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(8); p.set_score = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(9); p.hint_text = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(10); p.clear = (cell == null ? false : cell.BooleanCellValue);
+					cell = row.GetCell(5); p.spquest_name1 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(6); p.spquest_name2 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(7); p.desc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(8); p.comment = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(9); p.set_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(10); p.set_score = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(11); p.hint_text = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(12); p.clear = (cell == null ? false : cell.BooleanCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

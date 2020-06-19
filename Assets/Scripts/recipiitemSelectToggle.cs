@@ -20,6 +20,8 @@ public class recipiitemSelectToggle : MonoBehaviour
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
+    private SoundController sc;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -109,6 +111,9 @@ public class recipiitemSelectToggle : MonoBehaviour
 
             compound_Check_obj = GameObject.FindWithTag("Compound_Check");
             compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
+
+            //サウンドコントローラーの取得
+            sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
         }
 
         recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
@@ -195,6 +200,9 @@ public class recipiitemSelectToggle : MonoBehaviour
             compound_Main.event_itemID = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleEventitem_ID;
 
             itemselect_cancel.kettei_on_waiting = false;
+
+            //音を鳴らす。
+            sc.PlaySe(36);
 
             //イベント処理を開始する。
             compound_Main.eventRecipi_ON();

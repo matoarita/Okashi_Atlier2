@@ -488,6 +488,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 PlayerStatus.First_recipi_on = true;
             }
 
+            if (extreme_on) //トッピング調合から、新規作成に分岐した場合
+            {
+                if (!PlayerStatus.First_extreme_on) //仕上げを一度もやったことがなかったら、フラグをON
+                {
+                    PlayerStatus.First_extreme_on = true;
+                }
+            }
+
             //テキストの表示
             renkin_default_exp_up();
 
@@ -881,6 +889,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 {
                     card_view.SetinteractiveOFF();
                 }
+            }
+
+            if (!PlayerStatus.First_extreme_on) //仕上げを一度もやったことがなかったら、フラグをON
+            {
+                PlayerStatus.First_extreme_on = true;
             }
 
             //右側パネルに、作ったやつを表示する。

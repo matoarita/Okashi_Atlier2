@@ -13,6 +13,8 @@ public class Farm_Main : MonoBehaviour {
 
     private ItemShopDataBase shop_database;
 
+    private PlayerItemList pitemlist;
+
     private GameObject text_area;
     private Text _text;
 
@@ -51,6 +53,9 @@ public class Farm_Main : MonoBehaviour {
 
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         //シーン最初にカウンターも生成する。
         updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
@@ -118,6 +123,10 @@ public class Farm_Main : MonoBehaviour {
                     //メイン画面にもどったときに、イベントを発生させるフラグをON
                     GameMgr.CompoundEvent_num = 10;
                     GameMgr.CompoundEvent_flag = true;
+
+                    //たまご・牛乳を各５個ずつもらえる。
+                    pitemlist.addPlayerItemString("egg", 5);
+                    pitemlist.addPlayerItemString("milk", 5);
                 }
                
                 break;

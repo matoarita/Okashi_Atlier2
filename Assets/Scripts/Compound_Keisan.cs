@@ -1642,6 +1642,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     //プレイヤーアイテムリストから、選んだ材料の削除処理
     public void Delete_playerItemList()
     {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
         //パラメータの取得
         SetParamInit();
 

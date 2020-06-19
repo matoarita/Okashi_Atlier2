@@ -212,7 +212,7 @@ public class GetMaterial : MonoBehaviour {
                 moneyStatus_Controller.UseMoney(mat_cost);
 
                 //日数の経過
-                PlayerStatus.player_time += 3;
+                PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
                 time_controller.TimeKoushin();
 
                 //ウェイトアニメ

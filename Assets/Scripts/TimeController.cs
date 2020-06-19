@@ -37,7 +37,7 @@ public class TimeController : MonoBehaviour
     private int hour, minute;
 
 
-    private int max_time;
+    public int max_time;
     private int count;
 
     private float timeLeft;
@@ -233,7 +233,7 @@ public class TimeController : MonoBehaviour
         if (count >= max_time)
         {
             //一日が経った。
-            if (TimeCheck_flag)
+            if (TimeCheck_flag) //Compound_MainでTimeCheck_flagをtrueにしている。
             {
 
                 TimeCheck_flag = false;

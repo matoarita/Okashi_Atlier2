@@ -17,7 +17,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static int player_zairyobox; // 材料カゴの大きさ
 
-    public static bool First_recipi_on;
+    public static bool First_recipi_on; //はじめて調合したフラグ
+    public static bool First_extreme_on; //はじめて仕上げをしたフラグ
 
     public static List<bool> player_travelList = new List<bool>(); //旅行先。行ける場所が増えると、カウントも増える。
 
@@ -43,6 +44,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_zairyobox = 10;
 
         First_recipi_on = false;
+        First_extreme_on = false;
 
         //セーブデータがあれば、次にそこから読み込んで、更新
     }

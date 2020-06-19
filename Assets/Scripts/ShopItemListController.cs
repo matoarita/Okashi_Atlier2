@@ -421,12 +421,12 @@ public class ShopItemListController : MonoBehaviour
         if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
-            _togglebg.sprite = touchoff;
+            //_togglebg.sprite = touchoff;
         }
         else
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
-            _togglebg.sprite = touchon;
+            //_togglebg.sprite = touchon;
         }
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 
@@ -467,12 +467,12 @@ public class ShopItemListController : MonoBehaviour
         if (PlayerStatus.player_money < shop_database.farmitems[i].shop_costprice)
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
-            _togglebg.sprite = touchoff;
+            //_togglebg.sprite = touchoff;
         }
         else
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
-            _togglebg.sprite = touchon;
+            //_togglebg.sprite = touchon;
         }
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 

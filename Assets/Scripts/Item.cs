@@ -111,9 +111,11 @@ public class Item
         Soup,
         Coffee,
         Parfe,
-        IceCream,
+        IceCream,        
+        Bread,
         Machine,
-        Bread
+        Donguri,
+        Etc
     }
 
     //ここでリスト化時に渡す引数をあてがいます   

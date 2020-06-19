@@ -32,7 +32,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
     
 
-    private int i;
+    private int i, j;
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
@@ -152,6 +152,60 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         {
             playeritemlist[itemID] = 99; //上限 99個
         }
+    }
+
+    public void addPlayerItemString(string itemName, int count_kosu)
+    {
+        for (i = 0; i <= database.sheet_topendID[1]; i++)
+        {
+            if (database.items[i].itemName == itemName)
+            {
+                addPlayerItem(i, count_kosu);
+            }
+        }
+
+        //お菓子タイプ
+        count = database.sheet_topendID[2];
+
+        j = database.sheet_topendID[3] - database.sheet_topendID[2];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                addPlayerItem(count, count_kosu);
+            }
+            ++count;
+        }
+
+        //ポーションタイプ
+        count = database.sheet_topendID[4];
+
+        j = database.sheet_topendID[5] - database.sheet_topendID[4];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                addPlayerItem(count, count_kosu);
+            }
+            ++count;
+        }
+
+        //その他タイプ
+        count = database.sheet_topendID[6];
+
+        j = database.sheet_topendID[7] - database.sheet_topendID[6];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                addPlayerItem(count, count_kosu);
+            }
+            ++count;
+        }
+
     }
 
     public void deletePlayerItem(int deleteID, int count_kosu)

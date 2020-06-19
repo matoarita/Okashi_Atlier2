@@ -31,6 +31,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private SoundController sc;
 
+    private Text questname;
+    private GameObject questtitle_panel;
+    private Text questpanel_text;
+
     public float timeOut;
     public float timeOut2;
     public float timeOut3;
@@ -185,6 +189,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //特定のお菓子か、ランダムから選ぶかのフラグ
     public int OkashiNew_Status;
     public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
+    public string OkashiQuest_Name; //そのときのお菓子のクエストネーム
     public int Special_ignore_count; //スペシャルを無視した場合、カウント。3回あたりをこえると、スペシャルは無視される。
 
     //エフェクト関係
@@ -239,7 +244,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         
         //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();        
 
         //女の子の顔を触った時のヒントライブラリー初期化
         Init_touchFaceComment();
@@ -303,6 +308,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                 s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
+
+                //メイン画面に表示する、現在のクエスト
+                questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
+                questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
+                questpanel_text = questtitle_panel.transform.Find("QuestPanel/QuestName").GetComponent<Text>();
+                questtitle_panel.SetActive(false);
+
                 break;
         }
 
@@ -411,6 +423,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //Live2Dモデルの取得
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+
+                    //メイン画面に表示する、現在のクエスト
+                    questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
+                    questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
+                    questpanel_text = questtitle_panel.transform.Find("QuestPanel/QuestName").GetComponent<Text>();
+                    questtitle_panel.SetActive(false);
 
                     //初期表情の設定
                     CheckGokigen();
@@ -900,6 +918,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //吹き出しのテキスト決定
         _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
         _text.text = _desc;
+
+        //現在のクエストネーム更新
+        questname.text = OkashiQuest_Name;
+
+        //クエストタイトルパネルを表示
+        questpanel_text.text = OkashiQuest_Name;
+        questtitle_panel.SetActive(true);
 
         special_animatFirst = true;
         GirlEat_Judge_on = true;

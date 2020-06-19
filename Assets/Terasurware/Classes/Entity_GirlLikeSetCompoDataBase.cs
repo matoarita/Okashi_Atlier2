@@ -22,6 +22,8 @@ public class Entity_GirlLikeSetCompoDataBase : ScriptableObject
 		public int set1;
 		public int set2;
 		public int set3;
+		public string spquest_name1;
+		public string spquest_name2;
 		public string desc;
 		public string comment;
 		public int set_flag;

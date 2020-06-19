@@ -1178,7 +1178,7 @@ MonoBehaviour:
     - rowIndex: 31
       debugIndex: 31
       strings:
-      - TouchHint_num
+      - SpOkashiHint_num
       - Int
       - 0
       isEmpty: 0
@@ -1187,7 +1187,7 @@ MonoBehaviour:
     - rowIndex: 32
       debugIndex: 32
       strings:
-      - MainClear_num
+      - TouchHint_num
       - Int
       - 0
       isEmpty: 0
@@ -1196,7 +1196,7 @@ MonoBehaviour:
     - rowIndex: 33
       debugIndex: 33
       strings:
-      - Ev_recipi
+      - MainClear_num
       - Int
       - 0
       isEmpty: 0
@@ -1205,7 +1205,7 @@ MonoBehaviour:
     - rowIndex: 34
       debugIndex: 34
       strings:
-      - Read_recipi
+      - Ev_recipi
       - Int
       - 0
       isEmpty: 0
@@ -1214,7 +1214,7 @@ MonoBehaviour:
     - rowIndex: 35
       debugIndex: 35
       strings:
-      - Shop_Talk_Num
+      - Read_recipi
       - Int
       - 0
       isEmpty: 0
@@ -1223,7 +1223,7 @@ MonoBehaviour:
     - rowIndex: 36
       debugIndex: 36
       strings:
-      - Shop_Hint_Num
+      - Shop_Talk_Num
       - Int
       - 0
       isEmpty: 0
@@ -1232,16 +1232,16 @@ MonoBehaviour:
     - rowIndex: 37
       debugIndex: 37
       strings:
-      - Tutorial_Flag
-      - Bool
-      - FALSE
+      - Shop_Hint_Num
+      - Int
+      - 0
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 38
       debugIndex: 38
       strings:
-      - Farm_Flag
+      - Tutorial_Flag
       - Bool
       - FALSE
       isEmpty: 0
@@ -1249,8 +1249,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 39
       debugIndex: 39
-      strings: []
-      isEmpty: 1
+      strings:
+      - Farm_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 40
@@ -1267,6 +1270,12 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 42
       debugIndex: 42
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 43
+      debugIndex: 43
       strings:
       - Ev_flag
       - Int
@@ -1274,8 +1283,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 43
-      debugIndex: 43
+    - rowIndex: 44
+      debugIndex: 44
       strings:
       - Re_flag
       - Int
@@ -1285,7 +1294,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 629
+    textLength: 649
     headerRow: 0
   - rows:
     - rowIndex: 0

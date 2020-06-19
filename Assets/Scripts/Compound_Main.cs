@@ -46,8 +46,12 @@ public class Compound_Main : MonoBehaviour
     private GameObject girl_love_exp_bar;
     private GameObject moneystatus_panel;
 
+    private GameObject GirlHeartEffect_obj;
+
     private GameObject TimePanel_obj1;
     private GameObject TimePanel_obj2;
+
+    private Text questname;
 
     private GameObject getmatplace_panel;
     private GetMatPlace_Panel getmatplace;
@@ -195,7 +199,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj1 = canvas.transform.Find("TimePanel/TimeHyouji_1").gameObject;
         TimePanel_obj2 = canvas.transform.Find("TimePanel/TimeHyouji_2").gameObject;
         TimePanel_obj2.SetActive(false);
-
+       
         //好感度バーの取得
         girl_love_exp_bar = canvas.transform.Find("Girl_love_exp_bar").gameObject;
 
@@ -269,6 +273,9 @@ public class Compound_Main : MonoBehaviour
         //女の子、お菓子の判定処理オブジェクトの取得
         GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
         girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
+
+        //女の子の反映用ハートエフェクト取得
+        GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
 
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -364,6 +371,10 @@ public class Compound_Main : MonoBehaviour
                 clear_love = GameMgr.stage3_clear_love;
                 break;
         }
+
+        //メイン画面に表示する、現在のクエスト
+        questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();        
+        questname.text = girl1_status.OkashiQuest_Name; //現在のクエストネーム更新
 
         //初期メッセージ
         _textmain.text = "どうしようかなぁ？";
@@ -891,8 +902,7 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(false);
                 black_panel_A.SetActive(false);
                 ResultBGimage.SetActive(false);
-                compoBG_A.SetActive(false);
-                
+                compoBG_A.SetActive(false);                
 
                 TimePanel_obj1.SetActive(true);
                 TimePanel_obj2.SetActive(false);                
@@ -970,7 +980,7 @@ public class Compound_Main : MonoBehaviour
                 //残りあげる回数の更新
                 nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
                 girleat_toggle.transform.Find("Background/kaisu_param").GetComponent<Text>().text = nokori_kaisu.ToString();
-
+                
                 compound_status = 110; //退避
                 break;
 
@@ -1113,6 +1123,7 @@ public class Compound_Main : MonoBehaviour
 
                 playeritemlist_onoff.SetActive(false);
                 recipilist_onoff.SetActive(false);
+                kakuritsuPanel_obj.SetActive(false);
 
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
@@ -1197,6 +1208,7 @@ public class Compound_Main : MonoBehaviour
                 text_area.SetActive(true);
                 text_area_Main.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
+                time_controller.TimeCheck_flag = false;
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1275,6 +1287,7 @@ public class Compound_Main : MonoBehaviour
 
                 Extremepanel_obj.SetActive(false);
                 text_area_Main.SetActive(false);
+                girl_love_exp_bar.SetActive(false);
 
                 break;
 
@@ -1985,6 +1998,7 @@ public class Compound_Main : MonoBehaviour
         }
 
         canvas.SetActive(false);
+        GirlHeartEffect_obj.SetActive(false);
         sceneBGM.MuteBGM();
         
         GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -1998,6 +2012,7 @@ public class Compound_Main : MonoBehaviour
         sceneBGM.MuteOFFBGM();
 
         canvas.SetActive(true);
+        GirlHeartEffect_obj.SetActive(true);
         extreme_Button.interactable = true;
         touch_controller.Touch_OnAllON();
 
@@ -2007,7 +2022,7 @@ public class Compound_Main : MonoBehaviour
         _textmain.text = "";
 
         check_GirlLoveEvent_flag = true;
-        check_recipi_flag = false;
+        check_recipi_flag = false;        
     }
 
     //レシピの番号チェック。コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。

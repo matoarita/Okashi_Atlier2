@@ -55,6 +55,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool okashiafter_flag;    //採点表示のあとに表示する感想
     public static int mainquest_ID;         //クエストクリア時のイベント
     public static bool mainClear_flag;      //クエストクリア時のイベント
+    public static bool emeralDonguri_flag;  //高得点時、エメラルどんぐりをくれるイベント発生のフラグ
 
     //妹の口をクリックしたときのヒント表示フラグ
     public static int touchhint_ID;
@@ -145,6 +146,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string ColorBlue;
     public static string ColorCyan;
     public static string ColorOrange;
+    public static string ColorGreen;
 
     public static bool Scene_back_home; //シーンから、メイン画面にもどるときの、ドア開閉時の音を鳴らす用のフラグ。
 
@@ -231,6 +233,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sp_okashi_hintflag = false;
         sp_okashi_flag = false;
         okashiafter_flag = false;
+        mainClear_flag = false;
+        emeralDonguri_flag = false;
 
         //お菓子フラグの初期化
         for (i = 0; i < OkashiQuest_flag_stage1.Length; i++) {
@@ -273,6 +277,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ColorBlue = "<color=#0000FF>";
         ColorCyan = "<color=#44A2FF>";
         ColorOrange = "<color=#FF8400>";
+        ColorGreen = "<color=48EE72FF>";
     }
 	
 	// Update is called once per frame

@@ -268,6 +268,14 @@ public class Utage_scenario : MonoBehaviour
                     StartCoroutine(OkashiAfterComment_Hyouji());
                 }
 
+                if (GameMgr.emeralDonguri_flag == true)
+                {
+                    GameMgr.emeralDonguri_flag = false;
+
+                    //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
+                    StartCoroutine(EmeralDonguri_Hyouji());
+                }
+
                 if (GameMgr.mainClear_flag == true)
                 {
                     GameMgr.mainClear_flag = false;
@@ -1364,6 +1372,55 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        if( !PlayerStatus.First_extreme_on ) //仕上げを一度もやったことがなかったら、ヒントだす。
+        {
+            scenarioLabel = "SpOkashiHint"; //イベントレシピタグのシナリオを再生。
+
+            //ここで、宴のパラメータ設定
+            engine.Param.TrySetParameter("SpOkashiHint_num", 0);
+
+            //「宴」のシナリオを呼び出す
+            Engine.JumpScenario(scenarioLabel);
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario)
+            {
+                yield return null;
+            }
+        }
+
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
+
+        GameMgr.recipi_read_endflag = true; //読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    //
+    // お菓子 食べたあと　採点表示のあとの感想表示
+    //
+    IEnumerator EmeralDonguri_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "EmeralDonguri"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ゲーム上のキャラクタOFF
+        CharacterLive2DImageOFF();
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }        
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
