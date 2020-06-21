@@ -42,12 +42,12 @@ SE表
 ・SE_40		audiostock_397394.mp3				キュピーン閃きの音
 ・SE_41		audiostock_114553.mp3				鳥の鳴き声の音
 ・SE_42		audiostock_23329_sample.mp3			【#未使用】　ラッパファンファーレの音（現在未使用）
-・SE_43		audiostock_400744_sample.mp3			お菓子採点時　キラリ～ンの音
+・SE_43		audiostock_400744				お菓子採点時　キラリ～ンの音
 ・SE_44		audiostock_400507.mp3				拍手の音
 ・SE_45		audiostock_425526_sample.mp3			【#未使用】　女性声で「YeaHHH～」
 ・SE_46		audiostock_108713.mp3				ちょっと怒ってプイって音
 ・SE_47		audiostock_59503.mp3				決定音（YES決定音）
-・SE_48		audiostock_784832_sample			お菓子採点時の音
+・SE_48		audiostock_784832				お菓子採点時の音
 ・SE_49		audiostock_208458				イベント中にアイテムをもらったときの音
 ・SE_50		audiostock_155440				ドラムロール＋シンバルの音　驚きでジャーン
 ・SE_51		audiostock_712907				ドア開けた時のベル音１　ホーム用
@@ -58,6 +58,6 @@ SE表
 ・SE_56		audiostock_42215				かわいい足音
 ・SE_57		大キック.mp3					強く殴る音（妹が襲撃したときの音）
 ・SE_58		audiostock_645487				ボウルを落とした音
-・SE_59		audiostock_159330_sample			宿屋ジングル
-・SE_60		audiostock_262999_sample			にわとりの鳴き声
-・SE_61		audiostock_250681_sample			キラリン♪　お菓子食べおわったあと、満足した音
+・SE_59		audiostock_159330				宿屋ジングル
+・SE_60		audiostock_262999				にわとりの鳴き声
+・SE_61		audiostock_250681				キラリン♪　お菓子食べおわったあと、満足した音

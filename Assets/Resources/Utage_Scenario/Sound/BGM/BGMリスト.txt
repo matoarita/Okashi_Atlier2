@@ -9,3 +9,4 @@
 ・BGM_07		audiostock_196574			ステージ２BGM
 ・BGM_08		audiostock_209981			ステージ３BGM
 ・BGM_09		audiostock_300247			夢の中の曲（環境音）
+・BGM_10		nohohonkissa.mp3			牧場のBGM

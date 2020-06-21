@@ -114,6 +114,14 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.ResetHukidashi();
                 break;
 
+            case 5: //ステージ１ラスト　コンテスト開始
+
+                girl1_status.OkashiNew_Status = 0;
+                girl1_status.OkashiQuest_ID = 1500;
+                QuestNameFind();
+                girl1_status.ResetHukidashi();
+                break;
+
             default:
                 break;
         }

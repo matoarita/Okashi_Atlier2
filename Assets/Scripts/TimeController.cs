@@ -48,6 +48,13 @@ public class TimeController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        InitParam();
+
+        TimeCheck_flag = false;
+    }
+
+    void InitParam()
+    {
         //カレンダー初期化
         calender.Clear();
 
@@ -100,8 +107,6 @@ public class TimeController : MonoBehaviour
 
         timeLeft = 1.0f;
         count_switch = true;
-
-        TimeCheck_flag = false;
     }
 
     // Update is called once per frame
@@ -133,6 +138,8 @@ public class TimeController : MonoBehaviour
 
     public void TimeKoushin()
     {
+        InitParam();
+
         //プレイヤーデイを基に、カレンダーの日付に変換。
         if (PlayerStatus.player_day > 365)
         {

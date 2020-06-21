@@ -115,7 +115,7 @@ public class ShopQuestListController : MonoBehaviour
     // リストビューの描画部分。重要。
     public void reset_and_DrawView()
     {
-        //現在、納品リストを開いている状態
+        //現在、受注リストを開いている状態
         qlist_status = 0;
 
         color1 = new Color(1f, 1f, 1f, 1.0f);
@@ -173,7 +173,7 @@ public class ShopQuestListController : MonoBehaviour
     
     public void NouhinList_DrawView()
     {
-        //現在、受注リストを開いている状態
+        //現在、納品リストを開いている状態
         qlist_status = 1;
 
         color1 = new Color(1, 1, 1, 0.5f);
@@ -211,7 +211,7 @@ public class ShopQuestListController : MonoBehaviour
             _text[3].text = "進行中"; //受注マーク
             _text[4].text = ""; //締め切り日時 締切: ○月△日
 
-            _text[6].text = quest_database.questRandomset[i].Quest_buy_price.ToString();
+            _text[6].text = quest_database.questTakeset[i].Quest_buy_price.ToString();
 
             texture2d = quest_database.questTakeset[i].questIcon;
             _Img.sprite = texture2d;

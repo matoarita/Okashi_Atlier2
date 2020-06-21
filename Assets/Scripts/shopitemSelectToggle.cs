@@ -158,7 +158,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
         if (shopitemlistController.shop_final_select_flag == true) //最後、これを買うかどうかを待つフラグ
         {
-                StartCoroutine("shop_buy_Final_select");
+            shopitemlistController.shop_final_select_flag = false;
+            StartCoroutine("shop_buy_Final_select");
         }
     }
 
@@ -293,8 +294,6 @@ public class shopitemSelectToggle : MonoBehaviour
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
-
-        shopitemlistController.shop_final_select_flag = false;
 
         switch (yes_selectitem_kettei.kettei1)
         {

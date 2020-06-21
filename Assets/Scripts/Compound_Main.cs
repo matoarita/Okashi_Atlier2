@@ -879,18 +879,19 @@ public class Compound_Main : MonoBehaviour
                     if (girl1_status.special_animatFirst != true)
                     {
                         compoundselect_onoff_obj.SetActive(false);
+                        touch_controller.Touch_OnAllOFF();
                     }
                     else
                     {
                         compoundselect_onoff_obj.SetActive(true);
+                        touch_controller.Touch_OnAllON();
                     }
                         
 
                     //腹減りカウント開始
                     girl1_status.GirlEat_Judge_on = true;
                     girl1_status.WaitHint_on = true;
-
-                    touch_controller.Touch_OnAllON();
+                    
                     compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
                 }
@@ -1936,7 +1937,7 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
                             //クエスト発生
-                            Debug.Log("好感度イベント５をON: シュークリームが食べたい　開始");
+                            Debug.Log("好感度イベント５をON: ドーナツが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                             special_quest.SetSpecialOkashi(4);
@@ -1946,7 +1947,25 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
+                    if (GameMgr.OkashiQuest_flag_stage1[4] && GameMgr.GirlLoveEvent_stage1[4]) //ステージ１　５つクリアしたので、コンテストイベント
+                    {
+                        event_num = 5;
 
+                        if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　ラストイベント
+                        {
+                            GameMgr.GirlLoveEvent_num = 5;
+                            GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            //クエスト発生
+                            Debug.Log("ステージ１ラストイベントをON: コンテスト　開始");
+
+                            //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
+                            special_quest.SetSpecialOkashi(5);
+
+                            //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+                            StartCoroutine("ReadGirlLoveEvent");
+                        }
+                    }
 
                     break;
 

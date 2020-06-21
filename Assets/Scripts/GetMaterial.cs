@@ -419,14 +419,24 @@ public class GetMaterial : MonoBehaviour {
         itemInfo.Add(2, matplace_database.matplace_lists[index].dropItem3);
         itemInfo.Add(3, matplace_database.matplace_lists[index].dropItem4);
         itemInfo.Add(4, matplace_database.matplace_lists[index].dropItem5);
-        
+        itemInfo.Add(5, matplace_database.matplace_lists[index].dropItem6);
+        itemInfo.Add(6, matplace_database.matplace_lists[index].dropItem7);
+        itemInfo.Add(7, matplace_database.matplace_lists[index].dropItem8);
+        itemInfo.Add(8, matplace_database.matplace_lists[index].dropItem9);
+        itemInfo.Add(9, matplace_database.matplace_lists[index].dropItem10);
+
         itemDropDict = new Dictionary<int, float>();
         itemDropDict.Add(0, matplace_database.matplace_lists[index].dropProb1); //こっちは確率テーブル
         itemDropDict.Add(1, matplace_database.matplace_lists[index].dropProb2); 
         itemDropDict.Add(2, matplace_database.matplace_lists[index].dropProb3); 
         itemDropDict.Add(3, matplace_database.matplace_lists[index].dropProb4);  
-        itemDropDict.Add(4, matplace_database.matplace_lists[index].dropProb5); 
-         
+        itemDropDict.Add(4, matplace_database.matplace_lists[index].dropProb5);
+        itemDropDict.Add(5, matplace_database.matplace_lists[index].dropProb6);
+        itemDropDict.Add(6, matplace_database.matplace_lists[index].dropProb7);
+        itemDropDict.Add(7, matplace_database.matplace_lists[index].dropProb8);
+        itemDropDict.Add(8, matplace_database.matplace_lists[index].dropProb9);
+        itemDropDict.Add(9, matplace_database.matplace_lists[index].dropProb10);
+
         itemDropKosuDict = new Dictionary<int, float>();
         itemDropKosuDict.Add(1, 60.0f); //1個　60%
         itemDropKosuDict.Add(2, 25.0f); //2個　25%

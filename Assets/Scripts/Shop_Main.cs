@@ -12,6 +12,7 @@ public class Shop_Main : MonoBehaviour {
     private int trans; //トランジション用のパラメータ
 
     private ItemShopDataBase shop_database;
+    private ItemMatPlaceDataBase matplace_database;
 
     private SoundController sc;
     private Girl1_status girl1_status;
@@ -84,10 +85,14 @@ public class Shop_Main : MonoBehaviour {
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
         //吹き出しプレファブの取得
         hukidasi_sub_Prefab = (GameObject)Resources.Load("Prefabs/Emo_Hukidashi_Anim");
 
         character = GameObject.FindWithTag("Character");
+        character.GetComponent<FadeCharacter>().SetOff();
 
         hukidasi_oneshot = false;
 
@@ -202,6 +207,26 @@ public class Shop_Main : MonoBehaviour {
 
                 break;
 
+            case 4: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
+
+                if (!GameMgr.ShopEvent_stage[4])
+                {
+                    GameMgr.ShopEvent_stage[4] = true;
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.shop_event_num = 20;
+                    GameMgr.shop_event_flag = true;
+
+                    //メイン画面にもどったときに、イベントを発生させるフラグをON
+                    GameMgr.CompoundEvent_num = 0;
+                    GameMgr.CompoundEvent_flag = true;
+
+                    //村の広場にいけるようになる。
+                    matplace_database.matPlaceKaikin("Hiroba");
+                }
+
+                break;
+
 
             default:
                 break;
@@ -228,6 +253,7 @@ public class Shop_Main : MonoBehaviour {
             {
                 case 0:
 
+                    character.GetComponent<FadeCharacter>().SetOn();
                     shopitemlist_onoff.SetActive(false);
                     shopquestlist_obj.SetActive(false);
                     shop_select.SetActive(true);

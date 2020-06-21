@@ -16,6 +16,8 @@ public class Hiroba_Main2 : MonoBehaviour
 
     private GameObject canvas;
 
+    private TimeController time_controller;
+
 
     // Use this for initialization
     void Start()
@@ -41,6 +43,13 @@ public class Hiroba_Main2 : MonoBehaviour
 
         //text_area.SetActive(false);
         playeritemlist_onoff.SetActive(false);
+
+        //時間のチェック
+        //時間管理オブジェクトの取得
+        time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
+
+        time_controller.TimeCheck_flag = true;
+        time_controller.TimeKoushin(); //時間の更新
 
     }
 

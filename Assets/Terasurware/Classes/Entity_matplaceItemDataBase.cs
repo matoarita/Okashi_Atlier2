@@ -30,6 +30,11 @@ public class Entity_matplaceItemDataBase : ScriptableObject
 		public string drop_item3;
 		public string drop_item4;
 		public string drop_item5;
+		public string drop_item6;
+		public string drop_item7;
+		public string drop_item8;
+		public string drop_item9;
+		public string drop_item10;
 		public string drop_rare1;
 		public string drop_rare2;
 		public string drop_rare3;
@@ -38,6 +43,11 @@ public class Entity_matplaceItemDataBase : ScriptableObject
 		public float drop_prob3;
 		public float drop_prob4;
 		public float drop_prob5;
+		public float drop_prob6;
+		public float drop_prob7;
+		public float drop_prob8;
+		public float drop_prob9;
+		public float drop_prob10;
 		public float drop_rare_prob1;
 		public float drop_rare_prob2;
 		public float drop_rare_prob3;

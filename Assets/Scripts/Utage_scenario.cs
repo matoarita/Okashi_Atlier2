@@ -79,7 +79,7 @@ public class Utage_scenario : MonoBehaviour
             //1のときはOFF
             if (FadeAnim_status == 1)
             {
-                _renderController.Opacity -= 0.25f;
+                _renderController.Opacity -= 0.5f;
 
                 if (_renderController.Opacity <= 0.0f)
                 {

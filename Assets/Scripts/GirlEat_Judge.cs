@@ -2376,6 +2376,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (!Gameover_flag)
             {
+                //クリアフラッグをたてる。
                 switch (girl1_status.OkashiQuest_ID)
                 {
                     case 1000: //オリジナルクッキー
@@ -2402,6 +2403,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
                         break;
 
+                    case 1400: //ドーナツ
+
+                        GameMgr.OkashiQuest_flag_stage1[4] = true;
+
+                        break;
+
                     default:
                         break;
                 }
@@ -2422,7 +2429,7 @@ public class GirlEat_Judge : MonoBehaviour {
             }
             else
             {
-                //ゲームオーバー画面を表示
+                //ゲームオーバー画面を表示。現在、ゲームオーバーを使用していない。
                 Debug.Log("ゲームオーバー画面表示");
                 ResultOFF();
 

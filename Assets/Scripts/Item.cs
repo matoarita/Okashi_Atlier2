@@ -92,6 +92,7 @@ public class Item
         Cake_base,
         Creampuff,
         Crepe,
+        Donuts,
         Jelly,
         Omochi,
         Appaleil,

@@ -62,7 +62,7 @@ public class Quest_Judge : MonoBehaviour {
     private Dictionary<int, int> deleteOriginalList = new Dictionary<int, int>(); //オリジナルアイテムリストの削除用のリスト。ID, 個数のセット
 
     private int i, count, list_count;
-    private int nouhinOK_flag;
+    private bool nouhinOK_flag;
 
     private int _getMoney;
 
@@ -177,8 +177,6 @@ public class Quest_Judge : MonoBehaviour {
         MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
-        nouhinOK_flag = 0;
-
         //初期化
         _basetp = new string[10];
         _koyutp = new string[3];
@@ -197,31 +195,35 @@ public class Quest_Judge : MonoBehaviour {
     {
         SetInitQItem(_ID);
 
+        nouhinOK_flag = false;
+
         //プレイヤーのアイテムリストを検索
         for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
             if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、探索。
-            {
+            {                
+
                 //まず該当アイテムがあるかどうか調べる。
                 if( _itemname == database.items[i].itemName)
                 {
+
                     //一致したら、さらに個数が足りてるかどうかを調べる。
                     if (pitemlist.playeritemlist[i] >= _kosu_default)
                     {
-                        nouhinOK_flag = 0;
+                        nouhinOK_flag = true;
 
                         //所持アイテムを削除
                         pitemlist.deletePlayerItem(i, _kosu_default);
                     }
                     else
                     {
-                        nouhinOK_flag = 1;
+                        nouhinOK_flag = false;
                     }
                 }
             }
         }
-
-        if (nouhinOK_flag != 0) //上の探索で納品OKがtrueなら、オリジナルアイテムリストは検索しない
+        /*
+        if (!nouhinOK_flag) //上の探索で納品OKがtrueなら、オリジナルアイテムリストは検索しない
         {
             //次にプレイヤーのオリジナルアイテムリストを検索。player_originalitemlistは個数が1以上のものしかセットされていない。
             for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
@@ -233,55 +235,51 @@ public class Quest_Judge : MonoBehaviour {
                     //一致したら、さらに個数が足りてるかどうかを調べる。
                     if (pitemlist.player_originalitemlist[i].ItemKosu >= _kosu_default)
                     {
-                        nouhinOK_flag = 0;
+                        nouhinOK_flag = true;
 
                         //所持アイテムを削除
                         pitemlist.deleteOriginalItem(i, _kosu_default);
                     }
                     else
                     {
-                        nouhinOK_flag = 1;
+                        nouhinOK_flag = false;
                     }
                 }
 
             }
-        }
+        }*/
 
-        switch(nouhinOK_flag)
+        if (nouhinOK_flag)
         {
-            case 0:
+            _getMoney = _buy_price * _kosu_default;
 
-                _getMoney = _buy_price * _kosu_default;
+            //足りてるので、納品完了の処理
+            _text.text = "報酬 " + _getMoney + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
 
-                //足りてるので、納品完了の処理
-                _text.text = "報酬 " + _getMoney + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
+            //ジャキーンみたいな音を鳴らす。
+            sc.PlaySe(31);
 
-                //ジャキーンみたいな音を鳴らす。
-                sc.PlaySe(31);
+            //所持金をプラス
+            //PlayerStatus.player_money += _getMoney;
+            moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
 
-                //所持金をプラス
-                //PlayerStatus.player_money += _getMoney;
-                moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
+            //該当のクエストを削除
+            quest_database.questTakeset.RemoveAt(_ID);
 
-                //該当のクエストを削除
-                quest_database.questTakeset.RemoveAt(_ID);
-
-                //リスト更新
-                shopquestlistController.NouhinList_DrawView();
+            //リスト更新
+            shopquestlistController.NouhinList_DrawView();
 
 
-                Debug.Log("納品完了！");
-                break;
+            Debug.Log("納品完了！");
+        }
+        else
+        { 
 
-            case 1:
+            _text.text = "まだ数が足りてないようね..。";
 
-                _text.text = "まだ数が足りてないようね..。";
-                break;
+            //リスト更新
+            shopquestlistController.NouhinList_DrawView();
 
-            default:
-
-                _text.text = "まだ数が足りてないようね..。";
-                break;
         }
 
         yes.SetActive(false);
@@ -316,7 +314,7 @@ public class Quest_Judge : MonoBehaviour {
             //お菓子の正解判定。①タイプ　②味　③スロットを見る。点数とかだす？
             //
 
-            nouhinOK_flag = 0; //0なら正解
+            nouhinOK_flag = true; //0なら正解
 
             //①トッピングスロットの計算
 
@@ -333,7 +331,7 @@ public class Quest_Judge : MonoBehaviour {
                     //一つでも満たしてないものがある場合は、NGフラグがたつ
                     else
                     {
-                        nouhinOK_flag = 1;
+                        nouhinOK_flag = false;
                     }
                 }
             }
@@ -343,61 +341,61 @@ public class Quest_Judge : MonoBehaviour {
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basesweat >= _sweat)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basebitter >= _bitter)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basesour >= _sour)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basecrispy >= _crispy)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basefluffy >= _fluffy)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basesmooth >= _smooth)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basehardness >= _hardness)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basejiggly >= _jiggly)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             if (_basechewy >= _chewy)
             {
 
             }
-            else { nouhinOK_flag = 1; }
+            else { nouhinOK_flag = false; }
 
             //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
             if (_itemname == "Non") //特に指定なし
@@ -414,7 +412,7 @@ public class Quest_Judge : MonoBehaviour {
                 else
                 {
                     //不正解
-                    nouhinOK_flag = 1;
+                    nouhinOK_flag = false;
                 }
             }
             else if (_itemname == _basename) //お菓子の名前が一致している。
@@ -425,7 +423,7 @@ public class Quest_Judge : MonoBehaviour {
             else
             {
                 //不正解
-                nouhinOK_flag = 1;
+                nouhinOK_flag = false;
             }
             
             //アイテムを削除
@@ -481,7 +479,7 @@ public class Quest_Judge : MonoBehaviour {
 
 
         //0なら正解
-        if (nouhinOK_flag == 0)
+        if (nouhinOK_flag)
         {
             _getMoney = _buy_price * _kosu_default;
 
@@ -494,20 +492,21 @@ public class Quest_Judge : MonoBehaviour {
             //所持金をプラス
             //PlayerStatus.player_money += _getMoney;
             moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
+
+            Debug.Log("納品完了！");
         }
-        //1だと不正解
-        else
+        else //1だと不正解
         {
             _text.text = "う～ん。もうちょっと味を頑張ったほうがいいかも。";
+
+            Debug.Log("納品失敗..");
         }
 
         //該当のクエストを削除
         quest_database.questTakeset.RemoveAt(_ID);
 
         //リスト更新
-        shopquestlistController.NouhinList_DrawView();
-
-        Debug.Log("納品完了！");
+        shopquestlistController.NouhinList_DrawView();       
 
         yes.SetActive(false);
         no.SetActive(false);
