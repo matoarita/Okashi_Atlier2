@@ -27,6 +27,10 @@ public class Debug_Panel_Init : SingletonMonoBehaviour<Debug_Panel_Init>
         canvas = GameObject.FindWithTag("Canvas");
 
         debug_panel_init = (GameObject)Resources.Load("Prefabs/Debug_Panel");
-        debug_panel = Instantiate(debug_panel_init, canvas.transform);
+
+        if (debug_panel == null)
+        {
+            debug_panel = Instantiate(debug_panel_init, canvas.transform);
+        }
     }
 }

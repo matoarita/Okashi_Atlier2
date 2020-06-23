@@ -30,6 +30,7 @@ public class Utage_scenario : MonoBehaviour
     private int story_num;
     private int shop_talk_number;
     private int shop_hint_number;
+    private int hiroba_num;
 
     private PlayerItemList pitemlist;
 
@@ -345,6 +346,23 @@ public class Utage_scenario : MonoBehaviour
                     StartCoroutine(Scenario_Start());
 
                 }
+            }
+
+            //広場シーンでのイベント処理
+            if (SceneManager.GetActiveScene().name == "Hiroba2")
+            {
+                //character = GameObject.FindWithTag("Character");
+
+                if (GameMgr.hiroba_event_flag)
+                {
+                    GameMgr.hiroba_event_flag = false;
+                    hiroba_num = GameMgr.hiroba_event_ID;
+                    //CharacterSpriteSetOFF();                    
+                    
+                    StartCoroutine(Hiroba_Event());
+
+                }
+                
             }
         }
     }
@@ -1558,6 +1576,63 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.scenario_ON = false;
 
     }
+
+    //
+    // 広場のイベント処理
+    //
+    IEnumerator Hiroba_Event()
+    {
+        scenario_loading = true;
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        //場所ごとにラベルを変えている
+        switch (GameMgr.hiroba_event_placeNum)
+        {
+            case 0: //いちご少女
+
+                scenarioLabel = "Hiroba_ichigo";
+                break;
+
+            case 1: //噴水
+
+                scenarioLabel = "Hiroba_hunsui";
+                break;
+
+            case 2: //村長の家
+
+                scenarioLabel = "Hiroba_sonchou";
+                break;
+
+            default:
+                break;
+        }
+
+        engine.Param.TrySetParameter("Hiroba_num", hiroba_num);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        /*
+        if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm")
+        {
+            CharacterSpriteFadeON();
+
+            GameMgr.scenario_ON = false;
+        }*/
+
+        scenario_loading = false;
+
+        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+    }
+
+
 
     //表示中のLive2DキャラクタをONにする。
     void CharacterLive2DImageON()

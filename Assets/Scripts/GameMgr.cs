@@ -41,6 +41,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool MapEvent_02;         //井戸へはじめてきた。
     public static bool MapEvent_03;         //森へきたとき。草笛のイベント
 
+    //広場でのイベント
+    public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ
+    public static int hiroba_event_placeNum;  //どの場所を選んだか
+    public static int hiroba_event_ID; //イベントID
+
     //通常お菓子を食べた後の感想
     public static int OkashiComment_ID;
     public static bool OkashiComment_flag;
@@ -185,6 +190,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         farm_event_flag = false;
         farm_event_num = 0;
+
+        hiroba_event_flag = false;
 
         stage_number = 1;
 

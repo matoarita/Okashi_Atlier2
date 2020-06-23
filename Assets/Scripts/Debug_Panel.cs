@@ -75,12 +75,44 @@ public class Debug_Panel : MonoBehaviour {
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
-        
+
+        //スペシャルお菓子クエストの取得
+        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(StoryNumber == null)
+        {
+            StoryNumber = this.transform.Find("StoryNumber").gameObject;
+            StoryNumber_text = StoryNumber.GetComponent<Text>();
+
+            EventNumber = this.transform.Find("EventNumber").gameObject;
+            EventNumber_text = EventNumber.GetComponent<Text>();
+
+            StageNumber = this.transform.Find("StageNumber").gameObject;
+            StageNumber_text = StageNumber.GetComponent<Text>();
+
+            input_scenario = this.transform.Find("InputField").gameObject.GetComponent<InputField>();
+            input_event = this.transform.Find("InputField_EventNum").gameObject.GetComponent<InputField>();
+            input_girllove = this.transform.Find("InputField_GirlLove").gameObject.GetComponent<InputField>();
+
+
+            Mazui_toggle = this.transform.Find("MazuiToggle").gameObject.GetComponent<Toggle>();
+            Mazui_toggle_input = this.transform.Find("MazuiToggleInput").gameObject.GetComponent<Toggle>();
+
+            Debug_INPUT_ON = false;
+            DebugInputOn = this.transform.Find("DebugInputOnText").GetComponent<Text>();
+
+            //女の子データの取得
+            girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
+
+            //スペシャルお菓子クエストの取得
+            special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+        }
+
         if( GameMgr.tutorial_ON == true )
         {
             StoryNumber_text.text = "TutorialNumber: " + GameMgr.tutorial_Num;
@@ -125,47 +157,45 @@ public class Debug_Panel : MonoBehaviour {
         if (Debug_INPUT_ON)
         {
             input_text3 = input_event.text;
-            Int32.TryParse(input_text3, out event_num);
+            Int32.TryParse(input_text3, out event_num);           
+
+            switch (GameMgr.stage_number)
+            {
+                case 1:
+
+                    //初期化
+                    for (i = 0; i < GameMgr.OkashiQuest_flag_stage1.Length; i++)
+                    {
+                        GameMgr.OkashiQuest_flag_stage1[i] = false;
+                    }
+
+                    for (i = 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
+                    {
+                        GameMgr.GirlLoveEvent_stage1[i] = false;
+                    }
+
+                    //クエストクリアフラグをたてる
+                    for (i = 0; i < event_num; i++)
+                    {
+                        GameMgr.OkashiQuest_flag_stage1[i] = true;
+
+                        //点数は、60点でクリアしたことにする。
+                        special_quest.special_score_record[i, 0] = 60;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            //**              
+            
+            girl1_status.OkashiNew_Status = 1; //クエストクリアで、1に戻す。0にすると、次のクエストが開始する。（スペシャル吹き出し登場する）
+            special_quest.special_kaisu = 0;
+            girl1_status.special_animatFirst = false;
 
             if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
-                //女の子判定データの取得
-                girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
-
-                //スペシャルお菓子クエストの取得
-                special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();                                               
-
-                switch (GameMgr.stage_number)
-                {
-                    case 1:
-
-                        //初期化
-                        for (i = 0; i < GameMgr.OkashiQuest_flag_stage1.Length; i++)
-                        {
-                            GameMgr.OkashiQuest_flag_stage1[i] = false;
-                        }
-
-                        for (i = 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
-                        {
-                            GameMgr.GirlLoveEvent_stage1[i] = false;
-                        }
-
-                        //クエストクリアフラグをたてる
-                        for (i = 0; i < event_num; i++)
-                        {
-                            GameMgr.OkashiQuest_flag_stage1[i] = true;
-
-                            //点数は、60点でクリアしたことにする。
-                            special_quest.special_score_record[i, 0] = 60;
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-                //**              
-
-                //現在のクエストを再度設定
+                //現在のクエストを再度設定。前クエストの終わりから、スタート。
                 if (event_num != 0)
                 {
                     special_quest.SetSpecialOkashi(event_num - 1);
@@ -173,12 +203,12 @@ public class Debug_Panel : MonoBehaviour {
                     Debug.Log("event_num: " + event_num);
                 }
 
-                //** 初期化
-                girl1_status.OkashiNew_Status = 1; //クエストクリアで、1に戻す。0にすると、次のクエストが開始する。（スペシャル吹き出し登場する）
+                //女の子判定データの取得
+                girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+                                                                               
+                //** 初期化               
                 girlEat_judge.subQuestClear_check = true;
-                girlEat_judge.Gameover_flag = false;
-                special_quest.special_kaisu = 0;
-                girl1_status.special_animatFirst = false;
+                girlEat_judge.Gameover_flag = false;                
 
                 if (event_num != 0)
                 {
@@ -188,6 +218,18 @@ public class Debug_Panel : MonoBehaviour {
                 {
                     girlEat_judge.subQuestClear_check = false;
                     girlEat_judge.ResultOFF();
+                }
+                
+            }
+            else //その他シーン。すぐに指定した番号のイベントに切り替える。
+            {
+                //現在のクエストを再度設定
+                if (event_num != 0)
+                {
+                    special_quest.SetSpecialOkashi(event_num);
+                    GameMgr.GirlLoveEvent_num = event_num;
+                    GameMgr.GirlLoveEvent_stage1[event_num] = true;
+                    Debug.Log("event_num: " + event_num);
                 }
             }
         }

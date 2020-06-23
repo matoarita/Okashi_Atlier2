@@ -43,6 +43,9 @@ public class GetMaterial : MonoBehaviour {
     Dictionary<int, float> itemDropKosuDict;
     Dictionary<int, float> itemrareDropKosuDict;
 
+    //イベント発生か、アイテム取得の確率パネル
+    Dictionary<int, float> eventDict;
+
     private float randomPoint;
 
     //SEを鳴らす
@@ -53,6 +56,8 @@ public class GetMaterial : MonoBehaviour {
 
     private int itemId, itemKosu;
     private string itemName;
+
+    private int event_num;
 
     private int random;
     private int i, count, empty;
@@ -249,7 +254,30 @@ public class GetMaterial : MonoBehaviour {
         slot_view_fade.FadeImageOn(); //ビュー画面を戻す
         character_fade.FadeImageOn();
 
-        mat_result();
+        //イベントかアイテムかの抽選
+        event_num = ChooseEvent();
+
+        switch(event_num)
+        {
+            case 0:
+
+                //アイテムの取得
+                mat_result();
+                break;
+
+            case 1:
+
+                //イベント１
+                event_01();
+                break;
+
+            default:
+
+                //アイテムの取得
+                mat_result();
+                break;
+        }
+        
     }
 
     void mat_result()
@@ -408,6 +436,14 @@ public class GetMaterial : MonoBehaviour {
         }
     }
 
+    void event_01()
+    {
+        _text.text = "ギャーー！ムカデ！！兄ちゃん！！";
+
+        //音を鳴らす
+        audioSource.PlayOneShot(sound2);
+    }
+
 
     void InitializeDicts()
     {
@@ -458,6 +494,11 @@ public class GetMaterial : MonoBehaviour {
         itemrareDropKosuDict.Add(1, 95.0f); //1個
         itemrareDropKosuDict.Add(2, 5.0f); //2個
         itemrareDropKosuDict.Add(3, 0.0f); //3個
+
+        eventDict = new Dictionary<int, float>();
+        eventDict.Add(0, 50.0f); //
+        eventDict.Add(1, 10.0f); //
+        eventDict.Add(2, 40.0f); //
     }
 
     int Choose()
@@ -567,6 +608,36 @@ public class GetMaterial : MonoBehaviour {
 
         // randomPointの位置に該当するキーを返す
         foreach (KeyValuePair<int, float> elem in itemrareDropKosuDict)
+        {
+            if (randomPoint < elem.Value)
+            {
+                return elem.Key;
+            }
+            else
+            {
+                randomPoint -= elem.Value;
+            }
+        }
+        return 0;
+    }
+
+    int ChooseEvent()
+    {
+        // 確率の合計値を格納
+        total = 0;
+
+        // 敵ドロップ用の辞書からドロップ率を合計する
+        foreach (KeyValuePair<int, float> elem in eventDict)
+        {
+            total += elem.Value;
+        }
+
+        // Random.valueでは0から1までのfloat値を返すので
+        // そこにドロップ率の合計を掛ける
+        randomPoint = Random.value * total;
+
+        // randomPointの位置に該当するキーを返す
+        foreach (KeyValuePair<int, float> elem in eventDict)
         {
             if (randomPoint < elem.Value)
             {
