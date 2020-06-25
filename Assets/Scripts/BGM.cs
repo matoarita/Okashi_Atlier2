@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BGM : MonoBehaviour {
 
@@ -33,7 +34,17 @@ public class BGM : MonoBehaviour {
         _fadedeg = 0.03f; //フェードの音量減少量
         //_bgm[1]のほうに、各シーンごとのBGMを切り替えては入れて、その後_bgm[0]から切り替える
 
-        Play();
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+                PlayMain();
+                break;
+
+            default:
+
+                PlaySub();
+                break;
+        }
     }
 	
 	// Update is called once per frame
@@ -87,7 +98,7 @@ public class BGM : MonoBehaviour {
         }
     }
 
-    public void Play()
+    public void PlayMain()
     {
         switch (GameMgr.stage_number)
         {
@@ -111,6 +122,13 @@ public class BGM : MonoBehaviour {
 
         _bgm[1].clip = sound2;
         _bgm[1].Play();
+    }
+
+    public void PlaySub()
+    {
+        _bgm[0].clip = sound1;
+        _bgm[0].Play();
+
     }
 
     public void OnMainBGM()

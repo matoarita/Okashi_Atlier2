@@ -15,6 +15,7 @@ public class Hiroba_Main2 : MonoBehaviour
     private GameObject pitemlist_scrollview_init_obj;
 
     private GameObject mainlist_controller2_obj;
+    private MainListController2 mainlist_controller2;
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -23,6 +24,8 @@ public class Hiroba_Main2 : MonoBehaviour
     private GameObject timepanel;
     private TimeController time_controller;
 
+    private BGM sceneBGM;
+    public bool bgm_change_flag;
 
     // Use this for initialization
     void Start()
@@ -39,6 +42,10 @@ public class Hiroba_Main2 : MonoBehaviour
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        bgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
+
         //所持アイテム画面を開く。初期設定で最初はOFF。
         pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
         pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
@@ -46,6 +53,7 @@ public class Hiroba_Main2 : MonoBehaviour
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
 
         mainlist_controller2_obj = canvas.transform.Find("MainList_ScrollView").gameObject;
+        mainlist_controller2 = mainlist_controller2_obj.GetComponent<MainListController2>();
 
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
@@ -101,5 +109,32 @@ public class Hiroba_Main2 : MonoBehaviour
         text_area.SetActive(true);
         timepanel.SetActive(true);
         mainlist_controller2_obj.SetActive(true);
+
+        //音を戻す。
+        if (bgm_change_flag)
+        {
+            bgm_change_flag = false;
+            sceneBGM.FadeInBGM();
+        }
+
+        //読み終わったフラグをたてる
+        switch(GameMgr.hiroba_event_ID) {
+
+             case 1040:
+
+                GameMgr.hiroba_event_end[0] = true;
+                mainlist_controller2.ToggleFlagCheck();
+                break;
+
+            case 2045:
+
+                GameMgr.hiroba_event_end[1] = true;
+                mainlist_controller2.ToggleFlagCheck();
+                break;
+
+            default:
+
+                break;
+        }
     }
 }

@@ -13,17 +13,37 @@ public class MainListController2 : MonoBehaviour
     private GameObject npc1_toggle_obj;
     private GameObject npc2_toggle_obj;
     private GameObject npc3_toggle_obj;
+    private GameObject npc4_toggle_obj;
+    private GameObject npc5_toggle_obj;
+    private GameObject npc6_toggle_obj;
+    private GameObject npc7_toggle_obj;
+    private GameObject shopstreet_toggle_obj;
     private GameObject hiroba1_toggle_obj;
 
     private Toggle npc1_toggle;
     private Toggle npc2_toggle;
     private Toggle npc3_toggle;
+    private Toggle npc4_toggle;
+    private Toggle npc5_toggle;
+    private Toggle npc6_toggle;
+    private Toggle npc7_toggle;
+    private Toggle shopstreet_toggle;
     private Toggle hiroba1_toggle;
 
     private GameObject text_area;
     private Text _text;
 
+    private GridLayoutGroup gridlayout;
+    private GameObject list_BG;
+
     private GameObject timepanel;
+
+    private BGM sceneBGM;
+
+    private Vector3 defaultPos;
+    private Vector3 MovedPos;
+
+    private int rndnum;
 
     // Use this for initialization
     void Start()
@@ -41,17 +61,74 @@ public class MainListController2 : MonoBehaviour
         //時間オブジェクトの取得
         timepanel = canvas.transform.Find("TimePanel").gameObject;
 
+        //自身のレイアウトグループ情報の取得
+        gridlayout = this.transform.Find("Viewport/Content_Main").GetComponent<GridLayoutGroup>();
+        list_BG = this.transform.Find("ListBGimage").gameObject;
+        defaultPos = this.transform.localPosition;      
+
+        if (GameMgr.hiroba_event_end[0])
+        {
+            MenuWindowExpand();
+        }
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
         npc1_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC1_SelectToggle").gameObject;
         npc2_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC2_SelectToggle").gameObject;
         npc3_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC3_SelectToggle").gameObject;
+        npc4_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC4_SelectToggle").gameObject;
+        npc5_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC5_SelectToggle").gameObject;
+        npc6_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC6_SelectToggle").gameObject;
+        npc7_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC7_SelectToggle").gameObject;
+        shopstreet_toggle_obj = this.transform.Find("Viewport/Content_Main/ShopStreet_SelectToggle").gameObject;
         hiroba1_toggle_obj = this.transform.Find("Viewport/Content_Main/Hiroba1_SelectToggle").gameObject;
 
 
         npc1_toggle = npc1_toggle_obj.GetComponent<Toggle>();
         npc2_toggle = npc2_toggle_obj.GetComponent<Toggle>();
         npc3_toggle = npc3_toggle_obj.GetComponent<Toggle>();
+        npc4_toggle = npc4_toggle_obj.GetComponent<Toggle>();
+        npc5_toggle = npc5_toggle_obj.GetComponent<Toggle>();
+        npc6_toggle = npc6_toggle_obj.GetComponent<Toggle>();
+        npc7_toggle = npc7_toggle_obj.GetComponent<Toggle>();
+        shopstreet_toggle = shopstreet_toggle_obj.GetComponent<Toggle>();
         hiroba1_toggle = hiroba1_toggle_obj.GetComponent<Toggle>();
 
+        //最初はoff
+        npc4_toggle_obj.SetActive(false);
+        npc5_toggle_obj.SetActive(false);
+        npc6_toggle_obj.SetActive(false);
+        npc7_toggle_obj.SetActive(false);
+        shopstreet_toggle_obj.SetActive(false);
+
+        //フラグをチェックし、必要ならONにする。
+        ToggleFlagCheck();
+    }
+
+    void MenuWindowExpand()
+    {
+        MovedPos = new Vector3(190, defaultPos.y, defaultPos.z);
+        gridlayout.constraintCount = 2;
+        list_BG.GetComponent<RectTransform>().sizeDelta = new Vector2(410, list_BG.GetComponent<RectTransform>().sizeDelta.y);
+        this.transform.localPosition = MovedPos;
+    }
+
+    public void ToggleFlagCheck()
+    {
+        //新しく3人のNPCのとこへいける
+        if(GameMgr.hiroba_event_end[0])
+        {
+            npc5_toggle_obj.SetActive(true);
+            npc6_toggle_obj.SetActive(true);
+            npc7_toggle_obj.SetActive(true);
+        }
+
+        //パン工房へいける
+        if (GameMgr.hiroba_event_end[0] && GameMgr.hiroba_event_end[1])
+        {
+            npc4_toggle_obj.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -60,6 +137,7 @@ public class MainListController2 : MonoBehaviour
 
     }
 
+    //ベンチ　いちご少女
     public void OnNPC1_toggle()
     {
         if (npc1_toggle.isOn == true)
@@ -90,6 +168,7 @@ public class MainListController2 : MonoBehaviour
         }
     }
 
+    //噴水
     public void OnNPC2_toggle()
     {
         if (npc2_toggle.isOn == true)
@@ -97,14 +176,25 @@ public class MainListController2 : MonoBehaviour
             npc2_toggle.isOn = false;
 
             //噴水押した　宴の処理へ
-            GameMgr.hiroba_event_placeNum = 1; //いちご少女を押した　という指定番号
+            GameMgr.hiroba_event_placeNum = 1; //
 
             //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
                 case 4: //ドーナツイベント時
 
-                    GameMgr.hiroba_event_ID = 1040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    if (!GameMgr.hiroba_event_end[0])
+                    {
+                        sceneBGM.FadeOutBGM();
+                        Hiroba_main2.bgm_change_flag = true;
+                        GameMgr.hiroba_event_ID = 1040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+
+                        MenuWindowExpand();                       
+                    }
+                    else
+                    {
+                        GameMgr.hiroba_event_ID = 1041; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
                     break;
 
                 default:
@@ -120,6 +210,7 @@ public class MainListController2 : MonoBehaviour
         }
     }
 
+    //村長の家
     public void OnNPC3_toggle()
     {
         if (npc3_toggle.isOn == true)
@@ -127,8 +218,38 @@ public class MainListController2 : MonoBehaviour
             npc3_toggle.isOn = false;
 
             //村長の家押した　宴の処理へ
-            GameMgr.hiroba_event_placeNum = 2; //いちご少女を押した　という指定番号
-            GameMgr.hiroba_event_ID = 2000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+            GameMgr.hiroba_event_placeNum = 2; //
+
+            //イベント発生フラグをチェック
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                case 4: //ドーナツイベント時
+
+                    if (!GameMgr.hiroba_event_end[0])
+                    {
+                        GameMgr.hiroba_event_ID = 2040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    else
+                    {
+                        if (!GameMgr.hiroba_event_end[1])
+                        {
+                            //一度アマクサとあった後でくると、イベントが進む。
+                            GameMgr.hiroba_event_ID = 2045; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                        else
+                        {
+                            GameMgr.hiroba_event_ID = 2046; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                        
+                    }
+                    break;
+
+                default:
+
+                    GameMgr.hiroba_event_ID = 2000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+            }
+
             GameMgr.hiroba_event_flag = true;
             Hiroba_main2.EventReadingStart();
 
@@ -136,6 +257,135 @@ public class MainListController2 : MonoBehaviour
         }
     }
 
+    //パン工房
+    public void OnNPC4_toggle()
+    {
+        if (npc4_toggle.isOn == true)
+        {
+            npc4_toggle.isOn = false;
+
+            //パン工房押した　宴の処理へ
+            GameMgr.hiroba_event_placeNum = 3; //
+
+            //イベント発生フラグをチェック
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                case 4: //ドーナツイベント時
+
+                    sceneBGM.FadeOutBGM();
+                    Hiroba_main2.bgm_change_flag = true;
+                    GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+
+                default:
+
+                    GameMgr.hiroba_event_ID = 3000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+            }
+
+            GameMgr.hiroba_event_flag = true;
+            Hiroba_main2.EventReadingStart();
+
+            CanvasOff();
+        }
+    }
+
+    //お花屋さん
+    public void OnNPC5_toggle()
+    {
+        if (npc5_toggle.isOn == true)
+        {
+            npc5_toggle.isOn = false;
+
+            //お花屋さん押した　宴の処理へ
+            GameMgr.hiroba_event_placeNum = 4; //
+
+            //イベント発生フラグをチェック
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                case 4: //ドーナツイベント時
+
+                    GameMgr.hiroba_event_ID = 4040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+
+                default:
+
+                    GameMgr.hiroba_event_ID = 4000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+            }
+
+            GameMgr.hiroba_event_flag = true;
+            Hiroba_main2.EventReadingStart();
+
+            CanvasOff();
+        }
+    }
+
+    //図書館
+    public void OnNPC6_toggle()
+    {
+        if (npc6_toggle.isOn == true)
+        {
+            npc6_toggle.isOn = false;
+
+            //図書館押した　宴の処理へ
+            GameMgr.hiroba_event_placeNum = 5; //
+
+            //イベント発生フラグをチェック
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                case 4: //ドーナツイベント時
+
+                    GameMgr.hiroba_event_ID = 5040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+
+                default:
+
+                    GameMgr.hiroba_event_ID = 5000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+            }
+
+            GameMgr.hiroba_event_flag = true;
+            Hiroba_main2.EventReadingStart();
+
+            CanvasOff();
+        }
+    }
+
+    //井戸端の奥さん
+    public void OnNPC7_toggle()
+    {
+        if (npc7_toggle.isOn == true)
+        {
+            npc7_toggle.isOn = false;
+
+            //井戸端の奥さん押した　宴の処理へ
+            GameMgr.hiroba_event_placeNum = 6; //
+
+            //イベント発生フラグをチェック
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                case 4: //ドーナツイベント時
+
+                    //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
+                    rndnum = Random.Range(0, 4);
+                    GameMgr.hiroba_event_ID = 6040 + rndnum; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+
+                default:
+
+                    GameMgr.hiroba_event_ID = 6000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    break;
+            }
+
+            GameMgr.hiroba_event_flag = true;
+            Hiroba_main2.EventReadingStart();
+
+            CanvasOff();
+        }
+    }
+
+    //アトリエ戻る
     public void OnHiroba1_Button()
     {
         if (hiroba1_toggle.isOn == true)

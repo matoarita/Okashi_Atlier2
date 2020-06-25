@@ -149,15 +149,13 @@ public class shopitemSelectToggle : MonoBehaviour
 
     void Update()
     {
-        if (updown_counter_obj == null)
+
+        if (shopitemlistController.shop_final_select_flag == true) //最後、これを買うかどうかを待つフラグ
         {
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
             updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
-        }
 
-        if (shopitemlistController.shop_final_select_flag == true) //最後、これを買うかどうかを待つフラグ
-        {
             shopitemlistController.shop_final_select_flag = false;
             StartCoroutine("shop_buy_Final_select");
         }
@@ -169,7 +167,10 @@ public class shopitemSelectToggle : MonoBehaviour
         //m_Text.text = "New Value : " + m_Toggle.isOn;
         if (m_Toggle.isOn == true)
         {
-            
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+            updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
             back_ShopFirst_btn.interactable = false;
             shop_buy_active();
         }

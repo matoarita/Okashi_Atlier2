@@ -353,6 +353,12 @@ public class Utage_scenario : MonoBehaviour
             {
                 //character = GameObject.FindWithTag("Character");
 
+                if (!sceneBGM)
+                {
+                    //BGMの取得
+                    sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                }
+
                 if (GameMgr.hiroba_event_flag)
                 {
                     GameMgr.hiroba_event_flag = false;
@@ -1602,6 +1608,26 @@ public class Utage_scenario : MonoBehaviour
             case 2: //村長の家
 
                 scenarioLabel = "Hiroba_sonchou";
+                break;
+
+            case 3: //パン工房
+
+                scenarioLabel = "Hiroba_pan";
+                break;
+
+            case 4: //お花屋さん
+
+                scenarioLabel = "Hiroba_flower";
+                break;
+
+            case 5: //図書館
+
+                scenarioLabel = "Hiroba_library";
+                break;
+
+            case 6: //井戸端奥さん
+
+                scenarioLabel = "Hiroba_okusan";
                 break;
 
             default:

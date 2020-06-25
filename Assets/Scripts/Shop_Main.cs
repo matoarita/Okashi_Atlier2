@@ -218,7 +218,7 @@ public class Shop_Main : MonoBehaviour {
                     GameMgr.shop_event_flag = true;
 
                     //メイン画面にもどったときに、イベントを発生させるフラグをON
-                    GameMgr.CompoundEvent_num = 0;
+                    GameMgr.CompoundEvent_num = 20;
                     GameMgr.CompoundEvent_flag = true;
 
                     //村の広場にいけるようになる。

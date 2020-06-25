@@ -423,29 +423,10 @@ public class Compound_Main : MonoBehaviour
             {
                 GameMgr.CompoundEvent_flag = false;
 
-                switch (GameMgr.CompoundEvent_num)
-                {
+                GameMgr.CompoundEvent_storynum = GameMgr.CompoundEvent_num;
+                GameMgr.CompoundEvent_storyflag = true;
+                StartScenario();
 
-                    case 0: //ショップから帰ってきた。
-
-                        GameMgr.CompoundEvent_storynum = 0;
-                        GameMgr.CompoundEvent_storyflag = true;
-                        StartScenario();
-
-                        break;
-
-                    case 10: //牧場から帰ってきた。
-
-                        //matplace_database.matPlaceKaikin("Ido"); //井戸解禁
-                        GameMgr.CompoundEvent_storynum = 10;
-                        GameMgr.CompoundEvent_storyflag = true;
-                        StartScenario();
-
-                        break;
-
-                    default:
-                        break;
-                }
             }
         }
 

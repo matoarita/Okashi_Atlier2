@@ -43,6 +43,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //広場でのイベント
     public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ
+    public static bool[] hiroba_event_end = new bool[99]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。
     public static int hiroba_event_placeNum;  //どの場所を選んだか
     public static int hiroba_event_ID; //イベントID
 
@@ -192,6 +193,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         farm_event_num = 0;
 
         hiroba_event_flag = false;
+        //広場イベント読み終えたフラグの初期化
+        for (i = 0; i < hiroba_event_end.Length; i++)
+        {
+            hiroba_event_end[i] = false;            
+        }
 
         stage_number = 1;
 
