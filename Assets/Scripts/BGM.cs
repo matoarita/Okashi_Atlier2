@@ -15,6 +15,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound5;  //「井戸」BGM
     public AudioClip sound6;  //Stage2のBGM
     public AudioClip sound7;  //Stage3のBGM
+    public AudioClip sound8;  //「ストロベリーガーデン」BGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -166,6 +167,15 @@ public class BGM : MonoBehaviour {
     {
         _bgm[1].Stop();
         _bgm[1].clip = sound4;
+        _bgm[1].Play();
+
+        _mixRate = 1;
+    }
+
+    public void OnGetMat_StrawberryGardenBGM()
+    {
+        _bgm[1].Stop();
+        _bgm[1].clip = sound8;
         _bgm[1].Play();
 
         _mixRate = 1;

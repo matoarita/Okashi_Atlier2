@@ -524,9 +524,53 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 39
+      debugIndex: 39
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 40
+      debugIndex: 40
+      strings:
+      - "\u56F3\u66F8\u9928\u306E\u4E3B"
+      - <param=npcH_name>
+      - "\u901A\u5E38"
+      - 
+      - -50
+      - 
+      - 
+      - 1
+      - 
+      - Libre/libre_normal.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 41
+      debugIndex: 41
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 42
+      debugIndex: 42
+      strings:
+      - "\u304A\u82B1\u5C4B\u3055\u3093"
+      - <param=npcG_name>
+      - "\u901A\u5E38"
+      - 
+      - -50
+      - 
+      - 
+      - 1
+      - 
+      - Iris/iris_normal.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 1191
+    textLength: 1289
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -1276,7 +1320,7 @@ MonoBehaviour:
       strings:
       - npcH_name
       - String
-      - "\u30B7\u30E7\u30B3\u30E9"
+      - "\u30EA\u30FC\u30D6\u30E9"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 

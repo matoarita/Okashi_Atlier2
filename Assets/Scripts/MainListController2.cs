@@ -8,6 +8,8 @@ public class MainListController2 : MonoBehaviour
 {
     private GameObject canvas;
 
+    private ItemMatPlaceDataBase matplace_database;
+
     private Hiroba_Main2 Hiroba_main2;
 
     private GameObject npc1_toggle_obj;
@@ -57,6 +59,9 @@ public class MainListController2 : MonoBehaviour
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //時間オブジェクトの取得
         timepanel = canvas.transform.Find("TimePanel").gameObject;
@@ -129,6 +134,12 @@ public class MainListController2 : MonoBehaviour
         {
             npc4_toggle_obj.SetActive(true);
         }
+
+        //ストロベリーガーデンへいける
+        if (GameMgr.hiroba_event_end[2])
+        {
+            matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。
+        }
     }
 
     // Update is called once per frame
@@ -152,7 +163,15 @@ public class MainListController2 : MonoBehaviour
             {
                 case 4: //ドーナツイベント時
 
-                    GameMgr.hiroba_event_ID = 40; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    if (!GameMgr.hiroba_event_end[2])
+                    {
+                        GameMgr.hiroba_event_ID = 40; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    else
+                    {
+                        GameMgr.hiroba_event_ID = 41; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+
                     break;
 
                 default:

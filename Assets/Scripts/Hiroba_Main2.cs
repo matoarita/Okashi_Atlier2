@@ -118,23 +118,28 @@ public class Hiroba_Main2 : MonoBehaviour
         }
 
         //読み終わったフラグをたてる
-        switch(GameMgr.hiroba_event_ID) {
+        switch(GameMgr.hiroba_event_ID)
+        {
+            case 40:
 
-             case 1040:
+                GameMgr.hiroba_event_end[2] = true;                
+                break;
+
+            case 1040:
 
                 GameMgr.hiroba_event_end[0] = true;
-                mainlist_controller2.ToggleFlagCheck();
                 break;
 
             case 2045:
 
                 GameMgr.hiroba_event_end[1] = true;
-                mainlist_controller2.ToggleFlagCheck();
                 break;
 
             default:
 
                 break;
         }
+        mainlist_controller2.ToggleFlagCheck();
+
     }
 }

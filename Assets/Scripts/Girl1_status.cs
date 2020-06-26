@@ -80,6 +80,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public AudioClip sound2;
     AudioSource audioSource;
 
+    private BGM sceneBGM;
+
     //女の子の好み値。この値と、選択したアイテムの数値を比較し、近いほど得点があがる。
     public int girl1_Quality;
 
@@ -304,6 +306,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
+                //BGMの取得
+                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
@@ -420,6 +425,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //タッチ判定オブジェクトの取得
                     touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+
+                    //BGMの取得
+                    sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
                     //Live2Dモデルの取得
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
@@ -882,6 +890,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (!special_animatFirst)
         {
             canvas.SetActive(false);
+            sceneBGM.MuteBGM();
 
             //最初にお菓子にまつわるヒントやお話。宴へとぶ
             GameMgr.scenario_ON = true;
@@ -905,11 +914,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     break;
             }
-
+           
             GameMgr.scenario_ON = false;
             GameMgr.recipi_read_endflag = false;
             touch_controller.Touch_OnAllON();
             canvas.SetActive(true);
+            sceneBGM.MuteOFFBGM();
         }       
 
         //表示用吹き出しを生成                   

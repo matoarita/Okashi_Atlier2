@@ -22,6 +22,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private TimeController time_controller;
 
+    private GameObject MoneyStatus_Panel_obj;
+    private MoneyStatus_Controller moneyStatus_Controller;
+
     private GameObject content;
 
     private GameObject getmatplace_view;
@@ -75,6 +78,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int modoru_anim_status;
 
     private int _yosokutime;
+    private int mat_cost;
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -133,6 +137,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //材料ランダムで３つ手に入るオブジェクトの取得
         get_material_obj = GameObject.FindWithTag("GetMaterial");
         get_material = get_material_obj.GetComponent<GetMaterial>();
+
+        //お金の増減用パネルの取得
+        MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
+        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         getmatplace_view = this.transform.Find("Comp/GetMatPlace_View").gameObject;
 
@@ -280,32 +288,34 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             if (matplace_toggle[i].GetComponent<Toggle>().isOn == true)
             {
-                //時間が20時をこえないかチェック
-                _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay * 2);
-                if (_yosokutime >= time_controller.max_time * 6)
-                {
-                    //20時を超えるので、妹に止められる。
-                    _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
-                    All_Off();
-                }
-                else
-                {
-                    if (matplace_database.matplace_lists[i].placeCost == 0)
+                
+                    //時間が20時をこえないかチェック
+                    _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay * 2);
+                    if (_yosokutime >= time_controller.max_time * 6)
                     {
-                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
+                        //20時を超えるので、妹に止められる。
+                        _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
+                        All_Off();
                     }
                     else
                     {
-                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
+                        if (matplace_database.matplace_lists[i].placeCost == 0)
+                        {
+                            _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
+                        }
+                        else
+                        {
+                            _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
+                        }
+
+                        select_place_num = place_num;
+                        select_place_name = matplace_database.matplace_lists[place_num].placeName;
+                        select_place_day = matplace_database.matplace_lists[place_num].placeDay;
+
+                        Select_Pause();
+                        break;
                     }
-
-                    select_place_num = place_num;
-                    select_place_name = matplace_database.matplace_lists[place_num].placeName;
-                    select_place_day = matplace_database.matplace_lists[place_num].placeDay;
-
-                    Select_Pause();
-                    break;
-                }
+                
             }
             i++;
         }
@@ -342,28 +352,42 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             case true: //決定が押された
 
-                //Debug.Log("ok");
-                //解除
+                //お金が足りてるかチェック
+                mat_cost = matplace_database.matplace_lists[select_place_num].placeCost;
+                if (PlayerStatus.player_money < mat_cost)
+                {
+                    _text.text = "お金が足らない。";
 
-                itemselect_cancel.kettei_on_waiting = false;
+                    All_Off();
+                }
+                else
+                {
+                    //Debug.Log("ok");
+                    //解除
 
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                    itemselect_cancel.kettei_on_waiting = false;
 
-                //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
+                    yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                move_anim_on = true;
-                move_anim_status = 0;
+                    //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
 
-                girl1_status.hukidasiOff();
+                    move_anim_on = true;
+                    move_anim_status = 0;
 
-                //音量フェードアウト
-                sceneBGM.FadeOutBGM();
+                    girl1_status.hukidasiOff();
 
-                //日数の経過。場所ごとに、移動までの日数が変わる。
-                PlayerStatus.player_time += select_place_day;
-                time_controller.TimeKoushin();
+                    //音量フェードアウト
+                    sceneBGM.FadeOutBGM();
 
+                    //日数の経過。場所ごとに、移動までの日数が変わる。
+                    PlayerStatus.player_time += select_place_day;
+                    time_controller.TimeKoushin();
+
+                    //お金の消費
+                    moneyStatus_Controller.UseMoney(mat_cost);
+                }
                 break;
+                    
 
             case false: //キャンセルが押された
 
@@ -399,36 +423,31 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //音量フェードイン
                 sceneBGM.FadeInBGM();
 
+                //背景のセッティング
+                SetMapBG(select_place_name);
+
                 switch (select_place_name)
                 {
 
                     case "Forest":
-
-                        SetMapBG(select_place_name);
-                        
+                                             
                         //森のBGM
                         sceneBGM.OnGetMat_ForestBGM();
                         compound_Main.bgm_change_flag = true;
 
-                        if (GameMgr.MapEvent_01 == false)
-                        {
-                            _text.text = "すげぇ～～！森だー！";
-                        }
-                        else
-                        {
-                            _text.text = "兄ちゃん、いっぱいとろうね！";
-                        }
-
                         //イベントチェック
-                        if (GameMgr.MapEvent_01 == false)
+                        if (!GameMgr.MapEvent_01[0])
                         {
-                            GameMgr.MapEvent_01 = true;
+                            GameMgr.MapEvent_01[0] = true;
+
+                            _text.text = "すげぇ～～！森だー！";
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
                             slot_tansaku_button.SetActive(false);
 
+                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             mapevent_panel[0].SetActive(true);
                             text_area.SetActive(false);
 
@@ -437,56 +456,65 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             StartCoroutine("MapEventOn");
                         }
-
-                        /*
-                        if (GameMgr.MapEvent_03 == false)
+                        else
                         {
-                            GameMgr.MapEvent_03 = true;
+                            _text.text = "兄ちゃん、いっぱいとろうね！";
+                        }
+
+                        break;
+
+                    case "StrawberryGarden":
+
+                        //ストロベリーガーデンのBGM
+                        sceneBGM.OnGetMat_StrawberryGardenBGM();
+                        compound_Main.bgm_change_flag = true;
+
+                        //イベントチェック
+                        if (!GameMgr.MapEvent_03[0])
+                        {
+                            GameMgr.MapEvent_03[0] = true;
+
+                            _text.text = "いいにお～い。兄ちゃん、いちごいっぱい～！";
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
-                            //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
+                            //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
                             slot_tansaku_button.SetActive(false);
 
-                            mapevent_panel[0].SetActive(true);
+                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                            mapevent_panel[2].SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 3;
+                            GameMgr.map_ev_ID = 1;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
                         }
-                        */
-
+                        else
+                        {
+                            _text.text = "兄ちゃん、いっぱいとろうね！";
+                        }
 
                         break;
 
                     case "Ido":
-
-                        SetMapBG(select_place_name);
                         
                         //井戸のBGM
                         sceneBGM.OnGetMat_IdoBGM();
                         compound_Main.bgm_change_flag = true;
-
-                        if (GameMgr.MapEvent_02 == false)
-                        {
-                            _text.text = "いっぱい水を汲もう。兄ちゃん。";
-                        }
-                        else
-                        {
-                            _text.text = "兄ちゃん、今日も水汲み？私も手伝うー！";
-                        }
-
+                        
                         //イベントチェック
-                        if (GameMgr.MapEvent_02 == false)
+                        if (!GameMgr.MapEvent_02[0])
                         {
-                            GameMgr.MapEvent_02 = true;
+                            GameMgr.MapEvent_02[0] = true;
+
+                            _text.text = "いっぱい水を汲もう。兄ちゃん。";
 
                             slot_view_status = 3; //イベント読み込み中用に退避
                            
                             slot_tansaku_button.SetActive(false);
 
+                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             mapevent_panel[1].SetActive(true);
                             text_area.SetActive(false);
 
@@ -494,6 +522,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん、今日も水汲み？私も手伝うー！";
                         }
                         break;
 
@@ -810,13 +842,21 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300"); //真ん中枠
                 texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_"); //背景
+                break;
 
+            case "StrawberryGarden":
+
+                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300"); //真ん中枠
+                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_"); //背景
                 break;
 
             case "Ido":
 
                 texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/2_ido_a_600_300");
                 texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/nexfan_01_800.600");
+                break;
+
+            default:
 
                 break;
         }

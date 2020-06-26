@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ev_First_Forest_chara
+  m_Name: MapEvent_02_anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
