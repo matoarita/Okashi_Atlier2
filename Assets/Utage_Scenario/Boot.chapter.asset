@@ -1579,16 +1579,16 @@ MonoBehaviour:
     - rowIndex: 51
       debugIndex: 51
       strings:
-      - Tutorial_Flag
-      - Bool
-      - FALSE
+      - Hiroba_endflag_Num
+      - Int
+      - 0
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 52
       debugIndex: 52
       strings:
-      - Farm_Flag
+      - Tutorial_Flag
       - Bool
       - FALSE
       isEmpty: 0
@@ -1596,8 +1596,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 53
       debugIndex: 53
-      strings: []
-      isEmpty: 1
+      strings:
+      - Farm_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 54
@@ -1614,6 +1617,12 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 56
       debugIndex: 56
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 57
+      debugIndex: 57
       strings:
       - Ev_flag
       - Int
@@ -1621,8 +1630,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 57
-      debugIndex: 57
+    - rowIndex: 58
+      debugIndex: 58
       strings:
       - Re_flag
       - Int
@@ -1632,7 +1641,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 938
+    textLength: 960
     headerRow: 0
   - rows:
     - rowIndex: 0

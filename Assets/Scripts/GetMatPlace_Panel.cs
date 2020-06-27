@@ -497,6 +497,40 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         break;
 
+                    case "HimawariHill":
+
+                        //ひまわり畑のBGM
+                        sceneBGM.OnGetMat_HimawariHillBGM();
+                        compound_Main.bgm_change_flag = true;
+
+                        //イベントチェック
+                        if (!GameMgr.MapEvent_04[0])
+                        {
+                            GameMgr.MapEvent_04[0] = true;
+
+                            _text.text = "兄ちゃん。まっ黄色～～！すごいきれい～。";
+
+                            slot_view_status = 3; //イベント読み込み中用に退避
+
+                            //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
+                            slot_tansaku_button.SetActive(false);
+
+                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                            mapevent_panel[2].SetActive(true);
+                            text_area.SetActive(false);
+
+                            GameMgr.map_ev_ID = 1;
+                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                            StartCoroutine("MapEventOn");
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん、種とりは任せてね！";
+                        }
+
+                        break;
+
                     case "Ido":
                         
                         //井戸のBGM
@@ -847,7 +881,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "StrawberryGarden":
 
                 texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300"); //真ん中枠
-                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_"); //背景
+                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/03l"); //背景
+                break;
+
+            case "HimawariHill":
+
+                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300"); //真ん中枠
+                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/himawari_sample"); //背景
                 break;
 
             case "Ido":

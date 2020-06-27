@@ -135,6 +135,31 @@ public class Hiroba_Main2 : MonoBehaviour
                 GameMgr.hiroba_event_end[1] = true;
                 break;
 
+            case 3040:
+
+                GameMgr.hiroba_event_end[6] = true;
+                break;
+
+            case 4040:
+
+                GameMgr.hiroba_event_end[3] = true;
+                break;
+
+            case 4042:
+
+                GameMgr.hiroba_event_end[7] = true;
+                break;
+
+            case 5041:
+
+                GameMgr.hiroba_event_end[4] = true;
+                break;
+
+            case 5042:
+
+                GameMgr.hiroba_event_end[5] = true;
+                break;
+
             default:
 
                 break;

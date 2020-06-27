@@ -111,7 +111,7 @@ public class MainListController2 : MonoBehaviour
         ToggleFlagCheck();
     }
 
-    void MenuWindowExpand()
+    public void MenuWindowExpand()
     {
         MovedPos = new Vector3(190, defaultPos.y, defaultPos.z);
         gridlayout.constraintCount = 2;
@@ -139,6 +139,12 @@ public class MainListController2 : MonoBehaviour
         if (GameMgr.hiroba_event_end[2])
         {
             matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。
+        }
+
+        //ひまわり畑へいける
+        if (GameMgr.hiroba_event_end[7])
+        {
+            matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁　ひまわりの種がとれるようになる。
         }
     }
 
@@ -244,15 +250,15 @@ public class MainListController2 : MonoBehaviour
             {
                 case 4: //ドーナツイベント時
 
-                    if (!GameMgr.hiroba_event_end[0])
+                    if (!GameMgr.hiroba_event_end[0] || !GameMgr.hiroba_event_end[3] || !GameMgr.hiroba_event_end[5])
                     {
                         GameMgr.hiroba_event_ID = 2040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
-                    else
+                    else //一度アマクサとあう＋花屋へいく＋図書館でドーナツの話をきくと、イベントが進む。
                     {
                         if (!GameMgr.hiroba_event_end[1])
                         {
-                            //一度アマクサとあった後でくると、イベントが進む。
+                            
                             GameMgr.hiroba_event_ID = 2045; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                         }
                         else
@@ -291,9 +297,16 @@ public class MainListController2 : MonoBehaviour
             {
                 case 4: //ドーナツイベント時
 
-                    sceneBGM.FadeOutBGM();
-                    Hiroba_main2.bgm_change_flag = true;
-                    GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    if (!GameMgr.hiroba_event_end[6])
+                    {
+                        sceneBGM.FadeOutBGM();
+                        Hiroba_main2.bgm_change_flag = true;
+                        GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    else
+                    {
+                        GameMgr.hiroba_event_ID = 3041; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
                     break;
 
                 default:
@@ -324,7 +337,28 @@ public class MainListController2 : MonoBehaviour
             {
                 case 4: //ドーナツイベント時
 
-                    GameMgr.hiroba_event_ID = 4040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    if (!GameMgr.hiroba_event_end[6])
+                    {
+                        if (!GameMgr.hiroba_event_end[3])
+                        {
+                            GameMgr.hiroba_event_ID = 4040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                        else
+                        {
+                            GameMgr.hiroba_event_ID = 4041;
+                        }
+                    }
+                    else //油の話をききにくる。
+                    {
+                        if(!GameMgr.hiroba_event_end[7])
+                        {
+                            GameMgr.hiroba_event_ID = 4042; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                        else
+                        {
+                            GameMgr.hiroba_event_ID = 4043; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                    }
                     break;
 
                 default:
@@ -355,7 +389,18 @@ public class MainListController2 : MonoBehaviour
             {
                 case 4: //ドーナツイベント時
 
-                    GameMgr.hiroba_event_ID = 5040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    if (!GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
+                    {
+                        GameMgr.hiroba_event_ID = 5040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    else if (GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
+                    {
+                        GameMgr.hiroba_event_ID = 5041;
+                    }
+                    else if(GameMgr.hiroba_event_end[5])
+                    {
+                        GameMgr.hiroba_event_ID = 5042;
+                    }
                     break;
 
                 default:

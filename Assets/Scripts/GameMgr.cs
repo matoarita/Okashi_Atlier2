@@ -40,6 +40,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] MapEvent_01 = new bool[20];         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
     public static bool[] MapEvent_02 = new bool[20];         //井戸。
     public static bool[] MapEvent_03 = new bool[20];         //ストロベリーガーデン
+    public static bool[] MapEvent_04 = new bool[20];         //ひまわり畑
 
     //広場でのイベント
     public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ
@@ -242,6 +243,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             MapEvent_01[i] = false;
             MapEvent_02[i] = false;
             MapEvent_03[i] = false;
+            MapEvent_04[i] = false;
         }
 
         //通常お菓子感想フラグ

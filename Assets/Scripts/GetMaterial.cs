@@ -76,6 +76,7 @@ public class GetMaterial : MonoBehaviour {
     private int[] kettei_kosu = new int[3];
 
     private int mat_cost;
+    private string mat_place;
     private float total;
 
     private bool mat_anim_on;
@@ -201,6 +202,7 @@ public class GetMaterial : MonoBehaviour {
         InitializeDicts();
 
         mat_cost = matplace_database.matplace_lists[index].placeCost;
+        mat_place = matplace_database.matplace_lists[index].placeName;
 
         //お金のチェック       
         if (PlayerStatus.player_money < mat_cost)
@@ -267,8 +269,26 @@ public class GetMaterial : MonoBehaviour {
 
             case 1:
 
-                //イベント１
-                event_01();
+                switch(mat_place)
+                {
+                    case "Forest":
+
+                        //イベント１
+                        event_01();
+                        break;
+
+                    case "HimawariHill":
+
+                        event_HimawariHill();
+                        break;
+
+                    default:
+
+                        //イベント１
+                        event_01();
+                        break;
+                }
+                
                 break;
 
             default:
@@ -433,6 +453,19 @@ public class GetMaterial : MonoBehaviour {
 
             //音を鳴らす
             audioSource.PlayOneShot(sound1);
+        }
+    }
+
+    void event_HimawariHill()
+    {
+        if (!GameMgr.MapEvent_04[1])
+        {
+            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + "絞り器をみつけた！";
+            GameMgr.MapEvent_04[1] = true;
+        }
+        else
+        {
+            _text.text = "廃屋がある。";
         }
     }
 

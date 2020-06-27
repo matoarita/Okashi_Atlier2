@@ -31,6 +31,7 @@ public class Utage_scenario : MonoBehaviour
     private int shop_talk_number;
     private int shop_hint_number;
     private int hiroba_num;
+    private int hiroba_endflag_num;
 
     private PlayerItemList pitemlist;
 
@@ -1635,6 +1636,7 @@ public class Utage_scenario : MonoBehaviour
         }
 
         engine.Param.TrySetParameter("Hiroba_num", hiroba_num);
+        engine.Param.TrySetParameter("Hiroba_endflag_Num", 0); //0で初期化
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -1645,13 +1647,23 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
-        /*
-        if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm")
+        hiroba_endflag_num = (int)engine.Param.GetParameter("Hiroba_endflag_Num");
+        switch(hiroba_endflag_num)
         {
-            CharacterSpriteFadeON();
+            case 5041:
 
-            GameMgr.scenario_ON = false;
-        }*/
+                GameMgr.hiroba_event_ID = 5041;
+                break;
+
+            case 5042:
+
+                GameMgr.hiroba_event_ID = 5042;
+                break;
+
+            default:
+
+                break;
+        }
 
         scenario_loading = false;
 

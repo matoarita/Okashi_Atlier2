@@ -7,8 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class Debug_Panel : MonoBehaviour {
 
+    private GameObject canvas;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
+
+    private GameObject mainlist_controller2_obj;
+    private MainListController2 mainlist_controller2;
 
     private GameObject StoryNumber;
     private Text StoryNumber_text;
@@ -333,6 +338,37 @@ public class Debug_Panel : MonoBehaviour {
                 girl1_status.girl_Mazui_flag = false;
             }
             Mazui_toggle.isOn = Mazui_toggle_input.isOn;
+        }
+    }
+
+    public void InputMainFlagOn()
+    {
+        //ストーリーの最初から、現在までの最低限必要なフラグをONにする。シナリオチェックの際、やりやすいようにフラグのON/OFFの数を調節してOK
+        for (i = 0; i <= GameMgr.GirlLoveEvent_num; i++)
+        {
+            switch (i)
+            {
+                case 4:
+
+                    GameMgr.hiroba_event_end[0] = true; //アマクサ会話終了　広場「お花屋さん」「図書館」「道端奥さん」ON
+                    GameMgr.hiroba_event_end[1] = true; //パン工房ON
+                    GameMgr.hiroba_event_end[2] = true; //ストロベリーガーデンON
+
+                    if (SceneManager.GetActiveScene().name == "Hiroba2") // 
+                    {
+                        //キャンバスの読み込み
+                        canvas = GameObject.FindWithTag("Canvas");
+                        mainlist_controller2_obj = canvas.transform.Find("MainList_ScrollView").gameObject;
+                        mainlist_controller2 = mainlist_controller2_obj.GetComponent<MainListController2>();
+
+                        mainlist_controller2.ToggleFlagCheck();
+                        mainlist_controller2.MenuWindowExpand();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }
