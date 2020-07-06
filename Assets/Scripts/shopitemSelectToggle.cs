@@ -61,6 +61,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
     private int i;
 
+    private int _itemcount; //現在の所持数　店売り＋オリジナル
     private string _item_Namehyouji;
     private int pitemlist_max;
     private int count;
@@ -201,7 +202,15 @@ public class shopitemSelectToggle : MonoBehaviour
         shopitemlistController.shop_itemName_Hyouji = _item_Namehyouji;
         shopitemlistController.shop_costprice = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_costprice;
 
-        _text.text = _item_Namehyouji + "を買いますか？個数を選択してください。";
+        if (shopitemlistController.shop_itemType == 1) //レシピを選択したとき
+        {
+            _text.text = _item_Namehyouji + "を買いますか？";
+        }
+        else //それ以外の通常のアイテムは個数が表示
+        {           
+            _itemcount = pitemlist.KosuCount(database.items[shopitemlistController.shop_kettei_item1].itemName);
+            _text.text = _item_Namehyouji + "を買いますか？個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+        }
 
         Debug.Log(count + "番が押されたよ");
         Debug.Log("アイテム:" + _item_Namehyouji + "が選択されました。");

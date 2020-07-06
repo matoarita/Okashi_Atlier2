@@ -763,6 +763,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false; //三個目の選択はキャンセル
 
             pitemlistController.kettei1_bunki = 2;
+            pitemlistController.kettei_item3 = 9999;
 
             _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
         }
@@ -775,6 +776,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false;
 
             pitemlistController.kettei1_bunki = 11;
+            pitemlistController.kettei_item2 = 9999;
 
             _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
         }

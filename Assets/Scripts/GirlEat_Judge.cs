@@ -235,7 +235,9 @@ public class GirlEat_Judge : MonoBehaviour {
     public int subtype2_score;
 
     public int topping_score;
-    public int topping_flag;
+    public int topping_flag_point;
+    public bool topping_flag;
+    public bool topping_all_non;
 
     public int total_score;
 
@@ -283,8 +285,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private Animator live2d_animator;
     private CubismRenderController _renderController;
 
-    private GameObject questclear_toggle;
     private GameObject stageclear_toggle;
+    private GameObject stageclear_Button;
 
     // Use this for initialization
     void Start() {
@@ -395,8 +397,8 @@ public class GirlEat_Judge : MonoBehaviour {
         MainQuestOKPanel.SetActive(false);
 
         //クエストクリアボタンの取得
-        questclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/QuestClear_Toggle").gameObject;
         stageclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
+        stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
 
         i = 0;
         foreach (Transform child in ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score_star/Viewport/Content").transform)
@@ -1137,7 +1139,9 @@ public class GirlEat_Judge : MonoBehaviour {
             smooth_score = 0;
             hardness_score = 0;
             topping_score = 0;
-            topping_flag = 0;
+            topping_flag_point = 0;
+            topping_flag = false;
+            topping_all_non = true; //判定のトッピングスロットが全てNon
 
             //未使用。
             quality_score = 0;
@@ -1450,19 +1454,24 @@ public class GirlEat_Judge : MonoBehaviour {
                         //0はNonなので、無視　かつ、女の子のスコアが1以上
                         if (i != 0 && girl1_status.girl1_hungryScoreSet1[i] > 0)
                         {
+                            topping_all_non = false;
+
                             //女の子のスコア(所持数)より、生成したアイテムのスロットの所持数が大きい場合は、そのトッピングが好みとマッチしている。正解
                             if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet1[i])
                             {
                                 topping_score += girl1_status.girl1_hungryToppingScoreSet1[i];
 
                                 //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。今のとこ、一番後ろのTPに反応する。
-                                topping_flag = girl1_status.girl1_hungryToppingNumberSet1[i];
+                                topping_flag_point = girl1_status.girl1_hungryToppingNumberSet1[i];
+                                topping_flag = true; //好みが一致するトッピングが、一つでもあった。
                             }
                             else
                             {
+
                             }
                         }
                     }
+                    
                     break;
 
                 case 1:
@@ -1474,16 +1483,20 @@ public class GirlEat_Judge : MonoBehaviour {
                         //0はNonなので、無視
                         if (i != 0 && girl1_status.girl1_hungryScoreSet2[i] > 0)
                         {
+                            topping_all_non = false;
+
                             //女の子のスコア(所持数)より、生成したアイテムのスロットの所持数が大きい場合は、そのトッピングが好みとマッチしている。正解
                             if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet2[i])
                             {
                                 topping_score += girl1_status.girl1_hungryToppingScoreSet2[i];
 
                                 //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。
-                                topping_flag = girl1_status.girl1_hungryToppingNumberSet2[i];
+                                topping_flag_point = girl1_status.girl1_hungryToppingNumberSet2[i];
+                                topping_flag = true; //好みが一致するトッピングが、一つでもあった。
                             }
                             else
                             {
+
                             }
                         }
                     }
@@ -1498,17 +1511,20 @@ public class GirlEat_Judge : MonoBehaviour {
                         //0はNonなので、無視
                         if (i != 0 && girl1_status.girl1_hungryScoreSet3[i] > 0)
                         {
+                            topping_all_non = false;
+
                             //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
                             if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet3[i])
                             {
                                 topping_score += girl1_status.girl1_hungryToppingScoreSet3[i];
 
                                 //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。
-                                topping_flag = girl1_status.girl1_hungryToppingNumberSet3[i];
+                                topping_flag_point = girl1_status.girl1_hungryToppingNumberSet3[i];
+                                topping_flag = true; //好みが一致するトッピングが、一つでもあった。
                             }
                             else
                             {
-
+                                
                             }
                         }
                     }
@@ -1519,6 +1535,13 @@ public class GirlEat_Judge : MonoBehaviour {
                     break;
             }
 
+            //女の子の食べたいトッピングがあるにも関わらず、そのトッピングがのっていなかった。
+            if (!topping_all_non && !topping_flag)
+            {
+                topping_score = girl1_status.girl1_NonToppingScoreSet[set_id]; //点数がマイナスに働く。もしくは、クリアできない、とかでもよいかも。
+
+                topping_flag_point = 10;
+            }
 
             //以上、全ての点数を合計。
             total_score = quality_score + sweat_score + bitter_score + sour_score
@@ -2008,7 +2031,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
                 else
                 {
-                    questclear_toggle.SetActive(true);
+                    //questclear_toggle.SetActive(true);
+                    stageclear_Button.SetActive(true);
                 }
                 _windowtext.text = "満足しているようだ。";
             }
@@ -2537,13 +2561,13 @@ public class GirlEat_Judge : MonoBehaviour {
             }
             else if (_girl_comment_flag[set_id] == 1)
             {
-                if (topping_flag == 0) //トッピングに一致するものがなかったときは、通常の感想
+                if (!topping_flag) //トッピングに一致するものがなかったとき。
                 {
                     NormalCommentEatBunki();
                 }
                 else
                 {
-                    GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + topping_flag; //クエストID+topping_flag(1~5)で指定する。ねこクッキーで、アイザン入りなら、1000+1で、1001。
+                    GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + topping_flag_point; //クエストID+topping_flag(1~5)で指定する。ねこクッキーで、アイザン入りなら、1000+1で、1001。
                 }
             }
         }
@@ -2579,13 +2603,13 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if(_girl_comment_flag[set_id] == 1)
         {
-            if (topping_flag == 0) //トッピングに一致するものがなかったときは、通常の感想
+            if (!topping_flag) //トッピングに一致するものがなかったとき。
             {
                 NormalCommentAfterBunki();
             }
             else
             {
-                GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID + topping_flag; //スロットの感想 1000番台~
+                GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID + topping_flag_point; //スロットの感想 1000番台~
             }
         }
         GameMgr.okashiafter_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -2634,6 +2658,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
+
     void NormalCommentAfterBunki()
     {
         if (total_score < GameMgr.low_score)
@@ -2649,6 +2674,7 @@ public class GirlEat_Judge : MonoBehaviour {
             GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID + 52; //スロットの感想 1050番台~
         }
     }
+
 
     //
     //85点以上だった場合、妹がエメラルどんぐりをくれる。
@@ -2706,7 +2732,8 @@ public class GirlEat_Judge : MonoBehaviour {
         sceneBGM.MuteOFFBGM();
 
         canvas.SetActive(true);
-        questclear_toggle.SetActive(false);
+        //questclear_toggle.SetActive(false);
+        stageclear_Button.SetActive(false);
 
         //表示の音を鳴らす。
         sc.PlaySe(47);　//前は、25

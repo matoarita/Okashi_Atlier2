@@ -27,6 +27,8 @@ public class Entity_eventItemDataBase : ScriptableObject
 		public int read_flag;
 		public int list_hyouji_on;
 		public string memo;
+		public int Re_flag_num;
+		public int Ev_flag_num;
 	}
 }
 

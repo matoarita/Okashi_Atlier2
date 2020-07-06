@@ -324,32 +324,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             if (scenario_flag == 110)
             {
-                ev_id = Find_eventitemdatabase("najya_start_recipi");
+                ev_id = pitemlist.Find_eventitemdatabase("najya_start_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
 
 
-                ev_id = Find_eventitemdatabase("ev01_neko_cookie_recipi");
+                ev_id = pitemlist.Find_eventitemdatabase("ev01_neko_cookie_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
 
                 gamestart_recipi_get = true; //ゲットしたよフラグをONに。
             }
         }
-    }
-
-    //アイテム名を入力すると、該当するeventitem_IDを返す処理
-    public int Find_eventitemdatabase(string compo_itemname)
-    {
-        j = 0;
-        while (j < pitemlist.eventitemlist.Count)
-        {
-            if (compo_itemname == pitemlist.eventitemlist[j].event_itemName)
-            {
-                return j;
-            }
-            j++;
-        }
-
-        return 9999; //該当するIDがない場合
     }
 
 

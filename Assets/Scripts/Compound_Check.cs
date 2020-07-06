@@ -171,7 +171,7 @@ public class Compound_Check : MonoBehaviour {
                 SelectPaused();
 
                 final_select_flag = false;
-
+               
                 StartCoroutine("Final_select");
 
             }
@@ -196,11 +196,13 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
 
-                CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+                CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+
+                updown_counter_obj.SetActive(true);
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
-                    + "　調合しますか？" + "\n" + success_text;
+                    + success_text + "　何セット作る？";
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
@@ -220,6 +222,8 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
 
                         exp_Controller.extreme_on = false;
+
+                        exp_Controller.set_kaisu = updown_counter.updown_kosu; //何セット作るかの個数もいれる。
 
                         compound_Main.compound_status = 4;
 
@@ -251,10 +255,12 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
+                updown_counter_obj.SetActive(true);
+
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
-                    + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + "\n" 
-                    + "　調合しますか？" + success_text;
+                    + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + "\n"
+                    + success_text + "　何セット作る？";
 
                 //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
 
@@ -274,6 +280,8 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller.result_ok = true; //オリジナル調合完了のフラグをたてておく。
 
                         exp_Controller.extreme_on = false;
+
+                        exp_Controller.set_kaisu = updown_counter.updown_kosu; //何セット作るかの個数もいれる。
 
                         compound_Main.compound_status = 4;
 

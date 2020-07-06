@@ -60,7 +60,8 @@ public class recipiitemSelectToggle : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    public int recipi_toggleitemType; //選んだアイテムが、イベントアイテムか、コンポ調合DBのアイテムかを判別する。0=イベントアイテム, 1=コンポ調合用DBアイテム
+    public int recipi_toggleEventType; //選んだアイテムが、イベントアイテムか、コンポ調合DBのアイテムかを判別する。0=イベントアイテム, 1=コンポ調合用DBアイテム
+    public int recipi_toggleType; //選んだアイテムが、店売りかオリジナルかを判定する。
     public int recipi_toggleCompoitem_ID; //リストの要素自体に、コンポアイテムIDを保持する。
     public int recipi_toggleEventitem_ID; //リストの要素にイベントアイテムIDを保持する。
     public int recipi_itemID; //そのときのアイテムDB上のアイテムID。
@@ -195,7 +196,7 @@ public class recipiitemSelectToggle : MonoBehaviour
 
 
         //イベントアイテムの場合
-        if (recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleitemType == 0) 
+        if (recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleEventType == 0) 
         {
             compound_Main.event_itemID = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleEventitem_ID;
 
@@ -209,7 +210,7 @@ public class recipiitemSelectToggle : MonoBehaviour
         }
 
         //コンポ調合アイテムの場合
-        else if (recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleitemType == 1) 
+        else if (recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleEventType == 1) 
         {
             compo_itemname = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;
             compo_itemID = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID;

@@ -75,8 +75,9 @@ public class Entity_GirlLikeSetDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(22); p.tp_score03 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(23); p.tp_score04 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(24); p.tp_score05 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(25); p.desc = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(26); p.commet_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(25); p.Non_tpscore = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(26); p.desc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(27); p.commet_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

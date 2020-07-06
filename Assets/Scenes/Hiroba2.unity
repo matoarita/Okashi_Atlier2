@@ -950,11 +950,6 @@ Prefab:
       propertyPath: m_Name
       value: NPC1_SelectToggle
       objectReference: {fileID: 0}
-    - target: {fileID: 114778740421086744, guid: f45d90a6ca66996479e40787f055a9dd,
-        type: 2}
-      propertyPath: m_IsOn
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f45d90a6ca66996479e40787f055a9dd, type: 2}
   m_IsPrefabParent: 0
@@ -1657,7 +1652,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 2de6dd1c6cf4b914ba5b6eb35d6efd9a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07b18892d0a476c4a8bfedc04412349f, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

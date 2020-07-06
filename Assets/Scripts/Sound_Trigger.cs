@@ -47,7 +47,7 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(30);
                 break;
 
-            case "Yes_Clear": //noを押したときのSE
+            case "Yes_Clear": //ステージクリアを押したときのSE
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
@@ -56,6 +56,7 @@ public class Sound_Trigger : MonoBehaviour {
                 //クリックしたときに鳴る音
                 SE_point_click(28);
                 break;
+
 
             case "No": //noを押したときのSE
 

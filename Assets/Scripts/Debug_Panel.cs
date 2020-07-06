@@ -354,6 +354,13 @@ public class Debug_Panel : MonoBehaviour {
                     GameMgr.hiroba_event_end[1] = true; //パン工房ON
                     GameMgr.hiroba_event_end[2] = true; //ストロベリーガーデンON
 
+                    //
+                    GameMgr.hiroba_event_end[3] = true; //お花屋さんと会話した
+                    GameMgr.hiroba_event_end[4] = true; //図書館　ドーナツのことを聞かずに帰った
+                    GameMgr.hiroba_event_end[5] = true; //図書館　図書館　ドーナツのことを聞いた
+                    GameMgr.hiroba_event_end[6] = true; //パン工房でベニエと会う。油を探すことになった。
+                    GameMgr.hiroba_event_end[7] = true; //お花屋さんから油の話をきいた。「ひまわり畑」ON
+
                     if (SceneManager.GetActiveScene().name == "Hiroba2") // 
                     {
                         //キャンバスの読み込み

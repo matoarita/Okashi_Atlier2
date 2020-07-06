@@ -112,6 +112,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int[] girllike_comment_flag;
 
     public int[] girl1_like_set_score;
+    public int[] girl1_NonToppingScoreSet;
 
     public int youso_count; //GirlEat_judgeでも、パラメータ初期化の際使う。
     public int Set_Count;
@@ -365,6 +366,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Jiggly = new int[youso_count];
 
         girl1_like_set_score = new int[youso_count];
+        girl1_NonToppingScoreSet = new int[youso_count];
 
         girl1_likeSubtype = new string[youso_count];
         girl1_likeOkashi = new string[youso_count];
@@ -1385,7 +1387,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             default:
                 break;
         }
-        
+
+        //欲しいトッピングがなかったときに、マイナスに働くパラメータ
+        girl1_NonToppingScoreSet[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_Non_topping_score;
 
         //②味のパラメータ。現状は未実装。これに足りてないと、「甘さが足りない」といったコメントをもらえる。
         girl1_Rich[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_rich;

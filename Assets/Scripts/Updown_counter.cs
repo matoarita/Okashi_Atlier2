@@ -49,13 +49,20 @@ public class Updown_counter : MonoBehaviour {
     public int updown_kosu;
 
     private int i, count, _zaiko_max;
+    private int _item_max1;
+    private int _item_max2;
+    private int _item_max3;
 
     private int itemID_1;
     private string itemname_1;
 
-    private string cmpitem_1;
-    private string cmpitem_2;
-    private string cmpitem_3;
+    private string cmpitem_name1;
+    private string cmpitem_name2;
+    private string cmpitem_name3;
+
+    private string cmpitem_namehyouji1;
+    private string cmpitem_namehyouji2;
+    private string cmpitem_namehyouji3;
 
     private int cmpitem1_type;
     private int cmpitem2_type;
@@ -76,6 +83,10 @@ public class Updown_counter : MonoBehaviour {
     private int itemdb_id1;
     private int itemdb_id2;
     private int itemdb_id3;
+
+    private int player_itemkosu1;
+    private int player_itemkosu2;
+    private int player_itemkosu3;
 
     private Button[] updown_button = new Button[2];
 
@@ -306,23 +317,30 @@ public class Updown_counter : MonoBehaviour {
                 _p_or_recipi_flag = 0;
             }
 
-            switch (compound_Main.compound_select)
+            if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
             {
-                case 1: //レシピ調合の場合
+                this.transform.localPosition = new Vector3(250, -40, 0);
+            }
+            else
+            {
+                switch (compound_Main.compound_select)
+                {
+                    case 1: //レシピ調合の場合
 
-                    this.transform.localPosition = new Vector3(0, -70, 0);
-                    break;
+                        this.transform.localPosition = new Vector3(0, -70, 0);
+                        break;
 
-                case 3: //オリジナル調合の場合の、カウンターの位置
+                    case 3: //オリジナル調合の場合の、カウンターの位置
 
-                    this.transform.localPosition = new Vector3(0, -80, 0);
-                    break;
+                        this.transform.localPosition = new Vector3(0, -80, 0);
+                        break;
 
-                default:
+                    default:
 
-                    this.transform.localPosition = new Vector3(100, -120, 0);
-                    break;
+                        this.transform.localPosition = new Vector3(100, -120, 0);
+                        break;
 
+                }
             }
         }
         else
@@ -350,188 +368,279 @@ public class Updown_counter : MonoBehaviour {
 
             if (_p_or_recipi_flag == 0) //プレイヤーアイテムリストのときの処理
             {
-                if (compound_Main.compound_select == 2 || compound_Main.compound_select == 3)
+                if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    switch (pitemlistController.kettei1_bunki)
+                    if (compound_Main.compound_select == 3) //オリジナル調合のとき
                     {
-                        case 1:
+                        //カウントをとりあえず１足す
+                        ++updown_kosu;
 
-                            switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
-                            {
-                                case 0:
+                        switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                        {
+                            case 0:
 
-                                    _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
-                                    break;
+                                _item_max1 = pitemlist.playeritemlist[pitemlistController.kettei_item1];
+                                break;
 
-                                case 1:
+                            case 1:
 
-                                    _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
-                                    break;
+                                _item_max1 = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                break;
 
-                                default:
-                                    break;
-                            }
+                            default:
+                                break;
+                        }
 
-                            break;
+                        switch (pitemlistController._listitem[pitemlistController._count2].GetComponent<itemSelectToggle>().toggleitem_type)
+                        {
+                            case 0:
 
-                        case 2:
+                                _item_max2 = pitemlist.playeritemlist[pitemlistController.kettei_item2];
+                                break;
 
-                            switch (pitemlistController._listitem[pitemlistController._count2].GetComponent<itemSelectToggle>().toggleitem_type)
-                            {
-                                case 0:
+                            case 1:
 
-                                    _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item2]; //二個目の決定アイテムの所持数
+                                _item_max2 = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
+                                break;
 
-                                    break;
+                            default:
+                                break;
+                        }
 
-                                case 1:
-
-                                    _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
-                                    break;
-
-                                default:
-                                    break;
-                            }
-
-                            break;
-
-                        case 3:
-
+                        if (pitemlistController.kettei_item3 != 9999) //３個目も選んでいれば、下の処理を起動
+                        {
                             switch (pitemlistController._listitem[pitemlistController._count3].GetComponent<itemSelectToggle>().toggleitem_type)
                             {
                                 case 0:
 
-                                    _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item3]; //三個目の決定アイテムの所持数
+                                    _item_max3 = pitemlist.playeritemlist[pitemlistController.kettei_item3];
                                     break;
 
                                 case 1:
 
-                                    _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
+                                    _item_max3 = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
                                     break;
 
                                 default:
                                     break;
                             }
 
-                            break;
+                            player_itemkosu3 = pitemlistController.final_kettei_kosu3 * updown_kosu;
+                        }
 
-                        case 10:
+                        player_itemkosu1 = pitemlistController.final_kettei_kosu1 * updown_kosu;
+                        player_itemkosu2 = pitemlistController.final_kettei_kosu2 * updown_kosu;
 
-                            switch (pitemlistController._listitem[pitemlistController._base_count].GetComponent<itemSelectToggle>().toggleitem_type)
+
+                        //判定。もしどれかのアイテムの一つでも、個数がmaxより超えたら、そこがセット数の上限
+                        if (pitemlistController.kettei_item3 != 9999) //３個目も選んでいれば、下の処理を起動
+                        {
+                            if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2)
                             {
-                                case 0:
-
-                                    _zaiko_max = pitemlist.playeritemlist[pitemlistController.base_kettei_item]; //ベース決定アイテムの所持数
-                                    break;
-
-                                case 1:
-
-                                    _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.base_kettei_item].ItemKosu;
-                                    break;
-
-                                default:
-                                    break;
+                                updown_kosu--;
                             }
-
-                            break;
-
-                        case 11:
-
-                            switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                            else
                             {
-                                case 0:
-
-                                    _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
-                                    break;
-
-                                case 1:
-
-                                    _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
-                                    break;
-
-                                default:
-                                    break;
                             }
-
-                            break;
-
-                        case 12:
-
-                            switch (pitemlistController._listitem[pitemlistController._count2].GetComponent<itemSelectToggle>().toggleitem_type)
+                        }
+                        else
+                        {
+                            if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2 || player_itemkosu3 > _item_max3)
                             {
-                                case 0:
-
-                                    _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item2]; //二個目の決定アイテムの所持数                           
-                                    break;
-
-                                case 1:
-
-                                    _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
-                                    break;
-
-                                default:
-                                    break;
+                                updown_kosu--;
                             }
-
-                            break;
-
-                        case 13:
-
-                            switch (pitemlistController._listitem[pitemlistController._count3].GetComponent<itemSelectToggle>().toggleitem_type)
+                            else
                             {
-                                case 0:
-
-                                    _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item3]; //三個目の決定アイテムの所持数                           
-                                    break;
-
-                                case 1:
-
-                                    _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
-                                    break;
-
-                                default:
-                                    break;
                             }
+                        }
 
-                            break;
+                        //表示を更新
 
-                        default:
-                            break;
                     }
                 }
-                else if (compound_Main.compound_select == 5)
+                else
                 {
-                    switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                    if (compound_Main.compound_select == 2 || compound_Main.compound_select == 3)
                     {
-                        case 0:
+                        switch (pitemlistController.kettei1_bunki)
+                        {
+                            case 1:
 
-                            _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
-                            break;
+                                switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                                {
+                                    case 0:
 
-                        case 1:
+                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
+                                        break;
 
-                            _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
-                            break;
+                                    case 1:
 
-                        default:
-                            break;
+                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+
+                            case 2:
+
+                                switch (pitemlistController._listitem[pitemlistController._count2].GetComponent<itemSelectToggle>().toggleitem_type)
+                                {
+                                    case 0:
+
+                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item2]; //二個目の決定アイテムの所持数
+
+                                        break;
+
+                                    case 1:
+
+                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+
+                            case 3:
+
+                                switch (pitemlistController._listitem[pitemlistController._count3].GetComponent<itemSelectToggle>().toggleitem_type)
+                                {
+                                    case 0:
+
+                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item3]; //三個目の決定アイテムの所持数
+                                        break;
+
+                                    case 1:
+
+                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+
+                            case 10:
+
+                                switch (pitemlistController._listitem[pitemlistController._base_count].GetComponent<itemSelectToggle>().toggleitem_type)
+                                {
+                                    case 0:
+
+                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.base_kettei_item]; //ベース決定アイテムの所持数
+                                        break;
+
+                                    case 1:
+
+                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.base_kettei_item].ItemKosu;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+
+                            case 11:
+
+                                switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                                {
+                                    case 0:
+
+                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
+                                        break;
+
+                                    case 1:
+
+                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+
+                            case 12:
+
+                                switch (pitemlistController._listitem[pitemlistController._count2].GetComponent<itemSelectToggle>().toggleitem_type)
+                                {
+                                    case 0:
+
+                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item2]; //二個目の決定アイテムの所持数                           
+                                        break;
+
+                                    case 1:
+
+                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+
+                            case 13:
+
+                                switch (pitemlistController._listitem[pitemlistController._count3].GetComponent<itemSelectToggle>().toggleitem_type)
+                                {
+                                    case 0:
+
+                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item3]; //三個目の決定アイテムの所持数                           
+                                        break;
+
+                                    case 1:
+
+                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+
+                    else if (compound_Main.compound_select == 5)
+                    {
+                        switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                        {
+                            case 0:
+
+                                _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
+                                break;
+
+                            case 1:
+
+                                _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+
+                    ++updown_kosu;
+
+                    if (updown_kosu > _zaiko_max)
+                    {
+                        updown_kosu = _zaiko_max;
                     }
                 }
-
-                ++updown_kosu;
-
-                if (updown_kosu > _zaiko_max)
-                {
-                    updown_kosu = _zaiko_max;
-                }
-
-
             }
             else //レシピリストのときの処理
             {
-                //_zaiko_max = pitemlist.playeritemlist[pitemlistController.final_kettei_item1]; //一個目の決定アイテムの所持数
 
-                _zaiko_max = 9;
+                _zaiko_max = 99;
 
                 ++updown_kosu;
 
@@ -715,6 +824,16 @@ public class Updown_counter : MonoBehaviour {
                     updown_kosu = 1;
                 }
 
+                if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
+                {
+                    player_itemkosu1 = pitemlistController.final_kettei_kosu1 * updown_kosu;
+                    player_itemkosu2 = pitemlistController.final_kettei_kosu2 * updown_kosu;
+
+                    if (pitemlistController.kettei_item3 != 9999) //３個目も選んでいれば、下の処理を起動
+                    {
+                        player_itemkosu3 = pitemlistController.final_kettei_kosu3 * updown_kosu;
+                    }
+                }
             }
             else //レシピリストのときの処理
             {
@@ -778,12 +897,16 @@ public class Updown_counter : MonoBehaviour {
         itemID_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID; //itemID_1という変数に、プレイヤーが選択した調合DBの配列番号を格納する。
         itemname_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;
 
-        recipilistController.final_select_kosu = updown_kosu; //選択個数
+        recipilistController.final_select_kosu = updown_kosu; //選択個数(セットの回数）
 
         //必要アイテム・個数の代入
         cmpitem_kosu1 = databaseCompo.compoitems[itemID_1].cmpitem_kosu1;
         cmpitem_kosu2 = databaseCompo.compoitems[itemID_1].cmpitem_kosu2;
         cmpitem_kosu3 = databaseCompo.compoitems[itemID_1].cmpitem_kosu3;
+
+        player_itemkosu1 = 0;
+        player_itemkosu2 = 0;
+        player_itemkosu3 = 0;
 
         i = 0;
 
@@ -791,7 +914,8 @@ public class Updown_counter : MonoBehaviour {
         {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_1)
             {
-                cmpitem_1 = database.items[i].itemNameHyouji; //調合DB一個目の番号を保存。また、nameを日本語表示に。
+                cmpitem_name1 = database.items[i].itemName; //一個目に選択したアイテム名。店売り・オリジナルでこの名前は共通。
+                cmpitem_namehyouji1 = database.items[i].itemNameHyouji; //調合DB一個目の番号を保存。また、nameを日本語表示に。
 
                 if (database.items[i].itemType_sub.ToString() == "Machine") {
                     cmpitem1_type = 1;//機材アイテムなどの、個数が関係ないアイテムかどうかをチェック
@@ -810,7 +934,8 @@ public class Updown_counter : MonoBehaviour {
         {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_2)
             {
-                cmpitem_2 = database.items[i].itemNameHyouji; //調合DB二個目のnameを日本語表示に。
+                cmpitem_name2 = database.items[i].itemName; //二個目に選択したアイテム名。
+                cmpitem_namehyouji2 = database.items[i].itemNameHyouji; //調合DB二個目のnameを日本語表示に。
 
                 if (database.items[i].itemType_sub.ToString() == "Machine")
                 {
@@ -832,7 +957,8 @@ public class Updown_counter : MonoBehaviour {
         {
             if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_3)
             {
-                cmpitem_3 = database.items[i].itemNameHyouji; //調合DB三個目のnameを日本語表示に。
+                cmpitem_name3 = database.items[i].itemName; //三個目に選択したアイテム名。
+                cmpitem_namehyouji3 = database.items[i].itemNameHyouji; //調合DB三個目のnameを日本語表示に。
 
                 if (database.items[i].itemType_sub.ToString() == "Machine")
                 {
@@ -872,32 +998,77 @@ public class Updown_counter : MonoBehaviour {
         {
             cmpitem_kosu3_select = cmpitem_kosu3; //機材アイテムなどは、個数が反映されない。基本は1
         }
+
+
+        //
+        //*** 材料個数足りてるかの判定 ***//
+
+        //まずは、店売り・オリジナルの両方から、アイテムを探し、トータルの個数を取得。オリジナルは、itemNameが複数ある場合もあるのでforで全てカウント。（クッキーの味違いなど）IDは違う。
+
+        //一個目
+        //オリジナルの所持個数を計算
+        for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
+        {
+            if ( cmpitem_name1 == pitemlist.player_originalitemlist[i].itemName )
+            {
+                player_itemkosu1 += pitemlist.player_originalitemlist[i].ItemKosu;
+            }
+        }
+        //店売りの所持個数を計算
+        player_itemkosu1 += pitemlist.playeritemlist[itemdb_id1];
+
+        //二個目
+        //オリジナルの所持個数を計算
+        for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
+        {
+            if (cmpitem_name2 == pitemlist.player_originalitemlist[i].itemName)
+            {
+                player_itemkosu2 += pitemlist.player_originalitemlist[i].ItemKosu;
+            }
+        }
+        //店売りの所持個数を計算
+        player_itemkosu2 += pitemlist.playeritemlist[itemdb_id2];
+
+        //三個目
+        //オリジナルの所持個数を計算
+        for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
+        {
+            if (cmpitem_name3 == pitemlist.player_originalitemlist[i].itemName)
+            {
+                player_itemkosu3 += pitemlist.player_originalitemlist[i].ItemKosu;
+            }
+        }
+        //店売りの所持個数を計算
+        player_itemkosu3 += pitemlist.playeritemlist[itemdb_id2];
+
+
+
+
+        //テキストの更新　左：必要個数　右：現在の所持数
+        _a = cmpitem_namehyouji1 + ": " + GameMgr.ColorLemon + cmpitem_kosu1_select + "</color>" + "／" + player_itemkosu1;
+        _b = cmpitem_namehyouji2 + ": " + GameMgr.ColorLemon + cmpitem_kosu2_select + "</color>" + "／" + player_itemkosu2;
+        _c = cmpitem_namehyouji3 + ": " + GameMgr.ColorLemon + cmpitem_kosu3_select + "</color>" + "／" + player_itemkosu3;
+
+        //材料個数が足りてるかの判定し、足りてないときは赤字にテキスト更新
+        if (cmpitem_kosu1_select > player_itemkosu1)
+        {
+            _a = GameMgr.ColorRed + cmpitem_namehyouji1 + ": " + cmpitem_kosu1_select + "／" + player_itemkosu1 + "</color>";
+        }
+        if (cmpitem_kosu2_select > player_itemkosu2)
+        {
+            _b = GameMgr.ColorRed + cmpitem_namehyouji2 + ": " + cmpitem_kosu2_select + "／" + player_itemkosu2 + "</color>";
+        }
+        if (cmpitem_kosu3_select > player_itemkosu3)
+        {
+            _c = GameMgr.ColorRed + cmpitem_namehyouji3 + ": " + cmpitem_kosu3_select + "／" + player_itemkosu3 + "</color>";
+        }
+
         
-
-        _a = cmpitem_1 + ": " + GameMgr.ColorLemon + cmpitem_kosu1_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id1];
-        _b = cmpitem_2 + ": " + GameMgr.ColorLemon + cmpitem_kosu2_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id2];
-        _c = cmpitem_3 + ": " + GameMgr.ColorLemon + cmpitem_kosu3_select + "</color>" + "／" + pitemlist.playeritemlist[itemdb_id3];
-
-        //材料個数が足りてるかの判定
-        if (cmpitem_kosu1_select > pitemlist.playeritemlist[itemdb_id1])
-        {
-            _a = GameMgr.ColorRed + cmpitem_1 + ": " + cmpitem_kosu1_select + "／" + pitemlist.playeritemlist[itemdb_id1] + "</color>";
-        }
-        if (cmpitem_kosu2_select > pitemlist.playeritemlist[itemdb_id2])
-        {
-            _b = GameMgr.ColorRed + cmpitem_2 + ": " + cmpitem_kosu2_select + "／" + pitemlist.playeritemlist[itemdb_id2] + "</color>";
-        }
-        if (cmpitem_kosu3_select > pitemlist.playeritemlist[itemdb_id3])
-        {
-            _c = GameMgr.ColorRed + cmpitem_3 + ": " + cmpitem_kosu3_select + "／" + pitemlist.playeritemlist[itemdb_id3] + "</color>";
-        }
-
-        
-
+        //さらにテキスト続き
         if (databaseCompo.compoitems[itemID_1].cmpitemID_3 == "empty") //2個のアイテムが必要な場合
         {
 
-            if (cmpitem_kosu1_select > pitemlist.playeritemlist[itemdb_id1] || cmpitem_kosu2_select > pitemlist.playeritemlist[itemdb_id2])
+            if (cmpitem_kosu1_select > player_itemkosu1 || cmpitem_kosu2_select > player_itemkosu2)
             {
                 _text.text = itemname_1 + "材料が足りない..。" + "\n" + _a + "\n" + _b;
                 updown_button[1].interactable = false;
@@ -914,7 +1085,7 @@ public class Updown_counter : MonoBehaviour {
         }
         else //3個アイテムが必要な場合
         {
-            if (cmpitem_kosu1_select > pitemlist.playeritemlist[itemdb_id1] || cmpitem_kosu2_select > pitemlist.playeritemlist[itemdb_id2] || cmpitem_kosu3_select > pitemlist.playeritemlist[itemdb_id3])
+            if (cmpitem_kosu1_select > player_itemkosu1 || cmpitem_kosu2_select > player_itemkosu2 || cmpitem_kosu3_select > player_itemkosu3)
             {
                 _text.text = "材料が足りない..。" + "\n" + _a + "\n" + _b + "\n" + _c;
                 updown_button[1].interactable = false;
@@ -929,14 +1100,22 @@ public class Updown_counter : MonoBehaviour {
             }
         }
 
+        //
+        //使用するアイテムを最終的に決定。「店売り」→「オリジナル」の順で、自動で決定する。ただし、削除処理はここではなく、Compound_Keisanで行う。
+        //
 
-        //最終的な必要アイテム＋最終個数をコントローラー側の変数に代入
+        //レシピから作る場合は、オリジナルを使用したとしても、「店売り」のデフォルトの味パラメータのものが生成される。（ややこしいので）
+        //オリジナルの味パラメータをレシピから再現するなら、オリジナルレシピをユーザーが登録できる、みたいな機能が必要。
+        //
+
+
+        //最終的な必要アイテム（パラメータは、現在デフォルトの値のみ）＋最終個数をコントローラー側の変数に代入
 
         recipilistController.kettei_recipiitem1 = database.items[itemdb_id1].itemID;
         recipilistController.kettei_recipiitem2 = database.items[itemdb_id2].itemID;
 
-        recipilistController.final_kettei_recipikosu1 = cmpitem_kosu1_select;
-        recipilistController.final_kettei_recipikosu2 = cmpitem_kosu2_select;
+        recipilistController.final_kettei_recipikosu1 = cmpitem_kosu1;
+        recipilistController.final_kettei_recipikosu2 = cmpitem_kosu2;
 
         if (databaseCompo.compoitems[itemID_1].cmpitemID_3 == "empty") //2個のアイテムが必要な場合。３個めは空＝9999
         {
@@ -946,7 +1125,7 @@ public class Updown_counter : MonoBehaviour {
         else //3個アイテムが必要な場合
         {
             recipilistController.kettei_recipiitem3 = database.items[itemdb_id3].itemID;
-            recipilistController.final_kettei_recipikosu3 = cmpitem_kosu3_select;
+            recipilistController.final_kettei_recipikosu3 = cmpitem_kosu3;
         }
     }
 }

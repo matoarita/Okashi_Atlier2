@@ -485,14 +485,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             mapevent_panel[2].SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 1;
+                            GameMgr.map_ev_ID = 4;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、いっぱいとろうね！";
+                            _text.text = "兄ちゃん、いちごたくさんー！";
                         }
 
                         break;
@@ -519,7 +519,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             mapevent_panel[2].SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 1;
+                            GameMgr.map_ev_ID = 5;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
@@ -866,11 +866,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         switch(_place_name)
         {
-            case "Hiroba":
-
-                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/ID003_Western-Castle_noon-1024x576");
-                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_");
-                break;
 
             case "Forest":
 
@@ -880,13 +875,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             case "StrawberryGarden":
 
-                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300"); //真ん中枠
+                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/3_strawberrygarden_600_300"); //真ん中枠
                 texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/03l"); //背景
                 break;
 
             case "HimawariHill":
 
-                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300"); //真ん中枠
+                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/4_himawarihill_600_300"); //真ん中枠
                 texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/himawari_sample"); //背景
                 break;
 

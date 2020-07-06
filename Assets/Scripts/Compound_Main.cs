@@ -112,13 +112,15 @@ public class Compound_Main : MonoBehaviour
     private GameObject shop_toggle;
     private GameObject getmaterial_toggle;
     private GameObject stageclear_toggle;
-    private GameObject questclear_toggle;
+    private GameObject sleep_toggle;
 
     private Button extreme_Button;
     private Button recipi_Button;
     private GameObject sell_Button;
     private GameObject present_Button;
     private GameObject stageclear_Button;
+    private Toggle stageclear_button_toggle;
+    private Text stageclear_button_text;
 
     private bool Recipi_loading;
     private bool GirlLove_loading;
@@ -134,6 +136,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject yes_no_panel; //通常時のYes, noボタン
     private GameObject yes_no_clear_panel; //クリア時のYes, noボタン
+    private GameObject yes_no_sleep_panel; //寝るかどうかのYes, noボタン
 
     private GameObject updown_counter_obj;
     private GameObject updown_counter_Prefab;
@@ -252,7 +255,8 @@ public class Compound_Main : MonoBehaviour
         no_text = no.GetComponentInChildren<Text>();
 
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
-        yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel").gameObject;
+        yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
+        yes_no_sleep_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
 
         //シーン最初にカウンターも生成する。
         updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
@@ -331,9 +335,12 @@ public class Compound_Main : MonoBehaviour
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
-        questclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/QuestClear_Toggle").gameObject;
+        sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
 
         stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
+        stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
+        stageclear_button_text = stageclear_Button.transform.Find("Text").GetComponent<Text>();
+        stageclear_button_toggle.isOn = false;
         stageclear_Button.SetActive(false);
         
         compound_status = 0;
@@ -931,20 +938,23 @@ public class Compound_Main : MonoBehaviour
                 //5個クエストをクリアしたら、クリアボタンがでる。
                 if (GameMgr.OkashiQuest_flag_stage1[4])
                 {
-                    stageclear_toggle.SetActive(true);
-                    //stageclear_Button.SetActive(true);
+                    //stageclear_toggle.SetActive(true);
+                    stageclear_Button.SetActive(true);
+                    stageclear_button_text.text = "コンテストへ";
                 }
                 else
                 {
-                    if (stageclear_toggle.activeSelf == true)
+                    if (stageclear_toggle.activeSelf == true || stageclear_Button.activeSelf)
                     {
-                        stageclear_toggle.SetActive(false);
-                        //stageclear_Button.SetActive(false);
+                        //stageclear_toggle.SetActive(false);
+                        stageclear_Button.SetActive(false);
                     }
 
                     if (GameMgr.QuestClearflag)
                     {
-                        questclear_toggle.SetActive(true);
+                        stageclear_Button.SetActive(true);
+                        stageclear_button_text.text = "次のお菓子へ";
+                        //stageclear_toggle.SetActive(true);
                     }
                 }
 
@@ -1259,6 +1269,29 @@ public class Compound_Main : MonoBehaviour
             case 41: //クリアするかどうか、選択中
                 break;
 
+            case 50: //寝るを選択
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                compound_status = 51; //売るシーンに入っています、というフラグ
+                compound_select = 50; //売るを選択
+
+                yes_no_sleep_panel.SetActive(true);
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = false;
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+
+                Extremepanel_obj.SetActive(false);
+                text_area_Main.SetActive(false);
+                black_panel_A.SetActive(true);
+                StartCoroutine("Sleep_Final_select");
+                break;
+
+            case 51: //寝るかどうか選択中
+                break;
+
             case 99: //アイテム画面を開いたとき
 
                 compoundselect_onoff_obj.SetActive(false);
@@ -1288,7 +1321,9 @@ public class Compound_Main : MonoBehaviour
 
                 break;*/
 
+            case 110: //調合、最後これでよいか選択中のステータス
 
+                break;
 
             default:
                 break;
@@ -1500,32 +1535,43 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    public void OnStageClear() //ステージクリアボタン
+    public void OnSleep() //寝る or セーブ
     {
-        if (stageclear_toggle.GetComponent<Toggle>().isOn == true)
+        if (sleep_toggle.GetComponent<Toggle>().isOn == true)
         {
-            stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+            sleep_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             card_view.DeleteCard_DrawView();
 
-            _textmain.text = "コンテストに出場しますか？" + "\n" + "（次のお話へ進みます。）";
-            compound_status = 40;
+            text_area.SetActive(true);
+            _text.text = "今日はもう寝る？"; //
+            compound_status = 50;
 
         }
     }
 
-    public void OnQuestClear() //クエストクリアボタン
+    public void OnStageClear() //ステージクリアボタン
     {
-        if (questclear_toggle.GetComponent<Toggle>().isOn == true)
+        if (stageclear_toggle.GetComponent<Toggle>().isOn == true || stageclear_button_toggle.isOn == true)
         {
-            questclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
-            questclear_toggle.SetActive(false);
+            stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+            stageclear_button_toggle.isOn = false;
 
             card_view.DeleteCard_DrawView();
 
-            girlEat_judge.QuestClearMethod();
-            //_textmain.text = "コンテストに出場しますか？" + "\n" + "（次のお話へ進みます。）";
-            //compound_status = 40;
+            if (GameMgr.OkashiQuest_flag_stage1[4])
+            {
+                _textmain.text = "コンテストに出場しますか？" + "\n" + "（次のお話へ進みます。）";
+                compound_status = 40;
+            }
+            else
+            {
+                if (GameMgr.QuestClearflag)
+                {
+                    //_textmain.text = "次のお菓子へ進みますか？"";
+                    girlEat_judge.QuestClearMethod();
+                }
+            }
 
         }
     }
@@ -1796,6 +1842,43 @@ public class Compound_Main : MonoBehaviour
             case false:
 
                 yes_no_clear_panel.SetActive(false);
+
+                _textmain.text = "";
+                compound_status = 0;
+
+                yes_selectitem_kettei.onclick = false;
+                break;
+
+        }
+    }
+
+    IEnumerator Sleep_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        black_panel_A.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                //寝る処理
+
+                yes_no_sleep_panel.SetActive(false);
+                yes_selectitem_kettei.onclick = false;
+
+                time_controller.OnSleepMethod();
+
+                break;
+
+            case false:
+
+                yes_no_sleep_panel.SetActive(false);
 
                 _textmain.text = "";
                 compound_status = 0;

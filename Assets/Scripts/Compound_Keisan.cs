@@ -51,6 +51,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int final_kette_kosu1;
     private int final_kette_kosu2;
     private int final_kette_kosu3;
+    private int final_select_kaisu; //繰り返す回数　オレンジクッキー4個をレシピから作るなら、4セット。（1セットあたりの材料が、クッキーは1個、オレンジ2）　レシピでしか使ってない。
+    private int nokori_kosu;
 
     private int result_item;
     private int result_ID;
@@ -313,7 +315,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         else if (_mstatus == 99)
         {
-            //パラメータを取得。アイテムデータベースを、ここで計算して初期化する。
+            //パラメータを取得。アイテムデータベースを、ここで計算して初期化する。ゲーム開始時のみ使用。
             SetParamDatabaseInit();
         }
 
@@ -532,7 +534,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             //最終的に生成されるアイテムの個数を決定
             if (exp_Controller.result_ok == true) //オリジナル調合の場合
             {
-                result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu;
+                result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * final_select_kaisu;
             }
             else if (exp_Controller.recipiresult_ok == true) //レシピ調合の場合
             {
@@ -646,6 +648,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
             Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
 
+            //
+            final_select_kaisu = exp_Controller.set_kaisu;
+
             //パラメータを取得
             result_item = pitemlistController.result_item;
 
@@ -665,9 +670,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             toggle_type2 = 0;
             toggle_type3 = 0;
 
-            final_kette_kosu1 = recipilistController.final_kettei_recipikosu1;
+            final_kette_kosu1 = recipilistController.final_kettei_recipikosu1; //一回あたりの必要個数×セット回数
             final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
             final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
+
+            final_select_kaisu = recipilistController.final_select_kosu;
 
             if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
             {
@@ -716,6 +723,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
             final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
             final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+
+            //オリジナル・トッピングは、現在のところ、1セットのみの対応
+            final_select_kaisu = 1;
         }
 
         //**ここまで**
@@ -1676,6 +1686,33 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
+        //削除処理
+
+        if (Comp_method_bunki == 2) //トッピングで生成する場合の削除処理
+        {
+            //セット数分、判定を繰り返す
+            for (count = 0; count < final_select_kaisu; count++)
+            {
+                DeleteMethod2();
+            }
+        }
+        else if (Comp_method_bunki == 0)
+        {
+            final_kette_kosu1 = final_kette_kosu1 * final_select_kaisu;
+            final_kette_kosu2 = final_kette_kosu2 * final_select_kaisu;
+            final_kette_kosu3 = final_kette_kosu3 * final_select_kaisu;
+
+            DeleteMethod1();
+        }
+        else
+        {
+            DeleteMethod1();
+        }        
+    }
+
+    //一括で、アイテムを削除するパターン
+    void DeleteMethod1()
+    {
         //トッピングアイテム①を削除する。
         switch (toggle_type1)
         {
@@ -1773,7 +1810,203 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
+        if (deleteOriginalList.Count > 0)
+        {
+            Debug.Log("調合にオリジナルアイテムを使用した");
 
+            //オリジナルアイテムをトッピングに使用していた場合の削除処理。削除用リストに入れた分をもとに、削除の処理を行う。
+            var newTable = deleteOriginalList.OrderByDescending(value => value.Key); //降順にする
+
+            foreach (KeyValuePair<int, int> deletePair in newTable)
+            {
+                pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
+                //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
+            }
+        }
+    }
+
+    //セット数分繰り返し　店売りとオリジナルアイテムをそれぞれ所持数を判定しながら削除するパターン
+    void DeleteMethod2()
+    {
+        deleteOriginalList.Clear();
+
+        //一個目　final_kettei_kosu1より、店売りアイテムを多く持っているか、もしくは同じ。それより足りない場合に、オリジナルアイテムを見始める。
+        if (pitemlist.playeritemlist[kettei_item1] >= final_kette_kosu1)
+        {
+            _id = kettei_item1;
+            //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
+
+            //器具は、削除しない
+            if (database.items[_id].itemType_sub.ToString() == "Machine")
+            {
+
+            }
+            else
+            {
+                pitemlist.deletePlayerItem(_id, final_kette_kosu1);
+            }
+        }
+        else //足りてないときは、残りの店売り分を削除し、残り数値分でオリジナルのほうを削除しはじめる。
+        {
+            _id = kettei_item1;
+            //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
+
+            nokori_kosu = final_kette_kosu1 - pitemlist.playeritemlist[kettei_item1];
+
+            //器具は、削除しない
+            if (database.items[_id].itemType_sub.ToString() == "Machine")
+            {
+
+            }
+            else
+            {
+                if (pitemlist.playeritemlist[kettei_item1] > 0)
+                {
+                    pitemlist.deletePlayerItem(_id, pitemlist.playeritemlist[kettei_item1]);
+                }
+            }
+
+            //オリジナルを探索する。頭から順番にみて、個数を消していく。
+            i = 0;
+            while( i < pitemlist.player_originalitemlist.Count)
+            {
+                if(pitemlist.player_originalitemlist[i].itemName == database.items[kettei_item1].itemName)
+                {
+                    if(pitemlist.player_originalitemlist[i].ItemKosu >= nokori_kosu )
+                    {
+                        deleteOriginalList.Add(i, nokori_kosu);
+                        break;
+                    }
+                    else
+                    {
+                        nokori_kosu -= pitemlist.player_originalitemlist[i].ItemKosu;
+                        deleteOriginalList.Add(i, pitemlist.player_originalitemlist[i].ItemKosu);
+                    }
+                }
+                i++;
+            }
+
+        }       
+
+        if (kettei_item2 != 9999) //二個目のトッピングアイテムを選んでいなければ、この処理は無視する。
+        {
+            //二個目　final_kettei_kosu1より、店売りアイテムを多く持っているか、もしくは同じ。それより足りない場合に、オリジナルアイテムを見始める。
+            if (pitemlist.playeritemlist[kettei_item1] >= final_kette_kosu2)
+            {
+                _id = kettei_item2;
+                //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
+
+                //器具は、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                {
+
+                }
+                else
+                {
+                    pitemlist.deletePlayerItem(_id, final_kette_kosu2);
+                }
+            }
+            else //足りてないときは、残りの店売り分を削除し、残り数値分でオリジナルのほうを削除しはじめる。
+            {
+                _id = kettei_item1;
+
+                nokori_kosu = final_kette_kosu2 - pitemlist.playeritemlist[kettei_item2];
+
+                //器具は、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                {
+
+                }
+                else
+                {
+                    if (pitemlist.playeritemlist[kettei_item2] > 0)
+                    {
+                        pitemlist.deletePlayerItem(_id, pitemlist.playeritemlist[kettei_item2]);
+                    }
+                }
+
+                //オリジナルを探索する。頭から順番にみて、個数を消していく。
+                i = 0;
+                while (i < pitemlist.player_originalitemlist.Count)
+                {
+                    if (pitemlist.player_originalitemlist[i].itemName == database.items[kettei_item2].itemName)
+                    {
+                        if (pitemlist.player_originalitemlist[i].ItemKosu >= nokori_kosu)
+                        {
+                            deleteOriginalList.Add(i, nokori_kosu);
+                            break;
+                        }
+                        else
+                        {
+                            nokori_kosu -= pitemlist.player_originalitemlist[i].ItemKosu;
+                            deleteOriginalList.Add(i, pitemlist.player_originalitemlist[i].ItemKosu);
+                        }
+                    }
+                    i++;
+                }
+
+            }
+        }
+
+        if (kettei_item3 != 9999) //三個目のトッピングアイテムを選んでいなければ、この処理は無視する。
+        {
+            //三個目　final_kettei_kosu1より、店売りアイテムを多く持っているか、もしくは同じ。それより足りない場合に、オリジナルアイテムを見始める。
+            if (pitemlist.playeritemlist[kettei_item3] >= final_kette_kosu3)
+            {
+                _id = kettei_item3;
+
+                //器具は、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                {
+
+                }
+                else
+                {
+                    pitemlist.deletePlayerItem(_id, final_kette_kosu3);
+                }
+            }
+            else //足りてないときは、残りの店売り分を削除し、残り数値分でオリジナルのほうを削除しはじめる。
+            {
+                _id = kettei_item3;
+
+                nokori_kosu = final_kette_kosu3 - pitemlist.playeritemlist[kettei_item3];
+
+                //器具は、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                {
+
+                }
+                else
+                {
+                    if (pitemlist.playeritemlist[kettei_item3] > 0)
+                    {
+                        pitemlist.deletePlayerItem(_id, pitemlist.playeritemlist[kettei_item3]);
+                    }
+                }
+
+                //オリジナルを探索する。頭から順番にみて、個数を消していく。
+                i = 0;
+                while (i < pitemlist.player_originalitemlist.Count)
+                {
+                    if (pitemlist.player_originalitemlist[i].itemName == database.items[kettei_item3].itemName)
+                    {
+                        if (pitemlist.player_originalitemlist[i].ItemKosu >= nokori_kosu)
+                        {
+                            deleteOriginalList.Add(i, nokori_kosu);
+                            break;
+                        }
+                        else
+                        {
+                            nokori_kosu -= pitemlist.player_originalitemlist[i].ItemKosu;
+                            deleteOriginalList.Add(i, pitemlist.player_originalitemlist[i].ItemKosu);
+                        }
+                    }
+                    i++;
+                }
+            }
+        }
+
+        //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
         if (deleteOriginalList.Count > 0)
         {
             Debug.Log("調合にオリジナルアイテムを使用した");

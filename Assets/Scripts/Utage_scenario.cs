@@ -33,6 +33,9 @@ public class Utage_scenario : MonoBehaviour
     private int hiroba_num;
     private int hiroba_endflag_num;
 
+    private int re_flag;
+    private int ev_flag;
+
     private PlayerItemList pitemlist;
 
     private ItemMatPlaceDataBase matplace_database;
@@ -1003,66 +1006,13 @@ public class Utage_scenario : MonoBehaviour
             if (recipi_read_ID == pitemlist.eventitemlist[j].ev_ItemID)
             {
                 recipi_Name = pitemlist.eventitemlist[j].event_itemName;
+                re_flag = pitemlist.eventitemlist[j].ev_Re_flag_num;
                 break;
             }
             j++;
         }
 
-        switch (recipi_Name)
-        {
-            case "najya_start_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 0);
-                break;
-
-            case "cookie_base_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 10);
-                break;
-
-            case "ice_cream_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 20);
-                break;
-
-            case "financier_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 30);
-                break;
-
-            case "rusk_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 40);
-                break;
-
-            case "crepe_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 50);
-                break;
-
-            case "maffin_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 60);
-                break;
-
-            case "bisucouti_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 70);
-                break;
-
-            case "princesstota_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 80);
-                break;
-
-            case "creampuff_recipi":
-
-                engine.Param.TrySetParameter("Re_flag", 90);
-                break;
-
-            default:
-                break;
-        }
+        engine.Param.TrySetParameter("Re_flag", re_flag);
       
 
         //「宴」のシナリオを呼び出す
@@ -1109,71 +1059,13 @@ public class Utage_scenario : MonoBehaviour
             if (itemuse_recipi_ID == pitemlist.eventitemlist[j].ev_ItemID)
             {
                 recipi_Name = pitemlist.eventitemlist[j].event_itemName;
+                ev_flag = pitemlist.eventitemlist[j].ev_Ev_flag_num;
                 break;
             }
             j++;
         }
 
-        switch (recipi_Name)
-        {
-            case "ev00_orange_cookie_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 0);
-                break;
-
-            case "ev01_neko_cookie_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 10);
-                break;
-
-            case "ev02_orangeneko_cookie_memo":
-
-                engine.Param.TrySetParameter("Ev_flag", 20);
-                break;            
-
-            case "financier_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 30);
-                break;
-
-            case "rusk_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 40);
-                break;
-
-            case "bugget_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 50);
-                break;
-
-            case "crepe_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 60);
-                break;
-
-            case "maffin_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 70);
-                break;
-
-            case "bisucouti_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 80);
-                break;
-
-            case "princesstota_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 90);
-                break;
-
-            case "creampuff_recipi":
-
-                engine.Param.TrySetParameter("Ev_flag", 100);
-                break;
-
-            default:
-                break;
-        }
+        engine.Param.TrySetParameter("Ev_flag", ev_flag);        
 
 
         //「宴」のシナリオを呼び出す
@@ -1238,28 +1130,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-
-        switch (map_ev_ID)
-        {
-            case 1:
-
-                engine.Param.TrySetParameter("MapEv_num", 1);
-                break;
-
-            case 2: //はじめて井戸へきた
-
-                engine.Param.TrySetParameter("MapEv_num", 2);
-                break;
-
-            case 3: //草笛のイベント
-
-                engine.Param.TrySetParameter("MapEv_num", 3);
-                break;
-
-            default:
-                break;
-        }
-
+        engine.Param.TrySetParameter("MapEv_num", map_ev_ID);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);

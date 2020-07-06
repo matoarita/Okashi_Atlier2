@@ -10,6 +10,8 @@ public class Hiroba_Main2 : MonoBehaviour
     private GameObject text_area;
     private Text _text;
 
+    private PlayerItemList pitemlist;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
@@ -26,6 +28,8 @@ public class Hiroba_Main2 : MonoBehaviour
 
     private BGM sceneBGM;
     public bool bgm_change_flag;
+
+    private int ev_id;
 
     // Use this for initialization
     void Start()
@@ -45,6 +49,9 @@ public class Hiroba_Main2 : MonoBehaviour
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         //所持アイテム画面を開く。初期設定で最初はOFF。
         pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
@@ -138,6 +145,14 @@ public class Hiroba_Main2 : MonoBehaviour
             case 3040:
 
                 GameMgr.hiroba_event_end[6] = true;
+                break;
+
+            case 3042:
+
+                ev_id = pitemlist.Find_eventitemdatabase("donuts_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //ドーナツのレシピを追加
+
+                GameMgr.hiroba_event_end[8] = true;
                 break;
 
             case 4040:

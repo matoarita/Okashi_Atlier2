@@ -1164,16 +1164,19 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 2
       debugIndex: 2
-      strings: []
-      isEmpty: 1
+      strings:
+      - MainGirl_name
+      - String
+      - "\u30D2\u30AB\u30EA"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 3
       debugIndex: 3
       strings:
-      - MainGirl_name
+      - player_and_MainGirl_name
       - String
-      - "\u30D2\u30AB\u30EA"
+      - "\u30A2\u30AD\u30E9&\u30D2\u30AB\u30EA"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -1257,7 +1260,7 @@ MonoBehaviour:
       strings:
       - npcB_name
       - String
-      - "\u30B7\u30ED\u30EF\u30C3\u30B5\u30F3"
+      - "\u30AF\u30ED\u30EF\u30C3\u30B5\u30F3"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -1302,7 +1305,7 @@ MonoBehaviour:
       strings:
       - npcF_name
       - String
-      - "\u30AF\u30ED\u30EF\u30C3\u30B5\u30F3"
+      - "\u30B7\u30ED\u30EF\u30C3\u30B5\u30F3"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -1347,7 +1350,7 @@ MonoBehaviour:
       strings:
       - npcJ_name
       - String
-      - "\u30DF\u30EB\u30C6\u30A3\u30E6"
+      - "\u30DF\u30EB\u30C6\u30A3\u30FC\u30E6"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -1365,7 +1368,7 @@ MonoBehaviour:
       strings:
       - npcJK_name
       - String
-      - "\u30DF\u30EB\u30C6\u30A3\u30E6\uFF06\u30D6\u30E9\u30AA\u30D9\u30FC\u30EC"
+      - "\u30DF\u30EB\uFF06\u30D6\u30E9\u30AA"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -1398,14 +1401,20 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 29
       debugIndex: 29
-      strings: []
-      isEmpty: 1
+      strings:
+      - etcA_name
+      - String
+      - "\u30C9\u30A5\u30A4\u30EB\u30E9\u30F3"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 30
       debugIndex: 30
-      strings: []
-      isEmpty: 1
+      strings:
+      - etcB_name
+      - String
+      - "\u30EB\u30A4\u30FB\u30D6\u30EC\u30B2"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 31
@@ -1641,7 +1650,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 960
+    textLength: 1034
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -1926,9 +1935,19 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 30
+      debugIndex: 30
+      strings:
+      - "BGM\u30D9\u30CB\u30A8\uFF11"
+      - 
+      - Bgm
+      - BGM_14.mp3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 584
+    textLength: 604
     headerRow: 0
   - rows:
     - rowIndex: 0

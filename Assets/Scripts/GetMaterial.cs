@@ -257,6 +257,7 @@ public class GetMaterial : MonoBehaviour {
         character_fade.FadeImageOn();
 
         //イベントかアイテムかの抽選
+        InitializeEventDicts();
         event_num = ChooseEvent();
 
         switch(event_num)
@@ -289,6 +290,12 @@ public class GetMaterial : MonoBehaviour {
                         break;
                 }
                 
+                break;
+
+            case 2:
+
+                //アイテムの取得
+                mat_result();
                 break;
 
             default:
@@ -460,8 +467,12 @@ public class GetMaterial : MonoBehaviour {
     {
         if (!GameMgr.MapEvent_04[1])
         {
-            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + "絞り器をみつけた！";
             GameMgr.MapEvent_04[1] = true;
+
+            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + "絞り器をみつけた！";
+            
+            //アイテムの取得処理
+            pitemlist.addPlayerItemString("oil_extracter", 1);
         }
         else
         {
@@ -528,10 +539,43 @@ public class GetMaterial : MonoBehaviour {
         itemrareDropKosuDict.Add(2, 5.0f); //2個
         itemrareDropKosuDict.Add(3, 0.0f); //3個
 
-        eventDict = new Dictionary<int, float>();
-        eventDict.Add(0, 50.0f); //
-        eventDict.Add(1, 10.0f); //
-        eventDict.Add(2, 40.0f); //
+        
+    }
+
+    //イベントの発生確率をセット
+    void InitializeEventDicts()
+    {
+
+        switch (mat_place)
+        {
+            case "HimawariHill":
+
+                if (!GameMgr.MapEvent_04[1])
+                {
+                    eventDict = new Dictionary<int, float>();
+                    eventDict.Add(0, 50.0f); //
+                    eventDict.Add(1, 30.0f); //30%でイベント 廃屋をみつけるまでは、発生しやすくなる。
+                    eventDict.Add(2, 20.0f); //
+                }
+                else
+                {
+                    eventDict = new Dictionary<int, float>();
+                    eventDict.Add(0, 50.0f); //
+                    eventDict.Add(1, 10.0f); //10%でイベント
+                    eventDict.Add(2, 40.0f); //
+                }
+                break;
+
+            default:
+
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 50.0f); //
+                eventDict.Add(1, 10.0f); //10%でイベント
+                eventDict.Add(2, 40.0f); //
+                break;
+        }
+
+        
     }
 
     int Choose()

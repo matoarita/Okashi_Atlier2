@@ -11,3 +11,6 @@
 ・BGM_09		audiostock_300247			夢の中の曲（環境音）
 ・BGM_10		nohohonkissa.mp3			牧場のBGM
 ・BGM_11		audiostock_259681			広場のBGM
+・BGM_12		audiostock_199708_sample		ひまわり畑のBGM
+・BGM_13		audiostock_459043_sample		ストロベリーガーデンのBGM
+・BGM_14		audiostock_790585_sample		ベニエさんテーマBGM

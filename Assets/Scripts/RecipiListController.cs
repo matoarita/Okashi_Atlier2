@@ -47,6 +47,10 @@ public class RecipiListController : MonoBehaviour {
     public int kettei_recipiitem2;
     public int kettei_recipiitem3;
 
+    public int kettei_toggle_type1;
+    public int kettei_toggle_type2;
+    public int kettei_toggle_type3;
+
     public int result_recipiitem;
     public int result_recipicompID; //最終的に確定したときの、コンポDBのアイテムID
 
@@ -155,7 +159,7 @@ public class RecipiListController : MonoBehaviour {
 
                     _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
                     _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
-                    _toggle_itemID.recipi_toggleitemType = 0; //イベントアイテムタイプなので、0
+                    _toggle_itemID.recipi_toggleEventType = 0; //イベントアイテムタイプなので、0
 
 
                     j = 0;
@@ -194,7 +198,7 @@ public class RecipiListController : MonoBehaviour {
 
                 _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
                 _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
-                _toggle_itemID.recipi_toggleitemType = 1; //コンポ調合アイテムタイプなので、1
+                _toggle_itemID.recipi_toggleEventType = 1; //コンポ調合アイテムタイプなので、1
 
                 
 

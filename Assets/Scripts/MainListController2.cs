@@ -9,6 +9,7 @@ public class MainListController2 : MonoBehaviour
     private GameObject canvas;
 
     private ItemMatPlaceDataBase matplace_database;
+    private PlayerItemList pitemlist;
 
     private Hiroba_Main2 Hiroba_main2;
 
@@ -55,6 +56,9 @@ public class MainListController2 : MonoBehaviour
 
         //広場スクリプト取得
         Hiroba_main2 = GameObject.FindWithTag("Hiroba_Main2").GetComponent<Hiroba_Main2>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -297,15 +301,32 @@ public class MainListController2 : MonoBehaviour
             {
                 case 4: //ドーナツイベント時
 
-                    if (!GameMgr.hiroba_event_end[6])
+                    if (!GameMgr.hiroba_event_end[8])
                     {
-                        sceneBGM.FadeOutBGM();
-                        Hiroba_main2.bgm_change_flag = true;
-                        GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        if (!GameMgr.hiroba_event_end[6])
+                        {
+                            sceneBGM.FadeOutBGM();
+                            Hiroba_main2.bgm_change_flag = true;
+                            GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                        else
+                        {
+                            //ひまわり油をもっていたら、イベントが進む。ひまわり油は削除する。
+                            if (pitemlist.ReturnItemKosu("himawari_Oil") != 9999)
+                            {
+                                pitemlist.SearchDeleteItem("himawari_Oil");
+
+                                GameMgr.hiroba_event_ID = 3042; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                            }
+                            else
+                            {
+                                GameMgr.hiroba_event_ID = 3041; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                            }
+                        }
                     }
-                    else
+                    else //ドーナツレシピを教わった。
                     {
-                        GameMgr.hiroba_event_ID = 3041; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        GameMgr.hiroba_event_ID = 3043; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
                     break;
 
@@ -432,7 +453,7 @@ public class MainListController2 : MonoBehaviour
                 case 4: //ドーナツイベント時
 
                     //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
-                    rndnum = Random.Range(0, 4);
+                    rndnum = Random.Range(0, 5);
                     GameMgr.hiroba_event_ID = 6040 + rndnum; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     break;
 

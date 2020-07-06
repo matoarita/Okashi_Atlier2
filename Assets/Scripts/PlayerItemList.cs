@@ -29,13 +29,16 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int ev_read_flag; //そのレシピを読み終えたかどうかをチェックするフラグ
     private int ev_list_on; //レシピリストに、表示するか否か。1の場合、リストに表示され、使用すると、そのレシピの内容を読むことができる。
     private string ev_memo;
-
-    
+    private int ev_reflag_num;
+    private int ev_evflag_num;
 
     private int i, j;
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
+
+    private int _itemcount;
+    private int _itemid;
 
     //プレイヤーの所持アイテムリスト。Dictionaryなので、｛アイテムID, 個数｝の関係で格納する。
     public Dictionary<int, int> playeritemlist = new Dictionary<int, int>();
@@ -117,9 +120,11 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_read_flag = excel_eventitemdatabase.sheets[sheet_no].list[count].read_flag;
                 ev_list_on = excel_eventitemdatabase.sheets[sheet_no].list[count].list_hyouji_on;
                 ev_memo = excel_eventitemdatabase.sheets[sheet_no].list[count].memo;
+                ev_reflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Re_flag_num;
+                ev_evflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Ev_flag_num;
 
                 //ここでリストに追加している
-                eventitemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_list_on, ev_memo));
+                eventitemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_list_on, ev_memo, ev_reflag_num, ev_evflag_num));
 
                 ++count;
             }
@@ -132,7 +137,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
                 for (i = 0; i < excel_eventitemdatabase.sheets[sheet_no].list[0].ev_ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
                 {
-                    eventitemlist.Add(new ItemEvent(_id + i + 1, "", "", "", 0, 0, 0, 0, 0, "")); //エクセルに登録されていないアイテムID分、空をいれている。
+                    eventitemlist.Add(new ItemEvent(_id + i + 1, "", "", "", 0, 0, 0, 0, 0, "", 9999, 9999)); //エクセルに登録されていないアイテムID分、空をいれている。
                 }
             }
         }
@@ -208,6 +213,170 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
     }
 
+
+
+    //アイテムリストに、名前をいれると、所持個数を返してくれるメソッド
+    public int ReturnItemKosu(string itemName)
+    {
+        for (i = 0; i <= database.sheet_topendID[1]; i++)
+        {
+            if (database.items[i].itemName == itemName)
+            {
+                if (database.items[i].ItemKosu > 0)
+                {
+                    return database.items[i].ItemKosu;
+                }
+            }
+        }
+
+        //お菓子タイプ
+        count = database.sheet_topendID[2];
+
+        j = database.sheet_topendID[3] - database.sheet_topendID[2];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                if (database.items[count].ItemKosu > 0)
+                {
+                    return database.items[count].ItemKosu;
+                }
+            }
+            ++count;
+        }
+
+        //ポーションタイプ
+        count = database.sheet_topendID[4];
+
+        j = database.sheet_topendID[5] - database.sheet_topendID[4];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                if (database.items[count].ItemKosu > 0)
+                {
+                    return database.items[count].ItemKosu;
+                }
+            }
+            ++count;
+        }
+
+        //その他タイプ
+        count = database.sheet_topendID[6];
+
+        j = database.sheet_topendID[7] - database.sheet_topendID[6];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                if (database.items[count].ItemKosu > 0)
+                {
+                    return database.items[count].ItemKosu;
+                }
+            }
+            ++count;
+        }
+
+        //オリジナルアイテムリストも見る。
+
+        for(i=0; i < player_originalitemlist.Count; i++)
+        {
+            if( player_originalitemlist[i].itemName == itemName)
+            {
+                if (player_originalitemlist[i].ItemKosu > 0)
+                {
+                    return player_originalitemlist[i].ItemKosu;
+                }
+            }
+        }
+        
+        return 9999; //0個　持っていないときは、9999がかえる。
+    }
+
+    //アイテムリストに、名前をいれると、アイテムリスト・オリジナルアイテムリストのどちらかに所持していた場合は、削除するメソッド
+    public void SearchDeleteItem(string itemName)
+    {
+        for (i = 0; i <= database.sheet_topendID[1]; i++)
+        {
+            if (database.items[i].itemName == itemName)
+            {
+                if (database.items[i].ItemKosu > 0)
+                {
+                    deletePlayerItem(i, 1);
+                }
+            }
+        }
+
+        //お菓子タイプ
+        count = database.sheet_topendID[2];
+
+        j = database.sheet_topendID[3] - database.sheet_topendID[2];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                if (database.items[count].ItemKosu > 0)
+                {
+                    deletePlayerItem(count, 1);
+                }
+            }
+            ++count;
+        }
+
+        //ポーションタイプ
+        count = database.sheet_topendID[4];
+
+        j = database.sheet_topendID[5] - database.sheet_topendID[4];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                if (database.items[count].ItemKosu > 0)
+                {
+                    deletePlayerItem(count, 1);
+                }
+            }
+            ++count;
+        }
+
+        //その他タイプ
+        count = database.sheet_topendID[6];
+
+        j = database.sheet_topendID[7] - database.sheet_topendID[6];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                if (database.items[count].ItemKosu > 0)
+                {
+                    deletePlayerItem(count, 1);
+                }
+            }
+            ++count;
+        }
+
+        //オリジナルアイテムリストも見る。
+
+        for (i = 0; i < player_originalitemlist.Count; i++)
+        {
+            if (player_originalitemlist[i].itemName == itemName)
+            {
+                if (player_originalitemlist[i].ItemKosu > 0)
+                {
+                    deleteOriginalItem(i, 1);
+                }
+            }
+        }
+    }
+
+
+
     public void deletePlayerItem(int deleteID, int count_kosu)
     {
         //Debug.Log("itemID: " + deleteID + " 所持数: " + playeritemlist[deleteID] + " を" + count_kosu + "個　消す");
@@ -276,5 +445,49 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         {
             player_originalitemlist.RemoveAt(_id);
         }
+    }
+
+    //アイテム名を入力すると、該当するeventitem_IDを返す処理
+    public int Find_eventitemdatabase(string compo_itemname)
+    {
+        j = 0;
+        while (j < eventitemlist.Count)
+        {
+            if (compo_itemname == eventitemlist[j].event_itemName)
+            {
+                return j;
+            }
+            j++;
+        }
+
+        return 9999; //該当するIDがない場合
+    }
+
+    //アイテム名を入力すると、現在の所持数を返す処理。（店売り＋オリジナル）
+    public int KosuCount(string _itemname)
+    {
+        i = 0;
+        _itemcount = 0;
+
+        while ( i < database.items.Count)
+        {
+            if(database.items[i].itemName == _itemname)
+            {
+                _itemcount = playeritemlist[i];
+                _itemid = i;
+                break;
+            }
+            i++;
+        }
+        
+        for (i = 0; i < player_originalitemlist.Count; i++)
+        {
+            if (database.items[_itemid].itemName == player_originalitemlist[i].itemName)
+            {
+                _itemcount += player_originalitemlist[i].ItemKosu;
+            }
+        }
+
+        return _itemcount; //該当するIDがない場合
     }
 }

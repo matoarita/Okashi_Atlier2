@@ -81,6 +81,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int new_item;
 
     private int result_kosu;
+    public int set_kaisu; //オリジナル調合時、その組み合わせで何個作るか、の個数
 
     private int _getexp;
 
@@ -382,7 +383,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (compound_success == true)
         {
             //個数の決定
-            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu;
+            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu;
 
 
             //①調合処理
