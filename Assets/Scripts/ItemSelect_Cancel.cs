@@ -35,10 +35,15 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
+    private GameObject NouhinKetteiPanel_obj;
+
     private GameObject canvas;
 
     private GameObject shopitemlistController_obj;
     private ShopItemListController shopitemlistController;
+
+    private GameObject shopquestlistController_obj;
+    private ShopQuestListController shopquestlistController;
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
@@ -55,6 +60,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject item_tsuika; //PlayeritemList_ScrollViewの子オブジェクト「item_tsuika」ボタン
 
     private ItemDataBase database;
+
+    private GameObject shopMain_obj;
+    private Shop_Main shopMain;
 
     private GameObject black_effect;
 
@@ -84,6 +92,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 break;
 
             case "Compound":
+
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
@@ -105,8 +114,19 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             case "Shop":
 
+                NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+                shopMain_obj = GameObject.FindWithTag("Shop_Main");
+                shopMain = shopMain_obj.GetComponent<Shop_Main>();
+
                 shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
                 shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
 
                 yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
@@ -226,6 +246,44 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
                     updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
                     updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+                }
+
+                break;
+
+            case "Shop":
+
+                if (shopMain_obj == null)
+                {
+                    canvas = GameObject.FindWithTag("Canvas");
+
+                    NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+                    shopMain_obj = GameObject.FindWithTag("Shop_Main");
+                    shopMain = shopMain_obj.GetComponent<Shop_Main>();
+
+                    shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                    shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                    shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                    shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+                    yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
+                    yes_text = yes.GetComponentInChildren<Text>();
+                    no = shopitemlistController_obj.transform.Find("No").gameObject;
+                    no_text = no.GetComponentInChildren<Text>();
+
+                    text_area = canvas.transform.Find("MessageWindow").gameObject;
+                    _text = text_area.GetComponentInChildren<Text>();
+                }
+
+                //プレイヤーアイテムリストオブジェクトの初期化
+                if (pitemlistController_obj == null)
+                {
+                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
                 }
 
                 break;
@@ -519,6 +577,72 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         questBox_scene.qbox_status = 0;
                         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                         //All_cancel();
+                    }
+                }
+            }
+        }
+
+        if (SceneManager.GetActiveScene().name == "Shop")
+        {
+            if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
+            {
+                if (shopMain.shop_scene == 3 && shopquestlistController.nouhin_select_on == 1) //ショップ納品時の選択
+                {
+                    if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。トグルが押されると、これはfalseになり、トグルの処理が優先される。
+                    {
+                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                        {
+                            yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+                            no = pitemlistController_obj.transform.Find("No").gameObject;
+
+                            //Debug.Log("キャンセル");
+                            if (pitemlistController._listcount.Count > 0)
+                            {
+                                _text.text = "次のお菓子を選んでね。";
+                            }
+                            else
+                            {
+                                _text.text = "渡したいお菓子を選んでね。";
+                            }
+                            
+
+                            //Debug.Log("pitemlistController._listcount[i]を削除: " + pitemlistController._listcount[pitemlistController._listcount.Count - 1]);
+                            pitemlistController._listcount.RemoveAt(pitemlistController._listcount.Count - 1); //一番最後に挿入されたやつを、そのまま削除
+                            pitemlistController._listkosu.RemoveAt(pitemlistController._listkosu.Count - 1); //一番最後に挿入されたやつを、そのまま削除
+
+                            for (i = 0; i < pitemlistController._listitem.Count; i++)
+                            {
+                                //まずは、一度全て表示を初期化
+                                pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                                pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+
+                            }
+
+
+                            //選択済みのやつだけONにしておく。
+                            for (i = 0; i < pitemlistController._listcount.Count; i++)
+                            {
+                                Debug.Log("pitemlistController._listcount[i]: " + i + ": " + pitemlistController._listcount[i]);
+                                pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().interactable = false;
+                                //pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().isOn = true;
+                            }
+
+                            card_view.DeleteCard_DrawView();
+                            
+                            yes.SetActive(false);
+                            //no.SetActive(false);
+                            NouhinKetteiPanel_obj.SetActive(true);
+
+                            yes_selectitem_kettei.onclick = false;
+
+                            //Debug.Log("リストカウント: " + pitemlistController._listcount.Count);
+                            if (pitemlistController._listcount.Count <= 0) //すべて選択してないときは、noはOFF
+                            {
+                                Debug.Log("リストカウント: " + pitemlistController._listcount.Count);
+                                no.SetActive(false);
+                            }
+
+                        }
                     }
                 }
             }

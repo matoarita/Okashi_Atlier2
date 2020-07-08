@@ -239,6 +239,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 reset_and_DrawView();
             }
         }
+
         else if (SceneManager.GetActiveScene().name == "Shop")
         {
             //納品時にアイテムを選択するときの処理

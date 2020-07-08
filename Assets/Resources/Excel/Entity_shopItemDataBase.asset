@@ -279,14 +279,14 @@ MonoBehaviour:
       name: siboribukuro
       zaiko: 1
       itemType: 2
-      shop_sell_price: 300
+      shop_sell_price: 150
       shop_buy_price: 150
       item_hyouji: 1
     - ItemID: 106
       name: whisk
       zaiko: 1
       itemType: 2
-      shop_sell_price: 300
+      shop_sell_price: 150
       shop_buy_price: 150
       item_hyouji: 1
     - ItemID: 0

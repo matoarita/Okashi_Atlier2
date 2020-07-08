@@ -41,6 +41,8 @@ public class Shop_Main : MonoBehaviour {
 
     private GameObject backbutton_obj;
 
+    private GameObject black_effect;
+
     private GameObject canvas;
     private GameObject shop_select;
     private GameObject shopon_toggle_buy;
@@ -90,6 +92,9 @@ public class Shop_Main : MonoBehaviour {
 
         //吹き出しプレファブの取得
         hukidasi_sub_Prefab = (GameObject)Resources.Load("Prefabs/Emo_Hukidashi_Anim");
+
+        //黒半透明パネルの取得
+        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
 
         character = GameObject.FindWithTag("Character");
         character.GetComponent<FadeCharacter>().SetOff();
@@ -242,6 +247,7 @@ public class Shop_Main : MonoBehaviour {
             text_area.SetActive(false);
             money_status_obj.SetActive(false);
             placename_panel.SetActive(false);
+            black_effect.SetActive(false);
 
             shop_status = 0;
             shop_scene = 0;
@@ -260,8 +266,9 @@ public class Shop_Main : MonoBehaviour {
                     text_area.SetActive(true);
                     money_status_obj.SetActive(true);
                     placename_panel.SetActive(true);
+                    black_effect.SetActive(false);
 
-                    _text.text = shopdefault_text;
+                    //_text.text = shopdefault_text;
 
                     shop_scene = 0;
                     shop_status = 100;

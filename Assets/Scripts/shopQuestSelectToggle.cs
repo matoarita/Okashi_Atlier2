@@ -59,11 +59,13 @@ public class shopQuestSelectToggle : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    private GameObject questListButton_obj;
-    private Button questListButton;
-    private GameObject nouhinButton_obj;
-    private Button nouhinButton;
+    private GameObject questListToggle_obj;
+    private Toggle questListToggle;
+    private GameObject nouhinToggle_obj;
+    private Toggle nouhinToggle;
     private GameObject NouhinKetteiPanel_obj;
+
+    private GameObject black_effect;
 
     public int toggle_ID; //こっちは、ショップデータベース上のIDを保持する。
     public int toggle_quest_ID; //リストの要素自体に、アイテムDB上のアイテムIDを保持する。
@@ -118,12 +120,11 @@ public class shopQuestSelectToggle : MonoBehaviour
         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
         back_ShopFirst_obj = shopquestlistController_obj.transform.Find("Back_ShopFirst").gameObject;
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
-
         
-        questListButton_obj = shopquestlistController_obj.transform.Find("QuestListButton").gameObject;
-        questListButton = questListButton_obj.GetComponent<Button>();
-        nouhinButton_obj = shopquestlistController_obj.transform.Find("NouhinButton").gameObject;
-        nouhinButton = nouhinButton_obj.GetComponent<Button>();
+        questListToggle_obj = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_QuestList").gameObject;
+        questListToggle = questListToggle_obj.GetComponent<Toggle>();
+        nouhinToggle_obj = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_Nouhin").gameObject;
+        nouhinToggle = nouhinToggle_obj.GetComponent<Toggle>();
 
         yes = shopquestlistController_obj.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
@@ -133,7 +134,8 @@ public class shopQuestSelectToggle : MonoBehaviour
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
-
+        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -151,6 +153,8 @@ public class shopQuestSelectToggle : MonoBehaviour
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
+        //黒半透明パネルの取得
+        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
 
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
@@ -228,8 +232,8 @@ public class shopQuestSelectToggle : MonoBehaviour
         yes.SetActive(true);
         no.SetActive(true);
 
-        questListButton.interactable = false;
-        nouhinButton.interactable = false;
+        questListToggle.interactable = false;
+        nouhinToggle.interactable = false;
 
         StartCoroutine("quest_select");
 
@@ -273,8 +277,8 @@ public class shopQuestSelectToggle : MonoBehaviour
                 yes.SetActive(false);
                 no.SetActive(false);
 
-                questListButton.interactable = true;
-                nouhinButton.interactable = true;
+                questListToggle.interactable = true;
+                nouhinToggle.interactable = true;
 
                 back_ShopFirst_btn.interactable = true;
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
@@ -299,8 +303,8 @@ public class shopQuestSelectToggle : MonoBehaviour
                 yes.SetActive(false);
                 no.SetActive(false);
 
-                questListButton.interactable = true;
-                nouhinButton.interactable = true;
+                questListToggle.interactable = true;
+                nouhinToggle.interactable = true;
 
                 back_ShopFirst_btn.interactable = true;
 
@@ -347,8 +351,8 @@ public class shopQuestSelectToggle : MonoBehaviour
         yes.SetActive(true);
         no.SetActive(true);
 
-        questListButton.interactable = false;
-        nouhinButton.interactable = false;
+        questListToggle.interactable = false;
+        nouhinToggle.interactable = false;
 
         StartCoroutine("questTake_select");
 
@@ -381,6 +385,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                     _text.text = "渡したいお菓子を選んでね。";
 
                     //お菓子の納品なら、このタイミングでプレイヤーリストを開く。
+                    shopquestlistController.nouhin_select_on = 1;
                     pitemlistController_obj.SetActive(true);
                     NouhinKetteiPanel_obj.SetActive(true);
 
@@ -396,8 +401,9 @@ public class shopQuestSelectToggle : MonoBehaviour
                 }
                 else if (shopquestlistController.questType == 1) //材料タイプの判定
                 {
-                    questListButton.interactable = true;
-                    nouhinButton.interactable = true;
+                    shopquestlistController.nouhin_select_on = 1;
+                    questListToggle.interactable = true;
+                    nouhinToggle.interactable = true;
 
                     //足りてる場合、材料アイテムなら即納品。お菓子ならお菓子の判定。ちなみにチェック中は、「.. 」のアニメも入れたい。
                     questjudge.Quest_result(shopquestlistController._count);
@@ -424,8 +430,9 @@ public class shopQuestSelectToggle : MonoBehaviour
                 yes.SetActive(false);
                 no.SetActive(false);
 
-                questListButton.interactable = true;
-                nouhinButton.interactable = true;
+                shopquestlistController.nouhin_select_on = 0;
+                questListToggle.interactable = true;
+                nouhinToggle.interactable = true;
 
                 back_ShopFirst_btn.interactable = true;
 
@@ -454,43 +461,98 @@ public class shopQuestSelectToggle : MonoBehaviour
                 //解除
 
                 //お菓子の判定処理
+                //_listcountのidごとに、それぞれ計算する。
                 questjudge.Okashi_Judge(shopquestlistController._count);
 
+                shopquestlistController.nouhin_select_on = 0;
+                shopquestlistController.final_select_flag = false;
+
+                pitemlistController._listkosu.Clear();
+                pitemlistController._listcount.Clear();
+
+                pitemlistController_obj.SetActive(false);
+                NouhinKetteiPanel_obj.SetActive(false);
                 break;
 
             case false: //キャンセルが押された
 
                 //Debug.Log("cancel");
 
-                //納品リスト画面に戻る。
-
-                //キャンセル時、リストのインタラクティブ解除。
-                for (i = 0; i < shopquestlistController._quest_listitem.Count; i++)
+                if (shopquestlistController.final_select_flag)
                 {
-                    shopquestlistController._quest_listitem[i].GetComponent<Toggle>().interactable = true;
-                    shopquestlistController._quest_listitem[i].GetComponent<Toggle>().isOn = false;
+                    //最後の確認の時は、一つ前に戻る。
+                    shopquestlistController.final_select_flag = false;
+
+                    pitemlistController._listcount.RemoveAt(pitemlistController._listcount.Count - 1); //一番最後に挿入されたやつを、そのまま削除
+                    pitemlistController._listkosu.RemoveAt(pitemlistController._listkosu.Count - 1); //個数は決定後に追加されるので、ここでは削除しない
+
+                    for (i = 0; i < pitemlistController._listitem.Count; i++)
+                    {
+                        //まずは、一度全て表示を初期化
+                        pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                        pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+
+                    }
+
+                    //選択済みのやつだけONにしておく。
+                    for (i = 0; i < pitemlistController._listcount.Count; i++)
+                    {
+                        //Debug.Log("pitemlistController._listcount[i]: " + i + ": " + pitemlistController._listcount[i]);
+                        pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().interactable = false;
+                        //pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().isOn = true;
+                    }
+
+                    card_view.DeleteCard_DrawView();
+
+                    yes.SetActive(false);
+                    black_effect.SetActive(false);
+                    NouhinKetteiPanel_obj.SetActive(true);
+                    NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(false);
+
+                    //yes_selectitem_kettei.onclick = false;
+                    yes_selectitem_kettei.onclick2 = false; //オンクリック2のフラグはオフにしておく。
+                    itemselect_cancel.kettei_on_waiting = false;
+
+                    if (pitemlistController._listcount.Count <= 0) //すべて選択してないときは、noはOFF
+                    {
+                        no.SetActive(false);
+                    }
+
+                    StartCoroutine("QuestTake_Pitemlist_wait");
                 }
+                else
+                {
+                    //納品リスト画面に戻る。
 
-                _text.text = "";
+                    //キャンセル時、リストのインタラクティブ解除。
+                    for (i = 0; i < shopquestlistController._quest_listitem.Count; i++)
+                    {
+                        shopquestlistController._quest_listitem[i].GetComponent<Toggle>().interactable = true;
+                        shopquestlistController._quest_listitem[i].GetComponent<Toggle>().isOn = false;
+                    }
 
-                yes.SetActive(false);
-                no.SetActive(false);
-                back_ShopFirst_btn.interactable = true;
+                    _text.text = "";
 
-                pitemlistController_obj.SetActive(false);
-                NouhinKetteiPanel_obj.SetActive(false);
+                    yes.SetActive(false);
+                    no.SetActive(false);
+                    back_ShopFirst_btn.interactable = true;
 
-                questListButton.interactable = true;
-                nouhinButton.interactable = true;
+                    pitemlistController_obj.SetActive(false);
+                    NouhinKetteiPanel_obj.SetActive(false);
 
-                card_view.DeleteCard_DrawView();
-                updown_counter_obj.SetActive(false);
+                    questListToggle.interactable = true;
+                    nouhinToggle.interactable = true;
 
-                yes_selectitem_kettei.onclick = false;
-                yes_selectitem_kettei.onclick2 = false; //オンクリック2のフラグはオフにしておく。
+                    card_view.DeleteCard_DrawView();
+                    updown_counter_obj.SetActive(false);
 
-                pitemlistController._listcount.Clear();
-                pitemlistController._listkosu.Clear();
+                    shopquestlistController.nouhin_select_on = 0;
+                    yes_selectitem_kettei.onclick = false;
+                    yes_selectitem_kettei.onclick2 = false; //オンクリック2のフラグはオフにしておく。
+
+                    pitemlistController._listcount.Clear();
+                    pitemlistController._listkosu.Clear();
+                }
                 break;
         }
     }

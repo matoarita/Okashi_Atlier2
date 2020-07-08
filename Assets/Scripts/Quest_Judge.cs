@@ -22,8 +22,8 @@ public class Quest_Judge : MonoBehaviour {
     private GameObject back_ShopFirst_obj;
     private Button back_ShopFirst_btn;
 
-    private Button questListButton;
-    private Button nouhinButton;
+    private Toggle questListToggle;
+    private Toggle nouhinToggle;
 
     private Exp_Controller exp_Controller;
 
@@ -49,6 +49,9 @@ public class Quest_Judge : MonoBehaviour {
     List<int> itemslot_NouhinScore = new List<int>();
     List<int> itemslot_PitemScore = new List<int>();
 
+    //お菓子の点数
+    List<int> result_OkashiScore = new List<int>();
+
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
@@ -63,12 +66,18 @@ public class Quest_Judge : MonoBehaviour {
 
     private int i, count, list_count;
     private bool nouhinOK_flag;
+    private int nouhinOK_status;
 
     private int _getMoney;
 
     private int _id;
     private int _Qid;
     private int _questID;
+
+    private int set_kaisu;
+    private int okashi_totalscore;
+    private int okashi_totalkosu;
+    private int okashi_score;
 
     private string _filename;
     private string _itemname;
@@ -92,6 +101,8 @@ public class Quest_Judge : MonoBehaviour {
     private int _chewy;
 
     private string[] _tp;
+
+    private string _a;
 
 
     private int itemType;
@@ -138,8 +149,8 @@ public class Quest_Judge : MonoBehaviour {
         back_ShopFirst_obj = shopquestlistController_obj.transform.Find("Back_ShopFirst").gameObject;
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
 
-        questListButton = shopquestlistController_obj.transform.Find("QuestListButton").GetComponent<Button>();
-        nouhinButton = shopquestlistController_obj.transform.Find("NouhinButton").GetComponent<Button>();
+        questListToggle = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_QuestList").GetComponent<Toggle>();
+        nouhinToggle = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_Nouhin").GetComponent<Toggle>();
 
         yes = shopquestlistController_obj.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
@@ -285,8 +296,8 @@ public class Quest_Judge : MonoBehaviour {
         yes.SetActive(false);
         no.SetActive(false);
 
-        questListButton.interactable = true;
-        nouhinButton.interactable = true;
+        questListToggle.interactable = true;
+        nouhinToggle.interactable = true;
 
         back_ShopFirst_btn.interactable = true;
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
@@ -303,18 +314,27 @@ public class Quest_Judge : MonoBehaviour {
         SetInitQItem(_ID); //依頼アイテムのパラメータを代入
 
         deleteOriginalList.Clear();
+        result_OkashiScore.Clear();
+        okashi_totalscore = 0;
+        okashi_totalkosu = 0;
 
-        //listcount分判定する。
-        for (list_count = 0; list_count < pitemlistController._listcount.Count; list_count++)
+        set_kaisu = pitemlistController._listcount.Count;
+
+        //listcount分 提出するアイテムのパラメータを判定する。
+        for (list_count = 0; list_count < set_kaisu; list_count++)
         {
             //選択したアイテムのデータをセット
             SetInitNouhinItem(pitemlistController._listcount[list_count]);
 
             //
-            //お菓子の正解判定。①タイプ　②味　③スロットを見る。点数とかだす？
+            //お菓子の正解判定。①タイプ　②味　③スロットを見る。
+            //A. 一つでも違うのが入っていると、失格
+            //B. タイプはOKで、味が足りない場合は、やはり失格 nouhinOK_status = 2;
+            //C. それをこえたら、各アイテムごとの平均値*納品個数をみて、最終的なスコアをだす。
             //
 
-            nouhinOK_flag = true; //0なら正解
+            okashi_score = 0;
+            nouhinOK_status = 0; //0なら正解
 
             //①トッピングスロットの計算
 
@@ -326,12 +346,15 @@ public class Quest_Judge : MonoBehaviour {
                     //納品スコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
                     if (itemslot_PitemScore[i] >= itemslot_NouhinScore[i])
                     {
-
+                        if (itemslot_NouhinScore[i] != 0)
+                        {
+                            okashi_score += 20;
+                        }
                     }
                     //一つでも満たしてないものがある場合は、NGフラグがたつ
                     else
                     {
-                        nouhinOK_flag = false;
+                        nouhinOK_status = 2;
                     }
                 }
             }
@@ -339,63 +362,123 @@ public class Quest_Judge : MonoBehaviour {
             //②味パラメータの計算
             if (_baserich >= _rich)
             {
-
+                if (_rich != 0)
+                {
+                    okashi_score += 20;                    
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "コクがちょっと足りないみたい。";
+            }
 
             if (_basesweat >= _sweat)
             {
-
+                if (_sweat != 0)
+                {
+                    okashi_score += 20;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "甘さがちょっと足りないみたい。";
+            }
 
             if (_basebitter >= _bitter)
             {
-
+                if (_bitter != 0)
+                {
+                    okashi_score += 20;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "苦味がちょっと足りないみたい。";
+            }
 
             if (_basesour >= _sour)
             {
-
+                if (_sour != 0)
+                {
+                    okashi_score += 20;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "酸味がちょっと足りないみたい。";
+            }
 
             if (_basecrispy >= _crispy)
             {
-
+                if (_crispy != 0)
+                {
+                    okashi_score += _basecrispy;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "さくさくした感じがちょっと足りないみたい。";
+            }
 
             if (_basefluffy >= _fluffy)
             {
-
+                if (_fluffy != 0)
+                {
+                    okashi_score += _basefluffy;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "ふんわり感がちょっと足りないみたい。";
+            }
 
             if (_basesmooth >= _smooth)
             {
-
+                if (_smooth != 0)
+                {
+                    okashi_score += _basesmooth;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "なめらかな感じがちょっと足りないみたい。";
+            }
 
             if (_basehardness >= _hardness)
             {
-
+                if (_hardness != 0)
+                {
+                    okashi_score += _basehardness;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "歯ごたえがちょっと足りないみたい。";
+            }
 
             if (_basejiggly >= _jiggly)
             {
-
+                if (_jiggly != 0)
+                {
+                    okashi_score += 0;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "ぷにぷに感がちょっと足りないみたい。";
+            }
 
             if (_basechewy >= _chewy)
             {
-
+                if (_chewy != 0)
+                {
+                    okashi_score += 0;
+                }
             }
-            else { nouhinOK_flag = false; }
+            else {
+                nouhinOK_status = 2;
+                _a = "噛みごたえがちょっと足りないみたい。";
+            }
 
             //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
             if (_itemname == "Non") //特に指定なし
@@ -411,8 +494,8 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 else
                 {
-                    //不正解
-                    nouhinOK_flag = false;
+                    //不正解。そもそも違うお菓子を納品している。
+                    nouhinOK_status = 1;
                 }
             }
             else if (_itemname == _basename) //お菓子の名前が一致している。
@@ -422,10 +505,14 @@ public class Quest_Judge : MonoBehaviour {
             }
             else
             {
-                //不正解
-                nouhinOK_flag = false;
+                //不正解。そもそも違うお菓子を納品している。
+                nouhinOK_status = 1;
             }
-            
+
+            //スコアを保持
+            result_OkashiScore.Add(okashi_score* pitemlistController._listkosu[list_count]);            
+            okashi_totalkosu += pitemlistController._listkosu[list_count];
+
             //アイテムを削除
             switch (itemType)
             {
@@ -457,9 +544,20 @@ public class Quest_Judge : MonoBehaviour {
                     //所持アイテムをリストに追加し、あとで降順に削除
                     deleteOriginalList.Add(_id, _kosu_default);
                     break;
+
             }
         }
-        
+
+        //各スコアを加算し、平均をとり、最終スコアを算出
+        for (i = 0; i < result_OkashiScore.Count; i++)
+        {
+            okashi_totalscore += result_OkashiScore[i];
+        }
+        if (okashi_totalkosu == 0) { okashi_totalkosu = 1; }
+        okashi_totalscore /= okashi_totalkosu;
+
+
+
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
         if (deleteOriginalList.Count > 0)
         {
@@ -475,32 +573,48 @@ public class Quest_Judge : MonoBehaviour {
             }
         }
 
-        
-
 
         //0なら正解
-        if (nouhinOK_flag)
+        switch (nouhinOK_status)
         {
-            _getMoney = _buy_price * _kosu_default;
+            case 0: //正解の場合
+                _getMoney = _buy_price * _kosu_default;
 
-            //足りてるので、納品完了の処理
-            _text.text = "報酬 " + _getMoney + "G を受け取った！" + "\n" + "ありがとう！特に○○がおいしいと評判よ！";
+                //足りてるので、納品完了の処理
+                _text.text = okashi_totalscore + "点！！" + "\n" + "報酬 " + GameMgr.ColorLemon + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！";
 
-            //ジャキーンみたいな音を鳴らす。
-            sc.PlaySe(31);
+                //ジャキーンみたいな音を鳴らす。
+                sc.PlaySe(31);
 
-            //所持金をプラス
-            //PlayerStatus.player_money += _getMoney;
-            moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
+                //所持金をプラス
+                //PlayerStatus.player_money += _getMoney;
+                moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
 
-            Debug.Log("納品完了！");
+                Debug.Log("納品完了！");
+                break;
+
+            case 1: //そもそも違うお菓子を納品
+
+                _text.text = "これはちょっと違うお菓子みたいね。";
+
+                Debug.Log("納品失敗..");
+                break;
+
+            case 2: //味が足りない。
+
+                if (_a != "")
+                {
+                    _text.text = _a + "\n" + "う～ん。もうちょっと味を頑張ったほうがいいかも。";
+                }
+                else
+                {
+                    _text.text = "う～ん。もうちょっと味を頑張ったほうがいいかも。";
+                }
+
+                Debug.Log("納品失敗..");
+                break;
         }
-        else //1だと不正解
-        {
-            _text.text = "う～ん。もうちょっと味を頑張ったほうがいいかも。";
 
-            Debug.Log("納品失敗..");
-        }
 
         //該当のクエストを削除
         quest_database.questTakeset.RemoveAt(_ID);
@@ -511,14 +625,14 @@ public class Quest_Judge : MonoBehaviour {
         yes.SetActive(false);
         no.SetActive(false);
 
-        questListButton.interactable = true;
-        nouhinButton.interactable = true;
+        questListToggle.interactable = true;
+        nouhinToggle.interactable = true;
 
         back_ShopFirst_btn.interactable = true;
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        shopMain.shop_status = 0;
     }
-
-
 
 
     void SetInitQItem(int _count)

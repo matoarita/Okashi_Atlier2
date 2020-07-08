@@ -47,6 +47,7 @@ public class Updown_counter : MonoBehaviour {
 
     private Text _count_text;
     public int updown_kosu;
+    private int listkosu_count;
 
     private int i, count, _zaiko_max;
     private int _item_max1;
@@ -142,14 +143,16 @@ public class Updown_counter : MonoBehaviour {
         {
             if (OpenFlag != true)
             {
-                if (shop_Main.shop_scene == 1)
+                if (shop_Main.shop_scene == 1) //ショップ「買う」の時
                 {
                     this.transform.localPosition = new Vector3(280, -15, 0);
                 }
-                else if (shop_Main.shop_scene == 3)
+                else if (shop_Main.shop_scene == 3)　//依頼の納品の時
                 {
                     this.transform.localPosition = new Vector3(0, -80, 0);
 
+                    //下をいれると、はじめから最大個数が選択された状態
+                    /*
                     switch (pitemlistController._toggle_type1)
                     {
                         case 0:
@@ -195,16 +198,7 @@ public class Updown_counter : MonoBehaviour {
 
                     updown_button[0].interactable = false;
                     updown_button[1].interactable = false;
-                    /*
-                    if (quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default == 1)
-                    {
-                        //yesをon
-                        yes.SetActive(true);
-                    }
-                    else
-                    {
-                        yes.SetActive(false);
-                    }*/
+                    */
 
                 }
 
@@ -659,7 +653,7 @@ public class Updown_counter : MonoBehaviour {
 
         else if (SceneManager.GetActiveScene().name == "Shop")
         {
-            if (shop_Main.shop_scene == 1)
+            if (shop_Main.shop_scene == 1)　//ショップ「買う」のとき
             {
                 _zaiko_max = shop_database.shopitems[shopitemlistcontroller.shop_kettei_ID].shop_itemzaiko;
 
@@ -680,32 +674,38 @@ public class Updown_counter : MonoBehaviour {
                 _count_text.text = updown_kosu.ToString();
             }
 
-            if (shop_Main.shop_scene == 3)
+            if (shop_Main.shop_scene == 3)　//ショップ納品のとき
             {
+                listkosu_count = 0;
+
+                //現在選択済みの個数をすべてトータル
+                for (i = 0; i < pitemlistController._listkosu.Count; i++)
+                {
+                    listkosu_count += pitemlistController._listkosu[i];
+                }
+
                 switch (pitemlistController._toggle_type1)
                 {
                     case 0:
 
-                        if (pitemlist.playeritemlist[pitemlistController.kettei_item1] >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
-                        {
-                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default; //一個目の決定アイテムの所持数
+                        if (pitemlist.playeritemlist[pitemlistController.kettei_item1] >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
+                        {                           
+                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
                         }
                         else
                         {
-
                             _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1];
                         }
                         break;
 
                     case 1:
 
-                        if (pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
+                        if (pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
                         {
-                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default; //一個目の決定アイテムの所持数
+                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
                         }
                         else
                         {
-
                             _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
                         }
 
@@ -721,7 +721,7 @@ public class Updown_counter : MonoBehaviour {
                     updown_kosu = _zaiko_max;
                 }
 
-
+                /*
                 if (updown_kosu >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
                 {
                     //yesをon
@@ -731,7 +731,7 @@ public class Updown_counter : MonoBehaviour {
                 {
                     yes.SetActive(false);
 
-                }
+                }*/
                 _count_text.text = updown_kosu.ToString();
             }
 
@@ -856,23 +856,6 @@ public class Updown_counter : MonoBehaviour {
             if (updown_kosu <= 1)
             {
                 updown_kosu = 1;
-            }
-
-            if (SceneManager.GetActiveScene().name == "Shop")
-            {
-                if (shop_Main.shop_scene == 3)
-                {
-                    if (updown_kosu >= quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
-                    {
-                        //yesをon
-                        yes.SetActive(true);
-                    }
-                    else
-                    {
-                        yes.SetActive(false);
-
-                    }
-                }
             }
 
             _count_text.text = updown_kosu.ToString();

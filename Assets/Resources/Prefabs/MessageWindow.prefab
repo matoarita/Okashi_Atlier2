@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114230661750483450}
   - component: {fileID: 114911177407874596}
   - component: {fileID: 114884804338819126}
+  - component: {fileID: 223212885653662368}
   m_Layer: 0
   m_Name: MessageWindow
   m_TagString: Message_Window
@@ -228,6 +229,26 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1936480507059974}
+--- !u!223 &223212885653662368
+Canvas:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936480507059974}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 100
+  m_TargetDisplay: 0
 --- !u!224 &224173923846276404
 RectTransform:
   m_ObjectHideFlags: 1

@@ -57,6 +57,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(28);
                 break;
 
+            case "NouhinButton": //納品決定を押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(46);
+                break;
+
 
             case "No": //noを押したときのSE
 
@@ -76,6 +86,16 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音
                 SE_point_click(0);
+                break;
+
+            case "NouhinCancelButton": //納品決定を押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(18);
                 break;
 
             case "up": //noを押したときのSE

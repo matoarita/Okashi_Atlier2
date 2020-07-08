@@ -28,9 +28,11 @@ public class ShopQuestListController : MonoBehaviour
 
     private QuestSetDataBase quest_database;
 
-    private GameObject questListButton;
+    private GameObject questListToggle_obj;
+    private Toggle questListToggle;
     private Color color1;
-    private GameObject nouhinButton;
+    private GameObject nouhinToggle_obj;
+    private Toggle nouhinToggle;
     private Color color2;
 
     private string item_name;
@@ -46,6 +48,8 @@ public class ShopQuestListController : MonoBehaviour
     public int questType;
 
     public int qlist_status;
+    public int nouhin_select_on;
+    public bool final_select_flag;
 
     private int rand;
     private int[] sel_questID = new int[3];   
@@ -64,19 +68,22 @@ public class ShopQuestListController : MonoBehaviour
         //クエストデータベースの取得
         quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
 
-
         //スクロールビュー内の、コンテンツ要素を取得
         content = this.transform.Find("Viewport/Content").gameObject;
         questitem_Prefab = (GameObject)Resources.Load("Prefabs/shopQuestSelectToggle");
 
         //ボタンの取得
-        questListButton = this.transform.Find("QuestListButton").gameObject;
-        color1 = questListButton.GetComponent<Image>().color;
-        nouhinButton = this.transform.Find("NouhinButton").gameObject;
-        color2 = nouhinButton.GetComponent<Image>().color;
+        questListToggle_obj = this.transform.Find("CategoryView/Viewport/Content/Cate_QuestList").gameObject;
+        questListToggle = questListToggle_obj.GetComponent<Toggle>();
+        color1 = questListToggle_obj.transform.Find("Background").GetComponent<Image>().color;
+        nouhinToggle_obj = this.transform.Find("CategoryView/Viewport/Content/Cate_Nouhin").gameObject;
+        nouhinToggle = nouhinToggle_obj.GetComponent<Toggle>();
+        color2 = nouhinToggle_obj.transform.Find("Background").GetComponent<Image>().color;
 
         i = 0;
         qlist_status = 0;
+        nouhin_select_on = 0;
+        final_select_flag = false;
     }
 
     // Use this for initialization
@@ -108,6 +115,10 @@ public class ShopQuestListController : MonoBehaviour
 
         }
 
+        questListToggle.isOn = true;
+        nouhinToggle.isOn = false;
+
+        qlist_status = 0;
         reset_and_DrawView();
 
     }
@@ -115,8 +126,7 @@ public class ShopQuestListController : MonoBehaviour
     // リストビューの描画部分。重要。
     public void reset_and_DrawView()
     {
-        //現在、受注リストを開いている状態
-        qlist_status = 0;
+        //現在、受注リストを開いている状態       
 
         color1 = new Color(1f, 1f, 1f, 1.0f);
         color2 = new Color(1f, 1f, 1f, 0.5f);
@@ -174,7 +184,6 @@ public class ShopQuestListController : MonoBehaviour
     public void NouhinList_DrawView()
     {
         //現在、納品リストを開いている状態
-        qlist_status = 1;
 
         color1 = new Color(1, 1, 1, 0.5f);
         color2 = new Color(1, 1, 1, 1.0f);
@@ -221,5 +230,23 @@ public class ShopQuestListController : MonoBehaviour
             ++list_count;
 
         }
+    }
+
+    public void OnQuestList()
+    {
+
+        qlist_status = 0;
+        
+        reset_and_DrawView();
+        
+    }
+
+    public void OnNouhinList()
+    {
+
+        qlist_status = 1;
+
+        NouhinList_DrawView();
+        
     }
 }
