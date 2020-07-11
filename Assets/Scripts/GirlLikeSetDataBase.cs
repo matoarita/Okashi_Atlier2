@@ -51,8 +51,6 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
     public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
 
     public List<GirlLikeSet> girllikeset = new List<GirlLikeSet>();
-    public List<GirlLikeSet> contestset1 = new List<GirlLikeSet>();
-    public List<GirlLikeSet> contestset_free1 = new List<GirlLikeSet>();
 
     //リスト化をして下のvoid Start内でリストに値を追加、値は適当です。
     void Start()
@@ -172,7 +170,7 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
             _comment_flag = excel_girlLikeset_database.sheets[sheet_no].list[count].commet_flag;
 
             //ここでリストに追加している
-            contestset1.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
+            girllikeset.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
                 _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy,
                 _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _non_tp_score, _setkansou, _comment_flag));
 
@@ -232,7 +230,7 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
             _comment_flag = excel_girlLikeset_database.sheets[sheet_no].list[count].commet_flag;
 
             //ここでリストに追加している
-            contestset_free1.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
+            girllikeset.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
                 _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy,
                 _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _non_tp_score, _setkansou, _comment_flag));
 

@@ -288,6 +288,10 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 break;
 
+            case "Contest":
+
+                break;
+
             default: //上記シーン以外
 
                 if (text_area == null)

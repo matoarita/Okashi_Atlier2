@@ -43,6 +43,11 @@ public class PlaceNamePanel : MonoBehaviour {
                     }
                 }
                 break;
+
+            case "Contest":
+
+                _text = "コンテスト会場";
+                break;
         }
 
         _paneltext.text = _text;

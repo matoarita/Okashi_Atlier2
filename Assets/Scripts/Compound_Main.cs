@@ -1179,7 +1179,7 @@ public class Compound_Main : MonoBehaviour
                 girlEat_ON = true; //お菓子判定中フラグ
 
                 //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
-                girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype);
+                girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype, 0);
 
                 break;
 
@@ -1246,7 +1246,7 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.Sell_Okashi();
                 break;
 
-            case 40: //ステージクリアを選択
+            case 40: //コンテストを選択
 
                 compoundselect_onoff_obj.SetActive(false);
 
@@ -1263,7 +1263,7 @@ public class Compound_Main : MonoBehaviour
                 Extremepanel_obj.SetActive(false);
                 text_area_Main.SetActive(false);
                 black_panel_A.SetActive(true);
-                StartCoroutine("StageClear_Final_select");
+                StartCoroutine("Contest_Final_select");
                 break;
 
             case 41: //クリアするかどうか、選択中
@@ -1794,7 +1794,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    IEnumerator StageClear_Final_select()
+    IEnumerator Contest_Final_select()
     {
 
         while (yes_selectitem_kettei.onclick != true)
@@ -1809,7 +1809,7 @@ public class Compound_Main : MonoBehaviour
         {
             case true:
 
-                //ステージクリア処理
+                //コンテストへ進む処理
 
                 yes_no_clear_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
@@ -1819,7 +1819,7 @@ public class Compound_Main : MonoBehaviour
                     case 1:
 
                         GameMgr.stage1_girl1_loveexp = girl1_status.girl1_Love_exp; //クリア時の好感度を保存
-                        FadeManager.Instance.LoadScene("002_Stage2_eyecatch", 0.3f);
+                        FadeManager.Instance.LoadScene("Contest", 0.3f);
                         break;
 
                     case 2:

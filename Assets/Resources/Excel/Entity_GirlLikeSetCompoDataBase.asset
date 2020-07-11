@@ -161,9 +161,9 @@ MonoBehaviour:
       clear: 0
     - ID: 11
       set_compID: 1500
-      set1: 70
-      set2: 9999
-      set3: 9999
+      set1: 1010
+      set2: 1020
+      set3: 1030
       spquest_name1: "\u6765\u305F\u305E\uFF01\u30B3\u30F3\u30C6\u30B9\u30C8\uFF01\uFF01"
       spquest_name2: "\u304A\u6BCD\u3055\u3093\u306E\u5473"
       desc: "\u5144\u3061\u3083\u3093\uFF01\u4ECA\u65E5\u306F\u30B3\u30F3\u30C6\u30B9\u30C8\uFF01\uFF01"

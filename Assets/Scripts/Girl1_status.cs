@@ -850,14 +850,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //ランダムセットから、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
                     SetQuestRandomSet(glike_compID, true);                   
 
-                    //表示用吹き出しを生成                    
-                    //hukidasiInit();  
-                    
-
-                    //吹き出しのテキスト決定
-                    //hukidashiitem.GetComponent<TextController>().SetText(_desc);
-                    //_text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-                    //_text.text = _desc;
 
                     break;
 
@@ -1244,12 +1236,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             if (_id == girlLikeSet_database.girllikeset[j].girlLike_compNum)
             {
-                
+                //Debug.Log("girlLikeSet_database.girllikeset[j].girlLike_compNum: " + girlLikeSet_database.girllikeset[j].girlLike_compNum);
+                //Debug.Log("j :" + j);
                 setID = j;
                 break;
             }
             j++;
         }
+
+
 
         //初期化
         girl1_hungrySet.Clear();
@@ -1268,7 +1263,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             if (slotnamedatabase.slotname_lists[i].slotName == girlLikeSet_database.girllikeset[setID].girlLike_topping[0])
             {
 
-                if(girlLikeSet_database.girllikeset[setID].girlLike_topping[0] != "Non")
+                if (girlLikeSet_database.girllikeset[setID].girlLike_topping[0] != "Non")
                 {
                     girl1_hungrySet.Add(i);
                     girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[0]);
@@ -1317,12 +1312,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
         }
 
-        
+
         //以下、パラメータのセッティング
 
         //①女の子の食べたいトッピング
 
-        switch(_set_num)
+        switch (_set_num)
         {
             case 0:
 
@@ -1416,7 +1411,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //外部から直接指定されたとき用に、_descの中身も更新。
         //_desc = girllike_desc[0];
 
-        //Debug.Log("_desc: " + _desc);
     }
 
     public void TouchSisterHair()
