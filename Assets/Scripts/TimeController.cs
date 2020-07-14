@@ -244,8 +244,9 @@ public class TimeController : MonoBehaviour
             {
 
                 TimeCheck_flag = false;
+
                 //寝るイベントが発生
-                
+                GameMgr.sleep_status = 0;
                 StartCoroutine("SleepDayEnd");
 
                 //もし、材料採取などしていたら、別でイベントを発生し、家に戻す。か、無視。
@@ -266,7 +267,7 @@ public class TimeController : MonoBehaviour
 
     IEnumerator SleepDayEnd()
     {
-        GameMgr.scenario_ON = true;
+        GameMgr.scenario_ON = true;      
         GameMgr.sleep_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
                                          //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
 
@@ -288,6 +289,7 @@ public class TimeController : MonoBehaviour
     //他のスクリプトから寝るを選択
     public void OnSleepMethod()
     {
+        GameMgr.sleep_status = 1;
         StartCoroutine("SleepDayEnd");
     }
 }

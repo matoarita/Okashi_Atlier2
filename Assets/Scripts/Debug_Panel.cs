@@ -9,6 +9,7 @@ public class Debug_Panel : MonoBehaviour {
 
     private GameObject canvas;
 
+    private ItemMatPlaceDataBase matplace_database;
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -77,6 +78,9 @@ public class Debug_Panel : MonoBehaviour {
 
         Debug_INPUT_ON = false;
         DebugInputOn = this.transform.Find("DebugInputOnText").GetComponent<Text>();
+
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
@@ -371,6 +375,16 @@ public class Debug_Panel : MonoBehaviour {
                         mainlist_controller2.ToggleFlagCheck();
                         mainlist_controller2.MenuWindowExpand();
                     }
+                    break;
+
+                case 5:
+
+                    GameMgr.hiroba_event_end[8] = true; //ドーナツイベントの終了
+
+                    matplace_database.matPlaceKaikin("Hiroba"); //
+                    matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。
+                    matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁　ひまわりの種がとれるようになる。
+
                     break;
 
                 default:

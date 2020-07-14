@@ -17,6 +17,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound7;  //Stage3のBGM
     public AudioClip sound8;  //「ストロベリーガーデン」BGM
     public AudioClip sound9;  //「ひまわりの丘」BGM
+    public AudioClip sound10;  //コンテスト時のメインBGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -102,22 +103,29 @@ public class BGM : MonoBehaviour {
 
     public void PlayMain()
     {
-        switch (GameMgr.stage_number)
+        if (GameMgr.GirlLoveEvent_stage1[5]) //コンテストの日の曲
         {
-            case 1:
+            _bgm[0].clip = sound10;
+        }
+        else
+        {
+            switch (GameMgr.stage_number)
+            {
+                case 1:
 
-                _bgm[0].clip = sound1;
-                break;
+                    _bgm[0].clip = sound1;
+                    break;
 
-            case 2:
+                case 2:
 
-                _bgm[0].clip = sound6;
-                break;
+                    _bgm[0].clip = sound6;
+                    break;
 
-            case 3:
+                case 3:
 
-                _bgm[0].clip = sound7;
-                break;
+                    _bgm[0].clip = sound7;
+                    break;
+            }
         }
         
         _bgm[0].Play();

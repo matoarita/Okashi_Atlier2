@@ -991,6 +991,7 @@ public class Compound_Main : MonoBehaviour
                 text_area.SetActive(true);
                 text_area_Main.SetActive(false);
                 time_controller.TimeCheck_flag = false;
+                stageclear_Button.SetActive(false);
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1023,6 +1024,7 @@ public class Compound_Main : MonoBehaviour
                 time_controller.TimeCheck_flag = false;
                 text_area.SetActive(true);
                 text_area_Main.SetActive(false);
+                stageclear_Button.SetActive(false);
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1063,6 +1065,7 @@ public class Compound_Main : MonoBehaviour
                 memoResult_obj.SetActive(false);
                 text_area.SetActive(true);
                 text_area_Main.SetActive(false);
+                stageclear_Button.SetActive(false);
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1124,6 +1127,7 @@ public class Compound_Main : MonoBehaviour
                 time_controller.TimeCheck_flag = false;
                 text_area.SetActive(false);
                 text_area_Main.SetActive(false);
+                stageclear_Button.SetActive(false);
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -1201,6 +1205,7 @@ public class Compound_Main : MonoBehaviour
                 text_area_Main.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 time_controller.TimeCheck_flag = false;
+                stageclear_Button.SetActive(false);
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;

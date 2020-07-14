@@ -467,6 +467,9 @@ public class Utage_scenario : MonoBehaviour
 
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
+        //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("Sleep_num", GameMgr.sleep_status);
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 

@@ -914,6 +914,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             touch_controller.Touch_OnAllON();
             canvas.SetActive(true);
             sceneBGM.MuteOFFBGM();
+            sceneBGM.PlayMain();
         }       
 
         //表示用吹き出しを生成                   

@@ -70,6 +70,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //寝るイベントフラグ
     public static bool sleep_flag;
+    public static int sleep_status;
 
     //お菓子イベントクリアのフラグ
     public static bool[] OkashiQuest_flag_stage1 = new bool[30]; //各イベントのクリアしたかどうかのフラグ。
@@ -215,6 +216,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         girlloveevent_endflag = false;
 
         sleep_flag = false;
+        sleep_status = 0;
         scenario_read_endflag = false;
 
         CompoundEvent_flag = false;
