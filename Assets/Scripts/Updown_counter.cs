@@ -93,6 +93,7 @@ public class Updown_counter : MonoBehaviour {
 
     private GameObject updown_button_Big;
     private GameObject updown_button_Small;
+    private GameObject updown_counter_setpanel;
 
     private int _p_or_recipi_flag;
 
@@ -233,6 +234,11 @@ public class Updown_counter : MonoBehaviour {
         updown_button_Small = this.transform.Find("up_small").gameObject;
         updown_button_Small.SetActive(false);
 
+        updown_counter_setpanel = this.transform.Find("SetPanel").gameObject;
+        updown_counter_setpanel.SetActive(false);
+
+
+
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
@@ -345,7 +351,7 @@ public class Updown_counter : MonoBehaviour {
         updown_kosu = 1;
         _zaiko_max = 0;
 
-        _count_text = transform.GetChild(0).gameObject.GetComponent<Text>();
+        _count_text = transform.Find("counter_num").GetComponent<Text>();
         _count_text.text = updown_kosu.ToString();
 
     }

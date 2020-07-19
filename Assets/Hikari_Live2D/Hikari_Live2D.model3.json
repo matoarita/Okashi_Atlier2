@@ -5,17 +5,18 @@
 		"Textures": [
 			"Hikari_Live2D.1024/texture_00.png"
 		],
-		"Physics": "Hikari_Live2D.physics3.json"
+		"Physics": "Hikari_Live2D.physics3.json",
+		"DisplayInfo": "Hikari_Live2D.cdi3.json"
 	},
 	"Groups": [
 		{
 			"Target": "Parameter",
-			"Name": "LipSync",
+			"Name": "EyeBlink",
 			"Ids": []
 		},
 		{
 			"Target": "Parameter",
-			"Name": "EyeBlink",
+			"Name": "LipSync",
 			"Ids": []
 		}
 	]

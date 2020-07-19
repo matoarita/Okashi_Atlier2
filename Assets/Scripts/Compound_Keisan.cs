@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
@@ -21,6 +22,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private ItemCompoundDataBase databaseCompo;
 
     private Exp_Controller exp_Controller;
+    private ExtremePanel extreme_panel;
 
     private int i, j, n, count;
     private int itemNum, DBcount;
@@ -1688,7 +1690,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //削除処理
 
-        if (Comp_method_bunki == 2) //トッピングで生成する場合の削除処理
+        if (Comp_method_bunki == 2) //レシピで生成する場合の削除処理
         {
             //セット数分、判定を繰り返す
             for (count = 0; count < final_select_kaisu; count++)
@@ -1819,7 +1821,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             foreach (KeyValuePair<int, int> deletePair in newTable)
             {
+                if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
+                {
+                    extreme_panel = canvas.transform.Find("ExtremePanel").GetComponent<ExtremePanel>();
+                    extreme_panel.deleteExtreme_Item();
+                }
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
+                
                 //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }
         }
@@ -2016,6 +2024,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             foreach (KeyValuePair<int, int> deletePair in newTable)
             {
+                if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
+                {
+                    extreme_panel = canvas.transform.Find("ExtremePanel").GetComponent<ExtremePanel>();
+                    extreme_panel.deleteExtreme_Item();
+                }
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
                 //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }

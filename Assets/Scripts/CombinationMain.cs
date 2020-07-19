@@ -180,7 +180,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     {
                         //アイテム名＋アイテム名＋サブ(サブが空の場合もある。）
                         //3個目がサブ
-                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2])
+                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2] && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                         {
                             switch (kosu_Check)
                             {
@@ -215,7 +215,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     {
                         //アイテム名＋サブ＋アイテム名
                         //2個目がサブ
-                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1])
+                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1] && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                         {
                             switch (kosu_Check)
                             {
@@ -248,7 +248,8 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                         }
                     }
                     //2・3個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
-                    else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[1] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2])
+                    else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[1] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2]
+                        && databaseCompo.compoitems[count].cmp_subtype_2 != "empty" && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                     {
                         switch (kosu_Check)
                         {
@@ -280,7 +281,8 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
 
                         break;
                     }
-                    else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[2] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1])
+                    else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[2] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1]
+                        && databaseCompo.compoitems[count].cmp_subtype_2 != "empty" && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                     {
                         switch (kosu_Check)
                         {
@@ -321,7 +323,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     {
                         //アイテム名＋アイテム名＋サブ
                         //3個目がサブ
-                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2]) //3個目のサブも一致していた
+                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2] && databaseCompo.compoitems[count].cmp_subtype_3 != "empty") //3個目のサブも一致していた
                         {
                             switch (kosu_Check)
                             {
@@ -357,7 +359,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     {
                         //アイテム名＋サブ＋アイテム名
                         //2個目がサブ
-                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0]) //2個目のサブも一致していた
+                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0] && databaseCompo.compoitems[count].cmp_subtype_3 != "empty") //2個目のサブも一致していた
                         {
                             switch (kosu_Check)
                             {
@@ -390,7 +392,8 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                         }
                     }
                     //1・3個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
-                    else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[0] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2])
+                    else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[0] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[2]
+                        && databaseCompo.compoitems[count].cmp_subtype_2 != "empty" && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                     {
                         switch (kosu_Check)
                         {
@@ -420,7 +423,8 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
 
                         break;
                     }
-                    else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[2] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0])
+                    else if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[2] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0]
+                        && databaseCompo.compoitems[count].cmp_subtype_2 != "empty" && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                     {
                         switch (kosu_Check)
                         {
@@ -460,7 +464,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     {
                         //アイテム名＋アイテム名＋サブ
                         //3個目がサブ
-                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1])
+                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1] && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                         {
                             switch (kosu_Check)
                             {
@@ -495,7 +499,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     {
                         //アイテム名＋サブ＋アイテム名
                         //2個目がサブ
-                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0])
+                        if (databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0] && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                         {
                             switch (kosu_Check)
                             {
@@ -528,7 +532,8 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                         }
                     }
                     //1・2個目のアイテム名が、DBと一致しなかったので、次はサブ＋サブの組み合わせを調べる。
-                    if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[0] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1])
+                    if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[0] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[1]
+                        && databaseCompo.compoitems[count].cmp_subtype_2 != "empty" && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                     {
                         switch (kosu_Check)
                         {
@@ -559,7 +564,8 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                         break;
                     }
                     //一致してた場合、残りの2個のサブタイプを見る
-                    if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[1] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0])
+                    if (databaseCompo.compoitems[count].cmp_subtype_2 == subtype[1] && databaseCompo.compoitems[count].cmp_subtype_3 == subtype[0]
+                        && databaseCompo.compoitems[count].cmp_subtype_2 != "empty" && databaseCompo.compoitems[count].cmp_subtype_3 != "empty")
                     {
                         switch (kosu_Check)
                         {

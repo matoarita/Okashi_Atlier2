@@ -45,6 +45,7 @@ public class Compound_Check : MonoBehaviour {
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
+    private GameObject updown_counter_setpanel;
 
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
@@ -129,6 +130,7 @@ public class Compound_Check : MonoBehaviour {
 
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+            updown_counter_setpanel = updown_counter_obj.transform.Find("SetPanel").gameObject;
 
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
@@ -199,6 +201,7 @@ public class Compound_Check : MonoBehaviour {
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
                 updown_counter_obj.SetActive(true);
+                updown_counter_setpanel.SetActive(true);
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
@@ -256,6 +259,7 @@ public class Compound_Check : MonoBehaviour {
                 CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
                 updown_counter_obj.SetActive(true);
+                updown_counter_setpanel.SetActive(true);
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 

@@ -65,6 +65,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private string MazuiHintComment;
     private int MazuiStatus;
+    private int touchhint_num;
 
     private List<string> _touchtwintail_comment_lib = new List<string>();
     private string _touchtwintail_comment;
@@ -880,11 +881,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             yield return null;
         }
 
+        /*while (main_cam.transform.position.z != -10)
+        {
+            yield return null;
+        }*/
+
         //会話イベントがまだの場合、会話を表示
         if (!special_animatFirst)
         {
             canvas.SetActive(false);
-            sceneBGM.MuteBGM();
+            sceneBGM.MuteBGM();           
 
             //最初にお菓子にまつわるヒントやお話。宴へとぶ
             GameMgr.scenario_ON = true;
@@ -1654,30 +1660,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     //口のあたりをクリックすると、ヒントを表示する。
     public void TouchSisterFace()
-    {
-        /*
-        if (hukidashiitem == null)
-        {
-            hukidasiInit();
-        }
-        
-        if (girl_Mazui_flag) //まずいフラグがたっていた場合、その時のクエストのヒントを教えてくれる。
-        {
-            Init_MazuiHintComment();
-            _touchface_comment = MazuiHintComment;
-        }
-        else
-        {
-            //コメントランダム
-            Init_touchFaceComment();
-            random = Random.Range(0, _touchface_comment_lib.Count);
-            _touchface_comment = _touchface_comment_lib[random];
-        }*/
-
-        //hukidashiitem.GetComponent<TextController>().SetText(_touchface_comment);
+    {       
 
         //5個の中からランダムで選ぶ。宴のヒントの数と合わせているので、数には注意。
         random = Random.Range(0, 5);
+        touchhint_num = random + (GameMgr.GirlLoveEvent_num * 10);
 
         StartCoroutine("TouchFaceHintHyouji");
 
@@ -1691,7 +1678,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         canvas.SetActive(false);
         touch_controller.Touch_OnAllOFF();
 
-        GameMgr.touchhint_ID = random; //GirlLikeCompoSetの_set_compIDが入っている。
+        GameMgr.touchhint_ID = touchhint_num; //GirlLikeCompoSetの_set_compIDが入っている。
         GameMgr.touchhint_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         //カメラ寄る。

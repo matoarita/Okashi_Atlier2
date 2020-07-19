@@ -315,7 +315,10 @@ public class MainListController2 : MonoBehaviour
                             if (pitemlist.ReturnItemKosu("himawari_Oil") != 9999)
                             {
                                 pitemlist.SearchDeleteItem("himawari_Oil");
+                                pitemlist.addPlayerItemString("flyer", 1);
 
+                                sceneBGM.FadeOutBGM();
+                                Hiroba_main2.bgm_change_flag = true;
                                 GameMgr.hiroba_event_ID = 3042; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                             }
                             else
@@ -327,6 +330,7 @@ public class MainListController2 : MonoBehaviour
                     else //ドーナツレシピを教わった。
                     {
                         GameMgr.hiroba_event_ID = 3043; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        
                     }
                     break;
 

@@ -197,18 +197,31 @@ public class Shop_Main : MonoBehaviour {
                     GameMgr.shop_event_flag = true;
                 }
 
-                /*
-                if (girl1_status.girl_Mazui_flag)
-                {
-                    if (hukidasi_oneshot != true)
-                    {
-                        hukidasi_oneshot = true;
-                        hukidasi_sub = Instantiate(hukidasi_sub_Prefab);                        
-                    }
-                }*/
                 break;
 
-            case 2: //
+            case 2: //クレープイベント
+
+                if (!GameMgr.ShopEvent_stage[2])
+                {
+                    GameMgr.ShopEvent_stage[2] = true;
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.shop_event_num = 20;
+                    GameMgr.shop_event_flag = true;
+                }
+
+                break;
+
+            case 3: //シュークリームイベント
+
+                if (!GameMgr.ShopEvent_stage[3])
+                {
+                    GameMgr.ShopEvent_stage[3] = true;
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.shop_event_num = 30;
+                    GameMgr.shop_event_flag = true;
+                }
 
                 break;
 
@@ -219,7 +232,7 @@ public class Shop_Main : MonoBehaviour {
                     GameMgr.ShopEvent_stage[4] = true;
                     GameMgr.scenario_ON = true;
 
-                    GameMgr.shop_event_num = 20;
+                    GameMgr.shop_event_num = 40;
                     GameMgr.shop_event_flag = true;
 
                     //メイン画面にもどったときに、イベントを発生させるフラグをON

@@ -368,7 +368,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || 
                                         database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" ||
                                         database.items[i].itemType_sub.ToString() == "Salt" ||
-                                        database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil" || 
+                                        database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil" ||
+                                        database.items[i].itemType_sub.ToString() == "Cream" ||
                                         database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
                                         database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Machine")
                                     {
@@ -457,7 +458,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" 
                                 || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" ||
                                 pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Salt" ||
-                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil" || 
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cream" ||
                                 pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
                                 pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread")
                             {

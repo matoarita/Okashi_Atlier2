@@ -288,6 +288,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private GameObject stageclear_toggle;
     private GameObject stageclear_Button;
+    private bool stageclear_button_on;
 
     // Use this for initialization
     void Start() {
@@ -400,6 +401,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 //クエストクリアボタンの取得
                 stageclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
                 stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
+                stageclear_button_on = false;
 
                 i = 0;
                 foreach (Transform child in ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score_star/Viewport/Content").transform)
@@ -597,6 +599,11 @@ public class GirlEat_Judge : MonoBehaviour {
                     MoneyStatus_Panel_obj.SetActive(false);
                     text_area.SetActive(false);
                     Girlloveexp_bar.SetActive(false);
+                    if (stageclear_Button.activeInHierarchy)
+                    {
+                        stageclear_button_on = true;
+                        stageclear_Button.SetActive(false);
+                    }
 
                     timeOut = 4.0f;
                     judge_anim_status = 1;
@@ -654,6 +661,10 @@ public class GirlEat_Judge : MonoBehaviour {
                     MoneyStatus_Panel_obj.SetActive(true);
                     text_area.SetActive(true);
                     Girlloveexp_bar.SetActive(true);
+                    if(stageclear_button_on)
+                    {
+                        stageclear_Button.SetActive(true);
+                    }
 
                     //食べ中吹き出しの削除
                     if (eat_hukidashiitem != null)
@@ -1031,7 +1042,7 @@ public class GirlEat_Judge : MonoBehaviour {
     {
 
         //通常
-        if(girl1_status.OkashiNew_Status == 1)
+        if (girl1_status.OkashiNew_Status == 1)
         {
             dislike_flag = true;
             dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
@@ -1044,7 +1055,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         }
         //スペシャルお菓子の場合
-        else if ( girl1_status.OkashiNew_Status == 0) {
+        else if (girl1_status.OkashiNew_Status == 0)
+        {
 
             count = 0;
 
@@ -1056,92 +1068,89 @@ public class GirlEat_Judge : MonoBehaviour {
                 dislike_status = 1;
                 set_id = count;
 
-                //
-                //判定処理　パターンCのみ
-                //
-                Dislike_Okashi_Judge();              
 
-                if (dislike_status == 3 || dislike_status == 4)
-                {
-                    //パターンCのマイナスフラグがたってしまったので、以下の判定処理を無視
-                    break;
-                }
-                else
-                {
-                    //
-                    //判定処理　パターンA
-                    //                    
+                //
+                //判定処理　パターンA
+                //                    
 
-                    //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
-                    if (_girl_likeokashi[count] == "Non") //特に指定なし
+                //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
+                if (_girl_likeokashi[count] == "Non") //特に指定なし
+                {
+                    //③お菓子の種別の計算
+                    if (_girl_subtype[count] == "Non") //特に指定なし
                     {
-                        //③お菓子の種別の計算
-                        if (_girl_subtype[count] == "Non") //特に指定なし
-                        {
-
-                        }
-                        else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
-                        {
-
-                        }
-                        else
-                        {
-                            dislike_flag = false;
-                        }
+                        dislike_flag = true;
                     }
-                    else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
+                    else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
                     {
-                        //サブは計算せず、特定のお菓子自体が正解なら、正解
-
+                        dislike_flag = true;
                     }
                     else
                     {
                         dislike_flag = false;
                     }
-
-                    Debug.Log("あげたお菓子: " + _basename);
-
-                    //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
-                    if (dislike_flag) {
-                        break;
-                    }
-
-                    count++;
                 }
-
-
-                //この時点で、吹き出しと違うものであれば、dislike_flagがfalse。
-
-                //
-                //判定処理　パターンB
-                //
-
-                //吹き出しにあっているかいないかの判定。
-                if (dislike_flag == false) //吹き出しに合っていない場合
+                else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
                 {
-
-                    dislike_status = 5; //スペシャルクエストだった場合は、これじゃないという。
-                    /*
-                    if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
-                    {
-                        dislike_flag = true;
-                        dislike_status = 2;
-
-                        //判定処理が通常のものにかわる。
-                        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順
-                        SetGirlTasteInit();
-                    }
-                    else
-                    {
-                        dislike_flag = true;
-                        dislike_status = 6;
-
-                        //判定処理が通常のものにかわる。
-                        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順
-                        SetGirlTasteInit();
-                    }*/
+                    //サブは計算せず、特定のお菓子自体が正解なら、正解。ピンポイントで正解。
+                    dislike_flag = true;
                 }
+                else
+                {
+                    dislike_flag = false;
+                }
+
+                Debug.Log("あげたお菓子: " + _basename);
+
+                //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
+                if (dislike_flag)
+                {
+                    break;
+                }
+
+                count++;
             }
+
+
+            //この時点で、吹き出しと違うものであれば、dislike_flagがfalse。
+
+            //
+            //判定処理　パターンB
+            //
+
+            //吹き出しにあっているかいないかの判定。
+            if (dislike_flag == false) //吹き出しに合っていない場合
+            {
+
+                dislike_status = 5; //スペシャルクエストだった場合は、これじゃないという。
+                                    /*
+                                    if (database.items[_baseID].First_eat == 0) //新しい食べ物の場合
+                                    {
+                                        dislike_flag = true;
+                                        dislike_status = 2;
+
+                                        //判定処理が通常のものにかわる。
+                                        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順
+                                        SetGirlTasteInit();
+                                    }
+                                    else
+                                    {
+                                        dislike_flag = true;
+                                        dislike_status = 6;
+
+                                        //判定処理が通常のものにかわる。
+                                        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順
+                                        SetGirlTasteInit();
+                                    }*/
+            }
+            else //吹き出しに合っていた場合に、味を判定する。
+            {
+                //
+                //判定処理　パターンCのみ
+                //
+                Dislike_Okashi_Judge();
+            }
+
         }
     }
 
@@ -1371,6 +1380,15 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 break;
 
+            case "Rusk":
+
+                crispy_score = _basecrispy; //わかりやすく、サクサク度の数値がそのまま点数に。
+                shokukan_score = crispy_score;
+                shokukan_mes = "さくさく感";
+                Debug.Log("サクサク度の点: " + crispy_score);
+
+                break;
+
             case "Cake":
 
                 fluffy_score = _basefluffy;
@@ -1390,6 +1408,15 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
 
             case "Creampuff":
+
+                fluffy_score = _basefluffy;
+                shokukan_score = fluffy_score;
+                shokukan_mes = "ふわふわ感";
+                Debug.Log("ふわふわ度の点: " + fluffy_score);
+
+                break;
+
+            case "Donuts":
 
                 fluffy_score = _basefluffy;
                 shokukan_score = fluffy_score;
@@ -1558,9 +1585,9 @@ public class GirlEat_Judge : MonoBehaviour {
         //女の子の食べたいトッピングがあるにも関わらず、そのトッピングがのっていなかった。
         if (!topping_all_non && !topping_flag)
         {
-            topping_score = girl1_status.girl1_NonToppingScoreSet[countNum]; //点数がマイナスに働く。もしくは、クリアできない、とかでもよいかも。
+            topping_score += girl1_status.girl1_NonToppingScoreSet[countNum]; //点数がマイナスに働く。もしくは、クリアできない、とかでもよいかも。
 
-            topping_flag_point = 10;
+            //topping_flag_point = 10;
         }
 
         //以上、全ての点数を合計。

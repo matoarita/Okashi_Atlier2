@@ -85,7 +85,6 @@ public class Contest_Main : MonoBehaviour {
         _text = text_area.GetComponentInChildren<Text>();
 
         _text.text = "コンテスト会場だ。";
-        //text_area.SetActive(false);
 
         contest_select = canvas.transform.Find("Contest_Select").gameObject;
         conteston_toggle_judge = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Judge").gameObject;
@@ -94,17 +93,49 @@ public class Contest_Main : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //コンテスト会場きたときのイベント
+        if (!GameMgr.ContestEvent_stage[0])
+        {
+            GameMgr.ContestEvent_stage[0] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.contest_event_num = 0;
+            GameMgr.contest_event_flag = true;
+
+        }
+
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {
             text_area.SetActive(false);
             placename_panel.SetActive(false);
+            contest_select.SetActive(false);
             black_effect.SetActive(false);
 
             contest_status = 0;
         }
         else
-        { }
+        {
+            switch (contest_status)
+            {
+                case 0:
+
+                    text_area.SetActive(true);
+                    placename_panel.SetActive(true);
+                    contest_select.SetActive(true);
+
+                    contest_status = 100;
+                    break;
+
+                case 100: //退避
+
+                    break;
+
+                default:
+
+                    break;
+            }
+        }
     }
 
     public void OnContest_Judge_Toggle()

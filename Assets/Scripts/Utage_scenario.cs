@@ -32,6 +32,7 @@ public class Utage_scenario : MonoBehaviour
     private int shop_hint_number;
     private int hiroba_num;
     private int hiroba_endflag_num;
+    private int contest_num;
 
     private int re_flag;
     private int ev_flag;
@@ -373,6 +374,20 @@ public class Utage_scenario : MonoBehaviour
 
                 }
                 
+            }
+
+            //コンテストシーンでのイベント処理
+            if (SceneManager.GetActiveScene().name == "Contest")
+            {
+                if (GameMgr.contest_event_flag)
+                {
+                    GameMgr.contest_event_flag = false;
+                    contest_num = GameMgr.contest_event_num;
+                    //CharacterSpriteSetOFF();                    
+
+                    StartCoroutine(Contest_Event());
+
+                }
             }
         }
     }
@@ -1200,7 +1215,10 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("SpOkashiBefore_num", sp_Okashi_ID);       
+        engine.Param.TrySetParameter("SpOkashiBefore_num", sp_Okashi_ID);
+
+        //ゲーム上のキャラクタOFF
+        //CharacterLive2DImageOFF();
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -1210,6 +1228,9 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        //ゲーム上のキャラクタON
+        //CharacterLive2DImageON();
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 
@@ -1542,6 +1563,37 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false;
 
         GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+    }
+
+
+    //
+    // コンテストイベント
+    //
+    IEnumerator Contest_Event()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Contest_Event"; //ショップ話すタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Contest_num", contest_num);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+
+        GameMgr.scenario_ON = false;
+
     }
 
 

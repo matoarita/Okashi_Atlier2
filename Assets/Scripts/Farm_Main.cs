@@ -127,6 +127,7 @@ public class Farm_Main : MonoBehaviour {
                     //たまご・牛乳を各５個ずつもらえる。
                     pitemlist.addPlayerItemString("egg", 5);
                     pitemlist.addPlayerItemString("milk", 5);
+                    pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
                 }
                
                 break;

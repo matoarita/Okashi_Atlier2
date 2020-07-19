@@ -618,6 +618,11 @@ public class SetImage : MonoBehaviour
                 item_Shokukan_Type.text = "ふわふわ感";
                 item_Shokukan.text = _fluffy_score.ToString();
                 break;
+            case "Donuts":
+                subcategory = "ドーナツ系";
+                item_Shokukan_Type.text = "ふわふわ感";
+                item_Shokukan.text = _fluffy_score.ToString();
+                break;
             case "IceCream":
                 subcategory = "アイスクリーム";
                 item_Shokukan_Type.text = "くちどけ感";

@@ -8,7 +8,6 @@ public class SoundController : MonoBehaviour {
 
     private Dictionary<string, int> seIndexes = new Dictionary<string, int>(); //読み込んだファイルにインデックスと、ファイル名をつける。
 
-    //結局使っていない。
     const int cNumChannel = 4;
     private AudioSource[] seSources = new AudioSource[cNumChannel]; //オーディオソース
     //

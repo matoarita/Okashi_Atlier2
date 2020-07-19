@@ -147,6 +147,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
     public int _temp_extreme_id;
     public int _temp_extreme_itemtype;
+    public bool _temp_extremeSetting;
     public float _temp_extreme_money;
     public float _temp_moneydeg;
     public bool _temp_life_anim_on;
@@ -266,6 +267,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compo_anim_end = false;        
 
         _temp_extreme_id = 9999;
+        _temp_extremeSetting = false;
     }
 
     // Update is called once per frame
@@ -396,6 +398,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
             if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
             {
+                //ただし、例外として、ホイップクリーム（絞り袋セット前）はセットされる。その他もあるかも。
+                if(pitemlist.player_originalitemlist[result_item].itemType_sub.ToString() == "Cream")
+                {
+                    //パネルに、作ったやつを表示する。
+                    extremePanel.SetExtremeItem(result_item, 1);
+
+                    //お菓子のHPをセット
+                    extremePanel.SetDegOkashiLife(pitemlist.player_originalitemlist[result_item].itemHP);
+                }
             }
             else
             {
@@ -896,6 +907,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 PlayerStatus.First_extreme_on = true;
             }
+
+            result_kosu = 1;
 
             //右側パネルに、作ったやつを表示する。
             extremePanel.SetExtremeItem(new_item, 1);

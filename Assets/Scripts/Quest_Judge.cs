@@ -568,6 +568,11 @@ public class Quest_Judge : MonoBehaviour {
 
             foreach (KeyValuePair<int, int> deletePair in newTable)
             {
+                if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
+                {
+                    exp_Controller._temp_extreme_id = 9999;
+                    exp_Controller._temp_extremeSetting = false;
+                }
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
                 //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }

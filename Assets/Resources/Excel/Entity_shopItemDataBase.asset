@@ -208,21 +208,21 @@ MonoBehaviour:
       zaiko: 1
       itemType: 1
       shop_sell_price: 800
-      shop_buy_price: 150
+      shop_buy_price: 400
       item_hyouji: 0
     - ItemID: 28
       name: financier_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 1500
-      shop_buy_price: 750
+      shop_sell_price: 800
+      shop_buy_price: 400
       item_hyouji: 1
     - ItemID: 29
       name: creampuff_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 1500
-      shop_buy_price: 750
+      shop_sell_price: 800
+      shop_buy_price: 400
       item_hyouji: 1
     - ItemID: 30
       name: slimejelly_recipi

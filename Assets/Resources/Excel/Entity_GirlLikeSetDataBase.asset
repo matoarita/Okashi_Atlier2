@@ -393,19 +393,19 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: Orange
+      topping01: WhipeedCream
       topping02: Grape
-      topping03: WhipeedCream
+      topping03: Non
       topping04: Non
       topping05: Non
-      tp_score01: 5
+      tp_score01: 12
       tp_score02: 7
-      tp_score03: 12
+      tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
       desc: "<color=#FF78B4>\u30AF\u30EC\u30FC\u30D7</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
-      commet_flag: 1
+      commet_flag: 0
     - setID: 14
       compNum: 70
       girllike_itemname: Non
@@ -433,7 +433,7 @@ MonoBehaviour:
       tp_score05: 0
       Non_tpscore: -10
       desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
-      commet_flag: 1
+      commet_flag: 0
     - setID: 15
       compNum: 80
       girllike_itemname: Non
@@ -450,18 +450,18 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       topping01: Strawberry
-      topping02: Non
+      topping02: Nuts
       topping03: Non
       topping04: Non
       topping05: Non
       tp_score01: 20
-      tp_score02: 0
+      tp_score02: 10
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
       desc: "<color=#FF78B4>\u30C9\u30FC\u30CA\u30C4</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
-      commet_flag: 1
+      commet_flag: 0
   - name: 02_ContestSetData1
     list:
     - setID: 1000

@@ -12,6 +12,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private ItemDataBase database;
 
     private int _id;
+    private int event_id;
     private int _comp_hosei;
     private string _file_name, _nameHyouji, _desc;
     private string _type;
@@ -398,6 +399,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         {
             eventitemlist[ev_id].ev_itemKosu = 99; //上限 99個
         }
+    }
+
+    public void add_eventPlayerItemString(string itemName, int count_kosu)
+    {
+        event_id = Find_eventitemdatabase(itemName);
+        add_eventPlayerItem(event_id, count_kosu);
     }
 
     //　トッピングで、調節したオリジナルアイテムを登録する。

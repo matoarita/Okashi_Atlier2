@@ -96,6 +96,7 @@ public class Item
         Jelly,
         Omochi,
         Appaleil,
+        Cream,
         Pate,
         Komugiko,
         Egg,

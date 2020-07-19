@@ -1919,7 +1919,7 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_num = 0;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;　//0番がtrueになってたら、現在は、ステージ１－１のクエストが発生中という意味。
 
-                            //ラスク作りのクエスト発生
+                            //クッキー作りのクエスト発生
                             Debug.Log("好感度イベント１をON: クッキーが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
@@ -1938,8 +1938,7 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;　//1番がtrueになってたら、現在は、ステージ１－２のクエストが発生中という意味。
 
                             //レシピの追加
-                            recipi_id = Find_eventitemdatabase("rusk_recipi");
-                            pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加                            
+                            pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                   
 
                             //クエスト発生
                             Debug.Log("好感度イベント２をON: ラスクが食べたい　開始");
@@ -1962,8 +1961,7 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
                             //レシピの追加
-                            recipi_id = Find_eventitemdatabase("crepe_recipi");
-                            pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加     
+                            pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加     
 
                             //クエスト発生
                             Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
@@ -2180,23 +2178,6 @@ public class Compound_Main : MonoBehaviour
             default:
                 break;
         }
-    }
-
-
-    //アイテム名を入力すると、該当するeventitem_IDを返す処理
-    public int Find_eventitemdatabase(string compo_itemname)
-    {
-        j = 0;
-        while (j < pitemlist.eventitemlist.Count)
-        {
-            if (compo_itemname == pitemlist.eventitemlist[j].event_itemName)
-            {
-                return j;
-            }
-            j++;
-        }
-
-        return 9999; //該当するIDがない場合
     }
    
     //アイテム名を入力すると、該当するcompoIDをOnにする

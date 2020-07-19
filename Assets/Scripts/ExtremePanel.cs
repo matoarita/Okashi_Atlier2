@@ -266,8 +266,9 @@ public class ExtremePanel : MonoBehaviour {
         extreme_itemtype = itemtype;
 
         //シーン移動用に保存
-        exp_Controller._temp_extreme_id = extreme_itemID;
+        exp_Controller._temp_extreme_id = extreme_itemID; //オリジナルリストの最後の番号のこと
         exp_Controller._temp_extreme_itemtype = extreme_itemtype;
+        exp_Controller._temp_extremeSetting = true; //セットされていますよ～、ということ。この状態で、オリジナルリストの最後の番号のアイテムが削除されたら、パネルのデータも削除する。
 
         Extreme_Hyouji();
     }
@@ -509,6 +510,7 @@ public class ExtremePanel : MonoBehaviour {
         image_effect.SetActive(false);
 
         exp_Controller._temp_extreme_id = 9999;
+        exp_Controller._temp_extremeSetting = false;
     }
 
 

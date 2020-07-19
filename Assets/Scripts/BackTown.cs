@@ -30,16 +30,29 @@ public class BackTown : MonoBehaviour {
     {
         _text.text = "また来てね～";
 
-        //メインシーン読み込み
-        FadeManager.Instance.LoadScene("Compound", 0.3f);
-        GameMgr.Scene_back_home = true;
+        StartCoroutine(CoUnload());
     }
 
     public void OnClickToTown_notext()
     {
+        
+        StartCoroutine(CoUnload());
+    }
 
+    IEnumerator CoUnload()
+    {
+        //SceneAをアンロード
+        var op = SceneManager.UnloadSceneAsync("Utage");
+        yield return op;
+
+        //必要に応じて不使用アセットをアンロードしてメモリを解放する
+        //けっこう重い処理なので、別に管理するのも手
+        yield return Resources.UnloadUnusedAssets();
+
+        //アンロード後の処理を書く
         //メインシーン読み込み
         FadeManager.Instance.LoadScene("Compound", 0.3f);
         GameMgr.Scene_back_home = true;
+      
     }
 }

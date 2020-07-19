@@ -88,10 +88,35 @@ public class Hiroba_Main2 : MonoBehaviour
 
     void text_scenario()
     {
-        switch (GameMgr.scenario_flag)
+        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
         {
+            case 4: //ドーナツイベント時
+                if (GameMgr.hiroba_event_end[8])
+                {
+                    _text.text = "ピンクのドーナツを作ってみよう！";
+                }
+                else
+                {
+                    if (GameMgr.hiroba_event_end[1])
+                    {
+                        _text.text = "さて、村長さんにも話を聞いたし。行くところは..。";
+                    }
+                    else
+                    {
+                        if (GameMgr.hiroba_event_end[0])
+                        {
+                            _text.text = "色んな人に話を聞いてみよう！";
+                        }
+                        else
+                        {
+                            _text.text = "ここは、村の中央広場のようだ。いろんな人がいるみたいだ。";
+                        }
+                    }
+                }
+                break;
 
             default:
+
                 _text.text = "ここは、村の中央広場のようだ。いろんな人がいるみたいだ。";
                 break;
         }
@@ -181,5 +206,6 @@ public class Hiroba_Main2 : MonoBehaviour
         }
         mainlist_controller2.ToggleFlagCheck();
 
+        text_scenario(); //テキストの更新
     }
 }

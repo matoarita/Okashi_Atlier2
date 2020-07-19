@@ -2,9 +2,9 @@
 	"Version": 3,
 	"Meta": {
 		"PhysicsSettingCount": 9,
-		"TotalInputCount": 49,
-		"TotalOutputCount": 39,
-		"VertexCount": 50,
+		"TotalInputCount": 45,
+		"TotalOutputCount": 29,
+		"VertexCount": 47,
 		"EffectiveForces": {
 			"Gravity": {
 				"X": 0,
@@ -18,39 +18,39 @@
 		"PhysicsDictionary": [
 			{
 				"Id": "PhysicsSetting1",
-				"Name": "RF_hair"
+				"Name": "横髪"
 			},
 			{
 				"Id": "PhysicsSetting2",
-				"Name": "F_hair"
+				"Name": "前髪"
 			},
 			{
 				"Id": "PhysicsSetting3",
-				"Name": "LF_hair"
+				"Name": "スカート"
 			},
 			{
 				"Id": "PhysicsSetting4",
-				"Name": "Skirt"
-			},
-			{
-				"Id": "PhysicsSetting5",
 				"Name": "R_twintail"
 			},
 			{
-				"Id": "PhysicsSetting6",
+				"Id": "PhysicsSetting5",
 				"Name": "L_twintail"
 			},
 			{
-				"Id": "PhysicsSetting7",
+				"Id": "PhysicsSetting6",
 				"Name": "B_hair"
 			},
 			{
-				"Id": "PhysicsSetting8",
+				"Id": "PhysicsSetting7",
 				"Name": "R_ribbon"
 			},
 			{
-				"Id": "PhysicsSetting9",
+				"Id": "PhysicsSetting8",
 				"Name": "L_ribbon"
+			},
+			{
+				"Id": "PhysicsSetting9",
+				"Name": "sample"
 			}
 		]
 	},
@@ -63,8 +63,17 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 60,
+					"Weight": 20,
 					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamAngleZ"
+					},
+					"Weight": 30,
+					"Type": "Angle",
 					"Reflect": false
 				},
 				{
@@ -88,27 +97,18 @@
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_rotate"
-					},
-					"Weight": 40,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
 						"Id": "Hair_All_z_Pos"
 					},
-					"Weight": 40,
+					"Weight": 80,
 					"Type": "X",
 					"Reflect": false
 				},
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "headPosR"
+						"Id": "Hair_All_z_rotate"
 					},
-					"Weight": 60,
+					"Weight": 70,
 					"Type": "Angle",
 					"Reflect": false
 				}
@@ -117,54 +117,21 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_1_RF_hair2"
+						"Id": "ParamHairSide"
 					},
 					"VertexIndex": 1,
-					"Scale": 20,
-					"Weight": 30,
+					"Scale": 40,
+					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
 				},
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_2_RF_hair2"
+						"Id": "Param5"
 					},
 					"VertexIndex": 2,
-					"Scale": 20,
-					"Weight": 30,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_3_RF_hair2"
-					},
-					"VertexIndex": 3,
-					"Scale": 20,
-					"Weight": 100,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_4_RF_hair2"
-					},
-					"VertexIndex": 3,
-					"Scale": 20,
-					"Weight": 100,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_5_RF_hair2"
-					},
-					"VertexIndex": 3,
-					"Scale": 20,
+					"Scale": 40,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -187,28 +154,18 @@
 						"Y": 10
 					},
 					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.3,
+					"Delay": 0.8,
+					"Acceleration": 0.8,
 					"Radius": 10
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 20
+						"Y": 18
 					},
-					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.3,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 28
-					},
-					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.2,
+					"Mobility": 0.8,
+					"Delay": 0.8,
+					"Acceleration": 0.8,
 					"Radius": 8
 				}
 			],
@@ -233,34 +190,16 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 60,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "ParamBodyAngleX"
+						"Id": "ParamAngleZ"
 					},
-					"Weight": 0,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleZ"
-					},
-					"Weight": 0,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "Hair_All_z_rotate"
-					},
-					"Weight": 60,
+					"Weight": 30,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -269,16 +208,16 @@
 						"Target": "Parameter",
 						"Id": "Hair_All_z_Pos"
 					},
-					"Weight": 40,
+					"Weight": 80,
 					"Type": "X",
 					"Reflect": false
 				},
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "headPosR"
+						"Id": "Hair_All_z_rotate"
 					},
-					"Weight": 40,
+					"Weight": 70,
 					"Type": "Angle",
 					"Reflect": false
 				}
@@ -287,21 +226,10 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_1_F_hair2"
+						"Id": "ParamHairFront"
 					},
 					"VertexIndex": 1,
-					"Scale": 20,
-					"Weight": 30,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_2_F_hair2"
-					},
-					"VertexIndex": 2,
-					"Scale": 20,
+					"Scale": 50,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -309,10 +237,10 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_3_F_hair2"
+						"Id": "Param4"
 					},
-					"VertexIndex": 3,
-					"Scale": 20,
+					"VertexIndex": 2,
+					"Scale": 50,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -335,28 +263,18 @@
 						"Y": 10
 					},
 					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.3,
+					"Delay": 0.8,
+					"Acceleration": 0.6,
 					"Radius": 10
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 20
+						"Y": 18
 					},
-					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.3,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 28
-					},
-					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.2,
+					"Mobility": 0.8,
+					"Delay": 0.8,
+					"Acceleration": 0.6,
 					"Radius": 8
 				}
 			],
@@ -379,180 +297,10 @@
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "ParamAngleX"
-					},
-					"Weight": 60,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleX"
-					},
-					"Weight": 0,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleZ"
-					},
-					"Weight": 0,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "Hair_All_z_rotate"
-					},
-					"Weight": 40,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "Hair_All_z_Pos"
-					},
-					"Weight": 40,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "headPosR"
-					},
-					"Weight": 60,
-					"Type": "Angle",
-					"Reflect": false
-				}
-			],
-			"Output": [
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_1_LF_hair2"
-					},
-					"VertexIndex": 1,
-					"Scale": 20,
-					"Weight": 30,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_2_LF_hair2"
-					},
-					"VertexIndex": 2,
-					"Scale": 20,
-					"Weight": 30,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_3_LF_hair2"
-					},
-					"VertexIndex": 3,
-					"Scale": 20,
-					"Weight": 100,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_4_LF_hair2"
-					},
-					"VertexIndex": 3,
-					"Scale": 20,
-					"Weight": 100,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_5_LF_hair2"
-					},
-					"VertexIndex": 3,
-					"Scale": 20,
-					"Weight": 100,
-					"Type": "Angle",
-					"Reflect": false
-				}
-			],
-			"Vertices": [
-				{
-					"Position": {
-						"X": 0,
-						"Y": 0
-					},
-					"Mobility": 0.9,
-					"Delay": 1,
-					"Acceleration": 0.3,
-					"Radius": 0
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 10
-					},
-					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.3,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 20
-					},
-					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.3,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 28
-					},
-					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 0.25,
-					"Radius": 8
-				}
-			],
-			"Normalization": {
-				"Position": {
-					"Minimum": -10,
-					"Default": 0,
-					"Maximum": 10
-				},
-				"Angle": {
-					"Minimum": -10,
-					"Default": 0,
-					"Maximum": 10
-				}
-			}
-		},
-		{
-			"Id": "PhysicsSetting4",
-			"Input": [
-				{
-					"Source": {
-						"Target": "Parameter",
 						"Id": "Skirt_z"
 					},
 					"Weight": 100,
-					"Type": "Angle",
+					"Type": "X",
 					"Reflect": false
 				}
 			],
@@ -560,10 +308,10 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_1_skirt"
+						"Id": "Param7"
 					},
 					"VertexIndex": 1,
-					"Scale": 20,
+					"Scale": 40,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -571,21 +319,10 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_2_skirt"
+						"Id": "Param8"
 					},
 					"VertexIndex": 2,
-					"Scale": 20,
-					"Weight": 100,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Param_Angle_Rotation_3_skirt"
-					},
-					"VertexIndex": 3,
-					"Scale": 20,
+					"Scale": 40,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -607,30 +344,20 @@
 						"X": 0,
 						"Y": 10
 					},
-					"Mobility": 0.85,
-					"Delay": 0.9,
-					"Acceleration": 1,
+					"Mobility": 0.9,
+					"Delay": 0.8,
+					"Acceleration": 0.5,
 					"Radius": 10
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 20
+						"Y": 35
 					},
 					"Mobility": 0.9,
-					"Delay": 0.9,
-					"Acceleration": 1,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 28
-					},
-					"Mobility": 0.95,
-					"Delay": 0.9,
-					"Acceleration": 0.8,
-					"Radius": 8
+					"Delay": 0.8,
+					"Acceleration": 0.3,
+					"Radius": 25
 				}
 			],
 			"Normalization": {
@@ -647,14 +374,14 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting5",
+			"Id": "PhysicsSetting4",
 			"Input": [
 				{
 					"Source": {
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 0,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -663,7 +390,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleZ"
 					},
-					"Weight": 0,
+					"Weight": 30,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -688,19 +415,19 @@
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_rotate"
+						"Id": "Hair_All_z_Pos"
 					},
-					"Weight": 100,
-					"Type": "Angle",
+					"Weight": 80,
+					"Type": "X",
 					"Reflect": false
 				},
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_Pos"
+						"Id": "Hair_All_z_rotate"
 					},
-					"Weight": 100,
-					"Type": "X",
+					"Weight": 70,
+					"Type": "Angle",
 					"Reflect": false
 				}
 			],
@@ -909,14 +636,14 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting6",
+			"Id": "PhysicsSetting5",
 			"Input": [
 				{
 					"Source": {
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 0,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -925,7 +652,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleZ"
 					},
-					"Weight": 0,
+					"Weight": 30,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -950,19 +677,19 @@
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_rotate"
+						"Id": "Hair_All_z_Pos"
 					},
-					"Weight": 100,
-					"Type": "Angle",
+					"Weight": 80,
+					"Type": "X",
 					"Reflect": false
 				},
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_Pos"
+						"Id": "Hair_All_z_rotate"
 					},
-					"Weight": 100,
-					"Type": "X",
+					"Weight": 70,
+					"Type": "Angle",
 					"Reflect": false
 				}
 			],
@@ -1171,14 +898,14 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting7",
+			"Id": "PhysicsSetting6",
 			"Input": [
 				{
 					"Source": {
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 0,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -1187,7 +914,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleZ"
 					},
-					"Weight": 0,
+					"Weight": 30,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -1212,19 +939,19 @@
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_rotate"
+						"Id": "Hair_All_z_Pos"
 					},
-					"Weight": 100,
-					"Type": "Angle",
+					"Weight": 80,
+					"Type": "X",
 					"Reflect": false
 				},
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_Pos"
+						"Id": "Hair_All_z_rotate"
 					},
-					"Weight": 100,
-					"Type": "X",
+					"Weight": 70,
+					"Type": "Angle",
 					"Reflect": false
 				}
 			],
@@ -1319,14 +1046,14 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting8",
+			"Id": "PhysicsSetting7",
 			"Input": [
 				{
 					"Source": {
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 0,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -1335,7 +1062,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleZ"
 					},
-					"Weight": 0,
+					"Weight": 30,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -1360,19 +1087,19 @@
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_rotate"
+						"Id": "Hair_All_z_Pos"
 					},
-					"Weight": 100,
-					"Type": "Angle",
+					"Weight": 80,
+					"Type": "X",
 					"Reflect": false
 				},
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_Pos"
+						"Id": "Hair_All_z_rotate"
 					},
-					"Weight": 100,
-					"Type": "X",
+					"Weight": 70,
+					"Type": "Angle",
 					"Reflect": false
 				}
 			],
@@ -1467,14 +1194,14 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting9",
+			"Id": "PhysicsSetting8",
 			"Input": [
 				{
 					"Source": {
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 0,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -1483,7 +1210,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleZ"
 					},
-					"Weight": 0,
+					"Weight": 30,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -1508,19 +1235,19 @@
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_rotate"
+						"Id": "Hair_All_z_Pos"
 					},
-					"Weight": 100,
-					"Type": "Angle",
+					"Weight": 80,
+					"Type": "X",
 					"Reflect": false
 				},
 				{
 					"Source": {
 						"Target": "Parameter",
-						"Id": "Hair_All_z_Pos"
+						"Id": "Hair_All_z_rotate"
 					},
-					"Weight": 100,
-					"Type": "X",
+					"Weight": 70,
+					"Type": "Angle",
 					"Reflect": false
 				}
 			],
@@ -1598,6 +1325,102 @@
 					"Mobility": 0.7,
 					"Delay": 0.9,
 					"Acceleration": 0.3,
+					"Radius": 8
+				}
+			],
+			"Normalization": {
+				"Position": {
+					"Minimum": -10,
+					"Default": 0,
+					"Maximum": 10
+				},
+				"Angle": {
+					"Minimum": -10,
+					"Default": 0,
+					"Maximum": 10
+				}
+			}
+		},
+		{
+			"Id": "PhysicsSetting9",
+			"Input": [
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamAngleX"
+					},
+					"Weight": 60,
+					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamAngleZ"
+					},
+					"Weight": 60,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamBodyAngleX"
+					},
+					"Weight": 40,
+					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamBodyAngleZ"
+					},
+					"Weight": 40,
+					"Type": "Angle",
+					"Reflect": false
+				}
+			],
+			"Output": [],
+			"Vertices": [
+				{
+					"Position": {
+						"X": 0,
+						"Y": 0
+					},
+					"Mobility": 1,
+					"Delay": 1,
+					"Acceleration": 1,
+					"Radius": 0
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 10
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 20
+					},
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 1,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 28
+					},
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.8,
 					"Radius": 8
 				}
 			],
