@@ -2023,6 +2023,10 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_num = 5;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
+                            //コンテストの締め切り日を設定
+                            GameMgr.stage1_limit_day = PlayerStatus.player_day + 7;
+                            time_controller.DeadLine_Setting();
+
                             //クエスト発生
                             Debug.Log("ステージ１ラストイベントをON: コンテスト　開始");
 

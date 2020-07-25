@@ -186,16 +186,24 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 11
       debugIndex: 11
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u30E9\u30A4\u30D0\u30EB"
+      - <param=player_rival_name>
+      - "\u901A\u5E38"
+      - 
+      - -250
+      - 
+      - 
+      - 1.1
+      - 
+      - Mint/mint.png
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 12
       debugIndex: 12
-      strings:
-      - "\u4E3B\u4EBA\u516C\u306E\u7236"
-      - <param=player_father_name>
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 13
@@ -213,6 +221,26 @@ MonoBehaviour:
     - rowIndex: 15
       debugIndex: 15
       strings:
+      - "\u4E3B\u4EBA\u516C\u306E\u7236"
+      - <param=player_father_name>
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 16
+      debugIndex: 16
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 17
+      debugIndex: 17
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 18
+      debugIndex: 18
+      strings:
       - "\u304A\u3070\u3055\u3093"
       - <param=npcA_name>
       - "\u901A\u5E38"
@@ -226,8 +254,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 16
-      debugIndex: 16
+    - rowIndex: 19
+      debugIndex: 19
       strings:
       - 
       - 
@@ -242,8 +270,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 17
-      debugIndex: 17
+    - rowIndex: 20
+      debugIndex: 20
       strings:
       - 
       - 
@@ -258,8 +286,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 18
-      debugIndex: 18
+    - rowIndex: 21
+      debugIndex: 21
       strings:
       - 
       - 
@@ -274,14 +302,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 19
-      debugIndex: 19
+    - rowIndex: 22
+      debugIndex: 22
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 20
-      debugIndex: 20
+    - rowIndex: 23
+      debugIndex: 23
       strings:
       - "\u6751\u9577"
       - <param=npcB_name>
@@ -296,8 +324,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 21
-      debugIndex: 21
+    - rowIndex: 24
+      debugIndex: 24
       strings:
       - 
       - 
@@ -312,8 +340,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 22
-      debugIndex: 22
+    - rowIndex: 25
+      debugIndex: 25
       strings:
       - 
       - 
@@ -328,8 +356,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 23
-      debugIndex: 23
+    - rowIndex: 26
+      debugIndex: 26
       strings:
       - 
       - 
@@ -344,14 +372,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 24
-      debugIndex: 24
+    - rowIndex: 27
+      debugIndex: 27
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 25
-      debugIndex: 25
+    - rowIndex: 28
+      debugIndex: 28
       strings:
       - "\u6751\u9577\u306E\u304A\u3070\u3042\u3061\u3083\u3093"
       - <param=npcF_name>
@@ -366,14 +394,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 26
-      debugIndex: 26
+    - rowIndex: 29
+      debugIndex: 29
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 27
-      debugIndex: 27
+    - rowIndex: 30
+      debugIndex: 30
       strings:
       - "\u30B7\u30E7\u30C3\u30D7\u306E\u5E97\u4E3B"
       - <param=npcC_name>
@@ -388,8 +416,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 28
-      debugIndex: 28
+    - rowIndex: 31
+      debugIndex: 31
       strings:
       - 
       - 
@@ -404,8 +432,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 29
-      debugIndex: 29
+    - rowIndex: 32
+      debugIndex: 32
       strings:
       - 
       - 
@@ -420,8 +448,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 30
-      debugIndex: 30
+    - rowIndex: 33
+      debugIndex: 33
       strings:
       - 
       - 
@@ -436,14 +464,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 31
-      debugIndex: 31
+    - rowIndex: 34
+      debugIndex: 34
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 32
-      debugIndex: 32
+    - rowIndex: 35
+      debugIndex: 35
       strings:
       - "\u7267\u5834\u306E\u5973\u4E3B\u4EBA"
       - <param=npcD_name>
@@ -458,14 +486,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 33
-      debugIndex: 33
+    - rowIndex: 36
+      debugIndex: 36
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 34
-      debugIndex: 34
+    - rowIndex: 37
+      debugIndex: 37
       strings:
       - "\u3044\u3061\u3054\u5C11\u5973"
       - <param=npcE_name>
@@ -480,14 +508,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 35
-      debugIndex: 35
+    - rowIndex: 38
+      debugIndex: 38
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 36
-      debugIndex: 36
+    - rowIndex: 39
+      debugIndex: 39
       strings:
       - "\u30DC\u30B9A"
       - <param=bossA_name>
@@ -502,14 +530,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 37
-      debugIndex: 37
+    - rowIndex: 40
+      debugIndex: 40
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 38
-      debugIndex: 38
+    - rowIndex: 41
+      debugIndex: 41
       strings:
       - "\u30C9\u30FC\u30CA\u30C4\u8077\u4EBA"
       - <param=npcI_name>
@@ -524,14 +552,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 39
-      debugIndex: 39
+    - rowIndex: 42
+      debugIndex: 42
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 40
-      debugIndex: 40
+    - rowIndex: 43
+      debugIndex: 43
       strings:
       - "\u56F3\u66F8\u9928\u306E\u4E3B"
       - <param=npcH_name>
@@ -546,14 +574,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 41
-      debugIndex: 41
+    - rowIndex: 44
+      debugIndex: 44
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 42
-      debugIndex: 42
+    - rowIndex: 45
+      debugIndex: 45
       strings:
       - "\u304A\u82B1\u5C4B\u3055\u3093"
       - <param=npcG_name>
@@ -568,9 +596,139 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 46
+      debugIndex: 46
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 47
+      debugIndex: 47
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u53D7\u4ED8\u5144\u3055\u3093"
+      - <param=npcL_name>
+      - "\u901A\u5E38"
+      - 
+      - -50
+      - 
+      - 
+      - 1
+      - 
+      - Gato/wgF_a001.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 48
+      debugIndex: 48
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u53D7\u4ED8\u304A\u59C9\u3055\u3093"
+      - <param=npcM_name>
+      - "\u901A\u5E38"
+      - 
+      - -45
+      - 
+      - 
+      - 1.7
+      - 
+      - Arika/chara_megane.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 49
+      debugIndex: 49
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 50
+      debugIndex: 50
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u30E1\u30F3\u30D0\u30FC\uFF11"
+      - "<param=npc\uFF2E_name>"
+      - "\u901A\u5E38"
+      - 
+      - -300
+      - 
+      - 
+      - .6
+      - 
+      - Gonzaresu/gonzaresu_1.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 51
+      debugIndex: 51
+      strings:
+      - 
+      - 
+      - "\u7B11\u3044"
+      - 
+      - -300
+      - 
+      - 
+      - .6
+      - 
+      - Gonzaresu/gonzaresu_1_smile.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 52
+      debugIndex: 52
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 53
+      debugIndex: 53
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u30E1\u30F3\u30D0\u30FC\uFF12"
+      - <param=npcO_name>
+      - "\u901A\u5E38"
+      - 
+      - -50
+      - 
+      - 
+      - .6
+      - 
+      - Savant/tao_sample.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 54
+      debugIndex: 54
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u30E1\u30F3\u30D0\u30FC\uFF13"
+      - <param=npcP_name>
+      - "\u901A\u5E38"
+      - 
+      - -250
+      - 
+      - 
+      - 1.1
+      - 
+      - Sheena/sheena.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 55
+      debugIndex: 55
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u30E1\u30F3\u30D0\u30FC\uFF14"
+      - <param=npcQ_name>
+      - "\u901A\u5E38"
+      - 
+      - -50
+      - 
+      - 
+      - .6
+      - 
+      - Sitoron/paker_girl_sample.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 1289
+    textLength: 1718
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -829,6 +987,66 @@ MonoBehaviour:
     - rowIndex: 17
       debugIndex: 17
       strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u4F1A\u5834\u5916"
+      - Bg
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - esfan_008_800.600.jpg
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 18
+      debugIndex: 18
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u4F1A\u5834\u5ECA\u4E0B"
+      - Bg
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - nexyashi007_800600.jpg
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 19
+      debugIndex: 19
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u4F1A\u5834\u63A7\u3048"
+      - Bg
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - nexyashi001_800600.jpg
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 20
+      debugIndex: 20
+      strings:
+      - "\u30B3\u30F3\u30C6\u30B9\u30C8\u4F1A\u5834\u30E1\u30A4\u30F3"
+      - Bg
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - esfan_003_800.600.jpg
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 21
+      debugIndex: 21
+      strings:
       - "\u30A2\u30C8\u30EA\u30A8\u524D"
       - Bg
       - 
@@ -841,8 +1059,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 18
-      debugIndex: 18
+    - rowIndex: 22
+      debugIndex: 22
       strings:
       - "\u30A2\u30C8\u30EA\u30A8\u5185"
       - Bg
@@ -856,8 +1074,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 19
-      debugIndex: 19
+    - rowIndex: 23
+      debugIndex: 23
       strings:
       - "\u30A2\u30C8\u30EA\u30A8\u5185\uFF08\u96E8\uFF09"
       - Bg
@@ -871,14 +1089,14 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 20
-      debugIndex: 20
+    - rowIndex: 24
+      debugIndex: 24
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 21
-      debugIndex: 21
+    - rowIndex: 25
+      debugIndex: 25
       strings:
       - "\u30A2\u30A4\u30C6\u30E0\u30A2\u30A4\u30B3\u30F3\u30D5\u30EC\u30FC\u30E0"
       - Sprite
@@ -892,8 +1110,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 22
-      debugIndex: 22
+    - rowIndex: 26
+      debugIndex: 26
       strings:
       - "\u30A8\u30E1\u30E9\u30EB\u3069\u3093\u3050\u308A"
       - Sprite
@@ -907,8 +1125,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 23
-      debugIndex: 23
+    - rowIndex: 27
+      debugIndex: 27
       strings:
       - "\u30EC\u30B7\u30D4\u30D6\u30C3\u30AF"
       - Sprite
@@ -922,20 +1140,20 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 24
-      debugIndex: 24
+    - rowIndex: 28
+      debugIndex: 28
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 25
-      debugIndex: 25
+    - rowIndex: 29
+      debugIndex: 29
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 26
-      debugIndex: 26
+    - rowIndex: 30
+      debugIndex: 30
       strings:
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       - Event
@@ -949,8 +1167,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 27
-      debugIndex: 27
+    - rowIndex: 31
+      debugIndex: 31
       strings:
       - "\u30A4\u30D9\u30F3\u30C802_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30D2\u30F3\u30C8"
       - Event
@@ -964,8 +1182,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 28
-      debugIndex: 28
+    - rowIndex: 32
+      debugIndex: 32
       strings:
       - "\u30B9\u30C1\u30EB01_\u3042\u308A\u304C\u3068\u5144\u3061\u3083\u3093"
       - Event
@@ -981,7 +1199,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Texture
     type: 1
-    textLength: 871
+    textLength: 1001
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -1414,14 +1632,59 @@ MonoBehaviour:
     - rowIndex: 27
       debugIndex: 27
       strings:
+      - npcM_name
+      - String
+      - "\u53D7\u4ED8\u304A\u59C9\u3055\u3093"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 28
+      debugIndex: 28
+      strings:
+      - "npc\uFF2E_name"
+      - String
+      - "\u30B4\u30F3\u30B6\u30EC\u30B9"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 29
+      debugIndex: 29
+      strings:
+      - npcO_name
+      - String
+      - "\u30B5\u30F4\u30A1\u30F3"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 30
+      debugIndex: 30
+      strings:
+      - npcP_name
+      - String
+      - "\u30B7\u30FC\u30CA"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 31
+      debugIndex: 31
+      strings:
+      - npcQ_name
+      - String
+      - "\u30B7\u30C8\u30ED\u30F3"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 32
+      debugIndex: 32
+      strings:
       - bossA_name
       - String
       - "\u30A2\u30DE\u30AF\u30B5"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 28
-      debugIndex: 28
+    - rowIndex: 33
+      debugIndex: 33
       strings:
       - bossA_fullname
       - String
@@ -1429,8 +1692,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 29
-      debugIndex: 29
+    - rowIndex: 34
+      debugIndex: 34
       strings:
       - unknown_name
       - String
@@ -1438,8 +1701,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 30
-      debugIndex: 30
+    - rowIndex: 35
+      debugIndex: 35
       strings:
       - etcA_name
       - String
@@ -1447,8 +1710,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 31
-      debugIndex: 31
+    - rowIndex: 36
+      debugIndex: 36
       strings:
       - etcB_name
       - String
@@ -1456,20 +1719,20 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 32
-      debugIndex: 32
+    - rowIndex: 37
+      debugIndex: 37
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 33
-      debugIndex: 33
+    - rowIndex: 38
+      debugIndex: 38
       strings: []
       isEmpty: 1
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 34
-      debugIndex: 34
+    - rowIndex: 39
+      debugIndex: 39
       strings:
       - Kaeru_Coin
       - Int
@@ -1477,67 +1740,22 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 35
-      debugIndex: 35
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 36
-      debugIndex: 36
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 37
-      debugIndex: 37
-      strings:
-      - Story_num
-      - Int
-      - 0
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 38
-      debugIndex: 38
-      strings:
-      - Girllove_event_num
-      - Int
-      - 0
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 39
-      debugIndex: 39
-      strings:
-      - Sleep_num
-      - Int
-      - 0
-      isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 40
       debugIndex: 40
-      strings:
-      - MapEv_num
-      - Int
-      - 0
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 41
       debugIndex: 41
-      strings:
-      - Hiroba_num
-      - Int
-      - 0
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 42
       debugIndex: 42
       strings:
-      - Contest_num
+      - Story_num
       - Int
       - 0
       isEmpty: 0
@@ -1546,7 +1764,7 @@ MonoBehaviour:
     - rowIndex: 43
       debugIndex: 43
       strings:
-      - OkashiComment_num
+      - Girllove_event_num
       - Int
       - 0
       isEmpty: 0
@@ -1555,7 +1773,7 @@ MonoBehaviour:
     - rowIndex: 44
       debugIndex: 44
       strings:
-      - SpOkashiBefore_num
+      - Sleep_num
       - Int
       - 0
       isEmpty: 0
@@ -1564,7 +1782,7 @@ MonoBehaviour:
     - rowIndex: 45
       debugIndex: 45
       strings:
-      - SpOkashi_num
+      - MapEv_num
       - Int
       - 0
       isEmpty: 0
@@ -1573,7 +1791,7 @@ MonoBehaviour:
     - rowIndex: 46
       debugIndex: 46
       strings:
-      - SpOkashiAfter_num
+      - Hiroba_num
       - Int
       - 0
       isEmpty: 0
@@ -1582,7 +1800,7 @@ MonoBehaviour:
     - rowIndex: 47
       debugIndex: 47
       strings:
-      - SpOkashiHint_num
+      - Contest_num
       - Int
       - 0
       isEmpty: 0
@@ -1591,7 +1809,7 @@ MonoBehaviour:
     - rowIndex: 48
       debugIndex: 48
       strings:
-      - TouchHint_num
+      - OkashiComment_num
       - Int
       - 0
       isEmpty: 0
@@ -1600,7 +1818,7 @@ MonoBehaviour:
     - rowIndex: 49
       debugIndex: 49
       strings:
-      - MainClear_num
+      - SpOkashiBefore_num
       - Int
       - 0
       isEmpty: 0
@@ -1609,7 +1827,7 @@ MonoBehaviour:
     - rowIndex: 50
       debugIndex: 50
       strings:
-      - Ev_recipi
+      - SpOkashi_num
       - Int
       - 0
       isEmpty: 0
@@ -1618,7 +1836,7 @@ MonoBehaviour:
     - rowIndex: 51
       debugIndex: 51
       strings:
-      - Read_recipi
+      - SpOkashiAfter_num
       - Int
       - 0
       isEmpty: 0
@@ -1627,7 +1845,7 @@ MonoBehaviour:
     - rowIndex: 52
       debugIndex: 52
       strings:
-      - Shop_Talk_Num
+      - SpOkashiHint_num
       - Int
       - 0
       isEmpty: 0
@@ -1636,7 +1854,7 @@ MonoBehaviour:
     - rowIndex: 53
       debugIndex: 53
       strings:
-      - Shop_Hint_Num
+      - TouchHint_num
       - Int
       - 0
       isEmpty: 0
@@ -1645,7 +1863,7 @@ MonoBehaviour:
     - rowIndex: 54
       debugIndex: 54
       strings:
-      - Hiroba_endflag_Num
+      - MainClear_num
       - Int
       - 0
       isEmpty: 0
@@ -1654,43 +1872,52 @@ MonoBehaviour:
     - rowIndex: 55
       debugIndex: 55
       strings:
-      - Tutorial_Flag
-      - Bool
-      - FALSE
+      - Ev_recipi
+      - Int
+      - 0
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 56
       debugIndex: 56
       strings:
-      - Farm_Flag
-      - Bool
-      - FALSE
+      - Read_recipi
+      - Int
+      - 0
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 57
       debugIndex: 57
-      strings: []
-      isEmpty: 1
+      strings:
+      - Shop_Talk_Num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 58
       debugIndex: 58
-      strings: []
-      isEmpty: 1
+      strings:
+      - Shop_Hint_Num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 59
       debugIndex: 59
-      strings: []
-      isEmpty: 1
+      strings:
+      - Hiroba_endflag_Num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 60
       debugIndex: 60
       strings:
-      - Ev_flag
+      - Limit_Month
       - Int
       - 0
       isEmpty: 0
@@ -1698,6 +1925,60 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 61
       debugIndex: 61
+      strings:
+      - Limit_Day
+      - Int
+      - 0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 62
+      debugIndex: 62
+      strings:
+      - Tutorial_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 63
+      debugIndex: 63
+      strings:
+      - Farm_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 64
+      debugIndex: 64
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 65
+      debugIndex: 65
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 66
+      debugIndex: 66
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 67
+      debugIndex: 67
+      strings:
+      - Ev_flag
+      - Int
+      - 0
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 68
+      debugIndex: 68
       strings:
       - Re_flag
       - Int
@@ -1707,7 +1988,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 1080
+    textLength: 1205
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -1995,6 +2276,16 @@ MonoBehaviour:
     - rowIndex: 30
       debugIndex: 30
       strings:
+      - "\u30C9\u30E9\u30E0\u30DE\u30FC\u30C1"
+      - 
+      - Bgm
+      - BGM_21.mp3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 31
+      debugIndex: 31
+      strings:
       - "BGM\u65E5\u5E38\u98A8\u666F"
       - 
       - Bgm
@@ -2002,8 +2293,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 31
-      debugIndex: 31
+    - rowIndex: 32
+      debugIndex: 32
       strings:
       - "BGM\u30A2\u30DE\u30AF\u30B5\uFF11"
       - 
@@ -2012,8 +2303,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 32
-      debugIndex: 32
+    - rowIndex: 33
+      debugIndex: 33
       strings:
       - "BGM\u30A2\u30DE\u30AF\u30B5\uFF12"
       - 
@@ -2022,8 +2313,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 33
-      debugIndex: 33
+    - rowIndex: 34
+      debugIndex: 34
       strings:
       - "BGM\u5922\u306E\u4E2D"
       - 
@@ -2032,8 +2323,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 34
-      debugIndex: 34
+    - rowIndex: 35
+      debugIndex: 35
       strings:
       - "BGM\u30D9\u30CB\u30A8\uFF11"
       - 
@@ -2044,7 +2335,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 683
+    textLength: 702
     headerRow: 0
   - rows:
     - rowIndex: 0

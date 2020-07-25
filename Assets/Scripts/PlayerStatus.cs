@@ -10,6 +10,12 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_day; //現在の日付
     public static int player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
 
+    public static int player_cullent_month; //現在の月（上記プレイヤーデイを基に、time_controllerで計算する。）
+    public static int player_cullent_day; //現在の日（上記プレイヤーデイを基に、time_controllerで計算する。）
+
+    public static int player_cullent_Deadmonth; //締め切りの月（上記プレイヤーデイを基に、time_controllerで計算する。）
+    public static int player_cullent_Deadday; //締め切りの月（上記プレイヤーデイを基に、time_controllerで計算する。）
+
     public static int player_renkin_lv; //錬金レベル
     public static int player_renkin_exp; //錬金経験
 

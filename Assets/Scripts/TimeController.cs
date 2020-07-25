@@ -36,6 +36,8 @@ public class TimeController : MonoBehaviour
     private int month, day;
     private int hour, minute;
 
+    private int limit_month, limit_day;
+
 
     public int max_time;
     private int count;
@@ -95,7 +97,7 @@ public class TimeController : MonoBehaviour
         _time_obj2_minute = this.transform.Find("TimeHyouji_2/Minute").gameObject;
         _time_minute2 = _time_obj2_minute.GetComponent<Text>();
 
-        _time_obj1_limit = this.transform.Find("TimeHyouji_1/NokoriTimeParam").gameObject;
+        _time_obj1_limit = this.transform.Find("TimeHyouji_1/NokoriTimePanel/NokoriTimeParam").gameObject;
         _time_limit1 = _time_obj1_limit.GetComponent<Text>();
 
         _time_obj2_limit = this.transform.Find("TimeHyouji_2/NokoriTimeParam").gameObject;
@@ -154,7 +156,7 @@ public class TimeController : MonoBehaviour
         {
             case 1:
 
-                _stage_limit_day = GameMgr.stage1_limit_day;
+                _stage_limit_day = GameMgr.stage1_limit_day;               
                 break;
 
             case 2:
@@ -185,6 +187,11 @@ public class TimeController : MonoBehaviour
             }
             ++count;
         }
+
+        //現在の月と日を更新しておく。
+        PlayerStatus.player_cullent_month = month;
+        PlayerStatus.player_cullent_day = day;
+
 
         //表示
         _day_text1.text = month.ToString() + "/" + day.ToString();
@@ -291,5 +298,27 @@ public class TimeController : MonoBehaviour
     {
         GameMgr.sleep_status = 1;
         StartCoroutine("SleepDayEnd");
+    }
+
+    public void DeadLine_Setting()
+    {
+        _stage_limit_day = GameMgr.stage1_limit_day;
+
+        //締め切り日も計算
+        count = 0;
+        while (count < calender.Count)
+        {
+            if (_stage_limit_day > calender[count]) { _stage_limit_day -= calender[count]; }
+            else //その月の日付
+            {
+                limit_month = count + 1; //月　0始まりなので、足す１
+                limit_day = _stage_limit_day; //日
+                break;
+            }
+            ++count;
+        }
+
+        PlayerStatus.player_cullent_Deadmonth = limit_month;
+        PlayerStatus.player_cullent_Deadday = limit_day;
     }
 }

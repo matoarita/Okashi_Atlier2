@@ -1115,6 +1115,13 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
 
+        //コンテスト時は、締め切り日も設定
+        if(GameMgr.GirlLoveEvent_num == 5)
+        {
+            engine.Param.TrySetParameter("Limit_Month", PlayerStatus.player_cullent_Deadmonth);
+            engine.Param.TrySetParameter("Limit_Day", PlayerStatus.player_cullent_Deadday);
+        }
+
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 

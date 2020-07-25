@@ -11,12 +11,13 @@
 ・BGM_09		audiostock_300247			夢の中の曲（環境音）
 ・BGM_10		nohohonkissa.mp3			牧場のBGM
 ・BGM_11		audiostock_259681			広場のBGM
-・BGM_12		audiostock_199708_sample		ひまわり畑のBGM
-・BGM_13		audiostock_459043_sample		ストロベリーガーデンのBGM
+・BGM_12		audiostock_199708			ひまわり畑のBGM
+・BGM_13		audiostock_459043			ストロベリーガーデンのBGM
 ・BGM_14		candybouquet				ベニエさんテーマBGM
-・BGM_15		audiostock_105777_sample		コンテスト会場のBGM
-・BGM_16		audiostock_815939_sample		コンテストの日のメイン曲
+・BGM_15		audiostock_105777			コンテスト会場のBGM
+・BGM_16		audiostock_815939			コンテストの日のメイン曲
 ・BGM_17		shichigatsunokomorebi			悲しいときに流れる曲１（ちょっとほのぼの）
 ・BGM_18		kurakunagaitunnel			不穏なBGM
 ・BGM_19		k5					悲しいときに流れる曲２（いかにも悲しい）
 ・BGM_20		boukyou					悲しいときに流れる曲３（悲しいのと少し安堵が混じる感じ）
+・BGM_21		audiostock_49935			勇ましい行進曲　ドラムメイン
