@@ -120,6 +120,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_event_flag;  //ショップで発生するイベントのフラグ。
     public static int contest_event_num;
 
+    //コンテスト審査員の点数
+    public static int[] contest_Score = new int[3];
+    public static int contest_TotalScore;
+
     //牧場のイベントリスト
     public static bool[] FarmEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
     public static bool farm_event_flag;  //ショップで発生するイベントのフラグ。
@@ -249,6 +253,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             ContestEvent_stage[i] = false;
         }
+        for (i = 0; i < contest_Score.Length; i++)
+        {
+            contest_Score[i] = 0;
+        }
+        contest_TotalScore = 0;
 
         //マップイベントの初期化
         for (i = 0; i < MapEvent_01.Length; i++)

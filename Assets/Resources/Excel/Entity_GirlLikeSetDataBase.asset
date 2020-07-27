@@ -467,7 +467,7 @@ MonoBehaviour:
     - setID: 1000
       compNum: 1000
       girllike_itemname: Non
-      girllike_itemsubtype: Cookie
+      girllike_itemsubtype: Non
       set_score: 0
       rich: 0
       sweat: 0
@@ -521,9 +521,9 @@ MonoBehaviour:
       desc: "\u5BE9\u67FB\u54E1\uFF11 \u4E00\u56DE\u6226"
       commet_flag: 0
     - setID: 1002
-      compNum: 1020
+      compNum: 1011
       girllike_itemname: Non
-      girllike_itemsubtype: Cookie
+      girllike_itemsubtype: Non
       set_score: 50
       rich: 0
       sweat: 50
@@ -549,9 +549,93 @@ MonoBehaviour:
       desc: "\u5BE9\u67FB\u54E1\uFF12 \u4E00\u56DE\u6226"
       commet_flag: 0
     - setID: 1003
-      compNum: 1030
+      compNum: 1012
       girllike_itemname: Non
-      girllike_itemsubtype: Cookie
+      girllike_itemsubtype: Non
+      set_score: 50
+      rich: 0
+      sweat: 10
+      bitter: 0
+      sour: 0
+      crispy: 20
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      Non_tpscore: 0
+      desc: "\u5BE9\u67FB\u54E1\uFF13 \u4E00\u56DE\u6226"
+      commet_flag: 0
+    - setID: 1004
+      compNum: 1020
+      girllike_itemname: Non
+      girllike_itemsubtype: Rusk
+      set_score: 50
+      rich: 0
+      sweat: 1
+      bitter: 0
+      sour: 0
+      crispy: 20
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      Non_tpscore: 0
+      desc: "\u5BE9\u67FB\u54E1\uFF11 \u4E00\u56DE\u6226"
+      commet_flag: 0
+    - setID: 1005
+      compNum: 1021
+      girllike_itemname: Non
+      girllike_itemsubtype: Non
+      set_score: 50
+      rich: 0
+      sweat: 50
+      bitter: 0
+      sour: 0
+      crispy: 40
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      Non_tpscore: 0
+      desc: "\u5BE9\u67FB\u54E1\uFF12 \u4E00\u56DE\u6226"
+      commet_flag: 0
+    - setID: 1006
+      compNum: 1022
+      girllike_itemname: Non
+      girllike_itemsubtype: Non
       set_score: 50
       rich: 0
       sweat: 80
@@ -576,292 +660,264 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u5BE9\u67FB\u54E1\uFF13 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1007
+      compNum: 1030
+      girllike_itemname: Non
+      girllike_itemsubtype: Crepe
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 1
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 20
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF11 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1008
+      compNum: 1031
+      girllike_itemname: Non
+      girllike_itemsubtype: Non
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 50
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 40
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF12 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1009
+      compNum: 1032
+      girllike_itemname: Non
+      girllike_itemsubtype: Non
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 80
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 80
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF13 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1010
+      compNum: 1040
+      girllike_itemname: Non
+      girllike_itemsubtype: Creampuff
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 1
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 20
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF11 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1011
+      compNum: 1041
+      girllike_itemname: Non
+      girllike_itemsubtype: Non
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 50
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 40
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF12 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1012
+      compNum: 1042
+      girllike_itemname: Non
+      girllike_itemsubtype: Non
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 80
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 80
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF13 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1013
+      compNum: 1050
+      girllike_itemname: Non
+      girllike_itemsubtype: Donuts
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 1
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 20
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF11 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1014
+      compNum: 1051
+      girllike_itemname: Non
+      girllike_itemsubtype: Non
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 50
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 40
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF12 \u4E00\u56DE\u6226"
       commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
+    - setID: 1015
+      compNum: 1052
+      girllike_itemname: Non
+      girllike_itemsubtype: Non
+      set_score: 50
       rich: 0
-      sweat: 0
+      sweat: 80
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 80
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
       tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: 0
-      desc: 
-      commet_flag: 0
-    - setID: 0
-      compNum: 0
-      girllike_itemname: 
-      girllike_itemsubtype: 
-      set_score: 0
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 0
-      fluffy: 0
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      topping01: 
-      topping02: 
-      topping03: 
-      topping04: 
-      topping05: 
-      tp_score01: 0
-      tp_score02: 0
-      tp_score03: 0
-      tp_score04: 0
-      tp_score05: 0
-      Non_tpscore: 0
-      desc: 
+      desc: "\u5BE9\u67FB\u54E1\uFF13 \u4E00\u56DE\u6226"
       commet_flag: 0
   - name: 02_ContestSetData1_Free
     list:
     - setID: 1500
       compNum: 1500
       girllike_itemname: Non
-      girllike_itemsubtype: Cookie
+      girllike_itemsubtype: Non
       set_score: 0
       rich: 0
       sweat: 0

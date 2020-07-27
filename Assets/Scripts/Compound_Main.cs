@@ -1256,9 +1256,7 @@ public class Compound_Main : MonoBehaviour
                 compoundselect_onoff_obj.SetActive(false);
 
                 compound_status = 41; //売るシーンに入っています、というフラグ
-                compound_select = 40; //売るを選択
-
-                yes_no_clear_panel.SetActive(true);
+                compound_select = 40; //売るを選択               
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1266,6 +1264,7 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
                 Extremepanel_obj.SetActive(false);
+                text_area.SetActive(true);
                 text_area_Main.SetActive(false);
                 black_panel_A.SetActive(true);
                 StartCoroutine("Contest_Final_select");
@@ -1289,6 +1288,7 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
                 Extremepanel_obj.SetActive(false);
+                text_area.SetActive(true);
                 text_area_Main.SetActive(false);
                 black_panel_A.SetActive(true);
                 StartCoroutine("Sleep_Final_select");
@@ -1566,14 +1566,31 @@ public class Compound_Main : MonoBehaviour
 
             if (GameMgr.OkashiQuest_flag_stage1[4])
             {
-                _textmain.text = "コンテストに出場しますか？" + "\n" + "（次のお話へ進みます。）";
-                compound_status = 40;
+                if (extreme_panel.extreme_itemID == 9999)
+                {
+                    //お菓子を作ってないと、コンテストへ進めない。
+                    _text.text = "お兄ちゃん..。まだお菓子を作ってないよ～。";
+                    compound_status = 40;
+                    yes_no_clear_panel.SetActive(true);
+                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = false;
+                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = false;
+                    //yes_no_clear_panel.transform.Find("Yes_Clear").gameObject.SetActive(false);
+                }
+                else
+                {
+                    _text.text = "コンテストに出場しますか？";
+                    compound_status = 40;
+                    yes_no_clear_panel.SetActive(true);
+                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
+                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+                    //yes_no_clear_panel.transform.Find("Yes_Clear").gameObject.SetActive(true);
+                }
             }
             else
             {
                 if (GameMgr.QuestClearflag)
                 {
-                    //_textmain.text = "次のお菓子へ進みますか？"";
+                    //_text.text = "次のお菓子へ進みますか？"";
                     girlEat_judge.QuestClearMethod();
                 }
             }

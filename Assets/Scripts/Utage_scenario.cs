@@ -38,9 +38,8 @@ public class Utage_scenario : MonoBehaviour
     private int ev_flag;
 
     private PlayerItemList pitemlist;
-
     private ItemMatPlaceDataBase matplace_database;
-
+    private Contest_Main contest_main;
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
 
     private int j;
@@ -356,7 +355,7 @@ public class Utage_scenario : MonoBehaviour
             //広場シーンでのイベント処理
             if (SceneManager.GetActiveScene().name == "Hiroba2")
             {
-                //character = GameObject.FindWithTag("Character");
+                //character = GameObject.FindWithTag("Character");               
 
                 if (!sceneBGM)
                 {
@@ -379,6 +378,8 @@ public class Utage_scenario : MonoBehaviour
             //コンテストシーンでのイベント処理
             if (SceneManager.GetActiveScene().name == "Contest")
             {
+                contest_main = GameObject.FindWithTag("contest_Main").GetComponent<Contest_Main>();
+
                 if (GameMgr.contest_event_flag)
                 {
                     GameMgr.contest_event_flag = false;
@@ -1589,6 +1590,25 @@ public class Utage_scenario : MonoBehaviour
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        //お菓子を判定する。採点結果により、審査員の反応も少し変わる。
+        contest_main.Contest_Judge();
+
+        //採点をセット
+        engine.Param.TrySetParameter("contest_score1", GameMgr.contest_Score[0]);
+        engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]);
+        engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]);
+        engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)

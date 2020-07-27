@@ -55,6 +55,7 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音
                 SE_point_click(28);
+                
                 break;
 
             case "NouhinButton": //納品決定を押したときのSE
@@ -356,7 +357,8 @@ public class Sound_Trigger : MonoBehaviour {
 
             sc.PlaySe(index2);
 
-            /*//オブジェクトの状態をチェック
+            /*
+            //オブジェクトの状態をチェック
             //ボタンがついているオブジェクトの場合
             if (this.transform.gameObject.GetComponent<Button>() != null)
             {
@@ -364,6 +366,7 @@ public class Sound_Trigger : MonoBehaviour {
                 {
 
                     //Debug.Log("このボタンは、今触れない状態");
+                    sc.PlaySe(18); //キャンセル音
                 }
                 else
                 {
@@ -379,6 +382,7 @@ public class Sound_Trigger : MonoBehaviour {
                 {
 
                     //Debug.Log("このボタンは、今触れない状態");
+                    sc.PlaySe(18); //キャンセル音
                 }
                 else
                 {

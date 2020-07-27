@@ -62,6 +62,7 @@ TagManager:
   - Farm_Main
   - Hiroba_Main2
   - Contest_Judge
+  - contest_Main
   layers:
   - Default
   - TransparentFX

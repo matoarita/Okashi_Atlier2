@@ -80,7 +80,7 @@ public class Contest_Judge : MonoBehaviour {
     private GameObject text_area;
     private Text _windowtext;
 
-    private int i, count;
+    private int i, count, sum;
     private int random;
 
     private int kettei_item1; //女の子にあげるアイテムの、アイテムリスト番号。
@@ -424,7 +424,7 @@ public class Contest_Judge : MonoBehaviour {
             case 0:
 
                 //girlLikeCompo組み合わせセットの_compIDを元に選ぶ。
-                i = 0;
+                /*i = 0;
                 while (i < girlLikeCompo_database.girllike_composet.Count)
                 {
                     //OkashiQuest_ID = specialquestのクエスト番号（コンテストイベント時は1500）が入っているはず。
@@ -434,11 +434,11 @@ public class Contest_Judge : MonoBehaviour {
                         break;
                     }
                     i++;
-                }
+                }*/
 
-                set1_ID = girlLikeCompo_database.girllike_composet[_compID].set1; //審査員１の好み
-                set2_ID = girlLikeCompo_database.girllike_composet[_compID].set2; //審査員２の好み
-                set3_ID = girlLikeCompo_database.girllike_composet[_compID].set3; //審査員３の好み
+                set1_ID = judge_num; //審査員１の好み
+                set2_ID = judge_num + 1; //審査員２の好み
+                set3_ID = judge_num + 2; //審査員３の好み
 
                 set_ID.Clear();
 
@@ -537,12 +537,23 @@ public class Contest_Judge : MonoBehaviour {
                         _windowtext.text = "審査員１　点数：" + total_score[0] + "点" + "\n" +
                             "審査員２　点数：" + total_score[1] + "点" + "\n" +
                             "審査員３　点数：" + total_score[2] + "点";
+
+                        sum = 0;
+                        for (i=0; i< GameMgr.contest_Score.Length; i++)
+                        {
+                            GameMgr.contest_Score[i] = total_score[i];
+                            sum += total_score[i];
+                        }
+
+                        GameMgr.contest_TotalScore = sum / GameMgr.contest_Score.Length;
                         break;
 
                     case 1:
 
                         _windowtext.text = "決勝戦" + "\n" +
                             "審査員　総合得点：" + total_score[0] + "点";
+
+                        GameMgr.contest_TotalScore = total_score[0];
                         break;
                 }
                 break;
@@ -559,8 +570,7 @@ public class Contest_Judge : MonoBehaviour {
 
         }
         
-
-        //先に算出しておいて、あとで、審査員一人一人のコメント＋点数を演出して出す。
+        //先に算出しておいて、あとで、審査員一人一人のコメント＋点数を演出して出す。宴へ戻る。
     }
 
 
@@ -598,7 +608,7 @@ public class Contest_Judge : MonoBehaviour {
             //
             //判定処理　パターンA
             //                    
-
+            /*
             //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
             if (_girl_likeokashi[count] == "Non") //特に指定なし
             {
@@ -626,7 +636,7 @@ public class Contest_Judge : MonoBehaviour {
             {
                 dislike_flag[count] = false;
                 dislike_status = 1;
-            }
+            }*/
 
             //次に味の判定処理。判定後、採点の数値がかえってくる。
 

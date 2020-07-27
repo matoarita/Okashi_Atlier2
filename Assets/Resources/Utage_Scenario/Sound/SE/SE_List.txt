@@ -38,7 +38,7 @@ SE表
 ・SE_36		on-jin_doato_doaberu_01op.mp3			【#未使用】　（最初、ベル音で使ってた。現在未使用）
 ・SE_37		page10.mp3					材料採取地開くときの地図開く音
 ・SE_38		SNES-RPG01-07(Message)				【#未使用】　メッセージ音
-・SE_39		door-cl01.mp3					ドアの音開く音。チャイムは無し。
+・SE_39		door-cl01.mp3					ドア開く音１。チャイムは無し。
 ・SE_40		audiostock_397394.mp3				キュピーン閃きの音
 ・SE_41		audiostock_114553.mp3				鳥の鳴き声の音
 ・SE_42		audiostock_23329_sample.mp3			【#未使用】　ラッパファンファーレの音（現在未使用）
@@ -61,3 +61,8 @@ SE表
 ・SE_59		audiostock_159330				宿屋ジングル
 ・SE_60		audiostock_262999				にわとりの鳴き声
 ・SE_61		audiostock_250681				キラリン♪　お菓子食べおわったあと、満足した音
+・SE_62		audiostock_172786_sample			ドア開ける音２
+・SE_63		audiostock_711011_sample			拍手中程度
+・SE_64		audiostock_20225_sample				歓声
+・SE_65		audiostock_842594_sample			ドンドンパフパフ
+
