@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GetMatPlace_Panel : MonoBehaviour {
 
     private ItemMatPlaceDataBase matplace_database;
+    private ItemDataBase database;
 
     private GameObject canvas;
     private Texture2D texture2d;
@@ -28,6 +29,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject content;
 
     private GameObject getmatplace_view;
+    private GameObject getmatResult_panel_obj;
+    private GetMatResult_Panel getmatResult_panel;
     private GameObject slot_view;
     private GameObject slot_tansaku_button;
     private GameObject slot_yes, slot_no;
@@ -86,11 +89,17 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject sister_stand_img1;
 
+    public Dictionary<int, int> result_items;
+    private bool result_off;
+
     // Use this for initialization
     void Start()
     {
 
         audioSource = GetComponent<AudioSource>();
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -143,6 +152,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         getmatplace_view = this.transform.Find("Comp/GetMatPlace_View").gameObject;
+        getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
+        getmatResult_panel = canvas.transform.Find("GetMatResult_Panel").GetComponent<GetMatResult_Panel>();
 
         content = getmatplace_view.transform.Find("Viewport/Content").gameObject;
         matplace_toggle_obj = (GameObject)Resources.Load("Prefabs/MatPlace_toggle1");
@@ -193,6 +204,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         Slot_view_on = false;
         slot_view_status = 0;
 
+        InitializeResultItemDicts(); //取得したアイテム表示用のディクショナリー
     }
 
     
@@ -261,7 +273,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             slot_view_status = 0;
             slot_view.SetActive(false);
 
-            girl1_status.hukidasiOn();
+            //girl1_status.hukidasiOn();
 
             //音量フェードイン
             sceneBGM.FadeInBGM();
@@ -275,9 +287,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             //日数の経過。帰りも同じ時間かかる。
             PlayerStatus.player_time += select_place_day;
-            time_controller.TimeKoushin();
+            //time_controller.TimeKoushin();
 
             _text.text = "家に戻ってきた。どうしようかなぁ？";
+
+            //リザルトパネルを表示
+            result_off = false;
+            getmatResult_panel_obj.SetActive(true);
+            getmatResult_panel.reset_and_DrawView();
+            StartCoroutine("ResultOn");
         }
     }
 
@@ -415,6 +433,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 slot_view.SetActive(true);
                 yes_no_panel.SetActive(false);
                 map_imageBG.SetActive(true);
+
+                InitializeResultItemDicts();
 
                 slot_view_status = 1;
                 compound_Main.compound_status = 21;
@@ -903,5 +923,42 @@ public class GetMatPlace_Panel : MonoBehaviour {
         map_imageBG.GetComponent<Image>().sprite = Sprite.Create(texture2d_map,
                                    new Rect(0, 0, texture2d_map.width, texture2d_map.height),
                                    Vector2.zero);
+    }
+
+
+    public void GetMatResultPanelOff()
+    {
+        sc.PlaySe(30);
+        result_off = true;
+    }
+
+    IEnumerator ResultOn()
+    {
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (result_off != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        result_off = false;
+        getmatResult_panel_obj.SetActive(false);
+
+        //メインシーンのデフォルトに戻る。
+        time_controller.TimeKoushin();
+        girl1_status.hukidasiOn();
+    }
+
+
+    void InitializeResultItemDicts()
+    {
+        result_items = new Dictionary<int, int>();
+
+        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコア(所持数)と、追加得点用のスコアをつける
+        for (i = 0; i < database.items.Count; i++)
+        {
+            result_items.Add(database.items[i].itemID, 0);
+        }
     }
 }

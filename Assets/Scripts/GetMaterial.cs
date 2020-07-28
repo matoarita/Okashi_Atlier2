@@ -84,6 +84,8 @@ public class GetMaterial : MonoBehaviour {
     private int mat_anim_status;
     private float timeOut;
 
+    
+
     // Use this for initialization
     void Start () {
 
@@ -347,6 +349,9 @@ public class GetMaterial : MonoBehaviour {
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
+
+                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                getmatplace_panel.result_items[kettei_item[count]] += kettei_kosu[count];
             }           
         }
 
@@ -390,6 +395,9 @@ public class GetMaterial : MonoBehaviour {
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
+
+                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                getmatplace_panel.result_items[kettei_item[count]] += kettei_kosu[count];
             }
         }
 

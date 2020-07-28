@@ -2997,7 +2997,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-      Set_JudgeNum: 200
+      Set_JudgeNum: 12
     - ItemID: 201
       file_name: neko_cookie_aizan
       name: aizan_neko_cookie
@@ -3039,7 +3039,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: SilverChip
       item_hyouji: 1
-      Set_JudgeNum: 200
+      Set_JudgeNum: 12
     - ItemID: 202
       file_name: neko_cookie_heart
       name: heart_neko_cookie
@@ -3081,7 +3081,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: KirakiraHeart
       item_hyouji: 1
-      Set_JudgeNum: 200
+      Set_JudgeNum: 12
     - ItemID: 203
       file_name: neko_cookie_jewery
       name: jewely_neko_cookie
@@ -3123,7 +3123,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: JewerySuger
       item_hyouji: 1
-      Set_JudgeNum: 200
+      Set_JudgeNum: 12
     - ItemID: 204
       file_name: neko_cookie_mixcolor
       name: mixcolor_neko_cookie
@@ -3165,7 +3165,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: MixColor
       item_hyouji: 1
-      Set_JudgeNum: 200
+      Set_JudgeNum: 12
     - ItemID: 205
       file_name: orange_neko_cookie
       name: orange_neko_cookie
@@ -3207,7 +3207,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Orange
       item_hyouji: 1
-      Set_JudgeNum: 201
+      Set_JudgeNum: 501
     - ItemID: 206
       file_name: pink_neko_cookie
       name: pinkorange_neko_cookie
@@ -3249,7 +3249,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: PinkBloodOrange
       item_hyouji: 1
-      Set_JudgeNum: 201
+      Set_JudgeNum: 501
     - ItemID: 207
       file_name: orange_neko_cookie
       name: orange_neko_nuts
@@ -3543,7 +3543,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Grape
       item_hyouji: 1
-      Set_JudgeNum: 208
+      Set_JudgeNum: 508
     - ItemID: 214
       file_name: strawberry_neko_cookie
       name: strawberry_cookie
@@ -3585,7 +3585,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Strawberry
       item_hyouji: 1
-      Set_JudgeNum: 208
+      Set_JudgeNum: 509
     - ItemID: 215
       file_name: banana_neko_cookie
       name: banana_cookie
@@ -3627,7 +3627,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Banana
       item_hyouji: 1
-      Set_JudgeNum: 208
+      Set_JudgeNum: 508
     - ItemID: 216
       file_name: blueberry_neko_cookie
       name: blueberry_cookie
@@ -3669,7 +3669,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Blueberry
       item_hyouji: 1
-      Set_JudgeNum: 208
+      Set_JudgeNum: 508
     - ItemID: 217
       file_name: pear_neko_cookie
       name: pear_cookie
@@ -3711,7 +3711,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Pear
       item_hyouji: 1
-      Set_JudgeNum: 208
+      Set_JudgeNum: 508
     - ItemID: 218
       file_name: peach_neko_cookie
       name: peach_cookie
@@ -3753,7 +3753,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Peach
       item_hyouji: 1
-      Set_JudgeNum: 208
+      Set_JudgeNum: 508
     - ItemID: 219
       file_name: cherry_neko_cookie
       name: cherry_cookie
@@ -3795,7 +3795,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Peach
       item_hyouji: 1
-      Set_JudgeNum: 208
+      Set_JudgeNum: 508
     - ItemID: 220
       file_name: neko_cookie_sakura
       name: sakura_cookie
@@ -3837,7 +3837,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: SakuraChip
       item_hyouji: 1
-      Set_JudgeNum: 208
+      Set_JudgeNum: 508
     - ItemID: 221
       file_name: honey_neko_cookie
       name: honey_cookie
@@ -4131,7 +4131,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-      Set_JudgeNum: 221
+      Set_JudgeNum: 521
     - ItemID: 228
       file_name: rusk_butter
       name: rusk_butter
@@ -4173,7 +4173,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Non
       item_hyouji: 1
-      Set_JudgeNum: 221
+      Set_JudgeNum: 521
     - ItemID: 229
       file_name: rusk
       name: rusk_orange
@@ -4215,7 +4215,7 @@ MonoBehaviour:
       topping10: Non
       koyu_topping: Orange
       item_hyouji: 1
-      Set_JudgeNum: 221
+      Set_JudgeNum: 521
     - ItemID: 230
       file_name: crepe
       name: crepe
@@ -7002,10 +7002,10 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.95
       rich: 0
-      sweat: 3
+      sweat: 1
       bitter: 0
       sour: 0
-      crispy: 5
+      crispy: 1
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -7086,7 +7086,7 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.95
       rich: 0
-      sweat: 3
+      sweat: 2
       bitter: 0
       sour: 0
       crispy: 0
@@ -7128,10 +7128,10 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.95
       rich: 0
-      sweat: 5
+      sweat: 3
       bitter: 0
       sour: 0
-      crispy: 5
+      crispy: 2
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -7170,10 +7170,10 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.95
       rich: 0
-      sweat: 5
+      sweat: 1
       bitter: 0
       sour: 0
-      crispy: 5
+      crispy: 1
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -7212,7 +7212,7 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.95
       rich: 0
-      sweat: 3
+      sweat: 2
       bitter: 0
       sour: 0
       crispy: 0
