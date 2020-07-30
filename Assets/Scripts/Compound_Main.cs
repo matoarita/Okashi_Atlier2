@@ -794,6 +794,7 @@ public class Compound_Main : MonoBehaviour
                 TimePanel_obj1.SetActive(false);
                 girl_love_exp_bar.SetActive(false);
                 moneystatus_panel.SetActive(false);
+                stageclear_Button.SetActive(false);
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEat_Judge_on = false;
