@@ -1197,11 +1197,14 @@ public class GirlEat_Judge : MonoBehaviour {
         topping_all_non = true; //判定のトッピングスロットが全てNon
 
         //未使用。
-        quality_score = 0;
+        
         rich_score = 0;
         jiggly_score = 0;
         chewy_score = 0;
 
+
+        //基本得点
+        quality_score = _girl_set_score[countNum];
 
         //味パラメータの計算。味は、GirlLikeSetの値で、理想値としている。
         //理想の値に近いほど高得点。超えすぎてもいけない。
@@ -1391,13 +1394,21 @@ public class GirlEat_Judge : MonoBehaviour {
 
 
         //食感パラメータは、大きければ大きいほど、そのまま得点に。
+        //ただし、女の子の好み値を超えてないと加点されない。
         //サブジャンルごとに、比較の対象が限定される。例えば、クッキーなら、さくさく度だけを見る。
         //またジャンルごとに、どのスコアの比重が大きくなるか、補正がかかる。アイスなら甘味が大事、とか。
         switch (_baseitemtype_sub)
         {
             case "Cookie":
 
-                crispy_score = _basecrispy; //わかりやすく、サクサク度の数値がそのまま点数に。
+                if (_basecrispy >= _girlcrispy[countNum])
+                {
+                    crispy_score = _basecrispy - _girlcrispy[countNum]; //お菓子のサクサク度-好み値が点数に。
+                }
+                else
+                {
+                    crispy_score = 0;
+                }
                 shokukan_score = crispy_score;
                 shokukan_mes = "さくさく感";
                 Debug.Log("サクサク度の点: " + crispy_score);
@@ -1406,7 +1417,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "Rusk":
 
-                crispy_score = _basecrispy; //わかりやすく、サクサク度の数値がそのまま点数に。
+                if (_basecrispy >= _girlcrispy[countNum])
+                {
+                    crispy_score = _basecrispy - _girlcrispy[countNum];
+                }
+                else
+                {
+                    crispy_score = 0;
+                }
                 shokukan_score = crispy_score;
                 shokukan_mes = "さくさく感";
                 Debug.Log("サクサク度の点: " + crispy_score);
@@ -1415,7 +1433,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "Cake":
 
-                fluffy_score = _basefluffy;
+                if (_basefluffy >= _girlfluffy[countNum])
+                {
+                    fluffy_score = _basefluffy - _girlfluffy[countNum]; 
+                }
+                else
+                {
+                    fluffy_score = 0;
+                }
                 shokukan_score = fluffy_score;
                 shokukan_mes = "ふわふわ感";
                 Debug.Log("ふわふわ度の点: " + fluffy_score);
@@ -1424,7 +1449,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "Crepe":
 
-                fluffy_score = _basefluffy;
+                if (_basefluffy >= _girlfluffy[countNum])
+                {
+                    fluffy_score = _basefluffy - _girlfluffy[countNum];
+                }
+                else
+                {
+                    fluffy_score = 0;
+                }
                 shokukan_score = fluffy_score;
                 shokukan_mes = "ふわふわ感";
                 Debug.Log("ふわふわ度の点: " + fluffy_score);
@@ -1433,7 +1465,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "Creampuff":
 
-                fluffy_score = _basefluffy;
+                if (_basefluffy >= _girlfluffy[countNum])
+                {
+                    fluffy_score = _basefluffy - _girlfluffy[countNum];
+                }
+                else
+                {
+                    fluffy_score = 0;
+                }
                 shokukan_score = fluffy_score;
                 shokukan_mes = "ふわふわ感";
                 Debug.Log("ふわふわ度の点: " + fluffy_score);
@@ -1442,7 +1481,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "Donuts":
 
-                fluffy_score = _basefluffy;
+                if (_basefluffy >= _girlfluffy[countNum])
+                {
+                    fluffy_score = _basefluffy - _girlfluffy[countNum];
+                }
+                else
+                {
+                    fluffy_score = 0;
+                }
                 shokukan_score = fluffy_score;
                 shokukan_mes = "ふわふわ感";
                 Debug.Log("ふわふわ度の点: " + fluffy_score);
@@ -1451,7 +1497,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "Chocolate":
 
-                smooth_score = _basesmooth;
+                if (_basesmooth >= _girlsmooth[countNum])
+                {
+                    smooth_score = _basesmooth - _girlsmooth[countNum];
+                }
+                else
+                {
+                    smooth_score = 0;
+                }
                 shokukan_score = smooth_score;
                 shokukan_mes = "くちどけ感";
                 Debug.Log("くちどけの点: " + smooth_score);
@@ -1460,7 +1513,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "Chocolate_Mat":
 
-                smooth_score = _basesmooth;
+                if (_basesmooth >= _girlsmooth[countNum])
+                {
+                    smooth_score = _basesmooth - _girlsmooth[countNum];
+                }
+                else
+                {
+                    smooth_score = 0;
+                }
                 shokukan_score = smooth_score;
                 shokukan_mes = "くちどけ感";
                 Debug.Log("くちどけの点: " + smooth_score);
@@ -1469,7 +1529,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "Bread":
 
-                crispy_score = _basecrispy;
+                if (_basecrispy >= _girlcrispy[countNum])
+                {
+                    crispy_score = _basecrispy - _girlcrispy[countNum];
+                }
+                else
+                {
+                    crispy_score = 0;
+                }
                 shokukan_score = crispy_score;
                 shokukan_mes = "さくさく感";
                 Debug.Log("サクサク度の点: " + crispy_score);
@@ -1478,7 +1545,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case "IceCream":
 
-                smooth_score = _basesmooth;
+                if (_basesmooth >= _girlsmooth[countNum])
+                {
+                    smooth_score = _basesmooth - _girlsmooth[countNum];
+                }
+                else
+                {
+                    smooth_score = 0;
+                }
                 shokukan_score = smooth_score;
                 shokukan_mes = "くちどけ感";
                 Debug.Log("くちどけの点: " + smooth_score);
@@ -1489,7 +1563,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
             default:
 
-                crispy_score = _basecrispy; //わかりやすく、サクサク度の数値がそのまま点数に。
+                if (_basecrispy >= _girlcrispy[countNum])
+                {
+                    crispy_score = _basecrispy - _girlcrispy[countNum];
+                }
+                else
+                {
+                    crispy_score = 0;
+                }
                 shokukan_score = crispy_score;
                 Debug.Log("サクサク度の点: " + crispy_score);
                 break;

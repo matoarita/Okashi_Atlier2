@@ -1399,6 +1399,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Sour[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sour;
         girl1_Bitter[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_bitter;
 
+        girl1_Crispy[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_crispy;
+        girl1_Fluffy[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_fluffy;
+        girl1_Smooth[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_smooth;
+        girl1_Hardness[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_hardness;
+        girl1_Chewy[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_chewy;
+        girl1_Jiggly[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_jiggly;
+
         //③お菓子の種類：　空＝お菓子はなんでもよい　か　クッキー
         girl1_likeSubtype[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_itemSubtype;
 
