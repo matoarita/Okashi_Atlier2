@@ -140,6 +140,14 @@ public class Contest_Main : MonoBehaviour {
 
         }
 
+        //コンテスト終了後、エンディングへ
+        if(GameMgr.ending_on)
+        {
+            GameMgr.scenario_ON = true;
+            GameMgr.ending_on = false;
+            FadeManager.Instance.LoadScene("100_Ending", 0.3f);
+        }
+
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {

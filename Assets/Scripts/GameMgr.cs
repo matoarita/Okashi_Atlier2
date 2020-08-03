@@ -124,6 +124,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] contest_Score = new int[3];
     public static int contest_TotalScore;
 
+    //エンディングのフラッグ
+    public static bool ending_on;
+
     //牧場のイベントリスト
     public static bool[] FarmEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
     public static bool farm_event_flag;  //ショップで発生するイベントのフラグ。
@@ -295,6 +298,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         tutorial_ON = false;
         tutorial_Progress = false;
         tutorial_Num = 0;
+
+        ending_on = false;
 
         //ステージごとの、クリア好感度の数値設定。現在は未使用
         stage1_clear_love = 100;

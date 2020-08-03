@@ -339,15 +339,15 @@ MonoBehaviour:
       chewy: 0
       topping01: Strawberry
       topping02: Nuts
-      topping03: Non
+      topping03: WhipeedCreamStrawberry
       topping04: Non
       topping05: Non
       tp_score01: 20
       tp_score02: 10
-      tp_score03: 0
+      tp_score03: 30
       tp_score04: 0
       tp_score05: 0
-      Non_tpscore: 0
+      Non_tpscore: -20
       desc: "<color=#FF78B4>\u30C9\u30FC\u30CA\u30C4</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       commet_flag: 0
     - setID: 12

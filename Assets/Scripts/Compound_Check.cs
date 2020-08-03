@@ -759,7 +759,7 @@ public class Compound_Check : MonoBehaviour {
             if (_success_rate >= 0.0 && _success_rate < 20.0)
             {
                 //成功率超低い
-                success_text = "これは.. 奇跡が起こればあるいは・・。";
+                success_text = "ほぼ失敗しそう..。";
             }
             else if (_success_rate >= 20.0 && _success_rate < 40.0)
             {
@@ -774,7 +774,7 @@ public class Compound_Check : MonoBehaviour {
             else if (_success_rate >= 60.0 && _success_rate < 80.0)
             {
                 //成功率高め
-                success_text = "問題なくいけそうだね。";
+                success_text = "ちょっと難しいかも。";
             }
             else if (_success_rate >= 80.0 && _success_rate < 99.9)
             {

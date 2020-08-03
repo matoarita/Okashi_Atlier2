@@ -214,6 +214,21 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
     }
 
+    //アイテム名をいれると、そのアイテムIDを返すメソッド
+    public int SearchItemString(string itemName)
+    {
+        i = 0;
+        while (i <= database.items.Count)
+        {
+            if (database.items[i].itemName == itemName)
+            {
+                return i;                
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
+    }
 
 
     //アイテムリストに、名前をいれると、所持個数を返してくれるメソッド

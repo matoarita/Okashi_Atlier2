@@ -136,6 +136,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject yes_no_panel; //通常時のYes, noボタン
     private GameObject yes_no_clear_panel; //クリア時のYes, noボタン
+    private GameObject yes_no_clear_okashi_panel; //クリア時のYes, noボタン
     private GameObject yes_no_sleep_panel; //寝るかどうかのYes, noボタン
 
     private GameObject updown_counter_obj;
@@ -257,6 +258,7 @@ public class Compound_Main : MonoBehaviour
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
         yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
         yes_no_sleep_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
+        yes_no_clear_okashi_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel3").gameObject;
 
         //シーン最初にカウンターも生成する。
         updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
@@ -1256,8 +1258,8 @@ public class Compound_Main : MonoBehaviour
 
                 compoundselect_onoff_obj.SetActive(false);
 
-                compound_status = 41; //売るシーンに入っています、というフラグ
-                compound_select = 40; //売るを選択               
+                compound_status = 41; //コンテスト進むかシーンに入っています、というフラグ
+                compound_select = 40;             
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1272,6 +1274,28 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case 41: //クリアするかどうか、選択中
+                break;
+
+            case 42: //次のお菓子へ進むかを選択
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                compound_status = 43; //次のお菓子へ進むかシーンに入っています、というフラグ
+                compound_select = 40;
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = false;
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+
+                Extremepanel_obj.SetActive(false);
+                text_area.SetActive(true);
+                text_area_Main.SetActive(false);
+                black_panel_A.SetActive(true);
+                StartCoroutine("OkashiClear_Final_select");
+                break;
+
+            case 43: //次のお菓子へ進むかどうか、選択中
                 break;
 
             case 50: //寝るを選択
@@ -1575,7 +1599,6 @@ public class Compound_Main : MonoBehaviour
                     yes_no_clear_panel.SetActive(true);
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = false;
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = false;
-                    //yes_no_clear_panel.transform.Find("Yes_Clear").gameObject.SetActive(false);
                 }
                 else
                 {
@@ -1584,15 +1607,17 @@ public class Compound_Main : MonoBehaviour
                     yes_no_clear_panel.SetActive(true);
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
-                    //yes_no_clear_panel.transform.Find("Yes_Clear").gameObject.SetActive(true);
                 }
             }
             else
             {
                 if (GameMgr.QuestClearflag)
                 {
-                    //_text.text = "次のお菓子へ進みますか？"";
-                    girlEat_judge.QuestClearMethod();
+                    _text.text = "次のお菓子へ進みますか？";
+
+                    compound_status = 42;
+                    yes_no_clear_okashi_panel.SetActive(true);
+
                 }
             }
 
@@ -1811,6 +1836,43 @@ public class Compound_Main : MonoBehaviour
                 compound_status = 0;
 
                 //extreme_panel.LifeAnimeOnTrue();
+                yes_selectitem_kettei.onclick = false;
+                break;
+
+        }
+    }
+
+    IEnumerator OkashiClear_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        black_panel_A.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                //次お菓子へ進む処理
+
+                yes_no_clear_okashi_panel.SetActive(false);
+                yes_selectitem_kettei.onclick = false;
+
+                girlEat_judge.QuestClearMethod();
+
+                break;
+
+            case false:
+
+                yes_no_clear_okashi_panel.SetActive(false);
+
+                _textmain.text = "";
+                compound_status = 0;
+
                 yes_selectitem_kettei.onclick = false;
                 break;
 

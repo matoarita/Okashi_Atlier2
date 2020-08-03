@@ -1618,6 +1618,7 @@ public class Utage_scenario : MonoBehaviour
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 
+        GameMgr.ending_on = true; //エンディングをONにする。
 
         GameMgr.scenario_ON = false;
 

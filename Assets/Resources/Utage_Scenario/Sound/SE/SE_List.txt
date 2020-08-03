@@ -65,4 +65,10 @@ SE表
 ・SE_63		audiostock_711011_sample			拍手中程度
 ・SE_64		audiostock_20225_sample				歓声
 ・SE_65		audiostock_842594_sample			ドンドンパフパフ
+・SE_66		audiostock_155440				ドラムロール＋シンバルの音（長め）
+・SE_67		audiostock_326465_sample			大ドラムロール　ティンパニのみ
+・SE_68		5f0e1a12-67a1-455b-840e-38b459bf45e0		和太鼓ドドン
+・SE_69		audiostock_779925_sample			カーペット足音
+・SE_70		audiostock_20227_sample				鐘の音
+・SE_71		audiostock_785135_sample			【#未使用】和風のジングル（シャウエッセン登場） 
 

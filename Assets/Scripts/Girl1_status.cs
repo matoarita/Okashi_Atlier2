@@ -2243,4 +2243,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         return _sum;
     }
+
+    public void LvUpStatus() //好感度レベルがあがったときに、ステータス上昇などの処理
+    {
+        //レベルがあがるごとに、アイテム発見力があがる。
+        PlayerStatus.player_girl_findpower += 10;
+
+        //上限処理
+        if(PlayerStatus.player_girl_findpower >= 999)
+        {
+            PlayerStatus.player_girl_findpower = 999;
+        }
+    }
 }

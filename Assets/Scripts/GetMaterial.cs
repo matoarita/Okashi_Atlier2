@@ -47,11 +47,13 @@ public class GetMaterial : MonoBehaviour {
     Dictionary<int, float> eventDict;
 
     private float randomPoint;
+    private float rare_event_kakuritsu;
 
     //SEを鳴らす
     public AudioClip sound1;
     public AudioClip sound2;
     public AudioClip sound3;
+    public AudioClip sound4;
     AudioSource audioSource;
 
     private int itemId, itemKosu;
@@ -62,6 +64,7 @@ public class GetMaterial : MonoBehaviour {
     private int random;
     private int i, count, empty;
     private int index;
+    private int _itemid;
 
     private int cullent_total_mat;
 
@@ -253,31 +256,30 @@ public class GetMaterial : MonoBehaviour {
         }
 
         tansaku_panel.SetActive(true);
-        //tansaku_yes.interactable = true;
-        //tansaku_no.interactable = true;
         slot_view_fade.FadeImageOn(); //ビュー画面を戻す
         character_fade.FadeImageOn();
 
-        //イベントかアイテムかの抽選
-        InitializeEventDicts();
-        event_num = ChooseEvent();
 
-        switch(event_num)
+        //イベント発生orアイテム取得　の抽選
+        InitializeEventDicts();
+        event_num = ChooseEvent(); //
+
+        switch (event_num)
         {
-            case 0:
+            case 0: //アイテム取得
 
                 //アイテムの取得
                 mat_result();
                 break;
 
-            case 1:
+            case 1: //イベント発生
 
                 switch(mat_place)
                 {
                     case "Forest":
 
                         //イベント１
-                        event_01();
+                        event_Forest();
                         break;
 
                     case "HimawariHill":
@@ -288,16 +290,30 @@ public class GetMaterial : MonoBehaviour {
                     default:
 
                         //イベント１
-                        event_01();
+                        event_Forest();
                         break;
                 }
                 
                 break;
 
-            case 2:
+            case 2: //発見力があがると、見つけやすくなるレアイベント
 
-                //アイテムの取得
-                mat_result();
+                switch (mat_place)
+                {
+                    case "Forest":
+
+                        //レアイベント
+                        event_Forest2();
+                        break;
+
+
+                    default:
+
+                        //アイテムの取得
+                        mat_result();
+                        break;
+                }
+                
                 break;
 
             default:
@@ -471,16 +487,134 @@ public class GetMaterial : MonoBehaviour {
         }
     }
 
+
+
+
+    //
+    //マップイベントの設定
+    //
+
+    //近くの森
+    void event_Forest()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん。だんごむし、みつけた～！";
+                break;
+
+            case 1:
+
+                _text.text = "わ～い。ちょうちょ～～。（妹はサボっている。）";
+                break;
+
+            case 2:
+
+                _text.text = "にいちゃん。腹へった～。" + "\n" + "妹は帰りたそうにしている。";
+                break;
+
+            case 3:
+
+                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorLemon + "きれいな石" + "</color>" + "をみつけた！";
+
+                //アイテムの取得処理
+                pitemlist.addPlayerItemString("kirakira_stone1", 1);
+
+                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                _itemid = pitemlist.SearchItemString("kirakira_stone1");
+                getmatplace_panel.result_items[_itemid] += 1;
+
+                //音を鳴らす
+                audioSource.PlayOneShot(sound4);
+                break;
+
+            default:
+
+                if( PlayerStatus.player_girl_findpower >= 130 )
+                {
+                    //バードサンクチュアリを発見
+                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                }
+                else
+                {
+                    _text.text = "ギャーー！ムカデ！！にいちゃん！！";
+
+                    //音を鳴らす
+                    audioSource.PlayOneShot(sound2);
+                }
+                
+                break;
+        }       
+    }
+
+    void event_Forest2()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 3:
+
+                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorLemon + "きれいな石" + "</color>" + "をみつけた！";
+
+                //アイテムの取得処理
+                pitemlist.addPlayerItemString("kirakira_stone1", 1);
+
+                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                _itemid = pitemlist.SearchItemString("kirakira_stone1");
+                getmatplace_panel.result_items[_itemid] += 1;
+
+                //音を鳴らす
+                audioSource.PlayOneShot(sound4);
+                break;
+
+            default:
+
+                if (PlayerStatus.player_girl_findpower >= 130)
+                {
+                    //バードサンクチュアリを発見
+                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                }
+                else
+                {
+                    _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorLemon + "きれいな石" + "</color>" + "をみつけた！";
+
+                    //アイテムの取得処理
+                    pitemlist.addPlayerItemString("kirakira_stone", 1);
+
+                    //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                    _itemid = pitemlist.SearchItemString("kirakira_stone");
+                    getmatplace_panel.result_items[_itemid] += 1;
+
+                    //音を鳴らす
+                    audioSource.PlayOneShot(sound4);
+                }
+
+                break;
+        }
+    }
+
+    //ひまわりの丘
     void event_HimawariHill()
     {
         if (!GameMgr.MapEvent_04[1])
         {
             GameMgr.MapEvent_04[1] = true;
 
-            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + "絞り器をみつけた！";
+            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + GameMgr.ColorLemon + "絞り器" + "</color>" + "をみつけた！";
             
             //アイテムの取得処理
             pitemlist.addPlayerItemString("oil_extracter", 1);
+
+            //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+            _itemid = pitemlist.SearchItemString("oil_extracter");
+            getmatplace_panel.result_items[_itemid] += 1;
+
+            //音を鳴らす
+            audioSource.PlayOneShot(sound4);
         }
         else
         {
@@ -488,12 +622,49 @@ public class GetMaterial : MonoBehaviour {
         }
     }
 
-    void event_01()
+    //イベントの発生確率をセット
+    void InitializeEventDicts()
     {
-        _text.text = "ギャーー！ムカデ！！兄ちゃん！！";
+        rare_event_kakuritsu = (PlayerStatus.player_girl_findpower - 100) * 0.2f;
 
-        //音を鳴らす
-        audioSource.PlayOneShot(sound2);
+        switch (mat_place)
+        {
+            case "Forest":
+
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 80.0f); //
+                eventDict.Add(1, 20.0f); //20%でイベント発生
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                break;
+
+            case "HimawariHill":
+
+                if (!GameMgr.MapEvent_04[1])
+                {
+                    eventDict = new Dictionary<int, float>();
+                    eventDict.Add(0, 70.0f); //
+                    eventDict.Add(1, 30.0f); //30%でイベント 廃屋をみつけるまでは、発生しやすくなる。
+                    eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                }
+                else
+                {
+                    eventDict = new Dictionary<int, float>();
+                    eventDict.Add(0, 90.0f); //
+                    eventDict.Add(1, 10.0f); //10%でイベント
+                    eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                }
+                break;
+
+            default:
+
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 90.0f); //
+                eventDict.Add(1, 10.0f); //10%でイベント
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                break;
+        }
+
+
     }
 
 
@@ -549,42 +720,7 @@ public class GetMaterial : MonoBehaviour {
 
         
     }
-
-    //イベントの発生確率をセット
-    void InitializeEventDicts()
-    {
-
-        switch (mat_place)
-        {
-            case "HimawariHill":
-
-                if (!GameMgr.MapEvent_04[1])
-                {
-                    eventDict = new Dictionary<int, float>();
-                    eventDict.Add(0, 50.0f); //
-                    eventDict.Add(1, 30.0f); //30%でイベント 廃屋をみつけるまでは、発生しやすくなる。
-                    eventDict.Add(2, 20.0f); //
-                }
-                else
-                {
-                    eventDict = new Dictionary<int, float>();
-                    eventDict.Add(0, 50.0f); //
-                    eventDict.Add(1, 10.0f); //10%でイベント
-                    eventDict.Add(2, 40.0f); //
-                }
-                break;
-
-            default:
-
-                eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 50.0f); //
-                eventDict.Add(1, 10.0f); //10%でイベント
-                eventDict.Add(2, 40.0f); //
-                break;
-        }
-
-        
-    }
+   
 
     int Choose()
     {

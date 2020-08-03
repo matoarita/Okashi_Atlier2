@@ -257,6 +257,8 @@ public class GirlEat_Judge : MonoBehaviour {
     List<int> itemslotScore = new List<int>();
 
     private GameObject effect_Prefab;
+    private GameObject Emo_effect_manzoku;
+    private GameObject Emo_effect_daimanzoku;
     private List<GameObject> _listEffect = new List<GameObject>();
 
     private GameObject heart_Prefab;
@@ -333,8 +335,6 @@ public class GirlEat_Judge : MonoBehaviour {
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        //キャラクタ取得
-        //character = GameObject.FindWithTag("Character");
 
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
@@ -361,6 +361,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 live2d_animator = _model.GetComponent<Animator>();
                 _renderController = _model.GetComponent<CubismRenderController>();
 
+                //キャラクタ取得
+                character = GameObject.FindWithTag("Character");
+
                 //お金の増減用パネルの取得
                 MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
@@ -375,6 +378,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 //エフェクトプレファブの取得
                 effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
+                Emo_effect_manzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
+                Emo_effect_daimanzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
                 Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
                 Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
 
@@ -991,7 +996,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void Dislike_Okashi_Judge()
     {
-        
+        Mazui_flag = false; //初期化
+
         if (_basepowdery > 50)
         {
             dislike_flag = false;
@@ -1037,10 +1043,10 @@ public class GirlEat_Judge : MonoBehaviour {
             Mazui_flag = true;
 
             //スペシャルクエストだった場合は、まずいフラグがたつ。
-            if (girl1_status.OkashiNew_Status == 0)
+            /*if (girl1_status.OkashiNew_Status == 0)
             {
                 girl1_status.girl_Mazui_flag = true;
-            }
+            }*/
         }
     }
 
@@ -1711,7 +1717,6 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else
         {
-            Mazui_flag = false;
         }
 
         //得点に応じて、好感度・お金に補正がかかる。→ LoveScoreCal()で計算
@@ -2464,6 +2469,7 @@ public class GirlEat_Judge : MonoBehaviour {
         if(_slider.value >= _slider.maxValue)
         {
             girl1_status.girl1_Love_lv++;
+            girl1_status.LvUpStatus();
             _slider.value = 0;
 
             //Maxバリューを再設定
@@ -2812,17 +2818,23 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         //満足度にあわせて音を鳴らす。
-        if (total_score < GameMgr.low_score)
+        if (total_score < GameMgr.low_score)　//60点以下
         {
             //sc.PlaySe(60);
         }
-        else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
+        else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //60点以上～85点以下
         {
             sc.PlaySe(60);
+
+            //エフェクト生成＋アニメ開始
+            _listEffect.Add(Instantiate(Emo_effect_manzoku, character.transform));
         }
-        else
+        else //85点以上
         {
             sc.PlaySe(60);
+
+            //エフェクト生成＋アニメ開始
+            _listEffect.Add(Instantiate(Emo_effect_daimanzoku, character.transform));
 
             if (emerarudonguri_get)
             {

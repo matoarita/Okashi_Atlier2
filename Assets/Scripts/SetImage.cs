@@ -643,12 +643,20 @@ public class SetImage : MonoBehaviour
                 subcategory = "お菓子材料";
                 item_Shokukan_Type.text = "食感";
                 break;
+            case "Potion":
+                subcategory = "お菓子材料";
+                item_Shokukan_Type.text = "食感";
+                break;
             case "Appaleil":
                 subcategory = "生地";
                 item_Shokukan_Type.text = "食感";
                 break;
             case "Pate":
                 subcategory = "生地";
+                item_Shokukan_Type.text = "食感";
+                break;
+            case "Cream":               
+                subcategory = "クリーム";
                 item_Shokukan_Type.text = "食感";
                 break;
             case "Cookie_base":
@@ -674,7 +682,7 @@ public class SetImage : MonoBehaviour
                 break;
             case "Egg":
                 subcategory = "たまご";
-                break;           
+                break;            
             case "Machine":
                 subcategory = "器具";
                 break;
@@ -867,7 +875,7 @@ public class SetImage : MonoBehaviour
                     break;
             }
         }
-        else if (item_type == "Okashi")
+        else if (item_type == "Okashi" || item_type == "Potion")
         {
             //スロットの正式名称計算
             slotchangename.slotChangeName(Pitem_or_Origin, check_counter, "blue");
