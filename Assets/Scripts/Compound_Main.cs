@@ -990,11 +990,11 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(true);
                 compoBG_A.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
-                extreme_panel.extremeButtonInteractOFF();
-                text_area.SetActive(true);
-                text_area_Main.SetActive(false);
+                extreme_panel.extremeButtonInteractOFF();               
                 time_controller.TimeCheck_flag = false;
-                stageclear_Button.SetActive(false);
+
+                text_area.SetActive(true);
+                WindowOff();
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1025,9 +1025,9 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
+
                 text_area.SetActive(true);
-                text_area_Main.SetActive(false);
-                stageclear_Button.SetActive(false);
+                WindowOff();
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1066,9 +1066,9 @@ public class Compound_Main : MonoBehaviour
                 recipimemoController_obj.SetActive(false);
                 time_controller.TimeCheck_flag = false;
                 memoResult_obj.SetActive(false);
+
                 text_area.SetActive(true);
-                text_area_Main.SetActive(false);
-                stageclear_Button.SetActive(false);
+                WindowOff();
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1128,9 +1128,9 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
+
                 text_area.SetActive(false);
-                text_area_Main.SetActive(false);
-                stageclear_Button.SetActive(false);
+                WindowOff();
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -1170,8 +1170,8 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
 
-                Extremepanel_obj.SetActive(false);
-                text_area_Main.SetActive(false);
+                text_area.SetActive(true);
+                WindowOff();
 
                 card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
                 StartCoroutine("Girl_present_Final_select");
@@ -1223,7 +1223,7 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
-            case 30: //「売る」を選択
+            case 30: //「売る」を選択（未実装）
 
                 compoundselect_onoff_obj.SetActive(false);
 
@@ -1266,9 +1266,8 @@ public class Compound_Main : MonoBehaviour
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
-                Extremepanel_obj.SetActive(false);
                 text_area.SetActive(true);
-                text_area_Main.SetActive(false);
+                WindowOff();
                 black_panel_A.SetActive(true);
                 StartCoroutine("Contest_Final_select");
                 break;
@@ -1288,9 +1287,8 @@ public class Compound_Main : MonoBehaviour
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
-                Extremepanel_obj.SetActive(false);
                 text_area.SetActive(true);
-                text_area_Main.SetActive(false);
+                WindowOff();
                 black_panel_A.SetActive(true);
                 StartCoroutine("OkashiClear_Final_select");
                 break;
@@ -1312,9 +1310,8 @@ public class Compound_Main : MonoBehaviour
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
-                Extremepanel_obj.SetActive(false);
                 text_area.SetActive(true);
-                text_area_Main.SetActive(false);
+                WindowOff();
                 black_panel_A.SetActive(true);
                 StartCoroutine("Sleep_Final_select");
                 break;
@@ -1330,9 +1327,7 @@ public class Compound_Main : MonoBehaviour
                 compound_select = 99;
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
 
-                Extremepanel_obj.SetActive(false);
-                text_area_Main.SetActive(false);
-                girl_love_exp_bar.SetActive(false);
+                WindowOff();
 
                 break;
 
@@ -1358,6 +1353,16 @@ public class Compound_Main : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void WindowOff()
+    {
+        Extremepanel_obj.SetActive(false);
+        text_area_Main.SetActive(false);
+        girl_love_exp_bar.SetActive(false);
+        TimePanel_obj1.SetActive(false);
+        moneystatus_panel.SetActive(false);
+        stageclear_Button.SetActive(false);
     }
 
 
@@ -1551,8 +1556,6 @@ public class Compound_Main : MonoBehaviour
 
             if ( extreme_panel.extreme_itemID != 9999 )
             {
-                text_area.SetActive(true);
-                //nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
                 _text.text = "今、作ったお菓子をあげますか？"; // + "\n" + "あと " + GameMgr.ColorLemon + nokori_kaisu + "</color>" + "回　あげられるよ。"
                 compound_status = 10;
             }

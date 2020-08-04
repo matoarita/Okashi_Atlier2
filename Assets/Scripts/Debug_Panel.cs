@@ -9,6 +9,8 @@ public class Debug_Panel : MonoBehaviour {
 
     private GameObject canvas;
 
+    private SoundController sc;
+
     private ItemMatPlaceDataBase matplace_database;
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
@@ -77,7 +79,7 @@ public class Debug_Panel : MonoBehaviour {
         Mazui_toggle_input = this.transform.Find("MazuiToggleInput").gameObject.GetComponent<Toggle>();
 
         Debug_INPUT_ON = false;
-        DebugInputOn = this.transform.Find("DebugInputOnText").GetComponent<Text>();
+        DebugInputOn = this.transform.Find("DebugInputOnText").GetComponent<Text>();        
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -347,6 +349,11 @@ public class Debug_Panel : MonoBehaviour {
 
     public void InputMainFlagOn()
     {
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        sc.PlaySe(30);
+
         //ストーリーの最初から、現在までの最低限必要なフラグをONにする。シナリオチェックの際、やりやすいようにフラグのON/OFFの数を調節してOK
         for (i = 0; i <= GameMgr.GirlLoveEvent_num; i++)
         {

@@ -22,6 +22,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Girl1_status girl1_status;
 
     private TimeController time_controller;
+    private GameObject TimePanel_obj1;
 
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -70,6 +71,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int slot_view_status;
 
     private int i, j;
+    private int select_num;
 
     private bool move_anim_on;
     private bool move_anim_end;
@@ -125,7 +127,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //時間管理オブジェクトの取得
+        TimePanel_obj1 = canvas.transform.Find("TimePanel").gameObject;
         time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
+        
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
@@ -306,34 +310,35 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             if (matplace_toggle[i].GetComponent<Toggle>().isOn == true)
             {
-                
-                    //時間が20時をこえないかチェック
-                    _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay * 2);
-                    if (_yosokutime >= time_controller.max_time * 6)
+                select_num = i;
+
+                //時間が20時をこえないかチェック
+                _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay * 2);
+                if (_yosokutime >= time_controller.max_time * 6)
+                {
+                    //20時を超えるので、妹に止められる。
+                    _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
+                    All_Off();
+                }
+                else
+                {
+                    if (matplace_database.matplace_lists[i].placeCost == 0)
                     {
-                        //20時を超えるので、妹に止められる。
-                        _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
-                        All_Off();
+                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
                     }
                     else
                     {
-                        if (matplace_database.matplace_lists[i].placeCost == 0)
-                        {
-                            _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
-                        }
-                        else
-                        {
-                            _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
-                        }
-
-                        select_place_num = place_num;
-                        select_place_name = matplace_database.matplace_lists[place_num].placeName;
-                        select_place_day = matplace_database.matplace_lists[place_num].placeDay;
-
-                        Select_Pause();
-                        break;
+                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
                     }
-                
+
+                    select_place_num = place_num;
+                    select_place_name = matplace_database.matplace_lists[place_num].placeName;
+                    select_place_day = matplace_database.matplace_lists[place_num].placeDay;
+
+                    Select_Pause();
+                    break;
+                }
+
             }
             i++;
         }
@@ -345,7 +350,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         for(j = 0; j < matplace_toggle.Count; j++ )
         {
-            matplace_toggle[i].GetComponent<Toggle>().interactable = false;
+            matplace_toggle[j].GetComponent<Toggle>().interactable = false;
         }
 
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
@@ -680,11 +685,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     void All_Off()
     {
+        matplace_toggle[select_num].GetComponent<Toggle>().isOn = false;
+
         //再度、セレクトできるようにする
         for (i = 0; i < matplace_toggle.Count; i++)
         {
+            
             matplace_toggle[i].GetComponent<Toggle>().interactable = true;
-            matplace_toggle[i].GetComponent<Toggle>().isOn = false;
+            
             //Debug.Log(matplace_toggle[i].GetComponent<Toggle>().interactable);
         }
 
@@ -853,7 +861,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     IEnumerator MapEventOn()
     {
-        //Debug.Log("eventRecipi_end() on");
+        MoneyStatus_Panel_obj.SetActive(false);
+        TimePanel_obj1.SetActive(false);
+
         while (!GameMgr.recipi_read_endflag)
         {
             yield return null;
@@ -861,6 +871,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         GameMgr.recipi_read_endflag = false;
 
+        MoneyStatus_Panel_obj.SetActive(true);
+        TimePanel_obj1.SetActive(true);
         text_area.SetActive(true);
         slot_tansaku_button.SetActive(true);
         for(i=0; i<mapevent_panel.Count; i++)
