@@ -20,6 +20,7 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int ID;
 		public int QuestID;
 		public int QuestType;
+		public int QuestHyouji;
 		public string file_name;
 		public string quest_itemName;
 		public string quest_itemsubtype;

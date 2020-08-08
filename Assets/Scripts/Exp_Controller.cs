@@ -589,9 +589,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
         recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
 
-        //リザルトアイテムを代入
-        result_item = recipilistController.result_recipiitem;
-
+       
         //コンポ調合データベースのIDを代入
         result_ID = recipilistController.result_recipicompID;
 
@@ -661,15 +659,27 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             card_view.ResultCard_DrawView(1, new_item);*/
 
-            
+
             //②店売りアイテムとして生成し、実際にアイテムを追加。
+
+            //リザルトアイテムを代入
+            result_item = recipilistController.result_recipiitem;
+
             compound_keisan.Delete_playerItemList();
             renkin_hyouji = database.items[result_item].itemNameHyouji;
             pitemlist.addPlayerItem(result_item, result_kosu);
 
             if (database.items[result_item].itemType.ToString() == "Mat" || database.items[result_item].itemType.ToString() == "Potion")
             {
+                //ただし、例外として、ホイップクリーム（絞り袋セット前）はセットされる。その他もあるかも。
+                if (database.items[result_item].itemType_sub.ToString() == "Cream")
+                {
+                    //パネルに、作ったやつを表示する。
+                    extremePanel.SetExtremeItem(result_item, 0);
 
+                    //お菓子のHPをセット
+                    extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
+                }
             }
             else
             {

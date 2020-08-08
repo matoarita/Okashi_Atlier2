@@ -1028,28 +1028,28 @@ public class Updown_counter : MonoBehaviour {
             }
         }
         //店売りの所持個数を計算
-        player_itemkosu3 += pitemlist.playeritemlist[itemdb_id2];
+        player_itemkosu3 += pitemlist.playeritemlist[itemdb_id3];
 
 
 
 
-        //テキストの更新　左：必要個数　右：現在の所持数
-        _a = cmpitem_namehyouji1 + ": " + GameMgr.ColorLemon + cmpitem_kosu1_select + "</color>" + "／" + player_itemkosu1;
-        _b = cmpitem_namehyouji2 + ": " + GameMgr.ColorLemon + cmpitem_kosu2_select + "</color>" + "／" + player_itemkosu2;
-        _c = cmpitem_namehyouji3 + ": " + GameMgr.ColorLemon + cmpitem_kosu3_select + "</color>" + "／" + player_itemkosu3;
+        //テキストの更新　左：現在の所持数　右：必要個数
+        _a = cmpitem_namehyouji1 + ": " + player_itemkosu1 + "／" + GameMgr.ColorLemon + cmpitem_kosu1_select + "</color>";
+        _b = cmpitem_namehyouji2 + ": " + player_itemkosu2 + "／" + GameMgr.ColorLemon + cmpitem_kosu2_select + "</color>";
+        _c = cmpitem_namehyouji3 + ": " + player_itemkosu3 + "／" + GameMgr.ColorLemon + cmpitem_kosu3_select + "</color>";
 
         //材料個数が足りてるかの判定し、足りてないときは赤字にテキスト更新
         if (cmpitem_kosu1_select > player_itemkosu1)
         {
-            _a = GameMgr.ColorRed + cmpitem_namehyouji1 + ": " + cmpitem_kosu1_select + "／" + player_itemkosu1 + "</color>";
+            _a = GameMgr.ColorRed + cmpitem_namehyouji1 + ": " + player_itemkosu1 + "／" + cmpitem_kosu1_select + "</color>";
         }
         if (cmpitem_kosu2_select > player_itemkosu2)
         {
-            _b = GameMgr.ColorRed + cmpitem_namehyouji2 + ": " + cmpitem_kosu2_select + "／" + player_itemkosu2 + "</color>";
+            _b = GameMgr.ColorRed + cmpitem_namehyouji2 + ": " + player_itemkosu2 + "／" + cmpitem_kosu2_select + "</color>";
         }
         if (cmpitem_kosu3_select > player_itemkosu3)
         {
-            _c = GameMgr.ColorRed + cmpitem_namehyouji3 + ": " + cmpitem_kosu3_select + "／" + player_itemkosu3 + "</color>";
+            _c = GameMgr.ColorRed + cmpitem_namehyouji3 + ": " + player_itemkosu3 + "／" + cmpitem_kosu3_select + "</color>";
         }
 
         

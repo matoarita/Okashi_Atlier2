@@ -289,7 +289,7 @@ MonoBehaviour:
     - ItemID: 8
       file_name: hill_mini_icon
       place_Name: HimawariHill
-      place_Name_Hyouji: "\u30B5\u30F3\u30D5\u30E9\u30EF\u30FC\u30D2\u30EB\u30BA"
+      place_Name_Hyouji: "\u3072\u307E\u308F\u308A\u306E\u4E18"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3002"
       place_day: 12
       place_cost: 50

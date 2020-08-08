@@ -50,6 +50,8 @@ public class Utage_scenario : MonoBehaviour
     private bool FadeAnim_flag;
     private int FadeAnim_status;
 
+    private bool yusho_flag; //優勝したかどうか。
+
     //Live2Dモデルの取得
     private CubismModel _model;
     private CubismRenderController _renderController;
@@ -1606,6 +1608,49 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]);
         engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]);
         engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
+
+        //採点によって、感想が変わる。
+        if (GameMgr.contest_TotalScore > GameMgr.low_score && GameMgr.contest_TotalScore <= GameMgr.high_score)
+        {
+            engine.Param.TrySetParameter("contest_comment_num", 0);
+        }
+        else if (GameMgr.contest_TotalScore > GameMgr.high_score)
+        {
+            engine.Param.TrySetParameter("contest_comment_num", 1);
+        }
+        else if (GameMgr.contest_TotalScore > 30 && GameMgr.contest_TotalScore <= GameMgr.low_score)
+        {
+            engine.Param.TrySetParameter("contest_comment_num", 2);
+        }
+        else if (GameMgr.contest_TotalScore <= 30)
+        {
+            engine.Param.TrySetParameter("contest_comment_num", 3);
+        }
+
+        if (GameMgr.contest_TotalScore > 92) //アマクサよりも高得点なら、優勝
+        {
+            yusho_flag = true;
+            engine.Param.TrySetParameter("contest_ranking_num", 1);
+        }
+        else //そうでないなら、アマクサには負ける。
+        {
+            yusho_flag = false;
+            engine.Param.TrySetParameter("contest_ranking_num", 0);
+        }
+
+        //好感度によって、EDが分岐する。
+        if (GameMgr.stage1_girl1_loveexp <= 95) //LV3以下 badED ED1
+        {
+            engine.Param.TrySetParameter("ED_num", 1);
+        }
+        else if (GameMgr.stage1_girl1_loveexp > 95 && yusho_flag == false) //ノーマルED ED2
+        {
+            engine.Param.TrySetParameter("ED_num", 2);
+        }
+        else if (GameMgr.stage1_girl1_loveexp > 95 && yusho_flag == true) //ベストED ED3 LV5~
+        {
+            engine.Param.TrySetParameter("ED_num", 3);
+        }
 
         //続きから再度読み込み
         engine.ResumeScenario();

@@ -1738,7 +1738,7 @@ MonoBehaviour:
       strings:
       - npcQ_name
       - String
-      - "\u30B7\u30C8\u30ED\u30F3"
+      - "\u30B7\u30C8\u30E9\u30B9"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2056,24 +2056,45 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 68
       debugIndex: 68
-      strings: []
-      isEmpty: 1
+      strings:
+      - contest_comment_num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 69
       debugIndex: 69
-      strings: []
-      isEmpty: 1
+      strings:
+      - contest_ranking_num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 70
       debugIndex: 70
-      strings: []
-      isEmpty: 1
+      strings:
+      - ED_num
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 71
       debugIndex: 71
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 72
+      debugIndex: 72
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 73
+      debugIndex: 73
       strings:
       - Tutorial_Flag
       - Bool
@@ -2081,25 +2102,13 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 72
-      debugIndex: 72
+    - rowIndex: 74
+      debugIndex: 74
       strings:
       - Farm_Flag
       - Bool
       - FALSE
       isEmpty: 0
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 73
-      debugIndex: 73
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
-    - rowIndex: 74
-      debugIndex: 74
-      strings: []
-      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 75
@@ -2110,6 +2119,18 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 76
       debugIndex: 76
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 77
+      debugIndex: 77
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 78
+      debugIndex: 78
       strings:
       - Ev_flag
       - Int
@@ -2117,8 +2138,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 77
-      debugIndex: 77
+    - rowIndex: 79
+      debugIndex: 79
       strings:
       - Re_flag
       - Int
@@ -2128,7 +2149,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 1325
+    textLength: 1381
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -2530,6 +2551,16 @@ MonoBehaviour:
     - rowIndex: 41
       debugIndex: 41
       strings:
+      - "\u60B2\u3057\u307F\u306E\u97F3\u697D\uFF15"
+      - 
+      - Bgm
+      - 05_kazetotomoni.mp3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 42
+      debugIndex: 42
+      strings:
       - "\u4E0D\u7A4F\u306A\u97F3\u697D\uFF11"
       - 
       - Bgm
@@ -2537,8 +2568,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 42
-      debugIndex: 42
+    - rowIndex: 43
+      debugIndex: 43
       strings:
       - "\u30C9\u30E9\u30E0\u30DE\u30FC\u30C1"
       - 
@@ -2547,8 +2578,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 43
-      debugIndex: 43
+    - rowIndex: 44
+      debugIndex: 44
       strings:
       - "BGM\u65E5\u5E38\u98A8\u666F"
       - 
@@ -2557,8 +2588,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 44
-      debugIndex: 44
+    - rowIndex: 45
+      debugIndex: 45
       strings:
       - "BGM\u30A2\u30DE\u30AF\u30B5\uFF11"
       - 
@@ -2567,8 +2598,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 45
-      debugIndex: 45
+    - rowIndex: 46
+      debugIndex: 46
       strings:
       - "BGM\u30A2\u30DE\u30AF\u30B5\uFF12"
       - 
@@ -2577,8 +2608,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 46
-      debugIndex: 46
+    - rowIndex: 47
+      debugIndex: 47
       strings:
       - "BGM\u5922\u306E\u4E2D"
       - 
@@ -2587,8 +2618,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 47
-      debugIndex: 47
+    - rowIndex: 48
+      debugIndex: 48
       strings:
       - "BGM\u30D9\u30CB\u30A8\uFF11"
       - 
@@ -2597,8 +2628,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 48
-      debugIndex: 48
+    - rowIndex: 49
+      debugIndex: 49
       strings:
       - "BGM\u30B3\u30F3\u30C6\u30B9\u30C8\u4F1A\u5834"
       - 
@@ -2607,8 +2638,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 49
-      debugIndex: 49
+    - rowIndex: 50
+      debugIndex: 50
       strings:
       - "BGM\u304A\u83D3\u5B50\u5224\u5B9A\u4E2D"
       - 
@@ -2617,9 +2648,19 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 51
+      debugIndex: 51
+      strings:
+      - "BGMED\u524D\u306E\u66F2"
+      - 
+      - Bgm
+      - BGM_24.mp3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 1016
+    textLength: 1066
     headerRow: 0
   - rows:
     - rowIndex: 0

@@ -70,11 +70,13 @@ public class shopQuestSelectToggle : MonoBehaviour
     public int toggle_ID; //こっちは、ショップデータベース上のIDを保持する。
     public int toggle_quest_ID; //リストの要素自体に、アイテムDB上のアイテムIDを保持する。
     public int toggle_quest_type; //リストの要素に、通常アイテムか、イベントアイテム判定用のタイプを保持する。
+    public int toggle_itemID; //選択したクエストの納品用の、お菓子のアイテムID（アイテムDBの番号）
 
     private int i;
 
     private int pitemlist_max;
     private int count;
+    private int _itemcount;
     private bool selectToggle;
 
     private int kettei_item1; //このスクリプトは、プレファブのインスタンスに取り付けているので、各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
@@ -216,7 +218,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         shopquestlistController.questID = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_quest_ID; //クエスト固有IDを入れる
 
 
-        _text.text = quest_database.questset[shopquestlistController.questID].Quest_desc + "この依頼を受ける？";
+        _text.text = quest_database.questset[shopquestlistController._ID].Quest_desc + "\n" + "この依頼を受ける？";
 
         Debug.Log(count + "番が押されたよ");
         Debug.Log("クエスト:" + "が選択されました。");
@@ -333,9 +335,17 @@ public class shopQuestSelectToggle : MonoBehaviour
         shopquestlistController._ID = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_ID; //IDを入れる。
         shopquestlistController.questID = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_quest_ID; //クエスト固有IDを入れる
         shopquestlistController.questType = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_quest_type; //クエストのタイプをいれる
+        shopquestlistController.quest_itemID = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_itemID; //選択アイテムのIDをいれる
 
-
-        _text.text = "依頼のアイテムを納品する？";
+        if (shopquestlistController.quest_itemID != 9999)
+        {
+            _itemcount = pitemlist.KosuCount(database.items[shopquestlistController.quest_itemID].itemName);
+            _text.text = "依頼のアイテムを納品する？" + "\n" + "現在の所持数: " + GameMgr.ColorLemon + _itemcount + "</color>";
+        }
+        else
+        {
+            _text.text = "依頼のアイテムを納品する？";
+        }
 
         Debug.Log(count + "番が押されたよ");
         Debug.Log("受注クエスト:" + "が選択されました。");

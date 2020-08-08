@@ -13,6 +13,7 @@ public class QuestSet
     public int Quest_ID;    //DB固有の番号。IDは、リストの順番を入れ替えると、順番が崩れてしまうので、各リストに固有のIDとしてつけている。
 
     public int QuestType;   //0なら材料採取系。1ならお菓子を納品系。こっちは、プレイヤーが納品するアイテムを、リストから選択する形式
+    public int QuestHyouji; //数字を指定すると、ストーリーの進行によって、どのクエストが出るのかを操作できる。
 
     public Sprite questIcon;      //アイコン
     public string Quest_FileName;
@@ -42,11 +43,12 @@ public class QuestSet
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public QuestSet(int id, int _questID, int _questType, string fileName, string _itemname, string _itemsubtype, int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, string tp01, string tp02, string tp03, string tp04, string tp05, string _title, string _setkansou)
+    public QuestSet(int id, int _questID, int _questType, int _questHyouji, string fileName, string _itemname, string _itemsubtype, int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, string tp01, string tp02, string tp03, string tp04, string tp05, string _title, string _setkansou)
     {
         _ID = id;
         Quest_ID = _questID;
         QuestType = _questType;
+        QuestHyouji = _questHyouji;
 
         Quest_FileName = fileName;
         questIcon = Resources.Load<Sprite>("Sprites/Items/" + Quest_FileName);

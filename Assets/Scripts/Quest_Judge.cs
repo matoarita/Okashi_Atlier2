@@ -265,7 +265,7 @@ public class Quest_Judge : MonoBehaviour {
             _getMoney = _buy_price * _kosu_default;
 
             //足りてるので、納品完了の処理
-            _text.text = "報酬 " + _getMoney + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
+            _text.text = "報酬 " + GameMgr.ColorLemon + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
 
             //ジャキーンみたいな音を鳴らす。
             sc.PlaySe(31);
@@ -292,6 +292,8 @@ public class Quest_Judge : MonoBehaviour {
             shopquestlistController.NouhinList_DrawView();
 
         }
+
+        shopquestlistController.nouhin_select_on = 0;
 
         yes.SetActive(false);
         no.SetActive(false);
@@ -625,7 +627,8 @@ public class Quest_Judge : MonoBehaviour {
         quest_database.questTakeset.RemoveAt(_ID);
 
         //リスト更新
-        shopquestlistController.NouhinList_DrawView();       
+        shopquestlistController.NouhinList_DrawView();
+        shopquestlistController.nouhin_select_on = 0;
 
         yes.SetActive(false);
         no.SetActive(false);

@@ -17,12 +17,13 @@ MonoBehaviour:
     - ID: 0
       QuestID: 0
       QuestType: 0
+      QuestHyouji: 0
       file_name: neko_cookie
       quest_itemName: neko_cookie
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 7
+      kosu_max: 5
       buy_price: 200
       rich: 0
       sweat: 0
@@ -40,70 +41,17 @@ MonoBehaviour:
       topping04: Non
       topping05: Non
       quest_Title: "\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1"
-      desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u5927\u5BCC\u8C6A</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D1\u30FC\u30C6\u30A3\u30FC\u306B\u5F69\u308A\u3092\u6DFB\u3048\u305F\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
+      desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u5927\u5BCC\u8C6A</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D1\u30FC\u30C6\u30A3\u30FC\u7528\u306B\u3001\u304A\u3044\u3057\u3044\u30AF\u30C3\u30AD\u30FC\u304C\u6B32\u3057\u3044\u305D\u3046\u3060\u308F\u3002"
     - ID: 1
-      QuestID: 1
+      QuestID: 10
       QuestType: 0
-      file_name: neko_cookie
-      quest_itemName: Non
-      quest_itemsubtype: Cookie
-      kosu_default: 0
-      kosu_min: 1
-      kosu_max: 4
-      buy_price: 200
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 30
-      fluffy: 0
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      quest_Title: "\u3055\u304F\u3055\u304F\u3057\u305F\u304A\u83D3\u5B50\u306E\u7D0D\u54C1"
-      desc: "<color=#FF78B4>\u3055\u304F\u3055\u304F\u3057\u305F\u304A\u83D3\u5B50</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
-    - ID: 2
-      QuestID: 2
-      QuestType: 0
-      file_name: neko_cookie
-      quest_itemName: Non
-      quest_itemsubtype: Cookie
-      kosu_default: 0
-      kosu_min: 1
-      kosu_max: 7
-      buy_price: 320
-      rich: 30
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 0
-      fluffy: 0
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      quest_Title: "\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044"
-      desc: "<color=#FF78B4>\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
-    - ID: 3
-      QuestID: 3
-      QuestType: 0
+      QuestHyouji: 0
       file_name: orange_neko_cookie
-      quest_itemName: Non
-      quest_itemsubtype: Cookie
+      quest_itemName: orange_neko_cookie
+      quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 7
+      kosu_max: 5
       buy_price: 300
       rich: 0
       sweat: 0
@@ -115,16 +63,17 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: Orange
+      topping01: Non
       topping02: Non
       topping03: Non
       topping04: Non
       topping05: Non
       quest_Title: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1"
-      desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8\u306E\u306D\u3053\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
-    - ID: 4
-      QuestID: 4
+      desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u5927\u5BCC\u8C6A</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D1\u30FC\u30C6\u30A3\u30FC\u7528\u306B\u3001\u5F69\u308A\u304C\u3042\u308B\u30AF\u30C3\u30AD\u30FC\u304C\u6B32\u3057\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
+    - ID: 2
+      QuestID: 20
       QuestType: 1
+      QuestHyouji: 0
       file_name: grape
       quest_itemName: grape
       quest_itemsubtype: Non
@@ -149,9 +98,10 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u3076\u3069\u3046\u306E\u5165\u624B"
       desc: "<color=#FF78B4>\u3076\u3069\u3046</color>\u304C\u3042\u308B\u3068\u8CB7\u53D6\u308B\u308F\u3088\u3002\n\u4ECA\u8DB3\u308A\u306A\u304F\u3066\u56F0\u3063\u3066\u3044\u308B\u306E\u3002"
-    - ID: 5
-      QuestID: 5
+    - ID: 3
+      QuestID: 30
       QuestType: 1
+      QuestHyouji: 0
       file_name: strange_grass
       quest_itemName: strange_grass
       quest_itemsubtype: Non
@@ -176,15 +126,268 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u5909\u306A\u8349\u306E\u5165\u624B"
       desc: "\u8FD1\u304F\u306E\u68EE\u306B\u751F\u3048\u3066\u308B<color=#FF78B4>\u8349</color>\u304C\u3042\u308B\u3068\u52A9\u304B\u308B\u308F\u306D\u3002\n\u63A1\u3063\u3066\u304D\u3066\u304F\u308C\u305F\u3089\u304A\u99C4\u8CC3\u3092\u3042\u3052\u308B\u308F\u3088\uFF5E\u3002"
+    - ID: 4
+      QuestID: 40
+      QuestType: 1
+      QuestHyouji: 0
+      file_name: orange
+      quest_itemName: orange
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 7
+      buy_price: 30
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u30AA\u30EC\u30F3\u30B8\u306E\u5165\u624B"
+      desc: "<color=#FF78B4>\u30AA\u30EC\u30F3\u30B8</color>\u304C\u3042\u308B\u3068\u52A9\u304B\u308B\u308F\u306D\u3002\n\u63A1\u3063\u3066\u304D\u3066\u304F\u308C\u305F\u3089\u304A\u99C4\u8CC3\u3092\u3042\u3052\u308B\u308F\u3088\uFF5E\u3002"
+    - ID: 5
+      QuestID: 50
+      QuestType: 1
+      QuestHyouji: 0
+      file_name: nuts
+      quest_itemName: nuts
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 7
+      buy_price: 40
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u30CA\u30C3\u30C4\u306E\u5165\u624B"
+      desc: "<color=#FF78B4>\u30CA\u30C3\u30C4</color>\u304C\u3042\u308B\u3068\u52A9\u304B\u308B\u308F\u306D\u3002\n\u63A1\u3063\u3066\u304D\u3066\u304F\u308C\u305F\u3089\u304A\u99C4\u8CC3\u3092\u3042\u3052\u308B\u308F\u3088\uFF5E\u3002"
     - ID: 6
-      QuestID: 6
+      QuestID: 60
+      QuestType: 1
+      QuestHyouji: 0
+      file_name: kirakira_stone1
+      quest_itemName: kirakira_stone1
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 1
+      buy_price: 300
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u304D\u308C\u3044\u306A\u77F3\u306E\u5165\u624B"
+      desc: "<color=#FF78B4>\u304D\u308C\u3044\u306A\u77F3</color>\u3063\u3066\u3001\u6301\u3063\u3066\u306A\u3044\uFF1F\n\u30B3\u30EC\u30AF\u30BF\u30FC\u306E\u5BCC\u8C6A\u306B\u3001\u9AD8\u304F\u58F2\u308C\u308B\u308F\u3088\u3002"
+    - ID: 7
+      QuestID: 70
+      QuestType: 1
+      QuestHyouji: 0
+      file_name: emerald_suger
+      quest_itemName: emerald_suger
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 1
+      buy_price: 300
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u30A8\u30E1\u30E9\u30EB\u30C9\u30B7\u30E5\u30AC\u30FC\u306E\u5165\u624B"
+      desc: "<color=#FF78B4>\u30A8\u30E1\u30E9\u30EB\u30C9\u8272\u306E\u304A\u7802\u7CD6</color>\u3001\u6301\u3063\u3066\u306A\u3044\uFF1F\n\u8CB4\u91CD\u3060\u3051\u3069\u3001\u3053\u308C\u304C\u6B32\u3057\u3044\u4EBA\u304C\u3044\u308B\u306E\u3002"
+    - ID: 8
+      QuestID: 80
       QuestType: 0
+      QuestHyouji: 2
+      file_name: shishamo_cookie
+      quest_itemName: shishamo_cookie
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 5
+      buy_price: 350
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 20
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u3057\u3057\u3083\u3082\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1"
+      desc: "\u3053\u308C\u306F\u3001\u3068\u3042\u308B\u304A\u5BA2\u69D8\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D..\u3002\n<color=#FF78B4>\u3057\u3057\u3083\u3082\u30AF\u30C3\u30AD\u30FC</color>\u3092\u9AD8\u5024\u3067\u8CB7\u3044\u53D6\u308A\u305F\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
+    - ID: 9
+      QuestID: 90
+      QuestType: 1
+      QuestHyouji: 4
+      file_name: strange_grass
+      quest_itemName: himawari_seed
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 7
+      buy_price: 15
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u3072\u307E\u308F\u308A\u306E\u7A2E\u306E\u5165\u624B"
+      desc: "<color=#FF78B4>\u3072\u307E\u308F\u308A\u306E\u7A2E</color>\u304C\u3042\u308B\u3068\u52A9\u304B\u308B\u308F\u306D\u3002\n\u63A1\u3063\u3066\u304D\u3066\u304F\u308C\u305F\u3089\u304A\u99C4\u8CC3\u3092\u3042\u3052\u308B\u308F\u3088\uFF5E\u3002"
+    - ID: 10
+      QuestID: 100
+      QuestType: 1
+      QuestHyouji: 4
+      file_name: himawari_Oil
+      quest_itemName: himawari_Oil
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 2
+      buy_price: 200
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u3072\u307E\u308F\u308A\u6CB9\u306E\u5165\u624B"
+      desc: "<color=#FF78B4>\u3072\u307E\u308F\u308A\u6CB9</color>\u3063\u3066\u3001\u6301\u3063\u3066\u308B\uFF1F\n\u6700\u8FD1\u6D41\u884C\u308A\u306E\u63DA\u3052\u304A\u83D3\u5B50\u3092\u4F5C\u308B\u305F\u3081\u306B\u3001\u5FC5\u8981\u306A\u306E\u3088\u3002"
+    - ID: 11
+      QuestID: 1000
+      QuestType: 0
+      QuestHyouji: 0
+      file_name: neko_cookie
+      quest_itemName: Non
+      quest_itemsubtype: Cookie
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 4
+      buy_price: 200
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u3055\u304F\u3055\u304F\u3057\u305F\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1"
+      desc: "<color=#FF78B4>\u3055\u304F\u3055\u304F\u3057\u305F\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
+    - ID: 12
+      QuestID: 1010
+      QuestType: 0
+      QuestHyouji: 0
+      file_name: neko_cookie
+      quest_itemName: Non
+      quest_itemsubtype: Cookie
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 4
+      buy_price: 320
+      rich: 30
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044"
+      desc: "<color=#FF78B4>\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
+    - ID: 13
+      QuestID: 1020
+      QuestType: 0
+      QuestHyouji: 1
       file_name: rusk
       quest_itemName: Non
       quest_itemsubtype: Rusk
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 7
+      kosu_max: 4
       buy_price: 150
       rich: 0
       sweat: 0

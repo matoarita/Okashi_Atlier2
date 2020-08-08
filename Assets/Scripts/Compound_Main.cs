@@ -579,6 +579,7 @@ public class Compound_Main : MonoBehaviour
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
+                        sleep_toggle.GetComponent<Toggle>().interactable = false;
                         break;
 
                     case 110:
@@ -759,6 +760,7 @@ public class Compound_Main : MonoBehaviour
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
+                        sleep_toggle.GetComponent<Toggle>().interactable = false;
                         girl1_status.timeGirl_hungry_status = 1;
 
                         _textmain.text = "お菓子をあげてみよう！";
@@ -908,6 +910,7 @@ public class Compound_Main : MonoBehaviour
                 getmaterial_toggle.GetComponent<Toggle>().interactable = true;
                 shop_toggle.GetComponent<Toggle>().interactable = true;
                 girleat_toggle.GetComponent<Toggle>().interactable = true;
+                //sleep_toggle.GetComponent<Toggle>().interactable = false;
 
                 recipiMemoButton.SetActive(false);
 
@@ -968,9 +971,13 @@ public class Compound_Main : MonoBehaviour
                 text_area.SetActive(false);
                 text_area_Main.SetActive(true);
 
-                //時間のチェック
-                time_controller.TimeCheck_flag = true;
-                time_controller.TimeKoushin(); //時間の更新
+
+                //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
+                if (getmatplace.slot_view_status == 0)
+                {
+                    time_controller.TimeCheck_flag = true;
+                    time_controller.TimeKoushin(); //時間の更新
+                }
 
                 //残りあげる回数の更新
                 nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;

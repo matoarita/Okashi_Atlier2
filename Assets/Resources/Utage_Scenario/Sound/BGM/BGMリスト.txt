@@ -22,3 +22,5 @@
 ・BGM_20		boukyou					悲しいときに流れる曲３（悲しいのと少し安堵が混じる感じ）
 ・BGM_21		audiostock_49935			勇ましい行進曲　ドラムメイン
 ・BGM_22		n62					判定中の音楽
+・BGM_23		audiostock_152817_sample		悲しいときに流れる曲４
+・BGM_24		audiostock_158569_sample		ED前の曲

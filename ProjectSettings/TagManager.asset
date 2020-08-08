@@ -63,6 +63,7 @@ TagManager:
   - Hiroba_Main2
   - Contest_Judge
   - contest_Main
+  - MapBG_Effect
   layers:
   - Default
   - TransparentFX

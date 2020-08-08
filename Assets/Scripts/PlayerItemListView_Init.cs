@@ -87,35 +87,13 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
     {
         //Debug.Log("プレイヤーステータス　アイテム初期化　実行");
         //初期に所持するアイテム
-        //基本アイテムのみ追加。
-        for (i = 0; i <= database.sheet_topendID[1]; i++)
-        {
-            /*if( database.items[i].itemName == "egg")
-            {
-                pitemlist.addPlayerItem(i, 5);
-            }*/
-            
-            if (database.items[i].itemName == "komugiko")
-            {
-                pitemlist.addPlayerItem(i, 10);
-            }
-            if (database.items[i].itemName == "butter")
-            {
-                pitemlist.addPlayerItem(i, 5);
-            }
-            if (database.items[i].itemName == "suger")
-            {
-                pitemlist.addPlayerItem(i, 5);
-            }
-            if (database.items[i].itemName == "orange")
-            {
-                pitemlist.addPlayerItem(i, 5);
-            }
-            if (database.items[i].itemName == "grape")
-            {
-                pitemlist.addPlayerItem(i, 2);
-            }
-        }
+
+        pitemlist.addPlayerItemString("komugiko", 10);
+        pitemlist.addPlayerItemString("butter", 5);
+        pitemlist.addPlayerItemString("suger", 5);
+        pitemlist.addPlayerItemString("orange", 5);
+        pitemlist.addPlayerItemString("grape", 2);
+        pitemlist.addPlayerItemString("stone_oven", 1);
 
     }
 }

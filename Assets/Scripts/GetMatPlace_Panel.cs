@@ -63,12 +63,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject map_imageBG;
     private Texture2D texture2d_map;
 
+    private GameObject map_bg_effect;
+
     private int select_place_num;
     private string select_place_name;
     private int select_place_day;
 
     private bool Slot_view_on;
-    private int slot_view_status;
+    public int slot_view_status;
 
     private int i, j;
     private int select_num;
@@ -158,6 +160,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         getmatplace_view = this.transform.Find("Comp/GetMatPlace_View").gameObject;
         getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
         getmatResult_panel = canvas.transform.Find("GetMatResult_Panel").GetComponent<GetMatResult_Panel>();
+
+        //マップ背景エフェクト
+        map_bg_effect = GameObject.FindWithTag("MapBG_Effect");
 
         content = getmatplace_view.transform.Find("Viewport/Content").gameObject;
         matplace_toggle_obj = (GameObject)Resources.Load("Prefabs/MatPlace_toggle1");
@@ -273,8 +278,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             slot_yes.GetComponent<Button>().interactable = true;
             slot_no.GetComponent<Button>().interactable = true;
-            
-            slot_view_status = 0;
+
+            foreach (Transform map_bg_child in map_bg_effect.transform) // map_bg_effect以下のオブジェクトをoff
+            {
+                map_bg_child.gameObject.SetActive(false);
+            }
+
             slot_view.SetActive(false);
 
             //girl1_status.hukidasiOn();
@@ -291,7 +300,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             //日数の経過。帰りも同じ時間かかる。
             PlayerStatus.player_time += select_place_day;
-            //time_controller.TimeKoushin();
+            time_controller.TimeKoushin();
 
             _text.text = "家に戻ってきた。どうしようかなぁ？";
 
@@ -460,6 +469,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         sceneBGM.OnGetMat_ForestBGM();
                         compound_Main.bgm_change_flag = true;
 
+                        //背景エフェクト
+                        map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
+
                         //イベントチェック
                         if (!GameMgr.MapEvent_01[0])
                         {
@@ -494,6 +506,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         sceneBGM.OnGetMat_StrawberryGardenBGM();
                         compound_Main.bgm_change_flag = true;
 
+                        //背景エフェクト
+                        map_bg_effect.transform.Find("MapBG_Effect_StrawberryGarden").gameObject.SetActive(true);
+
                         //イベントチェック
                         if (!GameMgr.MapEvent_03[0])
                         {
@@ -527,6 +542,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //ひまわり畑のBGM
                         sceneBGM.OnGetMat_HimawariHillBGM();
                         compound_Main.bgm_change_flag = true;
+
+                        //背景エフェクト
+                        map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
 
                         //イベントチェック
                         if (!GameMgr.MapEvent_04[0])
@@ -937,7 +955,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                    Vector2.zero);
     }
 
-
+    //リザルト画面を表示
     public void GetMatResultPanelOff()
     {
         sc.PlaySe(30);
@@ -958,8 +976,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
         getmatResult_panel_obj.SetActive(false);
 
         //メインシーンのデフォルトに戻る。
-        time_controller.TimeKoushin();
+        time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
         girl1_status.hukidasiOn();
+
+        slot_view_status = 0;
     }
 
 

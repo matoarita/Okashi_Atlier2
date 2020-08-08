@@ -608,6 +608,21 @@ public class SetImage : MonoBehaviour
                 item_Shokukan_Type.text = "ふわふわ感";
                 item_Shokukan.text = _fluffy_score.ToString();
                 break;
+            case "PanCake":
+                subcategory = "パンケーキ系";
+                item_Shokukan_Type.text = "ふわふわ感";
+                item_Shokukan.text = _fluffy_score.ToString();
+                break;
+            case "Financier":
+                subcategory = "フィナンシェ系";
+                item_Shokukan_Type.text = "ふわふわ感";
+                item_Shokukan.text = _fluffy_score.ToString();
+                break;
+            case "Maffin":
+                subcategory = "マフィン系";
+                item_Shokukan_Type.text = "ふわふわ感";
+                item_Shokukan.text = _fluffy_score.ToString();
+                break;
             case "Crepe":
                 subcategory = "クレープ系";
                 item_Shokukan_Type.text = "ふわふわ感";
@@ -617,6 +632,11 @@ public class SetImage : MonoBehaviour
                 subcategory = "シュークリーム系";
                 item_Shokukan_Type.text = "ふわふわ感";
                 item_Shokukan.text = _fluffy_score.ToString();
+                break;
+            case "Biscotti":
+                subcategory = "ビスコッティ系";
+                item_Shokukan_Type.text = "歯ごたえ";
+                item_Shokukan.text = _hardness_score.ToString();
                 break;
             case "Donuts":
                 subcategory = "ドーナツ系";
@@ -631,6 +651,16 @@ public class SetImage : MonoBehaviour
             case "Parfe":
                 subcategory = "パフェ";
                 item_Shokukan_Type.text = "くちどけ感";
+                item_Shokukan.text = _smooth_score.ToString();
+                break;
+            case "Juice":
+                subcategory = "ジュース";
+                item_Shokukan_Type.text = "のどごし";
+                item_Shokukan.text = _smooth_score.ToString();
+                break;
+            case "Tea":
+                subcategory = "お茶";
+                item_Shokukan_Type.text = "香り";
                 item_Shokukan.text = _smooth_score.ToString();
                 break;
             case "Fruits":

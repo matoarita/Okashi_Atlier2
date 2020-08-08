@@ -1718,8 +1718,8 @@ MonoBehaviour:
     - ItemID: 81
       cmpitemName: bugget_sliced_karikari_butter
       cmpitemID_1: bugget_sliced
-      cmpitemID_2: stone_oven
-      cmpitemID_3: butter
+      cmpitemID_2: butter
+      cmpitemID_3: stone_oven
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty

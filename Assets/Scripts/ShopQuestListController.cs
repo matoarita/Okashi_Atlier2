@@ -36,23 +36,28 @@ public class ShopQuestListController : MonoBehaviour
     private Color color2;
 
     private string item_name;
+    private string item_name_Hyouji;
     private int item_kosu;
 
     private int max;
     private int count;
-    private int i;
+    private int i, j;
 
     public int _count; //選択したリスト番号が入る。
     public int _ID; //ショップデータベースIDが入る。
     public int questID; //選択したアイテムのアイテムIDが入る。通常アイテムなら、アイテムID、イベントアイテムならイベントリストのアイテムID。
     public int questType;
+    public int quest_itemID;
 
     public int qlist_status;
     public int nouhin_select_on;
     public bool final_select_flag;
 
     private int rand;
-    private int[] sel_questID = new int[3];   
+    private int[] sel_questID = new int[3];
+    private List<int> selectquestDB = new List<int>();
+
+    private int story_num;
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
@@ -103,24 +108,48 @@ public class ShopQuestListController : MonoBehaviour
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
 
-        quest_database.questRandomset.Clear();
-
-        //ランダムでセット３つを選ぶ。
-        for (i = 0; i < sel_questID.Length; i++)
-        {
-            rand = Random.Range(0, quest_database.questset.Count);
-            //sel_questID[i] = quest_database.questset[rand].Quest_ID;
-
-            quest_database.RandomNewSetInit(rand);
-
-        }
+        
+        RandomQuestSelect();
 
         questListToggle.isOn = true;
         nouhinToggle.isOn = false;
 
         qlist_status = 0;
+
         reset_and_DrawView();
 
+    }
+
+    //ランダムでクエストを３つ選ぶ。
+    void RandomQuestSelect()
+    {
+        InitiallizeRandomQuestDatabase(); //ストーリー進行にそって、どのクエストが選ばれるかを初期化
+
+        quest_database.questRandomset.Clear();
+
+        //ランダムでセット３つを選ぶ。
+        for (i = 0; i < sel_questID.Length; i++)
+        {
+            rand = Random.Range(0, selectquestDB.Count);
+
+            quest_database.RandomNewSetInit(selectquestDB[rand]);
+
+        }
+    }
+
+    void InitiallizeRandomQuestDatabase()
+    {
+        selectquestDB.Clear();
+
+        story_num = GameMgr.GirlLoveEvent_num; //ステージ1なら　クエストごとに0~5
+
+        for (j = 0; j < quest_database.questset.Count; j++)
+        {
+            if (quest_database.questset[j].QuestHyouji <= story_num)
+            {
+                selectquestDB.Add(j);
+            }
+        }
     }
 
     // リストビューの描画部分。重要。
@@ -155,9 +184,12 @@ public class ShopQuestListController : MonoBehaviour
             _toggle_itemID.toggle_quest_type = quest_database.questRandomset[i].QuestType; //クエストのタイプ　0なら材料採取　1ならお菓子系。1は、プレイヤーが選択
 
 
-            item_name = quest_database.questRandomset[i].Quest_Title; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+            item_name_Hyouji = quest_database.questRandomset[i].Quest_Title; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
 
-            _text[0].text = item_name;
+            item_name = quest_database.questRandomset[i].Quest_itemName;
+            _toggle_itemID.toggle_itemID = pitemlist.SearchItemString(item_name);
+
+            _text[0].text = item_name_Hyouji;
 
             item_kosu = quest_database.questRandomset[i].Quest_kosu_default;
 
@@ -209,9 +241,11 @@ public class ShopQuestListController : MonoBehaviour
             _toggle_itemID.toggle_quest_type = quest_database.questTakeset[i].QuestType; //クエストのタイプ　0なら材料採取　1ならお菓子系。1は、プレイヤーが選択
 
 
-            item_name = quest_database.questTakeset[i].Quest_Title; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+            item_name_Hyouji = quest_database.questTakeset[i].Quest_Title; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+            item_name = quest_database.questTakeset[i].Quest_itemName;
+            _toggle_itemID.toggle_itemID = pitemlist.SearchItemString(item_name);
 
-            _text[0].text = item_name;
+            _text[0].text = item_name_Hyouji;
 
             item_kosu = quest_database.questTakeset[i].Quest_kosu_default;
 

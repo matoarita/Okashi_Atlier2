@@ -1409,7 +1409,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basecrispy >= _girlcrispy[countNum])
                 {
-                    crispy_score = _basecrispy - _girlcrispy[countNum]; //お菓子のサクサク度-好み値が点数に。
+                    crispy_score = _basecrispy;
+                    //crispy_score = _basecrispy - _girlcrispy[countNum]; //お菓子のサクサク度-好み値が点数に。
                 }
                 else
                 {
@@ -1425,7 +1426,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basecrispy >= _girlcrispy[countNum])
                 {
-                    crispy_score = _basecrispy - _girlcrispy[countNum];
+                    crispy_score = _basecrispy;
+                    //crispy_score = _basecrispy - _girlcrispy[countNum];
                 }
                 else
                 {
@@ -1441,7 +1443,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basefluffy >= _girlfluffy[countNum])
                 {
-                    fluffy_score = _basefluffy - _girlfluffy[countNum]; 
+                    fluffy_score = _basefluffy;
+                    //fluffy_score = _basefluffy - _girlfluffy[countNum]; 
                 }
                 else
                 {
@@ -1457,7 +1460,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basefluffy >= _girlfluffy[countNum])
                 {
-                    fluffy_score = _basefluffy - _girlfluffy[countNum];
+                    fluffy_score = _basefluffy;
+                    //fluffy_score = _basefluffy - _girlfluffy[countNum];
                 }
                 else
                 {
@@ -1473,7 +1477,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basefluffy >= _girlfluffy[countNum])
                 {
-                    fluffy_score = _basefluffy - _girlfluffy[countNum];
+                    fluffy_score = _basefluffy;
+                    //fluffy_score = _basefluffy - _girlfluffy[countNum];
                 }
                 else
                 {
@@ -1489,7 +1494,76 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basefluffy >= _girlfluffy[countNum])
                 {
-                    fluffy_score = _basefluffy - _girlfluffy[countNum];
+                    fluffy_score = _basefluffy;
+                    //fluffy_score = _basefluffy - _girlfluffy[countNum];
+                }
+                else
+                {
+                    fluffy_score = 0;
+                }
+                shokukan_score = fluffy_score;
+                shokukan_mes = "ふわふわ感";
+                Debug.Log("ふわふわ度の点: " + fluffy_score);
+
+                break;
+
+            case "PanCake":
+
+                if (_basefluffy >= _girlfluffy[countNum])
+                {
+                    fluffy_score = _basefluffy;
+                    //fluffy_score = _basefluffy - _girlfluffy[countNum];
+                }
+                else
+                {
+                    fluffy_score = 0;
+                }
+                shokukan_score = fluffy_score;
+                shokukan_mes = "ふわふわ感";
+                Debug.Log("ふわふわ度の点: " + fluffy_score);
+
+                break;
+
+            case "Financier":
+
+                if (_basefluffy >= _girlfluffy[countNum])
+                {
+                    fluffy_score = _basefluffy;
+                    //fluffy_score = _basefluffy - _girlfluffy[countNum];
+                }
+                else
+                {
+                    fluffy_score = 0;
+                }
+                shokukan_score = fluffy_score;
+                shokukan_mes = "ふわふわ感";
+                Debug.Log("ふわふわ度の点: " + fluffy_score);
+
+                break;
+
+            case "Maffin":
+
+                if (_basefluffy >= _girlfluffy[countNum])
+                {
+                    fluffy_score = _basefluffy;
+                    //fluffy_score = _basefluffy - _girlfluffy[countNum];
+                }
+                else
+                {
+                    fluffy_score = 0;
+                }
+                shokukan_score = fluffy_score;
+                shokukan_mes = "ふわふわ感";
+                Debug.Log("ふわふわ度の点: " + fluffy_score);
+
+                break;
+
+            case "Bread":
+
+                if (_basefluffy >= _girlfluffy[countNum])
+                {
+                    fluffy_score = _basefluffy;
+                    //fluffy_score = _basefluffy - _girlfluffy[countNum];
                 }
                 else
                 {
@@ -1505,7 +1579,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basesmooth >= _girlsmooth[countNum])
                 {
-                    smooth_score = _basesmooth - _girlsmooth[countNum];
+                    smooth_score = _basesmooth;
+                    //smooth_score = _basesmooth - _girlsmooth[countNum];
                 }
                 else
                 {
@@ -1521,7 +1596,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basesmooth >= _girlsmooth[countNum])
                 {
-                    smooth_score = _basesmooth - _girlsmooth[countNum];
+                    smooth_score = _basesmooth;
+                    //smooth_score = _basesmooth - _girlsmooth[countNum];
                 }
                 else
                 {
@@ -1531,29 +1607,31 @@ public class GirlEat_Judge : MonoBehaviour {
                 shokukan_mes = "くちどけ感";
                 Debug.Log("くちどけの点: " + smooth_score);
 
-                break;
+                break;          
 
-            case "Bread":
+            case "Biscotti":
 
-                if (_basecrispy >= _girlcrispy[countNum])
+                if (_basehardness >= _girlhardness[countNum])
                 {
-                    crispy_score = _basecrispy - _girlcrispy[countNum];
+                    hardness_score = _basehardness;
+                    //hardness_score = _basehardness - _girlhardness[countNum];
                 }
                 else
                 {
-                    crispy_score = 0;
+                    hardness_score = 0;
                 }
-                shokukan_score = crispy_score;
-                shokukan_mes = "さくさく感";
-                Debug.Log("サクサク度の点: " + crispy_score);
+                shokukan_score = hardness_score;
+                shokukan_mes = "歯ごたえ";
+                Debug.Log("歯ごたえの点: " + crispy_score);
 
                 break;
-
+           
             case "IceCream":
 
                 if (_basesmooth >= _girlsmooth[countNum])
                 {
-                    smooth_score = _basesmooth - _girlsmooth[countNum];
+                    smooth_score = _basesmooth;
+                    //smooth_score = _basesmooth - _girlsmooth[countNum];
                 }
                 else
                 {
@@ -1571,7 +1649,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 if (_basecrispy >= _girlcrispy[countNum])
                 {
-                    crispy_score = _basecrispy - _girlcrispy[countNum];
+                    crispy_score = _basecrispy;
+                    //crispy_score = _basecrispy - _girlcrispy[countNum];
                 }
                 else
                 {
@@ -2338,23 +2417,13 @@ public class GirlEat_Judge : MonoBehaviour {
                     Getlove_exp = -10;
                     Debug.Log("取得好感度: " + Getlove_exp);
 
-                    GetMoney = 0;
-                    Debug.Log("取得お金: " + GetMoney);
                 }
                 else
                 {
                     //好感度取得
-                    if (total_score >= 0 && total_score < 10) //問答無用で１
+                    if (total_score < GameMgr.low_score) //60点以下のときは、好感度ほぼあがらず。ベース×5
                     {
-                        Getlove_exp = 1;
-                    }
-                    else if (total_score >= 10 && total_score < 45) //ベース×5
-                    {
-                        Getlove_exp = (int)(_basegirl1_like * 5.0f);
-                    }
-                    else if (total_score >= 45 && total_score < GameMgr.low_score) //ベース×5
-                    {
-                        Getlove_exp = (int)(_basegirl1_like * 7.0f);
+                        Getlove_exp = 0;
                     }
                     else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //ベース×10
                     {
@@ -2392,6 +2461,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     Debug.Log("取得好感度: " + Getlove_exp);
 
                     //お金の取得
+                    /*
                     if (total_score >= 0 && total_score < 15)
                     {
                         GetMoney = (int)(_basecost * 0.5f) + (int)(total_score * 0.3f) + slot_money;
@@ -2415,7 +2485,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     else if (total_score >= 100) //100点を超えた場合、2倍程度増加
                     {
                         GetMoney = (_basecost + slot_money) + (int)(total_score * 0.6f) * 10;
-                    }
+                    }*/
                     //Debug.Log("取得お金: " + GetMoney);
                 }
                 break;
