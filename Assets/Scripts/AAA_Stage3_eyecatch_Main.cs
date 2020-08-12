@@ -42,7 +42,7 @@ public class AAA_Stage3_eyecatch_Main : MonoBehaviour {
 
             //音終わりにこの中の処理
 
-            FadeManager.Instance.LoadScene("003_Stage3", 0.3f);
+            FadeManager.Instance.LoadScene("030_Stage3", 0.3f);
         }));
     }
 

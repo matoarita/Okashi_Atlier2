@@ -169,23 +169,28 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //初期化
         switch (SceneManager.GetActiveScene().name)
         {
-
-            case "000_Prologue": //シナリオ系のシーンでは読み込まない。
+            case "000_CompanyLogoMovie": //シナリオ系のシーンでは読み込まない。
                 break;
 
-            case "001_Chapter1":
+            case "001_Title": //シナリオ系のシーンでは読み込まない。
                 break;
 
-            case "002_Stage2":
+            case "010_Prologue":
                 break;
 
-            case "002_Stage2_eyecatch":
+            case "010_Chapter1":
                 break;
 
-            case "003_Stage3":
+            case "020_Stage2":
                 break;
 
-            case "003_Stage3_eyecatch":
+            case "020_Stage2_eyecatch":
+                break;
+
+            case "030_Stage3":
+                break;
+
+            case "030_Stage3_eyecatch":
                 break;
 
             case "100_Ending":

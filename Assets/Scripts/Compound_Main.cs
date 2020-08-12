@@ -367,17 +367,17 @@ public class Compound_Main : MonoBehaviour
                     GameMgr.stage1_load_ok = true;
                     GameMgr.scenario_flag = 110;                   
                 }
-                clear_love = GameMgr.stage1_clear_love;
+                //clear_love = GameMgr.stage1_clear_love;
                 break;
 
             case 2:
 
-                clear_love = GameMgr.stage2_clear_love;
+                //clear_love = GameMgr.stage2_clear_love;
                 break;
 
             case 3:
 
-                clear_love = GameMgr.stage3_clear_love;
+                //clear_love = GameMgr.stage3_clear_love;
                 break;
         }
 
@@ -868,19 +868,7 @@ public class Compound_Main : MonoBehaviour
                 if (GameMgr.tutorial_ON != true)
                 {
                     canvas.SetActive(true);
-
-                    if (girl1_status.special_animatFirst != true)
-                    {
-                        compoundselect_onoff_obj.SetActive(false);
-                        touch_controller.Touch_OnAllOFF();
-                    }
-                    else
-                    {
-                        compoundselect_onoff_obj.SetActive(true);
-                        touch_controller.Touch_OnAllON();
-                    }
                         
-
                     //腹減りカウント開始
                     girl1_status.GirlEat_Judge_on = true;
                     girl1_status.WaitHint_on = true;
@@ -888,7 +876,7 @@ public class Compound_Main : MonoBehaviour
                     compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
                 }
-                
+              
                 recipilist_onoff.SetActive(false);
                 playeritemlist_onoff.SetActive(false);
                 yes_no_panel.SetActive(false);
@@ -899,8 +887,9 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A.SetActive(false);                
 
                 TimePanel_obj1.SetActive(true);
-                TimePanel_obj2.SetActive(false);                
+                TimePanel_obj2.SetActive(false);
 
+                compoundselect_onoff_obj.SetActive(true);
                 girl_love_exp_bar.SetActive(true);
                 moneystatus_panel.SetActive(true);
                 select_original_button.interactable = true;
@@ -911,6 +900,7 @@ public class Compound_Main : MonoBehaviour
                 shop_toggle.GetComponent<Toggle>().interactable = true;
                 girleat_toggle.GetComponent<Toggle>().interactable = true;
                 //sleep_toggle.GetComponent<Toggle>().interactable = false;
+                touch_controller.Touch_OnAllON();
 
                 recipiMemoButton.SetActive(false);
 

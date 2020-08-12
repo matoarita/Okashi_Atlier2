@@ -99,7 +99,7 @@ public class Utage_scenario : MonoBehaviour
         if (!scenario_loading) // scenario_loading=false のときは、中の処理を実行する。
         {
             //シナリオに関する処理
-            if (SceneManager.GetActiveScene().name == "000_Prologue")
+            if (SceneManager.GetActiveScene().name == "010_Prologue")
             { // hogehogeシーンでのみやりたい処理
 
                 switch (GameMgr.scenario_flag)
@@ -119,7 +119,7 @@ public class Utage_scenario : MonoBehaviour
 
             //1話はプロローグからの流れで自動で始まる。
 
-            if (SceneManager.GetActiveScene().name == "002_Stage2")
+            if (SceneManager.GetActiveScene().name == "020_Stage2")
             {
 
                 switch (GameMgr.scenario_flag)
@@ -142,7 +142,7 @@ public class Utage_scenario : MonoBehaviour
                     
             }
 
-            if (SceneManager.GetActiveScene().name == "003_Stage3")
+            if (SceneManager.GetActiveScene().name == "030_Stage3")
             {
 
                 switch (GameMgr.scenario_flag)

@@ -129,6 +129,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject EatAnimPanel;
     private Image EatAnimPanel_itemImage;
     private Texture2D texture2d;
+    private GameObject EatStartEffect;
 
     //時間
     private float timeOut;
@@ -381,7 +382,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Emo_effect_manzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
                 Emo_effect_daimanzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
                 Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
-                Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
+                Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");                
 
                 //ハートプレファブの取得
                 heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
@@ -394,6 +395,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 //食べ始めアニメオブジェクトの取得
                 EatAnimPanel = canvas.transform.Find("EatAnimPanel").gameObject;
                 EatAnimPanel_itemImage = EatAnimPanel.transform.Find("ItemImage").GetComponent<Image>();
+                EatAnimPanel.SetActive(false);
+
+                EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
 
                 //お菓子採点結果表示用パネルの取得
                 ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
@@ -620,12 +624,6 @@ public class GirlEat_Judge : MonoBehaviour {
                     //現在の吹き出しを削除
                     girl1_status.DeleteHukidashiOnly();
 
-                    //食べ中の表示用吹き出しを生成
-                    //eat_hukidashiitem = Instantiate(eat_hukidashiPrefab);
-                    //eat_hukidashitext = eat_hukidashiitem.GetComponentInChildren<Text>();
-
-                    //eat_hukidashitext.text = ".";
-
                     //食べ始めのアニメーションをスタート
                     EatAnimPanel.SetActive(true);
                     texture2d = database.items[_baseID].itemIcon;
@@ -633,6 +631,7 @@ public class GirlEat_Judge : MonoBehaviour {
                                    new Rect(0, 0, texture2d.width, texture2d.height),
                                    Vector2.zero);
                     
+
 
                     //カメラ寄る。
                     trans = 2; //transが1を超えたときに、ズームするように設定されている。
@@ -669,8 +668,9 @@ public class GirlEat_Judge : MonoBehaviour {
                     Extremepanel_obj.SetActive(true);
                     MoneyStatus_Panel_obj.SetActive(true);
                     text_area.SetActive(true);
-                    Girlloveexp_bar.SetActive(true);
-                    if(stageclear_button_on)
+                    Girlloveexp_bar.SetActive(true);                    
+
+                    if (stageclear_button_on)
                     {
                         stageclear_Button.SetActive(true);
                     }
@@ -692,6 +692,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     maincam_animator.SetInteger("trans", trans);
 
                     EatAnimPanel.SetActive(false);
+                    EatStartEffect.SetActive(false);
 
                     break;
 

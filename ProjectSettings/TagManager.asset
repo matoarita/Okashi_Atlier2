@@ -64,6 +64,7 @@ TagManager:
   - Contest_Judge
   - contest_Main
   - MapBG_Effect
+  - EatAnim_Effect
   layers:
   - Default
   - TransparentFX

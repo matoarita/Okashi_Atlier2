@@ -2775,7 +2775,7 @@ MonoBehaviour:
       debugIndex: 6
       strings:
       - Bgm
-      - "\u60B2\u3057\u307F\u306E\u97F3\u697D\uFF15"
+      - "\u307B\u306E\u307C\u306E\uFF11"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -4037,7 +4037,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter_1
     type: 1
-    textLength: 1485
+    textLength: 1483
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -4064,7 +4064,7 @@ MonoBehaviour:
     - rowIndex: 1
       debugIndex: 2
       strings:
-      - "*CH1_\u6674\u308C\u306E\u65E5"
+      - "*CH1_\u6674\u308C\u306E\u65E5_old"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -5371,7 +5371,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter_1_old
     type: 1
-    textLength: 1550
+    textLength: 1554
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -9628,7 +9628,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u30FB\u30FB\u30FB\u3002\uFF08\u5C11\u3057\u3001\u6614\u3092\u601D\u3044\u51FA\u3059\u4E8C\u4EBA\uFF09"
+      - "\u30FB\u30FB\u30FB\u3002\uFF08\u5C11\u3057\u3001\u6614\u3092\u601D\u3044\u51FA\u3059\uFF09"
       - 
       - 
       - 
@@ -10284,7 +10284,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:MapEvent
     type: 1
-    textLength: 1424
+    textLength: 1422
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -30286,7 +30286,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3042\u3001\u3042\u308A\u304C\u3068\uFF5E\u3063\uFF01\uFF08\u3058\u3064\u306F\u3001\u7D50\u69CB\u7DCA\u5F35\u3057\u3066\u308B..\u3002\uFF09"
+      - "\u3042\u3001\u30A2\u30EA\u30AC\u30C8\uFF5E\u3063\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -34509,7 +34509,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Contest_Event
     type: 1
-    textLength: 7245
+    textLength: 7229
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -72000,7 +72000,7 @@ MonoBehaviour:
       debugIndex: 6
       strings:
       - Bgm
-      - "\u60B2\u3057\u307F\u306E\u97F3\u697D\uFF15"
+      - "\u307B\u306E\u307C\u306E\uFF11"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -73600,7 +73600,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter_1
     type: 1
-    textLength: 1485
+    textLength: 1483
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -73631,7 +73631,7 @@ MonoBehaviour:
     - rowIndex: 2
       debugIndex: 2
       strings:
-      - "*CH1_\u6674\u308C\u306E\u65E5"
+      - "*CH1_\u6674\u308C\u306E\u65E5_old"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -75333,7 +75333,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Chapter_1_old
     type: 1
-    textLength: 1550
+    textLength: 1554
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -81160,7 +81160,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u30FB\u30FB\u30FB\u3002\uFF08\u5C11\u3057\u3001\u6614\u3092\u601D\u3044\u51FA\u3059\u4E8C\u4EBA\uFF09"
+      - "\u30FB\u30FB\u30FB\u3002\uFF08\u5C11\u3057\u3001\u6614\u3092\u601D\u3044\u51FA\u3059\uFF09"
       - 
       - 
       - 
@@ -82077,7 +82077,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:MapEvent
     type: 1
-    textLength: 1424
+    textLength: 1422
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -107744,7 +107744,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3042\u3001\u3042\u308A\u304C\u3068\uFF5E\u3063\uFF01\uFF08\u3058\u3064\u306F\u3001\u7D50\u69CB\u7DCA\u5F35\u3057\u3066\u308B..\u3002\uFF09"
+      - "\u3042\u3001\u30A2\u30EA\u30AC\u30C8\uFF5E\u3063\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -112741,7 +112741,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Contest_Event
     type: 1
-    textLength: 7245
+    textLength: 7229
     headerRow: 0
   - rows:
     - rowIndex: 0

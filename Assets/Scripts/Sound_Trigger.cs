@@ -271,6 +271,42 @@ public class Sound_Trigger : MonoBehaviour {
                 //SE_point_click(23);
                 break;
 
+            case "StartButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(28);
+                break;
+
+            case "LoadButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(28);
+                break;
+
+            case "GalleryButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(28);
+                break;
+
+            case "OptionButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(28);
+                break;
+
             default: //特に指定がない場合
 
                 //Debug.Log("リストボタンを押した");
