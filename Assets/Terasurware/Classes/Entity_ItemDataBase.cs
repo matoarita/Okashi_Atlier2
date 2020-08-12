@@ -56,7 +56,11 @@ public class Entity_ItemDataBase : ScriptableObject
 		public string topping08;
 		public string topping09;
 		public string topping10;
-		public string koyu_topping;
+		public string koyu_topping1;
+		public string koyu_topping2;
+		public string koyu_topping3;
+		public string koyu_topping4;
+		public string koyu_topping5;
 		public int item_hyouji;
 		public int Set_JudgeNum;
 	}

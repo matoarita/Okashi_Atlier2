@@ -17,7 +17,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private string _file_name, _nameHyouji, _desc;
     private string _type;
     private string _subtype;
-    private string _koyutp;
+    private string[] _koyutp = new string[5];
     private int _judge_num;
     private int _first_eat;
     private bool _highscore_flag;
@@ -33,7 +33,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int ev_reflag_num;
     private int ev_evflag_num;
 
-    private int i, j;
+    private int i, j, k;
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
@@ -449,12 +449,16 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _desc = database.items[i].itemDesc;
                 _type = database.items[i].itemType.ToString();
                 _subtype = database.items[i].itemType_sub.ToString();
-                _koyutp = database.items[i].koyu_toppingtype[0];
                 _judge_num = database.items[i].SetJudge_Num;
                 _first_eat = database.items[i].First_eat;
                 _highscore_flag = database.items[i].HighScore_flag;
                 _lasttotal_score = database.items[i].last_total_score;
                 _hinttext = database.items[i].last_hinttext;
+
+                for( k=0; k < _koyutp.Length; k++)
+                {
+                    _koyutp[k] = database.items[i].koyu_toppingtype[k];
+                }
                 break;
             }
             ++i;
@@ -462,7 +466,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
         player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty, 
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, _cost, _sell, 
-            _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp, 
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _first_eat, _highscore_flag, _lasttotal_score, _hinttext));
     }
 

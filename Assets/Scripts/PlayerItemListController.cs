@@ -542,7 +542,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         {
             if ( database.items[i].item_Hyouji > 0 )
             {
-                if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+                if (i > database.sheet_topendID[6]) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
                 {
 
                 }
@@ -607,7 +607,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         {
             if (database.items[i].item_Hyouji > 0)
             {
-                if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+                if (i > database.sheet_topendID[6]) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
                 {
 
                 }

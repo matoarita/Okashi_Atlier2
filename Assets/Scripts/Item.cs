@@ -62,7 +62,7 @@ public class Item
     public string[] toppingtype = new string[10];
 
     //トッピングスロット
-    public string[] koyu_toppingtype = new string[3];
+    public string[] koyu_toppingtype = new string[5];
 
 
     //アイテムタイプ　「お菓子・アクセサリー・くすり・材料」の4種類
@@ -125,7 +125,7 @@ public class Item
     }
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, int itemkosu, int extreme_kaisu, int _item_hyouji, int _judge_num, int _first_eat, bool _highscore, int _lasttotal_score, string _hinttext)
+    public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, int _judge_num, int _first_eat, bool _highscore, int _lasttotal_score, string _hinttext)
     {
         itemID = id;
         fileName = file_name;
@@ -183,8 +183,10 @@ public class Item
         toppingtype[9] = tp10;
 
         koyu_toppingtype[0] = koyu_tp1;
-        koyu_toppingtype[1] = "Non";
-        koyu_toppingtype[2] = "Non";
+        koyu_toppingtype[1] = koyu_tp2;
+        koyu_toppingtype[2] = koyu_tp3;
+        koyu_toppingtype[3] = koyu_tp4;
+        koyu_toppingtype[4] = koyu_tp5;
 
         ItemKosu = itemkosu;
 

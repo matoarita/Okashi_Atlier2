@@ -89,9 +89,13 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(36); p.topping08 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(37); p.topping09 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(38); p.topping10 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(39); p.koyu_topping = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(40); p.item_hyouji = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(41); p.Set_JudgeNum = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(39); p.koyu_topping1 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(40); p.koyu_topping2 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(41); p.koyu_topping3 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(42); p.koyu_topping4 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(43); p.koyu_topping5 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(44); p.item_hyouji = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(45); p.Set_JudgeNum = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

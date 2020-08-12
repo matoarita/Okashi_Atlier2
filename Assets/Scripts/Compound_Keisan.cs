@@ -237,11 +237,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //トッピングスロットの配列
-        _basetp = new string[10];
-        _addtp = new string[10];
-        _temptp = new string[10];
-
-        _addkoyutp = new string[3];
+        _basetp = new string[database.items[0].toppingtype.Length];
+        _addtp = new string[database.items[0].toppingtype.Length];
+        _temptp = new string[database.items[0].toppingtype.Length];
+        _addkoyutp = new string[database.items[0].koyu_toppingtype.Length];
 
 
         //
@@ -297,10 +296,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         canvas = GameObject.FindWithTag("Canvas");
 
         //トッピングスロットの配列初期化
-        _basetp = new string[10];
-        _addtp = new string[10];
-        _temptp = new string[10];
-        _addkoyutp = new string[3];
+        _basetp = new string[database.items[0].toppingtype.Length];
+        _addtp = new string[database.items[0].toppingtype.Length];
+        _temptp = new string[database.items[0].toppingtype.Length];
+        _addkoyutp = new string[database.items[0].koyu_toppingtype.Length];
 
         //ベースアイテムのパラメータを取得する。その後、各トッピングアイテムの値を取得し、加算する。
 

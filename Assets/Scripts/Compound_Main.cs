@@ -1602,7 +1602,7 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
-                    _text.text = "コンテストに出場しますか？";
+                    _text.text = "コンテストに出るの？";
                     compound_status = 40;
                     yes_no_clear_panel.SetActive(true);
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
@@ -1613,7 +1613,7 @@ public class Compound_Main : MonoBehaviour
             {
                 if (GameMgr.QuestClearflag)
                 {
-                    _text.text = "次のお菓子へ進みますか？";
+                    _text.text = "次のお菓子を作るの？おにいちゃん。";
 
                     compound_status = 42;
                     yes_no_clear_okashi_panel.SetActive(true);

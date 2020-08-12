@@ -17,8 +17,8 @@ public class OkashiParamKeisanMethod : MonoBehaviour {
     private int itemType;
 
     private int _basecost;
-    private string[] _basetp = new string[10];
-    private string[] _koyutp = new string[3];
+    private string[] _basetp;
+    private string[] _koyutp;
 
     private int i, count;
 
@@ -38,6 +38,9 @@ public class OkashiParamKeisanMethod : MonoBehaviour {
 
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
+        _basetp = new string[database.items[0].toppingtype.Length];
+        _koyutp = new string[database.items[0].koyu_toppingtype.Length];
 
     }
 	
