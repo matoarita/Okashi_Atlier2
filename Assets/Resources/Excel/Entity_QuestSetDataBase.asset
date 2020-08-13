@@ -19,8 +19,8 @@ MonoBehaviour:
       QuestType: 0
       QuestHyouji: 0
       file_name: neko_cookie
-      quest_itemName: neko_cookie
-      quest_itemsubtype: Non
+      quest_itemName: Non
+      quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
       kosu_max: 5

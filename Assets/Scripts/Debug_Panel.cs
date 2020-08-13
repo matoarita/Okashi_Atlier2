@@ -359,6 +359,11 @@ public class Debug_Panel : MonoBehaviour {
         {
             switch (i)
             {
+                case 2:
+
+                    matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑
+                    break;
+
                 case 4:
 
                     GameMgr.hiroba_event_end[0] = true; //アマクサ会話終了　広場「お花屋さん」「図書館」「道端奥さん」ON

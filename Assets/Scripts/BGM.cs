@@ -18,6 +18,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound8;  //「ストロベリーガーデン」BGM
     public AudioClip sound9;  //「ひまわりの丘」BGM
     public AudioClip sound10;  //コンテスト時のメインBGM
+    public AudioClip sound11;  //「ラベンダー畑」BGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -176,6 +177,15 @@ public class BGM : MonoBehaviour {
     {
         _bgm[1].Stop();
         _bgm[1].clip = sound4;
+        _bgm[1].Play();
+
+        _mixRate = 1;
+    }
+
+    public void OnGetMat_LavenderFieldBGM()
+    {
+        _bgm[1].Stop();
+        _bgm[1].clip = sound11;
         _bgm[1].Play();
 
         _mixRate = 1;

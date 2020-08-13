@@ -39,6 +39,8 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     private float drop_rare_prob1;
     private float drop_rare_prob2;
     private float drop_rare_prob3;
+    private string center_bg;
+    private string back_bg;
 
     private int i;
     private int count;
@@ -96,6 +98,8 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
             drop_rare_prob1 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare_prob1;
             drop_rare_prob2 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare_prob2;
             drop_rare_prob3 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare_prob3;
+            center_bg = excel_matplace_itemdatabase.sheets[sheet_no].list[count].center_bg;
+            back_bg = excel_matplace_itemdatabase.sheets[sheet_no].list[count].back_bg;
 
 
             //ここでリストに追加している
@@ -103,13 +107,14 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
                 drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_item6, drop_item7, drop_item8, drop_item9, drop_item10,
                 drop_rare1, drop_rare2, drop_rare3, 
                 drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_prob6, drop_prob7, drop_prob8, drop_prob9, drop_prob10,
-                drop_rare_prob1, drop_rare_prob2, drop_rare_prob3));
+                drop_rare_prob1, drop_rare_prob2, drop_rare_prob3, center_bg, back_bg));
 
             ++count;
         }
 
     }
 
+    //マップ名をいれると、そのマップを解禁する
     public void matPlaceKaikin(string _name)
     {
         for (i = 0; i < matplace_lists.Count; i++)
@@ -118,6 +123,29 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
             {
                 matplace_lists[i].placeFlag = 1;
             }
+        }
+    }
+
+    //マップ名をいれると、そのマップのIDを返すメソッド
+    public int SearchMapString(string Name)
+    {
+        if (Name == "Non")
+        {
+            return 9999;
+        }
+        else
+        {
+            i = 0;
+            while (i <= matplace_lists.Count)
+            {
+                if (matplace_lists[i].placeName == Name)
+                {
+                    return i;
+                }
+                i++;
+            }
+
+            return 9999; //見つからなかった場合、9999
         }
     }
 }

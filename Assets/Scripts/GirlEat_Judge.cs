@@ -2116,16 +2116,32 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         girl1_status.timeOut += 3.0f; //少し表示時間をのばす
-    }    
+    }
 
+
+
+    //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
     void OkashiSaitenhyouji()
-    {
-        //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
+    {       
         ScoreHyoujiPanel.SetActive(true);
-        ScoreHyouji_ON = true;
-        Okashi_Score.text = total_score.ToString();
+        ScoreHyouji_ON = true;       
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
+
+
+        //お菓子の点数を表示
+        if (total_score < GameMgr.low_score) //点数たりてないと青文字
+        {
+            Okashi_Score.color = new Color(105f / 255f, 168f / 255f, 255f / 255f);            
+        } else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
+        {
+            Okashi_Score.color = new Color(255f / 255f, 105f / 255f, 170f / 255f);
+        } else
+        {
+            Okashi_Score.color = new Color(255f / 255f, 252f / 255f, 158f / 255f);
+        }
+        Okashi_Score.text = total_score.ToString();
+
 
         //☆の初期化
         for (i = 0; i < 4; i++)

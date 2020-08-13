@@ -38,6 +38,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Image slot_view_image;
 
     private List<GameObject> mapevent_panel = new List<GameObject>();
+    private GameObject event_panel;
 
     private GameObject moveanim_panel;
     private GameObject moveanim_panel_image;
@@ -64,6 +65,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Texture2D texture2d_map;
 
     private GameObject map_bg_effect;
+
+    private int mapid;
 
     private int select_place_num;
     private string select_place_name;
@@ -199,6 +202,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             mapevent_panel[i].SetActive(false);
             i++;
         }
+        event_panel = slot_view.transform.Find("EventPanel/").gameObject;
 
 
         map_imageBG = this.transform.Find("Comp/Map_ImageBG").gameObject;
@@ -485,7 +489,44 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_tansaku_button.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            mapevent_panel[0].SetActive(true);
+                            event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
+                            text_area.SetActive(false);
+
+                            GameMgr.map_ev_ID = 1;
+                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                            StartCoroutine("MapEventOn");
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん、いっぱいとろうね！";
+                        }
+
+                        break;
+
+                    case "Lavender_field":
+
+                        //森のBGM
+                        sceneBGM.OnGetMat_LavenderFieldBGM();
+                        compound_Main.bgm_change_flag = true;
+
+                        //背景エフェクト
+                        map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
+
+                        //イベントチェック
+                        if (!GameMgr.MapEvent_05[0])
+                        {
+                            GameMgr.MapEvent_05[0] = true;
+
+                            _text.text = "ラベンダー畑だ～！いい香り～。";
+
+                            slot_view_status = 3; //イベント読み込み中用に退避
+
+                            //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
+                            slot_tansaku_button.SetActive(false);
+
+                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                            event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 1;
@@ -522,7 +563,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_tansaku_button.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            mapevent_panel[2].SetActive(true);
+                            event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 4;
@@ -559,7 +600,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_tansaku_button.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            mapevent_panel[2].SetActive(true);
+                            event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 5;
@@ -592,7 +633,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_tansaku_button.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            mapevent_panel[1].SetActive(true);
+                            event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 2;
@@ -914,37 +955,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     void SetMapBG(string _place_name)
     {
-        switch(_place_name)
-        {
+        mapid = matplace_database.SearchMapString(_place_name);
 
-            case "Forest":
+        texture2d = matplace_database.matplace_lists[mapid].center_bg;
+        texture2d_map = matplace_database.matplace_lists[mapid].back_bg;
 
-                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/1_forest_a_600_300"); //真ん中枠
-                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/110618_"); //背景
-                break;
-
-            case "StrawberryGarden":
-
-                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/3_strawberrygarden_600_300"); //真ん中枠
-                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/03l"); //背景
-                break;
-
-            case "HimawariHill":
-
-                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/4_himawarihill_600_300"); //真ん中枠
-                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/himawari_sample"); //背景
-                break;
-
-            case "Ido":
-
-                texture2d = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/2_ido_a_600_300");
-                texture2d_map = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/nexfan_01_800.600");
-                break;
-
-            default:
-
-                break;
-        }
         // texture2dを使い、Spriteを作って、反映させる
         slot_view_image.sprite = Sprite.Create(texture2d,
                                    new Rect(0, 0, texture2d.width, texture2d.height),
@@ -954,6 +969,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                    new Rect(0, 0, texture2d_map.width, texture2d_map.height),
                                    Vector2.zero);
     }
+
 
     //リザルト画面を表示
     public void GetMatResultPanelOff()

@@ -174,7 +174,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         //○○を覚えた！など
 
         //最後にテキスト表示
-        _text.text = "レベルが上がった！" + "\n" + "錬金レベルが" + PlayerStatus.player_renkin_lv + "になった！";
+        _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！";
 
         Check_LevelUp(); //もう一回繰り返し
     }
@@ -190,7 +190,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         PlayerStatus.player_renkin_lv = now_level;
 
         //最後にテキスト表示
-        _text.text = "レベルが上がった！" + "\n" + "錬金レベルが" + PlayerStatus.player_renkin_lv + "になった！";
+        _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！";
     }
 
 

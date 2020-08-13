@@ -2043,6 +2043,9 @@ public class Compound_Main : MonoBehaviour
                             //レシピの追加
                             pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加     
 
+                            //いける場所を追加
+                            matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
+
                             //クエスト発生
                             Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
 

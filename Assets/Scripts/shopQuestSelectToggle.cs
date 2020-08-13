@@ -380,7 +380,7 @@ public class shopQuestSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
-        //Debug.Log("shopquestlistController.questType: " + shopquestlistController.questType);
+        yes_selectitem_kettei.onclick = false;
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -402,9 +402,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                     yes.SetActive(false);
                     no.SetActive(false);
                     back_ShopFirst_btn.interactable = false;
-
-                    yes_selectitem_kettei.onclick = false;
-
+                    
                     NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(false);
 
                     StartCoroutine("QuestTake_Pitemlist_wait");
@@ -417,8 +415,6 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                     //足りてる場合、材料アイテムなら即納品。お菓子ならお菓子の判定。ちなみにチェック中は、「.. 」のアニメも入れたい。
                     questjudge.Quest_result(shopquestlistController._count);
-
-
                 }               
                
                 break;
@@ -446,7 +442,6 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                 back_ShopFirst_btn.interactable = true;
 
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                 break;
         }
     }
@@ -461,6 +456,8 @@ public class shopQuestSelectToggle : MonoBehaviour
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
+
+        yes_selectitem_kettei.onclick2 = false;
 
         switch (yes_selectitem_kettei.ketteiNouhin)
         {
@@ -520,7 +517,6 @@ public class shopQuestSelectToggle : MonoBehaviour
                     NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(false);
 
                     //yes_selectitem_kettei.onclick = false;
-                    yes_selectitem_kettei.onclick2 = false; //オンクリック2のフラグはオフにしておく。
                     itemselect_cancel.kettei_on_waiting = false;
 
                     if (pitemlistController._listcount.Count <= 0) //すべて選択してないときは、noはOFF
@@ -558,7 +554,6 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                     shopquestlistController.nouhin_select_on = 0;
                     yes_selectitem_kettei.onclick = false;
-                    yes_selectitem_kettei.onclick2 = false; //オンクリック2のフラグはオフにしておく。
 
                     pitemlistController._listcount.Clear();
                     pitemlistController._listkosu.Clear();

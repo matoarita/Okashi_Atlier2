@@ -39,6 +39,8 @@ public class Quest_Judge : MonoBehaviour {
     private ItemCompoundDataBase databaseCompo;
     private QuestSetDataBase quest_database;
 
+    private GameObject black_effect;
+
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
@@ -73,6 +75,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _id;
     private int _Qid;
     private int _questID;
+    private int _qitemID;
 
     private int set_kaisu;
     private int okashi_totalscore;
@@ -135,11 +138,28 @@ public class Quest_Judge : MonoBehaviour {
     private int _base_extreme_kaisu;
     private int _base_item_hyouji;
 
+    private bool judge_anim_on;
+    private int judge_anim_status;
+    private bool judge_end;
+
+    //カメラ関連
+    private Camera main_cam;
+    private Animator maincam_animator;
+    private int trans; //トランジション用のパラメータ
+
+    //時間
+    private float timeOut;
+
     // Use this for initialization
     void Start () {
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
 
         shopMain_obj = GameObject.FindWithTag("Shop_Main");
         shopMain = shopMain_obj.GetComponent<Shop_Main>();
@@ -188,23 +208,100 @@ public class Quest_Judge : MonoBehaviour {
         MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
+        //黒半透明パネルの取得
+        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+
         //初期化
-        _basetp = new string[10];
-        _koyutp = new string[3];
-        _tp = new string[5];
+        _basetp = new string[database.items[0].toppingtype.Length];
+        _koyutp = new string[database.items[0].koyu_toppingtype.Length];
+        _tp = new string[quest_database.questset[0].Quest_topping.Length];
 
         InitializeItemSlotDicts();
+
+        judge_anim_on = false;
+        judge_anim_status = 0;
+        judge_end = false;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (judge_anim_on == true)
+        {
+            switch (judge_anim_status)
+            {
+                case 0: //初期化 状態１
+
+                    MoneyStatus_Panel_obj.SetActive(false);
+                    text_area.SetActive(false);
+                    shopquestlistController_obj.SetActive(false);
+                    black_effect.SetActive(false);
+
+                    timeOut = 2.0f;
+                    judge_anim_status = 1;
+
+
+                    //カメラ寄る。
+                    trans = 2; //transが1を超えたときに、ズームするように設定されている。
+
+                    //intパラメーターの値を設定する.
+                    maincam_animator.SetInteger("trans", trans);
+
+                    //eat_hukidashitext.text = ".";
+
+                    break;
+
+                case 1: // 状態2
+
+                    if (timeOut <= 0.0)
+                    {
+                        timeOut = 1.0f;
+                        judge_anim_status = 2;
+
+                        //eat_hukidashitext.text = ". .";
+
+                    }
+                    break;
+
+                case 2: //アニメ終了。判定する
+
+                    MoneyStatus_Panel_obj.SetActive(true);
+                    text_area.SetActive(true);
+
+
+                    //食べ中吹き出しの削除
+                    /*if (eat_hukidashiitem != null)
+                    {
+                        Destroy(eat_hukidashiitem);
+                    }*/
+
+                    judge_anim_on = false;
+                    judge_end = true;
+                    judge_anim_status = 0;
+
+                    //カメラ寄る。
+                    trans = 0; //transが0以下のときに、ズームアウトするように設定されている。
+
+                    //intパラメーターの値を設定する.
+                    maincam_animator.SetInteger("trans", trans);
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            //時間減少
+            timeOut -= Time.deltaTime;
+        }
+    }
 
    
     public void Quest_result(int _ID)
     {
-        SetInitQItem(_ID);
+        _qitemID = _ID;
+
+        SetInitQItem(_qitemID);
 
         nouhinOK_flag = false;
 
@@ -262,6 +359,8 @@ public class Quest_Judge : MonoBehaviour {
 
         if (nouhinOK_flag)
         {
+            //StartCoroutine("Quest_result_Anim");
+
             _getMoney = _buy_price * _kosu_default;
 
             //足りてるので、納品完了の処理
@@ -275,13 +374,14 @@ public class Quest_Judge : MonoBehaviour {
             moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
 
             //該当のクエストを削除
-            quest_database.questTakeset.RemoveAt(_ID);
+            quest_database.questTakeset.RemoveAt(_qitemID);
 
             //リスト更新
             shopquestlistController.NouhinList_DrawView();
 
 
             Debug.Log("納品完了！");
+           
         }
         else
         { 
@@ -306,14 +406,20 @@ public class Quest_Judge : MonoBehaviour {
     }
 
 
-
-
     public void Okashi_Judge(int _ID)
+    {
+        _qitemID = _ID;
+
+        Okashi_Judge_Method();
+    }
+   
+
+    void Okashi_Judge_Method()
     {
         pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-        SetInitQItem(_ID); //依頼アイテムのパラメータを代入
+        SetInitQItem(_qitemID); //依頼アイテムのパラメータを代入
 
         deleteOriginalList.Clear();
         result_OkashiScore.Clear();
@@ -366,10 +472,11 @@ public class Quest_Judge : MonoBehaviour {
             {
                 if (_rich != 0)
                 {
-                    okashi_score += 20;                    
+                    okashi_score += 20;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "コクがちょっと足りないみたい。";
             }
@@ -381,7 +488,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += 20;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "甘さがちょっと足りないみたい。";
             }
@@ -393,7 +501,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += 20;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "苦味がちょっと足りないみたい。";
             }
@@ -405,7 +514,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += 20;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "酸味がちょっと足りないみたい。";
             }
@@ -417,7 +527,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += _basecrispy;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "さくさくした感じがちょっと足りないみたい。";
             }
@@ -429,7 +540,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += _basefluffy;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "ふんわり感がちょっと足りないみたい。";
             }
@@ -441,7 +553,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += _basesmooth;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "なめらかな感じがちょっと足りないみたい。";
             }
@@ -453,7 +566,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += _basehardness;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "歯ごたえがちょっと足りないみたい。";
             }
@@ -465,7 +579,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += 0;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "ぷにぷに感がちょっと足りないみたい。";
             }
@@ -477,7 +592,8 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += 0;
                 }
             }
-            else {
+            else
+            {
                 nouhinOK_status = 2;
                 _a = "噛みごたえがちょっと足りないみたい。";
             }
@@ -512,7 +628,7 @@ public class Quest_Judge : MonoBehaviour {
             }
 
             //スコアを保持
-            result_OkashiScore.Add(okashi_score* pitemlistController._listkosu[list_count]);            
+            result_OkashiScore.Add(okashi_score * pitemlistController._listkosu[list_count]);
             okashi_totalkosu += pitemlistController._listkosu[list_count];
 
             //アイテムを削除
@@ -580,6 +696,20 @@ public class Quest_Judge : MonoBehaviour {
             }
         }
 
+        StartCoroutine("Okashi_Judge_Anim");
+        
+    }
+
+    IEnumerator Okashi_Judge_Anim()
+    {
+        judge_anim_on = true;
+
+        while (judge_end != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        judge_end = false;
 
         //0なら正解
         switch (nouhinOK_status)
@@ -624,7 +754,7 @@ public class Quest_Judge : MonoBehaviour {
 
 
         //該当のクエストを削除
-        quest_database.questTakeset.RemoveAt(_ID);
+        quest_database.questTakeset.RemoveAt(_qitemID);
 
         //リスト更新
         shopquestlistController.NouhinList_DrawView();

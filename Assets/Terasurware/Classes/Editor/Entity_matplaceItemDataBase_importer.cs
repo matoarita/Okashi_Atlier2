@@ -84,6 +84,8 @@ public class Entity_matplaceItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(31); p.drop_rare_prob1 = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(32); p.drop_rare_prob2 = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(33); p.drop_rare_prob3 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(34); p.center_bg = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(35); p.back_bg = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

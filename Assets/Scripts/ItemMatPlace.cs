@@ -41,6 +41,9 @@ public class ItemMatPlace
     public float dropRareProb2;
     public float dropRareProb3;
 
+    public Texture2D center_bg;
+    public Texture2D back_bg;
+
     public Sprite mapIcon_sprite;
 
     //ここでリスト化時に渡す引数をあてがいます   
@@ -50,7 +53,7 @@ public class ItemMatPlace
         string drop_rare1, string drop_rare2, string drop_rare3, 
         float drop_prob1, float drop_prob2, float drop_prob3, float drop_prob4, float drop_prob5,
         float drop_prob6, float drop_prob7, float drop_prob8, float drop_prob9, float drop_prob10, 
-        float drop_rare_prob1, float drop_rare_prob2, float drop_rare_prob3)
+        float drop_rare_prob1, float drop_rare_prob2, float drop_rare_prob3, string _center_bg, string _back_bg)
     {
         matplaceID = id;
 
@@ -90,6 +93,9 @@ public class ItemMatPlace
         dropRareProb3 = drop_rare_prob3;
 
         mapIcon_sprite = Resources.Load<Sprite>("Sprites/BG_Icon/" + fileName);
+
+        center_bg = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/" + _center_bg);
+        back_bg = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/" + _back_bg);
     }
 
 }
