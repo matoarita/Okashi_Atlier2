@@ -1711,7 +1711,7 @@ MonoBehaviour:
       strings:
       - npcN_name
       - String
-      - "\u30B7\u30E3\u30A6\u30FB\u30A8\u30C3\u30BB\u30F3"
+      - "\u30B4\u30F3\u30B6\u30EC\u30B9"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2149,7 +2149,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 1379
+    textLength: 1376
     headerRow: 0
   - rows:
     - rowIndex: 0

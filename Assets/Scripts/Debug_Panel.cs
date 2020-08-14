@@ -252,7 +252,7 @@ public class Debug_Panel : MonoBehaviour {
         {
             input_text2 = input_girllove.text;
             Int32.TryParse(input_text2, out girllove_param);
-            girl1_status.girl1_Love_exp = girllove_param;
+            girl1_status.girl1_Love_exp = 0;
 
             if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
@@ -302,6 +302,8 @@ public class Debug_Panel : MonoBehaviour {
                         break;
                 }
 
+                girl1_status.girl1_Love_exp = girllove_param;
+
                 i = 0;
                 while (girllove_param >= stage_levelTable[i])
                 {
@@ -317,6 +319,7 @@ public class Debug_Panel : MonoBehaviour {
 
                 //レベル表示も更新
                 girl_lv.text = girl1_status.girl1_Love_lv.ToString();
+                
 
                 //表情も即時変更
                 girl1_status.CheckGokigen();

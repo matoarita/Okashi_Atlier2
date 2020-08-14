@@ -48,11 +48,6 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(player_itemscrollview_init);
         player_itemscrollview_init.tag = "PlayerItemListView_Init";
 
-        //デバッグ用チェックアイテムデータベースリスト
-        var chk_itemdatabase_init = new GameObject("Check_ItemDataBase", typeof(Check_ItemDataBase));
-        GameObject.DontDestroyOnLoad(chk_itemdatabase_init);
-        chk_itemdatabase_init.tag = "check_ItemDataBase_obj";
-
         //デバッグパネルの生成
         var debugPanel_init = new GameObject("Debug_Panel_Init", typeof(Debug_Panel_Init));
         GameObject.DontDestroyOnLoad(debugPanel_init);

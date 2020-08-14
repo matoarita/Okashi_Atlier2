@@ -38,6 +38,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public float timeOut;
     public float timeOut2;
     public float timeOut3;
+    public float timeOutIdle;
     private float Default_hungry_cooltime;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
 
@@ -207,6 +208,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private CubismModel _model;
     private Animator live2d_animator;
     private int trans_expression;
+    private int trans_motion;
 
     //ハートレベルのテーブル
     public List<int> stage1_lvTable = new List<int>();
@@ -261,6 +263,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Default_hungry_cooltime = 0.5f;
         timeOut = Default_hungry_cooltime;
         timeOut2 = 10.0f;
+        timeOutIdle = 5.0f;
         timeGirl_hungry_status = 1;
 
         GirlGokigenStatus = 0;
@@ -448,6 +451,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //タイマーをリセット
                     timeOut = Default_hungry_cooltime;
                     timeOut2 = 10.0f;
+                    timeOutIdle = 5.0f;
                     GirlEat_Judge_on = true;
 
                     break;
@@ -484,6 +488,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             timeOut -= Time.deltaTime;
             timeOut2 -= Time.deltaTime;
+            timeOutIdle -= Time.deltaTime;
         }
 
         if(WaitHint_on) //吹き出しヒントを表示中
@@ -634,6 +639,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             Girl_Hungry();
                             Girl1_Hint();
                         }
+
+                        if (timeOutIdle <= 0.0)
+                        {
+                            timeOutIdle = 5.0f;
+
+                            //10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
+                            IdleChange();
+                            
+                        }
                     }
                     break;
 
@@ -770,6 +784,45 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             default:
                 face_girl_Joukigen();
+                break;
+        }
+    }
+
+    public void IdleChange()
+    {
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+                
+                break;
+
+            case 1:
+                
+                break;
+
+            case 2:
+                
+                break;
+
+            case 3:
+
+                trans_motion = 0;
+                //ランダム仕草3つほど
+                live2d_animator.SetInteger("trans_motion", trans_motion);
+                break;
+
+            case 4:
+
+                //ランダム仕草3つほど。別モーション。
+                break;
+
+            case 5:
+
+                //ランダム仕草3つほど。別モーション。
+                break;
+
+            default:
+                
                 break;
         }
     }

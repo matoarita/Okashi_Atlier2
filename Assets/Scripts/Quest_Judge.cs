@@ -150,6 +150,12 @@ public class Quest_Judge : MonoBehaviour {
     //時間
     private float timeOut;
 
+    private GameObject eat_hukidashiPrefab;
+    private GameObject eat_hukidashiitem;
+    private Text eat_hukidashitext;
+
+    private GameObject character;
+
     // Use this for initialization
     void Start () {
 
@@ -211,6 +217,12 @@ public class Quest_Judge : MonoBehaviour {
         //黒半透明パネルの取得
         black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
 
+        //キャラクタ取得
+        character = GameObject.FindWithTag("Character");
+
+        //Prefab内の、コンテンツ要素を取得
+        eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/QuestJudge_hukidashi");
+
         //初期化
         _basetp = new string[database.items[0].toppingtype.Length];
         _koyutp = new string[database.items[0].koyu_toppingtype.Length];
@@ -233,11 +245,11 @@ public class Quest_Judge : MonoBehaviour {
                 case 0: //初期化 状態１
 
                     MoneyStatus_Panel_obj.SetActive(false);
-                    text_area.SetActive(false);
+                    //text_area.SetActive(false);
                     shopquestlistController_obj.SetActive(false);
                     black_effect.SetActive(false);
 
-                    timeOut = 2.0f;
+                    timeOut = 1.5f;
                     judge_anim_status = 1;
 
 
@@ -247,7 +259,13 @@ public class Quest_Judge : MonoBehaviour {
                     //intパラメーターの値を設定する.
                     maincam_animator.SetInteger("trans", trans);
 
-                    //eat_hukidashitext.text = ".";
+                    //吹き出しの作成
+                    eat_hukidashiitem = Instantiate(eat_hukidashiPrefab, character.transform);
+                    eat_hukidashitext = eat_hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+                    eat_hukidashitext.text = ".";
+                    sc.PlaySe(7);
+
+                    _text.text = "鑑定中.";
 
                     break;
 
@@ -255,25 +273,39 @@ public class Quest_Judge : MonoBehaviour {
 
                     if (timeOut <= 0.0)
                     {
-                        timeOut = 1.0f;
+                        timeOut = 1.5f;
                         judge_anim_status = 2;
+
+                        eat_hukidashitext.text = ". .";
+
+                        _text.text = "鑑定中. .";
+
+                    }
+                    break;
+
+                case 2:
+
+                    if (timeOut <= 0.0)
+                    {
+                        timeOut = 1.0f;
+                        judge_anim_status = 3;
 
                         //eat_hukidashitext.text = ". .";
 
                     }
                     break;
 
-                case 2: //アニメ終了。判定する
+                case 3: //アニメ終了。判定する
 
                     MoneyStatus_Panel_obj.SetActive(true);
-                    text_area.SetActive(true);
+                    //text_area.SetActive(true);
 
 
                     //食べ中吹き出しの削除
-                    /*if (eat_hukidashiitem != null)
+                    if (eat_hukidashiitem != null)
                     {
                         Destroy(eat_hukidashiitem);
-                    }*/
+                    }
 
                     judge_anim_on = false;
                     judge_end = true;
@@ -364,7 +396,7 @@ public class Quest_Judge : MonoBehaviour {
             _getMoney = _buy_price * _kosu_default;
 
             //足りてるので、納品完了の処理
-            _text.text = "報酬 " + GameMgr.ColorLemon + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
+            _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
 
             //ジャキーンみたいな音を鳴らす。
             sc.PlaySe(31);
@@ -715,10 +747,11 @@ public class Quest_Judge : MonoBehaviour {
         switch (nouhinOK_status)
         {
             case 0: //正解の場合
+
                 _getMoney = _buy_price * _kosu_default;
 
                 //足りてるので、納品完了の処理
-                _text.text = okashi_totalscore + "点！！" + "\n" + "報酬 " + GameMgr.ColorLemon + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！";
+                _text.text = okashi_totalscore + "点！！" + "\n" + "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！";
 
                 //ジャキーンみたいな音を鳴らす。
                 sc.PlaySe(31);

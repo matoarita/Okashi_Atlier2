@@ -31,7 +31,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     private SetImage cardImage;
 
     private GameObject check_ItemDataBase_obj;
-    private Check_ItemDataBase check_IDB;
 
     private GameObject card_view_obj;
     private CardView card_view;

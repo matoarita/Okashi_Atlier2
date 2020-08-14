@@ -54,5 +54,11 @@ EditorBuildSettings:
     path: Assets/Scenes/100_Ending.unity
     guid: b90242159df10c74baa935d0b6c453c3
   - enabled: 1
+    path: Assets/Scenes/110_TotalResult.unity
+    guid: 886659ef982cf964b83bec73961652f4
+  - enabled: 1
+    path: Assets/Scenes/120_AutoSave.unity
+    guid: ca44abae91857984494c3df865c5980b
+  - enabled: 1
     path: Assets/Scenes/999_Gameover.unity
     guid: 69b0fbf9d000a8545bccc6df513d7015

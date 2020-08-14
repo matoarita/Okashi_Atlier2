@@ -390,7 +390,7 @@ public class Compound_Main : MonoBehaviour
         text_area_Main.SetActive(true);
 
         //各調合時のシステムメッセージ集
-        originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorLemon + "２つ" + "</color>" + "か" + GameMgr.ColorLemon + "３つ" + "</color>" + "選んでね。";
+        originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
         recipi_text = "レシピから作るよ。何を作る？";
 

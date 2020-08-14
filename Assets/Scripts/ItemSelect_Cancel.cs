@@ -16,9 +16,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
 
-    private GameObject QuestBox_scene_obj;
-    private QuestBox_Main questBox_scene;
-
     private GameObject compound_Check_obj;
     private Compound_Check compound_Check;
 
@@ -144,15 +141,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 break;
 
-            case "QuestBox":
-                QuestBox_scene_obj = GameObject.FindWithTag("QuestBox_Main");
-                questBox_scene = QuestBox_scene_obj.GetComponent<QuestBox_Main>();
-
-                break;
-
-            case "Travel":
-                //Setup_Scene1();
-                break;
 
             default:
                 
@@ -194,6 +182,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 break;
 
             case "100_Ending":
+                break;
+
+            case "110_TotalResult":
+                break;
+
+            case "120_AutoSave":
                 break;
 
             case "999_Gameover":
@@ -567,24 +561,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         girlEat_scene.girleat_status = 0;
                         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                        //All_cancel();
-                    }
-                }
-            }
-        }
-
-        if (SceneManager.GetActiveScene().name == "QuestBox")
-        {
-            if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
-            {
-                if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。トグルが押されると、これはfalseになり、トグルの処理が優先される。
-                {
-                    if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
-                    {
-                        //Debug.Log("キャンセル");
-
-                        questBox_scene.qbox_status = 0;
-                        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                         //All_cancel();
                     }
                 }

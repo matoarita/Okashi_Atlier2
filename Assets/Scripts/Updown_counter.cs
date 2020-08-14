@@ -1034,9 +1034,9 @@ public class Updown_counter : MonoBehaviour {
 
 
         //テキストの更新　左：現在の所持数　右：必要個数
-        _a = cmpitem_namehyouji1 + ": " + player_itemkosu1 + "／" + GameMgr.ColorLemon + cmpitem_kosu1_select + "</color>";
-        _b = cmpitem_namehyouji2 + ": " + player_itemkosu2 + "／" + GameMgr.ColorLemon + cmpitem_kosu2_select + "</color>";
-        _c = cmpitem_namehyouji3 + ": " + player_itemkosu3 + "／" + GameMgr.ColorLemon + cmpitem_kosu3_select + "</color>";
+        _a = cmpitem_namehyouji1 + ": " + GameMgr.ColorYellow + player_itemkosu1 + "</color>" + "／" + cmpitem_kosu1_select;
+        _b = cmpitem_namehyouji2 + ": " + GameMgr.ColorYellow + player_itemkosu2 + "</color>" + "／" + cmpitem_kosu2_select;
+        _c = cmpitem_namehyouji3 + ": " + GameMgr.ColorYellow + player_itemkosu3 + "</color>" + "／" + cmpitem_kosu3_select;
 
         //材料個数が足りてるかの判定し、足りてないときは赤字にテキスト更新
         if (cmpitem_kosu1_select > player_itemkosu1)

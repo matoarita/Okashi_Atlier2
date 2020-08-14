@@ -261,14 +261,6 @@ public class itemSelectToggle : MonoBehaviour
                 girleat_active();
             }
 
-            else if (SceneManager.GetActiveScene().name == "QuestBox") // クエスト納品でやりたい処理
-            {
-
-                itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
-
-                qbox_active();
-            }
-
             else if (SceneManager.GetActiveScene().name == "Shop") // ショップ（納品時の画面開いた時）でやりたい処理
             {
                 itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
@@ -1239,91 +1231,6 @@ public class itemSelectToggle : MonoBehaviour
         }
     }
 
-
-
-
-
-    /* ### クエストボックスのシーン ### */
-
-    public void qbox_active()
-    {
-
-        //アイテムを選択したときの処理（トグルの処理）
-
-        count = 0;
-
-        while (count < pitemlistController._listitem.Count)
-        {
-            selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
-            if (selectToggle == true) break;
-            ++count;
-        }
-
-        //リスト中の選択された番号を格納。
-        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
-
-        //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-        pitemlistController._count1 = count;
-
-        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
-        pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
-
-        //pitemlistController.cardImage_onoff_pcontrol.SetActive(true);
-        _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。これでいいですか？";
-
-        //Debug.Log(count + "番が押されたよ");
-        //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
-        //Debug.Log("これでいいですか？");
-
-        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
-        updown_counter_obj.SetActive(true);
-
-        SelectPaused();
-
-        StartCoroutine("qbox_select_kakunin");
-
-    }
-
-    IEnumerator qbox_select_kakunin()
-    {
-
-        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-
-            case true: //決定が押された　＝　あげる処理へ。プレイヤーリストコントローラー側で処理してる。
-
-                //Debug.Log("ok");
-
-                pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu;
-
-                exp_Controller.qbox_ok = true;
-
-                card_view.DeleteCard_DrawView();
-
-                Off_Flag_Setting();
-                
-                break;
-
-            case false: //キャンセルが押された
-
-                //Debug.Log("一個目はcancel");
-
-                _text.text = "お菓子を選択してください。";
-
-                itemselect_cancel.All_cancel();
-                break;
-        }
-    }
 
 
     /* ### 納品時のシーン ### */

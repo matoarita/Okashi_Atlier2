@@ -124,8 +124,8 @@ public class Contest_Judge : MonoBehaviour {
     private int _basewatery;
     private int _basegirl1_like;
     private int _baseSetjudge_num;
-    private string[] _basetp = new string[10];
-    private string[] _koyutp = new string[3];
+    private string[] _basetp;
+    private string[] _koyutp;
 
     private string _baseitemtype;
     private string _baseitemtype_sub;
@@ -318,6 +318,9 @@ public class Contest_Judge : MonoBehaviour {
         total_score = new int[girl1_status.youso_count];
 
         dislike_flag = new bool[girl1_status.youso_count];
+
+        _basetp = new string[database.items[0].toppingtype.Length];
+        _koyutp = new string[database.items[0].koyu_toppingtype.Length];
     }
 	
 	// Update is called once per frame
