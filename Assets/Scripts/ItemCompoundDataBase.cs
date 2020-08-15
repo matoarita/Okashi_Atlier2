@@ -23,6 +23,9 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private int cmp_kosu_1;
     private int cmp_kosu_2;
     private int cmp_kosu_3;
+    private float cmp_bestkosu_1;
+    private float cmp_bestkosu_2;
+    private float cmp_bestkosu_3;
     private int cmp_flag;
 
     private int _cost_time;
@@ -72,6 +75,9 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
             cmp_kosu_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu1;
             cmp_kosu_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu2;
             cmp_kosu_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu3;
+            cmp_bestkosu_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu1;
+            cmp_bestkosu_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu2;
+            cmp_bestkosu_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu3;
             cmp_flag = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_flag;
 
             _cost_time = excel_compoitemdatabase.sheets[sheet_no].list[count].cost_time;
@@ -83,7 +89,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
             _comp_count = excel_compoitemdatabase.sheets[sheet_no].list[count].comp_count;
 
             //ここでリストに追加している
-            compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count));
+            compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, 
+                cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3, cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count));
 
             ++count;
         }

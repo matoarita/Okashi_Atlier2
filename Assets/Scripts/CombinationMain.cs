@@ -30,6 +30,13 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
 
     public bool kosu_Check;
 
+    private float kyori1;
+    private float kyori2;
+    private float kyori3;
+    public float totalkyori;
+
+    private List<int> youso;
+
     // Use this for initialization
     void Start () {
 
@@ -94,7 +101,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                 //入力した要素を、順番に全て出力する。3個入力なら、6個出力
                 foreach (var elem in combinations)
                 {
-                    List<int> youso = new List<int>(elem);
+                    youso = new List<int>(elem);
 
                     //デバッグ用
                     //s = "(" + string.Join(",", elem.Select(x => x.ToString()).ToArray()) + ")";
@@ -116,6 +123,8 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                 result_compID = count;
+
+                                Kyori_Keisan();
                                 break;
 
                             case true:
@@ -131,11 +140,13 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    Kyori_Keisan();
                                 }
                                 break;
                         }
 
-
+                        
                     }
 
                     /*for (i = 0; i < youso.Count; i++) 
@@ -154,7 +165,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
     }
 
 
-    public void Combination2(string[] args, string[] args2, int[] _kosu) //順列・組み合わせ計算プログラム
+    public void Combination2(string[] args, string[] args2, int[] _kosu) //順列・組み合わせ計算プログラム サブタイプも含めて計算
     {
         item = args;
         subtype = args2;
@@ -192,6 +203,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                     break;
 
                                 case true:
@@ -204,6 +234,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                         compFlag = true;
                                         resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                         result_compID = count;
+
+                                        kyori1 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                        kyori2 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                        kyori3 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                        if (kosu[0] == 9999)
+                                        {
+                                            kyori1 = 0;
+                                        }
+                                        if (kosu[1] == 9999)
+                                        {
+                                            kyori2 = 0;
+                                        }
+                                        if (kosu[2] == 9999)
+                                        {
+                                            kyori3 = 0;
+                                        }
+
+                                        totalkyori = kyori1 + kyori2 + kyori3;
                                     }
                                     break;
                             }
@@ -227,6 +276,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                     break;
 
                                 case true:
@@ -239,6 +307,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                         compFlag = true;
                                         resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                         result_compID = count;
+
+                                        kyori1 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                        kyori2 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                        kyori3 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                        if (kosu[0] == 9999)
+                                        {
+                                            kyori1 = 0;
+                                        }
+                                        if (kosu[2] == 9999)
+                                        {
+                                            kyori2 = 0;
+                                        }
+                                        if (kosu[1] == 9999)
+                                        {
+                                            kyori3 = 0;
+                                        }
+
+                                        totalkyori = kyori1 + kyori2 + kyori3;
                                     }
                                     break;
                             }
@@ -261,6 +348,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                 result_compID = count;
+
+                                kyori1 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                kyori2 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                kyori3 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                if (kosu[0] == 9999)
+                                {
+                                    kyori1 = 0;
+                                }
+                                if (kosu[1] == 9999)
+                                {
+                                    kyori2 = 0;
+                                }
+                                if (kosu[2] == 9999)
+                                {
+                                    kyori3 = 0;
+                                }
+
+                                totalkyori = kyori1 + kyori2 + kyori3;
                                 break;
 
                             case true:
@@ -274,6 +380,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                 }
                                 break;
                         }
@@ -294,6 +419,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                 result_compID = count;
+
+                                kyori1 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                kyori2 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                kyori3 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                if (kosu[0] == 9999)
+                                {
+                                    kyori1 = 0;
+                                }
+                                if (kosu[2] == 9999)
+                                {
+                                    kyori2 = 0;
+                                }
+                                if (kosu[1] == 9999)
+                                {
+                                    kyori3 = 0;
+                                }
+
+                                totalkyori = kyori1 + kyori2 + kyori3;
                                 break;
 
                             case true:
@@ -307,6 +451,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                 }
                                 break;
                         }
@@ -335,6 +498,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                     break;
 
                                 case true:
@@ -347,6 +529,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                         compFlag = true;
                                         resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                         result_compID = count;
+
+                                        kyori1 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                        kyori2 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                        kyori3 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                        if (kosu[1] == 9999)
+                                        {
+                                            kyori1 = 0;
+                                        }
+                                        if (kosu[0] == 9999)
+                                        {
+                                            kyori2 = 0;
+                                        }
+                                        if (kosu[2] == 9999)
+                                        {
+                                            kyori3 = 0;
+                                        }
+
+                                        totalkyori = kyori1 + kyori2 + kyori3;
                                     }
                                     break;
                             }
@@ -371,6 +572,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                     break;
 
                                 case true:
@@ -383,6 +603,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                         compFlag = true;
                                         resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                         result_compID = count;
+
+                                        kyori1 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                        kyori2 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                        kyori3 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                        if (kosu[1] == 9999)
+                                        {
+                                            kyori1 = 0;
+                                        }
+                                        if (kosu[2] == 9999)
+                                        {
+                                            kyori2 = 0;
+                                        }
+                                        if (kosu[0] == 9999)
+                                        {
+                                            kyori3 = 0;
+                                        }
+
+                                        totalkyori = kyori1 + kyori2 + kyori3;
                                     }
                                     break;
                             }
@@ -405,6 +644,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                 result_compID = count;
+
+                                kyori1 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                kyori2 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                kyori3 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                if (kosu[1] == 9999)
+                                {
+                                    kyori1 = 0;
+                                }
+                                if (kosu[0] == 9999)
+                                {
+                                    kyori2 = 0;
+                                }
+                                if (kosu[2] == 9999)
+                                {
+                                    kyori3 = 0;
+                                }
+
+                                totalkyori = kyori1 + kyori2 + kyori3;
                                 break;
 
                             case true:
@@ -417,6 +675,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                 }
                                 break;
                         }
@@ -436,6 +713,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                 result_compID = count;
+
+                                kyori1 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                kyori2 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                kyori3 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                if (kosu[1] == 9999)
+                                {
+                                    kyori1 = 0;
+                                }
+                                if (kosu[2] == 9999)
+                                {
+                                    kyori2 = 0;
+                                }
+                                if (kosu[0] == 9999)
+                                {
+                                    kyori3 = 0;
+                                }
+
+                                totalkyori = kyori1 + kyori2 + kyori3;
                                 break;
 
                             case true:
@@ -448,6 +744,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                 }
                                 break;
                         }
@@ -476,6 +791,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                     break;
 
                                 case true:
@@ -488,6 +822,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                         compFlag = true;
                                         resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                         result_compID = count;
+
+                                        kyori1 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                        kyori2 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                        kyori3 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                        if (kosu[2] == 9999)
+                                        {
+                                            kyori1 = 0;
+                                        }
+                                        if (kosu[0] == 9999)
+                                        {
+                                            kyori2 = 0;
+                                        }
+                                        if (kosu[1] == 9999)
+                                        {
+                                            kyori3 = 0;
+                                        }
+
+                                        totalkyori = kyori1 + kyori2 + kyori3;
                                     }
                                     break;
                             }
@@ -511,6 +864,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                     break;
 
                                 case true:
@@ -523,6 +895,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                         compFlag = true;
                                         resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                         result_compID = count;
+
+                                        kyori1 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                        kyori2 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                        kyori3 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                        if (kosu[2] == 9999)
+                                        {
+                                            kyori1 = 0;
+                                        }
+                                        if (kosu[1] == 9999)
+                                        {
+                                            kyori2 = 0;
+                                        }
+                                        if (kosu[0] == 9999)
+                                        {
+                                            kyori3 = 0;
+                                        }
+
+                                        totalkyori = kyori1 + kyori2 + kyori3;
                                     }
                                     break;
                             }
@@ -545,6 +936,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                 result_compID = count;
+
+                                kyori1 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                kyori2 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                kyori3 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                if (kosu[2] == 9999)
+                                {
+                                    kyori1 = 0;
+                                }
+                                if (kosu[0] == 9999)
+                                {
+                                    kyori2 = 0;
+                                }
+                                if (kosu[1] == 9999)
+                                {
+                                    kyori3 = 0;
+                                }
+
+                                totalkyori = kyori1 + kyori2 + kyori3;
                                 break;
 
                             case true:
@@ -557,6 +967,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                 }
                                 break;
                         }
@@ -577,6 +1006,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                 result_compID = count;
+
+                                kyori1 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                kyori2 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                kyori3 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                if (kosu[2] == 9999)
+                                {
+                                    kyori1 = 0;
+                                }
+                                if (kosu[1] == 9999)
+                                {
+                                    kyori2 = 0;
+                                }
+                                if (kosu[0] == 9999)
+                                {
+                                    kyori3 = 0;
+                                }
+
+                                totalkyori = kyori1 + kyori2 + kyori3;
                                 break;
 
                             case true:
@@ -589,6 +1037,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                                     result_compID = count;
+
+                                    kyori1 = Mathf.Abs(kosu[2] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+                                    kyori2 = Mathf.Abs(kosu[1] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+                                    kyori3 = Mathf.Abs(kosu[0] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+                                    if (kosu[2] == 9999)
+                                    {
+                                        kyori1 = 0;
+                                    }
+                                    if (kosu[1] == 9999)
+                                    {
+                                        kyori2 = 0;
+                                    }
+                                    if (kosu[0] == 9999)
+                                    {
+                                        kyori3 = 0;
+                                    }
+
+                                    totalkyori = kyori1 + kyori2 + kyori3;
                                 }
                                 break;
                         }
@@ -670,5 +1137,28 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         {
             kosuset.Add(dictID[i], kosu[i]);
         }
+    }
+
+    void Kyori_Keisan()
+    {
+        kyori1 = Mathf.Abs(kosuset[youso[0]] - databaseCompo.compoitems[count].cmpitem_bestkosu1);
+        kyori2 = Mathf.Abs(kosuset[youso[1]] - databaseCompo.compoitems[count].cmpitem_bestkosu2);
+        kyori3 = Mathf.Abs(kosuset[youso[2]] - databaseCompo.compoitems[count].cmpitem_bestkosu3);
+
+        if(kosuset[youso[0]] == 9999)
+        {
+            kyori1 = 0;
+        }
+        if (kosuset[youso[1]] == 9999)
+        {
+            kyori2 = 0;
+        }
+        if (kosuset[youso[2]] == 9999)
+        {
+            kyori3 = 0;
+        }
+
+        totalkyori = kyori1 + kyori2 + kyori3;
+        //Debug.Log("ベスト配合との距離: " + totalkyori);
     }
 }

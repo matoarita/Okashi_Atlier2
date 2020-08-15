@@ -24,6 +24,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private Exp_Controller exp_Controller;
     private ExtremePanel extreme_panel;
 
+    private CombinationMain Combinationmain;
+
     private int i, j, n, count;
     private int itemNum, DBcount;
 
@@ -187,6 +189,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int etc_mat_count;
     private float komugiko_distance;
 
+    private int keisan_method_flag;
+    private float totalkyori;
+    private float kyori_hosei;
+
 
     //計算用_ADDアイテムリスト 材料（最大３つまで）を、0,1,2の順に入れる。
     private List<ItemAdd> _additemlist = new List<ItemAdd>();
@@ -214,9 +220,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private float _oily_revise;
     private float _watery_revise;
 
-    public int _getExp; 
+    public int _getExp;
 
-    
+    private int mstatus;
+
+
 
     // Use this for initialization
     void Start () {
@@ -235,6 +243,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //調合用メソッドの取得
+        Combinationmain = CombinationMain.Instance.GetComponent<CombinationMain>();
 
         //トッピングスロットの配列
         _basetp = new string[database.items[0].toppingtype.Length];
@@ -300,6 +311,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addtp = new string[database.items[0].toppingtype.Length];
         _temptp = new string[database.items[0].toppingtype.Length];
         _addkoyutp = new string[database.items[0].koyu_toppingtype.Length];
+
+        mstatus = _mstatus;
 
         //ベースアイテムのパラメータを取得する。その後、各トッピングアイテムの値を取得し、加算する。
 
@@ -1144,7 +1157,59 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _baseoily += _tempoily;
             _basewatery += _tempwatery;
 
-            
+            if (mstatus != 99)
+            {
+                if (keisan_method_flag == 1) //1=ベスト配合との距離の補正をかける。
+                {
+                    totalkyori = Combinationmain.totalkyori;
+                    Debug.Log("ベスト配合との距離: " + totalkyori);
+
+                    if (totalkyori >= 0 && totalkyori < 0.1)
+                    {
+                        kyori_hosei = 2.0f;
+                    }
+                    else if (totalkyori >= 0.1 && totalkyori < 0.5)
+                    {
+                        kyori_hosei = 1.8f;
+                    }
+                    else if (totalkyori >= 0.5 && totalkyori < 1.0)
+                    {
+                        kyori_hosei = 1.5f;
+                    }
+                    else if (totalkyori >= 1.0 && totalkyori < 2.0)
+                    {
+                        kyori_hosei = 1.2f;
+                    }
+                    else if (totalkyori >= 2.0 && totalkyori < 4.0)
+                    {
+                        kyori_hosei = 1.0f;
+                    }
+                    else if (totalkyori >= 4.0 && totalkyori < 5.0)
+                    {
+                        kyori_hosei = 0.75f;
+                    }
+                    else if (totalkyori >= 5.0 && totalkyori < 6.0)
+                    {
+                        kyori_hosei = 0.5f;
+                    }
+                    else if (totalkyori >= 6.0 && totalkyori < 8.0)
+                    {
+                        kyori_hosei = 0.25f;
+                    }
+                    else if (totalkyori >= 8.0)
+                    {
+                        kyori_hosei = 0.125f;
+                    }
+
+                    //食感に補正値をかける。
+                    _basecrispy = (int)(_basecrispy * kyori_hosei);
+                    _basefluffy = (int)(_basefluffy * kyori_hosei);
+                    _basesmooth = (int)(_basesmooth * kyori_hosei);
+                    _basehardness = (int)(_basehardness * kyori_hosei);
+                    _basejiggly = (int)(_basejiggly * kyori_hosei);
+                    _basechewy = (int)(_basechewy * kyori_hosei);
+                }
+            }
         }
 
 
@@ -1156,7 +1221,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
         //④トッピングのときの計算。加算する。
-        if (Comp_method_bunki == 3)//オリジナル調合　または　レシピ調合　のときの計算。
+        if (Comp_method_bunki == 3)//
         {
             for (i = 0; i < _additemlist.Count; i++)
             {
@@ -1392,7 +1457,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
 
-    //小麦粉をベースにした、計算処理
+    //味の計算処理
     void AddParam_Method()
     {
         //初期化
@@ -1406,10 +1471,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //特定のアイテムの場合は、加算のみでOK。例えばアマンドファリーヌのような、粉同士を組み合わせただけ、など。
         if(databaseCompo.compoitems[result_ID].KeisanMethod == "Non")
         {
+            keisan_method_flag = 0;
             komugiko_flag = 0;
         }
         else
         {
+            keisan_method_flag = 1;
+            komugiko_flag = 0;
+
+            /*
             //比率計算。キーとなるアイテム（例えば、小麦粉）をベースに、他の材料の比率がどのぐらいかを計算
             for (i = 0; i < _additemlist.Count; i++)
             {
@@ -1419,10 +1489,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     komugiko_flag = 1;
                     Komugiko_count++;
                 }
-            }
+            }*/
         }
 
-        //材料に小麦粉を使っているか否かで処理を分岐
+        //材料に小麦粉を使っているか否かで処理を分岐　→　現在は、この処理は削除。
         switch (komugiko_flag)
         {
             case 0: //材料に小麦粉を使っていない
@@ -1440,6 +1510,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             case 1: //小麦粉を使っている場合
 
+                /*
                 //Debug.Log("小麦粉を使っている" + "  材料ID(0 or 1 or 2): " + komugiko_id);
 
                 //また一からみていき、今度は加算していく。小麦粉IDだけ取り除く
@@ -1494,6 +1565,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _tempwatery += _komugikowatery;
 
                 total_kosu = _additemlist.Count;
+                */
 
                 break;
 

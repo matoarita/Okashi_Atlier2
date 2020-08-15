@@ -63,14 +63,17 @@ public class Entity_compoItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(10); p.cmpitem_kosu1 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(11); p.cmpitem_kosu2 = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(12); p.cmpitem_kosu3 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(13); p.cmp_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(14); p.cost_time = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(15); p.success_rate = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(16); p.renkin_Bexp = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(17); p.Comment = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(18); p.Comment2 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(20); p.KeisanMethod = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(21); p.comp_count = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(13); p.best_kosu1 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(14); p.best_kosu2 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(15); p.best_kosu3 = (float)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(16); p.cmp_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(17); p.cost_time = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(18); p.success_rate = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(19); p.renkin_Bexp = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(20); p.Comment = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(21); p.Comment2 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(23); p.KeisanMethod = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(24); p.comp_count = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);
