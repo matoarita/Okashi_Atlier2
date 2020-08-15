@@ -54,4 +54,11 @@ public class SoundController : MonoBehaviour {
         //seSources[0].Play();
         audioSource.PlayOneShot(seClips[index]);
     }
+
+    public void StopSe()
+    {
+        //seSources[0].clip = seClips[index];
+        //seSources[0].Play();
+        audioSource.Stop();
+    }
 }

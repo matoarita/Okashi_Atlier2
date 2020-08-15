@@ -1639,19 +1639,19 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //好感度によって、EDが分岐する。
-        if (GameMgr.stage1_girl1_loveexp <= 95) //LV3以下 badED ED:E
+        if (GameMgr.stage1_girl1_loveexp <= girl1_status.SumLvTable(3)) //LV3以下 badED ED:E
         {
             engine.Param.TrySetParameter("ED_num", 1);
         }
-        else if (GameMgr.stage1_girl1_loveexp > 95 && GameMgr.stage1_girl1_loveexp <= 545) // ~LV7 ノーマルED ED:C
+        else if (GameMgr.stage1_girl1_loveexp > girl1_status.SumLvTable(3) && GameMgr.stage1_girl1_loveexp <= girl1_status.SumLvTable(6)) // ~LV5 ノーマルED ED:C
         {
             engine.Param.TrySetParameter("ED_num", 2);
         }
-        else if (GameMgr.stage1_girl1_loveexp > 545 && yusho_flag == false) // LV7~ ノーマルED ED:B
+        else if (GameMgr.stage1_girl1_loveexp > girl1_status.SumLvTable(6) && yusho_flag == false) // LV5~ ノーマルED ED:B
         {
             engine.Param.TrySetParameter("ED_num", 3);
         }
-        else if (GameMgr.stage1_girl1_loveexp > 545 && yusho_flag == true) // LV7~ ベストED ED:A LV5~
+        else if (GameMgr.stage1_girl1_loveexp > girl1_status.SumLvTable(6) && yusho_flag == true) // LV5~ ベストED ED:A LV5~
         {
             engine.Param.TrySetParameter("ED_num", 4);
         }

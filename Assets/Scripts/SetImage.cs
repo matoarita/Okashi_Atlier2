@@ -114,7 +114,7 @@ public class SetImage : MonoBehaviour
     private int _oily_score;
     private int _watery_score;
 
-    private int _first_eat;
+    private int _eat_kaisu;
     private bool _highscore_flag;
     private int _lasttotal_score;
     private string _lasthint_text;
@@ -332,7 +332,7 @@ public class SetImage : MonoBehaviour
                 _oily_score = database.items[check_counter].Oily;
                 _watery_score = database.items[check_counter].Watery;
 
-                _first_eat = database.items[check_counter].First_eat;
+                _eat_kaisu = database.items[check_counter].Eat_kaisu;
                 _highscore_flag = database.items[check_counter].HighScore_flag;
                 _lasttotal_score = database.items[check_counter].last_total_score;
                 _lasthint_text = database.items[check_counter].last_hinttext;
@@ -401,7 +401,7 @@ public class SetImage : MonoBehaviour
                 _oily_score = pitemlist.player_originalitemlist[check_counter].Oily;
                 _watery_score = pitemlist.player_originalitemlist[check_counter].Watery;
 
-                _first_eat = pitemlist.player_originalitemlist[check_counter].First_eat;
+                _eat_kaisu = pitemlist.player_originalitemlist[check_counter].Eat_kaisu;
                 _highscore_flag = pitemlist.player_originalitemlist[check_counter].HighScore_flag;
                 _lasttotal_score = pitemlist.player_originalitemlist[check_counter].last_total_score;
                 _lasthint_text = pitemlist.player_originalitemlist[check_counter].last_hinttext;
@@ -478,7 +478,7 @@ public class SetImage : MonoBehaviour
         _oily_score = compound_keisan._baseoily;
         _watery_score = compound_keisan._basewatery;
 
-        _first_eat = database.items[check_counter].First_eat;
+        _eat_kaisu = database.items[check_counter].Eat_kaisu;
         _highscore_flag = database.items[check_counter].HighScore_flag;
         _lasttotal_score = database.items[check_counter].last_total_score;
         _lasthint_text = database.items[check_counter].last_hinttext;
@@ -767,7 +767,7 @@ public class SetImage : MonoBehaviour
             item_Watery.text = "";
         }
 
-        if (_first_eat > 0)
+        if (_eat_kaisu > 0)
         {
             //最高得点の表示
             item_LastTotalScore.text = _lasttotal_score.ToString();
@@ -908,7 +908,7 @@ public class SetImage : MonoBehaviour
         else if (item_type == "Okashi" || item_type == "Potion")
         {
             //スロットの正式名称計算
-            slotchangename.slotChangeName(Pitem_or_Origin, check_counter, "blue");
+            slotchangename.slotChangeName(Pitem_or_Origin, check_counter, "yellow");
 
             _slotHyouji2[0] = slotchangename._slotHyouji[0];
             _slotHyouji2[1] = slotchangename._slotHyouji[1];

@@ -312,6 +312,7 @@ public class Debug_Panel : MonoBehaviour {
                     i++;
                 }
                 _slider.value = girllove_param;
+                girl1_status.LvUpStatus();
 
                 //スライダマックスバリューも更新
                 _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる

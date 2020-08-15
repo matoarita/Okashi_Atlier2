@@ -6,27 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Hiroba2.unity
-    guid: 268afc515a3ec9e44805e999a955a01b
-  - enabled: 1
-    path: Assets/Scenes/Compound.unity
-    guid: 300af6876f5eba0478262c030e9ac821
-  - enabled: 1
-    path: Assets/Scenes/GirlEat.unity
-    guid: 318a95ee7430bb4419b5dd057121d419
-  - enabled: 1
-    path: Assets/Scenes/Shop.unity
-    guid: 7357b5f50d998e940a46f6de237f0ee8
-  - enabled: 1
-    path: Assets/Scenes/Farm.unity
-    guid: 6bc5305ee68810d48ad4c33ff2c6d841
-  - enabled: 1
-    path: Assets/Scenes/Utage.unity
-    guid: c6e6081026a3ad24db8de64ae3d2841c
-  - enabled: 1
-    path: Assets/Scenes/Contest.unity
-    guid: 9b06be8486f0cd34b90cf73ae0809613
-  - enabled: 1
     path: Assets/Scenes/000_CompanyLogoMovie.unity
     guid: c2a7ff5dbe7eb04469552072ce1a8a2c
   - enabled: 1
@@ -62,3 +41,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/999_Gameover.unity
     guid: 69b0fbf9d000a8545bccc6df513d7015
+  - enabled: 1
+    path: Assets/Scenes/Hiroba2.unity
+    guid: 268afc515a3ec9e44805e999a955a01b
+  - enabled: 1
+    path: Assets/Scenes/Compound.unity
+    guid: 300af6876f5eba0478262c030e9ac821
+  - enabled: 1
+    path: Assets/Scenes/GirlEat.unity
+    guid: 318a95ee7430bb4419b5dd057121d419
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: 7357b5f50d998e940a46f6de237f0ee8
+  - enabled: 1
+    path: Assets/Scenes/Farm.unity
+    guid: 6bc5305ee68810d48ad4c33ff2c6d841
+  - enabled: 1
+    path: Assets/Scenes/Utage.unity
+    guid: c6e6081026a3ad24db8de64ae3d2841c
+  - enabled: 1
+    path: Assets/Scenes/Contest.unity
+    guid: 9b06be8486f0cd34b90cf73ae0809613

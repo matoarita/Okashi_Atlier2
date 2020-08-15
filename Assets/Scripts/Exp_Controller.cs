@@ -52,6 +52,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private MoneyStatus_Controller moneyStatus_Controller;
 
     private ExpTable exp_table;
+    private SoundController sc;
 
     private PlayerItemList pitemlist;
 
@@ -137,11 +138,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     //SEを鳴らす
     public AudioClip sound1;
-    public AudioClip sound2;
-    public AudioClip sound3;
-    public AudioClip sound4;
-    public AudioClip sound5;
-    public AudioClip sound6;
     AudioSource audioSource;
 
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
@@ -187,6 +183,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //合成計算オブジェクトの取得
         compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //音声ファイルの取得。SCを使わずに鳴らす場合はこっち。
+        //sound1 = (AudioClip)Resources.Load("Utage_Scenario/Sound/SE/SE_10");
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -511,11 +513,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //テキストの表示
             renkin_default_exp_up();
 
-            //音を鳴らす
-            audioSource.PlayOneShot(sound2);
-            audioSource.PlayOneShot(sound4);
-            audioSource.PlayOneShot(sound5);
-
             //完成エフェクト
             ResultEffect_OK();
         }
@@ -553,9 +550,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //テキストの表示
             Failed_Text();
-
-            //音を鳴らす
-            audioSource.PlayOneShot(sound3);
 
             //完成エフェクト
             ResultEffect_NG();
@@ -724,11 +718,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //テキストの表示            
             renkin_default_exp_up();
 
-            //音を鳴らす
-            audioSource.PlayOneShot(sound2);
-            audioSource.PlayOneShot(sound4);
-            audioSource.PlayOneShot(sound5);
-
             //完成エフェクト
             ResultEffect_OK();
         }
@@ -766,9 +755,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //テキストの表示
             Failed_Text();
-
-            //音を鳴らす
-            audioSource.PlayOneShot(sound3);
 
             //完成エフェクト
             ResultEffect_NG();
@@ -929,11 +915,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //テキストの表示
             renkin_exp_up();
 
-            //音を鳴らす
-            audioSource.PlayOneShot(sound2);
-            audioSource.PlayOneShot(sound4);
-            audioSource.PlayOneShot(sound5);
-
             //完成エフェクト
             ResultEffect_OK();
         }
@@ -970,9 +951,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //テキストの表示
             Failed_Text();
-
-            //音を鳴らす
-            audioSource.PlayOneShot(sound3);
 
             //完成エフェクト
             ResultEffect_NG();
@@ -1056,7 +1034,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //効果音
-        audioSource.PlayOneShot(sound6);
+        sc.PlaySe(32);
 
         _text.text = "購入しました！他にはなにか買う？";
 
@@ -1086,7 +1064,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
 
                 //音を鳴らす
-                audioSource.PlayOneShot(sound1);
+                sc.PlaySe(10);
+                //audioSource.PlayOneShot(sound1);
 
                 //一時的にお菓子のHP減少をストップ
                 extremePanel.LifeAnimeOnFalse();
@@ -1129,7 +1108,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 card_view.DeleteCard_DrawView();
 
                 //音を止める
-                audioSource.Stop();
+                //audioSource.Stop();
+                sc.StopSe();
 
                 //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
                 if (GameMgr.tutorial_ON == true)
@@ -1192,6 +1172,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab5));
         _listEffect[2].GetComponent<Canvas>().worldCamera = Camera.main;
 
+        //音を鳴らす
+        sc.PlaySe(4);
+        sc.PlaySe(15);
+        sc.PlaySe(27);
+
         //ResultBGimage.SetActive(true);
     }
 
@@ -1208,15 +1193,27 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //リザルト時のエフェクト生成＋アニメ開始
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab4));
         _listEffect[0].GetComponent<Canvas>().worldCamera = Camera.main;
+
+        //音を鳴らす
+        sc.PlaySe(20);
     }
 
     void renkin_default_exp_up()
     {
-
-        _text.text = "やったね！ " +
-            renkin_hyouji +
-            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-            "錬金経験値 " + _getexp + "上がった！";
+        if (_getexp != 0)
+        {
+            _text.text = "やったね！ " +
+                renkin_hyouji +
+                " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+                "錬金経験値 " + _getexp + "上がった！";
+        }
+        else
+        {
+            _text.text = "やったね！ " +
+                renkin_hyouji +
+                " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+                "錬金経験値は上がらなかった。";
+        }
 
         Debug.Log(renkin_hyouji + "が出来ました！");
 
@@ -1232,7 +1229,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //カード正式名称（ついてるスロット名も含めた名前）
-        slotchangename.slotChangeName(1, new_item, "lemon");
+        slotchangename.slotChangeName(1, new_item, "yellow");
 
         _slotHyouji1[0] = slotchangename._slotHyouji[0];
         _slotHyouji1[1] = slotchangename._slotHyouji[1];
@@ -1245,10 +1242,20 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _slotHyouji1[8] = slotchangename._slotHyouji[8];
         _slotHyouji1[9] = slotchangename._slotHyouji[9];
 
-        _text.text = "やったね！ " +
-            _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
+        if (_getexp != 0)
+        {
+            _text.text = "やったね！ " +
+            _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji +
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "錬金経験値 " + _getexp + "上がった！";
+        }
+        else
+        {
+            _text.text = "やったね！ " +
+            _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji +
+            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+            "錬金経験値は上がらなかった。"; ;
+        }
 
         Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");
 

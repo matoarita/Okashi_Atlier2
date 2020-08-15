@@ -77,11 +77,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private string _hintrandom;
     private List<string> _hintrandomDict = new List<string>();
 
-    //SEを鳴らす
-    public AudioClip sound1;
-    public AudioClip sound2;
-    AudioSource audioSource;
-
     private BGM sceneBGM;
 
     //女の子の好み値。この値と、選択したアイテムの数値を比較し、近いほど得点があがる。
@@ -226,8 +221,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl_comment_flag = false;
         girl_comment_endflag = false;
         _desc = "";
-
-        audioSource = GetComponent<AudioSource>();
 
         //Prefab内の、コンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
@@ -1206,7 +1199,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
 
         //音を鳴らす
-        audioSource.PlayOneShot(sound1);
+        sc.PlaySe(7);
 
         _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
     }
@@ -1237,7 +1230,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             Destroy(hukidashiitem);
 
             //音を鳴らす
-            audioSource.PlayOneShot(sound2);
+            sc.PlaySe(8);
         }
 
         //まず全ての値を0に初期化
@@ -2271,10 +2264,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         stage1_lvTable.Clear();
         stage1_lvTable.Add(20); //LV1で、次のレベルが上がるまでの好感度値
-        stage1_lvTable.Add(25);　//LV2 LV1の分も含めている。トータルだと75。の意味。
-        stage1_lvTable.Add(50); //LV3　LV1~LV2の分も含めている。
-        stage1_lvTable.Add(100); //LV4
-        stage1_lvTable.Add(150); //LV5以上
+        stage1_lvTable.Add(50);　//LV2 LV1の分も含めている。トータルだと75。の意味。
+        stage1_lvTable.Add(100); //LV3　LV1~LV2の分も含めている。
+        stage1_lvTable.Add(150); //LV4
+        stage1_lvTable.Add(200); //LV5以上
 
         _temp_lvTablecount = stage1_lvTable.Count;
 
@@ -2285,6 +2278,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
+    //レベルをいれると、それまでに必要な経験値の合計を返すメソッド
     public int SumLvTable(int _count)
     {
         _sum = 0;
@@ -2300,7 +2294,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void LvUpStatus() //好感度レベルがあがったときに、ステータス上昇などの処理
     {
         //レベルがあがるごとに、アイテム発見力があがる。
-        PlayerStatus.player_girl_findpower += 10;
+        PlayerStatus.player_girl_findpower += girl1_Love_lv * 10;
 
         //上限処理
         if(PlayerStatus.player_girl_findpower >= 999)

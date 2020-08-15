@@ -1627,7 +1627,7 @@ MonoBehaviour:
     - ItemID: 35
       file_name: parfe_base
       name: parfe_base
-      nameHyouji: "\u30D1\u30D5\u30A7\u306E\u571F\u53F0"
+      nameHyouji: "\u30AC\u30E9\u30B9\u306E\u5668"
       desc: "\u30D1\u30D5\u30A7\u3092\u4F5C\u308B\u305F\u3081\u306E\u900F\u660E\u306E\u30AC\u30E9\u30B9\u5BB9\u5668\u3002"
       comp_hosei: 0
       hp: 0

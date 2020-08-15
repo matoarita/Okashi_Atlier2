@@ -210,7 +210,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
         {
             if(items[i].itemName == _itemname)
             {
-                return items[i].First_eat;                
+                return items[i].Eat_kaisu;                
             }
             i++;
         }

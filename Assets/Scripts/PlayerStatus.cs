@@ -57,7 +57,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_zairyobox = 10;
 
         //妹のステータス初期設定
-        player_girl_findpower = 100;
+        player_girl_findpower = 100; //探索力
 
         First_recipi_on = false;
         First_extreme_on = false;
