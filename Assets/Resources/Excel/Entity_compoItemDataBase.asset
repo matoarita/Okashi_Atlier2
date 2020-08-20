@@ -1203,16 +1203,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 80
       renkin_Bexp: 34
       Comment: "\u30AF\u30C3\u30AD\u30FC\u3092\u30D9\u30FC\u30B9\u306B\u5408\u6210\u3059\u308B\u7CFB"
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AF\u30EA\u30FC\u30E0\u30C1\u30FC\u30BA"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 50
       cmpitemName: aizan_neko_cookie
@@ -1227,16 +1227,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 51
       cmpitemName: heart_neko_cookie
@@ -1251,16 +1251,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 52
       cmpitemName: jewely_neko_cookie
@@ -1275,16 +1275,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 53
       cmpitemName: mixcolor_neko_cookie
@@ -1299,16 +1299,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 54
       cmpitemName: orange_neko_cookie
@@ -1323,16 +1323,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 55
       cmpitemName: orange_neko_cookie_jam
@@ -1347,16 +1347,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u30AA\u30EC\u30F3\u30B8\u30B8\u30E3\u30E0"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 56
       cmpitemName: pinkorange_neko_cookie
@@ -1371,16 +1371,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 85
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30D4\u30F3\u30AF\u30D6\u30E9\u30C3\u30C9\u30AA\u30EC\u30F3\u30B8"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 57
       cmpitemName: grape_cookie
@@ -1395,16 +1395,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 58
       cmpitemName: strawberry_cookie
@@ -1419,16 +1419,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 59
       cmpitemName: banana_cookie
@@ -1443,16 +1443,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 60
       cmpitemName: blueberry_cookie
@@ -1467,16 +1467,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 61
       cmpitemName: pear_cookie
@@ -1491,16 +1491,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 62
       cmpitemName: peach_cookie
@@ -1515,16 +1515,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 63
       cmpitemName: cherry_cookie
@@ -1539,16 +1539,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 64
       cmpitemName: sakura_cookie
@@ -1563,16 +1563,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 65
       cmpitemName: honey_cookie
@@ -1587,16 +1587,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u3076\u3069\u3046"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 66
       cmpitemName: cocoa_cookie
@@ -1611,16 +1611,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30D1\u30A6\u30C0\u30FC"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 67
       cmpitemName: shishamo_cookie
@@ -1635,16 +1635,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 90
       renkin_Bexp: 11
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30D1\u30A6\u30C0\u30FC"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 68
       cmpitemName: cookie_base_icebox
@@ -1659,16 +1659,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 95
       renkin_Bexp: 34
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\u30D9\u30FC\u30B9\xD7\u30B3\u30B3\u30A2\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 69
       cmpitemName: star_cookie
@@ -1683,16 +1683,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
       success_rate: 60
       renkin_Bexp: 10
       Comment: 
       Comment2: "\u30AF\u30C3\u30AD\u30FC\xD7\u307B\u3057\u306E\u7C89"
-      KeisanMethod: Use
+      KeisanMethod: Non
       comp_count: 0
     - ItemID: 70
       cmpitemName: sugerbutter_cookie

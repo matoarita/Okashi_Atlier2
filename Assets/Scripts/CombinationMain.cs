@@ -57,7 +57,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
 		
 	}
 
-    public void Combination(string[] args, int[] _kosu) //順列・組み合わせ計算プログラム
+    public void Combination(string[] args, int[] _kosu, int _mstatus) //順列・組み合わせ計算プログラム
     {
         n = 3; //3個の入力から
         k = 3; //nの中から、3個を選ぶ
@@ -118,7 +118,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                             case false:
 
                                 //一致していたら、true
-                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                if (_mstatus != 99)
+                                {
+                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                }
 
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -135,7 +138,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                     databaseCompo.compoitems[count].cmpitem_kosu3 == kosuset[youso[2]])
                                 {
                                     //一致していたら、true
-                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    if (_mstatus != 99)
+                                    {
+                                        Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    }
 
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -161,11 +167,14 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         }
 
         //該当するものがなければ、compFlagはFalseのまま
-        if (!compFlag) { Debug.Log("＜固有名称組み合わせ＞コンポDBに一致するもの無し"); }
+        if (!compFlag) {
+            if (_mstatus != 99)
+            { Debug.Log("＜固有名称組み合わせ＞コンポDBに一致するもの無し"); }
+        }
     }
 
 
-    public void Combination2(string[] args, string[] args2, int[] _kosu) //順列・組み合わせ計算プログラム サブタイプも含めて計算
+    public void Combination2(string[] args, string[] args2, int[] _kosu, int _mstatus) //順列・組み合わせ計算プログラム サブタイプも含めて計算
     {
         item = args;
         subtype = args2;
@@ -198,7 +207,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 case false:
 
                                     //一致していたら、true
-                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    if (_mstatus != 99)
+                                    {
+                                        Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    }
 
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -271,7 +283,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 case false:
 
                                     //一致していたら、true
-                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    if (_mstatus != 99)
+                                    {
+                                        Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    }
 
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -343,7 +358,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                             case false:
 
                                 //一致していたら、true
-                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                if (_mstatus != 99)
+                                {
+                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                }
 
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -414,7 +432,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                             case false:
 
                                 //一致していたら、true
-                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                if (_mstatus != 99)
+                                {
+                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                }
 
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -493,7 +514,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 case false:
 
                                     //一致していたら、true
-                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    if (_mstatus != 99)
+                                    {
+                                        Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    }
 
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -567,7 +591,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 case false:
 
                                     //一致していたら、true
-                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    if (_mstatus != 99)
+                                    {
+                                        Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    }
 
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -639,7 +666,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                             case false:
 
                                 //一致していたら、true
-                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                if (_mstatus != 99)
+                                {
+                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                }
 
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -708,7 +738,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                             case false:
 
                                 //一致していたら、true
-                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                if (_mstatus != 99)
+                                {
+                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                }
 
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -786,7 +819,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 case false:
 
                                     //一致していたら、true
-                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    if (_mstatus != 99)
+                                    {
+                                        Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    }
 
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -859,7 +895,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                                 case false:
 
                                     //一致していたら、true
-                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    if (_mstatus != 99)
+                                    {
+                                        Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    }
 
                                     compFlag = true;
                                     resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -931,7 +970,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                             case false:
 
                                 //一致していたら、true
-                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                if (_mstatus != 99)
+                                {
+                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                }
 
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -1001,7 +1043,10 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                             case false:
 
                                 //一致していたら、true
-                                Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                if (_mstatus != 99)
+                                {
+                                    Debug.Log("一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                }
 
                                 compFlag = true;
                                 resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
@@ -1068,8 +1113,18 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         }
 
         //該当するものがなければ、compFlagはFalseのまま
-        if (!compFlag) { Debug.Log("＜固有名＋サブタイプ＞コンポDBに一致するもの無し"); }
-        else { Debug.Log("固有名＋サブで一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name); }
+        if (!compFlag) {
+            if (_mstatus != 99)
+            {
+                Debug.Log("＜固有名＋サブタイプ＞コンポDBに一致するもの無し");
+            }
+        }
+        else {
+            if (_mstatus != 99)
+            {
+                Debug.Log("固有名＋サブで一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+            }
+        }
     }
 
     void CombinationSubSample() //アイテム・サブの組み合わせをみる

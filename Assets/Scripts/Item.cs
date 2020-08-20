@@ -53,10 +53,22 @@ public class Item
     public int item_Hyouji;
     public int SetJudge_Num;
 
+    //以下パラメータはExcel上には記載なし
     public int Eat_kaisu;
     public bool HighScore_flag;
     public int last_total_score;
+    public int last_rich_score;
+    public int last_sweat_score;
+    public int last_bitter_score;
+    public int last_sour_score;
+    public int last_crispy_score;
+    public int last_fluffy_score;
+    public int last_smooth_score;
+    public int last_hardness_score;
+    public int last_jiggly_score;
+    public int last_chewy_score;
     public string last_hinttext;
+    //ここまで
 
     //トッピングスロット
     public string[] toppingtype = new string[10];
@@ -199,6 +211,16 @@ public class Item
         HighScore_flag = _highscore;
 
         last_total_score = _lasttotal_score;
+        last_rich_score = 0;
+        last_sweat_score = 0;
+        last_bitter_score = 0;
+        last_sour_score = 0;
+        last_crispy_score = 0;
+        last_fluffy_score = 0;
+        last_smooth_score = 0;
+        last_hardness_score = 0;
+        last_jiggly_score = 0;
+        last_chewy_score = 0;
         last_hinttext = _hinttext;
     }
 

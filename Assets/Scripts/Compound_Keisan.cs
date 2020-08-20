@@ -31,7 +31,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private int total_qbox_money;
 
+    private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
+    private List<string> _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
+    private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
 
+    private bool compoDB_select_judge;
 
     //使用したアイテムのタイプなどを取得
     private int toggle_type1;
@@ -331,6 +335,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             //パラメータを取得。アイテムデータベースを、ここで計算して初期化する。ゲーム開始時のみ使用。
             SetParamDatabaseInit();
+            SetParamKosuHosei();
         }
 
 
@@ -596,7 +601,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             database.items[itemNum].Oily = _baseoily;
             database.items[itemNum].Watery = _basewatery;
         }
-    }
+    }   
 
 
     //決定アイテムなどのパラメータを取得
@@ -882,6 +887,72 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //**ここまで**
     }
 
+    void SetParamKosuHosei()
+    {
+        _itemIDtemp_result.Clear();
+        _itemKosutemp_result.Clear();
+        _itemSubtype_temp_result.Clear();
+
+        _itemIDtemp_result.Add(database.items[kettei_item1].itemName);
+        _itemIDtemp_result.Add(database.items[kettei_item2].itemName);
+
+        _itemSubtype_temp_result.Add(database.items[kettei_item1].itemType_sub.ToString());
+        _itemSubtype_temp_result.Add(database.items[kettei_item2].itemType_sub.ToString());
+
+        _itemKosutemp_result.Add(final_kette_kosu1);
+        _itemKosutemp_result.Add(final_kette_kosu2);
+
+        if (final_kette_kosu3 == 9999) //二個しか選択していないときは、9999が入っている。
+        {
+            _itemIDtemp_result.Add("empty");
+            _itemSubtype_temp_result.Add("empty");
+            _itemKosutemp_result.Add(final_kette_kosu3);
+        }
+        else
+        {
+            _itemIDtemp_result.Add(database.items[kettei_item3].itemName);
+            _itemSubtype_temp_result.Add(database.items[kettei_item3].itemType_sub.ToString());
+            _itemKosutemp_result.Add(final_kette_kosu3);
+        }
+
+
+        compoDB_select_judge = false;
+
+
+        //判定処理//
+
+        //一個目に選んだアイテムが生地タイプでもなく、フルーツ同士の合成でもない場合、
+        //新規作成のため、以下の判定処理を行う。個数は、判定に関係しない。
+
+
+        //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
+
+        //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     
+        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 99); //決めた３つのアイテム＋それぞれの個数、の配列
+
+        compoDB_select_judge = Combinationmain.compFlag;
+
+
+        //②　①の組み合わせにない場合は、2通りが考えられる。　アイテム名＋サブ＋サブ　か　アイテム名＋アイテム名＋サブの組み合わせ
+        if (compoDB_select_judge == false)
+        {
+            //個数計算していないので、バグあり
+            Combinationmain.Combination2(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
+
+            compoDB_select_judge = Combinationmain.compFlag;
+        }
+
+
+        //③固有の組み合わせがなかった場合のみ、サブジャンル同士の組み合わせがないかも見る。サブ＋サブ＋サブ
+
+        if (compoDB_select_judge == false)
+        {
+            Combinationmain.Combination(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
+
+            compoDB_select_judge = Combinationmain.compFlag;
+        }
+    }
+
 
     //
     // 合成の処理・計算を行うメソッド。入口。
@@ -1157,8 +1228,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _baseoily += _tempoily;
             _basewatery += _tempwatery;
 
-            if (mstatus != 99)
-            {
+            /*if (mstatus != 99)
+            {*/
                 if (keisan_method_flag == 1) //1=ベスト配合との距離の補正をかける。
                 {
                     totalkyori = Combinationmain.totalkyori;
@@ -1209,7 +1280,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basejiggly = (int)(_basejiggly * kyori_hosei);
                     _basechewy = (int)(_basechewy * kyori_hosei);
                 }
-            }
+            //}
         }
 
 
@@ -1472,12 +1543,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if(databaseCompo.compoitems[result_ID].KeisanMethod == "Non")
         {
             keisan_method_flag = 0;
-            komugiko_flag = 0;
         }
         else
         {
             keisan_method_flag = 1;
-            komugiko_flag = 0;
 
             /*
             //比率計算。キーとなるアイテム（例えば、小麦粉）をベースに、他の材料の比率がどのぐらいかを計算

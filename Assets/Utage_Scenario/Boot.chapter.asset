@@ -476,13 +476,13 @@ MonoBehaviour:
       - "\u7267\u5834\u306E\u5973\u4E3B\u4EBA"
       - <param=npcD_name>
       - "\u901A\u5E38"
-      - 70
-      - -170
+      - 0
+      - -200
       - 
       - 
-      - .9
+      - .75
       - 
-      - Motarike/heroine16_cos02.png
+      - Motarike/heroine13_cos03.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 

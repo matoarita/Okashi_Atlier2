@@ -685,7 +685,7 @@ public class Compound_Check : MonoBehaviour {
         //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
 
         //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     
-        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray()); //決めた３つのアイテム＋それぞれの個数、の配列
+        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 0); //決めた３つのアイテム＋それぞれの個数、の配列
 
         compoDB_select_judge = Combinationmain.compFlag;
         if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
@@ -700,7 +700,7 @@ public class Compound_Check : MonoBehaviour {
         if (compoDB_select_judge == false)
         {
             //個数計算していないので、バグあり
-            Combinationmain.Combination2(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray());
+            Combinationmain.Combination2(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 0);
 
             compoDB_select_judge = Combinationmain.compFlag;
             if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
@@ -716,7 +716,7 @@ public class Compound_Check : MonoBehaviour {
 
         if (compoDB_select_judge == false)
         {
-            Combinationmain.Combination(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray());
+            Combinationmain.Combination(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 0);
 
             compoDB_select_judge = Combinationmain.compFlag;
             if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。

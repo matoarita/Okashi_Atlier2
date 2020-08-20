@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.75735295, g: 0.606804, b: 0.44550174, a: 1}
+  m_Color: {r: 1, g: 0.6911765, b: 0.8381339, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -168,7 +168,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: a00e89924d8183944a032490ff80fa49, type: 3}
+    m_Font: {fileID: 12800000, guid: 024a2d681d3904140a12e7aa79f79447, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 0.75
+    m_LineSpacing: 1.2
   m_Text: "\u307E\u3068\u308A\u3048\u308B\n\u30BD\u30D5\u30C8"
 --- !u!222 &68903842
 CanvasRenderer:
@@ -566,6 +566,7 @@ MonoBehaviour:
   sound8: {fileID: 8300000, guid: 322060085eb5b2142b129816706b8e3f, type: 3}
   sound9: {fileID: 8300000, guid: f97fe25e0612b9f4c99ada4935623a40, type: 3}
   sound10: {fileID: 8300000, guid: cfcbd05ea7c25974c97aff4ebcf02d45, type: 3}
+  sound11: {fileID: 0}
   _mixRate: 0
 --- !u!4 &892046881
 Transform:

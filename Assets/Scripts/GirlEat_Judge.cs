@@ -1836,7 +1836,20 @@ public class GirlEat_Judge : MonoBehaviour {
                 //作ったお菓子の点数が、前回より高い場合は、最高得点を更新。
                 if (total_score > database.items[_baseID].last_total_score)
                 {
+                    //最高得点の他、その時の食感・甘さ系のパラメータ・スロット名も含めたアイテム名を更新
                     database.items[_baseID].last_total_score = total_score;
+
+                    database.items[_baseID].last_rich_score = _baserich;
+                    database.items[_baseID].last_sweat_score = _basesweat;
+                    database.items[_baseID].last_bitter_score = _basebitter;
+                    database.items[_baseID].last_sour_score = _basesour;
+                    database.items[_baseID].last_crispy_score = _basecrispy;
+                    database.items[_baseID].last_fluffy_score = _basefluffy;
+                    database.items[_baseID].last_smooth_score = _basesmooth;
+                    database.items[_baseID].last_hardness_score = _basehardness;
+                    database.items[_baseID].last_jiggly_score = _basejiggly;
+                    database.items[_baseID].last_chewy_score = _basechewy;
+
                     last_score_kousin = true;
 
                     //85点以上で、さらに高得点を一度もとったことがなければ、えめらるどんぐり一個もらえる
