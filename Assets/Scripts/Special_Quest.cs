@@ -51,20 +51,28 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 		
 	}
 
-    public void SetSpecialOkashi(int _num)
+    public void SetSpecialOkashi(int _num, int _status)
     {
-
-        special_kaisu = 0; //0回にリセット
+      
         spquest_set_num = _num;
         GameMgr.OkashiQuest_Num = _num;
         GameMgr.QuestClearflag = false;
+
+        if(_status == 0)
+        {
+            special_kaisu = 0; //0回にリセット
+            girl1_status.OkashiNew_Status = 0;
+        }
+        else //ロードから再開された場合の処理
+        {
+
+        }
 
         switch (_num)
         {
             case 0: //オリジナルクッキーを食べたい
 
-                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                girl1_status.OkashiNew_Status = 0;
+                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1000;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
@@ -73,17 +81,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
             case 1: //ラスク食べたい
 
-                //ランダムで選ばられるセットのON/OFF
-                //クッキー系をOFF
-                /*girlLikeCompo_database.SetGirlSetFlag(0, 0);
-                girlLikeCompo_database.SetGirlSetFlag(1, 0);            
-
-                //ON
-                girlLikeCompo_database.SetGirlSetFlag(20, 1); //ぶどうクッキーON
-                girlLikeCompo_database.SetGirlSetFlag(30, 1); //ラスクON*/
-                //** ここまで **//
-
-                girl1_status.OkashiNew_Status = 0;
                 girl1_status.OkashiQuest_ID = 1100;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
@@ -92,7 +89,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
             case 2: //クレープ食べたい
 
-                girl1_status.OkashiNew_Status = 0;
                 girl1_status.OkashiQuest_ID = 1200;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
@@ -100,7 +96,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
             case 3: //シュークリーム食べたい
 
-                girl1_status.OkashiNew_Status = 0;
                 girl1_status.OkashiQuest_ID = 1300;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
@@ -108,7 +103,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
             case 4: //ドーナツ食べたい
 
-                girl1_status.OkashiNew_Status = 0;
                 girl1_status.OkashiQuest_ID = 1400;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
@@ -116,7 +110,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
             case 5: //ステージ１ラスト　コンテスト開始
 
-                girl1_status.OkashiNew_Status = 0;
                 girl1_status.OkashiQuest_ID = 1500;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
@@ -125,6 +118,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             default:
                 break;
         }
+
+
     }
 
     public void SetNextRandomOkashi(int _num)

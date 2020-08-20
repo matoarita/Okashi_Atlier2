@@ -1228,59 +1228,60 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _baseoily += _tempoily;
             _basewatery += _tempwatery;
 
-            /*if (mstatus != 99)
-            {*/
-                if (keisan_method_flag == 1) //1=ベスト配合との距離の補正をかける。
+
+            if (keisan_method_flag == 1) //1=ベスト配合との距離の補正をかける。
+            {
+                totalkyori = Combinationmain.totalkyori;
+                if (mstatus != 99)
                 {
-                    totalkyori = Combinationmain.totalkyori;
                     Debug.Log("ベスト配合との距離: " + totalkyori);
-
-                    if (totalkyori >= 0 && totalkyori < 0.1)
-                    {
-                        kyori_hosei = 2.0f;
-                    }
-                    else if (totalkyori >= 0.1 && totalkyori < 0.5)
-                    {
-                        kyori_hosei = 1.8f;
-                    }
-                    else if (totalkyori >= 0.5 && totalkyori < 1.0)
-                    {
-                        kyori_hosei = 1.5f;
-                    }
-                    else if (totalkyori >= 1.0 && totalkyori < 2.0)
-                    {
-                        kyori_hosei = 1.2f;
-                    }
-                    else if (totalkyori >= 2.0 && totalkyori < 4.0)
-                    {
-                        kyori_hosei = 1.0f;
-                    }
-                    else if (totalkyori >= 4.0 && totalkyori < 5.0)
-                    {
-                        kyori_hosei = 0.75f;
-                    }
-                    else if (totalkyori >= 5.0 && totalkyori < 6.0)
-                    {
-                        kyori_hosei = 0.5f;
-                    }
-                    else if (totalkyori >= 6.0 && totalkyori < 8.0)
-                    {
-                        kyori_hosei = 0.25f;
-                    }
-                    else if (totalkyori >= 8.0)
-                    {
-                        kyori_hosei = 0.125f;
-                    }
-
-                    //食感に補正値をかける。
-                    _basecrispy = (int)(_basecrispy * kyori_hosei);
-                    _basefluffy = (int)(_basefluffy * kyori_hosei);
-                    _basesmooth = (int)(_basesmooth * kyori_hosei);
-                    _basehardness = (int)(_basehardness * kyori_hosei);
-                    _basejiggly = (int)(_basejiggly * kyori_hosei);
-                    _basechewy = (int)(_basechewy * kyori_hosei);
                 }
-            //}
+
+                if (totalkyori >= 0 && totalkyori < 0.1)
+                {
+                    kyori_hosei = 2.0f;
+                }
+                else if (totalkyori >= 0.1 && totalkyori < 0.5)
+                {
+                    kyori_hosei = 1.8f;
+                }
+                else if (totalkyori >= 0.5 && totalkyori < 1.0)
+                {
+                    kyori_hosei = 1.5f;
+                }
+                else if (totalkyori >= 1.0 && totalkyori < 2.0)
+                {
+                    kyori_hosei = 1.2f;
+                }
+                else if (totalkyori >= 2.0 && totalkyori < 4.0)
+                {
+                    kyori_hosei = 1.0f;
+                }
+                else if (totalkyori >= 4.0 && totalkyori < 5.0)
+                {
+                    kyori_hosei = 0.75f;
+                }
+                else if (totalkyori >= 5.0 && totalkyori < 6.0)
+                {
+                    kyori_hosei = 0.5f;
+                }
+                else if (totalkyori >= 6.0 && totalkyori < 8.0)
+                {
+                    kyori_hosei = 0.25f;
+                }
+                else if (totalkyori >= 8.0)
+                {
+                    kyori_hosei = 0.125f;
+                }
+
+                //食感に補正値をかける。
+                _basecrispy = (int)(_basecrispy * kyori_hosei);
+                _basefluffy = (int)(_basefluffy * kyori_hosei);
+                _basesmooth = (int)(_basesmooth * kyori_hosei);
+                _basehardness = (int)(_basehardness * kyori_hosei);
+                _basejiggly = (int)(_basejiggly * kyori_hosei);
+                _basechewy = (int)(_basechewy * kyori_hosei);
+            }
         }
 
 

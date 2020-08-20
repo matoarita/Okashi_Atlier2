@@ -128,6 +128,11 @@ public class RuntimeInitializer : MonoBehaviour
         var compound_keisan_init = new GameObject("Compound_Keisan", typeof(Compound_Keisan));
         GameObject.DontDestroyOnLoad(compound_keisan_init);
         compound_keisan_init.tag = "Compound_Keisan";
+
+        //セーブコントローラー
+        var savecontroller_init = new GameObject("SaveController", typeof(SaveController));
+        GameObject.DontDestroyOnLoad(savecontroller_init);
+
     }
 
 } // class RuntimeInitializer

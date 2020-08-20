@@ -537,6 +537,19 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             }
                         }
                     }
+
+                    if (compound_Main.compound_select == 200) //システム画面開いたのときの処理
+                    {
+                        if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
+                        {
+                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                            {
+                                All_cancel();
+
+                                compound_Main.compound_status = 0; //何も選択していない状態にもどる。
+                            }
+                        }
+                    }
                     break;
 
                 default://compound=110　最後調合するかどうかの確認中など、待機状態

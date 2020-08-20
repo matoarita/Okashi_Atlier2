@@ -976,7 +976,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
         _text.text = _desc;
 
-        //現在のクエストネーム更新
+        //現在のクエストネーム更新。Special_Quest.csで、OkashiQuest_Nameは更新している。
         questname.text = OkashiQuest_Name;
 
         //クエストタイトルパネルを表示

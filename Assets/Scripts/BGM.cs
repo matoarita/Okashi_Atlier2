@@ -27,6 +27,8 @@ public class BGM : MonoBehaviour {
     private float fade_volume;
     private float _fadedeg;
 
+    private int i;
+
     // Use this for initialization
     void Start () {
 
@@ -104,6 +106,7 @@ public class BGM : MonoBehaviour {
 
     public void PlayMain()
     {
+
         if (GameMgr.GirlLoveEvent_stage1[5]) //コンテストの日の曲
         {
             _bgm[0].clip = sound10;

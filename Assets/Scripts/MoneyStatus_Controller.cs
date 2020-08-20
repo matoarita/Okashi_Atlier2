@@ -143,4 +143,9 @@ public class MoneyStatus_Controller : MonoBehaviour {
         moneyanim_on = true;
     }
 
+    //表示をすぐに更新
+    public void money_Draw()
+    {
+        _money_text.text = PlayerStatus.player_money.ToString();
+    }
 }

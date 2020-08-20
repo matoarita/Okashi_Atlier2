@@ -33,8 +33,6 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static bool First_recipi_on; //はじめて調合したフラグ
     public static bool First_extreme_on; //はじめて仕上げをしたフラグ
 
-    public static List<bool> player_travelList = new List<bool>(); //旅行先。行ける場所が増えると、カウントも増える。未使用。
-
 
     // Update is called once per frame
     void Update () {

@@ -40,7 +40,7 @@ public class TravelListController : MonoBehaviour {
         _travellistitem.Clear();
         list_count = 0;
 
-        max = PlayerStatus.player_travelList.Count;
+        //max = PlayerStatus.player_travelList.Count;
 
         //描画部分
         for (i = 0; i < max; i++)

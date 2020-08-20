@@ -73,6 +73,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool sleep_flag;
     public static int sleep_status;
 
+    //これより下の値は、まだセーブに登録してない。
+
     //お菓子イベントクリアのフラグ
     public static bool[] OkashiQuest_flag_stage1 = new bool[30]; //各イベントのクリアしたかどうかのフラグ。
     public static bool[] OkashiQuest_flag_stage2 = new bool[30];

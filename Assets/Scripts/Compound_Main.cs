@@ -90,6 +90,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject ResultBGimage;
 
     private GameObject SelectCompo_panel_1;
+    private GameObject system_panel;
 
     private CombinationMain Combinationmain;
 
@@ -113,6 +114,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject getmaterial_toggle;
     private GameObject stageclear_toggle;
     private GameObject sleep_toggle;
+    private GameObject system_toggle;
 
     private Button extreme_Button;
     private Button recipi_Button;
@@ -268,6 +270,9 @@ public class Compound_Main : MonoBehaviour
         kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
+        //システムパネルの取得
+        system_panel = canvas.transform.Find("SystemPanel").gameObject;
+
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
@@ -338,6 +343,7 @@ public class Compound_Main : MonoBehaviour
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
+        system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
 
         stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
         stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
@@ -549,6 +555,8 @@ public class Compound_Main : MonoBehaviour
                         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = false;
+                        sleep_toggle.GetComponent<Toggle>().interactable = false;
+                        system_toggle.GetComponent<Toggle>().interactable = false;
                         text_area.SetActive(false);                       
 
                         girl1_status.SetOneQuest(0);
@@ -580,6 +588,7 @@ public class Compound_Main : MonoBehaviour
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
                         sleep_toggle.GetComponent<Toggle>().interactable = false;
+                        system_toggle.GetComponent<Toggle>().interactable = false;
                         break;
 
                     case 110:
@@ -761,6 +770,7 @@ public class Compound_Main : MonoBehaviour
                         shop_toggle.GetComponent<Toggle>().interactable = false;
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
                         sleep_toggle.GetComponent<Toggle>().interactable = false;
+                        system_toggle.GetComponent<Toggle>().interactable = false;
                         girl1_status.timeGirl_hungry_status = 1;
 
                         _textmain.text = "お菓子をあげてみよう！";
@@ -884,7 +894,8 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(false);
                 black_panel_A.SetActive(false);
                 ResultBGimage.SetActive(false);
-                compoBG_A.SetActive(false);                
+                compoBG_A.SetActive(false);
+                system_panel.SetActive(false);
 
                 TimePanel_obj1.SetActive(true);
                 TimePanel_obj2.SetActive(false);
@@ -898,8 +909,9 @@ public class Compound_Main : MonoBehaviour
                 menu_toggle.GetComponent<Toggle>().interactable = true;
                 getmaterial_toggle.GetComponent<Toggle>().interactable = true;
                 shop_toggle.GetComponent<Toggle>().interactable = true;
+                system_toggle.GetComponent<Toggle>().interactable = true;
                 girleat_toggle.GetComponent<Toggle>().interactable = true;
-                //sleep_toggle.GetComponent<Toggle>().interactable = false;
+                sleep_toggle.GetComponent<Toggle>().interactable = true;
                 touch_controller.Touch_OnAllON();
 
                 recipiMemoButton.SetActive(false);
@@ -1347,6 +1359,19 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
+            case 200: //システム画面を開いたとき
+
+                compoundselect_onoff_obj.SetActive(false);
+                //black_panel_A.SetActive(true);
+                compound_status = 200;
+                compound_select = 200;
+
+                system_panel.SetActive(true); //システムパネルを表示。
+
+                WindowOff();
+
+                break;
+
             default:
                 break;
         }
@@ -1493,6 +1518,7 @@ public class Compound_Main : MonoBehaviour
         compound_status = 0;
     }
 
+
     public void OnMenu_toggle() //メニューをON
     {
         if (menu_toggle.GetComponent<Toggle>().isOn == true)
@@ -1505,6 +1531,27 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    public void OnMenu_button() //メニュー　ボタンで押した場合
+    {
+        card_view.DeleteCard_DrawView();
+
+        compound_status = 99;
+    }
+
+
+    public void OnSystem_toggle() //システムボタンを押した
+    {
+        if (system_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            card_view.DeleteCard_DrawView();
+
+            system_toggle.GetComponent<Toggle>().isOn = false;
+
+            compound_status = 200;
+        }
+    }
+
+
     public void OnShop_toggle() //ショップへ移動
     {
         if (shop_toggle.GetComponent<Toggle>().isOn == true)
@@ -1515,6 +1562,7 @@ public class Compound_Main : MonoBehaviour
             FadeManager.Instance.LoadScene("Shop", 0.3f);
         }
     }
+    
 
     public void OnGetMaterial_toggle() //材料採取地選択
     {
@@ -2003,7 +2051,7 @@ public class Compound_Main : MonoBehaviour
                             Debug.Log("好感度イベント１をON: クッキーが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                            special_quest.SetSpecialOkashi(0);
+                            special_quest.SetSpecialOkashi(0, 0);
                         }
                     }
 
@@ -2024,7 +2072,7 @@ public class Compound_Main : MonoBehaviour
                             Debug.Log("好感度イベント２をON: ラスクが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                            special_quest.SetSpecialOkashi(1);
+                            special_quest.SetSpecialOkashi(1, 0);
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
@@ -2050,7 +2098,7 @@ public class Compound_Main : MonoBehaviour
                             Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                            special_quest.SetSpecialOkashi(2);
+                            special_quest.SetSpecialOkashi(2, 0);
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
@@ -2070,7 +2118,7 @@ public class Compound_Main : MonoBehaviour
                             Debug.Log("好感度イベント４をON: シュークリームが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                            special_quest.SetSpecialOkashi(3);
+                            special_quest.SetSpecialOkashi(3, 0);
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
@@ -2090,7 +2138,7 @@ public class Compound_Main : MonoBehaviour
                             Debug.Log("好感度イベント５をON: ドーナツが食べたい　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                            special_quest.SetSpecialOkashi(4);
+                            special_quest.SetSpecialOkashi(4, 0);
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
@@ -2114,7 +2162,7 @@ public class Compound_Main : MonoBehaviour
                             Debug.Log("ステージ１ラストイベントをON: コンテスト　開始");
 
                             //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                            special_quest.SetSpecialOkashi(5);
+                            special_quest.SetSpecialOkashi(5, 0);
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");

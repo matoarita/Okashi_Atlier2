@@ -61,25 +61,25 @@ public class Debug_Panel : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        StoryNumber = this.transform.Find("StoryNumber").gameObject;
+        StoryNumber = this.transform.Find("Hyouji/StoryNumber").gameObject;
         StoryNumber_text = StoryNumber.GetComponent<Text>();
 
-        EventNumber = this.transform.Find("EventNumber").gameObject;
+        EventNumber = this.transform.Find("Hyouji/EventNumber").gameObject;
         EventNumber_text = EventNumber.GetComponent<Text>();
 
-        StageNumber = this.transform.Find("StageNumber").gameObject;
+        StageNumber = this.transform.Find("Hyouji/StageNumber").gameObject;
         StageNumber_text = StageNumber.GetComponent<Text>();
 
-        input_scenario = this.transform.Find("InputField").gameObject.GetComponent<InputField>();
-        input_event = this.transform.Find("InputField_EventNum").gameObject.GetComponent<InputField>();
-        input_girllove = this.transform.Find("InputField_GirlLove").gameObject.GetComponent<InputField>();
+        input_scenario = this.transform.Find("Hyouji/InputField").gameObject.GetComponent<InputField>();
+        input_event = this.transform.Find("Hyouji/InputField_EventNum").gameObject.GetComponent<InputField>();
+        input_girllove = this.transform.Find("Hyouji/InputField_GirlLove").gameObject.GetComponent<InputField>();
 
 
-        Mazui_toggle = this.transform.Find("MazuiToggle").gameObject.GetComponent<Toggle>();
-        Mazui_toggle_input = this.transform.Find("MazuiToggleInput").gameObject.GetComponent<Toggle>();
+        Mazui_toggle = this.transform.Find("Hyouji/MazuiToggle").gameObject.GetComponent<Toggle>();
+        Mazui_toggle_input = this.transform.Find("Hyouji/MazuiToggleInput").gameObject.GetComponent<Toggle>();
 
         Debug_INPUT_ON = false;
-        DebugInputOn = this.transform.Find("DebugInputOnText").GetComponent<Text>();        
+        DebugInputOn = this.transform.Find("Hyouji/DebugInputOnText").GetComponent<Text>();        
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -97,25 +97,25 @@ public class Debug_Panel : MonoBehaviour {
     {
         if(StoryNumber == null)
         {
-            StoryNumber = this.transform.Find("StoryNumber").gameObject;
+            StoryNumber = this.transform.Find("Hyouji/StoryNumber").gameObject;
             StoryNumber_text = StoryNumber.GetComponent<Text>();
 
-            EventNumber = this.transform.Find("EventNumber").gameObject;
+            EventNumber = this.transform.Find("Hyouji/EventNumber").gameObject;
             EventNumber_text = EventNumber.GetComponent<Text>();
 
-            StageNumber = this.transform.Find("StageNumber").gameObject;
+            StageNumber = this.transform.Find("Hyouji/StageNumber").gameObject;
             StageNumber_text = StageNumber.GetComponent<Text>();
 
-            input_scenario = this.transform.Find("InputField").gameObject.GetComponent<InputField>();
-            input_event = this.transform.Find("InputField_EventNum").gameObject.GetComponent<InputField>();
-            input_girllove = this.transform.Find("InputField_GirlLove").gameObject.GetComponent<InputField>();
+            input_scenario = this.transform.Find("Hyouji/InputField").gameObject.GetComponent<InputField>();
+            input_event = this.transform.Find("Hyouji/InputField_EventNum").gameObject.GetComponent<InputField>();
+            input_girllove = this.transform.Find("Hyouji/InputField_GirlLove").gameObject.GetComponent<InputField>();
 
 
-            Mazui_toggle = this.transform.Find("MazuiToggle").gameObject.GetComponent<Toggle>();
-            Mazui_toggle_input = this.transform.Find("MazuiToggleInput").gameObject.GetComponent<Toggle>();
+            Mazui_toggle = this.transform.Find("Hyouji/MazuiToggle").gameObject.GetComponent<Toggle>();
+            Mazui_toggle_input = this.transform.Find("Hyouji/MazuiToggleInput").gameObject.GetComponent<Toggle>();
 
             Debug_INPUT_ON = false;
-            DebugInputOn = this.transform.Find("DebugInputOnText").GetComponent<Text>();
+            DebugInputOn = this.transform.Find("Hyouji/DebugInputOnText").GetComponent<Text>();
 
             //女の子データの取得
             girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
@@ -147,7 +147,7 @@ public class Debug_Panel : MonoBehaviour {
         Mazui_toggle.isOn = girl1_status.girl_Mazui_flag;
 
         //ここに処理。時間カウント。デバッグ用。
-        Counter = this.transform.Find("TimeCount").gameObject.GetComponentInChildren<Text>(); //デバッグ用
+        Counter = this.transform.Find("Hyouji/TimeCount").gameObject.GetComponentInChildren<Text>(); //デバッグ用
         Counter.text = "PlayTime: " + GameMgr.Game_timeCount + " s";
 
     }
@@ -189,6 +189,8 @@ public class Debug_Panel : MonoBehaviour {
                     for (i = 0; i < event_num; i++)
                     {
                         GameMgr.OkashiQuest_flag_stage1[i] = true;
+                        GameMgr.GirlLoveEvent_stage1[i] = true;
+                        //Debug.Log("GameMgr.GirlLoveEvent_stage1[i]: " + GameMgr.GirlLoveEvent_stage1[i]);
 
                         //点数は、60点でクリアしたことにする。
                         special_quest.special_score_record[i, 0] = 60;
@@ -209,7 +211,7 @@ public class Debug_Panel : MonoBehaviour {
                 //現在のクエストを再度設定。前クエストの終わりから、スタート。
                 if (event_num != 0)
                 {
-                    special_quest.SetSpecialOkashi(event_num - 1);
+                    special_quest.SetSpecialOkashi(event_num - 1, 0);
                     GameMgr.GirlLoveEvent_stage1[event_num - 1] = true;
                     Debug.Log("event_num: " + event_num);
                 }
@@ -237,7 +239,7 @@ public class Debug_Panel : MonoBehaviour {
                 //現在のクエストを再度設定
                 if (event_num != 0)
                 {
-                    special_quest.SetSpecialOkashi(event_num);
+                    special_quest.SetSpecialOkashi(event_num, 0);
                     GameMgr.GirlLoveEvent_num = event_num;
                     GameMgr.GirlLoveEvent_stage1[event_num] = true;
                     Debug.Log("event_num: " + event_num);
@@ -252,85 +254,10 @@ public class Debug_Panel : MonoBehaviour {
         {
             input_text2 = input_girllove.text;
             Int32.TryParse(input_text2, out girllove_param);
-            girl1_status.girl1_Love_exp = 0;
 
-            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-            {
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+            GirlLove_Koushin(girllove_param);
 
-                //女の子の反映用ハートエフェクト取得
-                GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
-                GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
-
-                //好感度バーの取得
-                _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
-
-                //女の子のレベル取得
-                girl_lv = GameObject.FindWithTag("Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
-                girl1_status.girl1_Love_lv = 1;
-
-                stage_levelTable.Clear();
-
-                //好感度レベルテーブルを取得
-                switch (GameMgr.stage_number)
-                {
-                    case 1:
-
-                        for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                        {
-                            stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                            //Debug.Log("stage1_levelTable: " + stage_levelTable[i]);
-                        }
-
-                        break;
-
-                    case 2:
-
-                        for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                        {
-                            stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                        }
-                        break;
-
-                    case 3:
-
-                        for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                        {
-                            stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                        }
-                        break;
-                }
-
-                girl1_status.girl1_Love_exp = girllove_param;
-
-                i = 0;
-                while (girllove_param >= stage_levelTable[i])
-                {
-                    girllove_param -= stage_levelTable[i];
-                    girl1_status.girl1_Love_lv++;
-                    i++;
-                }
-                _slider.value = girllove_param;
-                girl1_status.LvUpStatus();
-
-                //スライダマックスバリューも更新
-                _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
-
-
-                //レベル表示も更新
-                girl_lv.text = girl1_status.girl1_Love_lv.ToString();
-                
-
-                //表情も即時変更
-                girl1_status.CheckGokigen();
-                girl1_status.DefaultFace();
-
-                //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
-                GirlHeartEffect.LoveRateChange();
-
-                compound_Main.check_GirlLoveEvent_flag = false;
-            }
+            compound_Main.check_GirlLoveEvent_flag = false;
         }
     }
 
@@ -407,5 +334,93 @@ public class Debug_Panel : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    public void GirlLove_Koushin(int _girllove_param)
+    {
+
+        girl1_status.girl1_Love_exp = 0;
+
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        {
+            canvas = GameObject.FindWithTag("Canvas");
+
+            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+            //女の子の反映用ハートエフェクト取得
+            GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
+            GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
+
+            //好感度バーの取得
+            _slider = canvas.transform.Find("Girl_love_exp_bar").GetComponent<Slider>();
+
+            //女の子のレベル取得
+            girl_lv = canvas.transform.Find("Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+            girl1_status.girl1_Love_lv = 1;
+
+            stage_levelTable.Clear();
+
+            //好感度レベルテーブルを取得
+            switch (GameMgr.stage_number)
+            {
+                case 1:
+
+                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                    {
+                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                        //Debug.Log("stage1_levelTable: " + stage_levelTable[i]);
+                    }
+
+                    break;
+
+                case 2:
+
+                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                    {
+                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                    }
+                    break;
+
+                case 3:
+
+                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                    {
+                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                    }
+                    break;
+            }
+
+            girl1_status.girl1_Love_exp = _girllove_param;
+
+            i = 0;
+            while (_girllove_param >= stage_levelTable[i])
+            {
+                _girllove_param -= stage_levelTable[i];
+                girl1_status.girl1_Love_lv++;
+                i++;
+            }
+            _slider.value = _girllove_param;
+            girl1_status.LvUpStatus();
+
+            //スライダマックスバリューも更新
+            _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+
+
+            //レベル表示も更新
+            girl_lv.text = girl1_status.girl1_Love_lv.ToString();
+
+
+            //表情も即時変更
+            girl1_status.CheckGokigen();
+            girl1_status.DefaultFace();
+
+            //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
+            GirlHeartEffect.LoveRateChange();            
+        }
+    }
+    public void Debug_ReDraw()
+    {
+        
     }
 }
