@@ -123,6 +123,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject stageclear_Button;
     private Toggle stageclear_button_toggle;
     private Text stageclear_button_text;
+    private GameObject itembox_Button;
 
     private bool Recipi_loading;
     private bool GirlLove_loading;
@@ -350,7 +351,10 @@ public class Compound_Main : MonoBehaviour
         stageclear_button_text = stageclear_Button.transform.Find("Text").GetComponent<Text>();
         stageclear_button_toggle.isOn = false;
         stageclear_Button.SetActive(false);
-        
+
+        itembox_Button = canvas.transform.Find("ItemBoxButton").gameObject;
+        itembox_Button.SetActive(true);
+
         compound_status = 0;
         compound_select = 0;       
 
@@ -809,6 +813,7 @@ public class Compound_Main : MonoBehaviour
                 girl_love_exp_bar.SetActive(false);
                 moneystatus_panel.SetActive(false);
                 stageclear_Button.SetActive(false);
+                itembox_Button.SetActive(false);
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEat_Judge_on = false;
@@ -903,6 +908,7 @@ public class Compound_Main : MonoBehaviour
                 compoundselect_onoff_obj.SetActive(true);
                 girl_love_exp_bar.SetActive(true);
                 moneystatus_panel.SetActive(true);
+                itembox_Button.SetActive(true);
                 select_original_button.interactable = true;
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
@@ -1218,6 +1224,7 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 time_controller.TimeCheck_flag = false;
                 stageclear_Button.SetActive(false);
+                itembox_Button.SetActive(false);
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1385,6 +1392,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj1.SetActive(false);
         moneystatus_panel.SetActive(false);
         stageclear_Button.SetActive(false);
+        itembox_Button.SetActive(false);
     }
 
 

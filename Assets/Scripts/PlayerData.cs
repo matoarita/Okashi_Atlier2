@@ -8,7 +8,6 @@ using UnityEngine;
 public class PlayerData
 {
     //主人公ステータス
-    //public string name;
     
     public int save_player_money; // 所持金
     public int save_player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
@@ -41,12 +40,7 @@ public class PlayerData
     public bool[] save_GirlLoveEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];  //各イベントの、現在読み中かどうかのフラグ。
     public bool[] save_GirlLoveEvent_stage2 = new bool[GameMgr.GirlLoveEvent_stage2.Length];
     public bool[] save_GirlLoveEvent_stage3 = new bool[GameMgr.GirlLoveEvent_stage3.Length];
-
-    //お菓子クエストフラグ
-    public bool[] save_OkashiQuest_flag_stage1 = new bool[GameMgr.OkashiQuest_flag_stage1.Length]; //各SPイベントのクリアしたかどうかのフラグ。
-    public bool[] save_OkashiQuest_flag_stage2 = new bool[GameMgr.OkashiQuest_flag_stage2.Length];
-    public bool[] save_OkashiQuest_flag_stage3 = new bool[GameMgr.OkashiQuest_flag_stage3.Length];
-
+   
     //マップイベントフラグ
     public bool[] save_MapEvent_01;         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
     public bool[] save_MapEvent_02;         //井戸。
@@ -56,6 +50,37 @@ public class PlayerData
 
     //広場でのイベント
     public bool[] save_hiroba_event_end = new bool[GameMgr.hiroba_event_end.Length]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。
+
+    //お菓子クエストフラグ
+    public bool[] save_OkashiQuest_flag_stage1 = new bool[GameMgr.OkashiQuest_flag_stage1.Length]; //各SPイベントのクリアしたかどうかのフラグ。
+    public bool[] save_OkashiQuest_flag_stage2 = new bool[GameMgr.OkashiQuest_flag_stage2.Length];
+    public bool[] save_OkashiQuest_flag_stage3 = new bool[GameMgr.OkashiQuest_flag_stage3.Length];
+
+    //ステージ１クリア時の好感度を保存
+    public int save_stage1_girl1_loveexp;
+    public int save_stage2_girl1_loveexp;
+    public int save_stage3_girl1_loveexp;
+
+    public int save_stage1_clear_love;
+    public int save_stage2_clear_love;
+    public int save_stage3_clear_love;
+
+    //ショップのイベントリスト
+    public bool[] save_ShopEvent_stage = new bool[GameMgr.ShopEvent_stage.Length];
+
+    //コンテストのイベントリスト
+    public bool[] save_ContestEvent_stage = new bool[GameMgr.ContestEvent_stage.Length];
+
+    //コンテスト審査員の点数
+    public int[] save_contest_Score = new int[GameMgr.contest_Score.Length];
+    public int save_contest_TotalScore;
+
+    //牧場のイベントリスト
+    public bool[] save_FarmEvent_stage = new bool[GameMgr.FarmEvent_stage.Length];
+
+    //以下はまだ登録してない
+    //アイテムリスト
+    public List<int> itemList;
 
     public override string ToString()
     {

@@ -390,6 +390,9 @@ MonoBehaviour:
   kettei_recipiitem1: 0
   kettei_recipiitem2: 0
   kettei_recipiitem3: 0
+  kettei_toggle_type1: 0
+  kettei_toggle_type2: 0
+  kettei_toggle_type3: 0
   result_recipiitem: 0
   result_recipicompID: 0
   final_kettei_recipikosu1: 0
@@ -682,7 +685,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 651d08e1793e7004c9bd3e0d27c61cb3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 886573e17c0ebca428bd4cf00cc844df, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1119,7 +1122,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224423621552759710}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1574,7 +1577,7 @@ RectTransform:
   m_GameObject: {fileID: 1894842811882096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224934425609593050}
   m_Father: {fileID: 224646733474211326}
@@ -1582,8 +1585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -194, y: 189}
-  m_SizeDelta: {x: 300, y: 51.5}
+  m_AnchoredPosition: {x: -186, y: 200}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224841692507176254
 RectTransform:

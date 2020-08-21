@@ -106,6 +106,28 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //広場でのイベント
             save_hiroba_event_end = GameMgr.hiroba_event_end,
+
+            //ステージ１クリア時の好感度を保存
+            save_stage1_girl1_loveexp = GameMgr.stage1_girl1_loveexp,
+            save_stage2_girl1_loveexp = GameMgr.stage2_girl1_loveexp,
+            save_stage3_girl1_loveexp = GameMgr.stage3_girl1_loveexp,
+
+            save_stage1_clear_love = GameMgr.stage1_clear_love,
+            save_stage2_clear_love = GameMgr.stage2_clear_love,
+            save_stage3_clear_love = GameMgr.stage3_clear_love,
+
+            //ショップのイベントリスト
+            save_ShopEvent_stage = GameMgr.ShopEvent_stage,
+
+            //コンテストのイベントリスト
+            save_ContestEvent_stage = GameMgr.ContestEvent_stage,
+
+            //コンテスト審査員の点数
+            save_contest_Score = GameMgr.contest_Score,
+            save_contest_TotalScore = GameMgr.contest_TotalScore,
+
+            //牧場のイベントリスト
+            save_FarmEvent_stage = GameMgr.FarmEvent_stage,
 };
 
         //デバッグ用
@@ -213,6 +235,28 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //広場でのイベント
         GameMgr.hiroba_event_end = playerData.save_hiroba_event_end;
+
+        //ステージ１クリア時の好感度を保存
+        GameMgr.stage1_girl1_loveexp = playerData.save_stage1_girl1_loveexp;
+        GameMgr.stage2_girl1_loveexp = playerData.save_stage2_girl1_loveexp;
+        GameMgr.stage3_girl1_loveexp = playerData.save_stage3_girl1_loveexp;
+
+        GameMgr.stage1_clear_love = playerData.save_stage1_clear_love;
+        GameMgr.stage2_clear_love = playerData.save_stage2_clear_love;
+        GameMgr.stage3_clear_love = playerData.save_stage3_clear_love;
+
+        //ショップのイベントリスト
+        GameMgr.ShopEvent_stage = playerData.save_ShopEvent_stage;
+
+        //コンテストのイベントリスト
+        GameMgr.ContestEvent_stage = playerData.save_ContestEvent_stage;
+
+        //コンテスト審査員の点数
+        GameMgr.contest_Score = playerData.save_contest_Score;
+        GameMgr.contest_TotalScore = playerData.save_contest_TotalScore;
+
+        //牧場のイベントリスト
+        GameMgr.FarmEvent_stage = playerData.save_FarmEvent_stage;
 
         //デバッグ用
         /*Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
