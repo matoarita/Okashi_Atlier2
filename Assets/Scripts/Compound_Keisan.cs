@@ -261,7 +261,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //
         //アイテムデータベースの味パラムを初期化。初期化は、ゲーム起動時の一回のみ。
         //
+        ResetDefaultTasteParam();
         
+    }
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    public void ResetDefaultTasteParam()
+    {
         for (DBcount = 0; DBcount < databaseCompo.compoitems.Count; DBcount++)
         {
             if (databaseCompo.compoitems[DBcount].cmpitem_Name != "") //名前が空白の場合は無視する
@@ -292,13 +302,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
 
 
     //           //
@@ -750,7 +753,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //**ここまで**
     }
 
-    //決定アイテムなどのパラメータを取得
+    //調合の際、事前に計算してカードに表示する場合などに使う予定。現在未使用。
     void SetParamYosokuInit()
     {
         //プレイヤーアイテム表示用コントローラーの取得

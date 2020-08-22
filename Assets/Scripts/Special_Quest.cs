@@ -17,7 +17,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
-    public int special_kaisu; //一回のクエストで、3回まで挑戦できる。
+    public int special_kaisu; //一回のクエストで、3回まで挑戦できる。現在は、回数制限は未使用。
     public int special_kaisu_max;
     public int[,] special_score_record; //そのときの、点数も記録。一つの列に3個点数を保持。
     public int spquest_set_num;

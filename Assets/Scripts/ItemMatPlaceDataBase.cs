@@ -53,6 +53,12 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     {
         DontDestroyOnLoad(this); //ゲーム中のアイテムリスト情報は、ゲーム中で全て共通のデータベースで管理したい。なので、破壊されないようにしておく。
 
+        ResetDefaultMapExcel();
+        
+    }
+
+    public void ResetDefaultMapExcel()
+    {
         matplace_lists.Clear();
 
         excel_matplace_itemdatabase = Resources.Load("Excel/Entity_matplaceItemDataBase") as Entity_matplaceItemDataBase;
@@ -103,15 +109,14 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
 
 
             //ここでリストに追加している
-            matplace_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_day, place_cost, place_flag, 
+            matplace_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_day, place_cost, place_flag,
                 drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_item6, drop_item7, drop_item8, drop_item9, drop_item10,
-                drop_rare1, drop_rare2, drop_rare3, 
+                drop_rare1, drop_rare2, drop_rare3,
                 drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_prob6, drop_prob7, drop_prob8, drop_prob9, drop_prob10,
                 drop_rare_prob1, drop_rare_prob2, drop_rare_prob3, center_bg, back_bg));
 
             ++count;
         }
-
     }
 
     //マップ名をいれると、そのマップを解禁する

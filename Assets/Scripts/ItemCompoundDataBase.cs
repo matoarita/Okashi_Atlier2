@@ -50,6 +50,11 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     {
         DontDestroyOnLoad(this); //ゲーム中のアイテムリスト情報は、ゲーム中で全て共通のデータベースで管理したい。なので、破壊されないようにしておく。
 
+        ResetDefaultCompoExcel();
+    }
+
+    public void ResetDefaultCompoExcel()
+    {
         compoitems.Clear();
 
         excel_compoitemdatabase = Resources.Load("Excel/Entity_compoItemDataBase") as Entity_compoItemDataBase;
@@ -89,7 +94,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
             _comp_count = excel_compoitemdatabase.sheets[sheet_no].list[count].comp_count;
 
             //ここでリストに追加している
-            compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, 
+            compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
                 cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3, cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count));
 
             ++count;

@@ -340,7 +340,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         if (shopquestlistController.quest_itemID != 9999)
         {
             _itemcount = pitemlist.KosuCount(database.items[shopquestlistController.quest_itemID].itemName);
-            _text.text = "依頼のアイテムを納品する？" + "\n" + "現在の所持数: " + GameMgr.ColorLemon + _itemcount + "</color>";
+            _text.text = "依頼のアイテムを納品する？" + "\n" + "現在の所持数: " + GameMgr.ColorYellow + _itemcount + "</color>";
         }
         else
         {

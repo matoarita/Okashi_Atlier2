@@ -251,14 +251,7 @@ public class SetImage : MonoBehaviour
     {
         Card_draw();
     }
-
-    public void SetYosokuInit() //生成するカードのパラメータを、あらかじめ予測して表示する
-    {
-        //合成計算オブジェクトの取得
-        compound_keisan = GameObject.FindWithTag("Compound_Keisan").GetComponent<Compound_Keisan>();
-
-        Card_YosokuDraw();
-    }
+   
 
     void Card_draw()
     {
@@ -438,78 +431,7 @@ public class SetImage : MonoBehaviour
         }
 
         DrawCard();
-    }
-
-    void Card_YosokuDraw()
-    {
-        check_counter = compound_keisan._baseID;
-
-        //アイテムタイプを代入//
-        item_type = compound_keisan._base_itemType;
-
-        //サブカテゴリーの代入
-        item_type_sub = compound_keisan._base_itemType_sub;
-
-        /* アイテム解説の表示 */
-        item_RankDesc.text = compound_keisan._base_itemdesc;
-
-        // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
-        texture2d = database.items[check_counter].itemIcon;
-
-        //カードのアイテム名
-        item_Name.text = database.items[check_counter].itemNameHyouji;
-
-        //アイテムの品質値
-        _quality = compound_keisan._basequality.ToString();
-
-        //甘さなどのパラメータを代入
-        _quality_score = compound_keisan._basequality;
-        _rich_score = compound_keisan._baserich;
-        _sweat_score = compound_keisan._basesweat;
-        _bitter_score = compound_keisan._basebitter;
-        _sour_score = compound_keisan._basesour;
-
-        _crispy_score = compound_keisan._basecrispy;
-        _fluffy_score = compound_keisan._basefluffy;
-        _smooth_score = compound_keisan._basesmooth;
-        _hardness_score = compound_keisan._basehardness;
-
-        _powdery_score = compound_keisan._basepowdery;
-        _oily_score = compound_keisan._baseoily;
-        _watery_score = compound_keisan._basewatery;
-
-        _eat_kaisu = database.items[check_counter].Eat_kaisu;
-        _highscore_flag = database.items[check_counter].HighScore_flag;
-        _lasttotal_score = database.items[check_counter].last_total_score;
-        _lasthint_text = database.items[check_counter].last_hinttext;
-
-        for (i = 0; i < _slot.Length; i++)
-        {
-            _slot[i] = compound_keisan._basetp[i].ToString();
-        }
-
-
-        //カード正式名称（ついてるスロット名も含めた名前）
-
-        for (i = 0; i < _slot.Length; i++)
-        {
-            count = 0;
-
-            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
-            while (count < slotnamedatabase.slotname_lists.Count)
-            {
-                if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
-                {
-                    _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
-                    _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
-                    break;
-                }
-                count++;
-            }
-        }
-
-        DrawCard();
-    }
+    }    
 
     void DrawCard()
     {
@@ -1082,4 +1004,84 @@ public class SetImage : MonoBehaviour
     {
         kosu_panel.SetActive(false);
     }
+
+
+    /*public void SetYosokuInit() //生成するカードのパラメータを、あらかじめ予測して表示する
+    {
+        //合成計算オブジェクトの取得
+        compound_keisan = GameObject.FindWithTag("Compound_Keisan").GetComponent<Compound_Keisan>();
+
+        Card_YosokuDraw();
+    }
+
+    void Card_YosokuDraw()
+    {
+        check_counter = compound_keisan._baseID;
+
+        //アイテムタイプを代入//
+        item_type = compound_keisan._base_itemType;
+
+        //サブカテゴリーの代入
+        item_type_sub = compound_keisan._base_itemType_sub;
+
+        // アイテム解説の表示
+        item_RankDesc.text = compound_keisan._base_itemdesc;
+
+        // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
+        texture2d = database.items[check_counter].itemIcon;
+
+        //カードのアイテム名
+        item_Name.text = database.items[check_counter].itemNameHyouji;
+
+        //アイテムの品質値
+        _quality = compound_keisan._basequality.ToString();
+
+        //甘さなどのパラメータを代入
+        _quality_score = compound_keisan._basequality;
+        _rich_score = compound_keisan._baserich;
+        _sweat_score = compound_keisan._basesweat;
+        _bitter_score = compound_keisan._basebitter;
+        _sour_score = compound_keisan._basesour;
+
+        _crispy_score = compound_keisan._basecrispy;
+        _fluffy_score = compound_keisan._basefluffy;
+        _smooth_score = compound_keisan._basesmooth;
+        _hardness_score = compound_keisan._basehardness;
+
+        _powdery_score = compound_keisan._basepowdery;
+        _oily_score = compound_keisan._baseoily;
+        _watery_score = compound_keisan._basewatery;
+
+        _eat_kaisu = database.items[check_counter].Eat_kaisu;
+        _highscore_flag = database.items[check_counter].HighScore_flag;
+        _lasttotal_score = database.items[check_counter].last_total_score;
+        _lasthint_text = database.items[check_counter].last_hinttext;
+
+        for (i = 0; i < _slot.Length; i++)
+        {
+            _slot[i] = compound_keisan._basetp[i].ToString();
+        }
+
+
+        //カード正式名称（ついてるスロット名も含めた名前）
+
+        for (i = 0; i < _slot.Length; i++)
+        {
+            count = 0;
+
+            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
+            while (count < slotnamedatabase.slotname_lists.Count)
+            {
+                if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
+                {
+                    _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
+                    _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    break;
+                }
+                count++;
+            }
+        }
+
+        DrawCard();
+    }*/
 }

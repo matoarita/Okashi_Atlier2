@@ -14,14 +14,7 @@ public class Particle_Heart_Character : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-        //女の子データの取得
-        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
-
-        particle = this.GetComponent<ParticleSystem>();
-
-        particleEm = particle.emission;
-
+              
         LoveRateChange();
     }
 	
@@ -32,6 +25,12 @@ public class Particle_Heart_Character : MonoBehaviour {
 
     public void LoveRateChange()
     {
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        particle = this.GetComponent<ParticleSystem>();
+        particleEm = particle.emission;
+
         _love = girl1_status.girl1_Love_exp;
         _love = _love * 0.1f;
 

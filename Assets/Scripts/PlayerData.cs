@@ -34,7 +34,13 @@ public class PlayerData
 
     //ステージ番号
     public int save_stage_number;
-    
+
+    //シナリオの進み具合
+    public int save_scenario_flag;
+
+    //初期アイテム取得フラグ
+    public bool save_gamestart_recipi_get;
+
     //イベントフラグ
     public int save_GirlLoveEvent_num;
     public bool[] save_GirlLoveEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];  //各イベントの、現在読み中かどうかのフラグ。
@@ -78,9 +84,27 @@ public class PlayerData
     //牧場のイベントリスト
     public bool[] save_FarmEvent_stage = new bool[GameMgr.FarmEvent_stage.Length];
 
-    //以下はまだ登録してない
-    //アイテムリスト
-    public List<int> itemList;
+    //アイテムリスト<デフォルト> 所持数のみのリスト
+    public List<int> save_playeritemlist = new List<int>();
+
+    //プレイヤーのイベントアイテムリスト。
+    public List<ItemEvent> save_eventitemlist = new List<ItemEvent>();
+
+    //プレイヤーが作成したオリジナルのアイテムリスト。
+    public List<Item> save_player_originalitemlist = new List<Item>();
+
+    //アイテムの前回スコアなどを記録する
+    public List<Item> save_itemdatabase = new List<Item>();
+
+    //調合のフラグ＋調合回数を記録する
+    public List<ItemCompound> save_itemCompodatabase = new List<ItemCompound>();
+
+    //マップのフラグリスト
+    public List<int> save_mapflaglist = new List<int>();
+
+    //エクストリームパネル用のアイテムとタイプ
+    public int save_extreme_itemid;
+    public int save_extreme_itemtype;
 
     public override string ToString()
     {

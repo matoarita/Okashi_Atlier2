@@ -338,6 +338,8 @@ public class Debug_Panel : MonoBehaviour {
 
     public void GirlLove_Koushin(int _girllove_param)
     {
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
 
         girl1_status.girl1_Love_exp = 0;
 
@@ -419,6 +421,7 @@ public class Debug_Panel : MonoBehaviour {
             GirlHeartEffect.LoveRateChange();            
         }
     }
+
     public void Debug_ReDraw()
     {
         

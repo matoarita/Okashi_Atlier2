@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class SystemSelectPanel : MonoBehaviour {
 
     private SaveController save_controller;
-
     private SoundController sc;
 
     // Use this for initialization
@@ -29,14 +28,12 @@ public class SystemSelectPanel : MonoBehaviour {
     public void OnSaveButton()
     {
         save_controller.OnSaveMethod();
-        sc.PlaySe(28);
     }
 
     //ロード
     public void OnLoadButton()
     {
         save_controller.OnLoadMethod();
-        sc.PlaySe(28);
     }
 
     //オプション

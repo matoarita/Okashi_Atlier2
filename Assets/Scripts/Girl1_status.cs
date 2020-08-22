@@ -250,32 +250,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Init_touchTwintailComment();
 
         //好感度レベルのテーブル初期化
-        Init_Stage1_LVTable();
-
-        //この時間ごとに、女の子は、お菓子を欲しがり始める。
-        Default_hungry_cooltime = 0.5f;
-        timeOut = Default_hungry_cooltime;
-        timeOut2 = 10.0f;
-        timeOutIdle = 5.0f;
-        timeGirl_hungry_status = 1;
-
-        GirlGokigenStatus = 0;
-        girl1_Love_exp = 0;
-        girl1_Love_lv = 1;
-        OkashiNew_Status = 1;
-        Special_ignore_count = 0;
-
-        GirlEat_Judge_on = true;
-        WaitHint_on = false;
-        timeOutHint = 5.0f;
-
-        special_animstart_flag = false;
-        special_animstart_endflag = false;
-        special_animstart_status = 0;
-        special_timeOut = 3.0f;
-        special_animatFirst = false;
-
-        MazuiStatus = 0;
+        Init_Stage1_LVTable();         
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -287,9 +262,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 trans = maincam_animator.GetInteger("trans");
 
                 //Live2Dモデルの取得
-                _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                /*_model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                 live2d_animator = _model.GetComponent<Animator>();
-                trans_expression = live2d_animator.GetInteger("trans_expression");
+                trans_expression = live2d_animator.GetInteger("trans_expression");*/
 
                 //初期表情の設定
                 CheckGokigen();
@@ -332,18 +307,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_img_tereru = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_tereru");
         Girl1_img_angry = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_angry");
         Girl1_img_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_iya");*/
-
-        Girl1_touchhair_start = false;
-        Girl1_touchhair_count = 0;
-        Girl1_touchhair_status = 0;
-
-        Girl1_touchtwintail_count = 0;
-        Girl1_touchtwintail_flag = false;
-
-        girl_Mazui_flag = false;
-
-        touch_status = 0;
-
+       
         // *** パラメータ初期設定 ***
 
         youso_count = 3; //配列3のサイズ
@@ -370,8 +334,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girllike_desc = new string[youso_count];
         girllike_comment_flag = new int[youso_count];
 
-        //ステージごとに、女の子が食べたいお菓子のセットを初期化
-        InitializeStageGirlHungrySet(0, 0); //とりあえず0で初期化
+
+        //デフォルトステータスを設定
+        ResetDefaultStatus();
 
         // *** ここまで *** 
 
@@ -379,6 +344,49 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Emo_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Emo_Hirameki_Anim");
         Emo_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Emo_Kirari_Anim");
         Emo_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Emo_Angry_Anim");
+       
+    }
+
+    public void ResetDefaultStatus()
+    {
+        //この時間ごとに、女の子は、お菓子を欲しがり始める。
+        Default_hungry_cooltime = 0.5f;
+        timeOut = Default_hungry_cooltime;
+        timeOut2 = 10.0f;
+        timeOutIdle = 5.0f;
+        timeGirl_hungry_status = 1;
+
+        GirlGokigenStatus = 0;
+        girl1_Love_exp = 0;
+        girl1_Love_lv = 1;
+        OkashiNew_Status = 1;
+        Special_ignore_count = 0;
+
+        GirlEat_Judge_on = true;
+        WaitHint_on = false;
+        timeOutHint = 5.0f;
+
+        special_animstart_flag = false;
+        special_animstart_endflag = false;
+        special_animstart_status = 0;
+        special_timeOut = 3.0f;
+        special_animatFirst = false;
+
+        MazuiStatus = 0;
+
+        Girl1_touchhair_start = false;
+        Girl1_touchhair_count = 0;
+        Girl1_touchhair_status = 0;
+
+        Girl1_touchtwintail_count = 0;
+        Girl1_touchtwintail_flag = false;
+
+        girl_Mazui_flag = false;
+
+        touch_status = 0;
+
+        //ステージごとに、女の子が食べたいお菓子のセットを初期化
+        InitializeStageGirlHungrySet(0, 0); //とりあえず0で初期化
 
         //好感度ステータスで変わる吹き出しテキストをセッティング        
         RandomGenkiInit();
@@ -402,9 +410,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     trans = maincam_animator.GetInteger("trans");
 
                     //Live2Dモデルの取得
-                    _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                    /*_model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     live2d_animator = _model.GetComponent<Animator>();
-                    trans_expression = live2d_animator.GetInteger("trans_expression");
+                    trans_expression = live2d_animator.GetInteger("trans_expression");*/
 
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -749,6 +757,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void DefaultFace()
     {
+        //Live2Dモデルの取得
+        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+        live2d_animator = _model.GetComponent<Animator>();
+        trans_expression = live2d_animator.GetInteger("trans_expression");
+
         switch (GirlGokigenStatus)
         {
             case 0:

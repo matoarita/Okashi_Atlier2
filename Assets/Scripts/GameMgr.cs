@@ -10,8 +10,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int scenario_flag;    //全シーンで共通。今、どのシナリオまできているか。
     public static bool scenario_ON;     //全シーンで共通。宴・シナリオを優先するフラグ。これがONのときは、調合シーンなどでも、宴の表示をまず優先する。宴を読み終えたらOFFにする。
-    public int scenario_flag_input;     //デバッグ用。シナリオフラグをインスペクタから入力
-    public int scenario_flag_cullent;   //デバッグ用。現在のシナリオフラグを確認用
+    public static int scenario_flag_input;     //デバッグ用。シナリオフラグをインスペクタから入力
+    public static int scenario_flag_cullent;   //デバッグ用。現在のシナリオフラグを確認用
 
     public static bool scenario_read_endflag; //シナリオ（メインなどのイベント用）を読み終えたフラグ
 
@@ -141,7 +141,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     private PlayerItemList pitemlist;
 
-    private int i, j;
+    public static int system_i;
     private int ev_id;
 
     private float timeLeft;
@@ -155,9 +155,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ステージ最初の読み込みフラグ
     public static bool stage1_load_ok;
 
-    //イベントフラグ管理用
-    [SerializeField]
-    private bool gamestart_recipi_get;
+    //初期アイテム取得のフラグ
+    public static bool gamestart_recipi_get;
+
+    //エクストリームパネルのアイテム保存
+    public static int sys_extreme_itemID;
+    public static int sys_extreme_itemType;
+
+    //ロード「続きから」を押したフラグ
+    public static bool GameLoadOn;
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
@@ -174,10 +180,50 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     // Use this for initialization
     void Start () {
+
         DontDestroyOnLoad(this);
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //秒計算。　
+        timeLeft = 1.0f;
+
+        //各イベントフラグ・ゲームパラメーターの初期設定
+        ResetGameDefaultStatus();       
+
+        //各色の設定
+        ColorYellow = "<color=#BA9535>"; // ゴールドに近いくすんだ黄色
+        ColorLemon = "<color=#FDFF80>"; // かなり薄い黄色FDFF80
+        ColorPink = "<color=#FF5CA1>";
+        ColorRed = "<color=#FF0000>";
+        ColorBlue = "<color=#0000FF>";
+        ColorCyan = "<color=#44A2FF>";
+        ColorOrange = "<color=#FF8400>";
+        ColorGreen = "<color=48EE72FF>";
+    }
+	
+	// Update is called once per frame
+	void Update () {
+
+        //デバッグ用
+        scenario_flag_cullent = scenario_flag;
+
+        //時間のカウント
+        timeLeft -= Time.deltaTime;
+
+        //1秒ごとのタイムカウンター
+        if (timeLeft <= 0.0)
+        {
+            timeLeft = 1.0f;
+            Game_timeCount++;
+        }
+
+    }
+
+    public static void ResetGameDefaultStatus()
+    {
+        GameLoadOn = false;
 
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。
         scenario_ON = false;
@@ -190,7 +236,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         recipi_read_flag = false;
         recipi_read_endflag = false;
 
-        touchhint_flag = false; 
+        touchhint_flag = false;
 
         itemuse_recipi_flag = false;
         map_event_flag = false;
@@ -209,9 +255,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         hiroba_event_flag = false;
         //広場イベント読み終えたフラグの初期化
-        for (i = 0; i < hiroba_event_end.Length; i++)
+        for (system_i = 0; system_i < hiroba_event_end.Length; system_i++)
         {
-            hiroba_event_end[i] = false;            
+            hiroba_event_end[system_i] = false;
         }
 
         stage_number = 1;
@@ -220,11 +266,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Scene_back_home = false;
 
-        //秒計算。　
-        timeLeft = 1.0f;
+        
         Game_timeCount = 0; //1秒タイマー
 
-        GirlLoveEvent_num = 0;       
+        GirlLoveEvent_num = 0;
         girlloveevent_flag = false;
         girlloveevent_endflag = false;
 
@@ -237,39 +282,42 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CompoundEvent_storyflag = false;
         CompoundEvent_storynum = 0;
 
+        sys_extreme_itemID = 9999;
+        sys_extreme_itemType = 0;
+
         //好感度イベントフラグの初期化
-        for (i = 0; i < GirlLoveEvent_stage1.Length; i++)
+        for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
         {
-            GirlLoveEvent_stage1[i] = false;
-            GirlLoveEvent_stage2[i] = false;
-            GirlLoveEvent_stage3[i] = false;
+            GirlLoveEvent_stage1[system_i] = false;
+            GirlLoveEvent_stage2[system_i] = false;
+            GirlLoveEvent_stage3[system_i] = false;
         }
 
         //ショップイベントフラグの初期化
-        for (i = 0; i < GirlLoveEvent_stage1.Length; i++)
+        for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
         {
-            ShopEvent_stage[i] = false;
-            FarmEvent_stage[i] = false;
+            ShopEvent_stage[system_i] = false;
+            FarmEvent_stage[system_i] = false;
         }
 
         //コンテストイベントフラグの初期化
-        for (i = 0; i < ContestEvent_stage.Length; i++)
+        for (system_i = 0; system_i < ContestEvent_stage.Length; system_i++)
         {
-            ContestEvent_stage[i] = false;
+            ContestEvent_stage[system_i] = false;
         }
-        for (i = 0; i < contest_Score.Length; i++)
+        for (system_i = 0; system_i < contest_Score.Length; system_i++)
         {
-            contest_Score[i] = 0;
+            contest_Score[system_i] = 0;
         }
         contest_TotalScore = 0;
 
         //マップイベントの初期化
-        for (i = 0; i < MapEvent_01.Length; i++)
+        for (system_i = 0; system_i < MapEvent_01.Length; system_i++)
         {
-            MapEvent_01[i] = false;
-            MapEvent_02[i] = false;
-            MapEvent_03[i] = false;
-            MapEvent_04[i] = false;
+            MapEvent_01[system_i] = false;
+            MapEvent_02[system_i] = false;
+            MapEvent_03[system_i] = false;
+            MapEvent_04[system_i] = false;
         }
 
         //通常お菓子感想フラグ
@@ -283,10 +331,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         emeralDonguri_flag = false;
 
         //お菓子フラグの初期化
-        for (i = 0; i < OkashiQuest_flag_stage1.Length; i++) {
-            OkashiQuest_flag_stage1[i] = false;
-            OkashiQuest_flag_stage2[i] = false;
-            OkashiQuest_flag_stage3[i] = false;
+        for (system_i = 0; system_i < OkashiQuest_flag_stage1.Length; system_i++)
+        {
+            OkashiQuest_flag_stage1[system_i] = false;
+            OkashiQuest_flag_stage2[system_i] = false;
+            OkashiQuest_flag_stage3[system_i] = false;
         }
         OkashiQuest_Num = 0;
         QuestClearflag = false;
@@ -316,53 +365,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage1_limit_day = 98;
         stage2_limit_day = 151;
         stage3_limit_day = 211;
-        
-        //各色の設定
-        ColorYellow = "<color=#BA9535>"; // ゴールドに近いくすんだ黄色
-        ColorLemon = "<color=#FDFF80>"; // かなり薄い黄色FDFF80
-        ColorPink = "<color=#FF5CA1>";
-        ColorRed = "<color=#FF0000>";
-        ColorBlue = "<color=#0000FF>";
-        ColorCyan = "<color=#44A2FF>";
-        ColorOrange = "<color=#FF8400>";
-        ColorGreen = "<color=48EE72FF>";
     }
-	
-	// Update is called once per frame
-	void Update () {
-
-        //デバッグ用
-        scenario_flag_cullent = scenario_flag;
-
-        //時間のカウント
-        timeLeft -= Time.deltaTime;
-
-        //1秒ごとのタイムカウンター
-        if (timeLeft <= 0.0)
-        {
-            timeLeft = 1.0f;
-            Game_timeCount++;
-        }
-
-
-        //ゲーム中にイベントで入手したアイテムの管理
-
-        //ゲームの一番最初に絶対手に入れるレシピ
-        if (gamestart_recipi_get != true)
-        {
-            if (scenario_flag == 110)
-            {
-                ev_id = pitemlist.Find_eventitemdatabase("najya_start_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
-
-
-                ev_id = pitemlist.Find_eventitemdatabase("ev01_neko_cookie_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
-
-                gamestart_recipi_get = true; //ゲットしたよフラグをONに。
-            }
-        }
-    }
-
-
+    
 }

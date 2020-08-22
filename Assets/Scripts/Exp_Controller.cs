@@ -406,8 +406,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //パネルに、作ったやつを表示する。
                     extremePanel.SetExtremeItem(result_item, 1);
 
-                    //お菓子のHPをセット
-                    extremePanel.SetDegOkashiLife(pitemlist.player_originalitemlist[result_item].itemHP);
                 }
             }
             else
@@ -415,8 +413,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //パネルに、作ったやつを表示する。
                 extremePanel.SetExtremeItem(result_item, 1);
 
-                //お菓子のHPをセット
-                extremePanel.SetDegOkashiLife(pitemlist.player_originalitemlist[result_item].itemHP);
             }
 
             new_item = result_item;
@@ -441,8 +437,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //右側パネルに、作ったやつを表示する。
                 extremePanel.SetExtremeItem(result_item, 0);
 
-                //お菓子のHPをセット
-                extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
             }
 
             new_item = result_item;
@@ -645,8 +639,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //右側パネルに、作ったやつを表示する。
                 extremePanel.SetExtremeItem(result_item, 1);
 
-                //お菓子のHPをセット
-                extremePanel.SetDegOkashiLife(pitemlist.player_originalitemlist[result_item].itemHP);
             }
 
             new_item = result_item;
@@ -671,8 +663,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //パネルに、作ったやつを表示する。
                     extremePanel.SetExtremeItem(result_item, 0);
 
-                    //お菓子のHPをセット
-                    extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
                 }
             }
             else
@@ -680,8 +670,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //右側パネルに、作ったやつを表示する。
                 extremePanel.SetExtremeItem(result_item, 0);
 
-                //お菓子のHPをセット
-                extremePanel.SetDegOkashiLife(database.items[result_item].itemHP);
             }
 
             card_view.RecipiResultCard_DrawView(0, result_item);
@@ -908,9 +896,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //右側パネルに、作ったやつを表示する。
             extremePanel.SetExtremeItem(new_item, 1);
-
-            //お菓子のHPをセット
-            extremePanel.SetDegOkashiLife(pitemlist.player_originalitemlist[new_item].itemHP);
             
             //テキストの表示
             renkin_exp_up();

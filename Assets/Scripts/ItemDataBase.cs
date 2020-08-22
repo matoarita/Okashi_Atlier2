@@ -62,7 +62,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
     private int _itemhyouji;
     private int _judge_num;
-    private int _ex_kaisu;
+    private int _ex_kaisu = 1;
 
     private int i;
     private int count;
@@ -90,8 +90,6 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
         trash_ID_1 = 500;
         sheet_no = 0;
-
-        _ex_kaisu = 1;
 
         while (sheet_no < excel_itemdatabase.sheets.Count)
         {
@@ -216,5 +214,28 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
         }
 
         return 0;
+    }
+
+    public void ResetLastScore()
+    {
+        for (i = 0; i < items.Count; i++)
+        {
+            items[i].ExtremeKaisu = _ex_kaisu;
+            items[i].Eat_kaisu = 0;
+            items[i].HighScore_flag = false;
+
+            items[i].last_total_score = 0;
+            items[i].last_rich_score = 0;
+            items[i].last_sweat_score = 0;
+            items[i].last_bitter_score = 0;
+            items[i].last_sour_score = 0;
+            items[i].last_crispy_score = 0;
+            items[i].last_fluffy_score = 0;
+            items[i].last_smooth_score = 0;
+            items[i].last_hardness_score = 0;
+            items[i].last_jiggly_score = 0;
+            items[i].last_chewy_score = 0;
+            items[i].last_hinttext = "";
+        }
     }
 }

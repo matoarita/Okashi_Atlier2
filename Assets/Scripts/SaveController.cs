@@ -6,15 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class SaveController : SingletonMonoBehaviour<SaveController>
 {
-    //保存するものリスト
 
+    //保存するものリスト
     //GameMgrから、シナリオ・イベントのフラグ類
     //プレイヤーステータス　staticなので、インスタンスの取得の必要はなし。
     private PlayerItemList pitemlist; //プレイヤーアイテムのデータ
-    private Girl1_status girl1_status; //女の子ステータス   
-    private ItemCompoundDataBase databaseCompo; //調合DBのレシピフラグ
-    
+    private Girl1_status girl1_status; //女の子ステータス
+    private ItemDataBase database; //前回の最高得点などを記録する
+    private ItemCompoundDataBase databaseCompo; //調合DBのレシピフラグと前回の点数データ    
+    private ItemMatPlaceDataBase matplace_database; //マップのオンフラグ
+    private ExtremePanel extreme_panel; //エクストリームパネルに登録したものがあった場合は、そのアイテムも表示されるように。
+
+    //保存するものリスト　ここまで
+
     private PlayerData playerData;
+    private Compound_Keisan compound_keisan;
     private Debug_Panel debug_panel; //画面更新用のメソッドを借りる。
     private BGM sceneBGM;
     private Special_Quest special_quest;
@@ -23,6 +29,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private GameObject canvas;
 
     private Text questname;
+    private List<int> _tempplayeritemlist = new List<int>();
+    private List<int> _tempmap_placeflaglist = new List<int>();
 
     private int i;
 
@@ -35,11 +43,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+
+        //味パラメータ初期化
+        compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
 
     }
 	
@@ -57,6 +74,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         Debug.Log("DataBank.Open()");
         Debug.Log($"save path of bank is { bank.SavePath }");
 
+        //アイテムリストの所持数を取得
+        _tempplayeritemlist.Clear();
+        for (i=0; i < pitemlist.playeritemlist.Count; i++)
+        {
+            _tempplayeritemlist.Add(pitemlist.playeritemlist[i]);
+        }
+        
+        //マップのフラグのみ取得
+        for (i = 0; i < matplace_database.matplace_lists.Count; i++)
+        {
+            _tempmap_placeflaglist.Add(matplace_database.matplace_lists[i].placeFlag);
+        }
+
+        
         //セーブ保存用のクラスを新規作成。
         playerData = new PlayerData()
         {
@@ -85,6 +116,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ステージ番号
             save_stage_number = GameMgr.stage_number,
+
+            //シナリオの進み具合
+            save_scenario_flag = GameMgr.scenario_flag,
+
+            //初期アイテム取得フラグ
+            save_gamestart_recipi_get = GameMgr.gamestart_recipi_get,
 
             //イベントフラグ
             save_GirlLoveEvent_num = GameMgr.GirlLoveEvent_num,
@@ -128,7 +165,30 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //牧場のイベントリスト
             save_FarmEvent_stage = GameMgr.FarmEvent_stage,
-};
+
+            //アイテムリスト＜デフォルト＞
+            save_playeritemlist = _tempplayeritemlist,
+
+            //プレイヤーのイベントアイテムリスト。
+            save_eventitemlist = pitemlist.eventitemlist,
+
+            //アイテムリスト＜オリジナル＞
+            save_player_originalitemlist = pitemlist.player_originalitemlist,
+
+            //アイテムの前回スコアなどを記録する
+            save_itemdatabase = database.items,
+
+            //調合のフラグ＋調合回数を記録する
+            save_itemCompodatabase = databaseCompo.compoitems,
+
+            //マップフラグリスト
+            save_mapflaglist = _tempmap_placeflaglist,
+
+            //エクストリームパネルのアイテムIDも保存
+            save_extreme_itemid = GameMgr.sys_extreme_itemID,
+            save_extreme_itemtype = GameMgr.sys_extreme_itemType,
+    };
+       
 
         //デバッグ用
         Debug.Log("セーブ　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
@@ -154,19 +214,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
     //ロード処理
     public void OnLoadMethod()
-    {
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
-        debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
-
-        money_status = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
-
-        //メイン画面に表示する、現在のクエスト
-        questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
-
-        //BGMの取得
-        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+    {       
 
         //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
         DataBank bank = DataBank.Open();
@@ -179,7 +227,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
         bank.Load<PlayerData>("player1");
-        Debug.Log("bank.Load()");
+        Debug.Log("ロード完了");
 
         //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
         playerData = bank.Get<PlayerData>("player1");
@@ -213,7 +261,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.First_extreme_on = playerData.save_First_extreme_on;
 
         //ステージ番号
-        GameMgr.stage_number = playerData.save_stage_number; 
+        GameMgr.stage_number = playerData.save_stage_number;
+
+        //シナリオの進み具合
+        GameMgr.scenario_flag = playerData.save_scenario_flag;
+
+        //初期アイテム取得フラグ
+        GameMgr.gamestart_recipi_get = playerData.save_gamestart_recipi_get;
 
         //イベントフラグ
         GameMgr.GirlLoveEvent_num = playerData.save_GirlLoveEvent_num;
@@ -257,10 +311,42 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //牧場のイベントリスト
         GameMgr.FarmEvent_stage = playerData.save_FarmEvent_stage;
+        
+        //アイテムリスト＜デフォルト＞
+        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
+        {
+            pitemlist.playeritemlist[i] = playerData.save_playeritemlist[i];
+        }
+        
+        //プレイヤーのイベントアイテムリスト。
+        pitemlist.eventitemlist.Clear();
+        pitemlist.eventitemlist = playerData.save_eventitemlist;
+
+        //アイテムリスト＜オリジナル＞
+        pitemlist.player_originalitemlist.Clear();
+        pitemlist.player_originalitemlist = playerData.save_player_originalitemlist;
+
+        //アイテムの前回スコアなどを記録する
+        database.items.Clear();
+        database.items = playerData.save_itemdatabase;
+
+        //調合のフラグ＋調合回数を記録する
+        databaseCompo.compoitems.Clear();
+        databaseCompo.compoitems = playerData.save_itemCompodatabase;
+        
+        //マップフラグの読み込み
+        for (i = 0; i < matplace_database.matplace_lists.Count; i++)
+        {
+            matplace_database.matplace_lists[i].placeFlag = playerData.save_mapflaglist[i];
+        }
+
+        //エクストリームパネルのアイテムを読み込み
+        GameMgr.sys_extreme_itemID = playerData.save_extreme_itemid;
+        GameMgr.sys_extreme_itemType = playerData.save_extreme_itemtype;
 
         //デバッグ用
-        /*Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
-        for (i= 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
+        //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
+        /*for (i= 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
         {
             
             Debug.Log("ロード　GameMgr.GirlLoveEvent_stage1: " + GameMgr.GirlLoveEvent_stage1[i]);
@@ -268,20 +354,90 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
 
         //画面の更新処理
-        DrawGameScreen();
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                DrawGameScreen();
+                break;
+        }
         
     }
 
-    void DrawGameScreen()
+    public void DrawGameScreen()
     {
-        //special_quest.special_score_record[i, 0] = 60;
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                money_status = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+
+                //メイン画面に表示する、現在のクエスト
+                questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
+
+                //BGMの取得
+                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                break;
+        }
+
         girl1_status.OkashiNew_Status = 1;
         girl1_status.special_animatFirst = true;
         special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1);
         debug_panel.GirlLove_Koushin(girl1_status.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
-        debug_panel.Debug_ReDraw();
-        money_status.money_Draw();
-        questname.text = girl1_status.OkashiQuest_Name;
-        sceneBGM.PlayMain(); //BGMの更新
+        debug_panel.Debug_ReDraw();      
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                money_status.money_Draw();
+                questname.text = girl1_status.OkashiQuest_Name;
+                sceneBGM.PlayMain(); //BGMの更新
+
+                if (GameMgr.sys_extreme_itemID != 9999)
+                {
+                    extreme_panel = canvas.transform.Find("ExtremePanel").GetComponentInChildren<ExtremePanel>();
+                    extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
+
+                }
+                break;
+        }
+    }
+
+    public void ResetAllParam()
+    {
+        PlayerStatus.Setup_PlayerStatus(); //プレイヤーステータスの初期化
+        girl1_status.ResetDefaultStatus(); //女の子ステータスの初期化
+        GameMgr.ResetGameDefaultStatus(); //ゲームステータスの初期化
+
+        //アイテムデータの初期化
+        //アイテムリスト＜デフォルト＞
+        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
+        {
+            pitemlist.playeritemlist[i] = 0;
+        }
+
+        //プレイヤーのイベントアイテムリスト。
+        pitemlist.ReseteventitemList();
+
+        //アイテムリスト＜オリジナル＞
+        pitemlist.player_originalitemlist.Clear();
+
+        //アイテムの前回スコアなどを初期化
+        database.ResetLastScore();
+
+        //調合フラグ＋調合回数も初期化
+        databaseCompo.ResetDefaultCompoExcel();
+
+        //アイテムDBの味の初期化
+        //compound_keisan.ResetDefaultTasteParam();
+
+        //マップフラグの初期化
+        matplace_database.ResetDefaultMapExcel();
     }
 }

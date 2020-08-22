@@ -14,6 +14,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject text_area_Main;
     private Text _textmain;
 
+    private SaveController save_controller;
+
     private GameObject canvas;
 
     private SoundController sc;
@@ -148,7 +150,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    private int i, j, _id;
+    private int i, j, _id, ev_id;
     private int nokori_kaisu;
     private int event_num;
     private int recipi_num;
@@ -173,6 +175,9 @@ public class Compound_Main : MonoBehaviour
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
+
+        //セーブコントローラーの取得
+        save_controller = SaveController.Instance.GetComponent<SaveController>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -295,9 +300,9 @@ public class Compound_Main : MonoBehaviour
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.GetComponentInChildren<Text>();
 
-        //エクストリームパネルの取得
+        //エクストリームパネルの取得+初期化
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
-        extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
+        extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();        
 
         //ボタンの取得
         extreme_Button = Extremepanel_obj.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
@@ -399,6 +404,9 @@ public class Compound_Main : MonoBehaviour
         _textmain.text = "どうしようかなぁ？";
         text_area_Main.SetActive(true);
 
+        //初期アイテムの取得。一度きり。
+        DefaultStartPitem();
+
         //各調合時のシステムメッセージ集
         originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
@@ -411,6 +419,12 @@ public class Compound_Main : MonoBehaviour
             //入店の音
             sc.PlaySe(38); //ドア
             sc.PlaySe(50); //ベル
+        }
+
+        //ロード画面から読み込んだ際の処理
+        if(GameMgr.GameLoadOn)
+        {
+            save_controller.DrawGameScreen();
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
@@ -2346,6 +2360,37 @@ public class Compound_Main : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
             
+        }
+    }
+
+    void DefaultStartPitem()
+    {
+        //ゲーム「はじめから」で始まった場合の、最初の一回だけする処理
+
+        
+        if (GameMgr.gamestart_recipi_get != true)
+        {
+
+            extreme_panel.deleteExtreme_Item();
+
+            GameMgr.gamestart_recipi_get = true; //フラグをONに。  
+
+            //ゲームの一番最初に絶対手に入れるレシピ
+            ev_id = pitemlist.Find_eventitemdatabase("najya_start_recipi");
+            pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
+
+            ev_id = pitemlist.Find_eventitemdatabase("ev01_neko_cookie_recipi");
+            pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
+
+            //Debug.Log("プレイヤーステータス　アイテム初期化　実行");
+            //初期に所持するアイテム
+
+            pitemlist.addPlayerItemString("komugiko", 10);
+            pitemlist.addPlayerItemString("butter", 5);
+            pitemlist.addPlayerItemString("suger", 5);
+            pitemlist.addPlayerItemString("orange", 5);
+            pitemlist.addPlayerItemString("grape", 2);
+            pitemlist.addPlayerItemString("stone_oven", 1);
         }
     }
 }

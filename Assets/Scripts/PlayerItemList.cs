@@ -100,8 +100,15 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }*/
         //Debug.Log(playeritemlist.Count);
 
+        ReseteventitemList();
+        
+
+    }
+    public void ReseteventitemList()
+    {
         _id = 0;
         sheet_no = 0;
+        eventitemlist.Clear();
 
         //エクセルのアイテムIDを順番に読み取り、プレイヤー所持リストに割り当て。
         while (sheet_no < excel_eventitemdatabase.sheets.Count)
@@ -142,7 +149,6 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 }
             }
         }
-
     }
 	
 	// Update is called once per frame

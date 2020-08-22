@@ -472,33 +472,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
 
 
-    //レシピの場合の、リザルトカード表示
-    public void RecipiResultCard_DrawView(int _toggleType, int _result_item)
-    {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-
-        _cardImage_obj.Clear();
-
-        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
-        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
-
-        _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
-
-        //店売りかオリジナルか、アイテムID
-        _cardImage.Pitem_or_Origin = _toggleType;
-        _cardImage.check_counter = _result_item;
-        _cardImage.SetInit(); //予測の場合は、Compound_Keisan.csで調合を事前に計算し、その数値を表示する。
-        //_cardImage.SetYosokuInit();
-
-        _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
-
-        Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
-    }
-
 
     //レシピリストで、開いたときのカード表示処理
     public void RecipiCard_DrawView(int _toggleType, int _kettei_item1)
@@ -517,13 +490,43 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //店売りかオリジナルか、アイテムID
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item1;
-        //_cardImage.SetInit();
-        _cardImage.SetYosokuInit();
+        _cardImage.SetInit();
+        //_cardImage.SetYosokuInit();
 
         //位置とスケール
         Draw1();
 
     }
+
+    //レシピの場合の、リザルトカード表示
+    public void RecipiResultCard_DrawView(int _toggleType, int _result_item)
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+
+        _cardImage_obj.Clear();
+
+        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+
+        _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+
+        //店売りかオリジナルか、アイテムID
+        _cardImage.Pitem_or_Origin = _toggleType;
+        _cardImage.check_counter = _result_item;
+        _cardImage.SetInit();
+        //_cardImage.SetYosokuInit(); //予測の場合は、Compound_Keisan.csで調合を事前に計算し、その数値を表示する。
+
+        _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+
+        Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
+    }
+
+
+    
 
 
     //持ち物リストで、開いたときのカード表示処理

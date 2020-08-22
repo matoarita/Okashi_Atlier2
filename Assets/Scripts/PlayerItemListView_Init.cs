@@ -25,8 +25,6 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
     private int i;
 
-    private bool GameStart_Init_flag;
-
     // Use this for initialization
     void Start () {
 
@@ -38,8 +36,6 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
-        GameStart_Init_flag = false;
     }
 	
 	// Update is called once per frame
@@ -59,15 +55,6 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         playeritemlist_onoff.transform.localPosition = new Vector3(-240,80, 0);
         playeritemlist_onoff.name = "PlayeritemList_ScrollView";
 
-        if (GameStart_Init_flag != true)
-        {
-            //初期アイテムの設定
-            pitem_init();
-
-            GameStart_Init_flag = true; //ゲーム開始最初だけ、初期アイテムを追加する。
-           
-        }
-
     }
 
     public void RecipiList_ScrollView_Init()
@@ -83,17 +70,4 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         recipilist_onoff.name = "RecipiList_ScrollView";
     }
 
-    void pitem_init()
-    {
-        //Debug.Log("プレイヤーステータス　アイテム初期化　実行");
-        //初期に所持するアイテム
-
-        pitemlist.addPlayerItemString("komugiko", 10);
-        pitemlist.addPlayerItemString("butter", 5);
-        pitemlist.addPlayerItemString("suger", 5);
-        pitemlist.addPlayerItemString("orange", 5);
-        pitemlist.addPlayerItemString("grape", 2);
-        pitemlist.addPlayerItemString("stone_oven", 1);
-
-    }
 }

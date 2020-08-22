@@ -518,7 +518,7 @@ public class GetMaterial : MonoBehaviour {
 
             case 3:
 
-                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorLemon + "きれいな石" + "</color>" + "をみつけた！";
+                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "きれいな石" + "</color>" + "をみつけた！";
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItemString("kirakira_stone1", 1);
@@ -558,7 +558,7 @@ public class GetMaterial : MonoBehaviour {
         {
             case 3:
 
-                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorLemon + "きれいな石" + "</color>" + "をみつけた！";
+                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "きれいな石" + "</color>" + "をみつけた！";
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItemString("kirakira_stone1", 1);
@@ -580,7 +580,7 @@ public class GetMaterial : MonoBehaviour {
                 }
                 else
                 {
-                    _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorLemon + "きれいな石" + "</color>" + "をみつけた！";
+                    _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "きれいな石" + "</color>" + "をみつけた！";
 
                     //アイテムの取得処理
                     pitemlist.addPlayerItemString("kirakira_stone", 1);
@@ -604,7 +604,7 @@ public class GetMaterial : MonoBehaviour {
         {
             GameMgr.MapEvent_04[1] = true;
 
-            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + GameMgr.ColorLemon + "絞り器" + "</color>" + "をみつけた！";
+            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + GameMgr.ColorYellow + "絞り器" + "</color>" + "をみつけた！";
             
             //アイテムの取得処理
             pitemlist.addPlayerItemString("oil_extracter", 1);
