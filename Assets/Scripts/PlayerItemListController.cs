@@ -11,6 +11,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 {
     private GameObject canvas;
 
+    private keyManager keymanager;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -105,6 +107,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
+        //キーマネージャー取得
+        keymanager = keyManager.Instance.GetComponent<keyManager>();
 
         //スクロールビュー内の、コンテンツ要素を取得
         content = GameObject.FindWithTag("PlayerItemListContent");
@@ -171,6 +175,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;
+
+        keymanager.cursor_cullent_num = 0;
+        keymanager.itemCursor_On = false;
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
@@ -365,7 +372,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                                 case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
 
-                                    if (database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || 
+                                    if (database.items[i].itemType_sub.ToString() == "Fruits" || 
+                                        database.items[i].itemType_sub.ToString() == "Komugiko" || database.items[i].itemType_sub.ToString() == "Butter" || 
                                         database.items[i].itemType_sub.ToString() == "Suger" || database.items[i].itemType_sub.ToString() == "Egg" ||
                                         database.items[i].itemType_sub.ToString() == "Salt" ||
                                         database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Appaleil" ||

@@ -48,6 +48,8 @@ public class itemSelectToggle : MonoBehaviour
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private GameObject compostart_button_obj;
+
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
     private Button[] updown_button = new Button[2];
@@ -142,6 +144,8 @@ public class itemSelectToggle : MonoBehaviour
 
             compound_Check_obj = GameObject.FindWithTag("Compound_Check");
             compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
+
+            compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
         }
 
 
@@ -575,7 +579,8 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_kosu2 = updown_counter.updown_kosu;
                 card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
 
-                //yes.SetActive(false);
+                yes.SetActive(false);
+                compostart_button_obj.SetActive(true);
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);               
 
@@ -583,7 +588,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                yes_text.text = "調合する";
+                //yes_text.text = "調合する";
 
                 _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
                 //Debug.Log("二個目選択完了！");
@@ -942,7 +947,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                yes_text.text = "調合する";
+                //yes_text.text = "調合する";
 
                 //_text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
                 //Debug.Log("二個目選択完了！");
@@ -1443,7 +1448,7 @@ public class itemSelectToggle : MonoBehaviour
 
     void SelectPaused()
     {
-        //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
+        //一時的にリスト要素への入力受付を停止している。
         for (i = 0; i < pitemlistController._listitem.Count; i++)
         {
             pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;

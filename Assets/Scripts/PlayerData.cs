@@ -62,6 +62,9 @@ public class PlayerData
     public bool[] save_OkashiQuest_flag_stage2 = new bool[GameMgr.OkashiQuest_flag_stage2.Length];
     public bool[] save_OkashiQuest_flag_stage3 = new bool[GameMgr.OkashiQuest_flag_stage3.Length];
 
+    //現在のクエストのクリアフラグ
+    public bool save_QuestClearflag;
+
     //ステージ１クリア時の好感度を保存
     public int save_stage1_girl1_loveexp;
     public int save_stage2_girl1_loveexp;

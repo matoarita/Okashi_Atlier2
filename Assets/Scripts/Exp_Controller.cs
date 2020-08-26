@@ -387,7 +387,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (compound_success == true)
         {
             //個数の決定
+            if(set_kaisu == 0) //例外処理。ロードしたてのときは、回数0のまま、仕上げから新規作成される際、0になることがある。
+            {
+                set_kaisu = 1;
+            }
             result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu;
+            //Debug.Log("databaseCompo.compoitems[result_ID].cmpitem_result_kosu: " + databaseCompo.compoitems[result_ID].cmpitem_result_kosu);
 
 
             //①調合処理
@@ -401,12 +406,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
             {
                 //ただし、例外として、ホイップクリーム（絞り袋セット前）はセットされる。その他もあるかも。
-                if(pitemlist.player_originalitemlist[result_item].itemType_sub.ToString() == "Cream")
+                /*if(pitemlist.player_originalitemlist[result_item].itemType_sub.ToString() == "Cream")
                 {
                     //パネルに、作ったやつを表示する。
                     extremePanel.SetExtremeItem(result_item, 1);
 
-                }
+                }*/
             }
             else
             {
@@ -658,12 +663,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             if (database.items[result_item].itemType.ToString() == "Mat" || database.items[result_item].itemType.ToString() == "Potion")
             {
                 //ただし、例外として、ホイップクリーム（絞り袋セット前）はセットされる。その他もあるかも。
-                if (database.items[result_item].itemType_sub.ToString() == "Cream")
+                /*if (database.items[result_item].itemType_sub.ToString() == "Cream")
                 {
                     //パネルに、作ったやつを表示する。
                     extremePanel.SetExtremeItem(result_item, 0);
 
-                }
+                }*/
             }
             else
             {

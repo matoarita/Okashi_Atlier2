@@ -37,16 +37,6 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(46);
                 break;
 
-            case "Yes_tansaku": //yes 探索時決定を押したときのSE
-
-                //ポインタが入ったときに鳴る音
-                SE_point_enter(2);
-
-
-                //クリックしたときに鳴る音
-                SE_point_click(30);
-                break;
-
             case "Yes_Clear": //ステージクリアを押したときのSE
 
                 //ポインタが入ったときに鳴る音
@@ -68,6 +58,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(46);
                 break;
 
+            case "CompoundStartButton": //yesを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(46);
+                break;
+
 
             case "No": //noを押したときのSE
 
@@ -79,15 +79,6 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(18);
                 break;
 
-            case "No_tansaku": //noを押したときのSE
-
-                //ポインタが入ったときに鳴る音
-                SE_point_enter(2);
-
-
-                //クリックしたときに鳴る音
-                SE_point_click(0);
-                break;
 
             case "NouhinCancelButton": //納品決定を押したときのSE
 
@@ -160,6 +151,36 @@ public class Sound_Trigger : MonoBehaviour {
                 break;
 
             case "recipiitemSelectToggle(Clone)": //レシピリストで、アイテム選択するときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(2);
+                break;
+
+            case "shopitemSelectToggle(Clone)": //レシピリストで、アイテム選択するときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(46);
+                break;
+
+            case "shopQuestSelectToggle(Clone)": //レシピリストで、アイテム選択するときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(46);
+                break;
+
+            case "MatPlace_toggle1(Clone)": //レシピリストで、アイテム選択するときの音
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
@@ -326,7 +347,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(0); //23
+                //SE_point_click(0); //23
                 break;
 
         }

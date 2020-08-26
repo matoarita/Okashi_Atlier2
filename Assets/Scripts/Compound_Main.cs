@@ -15,6 +15,7 @@ public class Compound_Main : MonoBehaviour
     private Text _textmain;
 
     private SaveController save_controller;
+    private keyManager keymanager;
 
     private GameObject canvas;
 
@@ -47,6 +48,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject girl_love_exp_bar;
     private GameObject moneystatus_panel;
+    private GameObject kaerucoin_panel;
 
     private GameObject GirlHeartEffect_obj;
 
@@ -218,6 +220,9 @@ public class Compound_Main : MonoBehaviour
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MoneyStatus_panel").gameObject;
 
+        //えめらるどんぐりパネルの取得
+        kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
+
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false;
@@ -305,7 +310,7 @@ public class Compound_Main : MonoBehaviour
         extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();        
 
         //ボタンの取得
-        extreme_Button = Extremepanel_obj.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
+        extreme_Button = Extremepanel_obj.transform.Find("Comp/ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
@@ -335,6 +340,9 @@ public class Compound_Main : MonoBehaviour
         //時間管理オブジェクトの取得
         time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
 
+        //キー入力受付コントローラーの取得
+        keymanager = keyManager.Instance.GetComponent<keyManager>();
+
         compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
 
         //original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
@@ -358,7 +366,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_Button.SetActive(false);
 
         itembox_Button = canvas.transform.Find("ItemBoxButton").gameObject;
-        itembox_Button.SetActive(true);
+        //itembox_Button.SetActive(true);
 
         compound_status = 0;
         compound_select = 0;       
@@ -424,6 +432,7 @@ public class Compound_Main : MonoBehaviour
         //ロード画面から読み込んだ際の処理
         if(GameMgr.GameLoadOn)
         {
+            GameMgr.GameLoadOn = false;
             save_controller.DrawGameScreen();
         }
 
@@ -826,6 +835,7 @@ public class Compound_Main : MonoBehaviour
                 TimePanel_obj1.SetActive(false);
                 girl_love_exp_bar.SetActive(false);
                 moneystatus_panel.SetActive(false);
+                //kaerucoin_panel.SetActive(false);
                 stageclear_Button.SetActive(false);
                 itembox_Button.SetActive(false);
 
@@ -891,7 +901,7 @@ public class Compound_Main : MonoBehaviour
         {
             case 0:
 
-                //Debug.Log("メインの調合シーン　スタート");
+                //Debug.Log("メインの調合シーン　スタート");               
 
                 //ボタンなどの状態の初期設定
                 if (GameMgr.tutorial_ON != true)
@@ -922,7 +932,8 @@ public class Compound_Main : MonoBehaviour
                 compoundselect_onoff_obj.SetActive(true);
                 girl_love_exp_bar.SetActive(true);
                 moneystatus_panel.SetActive(true);
-                itembox_Button.SetActive(true);
+                //kaerucoin_panel.SetActive(true);
+                //itembox_Button.SetActive(true);
                 select_original_button.interactable = true;
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
@@ -935,6 +946,9 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllON();
 
                 recipiMemoButton.SetActive(false);
+
+                keymanager.Cursor_On = false;
+                keymanager.itemCursor_On = false;
 
                 //音関係
                 if (bgm_change_flag == true)
@@ -961,30 +975,8 @@ public class Compound_Main : MonoBehaviour
                     select_extreme_button_obj.SetActive(false);
                 }
 
-
-
                 //5個クエストをクリアしたら、クリアボタンがでる。
-                if (GameMgr.OkashiQuest_flag_stage1[4])
-                {
-                    //stageclear_toggle.SetActive(true);
-                    stageclear_Button.SetActive(true);
-                    stageclear_button_text.text = "コンテストへ";
-                }
-                else
-                {
-                    if (stageclear_toggle.activeSelf == true || stageclear_Button.activeSelf)
-                    {
-                        //stageclear_toggle.SetActive(false);
-                        stageclear_Button.SetActive(false);
-                    }
-
-                    if (GameMgr.QuestClearflag)
-                    {
-                        stageclear_Button.SetActive(true);
-                        stageclear_button_text.text = "次のお菓子へ";
-                        //stageclear_toggle.SetActive(true);
-                    }
-                }
+                QuestClearCheck();
 
                 Extremepanel_obj.SetActive(true);
                 extreme_panel.extremeButtonInteractOn();
@@ -1004,7 +996,8 @@ public class Compound_Main : MonoBehaviour
                 //残りあげる回数の更新
                 nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
                 girleat_toggle.transform.Find("Background/kaisu_param").GetComponent<Text>().text = nokori_kaisu.ToString();
-                
+
+                compound_select = 0;
                 compound_status = 110; //退避
                 break;
 
@@ -1038,6 +1031,8 @@ public class Compound_Main : MonoBehaviour
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
+
+                keymanager.SelectOff();
 
                 break;
 
@@ -1075,6 +1070,8 @@ public class Compound_Main : MonoBehaviour
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
 
                 extreme_panel.extreme_Compo_Setup();
+
+                keymanager.SelectOff();
 
                 break;
 
@@ -1115,6 +1112,8 @@ public class Compound_Main : MonoBehaviour
 
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
 
+                keymanager.SelectOff();
+
                 break;
 
             case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
@@ -1147,6 +1146,7 @@ public class Compound_Main : MonoBehaviour
                 compoundselect_onoff_obj.SetActive(false);
 
                 compound_status = 4; //調合シーンに入っています、というフラグ
+                compound_select = 6;
 
                 playeritemlist_onoff.SetActive(false);
                 recipilist_onoff.SetActive(false);
@@ -1180,6 +1180,8 @@ public class Compound_Main : MonoBehaviour
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
+
+                keymanager.InitCompoundMainScene();
 
                 break;
 
@@ -1361,7 +1363,7 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
-            case 100: //退避用
+            case 100: //退避用 トグル選択中のときなどに使用
 
                 break;
 
@@ -1383,13 +1385,21 @@ public class Compound_Main : MonoBehaviour
             case 200: //システム画面を開いたとき
 
                 compoundselect_onoff_obj.SetActive(false);
-                //black_panel_A.SetActive(true);
-                compound_status = 200;
+                compound_status = 201;
                 compound_select = 200;
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = false;
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
                 system_panel.SetActive(true); //システムパネルを表示。
 
                 WindowOff();
+
+                break;
+
+            case 201: //システム画面選択中
 
                 break;
 
@@ -1405,8 +1415,35 @@ public class Compound_Main : MonoBehaviour
         girl_love_exp_bar.SetActive(false);
         TimePanel_obj1.SetActive(false);
         moneystatus_panel.SetActive(false);
+        //kaerucoin_panel.SetActive(false);
         stageclear_Button.SetActive(false);
         itembox_Button.SetActive(false);
+    }
+
+    public void QuestClearCheck()
+    {
+        //5個クエストをクリアしたら、クリアボタンがでる。
+        if (GameMgr.OkashiQuest_flag_stage1[4])
+        {
+            //stageclear_toggle.SetActive(true);
+            stageclear_Button.SetActive(true);
+            stageclear_button_text.text = "コンテストへ";
+        }
+        else
+        {
+            if (stageclear_toggle.activeSelf == true || stageclear_Button.activeSelf)
+            {
+                //stageclear_toggle.SetActive(false);
+                stageclear_Button.SetActive(false);
+            }
+
+            if (GameMgr.QuestClearflag)
+            {
+                stageclear_Button.SetActive(true);
+                stageclear_button_text.text = "次のお菓子へ";
+                //stageclear_toggle.SetActive(true);
+            }
+        }
     }
 
 
@@ -1414,6 +1451,8 @@ public class Compound_Main : MonoBehaviour
     {
         if (recipi_toggle.GetComponent<Toggle>().isOn == true)
         {
+            sc.PlaySe(46);
+
             recipi_toggle.GetComponent<Toggle>().isOn = false;
 
             card_view.DeleteCard_DrawView();
@@ -1425,6 +1464,8 @@ public class Compound_Main : MonoBehaviour
 
     public void OnCheck_1_button()
     {
+        sc.PlaySe(46);
+
         card_view.DeleteCard_DrawView();
         SelectCompo_panel_1.SetActive(false);
 
@@ -1436,6 +1477,8 @@ public class Compound_Main : MonoBehaviour
     {
         if (extreme_toggle.GetComponent<Toggle>().isOn == true)
         {
+            sc.PlaySe(46);
+
             extreme_toggle.GetComponent<Toggle>().isOn = false;
 
             pitemlistController.extremepanel_on = false;
@@ -1456,6 +1499,8 @@ public class Compound_Main : MonoBehaviour
             }
             else
             {
+                sc.PlaySe(46);
+
                 pitemlistController.extremepanel_on = false;
 
                 card_view.DeleteCard_DrawView();
@@ -1476,6 +1521,7 @@ public class Compound_Main : MonoBehaviour
         }
         else
         {
+            sc.PlaySe(46);
 
             pitemlistController.extremepanel_on = false;
 
@@ -1493,6 +1539,8 @@ public class Compound_Main : MonoBehaviour
     {
         if (original_toggle.GetComponent<Toggle>().isOn == true)
         {
+            sc.PlaySe(46);
+
             original_toggle.GetComponent<Toggle>().isOn = false;
 
             card_view.DeleteCard_DrawView();
@@ -1504,6 +1552,8 @@ public class Compound_Main : MonoBehaviour
 
     public void OnCheck_3_button() //調合選択画面からボタンを選択して、オリジナル調合をON
     {
+        sc.PlaySe(46);
+
         card_view.DeleteCard_DrawView();
         SelectCompo_panel_1.SetActive(false);
 
@@ -1544,8 +1594,10 @@ public class Compound_Main : MonoBehaviour
     public void OnMenu_toggle() //メニューをON
     {
         if (menu_toggle.GetComponent<Toggle>().isOn == true)
-        {
+        {          
             menu_toggle.GetComponent<Toggle>().isOn = false;
+
+            sc.PlaySe(0);
 
             card_view.DeleteCard_DrawView();
 
@@ -1555,6 +1607,8 @@ public class Compound_Main : MonoBehaviour
 
     public void OnMenu_button() //メニュー　ボタンで押した場合
     {
+        sc.PlaySe(0);
+
         card_view.DeleteCard_DrawView();
 
         compound_status = 99;
@@ -1565,9 +1619,11 @@ public class Compound_Main : MonoBehaviour
     {
         if (system_toggle.GetComponent<Toggle>().isOn == true)
         {
-            card_view.DeleteCard_DrawView();
-
             system_toggle.GetComponent<Toggle>().isOn = false;
+
+            sc.PlaySe(0);
+
+            card_view.DeleteCard_DrawView();            
 
             compound_status = 200;
         }
@@ -1578,9 +1634,13 @@ public class Compound_Main : MonoBehaviour
     {
         if (shop_toggle.GetComponent<Toggle>().isOn == true)
         {
+            shop_toggle.GetComponent<Toggle>().isOn = false;
+
+            sc.PlaySe(0);
+
             card_view.DeleteCard_DrawView();
 
-            shop_toggle.GetComponent<Toggle>().isOn = false;
+            
             FadeManager.Instance.LoadScene("Shop", 0.3f);
         }
     }
@@ -1619,6 +1679,8 @@ public class Compound_Main : MonoBehaviour
         {
             girleat_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
+            sc.PlaySe(0);
+
             card_view.DeleteCard_DrawView();
 
             if ( extreme_panel.extreme_itemID != 9999 )
@@ -1641,6 +1703,8 @@ public class Compound_Main : MonoBehaviour
         {
             sleep_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
+            sc.PlaySe(0);
+
             card_view.DeleteCard_DrawView();
 
             text_area.SetActive(true);
@@ -1656,6 +1720,8 @@ public class Compound_Main : MonoBehaviour
         {
             stageclear_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
             stageclear_button_toggle.isOn = false;
+
+            sc.PlaySe(0);
 
             card_view.DeleteCard_DrawView();
 

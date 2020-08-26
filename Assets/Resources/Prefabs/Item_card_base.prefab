@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 222623380893697944}
   - component: {fileID: 114962228724504548}
   - component: {fileID: 114001097924212882}
+  - component: {fileID: 114366498067309732}
   - component: {fileID: 114341278990718226}
   m_Layer: 0
   m_Name: CompoundResultButton
@@ -3705,6 +3706,17 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "<\u5473>"
+--- !u!114 &114366498067309732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1411481953812694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef237c05321c944499dace1f2e4a662b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114378992508256650
 MonoBehaviour:
   m_ObjectHideFlags: 1

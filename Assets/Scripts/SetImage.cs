@@ -830,7 +830,7 @@ public class SetImage : MonoBehaviour
         else if (item_type == "Okashi" || item_type == "Potion")
         {
             //スロットの正式名称計算
-            slotchangename.slotChangeName(Pitem_or_Origin, check_counter, "yellow");
+            slotchangename.slotChangeName(Pitem_or_Origin, check_counter, "Gold");
 
             _slotHyouji2[0] = slotchangename._slotHyouji[0];
             _slotHyouji2[1] = slotchangename._slotHyouji[1];

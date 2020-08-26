@@ -5,12 +5,15 @@ using UnityEngine;
 public class QuestTitlePanel : MonoBehaviour {
 
     private SoundController sc;
+    private Compound_Main compound_Main;
 
     // Use this for initialization
     void Start () {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
     }
 	
 	// Update is called once per frame
@@ -33,6 +36,7 @@ public class QuestTitlePanel : MonoBehaviour {
     {
         yield return new WaitForSeconds(2.0f);
 
+        GameMgr.KeyInputOff_flag = true; //キー入力受付開始
         this.gameObject.SetActive(false);
     }
 }

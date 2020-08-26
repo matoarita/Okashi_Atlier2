@@ -165,8 +165,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ロード「続きから」を押したフラグ
     public static bool GameLoadOn;
 
+    //キー入力受付開始のフラグ
+    public static bool KeyInputOff_flag;
+
     //ゲーム共通の固有の色
     public static string ColorYellow;
+    public static string ColorGold;
     public static string ColorLemon;
     public static string ColorPink;
     public static string ColorRed;
@@ -193,7 +197,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ResetGameDefaultStatus();       
 
         //各色の設定
-        ColorYellow = "<color=#BA9535>"; // ゴールドに近いくすんだ黄色
+        ColorYellow = "<color=#FDFF80>"; // ゴールドに近いくすんだ黄色 #BA9535  かなり薄い黄色 #FDFF80
+        ColorGold = "<color=#BA9535>";
         ColorLemon = "<color=#FDFF80>"; // かなり薄い黄色FDFF80
         ColorPink = "<color=#FF5CA1>";
         ColorRed = "<color=#FF0000>";
@@ -276,6 +281,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sleep_flag = false;
         sleep_status = 0;
         scenario_read_endflag = false;
+        KeyInputOff_flag = false;
 
         CompoundEvent_flag = false;
         CompoundEvent_num = 0;

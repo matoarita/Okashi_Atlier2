@@ -33,8 +33,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject getmatResult_panel_obj;
     private GetMatResult_Panel getmatResult_panel;
     private GameObject slot_view;
+    private GameObject slot_tansaku_button_obj;
     private GameObject slot_tansaku_button;
-    private GameObject slot_yes, slot_no;
     private Image slot_view_image;
 
     private List<GameObject> mapevent_panel = new List<GameObject>();
@@ -90,10 +90,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int _yosokutime;
     private int mat_cost;
 
-    //SEを鳴らす
-    public AudioClip sound1;
-    AudioSource audioSource;
-
     private GameObject sister_stand_img1;
 
     public Dictionary<int, int> result_items;
@@ -102,8 +98,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
-        audioSource = GetComponent<AudioSource>();
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
@@ -190,9 +184,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //採取地画面の取得
         slot_view = this.transform.Find("Comp/Slot_View").gameObject;
         slot_view_image = this.transform.Find("Comp/Slot_View/Image").gameObject.GetComponent<Image>();
-        slot_tansaku_button = slot_view.transform.Find("Tansaku_panel").gameObject;
-        slot_yes = slot_view.transform.Find("Tansaku_panel/Yes_tansaku").gameObject;
-        slot_no = slot_view.transform.Find("Tansaku_panel/No_tansaku").gameObject;
+        slot_tansaku_button_obj = slot_view.transform.Find("Tansaku_panel").gameObject;
+        slot_tansaku_button = slot_tansaku_button_obj.transform.Find("TansakuActionList/Viewport/Content").gameObject;
 
         i = 0;
         foreach (Transform child in slot_view.transform.Find("EventPanel/").transform)
@@ -280,8 +273,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
             modoru_anim_end = false;
             compound_Main.compound_status = 0;
 
-            slot_yes.GetComponent<Button>().interactable = true;
-            slot_no.GetComponent<Button>().interactable = true;
+            foreach (Transform child in slot_tansaku_button.transform) // 
+            {
+                child.GetComponent<Button>().interactable = true;
+            }
+            
 
             foreach (Transform map_bg_child in map_bg_effect.transform) // map_bg_effect以下のオブジェクトをoff
             {
@@ -486,7 +482,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button.SetActive(false);
+                            slot_tansaku_button_obj.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
@@ -523,7 +519,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button.SetActive(false);
+                            slot_tansaku_button_obj.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
@@ -560,7 +556,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button.SetActive(false);
+                            slot_tansaku_button_obj.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
@@ -597,7 +593,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button.SetActive(false);
+                            slot_tansaku_button_obj.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
@@ -629,8 +625,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             _text.text = "いっぱい水を汲もう。兄ちゃん。";
 
                             slot_view_status = 3; //イベント読み込み中用に退避
-                           
-                            slot_tansaku_button.SetActive(false);
+
+                            slot_tansaku_button_obj.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
@@ -653,34 +649,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 
                 break;
 
-            case 1: //入力まち
+            case 1: //探索するかどうかの入力まち
 
-                if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
-                {
-                    if (yes_selectitem_kettei.kettei1 == true) //探索ボタンをおした
-                    {
-
-                        get_material.GetRandomMaterials(select_place_num);
-
-                        yes_selectitem_kettei.onclick = false;
-                    }
-                    else //街へ戻るをおした
-                    {
-                        slot_view_status = 2;
-
-                        yes_selectitem_kettei.onclick = false;
-
-                        _text.text = "家に戻る？";
-
-                        slot_yes.GetComponent<Button>().interactable = false;
-                        slot_no.GetComponent<Button>().interactable = false;
-
-                        yes_no_panel.SetActive(true);
-
-                        StartCoroutine("modoru_kakunin");
-                       
-                    }
-                }
                 break;
 
             case 2: //戻るかどうかの入力まち
@@ -730,8 +700,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //Debug.Log("一個目はcancel");
                 slot_view_status = 1;
 
-                slot_yes.GetComponent<Button>().interactable = true;
-                slot_no.GetComponent<Button>().interactable = true;
+                foreach (Transform child in slot_tansaku_button.transform) // 
+                {
+                    child.GetComponent<Button>().interactable = true;
+                }
+
                 yes_no_panel.SetActive(false);
 
                 _text.text = "";
@@ -933,7 +906,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         MoneyStatus_Panel_obj.SetActive(true);
         TimePanel_obj1.SetActive(true);
         text_area.SetActive(true);
-        slot_tansaku_button.SetActive(true);
+        slot_tansaku_button_obj.SetActive(true);
         for(i=0; i<mapevent_panel.Count; i++)
         {
             mapevent_panel[i].SetActive(false);
@@ -993,6 +966,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //メインシーンのデフォルトに戻る。
         time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
+        time_controller.TimeKoushin();
         girl1_status.hukidasiOn();
 
         slot_view_status = 0;
@@ -1008,5 +982,33 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             result_items.Add(database.items[i].itemID, 0);
         }
+    }
+
+    public void OnTansaku() //探索ボタンをおした
+    {
+        sc.PlaySe(30);
+        get_material.GetRandomMaterials(select_place_num);
+    }
+
+    public void OnModoru() //街へ戻るをおした
+    {
+        sc.PlaySe(30);
+        slot_view_status = 2;
+
+        _text.text = "家に戻る？";
+
+        foreach (Transform child in slot_tansaku_button.transform) // 
+        {
+            child.GetComponent<Button>().interactable = false;
+        }
+
+        yes_no_panel.SetActive(true);
+
+        StartCoroutine("modoru_kakunin");
+    }
+
+    public void OnNext()
+    {
+        sc.PlaySe(30);
     }
 }

@@ -15,11 +15,16 @@ public class NewRecipiButton : MonoBehaviour {
     private GameObject extremePanel_obj;
     private ExtremePanel extremePanel;
 
+    private SoundController sc;
+
     // Use this for initialization
     void Start () {
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -36,11 +41,16 @@ public class NewRecipiButton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            OnClick();
+        }
+    }
 
     public void OnClick()
     {
+        sc.PlaySe(2);
 
         if (GameMgr.tutorial_ON == true)
         {

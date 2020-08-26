@@ -12,6 +12,8 @@ public class SelectItem_kettei : MonoBehaviour {
     public bool ketteiNouhin;
     public bool onclick2;
 
+    public bool kettei3;
+
     // Use this for initialization
     void Start ()
     {
@@ -20,6 +22,8 @@ public class SelectItem_kettei : MonoBehaviour {
 
         ketteiNouhin = false;
         onclick2 = false;
+
+        kettei3 = false;
 
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }

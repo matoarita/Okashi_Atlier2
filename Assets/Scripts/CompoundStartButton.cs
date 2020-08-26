@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Yes : MonoBehaviour {
+public class CompoundStartButton : MonoBehaviour {
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
     private SoundController sc;
     private keyManager keymanager;
 
+    public bool compofinal_flag;
+
     // Use this for initialization
     void Start () {
-
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
@@ -22,28 +22,33 @@ public class Yes : MonoBehaviour {
         //キー入力受付コントローラーの取得
         keymanager = keyManager.Instance.GetComponent<keyManager>();
 
+        compofinal_flag = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        { 
+		if(compofinal_flag)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
 
-            //Debug.Log("Enter");
-            selectitem_kettei.onclick = true;
+                compofinal_flag = false;
 
-            selectitem_kettei.kettei1 = true;
-            sc.PlaySe(46);
+                //Debug.Log("Enter");
+                selectitem_kettei.onclick = true;
+
+                selectitem_kettei.kettei3 = true;
+                sc.PlaySe(46);
+            }
         }
-    }
+	}
 
-    public void OnClick_Yes() //Yesが選択された時
-    { // 必ず public にする
-        //Debug.Log("clicked");
+    public void OnCompoundStart()
+    {
+        compofinal_flag = false;
         selectitem_kettei.onclick = true;
 
-        selectitem_kettei.kettei1 = true;
+        selectitem_kettei.kettei3 = true;
     }
-
 }

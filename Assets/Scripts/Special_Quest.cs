@@ -17,6 +17,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private Text questname;
+
     public int special_kaisu; //一回のクエストで、3回まで挑戦できる。現在は、回数制限は未使用。
     public int special_kaisu_max;
     public int[,] special_score_record; //そのときの、点数も記録。一つの列に3個点数を保持。
@@ -118,8 +120,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             default:
                 break;
         }
-
-
+        
     }
 
     public void SetNextRandomOkashi(int _num)
@@ -156,5 +157,17 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
             }
         }
+    }
+
+    public void RedrawQeustName()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //メイン画面に表示する、現在のクエスト
+        questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
+
+        //現在のクエストネーム更新。
+        questname.text = girl1_status.OkashiQuest_Name;
     }
 }

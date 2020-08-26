@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class MoneyStatus_Controller : MonoBehaviour {
 
     private GameObject _money_param;
-
     private Text _money_text;
 
     private Transform moneyicon_transfrom;
@@ -27,15 +26,9 @@ public class MoneyStatus_Controller : MonoBehaviour {
 
     private float timeOut;
 
-    //SEを鳴らす
-    public AudioClip sound1;
-    AudioSource audioSource;
-
     // Use this for initialization
     void Start () {
 
-        //音の取得
-        audioSource = GetComponent<AudioSource>();
 
         _money_param = this.transform.Find("Money_param").gameObject;
         _money_text = _money_param.GetComponent<Text>();

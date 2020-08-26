@@ -30,13 +30,15 @@ public class BackTown : MonoBehaviour {
     {
         _text.text = "また来てね～";
 
-        StartCoroutine(CoUnload());
+        //StartCoroutine(CoUnload());
+        BackScene();
     }
 
     public void OnClickToTown_notext()
     {
-        
-        StartCoroutine(CoUnload());
+
+        //StartCoroutine(CoUnload());
+        BackScene();
     }
 
     IEnumerator CoUnload()
@@ -52,7 +54,13 @@ public class BackTown : MonoBehaviour {
         //アンロード後の処理を書く
         //メインシーン読み込み
         FadeManager.Instance.LoadScene("Compound", 0.3f);
+        GameMgr.Scene_back_home = true;      
+    }
+
+    void BackScene()
+    {
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Compound", 0.3f);
         GameMgr.Scene_back_home = true;
-      
     }
 }

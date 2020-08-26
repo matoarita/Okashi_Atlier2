@@ -12,6 +12,8 @@ public class GetMatResult_Panel : MonoBehaviour
     private GameObject textPrefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
     private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
 
+    private GameObject getmatResult_panel_obj;
+
     private int list_count;
     private int i, count;
 
@@ -44,12 +46,20 @@ public class GetMatResult_Panel : MonoBehaviour
         textPrefab = (GameObject)Resources.Load("Prefabs/itemResultToggle");
 
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
+
+        getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (getmatResult_panel_obj.activeSelf == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Return)) //Enterでオフ
+            {
+                getmatplace_panel.GetMatResultPanelOff();
+            }
+        }
     }
 
     // リストビューの描画部分。重要。

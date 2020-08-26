@@ -16,8 +16,6 @@ public class GetMaterial : MonoBehaviour {
     private TimeController time_controller;
 
     private GameObject tansaku_panel;
-    private Button tansaku_yes;
-    private Button tansaku_no;
 
     private GameObject getmatplace_panel_obj;
     private GetMatPlace_Panel getmatplace_panel;
@@ -134,8 +132,7 @@ public class GetMaterial : MonoBehaviour {
         character_fade = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Image/CharacterSD").gameObject.GetComponent<FadeImage>();
 
         tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Tansaku_panel").gameObject;
-        tansaku_yes = tansaku_panel.transform.Find("Yes_tansaku").GetComponent<Button>();
-        tansaku_no = tansaku_panel.transform.Find("No_tansaku").GetComponent<Button>();
+
     }
 	
 	// Update is called once per frame
@@ -234,8 +231,6 @@ public class GetMaterial : MonoBehaviour {
                 character_fade.FadeImageOff();
 
                 tansaku_panel.SetActive(false);
-                //tansaku_yes.interactable = false;
-                //tansaku_no.interactable = false;
                 StartCoroutine("Mat_Judge_anim_co");
 
             }

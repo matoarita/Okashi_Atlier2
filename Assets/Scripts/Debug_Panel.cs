@@ -422,8 +422,4 @@ public class Debug_Panel : MonoBehaviour {
         }
     }
 
-    public void Debug_ReDraw()
-    {
-        
-    }
 }

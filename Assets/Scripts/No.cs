@@ -21,12 +21,13 @@ public class No : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftControl))
         {
             //Debug.Log("今、右クリックをした");
             selectitem_kettei.onclick = true;
 
             selectitem_kettei.kettei1 = false;
+            selectitem_kettei.kettei3 = false;
 
             sc.PlaySe(18);
         }
@@ -38,5 +39,6 @@ public class No : MonoBehaviour {
         selectitem_kettei.onclick = true;
 
         selectitem_kettei.kettei1 = false;
+        selectitem_kettei.kettei3 = false;
     }
 }

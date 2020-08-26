@@ -38,6 +38,9 @@ public class Compound_Check : MonoBehaviour {
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
+    private GameObject compostart_button_obj;
+    private CompoundStartButton compostart_button;
+
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
@@ -83,6 +86,10 @@ public class Compound_Check : MonoBehaviour {
         //確率パネルの取得
         kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+        //最終調合ボタンの取得
+        compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
+        compostart_button = compostart_button_obj.GetComponent<CompoundStartButton>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -135,16 +142,21 @@ public class Compound_Check : MonoBehaviour {
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
             no = pitemlistController_obj.transform.Find("No").gameObject;
+
+            //最終調合ボタンの取得
+            compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
+            compostart_button = compostart_button_obj.GetComponent<CompoundStartButton>();
         }
 
         if (final_select_flag == true) //最後、これで調合するかどうかを待つフラグ
         {
             if (compound_Main.compound_select == 1) //レシピ調合のときの処理
             {
-
+                
                 compound_Main.compound_status = 110;
 
                 SelectPaused();
+                yes.SetActive(true);
 
                 final_select_flag = false;
 
@@ -154,10 +166,12 @@ public class Compound_Check : MonoBehaviour {
 
             if (compound_Main.compound_select == 2) //トッピング調合のときの処理
             {
+                compostart_button.compofinal_flag = true; //ボタン入力の受付のフラグ
 
                 compound_Main.compound_status = 110;
 
                 SelectPaused();
+                yes.SetActive(true);
 
                 final_select_flag = false;
 
@@ -167,6 +181,7 @@ public class Compound_Check : MonoBehaviour {
 
             if (compound_Main.compound_select == 3) //オリジナル調合のときの処理
             {
+                compostart_button.compofinal_flag = true; //ボタン入力の受付のフラグ
 
                 compound_Main.compound_status = 110;
 
@@ -215,7 +230,7 @@ public class Compound_Check : MonoBehaviour {
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
 
-                switch (yes_selectitem_kettei.kettei1)
+                switch (yes_selectitem_kettei.kettei3)
                 {
                     case true:
 
@@ -274,7 +289,7 @@ public class Compound_Check : MonoBehaviour {
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
 
-                switch (yes_selectitem_kettei.kettei1)
+                switch (yes_selectitem_kettei.kettei3)
                 {
                     case true:
 
@@ -850,7 +865,7 @@ public class Compound_Check : MonoBehaviour {
             }
         }
 
-        yes.SetActive(true);
+        yes.SetActive(false);
         no.SetActive(true);
 
         yes_text.text = "決定";
@@ -891,6 +906,8 @@ public class Compound_Check : MonoBehaviour {
         itemselect_cancel.kettei_on_waiting = false;
 
         updown_counter_obj.SetActive(false);
+        compostart_button.compofinal_flag = false;
+        compostart_button_obj.SetActive(false);        
 
         yes_selectitem_kettei.kettei1 = false;
         yes.SetActive(false);

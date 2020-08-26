@@ -989,7 +989,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
         _text.text = _desc;
 
-        //現在のクエストネーム更新。Special_Quest.csで、OkashiQuest_Nameは更新している。
+        //現在のクエストネーム更新。Special_Quest.csで、OkashiQuest_Nameは更新している。パネル表示後にネーム更新されるように、ここで描画更新している。
         questname.text = OkashiQuest_Name;
 
         //クエストタイトルパネルを表示
@@ -1199,16 +1199,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         hukidashiitem = Instantiate(hukidashiPrefab);
 
-        if (OkashiNew_Status == 0)
-        {
-            hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(true);
-            hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(false);
-        }
-        else
-        {
-            hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(false);
-            hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(true);
-        }
+        hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(true);
+        hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(false);
 
 
         //音を鳴らす
@@ -2126,49 +2118,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _hintrandomDict.Add("お兄ちゃん。あたたかい～。");
                 _hintrandomDict.Add("どこかへ出かけたいなぁ～");
                 break;
-        }       
-    }
-
-    void Init_MazuiHintComment()
-    {
-        switch(OkashiQuest_ID)
-        {
-            case 1010:
-
-                if (GameMgr.scenario_flag == 160)
-                {
-                    switch (MazuiStatus)
-                    {
-                        case 0:
-
-                            MazuiHintComment = "兄ちゃん..。ちょっとパンが粉っぽい気がする。";
-                            break;
-
-                        case 1:
-
-                            MazuiHintComment = "でもカリカリ..。";
-                            break;
-                    }
-
-                    MazuiStatus++;
-                    if (MazuiStatus >= 2)
-                    {
-                        MazuiStatus = 0;
-                    }
-                }
-
-                if (GameMgr.scenario_flag == 170)
-                {
-                    MazuiHintComment = "兄ちゃん。井戸へ行こう！";
-                }
-
-                break;
-
-            default:
-
-                break;
         }
-    }
+
+        //食べたいお菓子もたまにだすとか。
+        _hintrandomDict.Add("オレンジねこクッキーが食べたいなぁ。");
+        _hintrandomDict.Add("クリームがたっぷりのっかったお菓子が食べたいなぁ。");
+    }    
 
     //表情を変更するメソッド
     public void face_girl_Normal()

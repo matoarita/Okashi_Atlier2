@@ -28,6 +28,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
     private GameObject canvas;
 
+    private Compound_Main compound_Main;
+
     private Text questname;
     private List<int> _tempplayeritemlist = new List<int>();
     private List<int> _tempmap_placeflaglist = new List<int>();
@@ -133,6 +135,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_OkashiQuest_flag_stage1 = GameMgr.OkashiQuest_flag_stage1, //各SPイベントのクリアしたかどうかのフラグ。
             save_OkashiQuest_flag_stage2 = GameMgr.OkashiQuest_flag_stage2,
             save_OkashiQuest_flag_stage3 = GameMgr.OkashiQuest_flag_stage3,
+            
+            //現在のクエストクリアフラグ
+            save_QuestClearflag = GameMgr.QuestClearflag,
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -280,6 +285,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.OkashiQuest_flag_stage2 = playerData.save_OkashiQuest_flag_stage2;
         GameMgr.OkashiQuest_flag_stage3 = playerData.save_OkashiQuest_flag_stage3;
 
+        GameMgr.QuestClearflag = playerData.save_QuestClearflag;
+
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
         GameMgr.MapEvent_02 = playerData.save_MapEvent_02;        //井戸。
@@ -375,6 +382,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             case "Compound":
 
+                compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+
                 money_status = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
                 //メイン画面に表示する、現在のクエスト
@@ -382,31 +391,30 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 //BGMの取得
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-                break;
-        }
-
-        girl1_status.OkashiNew_Status = 1;
-        girl1_status.special_animatFirst = true;
-        special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1);
-        debug_panel.GirlLove_Koushin(girl1_status.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
-        debug_panel.Debug_ReDraw();      
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
 
                 money_status.money_Draw();
                 questname.text = girl1_status.OkashiQuest_Name;
-                sceneBGM.PlayMain(); //BGMの更新
+                sceneBGM.PlayMain(); //BGMの更新                               
 
                 if (GameMgr.sys_extreme_itemID != 9999)
                 {
                     extreme_panel = canvas.transform.Find("ExtremePanel").GetComponentInChildren<ExtremePanel>();
                     extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
+                    extreme_panel.SetInitParamExtreme();
 
                 }
                 break;
         }
+
+        girl1_status.OkashiNew_Status = 0;
+        girl1_status.special_animatFirst = true;
+        special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1);
+        special_quest.RedrawQeustName();
+        debug_panel.GirlLove_Koushin(girl1_status.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
+        GameMgr.KeyInputOff_flag = true;
+        Debug.Log("GameMgr.QuestClearflag: " + GameMgr.QuestClearflag);
+        compound_Main.QuestClearCheck(); //クエストクリアしてたか確認
+
     }
 
     public void ResetAllParam()

@@ -26,6 +26,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
+    private KaeruCoin_Controller kaerucoin_Controller;
+
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
@@ -370,6 +372,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 //お金の増減用パネルの取得
                 MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
+                //エメラルドングリパネルの取得
+                kaerucoin_Controller = canvas.transform.Find("KaeruCoin_Panel").GetComponent<KaeruCoin_Controller>();
 
                 //女の子の反映用ハートエフェクト取得
                 GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
@@ -2674,6 +2679,7 @@ public class GirlEat_Judge : MonoBehaviour {
     public void ResultPanel_On()
     {
         ScoreHyoujiPanel.SetActive(false);
+        sc.PlaySe(2);
 
         //それじゃあ、兄ちゃん。クッキーの採点をするね！といった画面と演出
 
@@ -2841,6 +2847,11 @@ public class GirlEat_Judge : MonoBehaviour {
             }
             else
             { 
+                //SPのお菓子でないものをあげた場合のコメント
+                if(non_spquest_flag)
+                {
+                    GameMgr.OkashiComment_ID = 999;
+                }
                 //宴を呼び出す。GirlLikeSetのフラグで、スロットに関する感想か、total_scoreに関する感想のどちらかを表示する。
                 if (_girl_comment_flag[set_id] == 0)
                 {
@@ -3014,6 +3025,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //エメラルどんぐり一個もらえる。
         pitemlist.addPlayerItemString("emeralDongri", 1);
+        //PlayerStatus.player_kaeru_coin++;
+        //kaerucoin_Controller.ReDrawParam();
 
         GameMgr.scenario_ON = false;
         GameMgr.recipi_read_endflag = false;
@@ -3034,6 +3047,7 @@ public class GirlEat_Judge : MonoBehaviour {
         touch_controller.Touch_OnAllOFF();
         sceneBGM.MuteBGM();
 
+        GameMgr.KeyInputOff_flag = false;
         GameMgr.scenario_ON = true;
         GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
         GameMgr.mainClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」

@@ -146,18 +146,18 @@ public class ExtremePanel : MonoBehaviour {
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
-        item_Icon = this.transform.Find("Extreme_Image").gameObject.GetComponent<Image>(); //画像アイコン
+        item_Icon = this.transform.Find("Comp/Extreme_Image").gameObject.GetComponent<Image>(); //画像アイコン
 
-        extreme_Param = this.transform.Find("ExtremeKaisu/Text/ExtremeKaisuParam").gameObject.GetComponent<Text>(); //エクストリーム残り回数
+        extreme_Param = this.transform.Find("Comp/ExtremeKaisu/Text/ExtremeKaisuParam").gameObject.GetComponent<Text>(); //エクストリーム残り回数
         extreme_Param.text = "-";
         
-        extreme_itemName = this.transform.Find("ExtremeItemText").gameObject.GetComponent<Text>();
+        extreme_itemName = this.transform.Find("Comp/ExtremeItemText").gameObject.GetComponent<Text>();
         extreme_itemName.text = "";
 
         //ボタンの取得
-        extreme_Button = this.transform.Find("ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
+        extreme_Button = this.transform.Find("Comp/ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
 
-        image_effect = this.transform.Find("Extreme_Image_effect").gameObject;
+        image_effect = this.transform.Find("Comp/Extreme_Image_effect").gameObject;
         image_effect.SetActive(false);
 
         item_Icon.color = new Color(1, 1, 1, 0);
@@ -165,7 +165,7 @@ public class ExtremePanel : MonoBehaviour {
         extreme_itemID = 9999;
 
         //お菓子HPバーの取得
-        _hpslider = this.transform.Find("Life_Bar").GetComponent<Slider>();
+        _hpslider = this.transform.Find("Comp/Life_Bar").GetComponent<Slider>();
         _hpslider.value = 0;
 
         //現在のお菓子の価格テキストを取得
@@ -185,26 +185,11 @@ public class ExtremePanel : MonoBehaviour {
         //別シーンから、再度読み込まれたときに、すでにお菓子を作成済みだった場合は、初期化する。
         if (myscene_loaded == true)
         {
-            extreme_itemID = exp_Controller._temp_extreme_id; // 空の場合は、9999でリセット
-            
-
-            if (extreme_itemID != 9999)
-            {
-                extreme_itemtype = exp_Controller._temp_extreme_itemtype;
-                Starthp = exp_Controller._temp_Starthp;
-                Life_anim_on = exp_Controller._temp_life_anim_on;
-                Okashi_moneyparam = exp_Controller._temp_extreme_money;
-                _moneydeg = exp_Controller._temp_moneydeg;
-
-                Extreme_Hyouji();
-                //Debug.Log(exp_Controller._temp_extreme_id + " extreme_itemID");
-                //Debug.Log(exp_Controller._temp_extreme_itemtype + " exp_Controller._temp_extreme_itemtype");
-                //Debug.Log(exp_Controller._temp_Starthp + " exp_Controller._temp_Starthp");
-            }
+            SetInitParamExtreme();            
 
             myscene_loaded = false;
         }
-
+        
         if( Life_anim_on == true) //お菓子が完成したら、だんだんとHPが減っていく。０になると、お菓子が壊れる。
         {
 
@@ -258,6 +243,22 @@ public class ExtremePanel : MonoBehaviour {
             timeOut -= Time.deltaTime;
         }
 	}
+
+    public void SetInitParamExtreme()
+    {
+        extreme_itemID = exp_Controller._temp_extreme_id; // 空の場合は、9999でリセット           
+
+        if (extreme_itemID != 9999)
+        {
+            extreme_itemtype = exp_Controller._temp_extreme_itemtype;
+            Starthp = exp_Controller._temp_Starthp;
+            Life_anim_on = exp_Controller._temp_life_anim_on;
+            Okashi_moneyparam = exp_Controller._temp_extreme_money;
+            _moneydeg = exp_Controller._temp_moneydeg;
+
+            Extreme_Hyouji();
+        }
+    }
 
     public void SetExtremeItem( int item_id, int itemtype )
     {
@@ -525,6 +526,9 @@ public class ExtremePanel : MonoBehaviour {
 
         exp_Controller._temp_extreme_id = 9999;
         exp_Controller._temp_extremeSetting = false;
+
+        GameMgr.sys_extreme_itemID = 9999;
+        GameMgr.sys_extreme_itemType = 0;
     }
 
 

@@ -9,14 +9,30 @@ public class SystemSelectPanel : MonoBehaviour {
     private SaveController save_controller;
     private SoundController sc;
 
+    private GameObject text_area_Main;
+    private Text _textmain;
+
+    private GameObject canvas;
+
+    private Compound_Main compound_Main;
+
     // Use this for initialization
     void Start () {
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         save_controller = SaveController.Instance.GetComponent<SaveController>();
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //調合メイン取得
+        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+
+        //windowテキストエリアの取得
+        text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
+        _textmain = text_area_Main.GetComponentInChildren<Text>();
     }
 	
 	// Update is called once per frame
@@ -28,12 +44,18 @@ public class SystemSelectPanel : MonoBehaviour {
     public void OnSaveButton()
     {
         save_controller.OnSaveMethod();
+        _textmain.text = "セーブしました。";
+        compound_Main.compound_status = 0;
+        this.transform.parent.gameObject.SetActive(false);
     }
 
     //ロード
     public void OnLoadButton()
     {
         save_controller.OnLoadMethod();
+        _textmain.text = "ロードしました。";
+        compound_Main.compound_status = 0;
+        this.transform.parent.gameObject.SetActive(false);
     }
 
     //オプション
