@@ -58,12 +58,12 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
       
         spquest_set_num = _num;
         GameMgr.OkashiQuest_Num = _num;
-        GameMgr.QuestClearflag = false;
-
+        
         if(_status == 0)
         {
             special_kaisu = 0; //0回にリセット
             girl1_status.OkashiNew_Status = 0;
+            GameMgr.QuestClearflag = false;
         }
         else //ロードから再開された場合の処理
         {

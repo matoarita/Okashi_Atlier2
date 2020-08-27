@@ -23,12 +23,12 @@ public class Button_ImageOnOff : MonoBehaviour {
         if( myButton.IsInteractable() == true )
         {
             myImage.color = new Color(1, 1, 1, 1);
-            myText.color = new Color(1, 1, 1, 1);
+            //myText.color = new Color(1, 1, 1, 1);
         }
         else
         {
             myImage.color = new Color(1, 1, 1, 0.5f);
-            myText.color = new Color(1, 1, 1, 0.5f);
+            //myText.color = new Color(1, 1, 1, 0.5f);
         }
 
     }

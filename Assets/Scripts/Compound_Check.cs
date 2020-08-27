@@ -152,7 +152,8 @@ public class Compound_Check : MonoBehaviour {
         {
             if (compound_Main.compound_select == 1) //レシピ調合のときの処理
             {
-                
+                compostart_button.compofinal_flag = true; //ボタン入力の受付のフラグ
+
                 compound_Main.compound_status = 110;
 
                 SelectPaused();

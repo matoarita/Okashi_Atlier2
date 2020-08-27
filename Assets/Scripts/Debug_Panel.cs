@@ -39,6 +39,7 @@ public class Debug_Panel : MonoBehaviour {
     private int event_num;
     private int girllove_param;
     private Text girl_lv;
+    private Text girl_param;
     public bool Debug_INPUT_ON; //デバッグ外部からの入力受け付けるかどうか。PSコントローラーでやるときはOFFにしたほうがよい。バグがでるため。
 
     private Toggle Mazui_toggle;
@@ -359,6 +360,7 @@ public class Debug_Panel : MonoBehaviour {
 
             //女の子のレベル取得
             girl_lv = canvas.transform.Find("Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+            girl_param = canvas.transform.Find("Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
             girl1_status.girl1_Love_lv = 1;
 
             stage_levelTable.Clear();
@@ -411,6 +413,7 @@ public class Debug_Panel : MonoBehaviour {
 
             //レベル表示も更新
             girl_lv.text = girl1_status.girl1_Love_lv.ToString();
+            girl_param.text = girl1_status.girl1_Love_exp.ToString();
 
 
             //表情も即時変更

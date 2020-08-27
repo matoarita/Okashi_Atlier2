@@ -507,7 +507,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         compound_Main.bgm_change_flag = true;
 
                         //背景エフェクト
-                        map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
+                        map_bg_effect.transform.Find("MapBG_Effect_Lavender").gameObject.SetActive(true);
 
                         //イベントチェック
                         if (!GameMgr.MapEvent_05[0])
@@ -522,10 +522,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_tansaku_button_obj.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
+                            event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 1;
+                            GameMgr.map_ev_ID = 6;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");

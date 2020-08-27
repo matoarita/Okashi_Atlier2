@@ -487,6 +487,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 card_view.SelectCard_DrawView03(pitemlistController._toggle_type3, pitemlistController.kettei_item3); //選択したアイテム2枚目をカードで表示
                 updown_counter_obj.SetActive(true);
+                compostart_button_obj.SetActive(false);
 
                 SelectPaused();
 
@@ -633,7 +634,10 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.final_kettei_kosu3 = updown_counter.updown_kosu;
                 card_view.OKCard_DrawView03(pitemlistController.final_kettei_kosu3);
-                
+
+                yes.SetActive(false);
+                compostart_button_obj.SetActive(true);
+
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 

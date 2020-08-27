@@ -408,11 +408,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         girl1_status.OkashiNew_Status = 0;
         girl1_status.special_animatFirst = true;
+        girl1_status.Girl_Hungry();
+
         special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1);
-        special_quest.RedrawQeustName();
+        special_quest.RedrawQeustName();       
+
         debug_panel.GirlLove_Koushin(girl1_status.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
         GameMgr.KeyInputOff_flag = true;
-        Debug.Log("GameMgr.QuestClearflag: " + GameMgr.QuestClearflag);
+        
         compound_Main.QuestClearCheck(); //クエストクリアしてたか確認
 
     }

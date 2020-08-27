@@ -1111,7 +1111,14 @@ public class Utage_scenario : MonoBehaviour
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "GirlLove_Event"; //イベントレシピタグのシナリオを再生。
+        if (GirlLoveEvent_num < 10)
+        {
+            scenarioLabel = "GirlLove_Event"; //イベントレシピタグのシナリオを再生。
+        }
+        else
+        {
+            scenarioLabel = "GirlLove_Event2"; //イベントレシピタグのシナリオを再生。
+        }
 
         scenario_loading = true;
 

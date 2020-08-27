@@ -21,12 +21,17 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
     private ItemSelect_Cancel itemselect_cancel;
     private Updown_counter updown_counter;
+    private Button[] updown_button = new Button[2];
 
     private CompoundStartButton compostart_button;
 
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
     private ScrollRect pitemlist_sr;
+
+    private GameObject recipilistController_obj;
+    private RecipiListController recipilistController;
+    private ScrollRect recipilist_sr;
 
     private GameObject menu_toggle;
     private GameObject girleat_toggle;
@@ -74,9 +79,15 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     private int compobgA_listcount;
 
     private int pitemlist_column = 3;
+    private int recipilist_column = 4;
+
+    private bool OnDownKey, OnUpKey, OnRightKey, OnLeftKey;
 
     // Use this for initialization
     void Start () {
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -88,6 +99,13 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         itemCursor_On = false;
 
         EnterKey_ON = false;
+        OnDownKey = false;
+        OnUpKey = false;
+        OnRightKey = false;
+        OnLeftKey = false;
+
+        cursor = canvas.transform.Find("CompoundSelect_ScrollView/Viewport/SelectCursor").gameObject;
+        cursor_startpos = cursor.transform.localPosition;
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -125,6 +143,28 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                 debug_panel.Debug_INPUT_ON = true;
             }
         }
+        // *** ここまで ***//
+
+
+
+        //本編でも使用
+
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) //下を押した
+        {
+            OnDownKey = true;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) //上を押した
+        {
+            OnUpKey = true;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) //右を押した
+        {
+            OnRightKey = true;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) //左を押した
+        {
+            OnLeftKey = true;
+        }
 
         if (canvas == null)
         {
@@ -138,9 +178,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
             }
         }
 
-        // *** ここまで ***//
-
-        //本編でも使用
+        
 
         
         if (!GameMgr.scenario_ON)
@@ -166,7 +204,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
             }
 
 
-            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow)) //下or右キー
+            if (OnDownKey || OnRightKey || OnUpKey || OnLeftKey) //下or右キー
             {
 
                 switch (SceneManager.GetActiveScene().name)
@@ -176,6 +214,9 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                         pitemlistController = canvas.transform.Find("PlayeritemList_ScrollView").GetComponent<PlayerItemListController>();
                         pitemlist_sr = canvas.transform.Find("PlayeritemList_ScrollView").GetComponent<ScrollRect>();
 
+                        recipilistController = canvas.transform.Find("RecipiList_ScrollView").GetComponent<RecipiListController>();
+                        recipilist_sr = canvas.transform.Find("RecipiList_ScrollView").GetComponent<ScrollRect>();                        
+
                         if (GameMgr.KeyInputOff_flag)
                         {
                             switch (compound_Main.compound_select)
@@ -183,7 +224,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
                                 case 0:
 
-                                    if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow)) //下or右キー
+                                    if (OnDownKey || OnRightKey) //下or右キー
                                     {
                                         if (!Cursor_On)
                                         {
@@ -220,7 +261,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                         }
                                     }
 
-                                    if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow)) //上or左キー
+                                    if (OnUpKey || OnLeftKey) //上or左キー
                                     {
                                         if (!Cursor_On)
                                         {
@@ -258,6 +299,85 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                     }
                                     break;
 
+                                case 1:
+
+                                    if (compostart_button.compofinal_flag != true)
+                                    {
+                                        if (itemselect_cancel.kettei_on_waiting != true)
+                                        {
+                                            sc.PlaySe(2);
+
+                                            if (!itemCursor_On)
+                                            {
+                                                cursor_cullent_num = 0;
+                                                cursor_cullent_num_before = 0;
+                                                itemCursor_On = true;
+                                            }
+                                            else
+                                            {
+                                                if (OnDownKey) //下
+                                                {
+                                                    cursor_cullent_num += recipilist_column;
+                                                    if (cursor_cullent_num > recipilistController._recipi_listitem.Count - 1)
+                                                    {
+                                                        cursor_cullent_num = recipilistController._recipi_listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                    }
+                                                }
+                                                if (OnRightKey) //右
+                                                {
+                                                    cursor_cullent_num += 1;
+                                                    if (cursor_cullent_num > recipilistController._recipi_listitem.Count - 1)
+                                                    {
+                                                        cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                    }
+                                                }
+                                                if (OnUpKey) //上
+                                                {
+                                                    cursor_cullent_num -= recipilist_column;
+                                                    if (cursor_cullent_num < 0)
+                                                    {
+                                                        cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
+                                                    }
+                                                }
+                                                if (OnLeftKey) //左
+                                                {
+                                                    cursor_cullent_num -= 1;
+                                                    if (cursor_cullent_num < 0)
+                                                    {
+                                                        cursor_cullent_num = recipilistController._recipi_listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                    }
+                                                }
+                                            }
+
+                                            //描画更新
+                                            recipiitemlist_DrawCursor();
+                                        }
+                                        else
+                                        {
+                                            updown_counter = canvas.transform.Find("updown_counter(Clone)").GetComponent<Updown_counter>();
+                                            updown_button = updown_counter.GetComponentsInChildren<Button>();
+                                            sc.PlaySe(2);
+
+                                            if (OnRightKey) //右
+                                            {
+                                                if (updown_button[1].interactable == true)
+                                                {
+                                                    updown_counter.OnClick_up();
+                                                }
+                                            }
+                                            if (OnLeftKey) //左
+                                            {
+                                                updown_counter.OnClick_down();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        
+                                    }
+
+                                    break;
+
                                 case 2:
 
                                     if (compostart_button.compofinal_flag != true)
@@ -274,7 +394,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             }
                                             else
                                             {
-                                                if (Input.GetKeyDown(KeyCode.DownArrow)) //下
+                                                if (OnDownKey) //下
                                                 {
                                                     cursor_cullent_num += pitemlist_column;
                                                     if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
@@ -284,7 +404,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
 
                                                 }
-                                                if (Input.GetKeyDown(KeyCode.RightArrow)) //右
+                                                if (OnRightKey) //右
                                                 {
                                                     cursor_cullent_num += 1;
                                                     if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
@@ -292,7 +412,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                         cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
                                                     }
                                                 }
-                                                if (Input.GetKeyDown(KeyCode.UpArrow)) //上
+                                                if (OnUpKey) //上
                                                 {
                                                     cursor_cullent_num -= pitemlist_column;
                                                     if (cursor_cullent_num < 0)
@@ -300,7 +420,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                         cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
                                                     }
                                                 }
-                                                if (Input.GetKeyDown(KeyCode.LeftArrow)) //左
+                                                if (OnLeftKey) //左
                                                 {
                                                     cursor_cullent_num -= 1;
                                                     if (cursor_cullent_num < 0)
@@ -363,7 +483,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             }
                                             else
                                             {
-                                                if (Input.GetKeyDown(KeyCode.DownArrow)) //下
+                                                if (OnDownKey) //下
                                                 {
                                                     cursor_cullent_num += pitemlist_column;
                                                     if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
@@ -373,7 +493,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
 
                                                 }
-                                                if (Input.GetKeyDown(KeyCode.RightArrow)) //右
+                                                if (OnRightKey) //右
                                                 {
                                                     cursor_cullent_num += 1;
                                                     if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
@@ -381,7 +501,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                         cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
                                                     }
                                                 }
-                                                if (Input.GetKeyDown(KeyCode.UpArrow)) //上
+                                                if (OnUpKey) //上
                                                 {
                                                     cursor_cullent_num -= pitemlist_column;
                                                     if (cursor_cullent_num < 0)
@@ -389,7 +509,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                         cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
                                                     }
                                                 }
-                                                if (Input.GetKeyDown(KeyCode.LeftArrow)) //左
+                                                if (OnLeftKey) //左
                                                 {
                                                     cursor_cullent_num -= 1;
                                                     if (cursor_cullent_num < 0)
@@ -407,11 +527,11 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             updown_counter = canvas.transform.Find("updown_counter(Clone)").GetComponent<Updown_counter>();
                                             sc.PlaySe(2);
 
-                                            if (Input.GetKeyDown(KeyCode.RightArrow)) //右
+                                            if (OnRightKey) //右
                                             {
                                                 updown_counter.OnClick_up();
                                             }
-                                            if (Input.GetKeyDown(KeyCode.LeftArrow)) //左
+                                            if (OnLeftKey) //左
                                             {
                                                 updown_counter.OnClick_down();
                                             }
@@ -422,11 +542,11 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                         updown_counter = canvas.transform.Find("updown_counter(Clone)").GetComponent<Updown_counter>();
                                         sc.PlaySe(2);
 
-                                        if (Input.GetKeyDown(KeyCode.RightArrow)) //右
+                                        if (OnRightKey) //右
                                         {
                                             updown_counter.OnClick_up();
                                         }
-                                        if (Input.GetKeyDown(KeyCode.LeftArrow)) //左
+                                        if (OnLeftKey) //左
                                         {
                                             updown_counter.OnClick_down();
                                         }
@@ -445,7 +565,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                     else
                                     {
                                         sc.PlaySe(2);
-                                        if (Input.GetKeyDown(KeyCode.DownArrow)) //下キー
+                                        if (OnDownKey) //下キー
                                         {
                                             cursor_cullent_num += 2;
                                             if (cursor_cullent_num > compobgA_listcount - 1)
@@ -453,7 +573,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                 cursor_cullent_num = compobgA_listcount - 1;
                                             }
                                         }
-                                        if (Input.GetKeyDown(KeyCode.RightArrow)) //右キー
+                                        if (OnRightKey) //右キー
                                         {
                                             cursor_cullent_num += 1;
                                             if (cursor_cullent_num > compobgA_listcount - 1)
@@ -461,7 +581,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                 cursor_cullent_num -= 1;
                                             }
                                         }
-                                        if (Input.GetKeyDown(KeyCode.UpArrow)) //上キー
+                                        if (OnUpKey) //上キー
                                         {
                                             cursor_cullent_num -= 2;
                                             if (cursor_cullent_num < 0)
@@ -469,7 +589,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                 cursor_cullent_num = 0;
                                             }
                                         }
-                                        if (Input.GetKeyDown(KeyCode.LeftArrow)) //左キー
+                                        if (OnLeftKey) //左キー
                                         {
                                             cursor_cullent_num -= 1;
                                             if (cursor_cullent_num < 0)
@@ -488,6 +608,11 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                         break;
 
                 }
+
+                OnDownKey = false;
+                OnUpKey = false;
+                OnRightKey = false;
+                OnLeftKey = false;
 
             }
 
@@ -547,6 +672,31 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                     system_toggle.GetComponent<Toggle>().isOn = true;
                                                     break;
                                             }
+                                        }
+                                    }
+
+                                    break;
+
+                                case 1:
+
+
+                                    if (compostart_button.compofinal_flag != true)
+                                    {
+                                        if (itemselect_cancel.kettei_on_waiting != true)
+                                        {
+                                            if (recipilistController._recipi_listitem[cursor_cullent_num].GetComponent<Toggle>().IsInteractable() != false)
+                                            {
+                                                recipilistController._recipi_listitem[cursor_cullent_num].GetComponent<Toggle>().isOn = true;
+                                                sc.PlaySe(46);
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                        else
+                                        {
+
                                         }
                                     }
 
@@ -704,6 +854,69 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         cursor_cullent_num_before = cursor_cullent_num;
     }
 
+    void recipiitemlist_DrawCursor()
+    {
+        for (i = 0; i < recipilistController._recipi_listitem.Count; i++) //一回全てのカーソルをOff
+        {
+            recipilistController._recipi_listitem[i].transform.Find("SelectCursor").gameObject.SetActive(false);
+        }
+        recipilistController._recipi_listitem[cursor_cullent_num].transform.Find("SelectCursor").gameObject.SetActive(true);
+
+        bheight = 0; //前カーソルがいた位置の列番号
+        _temp = cursor_cullent_num_before;
+        while (_temp >= recipilist_column)
+        {
+            _temp = _temp - recipilist_column;
+            bheight++;
+        }
+
+        height = 0; //現在カーソルの列番号
+        _temp = cursor_cullent_num;
+        while (_temp >= recipilist_column)
+        {
+            _temp = _temp - recipilist_column;
+            height++;
+        }
+
+        if (recipilistController._recipi_listitem.Count != 0)
+        {
+            _temp = (recipilistController._recipi_listitem.Count - 12) / 3;
+            if (_temp <= 0)
+            {
+                _temp = 1;
+            }
+            cursor_vel = 1.0f / _temp;
+        }
+        else
+        {
+            cursor_vel = 0f;
+        }
+
+
+        if (height > bheight && height >= 3) //カーソルが下にいった場合、スクロールも下に動かす。
+        {
+            //pitemlist_sr.velocity = new Vector2(0f, 300f);
+            recipilist_sr.verticalNormalizedPosition = 1.0f - cursor_vel * (height - 2);
+        }
+        else if (height < bheight && height >= 0) //カーソルが上にいった場合
+        {
+            //pitemlist_sr.velocity = new Vector2(0f, -300f);
+            recipilist_sr.verticalNormalizedPosition = 1.0f - cursor_vel * (height - 2);
+        }
+
+        if (recipilist_sr.verticalNormalizedPosition >= 1.0f)
+        {
+            recipilist_sr.verticalNormalizedPosition = 1.0f;
+        }
+        else if (recipilist_sr.verticalNormalizedPosition < 0.0f)
+        {
+            recipilist_sr.verticalNormalizedPosition = 0.0f;
+        }
+
+        //最後に前いた位置を更新
+        cursor_cullent_num_before = cursor_cullent_num;
+    }
+
     void composelect_DrawCursor()
     {
         for (i = 0; i < compobgA_selectitem.Count; i++) //一回全てのカーソルをOff
@@ -731,11 +944,9 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
-
         cursor = canvas.transform.Find("CompoundSelect_ScrollView/Viewport/SelectCursor").gameObject;
         cursor2 = canvas.transform.Find("ExtremePanel/Comp/SelectCursor2").gameObject;
-        cursor_startpos = cursor.transform.localPosition;
+        cursor.transform.localPosition = cursor_startpos;
 
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();

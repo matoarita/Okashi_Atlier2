@@ -914,6 +914,10 @@ public class Compound_Main : MonoBehaviour
                     
                     compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
+
+                    keymanager.Cursor_On = false;
+                    keymanager.itemCursor_On = false;
+                    keymanager.InitCompoundMainScene();
                 }
               
                 recipilist_onoff.SetActive(false);
@@ -946,10 +950,7 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllON();
 
                 recipiMemoButton.SetActive(false);
-
-                keymanager.Cursor_On = false;
-                keymanager.itemCursor_On = false;
-
+               
                 //音関係
                 if (bgm_change_flag == true)
                 {
@@ -996,6 +997,9 @@ public class Compound_Main : MonoBehaviour
                 //残りあげる回数の更新
                 nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
                 girleat_toggle.transform.Find("Background/kaisu_param").GetComponent<Text>().text = nokori_kaisu.ToString();
+
+                //イベントフラグ関係
+                FlagEvent();                
 
                 compound_select = 0;
                 compound_status = 110; //退避
@@ -2154,7 +2158,8 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;　//1番がtrueになってたら、現在は、ステージ１－２のクエストが発生中という意味。
 
                             //レシピの追加
-                            pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                   
+                            pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                            
+
 
                             //クエスト発生
                             Debug.Log("好感度イベント２をON: ラスクが食べたい　開始");
@@ -2177,10 +2182,7 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
                             //レシピの追加
-                            pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加     
-
-                            //いける場所を追加
-                            matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
+                            pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加                                
 
                             //クエスト発生
                             Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
@@ -2257,6 +2259,12 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
+                    if (!GirlLove_loading)
+                    {
+                        //好感度に応じて発生するイベント
+                        GirlLove_EventMethod();
+                    }
+
                     break;
 
                 //ステージ２のサブイベント
@@ -2301,6 +2309,11 @@ public class Compound_Main : MonoBehaviour
         extreme_Button.interactable = false;
         GirlLove_loading = true;
 
+        //腹減りカウント一時停止
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.Girl_Full();
+        girl1_status.Girl1_Status_Init();
+
         while (girlEat_judge.heart_count > 0 && girlEat_judge.ScoreHyouji_ON)
         {
             yield return null;
@@ -2324,6 +2337,10 @@ public class Compound_Main : MonoBehaviour
         GirlHeartEffect_obj.SetActive(true);
         extreme_Button.interactable = true;
         touch_controller.Touch_OnAllON();
+
+        //腹減りカウント開始
+        girl1_status.GirlEat_Judge_on = true;
+        girl1_status.WaitHint_on = true;
 
         girl1_status.Girl1_Status_Init2();
         GirlLove_loading = false;
@@ -2457,6 +2474,36 @@ public class Compound_Main : MonoBehaviour
             pitemlist.addPlayerItemString("orange", 5);
             pitemlist.addPlayerItemString("grape", 2);
             pitemlist.addPlayerItemString("stone_oven", 1);
+        }
+    }
+
+
+    public void FlagEvent()
+    {
+        if (GameMgr.KeyInputOff_flag)
+        {
+            if (GameMgr.GirlLoveEvent_stage1[1]) //ラスクのタイミングで、外へ出るが出現
+            {
+                getmaterial_toggle.SetActive(true);
+
+                //いける場所を追加
+                matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
+            }
+        }
+    }
+
+    void GirlLove_EventMethod()
+    {
+        if(girl1_status.girl1_Love_lv >= 4 && GameMgr.GirlLoveEvent_stage1[10] == false) //4になったときのイベント 10以降を使う。
+        {
+            GameMgr.GirlLoveEvent_num = 10;
+            GameMgr.GirlLoveEvent_stage1[10] = true;
+            
+            //クエスト発生
+            Debug.Log("好感度イベントの発生");
+
+            //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+            StartCoroutine("ReadGirlLoveEvent");
         }
     }
 }

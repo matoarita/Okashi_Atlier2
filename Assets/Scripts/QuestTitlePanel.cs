@@ -37,6 +37,7 @@ public class QuestTitlePanel : MonoBehaviour {
         yield return new WaitForSeconds(2.0f);
 
         GameMgr.KeyInputOff_flag = true; //キー入力受付開始
+        compound_Main.FlagEvent(); //イベント出現
         this.gameObject.SetActive(false);
     }
 }

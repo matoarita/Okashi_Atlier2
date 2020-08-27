@@ -500,6 +500,11 @@ public class SetImage : MonoBehaviour
                 item_Shokukan_Type.text = "さくさく感";
                 item_Shokukan.text = _crispy_score.ToString();
                 break;
+            case "Bread":
+                subcategory = "パン系";
+                item_Shokukan_Type.text = "さくさく感";
+                item_Shokukan.text = _crispy_score.ToString();
+                break;
             case "Rusk":
                 subcategory = "ラスク系";
                 item_Shokukan_Type.text = "さくさく感";
@@ -519,12 +524,7 @@ public class SetImage : MonoBehaviour
                 subcategory = "チョコレート系";
                 item_Shokukan_Type.text = "くちどけ感";
                 item_Shokukan.text = _smooth_score.ToString();
-                break;
-            case "Bread":
-                subcategory = "パン系";
-                item_Shokukan_Type.text = "ふわふわ感";
-                item_Shokukan.text = _fluffy_score.ToString();
-                break;
+                break;           
             case "Cake":
                 subcategory = "ケーキ系";
                 item_Shokukan_Type.text = "ふわふわ感";
