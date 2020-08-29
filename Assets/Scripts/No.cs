@@ -21,7 +21,7 @@ public class No : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.C))
         {
             //Debug.Log("今、右クリックをした");
             selectitem_kettei.onclick = true;

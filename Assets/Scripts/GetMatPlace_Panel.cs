@@ -322,7 +322,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 select_num = i;
 
                 //時間が20時をこえないかチェック
-                _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay * 2);
+                _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay); //行きの時間だけ計算
                 if (_yosokutime >= time_controller.max_time * 6)
                 {
                     //20時を超えるので、妹に止められる。

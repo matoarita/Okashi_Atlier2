@@ -41,6 +41,8 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     private GameObject sleep_toggle;
     private GameObject system_toggle;
 
+    private List<GameObject> toggle_list = new List<GameObject>();
+
     //private GameObject cardImage_obj;
     private GameObject moneystatus_onoff;
     private SetImage cardImage;
@@ -59,7 +61,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
     private GameObject compoundselect_onoff_obj;
 
-    private GameObject cursor;
     private GameObject cursor2;
     private Vector3 cursor_startpos;
 
@@ -104,9 +105,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         OnRightKey = false;
         OnLeftKey = false;
 
-        cursor = canvas.transform.Find("CompoundSelect_ScrollView/Viewport/SelectCursor").gameObject;
-        cursor_startpos = cursor.transform.localPosition;
-
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
@@ -129,7 +127,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
             FadeManager.Instance.LoadScene("001_Title", 0.3f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) //Spaceキーでデバッグ入力受付のON/OFF
+        if (Input.GetKeyDown(KeyCode.LeftShift)) //左シフトキーでデバッグ入力受付のON/OFF
         {
             debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
 
@@ -148,6 +146,17 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
 
         //本編でも使用
+        if (canvas == null)
+        {
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Compound":
+
+                    InitCompoundMainScene();
+
+                    break;
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) //下を押した
         {
@@ -166,25 +175,11 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
             OnLeftKey = true;
         }
 
-        if (canvas == null)
-        {
-            switch (SceneManager.GetActiveScene().name)
-            {
-                case "Compound":
-
-                    InitCompoundMainScene();
-                    
-                    break;
-            }
-        }
-
-        
-
         
         if (!GameMgr.scenario_ON)
         {
 
-            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.LeftControl)) //右クリック
+            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.C)) //右クリックでキャンセル
             {
 
                 switch (SceneManager.GetActiveScene().name)
@@ -231,8 +226,8 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             if (compound_Main.compound_status == 110)
                                             {
                                                 sc.PlaySe(2);
-                                                cursor.transform.localPosition = cursor_startpos;
                                                 cursor_cullent_num = 0;
+                                                compselectlist_AlloffCursor();
                                                 cursor2.SetActive(true);
                                                 Cursor_On = true;
                                             }
@@ -242,7 +237,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                         {
                                             cursor_cullent_num++;
                                             sc.PlaySe(2);
-                                            if (cursor_cullent_num > cursor_list_count - 1)
+                                            if (cursor_cullent_num > cursor_list_count)
                                             {
                                                 cursor_cullent_num = 0;
                                             }
@@ -250,13 +245,12 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             if (cursor_cullent_num == 0) //0のときだけ、別矢印をONにする。
                                             {
                                                 cursor2.SetActive(true);
-                                                cursor.SetActive(false);
+                                                compselectlist_AlloffCursor();
                                             }
                                             else
                                             {
-                                                cursor.transform.localPosition = new Vector3(cursor_startpos.x + (110 * (cursor_cullent_num - 1)), cursor_startpos.y, 0);
-                                                cursor.SetActive(true);
                                                 cursor2.SetActive(false);
+                                                compselectlist_DrawCursor();
                                             }
                                         }
                                     }
@@ -268,8 +262,8 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             if (compound_Main.compound_status == 110)
                                             {
                                                 sc.PlaySe(2);
-                                                cursor.transform.localPosition = cursor_startpos;
                                                 cursor_cullent_num = 0;
+                                                compselectlist_AlloffCursor();
                                                 cursor2.SetActive(true);
                                                 Cursor_On = true;
                                             }
@@ -281,19 +275,18 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             sc.PlaySe(2);
                                             if (cursor_cullent_num < 0)
                                             {
-                                                cursor_cullent_num = 6;
+                                                cursor_cullent_num = cursor_list_count;
                                             }
 
                                             if (cursor_cullent_num == 0) //0のときだけ、別矢印をONにする。
                                             {
                                                 cursor2.SetActive(true);
-                                                cursor.SetActive(false);
+                                                compselectlist_AlloffCursor();
                                             }
                                             else
                                             {
-                                                cursor.transform.localPosition = new Vector3(cursor_startpos.x + (110 * (cursor_cullent_num - 1)), cursor_startpos.y, 0);
-                                                cursor.SetActive(true);
                                                 cursor2.SetActive(false);
+                                                compselectlist_DrawCursor();
                                             }
                                         }
                                     }
@@ -616,7 +609,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
             }
 
-            if (Input.GetKeyDown(KeyCode.Return) ) //エンターキー
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) //エンターキー
             {
 
                 switch (SceneManager.GetActiveScene().name)
@@ -641,36 +634,43 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             {
                                                 case 0:
 
+                                                    sc.PlaySe(0);
                                                     extreme_panel.OnClick_ExtremeButton();
 
                                                     break;
 
-                                                case 1:
+                                                default:
 
-                                                    getmaterial_toggle.GetComponent<Toggle>().isOn = true;
+                                                    sc.PlaySe(23);
+                                                    switch (toggle_list[cursor_cullent_num-1].transform.name)
+                                                    {
+                                                        case "GetMaterial_Toggle":
+                                                            getmaterial_toggle.GetComponent<Toggle>().isOn = true;
+                                                            break;
+
+                                                        case "Shop_Toggle":
+                                                            shop_toggle.GetComponent<Toggle>().isOn = true;
+                                                            break;
+
+                                                        case "ItemMenu_Toggle":
+                                                            menu_toggle.GetComponent<Toggle>().isOn = true;
+                                                            break;
+
+                                                        case "Sleep_Toggle":
+                                                            sleep_toggle.GetComponent<Toggle>().isOn = true;
+                                                            break;
+
+                                                        case "GirlEat_Toggle":
+                                                            girleat_toggle.GetComponent<Toggle>().isOn = true;
+                                                            break;
+
+                                                        case "System_Toggle":
+                                                            system_toggle.GetComponent<Toggle>().isOn = true;
+                                                            break;
+                                                    }
+                                                            
                                                     break;
 
-                                                case 2:
-                                                    shop_toggle.GetComponent<Toggle>().isOn = true;
-
-                                                    break;
-
-                                                case 3:
-                                                    menu_toggle.GetComponent<Toggle>().isOn = true;
-                                                    break;
-
-                                                case 4:
-                                                    sleep_toggle.GetComponent<Toggle>().isOn = true;
-                                                    break;
-
-                                                case 5:
-                                                    girleat_toggle.GetComponent<Toggle>().isOn = true;
-
-                                                    break;
-
-                                                case 6:
-                                                    system_toggle.GetComponent<Toggle>().isOn = true;
-                                                    break;
                                             }
                                         }
                                     }
@@ -772,7 +772,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                             }
                         }
 
-                        cursor.SetActive(false);
                         cursor2.SetActive(false);
                         Cursor_On = false;
                         break;                        
@@ -789,7 +788,19 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         
     }
 
+    void compselectlist_AlloffCursor()
+    {
+        for (i = 0; i < toggle_list.Count; i++) //一回全てのカーソルをOff
+        {
+            toggle_list[i].transform.Find("SelectCursor").gameObject.SetActive(false);
+        }
+    }
 
+    void compselectlist_DrawCursor()
+    {
+        compselectlist_AlloffCursor();
+        toggle_list[cursor_cullent_num-1].transform.Find("SelectCursor").gameObject.SetActive(true);
+    }
 
     void pitemlist_DrawCursor()
     {
@@ -944,9 +955,10 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        cursor = canvas.transform.Find("CompoundSelect_ScrollView/Viewport/SelectCursor").gameObject;
-        cursor2 = canvas.transform.Find("ExtremePanel/Comp/SelectCursor2").gameObject;
-        cursor.transform.localPosition = cursor_startpos;
+        cursor2 = canvas.transform.Find("ExtremePanel/Comp/SelectCursor2").gameObject;        
+
+        Cursor_On = false;
+        itemCursor_On = false;
 
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -985,8 +997,20 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
 
-        cursor_list_count = 7;
+        toggle_list.Clear();
+        foreach(Transform child in canvas.transform.Find("CompoundSelect_ScrollView/Viewport/Content_compound").transform)
+        {
+            if(child.gameObject.activeSelf)
+            {
+                toggle_list.Add(child.gameObject);
+            }
+        }
+
+        cursor_list_count = toggle_list.Count;
         cursor_cullent_num = 0;
         cursor_cullent_num_before = 0;
+
+        cursor2.SetActive(false);
+        compselectlist_AlloffCursor();
     }
 }

@@ -65,11 +65,42 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         speed = 2.0f;
 
-        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                zero_point = canvas.transform.Find("ZeroPoint").gameObject;
+                break;
+
+            default://シナリオ系のシーンでは読み込まない。
+                break;
+        }
+
+        //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(canvas == null)
+        {
+            //カードのプレファブコンテンツ要素を取得
+            canvas = GameObject.FindWithTag("Canvas");
+            cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
+
+            Pitem_or_Origin_judge = 0;
+
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Compound":
+
+                    zero_point = canvas.transform.Find("ZeroPoint").gameObject;
+                    break;
+
+                default://シナリオ系のシーンでは読み込まない。
+                    break;
+            }
+        }
 
         if (cardcompo_anim_on == true)
         {
@@ -651,22 +682,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //カードのプレファブコンテンツ要素を取得
-        canvas = GameObject.FindWithTag("Canvas");
-        cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
 
-        Pitem_or_Origin_judge = 0;
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                zero_point = canvas.transform.Find("ZeroPoint").gameObject;
-                break;
-
-            default://シナリオ系のシーンでは読み込まない。
-                break;
-        }
     }
 
     //一時的にカードのインタラクトをOFF

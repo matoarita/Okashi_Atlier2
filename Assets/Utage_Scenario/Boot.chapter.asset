@@ -2698,9 +2698,19 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 56
+      debugIndex: 56
+      strings:
+      - "BGM\u6C17\u3060\u308B\u3044"
+      - 
+      - Bgm
+      - BGM_26.mp3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 1134
+    textLength: 1154
     headerRow: 0
   - rows:
     - rowIndex: 0

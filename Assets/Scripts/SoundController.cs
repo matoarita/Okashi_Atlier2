@@ -61,4 +61,9 @@ public class SoundController : MonoBehaviour {
         //seSources[0].Play();
         audioSource.Stop();
     }
+
+    public void VolumeSetting()
+    {
+        audioSource.volume = 1.0f * GameMgr.MasterVolumeParam;
+    }
 }

@@ -46,7 +46,10 @@ public class PlayerData
     public bool[] save_GirlLoveEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];  //各イベントの、現在読み中かどうかのフラグ。
     public bool[] save_GirlLoveEvent_stage2 = new bool[GameMgr.GirlLoveEvent_stage2.Length];
     public bool[] save_GirlLoveEvent_stage3 = new bool[GameMgr.GirlLoveEvent_stage3.Length];
-   
+
+    //サブイベントフラグ
+    public bool[] save_GirlLoveSubEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];
+
     //マップイベントフラグ
     public bool[] save_MapEvent_01;         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
     public bool[] save_MapEvent_02;         //井戸。
@@ -76,6 +79,7 @@ public class PlayerData
 
     //ショップのイベントリスト
     public bool[] save_ShopEvent_stage = new bool[GameMgr.ShopEvent_stage.Length];
+    public bool[] save_ShopLvEvent_stage = new bool[GameMgr.ShopLVEvent_stage.Length];
 
     //コンテストのイベントリスト
     public bool[] save_ContestEvent_stage = new bool[GameMgr.ContestEvent_stage.Length];
@@ -97,7 +101,7 @@ public class PlayerData
     public List<Item> save_player_originalitemlist = new List<Item>();
 
     //アイテムの前回スコアなどを記録する
-    public List<Item> save_itemdatabase = new List<Item>();
+    public List<ItemSaveparam> save_itemdatabase = new List<ItemSaveparam>();
 
     //調合のフラグ＋調合回数を記録する
     public List<ItemCompound> save_itemCompodatabase = new List<ItemCompound>();

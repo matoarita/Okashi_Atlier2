@@ -33,6 +33,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] GirlLoveEvent_stage2 = new bool[30];
     public static bool[] GirlLoveEvent_stage3 = new bool[30];
 
+    //好感度やパティシエレベルで発生するサブイベントのフラグ
+    public static int GirlLoveSubEvent_num;
+    public static int girlloveevent_bunki; //メインイベントかサブイベントかを分岐する
+    public static bool[] GirlLoveSubEvent_stage1 = new bool[30];
+
     //マップイベント
     public static int　map_ev_ID;           //その時のイベント番号
     public static bool map_event_flag;      //マップイベントの、宴を表示する用のフラグ
@@ -90,6 +95,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ショップの話すコマンド
     public static bool shop_event_flag;  //ショップで発生するイベントのフラグ。
     public static int shop_event_num;
+    public static bool shop_lvevent_flag;  //ショップで発生するイベントのフラグ。
+    public static int shop_lvevent_num;
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
     public static bool shop_hint;
@@ -115,6 +122,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //ショップのイベントリスト
     public static bool[] ShopEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+    public static bool[] ShopLVEvent_stage = new bool[30]; //パティシエレベルなどに応じたイベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
 
     //コンテストのイベントリスト
     public static bool[] ContestEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -168,6 +176,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //キー入力受付開始のフラグ
     public static bool KeyInputOff_flag;
 
+    //オプションの設定　マスター音量など
+    public static float MasterVolumeParam;
+
     //ゲーム共通の固有の色
     public static string ColorYellow;
     public static string ColorGold;
@@ -194,7 +205,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         timeLeft = 1.0f;
 
         //各イベントフラグ・ゲームパラメーターの初期設定
-        ResetGameDefaultStatus();       
+        ResetGameDefaultStatus();
+
+        //音量設定などの初期値
+        MasterVolumeParam = 1.0f;
 
         //各色の設定
         ColorYellow = "<color=#FDFF80>"; // ゴールドに近いくすんだ黄色 #BA9535  かなり薄い黄色 #FDFF80
@@ -249,6 +263,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         gamestart_recipi_get = false;
 
         shop_event_flag = false;
+        shop_lvevent_flag = false;
         shop_event_num = 0;
         talk_flag = false;
         talk_number = 0;
@@ -297,12 +312,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             GirlLoveEvent_stage1[system_i] = false;
             GirlLoveEvent_stage2[system_i] = false;
             GirlLoveEvent_stage3[system_i] = false;
+
+            GirlLoveSubEvent_stage1[system_i] = false;
         }
 
         //ショップイベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
         {
             ShopEvent_stage[system_i] = false;
+            ShopLVEvent_stage[system_i] = false;
             FarmEvent_stage[system_i] = false;
         }
 
@@ -371,6 +389,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage1_limit_day = 98;
         stage2_limit_day = 151;
         stage3_limit_day = 211;
+        
     }
     
 }

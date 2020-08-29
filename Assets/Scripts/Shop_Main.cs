@@ -49,6 +49,9 @@ public class Shop_Main : MonoBehaviour {
     private GameObject shopon_toggle_talk;
     private GameObject shopon_toggle_quest;
 
+    private bool check_lvevent;
+    private bool lvevent_loading;
+
     private GameObject updown_counter_obj;
     private GameObject updown_counter_Prefab;
 
@@ -158,6 +161,9 @@ public class Shop_Main : MonoBehaviour {
         shop_status = 0;
         shop_scene = 0;
 
+        check_lvevent = false;
+        lvevent_loading = false;
+
         //入店の音
         sc.PlaySe(51);
     }
@@ -182,6 +188,8 @@ public class Shop_Main : MonoBehaviour {
                     //メイン画面にもどったときに、イベントを発生させるフラグをON
                     GameMgr.CompoundEvent_num = 0;
                     GameMgr.CompoundEvent_flag = true;
+
+                    StartCoroutine("Scenario_loading");
                 }
 
                 break;
@@ -195,6 +203,8 @@ public class Shop_Main : MonoBehaviour {
 
                     GameMgr.shop_event_num = 10;
                     GameMgr.shop_event_flag = true;
+
+                    StartCoroutine("Scenario_loading");
                 }
 
                 break;
@@ -208,6 +218,8 @@ public class Shop_Main : MonoBehaviour {
 
                     GameMgr.shop_event_num = 20;
                     GameMgr.shop_event_flag = true;
+
+                    StartCoroutine("Scenario_loading");
                 }
 
                 break;
@@ -221,6 +233,8 @@ public class Shop_Main : MonoBehaviour {
 
                     GameMgr.shop_event_num = 30;
                     GameMgr.shop_event_flag = true;
+
+                    StartCoroutine("Scenario_loading");
                 }
 
                 break;
@@ -241,6 +255,8 @@ public class Shop_Main : MonoBehaviour {
 
                     //村の広場にいけるようになる。
                     matplace_database.matPlaceKaikin("Hiroba");
+
+                    StartCoroutine("Scenario_loading");
                 }
 
                 break;
@@ -249,7 +265,7 @@ public class Shop_Main : MonoBehaviour {
             default:
                 break;
         }
-        
+              
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
@@ -267,52 +283,66 @@ public class Shop_Main : MonoBehaviour {
         }
         else
         {
-            //Debug.Log("shop_status" + shop_status);
-            switch (shop_status)
+            if (!check_lvevent) //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
             {
-                case 0:
+                Debug.Log("チェック　パティシエレベルor好感度レベルイベント");
+                CheckShopLvEvent();
 
-                    character.GetComponent<FadeCharacter>().SetOn();
-                    shopitemlist_onoff.SetActive(false);
-                    shopquestlist_obj.SetActive(false);
-                    shop_select.SetActive(true);
-                    text_area.SetActive(true);
-                    money_status_obj.SetActive(true);
-                    placename_panel.SetActive(true);
-                    black_effect.SetActive(false);
+                if (lvevent_loading) { }
+                else
+                {
+                    check_lvevent = true;
+                }
+            }
+            else
+            {
+                //Debug.Log("shop_status" + shop_status);
+                switch (shop_status)
+                {
+                    case 0:
 
-                    //_text.text = shopdefault_text;
+                        character.GetComponent<FadeCharacter>().SetOn();
+                        shopitemlist_onoff.SetActive(false);
+                        shopquestlist_obj.SetActive(false);
+                        shop_select.SetActive(true);
+                        text_area.SetActive(true);
+                        money_status_obj.SetActive(true);
+                        placename_panel.SetActive(true);
+                        black_effect.SetActive(false);
 
-                    shop_scene = 0;
-                    shop_status = 100;
+                        //_text.text = shopdefault_text;
 
-                    if(trans == 1) //カメラが寄っていたら、デフォに戻す。
-                    {
-                        //カメラ寄る。
-                        trans--; //transが1を超えたときに、ズームするように設定されている。
+                        shop_scene = 0;
+                        shop_status = 100;
 
-                        //intパラメーターの値を設定する.
-                        maincam_animator.SetInteger("trans", trans);
-                    }
+                        if (trans == 1) //カメラが寄っていたら、デフォに戻す。
+                        {
+                            //カメラ寄る。
+                            trans--; //transが1を超えたときに、ズームするように設定されている。
 
-                    break;
+                            //intパラメーターの値を設定する.
+                            maincam_animator.SetInteger("trans", trans);
+                        }
 
-                case 1: //ショップのアイテム選択中
-                    break;
+                        break;
 
-                case 2:
-                    break;
+                    case 1: //ショップのアイテム選択中
+                        break;
 
-                case 3: //クエスト選択中
-                    break;
+                    case 2:
+                        break;
 
-                case 100: //退避
-                    break;
+                    case 3: //クエスト選択中
+                        break;
 
-                default:
-                    break;
+                    case 100: //退避
+                        break;
 
-                
+                    default:
+                        break;
+
+
+                }
             }
         }
 
@@ -376,6 +406,54 @@ public class Shop_Main : MonoBehaviour {
             //intパラメーターの値を設定する.
             maincam_animator.SetInteger("trans", trans);
 
+        }
+    }
+
+    //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
+    void CheckShopLvEvent()
+    {
+        if (girl1_status.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 1) //好感度レベル２以上 or ラスクイベント開始
+        {
+            if (!GameMgr.ShopLVEvent_stage[0])
+            {
+                GameMgr.ShopLVEvent_stage[0] = true;
+                GameMgr.scenario_ON = true;
+
+                GameMgr.shop_lvevent_num = 0;
+                GameMgr.shop_lvevent_flag = true;
+
+                lvevent_loading = true;
+                StartCoroutine("Scenario_loading");
+            }
+        }
+
+        if (girl1_status.girl1_Love_lv >= 4 && !GameMgr.ShopLVEvent_stage[1]) //好感度レベル４以上
+        {
+            GameMgr.ShopLVEvent_stage[1] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_lvevent_num = 1;
+            GameMgr.shop_lvevent_flag = true;
+
+            lvevent_loading = true;
+            StartCoroutine("Scenario_loading");
+        }
+    }
+
+    IEnumerator Scenario_loading()
+    {
+
+        while (!GameMgr.scenario_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.scenario_read_endflag = false;
+
+        if (lvevent_loading)
+        {
+            check_lvevent = true;
+            lvevent_loading = false;
         }
     }
 }

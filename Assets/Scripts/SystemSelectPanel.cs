@@ -16,6 +16,8 @@ public class SystemSelectPanel : MonoBehaviour {
 
     private Compound_Main compound_Main;
 
+    private GameObject option_panel;
+
     // Use this for initialization
     void Start () {
 
@@ -29,6 +31,9 @@ public class SystemSelectPanel : MonoBehaviour {
 
         //調合メイン取得
         compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+
+        //オプションパネルの取得
+        option_panel = canvas.transform.Find("OptionPanel").gameObject;
 
         //windowテキストエリアの取得
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
@@ -61,7 +66,7 @@ public class SystemSelectPanel : MonoBehaviour {
     //オプション
     public void OnOptionButton()
     {
-
+        option_panel.SetActive(true);
     }
 
     //タイトル

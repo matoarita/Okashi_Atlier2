@@ -25,3 +25,4 @@
 ・BGM_23		audiostock_152817_sample		悲しいときに流れる曲４
 ・BGM_24		audiostock_158569_sample		ED前の曲
 ・BGM_25		audiostock_12186			ラベンダー畑のBGM
+・BGM_26		のっそりと気だるい感じ			コンテストのメンバー集合　ゆるっとした感じ

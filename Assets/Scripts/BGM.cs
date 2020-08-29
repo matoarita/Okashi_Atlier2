@@ -56,8 +56,8 @@ public class BGM : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume;
-        _bgm[1].volume = _mixRate * 0.4f * fade_volume;
+        _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam;
+        _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam;
 
         if(fade_status == 0) //フェードアウトがON
         {           

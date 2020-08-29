@@ -77,6 +77,9 @@ public class Quest_Judge : MonoBehaviour {
     private int _questID;
     private int _qitemID;
 
+    private int del_itemid;
+    private int del_itemkosu;
+
     private int set_kaisu;
     private int okashi_totalscore;
     private int okashi_totalkosu;
@@ -87,6 +90,7 @@ public class Quest_Judge : MonoBehaviour {
     private string _itemsubtype;
 
     private int _kosu_default;
+    private int _kosu_total;
     private int _kosu_min;
     private int _kosu_max;
     private int _buy_price;
@@ -336,6 +340,9 @@ public class Quest_Judge : MonoBehaviour {
         SetInitQItem(_qitemID);
 
         nouhinOK_flag = false;
+        deleteOriginalList.Clear();
+
+        _kosu_total = _kosu_default; //トータルで〇個いる。デフォルトアイテムから１個、プレイヤーアイテムリストから、１個＋１個のような感じで、減っていく。
 
         //プレイヤーのアイテムリストを検索
         for (i = 0; i < pitemlist.playeritemlist.Count; i++)
@@ -348,50 +355,70 @@ public class Quest_Judge : MonoBehaviour {
                 {
 
                     //一致したら、さらに個数が足りてるかどうかを調べる。
-                    if (pitemlist.playeritemlist[i] >= _kosu_default)
+                    if (pitemlist.playeritemlist[i] >= _kosu_total)
                     {
                         nouhinOK_flag = true;
 
                         //所持アイテムを削除
-                        pitemlist.deletePlayerItem(i, _kosu_default);
+                        pitemlist.deletePlayerItem(i, _kosu_total);
                     }
                     else
                     {
+                        _kosu_total -= pitemlist.playeritemlist[i];
+                        //さらにデリートリストに追加しておく。
+                        del_itemid = i;
+                        del_itemkosu = pitemlist.playeritemlist[i];
+
                         nouhinOK_flag = false;
                     }
                 }
             }
         }
-        /*
+        
         if (!nouhinOK_flag) //上の探索で納品OKがtrueなら、オリジナルアイテムリストは検索しない
         {
             //次にプレイヤーのオリジナルアイテムリストを検索。player_originalitemlistは個数が1以上のものしかセットされていない。
-            for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
+            i = 0;
+            while (i < pitemlist.player_originalitemlist.Count)
             {
 
                 //まず該当アイテムがあるかどうか調べる。
                 if (_itemname == pitemlist.player_originalitemlist[i].itemName)
                 {
                     //一致したら、さらに個数が足りてるかどうかを調べる。
-                    if (pitemlist.player_originalitemlist[i].ItemKosu >= _kosu_default)
+                    if (pitemlist.player_originalitemlist[i].ItemKosu >= _kosu_total)
                     {
                         nouhinOK_flag = true;
 
-                        //所持アイテムを削除
-                        pitemlist.deleteOriginalItem(i, _kosu_default);
+                        //デリートリストに追加しておく。
+                        //さらにデリートリストに追加しておく。あとで降順に削除
+                        deleteOriginalList.Add(i, _kosu_total);
+
+                        break;
                     }
                     else
                     {
+                        _kosu_total -= pitemlist.player_originalitemlist[i].ItemKosu;
+                        //さらにデリートリストに追加しておく。あとで降順に削除
+                        deleteOriginalList.Add(i, pitemlist.player_originalitemlist[i].ItemKosu);
+
                         nouhinOK_flag = false;
                     }
                 }
-
+                i++;
             }
-        }*/
+        }
 
         if (nouhinOK_flag)
         {
             //StartCoroutine("Quest_result_Anim");
+
+            //アイテム削除
+            if (deleteOriginalList.Count > 0)
+            {
+                pitemlist.deletePlayerItem(del_itemid, del_itemkosu); //デフォルトアイテムから先に削除
+                DeleteOriginalItem(); //オリジナルからも削除
+            }
 
             _getMoney = _buy_price * _kosu_default;
 
@@ -435,6 +462,31 @@ public class Quest_Judge : MonoBehaviour {
 
         back_ShopFirst_btn.interactable = true;
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+    }
+
+    void DeleteOriginalItem()
+    {
+
+        //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
+        if (deleteOriginalList.Count > 0)
+        {
+            //Debug.Log("オリジナルアイテムを納品");
+
+            //オリジナルアイテムをトッピングに使用していた場合の削除処理。削除用リストに入れた分をもとに、削除の処理を行う。
+            var newTable = deleteOriginalList.OrderByDescending(value => value.Key); //降順にする
+
+            foreach (KeyValuePair<int, int> deletePair in newTable)
+            {
+                if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
+                {
+                    exp_Controller._temp_extreme_id = 9999;
+                    exp_Controller._temp_extremeSetting = false;
+                }
+                pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
+
+                //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
+            }
+        }
     }
 
 
@@ -709,24 +761,8 @@ public class Quest_Judge : MonoBehaviour {
 
 
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
-        if (deleteOriginalList.Count > 0)
-        {
-            //Debug.Log("オリジナルアイテムを降順で削除");
-
-            //オリジナルアイテムをトッピングに使用していた場合の削除処理。削除用リストに入れた分をもとに、削除の処理を行う。
-            var newTable = deleteOriginalList.OrderByDescending(value => value.Key); //降順にする
-
-            foreach (KeyValuePair<int, int> deletePair in newTable)
-            {
-                if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
-                {
-                    exp_Controller._temp_extreme_id = 9999;
-                    exp_Controller._temp_extremeSetting = false;
-                }
-                pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
-                //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
-            }
-        }
+        DeleteOriginalItem();
+        
 
         StartCoroutine("Okashi_Judge_Anim");
         

@@ -85,7 +85,7 @@ public class GetMaterial : MonoBehaviour {
     private int mat_anim_status;
     private float timeOut;
 
-    
+    private GameObject NextButton_obj;
 
     // Use this for initialization
     void Start () {
@@ -133,6 +133,7 @@ public class GetMaterial : MonoBehaviour {
 
         tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Tansaku_panel").gameObject;
 
+        NextButton_obj = tansaku_panel.transform.Find("TansakuActionList/Viewport/Content/Next_tansaku").gameObject;
     }
 	
 	// Update is called once per frame
@@ -146,6 +147,8 @@ public class GetMaterial : MonoBehaviour {
 
                     //音を鳴らす
                     audioSource.PlayOneShot(sound3);
+
+                    NextButton_obj.SetActive(false);
 
                     timeOut = 1.0f;
                     mat_anim_status = 1;
@@ -528,10 +531,12 @@ public class GetMaterial : MonoBehaviour {
 
             default:
 
-                if( PlayerStatus.player_girl_findpower >= 130 )
+                if( PlayerStatus.player_girl_findpower >= 130) //player_girl_findpowerは、girl_status内でパラメータ処理
                 {
-                    //バードサンクチュアリを発見
-                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                    //バードサンクチュアリへ繋がる道を発見
+                    //_text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                    //NextButton_obj.SetActive(true);
+                    _text.text = "にいちゃん！！　とんぼが飛んでる～！！";
                 }
                 else
                 {
@@ -572,6 +577,7 @@ public class GetMaterial : MonoBehaviour {
                 {
                     //バードサンクチュアリを発見
                     _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                    NextButton_obj.SetActive(true);
                 }
                 else
                 {
@@ -620,6 +626,7 @@ public class GetMaterial : MonoBehaviour {
     //イベントの発生確率をセット
     void InitializeEventDicts()
     {
+        //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
         rare_event_kakuritsu = (PlayerStatus.player_girl_findpower - 100) * 0.2f;
 
         switch (mat_place)

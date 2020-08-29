@@ -33,8 +33,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private Text questname;
     private List<int> _tempplayeritemlist = new List<int>();
     private List<int> _tempmap_placeflaglist = new List<int>();
+    private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
 
     private int i;
+    private int _itemID;
 
     // Use this for initialization
     void Start () {
@@ -89,7 +91,16 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             _tempmap_placeflaglist.Add(matplace_database.matplace_lists[i].placeFlag);
         }
 
-        
+        //アイテムの前回得点のみ取得
+        for (i = 0; i < database.items.Count; i++)
+        {
+            _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
+                database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
+                database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
+                database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
+        }
+
+
         //セーブ保存用のクラスを新規作成。
         playerData = new PlayerData()
         {
@@ -131,6 +142,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_GirlLoveEvent_stage2 = GameMgr.GirlLoveEvent_stage2,
             save_GirlLoveEvent_stage3 = GameMgr.GirlLoveEvent_stage3,
 
+            save_GirlLoveSubEvent_stage1 = GameMgr.GirlLoveSubEvent_stage1,
+
             //お菓子クエストフラグ
             save_OkashiQuest_flag_stage1 = GameMgr.OkashiQuest_flag_stage1, //各SPイベントのクリアしたかどうかのフラグ。
             save_OkashiQuest_flag_stage2 = GameMgr.OkashiQuest_flag_stage2,
@@ -160,6 +173,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ショップのイベントリスト
             save_ShopEvent_stage = GameMgr.ShopEvent_stage,
+            save_ShopLvEvent_stage = GameMgr.ShopLVEvent_stage,
 
             //コンテストのイベントリスト
             save_ContestEvent_stage = GameMgr.ContestEvent_stage,
@@ -181,7 +195,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_originalitemlist = pitemlist.player_originalitemlist,
 
             //アイテムの前回スコアなどを記録する
-            save_itemdatabase = database.items,
+            save_itemdatabase = _temp_itemscorelist,
 
             //調合のフラグ＋調合回数を記録する
             save_itemCompodatabase = databaseCompo.compoitems,
@@ -280,6 +294,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.GirlLoveEvent_stage2 = playerData.save_GirlLoveEvent_stage2;
         GameMgr.GirlLoveEvent_stage3 = playerData.save_GirlLoveEvent_stage3;
 
+        GameMgr.GirlLoveSubEvent_stage1 = playerData.save_GirlLoveSubEvent_stage1;
+
         //お菓子クエストフラグ
         GameMgr.OkashiQuest_flag_stage1 = playerData.save_OkashiQuest_flag_stage1; //各SPイベントのクリアしたかどうかのフラグ。
         GameMgr.OkashiQuest_flag_stage2 = playerData.save_OkashiQuest_flag_stage2;
@@ -308,6 +324,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //ショップのイベントリスト
         GameMgr.ShopEvent_stage = playerData.save_ShopEvent_stage;
+        GameMgr.ShopLVEvent_stage = playerData.save_ShopLvEvent_stage;
 
         //コンテストのイベントリスト
         GameMgr.ContestEvent_stage = playerData.save_ContestEvent_stage;
@@ -333,9 +350,32 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         pitemlist.player_originalitemlist.Clear();
         pitemlist.player_originalitemlist = playerData.save_player_originalitemlist;
 
-        //アイテムの前回スコアなどを記録する
-        database.items.Clear();
-        database.items = playerData.save_itemdatabase;
+        //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。
+        for(i=0; i < pitemlist.player_originalitemlist.Count; i++)
+        {
+            _itemID = pitemlist.SearchItemString(pitemlist.player_originalitemlist[i].itemName);
+            pitemlist.player_originalitemlist[i].itemIcon = database.items[_itemID].itemIcon;
+            pitemlist.player_originalitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+        }
+
+        //アイテムの前回スコアなどを読み込み
+        for (i = 0; i < database.items.Count; i++)
+        {
+            database.items[i].Eat_kaisu = playerData.save_itemdatabase[i].Eat_kaisu;
+            database.items[i].HighScore_flag = playerData.save_itemdatabase[i].HighScore_flag;
+            database.items[i].last_total_score = playerData.save_itemdatabase[i].last_total_score;
+            database.items[i].last_rich_score = playerData.save_itemdatabase[i].last_rich_score;
+            database.items[i].last_sweat_score = playerData.save_itemdatabase[i].last_sweat_score;
+            database.items[i].last_bitter_score = playerData.save_itemdatabase[i].last_bitter_score;
+            database.items[i].last_sour_score = playerData.save_itemdatabase[i].last_sour_score;
+            database.items[i].last_crispy_score = playerData.save_itemdatabase[i].last_crispy_score;
+            database.items[i].last_fluffy_score = playerData.save_itemdatabase[i].last_fluffy_score;
+            database.items[i].last_smooth_score = playerData.save_itemdatabase[i].last_smooth_score;
+            database.items[i].last_hardness_score = playerData.save_itemdatabase[i].last_hardness_score;
+            database.items[i].last_jiggly_score = playerData.save_itemdatabase[i].last_jiggly_score;
+            database.items[i].last_chewy_score = playerData.save_itemdatabase[i].last_chewy_score;
+            database.items[i].last_hinttext = playerData.save_itemdatabase[i].last_hinttext;
+        }
 
         //調合のフラグ＋調合回数を記録する
         databaseCompo.compoitems.Clear();
@@ -417,6 +457,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.KeyInputOff_flag = true;
         
         compound_Main.QuestClearCheck(); //クエストクリアしてたか確認
+        compound_Main.FlagEvent();
 
     }
 

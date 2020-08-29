@@ -205,8 +205,7 @@ public class Utage_scenario : MonoBehaviour
                 
                 if (GameMgr.girlloveevent_flag)
                 {
-                    GameMgr.girlloveevent_flag = false;
-                    GirlLoveEvent_num = GameMgr.GirlLoveEvent_num;
+                    GameMgr.girlloveevent_flag = false;                    
 
                     //好感度イベントを表示
                     StartCoroutine(Girllove_event_Hyouji());
@@ -323,6 +322,17 @@ public class Utage_scenario : MonoBehaviour
                     CharacterSpriteSetOFF();
 
                     scenarioLabel = "Shop_Event";
+                    StartCoroutine(Scenario_Start());
+
+                }
+
+                if (GameMgr.shop_lvevent_flag)
+                {
+                    GameMgr.shop_lvevent_flag = false;
+                    story_num = GameMgr.shop_lvevent_num;
+                    CharacterSpriteSetOFF();
+
+                    scenarioLabel = "Shop_LvEvent";
                     StartCoroutine(Scenario_Start());
 
                 }
@@ -1111,13 +1121,15 @@ public class Utage_scenario : MonoBehaviour
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        if (GirlLoveEvent_num < 10)
+        if (GameMgr.girlloveevent_bunki == 0)
         {
+            GirlLoveEvent_num = GameMgr.GirlLoveEvent_num;
             scenarioLabel = "GirlLove_Event"; //イベントレシピタグのシナリオを再生。
         }
-        else
+        else if (GameMgr.girlloveevent_bunki == 1)
         {
-            scenarioLabel = "GirlLove_Event2"; //イベントレシピタグのシナリオを再生。
+            GirlLoveEvent_num = GameMgr.GirlLoveSubEvent_num;
+            scenarioLabel = "GirlLove_EventSub"; //イベントレシピタグのシナリオを再生。
         }
 
         scenario_loading = true;

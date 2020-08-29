@@ -301,6 +301,33 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(28);
                 break;
 
+            case "OriginalButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(46);
+                break;
+
+            case "RecipiButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(46);
+                break;
+
+            case "ExButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(46);
+                break;
+
             case "SaveButton":
 
                 //ポインタが入ったときに鳴る音
@@ -334,7 +361,7 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_enter(2);
 
                 //クリックしたときに鳴る音。
-                SE_point_click(28);
+                SE_point_click(0);
                 break;
 
             default: //特に指定がない場合
@@ -347,7 +374,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                //SE_point_click(0); //23
+                SE_point_click(23); //0 or 23
                 break;
 
         }

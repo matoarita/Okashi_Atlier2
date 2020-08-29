@@ -38,6 +38,7 @@ public class Title_Main : MonoBehaviour {
 
     public void OnLoadButton()
     {
+        save_controller.ResetAllParam();
         GameMgr.GameLoadOn = true;
         save_controller.OnLoadMethod();
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
