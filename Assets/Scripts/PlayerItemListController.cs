@@ -374,7 +374,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                                 if (database.items[i].itemType.ToString() != "Okashi" && database.items[i].itemType.ToString() != "Potion")
                                 {
-
+                                    itemlist_hyouji();
+                                }
+                                else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
+                                    database.items[i].itemType_sub.ToString() == "Bread")
+                                {
                                     itemlist_hyouji();
                                 }
                                 /*if (database.items[i].itemType_sub.ToString() == "Fruits" || 
@@ -472,18 +476,23 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             {
                                 original_itemlist_hyouji();
                             }
-                                /*
-                                if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" 
-                                    || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Salt" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cream" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread")
-                                {
-                                    original_itemlist_hyouji();
-                                }*/
-                                break;
+                            else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread")
+                            {
+                                original_itemlist_hyouji();
+                            }
+                            /*
+                            if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Komugiko" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Butter" 
+                                || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Salt" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Appaleil" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cream" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread")
+                            {
+                                original_itemlist_hyouji();
+                            }*/
+                            break;
 
                         case 5: //焼くとき。アイテムタイプサブが「生地」のみ表示。
 

@@ -92,6 +92,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject black_panel_A;
     private GameObject compoBG_A;
     private GameObject ResultBGimage;
+    private GameObject compoBG_A_effect;
 
     private GameObject SelectCompo_panel_1;
     private GameObject system_panel;
@@ -324,6 +325,8 @@ public class Compound_Main : MonoBehaviour
         compoBG_A.SetActive(false);
         ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
         ResultBGimage.SetActive(false);
+        compoBG_A_effect = GameObject.FindWithTag("Comp_Effect").gameObject;
+        compoBG_A_effect.SetActive(false);
 
         //調合選択画面の取得
         SelectCompo_panel_1 = canvas.transform.Find("Compound_BGPanel_A/SelectPanel_1").gameObject;
@@ -935,6 +938,7 @@ public class Compound_Main : MonoBehaviour
                 black_panel_A.SetActive(false);
                 ResultBGimage.SetActive(false);
                 compoBG_A.SetActive(false);
+                compoBG_A_effect.SetActive(false);
                 system_panel.SetActive(false);
 
                 TimePanel_obj1.SetActive(true);
@@ -1022,6 +1026,7 @@ public class Compound_Main : MonoBehaviour
                 recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
                 kakuritsuPanel_obj.SetActive(true);
                 compoBG_A.SetActive(true);
+                compoBG_A_effect.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();               
                 time_controller.TimeCheck_flag = false;
@@ -1057,6 +1062,7 @@ public class Compound_Main : MonoBehaviour
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 kakuritsuPanel_obj.SetActive(false);
                 compoBG_A.SetActive(true);
+                compoBG_A_effect.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
@@ -1097,6 +1103,7 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(true);
 
                 compoBG_A.SetActive(true);
+                compoBG_A_effect.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 recipiMemoButton.SetActive(true);
@@ -1165,6 +1172,7 @@ public class Compound_Main : MonoBehaviour
 
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
+                compoBG_A_effect.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;

@@ -41,7 +41,7 @@ MonoBehaviour:
       itemType: 0
       shop_sell_price: 8
       shop_buy_price: 4
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 4
       name: egg
       zaiko: 50
@@ -55,21 +55,21 @@ MonoBehaviour:
       itemType: 0
       shop_sell_price: 15
       shop_buy_price: 7
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 6
       name: baking_powder
       zaiko: 50
       itemType: 0
       shop_sell_price: 30
       shop_buy_price: 15
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 7
       name: armond_powder
       zaiko: 50
       itemType: 0
       shop_sell_price: 8
       shop_buy_price: 4
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 8
       name: water
       zaiko: 50
@@ -209,14 +209,14 @@ MonoBehaviour:
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 28
       name: bisucouti_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 29
       name: crepe_recipi
       zaiko: 1
@@ -237,14 +237,14 @@ MonoBehaviour:
       itemType: 1
       shop_sell_price: 800
       shop_buy_price: 400
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 32
       name: slimejelly_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 3000
       shop_buy_price: 1500
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 33
       name: princesstota_recipi
       zaiko: 1

@@ -427,7 +427,7 @@ public class Shop_Main : MonoBehaviour {
             }
         }
 
-        if (girl1_status.girl1_Love_lv >= 4 && !GameMgr.ShopLVEvent_stage[1]) //好感度レベル４以上
+        if (GameMgr.GirlLoveEvent_num >= 3 && !GameMgr.ShopLVEvent_stage[1]) //シュークリームイベント以降
         {
             GameMgr.ShopLVEvent_stage[1] = true;
             GameMgr.scenario_ON = true;
