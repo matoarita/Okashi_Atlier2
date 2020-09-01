@@ -327,7 +327,7 @@ public class Updown_counter : MonoBehaviour {
                 {
                     case 1: //レシピ調合の場合
 
-                        this.transform.localPosition = new Vector3(0, -70, 0);
+                        this.transform.localPosition = new Vector3(0, -87, 0);
                         break;
 
                     case 3: //オリジナル調合の場合の、カウンターの位置

@@ -22427,7 +22427,7 @@ MonoBehaviour:
       debugIndex: 239
       strings:
       - Bgm
-      - "\u60B2\u3057\u307F\u306E\u97F3\u697D\uFF14"
+      - "\u60B2\u3057\u307F\u306E\u97F3\u697D\uFF12"
       - 
       - 
       - 
@@ -59717,7 +59717,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3042\uFF01\u3042\u3068\u3001"
+      - "\u3042\uFF01\u305D\u3046\u3060\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -60836,7 +60836,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:SpOkashiBefore
     type: 1
-    textLength: 3101
+    textLength: 3102
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -102823,7 +102823,7 @@ MonoBehaviour:
       debugIndex: 239
       strings:
       - Bgm
-      - "\u60B2\u3057\u307F\u306E\u97F3\u697D\uFF14"
+      - "\u60B2\u3057\u307F\u306E\u97F3\u697D\uFF12"
       - 
       - 
       - 
@@ -149607,7 +149607,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3042\uFF01\u3042\u3068\u3001"
+      - "\u3042\uFF01\u305D\u3046\u3060\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -151005,7 +151005,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:SpOkashiBefore
     type: 1
-    textLength: 3101
+    textLength: 3102
     headerRow: 0
   - rows:
     - rowIndex: 0

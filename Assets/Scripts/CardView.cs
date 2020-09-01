@@ -252,6 +252,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
             _cardImage_obj[0].GetComponent<SetImage>().Kosu_ON(_kosu);
+            _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF();
         }
 
         // トッピング調合を選択した場合の処理
@@ -259,6 +260,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
+            _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
         }
     }
 
@@ -316,6 +318,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[1].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[1].transform.localPosition = new Vector3(150, 150, 0);
             _cardImage_obj[1].GetComponent<SetImage>().Kosu_ON(_kosu);
+            _cardImage_obj[1].GetComponent<SetImage>().CardParamOFF();
         }
 
         // トッピング調合を選択した場合の処理
@@ -392,6 +395,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[2].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[2].transform.localPosition = new Vector3(300, 150, 0);
             _cardImage_obj[2].GetComponent<SetImage>().Kosu_ON(_kosu);
+            _cardImage_obj[2].GetComponent<SetImage>().CardParamOFF();
         }
 
         // トッピング調合を選択した場合の処理
@@ -498,6 +502,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
 
+        _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
+
         Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
     }
 
@@ -525,7 +531,14 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //_cardImage.SetYosokuInit();
 
         //位置とスケール
-        Draw1();
+        if (_cardImage.item_type == "Okashi")
+        {
+            Draw2();
+        }
+        else
+        {
+            Draw1();
+        }
 
     }
 
@@ -552,6 +565,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+
+        _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
 
         Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
     }
@@ -603,6 +618,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _result_item;
         _cardImage.SetInit();
 
+        _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
+
         //位置とスケール
         Draw1();
     }
@@ -611,6 +628,12 @@ public class CardView : SingletonMonoBehaviour<CardView>
     {
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
+    }
+
+    void Draw2()
+    {
+        _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(-200, 80, 0);
     }
 
     public void CardCompo_Anim()
