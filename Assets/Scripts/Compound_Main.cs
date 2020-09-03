@@ -1420,7 +1420,7 @@ public class Compound_Main : MonoBehaviour
 
             case 201: //システム画面選択中
 
-                break;
+                break;                
 
             default:
                 break;

@@ -62,6 +62,10 @@ public class Utage_scenario : MonoBehaviour
     //BGMの取得
     private BGM sceneBGM;
 
+    //宴のマスター音量の取得
+    private GameObject utagesoundmanager_obj;
+    private SoundManager utagesoundmanager;
+
 
     // Use this for initialization
     void Start()
@@ -74,14 +78,24 @@ public class Utage_scenario : MonoBehaviour
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
+        utagesoundmanager_obj = GameObject.FindWithTag("UtageManageres").gameObject;
+
         scenario_loading = false; //「Utage」シーンを最初に読み込むときに、falseに初期化。宴のシナリオを読み中はtrue。コルーチンのリセットを回避する。
         
     }
 
     void Update()
     {
+        if(utagesoundmanager == null)
+        {
+            utagesoundmanager_obj = GameObject.FindWithTag("UtageManageres").gameObject;
+            utagesoundmanager = utagesoundmanager_obj.transform.Find("SoundManager").GetComponent<SoundManager>();
+        }
+
+        utagesoundmanager.MasterVolume = GameMgr.MasterVolumeParam;
+
         //フェードアニメ用
-        if(FadeAnim_flag)
+        if (FadeAnim_flag)
         {
             //1のときはOFF
             if (FadeAnim_status == 1)
@@ -1612,21 +1626,26 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
-        //
-        //「宴」のポーズ終了待ち
-        while (!engine.IsPausingScenario)
-        {
-            yield return null;
-        }
-
         //お菓子を判定する。採点結果により、審査員の反応も少し変わる。
         contest_main.Contest_Judge();
+
+        //提出したお菓子の名前をセット
+        engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiName);
+        engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);
 
         //採点をセット
         engine.Param.TrySetParameter("contest_score1", GameMgr.contest_Score[0]);
         engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]);
         engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]);
         engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+                                
 
         //採点によって、感想が変わる。
         if (GameMgr.contest_TotalScore > GameMgr.low_score && GameMgr.contest_TotalScore <= GameMgr.high_score)
@@ -1657,20 +1676,20 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_ranking_num", 0);
         }
 
-        //好感度によって、EDが分岐する。
-        if (GameMgr.stage1_girl1_loveexp <= girl1_status.SumLvTable(3)) //LV3以下 badED ED:E
+        //好感度LVによって、EDが分岐する。
+        if (girl1_status.girl1_Love_lv <= 3) //LV3以下 badED ED:D
         {
             engine.Param.TrySetParameter("ED_num", 1);
         }
-        else if (GameMgr.stage1_girl1_loveexp > girl1_status.SumLvTable(3) && GameMgr.stage1_girl1_loveexp <= girl1_status.SumLvTable(6)) // ~LV5 ノーマルED ED:C
-        {
+        else if (girl1_status.girl1_Love_lv > 3 && girl1_status.girl1_Love_lv <= 4) // LV4 ノーマルED ED:C
+        {           
             engine.Param.TrySetParameter("ED_num", 2);
         }
-        else if (GameMgr.stage1_girl1_loveexp > girl1_status.SumLvTable(6) && yusho_flag == false) // LV5~ ノーマルED ED:B
+        else if (girl1_status.girl1_Love_lv > 4 && yusho_flag == false) // LV5~ ベストED ED:B ケーキED
         {
             engine.Param.TrySetParameter("ED_num", 3);
         }
-        else if (GameMgr.stage1_girl1_loveexp > girl1_status.SumLvTable(6) && yusho_flag == true) // LV5~ ベストED ED:A LV5~
+        else if (girl1_status.girl1_Love_lv > 4 && yusho_flag == true) // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
         {
             engine.Param.TrySetParameter("ED_num", 4);
         }

@@ -26,6 +26,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private CombinationMain Combinationmain;
 
+    private SlotChangeName slotchangename;
+    private string[] _slotHyouji1; //日本語に変換後の表記を格納する。スロット覧用
+    private string itemslotname;
+    private string itemfullname;
+
     private int i, j, n, count;
     private int itemNum, DBcount;
 
@@ -251,12 +256,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //調合用メソッドの取得
         Combinationmain = CombinationMain.Instance.GetComponent<CombinationMain>();
 
+        //スロット名前変換用オブジェクトの取得
+        slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+
         //トッピングスロットの配列
         _basetp = new string[database.items[0].toppingtype.Length];
         _addtp = new string[database.items[0].toppingtype.Length];
         _temptp = new string[database.items[0].toppingtype.Length];
         _addkoyutp = new string[database.items[0].koyu_toppingtype.Length];
-
+        _slotHyouji1 = new string[database.items[0].toppingtype.Length];
 
         //
         //アイテムデータベースの味パラムを初期化。初期化は、ゲーム起動時の一回のみ。
@@ -582,6 +590,21 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 result_kosu, _base_extreme_kaisu, _base_item_hyouji);
 
             new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
+
+
+            //カード正式名称（ついてるスロット名も含めた名前）
+            slotchangename.slotChangeName(1, new_item, "yellow");
+
+            itemslotname = "";
+            for (i = 0; i < _slotHyouji1.Length; i++)
+            {
+                _slotHyouji1[i] = slotchangename._slotHyouji[i];
+                itemslotname += _slotHyouji1[i];
+            }
+
+            pitemlist.player_originalitemlist[new_item].item_SlotName = itemslotname;
+            itemfullname = itemslotname + pitemlist.player_originalitemlist[new_item].itemNameHyouji;
+            pitemlist.player_originalitemlist[new_item].item_FullName = itemfullname;
         }
         else if (_mstatus == 1) //予測の場合、アイテムの追加処理はいらない。
         {

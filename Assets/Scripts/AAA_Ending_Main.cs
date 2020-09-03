@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class AAA_Ending_Main : MonoBehaviour {
+
+    private GameObject canvas;
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -12,19 +15,28 @@ public class AAA_Ending_Main : MonoBehaviour {
     private GameObject BGM;
     private AudioSource bgm_source;
 
+    private GameObject movieimage_obj;
+
     private float timeOut;
     private int TotalcountSec;
+    private float alpha;
 
     private bool ed_end_flag;
+    private bool OnSkip;
 
     // Use this for initialization
     void Start()
     {
-
         Debug.Log("Ending_lodingOK");
 
         GameMgr.scenario_flag = 1000;
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive);
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //ムービーの取得
+        movieimage_obj = canvas.transform.Find("MovieImage").gameObject;
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
@@ -43,6 +55,9 @@ public class AAA_Ending_Main : MonoBehaviour {
         GameMgr.stage_number = 100;
 
         ed_end_flag = false;
+
+        alpha = 1.0f;
+        OnSkip = false;
     }
 
     // Update is called once per frame
@@ -74,6 +89,16 @@ public class AAA_Ending_Main : MonoBehaviour {
             }
             
         }
+
+        if(OnSkip)
+        {
+            alpha -= 0.01f;
+            movieimage_obj.GetComponent<RawImage>().color = new Color(1, 1, 1, alpha);
+            if (alpha <= 0)
+            {
+                OnSkip = false;
+            }
+        }
     }
 
     IEnumerator WaitNextResult()
@@ -82,4 +107,12 @@ public class AAA_Ending_Main : MonoBehaviour {
 
         FadeManager.Instance.LoadScene("110_TotalResult", 0.3f);
     }
+
+    public void OnSkipButton()
+    {
+        OnSkip = true;       
+        BGM.GetComponent<BGM>().FadeOutBGM();
+        StartCoroutine("WaitNextResult");
+    }
+
 }

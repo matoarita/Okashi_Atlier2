@@ -129,6 +129,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_event_flag;  //ショップで発生するイベントのフラグ。
     public static int contest_event_num;
 
+    //コンテストに提出したお菓子
+    public static string contest_okashiName;
+    public static string contest_okashiSlotName;
+
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
     public static int contest_TotalScore;
@@ -333,6 +337,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             contest_Score[system_i] = 0;
         }
+        contest_okashiName = "";
         contest_TotalScore = 0;
 
         //マップイベントの初期化

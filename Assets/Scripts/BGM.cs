@@ -57,7 +57,13 @@ public class BGM : MonoBehaviour {
 	void Update () {
 
         _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam;
-        _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam;
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+                _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam;
+                break;
+        }
 
         if(fade_status == 0) //フェードアウトがON
         {           

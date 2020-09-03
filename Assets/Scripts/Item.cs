@@ -68,6 +68,8 @@ public class Item
     public int last_jiggly_score;
     public int last_chewy_score;
     public string last_hinttext;
+    public string item_SlotName; //スロット名部分のみの名称。色変更用に。
+    public string item_FullName; //スロット名も含めた最終の名称。オリジナルアイテムリスト用で使う。
     //ここまで
 
     //トッピングスロット
@@ -222,6 +224,8 @@ public class Item
         last_jiggly_score = 0;
         last_chewy_score = 0;
         last_hinttext = _hinttext;
+        item_SlotName = "";
+        item_FullName = item_SlotName + itemNameHyouji; //何もしなければ、アイテム名が入っている。
     }
 
 }

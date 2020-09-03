@@ -10,12 +10,13 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
     private int itemID;              
     private int itemType;
 
-    public string[] _slotHyouji = new string[10]; //日本語に変換後の表記を格納する。フルネーム用
+    public string[] _slotHyouji; //日本語に変換後の表記を格納する。フルネーム用
 
     private PlayerItemList pitemlist;
     private SlotNameDataBase slotnamedatabase;
+    private ItemDataBase database;
 
-    private string[] _slot = new string[10];
+    private string[] _slot;
     private List<string> slotInfo = new List<string>();
     private List<string> slotInfo_Hyouji = new List<string>();
     private List<int> slotScore = new List<int>();
@@ -30,10 +31,14 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
-        
+        _slot = new string[database.items[0].toppingtype.Length];
+        _slotHyouji = new string[database.items[0].toppingtype.Length];
     }
 
     //指定したIDの、プレイヤーオリジナルアイテムの、正式名称を表示する。 
@@ -115,7 +120,12 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
             }
         }
 
-        switch(color)
+        for (i = 0; i < slot_HyoujiList.Count; i++)
+        {
+            _slotHyouji[i] = slot_HyoujiList[i];
+        }
+        /*
+        switch (color)
         {
             case "blue":
 
@@ -148,7 +158,7 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
                     _slotHyouji[i] = GameMgr.ColorLemon + slot_HyoujiList[i] + "</color>";
                 }
                 break;
-        }
+        }*/
         
 
     }

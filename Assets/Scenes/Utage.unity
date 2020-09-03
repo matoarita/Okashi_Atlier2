@@ -409,9 +409,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.00021332502
+    y: 0
     width: 1
-    height: 0.99957335
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -3081,7 +3081,7 @@ GameObject:
   - component: {fileID: 1383592015}
   m_Layer: 0
   m_Name: Manageres
-  m_TagString: Untagged
+  m_TagString: UtageManageres
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3425,9 +3425,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.00021332502
+    y: 0
     width: 1
-    height: 0.99957335
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

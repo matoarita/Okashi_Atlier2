@@ -54,6 +54,8 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
     private GameObject canvas;
 
+    private OptionPanel option_panel;
+
     private Debug_Panel debug_panel;
 
     public bool Cursor_On;
@@ -80,7 +82,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     private int compobgA_listcount;
 
     private int pitemlist_column = 3;
-    private int recipilist_column = 4;
+    private int recipilist_column = 2;
 
     private bool OnDownKey, OnUpKey, OnRightKey, OnLeftKey;
 
@@ -193,7 +195,13 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                 compound_Main.OnCancel_Select();
                                 sc.PlaySe(18);
                             }
+                            else if (compound_Main.compound_select == 205)
+                            {
+                                option_panel.BackOption();
+                                sc.PlaySe(18);
+                            }
                         }
+
                         break;
                 }
             }
@@ -954,6 +962,9 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //オプションパネル読み込み
+        option_panel = canvas.transform.Find("OptionPanel").GetComponent<OptionPanel>();
 
         cursor2 = canvas.transform.Find("ExtremePanel/Comp/SelectCursor2").gameObject;        
 

@@ -26,3 +26,4 @@
 ・BGM_24		audiostock_158569			ED前の曲
 ・BGM_25		audiostock_12186			ラベンダー畑のBGM
 ・BGM_26		のっそりと気だるい感じ			コンテストのメンバー集合　ゆるっとした感じ
+・BGM_27		yume					物語の核心に近い曲

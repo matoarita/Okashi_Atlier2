@@ -361,7 +361,6 @@ public class Debug_Panel : MonoBehaviour {
             //女の子のレベル取得
             girl_lv = canvas.transform.Find("Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
             girl_param = canvas.transform.Find("Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
-            girl1_status.girl1_Love_lv = 1;
 
             stage_levelTable.Clear();
 
@@ -398,6 +397,7 @@ public class Debug_Panel : MonoBehaviour {
             girl1_status.girl1_Love_exp = _girllove_param;
 
             i = 0;
+            girl1_status.girl1_Love_lv = 1;
             while (_girllove_param >= stage_levelTable[i])
             {
                 _girllove_param -= stage_levelTable[i];

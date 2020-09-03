@@ -66,6 +66,7 @@ TagManager:
   - MapBG_Effect
   - EatAnim_Effect
   - Comp_Effect
+  - UtageManageres
   layers:
   - Default
   - TransparentFX

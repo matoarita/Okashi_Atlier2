@@ -217,13 +217,22 @@ public class Contest_Main : MonoBehaviour {
         {
             itemName = database.items[kettei_itemID].itemName;
             item_subType = database.items[kettei_itemID].itemType_sub.ToString();
+
+            //表示用アイテム名
+            GameMgr.contest_okashiSlotName = "";
+            GameMgr.contest_okashiName = database.items[kettei_itemID].itemNameHyouji;
         }
         else if (kettei_itemType == 1)
         {
             itemName = pitemlist.player_originalitemlist[kettei_itemID].itemName;
             item_subType = pitemlist.player_originalitemlist[kettei_itemID].itemType_sub.ToString();
+
+            //表示用アイテム名
+            GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[kettei_itemID].item_SlotName;
+            GameMgr.contest_okashiName =  pitemlist.player_originalitemlist[kettei_itemID].itemNameHyouji;
         }
 
+        
 
 
         judge_flag = false;

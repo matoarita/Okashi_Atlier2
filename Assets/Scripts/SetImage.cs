@@ -50,6 +50,7 @@ public class SetImage : MonoBehaviour
 
     private Image item_Icon;
     private Text item_Name;
+    private string item_SlotName;
 
     private Text item_Rank;
     private Text item_RankDesc;
@@ -234,6 +235,7 @@ public class SetImage : MonoBehaviour
         item_Oily = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemOily").gameObject.GetComponent<Text>(); //粉っぽいの値
         item_Watery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemWatery").gameObject.GetComponent<Text>(); //粉っぽいの値
 
+        //現在は未表示
         item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
         item_Slot[1] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_02").gameObject.GetComponent<Text>(); //Slot02の値
         item_Slot[2] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_03").gameObject.GetComponent<Text>(); //Slot03の値
@@ -357,9 +359,12 @@ public class SetImage : MonoBehaviour
                 // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
                 texture2d = database.items[check_counter].itemIcon;
 
-                //カードのアイテム名
-                item_Name.text = database.items[check_counter].itemNameHyouji;
+                //カードのスロット部分の名
+                item_SlotName = database.items[check_counter].item_SlotName;
 
+                //カードのアイテム名フル
+                item_Name.text = database.items[check_counter].itemNameHyouji;
+                
                 //アイテムの品質値
                 _quality = database.items[check_counter].Quality.ToString();
 
@@ -402,26 +407,6 @@ public class SetImage : MonoBehaviour
                 }
 
 
-                //カード正式名称（ついてるスロット名も含めた名前）
-
-                for (i = 0; i < _slot.Length; i++)
-                {
-                    count = 0;
-
-                    //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
-                    while (count < slotnamedatabase.slotname_lists.Count)
-                    {
-                        if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
-                        {
-                            _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
-                            _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
-                            break;
-                        }
-                        count++;
-                    }
-                }
-
-
                 break;
 
             case 1: //オリジナルプレイヤーアイテムリストを選択した場合
@@ -438,8 +423,11 @@ public class SetImage : MonoBehaviour
                 // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
                 texture2d = pitemlist.player_originalitemlist[check_counter].itemIcon;
 
+                //カードのスロット部分の名
+                item_SlotName = pitemlist.player_originalitemlist[check_counter].item_SlotName;
+
                 //カードのアイテム名
-                item_Name.text = pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
+                item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
 
                 //アイテムの品質値
                 _quality = pitemlist.player_originalitemlist[check_counter].Quality.ToString();
@@ -480,33 +468,17 @@ public class SetImage : MonoBehaviour
                 for (i = 0; i < _slot.Length; i++)
                 {
                     _slot[i] = pitemlist.player_originalitemlist[check_counter].toppingtype[i].ToString();
-                }
-
-                //カード正式名称（ついてるスロット名も含めた名前）
-
-                for (i = 0; i < _slot.Length; i++)
-                {
-                    count = 0;
-
-                    //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
-                    while (count < slotnamedatabase.slotname_lists.Count)
-                    {
-                        if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
-                        {
-                            _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
-                            _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
-                            break;
-                        }
-                        count++;
-                    }
-                }
-
+                }                
+                
 
                 break;
 
             default:
                 break;
         }
+
+        //カード　スロット名 現在は、特に表示はしていない
+        Slotname_Hyouji();
 
         DrawCard();
     }    
@@ -913,26 +885,7 @@ public class SetImage : MonoBehaviour
 
         item_Quality.text = _quality;
         item_Quality_Bar.text = _quality_bar;
-        item_Quality_Score.text = _quality_score.ToString();
-
-
-
-        //スロット名の表示+初期化
-
-        for (i = 0; i < _slot.Length; i++)
-        {
-            if ( _slot[i] == "Non" ) //Nonは空白表示。
-            {
-                _slot[i] = "";
-            }
-       
-            item_Slot[i].text = _slotHyouji1[i]; //スロット表示１のほうが、スロットに表示する用のテキスト。スロット表示２は、アイテムのフルネームのほう。
-        }
-
-        for ( i = 0; i < _slotHyouji2.Length; i++ )
-        {
-            _slotHyouji2[i] = "";
-        }
+        item_Quality_Score.text = _quality_score.ToString();      
         
 
 
@@ -971,24 +924,7 @@ public class SetImage : MonoBehaviour
         }
         else if (item_type == "Okashi")
         {
-            //スロットの正式名称計算
-            slotchangename.slotChangeName(Pitem_or_Origin, check_counter, "Gold");
 
-            _slotHyouji2[0] = slotchangename._slotHyouji[0];
-            _slotHyouji2[1] = slotchangename._slotHyouji[1];
-            _slotHyouji2[2] = slotchangename._slotHyouji[2];
-            _slotHyouji2[3] = slotchangename._slotHyouji[3];
-            _slotHyouji2[4] = slotchangename._slotHyouji[4];
-            _slotHyouji2[5] = slotchangename._slotHyouji[5];
-            _slotHyouji2[6] = slotchangename._slotHyouji[6];
-            _slotHyouji2[7] = slotchangename._slotHyouji[7];
-            _slotHyouji2[8] = slotchangename._slotHyouji[8];
-            _slotHyouji2[9] = slotchangename._slotHyouji[9];
-
-            //スロット名+アイテム名の表示
-            item_Name_Full.text = _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9] + item_Name.text;
-            //item_Name_Full.text = "<color=#0000FF>" + slot_Hyouji + "</color>" + item_Name.text;
-            item_Name.text = item_Name_Full.text; //お菓子
             Card_param_obj.SetActive(true);
             Card_param_obj2.SetActive(true);
 
@@ -1161,6 +1097,42 @@ public class SetImage : MonoBehaviour
         kosu_panel.SetActive(false);
     }
 
+    void Slotname_Hyouji()
+    {
+        for (i = 0; i < _slot.Length; i++)
+        {
+            count = 0;
+
+            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
+            while (count < slotnamedatabase.slotname_lists.Count)
+            {
+                if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
+                {
+                    _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
+                    _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
+                    break;
+                }
+                count++;
+            }
+        }
+
+        //スロット名の表示+初期化
+        for (i = 0; i < _slot.Length; i++)
+        {
+            if (_slot[i] == "Non") //Nonは空白表示。
+            {
+                _slot[i] = "";
+            }
+
+            item_Slot[i].text = _slotHyouji1[i]; //スロット表示１のほうが、スロットに表示する用のテキスト。スロット表示２は、アイテムのフルネームのほう。
+        }
+
+        for (i = 0; i < _slotHyouji2.Length; i++)
+        {
+            _slotHyouji2[i] = "";
+        }
+    }
+
 
     /*public void SetYosokuInit() //生成するカードのパラメータを、あらかじめ予測して表示する
     {
@@ -1212,31 +1184,6 @@ public class SetImage : MonoBehaviour
         _highscore_flag = database.items[check_counter].HighScore_flag;
         _lasttotal_score = database.items[check_counter].last_total_score;
         _lasthint_text = database.items[check_counter].last_hinttext;
-
-        for (i = 0; i < _slot.Length; i++)
-        {
-            _slot[i] = compound_keisan._basetp[i].ToString();
-        }
-
-
-        //カード正式名称（ついてるスロット名も含めた名前）
-
-        for (i = 0; i < _slot.Length; i++)
-        {
-            count = 0;
-
-            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
-            while (count < slotnamedatabase.slotname_lists.Count)
-            {
-                if (slotnamedatabase.slotname_lists[count].slotName == _slot[i])
-                {
-                    _slotHyouji1[i] = slotnamedatabase.slotname_lists[count].slot_Hyouki_1;
-                    _slotHyouji2[i] = "<color=#0000FF>" + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
-                    break;
-                }
-                count++;
-            }
-        }
 
         DrawCard();
     }*/

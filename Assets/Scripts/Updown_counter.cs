@@ -319,7 +319,7 @@ public class Updown_counter : MonoBehaviour {
 
             if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
             {
-                this.transform.localPosition = new Vector3(120, -60, 0);
+                this.transform.localPosition = new Vector3(0, -75, 0);
             }
             else
             {

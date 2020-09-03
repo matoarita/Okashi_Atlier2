@@ -2231,11 +2231,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     void Init_Stage1_LVTable()
     {
         stage1_lvTable.Clear();
-        stage1_lvTable.Add(20); //LV1で、次のレベルが上がるまでの好感度値
-        stage1_lvTable.Add(50);　//LV2 LV1の分も含めている。トータルだと75。の意味。
-        stage1_lvTable.Add(100); //LV3　LV1~LV2の分も含めている。
-        stage1_lvTable.Add(150); //LV4
-        stage1_lvTable.Add(200); //LV5以上
+        stage1_lvTable.Add(20); //LV2。LV1で、次のレベルが上がるまでの好感度値
+        stage1_lvTable.Add(50);　//LV3 LV1の分も含めている。トータルだと75。の意味。
+        stage1_lvTable.Add(100); //LV4　LV1~LV2の分も含めている。
+        stage1_lvTable.Add(150); //LV5
+        stage1_lvTable.Add(200); //LV6以上
 
         _temp_lvTablecount = stage1_lvTable.Count;
 
@@ -2246,12 +2246,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
-    //レベルをいれると、それまでに必要な経験値の合計を返すメソッド
+    //レベルをいれると、それまでに必要な経験値の合計を返すメソッド レベルは１始まり
     public int SumLvTable(int _count)
     {
         _sum = 0;
 
-        for(i=0; i < _count; i++)
+        for(i=0; i < _count-1; i++)
         {
             _sum += stage1_lvTable[i];
         }

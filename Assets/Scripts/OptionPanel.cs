@@ -15,6 +15,8 @@ public class OptionPanel : MonoBehaviour {
 
     private GameObject system_panel;
 
+    private Compound_Main compound_Main;
+
     // Use this for initialization
     void Start () {
 
@@ -35,6 +37,9 @@ public class OptionPanel : MonoBehaviour {
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //調合メイン取得
+        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
         system_panel = canvas.transform.Find("SystemPanel").gameObject;
 
@@ -70,6 +75,7 @@ public class OptionPanel : MonoBehaviour {
 
     public void BackOption()
     {
+        compound_Main.compound_select = 200;
         system_panel.SetActive(true);
         this.gameObject.SetActive(false);
     }

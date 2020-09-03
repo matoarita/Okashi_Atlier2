@@ -40,8 +40,6 @@ public class ExtremePanel : MonoBehaviour {
 
     private Text extreme_itemName;
 
-    private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用 
-
     private Slider _hpslider; //お菓子のHPバーを取得
     public bool Life_anim_on;
     private float Starthp;
@@ -301,22 +299,8 @@ public class ExtremePanel : MonoBehaviour {
             texture2d = pitemlist.player_originalitemlist[extreme_itemID].itemIcon;
             extreme_kaisu = pitemlist.player_originalitemlist[extreme_itemID].ExtremeKaisu;
 
-            //スロットの正式名称計算
-            slotchangename.slotChangeName(extreme_itemtype, extreme_itemID, "lemon");
-
-            _slotHyouji2[0] = slotchangename._slotHyouji[0];
-            _slotHyouji2[1] = slotchangename._slotHyouji[1];
-            _slotHyouji2[2] = slotchangename._slotHyouji[2];
-            _slotHyouji2[3] = slotchangename._slotHyouji[3];
-            _slotHyouji2[4] = slotchangename._slotHyouji[4];
-            _slotHyouji2[5] = slotchangename._slotHyouji[5];
-            _slotHyouji2[6] = slotchangename._slotHyouji[6];
-            _slotHyouji2[7] = slotchangename._slotHyouji[7];
-            _slotHyouji2[8] = slotchangename._slotHyouji[8];
-            _slotHyouji2[9] = slotchangename._slotHyouji[9];
-
             //スロット名+アイテム名の表示
-            extreme_itemName.text = _slotHyouji2[0] + _slotHyouji2[1] + _slotHyouji2[2] + _slotHyouji2[3] + _slotHyouji2[4] + _slotHyouji2[5] + _slotHyouji2[6] + _slotHyouji2[7] + _slotHyouji2[8] + _slotHyouji2[9] + pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
+            extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_originalitemlist[extreme_itemID].item_SlotName + "</color>" + pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
         }
 
 

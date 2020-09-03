@@ -97,7 +97,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public int _success_judge_flag; // 0=必ず成功, 1=計算する, 2=必ず失敗
     private int dice; //確率計算用サイコロ
 
-    private string[] _slot = new string[10];
+    //private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
 
     private int i, sw, count;    
@@ -392,7 +392,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 set_kaisu = 1;
             }
             result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu;
-            //Debug.Log("databaseCompo.compoitems[result_ID].cmpitem_result_kosu: " + databaseCompo.compoitems[result_ID].cmpitem_result_kosu);
 
 
             //①調合処理
@@ -510,7 +509,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //テキストの表示
-            renkin_default_exp_up();
+            renkin_exp_up();
 
             //完成エフェクト
             ResultEffect_OK();
@@ -1212,37 +1211,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void renkin_exp_up()
     {
 
-        //_slotHyouji1[]は、一度名前を、全て空白に初期化
-        for (i = 0; i < _slotHyouji1.Length; i++)
-        {
-            _slotHyouji1[i] = "";
-        }
-
-        //カード正式名称（ついてるスロット名も含めた名前）
-        slotchangename.slotChangeName(1, new_item, "yellow");
-
-        _slotHyouji1[0] = slotchangename._slotHyouji[0];
-        _slotHyouji1[1] = slotchangename._slotHyouji[1];
-        _slotHyouji1[2] = slotchangename._slotHyouji[2];
-        _slotHyouji1[3] = slotchangename._slotHyouji[3];
-        _slotHyouji1[4] = slotchangename._slotHyouji[4];
-        _slotHyouji1[5] = slotchangename._slotHyouji[5];
-        _slotHyouji1[6] = slotchangename._slotHyouji[6];
-        _slotHyouji1[7] = slotchangename._slotHyouji[7];
-        _slotHyouji1[8] = slotchangename._slotHyouji[8];
-        _slotHyouji1[9] = slotchangename._slotHyouji[9];
-
         if (_getexp != 0)
         {
             _text.text = "やったね！ " +
-            _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji +
+            GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "錬金経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
-            _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + pitemlist.player_originalitemlist[new_item].itemNameHyouji +
+            GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + pitemlist.player_originalitemlist[new_item].itemNameHyouji +
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "錬金経験値は上がらなかった。"; ;
         }

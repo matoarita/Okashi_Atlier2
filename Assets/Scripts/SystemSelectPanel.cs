@@ -67,6 +67,7 @@ public class SystemSelectPanel : MonoBehaviour {
     public void OnOptionButton()
     {
         option_panel.SetActive(true);
+        compound_Main.compound_select = 205;
     }
 
     //タイトル
