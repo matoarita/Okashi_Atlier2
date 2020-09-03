@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 // アイテム画像を表示するスクリプト
@@ -174,6 +175,38 @@ public class SetImage : MonoBehaviour
 
         SetData();
 
+    }   
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    private void OnEnable()
+    {
+        SetData();
+
+        //
+        //Dotweenでアニメーションの設定
+        //
+
+        Sequence sequence = DOTween.Sequence();
+
+        //まず、初期値。
+        this.GetComponent<CanvasGroup>().alpha = 0;
+        sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
+        /*sequence.Append(transform.DOLocalMove(new Vector3(30f, 0, 0), 0.0f)
+            .SetRelative());*/ //元の位置から30px右に置いておく。
+        //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
+
+        //移動のアニメ
+        sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
+            .SetEase(Ease.OutExpo));
+        /*sequence.Append(transform.DOLocalMove(new Vector3(-30f, 0, 0), 0.3f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); *///30px右から、元の位置に戻る。
+        sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
     void SetData()
@@ -263,7 +296,7 @@ public class SetImage : MonoBehaviour
         item_LastTotalScore = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemLastTotalScore").gameObject.GetComponent<Text>(); //最高得点
         item_Hint = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemHint").gameObject.GetComponent<Text>(); //前回の妹からのヒント
         item_HighScoreFlag = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/HighScoreFlag").gameObject; //ハイスコア時、星のエンブレムがでる。
-       
+
 
         kosu_panel = this.transform.Find("Item_card_template/ItemKosu_Panel").gameObject;
         kosu_panel.SetActive(false);
@@ -284,21 +317,10 @@ public class SetImage : MonoBehaviour
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
 
         //新レシピプレファブの取得
-        NewRecipi_Prefab1 = (GameObject)Resources.Load("Prefabs/NewRecipiMessage");        
+        NewRecipi_Prefab1 = (GameObject)Resources.Load("Prefabs/NewRecipiMessage");
 
         audioSource = GetComponent<AudioSource>();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void OnEnable()
-    {
-        SetData();
     }
 
     public void SetInit()
@@ -667,9 +689,9 @@ public class SetImage : MonoBehaviour
             case "Tea":
                 subcategory = "お茶";
                 item_Shokukan_Type.text = "香り";
-                item_Shokukan.text = _smooth_score.ToString();
-                _shokukan_score = _smooth_score;
-                _lastshokukan_score = _lastsmooth_score;
+                item_Shokukan.text = _crispy_score.ToString();
+                _shokukan_score = _crispy_score;
+                _lastshokukan_score = _lastcrispy_score;
                 break;
             case "Fruits":
                 subcategory = "フルーツ";

@@ -242,12 +242,12 @@ MonoBehaviour:
       QuestID: 80
       QuestType: 0
       QuestHyouji: 2
-      file_name: shishamo_cookie
+      file_name: honey_neko_cookie
       quest_itemName: shishamo_cookie
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 5
+      kosu_max: 3
       buy_price: 350
       rich: 0
       sweat: 0
@@ -268,6 +268,34 @@ MonoBehaviour:
       desc: "\u3053\u308C\u306F\u3001\u3068\u3042\u308B\u304A\u5BA2\u69D8\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D..\u3002\n<color=#FF78B4>\u3057\u3057\u3083\u3082\u30AF\u30C3\u30AD\u30FC</color>\u3092\u9AD8\u5024\u3067\u8CB7\u3044\u53D6\u308A\u305F\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
     - ID: 9
       QuestID: 90
+      QuestType: 0
+      QuestHyouji: 2
+      file_name: rich_tea
+      quest_itemName: lavender_tea
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 3
+      buy_price: 300
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 10
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u30E9\u30D9\u30F3\u30C0\u30FC\u30C6\u30A3\u30FC\u306E\u7D0D\u54C1"
+      desc: "\u3042\u308B\u8CB4\u65CF\u306E\u65B9\u304B\u3089\u3001\u30D1\u30FC\u30C6\u30A3\u30FC\u7528\u306B\u7D05\u8336\u304C\u307B\u3057\u3044\u305D\u3046\u3088\u3002\n<color=#FF78B4>\u30E9\u30D9\u30F3\u30C0\u30FC\u30C6\u30A3\u30FC</color>\u304C\u3001\u51FA\u6765\u305F\u3089\u307B\u3057\u3044\u3093\u3060\u3063\u3066\uFF01"
+    - ID: 10
+      QuestID: 100
       QuestType: 1
       QuestHyouji: 4
       file_name: strange_grass
@@ -294,8 +322,8 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u3072\u307E\u308F\u308A\u306E\u7A2E\u306E\u5165\u624B"
       desc: "<color=#FF78B4>\u3072\u307E\u308F\u308A\u306E\u7A2E</color>\u304C\u3042\u308B\u3068\u52A9\u304B\u308B\u308F\u306D\u3002\n\u63A1\u3063\u3066\u304D\u3066\u304F\u308C\u305F\u3089\u304A\u99C4\u8CC3\u3092\u3042\u3052\u308B\u308F\u3088\uFF5E\u3002"
-    - ID: 10
-      QuestID: 100
+    - ID: 11
+      QuestID: 110
       QuestType: 1
       QuestHyouji: 4
       file_name: himawari_Oil
@@ -322,7 +350,7 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u3072\u307E\u308F\u308A\u6CB9\u306E\u5165\u624B"
       desc: "<color=#FF78B4>\u3072\u307E\u308F\u308A\u6CB9</color>\u3063\u3066\u3001\u6301\u3063\u3066\u308B\uFF1F\n\u6700\u8FD1\u6D41\u884C\u308A\u306E\u63DA\u3052\u304A\u83D3\u5B50\u3092\u4F5C\u308B\u305F\u3081\u306B\u3001\u5FC5\u8981\u306A\u306E\u3088\u3002"
-    - ID: 11
+    - ID: 12
       QuestID: 1000
       QuestType: 0
       QuestHyouji: 0
@@ -349,8 +377,8 @@ MonoBehaviour:
       topping04: Non
       topping05: Non
       quest_Title: "\u3055\u304F\u3055\u304F\u3057\u305F\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1"
-      desc: "<color=#FF78B4>\u3055\u304F\u3055\u304F\u3057\u305F\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
-    - ID: 12
+      desc: "<color=#FF78B4>\u3055\u304F\u3055\u304F\u3057\u305F\u30AF\u30C3\u30AD\u30FC</color>\u304C\u307B\u3057\u3044\u306A\u3041..\u3000\n\u3068\u3044\u3046\u304A\u5BA2\u3055\u3093\u304C\u3044\u308B\u308F\u3002\u30AF\u30C3\u30AD\u30FC\u304C\u3042\u308C\u3070\u3001\u559C\u3070\u308C\u308B\u304B\u3082\u3002"
+    - ID: 13
       QuestID: 1010
       QuestType: 0
       QuestHyouji: 0
@@ -377,8 +405,8 @@ MonoBehaviour:
       topping04: Non
       topping05: Non
       quest_Title: "\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044"
-      desc: "<color=#FF78B4>\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041"
-    - ID: 13
+      desc: "<color=#FF78B4>\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC</color>\u304C\u304C\u307B\u3057\u3044\u306A\u3041..\u3000\n\u3068\u3044\u3046\u304A\u5BA2\u3055\u3093\u304C\u3044\u308B\u308F\u3002\u30AF\u30C3\u30AD\u30FC\u304C\u3042\u308C\u3070\u3001\u559C\u3070\u308C\u308B\u304B\u3082\u3002"
+    - ID: 14
       QuestID: 1020
       QuestType: 0
       QuestHyouji: 1
@@ -405,4 +433,4 @@ MonoBehaviour:
       topping04: Non
       topping05: Non
       quest_Title: "\u30E9\u30B9\u30AF\u306E\u7D0D\u54C1"
-      desc: "<color=#FF78B4>\u30E9\u30B9\u30AF</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      desc: "\u3042\u308B\u8CB4\u65CF\u306E\u304A\u5BA2\u69D8\u304C\u3001\u304A\u8336\u4F1A\u3067\u98DF\u3079\u308B\u304A\u83D3\u5B50\u3092\u63A2\u3057\u3066\u308B\u305D\u3046\u3088\u3002\n<color=#FF78B4>\u30E9\u30B9\u30AF</color>\u304C\u3042\u308C\u3070\u3001\u559C\u3070\u308C\u308B\u304B\u3082..\u3002"

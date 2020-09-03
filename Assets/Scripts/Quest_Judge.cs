@@ -810,7 +810,8 @@ public class Quest_Judge : MonoBehaviour {
 
                 if (_a != "")
                 {
-                    _text.text = _a + "\n" + "う～ん。もうちょっと味を頑張ったほうがいいかも。";
+                    //_text.text = _a + "\n" + "う～ん。もうちょっと味を頑張ったほうがいいかも。";
+                    _text.text = "う～ん。もうちょっと味を頑張ったほうがいいかも。";
                 }
                 else
                 {

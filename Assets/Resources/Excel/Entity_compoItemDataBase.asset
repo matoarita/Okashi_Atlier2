@@ -15,76 +15,76 @@ MonoBehaviour:
   - name: Compound_ItemDB
     list:
     - ItemID: 0
-      cmpitemName: orange_juice
-      cmpitemID_1: orange
-      cmpitemID_2: orange
-      cmpitemID_3: empty
-      cmp_subtype_1: empty
-      cmp_subtype_2: empty
-      cmp_subtype_3: empty
-      result_itemID: orange_juice
-      result_kosu: 1
-      cmpitem_kosu1: 1
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
-      best_kosu1: 1
-      best_kosu2: 1
-      best_kosu3: 1
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
       cmp_flag: 0
-      cost_time: 1
-      success_rate: 95
-      renkin_Bexp: 3
-      Comment: "\u30B8\u30E5\u30FC\u30B9\u7CFB"
-      Comment2: "\u30AA\u30EC\u30F3\u30B8\u3068\u30AA\u30EC\u30F3\u30B8"
-      KeisanMethod: Non
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
       comp_count: 0
     - ItemID: 1
-      cmpitemName: haloween_juice
-      cmpitemID_1: orange
-      cmpitemID_2: grape
-      cmpitemID_3: empty
-      cmp_subtype_1: empty
-      cmp_subtype_2: empty
-      cmp_subtype_3: empty
-      result_itemID: haloween_juice
-      result_kosu: 1
-      cmpitem_kosu1: 1
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
-      best_kosu1: 1
-      best_kosu2: 1
-      best_kosu3: 1
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
       cmp_flag: 0
-      cost_time: 1
-      success_rate: 95
-      renkin_Bexp: 3
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
       Comment: 
-      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u3076\u3069\u3046"
-      KeisanMethod: Non
+      Comment2: 
+      KeisanMethod: 
       comp_count: 0
     - ItemID: 2
-      cmpitemName: mix_fruits_juice
-      cmpitemID_1: empty
-      cmpitemID_2: empty
-      cmpitemID_3: empty
-      cmp_subtype_1: Fruits
-      cmp_subtype_2: Fruits
-      cmp_subtype_3: empty
-      result_itemID: mix_fruits_juice
-      result_kosu: 1
-      cmpitem_kosu1: 1
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
-      best_kosu1: 1
-      best_kosu2: 1
-      best_kosu3: 1
-      cmp_flag: 2
-      cost_time: 1
-      success_rate: 95
-      renkin_Bexp: 3
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
       Comment: 
-      Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B"
-      KeisanMethod: Non
+      Comment2: 
+      KeisanMethod: 
       comp_count: 0
     - ItemID: 3
       cmpitemName: 
@@ -2115,16 +2115,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
-      best_kosu1: 2
-      best_kosu2: 1
-      best_kosu3: 1
+      best_kosu1: 1
+      best_kosu2: 4.3
+      best_kosu3: 2
       cmp_flag: 0
       cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30DE\u30D5\u30A3\u30F3\u7CFB"
       Comment2: "\u30A2\u30D1\u30EC\u30A4\u30E6\xD7\u5C0F\u9EA6\u7C89\xD7\u5869"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 88
       cmpitemName: 
@@ -2163,8 +2163,8 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 2
-      best_kosu2: 1
+      best_kosu1: 1
+      best_kosu2: 3.3
       best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
@@ -2172,7 +2172,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: "\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u7CFB"
       Comment2: "\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9\xD7\u305F\u307E\u3054"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 90
       cmpitemName: 
@@ -2268,7 +2268,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: "\u30E9\u30B9\u30AF\u7CFB"
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 94
       cmpitemName: rusk_emerald
@@ -2292,7 +2292,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 95
       cmpitemName: rusk_butter
@@ -2316,7 +2316,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 96
       cmpitemName: rusk_butter_emerald
@@ -2340,7 +2340,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 97
       cmpitemName: rusk_orange
@@ -2364,7 +2364,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 98
       cmpitemName: rusk_orange_butter
@@ -2388,7 +2388,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 99
       cmpitemName: rusk_Free
@@ -2412,7 +2412,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 100
       cmpitemName: rusk_butter_Free
@@ -2436,7 +2436,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 101
       cmpitemName: rusk_orange_Free
@@ -2460,7 +2460,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 102
       cmpitemName: rusk_orange_butter_Free
@@ -2484,7 +2484,7 @@ MonoBehaviour:
       renkin_Bexp: 5
       Comment: 
       Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 103
       cmpitemName: 
@@ -2547,8 +2547,8 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
-      best_kosu1: 3
-      best_kosu2: 5
+      best_kosu1: 4.3
+      best_kosu2: 2.5
       best_kosu3: 4
       cmp_flag: 0
       cost_time: 18
@@ -2556,7 +2556,7 @@ MonoBehaviour:
       renkin_Bexp: 20
       Comment: "\u30D1\u30F3\u30B1\u30FC\u30AD\u7CFB"
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6\u30DF\u30EB\u30AF\xD7\u30D0\u30BF\u30FC"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 106
       cmpitemName: choco_banana_pan_cake
@@ -2643,9 +2643,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 18
       success_rate: 95
@@ -2667,9 +2667,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 18
       success_rate: 95
@@ -2715,9 +2715,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 18
       success_rate: 95
@@ -2835,16 +2835,16 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 4
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30AF\u30EC\u30FC\u30D7\u7CFB"
       Comment2: "\u5C0F\u9EA6\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6\u30DF\u30EB\u30AF"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
     - ItemID: 118
       cmpitemName: cream_crepe
@@ -2859,9 +2859,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -2883,9 +2883,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -2907,9 +2907,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -2931,9 +2931,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -2955,9 +2955,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -2979,9 +2979,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3003,9 +3003,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3027,9 +3027,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3051,9 +3051,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3075,9 +3075,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3099,9 +3099,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3123,9 +3123,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3147,9 +3147,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3171,9 +3171,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3195,9 +3195,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3219,9 +3219,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3243,9 +3243,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3267,9 +3267,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3291,9 +3291,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3315,9 +3315,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3339,9 +3339,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3363,9 +3363,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3387,9 +3387,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3411,9 +3411,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3435,9 +3435,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3459,9 +3459,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3483,9 +3483,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3507,9 +3507,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3531,9 +3531,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3555,9 +3555,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3579,9 +3579,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3603,9 +3603,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3627,9 +3627,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3651,9 +3651,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3675,9 +3675,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3699,9 +3699,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3723,9 +3723,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3747,9 +3747,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3771,9 +3771,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 12
       success_rate: 95
@@ -3819,9 +3819,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 72
       success_rate: 50
@@ -3867,9 +3867,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 1
       success_rate: 50
@@ -3915,9 +3915,9 @@ MonoBehaviour:
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
-      best_kosu1: 3
-      best_kosu2: 5
-      best_kosu3: 4
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 1
       success_rate: 50
@@ -3925,4 +3925,172 @@ MonoBehaviour:
       Comment: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0\u7CFB"
       Comment2: "\u30DF\u30EB\u30AF\xD7\u7802\u7CD6\xD7\u30A2\u30A4\u30B9\u306E\u5B9F"
       KeisanMethod: Non
+      comp_count: 0
+    - ItemID: 163
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
+      comp_count: 0
+    - ItemID: 164
+      cmpitemName: lavender_tea
+      cmpitemID_1: lavender_flower
+      cmpitemID_2: water
+      cmpitemID_3: milkpan
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: lavender_tea
+      result_kosu: 1
+      cmpitem_kosu1: 2
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 7.7
+      best_kosu2: 2.2
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 75
+      renkin_Bexp: 32
+      Comment: "\u304A\u8336\u7CFB"
+      Comment2: "\u30E9\u30D9\u30F3\u30C0\u30FC\xD7\u6C34\xD7\u304A\u934B"
+      KeisanMethod: Use
+      comp_count: 0
+    - ItemID: 165
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
+      comp_count: 0
+    - ItemID: 166
+      cmpitemName: orange_juice
+      cmpitemID_1: orange
+      cmpitemID_2: oil_extracter
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: orange_juice
+      result_kosu: 1
+      cmpitem_kosu1: 2
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 8
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: "\u30B8\u30E5\u30FC\u30B9\u7CFB"
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\u3068\u30AA\u30EC\u30F3\u30B8\xD7\u7D5E\u308A\u6A5F"
+      KeisanMethod: Use
+      comp_count: 0
+    - ItemID: 167
+      cmpitemName: haloween_juice
+      cmpitemID_1: orange
+      cmpitemID_2: grape
+      cmpitemID_3: oil_extracter
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: haloween_juice
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 5
+      best_kosu2: 3
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u3076\u3069\u3046\xD7\u7D5E\u308A\u6A5F"
+      KeisanMethod: Use
+      comp_count: 0
+    - ItemID: 168
+      cmpitemName: mix_fruits_juice
+      cmpitemID_1: oil_extracter
+      cmpitemID_2: empty
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: Fruits
+      cmp_subtype_3: Fruits
+      result_itemID: mix_fruits_juice
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 9999
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
+      KeisanMethod: Non
+      comp_count: 0
+    - ItemID: 169
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
       comp_count: 0

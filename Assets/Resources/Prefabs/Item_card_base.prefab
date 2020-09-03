@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 82928658870317600}
   - component: {fileID: 223278737215196262}
   - component: {fileID: 114898299580188986}
+  - component: {fileID: 225489466904267260}
   m_Layer: 0
   m_Name: Item_card_base
   m_TagString: Item_card_base
@@ -4123,6 +4124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item_screen: {fileID: 114876006560416692}
+  item_type: 
+  item_type_sub: 
   check_counter: 0
   Pitem_or_Origin: 0
   sound1: {fileID: 8300000, guid: 991b8152280fcdc4b96e9e5cbb0334fd, type: 3}
@@ -14117,3 +14120,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225489466904267260
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1118836723063402}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

@@ -1684,6 +1684,23 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 break;
 
+            case "Tea":
+
+                if (_basecrispy >= _girlcrispy[countNum])
+                {
+                    crispy_score = _basecrispy;
+                    //crispy_score = _basecrispy - _girlcrispy[countNum]; //お菓子のサクサク度-好み値が点数に。
+                }
+                else
+                {
+                    crispy_score = 0;
+                }
+                shokukan_score = crispy_score;
+                shokukan_mes = "香り";
+                Debug.Log("香り（サクサク度）の点: " + crispy_score);
+
+                break;
+
             default:
 
                 if (_basecrispy >= _girlcrispy[countNum])
