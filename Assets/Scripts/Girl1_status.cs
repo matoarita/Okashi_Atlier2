@@ -200,6 +200,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private GameObject character;
 
     //Live2Dモデルの取得
+    private GameObject _model_obj;
     private CubismModel _model;
     private Animator live2d_animator;
     private int trans_expression;
@@ -409,11 +410,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     maincam_animator = main_cam.GetComponent<Animator>();
                     trans = maincam_animator.GetInteger("trans");
 
-                    //Live2Dモデルの取得
-                    /*_model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
-                    live2d_animator = _model.GetComponent<Animator>();
-                    trans_expression = live2d_animator.GetInteger("trans_expression");*/
-
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
@@ -437,7 +433,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
                     //Live2Dモデルの取得
+                    _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                    /*
+                    live2d_animator = _model.GetComponent<Animator>();
+                    trans_expression = live2d_animator.GetInteger("trans_expression");*/
 
                     //メイン画面に表示する、現在のクエスト
                     questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
@@ -531,6 +531,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         Girl1_touchhair_count = 0;
                         Girl1_touchhair_start = false;
                         GirlEat_Judge_on = true;
+                        _model_obj.GetComponent<GazeController>().enabled = false;
 
                         //吹き出し・ハングリーステータスをリセット
                         ResetHukidashi();
@@ -723,33 +724,39 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void CheckGokigen()
     {
         //女の子の今のご機嫌
-        if (girl1_Love_exp >= 0 && girl1_Love_exp < SumLvTable(1))
+        if (girl1_Love_exp >= 0 && girl1_Love_lv < 2)
         {
+            //ご機嫌ななめ
             GirlGokigenStatus = 0;
            
         }
-        else if (girl1_Love_exp >= SumLvTable(1) && girl1_Love_exp < SumLvTable(2))
+        else if (girl1_Love_lv >= 2 && girl1_Love_lv < 3)
         {
+            //少し機嫌が悪い
             GirlGokigenStatus = 1;
            
         }
-        else if (girl1_Love_exp >= SumLvTable(2) && girl1_Love_exp < SumLvTable(3))
+        else if (girl1_Love_lv >= 3 && girl1_Love_lv < 4)
         {
+            //ちょっと元気でてきた
             GirlGokigenStatus = 2;
             
         }
-        else if (girl1_Love_exp >= SumLvTable(3) && girl1_Love_exp < SumLvTable(4))
+        else if (girl1_Love_lv >= 4 && girl1_Love_lv < 5)
         {
+            //だいぶ元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (girl1_Love_exp >= SumLvTable(4) && girl1_Love_exp < SumLvTable(5))
+        else if (girl1_Love_lv >= 5 && girl1_Love_lv < 6)
         {
+            //元気
             GirlGokigenStatus = 4;
             
         }
-        else if (girl1_Love_exp >= SumLvTable(5))
+        else if (girl1_Love_lv >= 6)
         {
+            //最高に上機嫌
             GirlGokigenStatus = 5;
             
         }
@@ -951,7 +958,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             canvas.SetActive(false);
             sceneBGM.MuteBGM();           
 
-            //最初にお菓子にまつわるヒントやお話。宴へとぶ
+            //最初にお菓子にまつわるヒントやお話。宴へとぶ。SpOkashiBeforeコメント。
             GameMgr.scenario_ON = true;
             GameMgr.sp_okashi_ID = Set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
             GameMgr.sp_okashi_hintflag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -959,19 +966,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             while (!GameMgr.recipi_read_endflag)
             {
                 yield return null;
-            }
-
-            //シナリオも進む。
-            switch(Set_compID)
-            {
-                case 1010: //ラスク
-
-                    GameMgr.scenario_flag = 150;
-                    break;
-
-                default:
-
-                    break;
             }
            
             GameMgr.scenario_ON = false;
@@ -1143,7 +1137,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //まだ一度も調合していない
         if (PlayerStatus.First_recipi_on != true)
         {
-            _hint1 = "左のパネルを押して、お菓子を作ろうね。お兄ちゃん。";            
+            _hint1 = "..左のパネル。 お菓子、作れるよ。おにいちゃん..。";            
             hukidashiitem.GetComponent<TextController>().SetText(_hint1);
         }
         else
@@ -1197,7 +1191,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void hukidasiInit()
     {
-        hukidashiitem = Instantiate(hukidashiPrefab);
+        //Live2Dモデルの取得
+        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+
+        hukidashiitem = Instantiate(hukidashiPrefab, _model_obj.transform);
 
         hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(true);
         hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(false);
@@ -1708,26 +1705,58 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
     public void Touchhair_Start()
-    {
+    {       
         Girl1_touchhair_status = 0;
         Girl1_touchhair_count = 0;
         Girl1_touchhair_start = true;
         GirlEat_Judge_on = false;
         timeOut3 = 7.0f;
+
+        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        _model_obj.GetComponent<GazeController>().enabled = true;
     }
 
     //口のあたりをクリックすると、ヒントを表示する。
     public void TouchSisterFace()
-    {       
+    {
+        DeleteHukidashiOnly();
 
+        hukidasiInit();
+
+
+        //ランダムで、吹き出しの内容を決定
+        Init_touchFaceComment();
+        random = Random.Range(0, _touchface_comment_lib.Count);
+        _hintrandom = _touchface_comment_lib[random];
+        
+
+        //ヒントをだすか、今食べたいもののどちらかを表示する。
+        random = Random.Range(0, 100);
+        if (random < 75)
+        {
+            hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
+        }
+        else
+        {
+            hukidashiitem.GetComponent<TextController>().SetText(_desc);
+        }
+   
+        //15秒ほど表示したら、また食べたいお菓子を表示か削除
+        WaitHint_on = true;
+        timeOutHint = 15.0f;
+        GirlEat_Judge_on = false;
+
+        /*
+        //宴で表示する
         //5個の中からランダムで選ぶ。宴のヒントの数と合わせているので、数には注意。
         random = Random.Range(0, 5);
         touchhint_num = random + (GameMgr.GirlLoveEvent_num * 10);
 
-        StartCoroutine("TouchFaceHintHyouji");
+        StartCoroutine("TouchFaceHintHyouji");*/
 
     }
 
+    //宴で表示するようの処理
     IEnumerator TouchFaceHintHyouji()
     {
         WaitHint_on = false;
@@ -1768,6 +1797,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //intパラメーターの値を設定する.
         maincam_animator.SetInteger("trans", trans);
     }
+
 
     public void TouchSisterRibbon()
     {
@@ -2120,9 +2150,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
         }
 
-        //食べたいお菓子もたまにだすとか。
-        _hintrandomDict.Add("オレンジねこクッキーが食べたいなぁ。");
-        _hintrandomDict.Add("クリームがたっぷりのっかったお菓子が食べたいなぁ。");
     }    
 
     //表情を変更するメソッド
@@ -2262,7 +2289,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void LvUpStatus() //好感度レベルがあがったときに、ステータス上昇などの処理
     {
         //レベルがあがるごとに、アイテム発見力があがる。
-        PlayerStatus.player_girl_findpower += girl1_Love_lv * 10;
+        PlayerStatus.player_girl_findpower = 100 + ((girl1_Love_lv-1) * 10);
 
         //上限処理
         if(PlayerStatus.player_girl_findpower >= 999)

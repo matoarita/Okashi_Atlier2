@@ -48,6 +48,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private string _temp_spkansou, _special_kansou;
     private bool Mazui_flag;
     private bool non_spquest_flag;
+    private bool clear_spokashi_flag;
 
     private Text Okashi_Score;
     private List<GameObject> Manzoku_star = new List<GameObject>();
@@ -2369,6 +2370,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     stageclear_Button.SetActive(true);
 
+                    clear_spokashi_flag = true; //SPお菓子で、クエストクリアボタンでたか否か。
+
                     _windowtext.text = "満足しているようだ。";
                 }
                 else
@@ -2567,8 +2570,8 @@ public class GirlEat_Judge : MonoBehaviour {
         _tempGirllove = girl1_status.girl1_Love_exp;//あがる前の好感度を一時保存
         girl_param.text = _tempGirllove.ToString();
 
-        //好感度　取得分増加
-        girl1_status.girl1_Love_exp += Getlove_exp;        
+        StartCoroutine("GetLoveEnd");
+          
     }
 
     //ハートがゲージに衝突した時に、このメソッドが呼び出される。
@@ -2586,6 +2589,11 @@ public class GirlEat_Judge : MonoBehaviour {
             girl1_status.girl1_Love_lv++;
             girl1_status.LvUpStatus();
             _slider.value = 0;
+
+            //レベルがあがることでも、次のSPクエストにすすめる。
+            GameMgr.QuestClearflag = true;
+            stageclear_Button.SetActive(true);
+            clear_spokashi_flag = false; //この場合、フラグはfalse。
 
             //Maxバリューを再設定
             Love_Slider_Setting();
@@ -2624,7 +2632,18 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
+    IEnumerator GetLoveEnd()
+    {
+        while (heart_count > 0)
+        {
+            yield return null;
+        }
 
+        //Debug.Log("好感度　内部を更新");
+        //好感度　取得分増加
+        girl1_status.girl1_Love_exp += Getlove_exp;
+        compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
+    }
 
     //
     //次の食べたいお菓子を決めるメソッド。
@@ -3057,25 +3076,32 @@ public class GirlEat_Judge : MonoBehaviour {
     //
     IEnumerator SubQuestClearEvent()
     {
-        girl1_status.GirlEat_Judge_on = false;
-        girl1_status.WaitHint_on = false;
-        girl1_status.hukidasiOff();
-        canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
-        sceneBGM.MuteBGM();
-
-        GameMgr.KeyInputOff_flag = false;
-        GameMgr.scenario_ON = true;
-        GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
-        GameMgr.mainClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-        while (!GameMgr.recipi_read_endflag)
+        if (clear_spokashi_flag)
         {
-            yield return null;
-        }
+            girl1_status.GirlEat_Judge_on = false;
+            girl1_status.WaitHint_on = false;
+            girl1_status.hukidasiOff();
+            canvas.SetActive(false);
+            touch_controller.Touch_OnAllOFF();
+            sceneBGM.MuteBGM();
 
-        GameMgr.recipi_read_endflag = false;
-        sceneBGM.MuteOFFBGM();
+            GameMgr.KeyInputOff_flag = false;
+            GameMgr.scenario_ON = true;
+            GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
+            GameMgr.mainClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+            while (!GameMgr.recipi_read_endflag)
+            {
+                yield return null;
+            }
+
+            GameMgr.recipi_read_endflag = false;
+            sceneBGM.MuteOFFBGM();
+        }
+        else
+        {
+            //レベルがあがってクリアする場合、spokashi_afterのコメントがいらない。
+        }
 
         canvas.SetActive(true);
         stageclear_Button.SetActive(false);

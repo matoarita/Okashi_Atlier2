@@ -274,6 +274,10 @@ public class TimeController : MonoBehaviour
 
     IEnumerator SleepDayEnd()
     {
+        //好感度によって発生するイベントチェック
+
+        //** ここまで **
+
         GameMgr.scenario_ON = true;      
         GameMgr.sleep_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
                                          //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);

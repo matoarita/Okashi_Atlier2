@@ -15,6 +15,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private BGM sceneBGM;
     private SoundController sc;
+    private Map_Ambience map_ambience;
 
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
@@ -114,6 +115,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
 
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -290,6 +292,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             //音量フェードイン
             sceneBGM.FadeInBGM();
+            
 
             //ガチャン ドア開く音鳴らす。
             sc.PlaySe(38);
@@ -459,6 +462,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //背景のセッティング
                 SetMapBG(select_place_name);
+                
 
                 switch (select_place_name)
                 {
@@ -506,6 +510,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         sceneBGM.OnGetMat_LavenderFieldBGM();
                         compound_Main.bgm_change_flag = true;
 
+                        //背景のSEを鳴らす。
+                        map_ambience.OnLavenderField();
+
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Lavender").gameObject.SetActive(true);
 
@@ -532,7 +539,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、いっぱいとろうね！";
+                            _text.text = "兄ちゃん、ちょっとゴロゴロしよ～！";
                         }
 
                         break;
@@ -843,6 +850,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel.GetComponent<FadeImage>().FadeImageOn();
                 moveanim_panel_image.SetActive(true);
                 moveanim_panel_image_text.SetActive(true);
+
+                //背景のSEを止める。
+                map_ambience.FadeOut();
 
                 _text.text = "帰還中 .";
                 moveanim_panel_image_text.GetComponent<Text>().text = "帰還中 .";

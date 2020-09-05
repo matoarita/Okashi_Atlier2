@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 
@@ -48,6 +49,8 @@ public class HukidashiAction : MonoBehaviour {
     private bool _temp_status1;
     private bool _temp_status2;
 
+    private GameObject _model_obj;
+
     // Use this for initialization
     void Start () {
 
@@ -80,7 +83,8 @@ public class HukidashiAction : MonoBehaviour {
 
         //Live2Dモデルの取得
         _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
-        
+        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+
         //自分のアニメーターを取得
         _thisanim = this.GetComponent<Animator>();
         _enteranim_trans = _thisanim.GetInteger("trans");
@@ -100,157 +104,60 @@ public class HukidashiAction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+        //キャラクタの位置に合わせて、位置を更新
+        /*this.transform.localPosition = new Vector3(_model_obj.transform.localPosition.x + 0.5f, 
+            _model_obj.transform.localPosition.y + 0.49f, 
+            _model_obj.transform.localPosition.z - 0.1f);*/
+
+    }
+
+    private void OnEnable()
+    {
         /*
-        if(text_area.GetComponent<TextController>().textend_flag == true)
-        {
-            //Debug.Log("text end: " + text_area.GetComponent<TextController>().textend_flag);
-            switch(hukidasi_action_status)
-            {
-                case 0:
+        //自分のポジションを取得
+        _mypos = this.transform.localPosition;
 
-                    hukidasi.GetComponent<Image>().raycastTarget = true;
-                    hukidasi_text.SetActive(true);
-                    hukidasi.SetActive(true);
+        //tweenで生成時のアニメ
+        Sequence sequence = DOTween.Sequence();
 
-                    break;
+        //まず、初期値。
+        this.GetComponent<CanvasGroup>().alpha = 0;
+        sequence.Append(transform.DOScale(new Vector3(0f, 0f, 0f), 0.0f));
+        sequence.Join(transform.DOLocalMove(new Vector3(-0.5f, 0, 0), 0.0f)
+            ); //元の位置から30px右に置いておく。
+                               //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
 
-                case 1:
-
-                    hukidasi_sp.GetComponent<Image>().raycastTarget = true;
-                    hukidasi_text.SetActive(true);
-                    hukidasi_sp.SetActive(true);
-
-                    break;
-            }
-            
-
-            //カメラ元に戻す
-            trans = 0; //transが1を超えたときに、ズームするように設定されている。
-
-            //intパラメーターの値を設定する.
-            maincam_animator.SetInteger("trans", trans);
-
-            text_area.GetComponent<TextController>().textend_flag = false;
-
-            //吹き出しのカウントを元に戻す
-            if(_temp_status1)
-            {
-                girl1_status.GirlEat_Judge_on = true;
-            }
-            else if(_temp_status2)
-            {
-                girl1_status.WaitHint_on = true;
-            }
-        }
-        */
+        //移動のアニメ
+        sequence.Append(transform.DOScale(new Vector3(0.008f, 0.008f, 0.08f), 0.5f)
+            .SetEase(Ease.OutExpo));
+        sequence.Append(transform.DOLocalMove(new Vector3(0.5f, 0, 0), 0.5f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); //30px右から、元の位置に戻る。
+        sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));*/
     }
 
     void LateUpdate()
     {
-        /*
-        _mypos = _model.transform.position + _Startpos;
 
-        //Live2D値を取得
-        var parameter = _model.Parameters[22];
-        //Debug.Log(parameter);
-        //Debug.Log("parameter: " + parameter.Value);
-
-        //吹き出し＜全体＞の位置を更新
-        this.transform.position = _mypos;
-        _temppos = _mypos;
-       
-        _temppos.x += parameter.Value * 0.02f;
-        _temppos.y += parameter.Value * -0.01f;
-        this.transform.position = _temppos;
-        //Debug.Log("_temppos: " + _temppos);
-        */
     }
 
     public void NormalHint()
     {
-        /*
-        if (girlLikeCompo_database.girllike_compoRandomset.Count > 0) //一番最初の状態。Randomsetに何も入ってないときは無視
-        {
-            hukidasi.GetComponent<Image>().raycastTarget = false;
-            hukidasi_text.SetActive(false);
-            hukidasi.SetActive(false);
 
-            hukidasi_action_status = 0;
-
-            //カメラ寄る。
-            trans = 1; //transが1を超えたときに、ズームするように設定されている。
-
-            //intパラメーターの値を設定する.
-            maincam_animator.SetInteger("trans", trans);
-
-            //Debug.Log("ヒントを表示する");    
-
-            _hint = girlLikeCompo_database.girllike_compoRandomset[girl1_status.Set_compID].hint_text;
-            text_area.GetComponent<TextController>().SetText(_hint);
-            text_area.GetComponent<TextController>().hint_on = true;
-
-            //一時的にどっちのカウントが進んでいたか保存
-            _temp_status1 = girl1_status.GirlEat_Judge_on;
-            _temp_status2 = girl1_status.WaitHint_on;
-
-            girl1_status.GirlEat_Judge_on = false;
-            girl1_status.WaitHint_on = false;
-        }
-        */
     }
 
     public void SpecialHint()
     {
-        /*
-        hukidasi_sp.GetComponent<Image>().raycastTarget = false;
-        hukidasi_text.SetActive(false);
-        hukidasi_sp.SetActive(false);
 
-        hukidasi_action_status = 1;
-
-        //カメラ寄る。
-        trans = 1; //transが1を超えたときに、ズームするように設定されている。
-
-        //intパラメーターの値を設定する.
-        maincam_animator.SetInteger("trans", trans);
-
-        //_compIDをもとに_IDを決定
-        i = 0;
-        while (i < girlLikeCompo_database.girllike_composet.Count)
-        {
-            if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
-            {
-                _id = i;
-                break;
-            }
-            i++;
-        }
-
-        if (girl1_status.girl_Mazui_flag) //まずいフラグがたっていた場合、その時のクエストのヒントを教えてくれる。口と違い、下のウィンドウに表示される。
-        {
-            Init_HukidashiHint();            
-        }
-        else
-        {
-            _hint = girlLikeCompo_database.girllike_composet[_id].hint_text;
-        }
-        text_area.GetComponent<TextController>().SetText(_hint);
-        text_area.GetComponent<TextController>().hint_on = true;
-
-        //一時的にどっちのカウントが進んでいたか保存
-        _temp_status1 = girl1_status.GirlEat_Judge_on;
-        _temp_status2 = girl1_status.WaitHint_on;
-
-        girl1_status.GirlEat_Judge_on = false;
-        girl1_status.WaitHint_on = false;
-        */
     }
 
     public void PointEnter()
     {
         //Debug.Log("Enter");
+        //this.transform.DOScale(new Vector3(0.002f, 0.002f, 0.002f), 0.3f);
 
+        
         if (!_enter_flag)
         {
             //this.transform.localScale = new Vector3(0.013f, 0.013f, 1);
@@ -265,7 +172,9 @@ public class HukidashiAction : MonoBehaviour {
     public void PointExit()
     {
         //Debug.Log("Exit");
+        //this.transform.DOScale(new Vector3(0.0015f, 0.0015f, 0.0015f), 0.3f);
 
+        
         //this.transform.localScale = _myscale;
         _enteranim_trans = 0; //transが1を超えたときに、ズームするように設定されている。
 

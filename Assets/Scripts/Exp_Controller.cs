@@ -1194,14 +1194,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
                 renkin_hyouji +
                 " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-                "錬金経験値 " + _getexp + "上がった！";
+                "パティシエ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
                 " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-                "錬金経験値は上がらなかった。";
+                "パティシエ経験値は上がらなかった。";
         }
 
         Debug.Log(renkin_hyouji + "が出来ました！");
@@ -1216,14 +1216,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
             GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-            "錬金経験値 " + _getexp + "上がった！";
+            "パティシエ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
             GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + pitemlist.player_originalitemlist[new_item].itemNameHyouji +
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-            "錬金経験値は上がらなかった。"; ;
+            "パティシエ経験値は上がらなかった。"; ;
         }
 
         Debug.Log(database.items[result_item].itemNameHyouji + "が出来ました！");

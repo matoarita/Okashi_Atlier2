@@ -1942,6 +1942,7 @@ MonoBehaviour:
   onclick: 0
   ketteiNouhin: 0
   onclick2: 0
+  kettei3: 0
 --- !u!4 &1137473252
 Transform:
   m_ObjectHideFlags: 0
@@ -2090,6 +2091,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1172712042}
+  - component: {fileID: 1172712043}
   - component: {fileID: 1172712041}
   m_Layer: 0
   m_Name: Farm_Bgm
@@ -2107,7 +2109,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0ffda4b9cab12f746b00f7cdca7da748, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -2191,6 +2193,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1172712043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1172712040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12fa3a053144f4042a21bed0517fb7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound1: {fileID: 8300000, guid: 0ffda4b9cab12f746b00f7cdca7da748, type: 3}
+  sound2: {fileID: 0}
+  sound3: {fileID: 0}
+  sound4: {fileID: 0}
+  sound5: {fileID: 0}
+  sound6: {fileID: 0}
+  sound7: {fileID: 0}
+  sound8: {fileID: 0}
+  sound9: {fileID: 0}
+  sound10: {fileID: 0}
+  sound11: {fileID: 0}
+  _mixRate: 0
 --- !u!1 &1198968944
 GameObject:
   m_ObjectHideFlags: 0

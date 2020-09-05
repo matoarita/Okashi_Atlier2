@@ -168,6 +168,8 @@ public class SetImage : MonoBehaviour
 
     private SoundController sc;
 
+    public bool result_on = false; //リザルトのときのみ、アニメーションをちょっと変えるためのフラグ
+
 
     // Use this for initialization
     void Start()
@@ -190,23 +192,25 @@ public class SetImage : MonoBehaviour
         //
         //Dotweenでアニメーションの設定
         //
+        if (!result_on)
+        {
+            Sequence sequence = DOTween.Sequence();
 
-        Sequence sequence = DOTween.Sequence();
+            //まず、初期値。
+            this.GetComponent<CanvasGroup>().alpha = 0;
+            sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
+            /*sequence.Append(transform.DOLocalMove(new Vector3(30f, 0, 0), 0.0f)
+                .SetRelative());*/ //元の位置から30px右に置いておく。
+                                   //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
 
-        //まず、初期値。
-        this.GetComponent<CanvasGroup>().alpha = 0;
-        sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
-        /*sequence.Append(transform.DOLocalMove(new Vector3(30f, 0, 0), 0.0f)
-            .SetRelative());*/ //元の位置から30px右に置いておく。
-        //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
-
-        //移動のアニメ
-        sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
-            .SetEase(Ease.OutExpo));
-        /*sequence.Append(transform.DOLocalMove(new Vector3(-30f, 0, 0), 0.3f)
-            .SetRelative()
-            .SetEase(Ease.OutExpo)); *///30px右から、元の位置に戻る。
-        sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+            //移動のアニメ
+            sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
+                .SetEase(Ease.OutExpo));
+            /*sequence.Append(transform.DOLocalMove(new Vector3(-30f, 0, 0), 0.3f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo)); *///30px右から、元の位置に戻る。
+            sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+        }
     }
 
     void SetData()

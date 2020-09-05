@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 public class CardView : SingletonMonoBehaviour<CardView>
@@ -29,10 +30,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private Vector3 resultScale;
     private Vector3 resultPos;
 
-    private float maxScale, maxPos;
     private float _Scale,  _Pos;
-    private float _degscale, _degpos;
-    private bool result_anim_on;
  
     private Vector3 _diff_pos;
     private Vector3 _temp_nowpos;
@@ -60,8 +58,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Pitem_or_Origin_judge = 0;
 
         audioSource = GetComponent<AudioSource>();
-
-        result_anim_on = false;
 
         speed = 2.0f;
 
@@ -170,30 +166,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
                 _now_cardrot[i] = _temp_nowrot;
                 _cardImage_obj[i].transform.localEulerAngles = _now_cardrot[i];
 
-            }
-        }
-
-
-        if (result_anim_on == true)
-        {
-            _Scale += _degscale;
-            _Pos += _degpos;
-
-            resultScale.x = _Scale;
-            resultScale.y = _Scale;
-            resulttransform.localScale = resultScale;
-
-            resultPos.y = _Pos;
-            if (resultPos.y >= 100)
-            {
-                resultPos.y = 100; //最大値 100の位置にしておく。
-            }
-
-            resulttransform.localPosition = resultPos;
-
-            if (_Scale >= maxScale)
-            {
-                result_anim_on = false;
             }
         }
 
@@ -492,6 +464,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        _cardImage.result_on = true;
 
         _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
 
@@ -554,6 +527,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        _cardImage.result_on = true;
 
         _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
 
@@ -680,18 +654,25 @@ public class CardView : SingletonMonoBehaviour<CardView>
         resultPos = resulttransform.localPosition;
         resultScale = resulttransform.localScale;
 
-        maxScale = 0.85f;
-        maxPos = 80.0f;
-        _Scale = 0.0f;
-        _Pos = 0.0f;
+        {
+            Sequence sequence = DOTween.Sequence();
 
-        _degscale = 0.1f;
+            //まず、初期値。
+            _cardImage_obj[0].GetComponent<CanvasGroup>().alpha = 0;
+            sequence.Append(resulttransform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 0.0f));
+            sequence.Join(resulttransform.DOLocalMove(new Vector3(0, 0, 0), 0.0f)
+                ); //
+                                   //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
 
-        //スケールの変動量を位置の変動量に変換
-        _degpos = SujiMap(_degscale, 0, maxScale, 0, maxPos);
-        //Debug.Log("_degpos: " + _degpos);
+            //移動のアニメ
+            sequence.Append(resulttransform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.75f)
+                .SetEase(Ease.OutElastic));
+            sequence.Join(resulttransform.DOLocalMove(new Vector3(0f, 80f, 0), 0.75f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo)); //元の位置に戻る。
+            sequence.Join(_cardImage_obj[0].GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+        }
 
-        result_anim_on = true;
     }
 
 

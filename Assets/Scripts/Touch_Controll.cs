@@ -17,6 +17,8 @@ public class Touch_Controll : MonoBehaviour
 
     private int draghair_count;
 
+    private GameObject _model;
+
     //SEを鳴らす
     public AudioClip sound1;
     AudioSource audioSource;
@@ -32,6 +34,9 @@ public class Touch_Controll : MonoBehaviour
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
         girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+
+        //Live2Dモデルの取得
+        _model = GameObject.FindWithTag("CharacterLive2D").gameObject;
 
         touch_flag = true;
 
@@ -55,7 +60,7 @@ public class Touch_Controll : MonoBehaviour
     {
         if (touch_flag)
         {
-            //Debug.Log("Touch_Hair");
+            //Debug.Log("Touch_Hair");            
 
             if (!girl1_status.Girl1_touchhair_start)
             {               

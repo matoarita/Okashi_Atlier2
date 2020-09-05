@@ -208,7 +208,7 @@ public class Compound_Main : MonoBehaviour
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");        
+        canvas = GameObject.FindWithTag("Canvas");
 
         //時間表示パネルの取得
         TimePanel_obj1 = canvas.transform.Find("TimePanel/TimeHyouji_1").gameObject;
@@ -2489,9 +2489,7 @@ public class Compound_Main : MonoBehaviour
         if (girl1_status.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[0] == false) //4になったときのサブイベントを使う。
         {
             GameMgr.GirlLoveSubEvent_num = 0;
-            GameMgr.GirlLoveSubEvent_stage1[0] = true;
-
-            
+            GameMgr.GirlLoveSubEvent_stage1[0] = true;           
 
             //クエスト発生
             Debug.Log("好感度イベントの発生");

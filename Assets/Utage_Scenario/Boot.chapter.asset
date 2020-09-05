@@ -1204,12 +1204,27 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 29
       debugIndex: 29
-      strings: []
-      isEmpty: 1
+      strings:
+      - "\u30A2\u30C8\u30EA\u30A8\u5185\uFF1C\u6DF1\u591C\uFF1E"
+      - Bg
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - o2.jpg
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 30
       debugIndex: 30
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 31
+      debugIndex: 31
       strings:
       - "\u30A2\u30A4\u30C6\u30E0\u30A2\u30A4\u30B3\u30F3\u30D5\u30EC\u30FC\u30E0"
       - Sprite
@@ -1223,8 +1238,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 31
-      debugIndex: 31
+    - rowIndex: 32
+      debugIndex: 32
       strings:
       - "\u30A8\u30E1\u30E9\u30EB\u3069\u3093\u3050\u308A"
       - Sprite
@@ -1238,8 +1253,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 32
-      debugIndex: 32
+    - rowIndex: 33
+      debugIndex: 33
       strings:
       - "\u30EC\u30B7\u30D4\u30D6\u30C3\u30AF"
       - Sprite
@@ -1253,12 +1268,6 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 33
-      debugIndex: 33
-      strings: []
-      isEmpty: 1
-      isCommentOut: 0
-      debugInfo: 
     - rowIndex: 34
       debugIndex: 34
       strings: []
@@ -1267,6 +1276,12 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 35
       debugIndex: 35
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 36
+      debugIndex: 36
       strings:
       - "\u30A4\u30D9\u30F3\u30C8\u5C11\u5973\u304C\u843D\u3068\u3057\u305F\u30E1\u30E2"
       - Event
@@ -1280,8 +1295,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 36
-      debugIndex: 36
+    - rowIndex: 37
+      debugIndex: 37
       strings:
       - "\u30A4\u30D9\u30F3\u30C802_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30D2\u30F3\u30C8"
       - Event
@@ -1295,8 +1310,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 37
-      debugIndex: 37
+    - rowIndex: 38
+      debugIndex: 38
       strings:
       - "\u30B9\u30C1\u30EB01_\u3042\u308A\u304C\u3068\u5144\u3061\u3083\u3093"
       - Event
@@ -1312,7 +1327,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Texture
     type: 1
-    textLength: 1191
+    textLength: 1208
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -2810,9 +2825,19 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 60
+      debugIndex: 60
+      strings:
+      - "BGM\u30AF\u30EA\u30B9\u30BF\u30EB\u97F3"
+      - 
+      - Bgm
+      - BGM_28.mp3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 1222
+    textLength: 1244
     headerRow: 0
   - rows:
     - rowIndex: 0

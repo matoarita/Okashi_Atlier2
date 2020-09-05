@@ -10734,7 +10734,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 723
       file_name: whip_cream
@@ -10780,7 +10780,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 724
       file_name: whip_cream
@@ -10826,7 +10826,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 725
       file_name: whip_cream
@@ -10872,7 +10872,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 726
       file_name: whip_cream
@@ -10918,7 +10918,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 727
       file_name: whip_cream
@@ -10964,7 +10964,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 728
       file_name: honey
