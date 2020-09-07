@@ -29,6 +29,7 @@ public class Utage_scenario : MonoBehaviour
 
     private int story_num;
     private int shop_talk_number;
+    private int shop_uwasa_number;
     private int shop_hint_number;
     private int hiroba_num;
     private int hiroba_endflag_num;
@@ -37,10 +38,14 @@ public class Utage_scenario : MonoBehaviour
     private int re_flag;
     private int ev_flag;
 
+    private GameObject canvas;
+
     private PlayerItemList pitemlist;
+    private ItemCompoundDataBase databaseCompo;
     private ItemMatPlaceDataBase matplace_database;
     private Contest_Main contest_main;
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
+    private MoneyStatus_Controller moneyStatus_Controller;
 
     private int j;
     private string recipi_Name;
@@ -74,6 +79,9 @@ public class Utage_scenario : MonoBehaviour
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        //調合組み合わせデータベースの取得
+        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -359,7 +367,15 @@ public class Utage_scenario : MonoBehaviour
 
                 }
 
-                if((GameMgr.shop_hint == true))
+                if (GameMgr.uwasa_flag == true)
+                {
+                    GameMgr.uwasa_flag = false;
+                    shop_uwasa_number = GameMgr.uwasa_number;
+                    StartCoroutine(Shop_Uwasa());
+
+                }
+
+                if ((GameMgr.shop_hint == true))
                 {
                     GameMgr.shop_hint = false;
                     shop_hint_number = GameMgr.shop_hint_num;
@@ -1492,6 +1508,91 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 
         
+        GameMgr.scenario_ON = false;
+
+    }
+
+    //
+    // ショップの「うわさ話」コマンド
+    //
+    IEnumerator Shop_Uwasa()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Shop_Uwasa"; //ショップ話すタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Shop_Uwasa_Num", shop_uwasa_number);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        if ((bool)engine.Param.GetParameter("UwasaOn_Flag"))
+        {
+            if (shop_uwasa_number != 9999)
+            {
+                //キャンバスの読み込み
+                canvas = GameObject.FindWithTag("Canvas");
+                moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+
+                //お金の消費
+                PlayerStatus.player_money -= 100;
+                GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true;
+                //moneyStatus_Controller.UseMoney(100); //うわさ話をきくをONにしたので、-100G
+            }
+            else //きける話がひとつもない場合は、無視
+            {
+
+            }
+        }
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        if ((bool)engine.Param.GetParameter("UwasaOn_Flag"))
+        {
+            if (shop_uwasa_number != 9999)
+            {
+
+                //うわさ話をきき、フラグがたつ場合の処理
+                switch (shop_uwasa_number)
+                {
+                    case 0:
+
+                        //いける場所を追加
+                        matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
+                        break;
+
+                    case 1:
+
+                        //レシピを追加
+                        databaseCompo.CompoON_compoitemdatabase("bugget"); //パンのレシピ解禁
+                        break;
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
         GameMgr.scenario_ON = false;
 
     }

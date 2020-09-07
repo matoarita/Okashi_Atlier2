@@ -48,7 +48,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private string _temp_spkansou, _special_kansou;
     private bool Mazui_flag;
     private bool non_spquest_flag;
-    private bool clear_spokashi_flag;
+    public bool clear_spokashi_flag;
+    private int clear_spokashi_status;
 
     private Text Okashi_Score;
     private List<GameObject> Manzoku_star = new List<GameObject>();
@@ -100,7 +101,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private int i, count;
     private int random;
-    private int countNum;
+    private int countNum;    
 
     private int kettei_item1; //女の子にあげるアイテムの、アイテムリスト番号。
     private int _toggle_type1; //店売りか、オリジナルのアイテムなのかの判定用
@@ -115,6 +116,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private Text girl_lv;
     private Text girl_param;
     private int _tempGirllove;
+    private int _sumlove;
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -528,7 +530,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         judge_anim_on = false;
         judge_end = false;
-        judge_anim_status = 0;
+        judge_anim_status = 0;        
 
         //要素数の初期化
         _girlsweat = new int[girl1_status.youso_count];
@@ -553,6 +555,9 @@ public class GirlEat_Judge : MonoBehaviour {
         HighScore_flag = false;
         Gameover_flag = false;
         kansou_on = false;
+
+        clear_spokashi_flag = false;
+        clear_spokashi_status = 0;
 
         //テキストのセッティング
         CommentTextInit();
@@ -1226,6 +1231,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //クッキーの場合はさくさく感など。大きいパラメータをまず見る。次に甘さ・苦さ・酸味が、女の子の好みに近いかどうか。
         countNum = _setCountNum;
         total_score = 0;
+        shokukan_score = 0;
         crispy_score = 0;
         fluffy_score = 0;
         smooth_score = 0;
@@ -1237,13 +1243,12 @@ public class GirlEat_Judge : MonoBehaviour {
         last_score_kousin = false;
 
         //未使用。
-
         rich_score = 0;
         jiggly_score = 0;
         chewy_score = 0;
 
 
-        //基本得点
+        //基本得点。ただし、現状は未使用で0。よほど特別なお菓子でない限り、使わないほうが分かりやすくて良い感じ。
         quality_score = _girl_set_score[countNum];
 
         //味パラメータの計算。味は、GirlLikeSetの値で、理想値としている。
@@ -1271,19 +1276,22 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 Debug.Log("甘み: Perfect!!");
                 sweat_level = 7;
-                sweat_score = (int)(_basesweat * 2.0f);
+                //sweat_score = (int)(_basesweat * 2.0f);
+                sweat_score = 30;
             }
             else if (Mathf.Abs(sweat_result) < 5)
             {
                 Debug.Log("甘み: Great!!");
                 sweat_level = 6;
-                sweat_score = (int)(_basesweat * 1.5f);
+                //sweat_score = (int)(_basesweat * 1.5f);
+                sweat_score = 15;
             }
             else if (Mathf.Abs(sweat_result) < 15)
             {
                 Debug.Log("甘み: Well!");
                 sweat_level = 5;
-                sweat_score = (int)(_basesweat * 0.75f);
+                //sweat_score = (int)(_basesweat * 0.75f);
+                sweat_score = 10;
             }
             else if (Mathf.Abs(sweat_result) < 30)
             {
@@ -1331,19 +1339,22 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 Debug.Log("苦味: Perfect!!");
                 bitter_level = 7;
-                bitter_score = (int)(_basebitter * 3.0f);
+                //bitter_score = (int)(_basebitter * 3.0f);
+                bitter_score = 30;
             }
             else if (Mathf.Abs(bitter_result) < 5)
             {
                 Debug.Log("苦味: Great!!");
                 bitter_level = 6;
-                bitter_score = (int)(_basebitter * 2.0f);
+                //bitter_score = (int)(_basebitter * 2.0f);
+                bitter_score = 15;
             }
             else if (Mathf.Abs(bitter_result) < 15)
             {
                 Debug.Log("苦味: Well!");
                 bitter_level = 5;
-                bitter_score = (int)(_basebitter * 0.75f);
+                //bitter_score = (int)(_basebitter * 0.75f);
+                bitter_score = 10;
             }
             else if (Mathf.Abs(bitter_result) < 30)
             {
@@ -1391,19 +1402,22 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 Debug.Log("酸味: Perfect!!");
                 sour_level = 7;
-                sour_score = (int)(_basesour * 3.0f);
+                //sour_score = (int)(_basesour * 3.0f);
+                sour_score = 30;
             }
             else if (Mathf.Abs(sour_result) < 5)
             {
                 Debug.Log("酸味: Great!!");
                 sour_level = 6;
-                sour_score = (int)(_basesour * 1.2f);
+                //sour_score = (int)(_basesour * 1.2f);
+                sour_score = 15;
             }
             else if (Mathf.Abs(sour_result) < 15)
             {
                 Debug.Log("酸味: Well!");
                 sour_level = 5;
-                sour_score = (int)(_basesour * 0.75f);
+                //sour_score = (int)(_basesour * 0.75f);
+                sour_score = 10;
             }
             else if (Mathf.Abs(sour_result) < 30)
             {
@@ -1837,9 +1851,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //以上、全ての点数を合計。
         total_score = quality_score + sweat_score + bitter_score + sour_score
-            + crispy_score + fluffy_score
-            + smooth_score + hardness_score + jiggly_score + chewy_score
-            + topping_score;
+            + shokukan_score + topping_score;
 
         Debug.Log("###  ###");
 
@@ -2337,9 +2349,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //テキストウィンドウの更新
             exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
-
-            //リセット
-            Getlove_exp = 0;
+           
         }               
               
 
@@ -2371,6 +2381,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     stageclear_Button.SetActive(true);
 
                     clear_spokashi_flag = true; //SPお菓子で、クエストクリアボタンでたか否か。
+                    clear_spokashi_status = 1;
 
                     _windowtext.text = "満足しているようだ。";
                 }
@@ -2508,7 +2519,7 @@ public class GirlEat_Judge : MonoBehaviour {
                             {
                                 if (itemslotScore[i] > 0)
                                 {
-                                    Getlove_exp += slotnamedatabase.slotname_lists[i].slot_girlScore;
+                                    Getlove_exp += slotnamedatabase.slotname_lists[i].slot_getgirllove;
                                 }
                             }
                         }
@@ -2558,6 +2569,7 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         _listHeart.Clear();
         heart_count = Getlove_exp;
+        _sumlove = girl1_status.girl1_Love_exp + Getlove_exp;
         //Debug.Log("heart_count: " + heart_count);
 
         //ハートのインスタンスを、獲得好感度分だけ生成する。
@@ -2581,7 +2593,16 @@ public class GirlEat_Judge : MonoBehaviour {
         //スライダにも反映
         _slider.value++;
         _tempGirllove++;
-        girl_param.text = _tempGirllove.ToString();
+       
+        if (_sumlove <= _tempGirllove)
+        {
+            girl_param.text = _sumlove.ToString();
+        }
+        else
+        {
+            girl_param.text = _tempGirllove.ToString();
+        }
+        
 
         //現在のスライダ上限に好感度が達したら、次のレベルへ。
         if (_slider.value >= _slider.maxValue)
@@ -2591,9 +2612,16 @@ public class GirlEat_Judge : MonoBehaviour {
             _slider.value = 0;
 
             //レベルがあがることでも、次のSPクエストにすすめる。
-            GameMgr.QuestClearflag = true;
-            stageclear_Button.SetActive(true);
-            clear_spokashi_flag = false; //この場合、フラグはfalse。
+            if (!clear_spokashi_flag)
+            {
+                GameMgr.QuestClearflag = true;
+                stageclear_Button.SetActive(true);
+                clear_spokashi_flag = true; //この場合、フラグはfalse。
+                if (clear_spokashi_status != 1)
+                {
+                    clear_spokashi_status = 0;
+                }
+            }
 
             //Maxバリューを再設定
             Love_Slider_Setting();
@@ -2640,8 +2668,15 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         //Debug.Log("好感度　内部を更新");
+       
         //好感度　取得分増加
         girl1_status.girl1_Love_exp += Getlove_exp;
+
+        //念のため、テキストも更新
+        girl_param.text = girl1_status.girl1_Love_exp.ToString();
+
+        //リセット
+        Getlove_exp = 0;
         compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
     }
 
@@ -3076,7 +3111,7 @@ public class GirlEat_Judge : MonoBehaviour {
     //
     IEnumerator SubQuestClearEvent()
     {
-        if (clear_spokashi_flag)
+        if (clear_spokashi_status == 1)
         {
             girl1_status.GirlEat_Judge_on = false;
             girl1_status.WaitHint_on = false;
@@ -3098,13 +3133,14 @@ public class GirlEat_Judge : MonoBehaviour {
             GameMgr.recipi_read_endflag = false;
             sceneBGM.MuteOFFBGM();
         }
-        else
+        else if (clear_spokashi_status == 0)
         {
             //レベルがあがってクリアする場合、spokashi_afterのコメントがいらない。
         }
 
         canvas.SetActive(true);
         stageclear_Button.SetActive(false);
+        clear_spokashi_flag = false; //クリアフラグはまた戻しておく。
 
         //表示の音を鳴らす。
         sc.PlaySe(47);　//前は、25

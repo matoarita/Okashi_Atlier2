@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GetMatResult_Panel : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GetMatResult_Panel : MonoBehaviour
     private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
 
     private GameObject getmatResult_panel_obj;
+    private GameObject getmatResult_Image_obj;
 
     private int list_count;
     private int i, count;
@@ -48,6 +50,7 @@ public class GetMatResult_Panel : MonoBehaviour
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
 
         getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
+        getmatResult_Image_obj = canvas.transform.Find("GetMatResult_Panel/Comp/Image").gameObject;
     }
 
     // Update is called once per frame
@@ -111,5 +114,25 @@ public class GetMatResult_Panel : MonoBehaviour
         _Img.sprite = texture2d;
 
         ++list_count;
+    }
+
+    public void OnStartAnim()
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        //まず、初期値。
+        getmatResult_Image_obj.GetComponent<CanvasGroup>().alpha = 0;
+        //sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
+        sequence.Append(getmatResult_Image_obj.transform.DOLocalMove(new Vector3(0f, 50f, 0), 0.0f)
+            .SetRelative()); //元の位置から30px右に置いておく。
+                               //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
+
+        //移動のアニメ
+        /*sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
+            .SetEase(Ease.OutExpo));*/
+        sequence.Append(getmatResult_Image_obj.transform.DOLocalMove(new Vector3(0f, -50f, 0), 0.5f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); //30px右から、元の位置に戻る。
+        sequence.Join(getmatResult_Image_obj.GetComponent<CanvasGroup>().DOFade(1, 0.3f));
     }
 }

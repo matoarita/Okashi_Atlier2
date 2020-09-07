@@ -99,6 +99,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int shop_lvevent_num;
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
+    public static bool uwasa_flag;       //ショップの「うわさ話」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
+    public static int uwasa_number;      //その時のうわさ話番号。
     public static bool shop_hint;
     public static int shop_hint_num;
 
@@ -123,6 +125,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ショップのイベントリスト
     public static bool[] ShopEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
     public static bool[] ShopLVEvent_stage = new bool[30]; //パティシエレベルなどに応じたイベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+
+    //ショップのうわさ話リスト
+    public static bool[] ShopUwasa_stage1 = new bool[30]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
 
     //コンテストのイベントリスト
     public static bool[] ContestEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -271,6 +276,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         shop_event_num = 0;
         talk_flag = false;
         talk_number = 0;
+        uwasa_flag = false;
+        uwasa_number = 0;
         shop_hint = false;
         shop_hint_num = 0;
 
@@ -326,6 +333,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             ShopEvent_stage[system_i] = false;
             ShopLVEvent_stage[system_i] = false;
             FarmEvent_stage[system_i] = false;
+        }
+
+        for (system_i = 0; system_i < ShopUwasa_stage1.Length; system_i++)
+        {
+            ShopUwasa_stage1[system_i] = false;
         }
 
         //コンテストイベントフラグの初期化

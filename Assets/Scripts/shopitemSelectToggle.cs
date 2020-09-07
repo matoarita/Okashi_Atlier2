@@ -204,7 +204,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
         if (shopitemlistController.shop_itemType == 1) //レシピを選択したとき
         {
-            _text.text = _item_Namehyouji + "を買いますか？";
+            _text.text = _item_Namehyouji + "を何個買いますか？";
         }
         else //それ以外の通常のアイテムは個数が表示
         {           

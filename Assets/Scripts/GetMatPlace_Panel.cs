@@ -311,6 +311,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             result_off = false;
             getmatResult_panel_obj.SetActive(true);
             getmatResult_panel.reset_and_DrawView();
+            getmatResult_panel.OnStartAnim();
             StartCoroutine("ResultOn");
         }
     }

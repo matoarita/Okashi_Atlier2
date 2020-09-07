@@ -145,7 +145,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _kosu_max = questset[count].Quest_kosu_max;
 
         _kosu_default = Random.Range(_kosu_min, _kosu_max);
-        _buy_price = questset[count].Quest_buy_price;
+        _buy_price = questset[count].Quest_buy_price + Random.Range(0, 20);
 
         _rich = questset[count].Quest_rich;
         _sweat = questset[count].Quest_sweat;

@@ -36,7 +36,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private string _keisan_method;
     private int _comp_count;
 
-    private int i;
+    private int i, j;
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
@@ -104,5 +104,22 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         {
             Debug.Log(i + " " + compoitems[i].cmpitemID + " " + compoitems[i].cmpitemID_1 + " " + compoitems[i].cmpitemID_2 + " " + compoitems[i].cmpitemID_3 + " ");
         }*/
+    }
+
+    //アイテム名を入力すると、該当するcompoIDをOnにする
+    public void CompoON_compoitemdatabase(string compo_itemname)
+    {
+        j = 0;
+        while (j < compoitems.Count)
+        {
+            if (compo_itemname == compoitems[j].cmpitem_Name)
+            {
+                compoitems[j].cmpitem_flag = 1;
+                break;
+            }
+            j++;
+        }
+
+        
     }
 }

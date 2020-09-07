@@ -48,6 +48,7 @@ public class Shop_Main : MonoBehaviour {
     private GameObject shopon_toggle_buy;
     private GameObject shopon_toggle_talk;
     private GameObject shopon_toggle_quest;
+    private GameObject shopon_toggle_uwasa;
 
     private bool check_lvevent;
     private bool lvevent_loading;
@@ -61,6 +62,11 @@ public class Shop_Main : MonoBehaviour {
     private bool hukidasi_oneshot; //吹き出しの作成は一つのみ
 
     private int i;
+
+    private List<bool> shopuwasa_List = new List<bool>();
+    private List<int> random_uwasa_select = new List<int>();
+    private int uwasalist_count;    
+    private int rnd;
 
     // Use this for initialization
     void Start () {
@@ -121,6 +127,7 @@ public class Shop_Main : MonoBehaviour {
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
         shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
         shopon_toggle_quest = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Quest").gameObject;
+        shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
         //backbutton_obj = shop_select.transform.Find("Viewport/Content/Button_modoru").gameObject;
 
         //自分の持ってるお金などのステータス
@@ -322,6 +329,13 @@ public class Shop_Main : MonoBehaviour {
 
                             //intパラメーターの値を設定する.
                             maincam_animator.SetInteger("trans", trans);
+                        } else if (trans == 10) //カメラが寄っていたら、デフォに戻す。
+                        {
+                            //カメラ寄る。
+                            trans = 0; //transが1を超えたときに、ズームするように設定されている。
+
+                            //intパラメーターの値を設定する.
+                            maincam_animator.SetInteger("trans", trans);
                         }
 
                         break;
@@ -333,6 +347,10 @@ public class Shop_Main : MonoBehaviour {
                         break;
 
                     case 3: //クエスト選択中
+                        break;
+
+                    case 4: //うわさ話聞き中
+
                         break;
 
                     case 100: //退避
@@ -398,16 +416,44 @@ public class Shop_Main : MonoBehaviour {
             shop_status = 3; //クエストを押したときのフラグ
             shop_scene = 3;
 
-            _text.text = "ありがとう！お菓子をぜひ買い取らせていただくわ。";
+            _text.text = "依頼を受ける？";
 
             //カメラ寄る。
             trans++; //transが1を超えたときに、ズームするように設定されている。
 
             //intパラメーターの値を設定する.
             maincam_animator.SetInteger("trans", trans);
-
+           
         }
     }
+
+    public void OnCheck_4() //うわさ話　一回100Gとかで、ランダムで有用な情報をきける。
+    {
+        if (shopon_toggle_uwasa.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle_uwasa.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            shop_status = 4; //クエストを押したときのフラグ
+            shop_scene = 4;
+
+            //_text.text = "これはうわさ話なんだけど..聞く？　一回100Gいただくわ。";
+
+            //カメラ寄る。
+            trans = 10; //transが1を超えたときに、ズームするように設定されている。
+
+            //intパラメーターの値を設定する.
+            maincam_animator.SetInteger("trans", trans);
+
+            GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
+            GameMgr.uwasa_flag = true;
+
+            //一度読んだうわさ話は出ない。
+            InitUwasaList();
+            
+        }
+    }
+
+
 
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
     void CheckShopLvEvent()
@@ -455,5 +501,44 @@ public class Shop_Main : MonoBehaviour {
             check_lvevent = true;
             lvevent_loading = false;
         }
+    }
+
+    void InitUwasaList()
+    {
+        shopuwasa_List.Clear();
+        random_uwasa_select.Clear();
+        uwasalist_count = 5;
+
+        //クッキー作り開始　初期値
+
+        for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+        {
+            shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
+        }
+
+
+        if (GameMgr.GirlLoveEvent_stage1[1]) //ラスク
+        {
+
+        }
+
+        for (i = 0; i < shopuwasa_List.Count; i++)
+        {
+            if (!shopuwasa_List[i]) //まだうわさをきいてないやつだけをランダムで選ばれるようにする。
+            {
+                random_uwasa_select.Add(i);
+            }
+        }
+
+        if(random_uwasa_select.Count > 0)
+        {
+            rnd = Random.Range(0, random_uwasa_select.Count);
+            GameMgr.uwasa_number = random_uwasa_select[rnd];
+        }
+        else //もしきける話を全て聞いていた場合
+        {
+            GameMgr.uwasa_number = 9999;
+        }
+
     }
 }

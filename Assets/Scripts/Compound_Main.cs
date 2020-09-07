@@ -362,14 +362,6 @@ public class Compound_Main : MonoBehaviour
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
 
-        if(GameMgr.GirlLoveEvent_stage1[1])
-        {
-            getmaterial_toggle.SetActive(true);
-        } else
-        {
-            getmaterial_toggle.SetActive(false);
-        }
-
         stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
         stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
         stageclear_button_text = stageclear_Button.transform.Find("Text").GetComponent<Text>();
@@ -2117,8 +2109,7 @@ public class Compound_Main : MonoBehaviour
             {
                 //ステージ１のサブイベント
                 case 1:
-
-                    
+                  
                     if (!GameMgr.OkashiQuest_flag_stage1[0]) //レベル１のときのイベント。一番最初で起こるイベント。
                     {
                         event_num = 0;
@@ -2349,58 +2340,65 @@ public class Compound_Main : MonoBehaviour
             case "ev02_orangeneko_cookie_memo": //オレンジネコクッキー閃きのメモ
 
                 //オレンジジャムの作り方を解禁
-                CompoON_compoitemdatabase("orange_jam");
+                databaseCompo.CompoON_compoitemdatabase("orange_jam");
 
                 break;
 
             case "najya_start_recipi": //ナジャのお菓子作りの基本                
 
-                CompoON_compoitemdatabase("neko_cookie");
-                CompoON_compoitemdatabase("appaleil");
+                databaseCompo.CompoON_compoitemdatabase("neko_cookie");
+                databaseCompo.CompoON_compoitemdatabase("appaleil");
 
                 break;
 
-            case "cookie_base_recipi": //クッキー生地作り方のレシピ＜初級＞  
+            case "cookie_base_recipi": //お菓子の基本＜初級＞
 
-                CompoON_compoitemdatabase("cookie_nonsuger");
-                CompoON_compoitemdatabase("emerald_neko_cookie");
+                databaseCompo.CompoON_compoitemdatabase("cookie_nonsuger");
+                databaseCompo.CompoON_compoitemdatabase("emerald_neko_cookie");
                 break;
 
             case "ice_cream_recipi": //アイスクリームの書
 
-                CompoON_compoitemdatabase("ice_cream");
+                databaseCompo.CompoON_compoitemdatabase("ice_cream");
 
                 break;
 
             case "financier_recipi": //フィナンシェ
 
-                CompoON_compoitemdatabase("kogashi_butter");
+                databaseCompo.CompoON_compoitemdatabase("kogashi_butter");
 
                 break;
 
             case "crepe_recipi": //クレープ
 
-                CompoON_compoitemdatabase("appaleil_milk");
-                CompoON_compoitemdatabase("crepe");
+                databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
+                databaseCompo.CompoON_compoitemdatabase("crepe");
 
                 break;
 
             case "maffin_recipi": //マフィン
 
-                CompoON_compoitemdatabase("maffin");
+                databaseCompo.CompoON_compoitemdatabase("maffin");
 
                 break;
 
             case "bisucouti_recipi": //ビスコッティ
 
-                CompoON_compoitemdatabase("baking_mix"); 
-                CompoON_compoitemdatabase("biscotti");
+                databaseCompo.CompoON_compoitemdatabase("baking_mix");
+                databaseCompo.CompoON_compoitemdatabase("biscotti");
 
                 break;
 
             case "princesstota_recipi": //プリンセストータ
 
-                CompoON_compoitemdatabase("princess_tota");
+                databaseCompo.CompoON_compoitemdatabase("princess_tota");
+
+                break;
+
+            case "recipibook_5": //はじめてのパンケーキ
+
+                databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
+                databaseCompo.CompoON_compoitemdatabase("pan_cake");
 
                 break;
 
@@ -2410,7 +2408,7 @@ public class Compound_Main : MonoBehaviour
     }
    
     //アイテム名を入力すると、該当するcompoIDをOnにする
-    void CompoON_compoitemdatabase(string compo_itemname)
+    /*void CompoON_compoitemdatabase(string compo_itemname)
     {
         j = 0;
         while (j < databaseCompo.compoitems.Count)
@@ -2424,7 +2422,7 @@ public class Compound_Main : MonoBehaviour
         }
 
         databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-    }
+    }*/
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -2437,9 +2435,7 @@ public class Compound_Main : MonoBehaviour
 
     void DefaultStartPitem()
     {
-        //ゲーム「はじめから」で始まった場合の、最初の一回だけする処理
-
-        
+        //ゲーム「はじめから」で始まった場合の、最初の一回だけする処理       
         if (GameMgr.gamestart_recipi_get != true)
         {
 
@@ -2471,12 +2467,12 @@ public class Compound_Main : MonoBehaviour
     {
         if (GameMgr.KeyInputOff_flag)
         {
-            if (GameMgr.GirlLoveEvent_stage1[1]) //ラスクのタイミングで、外へ出るが出現
+            if (GameMgr.GirlLoveEvent_stage1[0]) //ラスクのタイミングで、外へ出るが出現
             {
                 getmaterial_toggle.SetActive(true);
 
                 //いける場所を追加
-                matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
+                //matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
             }
         }
     }

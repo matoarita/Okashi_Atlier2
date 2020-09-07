@@ -90,7 +90,7 @@ public class RecipiMemoController : MonoBehaviour
         //イベント用レシピのフラグをチェック。レシピリストから、さらに読めるものを表示。章クリア用のメモなど。
         for (i = 0; i < pitemlist.eventitemlist.Count; i++)
         {
-            if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ListOn == 1) //イベントレシピを所持してる　かつ　リスト表示がONのものを表示
+            if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ListOn == 1 && pitemlist.eventitemlist[i].ev_memo != "non") //イベントレシピを所持してる　かつ　リスト表示がONのもの かつ　内容がnonじゃないものを表示
             {
                 //Debug.Log(i);
 

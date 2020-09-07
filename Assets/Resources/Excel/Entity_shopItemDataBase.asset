@@ -188,7 +188,7 @@ MonoBehaviour:
       itemType: 2
       shop_sell_price: 300
       shop_buy_price: 150
-      item_hyouji: 2
+      item_hyouji: 1
     - ItemID: 25
       name: pan_knife
       zaiko: 1
@@ -200,52 +200,80 @@ MonoBehaviour:
       name: cookie_base_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 1500
-      shop_buy_price: 750
+      shop_sell_price: 500
+      shop_buy_price: 250
       item_hyouji: 1
     - ItemID: 27
+      name: recipibook_2
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 200
+      shop_buy_price: 100
+      item_hyouji: 1
+    - ItemID: 28
+      name: recipibook_3
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 120
+      shop_buy_price: 60
+      item_hyouji: 1
+    - ItemID: 29
+      name: recipibook_4
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 100
+      shop_buy_price: 50
+      item_hyouji: 1
+    - ItemID: 30
+      name: recipibook_5
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 300
+      shop_buy_price: 150
+      item_hyouji: 1
+    - ItemID: 31
       name: maffin_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 28
+    - ItemID: 32
       name: bisucouti_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 29
+    - ItemID: 33
       name: crepe_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 800
       shop_buy_price: 400
       item_hyouji: 0
-    - ItemID: 30
+    - ItemID: 34
       name: financier_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 800
-      shop_buy_price: 400
+      shop_sell_price: 200
+      shop_buy_price: 100
       item_hyouji: 1
-    - ItemID: 31
+    - ItemID: 35
       name: creampuff_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 800
-      shop_buy_price: 400
+      shop_sell_price: 500
+      shop_buy_price: 250
       item_hyouji: 1
-    - ItemID: 32
+    - ItemID: 36
       name: slimejelly_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 3000
       shop_buy_price: 1500
       item_hyouji: 1
-    - ItemID: 33
+    - ItemID: 37
       name: princesstota_recipi
       zaiko: 1
       itemType: 1

@@ -13,7 +13,7 @@ public class SlotName
     public string slot_Hyouki_1;
     public string slot_Hyouki_2;
     public int slot_totalScore;
-    public int slot_girlScore;
+    public int slot_getgirllove;
     public int slot_Money;
 
 
@@ -37,7 +37,7 @@ public class SlotName
         }
 
         slot_totalScore = slot_totalscore;
-        slot_girlScore = slot_gscore;
+        slot_getgirllove = slot_gscore;
         slot_Money = slot_money;
     }
 

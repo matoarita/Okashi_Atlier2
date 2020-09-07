@@ -27,6 +27,11 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     private SoundController sc;
 
+    private GameObject content;
+    private GameObject textPrefab;
+
+    private List<GameObject> _memoList = new List<GameObject>();
+
     // Use this for initialization
     void Start () {
 
@@ -50,11 +55,25 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
+        //スクロールビュー内の、コンテンツ要素を取得
+        content = this.transform.Find("Viewport/Content").gameObject;
+        textPrefab = (GameObject)Resources.Load("Prefabs/MemoText");
+
         recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
         recipimemoController_obj.SetActive(false);
 
+
+        //テキストオブジェクトを生成
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+        _memoList.Clear();
+
+        _memoList.Add(Instantiate(textPrefab, content.transform));
+
         //テキストエリアの読み込み
-        _text = this.transform.Find("Viewport/Content/Text").gameObject.GetComponent<Text>();
+        _text = _memoList[0].GetComponent<Text>();
 
         //メモのデータの読み込み
         text_recipi_memo = pitemlist.eventitemlist[event_ID].ev_memo;
@@ -75,6 +94,7 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         //sc.PlaySe(34);
 
         rootPos = new Vector3(400f, 400f, 0f); //画面の半分（400, 300）+y方向に100
+
     }
 
     public void SeteventID(int _ev_id )
@@ -84,6 +104,9 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     public void CloseMemo()
     {
+        //自身のスクロールの位置を上に。
+        this.GetComponent<ScrollRect>().verticalNormalizedPosition = 1.0f;
+
         recipimemoController_obj.SetActive(true);
         this.gameObject.SetActive(false);
     }

@@ -116,7 +116,7 @@ MonoBehaviour:
       slot_Name: Kogashi_Butter
       slot_Hyouki_1: "\u7126\u304C\u3057\u30D0\u30BF\u30FC"
       slot_Hyouki_2: "\u7126\u304C\u3057\u30D0\u30BF\u30FC\u9999\u308B"
-      slot_totalscore: 7
+      slot_totalscore: 12
       slot_girlscore: 5
       slot_money: 20
     - ItemID: 15
@@ -208,49 +208,49 @@ MonoBehaviour:
       slot_Hyouki_1: "\u30DB\u30A4\u30C3\u30D7\u30AF\u30EA\u30FC\u30E0"
       slot_Hyouki_2: "\u30DB\u30A4\u30C3\u30D7\u6DFB\u3048"
       slot_totalscore: 10
-      slot_girlscore: 12
+      slot_girlscore: 5
       slot_money: 120
     - ItemID: 28
       slot_Name: WhipeedCreamOrange
       slot_Hyouki_1: "\u30AA\u30EC\u30F3\u30B8\u30DB\u30A4\u30C3\u30D7"
       slot_Hyouki_2: "\u30AA\u30EC\u30F3\u30B8\u30DB\u30A4\u30C3\u30D7\u6DFB\u3048"
       slot_totalscore: 15
-      slot_girlscore: 15
+      slot_girlscore: 5
       slot_money: 120
     - ItemID: 29
       slot_Name: WhipeedCreamGrape
       slot_Hyouki_1: "\u3076\u3069\u3046\u30DB\u30A4\u30C3\u30D7"
       slot_Hyouki_2: "\u3076\u3069\u3046\u30DB\u30A4\u30C3\u30D7\u6DFB\u3048"
       slot_totalscore: 18
-      slot_girlscore: 18
+      slot_girlscore: 5
       slot_money: 120
     - ItemID: 30
       slot_Name: WhipeedCreamBlueberry
       slot_Hyouki_1: "\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC\u30DB\u30A4\u30C3\u30D7"
       slot_Hyouki_2: "\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC\u30DB\u30A4\u30C3\u30D7\u6DFB\u3048"
       slot_totalscore: 18
-      slot_girlscore: 15
+      slot_girlscore: 5
       slot_money: 120
     - ItemID: 31
       slot_Name: WhipeedCreamStrawberry
       slot_Hyouki_1: "\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC\u30DB\u30A4\u30C3\u30D7"
       slot_Hyouki_2: "\u3044\u3061\u3054\u30D4\u30F3\u30AF\u30DB\u30A4\u30C3\u30D7\u6DFB\u3048"
       slot_totalscore: 22
-      slot_girlscore: 20
+      slot_girlscore: 5
       slot_money: 120
     - ItemID: 32
       slot_Name: WhipeedCreamBanana
       slot_Hyouki_1: "\u30D0\u30CA\u30CA\u30DB\u30A4\u30C3\u30D7"
       slot_Hyouki_2: "\u30D0\u30CA\u30CA\u30DB\u30A4\u30C3\u30D7\u6DFB\u3048"
       slot_totalscore: 18
-      slot_girlscore: 17
+      slot_girlscore: 5
       slot_money: 120
     - ItemID: 33
       slot_Name: WhipeedCreamPeach
       slot_Hyouki_1: "\u30D4\u30FC\u30C1\u30DB\u30A4\u30C3\u30D7"
       slot_Hyouki_2: "\u30D4\u30FC\u30C1\u30DB\u30A4\u30C3\u30D7\u6DFB\u3048"
       slot_totalscore: 18
-      slot_girlscore: 17
+      slot_girlscore: 5
       slot_money: 120
     - ItemID: 34
       slot_Name: Yoguruto

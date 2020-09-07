@@ -157,6 +157,10 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                     InitCompoundMainScene();
 
                     break;
+
+                case "Shop":
+
+                    break;
             }
         }
 
@@ -201,6 +205,18 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                 sc.PlaySe(18);
                             }
                         }
+                        break;
+
+                    case "Shop":
+
+                        if (GameMgr.KeyInputOff_flag)
+                        {
+
+                        }
+                        break;
+
+
+                    default:
 
                         break;
                 }

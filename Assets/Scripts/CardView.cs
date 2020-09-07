@@ -189,6 +189,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item1;
         _cardImage.SetInit();
+        _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
 
         //位置とスケール
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
@@ -246,6 +247,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item2;
         _cardImage.SetInit();
+        _cardImage_obj[1].GetComponent<SetImage>().CardParamOFF_2();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -316,6 +318,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item3;
         _cardImage.SetInit();
+        _cardImage_obj[2].GetComponent<SetImage>().CardParamOFF_2();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -394,6 +397,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item4;
         _cardImage.SetInit();
+        _cardImage_obj[3].GetComponent<SetImage>().CardParamOFF_2();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -506,6 +510,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //位置とスケール
         if (_cardImage.item_type == "Okashi")
         {
+            //前回スコアも表示するので、左寄りに。
             Draw2();
         }
         else

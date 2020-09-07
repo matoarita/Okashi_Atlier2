@@ -175,6 +175,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_ShopEvent_stage = GameMgr.ShopEvent_stage,
             save_ShopLvEvent_stage = GameMgr.ShopLVEvent_stage,
 
+            //ショップのうわさ話リスト
+            save_ShopUwasa_stage1 = GameMgr.ShopUwasa_stage1,
+
             //コンテストのイベントリスト
             save_ContestEvent_stage = GameMgr.ContestEvent_stage,
 
@@ -325,6 +328,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //ショップのイベントリスト
         GameMgr.ShopEvent_stage = playerData.save_ShopEvent_stage;
         GameMgr.ShopLVEvent_stage = playerData.save_ShopLvEvent_stage;
+
+        //ショップのうわさ話リスト
+        GameMgr.ShopUwasa_stage1 = playerData.save_ShopUwasa_stage1;
 
         //コンテストのイベントリスト
         GameMgr.ContestEvent_stage = playerData.save_ContestEvent_stage;

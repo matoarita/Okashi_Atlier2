@@ -76,7 +76,7 @@ public class Map_Ambience : MonoBehaviour {
     {
         
         FadeIn();
-        sound_hosei = 0.5f;
+        sound_hosei = 0.8f;
         _bgm[0].clip = sound1;
         _bgm[0].Play();
     }

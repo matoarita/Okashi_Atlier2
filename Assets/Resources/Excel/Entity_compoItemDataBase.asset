@@ -1746,15 +1746,15 @@ MonoBehaviour:
       cmpitemName: bugget
       cmpitemID_1: komugiko
       cmpitemID_2: water
-      cmpitemID_3: empty
+      cmpitemID_3: stone_oven
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: bugget
       result_kosu: 1
-      cmpitem_kosu1: 1
+      cmpitem_kosu1: 2
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
+      cmpitem_kosu3: 1
       best_kosu1: 2
       best_kosu2: 4
       best_kosu3: 1
@@ -1770,7 +1770,7 @@ MonoBehaviour:
       cmpitemName: bugget_powder
       cmpitemID_1: komugiko
       cmpitemID_2: water
-      cmpitemID_3: empty
+      cmpitemID_3: stone_oven
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
@@ -1778,7 +1778,7 @@ MonoBehaviour:
       result_kosu: 1
       cmpitem_kosu1: 4
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
+      cmpitem_kosu3: 1
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
@@ -2536,20 +2536,20 @@ MonoBehaviour:
       comp_count: 0
     - ItemID: 105
       cmpitemName: pan_cake
-      cmpitemID_1: komugiko
-      cmpitemID_2: appaleil_milk
-      cmpitemID_3: butter
+      cmpitemID_1: appaleil_milk
+      cmpitemID_2: komugiko
+      cmpitemID_3: baking_powder
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: pan_cake
       result_kosu: 1
       cmpitem_kosu1: 1
-      cmpitem_kosu2: 1
+      cmpitem_kosu2: 2
       cmpitem_kosu3: 1
-      best_kosu1: 4.3
-      best_kosu2: 2.5
-      best_kosu3: 4
+      best_kosu1: 2.5
+      best_kosu2: 3.7
+      best_kosu3: 0.7
       cmp_flag: 0
       cost_time: 18
       success_rate: 95

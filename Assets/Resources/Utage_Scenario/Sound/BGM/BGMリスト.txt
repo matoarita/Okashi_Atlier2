@@ -29,3 +29,6 @@
 ・BGM_27		yume					物語の核心に近い曲
 ・BGM_28		audiostock_64137_sample			クリスタルのイメージの音
 ・BGM_29		audiostock_854783_sample		クリスタルのイメージの音２
+・BGM_30		audiostock_823980_sample		月夜の曲
+・BGM_31		audiostock_94283_sample			月夜の曲２
+・BGM_31		audiostock_824733_sample		月夜の曲３

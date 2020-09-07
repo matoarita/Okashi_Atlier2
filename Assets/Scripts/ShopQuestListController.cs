@@ -42,6 +42,7 @@ public class ShopQuestListController : MonoBehaviour
     private int max;
     private int count;
     private int i, j;
+    private int _hoshu;
 
     public int _count; //選択したリスト番号が入る。
     public int _ID; //ショップデータベースIDが入る。
@@ -199,7 +200,8 @@ public class ShopQuestListController : MonoBehaviour
             _text[3].text = "";
             _text[4].text = "";
 
-            _text[6].text = quest_database.questRandomset[i].Quest_buy_price.ToString();
+            _hoshu = quest_database.questRandomset[i].Quest_buy_price * item_kosu;
+            _text[6].text = _hoshu.ToString();
 
             texture2d = quest_database.questRandomset[i].questIcon;
             _Img.sprite = texture2d;
@@ -254,7 +256,8 @@ public class ShopQuestListController : MonoBehaviour
             _text[3].text = "進行中"; //受注マーク
             _text[4].text = ""; //締め切り日時 締切: ○月△日
 
-            _text[6].text = quest_database.questTakeset[i].Quest_buy_price.ToString();
+            _hoshu = quest_database.questTakeset[i].Quest_buy_price * item_kosu;
+            _text[6].text = _hoshu.ToString();
 
             texture2d = quest_database.questTakeset[i].questIcon;
             _Img.sprite = texture2d;

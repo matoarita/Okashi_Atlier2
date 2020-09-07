@@ -14,7 +14,7 @@ public class SlotNameDataBase : SingletonMonoBehaviour<SlotNameDataBase>
     private string slot_Hyouki_1;
     private string slot_Hyouki_2;
     private int slot_totalscore;
-    private int slot_girlscore;
+    private int slot_getgirllove;
     private int slot_money;
 
     private int i;
@@ -45,11 +45,11 @@ public class SlotNameDataBase : SingletonMonoBehaviour<SlotNameDataBase>
             slot_Hyouki_1 = excel_slot_namedatabase.sheets[sheet_no].list[count].slot_Hyouki_1;
             slot_Hyouki_2 = excel_slot_namedatabase.sheets[sheet_no].list[count].slot_Hyouki_2;
             slot_totalscore = excel_slot_namedatabase.sheets[sheet_no].list[count].slot_totalscore;
-            slot_girlscore = excel_slot_namedatabase.sheets[sheet_no].list[count].slot_girlscore;
+            slot_getgirllove = excel_slot_namedatabase.sheets[sheet_no].list[count].slot_getgirllove;
             slot_money = excel_slot_namedatabase.sheets[sheet_no].list[count].slot_money;
 
             //ここでリストに追加している
-            slotname_lists.Add(new SlotName(_id, slotName, slot_Hyouki_1, slot_Hyouki_2, slot_totalscore, slot_girlscore, slot_money));
+            slotname_lists.Add(new SlotName(_id, slotName, slot_Hyouki_1, slot_Hyouki_2, slot_totalscore, slot_getgirllove, slot_money));
 
             ++count;
         }

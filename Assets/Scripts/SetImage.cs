@@ -341,8 +341,8 @@ public class SetImage : MonoBehaviour
             case 0: //プレイヤーアイテムリストを選択した場合
                 //Debug.Log("プレイヤーアイテムリスト　check_counter:" + check_counter);
 
-                Card_param_obj.SetActive(false);
-                Card_param_obj2.SetActive(false);
+                //Card_param_obj.SetActive(false);
+                //Card_param_obj2.SetActive(false);
                 Pitemlist_CardDraw();
                 break;
 
@@ -353,8 +353,8 @@ public class SetImage : MonoBehaviour
                 pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
                 //オリジナルアイテムのときだけ、効果覧を表示
-                Card_param_obj.SetActive(true);
-                Card_param_obj2.SetActive(true);
+                //Card_param_obj.SetActive(true);
+                //Card_param_obj2.SetActive(true);
 
                 Pitemlist_CardDraw();
                 break;
@@ -915,7 +915,7 @@ public class SetImage : MonoBehaviour
         
 
 
-        if (item_type == "Mat")
+        if (item_type == "Mat" || item_type == "Etc")
         {
             switch (item_type_sub)
             {
@@ -944,15 +944,15 @@ public class SetImage : MonoBehaviour
                     break;
 
                 default:
-                    //Card_param_obj.SetActive(true);
+                    Card_param_obj.SetActive(false);
+                    Card_param_obj2.SetActive(false);
                     break;
             }
         }
         else if (item_type == "Okashi")
         {
-
-            Card_param_obj.SetActive(true);
-            Card_param_obj2.SetActive(true);
+                    Card_param_obj.SetActive(true);
+                    Card_param_obj2.SetActive(true);           
 
         }
         else if(item_type == "Potion")

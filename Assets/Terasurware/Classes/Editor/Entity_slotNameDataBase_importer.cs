@@ -55,7 +55,7 @@ public class Entity_slotNameDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(2); p.slot_Hyouki_1 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(3); p.slot_Hyouki_2 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(4); p.slot_totalscore = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(5); p.slot_girlscore = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(5); p.slot_getgirllove = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(6); p.slot_money = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}

@@ -22,7 +22,7 @@ public class Entity_slotNameDataBase : ScriptableObject
 		public string slot_Hyouki_1;
 		public string slot_Hyouki_2;
 		public int slot_totalscore;
-		public int slot_girlscore;
+		public int slot_getgirllove;
 		public int slot_money;
 	}
 }
