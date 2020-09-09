@@ -1333,7 +1333,14 @@ public class Utage_scenario : MonoBehaviour
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "SpOkashiAfter"; //イベントレシピタグのシナリオを再生。
+        if (GameMgr.okashiafter_status == 0)
+        {
+            scenarioLabel = "SpOkashiAfter"; //イベントレシピタグのシナリオを再生。
+        }
+        else if (GameMgr.okashiafter_status == 1)
+        {
+            scenarioLabel = "KoyuOkashiAfter"; //イベントレシピタグのシナリオを再生。
+        }
 
         scenario_loading = true;
 

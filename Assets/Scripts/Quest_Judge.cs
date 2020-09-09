@@ -50,6 +50,7 @@ public class Quest_Judge : MonoBehaviour {
     // スロットの点数
     List<int> itemslot_NouhinScore = new List<int>();
     List<int> itemslot_PitemScore = new List<int>();
+    private int check_slot_nouhinscore;
 
     //お菓子の点数
     List<int> result_OkashiScore = new List<int>();
@@ -132,7 +133,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
-    private int _basegirl1_like;
+    private float _basegirl1_like;
     private int _basecost;
     private int _basesell;
     private string[] _basetp;
@@ -332,7 +333,12 @@ public class Quest_Judge : MonoBehaviour {
         }
     }
 
-   
+
+
+
+    //
+    //指定のアイテムを、必要個数だけ納品する場合の処理。味の判定などはしない。
+    //
     public void Quest_result(int _ID)
     {
         _qitemID = _ID;
@@ -490,6 +496,12 @@ public class Quest_Judge : MonoBehaviour {
     }
 
 
+
+
+
+    //
+    //クッキーなどの判定するお菓子を納品した場合の処理
+    //
     public void Okashi_Judge(int _ID)
     {
         _qitemID = _ID;
@@ -525,29 +537,51 @@ public class Quest_Judge : MonoBehaviour {
             //C. それをこえたら、各アイテムごとの平均値*納品個数をみて、最終的なスコアをだす。
             //
 
-            okashi_score = 0;
-            nouhinOK_status = 0; //0なら正解
+            okashi_score = 0;            
+            check_slot_nouhinscore = 0;
 
-            //①トッピングスロットの計算
+            //①指定のトッピングがあるかをチェック。一つでも指定のものがあれば、OK
 
-            for (i = 0; i < itemslot_NouhinScore.Count; i++)
+            nouhinOK_status = 2; //先にNGはたてておく。
+
+            //納品用スコアがすべて０の場合、トッピングを計算しないので、無視する。
+            for(i=0; i < itemslot_NouhinScore.Count; i++)
             {
                 //0はNonなので、無視
                 if (i != 0)
                 {
-                    //納品スコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
-                    if (itemslot_PitemScore[i] >= itemslot_NouhinScore[i])
+                    check_slot_nouhinscore += itemslot_NouhinScore[i];
+                }
+            }
+
+            if (check_slot_nouhinscore == 0)
+            {
+                nouhinOK_status = 0;
+            }
+            else
+            {
+                i = 0;
+                while (i < itemslot_NouhinScore.Count)
+                {
+                    //0はNonなので、無視
+                    if (i != 0)
                     {
-                        if (itemslot_NouhinScore[i] != 0)
+                        //納品スコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                        if (itemslot_PitemScore[i] >= itemslot_NouhinScore[i])
                         {
-                            okashi_score += 20;
+                            if (itemslot_NouhinScore[i] != 0)
+                            {
+                                nouhinOK_status = 0;
+                                break;
+                            }
+                        }
+                        //一つでも満たしてないものがある場合は、NGフラグがたつ。いちごくっきーがほしいのに、いちごがのってなければ、ダメ、という理屈。
+                        else
+                        {
+
                         }
                     }
-                    //一つでも満たしてないものがある場合は、NGフラグがたつ
-                    else
-                    {
-                        nouhinOK_status = 2;
-                    }
+                    i++;
                 }
             }
 
@@ -561,128 +595,148 @@ public class Quest_Judge : MonoBehaviour {
             }
             else
             {
-                nouhinOK_status = 2;
+                //nouhinOK_status = 2;
                 _a = "コクがちょっと足りないみたい。";
             }
 
-            if (_basesweat >= _sweat)
+            if (_sweat > 0)
             {
-                if (_sweat != 0)
+                if (_basesweat >= _sweat)
                 {
+
                     okashi_score += 20;
+
+                }
+                else
+                {
+                    //nouhinOK_status = 2;
+                    _a = "甘さがちょっと足りないみたい。";
                 }
             }
-            else
-            {
-                nouhinOK_status = 2;
-                _a = "甘さがちょっと足りないみたい。";
-            }
 
-            if (_basebitter >= _bitter)
+            if (_sour > 0)
             {
-                if (_bitter != 0)
+                if (_basebitter >= _bitter)
                 {
+
                     okashi_score += 20;
+
+                }
+                else
+                {
+                    //nouhinOK_status = 2;
+                    _a = "苦味がちょっと足りないみたい。";
                 }
             }
-            else
-            {
-                nouhinOK_status = 2;
-                _a = "苦味がちょっと足りないみたい。";
-            }
 
-            if (_basesour >= _sour)
+            if (_sour > 0)
             {
-                if (_sour != 0)
+                if (_basesour >= _sour)
                 {
+
                     okashi_score += 20;
+
+                }
+                else
+                {
+                    //nouhinOK_status = 2;
+                    _a = "酸味がちょっと足りないみたい。";
                 }
             }
-            else
-            {
-                nouhinOK_status = 2;
-                _a = "酸味がちょっと足りないみたい。";
-            }
 
-            if (_basecrispy >= _crispy)
+            if (_crispy > 0)
             {
-                if (_crispy != 0)
+                if (_basecrispy >= _crispy)
                 {
                     okashi_score += _basecrispy;
                 }
-            }
-            else
-            {
-                nouhinOK_status = 2;
-                _a = "さくさくした感じがちょっと足りないみたい。";
+                else
+                {
+                    okashi_score += (int)(_basecrispy * 0.5f);
+                    //nouhinOK_status = 2;                
+                    _a = "さくさくした感じがちょっと足りないみたい。";
+                }
             }
 
-            if (_basefluffy >= _fluffy)
+            if (_fluffy > 0)
             {
-                if (_fluffy != 0)
+                if (_basefluffy >= _fluffy)
                 {
+
                     okashi_score += _basefluffy;
+
+                }
+                else
+                {
+                    okashi_score += (int)(_basefluffy * 0.5f);
+                    //nouhinOK_status = 2;
+                    _a = "ふんわり感がちょっと足りないみたい。";
                 }
             }
-            else
-            {
-                nouhinOK_status = 2;
-                _a = "ふんわり感がちょっと足りないみたい。";
-            }
 
-            if (_basesmooth >= _smooth)
+            if (_smooth > 0)
             {
-                if (_smooth != 0)
+                if (_basesmooth >= _smooth)
                 {
+
                     okashi_score += _basesmooth;
+
+                }
+                else
+                {
+                    okashi_score += (int)(_basesmooth * 0.5f);
+                    //nouhinOK_status = 2;
+                    _a = "なめらかな感じがちょっと足りないみたい。";
                 }
             }
-            else
-            {
-                nouhinOK_status = 2;
-                _a = "なめらかな感じがちょっと足りないみたい。";
-            }
 
-            if (_basehardness >= _hardness)
+            if (_hardness > 0)
             {
-                if (_hardness != 0)
+                if (_basehardness >= _hardness)
                 {
+
                     okashi_score += _basehardness;
-                }
-            }
-            else
-            {
-                nouhinOK_status = 2;
-                _a = "歯ごたえがちょっと足りないみたい。";
-            }
 
-            if (_basejiggly >= _jiggly)
-            {
-                if (_jiggly != 0)
+                }
+                else
                 {
-                    okashi_score += 0;
+                    okashi_score += (int)(_basehardness * 0.5f);
+                    //nouhinOK_status = 2;
+                    _a = "歯ごたえがちょっと足りないみたい。";
                 }
             }
-            else
-            {
-                nouhinOK_status = 2;
-                _a = "ぷにぷに感がちょっと足りないみたい。";
-            }
 
-            if (_basechewy >= _chewy)
+            if (_jiggly > 0)
             {
-                if (_chewy != 0)
+                if (_basejiggly >= _jiggly)
                 {
-                    okashi_score += 0;
+
+                    okashi_score += _basejiggly;
+
+                }
+                else
+                {
+                    okashi_score += (int)(_basejiggly * 0.5f);
+                    //nouhinOK_status = 2;
+                    _a = "ぷにぷに感がちょっと足りないみたい。";
                 }
             }
-            else
+
+            if (_chewy > 0)
             {
-                nouhinOK_status = 2;
-                _a = "噛みごたえがちょっと足りないみたい。";
+                if (_basechewy >= _chewy)
+                {
+                    okashi_score += _basechewy;
+                }
+                else
+                {
+                    okashi_score += (int)(_basechewy * 0.5f);
+                    //nouhinOK_status = 2;
+                    _a = "噛みごたえがちょっと足りないみたい。";
+                }
             }
 
-            //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
+            //特定のお菓子の判定。一致していない場合は、③は計算するまでもなく不正解となる。
             if (_itemname == "Non") //特に指定なし
             {
                 //③お菓子の種別の計算
@@ -710,6 +764,37 @@ public class Quest_Judge : MonoBehaviour {
                 //不正解。そもそも違うお菓子を納品している。
                 nouhinOK_status = 1;
             }
+
+            //④トッピングスロットをみて、スコアを加算する。
+            for (i = 0; i < itemslot_PitemScore.Count; i++)
+            {
+                //0はNonなので、無視
+                if (i != 0)
+                {
+                    //トッピングごとに、得点を加算する。妹の採点のtotal_scoreの加算値と共有。
+                    if (itemslot_PitemScore[i] > 0)
+                    {
+                        okashi_score += slotnamedatabase.slotname_lists[i].slot_totalScore;                       
+                    }
+                }
+            }
+
+            //⑤油っこいなどのマイナスの値がついてた場合、マイナス補正
+            if (_basepowdery > 50)
+            {
+                okashi_score -= 30;
+            }
+            if (_baseoily > 50)
+            {
+                okashi_score -= 30;
+            }
+            if (_basewatery > 50)
+            {
+                okashi_score -= 30;
+            }
+
+            //採点はここまで
+
 
             //スコアを保持
             result_OkashiScore.Add(okashi_score * pitemlistController._listkosu[list_count]);
@@ -756,9 +841,14 @@ public class Quest_Judge : MonoBehaviour {
             okashi_totalscore += result_OkashiScore[i];
         }
         if (okashi_totalkosu == 0) { okashi_totalkosu = 1; }
+
+        //最終スコア
         okashi_totalscore /= okashi_totalkosu;
 
-
+        if(okashi_totalscore <= 0) //0点以下でも、無条件でダメ
+        {
+            nouhinOK_status = 2;
+        }
 
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
         DeleteOriginalItem();
@@ -779,21 +869,38 @@ public class Quest_Judge : MonoBehaviour {
 
         judge_end = false;
 
-        //0なら正解
         switch (nouhinOK_status)
         {
             case 0: //正解の場合
 
-                _getMoney = _buy_price * _kosu_default;
+                //味によって、取得のお金が増減する。おいしいと、お金もちょっとプラス。
 
-                //足りてるので、納品完了の処理
-                _text.text = okashi_totalscore + "点！！" + "\n" + "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！";
+                if (okashi_totalscore < 30) //粗悪なお菓子だと、マイナス評価
+                {
+                    _getMoney = (int)(_buy_price * _kosu_default * 0.7f);
+                    _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "う～ん..。お客さん不満だったみたい。次からは気をつけてね。" + "\n" + "報酬額を少し減らされてしまった！";
+                }
+                else if (okashi_totalscore >= 30 && okashi_totalscore < GameMgr.low_score) //30点~60点以下
+                {
+                    _getMoney = _buy_price * _kosu_default;                    
+                    _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！";
+                }
+                else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < GameMgr.high_score) //60点~85点以下
+                {
+                    _getMoney = _buy_price * _kosu_default;
+                    _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！　お客さん喜んでたわ！";
+                }
+                else if (okashi_totalscore >= GameMgr.high_score) //85点以上
+                {
+                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score));
+                    _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんすごく喜んでたわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
+                    sc.PlaySe(77);
+                }
 
                 //ジャキーンみたいな音を鳴らす。
                 sc.PlaySe(31);
 
                 //所持金をプラス
-                //PlayerStatus.player_money += _getMoney;
                 moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
 
                 Debug.Log("納品完了！");
@@ -806,7 +913,7 @@ public class Quest_Judge : MonoBehaviour {
                 Debug.Log("納品失敗..");
                 break;
 
-            case 2: //味が足りない。
+            case 2: //ほしいトッピングが乗ってなかった場合。
 
                 if (_a != "")
                 {
@@ -997,11 +1104,12 @@ public class Quest_Judge : MonoBehaviour {
                 break;
         }
 
-        //一回まず各スコアを初期化。
+        //一回まず各スコアを初期化。とっぴんぐ・固有トッピングで、共通のリスト
         for (i = 0; i < itemslot_PitemScore.Count; i++)
         {
             itemslot_PitemScore[i] = 0;
         }
+
 
         //トッピングスロットをみて、一致する効果があれば、所持数+1
         for (i = 0; i < _basetp.Length; i++)

@@ -76,7 +76,7 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(23); p.watery = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(24); p.type = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(25); p.subtype = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(26); p.girl1_like = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(26); p.girl1_like = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(27); p.cost_price = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(28); p.sell_price = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(29); p.topping01 = (cell == null ? "" : cell.StringCellValue);

@@ -26,7 +26,7 @@ MonoBehaviour:
       kosu_max: 5
       buy_price: 200
       rich: 0
-      sweat: 0
+      sweat: 20
       bitter: 0
       sour: 0
       crispy: 20
@@ -362,7 +362,7 @@ MonoBehaviour:
       kosu_max: 4
       buy_price: 200
       rich: 0
-      sweat: 0
+      sweat: 20
       bitter: 0
       sour: 0
       crispy: 30
@@ -382,30 +382,31 @@ MonoBehaviour:
       QuestID: 1010
       QuestType: 0
       QuestHyouji: 0
-      file_name: neko_cookie
+      file_name: grape_neko_cookie
       quest_itemName: Non
       quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
       kosu_max: 4
       buy_price: 320
-      rich: 30
-      sweat: 0
+      rich: 0
+      sweat: 20
       bitter: 0
-      sour: 0
-      crispy: 0
+      sour: 10
+      crispy: 20
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: Non
-      topping02: Non
-      topping03: Non
+      topping01: Grape
+      topping02: Blueberry
+      topping03: Honey
       topping04: Non
       topping05: Non
-      quest_Title: "\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044"
-      desc: "<color=#FF78B4>\u30B3\u30AF\u306E\u3042\u308B\u30AF\u30C3\u30AD\u30FC</color>\u304C\u304C\u307B\u3057\u3044\u306A\u3041..\u3000\n\u3068\u3044\u3046\u304A\u5BA2\u3055\u3093\u304C\u3044\u308B\u308F\u3002\u30AF\u30C3\u30AD\u30FC\u304C\u3042\u308C\u3070\u3001\u559C\u3070\u308C\u308B\u304B\u3082\u3002"
+      quest_Title: "\u82B3\u9187\u306A\u5473\u306E\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044"
+      desc: "<color=#FF78B4>\u82B3\u9187\u306A\u5473\u306E\u30AF\u30C3\u30AD\u30FC</color>\u304C\u307B\u3057\u3044\u306A\u3041..\u3000\n\u3068\u3044\u3046\u304A\u5BA2\u3055\u3093\u304C\u3044\u308B\u308F\u3002\u82B3\u9187..
+        \u30D5\u30EB\u30FC\u30C4\u304B\u3057\u3089\uFF1F"
     - ID: 14
       QuestID: 1020
       QuestType: 0
@@ -418,7 +419,7 @@ MonoBehaviour:
       kosu_max: 4
       buy_price: 150
       rich: 0
-      sweat: 0
+      sweat: 20
       bitter: 0
       sour: 0
       crispy: 20

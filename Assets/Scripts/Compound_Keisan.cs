@@ -103,7 +103,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     public int _basepowdery;
     public int _baseoily;
     public int _basewatery;
-    public int _basegirl1_like;
+    public float _basegirl1_like;
     public int _basecost;
     public int _basesell;
     public string[] _basetp;
@@ -131,7 +131,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _addpowdery;
     private int _addoily;
     private int _addwatery;
-    private int _addgirl1_like;
+    private float _addgirl1_like;
     private int _addcost;
     private int _addsell;
     private string[] _addtp;
@@ -158,7 +158,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _temppowdery;
     private int _tempoily;
     private int _tempwatery;
-    private int _tempgirl1_like;
+    private float _tempgirl1_like;
     private int _tempcost;
     private int _tempsell;
     private string[] _temptp;
@@ -181,7 +181,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _komugikopowdery;
     private int _komugikooily;
     private int _komugikowatery;
-    private int _komugikogirl1_like;
+    private float _komugikogirl1_like;
     private int _komugikocost;
     private int _komugikosell;
 

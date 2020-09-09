@@ -45,7 +45,7 @@ public class Item
     public ItemType itemType;      //アイテムの種類メインカテゴリー
     public ItemType_sub itemType_sub;      //アイテムの種類サブカテゴリー（クッキー系とかパイ系など）
 
-    public int girl1_itemLike; //そのアイテムに対する女の子１の好み値。固有。
+    public float girl1_itemLike; //そのアイテムに対する女の子１の好み値。固有。
 
     public int cost_price; //ショップで買うときの値段
     public int sell_price; //ショップに売るときの値段
@@ -139,7 +139,12 @@ public class Item
     }
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, int _judge_num, int _eat_kaisu, bool _highscore, int _lasttotal_score, string _hinttext)
+    public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, 
+        int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, 
+        string type, string subtype, float _girl1_like, int cost, int sell, 
+        string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
+        string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
+        int _judge_num, int _eat_kaisu, bool _highscore, int _lasttotal_score, string _hinttext)
     {
         itemID = id;
         fileName = file_name;

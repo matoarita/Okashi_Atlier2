@@ -27,7 +27,7 @@ public class ItemAdd
     public int _Addpowdery;
     public int _Addoily;
     public int _Addwatery;
-    public int _Addgirl1_like;
+    public float _Addgirl1_like;
     public int _Addcost;
     public int _Addsell;
     
@@ -44,7 +44,10 @@ public class ItemAdd
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemAdd(string name, int hp, int day, int quality, int _exp, int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, string type, string subtype, int _girl1_like, int cost, int sell, string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, int kosu)
+    public ItemAdd(string name, int hp, int day, int quality, int _exp, 
+        int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, 
+        string type, string subtype, float _girl1_like, int cost, int sell, 
+        string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, string koyu_tp1, int kosu)
     {
 
         _Addname = name;

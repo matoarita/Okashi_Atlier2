@@ -122,7 +122,7 @@ public class Contest_Judge : MonoBehaviour {
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
-    private int _basegirl1_like;
+    private float _basegirl1_like;
     private int _baseSetjudge_num;
     private string[] _basetp;
     private string[] _koyutp;

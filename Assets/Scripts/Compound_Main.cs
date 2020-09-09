@@ -527,7 +527,7 @@ public class Compound_Main : MonoBehaviour
                     case 30: //宴がポーズ状態。右のレシピメモを押そう。
 
                         text_area.SetActive(true);
-                        _textmain.text = "右の「レシピメモ」ボタンを押してみよう！";
+                        _text.text = "右の「レシピメモ」ボタンを押してみよう！";
                         break;
 
                     case 40: //メモ画面を開いた。
@@ -539,7 +539,7 @@ public class Compound_Main : MonoBehaviour
 
                         pitemlistController.Oninteract();
                         text_area.SetActive(true);
-                        _textmain.text = originai_text;
+                        _text.text = "左のリストから、" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"; ;
 
                         GameMgr.tutorial_Num = 55;
                         break;

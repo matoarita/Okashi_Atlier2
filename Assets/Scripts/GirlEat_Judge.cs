@@ -49,7 +49,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private bool Mazui_flag;
     private bool non_spquest_flag;
     public bool clear_spokashi_flag;
-    private int clear_spokashi_status;
+    public int clear_spokashi_status;
 
     private Text Okashi_Score;
     private List<GameObject> Manzoku_star = new List<GameObject>();
@@ -160,7 +160,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
-    private int _basegirl1_like;
+    private float _basegirl1_like;
     private int _baseSetjudge_num;
     private string[] _basetp;
     private string[] _koyutp;
@@ -2608,8 +2608,7 @@ public class GirlEat_Judge : MonoBehaviour {
         if (_slider.value >= _slider.maxValue)
         {
             girl1_status.girl1_Love_lv++;
-            girl1_status.LvUpStatus();
-            _slider.value = 0;
+            girl1_status.LvUpStatus();           
 
             //レベルがあがることでも、次のSPクエストにすすめる。
             if (!clear_spokashi_flag)
@@ -2625,6 +2624,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //Maxバリューを再設定
             Love_Slider_Setting();
+            _slider.value = 0;
 
             girl_lv.text = girl1_status.girl1_Love_lv.ToString();
         }
@@ -2648,7 +2648,7 @@ public class GirlEat_Judge : MonoBehaviour {
         loveanim_on = true;
     }
 
-    void Love_Slider_Setting()
+    public void Love_Slider_Setting()
     {
         if (girl1_status.girl1_Love_lv <= 5)
         {
@@ -2967,14 +2967,17 @@ public class GirlEat_Judge : MonoBehaviour {
 
         if (GameMgr.GirlLoveEvent_num == 5 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
         {
-            GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID;
+            //GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID;
 
             //お菓子ごとにさらに感想だしてもよいかも。
+            GameMgr.okashiafter_ID = _baseSetjudge_num;
+            GameMgr.okashiafter_status = 1;
         }
         else
         {
             if (!non_spquest_flag) //メインクエストの場合の感想
             {
+                GameMgr.okashiafter_status = 0;
                 //宴を呼び出す。GirlLikeSetのフラグで、トータルスコアに関する感想、スロットに反応する場合スロットの感想、のどちらかを表示する。
                 if (_girl_comment_flag[set_id] == 0)
                 {
@@ -2994,9 +2997,25 @@ public class GirlEat_Judge : MonoBehaviour {
             }
             else //クエスト以外のお菓子をあげた場合、お菓子ごとの感想などを表示する？
             {
-                GameMgr.okashiafter_ID = 1500;
+                if (total_score < 30) //60点以下
+                {
+                    //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
+                    GameMgr.okashiafter_ID = 999;
+                }
+                else if (total_score >= 30 && total_score < GameMgr.low_score) //60点以下
+                {
+                    //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
+                    GameMgr.okashiafter_ID = _baseSetjudge_num;
+                }
+                else if (total_score >= GameMgr.low_score) //60点以上で、それぞれのお菓子のコメントを普通にだす。
+                {
+                    //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
+                    GameMgr.okashiafter_ID = _baseSetjudge_num;
+                }
+                GameMgr.okashiafter_status = 1;
             }
         }
+
         GameMgr.okashiafter_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
                                        //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
 

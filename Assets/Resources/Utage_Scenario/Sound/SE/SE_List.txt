@@ -76,4 +76,6 @@ SE表
 ・SE_74		audiostock_84822_sample				ドラムロール後のジャーン
 ・SE_75		eye-shine1					キュピーーーン
 ・SE_76		flee1						逃げ足早いヒュイーーン
-・SE_77		audiostock_832293_sample			歓声「オーーー」
+・SE_77		audiostock_832293_sample			歓声「オーーー」 →　使わない
+・SE_78		audiostock_308893_sample			女性声「ありがとうございます」
+

@@ -391,6 +391,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //好感度ステータスで変わる吹き出しテキストをセッティング        
         RandomGenkiInit();
+
+
     }
 
     // Update is called once per frame

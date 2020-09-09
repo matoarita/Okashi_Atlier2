@@ -222,7 +222,8 @@ public class Debug_Panel : MonoBehaviour {
                                                                                
                 //** 初期化               
                 girlEat_judge.subQuestClear_check = true;
-                girlEat_judge.Gameover_flag = false;                
+                girlEat_judge.Gameover_flag = false;
+                girlEat_judge.clear_spokashi_status = 1; //SPお菓子でクリアしたことにする。
 
                 if (event_num != 0)
                 {
@@ -404,12 +405,13 @@ public class Debug_Panel : MonoBehaviour {
                 girl1_status.girl1_Love_lv++;
                 i++;
             }
-            _slider.value = _girllove_param;
-            girl1_status.LvUpStatus();
 
             //スライダマックスバリューも更新
             _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
 
+            _slider.value = _girllove_param;
+            girl1_status.LvUpStatus();
+           
 
             //レベル表示も更新
             girl_lv.text = girl1_status.girl1_Love_lv.ToString();

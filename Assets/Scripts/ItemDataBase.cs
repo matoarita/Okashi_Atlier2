@@ -42,7 +42,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
     private string _type;
     private string _subtype;
 
-    private int _girl1_like;
+    private float _girl1_like;
 
     private int _cost;
     private int _sell;
