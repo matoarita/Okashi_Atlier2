@@ -80,7 +80,10 @@ public class PlayerData
     //ショップのイベントリスト
     public bool[] save_ShopEvent_stage = new bool[GameMgr.ShopEvent_stage.Length];
     public bool[] save_ShopLvEvent_stage = new bool[GameMgr.ShopLVEvent_stage.Length];
-    
+
+    //ショップの在庫
+    public List<int> save_shopzaiko = new List<int>();
+
     //ショップのうわさ話リスト
     public bool[] save_ShopUwasa_stage1 = new bool[GameMgr.ShopUwasa_stage1.Length];
 

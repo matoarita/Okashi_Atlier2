@@ -594,7 +594,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     if(_slider.value <= 0) //スライダが0になった場合、そこが下限。girl1_Love_expは、それ以上減少しない。
                     {
-
+                        --girl1_status.girl1_Love_exp;
+                        girl_param.text = girl1_status.girl1_Love_exp.ToString();
                     }
                     else
                     {

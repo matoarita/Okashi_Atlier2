@@ -2036,7 +2036,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 44
       file_name: apareiyu_white
@@ -2082,7 +2082,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 45
       file_name: apareiyu_white
@@ -2128,7 +2128,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 46
       file_name: apareiyu_white
@@ -2174,7 +2174,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 47
       file_name: apareiyu_white
@@ -2220,7 +2220,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 48
       file_name: apareiyu
@@ -3630,7 +3630,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 1
+      girl1_like: 1.3
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -3676,7 +3676,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 1
+      girl1_like: 1.3
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -3722,7 +3722,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 1
+      girl1_like: 1.3
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -3768,7 +3768,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 1
+      girl1_like: 1.3
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -3814,7 +3814,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 1
+      girl1_like: 1.3
       cost_price: 60
       sell_price: 60
       topping01: Non
@@ -3952,7 +3952,7 @@ MonoBehaviour:
       watery: 0
       type: Okashi
       subtype: Cookie
-      girl1_like: 1
+      girl1_like: 1.3
       cost_price: 50
       sell_price: 50
       topping01: Non

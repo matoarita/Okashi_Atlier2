@@ -39,6 +39,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public float timeOut2;
     public float timeOut3;
     public float timeOutIdle;
+    public float timeOutHeartDeg;
     private float Default_hungry_cooltime;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
 
@@ -212,6 +213,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int _sum;
     private int _temp_lvTablecount;
 
+    private Text girl_param;
+    private Slider _slider; //好感度バーを取得
+
     // Use this for initialization
     void Start()
     {
@@ -286,6 +290,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
+                girl_param = canvas.transform.Find("Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
+                _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
+
                 s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
 
                 //メイン画面に表示する、現在のクエスト
@@ -355,6 +362,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeOut = Default_hungry_cooltime;
         timeOut2 = 10.0f;
         timeOutIdle = 5.0f;
+        timeOutHeartDeg = 5.0f;
         timeGirl_hungry_status = 1;
 
         GirlGokigenStatus = 0;
@@ -492,6 +500,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             timeOut -= Time.deltaTime;
             timeOut2 -= Time.deltaTime;
             timeOutIdle -= Time.deltaTime;
+            timeOutHeartDeg -= Time.deltaTime;
         }
 
         if(WaitHint_on) //吹き出しヒントを表示中
@@ -652,6 +661,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             IdleChange();
                             
                         }
+
+                        //5秒程度放置すると、ハートが１ずつ減っていく。
+                        /*if (timeOutHeartDeg <= 0.0)
+                        {
+                            timeOutHeartDeg = 5.0f;
+
+                            --girl1_Love_exp;
+                            girl_param.text = girl1_Love_exp.ToString();
+
+                            //スライダにも反映
+                            _slider.value -= 1;
+                        }*/
                     }
                     break;
 

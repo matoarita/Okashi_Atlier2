@@ -584,10 +584,10 @@ public class GetMaterial : MonoBehaviour {
                     _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "きれいな石" + "</color>" + "をみつけた！";
 
                     //アイテムの取得処理
-                    pitemlist.addPlayerItemString("kirakira_stone", 1);
+                    pitemlist.addPlayerItemString("kirakira_stone1", 1);
 
                     //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-                    _itemid = pitemlist.SearchItemString("kirakira_stone");
+                    _itemid = pitemlist.SearchItemString("kirakira_stone1");
                     getmatplace_panel.result_items[_itemid] += 1;
 
                     //音を鳴らす

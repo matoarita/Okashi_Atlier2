@@ -50,89 +50,89 @@ MonoBehaviour:
       shop_buy_price: 5
       item_hyouji: 0
     - ItemID: 5
-      name: honey
-      zaiko: 50
-      itemType: 0
-      shop_sell_price: 15
-      shop_buy_price: 7
-      item_hyouji: 1
-    - ItemID: 6
       name: baking_powder
       zaiko: 50
       itemType: 0
       shop_sell_price: 30
       shop_buy_price: 15
       item_hyouji: 1
-    - ItemID: 7
+    - ItemID: 6
       name: armond_powder
       zaiko: 50
       itemType: 0
       shop_sell_price: 8
       shop_buy_price: 4
       item_hyouji: 1
-    - ItemID: 8
+    - ItemID: 7
       name: water
       zaiko: 50
       itemType: 0
       shop_sell_price: 5
       shop_buy_price: 2
       item_hyouji: 0
-    - ItemID: 9
+    - ItemID: 8
       name: bugget
       zaiko: 50
       itemType: 0
       shop_sell_price: 30
       shop_buy_price: 15
       item_hyouji: 1
-    - ItemID: 10
+    - ItemID: 9
       name: orange
       zaiko: 50
       itemType: 0
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 0
-    - ItemID: 11
+    - ItemID: 10
       name: silver_chip
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 12
+    - ItemID: 11
       name: kirakira_heart
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 13
+    - ItemID: 12
       name: jewely_suger
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 14
+    - ItemID: 13
       name: mix_color_sprinkles
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 15
+    - ItemID: 14
       name: sakura_chip
       zaiko: 50
       itemType: 3
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 16
+    - ItemID: 15
       name: cocoa_powder
       zaiko: 50
       itemType: 3
       shop_sell_price: 50
       shop_buy_price: 25
       item_hyouji: 3
+    - ItemID: 16
+      name: honey
+      zaiko: 50
+      itemType: 3
+      shop_sell_price: 15
+      shop_buy_price: 7
+      item_hyouji: 1
     - ItemID: 17
       name: maple_syrup
       zaiko: 50

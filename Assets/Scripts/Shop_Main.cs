@@ -113,7 +113,7 @@ public class Shop_Main : MonoBehaviour {
         //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
         for ( i= 0; i < shop_database.shopitems.Count; i++)
         {
-            if (shop_database.shopitems[i].shop_itemType == 0)
+            if (shop_database.shopitems[i].shop_itemType == 0 || shop_database.shopitems[i].shop_itemType == 3)
             {
                 shop_database.shopitems[i].shop_itemzaiko = 50;
             }

@@ -16,6 +16,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private ItemCompoundDataBase databaseCompo; //調合DBのレシピフラグと前回の点数データ    
     private ItemMatPlaceDataBase matplace_database; //マップのオンフラグ
     private ExtremePanel extreme_panel; //エクストリームパネルに登録したものがあった場合は、そのアイテムも表示されるように。
+    private ItemShopDataBase shop_database;
 
     //保存するものリスト　ここまで
 
@@ -33,6 +34,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private Text questname;
     private List<int> _tempplayeritemlist = new List<int>();
     private List<int> _tempmap_placeflaglist = new List<int>();
+    private List<int> _temp_shopzaiko = new List<int>();
     private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
 
     private int i;
@@ -52,6 +54,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //ショップデータベースの取得
+        shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -84,14 +89,23 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             _tempplayeritemlist.Add(pitemlist.playeritemlist[i]);
         }
-        
+
         //マップのフラグのみ取得
+        _tempmap_placeflaglist.Clear();
         for (i = 0; i < matplace_database.matplace_lists.Count; i++)
         {
             _tempmap_placeflaglist.Add(matplace_database.matplace_lists[i].placeFlag);
         }
 
+        //ショップの在庫のみ取得
+        _temp_shopzaiko.Clear();
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+            _temp_shopzaiko.Add(shop_database.shopitems[i].shop_itemzaiko);
+        }
+
         //アイテムの前回得点のみ取得
+        _temp_itemscorelist.Clear();
         for (i = 0; i < database.items.Count; i++)
         {
             _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
@@ -174,6 +188,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //ショップのイベントリスト
             save_ShopEvent_stage = GameMgr.ShopEvent_stage,
             save_ShopLvEvent_stage = GameMgr.ShopLVEvent_stage,
+
+            //ショップの在庫
+            save_shopzaiko = _temp_shopzaiko,
 
             //ショップのうわさ話リスト
             save_ShopUwasa_stage1 = GameMgr.ShopUwasa_stage1,
@@ -391,6 +408,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < matplace_database.matplace_lists.Count; i++)
         {
             matplace_database.matplace_lists[i].placeFlag = playerData.save_mapflaglist[i];
+        }
+
+        //ショップの在庫読み込み
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+            shop_database.shopitems[i].shop_itemzaiko = playerData.save_shopzaiko[i];
         }
 
         //エクストリームパネルのアイテムを読み込み
