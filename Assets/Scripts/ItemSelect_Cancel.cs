@@ -670,6 +670,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
             updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
 
+            //最終調合ボタンの取得
+            compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
+
             //まずは、レシピ・それ以外の調合用にオブジェクト取得
             if (compound_Main.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
             {

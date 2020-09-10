@@ -2,4 +2,4 @@
 ・Ambience_02		audiostock_546092_sample			コンテスト会場の野外音２
 ・Ambience_03		audiostock_653282				コンテスト会場内の雑音
 ・Ambience_04		VSQSE_951_river_15				川・湖のせせらぎ
-・Ambience_05		audiostock_58814_sample				きらきらぽんぽの音
+・Ambience_05		audiostock_58814				きらきらぽんぽの音

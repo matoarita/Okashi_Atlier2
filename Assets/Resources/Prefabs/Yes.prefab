@@ -29,7 +29,7 @@ GameObject:
   m_TagString: SelectItem_kakunin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1765938308106446
 GameObject:
@@ -46,7 +46,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &114226575897633848
 MonoBehaviour:
@@ -151,6 +151,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kettei1: 0
   onclick: 0
+  ketteiNouhin: 0
+  onclick2: 0
+  kettei3: 0
 --- !u!114 &114746338299070882
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -382,11 +382,12 @@ public class shopitemSelectToggle : MonoBehaviour
                 shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = true;
             }
 
+            shopitemlistController._shop_listitem[i].GetComponent<ButtonAnimTrigger>().OnEnterAnimScaleDown();
         }
 
         for (i = 0; i < category_toggle.Count; i++)
         {
-            category_toggle[i].GetComponent<Toggle>().interactable = true;
+            category_toggle[i].GetComponent<Toggle>().interactable = true;            
         }
     }
 }

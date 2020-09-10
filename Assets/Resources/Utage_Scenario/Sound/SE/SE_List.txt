@@ -72,7 +72,7 @@ SE表
 ・SE_70		audiostock_20227				鐘の音
 ・SE_71		audiostock_785135_sample			【#未使用】和風のジングル（シャウエッセン登場） 
 ・SE_72		Motion-Pop21-1					お菓子アニメ用　皿にお菓子が落下した音
-・SE_73		audiostock_18587_sample				お菓子アニメ用　キラキラ音(古い：audiostock_844305_sample)
+・SE_73		audiostock_142318				お菓子アニメ用　キラキラ音(別候補：audiostock_18587_sample)
 ・SE_74		audiostock_84822_sample				ドラムロール後のジャーン
 ・SE_75		eye-shine1					キュピーーーン
 ・SE_76		flee1						逃げ足早いヒュイーーン
