@@ -527,7 +527,7 @@ public class Compound_Main : MonoBehaviour
                     case 30: //宴がポーズ状態。右のレシピメモを押そう。
 
                         text_area.SetActive(true);
-                        _text.text = "右の「レシピメモ」ボタンを押してみよう！";
+                        _text.text = "右上の「レシピをみる」ボタンを押してみよう！";
                         break;
 
                     case 40: //メモ画面を開いた。
@@ -713,6 +713,12 @@ public class Compound_Main : MonoBehaviour
 
                         extreme_Button.interactable = true;
                         canvas.SetActive(true);
+                        menu_toggle.GetComponent<Toggle>().interactable = false;
+                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
+                        shop_toggle.GetComponent<Toggle>().interactable = false;
+                        girleat_toggle.GetComponent<Toggle>().interactable = false;
+                        sleep_toggle.GetComponent<Toggle>().interactable = false;
+                        system_toggle.GetComponent<Toggle>().interactable = false;
 
                         _textmain.text = "もう一度パネルを押してみよう！";
 
@@ -882,9 +888,11 @@ public class Compound_Main : MonoBehaviour
                     }
                     else
                     {
-                        //Debug.Log("compound_status: " + compound_status);
-                        //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-                        MainCompoundMethod();
+                        
+                            //Debug.Log("compound_status: " + compound_status);
+                            //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
+                            MainCompoundMethod();
+                        
 
                     }
                 }
@@ -1006,6 +1014,16 @@ public class Compound_Main : MonoBehaviour
                                
                 compound_select = 0;
                 compound_status = 110; //退避
+
+                if (girl1_status.special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート。それまでは他のボタン入力できない。
+                {
+                    Extremepanel_obj.SetActive(false);
+
+                    compoundselect_onoff_obj.SetActive(false);
+
+                    touch_controller.Touch_OnAllOFF();
+                }
+
                 break;
 
             case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
@@ -2347,7 +2365,7 @@ public class Compound_Main : MonoBehaviour
             case "najya_start_recipi": //ナジャのお菓子作りの基本                
 
                 databaseCompo.CompoON_compoitemdatabase("neko_cookie");
-                databaseCompo.CompoON_compoitemdatabase("appaleil");
+                //databaseCompo.CompoON_compoitemdatabase("appaleil");
 
                 break;
 

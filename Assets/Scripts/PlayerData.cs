@@ -32,6 +32,8 @@ public class PlayerData
     public bool save_First_recipi_on; //はじめて調合したフラグ
     public bool save_First_extreme_on; //はじめて仕上げをしたフラグ
 
+    public bool save_special_animatFirst; //SPクエスト最初表示したかどうかのフラグ
+
     //ステージ番号
     public int save_stage_number;
 

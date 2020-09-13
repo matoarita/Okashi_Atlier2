@@ -93,6 +93,7 @@ public class SetImage : MonoBehaviour
     private Text item_lastBitter;
     private Text item_lastSour;
 
+    private Text item_lastShokukan_Type;
     private Text item_lastShokukan;
 
     private Text item_lastPowdery;
@@ -286,6 +287,7 @@ public class SetImage : MonoBehaviour
 
 
         //前回のスコア関係
+        item_lastShokukan_Type = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/TxCrispy").gameObject.GetComponent<Text>();
         item_lastSweat = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
         item_lastBitter = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
         item_lastSour = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
@@ -341,8 +343,6 @@ public class SetImage : MonoBehaviour
             case 0: //プレイヤーアイテムリストを選択した場合
                 //Debug.Log("プレイヤーアイテムリスト　check_counter:" + check_counter);
 
-                //Card_param_obj.SetActive(false);
-                //Card_param_obj2.SetActive(false);
                 Pitemlist_CardDraw();
                 break;
 
@@ -351,10 +351,6 @@ public class SetImage : MonoBehaviour
 
                 //プレイヤー所持アイテムリストの取得
                 pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
-                //オリジナルアイテムのときだけ、効果覧を表示
-                //Card_param_obj.SetActive(true);
-                //Card_param_obj2.SetActive(true);
 
                 Pitemlist_CardDraw();
                 break;
@@ -573,129 +569,79 @@ public class SetImage : MonoBehaviour
                 break;
             case "Cookie":
                 subcategory = "クッキー系";
-                item_Shokukan_Type.text = "さくさく感";
-                item_Shokukan.text = _crispy_score.ToString();
-                _shokukan_score = _crispy_score;
-                _lastshokukan_score = _lastcrispy_score;
+                Crispy_Text();
                 break;
             case "Bread":
                 subcategory = "パン系";
-                item_Shokukan_Type.text = "さくさく感";
-                item_Shokukan.text = _crispy_score.ToString();
-                _shokukan_score = _crispy_score;
-                _lastshokukan_score = _lastcrispy_score;
+                Crispy_Text();
                 break;
             case "Rusk":
                 subcategory = "ラスク系";
-                item_Shokukan_Type.text = "さくさく感";
-                item_Shokukan.text = _crispy_score.ToString();
-                _shokukan_score = _crispy_score;
-                _lastshokukan_score = _lastcrispy_score;
+                Crispy_Text();
                 break;
             case "Pie":
                 subcategory = "パイ系";
-                item_Shokukan_Type.text = "さくさく感";
-                item_Shokukan.text = _crispy_score.ToString();
-                _shokukan_score = _crispy_score;
-                _lastshokukan_score = _lastcrispy_score;
+                Crispy_Text();
                 break;
             case "Chocolate":
                 subcategory = "チョコレート系";
-                item_Shokukan_Type.text = "くちどけ感";
-                item_Shokukan.text = _smooth_score.ToString();
-                _shokukan_score = _smooth_score;
-                _lastshokukan_score = _lastsmooth_score;
+                Smooth_Text();
                 break;
             case "Chocolate_Mat":
                 subcategory = "チョコレート系";
-                item_Shokukan_Type.text = "くちどけ感";
-                item_Shokukan.text = _smooth_score.ToString();
-                _shokukan_score = _smooth_score;
-                _lastshokukan_score = _lastsmooth_score;
+                Smooth_Text();
                 break;           
             case "Cake":
                 subcategory = "ケーキ系";
-                item_Shokukan_Type.text = "ふわふわ感";
-                item_Shokukan.text = _fluffy_score.ToString();
-                _shokukan_score = _fluffy_score;
-                _lastshokukan_score = _lastfluffy_score;
+                Fluffy_Text();               
                 break;
             case "PanCake":
                 subcategory = "パンケーキ系";
-                item_Shokukan_Type.text = "ふわふわ感";
-                item_Shokukan.text = _fluffy_score.ToString();
-                _shokukan_score = _fluffy_score;
-                _lastshokukan_score = _lastfluffy_score;
+                Fluffy_Text();
                 break;
             case "Financier":
                 subcategory = "フィナンシェ系";
-                item_Shokukan_Type.text = "ふわふわ感";
-                item_Shokukan.text = _fluffy_score.ToString();
-                _shokukan_score = _fluffy_score;
-                _lastshokukan_score = _lastfluffy_score;
+                Fluffy_Text();
                 break;
             case "Maffin":
                 subcategory = "マフィン系";
-                item_Shokukan_Type.text = "ふわふわ感";
-                item_Shokukan.text = _fluffy_score.ToString();
-                _shokukan_score = _fluffy_score;
-                _lastshokukan_score = _lastfluffy_score;
+                Fluffy_Text();
                 break;
             case "Crepe":
                 subcategory = "クレープ系";
-                item_Shokukan_Type.text = "ふわふわ感";
-                item_Shokukan.text = _fluffy_score.ToString();
-                _shokukan_score = _fluffy_score;
-                _lastshokukan_score = _lastfluffy_score;
+                Fluffy_Text();
                 break;
             case "Creampuff":
                 subcategory = "シュークリーム系";
-                item_Shokukan_Type.text = "ふわふわ感";
-                item_Shokukan.text = _fluffy_score.ToString();
-                _shokukan_score = _fluffy_score;
-                _lastshokukan_score = _lastfluffy_score;
+                Fluffy_Text();
                 break;
             case "Biscotti":
                 subcategory = "ビスコッティ系";
-                item_Shokukan_Type.text = "歯ごたえ";
-                item_Shokukan.text = _hardness_score.ToString();
-                _shokukan_score = _hardness_score;
-                _lastshokukan_score = _lasthardness_score;
+                Hardness_Text();                
                 break;
             case "Donuts":
                 subcategory = "ドーナツ系";
-                item_Shokukan_Type.text = "ふわふわ感";
-                item_Shokukan.text = _fluffy_score.ToString();
-                _shokukan_score = _fluffy_score;
-                _lastshokukan_score = _lastfluffy_score;
+                Fluffy_Text();
                 break;
             case "IceCream":
                 subcategory = "アイスクリーム";
-                item_Shokukan_Type.text = "くちどけ感";
-                item_Shokukan.text = _smooth_score.ToString();
-                _shokukan_score = _smooth_score;
-                _lastshokukan_score = _lastsmooth_score;
+                Smooth_Text();
                 break;
             case "Parfe":
                 subcategory = "パフェ";
-                item_Shokukan_Type.text = "くちどけ感";
-                item_Shokukan.text = _smooth_score.ToString();
-                _shokukan_score = _smooth_score;
-                _lastshokukan_score = _lastsmooth_score;
+                Smooth_Text();
                 break;
             case "Juice":
                 subcategory = "ジュース";
+                Smooth_Text();
                 item_Shokukan_Type.text = "のどごし";
-                item_Shokukan.text = _smooth_score.ToString();
-                _shokukan_score = _smooth_score;
-                _lastshokukan_score = _lastsmooth_score;
+                item_lastShokukan_Type.text = "のどごし";
                 break;
             case "Tea":
                 subcategory = "お茶";
+                Crispy_Text();
                 item_Shokukan_Type.text = "香り";
-                item_Shokukan.text = _crispy_score.ToString();
-                _shokukan_score = _crispy_score;
-                _lastshokukan_score = _lastcrispy_score;
+                item_lastShokukan_Type.text = "香り";
                 break;
             case "Fruits":
                 subcategory = "フルーツ";
@@ -705,23 +651,23 @@ public class SetImage : MonoBehaviour
                 break;
             case "Source":
                 subcategory = "お菓子材料";
-                item_Shokukan_Type.text = "食感";
+                Etc_Text();                
                 break;
             case "Potion":
                 subcategory = "お菓子材料";
-                item_Shokukan_Type.text = "食感";
+                Etc_Text();
                 break;
             case "Appaleil":
                 subcategory = "生地";
-                item_Shokukan_Type.text = "食感";
+                Etc_Text();
                 break;
             case "Pate":
                 subcategory = "生地";
-                item_Shokukan_Type.text = "食感";
+                Etc_Text();
                 break;
             case "Cream":               
                 subcategory = "クリーム";
-                item_Shokukan_Type.text = "食感";
+                Etc_Text();
                 break;
             case "Cookie_base":
                 subcategory = "生地";
@@ -911,8 +857,8 @@ public class SetImage : MonoBehaviour
 
         item_Quality.text = _quality;
         item_Quality_Bar.text = _quality_bar;
-        item_Quality_Score.text = _quality_score.ToString();      
-        
+        item_Quality_Score.text = _quality_score.ToString();
+
 
 
         if (item_type == "Mat" || item_type == "Etc")
@@ -920,7 +866,8 @@ public class SetImage : MonoBehaviour
             switch (item_type_sub)
             {
                 /*case "Appaleil":
-                    Card_param_obj.SetActive(true);
+                    //Card_param_obj.SetActive(true);
+                    //Card_param_obj2.SetActive(false);
                     break;*/
 
                 case "Pate":
@@ -951,16 +898,57 @@ public class SetImage : MonoBehaviour
         }
         else if (item_type == "Okashi")
         {
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(true);           
+            Card_param_obj.SetActive(true);
+            Card_param_obj2.SetActive(true);
 
         }
-        else if(item_type == "Potion")
+        else if (item_type == "Potion")
         {
-            Card_param_obj.SetActive(true);            
+            Card_param_obj.SetActive(true);
+            Card_param_obj2.SetActive(false);
         }
+    }
 
+    void Crispy_Text()
+    {
+        item_Shokukan_Type.text = "さくさく感";
+        item_lastShokukan_Type.text = "さくさく感";
+        item_Shokukan.text = _crispy_score.ToString();
+        _shokukan_score = _crispy_score;
+        _lastshokukan_score = _lastcrispy_score;
+    }
 
+    void Fluffy_Text()
+    {
+        item_Shokukan_Type.text = "ふわふわ感";
+        item_lastShokukan_Type.text = "ふわふわ感";
+        item_Shokukan.text = _fluffy_score.ToString();
+        _shokukan_score = _fluffy_score;
+        _lastshokukan_score = _lastfluffy_score;
+    }
+
+    void Smooth_Text()
+    {
+        item_Shokukan_Type.text = "くちどけ感";
+        item_lastShokukan_Type.text = "くちどけ感";
+        item_Shokukan.text = _smooth_score.ToString();
+        _shokukan_score = _smooth_score;
+        _lastshokukan_score = _lastsmooth_score;
+    }
+
+    void Hardness_Text()
+    {
+        item_Shokukan_Type.text = "歯ごたえ";
+        item_lastShokukan_Type.text = "歯ごたえ";
+        item_Shokukan.text = _hardness_score.ToString();
+        _shokukan_score = _hardness_score;
+        _lastshokukan_score = _lasthardness_score;
+    }
+
+    void Etc_Text()
+    {
+        item_Shokukan_Type.text = "食感";
+        item_lastShokukan_Type.text = "食感";
     }
 
     public void CompoundResult_Button()

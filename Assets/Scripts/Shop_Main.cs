@@ -416,7 +416,7 @@ public class Shop_Main : MonoBehaviour {
             shop_status = 3; //クエストを押したときのフラグ
             shop_scene = 3;
 
-            _text.text = "依頼を受ける？";
+            _text.text = "いっぱい働いて、お金をじゃんじゃん稼ぐのよ！";
 
             //カメラ寄る。
             trans++; //transが1を超えたときに、ズームするように設定されている。

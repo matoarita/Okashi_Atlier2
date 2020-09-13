@@ -1359,7 +1359,25 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
-        if( !PlayerStatus.First_extreme_on ) //仕上げを一度もやったことがなかったら、ヒントだす。
+        //食べたいお菓子が違ってた場合も、ヒントをだす。シュークリームのときに、マフィンを送った場合。
+        if (GameMgr.okashihint_flag)
+        {
+            scenarioLabel = "SpOkashiHint"; //イベントレシピタグのシナリオを再生。
+
+            //ここで、宴のパラメータ設定
+            engine.Param.TrySetParameter("SpOkashiHint_num", GameMgr.okashihint_ID);
+
+            //「宴」のシナリオを呼び出す
+            Engine.JumpScenario(scenarioLabel);
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario)
+            {
+                yield return null;
+            }
+        }
+
+        if ( !PlayerStatus.First_extreme_on ) //仕上げを一度もやったことがなかったら、ヒントだす。
         {
             scenarioLabel = "SpOkashiHint"; //イベントレシピタグのシナリオを再生。
 
@@ -1374,7 +1392,7 @@ public class Utage_scenario : MonoBehaviour
             {
                 yield return null;
             }
-        }
+        }       
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();

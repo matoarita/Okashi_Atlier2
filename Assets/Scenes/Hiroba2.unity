@@ -147,7 +147,7 @@ Prefab:
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -183,6 +183,10 @@ Prefab:
         type: 2}
       propertyPath: m_PreferredHeight
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1278971591492044, guid: f45d90a6ca66996479e40787f055a9dd, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f45d90a6ca66996479e40787f055a9dd, type: 2}
@@ -392,7 +396,7 @@ Prefab:
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -695,7 +699,7 @@ Prefab:
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -1101,7 +1105,7 @@ Prefab:
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -1805,7 +1809,7 @@ Prefab:
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224529589624786010, guid: f45d90a6ca66996479e40787f055a9dd,
         type: 2}
@@ -6422,11 +6426,11 @@ RectTransform:
   m_Children:
   - {fileID: 861204453}
   - {fileID: 1533147008}
-  - {fileID: 205439749}
   - {fileID: 2072391343}
   - {fileID: 1049194379}
   - {fileID: 1306040258}
   - {fileID: 526750595}
+  - {fileID: 205439749}
   - {fileID: 1839470576}
   - {fileID: 2080677203}
   m_Father: {fileID: 954204945}

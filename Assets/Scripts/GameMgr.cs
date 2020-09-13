@@ -66,6 +66,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool sp_okashi_flag;      //食べた瞬間に表示する感想
     public static int okashiafter_ID;       //採点表示のあとに表示する感想
     public static bool okashiafter_flag;    //採点表示のあとに表示する感想
+    public static int okashihint_ID;        //SPお菓子以外のものをあげたとき、感想も出す場合はON
+    public static bool okashihint_flag;     //SPお菓子以外のものをあげたとき、感想も出す場合はON
     public static int okashiafter_status;    //採点表示　SPお菓子の感想か固有の感想か
     public static int mainquest_ID;         //クエストクリア時のイベント
     public static bool mainClear_flag;      //クエストクリア時のイベント
@@ -369,6 +371,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sp_okashi_hintflag = false;
         sp_okashi_flag = false;
         okashiafter_flag = false;
+        okashihint_flag = false;
         mainClear_flag = false;
         emeralDonguri_flag = false;
 

@@ -135,7 +135,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
       girllike_itemsubtype: Rusk
       set_score: 0
       rich: 0
-      sweat: 20
+      sweat: 50
       bitter: 0
       sour: 30
       crispy: 20
@@ -286,7 +286,7 @@ MonoBehaviour:
       topping03: Non
       topping04: Non
       topping05: Non
-      tp_score01: 12
+      tp_score01: 20
       tp_score02: 7
       tp_score03: 0
       tp_score04: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
       girllike_itemsubtype: Creampuff
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 85
       bitter: 0
       sour: 0
       crispy: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
       girllike_itemsubtype: Donuts
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 80
       bitter: 0
       sour: 0
       crispy: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
       girllike_itemsubtype: Rusk
       set_score: 0
       rich: 0
-      sweat: 20
+      sweat: 50
       bitter: 0
       sour: 0
       crispy: 60
@@ -517,6 +517,34 @@ MonoBehaviour:
       tp_score05: 0
       Non_tpscore: 0
       desc: "\u30AF\u30EC\u30FC\u30D7\u751F\u5730\u306E\u307E\u307E\u3002\u4F55\u3082\u304B\u3051\u3066\u306A\u3044\u72B6\u614B\u3002"
+      commet_flag: 0
+    - setID: 18
+      compNum: 580
+      girllike_itemname: Non
+      girllike_itemsubtype: Maffin
+      set_score: 0
+      rich: 0
+      sweat: 50
+      bitter: 0
+      sour: 0
+      crispy: 60
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      Non_tpscore: 0
+      desc: "\u30DE\u30D5\u30A3\u30F3"
       commet_flag: 0
   - name: 02_ContestSetData1
     list:

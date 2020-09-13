@@ -13,6 +13,7 @@ public class GetMaterial : MonoBehaviour {
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
+    private SoundController sc;
     private TimeController time_controller;
 
     private GameObject tansaku_panel;
@@ -46,13 +47,6 @@ public class GetMaterial : MonoBehaviour {
 
     private float randomPoint;
     private float rare_event_kakuritsu;
-
-    //SEを鳴らす
-    public AudioClip sound1;
-    public AudioClip sound2;
-    public AudioClip sound3;
-    public AudioClip sound4;
-    AudioSource audioSource;
 
     private int itemId, itemKosu;
     private string itemName;
@@ -120,7 +114,8 @@ public class GetMaterial : MonoBehaviour {
         //材料採取のための、消費コスト
         mat_cost = 0;
 
-        audioSource = GetComponent<AudioSource>();
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         mat_anim_status = 0;
         mat_anim_on = false;
@@ -146,7 +141,7 @@ public class GetMaterial : MonoBehaviour {
                 case 0: //初期化 状態１
 
                     //音を鳴らす
-                    audioSource.PlayOneShot(sound3);
+                    sc.PlaySe(24);
 
                     NextButton_obj.SetActive(false);
 
@@ -456,7 +451,7 @@ public class GetMaterial : MonoBehaviour {
             _text.text = "特に何も見つからなかった。";
 
             //音を鳴らす
-            audioSource.PlayOneShot(sound2);
+            sc.PlaySe(6);
         }
         else //何か一つでもアイテムを見つけた
         {
@@ -478,10 +473,10 @@ public class GetMaterial : MonoBehaviour {
             {
                 _text.text = _a_final[0] + _a_final[1] + _a_final[2] + _b[0] + _a_zairyomax ;
             }
-            
+
 
             //音を鳴らす
-            audioSource.PlayOneShot(sound1);
+            sc.PlaySe(9);
         }
     }
 
@@ -526,7 +521,7 @@ public class GetMaterial : MonoBehaviour {
                 getmatplace_panel.result_items[_itemid] += 1;
 
                 //音を鳴らす
-                audioSource.PlayOneShot(sound4);
+                sc.PlaySe(1);
                 break;
 
             default:
@@ -543,7 +538,7 @@ public class GetMaterial : MonoBehaviour {
                     _text.text = "ギャーー！ムカデ！！にいちゃん！！";
 
                     //音を鳴らす
-                    audioSource.PlayOneShot(sound2);
+                    sc.PlaySe(6);
                 }
                 
                 break;
@@ -568,7 +563,7 @@ public class GetMaterial : MonoBehaviour {
                 getmatplace_panel.result_items[_itemid] += 1;
 
                 //音を鳴らす
-                audioSource.PlayOneShot(sound4);
+                sc.PlaySe(1);
                 break;
 
             default:
@@ -591,7 +586,7 @@ public class GetMaterial : MonoBehaviour {
                     getmatplace_panel.result_items[_itemid] += 1;
 
                     //音を鳴らす
-                    audioSource.PlayOneShot(sound4);
+                    sc.PlaySe(1);
                 }
 
                 break;
@@ -615,7 +610,7 @@ public class GetMaterial : MonoBehaviour {
             getmatplace_panel.result_items[_itemid] += 1;
 
             //音を鳴らす
-            audioSource.PlayOneShot(sound4);
+            sc.PlaySe(1);
         }
         else
         {

@@ -24,12 +24,13 @@ public class Result_Panel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        /*
         if (Input.GetKeyDown(KeyCode.Return))
         {
             //Debug.Log("Enter");
             girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
             girlEat_judge.ResultPanel_On();            
-        }
+        }*/
     }
 
     private void OnEnable()

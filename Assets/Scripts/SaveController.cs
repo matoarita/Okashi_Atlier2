@@ -141,6 +141,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_First_recipi_on = PlayerStatus.First_recipi_on,
             save_First_extreme_on = PlayerStatus.First_extreme_on,
 
+            save_special_animatFirst = girl1_status.special_animatFirst,
+
             //ステージ番号
             save_stage_number = GameMgr.stage_number,
 
@@ -298,6 +300,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         PlayerStatus.First_recipi_on = playerData.save_First_recipi_on;
         PlayerStatus.First_extreme_on = playerData.save_First_extreme_on;
+
+        girl1_status.special_animatFirst = playerData.save_special_animatFirst;
 
         //ステージ番号
         GameMgr.stage_number = playerData.save_stage_number;

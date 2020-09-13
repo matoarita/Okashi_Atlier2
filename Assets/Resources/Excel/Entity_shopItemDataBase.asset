@@ -18,42 +18,42 @@ MonoBehaviour:
       name: komugiko
       zaiko: 50
       itemType: 0
-      shop_sell_price: 10
+      shop_sell_price: 5
       shop_buy_price: 5
       item_hyouji: 1
     - ItemID: 1
       name: butter
       zaiko: 50
       itemType: 0
-      shop_sell_price: 20
+      shop_sell_price: 10
       shop_buy_price: 10
       item_hyouji: 1
     - ItemID: 2
       name: suger
       zaiko: 50
       itemType: 0
-      shop_sell_price: 10
+      shop_sell_price: 5
       shop_buy_price: 5
       item_hyouji: 1
     - ItemID: 3
       name: salt
       zaiko: 50
       itemType: 0
-      shop_sell_price: 8
+      shop_sell_price: 5
       shop_buy_price: 4
       item_hyouji: 1
     - ItemID: 4
       name: egg
       zaiko: 50
       itemType: 0
-      shop_sell_price: 10
+      shop_sell_price: 5
       shop_buy_price: 5
       item_hyouji: 0
     - ItemID: 5
       name: baking_powder
       zaiko: 50
       itemType: 0
-      shop_sell_price: 30
+      shop_sell_price: 12
       shop_buy_price: 15
       item_hyouji: 1
     - ItemID: 6
@@ -88,35 +88,35 @@ MonoBehaviour:
       name: silver_chip
       zaiko: 50
       itemType: 3
-      shop_sell_price: 100
+      shop_sell_price: 50
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 11
       name: kirakira_heart
       zaiko: 50
       itemType: 3
-      shop_sell_price: 100
+      shop_sell_price: 50
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 12
       name: jewely_suger
       zaiko: 50
       itemType: 3
-      shop_sell_price: 100
+      shop_sell_price: 50
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 13
       name: mix_color_sprinkles
       zaiko: 50
       itemType: 3
-      shop_sell_price: 100
+      shop_sell_price: 50
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 14
       name: sakura_chip
       zaiko: 50
       itemType: 3
-      shop_sell_price: 100
+      shop_sell_price: 50
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 15
@@ -130,14 +130,14 @@ MonoBehaviour:
       name: honey
       zaiko: 50
       itemType: 3
-      shop_sell_price: 15
+      shop_sell_price: 30
       shop_buy_price: 7
       item_hyouji: 1
     - ItemID: 17
       name: maple_syrup
       zaiko: 50
       itemType: 3
-      shop_sell_price: 100
+      shop_sell_price: 50
       shop_buy_price: 50
       item_hyouji: 3
     - ItemID: 18
@@ -186,14 +186,14 @@ MonoBehaviour:
       name: milkpan
       zaiko: 1
       itemType: 2
-      shop_sell_price: 300
+      shop_sell_price: 150
       shop_buy_price: 150
       item_hyouji: 1
     - ItemID: 25
       name: pan_knife
       zaiko: 1
       itemType: 2
-      shop_sell_price: 300
+      shop_sell_price: 100
       shop_buy_price: 150
       item_hyouji: 2
     - ItemID: 26
@@ -286,21 +286,21 @@ MonoBehaviour:
       name: egg
       zaiko: 50
       itemType: 0
-      shop_sell_price: 10
+      shop_sell_price: 5
       shop_buy_price: 5
       item_hyouji: 1
     - ItemID: 101
       name: milk
       zaiko: 50
       itemType: 0
-      shop_sell_price: 20
+      shop_sell_price: 10
       shop_buy_price: 10
       item_hyouji: 1
     - ItemID: 102
       name: row_cream
       zaiko: 50
       itemType: 0
-      shop_sell_price: 20
+      shop_sell_price: 15
       shop_buy_price: 10
       item_hyouji: 1
     - ItemID: 103
@@ -321,7 +321,7 @@ MonoBehaviour:
       name: siboribukuro
       zaiko: 1
       itemType: 2
-      shop_sell_price: 150
+      shop_sell_price: 70
       shop_buy_price: 150
       item_hyouji: 1
     - ItemID: 106

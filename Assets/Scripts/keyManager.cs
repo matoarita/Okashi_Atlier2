@@ -145,9 +145,13 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         }
         // *** ここまで ***//
 
-
-
         //本編でも使用
+        //KeyInputMethod();
+
+    }
+
+    void KeyInputMethod()
+    {       
         if (canvas == null)
         {
             switch (SceneManager.GetActiveScene().name)
@@ -181,7 +185,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
             OnLeftKey = true;
         }
 
-        
+
         if (!GameMgr.scenario_ON)
         {
 
@@ -234,7 +238,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                         pitemlist_sr = canvas.transform.Find("PlayeritemList_ScrollView").GetComponent<ScrollRect>();
 
                         recipilistController = canvas.transform.Find("RecipiList_ScrollView").GetComponent<RecipiListController>();
-                        recipilist_sr = canvas.transform.Find("RecipiList_ScrollView").GetComponent<ScrollRect>();                        
+                        recipilist_sr = canvas.transform.Find("RecipiList_ScrollView").GetComponent<ScrollRect>();
 
                         if (GameMgr.KeyInputOff_flag)
                         {
@@ -390,7 +394,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                     }
                                     else
                                     {
-                                        
+
                                     }
 
                                     break;
@@ -666,7 +670,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                 default:
 
                                                     sc.PlaySe(23);
-                                                    switch (toggle_list[cursor_cullent_num-1].transform.name)
+                                                    switch (toggle_list[cursor_cullent_num - 1].transform.name)
                                                     {
                                                         case "GetMaterial_Toggle":
                                                             getmaterial_toggle.GetComponent<Toggle>().isOn = true;
@@ -692,7 +696,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                                             system_toggle.GetComponent<Toggle>().isOn = true;
                                                             break;
                                                     }
-                                                            
+
                                                     break;
 
                                             }
@@ -798,11 +802,11 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
                         cursor2.SetActive(false);
                         Cursor_On = false;
-                        break;                        
+                        break;
 
                 }
-                
-            }           
+
+            }
         }
     }
 

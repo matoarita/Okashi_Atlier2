@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class ButtonAnimTrigger : MonoBehaviour {
 
+    private bool First_Load = false;
+
     private Vector3 myscale;
 
     private int canvas_layer_order;
@@ -24,6 +26,16 @@ public class ButtonAnimTrigger : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnEnable()
+    {
+        if(!First_Load)
+        {
+            First_Load = true;
+            myscale = this.transform.localScale;
+        }
+        this.transform.localScale = myscale;
+    }
 
     public void OnEnterAnim() //一回小さくなってすぐ戻る
     {

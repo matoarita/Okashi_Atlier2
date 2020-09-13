@@ -143,7 +143,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: appaleil
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -167,7 +167,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: appaleil_honey
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -191,7 +191,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: appaleil_milk
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -207,15 +207,15 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
     - ItemID: 8
-      cmpitemName: appaleil_milk2
+      cmpitemName: shio_milk
       cmpitemID_1: salt
       cmpitemID_2: butter
       cmpitemID_3: milk
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
-      result_itemID: appaleil_milk2
-      result_kosu: 1
+      result_itemID: shio_milk
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -232,14 +232,14 @@ MonoBehaviour:
       comp_count: 0
     - ItemID: 9
       cmpitemName: appaleil_creampuff
-      cmpitemID_1: appaleil_milk2
-      cmpitemID_2: suger
-      cmpitemID_3: milkpan
+      cmpitemID_1: shio_milk
+      cmpitemID_2: komugiko
+      cmpitemID_3: egg
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
-      result_itemID: appaleil_creampuff
-      result_kosu: 1
+      result_itemID: appaleil_creampuff2
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -255,7 +255,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
     - ItemID: 10
-      cmpitemName: appaleil_creampuff2
+      cmpitemName: appaleil_creampuff_nouse
       cmpitemID_1: appaleil_creampuff
       cmpitemID_2: komugiko
       cmpitemID_3: egg
@@ -263,7 +263,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: appaleil_creampuff2
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: appaleil_donuts
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -311,7 +311,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: baking_mix
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -335,7 +335,7 @@ MonoBehaviour:
       cmp_subtype_2: Suger
       cmp_subtype_3: empty
       result_itemID: whitekiji
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -359,7 +359,7 @@ MonoBehaviour:
       cmp_subtype_2: Egg
       cmp_subtype_3: empty
       result_itemID: appaleil
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -383,7 +383,7 @@ MonoBehaviour:
       cmp_subtype_2: Suger
       cmp_subtype_3: empty
       result_itemID: mazekiji
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -407,7 +407,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: appaleil_yellow
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -431,7 +431,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: meringue
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -455,7 +455,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: custard_cream
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -479,7 +479,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: financier_powder
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -503,7 +503,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: whipped cream_row
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
@@ -527,7 +527,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: cream_row_orange
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -551,7 +551,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: cream_row_grape
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -575,7 +575,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: cream_row_blueberry
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -599,7 +599,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: cream_row_strawberry
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -623,7 +623,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: cream_row_banana
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -647,7 +647,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: whipped cream
-      result_kosu: 1
+      result_kosu: 10
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -671,7 +671,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: whipped cream_orange
-      result_kosu: 1
+      result_kosu: 10
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -695,7 +695,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: whipped cream_grape
-      result_kosu: 1
+      result_kosu: 10
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -719,7 +719,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: whipped cream_blurberry
-      result_kosu: 1
+      result_kosu: 10
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -743,7 +743,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: whipped cream_strawberry
-      result_kosu: 1
+      result_kosu: 10
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -767,7 +767,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: whipped cream_banana
-      result_kosu: 1
+      result_kosu: 10
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -887,7 +887,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: kogashi_butter
-      result_kosu: 1
+      result_kosu: 3
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -2117,7 +2117,7 @@ MonoBehaviour:
       cmpitem_kosu3: 1
       best_kosu1: 1
       best_kosu2: 4.3
-      best_kosu3: 2
+      best_kosu3: 1.3
       cmp_flag: 0
       cost_time: 18
       success_rate: 95
@@ -2248,7 +2248,7 @@ MonoBehaviour:
       comp_count: 0
     - ItemID: 93
       cmpitemName: rusk
-      cmpitemID_1: bugget_sliced_karikari
+      cmpitemID_1: bugget_sliced
       cmpitemID_2: suger
       cmpitemID_3: empty
       cmp_subtype_1: empty
@@ -2272,7 +2272,7 @@ MonoBehaviour:
       comp_count: 0
     - ItemID: 94
       cmpitemName: rusk_emerald
-      cmpitemID_1: bugget_sliced_karikari
+      cmpitemID_1: bugget_sliced
       cmpitemID_2: emerald_suger
       cmpitemID_3: empty
       cmp_subtype_1: empty
@@ -2296,9 +2296,9 @@ MonoBehaviour:
       comp_count: 0
     - ItemID: 95
       cmpitemName: rusk_butter
-      cmpitemID_1: bugget_sliced_karikari_butter
+      cmpitemID_1: bugget_sliced
       cmpitemID_2: suger
-      cmpitemID_3: empty
+      cmpitemID_3: butter
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
@@ -2306,7 +2306,7 @@ MonoBehaviour:
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
+      cmpitem_kosu3: 1
       best_kosu1: 1
       best_kosu2: 3.7
       best_kosu3: 1
@@ -2320,9 +2320,9 @@ MonoBehaviour:
       comp_count: 0
     - ItemID: 96
       cmpitemName: rusk_butter_emerald
-      cmpitemID_1: bugget_sliced_karikari_butter
+      cmpitemID_1: bugget_sliced
       cmpitemID_2: emerald_suger
-      cmpitemID_3: empty
+      cmpitemID_3: butter
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
@@ -2330,7 +2330,7 @@ MonoBehaviour:
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
+      cmpitem_kosu3: 1
       best_kosu1: 1
       best_kosu2: 1.5
       best_kosu3: 1
@@ -2392,7 +2392,7 @@ MonoBehaviour:
       comp_count: 0
     - ItemID: 99
       cmpitemName: rusk_Free
-      cmpitemID_1: bugget_sliced_karikari
+      cmpitemID_1: bugget_sliced
       cmpitemID_2: empty
       cmpitemID_3: empty
       cmp_subtype_1: empty
@@ -2416,7 +2416,7 @@ MonoBehaviour:
       comp_count: 0
     - ItemID: 100
       cmpitemName: rusk_butter_Free
-      cmpitemID_1: bugget_sliced_karikari_butter
+      cmpitemID_1: bugget_sliced
       cmpitemID_2: empty
       cmpitemID_3: empty
       cmp_subtype_1: empty
@@ -2639,7 +2639,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: puff
-      result_kosu: 5
+      result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999

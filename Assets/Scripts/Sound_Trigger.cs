@@ -449,15 +449,13 @@ public class Sound_Trigger : MonoBehaviour {
             //Debug.Log("Bang");
 
             sc.PlaySe(index2);
-
-            /*
+            
             //オブジェクトの状態をチェック
             //ボタンがついているオブジェクトの場合
-            if (this.transform.gameObject.GetComponent<Button>() != null)
+            /*if (this.transform.gameObject.GetComponent<Button>() != null)
             {
                 if (this.transform.gameObject.GetComponent<Button>().IsInteractable() == false)
                 {
-
                     //Debug.Log("このボタンは、今触れない状態");
                     sc.PlaySe(18); //キャンセル音
                 }
@@ -486,6 +484,7 @@ public class Sound_Trigger : MonoBehaviour {
             else
             {
                 sc.PlaySe(index2);
+                
             }*/
 
         }); //ここのDebug.Logのメソッドを、音を鳴らすメソッドに割り当てれば、音がなるはず
