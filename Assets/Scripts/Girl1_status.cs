@@ -1178,7 +1178,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
             else
             {
-                hukidashiitem.GetComponent<TextController>().SetText(_desc);
+                if (GameMgr.QuestClearflag)
+                {
+                    hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
+                }
+                else
+                {
+                    hukidashiitem.GetComponent<TextController>().SetText(_desc);
+                }
             }
             
         }
@@ -1493,8 +1500,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //お菓子食べた後の感想用フラグのセット
         girllike_comment_flag[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_comment_flag;
 
-        //外部から直接指定されたとき用に、_descの中身も更新。
-        //_desc = girllike_desc[0];
 
     }
 
@@ -1761,7 +1766,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else
         {
-            hukidashiitem.GetComponent<TextController>().SetText(_desc);
+            if (GameMgr.QuestClearflag) //クリアした場合は、吹き出しのセリフ変わる。
+            {
+                hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
+            }
+            else
+            {
+                hukidashiitem.GetComponent<TextController>().SetText(_desc);
+            }
         }
    
         //15秒ほど表示したら、また食べたいお菓子を表示か削除

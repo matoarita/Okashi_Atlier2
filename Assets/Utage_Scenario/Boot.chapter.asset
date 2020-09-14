@@ -2009,7 +2009,7 @@ MonoBehaviour:
     - rowIndex: 56
       debugIndex: 56
       strings:
-      - TouchHint_num
+      - NonToppingHint_num
       - Int
       - 0
       isEmpty: 0
@@ -2018,7 +2018,7 @@ MonoBehaviour:
     - rowIndex: 57
       debugIndex: 57
       strings:
-      - MainClear_num
+      - TouchHint_num
       - Int
       - 0
       isEmpty: 0
@@ -2027,7 +2027,7 @@ MonoBehaviour:
     - rowIndex: 58
       debugIndex: 58
       strings:
-      - Ev_recipi
+      - MainClear_num
       - Int
       - 0
       isEmpty: 0
@@ -2036,7 +2036,7 @@ MonoBehaviour:
     - rowIndex: 59
       debugIndex: 59
       strings:
-      - Read_recipi
+      - Ev_recipi
       - Int
       - 0
       isEmpty: 0
@@ -2045,7 +2045,7 @@ MonoBehaviour:
     - rowIndex: 60
       debugIndex: 60
       strings:
-      - Shop_Talk_Num
+      - Read_recipi
       - Int
       - 0
       isEmpty: 0
@@ -2054,7 +2054,7 @@ MonoBehaviour:
     - rowIndex: 61
       debugIndex: 61
       strings:
-      - Shop_Uwasa_Num
+      - Shop_Talk_Num
       - Int
       - 0
       isEmpty: 0
@@ -2063,7 +2063,7 @@ MonoBehaviour:
     - rowIndex: 62
       debugIndex: 62
       strings:
-      - Shop_Hint_Num
+      - Shop_Uwasa_Num
       - Int
       - 0
       isEmpty: 0
@@ -2072,7 +2072,7 @@ MonoBehaviour:
     - rowIndex: 63
       debugIndex: 63
       strings:
-      - Hiroba_endflag_Num
+      - Shop_Hint_Num
       - Int
       - 0
       isEmpty: 0
@@ -2081,7 +2081,7 @@ MonoBehaviour:
     - rowIndex: 64
       debugIndex: 64
       strings:
-      - Limit_Month
+      - Hiroba_endflag_Num
       - Int
       - 0
       isEmpty: 0
@@ -2090,7 +2090,7 @@ MonoBehaviour:
     - rowIndex: 65
       debugIndex: 65
       strings:
-      - Limit_Day
+      - Limit_Month
       - Int
       - 0
       isEmpty: 0
@@ -2099,16 +2099,16 @@ MonoBehaviour:
     - rowIndex: 66
       debugIndex: 66
       strings:
-      - contest_OkashiName
-      - String
-      - "\u306A\u3057"
+      - Limit_Day
+      - Int
+      - 0
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 67
       debugIndex: 67
       strings:
-      - contest_OkashiSlotName
+      - contest_OkashiName
       - String
       - "\u306A\u3057"
       isEmpty: 0
@@ -2117,16 +2117,16 @@ MonoBehaviour:
     - rowIndex: 68
       debugIndex: 68
       strings:
-      - contest_score1
-      - Int
-      - 0
+      - contest_OkashiSlotName
+      - String
+      - "\u306A\u3057"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 69
       debugIndex: 69
       strings:
-      - contest_score2
+      - contest_score1
       - Int
       - 0
       isEmpty: 0
@@ -2135,7 +2135,7 @@ MonoBehaviour:
     - rowIndex: 70
       debugIndex: 70
       strings:
-      - contest_score3
+      - contest_score2
       - Int
       - 0
       isEmpty: 0
@@ -2144,7 +2144,7 @@ MonoBehaviour:
     - rowIndex: 71
       debugIndex: 71
       strings:
-      - contest_total_score
+      - contest_score3
       - Int
       - 0
       isEmpty: 0
@@ -2153,7 +2153,7 @@ MonoBehaviour:
     - rowIndex: 72
       debugIndex: 72
       strings:
-      - contest_comment_num
+      - contest_total_score
       - Int
       - 0
       isEmpty: 0
@@ -2162,7 +2162,7 @@ MonoBehaviour:
     - rowIndex: 73
       debugIndex: 73
       strings:
-      - contest_ranking_num
+      - contest_comment_num
       - Int
       - 0
       isEmpty: 0
@@ -2171,7 +2171,7 @@ MonoBehaviour:
     - rowIndex: 74
       debugIndex: 74
       strings:
-      - ED_num
+      - contest_ranking_num
       - Int
       - 0
       isEmpty: 0
@@ -2180,7 +2180,7 @@ MonoBehaviour:
     - rowIndex: 75
       debugIndex: 75
       strings:
-      - ED_birthday_event
+      - ED_num
       - Int
       - 0
       isEmpty: 0
@@ -2188,8 +2188,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 76
       debugIndex: 76
-      strings: []
-      isEmpty: 1
+      strings:
+      - ED_birthday_event
+      - Int
+      - 0
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 77
@@ -2200,17 +2203,14 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 78
       debugIndex: 78
-      strings:
-      - Tutorial_Flag
-      - Bool
-      - FALSE
-      isEmpty: 0
+      strings: []
+      isEmpty: 1
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 79
       debugIndex: 79
       strings:
-      - Farm_Flag
+      - Tutorial_Flag
       - Bool
       - FALSE
       isEmpty: 0
@@ -2219,7 +2219,7 @@ MonoBehaviour:
     - rowIndex: 80
       debugIndex: 80
       strings:
-      - UwasaOn_Flag
+      - Farm_Flag
       - Bool
       - FALSE
       isEmpty: 0
@@ -2227,8 +2227,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 81
       debugIndex: 81
-      strings: []
-      isEmpty: 1
+      strings:
+      - UwasaOn_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 82
@@ -2245,6 +2248,12 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 84
       debugIndex: 84
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 85
+      debugIndex: 85
       strings:
       - Ev_flag
       - Int
@@ -2252,8 +2261,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 85
-      debugIndex: 85
+    - rowIndex: 86
+      debugIndex: 86
       strings:
       - Re_flag
       - Int
@@ -2263,7 +2272,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 1511
+    textLength: 1533
     headerRow: 0
   - rows:
     - rowIndex: 0

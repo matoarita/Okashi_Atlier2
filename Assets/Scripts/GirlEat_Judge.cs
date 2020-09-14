@@ -48,7 +48,6 @@ public class GirlEat_Judge : MonoBehaviour {
     private string _temp_spkansou, _special_kansou;
     private bool Mazui_flag;
     private bool non_spquest_flag;
-    public bool clear_spokashi_flag;
     public int clear_spokashi_status;
 
     private Text Okashi_Score;
@@ -110,7 +109,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private Slider _slider; //好感度バーを取得
     private int _exp;
     private int slot_girlscore, slot_money;
-    private int Getlove_exp;
+    public int Getlove_exp;
     private int GetMoney;
     private bool loveanim_on;
     private Text girl_lv;
@@ -202,6 +201,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
 
     //女の子の採点用パラメータ
+    private int taste_result;
 
     private int quality_result;
     private int rich_result;
@@ -223,6 +223,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
     //採点用パラメータを元に、さらに計算し、最終的に出されるスコア。
     //女の子が感想をいうときにも、使う。スコアは、girl1_statusにも共有し、宴と処理を絡める。
+    private int taste_level;
+    private int taste_score;
+    private string taste_type;
+
     private int sweat_level;
     private int bitter_level;
     private int sour_level;
@@ -285,6 +289,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private int rnd, rnd2;
     private int set_id;
+    private int _slotid;
 
     //エフェクト
     private GameObject Score_effect_Prefab1;
@@ -304,6 +309,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private bool stageclear_button_on;
 
     private int contest_type;
+
+    private GameObject Fadeout_Black_obj;
 
     // Use this for initialization
     void Start() {
@@ -405,6 +412,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 //Prefab内の、コンテンツ要素を取得
                 eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
 
+                //フェードアウトブラックのオブジェクトを取得
+                Fadeout_Black_obj = GameObject.FindWithTag("FadeOutBlack");
+
                 //食べ始めアニメオブジェクトの取得
                 EatAnimPanel = canvas.transform.Find("EatAnimPanel").gameObject;
                 EatAnimPanel_itemImage = EatAnimPanel.transform.Find("ItemImage").GetComponent<Image>();
@@ -418,7 +428,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 MainQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/MainQuestOKPanel").gameObject;
                 MainQuestText = MainQuestOKPanel.transform.Find("Image/QuestClearText").GetComponent<Text>();
                 Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
-                Result_Text = ScoreHyoujiPanel.transform.Find("Image/Result_Text").GetComponent<Text>();
+                Result_Text = ScoreHyoujiPanel.transform.Find("GetLovePanelBG/Result_GetLoveText/Result_Text").GetComponent<Text>();
                 ScoreHyoujiPanel.SetActive(false);
                 ScoreHyouji_ON = false;
                 MainQuestOKPanel.SetActive(false);
@@ -437,7 +447,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     i++;
                 }
                 Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
-                Delicious_Text = ScoreHyoujiPanel.transform.Find("DeliciousPanel/Text").GetComponent<Text>();
+                Delicious_Text = ScoreHyoujiPanel.transform.Find("Image/DeliciousPanel/Text").GetComponent<Text>();
                 ScoreHyoujiPanel.SetActive(false);
 
                 //好感度バーの取得
@@ -556,7 +566,6 @@ public class GirlEat_Judge : MonoBehaviour {
         Gameover_flag = false;
         kansou_on = false;
 
-        clear_spokashi_flag = false;
         clear_spokashi_status = 0;
 
         //テキストのセッティング
@@ -1267,190 +1276,52 @@ public class GirlEat_Judge : MonoBehaviour {
         if (_girlsweat[countNum] == 0)
         {
             Debug.Log("甘み: 判定なし");
-            sweat_level = 0;
-            sweat_score = 0;
+            taste_level = 0;
+            taste_score = 0;            
         }
         else
         {
             //甘味
-            if (Mathf.Abs(sweat_result) == 0)
-            {
-                Debug.Log("甘み: Perfect!!");
-                sweat_level = 7;
-                //sweat_score = (int)(_basesweat * 2.0f);
-                sweat_score = 30;
-            }
-            else if (Mathf.Abs(sweat_result) < 5)
-            {
-                Debug.Log("甘み: Great!!");
-                sweat_level = 6;
-                //sweat_score = (int)(_basesweat * 1.5f);
-                sweat_score = 15;
-            }
-            else if (Mathf.Abs(sweat_result) < 15)
-            {
-                Debug.Log("甘み: Well!");
-                sweat_level = 5;
-                //sweat_score = (int)(_basesweat * 0.75f);
-                sweat_score = 10;
-            }
-            else if (Mathf.Abs(sweat_result) < 30)
-            {
-                Debug.Log("甘み: Good!");
-                sweat_level = 4;
-                sweat_score = 5;
-            }
-            else if (Mathf.Abs(sweat_result) < 50)
-            {
-                Debug.Log("甘み: Normal");
-                sweat_level = 3;
-                sweat_score = 2;
-            }
-            else if (Mathf.Abs(sweat_result) < 80)
-            {
-                Debug.Log("甘み: poor");
-                sweat_level = 2;
-                sweat_score = -35;
-            }
-            else if (Mathf.Abs(sweat_result) <= 100)
-            {
-                Debug.Log("甘み: death..");
-                sweat_level = 1;
-                sweat_score = -80;
-            }
-            else if (Mathf.Abs(sweat_result) > 100)
-            {
-                Debug.Log("甘み: death..");
-                sweat_level = 1;
-                sweat_score = -80;
-            }
+            taste_result = sweat_result;
+            taste_type = "甘味: ";
+            TasteScore_keisan();            
         }
+        sweat_level = taste_level;
+        sweat_score = taste_score;
         Debug.Log("甘み点: " + sweat_score);
 
         if (_girlbitter[countNum] == 0)
         {
             Debug.Log("苦み: 判定なし");
-            bitter_level = 0;
-            bitter_score = 0;
+            taste_level = 0;
+            taste_score = 0;
         }
         else
         {
             //苦味
-            if (Mathf.Abs(bitter_result) == 0)
-            {
-                Debug.Log("苦味: Perfect!!");
-                bitter_level = 7;
-                //bitter_score = (int)(_basebitter * 3.0f);
-                bitter_score = 30;
-            }
-            else if (Mathf.Abs(bitter_result) < 5)
-            {
-                Debug.Log("苦味: Great!!");
-                bitter_level = 6;
-                //bitter_score = (int)(_basebitter * 2.0f);
-                bitter_score = 15;
-            }
-            else if (Mathf.Abs(bitter_result) < 15)
-            {
-                Debug.Log("苦味: Well!");
-                bitter_level = 5;
-                //bitter_score = (int)(_basebitter * 0.75f);
-                bitter_score = 10;
-            }
-            else if (Mathf.Abs(bitter_result) < 30)
-            {
-                Debug.Log("苦味: Good!");
-                bitter_level = 4;
-                bitter_score = 5;
-            }
-            else if (Mathf.Abs(bitter_result) < 50)
-            {
-                Debug.Log("苦味: Normal");
-                bitter_level = 3;
-                bitter_score = 2;
-            }
-            else if (Mathf.Abs(bitter_result) < 80)
-            {
-                Debug.Log("苦味: poor");
-                bitter_level = 2;
-                bitter_score = -35;
-            }
-            else if (Mathf.Abs(bitter_result) <= 100)
-            {
-                Debug.Log("苦味: death..");
-                bitter_level = 1;
-                bitter_score = -80;
-            }
-            else if (Mathf.Abs(bitter_result) > 100)
-            {
-                Debug.Log("苦味: death..");
-                bitter_level = 1;
-                bitter_score = -80;
-            }
+            taste_result = bitter_result;
+            taste_type = "苦み: ";
+            TasteScore_keisan();           
         }
+        bitter_level = taste_level;
+        bitter_score = taste_score;
         Debug.Log("苦味点: " + bitter_score);
 
         if (_girlsour[countNum] == 0)
         {
             Debug.Log("酸味: 判定なし");
-            sour_level = 0;
-            sour_score = 0;
+            taste_level = 0;
+            taste_score = 0;
         }
         else
         {
-            //酸味
-            if (Mathf.Abs(sour_result) == 0)
-            {
-                Debug.Log("酸味: Perfect!!");
-                sour_level = 7;
-                //sour_score = (int)(_basesour * 3.0f);
-                sour_score = 30;
-            }
-            else if (Mathf.Abs(sour_result) < 5)
-            {
-                Debug.Log("酸味: Great!!");
-                sour_level = 6;
-                //sour_score = (int)(_basesour * 1.2f);
-                sour_score = 15;
-            }
-            else if (Mathf.Abs(sour_result) < 15)
-            {
-                Debug.Log("酸味: Well!");
-                sour_level = 5;
-                //sour_score = (int)(_basesour * 0.75f);
-                sour_score = 10;
-            }
-            else if (Mathf.Abs(sour_result) < 30)
-            {
-                Debug.Log("酸味: Good!");
-                sour_level = 4;
-                sour_score = 5;
-            }
-            else if (Mathf.Abs(sour_result) < 50)
-            {
-                Debug.Log("酸味: Normal");
-                sour_level = 3;
-                sour_score = 2;
-            }
-            else if (Mathf.Abs(sour_result) < 80)
-            {
-                Debug.Log("酸味: poor");
-                sour_level = 2;
-                sour_score = -35;
-            }
-            else if (Mathf.Abs(sour_result) <= 100)
-            {
-                Debug.Log("酸味: death..");
-                sour_level = 1;
-                sour_score = -80;
-            }
-            else if (Mathf.Abs(sour_result) > 100)
-            {
-                Debug.Log("酸味: death..");
-                sour_level = 1;
-                sour_score = -80;
-            }
+            taste_result = sour_result;
+            taste_type = "酸味: ";
+            TasteScore_keisan();
+            
         }
+        sour_level = taste_level;
+        sour_score = taste_score;
         Debug.Log("酸味点: " + sour_score);
 
 
@@ -1611,7 +1482,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                         else //逆に、必要なトッピングがあるのに、そのトッピングがのってなかった場合、こっち。大抵マイナスに働く。
                         {
-
+                            NonToppingHint();                           
                         }
                     }
                 }
@@ -1640,7 +1511,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                         else
                         {
-
+                            NonToppingHint();
                         }
                     }
                 }
@@ -1668,7 +1539,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                         else
                         {
-
+                            NonToppingHint();
                         }
                     }
                 }
@@ -1684,6 +1555,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             topping_score += girl1_status.girl1_NonToppingScoreSet[countNum]; //点数がマイナスに働く。
         }
+        Debug.Log("トッピングスコア: " + topping_score);
 
         //以上、全ての点数を合計。
         total_score = quality_score + sweat_score + bitter_score + sour_score
@@ -1742,6 +1614,80 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
         }
 
+    }
+
+    void TasteScore_keisan()
+    {
+        if (Mathf.Abs(taste_result) == 0)
+        {
+            Debug.Log(taste_type + "Perfect!!");
+            taste_level = 7;
+            //sweat_score = (int)(_basesweat * 2.0f);
+            taste_score = 50;
+        }
+        else if (Mathf.Abs(taste_result) < 5)
+        {
+            Debug.Log(taste_type + "Great!!");
+            taste_level = 6;
+            //sweat_score = (int)(_basesweat * 1.5f);
+            taste_score = 35;
+        }
+        else if (Mathf.Abs(taste_result) < 15)
+        {
+            Debug.Log(taste_type + "Well!");
+            taste_level = 5;
+            //sweat_score = (int)(_basesweat * 0.75f);
+            taste_score = 20;
+        }
+        else if (Mathf.Abs(taste_result) < 30)
+        {
+            Debug.Log(taste_type + "Good!");
+            taste_level = 4;
+            taste_score = 10;
+        }
+        else if (Mathf.Abs(taste_result) < 50)
+        {
+            Debug.Log(taste_type + "Normal");
+            taste_level = 3;
+            taste_score = 3;
+        }
+        else if (Mathf.Abs(taste_result) < 80)
+        {
+            Debug.Log(taste_type + "poor");
+            taste_level = 2;
+            taste_score = -35;
+        }
+        else if (Mathf.Abs(taste_result) <= 100)
+        {
+            Debug.Log(taste_type + "death..");
+            taste_level = 1;
+            taste_score = -80;
+        }
+        else if (Mathf.Abs(taste_result) > 100)
+        {
+            Debug.Log(taste_type + "death..");
+            taste_level = 1;
+            taste_score = -80;
+        }
+    }
+
+    void NonToppingHint()
+    {
+        //必要なトッピングがのってなかった場合の処理
+        switch (girl1_status.OkashiQuest_ID)
+        {
+            case 1200: //クレープの場合の処理
+
+                //ホイップクリームがのってなかった時
+                _slotid = slotnamedatabase.SlotSearchString("WhipeedCream");
+
+                if (i == _slotid)
+                {
+                    GameMgr.okashinontphint_flag = true;
+                    GameMgr.okashinontphint_ID = 1200;
+                }
+                break;
+        }
     }
 
 
@@ -2077,7 +2023,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
 
         //お菓子の点数を表示
-        if (total_score < GameMgr.low_score) //
+        /*if (total_score < GameMgr.low_score) //
         {
             Okashi_Score.color = new Color(129f / 255f, 87f / 255f, 60f / 255f); //茶色　青文字(105f / 255f, 168f / 255f, 255f / 255f)      
         } else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
@@ -2087,7 +2033,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             Okashi_Score.color = new Color(255f / 255f, 105f / 255f, 170f / 255f); //ピンク　黄色(255f / 255f, 252f / 255f, 158f / 255f)
         }
-        Okashi_Score.text = total_score.ToString();
+        Okashi_Score.text = total_score.ToString();*/
 
 
         //☆の初期化
@@ -2098,7 +2044,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         if (total_score > 0 && total_score < 30)
         {
-            Delicious_Text.text = "Morte..";
+            //Delicious_Text.text = "Morte..";
             //Manzoku_Score.text = "★";
             for (i = 0; i < 1; i++)
             {                
@@ -2111,7 +2057,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if (total_score >= 30 && total_score < GameMgr.low_score)
         {
-            Delicious_Text.text = "Bene!";
+            //Delicious_Text.text = "Bene!";
             //Manzoku_Score.text = "★★";
             for (i = 0; i < 2; i++)
             {               
@@ -2124,7 +2070,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
         {
-            Delicious_Text.text = "Di molto Bene!";
+            //Delicious_Text.text = "Di molto Bene!";
             //Manzoku_Score.text = "★★★";
             for (i = 0; i < 3; i++)
             {                
@@ -2137,7 +2083,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if (total_score >= GameMgr.high_score && total_score < 95)
         {
-            Delicious_Text.text = "Benissimo!!";
+            //Delicious_Text.text = "Benissimo!!";
             //Manzoku_Score.text = "★★★★";
             for (i = 0; i < 4; i++)
             {                
@@ -2154,7 +2100,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if (total_score >= 95)
         {
-            Delicious_Text.text = "Vittoria!!";
+            //Delicious_Text.text = "Vittoria!!";
             //Manzoku_Score.text = "★★★★★";
             for (i = 0; i < 5; i++)
             {                
@@ -2172,7 +2118,7 @@ public class GirlEat_Judge : MonoBehaviour {
         else if (total_score <= 0) //0以下。つまりまずかった
         {
             total_score = 0;
-            Delicious_Text.text = "Death..";
+            //Delicious_Text.text = "Death..";
 
             SetHintText(2); //マズイとき時
             Hint_Text.text = temp_hint_text;
@@ -2258,7 +2204,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     stageclear_Button.SetActive(true);
 
-                    clear_spokashi_flag = true; //SPお菓子で、クエストクリアボタンでたか否か。
+                    GameMgr.clear_spokashi_flag = true; //SPお菓子で、クエストクリアボタンでたか否か。
                     clear_spokashi_status = 1;
 
                     _windowtext.text = "満足しているようだ。";
@@ -2489,16 +2435,16 @@ public class GirlEat_Judge : MonoBehaviour {
             girl1_status.LvUpStatus();           
 
             //レベルがあがることでも、次のSPクエストにすすめる。
-            if (!clear_spokashi_flag)
+            /*if (!GameMgr.clear_spokashi_flag)
             {
                 GameMgr.QuestClearflag = true;
                 stageclear_Button.SetActive(true);
-                clear_spokashi_flag = true; //この場合、フラグはfalse。
+                GameMgr.clear_spokashi_flag = true; //この場合、フラグはfalse。
                 if (clear_spokashi_status != 1)
                 {
                     clear_spokashi_status = 0;
                 }
-            }
+            }*/
 
             //Maxバリューを再設定
             Love_Slider_Setting();
@@ -2735,32 +2681,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
-    public void ResultOFF()
-    {
-        MainQuestOKPanel.SetActive(false);
-
-        subQuestClear_check = false;
-
-        //お菓子をあげたあとの状態に移行する。
-        girl1_status.timeGirl_hungry_status = 2;
-        girl1_status.timeOut = 5.0f;
-        girl1_status.GirlEat_Judge_on = true;//またカウントが進み始める
-        girl1_status.hukidasiOn();
-        touch_controller.Touch_OnAllON();        
-
-        sc.PlaySe(18);
-
-        //初期化
-        for (i = 0; i < _listScoreEffect.Count; i++)
-        {
-            Destroy(_listScoreEffect[i]);
-        }
-        _listScoreEffect.Clear();
-
-        ScoreHyouji_ON = false;
-        GameMgr.scenario_ON = false;
-        compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする   
-    }
+    
 
     //
     //通常お菓子食べた直後の、おいしい・まずいといった感想。トッピングに対する感想もここで。
@@ -3020,7 +2941,7 @@ public class GirlEat_Judge : MonoBehaviour {
     //クエストクリア時の感想を表示する。
     //
     IEnumerator SubQuestClearEvent()
-    {
+    {        
         if (clear_spokashi_status == 1)
         {
             girl1_status.GirlEat_Judge_on = false;
@@ -3050,13 +2971,73 @@ public class GirlEat_Judge : MonoBehaviour {
 
         canvas.SetActive(true);
         stageclear_Button.SetActive(false);
-        clear_spokashi_flag = false; //クリアフラグはまた戻しておく。
+        GameMgr.clear_spokashi_flag = false; //クリアフラグはまた戻しておく。
 
         //表示の音を鳴らす。
         sc.PlaySe(47);　//前は、25
 
         MainQuestOKPanel.SetActive(true);
-    }    
+
+    }
+
+    public void ResultOFF()
+    {
+        MainQuestOKPanel.SetActive(false);
+
+        subQuestClear_check = false;
+
+        ResetResult();
+    }
+
+    //メインクエストOKパネルを閉じたあと
+    public void PanelResultOFF()
+    {
+        MainQuestOKPanel.SetActive(false);
+
+        subQuestClear_check = false;
+
+        //黒で一度フェードアウト
+        sceneBGM.MuteBGM();
+        //canvas.SetActive(false);
+        Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeIn();
+        StartCoroutine("Black_FadeOut");
+    }
+
+    IEnumerator Black_FadeOut()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        canvas.SetActive(false);
+        Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut();
+
+        yield return new WaitForSeconds(1.5f);
+
+        ResetResult();
+    }
+
+    void ResetResult()
+    {
+        //お菓子をあげたあとの状態に移行する。
+        girl1_status.timeGirl_hungry_status = 2;
+        girl1_status.timeOut = 5.0f;
+        girl1_status.GirlEat_Judge_on = true;//またカウントが進み始める
+        girl1_status.hukidasiOn();
+        touch_controller.Touch_OnAllON();
+
+        sc.PlaySe(18);
+
+        //初期化
+        for (i = 0; i < _listScoreEffect.Count; i++)
+        {
+            Destroy(_listScoreEffect[i]);
+        }
+        _listScoreEffect.Clear();
+
+        //sceneBGM.MuteOFFBGM();
+        ScoreHyouji_ON = false;
+        GameMgr.scenario_ON = false;
+        compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする
+    }
 
     void SetHintText(int _status)
     {
@@ -3077,7 +3058,7 @@ public class GirlEat_Judge : MonoBehaviour {
         ShokukanHintHyouji();
 
 
-        //トータルスコアが低いときは、そのクスエトをクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
+        //トータルスコアが低いときは、そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
         if (!non_spquest_flag)
         {
             if (total_score < GameMgr.low_score)
@@ -3089,37 +3070,61 @@ public class GirlEat_Judge : MonoBehaviour {
                         _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
                     }
                 }
-                _special_kansou = "\n" + _temp_spkansou;
+
+                //必要なトッピングがのってなかった場合の処理
+                switch (girl1_status.OkashiQuest_ID)
+                {
+                    case 1200: //クレープの場合の処理
+
+                        //ホイップクリームがのってなかった時
+                        if (GameMgr.okashinontphint_flag)
+                        {
+                            _special_kansou = _temp_spkansou;
+                        }
+                        else
+                        {
+                            _special_kansou = "";
+                        }
+                        break;
+
+                    default:
+
+                        _special_kansou = _temp_spkansou;
+                        break;
+                }
+                
             }
             else if (total_score >= GameMgr.low_score)
             {
-                _special_kansou = "\n" + "";
+                _special_kansou = "";
             }
         }
         else //クエスト以外のお菓子をあげたときの感想・ヒント
         {
             if (dislike_status == 2)
             {
-                _special_kansou = "\n" + "今まで食べたことないお菓子だ！";
+                _special_kansou = "今まで食べたことないお菓子だ！";
             }
             else
             {
-                _special_kansou = "\n" + "";
+                _special_kansou = "";
             }
         }
 
-        //感想の表示　_statusが0なら、通常得点、1なら、高得点時（80点以上）の感想。2は、まずすぎたとき。
+        _special_kansou = "\n" + _special_kansou;
+
+        //感想の表示　_statusが0なら、通常得点、1なら、高得点時（85点以上）の感想。2は、まずすぎたとき。
         switch (_status)
         {
 
             case 0:
 
-                temp_hint_text = _sweat_kansou + _bitter_kansou + _sour_kansou + _shokukan_kansou + _special_kansou;                
+                temp_hint_text = _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;                
                 break;
 
             case 1:
 
-                temp_hint_text = "兄ちゃん！" + "\n" + "この" + _basenameHyouji + "うますぎィ！" + "\n" + "最高！！";
+                temp_hint_text = _shokukan_kansou + "兄ちゃん！" + "\n" + "この" + _basenameHyouji + "うますぎィ！" + "\n" + "最高！！";
                 break;
 
             case 2:
@@ -3133,7 +3138,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         database.items[_baseID].last_hinttext = temp_hint_text;
 
-        if (Getlove_exp > 0)
+        /*if (Getlove_exp > 0)
         {
             _result_text = "好感度が " + Getlove_exp + " アップ！　"; //"お金を " + GetMoney + "G ゲットした！"
         }
@@ -3146,7 +3151,7 @@ public class GirlEat_Judge : MonoBehaviour {
             _result_text = "好感度が " + Mathf.Abs(Getlove_exp) + " 下がった..。　"; //"お金を " + GetMoney + "G ゲットした！"
         }
 
-        Result_Text.text = _result_text;
+        Result_Text.text = _result_text;*/
     }
 
     void SweatHintHyouji()
@@ -3186,6 +3191,15 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             _sweat_kansou = "";
         }
+
+        if (sweat_level != 0)
+        {
+            _sweat_kansou = "\n" + _sweat_kansou;
+        }
+        else
+        {
+
+        }
     }
 
     void BitterHintHyouji()
@@ -3193,21 +3207,21 @@ public class GirlEat_Judge : MonoBehaviour {
         //苦さがどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
         if (bitter_level == 7)
         {
-            _bitter_kansou = "\n" + "大人な苦さ！";
+            _bitter_kansou = "大人な苦さ！";
         }
         else if (bitter_level == 6)
         {
-            _bitter_kansou = "\n" + "苦み、ほどよくいい感じ";
+            _bitter_kansou = "苦み、ほどよくいい感じ";
         }
         else if (bitter_level == 4 || bitter_level == 5)
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = "\n" + "もうちょっと苦さがほしい";
+                _bitter_kansou = "もうちょっと苦さがほしい";
             }
             else
             {
-                _bitter_kansou = "\n" + "ちょっと苦いかも";
+                _bitter_kansou = "ちょっと苦いかも";
             }
 
         }
@@ -3215,17 +3229,26 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = _bitter_kansou = "\n" + "苦さが足りない";
+                _bitter_kansou = "苦さが足りない";
             }
             else
             {
-                _bitter_kansou = "\n" + "苦すぎ..。";
+                _bitter_kansou = "苦すぎ..。";
             }
 
         }
         else
         {
             _bitter_kansou = "";
+        }
+
+        if (bitter_level != 0)
+        {
+            _bitter_kansou = "\n" + _bitter_kansou;
+        }
+        else
+        {
+
         }
     }
 
@@ -3234,21 +3257,21 @@ public class GirlEat_Judge : MonoBehaviour {
         //酸味がどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
         if (sour_level == 7)
         {
-            _sour_kansou = "\n" + "絶妙なすっぱさ！";
+            _sour_kansou = "絶妙なすっぱさ！";
         }
         else if (sour_level == 6)
         {
-            _sour_kansou = "\n" + "いいすっぱみ！";
+            _sour_kansou = "いいすっぱみ！";
         }
         else if (sour_level == 4 || sour_level == 5)
         {
             if (sour_result < 0)
             {
-                _sour_kansou = "\n" + "もうちょっと酸っぱさほしい";
+                _sour_kansou = "もうちょっと酸っぱさほしい";
             }
             else
             {
-                _sour_kansou = "\n" + "ちょっと酸っぱすぎるかも";
+                _sour_kansou = "ちょっと酸っぱすぎるかも";
             }
 
         }
@@ -3256,17 +3279,26 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (sour_result < 0)
             {
-                _sour_kansou = _sour_kansou = "\n" + "酸っぱさがほしい";
+                _sour_kansou = "酸っぱさがほしい";
             }
             else
             {
-                _sour_kansou = "\n" + "酸っぺぇ..。";
+                _sour_kansou = "酸っぺぇ..。";
             }
 
         }
         else
         {
             _sour_kansou = "";
+        }
+
+        if (sour_level != 0)
+        {
+            _sour_kansou = "\n" + _sour_kansou;
+        }
+        else
+        {
+
         }
     }
 
@@ -3275,19 +3307,19 @@ public class GirlEat_Judge : MonoBehaviour {
         //食感に関するヒント
         if (shokukan_score >= 0 && shokukan_score < 40) //
         {
-            _shokukan_kansou = "\n" + shokukan_mes + "がもっとほしい";
+            _shokukan_kansou = shokukan_mes + "がもっとほしい";
         }
         else if (shokukan_score >= 40 && shokukan_score < GameMgr.low_score) //
         {
-            _shokukan_kansou = "\n" + shokukan_mes + "がほしい";
+            _shokukan_kansou = shokukan_mes + "がほしい";
         }
         else if (shokukan_score >= GameMgr.low_score && shokukan_score < GameMgr.high_score) //
         {
-            _shokukan_kansou = "";
+            _shokukan_kansou = "ほどよい" + shokukan_mes;
         }
         else if (shokukan_score >= GameMgr.high_score) //
         {
-            _shokukan_kansou = "";
+            _shokukan_kansou = "神の" + shokukan_mes;
         }
     }
 

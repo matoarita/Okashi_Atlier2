@@ -17,7 +17,7 @@ public class SlotNameDataBase : SingletonMonoBehaviour<SlotNameDataBase>
     private int slot_getgirllove;
     private int slot_money;
 
-    private int i;
+    private int i, j;
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
@@ -54,5 +54,21 @@ public class SlotNameDataBase : SingletonMonoBehaviour<SlotNameDataBase>
             ++count;
         }
 
+    }
+
+    //スロット名を入れると、その配列番号を返す。
+    public int SlotSearchString(string _name)
+    {
+        j = 0;
+        while( j < slotname_lists.Count)
+        {
+            if( slotname_lists[j].slotName == _name )
+            {
+                return j;
+            }
+            j++;
+        }
+
+        return 9999; //無かった場合は9999が返る。
     }
 }

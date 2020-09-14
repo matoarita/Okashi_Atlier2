@@ -2389,27 +2389,27 @@ public class Compound_Main : MonoBehaviour
 
             case "crepe_recipi": //クレープ
 
-                databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
-                databaseCompo.CompoON_compoitemdatabase("crepe");
+                //databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
+                //databaseCompo.CompoON_compoitemdatabase("crepe");
 
                 break;
 
             case "maffin_recipi": //マフィン
 
-                databaseCompo.CompoON_compoitemdatabase("maffin");
+                //databaseCompo.CompoON_compoitemdatabase("maffin");
 
                 break;
 
             case "bisucouti_recipi": //ビスコッティ
 
                 databaseCompo.CompoON_compoitemdatabase("baking_mix");
-                databaseCompo.CompoON_compoitemdatabase("biscotti");
+                //databaseCompo.CompoON_compoitemdatabase("biscotti");
 
                 break;
 
             case "princesstota_recipi": //プリンセストータ
 
-                databaseCompo.CompoON_compoitemdatabase("princess_tota");
+                //databaseCompo.CompoON_compoitemdatabase("princess_tota");
 
                 break;
 

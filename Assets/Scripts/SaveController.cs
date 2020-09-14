@@ -167,6 +167,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             
             //現在のクエストクリアフラグ
             save_QuestClearflag = GameMgr.QuestClearflag,
+            save_clear_spokashi_flag = GameMgr.clear_spokashi_flag,
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -326,6 +327,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.OkashiQuest_flag_stage3 = playerData.save_OkashiQuest_flag_stage3;
 
         GameMgr.QuestClearflag = playerData.save_QuestClearflag;
+        GameMgr.clear_spokashi_flag = playerData.save_clear_spokashi_flag;
 
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。

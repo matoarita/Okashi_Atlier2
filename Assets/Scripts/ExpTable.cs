@@ -28,8 +28,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     private Text _text;
 
     //SEを鳴らす
-    public AudioClip sound1;
-    AudioSource audioSource;
+    private SoundController sc;
 
     IEnumerator routine;
 
@@ -40,10 +39,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     // Use this for initialization
     void Start () {
 
-        audioSource = GetComponent<AudioSource>();
-
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         SetInit_ExpTable();
 
@@ -99,7 +99,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
 
             //音を鳴らす。音終わりに次の処理。
-            audioSource.PlayOneShot(sound1);
+            sc.PlaySe(13);
 
             routine = WaitTime();
             StartCoroutine("WaitTime");
@@ -135,6 +135,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
     }
 
+    /*
     public delegate void functionType();
     private IEnumerator Checking(functionType callback)
     {
@@ -147,7 +148,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 break;
             }
         }
-    }
+    }*/
 
     IEnumerator WaitTime()
     {

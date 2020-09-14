@@ -398,7 +398,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 20
+      fluffy: 12
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -444,7 +444,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 20
+      fluffy: 12
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -490,7 +490,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 20
+      fluffy: 12
       smooth: 0
       hardness: 0
       jiggly: 0

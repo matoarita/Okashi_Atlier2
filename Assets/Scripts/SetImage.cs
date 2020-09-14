@@ -645,9 +645,11 @@ public class SetImage : MonoBehaviour
                 break;
             case "Fruits":
                 subcategory = "フルーツ";
+                Etc_Text_Non();
                 break;
             case "Nuts":
                 subcategory = "ナッツ";
+                Etc_Text_Non();
                 break;
             case "Source":
                 subcategory = "お菓子材料";
@@ -869,6 +871,10 @@ public class SetImage : MonoBehaviour
                     //Card_param_obj.SetActive(true);
                     //Card_param_obj2.SetActive(false);
                     break;*/
+                case "Fruits":
+                    Card_param_obj.SetActive(true);
+                    Card_param_obj2.SetActive(false);
+                    break;
 
                 case "Pate":
                     //Card_param_obj.SetActive(true);
@@ -949,6 +955,12 @@ public class SetImage : MonoBehaviour
     {
         item_Shokukan_Type.text = "食感";
         item_lastShokukan_Type.text = "食感";
+    }
+
+    void Etc_Text_Non()
+    {
+        item_Shokukan_Type.text = "-";
+        item_lastShokukan_Type.text = "-";
     }
 
     public void CompoundResult_Button()

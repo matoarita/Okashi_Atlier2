@@ -68,6 +68,7 @@ TagManager:
   - Comp_Effect
   - UtageManageres
   - Map_Ambience
+  - FadeOutBlack
   layers:
   - Default
   - TransparentFX

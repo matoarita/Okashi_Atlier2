@@ -777,7 +777,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         item_kosu = pitemlist.player_originalitemlist[i].ItemKosu;
 
         _text[1].text = item_kosu.ToString(); //プレイヤーがそのアイテムをもっている個数
-        _text[1].color = new Color(50f / 255f, 128f / 255f, 126f / 255f);
+        _text[1].color = new Color(255f / 255f, 234f / 255f, 64f / 255f);
+        //_listitem[list_count].transform.Find("Background/Item_count").GetComponent<>().
 
         //Debug.Log("Original: " + i + "　ItemID" + _toggle_itemID.toggleitem_ID + " アイテム名: " + item_name);
 

@@ -69,6 +69,7 @@ public class PlayerData
 
     //現在のクエストのクリアフラグ
     public bool save_QuestClearflag;
+    public bool save_clear_spokashi_flag; //SPお菓子でクリアしたか、好感度をあげてクリアボタンをだしたか
 
     //ステージ１クリア時の好感度を保存
     public int save_stage1_girl1_loveexp;

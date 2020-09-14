@@ -327,14 +327,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //時間が20時をこえないかチェック
                 _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay); //行きの時間だけ計算
-                if (_yosokutime >= time_controller.max_time * 6)
+                /*if (_yosokutime >= time_controller.max_time * 6)
                 {
                     //20時を超えるので、妹に止められる。
                     _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
                     All_Off();
                 }
                 else
-                {
+                {*/
                     if (matplace_database.matplace_lists[i].placeCost == 0)
                     {
                         _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
@@ -350,7 +350,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     Select_Pause();
                     break;
-                }
+                //}
 
             }
             i++;
@@ -905,7 +905,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     IEnumerator MapEventOn()
     {
         MoneyStatus_Panel_obj.SetActive(false);
-        TimePanel_obj1.SetActive(false);
+        //TimePanel_obj1.SetActive(false);
 
         while (!GameMgr.recipi_read_endflag)
         {
@@ -915,7 +915,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         GameMgr.recipi_read_endflag = false;
 
         MoneyStatus_Panel_obj.SetActive(true);
-        TimePanel_obj1.SetActive(true);
+        //TimePanel_obj1.SetActive(true);
         text_area.SetActive(true);
         slot_tansaku_button_obj.SetActive(true);
         for(i=0; i<mapevent_panel.Count; i++)

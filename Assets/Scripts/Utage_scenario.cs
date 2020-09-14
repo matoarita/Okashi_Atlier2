@@ -1375,6 +1375,28 @@ public class Utage_scenario : MonoBehaviour
             {
                 yield return null;
             }
+
+            GameMgr.okashihint_flag = false;
+        }
+
+        //食べたいお菓子に、必要なトッピングのってなかったときの処理。
+        if (GameMgr.okashinontphint_flag)
+        {
+            scenarioLabel = "SpOkashiHintNonTopping"; //イベントレシピタグのシナリオを再生。
+
+            //ここで、宴のパラメータ設定
+            engine.Param.TrySetParameter("NonToppingHint_num", GameMgr.okashinontphint_ID);
+
+            //「宴」のシナリオを呼び出す
+            Engine.JumpScenario(scenarioLabel);
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario)
+            {
+                yield return null;
+            }
+
+            GameMgr.okashinontphint_flag = false;
         }
 
         if ( !PlayerStatus.First_extreme_on ) //仕上げを一度もやったことがなかったら、ヒントだす。

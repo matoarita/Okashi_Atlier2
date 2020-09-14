@@ -68,6 +68,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool okashiafter_flag;    //採点表示のあとに表示する感想
     public static int okashihint_ID;        //SPお菓子以外のものをあげたとき、感想も出す場合はON
     public static bool okashihint_flag;     //SPお菓子以外のものをあげたとき、感想も出す場合はON
+    public static int okashinontphint_ID;       //SPお菓子に必要なトッピングがのってなかったときに出す感想
+    public static bool okashinontphint_flag;    //SPお菓子に必要なトッピングがのってなかったときに出す感想
     public static int okashiafter_status;    //採点表示　SPお菓子の感想か固有の感想か
     public static int mainquest_ID;         //クエストクリア時のイベント
     public static bool mainClear_flag;      //クエストクリア時のイベント
@@ -87,6 +89,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] OkashiQuest_flag_stage3 = new bool[30];
 
     public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
+    public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。
 
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num;
@@ -372,6 +375,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sp_okashi_flag = false;
         okashiafter_flag = false;
         okashihint_flag = false;
+        okashinontphint_flag = false;
         mainClear_flag = false;
         emeralDonguri_flag = false;
 
@@ -384,6 +388,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
         OkashiQuest_Num = 0;
         QuestClearflag = false;
+        clear_spokashi_flag = false;
 
         //お菓子のクリア基準値
         low_score = 60;
