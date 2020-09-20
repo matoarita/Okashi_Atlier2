@@ -44,4 +44,9 @@ public class DestroySelfObj2 : MonoBehaviour
 
         Destroy(this.gameObject);
     }
+
+    public void KillNow()
+    {
+        Destroy(this.gameObject);
+    }
 }

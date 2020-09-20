@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 using Live2D.Cubism.Rendering;
@@ -107,21 +108,19 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private GameObject _slider_obj;
     private Slider _slider; //好感度バーを取得
-    private int _exp;
+    private Tween coinTween;
+    private int currentDispCoin;
+    private int preDispCoin;
+    private float countTime;
     private int slot_girlscore, slot_money;
     public int Getlove_exp;
     private int GetMoney;
-    private bool loveanim_on;
     private Text girl_lv;
     private Text girl_param;
+    private Color origin_color;
     private int _tempGirllove;
+    private int _tempresultGirllove;
     private int _sumlove;
-
-    //SEを鳴らす
-    public AudioClip sound1;
-    public AudioClip sound2;
-    public AudioClip sound3;
-    AudioSource audioSource;
 
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
@@ -454,10 +453,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 _slider_obj = GameObject.FindWithTag("Girl_love_exp_bar").gameObject;
                 _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
 
-                _exp = 0;
                 Getlove_exp = 0;
                 GetMoney = 0;
-                loveanim_on = false;
 
                 stage_levelTable.Clear();
 
@@ -522,10 +519,6 @@ public class GirlEat_Judge : MonoBehaviour {
                 
         }
 
-        
-               
-        audioSource = GetComponent<AudioSource>();
-
         kettei_item1 = 0;
         _toggle_type1 = 0;
 
@@ -578,59 +571,7 @@ public class GirlEat_Judge : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //好感度バーアニメーションの処理
-        if (loveanim_on == true)
-        {
-
-            if (Getlove_exp < 0)//減る場合は、こっちの処理。レベルが下がることはない。増えるアニメ処理は、別メソッドで行う。
-            {
-                //好感度が0の場合、0が下限。
-                if (girl1_status.girl1_Love_exp <= 0)
-                {
-                    Getlove_exp = 0;
-                    _exp = 0;
-                    loveanim_on = false;
-
-                    compound_Main.check_GirlLoveEvent_flag = false;
-                }
-                else
-                {
-                    //１ずつ減少
-                    --_exp;
-                    
-                    //スライダにも反映
-                    _slider.value -= 1;
-
-                    if(_slider.value <= 0) //スライダが0になった場合、そこが下限。girl1_Love_expは、それ以上減少しない。
-                    {
-                        --girl1_status.girl1_Love_exp;
-                        girl_param.text = girl1_status.girl1_Love_exp.ToString();
-                    }
-                    else
-                    {
-                        --girl1_status.girl1_Love_exp;
-                        girl_param.text = girl1_status.girl1_Love_exp.ToString();
-                    }
-
-                    if (_exp <= Getlove_exp)
-                    {
-                        Getlove_exp = 0;
-                        _exp = 0;
-                        loveanim_on = false;
-
-                        compound_Main.check_GirlLoveEvent_flag = false;
-                    }
-                }
-            }
-            else
-            {
-                //0の場合で、アニメーションが作動した場合は、特になにもしない。
-                Getlove_exp = 0;
-                _exp = 0;
-                loveanim_on = false;
-            }
-        }
-
+        
         if (judge_anim_on == true)
         {
             switch(judge_anim_status)
@@ -1071,11 +1012,6 @@ public class GirlEat_Judge : MonoBehaviour {
             //粉っぽさなどのマイナス判定。一番強い。ここであまりに粉っぽさなどが強い場合は、問答無用で嫌われる。
             Mazui_flag = true;
 
-            //スペシャルクエストだった場合は、まずいフラグがたつ。
-            /*if (girl1_status.OkashiNew_Status == 0)
-            {
-                girl1_status.girl_Mazui_flag = true;
-            }*/
         }
     }
 
@@ -1567,7 +1503,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         Debug.Log("###  ###");
 
-        if (total_score < 0) //total_scoreが0以下でも、マズイ。
+        if (total_score <= 0) //total_scoreが0以下だと、マズイ。
         {
             Mazui_flag = true;
         }
@@ -1625,45 +1561,45 @@ public class GirlEat_Judge : MonoBehaviour {
             //sweat_score = (int)(_basesweat * 2.0f);
             taste_score = 50;
         }
-        else if (Mathf.Abs(taste_result) < 5)
+        else if (Mathf.Abs(taste_result) < 5) //+-1~5
         {
             Debug.Log(taste_type + "Great!!");
             taste_level = 6;
             //sweat_score = (int)(_basesweat * 1.5f);
             taste_score = 35;
         }
-        else if (Mathf.Abs(taste_result) < 15)
+        else if (Mathf.Abs(taste_result) < 15) //+-5~15
         {
             Debug.Log(taste_type + "Well!");
             taste_level = 5;
             //sweat_score = (int)(_basesweat * 0.75f);
             taste_score = 20;
         }
-        else if (Mathf.Abs(taste_result) < 30)
+        else if (Mathf.Abs(taste_result) < 30) //+-15~20
         {
             Debug.Log(taste_type + "Good!");
             taste_level = 4;
             taste_score = 10;
         }
-        else if (Mathf.Abs(taste_result) < 50)
+        else if (Mathf.Abs(taste_result) < 50) //+-30~49
         {
             Debug.Log(taste_type + "Normal");
             taste_level = 3;
             taste_score = 3;
         }
-        else if (Mathf.Abs(taste_result) < 80)
+        else if (Mathf.Abs(taste_result) < 80) //+-50~79
         {
             Debug.Log(taste_type + "poor");
             taste_level = 2;
             taste_score = -35;
         }
-        else if (Mathf.Abs(taste_result) <= 100)
+        else if (Mathf.Abs(taste_result) <= 100) //+-80~99
         {
             Debug.Log(taste_type + "death..");
             taste_level = 1;
             taste_score = -80;
         }
-        else if (Mathf.Abs(taste_result) > 100)
+        else if (Mathf.Abs(taste_result) > 100) //+-100
         {
             Debug.Log(taste_type + "death..");
             taste_level = 1;
@@ -1873,7 +1809,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     //好感度取得+アニメーションをON
                     Getlove_exp = -10;
-                    //DegHeart(Getlove_exp);
 
                     //アイテムの削除
                     delete_Item();
@@ -1881,7 +1816,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     OkashiSaitenhyouji(); //採点パネル表示してからリザルト
 
                     //音を鳴らす
-                    audioSource.PlayOneShot(sound2);
+                    sc.PlaySe(6);
 
                     //テキストウィンドウの更新
                     exp_Controller.GirlDisLikeText(Getlove_exp);
@@ -1900,7 +1835,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     //好感度取得+アニメーションをON
                     Getlove_exp = -10;
-                    //DegHeart(Getlove_exp);
 
                     //アイテムの削除
                     delete_Item();
@@ -1908,7 +1842,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     OkashiSaitenhyouji(); //採点パネル表示してからリザルト
 
                     //音を鳴らす
-                    audioSource.PlayOneShot(sound2);
+                    sc.PlaySe(6);
 
                     //テキストウィンドウの更新
                     exp_Controller.GirlDisLikeText(Getlove_exp);
@@ -1925,7 +1859,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //好感度は変わらず、お菓子も減りはしない。
 
                     //音を鳴らす
-                    audioSource.PlayOneShot(sound2);
+                    sc.PlaySe(6);
 
                     //テキストウィンドウの更新
                     exp_Controller.GirlNotEatText();
@@ -2149,34 +2083,7 @@ public class GirlEat_Judge : MonoBehaviour {
     
     void Okashi_Result()
     {
-        if (Mazui_flag)
-        {
-            DegHeart(Getlove_exp);
-
-            //テキストウィンドウの更新
-            exp_Controller.GirlDisLikeText(Getlove_exp);
-        }
-        else
-        {
-            //アニメーションをON。好感度パラメータの反映もここ。
-            loveGetPlusAnimeON();
-
-            //エフェクト生成＋アニメ開始
-            _listEffect.Add(Instantiate(effect_Prefab));
-            StartCoroutine("Love_effect");
-
-            //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
-            GirlHeartEffect.LoveRateChange();
-
-            //音を鳴らす
-            audioSource.PlayOneShot(sound1);
-
-            //テキストウィンドウの更新
-            exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
-           
-        }               
-              
-
+                        
         //キャラクタ表情変更
         girl1_status.face_girl_Yorokobi();
         StartCoroutine("DefaultFaceChange");//2秒ぐらいしたら、表情だけすぐに戻す。
@@ -2410,6 +2317,37 @@ public class GirlEat_Judge : MonoBehaviour {
           
     }
 
+    IEnumerator GetLoveEnd()
+    {
+        while (heart_count > 0)
+        {
+            yield return null;
+        }
+
+        //Debug.Log("好感度　内部を更新");
+
+        //好感度　取得分増加
+        girl1_status.girl1_Love_exp += Getlove_exp;
+
+        //念のため、テキストも更新
+        girl_param.text = girl1_status.girl1_Love_exp.ToString();
+
+        //リセット
+        Getlove_exp = 0;
+
+        //エメラルどんぐり入るかチェック
+        if (emerarudonguri_get)
+        {
+            emerarudonguri_get = false;
+            StartCoroutine("EmeralDonguriEvent");
+        }
+        else
+        {
+            compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
+        }
+
+    }
+
     //ハートがゲージに衝突した時に、このメソッドが呼び出される。
     public void GetHeartValue()
     {
@@ -2452,26 +2390,101 @@ public class GirlEat_Judge : MonoBehaviour {
 
             girl_lv.text = girl1_status.girl1_Love_lv.ToString();
         }
-        
+
         //エフェクト
         _listHeartHit.Add(Instantiate(hearthit_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
         _listHeartHit2.Add(Instantiate(hearthit2_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
 
     }
 
-    //好感度が下がるときの処理。外部からアクセス用。ゲージにも反映される。
+
+    //好感度が下がるときの処理。外部からアクセス用でもある。ゲージにも反映される。
     public void DegHeart(int _param)
     {
         //好感度取得
         Getlove_exp = _param;
 
         _tempGirllove = girl1_status.girl1_Love_exp;//あがる前の好感度を一時保存
-        girl_param.text = _tempGirllove.ToString();
+        _tempresultGirllove = girl1_status.girl1_Love_exp + Getlove_exp; //あがった後の好感度を一時保存
+
+        
+        //好感度が0の場合、0が下限。
+        if (_tempresultGirllove <= 0)
+        {
+            _tempresultGirllove = 0;
+        }
 
         //アニメーションをON
-        loveanim_on = true;
+        UpdateDegHeart(_tempresultGirllove);
     }
 
+    void UpdateDegHeart(int num)
+    {
+        //カウントアップのための秒数を割り出す。
+        countTime = Mathf.Abs(Getlove_exp) * 0.05f; //1ごとに0.05fで表示する
+
+        currentDispCoin = girl1_status.girl1_Love_exp;
+
+        origin_color = girl_param.color;
+
+        DOTween.Kill(coinTween);
+        coinTween = DOTween.To(() => currentDispCoin, (val) =>
+        {
+            //Debug.Log("bang");
+            currentDispCoin = val;
+
+            if (_slider.value <= 0) //スライダが0になった場合、そこが下限。girl1_Love_expは、それ以上減少しない。
+            {
+                _slider.value = 0;
+            }
+            else
+            {
+                if (currentDispCoin != preDispCoin)
+                {
+                    sc.PlaySe(37); //トゥルルルルという文字送り音
+                                   //スライダにも反映
+                    Slider_Koushin(currentDispCoin);
+                }
+                
+            }
+
+            girl_param.color = new Color(105f / 255f, 168f / 255f, 255f / 255f); //青文字(105f / 255f, 168f / 255f, 255f / 255f)
+            girl_param.text = string.Format("{0:#,0}", val);
+
+            
+            preDispCoin = currentDispCoin; //前回の値も保存
+        }, num, countTime).SetEase(Ease.OutQuart)
+        .OnComplete(EndDegHeart); //③エンドアニメ　再生終了時;
+    }
+
+    void EndDegHeart()
+    {
+        //実際の好感度に値を反映
+        girl1_status.girl1_Love_exp += Getlove_exp;
+        girl_param.text = girl1_status.girl1_Love_exp.ToString();
+        girl_param.color = origin_color;
+
+        Slider_Koushin(_tempresultGirllove);
+
+        compound_Main.check_GirlLoveEvent_flag = false;
+    }
+
+
+
+    //スライダバリューを正確に更新。現在の好感度数値をいれればOK
+    void Slider_Koushin(int cullent_value)
+    {
+        
+        i = 0;
+        while (cullent_value >= stage_levelTable[i])
+        {
+            cullent_value -= stage_levelTable[i];
+            i++;
+        }
+        _slider.value = cullent_value;
+    }
+
+    //スライダマックスバリューを更新
     public void Love_Slider_Setting()
     {
         if (girl1_status.girl1_Love_lv <= 5)
@@ -2484,25 +2497,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
-    IEnumerator GetLoveEnd()
-    {
-        while (heart_count > 0)
-        {
-            yield return null;
-        }
-
-        //Debug.Log("好感度　内部を更新");
-       
-        //好感度　取得分増加
-        girl1_status.girl1_Love_exp += Getlove_exp;
-
-        //念のため、テキストも更新
-        girl_param.text = girl1_status.girl1_Love_exp.ToString();
-
-        //リセット
-        Getlove_exp = 0;
-        compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
-    }
+    
 
     //
     //次の食べたいお菓子を決めるメソッド。
@@ -2642,15 +2637,8 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (!GameMgr.tutorial_ON)
             {
-                if (!Mazui_flag) //まずいがなければ、通常の感想
-                {
-                    //クエストまだクリアでなければ、お菓子の感想を表示する。
-                    StartCoroutine("OkashiAfter_Comment");                   
-                }
-                else
-                {
-                    ResultOFF();
-                }
+                //クエストまだクリアでなければ、お菓子の感想を表示する。
+                StartCoroutine("OkashiAfter_Comment");                
             }
             else
             {
@@ -2764,79 +2752,86 @@ public class GirlEat_Judge : MonoBehaviour {
         canvas.SetActive(false);
         touch_controller.Touch_OnAllOFF();
 
-        if (GameMgr.GirlLoveEvent_num == 5 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
+        if (!Mazui_flag) //まずいがなければ、通常の感想
         {
-            //GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID;
-
-            //お菓子ごとにさらに感想だしてもよいかも。
-            GameMgr.okashiafter_ID = _baseSetjudge_num;
-            GameMgr.okashiafter_status = 1;
-        }
-        else
-        {
-            if (!non_spquest_flag) //メインクエストの場合の感想
+            if (GameMgr.GirlLoveEvent_num == 5 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
             {
-                GameMgr.okashiafter_status = 0;
+                //GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID;
 
-                GameMgr.okashihint_flag = false;
+                //お菓子ごとにさらに感想だしてもよいかも。
+                GameMgr.okashiafter_ID = _baseSetjudge_num;
+                GameMgr.okashiafter_status = 1;
+            }
+            else
+            {
+                if (!non_spquest_flag) //メインクエストの場合の感想
+                {
+                    GameMgr.okashiafter_status = 0;
 
-                //宴を呼び出す。GirlLikeSetのフラグで、トータルスコアに関する感想、スロットに反応する場合スロットの感想、のどちらかを表示する。
-                if (_girl_comment_flag[set_id] == 0)
-                {
-                    NormalCommentAfterBunki();
-                }
-                else if (_girl_comment_flag[set_id] == 1)
-                {
-                    if (!topping_flag) //トッピングに一致するものがなかったとき。
+                    GameMgr.okashihint_flag = false;
+
+                    //宴を呼び出す。GirlLikeSetのフラグで、トータルスコアに関する感想、スロットに反応する場合スロットの感想、のどちらかを表示する。
+                    if (_girl_comment_flag[set_id] == 0)
                     {
                         NormalCommentAfterBunki();
                     }
-                    else
+                    else if (_girl_comment_flag[set_id] == 1)
                     {
-                        GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID + topping_flag_point; //スロットの感想 1000番台~
+                        if (!topping_flag) //トッピングに一致するものがなかったとき。
+                        {
+                            NormalCommentAfterBunki();
+                        }
+                        else
+                        {
+                            GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID + topping_flag_point; //スロットの感想 1000番台~
+                        }
                     }
                 }
+                else //クエスト以外のお菓子をあげた場合、お菓子ごとの感想などを表示する？
+                {
+                    if (GameMgr.GirlLoveEvent_num == 3)
+                    {
+                        GameMgr.okashihint_flag = true;
+                        GameMgr.okashihint_ID = girl1_status.OkashiQuest_ID;
+                    }
+                    else
+                    {
+                        GameMgr.okashihint_flag = false;
+                    }
+
+                    if (total_score < 30) //30点以下
+                    {
+                        //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
+                        GameMgr.okashiafter_ID = 999;
+                    }
+                    else if (total_score >= 30 && total_score < GameMgr.low_score) //30~60点
+                    {
+                        //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
+                        GameMgr.okashiafter_ID = _baseSetjudge_num;
+                    }
+                    else if (total_score >= GameMgr.low_score) //60点以上
+                    {
+                        //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
+                        GameMgr.okashiafter_ID = _baseSetjudge_num;
+                    }
+                    GameMgr.okashiafter_status = 1;
+                }
             }
-            else //クエスト以外のお菓子をあげた場合、お菓子ごとの感想などを表示する？
+
+            GameMgr.okashiafter_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                             //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
+
+            while (!GameMgr.recipi_read_endflag)
             {
-                if (GameMgr.GirlLoveEvent_num == 3)
-                {
-                    GameMgr.okashihint_flag = true;
-                    GameMgr.okashihint_ID = girl1_status.OkashiQuest_ID;
-                }
-                else
-                {
-                    GameMgr.okashihint_flag = false;
-                }
-
-                if (total_score < 30) //30点以下
-                {
-                    //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
-                    GameMgr.okashiafter_ID = 999;
-                }
-                else if (total_score >= 30 && total_score < GameMgr.low_score) //30~60点
-                {
-                    //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
-                    GameMgr.okashiafter_ID = _baseSetjudge_num;
-                }
-                else if (total_score >= GameMgr.low_score) //60点以上
-                {
-                    //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
-                    GameMgr.okashiafter_ID = _baseSetjudge_num;
-                }
-                GameMgr.okashiafter_status = 1;
+                yield return null;
             }
+
+            GameMgr.recipi_read_endflag = false;
         }
-
-        GameMgr.okashiafter_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-                                       //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
-
-        while (!GameMgr.recipi_read_endflag)
+        else
         {
-            yield return null;
+            //まずいの場合、お菓子後の感想なし
         }
-
-        GameMgr.recipi_read_endflag = false;
 
         //満足度にあわせて音を鳴らす。
         if (total_score < GameMgr.low_score)　//60点以下
@@ -2856,15 +2851,37 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //エフェクト生成＋アニメ開始
             _listEffect.Add(Instantiate(Emo_effect_daimanzoku, character.transform));
-
-            if (emerarudonguri_get)
-            {
-                emerarudonguri_get = false;
-                StartCoroutine("EmeralDonguriEvent");
-            }
+           
         }
 
-        
+        if (Mazui_flag)
+        {
+            DegHeart(Getlove_exp);
+
+            //テキストウィンドウの更新
+            exp_Controller.GirlDisLikeText(Getlove_exp);
+        }
+        else
+        {
+            //アニメーションをON。好感度パラメータの反映もここ。
+            loveGetPlusAnimeON();
+
+            //エフェクト生成＋アニメ開始
+            _listEffect.Add(Instantiate(effect_Prefab));
+            StartCoroutine("Love_effect");
+
+            //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
+            GirlHeartEffect.LoveRateChange();
+
+            //音を鳴らす
+            sc.PlaySe(5);
+
+            //テキストウィンドウの更新
+            exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
+
+        }
+
+
         canvas.SetActive(true);
 
         ResultOFF();
@@ -2934,7 +2951,7 @@ public class GirlEat_Judge : MonoBehaviour {
         GameMgr.recipi_read_endflag = false;
 
         canvas.SetActive(true);
-
+        compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
     }
 
     //
@@ -2993,6 +3010,7 @@ public class GirlEat_Judge : MonoBehaviour {
     public void PanelResultOFF()
     {
         MainQuestOKPanel.SetActive(false);
+        sc.PlaySe(18); //閉じる音
 
         subQuestClear_check = false;
 
@@ -3005,12 +3023,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
     IEnumerator Black_FadeOut()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
 
         canvas.SetActive(false);
         Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
 
         ResetResult();
     }
@@ -3023,8 +3041,7 @@ public class GirlEat_Judge : MonoBehaviour {
         girl1_status.GirlEat_Judge_on = true;//またカウントが進み始める
         girl1_status.hukidasiOn();
         touch_controller.Touch_OnAllON();
-
-        sc.PlaySe(18);
+        
 
         //初期化
         for (i = 0; i < _listScoreEffect.Count; i++)
@@ -3129,7 +3146,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case 2:
 
-                temp_hint_text = "マズすぎるぅ..。" + "\n" + _sweat_kansou + _bitter_kansou + _sour_kansou;
+                temp_hint_text = "マズすぎるぅ..。" + _sweat_kansou + _bitter_kansou + _sour_kansou;
                 break;
 
             default:
@@ -3169,18 +3186,29 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (sweat_result < 0)
             {
-                _sweat_kansou = "もうちょっと甘さがほしい";
+                _sweat_kansou = "もうちょい甘さがほしい";
             }
             else
             {
-                _sweat_kansou = "もうちょっと甘さが足りない";
+                _sweat_kansou = "少し甘すぎるかも？";
             }
         }
-        else if (sweat_level >= 1 && sweat_level <= 3)
+        else if (sweat_level == 3)
         {
             if (sweat_result < 0)
             {
                 _sweat_kansou = "甘さが足りない";
+            }
+            else
+            {
+                _sweat_kansou = "甘さがちょっと強すぎ";
+            }
+        }
+        else if (sweat_level >= 1 && sweat_level <= 2)
+        {
+            if (sweat_result < 0)
+            {
+                _sweat_kansou = "甘さが全然足りない";
             }
             else
             {
@@ -3225,11 +3253,23 @@ public class GirlEat_Judge : MonoBehaviour {
             }
 
         }
-        else if (bitter_level >= 1 && bitter_level <= 3)
+        else if (bitter_level == 3)
         {
             if (bitter_result < 0)
             {
                 _bitter_kansou = "苦さが足りない";
+            }
+            else
+            {
+                _bitter_kansou = "苦みが少し強すぎかも。";
+            }
+
+        }
+        else if (bitter_level >= 1 && bitter_level <= 2)
+        {
+            if (bitter_result < 0)
+            {
+                _bitter_kansou = "苦さが全然足りない";
             }
             else
             {
@@ -3275,11 +3315,23 @@ public class GirlEat_Judge : MonoBehaviour {
             }
 
         }
-        else if (sour_level >= 1 && sour_level <= 3)
+        else if (sour_level == 3)
         {
             if (sour_result < 0)
             {
-                _sour_kansou = "酸っぱさがほしい";
+                _sour_kansou = "酸っぱさが足りない";
+            }
+            else
+            {
+                _sour_kansou = "少し酸っぱ過ぎる？";
+            }
+
+        }
+        else if (sour_level >= 1 && sour_level <= 2)
+        {
+            if (sour_result < 0)
+            {
+                _sour_kansou = "全然酸っぱさがない";
             }
             else
             {

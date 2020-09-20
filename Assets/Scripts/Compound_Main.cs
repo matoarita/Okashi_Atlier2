@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
+using Live2D.Cubism.Rendering;
+using DG.Tweening;
 
 public class Compound_Main : MonoBehaviour
 {
@@ -104,7 +108,22 @@ public class Compound_Main : MonoBehaviour
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
+    //Live2Dモデルの取得
+    private GameObject _model_obj;
+    private CubismRenderController cubism_rendercontroller;
+    private int default_live2d_draworder;
+    private Vector3 Live2d_default_pos;
+    private Animator live2d_animator;
+    private int trans_expression;
+    private int trans_motion;
+    private int trans_position;
+    public int ResultComplete_flag;
+
     private GameObject compoundselect_onoff_obj;
+
+    private GameObject compoBGA_image;
+    private GameObject compoBGA_imageOri;
+    private GameObject compoBGA_imageExtreme;
 
     private GameObject original_toggle;
     private GameObject recipi_toggle;
@@ -264,10 +283,8 @@ public class Compound_Main : MonoBehaviour
         select_no_button = selectPanel_1.transform.Find("No").GetComponent<Button>();
 
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
-        yes = playeritemlist_onoff.transform.Find("Yes").gameObject;
-        yes_text = yes.GetComponentInChildren<Text>();
-        no = playeritemlist_onoff.transform.Find("No").gameObject;
-        no_text = no.GetComponentInChildren<Text>();
+        yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+        no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
 
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
         yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
@@ -323,6 +340,9 @@ public class Compound_Main : MonoBehaviour
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
         compoBG_A.SetActive(false);
+        compoBGA_image = canvas.transform.Find("Compound_BGPanel_A/Image").gameObject;
+        compoBGA_imageOri = canvas.transform.Find("Compound_BGPanel_A/OriCompoImage").gameObject;
+        compoBGA_imageExtreme = canvas.transform.Find("Compound_BGPanel_A/ExtremeImage").gameObject;
         ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
         ResultBGimage.SetActive(false);
         compoBG_A_effect = GameObject.FindWithTag("Comp_Effect").gameObject;
@@ -345,6 +365,14 @@ public class Compound_Main : MonoBehaviour
 
         //キー入力受付コントローラーの取得
         keymanager = keyManager.Instance.GetComponent<keyManager>();
+
+        //Live2Dモデルの取得
+        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
+        default_live2d_draworder = cubism_rendercontroller.SortingOrder;
+        Live2d_default_pos = _model_obj.transform.localPosition;
+        live2d_animator = _model_obj.GetComponent<Animator>();
+        ResultComplete_flag = 0; //調合が完了したよフラグ
 
         compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
 
@@ -516,6 +544,7 @@ public class Compound_Main : MonoBehaviour
                         text_area.SetActive(false);
 
                         compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = false;
+                        compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = false;
                         pitemlistController.Offinteract();
                         kakuritsuPanel_obj.SetActive(false);
                         no.SetActive(false);
@@ -925,6 +954,7 @@ public class Compound_Main : MonoBehaviour
                     girl1_status.WaitHint_on = true;
                     
                     compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
+                    compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
                     
                     keymanager.InitCompoundMainScene();
@@ -961,7 +991,26 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllON();
 
                 recipiMemoButton.SetActive(false);
-               
+
+                //Live2Dデフォルト
+                cubism_rendercontroller.SortingOrder = default_live2d_draworder;
+
+                if (ResultComplete_flag != 0) //厨房から帰ってくるときの動き
+                {
+                    ResultComplete_flag = 0;
+                    //intパラメーターの値を設定する.  
+
+                    trans_motion = 100; //戻るアニメに遷移
+                    live2d_animator.SetInteger("trans_motion", trans_motion);
+                    trans_expression = 2;
+                    live2d_animator.SetInteger("trans_expression", trans_expression);
+                }
+                else
+                {
+                    trans_motion = 11; //位置をもとに戻す。
+                    live2d_animator.SetInteger("trans_motion", trans_motion);
+                }
+
                 //音関係
                 if (bgm_change_flag == true)
                 {
@@ -1037,12 +1086,22 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(true);
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(true);
+                compoBGA_image.SetActive(false);
+                compoBGA_imageOri.SetActive(true);
+                compoBGA_imageExtreme.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();               
                 time_controller.TimeCheck_flag = false;
+                yes_no_panel.SetActive(true);
+                yes.SetActive(false);
 
                 text_area.SetActive(true);
                 WindowOff();
+
+                //ヒカリちゃんを表示する
+                cubism_rendercontroller.SortingOrder = 0;
+                trans_motion = 10; //調合シーン用のヒカリちゃんの位置
+                live2d_animator.SetInteger("trans_motion", trans_motion);
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1073,12 +1132,20 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(false);
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(true);
+                compoBGA_image.SetActive(false);
+                compoBGA_imageOri.SetActive(false);
+                compoBGA_imageExtreme.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
 
                 text_area.SetActive(true);
                 WindowOff();
+
+                //ヒカリちゃんを表示する
+                cubism_rendercontroller.SortingOrder = 0;
+                trans_motion = 10; //調合シーン用のヒカリちゃんの位置
+                live2d_animator.SetInteger("trans_motion", trans_motion);
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1114,6 +1181,9 @@ public class Compound_Main : MonoBehaviour
 
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(true);
+                compoBGA_image.SetActive(false);
+                compoBGA_imageOri.SetActive(true);
+                compoBGA_imageExtreme.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 recipiMemoButton.SetActive(true);
@@ -1123,6 +1193,11 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(true);
                 WindowOff();
+
+                //ヒカリちゃんを表示する
+                cubism_rendercontroller.SortingOrder = 0;
+                trans_motion = 10; //調合シーン用のヒカリちゃんの位置
+                live2d_animator.SetInteger("trans_motion", trans_motion);
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1157,8 +1232,6 @@ public class Compound_Main : MonoBehaviour
 
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                //yes.SetActive(false);
-                //no.SetActive(true);
 
                 break;
 
@@ -1183,12 +1256,19 @@ public class Compound_Main : MonoBehaviour
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(true);
+                compoBGA_image.SetActive(true);
+                compoBGA_imageOri.SetActive(false);
+                compoBGA_imageExtreme.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
+                yes_no_panel.SetActive(false);
 
                 text_area.SetActive(false);
                 WindowOff();
+
+                //ヒカリちゃんを表示しない。デフォルト描画順
+                cubism_rendercontroller.SortingOrder = default_live2d_draworder;
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -1779,6 +1859,7 @@ public class Compound_Main : MonoBehaviour
         girl1_status.GirlEat_Judge_on = false;
 
         compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
+        compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = false;
         Extremepanel_obj.SetActive(false);
 
 
@@ -1801,6 +1882,7 @@ public class Compound_Main : MonoBehaviour
         Recipi_loading = false;
 
         compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
+        compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = true;
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
         text_area_Main.SetActive(true);

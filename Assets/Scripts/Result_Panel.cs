@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class Result_Panel : MonoBehaviour
 {
+    //カメラ関連
+    private Camera main_cam;
 
     private Button button;
 
@@ -15,6 +17,7 @@ public class Result_Panel : MonoBehaviour
 
     private GameObject Resultimage;
     private GameObject Getlove_panel;
+    private GameObject Getlove_param;
 
     private int getlove_exp;
     private int Total_score;
@@ -29,11 +32,20 @@ public class Result_Panel : MonoBehaviour
 
     private bool AnimEnd;
 
+    private GameObject Magic_effect_Prefab1;
+    private List<GameObject> _listEffect = new List<GameObject>();
+
     // Use this for initialization
     void Start()
     {
+        //カメラの取得
+        main_cam = Camera.main;
+
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //エフェクトプレファブの取得
+        Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode_2");
 
         button = this.transform.Find("Button").GetComponent<Button>();
         button.interactable = false;
@@ -59,6 +71,7 @@ public class Result_Panel : MonoBehaviour
 
         Resultimage = this.transform.Find("Image").gameObject;
         Getlove_panel = this.transform.Find("GetLovePanelBG").gameObject;
+        Getlove_param = Getlove_panel.transform.Find("Result_GetLoveText/Result_ParamText").gameObject;
 
         button = this.transform.Find("Button").GetComponent<Button>();
         button.interactable = false;
@@ -111,6 +124,7 @@ public class Result_Panel : MonoBehaviour
         //まず、初期値。
         Resultimage.GetComponent<CanvasGroup>().alpha = 0;
         Getlove_panel.GetComponent<CanvasGroup>().alpha = 0;
+        Getlove_param.GetComponent<CanvasGroup>().alpha = 0;
 
         //sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
         sequence.Append(Resultimage.transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.0f)
@@ -154,7 +168,7 @@ public class Result_Panel : MonoBehaviour
 
             okashi_score_text.text = string.Format("{0:#,0}", val);
 
-            if (currentDispCoin > preDispCoin)
+            if (currentDispCoin != preDispCoin)
             {
                 sc.PlaySe(37); //トゥルルルルという文字送り音
             }
@@ -177,7 +191,33 @@ public class Result_Panel : MonoBehaviour
 
         sequence.Join(Getlove_panel.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
 
-        AnimEnd = true;
+
+        //取得した好感度をキラキラアニメーション       
+        sequence.Append(Getlove_param.GetComponent<CanvasGroup>().DOFade(1, 0.01f));
+
+        sc.PlaySe(17);
+        //エフェクト生成＋アニメ開始
+        _listEffect.Clear();
+        _listEffect.Add(Instantiate(Magic_effect_Prefab1));
+        _listEffect[0].GetComponent<Canvas>().worldCamera = main_cam;
+        _listEffect[0].transform.Find("Pos").transform.localPosition = Getlove_panel.transform.localPosition;
+        _listEffect[0].transform.Find("Pos").transform.DOLocalMove(new Vector3(0f, -20f, 0), 0.0f).SetRelative();
+
+        sequence.Append(Getlove_param.transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.3f)
+            .SetRelative()
+            .SetEase(Ease.OutQuart));
+        sequence.Join(Getlove_param.GetComponent<Text>().DOColor(new Color(0.3f, 0.3f, 0.3f), 0.2f)
+            .SetRelative()
+            .SetEase(Ease.OutCubic));
+        sequence.Append(Getlove_param.transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.7f)
+            .SetRelative()
+            .SetEase(Ease.OutBounce)
+            .OnComplete(() => AnimEnd = true));
+        sequence.Join(Getlove_param.GetComponent<Text>().DOColor(new Color(-0.3f, -0.3f, -0.3f), 0.2f)
+            .SetRelative()
+            .SetEase(Ease.InCubic));
+
+        //AnimEnd = true;
     }
 
     void GetLoveTextKoushin()

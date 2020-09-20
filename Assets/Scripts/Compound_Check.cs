@@ -217,7 +217,7 @@ public class Compound_Check : MonoBehaviour {
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
                 updown_counter_obj.SetActive(true);
-                updown_counter_setpanel.SetActive(true);
+                updown_counter_setpanel.SetActive(true);                
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 

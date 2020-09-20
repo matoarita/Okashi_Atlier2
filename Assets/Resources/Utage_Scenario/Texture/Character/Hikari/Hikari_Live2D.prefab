@@ -249,9 +249,10 @@ GameObject:
   - component: {fileID: 114379315386786918}
   - component: {fileID: 114421984805891230}
   - component: {fileID: 114541480711253740}
+  - component: {fileID: 114180785584439840}
   m_Layer: 0
   m_Name: Hikari_Live2D
-  m_TagString: Untagged
+  m_TagString: CharacterLive2D
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1936,6 +1937,21 @@ GameObject:
   - component: {fileID: 114717699843497460}
   m_Layer: 0
   m_Name: Param_Angle_Rotation_5_L_twintail2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1679836540469946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4540143261674838}
+  m_Layer: 0
+  m_Name: Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4390,6 +4406,19 @@ Transform:
   m_Father: {fileID: 4587853856768332}
   m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4540143261674838
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1679836540469946}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.23699999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4733638619648490}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4542186223967524
 Transform:
   m_ObjectHideFlags: 1
@@ -4812,6 +4841,7 @@ Transform:
   - {fileID: 4229859882748306}
   - {fileID: 4799967710254144}
   - {fileID: 4587853856768332}
+  - {fileID: 4540143261674838}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7914,7 +7944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967223d908bf07b4f90945995bdca68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maskTexture: {fileID: 0}
+  _maskTexture: {fileID: 11400000, guid: 16bf142754640ab4487bb625c30931fd, type: 2}
 --- !u!114 &114014956122299734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8154,10 +8184,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Opacity: 1
-  _lastOpacity: 0
+  _lastOpacity: 1
   _sortingLayerId: 0
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: -500
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
   _opacityHandler: {fileID: 0}
@@ -8549,6 +8579,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unmanagedIndex: 86
   Value: 0
+--- !u!114 &114180785584439840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084914313605538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cad5ee3012a4df46a51e17547af53eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114181010602588780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9707,12 +9748,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1216e33e17d3e94092ddf1e1eec10ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Anchor: {fileID: 0}
-  HeadAngleX: {fileID: 0}
-  HeadAngleY: {fileID: 0}
-  HeadAngleZ: {fileID: 0}
-  EyeBallX: {fileID: 0}
-  EyeBallY: {fileID: 0}
+  Anchor: {fileID: 4540143261674838}
+  HeadAngleX: {fileID: 114208787852302210}
+  HeadAngleY: {fileID: 114986455476240016}
+  HeadAngleZ: {fileID: 114767527851785854}
+  EyeBallX: {fileID: 114124205077291088}
+  EyeBallY: {fileID: 114830506369078114}
   EaseTime: 0.2
   EyeBallXRate: 0.05
   EyeBallYRate: 0.02

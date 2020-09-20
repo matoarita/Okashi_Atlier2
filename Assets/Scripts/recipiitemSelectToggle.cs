@@ -67,8 +67,6 @@ public class recipiitemSelectToggle : MonoBehaviour
     public int recipi_itemID; //そのときのアイテムDB上のアイテムID。
     public string recipi_itemNameHyouji; //名前表示用
 
-    
-
     private int i, j;
 
     private int _success_rate;
@@ -126,9 +124,9 @@ public class recipiitemSelectToggle : MonoBehaviour
         updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
         updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
-        yes = recipilistController_obj.transform.Find("Yes").gameObject;
+        yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
-        no = recipilistController_obj.transform.Find("No").gameObject;
+        no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();

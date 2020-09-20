@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class HeartUpObj : MonoBehaviour {
 
     private GameObject canvas;
 
+    //カメラ関連
+    private Camera main_cam;
+
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
+    private GameObject Girl_love_exp_bar;
 
     private Vector3 startPos;
     private Vector3 RandomPos;
@@ -16,6 +21,7 @@ public class HeartUpObj : MonoBehaviour {
 
     private GameObject heartPanel;
     Vector3 target_pos;
+    private float rnd_time;
 
     private Vector3 _speedPos;
 
@@ -26,9 +32,8 @@ public class HeartUpObj : MonoBehaviour {
     private float _y;
     private float dist; //座標の距離
 
-    private int rnd, rnd2;
+    private int rndx, rndy;
     private int i;
-    private float timeOut;
 
     private bool begin_stop;
 
@@ -37,8 +42,19 @@ public class HeartUpObj : MonoBehaviour {
     private int _deg;
     public int _id; //ハート一個一個にIDをつけとく
 
+    private GameObject Magic_effect_Prefab1;
+    private GameObject _listEffect;
+
     // Use this for initialization
     void Start () {
+
+        InitParam();
+    }
+
+    void InitParam()
+    {
+        //カメラの取得
+        main_cam = Camera.main;
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -50,83 +66,78 @@ public class HeartUpObj : MonoBehaviour {
         GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
         girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
 
+        Girl_love_exp_bar = canvas.transform.Find("Girl_love_exp_bar").gameObject;
         heartPanel = canvas.transform.Find("Girl_love_exp_bar/Panel").gameObject;
         target_pos = heartPanel.transform.localPosition;
 
-        pos = this.transform.localPosition;
+        //エフェクトプレファブの取得
+        Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode_Heart");
 
-        startPos = new Vector3(-220, -337,0);
+        startPos = new Vector3(Girl_love_exp_bar.transform.localPosition.x, 
+            Girl_love_exp_bar.transform.localPosition.y - 400, 
+            Girl_love_exp_bar.transform.localPosition.z);
 
-        rnd = Random.Range(-100, 100);
-        rnd2 = Random.Range(-100, 100);
+        rndx = Random.Range(-400, 400);
+        rndy = Random.Range(-400, 400);
+        RandomPos = new Vector3(startPos.x + rndx, startPos.y + rndy, startPos.z);
 
-        RandomPos = new Vector3(startPos.x + rnd, startPos.y + rnd2, startPos.z);
+        //最初の生成位置
+        this.transform.localPosition = RandomPos;
 
-        pos = startPos;
+        pos = RandomPos;
 
-        _startspeed = 0.06f;
-        _speed = 0.01f + Random.Range(0f, 0.015f);
-
-
-        _speedPos = pos - RandomPos;
-        _speedPos = new Vector3(_speedPos.x * _startspeed * -1, _speedPos.y * _startspeed * -1, _speedPos.z);
-
+        //_speed = 0.01f + Random.Range(0f, 0.015f);        
 
         begin_stop = true;
-
-        i = 1;
-        timeOut = 0.24f; //fps = 4ごと
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnEnable()
+    {
+        InitParam();
+
+        //ハートの数が多い場合、エフェクトを少し間引く
+        CountRecycle();
+
+        if (girlEat_judge._listHeart.Count >= 10)
+        {
+            if (_id % _deg == 0)
+            {
+                //エフェクト生成
+                AttackEffect();
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+            //エフェクト生成
+            AttackEffect();
+        }
+
+        StartCoroutine("WaitSeconds");
+    }
+
+    void AttackEffect()
+    {
+        //エフェクト生成
+        _listEffect = Instantiate(Magic_effect_Prefab1, Girl_love_exp_bar.transform);
+        _listEffect.GetComponent<Canvas>().worldCamera = main_cam;
+        _listEffect.transform.localPosition = RandomPos;
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         if( begin_stop )
         {
-            /*timeOut -= Time.deltaTime;
-
-            if (timeOut <= 0.0)
-            {
-                timeOut = 0.24f;
-                i++;
-                _startspeed = _startspeed - 0.00000001f;
-                if(_startspeed <= 0 ) { _startspeed = 0.0f; }
-                _speedPos = new Vector3(_speedPos.x * _startspeed * -1, _speedPos.y * _startspeed * -1, _speedPos.z);
-            }*/
-                              
-                        
-            pos = this.gameObject.transform.localPosition;
-            this.gameObject.transform.localPosition = new Vector3(pos.x + _speedPos.x, pos.y + _speedPos.y, pos.z);
-
-            //４パターンを検出し、ヒット判定
-            if (_speedPos.x <= 0 && RandomPos.x >= pos.x)
-            {
-                if (_speedPos.y > 0 && RandomPos.y < pos.y)
-                {
-                    _speedPos = new Vector3(0, 0, 0);
-                }
-                else if (_speedPos.y <= 0 && RandomPos.y >= pos.y)
-                {
-                    _speedPos = new Vector3(0, 0, 0);
-                }
-            }
-
-            if (_speedPos.x > 0 && RandomPos.x < pos.x)
-            {
-                if (_speedPos.y > 0 && RandomPos.y < pos.y)
-                {
-                    _speedPos = new Vector3(0, 0, 0);
-                }
-                else if (_speedPos.y <= 0 && RandomPos.y >= pos.y)
-                {
-                    _speedPos = new Vector3(0, 0, 0);
-                }
-            }
-
+                     
             //最初１～２秒、ちょっと停滞
-            StartCoroutine("WaitSeconds");
+            //StartCoroutine("WaitSeconds");
         } else
-        {
+        {           
+            /*
             pos = this.gameObject.transform.localPosition;
             this.gameObject.transform.localPosition = new Vector3(pos.x + _speedPos.x, pos.y + _speedPos.y, pos.z);
 
@@ -167,12 +178,54 @@ public class HeartUpObj : MonoBehaviour {
                 {
                     DestObj();
                 }
-            }
+            }*/
         }
         
     }
 
+    IEnumerator WaitSeconds()
+    {
+        yield return new WaitForSeconds(1.0f); //１秒待つ
+
+        //_speedPos = pos - target_pos;
+        //_speedPos = new Vector3(_speedPos.x * _speed * -1, _speedPos.y * _speed * -1, _speedPos.z);
+
+        begin_stop = false;
+
+        //対象までの移動のアニメーション
+        rnd_time = Random.Range(0.5f, 2.0f);
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(this.transform.DOLocalMoveX(target_pos.x, rnd_time)
+        .SetEase(Ease.InBack)
+        .OnComplete(DestObj));
+        sequence.Join(this.transform.DOLocalMoveY(target_pos.y, rnd_time)
+        .SetEase(Ease.InQuad));
+    }
+
     void DestObj()
+    {
+        CountRecycle();
+        
+        //音鳴らす
+        if (_id % _deg == 0)
+        {
+            //Debug.Log("bang");
+            sc.PlaySe(33);
+        }
+        else
+        {
+            
+        }
+
+        //好感度ゲージを上昇
+        girlEat_judge.GetHeartValue();
+
+        girlEat_judge.heart_count--;
+        Destroy(this.gameObject);
+    }
+
+    void CountRecycle()
     {
         if (girlEat_judge._listHeart.Count < 50)
         {
@@ -190,33 +243,5 @@ public class HeartUpObj : MonoBehaviour {
         {
             _deg = 10;
         }
-
-        //音鳴らす
-        if (_id % _deg == 0)
-        {
-            //Debug.Log("bang");
-            sc.PlaySe(33);
-            //sc.PlaySe(34);
-        }
-        else
-        {
-            
-        }
-
-        //好感度ゲージを上昇
-        girlEat_judge.GetHeartValue();
-
-        girlEat_judge.heart_count--;
-        Destroy(this.gameObject);
-    }
-
-    IEnumerator WaitSeconds()
-    {
-        yield return new WaitForSeconds(1.0f); //１秒待つ
-
-        _speedPos = pos - target_pos;
-        _speedPos = new Vector3(_speedPos.x * _speed * -1, _speedPos.y * _speed * -1, _speedPos.z);
-
-        begin_stop = false;
     }
 }

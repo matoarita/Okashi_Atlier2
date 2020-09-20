@@ -1088,6 +1088,7 @@ public class SetImage : MonoBehaviour
 
                 }
 
+                exp_Controller.EffectListClear();
                 Destroy(this.gameObject);
 
             }

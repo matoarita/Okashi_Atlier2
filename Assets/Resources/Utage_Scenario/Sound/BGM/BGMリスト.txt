@@ -13,7 +13,7 @@
 ・BGM_11		audiostock_259681			広場のBGM
 ・BGM_12		audiostock_199708			ひまわり畑のBGM
 ・BGM_13		audiostock_459043			ストロベリーガーデンのBGM
-・BGM_14		candybouquet				ベニエさんテーマBGM
+・BGM_14		収穫祭					ベニエさんテーマBGM	(前の曲：candybouquet）
 ・BGM_15		audiostock_105777			コンテスト会場のBGM
 ・BGM_16		audiostock_815939			コンテストの日のメイン曲
 ・BGM_17		shichigatsunokomorebi			悲しいときに流れる曲１（ちょっとほのぼの）

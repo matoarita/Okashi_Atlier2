@@ -61,6 +61,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject black_panel_A;
     private GameObject compoBG_A;
 
+    private GameObject yes_no_panel;
+
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private ItemRoastDataBase databaseRoast;
@@ -132,6 +134,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab3;
     private GameObject Compo_Magic_effect_Prefab4;
     private GameObject Compo_Magic_effect_Prefab5;
+    private GameObject Compo_Magic_effect_Prefab6;
     private List<GameObject> _listEffect = new List<GameObject>();
 
     private GameObject ResultBGimage;
@@ -201,42 +204,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Compo_Magic_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Particle_Compo3");
         Compo_Magic_effect_Prefab4 = (GameObject)Resources.Load("Prefabs/Particle_Compo4");
         Compo_Magic_effect_Prefab5 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
+        Compo_Magic_effect_Prefab6 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");
 
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
 
-                //キャンバスの読み込み
-                canvas = GameObject.FindWithTag("Canvas");
-
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-                //エクストリームパネルオブジェクトの取得
-                extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
-                extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
-
-                //レベルアップチェック用オブジェクトの取得
-                exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
-
-                //確率パネルの取得
-                kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
-                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-                //レシピメモボタンを取得
-                recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
-                recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
-                memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
-
-                //黒半透明パネルの取得
-                black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
-
-                //コンポBGパネルの取得
-                compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;               
-
-                slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
-                ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
-                ResultBGimage.SetActive(false);
+                InitObject();
 
                 break;
 
@@ -272,6 +246,47 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _temp_extremeSetting = false;
     }
 
+    private void InitObject()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
+        extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
+
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        //確率パネルの取得
+        kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+        kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+        //レシピメモボタンを取得
+        recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
+        recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
+        memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
+
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
+
+        //黒半透明パネルの取得
+        black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+
+        //コンポBGパネルの取得
+        compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
+        ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
+        ResultBGimage.SetActive(false);
+
+        //YesNoパネル
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+
+        //スロット名前変換用オブジェクトの取得
+        slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -282,41 +297,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
             if (compound_Main_obj == null)
             {
-
-                //キャンバスの読み込み
-                canvas = GameObject.FindWithTag("Canvas");
-
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-                extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
-                extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
-                
-                text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-                _text = text_area.GetComponentInChildren<Text>();
-
-                //確率パネルの取得
-                kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
-                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-                //レシピメモボタンを取得
-                recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
-                recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
-                memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
-
-                //レベルアップチェック用オブジェクトの取得
-                exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
-
-                //黒半透明パネルの取得
-                black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
-
-                //コンポBGパネルの取得
-                compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
-                ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
-                ResultBGimage.SetActive(false);
-
-                //スロット名前変換用オブジェクトの取得
-                slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+                InitObject();
             }
 
             //調合中ウェイト+アニメ
@@ -506,6 +487,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_OK();
+
+            //調合完了＋成功
+            compound_Main.ResultComplete_flag = 1;
         }
         else //調合失敗
         {
@@ -544,6 +528,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_NG();
+
+            //調合完了＋成功
+            compound_Main.ResultComplete_flag = 2;
         }
 
         result_ok = false;
@@ -697,6 +684,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_OK();
+
+            //調合完了＋成功
+            compound_Main.ResultComplete_flag = 1;
         }
         else //失敗した
         {
@@ -735,6 +725,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_NG();
+
+            //調合完了＋成功
+            compound_Main.ResultComplete_flag = 2;
         }
 
         recipiresult_ok = false;
@@ -891,6 +884,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_OK();
+
+            //調合完了＋成功
+            compound_Main.ResultComplete_flag = 1;
         }
         else //失敗の場合
         {
@@ -928,6 +924,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_NG();
+
+            //調合完了＋成功
+            compound_Main.ResultComplete_flag = 2;
         }
 
         topping_result_ok = false;
@@ -1033,6 +1032,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
                 kakuritsuPanel_obj.SetActive(false);
+                yes_no_panel.SetActive(false);
 
                 //エフェクト生成＋アニメ開始
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
@@ -1145,6 +1145,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect[1].GetComponent<Canvas>().worldCamera = Camera.main;
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab5));
         _listEffect[2].GetComponent<Canvas>().worldCamera = Camera.main;
+        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab6));
+        _listEffect[3].GetComponent<Canvas>().worldCamera = Camera.main;
 
         //音を鳴らす
         sc.PlaySe(4);

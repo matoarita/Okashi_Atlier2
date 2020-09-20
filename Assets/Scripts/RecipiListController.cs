@@ -98,11 +98,12 @@ public class RecipiListController : MonoBehaviour {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
 
-        yes_button = this.transform.Find("Yes").gameObject;
+        /*yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;
 
         yes_button.SetActive(false);
 
+        /*
         if (GameMgr.tutorial_ON == true)
         {
             no_button.SetActive(false);
@@ -111,7 +112,7 @@ public class RecipiListController : MonoBehaviour {
         {
             no_button.SetActive(true);
         }
-            
+         */   
 
 
         final_recipiselect_flag = false;

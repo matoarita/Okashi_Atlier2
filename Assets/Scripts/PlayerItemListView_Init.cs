@@ -51,8 +51,8 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         pitemlist_scrollview_init = (GameObject)Resources.Load("Prefabs/PlayeritemList_ScrollView");
         playeritemlist_onoff = Instantiate(pitemlist_scrollview_init, canvas.transform);
 
-        playeritemlist_onoff.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
-        playeritemlist_onoff.transform.localPosition = new Vector3(-240,80, 0);
+        //playeritemlist_onoff.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
+        //playeritemlist_onoff.transform.localPosition = new Vector3(-240,80, 0);
         playeritemlist_onoff.name = "PlayeritemList_ScrollView";
 
     }
@@ -65,8 +65,8 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         recipilist_scrollview_init = (GameObject)Resources.Load("Prefabs/RecipiList_ScrollView");
         recipilist_onoff = Instantiate(recipilist_scrollview_init, canvas.transform);
 
-        recipilist_onoff.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
-        recipilist_onoff.transform.localPosition = new Vector3(0, 70, 0);
+        //recipilist_onoff.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
+        //recipilist_onoff.transform.localPosition = new Vector3(0, 70, 0);
         recipilist_onoff.name = "RecipiList_ScrollView";
     }
 

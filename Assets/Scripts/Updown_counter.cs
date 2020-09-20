@@ -41,7 +41,6 @@ public class Updown_counter : MonoBehaviour {
     private PlayerItemList pitemlist;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
-    private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
@@ -150,56 +149,7 @@ public class Updown_counter : MonoBehaviour {
                 }
                 else if (shop_Main.shop_scene == 3)　//依頼の納品の時
                 {
-                    this.transform.localPosition = new Vector3(0, -80, 0);
-
-                    //下をいれると、はじめから最大個数が選択された状態
-                    /*
-                    switch (pitemlistController._toggle_type1)
-                    {
-                        case 0:
-
-                            if (pitemlist.playeritemlist[pitemlistController.kettei_item1] < quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
-                            {
-                                _text.text = "数が足りない..。";
-                                yes.SetActive(false);
-
-                                _count_text.text = updown_kosu.ToString();
-                            }
-                            else
-                            {
-                                _text.text = database.items[pitemlistController.kettei_item1].itemNameHyouji + "を " + quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default + "個" + "\n" + "渡しますか？";
-                                updown_kosu = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default;
-
-                                _count_text.text = updown_kosu.ToString();
-                            }
-                            break;
-
-                        case 1:
-
-                            if (pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu < quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default)
-                            {
-                                _text.text = "数が足りない..。";
-                                yes.SetActive(false);
-
-                                _count_text.text = updown_kosu.ToString();
-                            }
-                            else
-                            {
-                                _text.text = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].itemNameHyouji + "を " + quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default + "個" + "\n" + "渡しますか？";
-                                updown_kosu = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default;
-
-                                _count_text.text = updown_kosu.ToString();
-                            }
-
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                    updown_button[0].interactable = false;
-                    updown_button[1].interactable = false;
-                    */
+                    this.transform.localPosition = new Vector3(0, -80, 0);                    
 
                 }
 
@@ -264,7 +214,6 @@ public class Updown_counter : MonoBehaviour {
             pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-            yes_text = yes.GetComponentInChildren<Text>();
             no = pitemlistController_obj.transform.Find("No").gameObject;
             yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
@@ -305,9 +254,8 @@ public class Updown_counter : MonoBehaviour {
 
             if (recipilistController_obj.activeSelf == true)
             {
-                yes = recipilistController_obj.transform.Find("Yes").gameObject;
-                yes_text = yes.GetComponentInChildren<Text>();
-                no = recipilistController_obj.transform.Find("No").gameObject;
+                yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+                no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
                 yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
                 _p_or_recipi_flag = 1;
@@ -319,10 +267,15 @@ public class Updown_counter : MonoBehaviour {
 
             if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
             {
-                this.transform.localPosition = new Vector3(0, -75, 0);
+                this.transform.localPosition = new Vector3(173, -238, 0);
+                this.transform.localScale = new Vector3(0.65f, 0.65f, 0.65f);
+                this.transform.Find("counter_img1").gameObject.SetActive(false);
             }
             else
             {
+                this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                this.transform.Find("counter_img1").gameObject.SetActive(true);
+
                 switch (compound_Main.compound_select)
                 {
                     case 1: //レシピ調合の場合

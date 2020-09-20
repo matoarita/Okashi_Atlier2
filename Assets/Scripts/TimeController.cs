@@ -141,7 +141,7 @@ public class TimeController : MonoBehaviour
     public void TimeKoushin()
     {
         //時間、ひとまず未使用のため、OFFに。
-        /*
+        
         InitParam();
 
         //プレイヤーデイを基に、カレンダーの日付に変換。
@@ -209,7 +209,7 @@ public class TimeController : MonoBehaviour
         _time_minute1.text = minute.ToString("00");
         _time_hour2.text = hour.ToString("00");
         _time_minute2.text = minute.ToString("00");
-        */
+        
     }
 
     void TimeKeisan()

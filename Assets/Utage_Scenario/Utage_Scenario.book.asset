@@ -74578,12 +74578,12 @@ MonoBehaviour:
       debugIndex: 22
       strings:
       - 
+      - "\u30D2\u30ED\u30A4\u30F3"
+      - face_06_Tereru
       - 
       - 
       - 
-      - 
-      - 
-      - 
+      - 0
       - 
       - "\u4F8B\u5916\u51E6\u7406\uFF1A\u3000\u56FA\u6709\u304A\u83D3\u5B50\u306E\u611F\u60F3\u306A\u3057"
       isEmpty: 0
@@ -74673,7 +74673,7 @@ MonoBehaviour:
       - 
       - 0
       - 
-      - "\u306B\u3044\u3061\u3083\u3093..\u3002\u304A\u3044\u3057\u3044\u3051\u3069\u3001\u4F55\u304B\u304C\u8DB3\u308A\u306A\u3044\u304B\u3082\u3002"
+      - "\u306B\u3044\u3061\u3083\u3093..\u3002\u307E\u305A\u307E\u305A\u306E\u5473\u304B\u306A\u3041\uFF5E\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -74702,25 +74702,40 @@ MonoBehaviour:
       - 
       - 0
       - 
-      - "\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u305F\u6642\u306E\u3001\u56FA\u6709\u306E\u611F\u60F3"
+      - "\u3046\u307F\u3083\u3042\uFF01\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 29
+      debugIndex: 39
+      strings:
+      - 
+      - "\u30D2\u30ED\u30A4\u30F3"
+      - face_06_Tereru
+      - 
+      - 
+      - 
+      - 0
+      - 
+      - "\u306B\u3044\u3061\u3083\u3093\u306E\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u3001\u5909\u308F\u3089\u305A\u304A\u3044\u3057\u3044\u306D\u3047\uFF5E\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 30
       debugIndex: 40
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 30
+    - rowIndex: 31
       debugIndex: 42
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 31
+    - rowIndex: 32
       debugIndex: 43
       strings:
       - 
@@ -74731,25 +74746,40 @@ MonoBehaviour:
       - 
       - 0
       - 
-      - "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u305F\u6642\u306E\u3001\u56FA\u6709\u306E\u611F\u60F3"
+      - "\u3046\u307F\u3083\u3042\uFF01\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 32
+    - rowIndex: 33
+      debugIndex: 44
+      strings:
+      - 
+      - "\u30D2\u30ED\u30A4\u30F3"
+      - face_06_Tereru
+      - 
+      - 
+      - 
+      - 0
+      - 
+      - "\u30AA\u30EC\u30F3\u30B8\u306E\u7518\u9178\u3063\u3071\u3055\u304C\u305F\u307E\u3089\u3093\u3088\uFF5E\uFF01\u304A\u306B\u3044\u3061\u3083\u3093\uFF01"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 34
       debugIndex: 45
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 33
+    - rowIndex: 35
       debugIndex: 47
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u3076\u3069\u3046\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 34
+    - rowIndex: 36
       debugIndex: 48
       strings:
       - 
@@ -74764,21 +74794,21 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 35
+    - rowIndex: 37
       debugIndex: 50
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 36
+    - rowIndex: 38
       debugIndex: 52
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 37
+    - rowIndex: 39
       debugIndex: 53
       strings:
       - 
@@ -74793,21 +74823,21 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 38
+    - rowIndex: 40
       debugIndex: 55
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 39
+    - rowIndex: 41
       debugIndex: 57
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30E9\u30B9\u30AF"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 40
+    - rowIndex: 42
       debugIndex: 58
       strings:
       - 
@@ -74822,21 +74852,21 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 41
+    - rowIndex: 43
       debugIndex: 60
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 42
+    - rowIndex: 44
       debugIndex: 62
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30E9\u30B9\u30AF\uFF1C\u30D0\u30BF\u30FC\uFF1E"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 43
+    - rowIndex: 45
       debugIndex: 64
       strings:
       - 
@@ -74851,7 +74881,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 44
+    - rowIndex: 46
       debugIndex: 65
       strings:
       - 
@@ -74866,7 +74896,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 45
+    - rowIndex: 47
       debugIndex: 67
       strings:
       - 
@@ -74881,21 +74911,21 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 46
+    - rowIndex: 48
       debugIndex: 68
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 47
+    - rowIndex: 49
       debugIndex: 70
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30AF\u30EC\u30FC\u30D7\u751F\u5730\u306E\u307E\u307E"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 48
+    - rowIndex: 50
       debugIndex: 71
       strings:
       - 
@@ -74910,7 +74940,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 49
+    - rowIndex: 51
       debugIndex: 72
       strings:
       - 
@@ -74925,21 +74955,21 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 50
+    - rowIndex: 52
       debugIndex: 73
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 51
+    - rowIndex: 53
       debugIndex: 76
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30AF\u30EC\u30FC\u30D7"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 52
+    - rowIndex: 54
       debugIndex: 77
       strings:
       - 
@@ -74954,21 +74984,21 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 53
+    - rowIndex: 55
       debugIndex: 79
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 54
+    - rowIndex: 56
       debugIndex: 82
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 55
+    - rowIndex: 57
       debugIndex: 83
       strings:
       - 
@@ -74983,21 +75013,21 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 56
+    - rowIndex: 58
       debugIndex: 85
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 57
+    - rowIndex: 59
       debugIndex: 88
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30C9\u30FC\u30CA\u30C4"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 58
+    - rowIndex: 60
       debugIndex: 89
       strings:
       - 
@@ -75012,21 +75042,21 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 59
+    - rowIndex: 61
       debugIndex: 91
       strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 60
+    - rowIndex: 62
       debugIndex: 94
       strings:
       - "*\u56FA\u6709\u611F\u60F3_\u30DE\u30D5\u30A3\u30F3"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 61
+    - rowIndex: 63
       debugIndex: 95
       strings:
       - 
@@ -75041,7 +75071,7 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 62
+    - rowIndex: 64
       debugIndex: 97
       strings:
       - EndScenario
@@ -75050,7 +75080,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:KoyuOkashiAfter
     type: 1
-    textLength: 1606
+    textLength: 1679
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -178267,12 +178297,12 @@ MonoBehaviour:
       debugIndex: 22
       strings:
       - 
+      - "\u30D2\u30ED\u30A4\u30F3"
+      - face_06_Tereru
       - 
       - 
       - 
-      - 
-      - 
-      - 
+      - 0
       - 
       - "\u4F8B\u5916\u51E6\u7406\uFF1A\u3000\u56FA\u6709\u304A\u83D3\u5B50\u306E\u611F\u60F3\u306A\u3057"
       isEmpty: 0
@@ -178380,7 +178410,7 @@ MonoBehaviour:
       - 
       - 0
       - 
-      - "\u306B\u3044\u3061\u3083\u3093..\u3002\u304A\u3044\u3057\u3044\u3051\u3069\u3001\u4F55\u304B\u304C\u8DB3\u308A\u306A\u3044\u304B\u3082\u3002"
+      - "\u306B\u3044\u3061\u3083\u3093..\u3002\u307E\u305A\u307E\u305A\u306E\u5473\u304B\u306A\u3041\uFF5E\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -178421,14 +178451,23 @@ MonoBehaviour:
       - 
       - 0
       - 
-      - "\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u305F\u6642\u306E\u3001\u56FA\u6709\u306E\u611F\u60F3"
+      - "\u3046\u307F\u3083\u3042\uFF01\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 39
       debugIndex: 39
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - "\u30D2\u30ED\u30A4\u30F3"
+      - face_06_Tereru
+      - 
+      - 
+      - 
+      - 0
+      - 
+      - "\u306B\u3044\u3061\u3083\u3093\u306E\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u3001\u5909\u308F\u3089\u305A\u304A\u3044\u3057\u3044\u306D\u3047\uFF5E\u3002"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 40
@@ -178462,14 +178501,23 @@ MonoBehaviour:
       - 
       - 0
       - 
-      - "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u305F\u6642\u306E\u3001\u56FA\u6709\u306E\u611F\u60F3"
+      - "\u3046\u307F\u3083\u3042\uFF01\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 44
       debugIndex: 44
-      strings: []
-      isEmpty: 1
+      strings:
+      - 
+      - "\u30D2\u30ED\u30A4\u30F3"
+      - face_06_Tereru
+      - 
+      - 
+      - 
+      - 0
+      - 
+      - "\u30AA\u30EC\u30F3\u30B8\u306E\u7518\u9178\u3063\u3071\u3055\u304C\u305F\u307E\u3089\u3093\u3088\uFF5E\uFF01\u304A\u306B\u3044\u3061\u3083\u3093\uFF01"
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 45
@@ -178919,7 +178967,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:KoyuOkashiAfter
     type: 1
-    textLength: 1606
+    textLength: 1679
     headerRow: 0
   - rows:
     - rowIndex: 0

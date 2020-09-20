@@ -335,9 +335,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     
                     if (compound_Main.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
                     {
-                        yes = recipilistController_obj.transform.Find("Yes").gameObject;
+                        yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
                         yes_text = yes.GetComponentInChildren<Text>();
-                        no = recipilistController_obj.transform.Find("No").gameObject;
+                        no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
                     }
                     else
                     {
@@ -676,10 +676,10 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             //まずは、レシピ・それ以外の調合用にオブジェクト取得
             if (compound_Main.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
             {
-                yes = recipilistController_obj.transform.Find("Yes").gameObject;
+                yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
-                no = recipilistController_obj.transform.Find("No").gameObject;
-               
+                no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+
             }
             else
             {

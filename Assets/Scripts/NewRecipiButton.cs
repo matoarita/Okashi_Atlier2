@@ -15,6 +15,8 @@ public class NewRecipiButton : MonoBehaviour {
     private GameObject extremePanel_obj;
     private ExtremePanel extremePanel;
 
+    private Exp_Controller exp_Controller;
+
     private SoundController sc;
 
     // Use this for initialization
@@ -25,6 +27,9 @@ public class NewRecipiButton : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -99,7 +104,7 @@ public class NewRecipiButton : MonoBehaviour {
 
         }
 
-
+        exp_Controller.EffectListClear();
         extremePanel.LifeAnimeOnTrue();
 
         card_view.DeleteCard_DrawView();
