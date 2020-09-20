@@ -1269,6 +1269,8 @@ public class Compound_Main : MonoBehaviour
 
                 //ヒカリちゃんを表示しない。デフォルト描画順
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
+                trans_motion = 0; //調合シーン用のヒカリちゃんの位置
+                live2d_animator.SetInteger("trans_motion", trans_motion);
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);

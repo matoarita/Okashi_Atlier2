@@ -28,7 +28,7 @@ namespace Live2D.Cubism.Framework
         /// Opening of the eyes.
         /// </summary>
         [SerializeField, Range(0f, 1f)]
-        public float EyeOpening = 1f;
+        public float EyeOpening = 0.75f;
 
 
         /// <summary>

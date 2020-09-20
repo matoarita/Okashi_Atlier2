@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using DG.Tweening;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
+using Live2D.Cubism.Rendering;
 
 //
 //アイテムの更新・経験値の増減処理を行うコントローラー　＋　調合の処理を担うメソッド
@@ -62,6 +65,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject compoBG_A;
 
     private GameObject yes_no_panel;
+
+    private GameObject _model_obj;
+    private Animator live2d_animator;
+    private int trans_expression;
+    private int trans_motion;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -285,6 +293,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //スロット名前変換用オブジェクトの取得
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+
+        //Live2Dモデルの取得
+        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        live2d_animator = _model_obj.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -1033,6 +1045,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 memoResult_obj.SetActive(false);
                 kakuritsuPanel_obj.SetActive(false);
                 yes_no_panel.SetActive(false);
+
+                //ヒカリちゃんを右にずらす
+                trans_motion = 20; //右に消えるアニメに遷移
+                live2d_animator.SetInteger("trans_motion", trans_motion);
 
                 //エフェクト生成＋アニメ開始
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));

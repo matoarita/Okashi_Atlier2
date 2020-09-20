@@ -2174,7 +2174,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 0
+      item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 47
       file_name: apareiyu_white
@@ -10918,7 +10918,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 0
+      item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 726
       file_name: whip_cream
