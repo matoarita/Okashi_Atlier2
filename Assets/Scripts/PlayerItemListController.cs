@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 //プレイヤーアイテムリストのスクロールビューのコントローラー。
 //調合シーンや、アイテムを女の子にあげたときの処理は、「itemSelectToggle」スクリプトに記述してます。
@@ -255,6 +256,23 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             reset_and_DrawView();
         }
 
+        OpenAnim();
+    }
+
+    void OpenAnim()
+    {
+        //まず、初期値。
+        this.GetComponent<CanvasGroup>().alpha = 0;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(this.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
+            .SetRelative()); //元の位置から30px上に置いておく。
+
+        sequence.Append(this.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.3f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
+        sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
     public void reset_and_DrawView_Topping()

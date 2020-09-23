@@ -48,7 +48,7 @@ public class HeartUpObj : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        InitParam();
+        //InitParam();
     }
 
     void InitParam()
@@ -83,6 +83,7 @@ public class HeartUpObj : MonoBehaviour {
 
         //最初の生成位置
         this.transform.localPosition = RandomPos;
+        Debug.Log("this.transform.localPosition" + this.transform.localPosition);
 
         pos = RandomPos;
 
@@ -94,6 +95,8 @@ public class HeartUpObj : MonoBehaviour {
     private void OnEnable()
     {
         InitParam();
+
+        StartScaleAnim();
 
         //ハートの数が多い場合、エフェクトを少し間引く
         CountRecycle();
@@ -121,18 +124,30 @@ public class HeartUpObj : MonoBehaviour {
 
     void AttackEffect()
     {
+        _listEffect = null;
         //エフェクト生成
         _listEffect = Instantiate(Magic_effect_Prefab1, Girl_love_exp_bar.transform);
         _listEffect.GetComponent<Canvas>().worldCamera = main_cam;
-        _listEffect.transform.localPosition = RandomPos;
+        _listEffect.transform.localPosition = this.transform.localPosition;
+        //Debug.Log("this.transform.localPosition" + this.transform.localPosition);
+    }
+
+    void StartScaleAnim()
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(this.transform.DOScale(new Vector3(-0.2f, -0.2f, -0.2f), 0.0f)
+        .SetRelative());
+        sequence.Append(this.transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 1.0f)
+        .SetRelative()
+        .SetEase(Ease.OutElastic)); //30px上から、元の位置に戻る。
     }
 
     // Update is called once per frame
     void Update () {
 
         if( begin_stop )
-        {
-                     
+        {                     
             //最初１～２秒、ちょっと停滞
             //StartCoroutine("WaitSeconds");
         } else

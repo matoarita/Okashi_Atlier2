@@ -9263,6 +9263,52 @@ MonoBehaviour:
       item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 324
+      file_name: rich_tea
+      name: mato_tea
+      nameHyouji: "\u307E\u3068\u8336"
+      desc: "\u5929\u4F7F\u307E\u3068\u308A\u3048\u308B\u304C\u3088\u304F\u6DF9\u308C\u3066\u304F\u308C\u308B\u304A\u8336\u3002\u4E2D\u8EAB\u306F\u3001\u714E\u8336\u3002\u843D\u3061\u7740\u304F\u7652\u3084\u3057\u306E\u9999\u308A\u304C\u3059\u308B\u3002"
+      comp_hosei: 0
+      hp: 300
+      day: 0
+      quality: 20
+      exp: 0
+      ex_probability: 0.95
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Okashi
+      subtype: Tea
+      girl1_like: 10
+      cost_price: 2500
+      sell_price: 550
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Lavender
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 325
       file_name: neko_cookie
       name: sinamon_pie
       nameHyouji: "\u30D0\u30BF\u30FC\u30B9\u30B3\u30C3\u30C1\u30B7\u30CA\u30E2\u30F3\u30D1\u30A4"
@@ -9308,7 +9354,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 325
+    - ItemID: 326
       file_name: rich_tea
       name: corn_soup
       nameHyouji: "\u30B3\u30FC\u30F3\u30B9\u30FC\u30D7"
@@ -9354,7 +9400,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 326
+    - ItemID: 327
       file_name: coffee
       name: forest_coffee
       nameHyouji: "\u68EE\u306E\u30B3\u30FC\u30D2\u30FC"
@@ -9400,7 +9446,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 327
+    - ItemID: 328
       file_name: coffee
       name: light_manderin
       nameHyouji: "\u5149\u306E\u30DE\u30F3\u30C7\u30EA\u30F3"
@@ -9446,7 +9492,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 328
+    - ItemID: 329
       file_name: rich_tea
       name: kogyoku_apple_tea
       nameHyouji: "\u7D05\u7389\u30A2\u30C3\u30D7\u30EB\u30C6\u30A3\u30FC"
@@ -9492,7 +9538,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 329
+    - ItemID: 330
       file_name: neko_cookie
       name: potato_bonbon
       nameHyouji: "\u30DD\u30C6\u30C8\u30DC\u30F3\u30DC\u30F3"
@@ -9538,7 +9584,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 330
+    - ItemID: 331
       file_name: neko_cookie
       name: torte
       nameHyouji: "\u30C8\u30EB\u30C6"
@@ -9584,7 +9630,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 331
+    - ItemID: 332
       file_name: coffee
       name: sea_losanonos
       nameHyouji: "\u6D77\u306E\u30ED\u30B9\u30A2\u30CE\u30CE\u30B9"
@@ -9630,7 +9676,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 332
+    - ItemID: 333
       file_name: strawberry_parfe
       name: vanilla_parfe
       nameHyouji: "\u30D0\u30CB\u30E9\u30D1\u30D5\u30A7"
@@ -9676,7 +9722,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 333
+    - ItemID: 334
       file_name: chocolate_parfe
       name: chocorate_parfe
       nameHyouji: "\u5473\u308F\u3044\u6FC3\u539A\u30C1\u30E7\u30B3\u30D1\u30D5\u30A7"

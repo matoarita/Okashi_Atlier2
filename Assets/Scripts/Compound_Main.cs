@@ -118,6 +118,7 @@ public class Compound_Main : MonoBehaviour
     private int trans_motion;
     private int trans_position;
     public int ResultComplete_flag;
+    private bool live2d_posmove_flag; //位置を変更したフラグ
 
     private GameObject compoundselect_onoff_obj;
 
@@ -373,6 +374,7 @@ public class Compound_Main : MonoBehaviour
         Live2d_default_pos = _model_obj.transform.localPosition;
         live2d_animator = _model_obj.GetComponent<Animator>();
         ResultComplete_flag = 0; //調合が完了したよフラグ
+        live2d_posmove_flag = false;
 
         compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
 
@@ -1007,8 +1009,11 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
-                    trans_motion = 11; //位置をもとに戻す。
-                    live2d_animator.SetInteger("trans_motion", trans_motion);
+                    if (live2d_posmove_flag){
+                        trans_motion = 11; //位置をもとに戻す。
+                        live2d_animator.SetInteger("trans_motion", trans_motion);
+                        live2d_posmove_flag = false;
+                    }
                 }
 
                 //音関係
@@ -1102,6 +1107,7 @@ public class Compound_Main : MonoBehaviour
                 cubism_rendercontroller.SortingOrder = 0;
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
+                live2d_posmove_flag = true; //位置を変更したフラグ
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1146,6 +1152,7 @@ public class Compound_Main : MonoBehaviour
                 cubism_rendercontroller.SortingOrder = 0;
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
+                live2d_posmove_flag = true; //位置を変更したフラグ
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)
@@ -1198,6 +1205,7 @@ public class Compound_Main : MonoBehaviour
                 cubism_rendercontroller.SortingOrder = 0;
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
+                live2d_posmove_flag = true; //位置を変更したフラグ
 
                 //BGMを変更
                 if (bgm_change_flag2 != true)

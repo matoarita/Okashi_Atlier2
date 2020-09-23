@@ -23,8 +23,8 @@ MonoBehaviour:
       quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 5
-      buy_price: 200
+      kosu_max: 2
+      buy_price: 400
       rich: 0
       sweat: 20
       bitter: 0
@@ -51,8 +51,8 @@ MonoBehaviour:
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 5
-      buy_price: 300
+      kosu_max: 2
+      buy_price: 600
       rich: 0
       sweat: 0
       bitter: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 3
-      buy_price: 350
+      buy_price: 750
       rich: 0
       sweat: 0
       bitter: 0
@@ -359,8 +359,8 @@ MonoBehaviour:
       quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 4
-      buy_price: 200
+      kosu_max: 2
+      buy_price: 400
       rich: 0
       sweat: 20
       bitter: 0
@@ -387,8 +387,8 @@ MonoBehaviour:
       quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 4
-      buy_price: 320
+      kosu_max: 2
+      buy_price: 640
       rich: 0
       sweat: 20
       bitter: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 4
-      buy_price: 150
+      buy_price: 550
       rich: 0
       sweat: 20
       bitter: 0

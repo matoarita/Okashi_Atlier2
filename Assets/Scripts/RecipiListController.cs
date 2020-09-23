@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class RecipiListController : MonoBehaviour {
 
@@ -96,29 +97,29 @@ public class RecipiListController : MonoBehaviour {
     void OnEnable()
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
-        //Debug.Log("OnEnable");
-
-        /*yes_button = this.transform.Find("Yes").gameObject;
-        no_button = this.transform.Find("No").gameObject;
-
-        yes_button.SetActive(false);
-
-        /*
-        if (GameMgr.tutorial_ON == true)
-        {
-            no_button.SetActive(false);
-        }
-        else
-        {
-            no_button.SetActive(true);
-        }
-         */   
+        //Debug.Log("OnEnable");  
 
 
         final_recipiselect_flag = false;
         reset_and_DrawView();
 
+        OpenAnim();
+    }
 
+    void OpenAnim()
+    {
+        //まず、初期値。
+        this.GetComponent<CanvasGroup>().alpha = 0;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(this.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
+            .SetRelative()); //元の位置から30px上に置いておく。
+
+        sequence.Append(this.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.3f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
+        sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
     public void RecipiList_Draw()

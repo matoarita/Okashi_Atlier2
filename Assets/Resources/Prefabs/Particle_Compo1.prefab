@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198971717129901966}
   - component: {fileID: 199683793521877252}
   - component: {fileID: 95211206869680394}
+  - component: {fileID: 223943156691243816}
   m_Layer: 0
   m_Name: Particle_Compo1
   m_TagString: Untagged
@@ -106,7 +107,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1979644702
+  randomSeed: -1471676458
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3417,6 +3418,26 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!223 &223943156691243816
+Canvas:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1407133970740260}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!224 &224724798572498610
 RectTransform:
   m_ObjectHideFlags: 1
@@ -3424,8 +3445,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407133970740260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
+  m_LocalScale: {x: 0.18898536, y: 0.18898536, z: 0.18898536}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3433,5 +3454,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 780, y: 585}
+  m_SizeDelta: {x: 814.6667, y: 611}
   m_Pivot: {x: 0.5, y: 0.5}

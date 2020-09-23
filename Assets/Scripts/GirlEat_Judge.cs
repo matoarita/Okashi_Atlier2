@@ -52,7 +52,6 @@ public class GirlEat_Judge : MonoBehaviour {
     public int clear_spokashi_status;
 
     private Text Okashi_Score;
-    private List<GameObject> Manzoku_star = new List<GameObject>();
     private Text Manzoku_Score;
     private Text Delicious_Text;
 
@@ -121,6 +120,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _tempGirllove;
     private int _tempresultGirllove;
     private int _sumlove;
+    public int star_Count;
 
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
@@ -302,6 +302,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private CubismModel _model;
     private Animator live2d_animator;
     private CubismRenderController _renderController;
+    private int trans_motion;
+    private int trans_expression;
 
     private GameObject stageclear_toggle;
     private GameObject stageclear_Button;
@@ -437,14 +439,6 @@ public class GirlEat_Judge : MonoBehaviour {
                 stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
                 stageclear_button_on = false;
 
-                i = 0;
-                foreach (Transform child in ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score_star/Viewport/Content").transform)
-                {
-                    //Debug.Log(child.name);           
-                    Manzoku_star.Add(child.gameObject);
-                    Manzoku_star[i].SetActive(false);
-                    i++;
-                }
                 Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
                 Delicious_Text = ScoreHyoujiPanel.transform.Find("Image/DeliciousPanel/Text").GetComponent<Text>();
                 ScoreHyoujiPanel.SetActive(false);
@@ -584,6 +578,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     MoneyStatus_Panel_obj.SetActive(false);
                     text_area.SetActive(false);
                     Girlloveexp_bar.SetActive(false);
+
                     if (stageclear_Button.activeInHierarchy)
                     {
                         stageclear_button_on = true;
@@ -610,6 +605,19 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     //intパラメーターの値を設定する.
                     maincam_animator.SetInteger("trans", trans);
+
+                    //Live2D「うわぁ～～」のアニメーション
+                    trans_motion = 2;
+                    live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                    trans_expression = 110; //各表情に遷移。
+                    live2d_animator.SetInteger("trans_expression", trans_expression);
+
+                    _model.GetComponent<CubismAutoEyeBlinkInput>().enabled = false;
+                    _model.GetComponent<CubismEyeBlinkController>().enabled = false;
+                    _model.GetComponent<GazeController>().enabled = false;
+
+                    touch_controller.Touch_OnAllOFF();
 
                     break;
 
@@ -663,8 +671,21 @@ public class GirlEat_Judge : MonoBehaviour {
                     //intパラメーターの値を設定する.
                     maincam_animator.SetInteger("trans", trans);
 
+                    //Live2Dモーションをもとに戻す
+                    trans_motion = 0;
+                    live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                    trans_expression = 2; //ごきげん表情に一度戻す。
+                    live2d_animator.SetInteger("trans_expression", trans_expression);
+                    //girl1_status.DefaultFace();
+
+                    _model.GetComponent<CubismAutoEyeBlinkInput>().enabled = true;
+                    _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+
                     EatAnimPanel.SetActive(false);
                     EatStartEffect.SetActive(false);
+
+                    touch_controller.Touch_OnAllON();
 
                     break;
 
@@ -1950,41 +1971,14 @@ public class GirlEat_Judge : MonoBehaviour {
     //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
     void OkashiSaitenhyouji()
     {       
-        ScoreHyoujiPanel.SetActive(true);
-        ScoreHyouji_ON = true;       
-        girl1_status.GirlEat_Judge_on = false;
-        girl1_status.WaitHint_on = false;
 
-
-        //お菓子の点数を表示
-        /*if (total_score < GameMgr.low_score) //
-        {
-            Okashi_Score.color = new Color(129f / 255f, 87f / 255f, 60f / 255f); //茶色　青文字(105f / 255f, 168f / 255f, 255f / 255f)      
-        } else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
-        {
-            Okashi_Score.color = new Color(255f / 255f, 105f / 255f, 170f / 255f); //ピンク
-        } else
-        {
-            Okashi_Score.color = new Color(255f / 255f, 105f / 255f, 170f / 255f); //ピンク　黄色(255f / 255f, 252f / 255f, 158f / 255f)
-        }
-        Okashi_Score.text = total_score.ToString();*/
-
-
-        //☆の初期化
-        for (i = 0; i < 4; i++)
-        {
-            Manzoku_star[i].SetActive(false);
-        }
-
+        //☆
         if (total_score > 0 && total_score < 30)
         {
             //Delicious_Text.text = "Morte..";
             //Manzoku_Score.text = "★";
-            for (i = 0; i < 1; i++)
-            {                
-                Manzoku_star[i].SetActive(true);
-            }
 
+            star_Count = 1;
             SetHintText(0); //通常得点時
             Hint_Text.text = temp_hint_text;
             //HighScore_flag = false;
@@ -1993,11 +1987,8 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //Delicious_Text.text = "Bene!";
             //Manzoku_Score.text = "★★";
-            for (i = 0; i < 2; i++)
-            {               
-                Manzoku_star[i].SetActive(true);
-            }
 
+            star_Count = 2;
             SetHintText(0); //通常得点時
             Hint_Text.text = temp_hint_text;
             //HighScore_flag = false;
@@ -2006,11 +1997,8 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //Delicious_Text.text = "Di molto Bene!";
             //Manzoku_Score.text = "★★★";
-            for (i = 0; i < 3; i++)
-            {                
-                Manzoku_star[i].SetActive(true);
-            }
 
+            star_Count = 3;
             SetHintText(0); //通常得点時
             Hint_Text.text = temp_hint_text;
             //HighScore_flag = false;
@@ -2019,11 +2007,8 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //Delicious_Text.text = "Benissimo!!";
             //Manzoku_Score.text = "★★★★";
-            for (i = 0; i < 4; i++)
-            {                
-                Manzoku_star[i].SetActive(true);
-            }
 
+            star_Count = 4;
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
             //HighScore_flag = true; //高得点をとれた！その場合、サブクエストが発生したり、特別なイベントが発生することもある。
@@ -2036,11 +2021,8 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //Delicious_Text.text = "Vittoria!!";
             //Manzoku_Score.text = "★★★★★";
-            for (i = 0; i < 5; i++)
-            {                
-                Manzoku_star[i].SetActive(true);
-            }
 
+            star_Count = 5;
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
             //HighScore_flag = true;
@@ -2054,6 +2036,7 @@ public class GirlEat_Judge : MonoBehaviour {
             total_score = 0;
             //Delicious_Text.text = "Death..";
 
+            star_Count = 0;
             SetHintText(2); //マズイとき時
             Hint_Text.text = temp_hint_text;
             //HighScore_flag = false;
@@ -2076,7 +2059,12 @@ public class GirlEat_Judge : MonoBehaviour {
             sc.PlaySe(42); //キラリ～ン 42か47
             sc.PlaySe(43); //拍手
         }
-        
+
+        ScoreHyoujiPanel.SetActive(true);
+        ScoreHyouji_ON = true;
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.WaitHint_on = false;
+
         Okashi_Result();
     }
 

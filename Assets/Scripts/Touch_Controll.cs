@@ -18,6 +18,14 @@ public class Touch_Controll : MonoBehaviour
     private int draghair_count;
 
     private GameObject _model;
+    private Animator live2d_animator;
+    private int trans_expression;
+    private int trans_motion;
+
+    private bool isRunning;
+    private bool touchhair_start;
+
+    private float timeOut;
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -37,10 +45,35 @@ public class Touch_Controll : MonoBehaviour
 
         //Live2Dモデルの取得
         _model = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        live2d_animator = _model.GetComponent<Animator>();
 
         touch_flag = true;
+        isRunning = false;
+        touchhair_start = false;
 
         draghair_count = 0;
+        timeOut = 2.0f;
+    }
+
+    private void Update()
+    {
+        //頭をなでなでしている途中の処理
+        if (touchhair_start)
+        {
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+            {
+                timeOut = 2.0f;
+            }
+
+            if (isRunning)
+            {
+                timeOut -= Time.deltaTime;
+                if(timeOut <= 0)
+                {
+                    ResetGazeControl();
+                }
+            }           
+        }
     }
 
     public void OnTouchFace()
@@ -61,6 +94,11 @@ public class Touch_Controll : MonoBehaviour
         if (touch_flag)
         {
             //Debug.Log("Touch_Hair");            
+            touchhair_start = true;
+            if (isRunning)
+            {
+                timeOut = 2.0f;
+            }
 
             if (!girl1_status.Girl1_touchhair_start)
             {               
@@ -81,6 +119,11 @@ public class Touch_Controll : MonoBehaviour
         if (touch_flag)
         {
             //Debug.Log("Drag_Hair: " + draghair_count);
+            touchhair_start = true;
+            if (isRunning)
+            {
+                timeOut = 2.0f;
+            }
 
             if (girl1_status.Girl1_touchhair_start)
             {
@@ -99,14 +142,27 @@ public class Touch_Controll : MonoBehaviour
     {
         if (touch_flag)
         {
-            //Debug.Log("EndDrag_Hair");
+            //Debug.Log("EndDrag_Hair");           
 
-            if(girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
+            if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
             {
                 girleat_judge.DegHeart(-2); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
             }
             //girl1_status.Girl1_touchhair_start = false;
             draghair_count = 0;
+                        
+            if (isRunning)
+            {
+                timeOut = 2.0f;
+            }
+            else
+            {
+                isRunning = true;
+
+                //Debug.Log("ResetGaze ON");
+
+                timeOut = 2.0f;
+            }
         }
     }
 
@@ -191,5 +247,17 @@ public class Touch_Controll : MonoBehaviour
     public void TouchOn()
     {
         touch_flag = true;
+    }
+
+    void ResetGazeControl()
+    {
+
+        _model.GetComponent<GazeController>().enabled = false;
+
+        trans_motion = 30;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+
+        isRunning = false;
+        touchhair_start = false;
     }
 }

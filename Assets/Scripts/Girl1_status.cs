@@ -542,7 +542,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         Girl1_touchhair_count = 0;
                         Girl1_touchhair_start = false;
                         GirlEat_Judge_on = true;
-                        _model_obj.GetComponent<GazeController>().enabled = false;
 
                         //吹き出し・ハングリーステータスをリセット
                         ResetHukidashi();

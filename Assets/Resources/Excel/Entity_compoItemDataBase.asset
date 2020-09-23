@@ -606,7 +606,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 1
+      cmp_flag: 0
       cost_time: 1
       success_rate: 100
       renkin_Bexp: 4
@@ -750,7 +750,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 1
+      cmp_flag: 0
       cost_time: 1
       success_rate: 100
       renkin_Bexp: 4
@@ -798,7 +798,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 1
+      cmp_flag: 0
       cost_time: 1
       success_rate: 100
       renkin_Bexp: 4

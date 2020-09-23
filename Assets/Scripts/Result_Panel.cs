@@ -18,13 +18,20 @@ public class Result_Panel : MonoBehaviour
     private GameObject Resultimage;
     private GameObject Getlove_panel;
     private GameObject Getlove_param;
+    private GameObject Manzoku_star_content;
+    private GameObject starPrefab;
+    private GameObject hint_text_obj;
+    private List<GameObject> _liststar = new List<GameObject>();
 
     private int getlove_exp;
     private int Total_score;
+    private int star_count;
 
     private Tween coinTween;
     private int currentDispCoin;
     private int preDispCoin;
+
+    private int _poncount;
 
     private Text okashi_score_text;
 
@@ -34,6 +41,8 @@ public class Result_Panel : MonoBehaviour
 
     private GameObject Magic_effect_Prefab1;
     private List<GameObject> _listEffect = new List<GameObject>();
+
+    private int i;
 
     // Use this for initialization
     void Start()
@@ -54,7 +63,6 @@ public class Result_Panel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         /*
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -79,11 +87,25 @@ public class Result_Panel : MonoBehaviour
         okashi_score_text = this.transform.Find("Image/Okashi_Score").GetComponent<Text>();
         okashi_score_text.text = "";
 
+        Manzoku_star_content = this.transform.Find("Image/Manzoku_Score_star/Viewport/Content").gameObject;
+        starPrefab = (GameObject)Resources.Load("Prefabs/StarScore");
+
+        hint_text_obj = this.transform.Find("Image/Hint_Text").gameObject;
+        hint_text_obj.GetComponent<CanvasGroup>().alpha = 0;
+
         currentDispCoin = 0;
         coinTween = null;
 
         getlove_exp = girlEat_judge.Getlove_exp;
         Total_score = girlEat_judge.total_score;
+        star_count = girlEat_judge.star_Count;
+
+        //スター消す
+        foreach (Transform child in Manzoku_star_content.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        _liststar.Clear();
 
         AnimEnd = false;
 
@@ -179,6 +201,60 @@ public class Result_Panel : MonoBehaviour
 
     //③数字がすべて表示された後のアニメ
     void EndCountUpAnim()
+    {
+        _poncount = 0;
+       
+        StartCoroutine("StarPon"); //満足度の☆表示              
+    }
+
+    IEnumerator StarPon()
+    {
+        if(_poncount >= star_count)
+        {
+            HintTextAnim();
+            GetLoveBarAnim();           
+            yield break;
+        }
+
+        _liststar.Add(Instantiate(starPrefab, Manzoku_star_content.transform));
+        sc.PlaySe(30);
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(_liststar[_poncount].transform.DOScale(new Vector3(-0.2f, -0.2f, -0.2f), 0.0f)
+        .SetRelative());
+        sequence.Append(_liststar[_poncount].transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0.3f)
+        .SetRelative()
+        .SetEase(Ease.OutElastic)); //30px上から、元の位置に戻る。
+
+        /*if (_poncount >= 4) //☆５のときの特別な音声
+        {
+            sc.PlaySe(44);
+        }*/
+
+        yield return new WaitForSeconds(0.2f);
+       
+        _poncount++;
+        StartCoroutine("StarPon");
+
+    }
+
+    //④ヒントテキストの表示
+    void HintTextAnim()
+    {       
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(hint_text_obj.transform.DOLocalMoveX(-30f, 0.0f)
+        .SetRelative());
+
+        sequence.Append(hint_text_obj.transform.DOLocalMoveX(30f, 0.3f)
+        .SetRelative()
+        .SetEase(Ease.OutElastic)); //30px上から、元の位置に戻る。
+        sequence.Join(hint_text_obj.GetComponent<CanvasGroup>().DOFade(1, 0.3f));
+    }
+
+    //⑤好感度バー表示
+    void GetLoveBarAnim()
     {
         GetLoveTextKoushin();
 
