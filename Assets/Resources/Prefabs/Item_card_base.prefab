@@ -227,7 +227,6 @@ GameObject:
   - component: {fileID: 222936770182827602}
   - component: {fileID: 114876006560416692}
   - component: {fileID: 114139536248719738}
-  - component: {fileID: 95683910396930546}
   - component: {fileID: 82928658870317600}
   - component: {fileID: 223278737215196262}
   - component: {fileID: 114898299580188986}
@@ -3362,23 +3361,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &95683910396930546
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1118836723063402}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 876b9ae5d1a4ea04780e7120e14b8533, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114001097924212882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6557,7 +6539,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 024a2d681d3904140a12e7aa79f79447, type: 3}
+    m_Font: {fileID: 12800000, guid: a00e89924d8183944a032490ff80fa49, type: 3}
     m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
@@ -6568,7 +6550,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1.2
+    m_LineSpacing: 0.8
   m_Text: "\u3075\u308F\u3075\u308F\n\u3068\u308D\u3068\u308D\n3\u884C"
 --- !u!114 &114542342485199294
 MonoBehaviour:

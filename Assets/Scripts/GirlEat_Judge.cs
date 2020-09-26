@@ -870,7 +870,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     _windowtext.text = "今はあまりお腹が減ってないらしい";
 
-                    //compound_Main.compound_status = 0;
+                    compound_Main.compound_status = 0;
                     //お菓子の判定処理を終了
                     compound_Main.girlEat_ON = false;
 
@@ -893,7 +893,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     _windowtext.text = "お菓子をあげたばかりだ。";
 
-                    //compound_Main.compound_status = 0;
+                    compound_Main.compound_status = 0;
                     //お菓子の判定処理を終了
                     compound_Main.girlEat_ON = false;
 
@@ -2296,11 +2296,11 @@ public class GirlEat_Judge : MonoBehaviour {
         _tempGirllove = girl1_status.girl1_Love_exp;//あがる前の好感度を一時保存
         girl_param.text = _tempGirllove.ToString();
 
-        StartCoroutine("GetLoveEnd");
+        GetLoveEnd();
           
     }
 
-    IEnumerator GetLoveEnd()
+    void GetLoveEnd()
     {
         //一時的に触れなくする。
         if(emerarudonguri_get)
@@ -2314,27 +2314,21 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else
         {
-            compound_Main.compound_status = 0;
-        }
+            if (quest_clear && !GameMgr.QuestClearButton_anim)
+            {
+                girl1_status.GirlEat_Judge_on = false;
+                girl1_status.WaitHint_on = false;
+                girl1_status.hukidasiOff();
+                touch_controller.Touch_OnAllOFF();
+                compound_Main.OffCompoundSelect();
+                compound_Main.OnCompoundSelectObj();
+            }
+            else
+            {
+                compound_Main.compound_status = 0;
+            }
 
-        if(quest_clear && !GameMgr.QuestClearButton_anim)
-        {
-            girl1_status.GirlEat_Judge_on = false;
-            girl1_status.WaitHint_on = false;
-            girl1_status.hukidasiOff();
-            touch_controller.Touch_OnAllOFF();
-            compound_Main.OffCompoundSelect();
-            compound_Main.OnCompoundSelectObj();
-        }
-        else
-        {
-            compound_Main.compound_status = 0;
-        }
-
-        while (heart_count > 0)
-        {
-            yield return null;
-        }
+        }      
 
         //Debug.Log("好感度　内部を更新");
 
@@ -2992,7 +2986,9 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             yield return null;
         }
-       
+
+        emerarudonguri_end = false;
+
         while (heart_count > 0)
         {
             yield return null;
