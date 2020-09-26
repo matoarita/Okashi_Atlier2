@@ -167,14 +167,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             
             //現在のクエストクリアフラグ
             save_QuestClearflag = GameMgr.QuestClearflag,
-            save_clear_spokashi_flag = GameMgr.clear_spokashi_flag,
+            save_QuestClearButton_anim = GameMgr.QuestClearButton_anim,
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
             save_MapEvent_02 = GameMgr.MapEvent_02,         //井戸。
             save_MapEvent_03 = GameMgr.MapEvent_03,         //ストロベリーガーデン
             save_MapEvent_04 = GameMgr.MapEvent_04,         //ひまわりの丘
-            save_MapEvent_05 = GameMgr.MapEvent_05,
+            save_MapEvent_05 = GameMgr.MapEvent_05,         //ラベンダー
+            save_MapEvent_06 = GameMgr.MapEvent_06,         //バードサンクチュアリ
 
             //広場でのイベント
             save_hiroba_event_end = GameMgr.hiroba_event_end,
@@ -327,14 +328,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.OkashiQuest_flag_stage3 = playerData.save_OkashiQuest_flag_stage3;
 
         GameMgr.QuestClearflag = playerData.save_QuestClearflag;
-        GameMgr.clear_spokashi_flag = playerData.save_clear_spokashi_flag;
+        GameMgr.QuestClearButton_anim = playerData.save_QuestClearButton_anim;
 
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
         GameMgr.MapEvent_02 = playerData.save_MapEvent_02;        //井戸。
         GameMgr.MapEvent_03 = playerData.save_MapEvent_03;        //ストロベリーガーデン
         GameMgr.MapEvent_04 = playerData.save_MapEvent_04;        //ひまわりの丘
-        GameMgr.MapEvent_05 = playerData.save_MapEvent_05;
+        GameMgr.MapEvent_05 = playerData.save_MapEvent_05;        //ラベンダー
+        GameMgr.MapEvent_06 = playerData.save_MapEvent_06;        //バードサンクチュアリ
 
         //広場でのイベント
         GameMgr.hiroba_event_end = playerData.save_hiroba_event_end;

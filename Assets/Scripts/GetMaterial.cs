@@ -572,6 +572,7 @@ public class GetMaterial : MonoBehaviour {
                 {
                     //バードサンクチュアリを発見
                     _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                    getmatplace_panel.next_flag = 100;
                     NextButton_obj.SetActive(true);
                 }
                 else

@@ -304,6 +304,15 @@ public class Utage_scenario : MonoBehaviour
                     StartCoroutine(EmeralDonguri_Hyouji());
                 }
 
+                if (GameMgr.QuestClearButtonMessage_flag == true)
+                {
+                    GameMgr.QuestClearButtonMessage_flag = false;
+
+                    //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
+                    StartCoroutine(QuestClearButton_Hyouji());
+                }
+                
+
                 if (GameMgr.mainClear_flag == true)
                 {
                     GameMgr.mainClear_flag = false;
@@ -1447,6 +1456,38 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }        
+
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
+
+        GameMgr.recipi_read_endflag = true; //読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    //
+    // クエストクリアボタン登場時の一言
+    //
+    IEnumerator QuestClearButton_Hyouji()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "QuestClearButton"; //イベントレシピタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ゲーム上のキャラクタOFF
+        CharacterLive2DImageOFF();
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();

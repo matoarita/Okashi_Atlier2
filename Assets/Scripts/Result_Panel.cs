@@ -21,6 +21,8 @@ public class Result_Panel : MonoBehaviour
     private GameObject Manzoku_star_content;
     private GameObject starPrefab;
     private GameObject hint_text_obj;
+    private GameObject GoukakuPanel;
+    private Color text_default_color;
     private List<GameObject> _liststar = new List<GameObject>();
 
     private int getlove_exp;
@@ -40,7 +42,9 @@ public class Result_Panel : MonoBehaviour
     private bool AnimEnd;
 
     private GameObject Magic_effect_Prefab1;
+    private GameObject Magic_effect_Prefab2;
     private List<GameObject> _listEffect = new List<GameObject>();
+    private List<GameObject> _listEffect2 = new List<GameObject>();
 
     private int i;
 
@@ -55,6 +59,7 @@ public class Result_Panel : MonoBehaviour
 
         //エフェクトプレファブの取得
         Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode_2");
+        Magic_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_ResultKamiHubuki");
 
         button = this.transform.Find("Button").GetComponent<Button>();
         button.interactable = false;
@@ -92,6 +97,10 @@ public class Result_Panel : MonoBehaviour
 
         hint_text_obj = this.transform.Find("Image/Hint_Text").gameObject;
         hint_text_obj.GetComponent<CanvasGroup>().alpha = 0;
+
+        GoukakuPanel = this.transform.Find("Image/GoukakuPanel").gameObject;
+        GoukakuPanel.GetComponent<CanvasGroup>().alpha = 0;
+        text_default_color = GoukakuPanel.transform.Find("Text").GetComponent<Text>().color;
 
         currentDispCoin = 0;
         coinTween = null;
@@ -221,16 +230,39 @@ public class Result_Panel : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(_liststar[_poncount].transform.DOScale(new Vector3(-0.2f, -0.2f, -0.2f), 0.0f)
+        sequence.Append(_liststar[_poncount].transform.DOScale(new Vector3(-0.5f, -0.5f, -0.5f), 0.0f)
         .SetRelative());
-        sequence.Append(_liststar[_poncount].transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 0.3f)
+        sequence.Append(_liststar[_poncount].transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 1.0f)
         .SetRelative()
         .SetEase(Ease.OutElastic)); //30px上から、元の位置に戻る。
 
-        /*if (_poncount >= 4) //☆５のときの特別な音声
+        if (_poncount >= star_count-1) //最後の星が出るタイミング
         {
-            sc.PlaySe(44);
-        }*/
+            //合格演出
+            if (star_count >= 3 && star_count <= 4)
+            {
+                sc.PlaySe(19);
+
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = new Color(91f / 255f, 55f / 255f, 206f / 255f);
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "合格";
+                GoukakuPanelOn();
+            }
+            else if (star_count >= 5) //☆５以上のとき エフェクト
+            {
+                sc.PlaySe(19);
+                _listEffect2.Clear();
+
+                for (i = 0; i < _liststar.Count; i++)
+                {
+                    _listEffect2.Add(Instantiate(Magic_effect_Prefab2, _liststar[i].transform));
+                    _listEffect2.Add(Instantiate(Magic_effect_Prefab1, _liststar[i].transform));
+                }
+
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = text_default_color;
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "大満足!!";
+                GoukakuPanelOn();
+            }
+        }
 
         yield return new WaitForSeconds(0.2f);
        
@@ -319,5 +351,18 @@ public class Result_Panel : MonoBehaviour
             Getlove_panel.transform.Find("Result_GetLoveText/Result_ParamText").GetComponent<Text>().text = Mathf.Abs(getlove_exp).ToString();
             Getlove_panel.transform.Find("Result_GetLoveText/Result_Text_end").GetComponent<Text>().text = " 下がった..。";
         }
+    }
+
+    void GoukakuPanelOn()
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(GoukakuPanel.transform.DOScale(new Vector3(-0.5f, -0.5f, -0.5f), 0.0f)
+        .SetRelative());
+
+        sequence.Append(GoukakuPanel.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 1.0f)
+        .SetRelative()
+        .SetEase(Ease.OutElastic)); 
+        sequence.Join(GoukakuPanel.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 }

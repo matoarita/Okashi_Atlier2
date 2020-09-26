@@ -229,7 +229,7 @@ MonoBehaviour:
       drop_rare_prob2: 10
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
-      back_bg: 110618_
+      back_bg: mnkuhi471565673986
     - ItemID: 6
       file_name: forest_mini_icon
       place_Name: Emerald_Forest

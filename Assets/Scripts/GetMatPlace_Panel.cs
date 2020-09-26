@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GetMatPlace_Panel : MonoBehaviour {
 
@@ -95,6 +96,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     public Dictionary<int, int> result_items;
     private bool result_off;
+
+    public int next_flag; //先へ進める場合のイベントナンバー
+    private bool next_on; //先へ進んだ場合、ON
+
+    private GameObject NextButton_obj;
 
     // Use this for initialization
     void Start()
@@ -189,6 +195,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         slot_tansaku_button_obj = slot_view.transform.Find("Tansaku_panel").gameObject;
         slot_tansaku_button = slot_tansaku_button_obj.transform.Find("TansakuActionList/Viewport/Content").gameObject;
 
+        NextButton_obj = slot_tansaku_button_obj.transform.Find("TansakuActionList/Viewport/Content/Next_tansaku").gameObject;
+
         i = 0;
         foreach (Transform child in slot_view.transform.Find("EventPanel/").transform)
         {
@@ -212,6 +220,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         Slot_view_on = false;
         slot_view_status = 0;
 
+        next_on = false;
+
         InitializeResultItemDicts(); //取得したアイテム表示用のディクショナリー
     }
 
@@ -229,7 +239,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         if (move_anim_end == true)
         {
             move_anim_end = false;
-            Slot_view_on = true;            
+            Slot_view_on = true;
+            slot_view_status = 0;
         }
 
         if ( Slot_view_on == true )
@@ -327,14 +338,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //時間が20時をこえないかチェック
                 _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay); //行きの時間だけ計算
-                /*if (_yosokutime >= time_controller.max_time * 6)
+                if (_yosokutime >= time_controller.max_time * 6)
                 {
                     //20時を超えるので、妹に止められる。
                     _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
                     All_Off();
                 }
                 else
-                {*/
+                {
                     if (matplace_database.matplace_lists[i].placeCost == 0)
                     {
                         _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
@@ -350,7 +361,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     Select_Pause();
                     break;
-                //}
+                }
 
             }
             i++;
@@ -410,6 +421,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     move_anim_on = true;
                     move_anim_status = 0;
 
+                    next_on = false;
+
                     girl1_status.hukidasiOff();
 
                     //音量フェードアウト
@@ -446,18 +459,29 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel.GetComponent<FadeImage>().FadeImageOff();
                 moveanim_panel_image.SetActive(false);
                 moveanim_panel_image_text.SetActive(false);
+                moveanim_panel_image.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
+
+                if (next_on) //先へ進む場合、背景も黒フェードを消す
+                {
+                    this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.5f);
+                    text_area.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+                }
 
                 getmatplace_view.SetActive(false);
                 slot_view.SetActive(true);
                 yes_no_panel.SetActive(false);
                 map_imageBG.SetActive(true);
+                slot_tansaku_button_obj.SetActive(true);
 
-                InitializeResultItemDicts();
+                if (!next_on)//先へ進むの場合は、リセットしない。
+                {
+                    InitializeResultItemDicts();
+                    get_material.SetInit();
+                } 
 
                 slot_view_status = 1;
                 compound_Main.compound_status = 21;
-                get_material.SetInit();
-
+                
                 //音量フェードイン
                 sceneBGM.FadeInBGM();
 
@@ -615,6 +639,46 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         else
                         {
                             _text.text = "兄ちゃん、種とりは任せてね！";
+                        }
+
+                        break;
+
+                    case "BirdSanctuali":
+
+                        //バードサンクチュアリのBGM
+                        sceneBGM.OnGetMat_BirdSanctualiBGM();
+                        compound_Main.bgm_change_flag = true;
+
+                        //背景エフェクト
+                        map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
+
+                        //イベントチェック
+                        if (!GameMgr.MapEvent_06[0])
+                        {
+                            GameMgr.MapEvent_06[0] = true;
+
+                            _text.text = "兄ちゃん。とりさんがいっぱいいるよ～！！";
+
+                            slot_view_status = 3; //イベント読み込み中用に退避
+
+                            //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
+                            slot_tansaku_button_obj.SetActive(false);
+
+                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                            event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
+                            text_area.SetActive(false);
+
+                            GameMgr.map_ev_ID = 5;
+                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                            //次回以降、バードサンクチュアリにいけるようになる。
+                            matplace_database.matPlaceKaikin("BirdSanctuali");
+
+                            StartCoroutine("MapEventOn");
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん。とりさんと遊ぼう！！";
                         }
 
                         break;
@@ -791,6 +855,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel_image.SetActive(true);
                 moveanim_panel_image_text.SetActive(true);
 
+                if(next_on) //先へ進む場合、背景も黒フェード
+                {
+                    this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+                }
+
                 _text.text = "移動中 .";
                 moveanim_panel_image_text.GetComponent<Text>().text = "移動中 .";
                 break;
@@ -799,6 +868,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (timeOut <= 0.0)
                 {
+                    //一度不要なものはリセット
+                    foreach (Transform map_bg_child in map_bg_effect.transform) // map_bg_effect以下のオブジェクトをoff
+                    {
+                        map_bg_child.gameObject.SetActive(false);
+                    }
+
                     timeOut = 1.0f;
                     move_anim_status = 2;
 
@@ -811,14 +886,37 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (timeOut <= 0.0)
                 {
-                    timeOut = 1.0f;
-                    move_anim_status = 3;
+                    if (next_on)
+                    {
+                        timeOut = 2.0f; //先へ進んでるときは、少し長く
+                        move_anim_status = 3;
 
-                    
+                        _text.text = "移動中 . . .";
+                        moveanim_panel_image_text.GetComponent<Text>().text = "移動中 . . .";
+                    }
+                    else
+                    {
+                        timeOut = 1.0f;
+                        move_anim_status = 10;
+                    }
+                                      
                 }
                 break;
 
-            case 3: //アニメ終了。判定する
+            case 3:
+
+                moveanim_panel_image.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
+                text_area.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    move_anim_status = 10;
+
+                }
+                break;
+
+            case 10: //アニメ終了。判定する
 
                 move_anim_on = false;
                 move_anim_end = true;                
@@ -1018,8 +1116,33 @@ public class GetMatPlace_Panel : MonoBehaviour {
         StartCoroutine("modoru_kakunin");
     }
 
+    //さらに奥へ進む場合の処理
     public void OnNext()
     {
-        sc.PlaySe(30);
+        //音を鳴らす
+        sc.PlaySe(24);
+        sc.PlaySe(30);        
+
+        move_anim_on = true;
+        move_anim_status = 0;
+
+        slot_tansaku_button_obj.SetActive(false);
+        NextButton_obj.SetActive(false);
+
+        next_on = true;
+        
+
+        switch (next_flag)
+        {
+            case 100: //バードサンクチュアリを発見
+
+                select_place_name = "BirdSanctuali";
+                select_place_num = matplace_database.SearchMapString(select_place_name);
+                break;
+
+            default:
+
+                break;
+        }
     }
 }

@@ -47,6 +47,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] MapEvent_03 = new bool[20];         //ストロベリーガーデン
     public static bool[] MapEvent_04 = new bool[20];         //ひまわりの丘
     public static bool[] MapEvent_05 = new bool[20];         //ラベンダー畑
+    public static bool[] MapEvent_06 = new bool[20];         //バードサンクチュアリ
 
     //広場でのイベント
     public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ
@@ -74,6 +75,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int mainquest_ID;         //クエストクリア時のイベント
     public static bool mainClear_flag;      //クエストクリア時のイベント
     public static bool emeralDonguri_flag;  //高得点時、エメラルどんぐりをくれるイベント発生のフラグ
+    public static bool QuestClearButtonMessage_flag;  //クエストクリア時のボタン出現時、一言しゃべる
 
     //妹の口をクリックしたときのヒント表示フラグ
     public static int touchhint_ID;
@@ -89,7 +91,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] OkashiQuest_flag_stage3 = new bool[30];
 
     public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
-    public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。
+    //public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。現在未使用。
+    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ
 
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num;
@@ -378,6 +381,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         okashinontphint_flag = false;
         mainClear_flag = false;
         emeralDonguri_flag = false;
+        QuestClearButtonMessage_flag = false;
 
         //お菓子フラグの初期化
         for (system_i = 0; system_i < OkashiQuest_flag_stage1.Length; system_i++)
@@ -388,7 +392,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
         OkashiQuest_Num = 0;
         QuestClearflag = false;
-        clear_spokashi_flag = false;
+        QuestClearButton_anim = false;
 
         //お菓子のクリア基準値
         low_score = 60;

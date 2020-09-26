@@ -392,7 +392,7 @@ public class Compound_Main : MonoBehaviour
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
 
-        stageclear_Button = canvas.transform.Find("StageClear_Button").gameObject;
+        stageclear_Button = canvas.transform.Find("StageClearButton_Panel/StageClear_Button").gameObject;
         stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
         stageclear_button_text = stageclear_Button.transform.Find("Text").GetComponent<Text>();
         stageclear_button_toggle.isOn = false;
@@ -610,15 +610,8 @@ public class Compound_Main : MonoBehaviour
                         //Debug.Log("GameMgr.チュートリアルNo: " + GameMgr.tutorial_Num);
                         MainCompoundMethod();
 
-                        extreme_Button.interactable = false;
-
                         compoundselect_onoff_obj.SetActive(false);
-                        menu_toggle.GetComponent<Toggle>().interactable = false;
-                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-                        shop_toggle.GetComponent<Toggle>().interactable = false;
-                        girleat_toggle.GetComponent<Toggle>().interactable = false;
-                        sleep_toggle.GetComponent<Toggle>().interactable = false;
-                        system_toggle.GetComponent<Toggle>().interactable = false;
+                        OffCompoundSelect();
                         text_area.SetActive(false);                       
 
                         girl1_status.SetOneQuest(0);
@@ -643,14 +636,10 @@ public class Compound_Main : MonoBehaviour
                     case 105:
                         
                         MainCompoundMethod();
-                        
-                        extreme_Button.interactable = false;
-                        menu_toggle.GetComponent<Toggle>().interactable = false;
-                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-                        shop_toggle.GetComponent<Toggle>().interactable = false;
+
+                        OffCompoundSelect();
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
-                        sleep_toggle.GetComponent<Toggle>().interactable = false;
-                        system_toggle.GetComponent<Toggle>().interactable = false;
+
                         break;
 
                     case 110:
@@ -741,15 +730,10 @@ public class Compound_Main : MonoBehaviour
                     case 200:
 
                         MainCompoundMethod();
-
-                        extreme_Button.interactable = true;
+                       
                         canvas.SetActive(true);
-                        menu_toggle.GetComponent<Toggle>().interactable = false;
-                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-                        shop_toggle.GetComponent<Toggle>().interactable = false;
-                        girleat_toggle.GetComponent<Toggle>().interactable = false;
-                        sleep_toggle.GetComponent<Toggle>().interactable = false;
-                        system_toggle.GetComponent<Toggle>().interactable = false;
+                        OffCompoundSelect();
+                        extreme_Button.interactable = true;
 
                         _textmain.text = "もう一度パネルを押してみよう！";
 
@@ -830,15 +814,9 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
                         canvas.SetActive(true);
 
-                        extreme_Button.interactable = false;
-
                         compoundselect_onoff_obj.SetActive(true);
-                        menu_toggle.GetComponent<Toggle>().interactable = false;
-                        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-                        shop_toggle.GetComponent<Toggle>().interactable = false;
+                        OffCompoundSelect();
                         girleat_toggle.GetComponent<Toggle>().interactable = true;
-                        sleep_toggle.GetComponent<Toggle>().interactable = false;
-                        system_toggle.GetComponent<Toggle>().interactable = false;
                         girl1_status.timeGirl_hungry_status = 1;
 
                         _textmain.text = "お菓子をあげてみよう！";
@@ -984,12 +962,7 @@ public class Compound_Main : MonoBehaviour
                 select_original_button.interactable = true;
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
-                menu_toggle.GetComponent<Toggle>().interactable = true;
-                getmaterial_toggle.GetComponent<Toggle>().interactable = true;
-                shop_toggle.GetComponent<Toggle>().interactable = true;
-                system_toggle.GetComponent<Toggle>().interactable = true;
-                girleat_toggle.GetComponent<Toggle>().interactable = true;
-                sleep_toggle.GetComponent<Toggle>().interactable = true;
+                OnCompoundSelect();
                 touch_controller.Touch_OnAllON();
 
                 recipiMemoButton.SetActive(false);
@@ -1099,12 +1072,13 @@ public class Compound_Main : MonoBehaviour
                 time_controller.TimeCheck_flag = false;
                 yes_no_panel.SetActive(true);
                 yes.SetActive(false);
+                stageclear_Button.SetActive(false);
 
                 text_area.SetActive(true);
                 WindowOff();
 
                 //ヒカリちゃんを表示する
-                cubism_rendercontroller.SortingOrder = 0;
+                cubism_rendercontroller.SortingOrder = 100;
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
@@ -1144,12 +1118,13 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
+                stageclear_Button.SetActive(false);
 
                 text_area.SetActive(true);
                 WindowOff();
 
                 //ヒカリちゃんを表示する
-                cubism_rendercontroller.SortingOrder = 0;
+                cubism_rendercontroller.SortingOrder = 100;
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
@@ -1197,12 +1172,13 @@ public class Compound_Main : MonoBehaviour
                 recipimemoController_obj.SetActive(false);
                 time_controller.TimeCheck_flag = false;
                 memoResult_obj.SetActive(false);
+                stageclear_Button.SetActive(false);
 
                 text_area.SetActive(true);
                 WindowOff();
 
                 //ヒカリちゃんを表示する
-                cubism_rendercontroller.SortingOrder = 0;
+                cubism_rendercontroller.SortingOrder = 100;
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
@@ -1260,6 +1236,7 @@ public class Compound_Main : MonoBehaviour
                 playeritemlist_onoff.SetActive(false);
                 recipilist_onoff.SetActive(false);
                 kakuritsuPanel_obj.SetActive(false);
+                stageclear_Button.SetActive(false);
 
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
@@ -2404,7 +2381,7 @@ public class Compound_Main : MonoBehaviour
         girl1_status.Girl_Full();
         girl1_status.Girl1_Status_Init();
 
-        while (girlEat_judge.heart_count > 0 && girlEat_judge.ScoreHyouji_ON)
+        while (girlEat_judge.heart_count > 0 && girlEat_ON)
         {
             yield return null;
         }
@@ -2516,23 +2493,6 @@ public class Compound_Main : MonoBehaviour
                 break;
         }
     }
-   
-    //アイテム名を入力すると、該当するcompoIDをOnにする
-    /*void CompoON_compoitemdatabase(string compo_itemname)
-    {
-        j = 0;
-        while (j < databaseCompo.compoitems.Count)
-        {
-            if (compo_itemname == databaseCompo.compoitems[j].cmpitem_Name)
-            {
-                comp_ID = j;
-                break;
-            }
-            j++;
-        }
-
-        databaseCompo.compoitems[comp_ID].cmpitem_flag = 1;
-    }*/
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -2603,5 +2563,32 @@ public class Compound_Main : MonoBehaviour
             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
             StartCoroutine("ReadGirlLoveEvent");
         }
+    }
+
+    public void OffCompoundSelect()
+    {
+        menu_toggle.GetComponent<Toggle>().interactable = false;
+        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
+        shop_toggle.GetComponent<Toggle>().interactable = false;
+        girleat_toggle.GetComponent<Toggle>().interactable = false;
+        sleep_toggle.GetComponent<Toggle>().interactable = false;
+        system_toggle.GetComponent<Toggle>().interactable = false;
+        extreme_Button.interactable = false;
+    }
+
+    public void OnCompoundSelect()
+    {
+        menu_toggle.GetComponent<Toggle>().interactable = true;
+        getmaterial_toggle.GetComponent<Toggle>().interactable = true;
+        shop_toggle.GetComponent<Toggle>().interactable = true;
+        girleat_toggle.GetComponent<Toggle>().interactable = true;
+        sleep_toggle.GetComponent<Toggle>().interactable = true;
+        system_toggle.GetComponent<Toggle>().interactable = true;
+        extreme_Button.interactable = true;
+    }
+
+    public void OnCompoundSelectObj()
+    {
+        compoundselect_onoff_obj.SetActive(true);
     }
 }

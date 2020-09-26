@@ -83,7 +83,7 @@ public class HeartUpObj : MonoBehaviour {
 
         //最初の生成位置
         this.transform.localPosition = RandomPos;
-        Debug.Log("this.transform.localPosition" + this.transform.localPosition);
+        //Debug.Log("this.transform.localPosition" + this.transform.localPosition);
 
         pos = RandomPos;
 

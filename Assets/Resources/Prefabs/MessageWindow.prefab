@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114911177407874596}
   - component: {fileID: 114884804338819126}
   - component: {fileID: 223212885653662368}
+  - component: {fileID: 225241566373535490}
   m_Layer: 0
   m_Name: MessageWindow
   m_TagString: Message_Window
@@ -286,3 +287,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -2.5}
   m_SizeDelta: {x: -100, y: -55}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225241566373535490
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1936480507059974}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

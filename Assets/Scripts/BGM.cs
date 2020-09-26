@@ -19,6 +19,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound9;  //「ひまわりの丘」BGM
     public AudioClip sound10;  //コンテスト時のメインBGM
     public AudioClip sound11;  //「ラベンダー畑」BGM
+    public AudioClip sound12;  //「バードサンクチュアリ」BGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -213,6 +214,15 @@ public class BGM : MonoBehaviour {
     {
         _bgm[1].Stop();
         _bgm[1].clip = sound9;
+        _bgm[1].Play();
+
+        _mixRate = 1;
+    }
+
+    public void OnGetMat_BirdSanctualiBGM()
+    {
+        _bgm[1].Stop();
+        _bgm[1].clip = sound12;
         _bgm[1].Play();
 
         _mixRate = 1;

@@ -39,10 +39,10 @@
 			"Id": "ParamEyeL_CloseChousei",
 			"Segments": [
 				0,
-				0,
+				1,
 				0,
 				1,
-				0
+				1
 			]
 		},
 		{
@@ -50,10 +50,10 @@
 			"Id": "ParamEyeR_CloseChousei",
 			"Segments": [
 				0,
-				0,
+				1,
 				0,
 				1,
-				0
+				1
 			]
 		},
 		{

@@ -75,6 +75,7 @@ public class FadeImage : MonoBehaviour {
         fade_flag = true;
 
         fade_sw = 1;
+        alfa = 0.0f;
     }
 
     public void FadeImageOff() //255 -> 0
@@ -83,6 +84,7 @@ public class FadeImage : MonoBehaviour {
         fade_flag = true;
 
         fade_sw = 0;
+        alfa = 1.0f;
     }
 
     public void SetOff() //画像を透明にし、なくす。

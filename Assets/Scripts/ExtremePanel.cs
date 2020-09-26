@@ -16,6 +16,7 @@ public class ExtremePanel : MonoBehaviour {
     private Girl1_status girl1_status;
 
     private GameObject image_effect;
+    private GameObject particle_effect;
     private GameObject canvas;
     private GameObject compoBG_A;
 
@@ -157,6 +158,9 @@ public class ExtremePanel : MonoBehaviour {
 
         image_effect = this.transform.Find("Comp/Extreme_Image_effect").gameObject;
         image_effect.SetActive(false);
+
+        particle_effect = this.transform.Find("Comp/Particle_Kirakira_3").gameObject;
+        particle_effect.SetActive(false);
 
         item_Icon.color = new Color(1, 1, 1, 0);
 
@@ -314,12 +318,7 @@ public class ExtremePanel : MonoBehaviour {
 
         //エフェクトの表示
         image_effect.SetActive(true);
-
-        //売るボタンを表示
-        //sell_Button.SetActive(true);
-
-        //あげるボタンを表示
-        //present_Button.SetActive(true);
+        particle_effect.SetActive(true);
     }
 
     public void OnClick_ExtremeButton()
@@ -502,11 +501,9 @@ public class ExtremePanel : MonoBehaviour {
         _hpslider.value = 0;
         Starthp = 0;
 
-        //sell_Button.SetActive(false);
-        //present_Button.SetActive(false);
-
         Life_anim_on = false;
         image_effect.SetActive(false);
+        particle_effect.SetActive(false);
 
         exp_Controller._temp_extreme_id = 9999;
         exp_Controller._temp_extremeSetting = false;

@@ -57,7 +57,8 @@ public class PlayerData
     public bool[] save_MapEvent_02;         //井戸。
     public bool[] save_MapEvent_03;         //ストロベリーガーデン
     public bool[] save_MapEvent_04;         //ひまわりの丘
-    public bool[] save_MapEvent_05;
+    public bool[] save_MapEvent_05;         //ラベンダー
+    public bool[] save_MapEvent_06;         //バードサンクチュアリ
 
     //広場でのイベント
     public bool[] save_hiroba_event_end = new bool[GameMgr.hiroba_event_end.Length]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。
@@ -69,7 +70,7 @@ public class PlayerData
 
     //現在のクエストのクリアフラグ
     public bool save_QuestClearflag;
-    public bool save_clear_spokashi_flag; //SPお菓子でクリアしたか、好感度をあげてクリアボタンをだしたか
+    public bool save_QuestClearButton_anim; //クエストクリア演出が発生したか否か
 
     //ステージ１クリア時の好感度を保存
     public int save_stage1_girl1_loveexp;

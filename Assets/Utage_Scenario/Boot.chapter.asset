@@ -1291,12 +1291,27 @@ MonoBehaviour:
       - 
       - 
       - 
-      - Event_tegami.png
+      - Event_recipi.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 37
       debugIndex: 37
+      strings:
+      - "\u6751\u9577\u304B\u3089\u306E\u624B\u7D19"
+      - Event
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - Event_tegami2.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 38
+      debugIndex: 38
       strings:
       - "\u30A4\u30D9\u30F3\u30C802_\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30D2\u30F3\u30C8"
       - Event
@@ -1310,8 +1325,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 38
-      debugIndex: 38
+    - rowIndex: 39
+      debugIndex: 39
       strings:
       - "\u30B9\u30C1\u30EB01_\u3042\u308A\u304C\u3068\u5144\u3061\u3083\u3093"
       - Event
@@ -1327,7 +1342,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Texture
     type: 1
-    textLength: 1208
+    textLength: 1237
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -1338,9 +1353,17 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 1
+      debugIndex: 1
+      strings:
+      - Particle_Kirakira
+      - Particle_Kirakira
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Particle
     type: 1
-    textLength: 13
+    textLength: 47
     headerRow: 0
   - rows:
     - rowIndex: 0
