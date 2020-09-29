@@ -2882,7 +2882,10 @@ public class GirlEat_Judge : MonoBehaviour {
             //テキストウィンドウの更新
             exp_Controller.GirlDisLikeText(Getlove_exp);
 
+            //お菓子の判定処理を終了
+            compound_Main.girlEat_ON = false;
             compound_Main.compound_status = 0;
+
         }
         else
         {
