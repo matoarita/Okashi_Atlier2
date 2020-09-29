@@ -1298,10 +1298,10 @@ MonoBehaviour:
   m_Parent: {fileID: 11400000}
   m_Children: []
   m_Clips:
-  - m_Start: 1.4666666666666666
+  - m_Start: 1.4
     m_ClipIn: 0
-    m_Asset: {fileID: 114391628159347582}
-    m_Duration: 1.8546938775510204
+    m_Asset: {fileID: 114229923033037120}
+    m_Duration: 1.6718367346938776
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114038674924335172}
     m_EaseInDuration: 0
@@ -1355,6 +1355,20 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: SE_13
     m_Version: 1
+--- !u!114 &114229923033037120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1977359656, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 1355834ae805e08439389259264de0d5, type: 3}
+  m_Loop: 0
+  m_bufferingTime: 0.1
 --- !u!114 &114238535056937058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1495,7 +1509,7 @@ MonoBehaviour:
   - m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 114589093169016276}
-    m_Duration: 5
+    m_Duration: 2.8333333333333335
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114314400103364712}
     m_EaseInDuration: 0
@@ -1561,20 +1575,6 @@ MonoBehaviour:
   m_Script: {fileID: 442072544, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
   m_Name: ActivationPlayableAsset
   m_EditorClassIdentifier: 
---- !u!114 &114391628159347582
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1977359656, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: 1355834ae805e08439389259264de0d5, type: 3}
-  m_Loop: 0
-  m_bufferingTime: 0.1
 --- !u!114 &114561664540443328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1618,7 +1618,7 @@ MonoBehaviour:
   - m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 114691351368661846}
-    m_Duration: 5
+    m_Duration: 4.891912509917
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114582770759696820}
     m_EaseInDuration: 0
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   - m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 114887493577721402}
-    m_Duration: 2.0166666666666666
+    m_Duration: 2.984884603880346
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114717322032025864}
     m_EaseInDuration: 0

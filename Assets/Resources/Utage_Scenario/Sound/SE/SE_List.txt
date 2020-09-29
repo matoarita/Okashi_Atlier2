@@ -12,7 +12,7 @@ SE表
 ・SE_10		audiostock_66343.mp3				キラコリリーン　採取時の取得音
 ・SE_11		audiostock_175671.mp3				シュイイーーン　調合中ためる音
 ・SE_12		audiostock_7724_sample				【#未使用】吹き出しでるっぽい音
-・SE_13		audiostock_65015_sample				【#未使用】ポワン　決定音
+・SE_13		audiostock_110941_sample			ピーーン音		【旧】ポワン　決定音 audiostock_65015_sample
 ・SE_14		ファンファーレ9（ゲーム向け）.mp3		レベルアップ時のファンファーレ
 ・SE_15		audiostock_279165_sample			【#未使用】ジャキーーン
 ・SE_16		shine2.mp3					キララ～～～ン　ウィンドチャイム

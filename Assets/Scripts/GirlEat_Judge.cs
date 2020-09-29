@@ -310,6 +310,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int trans_motion;
     private int trans_expression;
 
+    private GameObject stageclear_panel;
     private GameObject stageclear_toggle;
     private GameObject stageclear_Button;
     private bool stageclear_button_on;
@@ -441,6 +442,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 MainQuestOKPanel.SetActive(false);
 
                 //クエストクリアボタンの取得
+                stageclear_panel = canvas.transform.Find("StageClearButton_Panel").gameObject;
                 stageclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
                 stageclear_Button = canvas.transform.Find("StageClearButton_Panel/StageClear_Button").gameObject;
                 stageclear_button_on = false;
@@ -3021,6 +3023,7 @@ public class GirlEat_Judge : MonoBehaviour {
     IEnumerator ClearButtonAnim()
     {
         canvas.SetActive(true);
+        stageclear_panel.SetActive(true);
         playableDirector.enabled = true;
         playableDirector.Play();
 

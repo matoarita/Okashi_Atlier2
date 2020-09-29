@@ -82,6 +82,11 @@ public class QuestTitlePanel : MonoBehaviour {
         sequence.Join(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.3f)
             .SetRelative()
             .SetEase(Ease.InQuart));
+
+        //元位置にもどしておく。
+        sequence.Append(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.0f)
+            .SetRelative());
+
     }
 
     void EndAnim()

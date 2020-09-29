@@ -52,6 +52,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject girl_love_exp_bar;
     private GameObject moneystatus_panel;
+    private Vector3 moneypanel_startPos;
     private GameObject kaerucoin_panel;
 
     private GameObject GirlHeartEffect_obj;
@@ -145,6 +146,7 @@ public class Compound_Main : MonoBehaviour
     private Button recipi_Button;
     private GameObject sell_Button;
     private GameObject present_Button;
+    private GameObject stageclear_panel;
     private GameObject stageclear_Button;
     private Toggle stageclear_button_toggle;
     private Text stageclear_button_text;
@@ -240,6 +242,7 @@ public class Compound_Main : MonoBehaviour
 
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MoneyStatus_panel").gameObject;
+        moneypanel_startPos = moneystatus_panel.transform.localPosition;
 
         //えめらるどんぐりパネルの取得
         kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
@@ -385,13 +388,15 @@ public class Compound_Main : MonoBehaviour
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
-        girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
+        //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
+        girleat_toggle = Extremepanel_obj.transform.Find("Comp/GirlEat_Toggle").gameObject;
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
 
+        stageclear_panel = canvas.transform.Find("StageClearButton_Panel").gameObject;
         stageclear_Button = canvas.transform.Find("StageClearButton_Panel/StageClear_Button").gameObject;
         stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
         stageclear_button_text = stageclear_Button.transform.Find("Text").GetComponent<Text>();
@@ -855,7 +860,7 @@ public class Compound_Main : MonoBehaviour
                 girl_love_exp_bar.SetActive(false);
                 moneystatus_panel.SetActive(false);
                 //kaerucoin_panel.SetActive(false);
-                stageclear_Button.SetActive(false);
+                stageclear_panel.SetActive(false);
                 itembox_Button.SetActive(false);
 
                 //腹減りカウント一時停止
@@ -967,6 +972,9 @@ public class Compound_Main : MonoBehaviour
 
                 recipiMemoButton.SetActive(false);
 
+                //お金パネルの配置を初期値に戻す
+                moneystatus_panel.transform.localPosition = moneypanel_startPos;
+
                 //Live2Dデフォルト
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
 
@@ -1036,8 +1044,8 @@ public class Compound_Main : MonoBehaviour
                 }
 
                 //残りあげる回数の更新
-                nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
-                girleat_toggle.transform.Find("Background/kaisu_param").GetComponent<Text>().text = nokori_kaisu.ToString();
+                //nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
+                //girleat_toggle.transform.Find("Background/kaisu_param").GetComponent<Text>().text = nokori_kaisu.ToString();
                                
                 compound_select = 0;
                 compound_status = 110; //退避
@@ -1072,7 +1080,7 @@ public class Compound_Main : MonoBehaviour
                 time_controller.TimeCheck_flag = false;
                 yes_no_panel.SetActive(true);
                 yes.SetActive(false);
-                stageclear_Button.SetActive(false);
+                stageclear_panel.SetActive(false);
 
                 text_area.SetActive(true);
                 WindowOff();
@@ -1118,7 +1126,7 @@ public class Compound_Main : MonoBehaviour
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
-                stageclear_Button.SetActive(false);
+                stageclear_panel.SetActive(false);
 
                 text_area.SetActive(true);
                 WindowOff();
@@ -1172,7 +1180,7 @@ public class Compound_Main : MonoBehaviour
                 recipimemoController_obj.SetActive(false);
                 time_controller.TimeCheck_flag = false;
                 memoResult_obj.SetActive(false);
-                stageclear_Button.SetActive(false);
+                stageclear_panel.SetActive(false);
 
                 text_area.SetActive(true);
                 WindowOff();
@@ -1236,7 +1244,7 @@ public class Compound_Main : MonoBehaviour
                 playeritemlist_onoff.SetActive(false);
                 recipilist_onoff.SetActive(false);
                 kakuritsuPanel_obj.SetActive(false);
-                stageclear_Button.SetActive(false);
+                stageclear_panel.SetActive(false);
 
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
@@ -1335,7 +1343,7 @@ public class Compound_Main : MonoBehaviour
                 text_area_Main.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 time_controller.TimeCheck_flag = false;
-                stageclear_Button.SetActive(false);
+                stageclear_panel.SetActive(false);
                 itembox_Button.SetActive(false);
 
                 //一時的に腹減りを止める。
@@ -1344,6 +1352,9 @@ public class Compound_Main : MonoBehaviour
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
+
+                //お金パネルの配置を変更
+                moneystatus_panel.transform.localPosition = new Vector3(279, -100, 0);
 
                 break;
 
@@ -1512,7 +1523,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj1.SetActive(false);
         moneystatus_panel.SetActive(false);
         //kaerucoin_panel.SetActive(false);
-        stageclear_Button.SetActive(false);
+        stageclear_panel.SetActive(false);
         itembox_Button.SetActive(false);
     }
 
@@ -1522,19 +1533,21 @@ public class Compound_Main : MonoBehaviour
         if (GameMgr.OkashiQuest_flag_stage1[4])
         {
             //stageclear_toggle.SetActive(true);
-            stageclear_Button.SetActive(true);
+            stageclear_panel.SetActive(true);
             stageclear_button_text.text = "コンテストへ";
         }
         else
         {
-            if (stageclear_toggle.activeSelf == true || stageclear_Button.activeSelf)
+            if (stageclear_toggle.activeSelf == true || stageclear_panel.activeSelf)
             {
                 //stageclear_toggle.SetActive(false);
-                stageclear_Button.SetActive(false);
+                stageclear_panel.SetActive(false);
+                //stageclear_Button.SetActive(false);
             }
 
             if (GameMgr.QuestClearflag)
             {
+                stageclear_panel.SetActive(true);
                 stageclear_Button.SetActive(true);
                 stageclear_button_text.text = "次のお菓子へ";
                 //stageclear_toggle.SetActive(true);
