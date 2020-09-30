@@ -2665,6 +2665,10 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 GameMgr.tutorial_Progress = true; //チュートリアル時、パネルを押したよ～のフラグ
                 ResultOFF();
+
+                //お菓子の判定処理を終了
+                compound_Main.girlEat_ON = false;
+                compound_Main.compound_status = 0;
             }
         }      
     }

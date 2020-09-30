@@ -477,12 +477,12 @@ MonoBehaviour:
       - <param=npcD_name>
       - "\u901A\u5E38"
       - 0
-      - -200
+      - -240
       - 
       - 
       - .75
       - 
-      - Motarike/heroine13_cos03.png
+      - Motarike/heroine02_cos01.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2408,7 +2408,7 @@ MonoBehaviour:
       - "\u30C9\u30A2\u958B\u304F\u97F3"
       - 
       - Se
-      - SE_39.mp3
+      - SE_80.mp3
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2438,7 +2438,7 @@ MonoBehaviour:
       - "\u30DB\u30FC\u30E0\u30C9\u30A2\u30D9\u30EB\u97F3"
       - 
       - Se
-      - SE_51.mp3
+      - SE_81.mp3
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2658,7 +2658,7 @@ MonoBehaviour:
       - "\u30AD\u30E9\u30AD\u30E9\u97F3"
       - 
       - Se
-      - SE_16.mp3
+      - SE_16.wav
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 

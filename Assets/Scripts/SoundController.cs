@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundController : MonoBehaviour {
-
+public class SoundController : SingletonMonoBehaviour<SoundController>
+{
     private AudioClip[] seClips; //オーディオファイルの読み込み用。
 
     private Dictionary<string, int> seIndexes = new Dictionary<string, int>(); //読み込んだファイルにインデックスと、ファイル名をつける。
 
-    const int cNumChannel = 4;
+    const int cNumChannel = 16;
     private AudioSource[] seSources = new AudioSource[cNumChannel]; //オーディオソース
     //
 
-    private AudioSource audioSource;
+    Queue<int> seRequestQueue = new Queue<int>();
 
 
     void Awake(){
@@ -23,8 +23,6 @@ public class SoundController : MonoBehaviour {
             seSources[i] = gameObject.AddComponent<AudioSource>();
         }
 
-        audioSource = GetComponent<AudioSource>();
-
         //オーディオファイルを全て読み込みしている。
         seClips = Resources.LoadAll<AudioClip>("Utage_Scenario/Sound/SE");
 
@@ -34,8 +32,8 @@ public class SoundController : MonoBehaviour {
             seIndexes[seClips[i].name] = i;
         }
 
-        /*Debug.Log("se ========================");
-        foreach(var ac in seClips ) { Debug.Log( ac.name ); }*/
+        //Debug.Log("se ========================");
+        //foreach(var ac in seClips ) { Debug.Log( ac.name ); }
     }
 
     // Use this for initialization
@@ -45,25 +43,79 @@ public class SoundController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
 
-    public void PlaySe( int index )
-    {
-        //seSources[0].clip = seClips[index];
-        //seSources[0].Play();
-        audioSource.PlayOneShot(seClips[index]);
+        int count = seRequestQueue.Count;
+        if (count != 0)
+        {
+            int sound_index = seRequestQueue.Dequeue();
+            playSeImpl(sound_index);
+        }
     }
 
+    //------------------------------------------------------------------------------
+    private void playSeImpl(int index)
+    {
+        if (0 > index || seClips.Length <= index)
+        {
+            return;
+        }
+
+        foreach (AudioSource source in seSources)
+        {
+            if (false == source.isPlaying)
+            {
+                source.clip = seClips[index];
+                source.Play();
+                return;
+            }
+        }
+    }
+
+    public void PlaySe(string name)
+    {
+        PlaySe(GetSeIndex(name));
+    }
+
+    //一旦queueに溜め込んで重複を回避しているので
+    //再生が1frame遅れる時がある
+
+    //------------------------------------------------------------------------------
+    public void PlaySe(int index)
+    {
+        if (!seRequestQueue.Contains(index))
+        {
+            seRequestQueue.Enqueue(index);
+        }
+    }
+
+    //------------------------------------------------------------------------------
     public void StopSe()
     {
-        //seSources[0].clip = seClips[index];
-        //seSources[0].Play();
-        audioSource.Stop();
+        ClearAllSeRequest();
+        foreach (AudioSource source in seSources)
+        {
+            source.Stop();
+            source.clip = null;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    public void ClearAllSeRequest()
+    {
+        seRequestQueue.Clear();
+    }
+
+    public int GetSeIndex(string name)
+    {
+        return seIndexes[name];
     }
 
     public void VolumeSetting()
     {
-        audioSource.volume = 1.0f * GameMgr.MasterVolumeParam;
+        foreach (var source in seSources)
+        {
+            source.volume = 1.0f * GameMgr.MasterVolumeParam;
+        }
+        //audioSource.volume = 1.0f * GameMgr.MasterVolumeParam;
     }
 }

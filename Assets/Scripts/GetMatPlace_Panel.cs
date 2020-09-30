@@ -336,6 +336,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             {
                 select_num = i;
 
+                /*
                 //時間が20時をこえないかチェック
                 _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay); //行きの時間だけ計算
                 if (_yosokutime >= time_controller.max_time * 6)
@@ -345,7 +346,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     All_Off();
                 }
                 else
-                {
+                {*/
                     if (matplace_database.matplace_lists[i].placeCost == 0)
                     {
                         _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
@@ -361,7 +362,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     Select_Pause();
                     break;
-                }
+                //}
 
             }
             i++;

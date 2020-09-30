@@ -139,7 +139,7 @@ public class Hiroba_Main2 : MonoBehaviour
 
         //読み終わったら、またウィンドウなどを元に戻す。
         text_area.SetActive(true);
-        timepanel.SetActive(true);
+        //timepanel.SetActive(true);
         mainlist_controller2_obj.SetActive(true);
 
         //音を戻す。

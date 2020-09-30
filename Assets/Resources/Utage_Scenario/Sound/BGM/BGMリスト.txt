@@ -32,4 +32,4 @@
 ・BGM_30		audiostock_823980_sample		【未使用】月夜の曲
 ・BGM_31		audiostock_94283_sample			【未使用】月夜の曲２
 ・BGM_32		audiostock_824733_sample		月夜の曲３
-・BGM_33		audiostock_837813_sample		バードサンクチュアリイメージの静かなピアノ曲
+・BGM_33		audiostock_158582_sample		バードサンクチュアリイメージの静かなピアノ曲

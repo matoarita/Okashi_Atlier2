@@ -12,10 +12,10 @@ SE表
 ・SE_10		audiostock_66343.mp3				キラコリリーン　採取時の取得音
 ・SE_11		audiostock_175671.mp3				シュイイーーン　調合中ためる音
 ・SE_12		audiostock_7724_sample				【#未使用】吹き出しでるっぽい音
-・SE_13		audiostock_110941_sample			ピーーン音		【旧】ポワン　決定音 audiostock_65015_sample
+・SE_13		audiostock_65015_sample				ポワン　決定音
 ・SE_14		ファンファーレ9（ゲーム向け）.mp3		レベルアップ時のファンファーレ
 ・SE_15		audiostock_279165_sample			【#未使用】ジャキーーン
-・SE_16		shine2.mp3					キララ～～～ン　ウィンドチャイム
+・SE_16		shine2.mp3					【宴で鳴らす用　ゲーム本編では音が鳴らなくなる　SE79と同一】キララ～～～ン　ウィンドチャイム
 ・SE_17		tin2.mp3					電子レンジ
 ・SE_18		audiostock_59502				リザルト時の好感度獲得の音
 ・SE_19		audiostock_57729.mp3				キャンセル音
@@ -47,8 +47,8 @@ SE表
 ・SE_45		audiostock_425526_sample.mp3			【#未使用】　女性声で「YeaHHH～」
 ・SE_46		audiostock_108713.mp3				ちょっと怒ってプイって音
 ・SE_47		audiostock_59503.mp3				決定音（YES決定音）
-・SE_48		audiostock_784832				お菓子採点時の音
-・SE_49		audiostock_208458				イベント中にアイテムをもらったときの音
+・SE_48		audiostock_784832				【宴で使用　本編で音鳴らなくなります】お菓子採点時の音
+・SE_49		audiostock_208458				【宴で使用　本編で音鳴らなくなります】イベント中にアイテムをもらったときの音
 ・SE_50		audiostock_155440				ドラムロール＋シンバルの音　驚きでジャーン
 ・SE_51		audiostock_712907				ドア開けた時のベル音１　ホーム用
 ・SE_52		audiostock_237378				ドア開けた時のベル音２　ショップ用
@@ -78,4 +78,6 @@ SE表
 ・SE_76		flee1						逃げ足早いヒュイーーン
 ・SE_77		audiostock_832293_sample			歓声「オーーー」 →　使わない
 ・SE_78		audiostock_308893_sample			女性声「ありがとうございます」
-
+・SE_79		shine2.mp3					キララ～～～ン　ウィンドチャイム
+・SE_80		door-cl01.mp3					【宴で使用　SE39と同一】ドア開く音１。チャイムは無し。
+・SE_81		audiostock_712907				【宴で使用　SE51と同一】ドア開けた時のベル音１　ホーム用

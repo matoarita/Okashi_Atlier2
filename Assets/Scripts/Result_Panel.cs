@@ -243,6 +243,13 @@ public class Result_Panel : MonoBehaviour
             {
                 sc.PlaySe(19);
 
+                _listEffect2.Clear();
+                for (i = 0; i < _liststar.Count; i++)
+                {
+                    _listEffect2.Add(Instantiate(Magic_effect_Prefab2, _liststar[i].transform));
+                    _listEffect2.Add(Instantiate(Magic_effect_Prefab1, _liststar[i].transform));
+                }
+
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = new Color(91f / 255f, 55f / 255f, 206f / 255f);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "合格";
                 GoukakuPanelOn();
@@ -250,8 +257,8 @@ public class Result_Panel : MonoBehaviour
             else if (star_count >= 5) //☆５以上のとき エフェクト
             {
                 sc.PlaySe(19);
-                _listEffect2.Clear();
 
+                _listEffect2.Clear();
                 for (i = 0; i < _liststar.Count; i++)
                 {
                     _listEffect2.Add(Instantiate(Magic_effect_Prefab2, _liststar[i].transform));

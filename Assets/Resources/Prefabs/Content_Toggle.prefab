@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3388baca6ee49c448a8d53b7ebb080ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.22837368, g: 0.2601121, b: 0.4705882, a: 0.5}
+  m_EffectColor: {r: 0.16911764, g: 0.179716, b: 0.25, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
   copyCount: 16
@@ -441,7 +441,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 507a69f75d3333b458a0ce120d49fb54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c88eee9745a3f34e81ab5cf48e63bb0, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

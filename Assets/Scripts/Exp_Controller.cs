@@ -147,10 +147,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private GameObject ResultBGimage;
 
-    //SEを鳴らす
-    public AudioClip sound1;
-    AudioSource audioSource;
-
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
     public int _temp_extreme_id;
     public int _temp_extreme_itemtype;
@@ -199,7 +195,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //音声ファイルの取得。SCを使わずに鳴らす場合はこっち。
-        //sound1 = (AudioClip)Resources.Load("Utage_Scenario/Sound/SE/SE_10");
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -225,8 +220,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             default:
                 break;
         }
-
-        audioSource = GetComponent<AudioSource>();
 
         result_ok = false;
         recipiresult_ok = false;
@@ -1055,7 +1048,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //音を鳴らす
                 sc.PlaySe(10);
-                //audioSource.PlayOneShot(sound1);
 
                 //一時的にお菓子のHP減少をストップ
                 extremePanel.LifeAnimeOnFalse();
@@ -1098,7 +1090,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 card_view.DeleteCard_DrawView();
 
                 //音を止める
-                //audioSource.Stop();
                 sc.StopSe();
 
                 //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
@@ -1165,9 +1156,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect[3].GetComponent<Canvas>().worldCamera = Camera.main;
 
         //音を鳴らす
-        sc.PlaySe(4);
-        sc.PlaySe(15);
+        sc.PlaySe(4);        
         sc.PlaySe(27);
+        sc.PlaySe(78);
 
         //ResultBGimage.SetActive(true);
     }

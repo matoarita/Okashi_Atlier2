@@ -539,6 +539,8 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
                         compoundselect_onoff_obj.SetActive(false);
                         canvas.SetActive(true);
+                        OffCompoundSelectnoExtreme();
+                        //extreme_Button.interactable = true;
 
                         _textmain.text = "左のエクストリームパネルを押してみよう！";
                         break;
@@ -552,6 +554,7 @@ public class Compound_Main : MonoBehaviour
 
                         compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = false;
                         compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = false;
+                        compoBG_A.transform.Find("ExtremeImage").GetComponent<Image>().raycastTarget = false;
                         pitemlistController.Offinteract();
                         kakuritsuPanel_obj.SetActive(false);
                         no.SetActive(false);
@@ -737,8 +740,8 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
                        
                         canvas.SetActive(true);
-                        OffCompoundSelect();
-                        extreme_Button.interactable = true;
+                        OffCompoundSelectnoExtreme();
+                        //extreme_Button.interactable = true;
 
                         _textmain.text = "もう一度パネルを押してみよう！";
 
@@ -940,6 +943,7 @@ public class Compound_Main : MonoBehaviour
                     
                     compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
                     compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = true;
+                    compoBG_A.transform.Find("ExtremeImage").GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
                     
                     keymanager.InitCompoundMainScene();
@@ -973,7 +977,7 @@ public class Compound_Main : MonoBehaviour
                 recipiMemoButton.SetActive(false);
 
                 //お金パネルの配置を初期値に戻す
-                moneystatus_panel.transform.localPosition = moneypanel_startPos;
+                //moneystatus_panel.transform.localPosition = moneypanel_startPos;
 
                 //Live2Dデフォルト
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
@@ -1050,13 +1054,16 @@ public class Compound_Main : MonoBehaviour
                 compound_select = 0;
                 compound_status = 110; //退避
 
-                if (girl1_status.special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート。それまでは他のボタン入力できない。
+                if (GameMgr.tutorial_ON != true)
                 {
-                    Extremepanel_obj.SetActive(false);
+                    if (girl1_status.special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート。それまでは他のボタン入力できない。
+                    {
+                        Extremepanel_obj.SetActive(false);
 
-                    compoundselect_onoff_obj.SetActive(false);
+                        compoundselect_onoff_obj.SetActive(false);
 
-                    touch_controller.Touch_OnAllOFF();
+                        touch_controller.Touch_OnAllOFF();
+                    }
                 }
 
                 break;
@@ -1354,7 +1361,7 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.DeleteHukidashiOnly();
 
                 //お金パネルの配置を変更
-                moneystatus_panel.transform.localPosition = new Vector3(279, -100, 0);
+                //moneystatus_panel.transform.localPosition = new Vector3(279, -100, 0);
 
                 break;
 
@@ -2576,6 +2583,16 @@ public class Compound_Main : MonoBehaviour
             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
             StartCoroutine("ReadGirlLoveEvent");
         }
+    }
+
+    public void OffCompoundSelectnoExtreme()
+    {
+        menu_toggle.GetComponent<Toggle>().interactable = false;
+        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
+        shop_toggle.GetComponent<Toggle>().interactable = false;
+        girleat_toggle.GetComponent<Toggle>().interactable = false;
+        sleep_toggle.GetComponent<Toggle>().interactable = false;
+        system_toggle.GetComponent<Toggle>().interactable = false;      
     }
 
     public void OffCompoundSelect()

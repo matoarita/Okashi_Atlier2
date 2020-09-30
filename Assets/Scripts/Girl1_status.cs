@@ -2013,7 +2013,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("..ママ。");
                 _touchface_comment_lib.Add("ぐすん..。");
                 _touchface_comment_lib.Add("..おかし、食べたい。");
-                _touchface_comment_lib.Add("うぇぇ..。");
+                _touchface_comment_lib.Add("..はじめてなら、簡単にクッキーを作ってみようね。");
                 _touchface_comment_lib.Add("兄ちゃん..。");
                 break;
 
