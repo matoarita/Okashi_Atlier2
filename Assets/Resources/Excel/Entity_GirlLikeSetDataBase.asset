@@ -340,12 +340,12 @@ MonoBehaviour:
       topping01: Strawberry
       topping02: Nuts
       topping03: WhipeedCreamStrawberry
-      topping04: Non
+      topping04: Blueberry
       topping05: Non
-      tp_score01: 0
+      tp_score01: 5
       tp_score02: 10
       tp_score03: 20
-      tp_score04: 0
+      tp_score04: 20
       tp_score05: 0
       Non_tpscore: -20
       desc: "<color=#FF78B4>\u30C9\u30FC\u30CA\u30C4</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"

@@ -1541,6 +1541,7 @@ public class Compound_Main : MonoBehaviour
         {
             //stageclear_toggle.SetActive(true);
             stageclear_panel.SetActive(true);
+            stageclear_Button.SetActive(true);
             stageclear_button_text.text = "コンテストへ";
         }
         else
@@ -1556,7 +1557,7 @@ public class Compound_Main : MonoBehaviour
             {
                 stageclear_panel.SetActive(true);
                 stageclear_Button.SetActive(true);
-                stageclear_button_text.text = "次のお菓子へ";
+                stageclear_button_text.text = "次のお話へ";
                 //stageclear_toggle.SetActive(true);
             }
         }
@@ -1838,7 +1839,7 @@ public class Compound_Main : MonoBehaviour
             {
                 if (GameMgr.QuestClearflag)
                 {
-                    _text.text = "次のお菓子を作るの？おにいちゃん。";
+                    _text.text = "次のお話にすすむの？おにいちゃん。";
 
                     compound_status = 42;
                     yes_no_clear_okashi_panel.SetActive(true);
