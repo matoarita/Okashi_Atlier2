@@ -1380,6 +1380,11 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 break;
 
+            case "Juice":
+
+                Juice_Score();
+                break;
+
             case "Tea":
 
                 if (_basecrispy >= _girlcrispy[countNum])
@@ -1696,6 +1701,14 @@ public class GirlEat_Judge : MonoBehaviour {
         shokukan_mes = "歯ごたえ";
         Debug.Log("歯ごたえの点: " + hardness_score);
     }
+
+    void Juice_Score()
+    {
+        shokukan_score = _basesweat + _basebitter + _basesour;
+        shokukan_mes = "のどごし";
+        Debug.Log("のどごしの点: " + shokukan_score);
+    }
+
 
     public int Judge_Score_Return(int value1, int value2, int SetType, int _Setcount)
     {

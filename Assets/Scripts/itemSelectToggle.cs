@@ -48,8 +48,6 @@ public class itemSelectToggle : MonoBehaviour
     private GameObject card_view_obj;
     private CardView card_view;
 
-    private GameObject compostart_button_obj;
-
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
     private Button[] updown_button = new Button[2];
@@ -66,6 +64,9 @@ public class itemSelectToggle : MonoBehaviour
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private Text no_text;
+
+    private Sprite yes_sprite1;
+    private Sprite yes_sprite2;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -145,7 +146,6 @@ public class itemSelectToggle : MonoBehaviour
             compound_Check_obj = GameObject.FindWithTag("Compound_Check");
             compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
 
-            compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
         }
 
 
@@ -161,11 +161,14 @@ public class itemSelectToggle : MonoBehaviour
         yes = pitemlistController_obj.transform.Find("Yes").gameObject;
         yes_text = yes.GetComponentInChildren<Text>();
         no = pitemlistController_obj.transform.Find("No").gameObject;
+        yes.SetActive(false);
+
+        yes_sprite1 = Resources.Load<Sprite>("Sprites/Window/miniwindowB");
+        yes_sprite2 = Resources.Load<Sprite>("Sprites/Window/sabwindowA_pink_66");
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
-
+        
         item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;
 
         //テキストウィンドウの取得
@@ -196,8 +199,7 @@ public class itemSelectToggle : MonoBehaviour
 
         itemID_1 = 0;
         itemID_2 = 0;
-
-        yes.SetActive(false);
+       
     }
 
 
@@ -487,7 +489,6 @@ public class itemSelectToggle : MonoBehaviour
 
                 card_view.SelectCard_DrawView03(pitemlistController._toggle_type3, pitemlistController.kettei_item3); //選択したアイテム2枚目をカードで表示
                 updown_counter_obj.SetActive(true);
-                compostart_button_obj.SetActive(false);
 
                 SelectPaused();
 
@@ -509,6 +510,8 @@ public class itemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -528,8 +531,7 @@ public class itemSelectToggle : MonoBehaviour
                 updown_counter_obj.SetActive(false);                
 
                 itemselect_cancel.kettei_on_waiting = false;
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                
 
                 if (database.items[itemID_1].itemType_sub == Item.ItemType_sub.Pate)
                 {
@@ -566,6 +568,8 @@ public class itemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -580,16 +584,14 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_kosu2 = updown_counter.updown_kosu;
                 card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
 
-                yes.SetActive(false);
-                compostart_button_obj.SetActive(true);
+                yes.SetActive(true);
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);               
 
                 itemselect_cancel.kettei_on_waiting = false;
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
-                //yes_text.text = "調合する";
+               
+                yes_text.text = "作る";
+                compound_Check.YesSetDesign2();
 
                 _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
                 //Debug.Log("二個目選択完了！");
@@ -618,6 +620,8 @@ public class itemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -635,12 +639,8 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_kosu3 = updown_counter.updown_kosu;
                 card_view.OKCard_DrawView03(pitemlistController.final_kettei_kosu3);
 
-                yes.SetActive(false);
-                compostart_button_obj.SetActive(true);
-
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
+                yes.SetActive(true);
+                
                 compound_Check.final_select_flag = true;
 
 
@@ -878,6 +878,8 @@ public class itemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -898,9 +900,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.final_base_kettei_kosu = 1; //updown_counter.updown_kosu;
 
-                itemselect_cancel.kettei_on_waiting = false;
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                itemselect_cancel.kettei_on_waiting = false;                
 
                 _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + " " + "1個" + "\n" + "トッピングアイテム一個目を選択してください。";
                 //Debug.Log("ベースアイテム選択完了！");
@@ -928,6 +928,8 @@ public class itemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -948,9 +950,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 compound_Check.final_select_flag = true; //ここにfinalをいれることで、一個だけしかトッピングできないようにする。
                 //itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
+                
                 //yes_text.text = "調合する";
 
                 //_text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
@@ -982,6 +982,8 @@ public class itemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -999,10 +1001,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.final_kettei_kosu2 = updown_counter.updown_kosu;
 
-                itemselect_cancel.kettei_on_waiting = false;
-
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                itemselect_cancel.kettei_on_waiting = false;                
 
                 yes_text.text = "調合する";
 
@@ -1035,6 +1034,8 @@ public class itemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -1055,9 +1056,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 compound_Check.final_select_flag = true;
 
-
                 yes_text.text = "トッピング開始！";
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                
 
                 break;
 
@@ -1457,29 +1457,19 @@ public class itemSelectToggle : MonoBehaviour
         {
             pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;
         }
-
-        yes.SetActive(true);
+        
         no.SetActive(true);
 
+        
+        yes.SetActive(true);
         yes_text.text = "決定";
 
-        if (SceneManager.GetActiveScene().name == "Compound")
+        //yesは元デザインに戻す
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
         {
-            if (compound_Check.final_select_flag == true)
-            {
-                yes_text.text = "制作開始！";
-            }
-
-            if (compound_Main.compound_select == 5)
-            {
-                yes_text.text = "生地を焼く！";
-            }
-
-            if (compound_Main.compound_select == 10)
-            {
-                yes_text.text = "あげる";
-            }
+            compound_Check.YesSetDesignDefault();
         }
+
     }
 
 

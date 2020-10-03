@@ -38,13 +38,13 @@ public class Compound_Check : MonoBehaviour {
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    private GameObject compostart_button_obj;
-    private CompoundStartButton compostart_button;
-
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private Text no_text;
+
+    private Sprite yes_sprite1;
+    private Sprite yes_sprite2;
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
@@ -86,10 +86,6 @@ public class Compound_Check : MonoBehaviour {
         //確率パネルの取得
         kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-        //最終調合ボタンの取得
-        compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
-        compostart_button = compostart_button_obj.GetComponent<CompoundStartButton>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -143,21 +139,19 @@ public class Compound_Check : MonoBehaviour {
             yes_text = yes.GetComponentInChildren<Text>();
             no = pitemlistController_obj.transform.Find("No").gameObject;
 
-            //最終調合ボタンの取得
-            compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
-            compostart_button = compostart_button_obj.GetComponent<CompoundStartButton>();
+            yes_sprite1 = Resources.Load<Sprite>("Sprites/Window/miniwindowB");
+            yes_sprite2 = Resources.Load<Sprite>("Sprites/Window/sabwindowA_pink_66");
+
         }
 
         if (final_select_flag == true) //最後、これで調合するかどうかを待つフラグ
         {
             if (compound_Main.compound_select == 1) //レシピ調合のときの処理
             {
-                compostart_button.compofinal_flag = true; //ボタン入力の受付のフラグ
 
                 compound_Main.compound_status = 110;
 
                 SelectPaused();
-                yes.SetActive(true);
 
                 final_select_flag = false;
 
@@ -167,12 +161,10 @@ public class Compound_Check : MonoBehaviour {
 
             if (compound_Main.compound_select == 2) //トッピング調合のときの処理
             {
-                compostart_button.compofinal_flag = true; //ボタン入力の受付のフラグ
 
                 compound_Main.compound_status = 110;
 
                 SelectPaused();
-                yes.SetActive(true);
 
                 final_select_flag = false;
 
@@ -182,7 +174,6 @@ public class Compound_Check : MonoBehaviour {
 
             if (compound_Main.compound_select == 3) //オリジナル調合のときの処理
             {
-                compostart_button.compofinal_flag = true; //ボタン入力の受付のフラグ
 
                 compound_Main.compound_status = 110;
 
@@ -231,7 +222,7 @@ public class Compound_Check : MonoBehaviour {
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
 
-                switch (yes_selectitem_kettei.kettei3)
+                switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
 
@@ -290,7 +281,7 @@ public class Compound_Check : MonoBehaviour {
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
 
-                switch (yes_selectitem_kettei.kettei3)
+                switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
 
@@ -320,6 +311,11 @@ public class Compound_Check : MonoBehaviour {
 
                         compound_Main.compound_status = 100;
                         itemselect_cancel.Three_cancel();
+
+                        yes.SetActive(true);
+                        yes_text.text = "作る";
+                        YesSetDesign2();                       
+                        
 
                         break;
                 }
@@ -623,6 +619,17 @@ public class Compound_Check : MonoBehaviour {
         }
     }
 
+    public void YesSetDesignDefault()
+    {
+        yes_text.color = new Color(56f / 255f, 56f / 255f, 36f / 255f); //焦げ茶文字
+        yes.GetComponent<Image>().sprite = yes_sprite1;
+    }
+
+    public void YesSetDesign2()
+    {
+        yes_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //白文字
+        yes.GetComponent<Image>().sprite = yes_sprite2;
+    }
 
 
     void CompoundJudge()
@@ -866,16 +873,17 @@ public class Compound_Check : MonoBehaviour {
             }
         }
 
-        yes.SetActive(false);
+        yes.SetActive(true);
         no.SetActive(true);
 
-        yes_text.text = "決定";
+        yes_text.text = "決定";       
 
         if (SceneManager.GetActiveScene().name == "Compound")
         {
             if (final_select_flag == true)
             {
                 yes_text.text = "制作開始！";
+                YesSetDesign2();
             }
 
             if (compound_Main.compound_select == 5)
@@ -906,9 +914,7 @@ public class Compound_Check : MonoBehaviour {
 
         itemselect_cancel.kettei_on_waiting = false;
 
-        updown_counter_obj.SetActive(false);
-        compostart_button.compofinal_flag = false;
-        compostart_button_obj.SetActive(false);        
+        updown_counter_obj.SetActive(false);        
 
         yes_selectitem_kettei.kettei1 = false;
         yes.SetActive(false);

@@ -403,7 +403,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      powdery: 0
+      powdery: -2
       oily: 0
       watery: 5
       type: Mat
@@ -449,7 +449,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      powdery: 0
+      powdery: -2
       oily: 0
       watery: 5
       type: Mat
@@ -495,7 +495,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      powdery: 0
+      powdery: -1
       oily: 0
       watery: 3
       type: Mat
@@ -1415,7 +1415,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      powdery: 0
+      powdery: -7
       oily: 0
       watery: 10
       type: Mat
@@ -1599,7 +1599,7 @@ MonoBehaviour:
       hardness: -10
       jiggly: 0
       chewy: 0
-      powdery: 0
+      powdery: -7
       oily: 0
       watery: 10
       type: Mat
@@ -8403,7 +8403,7 @@ MonoBehaviour:
       sweat: 0
       bitter: 0
       sour: 0
-      crispy: 20
+      crispy: 40
       fluffy: 0
       smooth: 0
       hardness: 70
@@ -11707,7 +11707,7 @@ MonoBehaviour:
     - ItemID: 1006
       file_name: oil_extracter
       name: oil_extracter
-      nameHyouji: "\u7D5E\u308A\u5668"
+      nameHyouji: "\u3042\u3076\u3089\u7D5E\u308A\u5668"
       desc: "\u82B1\u306E\u7A2E\u5B50\u304B\u3089\u3001\u6CB9\u3092\u643E\u308A\u63A1\u308B\u5668\u5177\u3002\u5C11\u91CF\u306E\u9B54\u529B\u3067\u52B9\u7387\u3088\u304F\u52D5\u304F\u3088\u3046\u306B\u306A\u3063\u3066\u3044\u308B\u3002"
       comp_hosei: 0
       hp: 0
@@ -11751,6 +11751,52 @@ MonoBehaviour:
       item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 1007
+      file_name: oil_extracter
+      name: juice_mixer
+      nameHyouji: "\u30B8\u30E5\u30FC\u30B9\u7D5E\u308A\u5668"
+      desc: "\u679C\u7269\u3092\u62BC\u3057\u3064\u3076\u3057\u3066\u3001\u679C\u6C41\u3092\u53D6\u308B\u305F\u3081\u306E\u5668\u5177\u3002\u30B8\u30E5\u30FC\u30B9\u304C\u4F5C\u308C\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Machine
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1008
       file_name: flyer
       name: flyer
       nameHyouji: "\u30D5\u30E9\u30A4\u30E4\u30FC"
@@ -11796,7 +11842,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1008
+    - ItemID: 1009
       file_name: stone_oven
       name: stone_oven
       nameHyouji: "\u30AA\u30FC\u30D6\u30F3"
@@ -11842,7 +11888,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1009
+    - ItemID: 1010
       file_name: hot_plate
       name: hot_plate
       nameHyouji: "\u30DB\u30C3\u30C8\u30D7\u30EC\u30FC\u30C8"
@@ -11888,7 +11934,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1010
+    - ItemID: 1011
       file_name: hot_plate
       name: ice_crystal
       nameHyouji: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30B9\u30BF\u30EB"
@@ -11934,7 +11980,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1011
+    - ItemID: 1012
       file_name: emeralDonguri
       name: emeralDongri
       nameHyouji: "\u30A8\u30E1\u30E9\u30EB\u3069\u3093\u3050\u308A"
@@ -11980,7 +12026,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1012
+    - ItemID: 1013
       file_name: kirakira_stone1
       name: kirakira_stone1
       nameHyouji: "\u304D\u308C\u3044\u306A\u77F3"

@@ -23,8 +23,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     private Updown_counter updown_counter;
     private Button[] updown_button = new Button[2];
 
-    private CompoundStartButton compostart_button;
-
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
     private ScrollRect pitemlist_sr;
@@ -148,8 +146,21 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         //本編でも使用
         //KeyInputMethod();
 
+        //F4キーでフルスクリーンの切り替え
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            if (Screen.fullScreen)
+            {
+                Screen.fullScreen = false;
+            }
+            else
+            {
+                Screen.fullScreen = true;
+            }
+        }
     }
 
+    //現在は使用停止。シーンによってバグがあるため。
     void KeyInputMethod()
     {       
         if (canvas == null)
@@ -322,156 +333,132 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
                                 case 1:
 
-                                    if (compostart_button.compofinal_flag != true)
+                                    if (itemselect_cancel.kettei_on_waiting != true)
                                     {
-                                        if (itemselect_cancel.kettei_on_waiting != true)
+                                        sc.PlaySe(2);
+
+                                        if (!itemCursor_On)
                                         {
-                                            sc.PlaySe(2);
-
-                                            if (!itemCursor_On)
-                                            {
-                                                cursor_cullent_num = 0;
-                                                cursor_cullent_num_before = 0;
-                                                itemCursor_On = true;
-                                            }
-                                            else
-                                            {
-                                                if (OnDownKey) //下
-                                                {
-                                                    cursor_cullent_num += recipilist_column;
-                                                    if (cursor_cullent_num > recipilistController._recipi_listitem.Count - 1)
-                                                    {
-                                                        cursor_cullent_num = recipilistController._recipi_listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                                if (OnRightKey) //右
-                                                {
-                                                    cursor_cullent_num += 1;
-                                                    if (cursor_cullent_num > recipilistController._recipi_listitem.Count - 1)
-                                                    {
-                                                        cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                                if (OnUpKey) //上
-                                                {
-                                                    cursor_cullent_num -= recipilist_column;
-                                                    if (cursor_cullent_num < 0)
-                                                    {
-                                                        cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                                if (OnLeftKey) //左
-                                                {
-                                                    cursor_cullent_num -= 1;
-                                                    if (cursor_cullent_num < 0)
-                                                    {
-                                                        cursor_cullent_num = recipilistController._recipi_listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                            }
-
-                                            //描画更新
-                                            recipiitemlist_DrawCursor();
+                                            cursor_cullent_num = 0;
+                                            cursor_cullent_num_before = 0;
+                                            itemCursor_On = true;
                                         }
                                         else
                                         {
-                                            updown_counter = canvas.transform.Find("updown_counter(Clone)").GetComponent<Updown_counter>();
-                                            updown_button = updown_counter.GetComponentsInChildren<Button>();
-                                            sc.PlaySe(2);
-
+                                            if (OnDownKey) //下
+                                            {
+                                                cursor_cullent_num += recipilist_column;
+                                                if (cursor_cullent_num > recipilistController._recipi_listitem.Count - 1)
+                                                {
+                                                    cursor_cullent_num = recipilistController._recipi_listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
+                                            }
                                             if (OnRightKey) //右
                                             {
-                                                if (updown_button[1].interactable == true)
+                                                cursor_cullent_num += 1;
+                                                if (cursor_cullent_num > recipilistController._recipi_listitem.Count - 1)
                                                 {
-                                                    updown_counter.OnClick_up();
+                                                    cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
+                                            }
+                                            if (OnUpKey) //上
+                                            {
+                                                cursor_cullent_num -= recipilist_column;
+                                                if (cursor_cullent_num < 0)
+                                                {
+                                                    cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
                                                 }
                                             }
                                             if (OnLeftKey) //左
                                             {
-                                                updown_counter.OnClick_down();
+                                                cursor_cullent_num -= 1;
+                                                if (cursor_cullent_num < 0)
+                                                {
+                                                    cursor_cullent_num = recipilistController._recipi_listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
                                             }
                                         }
+
+                                        //描画更新
+                                        recipiitemlist_DrawCursor();
                                     }
                                     else
                                     {
+                                        updown_counter = canvas.transform.Find("updown_counter(Clone)").GetComponent<Updown_counter>();
+                                        updown_button = updown_counter.GetComponentsInChildren<Button>();
+                                        sc.PlaySe(2);
 
-                                    }
+                                        if (OnRightKey) //右
+                                        {
+                                            if (updown_button[1].interactable == true)
+                                            {
+                                                updown_counter.OnClick_up();
+                                            }
+                                        }
+                                        if (OnLeftKey) //左
+                                        {
+                                            updown_counter.OnClick_down();
+                                        }
+                                    }                                   
 
                                     break;
 
                                 case 2:
 
-                                    if (compostart_button.compofinal_flag != true)
+                                    if (itemselect_cancel.kettei_on_waiting != true)
                                     {
-                                        if (itemselect_cancel.kettei_on_waiting != true)
+                                        sc.PlaySe(2);
+
+                                        if (!itemCursor_On)
                                         {
-                                            sc.PlaySe(2);
-
-                                            if (!itemCursor_On)
-                                            {
-                                                cursor_cullent_num = 0;
-                                                cursor_cullent_num_before = 0;
-                                                itemCursor_On = true;
-                                            }
-                                            else
-                                            {
-                                                if (OnDownKey) //下
-                                                {
-                                                    cursor_cullent_num += pitemlist_column;
-                                                    if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
-                                                    {
-                                                        cursor_cullent_num = pitemlistController._listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-
-
-                                                }
-                                                if (OnRightKey) //右
-                                                {
-                                                    cursor_cullent_num += 1;
-                                                    if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
-                                                    {
-                                                        cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                                if (OnUpKey) //上
-                                                {
-                                                    cursor_cullent_num -= pitemlist_column;
-                                                    if (cursor_cullent_num < 0)
-                                                    {
-                                                        cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                                if (OnLeftKey) //左
-                                                {
-                                                    cursor_cullent_num -= 1;
-                                                    if (cursor_cullent_num < 0)
-                                                    {
-                                                        cursor_cullent_num = pitemlistController._listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                            }
-
-                                            //描画更新
-                                            pitemlist_DrawCursor();
+                                            cursor_cullent_num = 0;
+                                            cursor_cullent_num_before = 0;
+                                            itemCursor_On = true;
                                         }
                                         else
                                         {
-                                            //トッピングは、今のところ個数計算はしないので、OFFに。
-                                            /*updown_counter = canvas.transform.Find("updown_counter(Clone)").GetComponent<Updown_counter>();
-                                            sc.PlaySe(2);
+                                            if (OnDownKey) //下
+                                            {
+                                                cursor_cullent_num += pitemlist_column;
+                                                if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
+                                                {
+                                                    cursor_cullent_num = pitemlistController._listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
 
-                                            if (Input.GetKeyDown(KeyCode.RightArrow)) //右
-                                            {
-                                                updown_counter.OnClick_up();
+
                                             }
-                                            if (Input.GetKeyDown(KeyCode.LeftArrow)) //左
+                                            if (OnRightKey) //右
                                             {
-                                                updown_counter.OnClick_down();
-                                            }*/
+                                                cursor_cullent_num += 1;
+                                                if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
+                                                {
+                                                    cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
+                                            }
+                                            if (OnUpKey) //上
+                                            {
+                                                cursor_cullent_num -= pitemlist_column;
+                                                if (cursor_cullent_num < 0)
+                                                {
+                                                    cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
+                                            }
+                                            if (OnLeftKey) //左
+                                            {
+                                                cursor_cullent_num -= 1;
+                                                if (cursor_cullent_num < 0)
+                                                {
+                                                    cursor_cullent_num = pitemlistController._listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
+                                            }
                                         }
+
+                                        //描画更新
+                                        pitemlist_DrawCursor();
                                     }
                                     else
                                     {
+                                        //トッピングは、今のところ個数計算はしないので、OFFに。
                                         /*updown_counter = canvas.transform.Find("updown_counter(Clone)").GetComponent<Updown_counter>();
                                         sc.PlaySe(2);
 
@@ -484,79 +471,63 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             updown_counter.OnClick_down();
                                         }*/
                                     }
+                                   
 
                                     break;
 
 
                                 case 3:
 
-                                    if (compostart_button.compofinal_flag != true)
+                                    if (itemselect_cancel.kettei_on_waiting != true)
                                     {
-                                        if (itemselect_cancel.kettei_on_waiting != true)
+                                        sc.PlaySe(2);
+
+                                        if (!itemCursor_On)
                                         {
-                                            sc.PlaySe(2);
-
-                                            if (!itemCursor_On)
-                                            {
-                                                cursor_cullent_num = 0;
-                                                cursor_cullent_num_before = 0;
-                                                itemCursor_On = true;
-                                            }
-                                            else
-                                            {
-                                                if (OnDownKey) //下
-                                                {
-                                                    cursor_cullent_num += pitemlist_column;
-                                                    if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
-                                                    {
-                                                        cursor_cullent_num = pitemlistController._listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-
-
-                                                }
-                                                if (OnRightKey) //右
-                                                {
-                                                    cursor_cullent_num += 1;
-                                                    if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
-                                                    {
-                                                        cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                                if (OnUpKey) //上
-                                                {
-                                                    cursor_cullent_num -= pitemlist_column;
-                                                    if (cursor_cullent_num < 0)
-                                                    {
-                                                        cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                                if (OnLeftKey) //左
-                                                {
-                                                    cursor_cullent_num -= 1;
-                                                    if (cursor_cullent_num < 0)
-                                                    {
-                                                        cursor_cullent_num = pitemlistController._listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
-                                                    }
-                                                }
-                                            }
-
-                                            //描画更新
-                                            pitemlist_DrawCursor();
+                                            cursor_cullent_num = 0;
+                                            cursor_cullent_num_before = 0;
+                                            itemCursor_On = true;
                                         }
                                         else
                                         {
-                                            updown_counter = canvas.transform.Find("updown_counter(Clone)").GetComponent<Updown_counter>();
-                                            sc.PlaySe(2);
+                                            if (OnDownKey) //下
+                                            {
+                                                cursor_cullent_num += pitemlist_column;
+                                                if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
+                                                {
+                                                    cursor_cullent_num = pitemlistController._listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
 
+
+                                            }
                                             if (OnRightKey) //右
                                             {
-                                                updown_counter.OnClick_up();
+                                                cursor_cullent_num += 1;
+                                                if (cursor_cullent_num > pitemlistController._listitem.Count - 1)
+                                                {
+                                                    cursor_cullent_num -= 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
+                                            }
+                                            if (OnUpKey) //上
+                                            {
+                                                cursor_cullent_num -= pitemlist_column;
+                                                if (cursor_cullent_num < 0)
+                                                {
+                                                    cursor_cullent_num = 0; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
                                             }
                                             if (OnLeftKey) //左
                                             {
-                                                updown_counter.OnClick_down();
+                                                cursor_cullent_num -= 1;
+                                                if (cursor_cullent_num < 0)
+                                                {
+                                                    cursor_cullent_num = pitemlistController._listitem.Count - 1; //空の箇所を押そうとした場合、位置を元に戻す
+                                                }
                                             }
                                         }
+
+                                        //描画更新
+                                        pitemlist_DrawCursor();
                                     }
                                     else
                                     {
@@ -572,6 +543,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                             updown_counter.OnClick_down();
                                         }
                                     }
+
 
                                     break;
 
@@ -708,8 +680,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                 case 1:
 
 
-                                    if (compostart_button.compofinal_flag != true)
-                                    {
+
                                         if (itemselect_cancel.kettei_on_waiting != true)
                                         {
                                             if (recipilistController._recipi_listitem[cursor_cullent_num].GetComponent<Toggle>().IsInteractable() != false)
@@ -726,14 +697,13 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                         {
 
                                         }
-                                    }
+                                    
 
                                     break;
 
                                 case 2:
 
-                                    if (compostart_button.compofinal_flag != true)
-                                    {
+
                                         if (itemselect_cancel.kettei_on_waiting != true)
                                         {
                                             if (pitemlistController._listitem[cursor_cullent_num].GetComponent<Toggle>().IsInteractable() != false)
@@ -750,13 +720,12 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                         {
 
                                         }
-                                    }
+                                    
                                     break;
 
                                 case 3:
 
-                                    if (compostart_button.compofinal_flag != true)
-                                    {
+
                                         if (itemselect_cancel.kettei_on_waiting != true)
                                         {
                                             if (pitemlistController._listitem[cursor_cullent_num].GetComponent<Toggle>().IsInteractable() != false)
@@ -773,7 +742,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                         {
 
                                         }
-                                    }
+                                    
                                     break;
 
                                 case 6:
@@ -1015,9 +984,6 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         itemselect_cancel = GameObject.FindWithTag("ItemSelect_Cancel").GetComponent<ItemSelect_Cancel>();
 
         extreme_panel = canvas.transform.Find("ExtremePanel").GetComponent<ExtremePanel>();
-
-        //最終調合ボタンの取得 
-        compostart_button = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").GetComponent<CompoundStartButton>();
 
         compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;

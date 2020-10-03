@@ -29,9 +29,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject card_view_obj;
     private CardView card_view;
 
-    private GameObject compostart_button_obj;
-    private CompoundStartButton compostart_button;
-
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
@@ -101,10 +98,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 compound_Check_obj = GameObject.FindWithTag("Compound_Check");
                 compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
-
-                //最終調合ボタンの取得
-                compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
-                compostart_button = compostart_button_obj.GetComponent<CompoundStartButton>();
 
                 selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
                 yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();               
@@ -219,9 +212,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     
                     kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
                     kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-                    //最終調合ボタンの取得
-                    compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
 
                     compound_Check_obj = GameObject.FindWithTag("Compound_Check");
                     compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
@@ -440,14 +430,14 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                         if (pitemlistController.kettei1_bunki == 2) //現在二個目を選択している状態
                                         {
-                                            if (yes_selectitem_kettei.kettei3 == true) //調合二個で決定した状態
+                                            if (yes_selectitem_kettei.kettei1 == true) //調合二個で決定した状態
                                             {
                                                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                                                 compound_Check.final_select_flag = true;
 
                                             }
-                                            else if (yes_selectitem_kettei.kettei3 == false) //キャンセルボタンをおした。
+                                            else if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                             {
                                                 //Debug.Log("二個目はcancel");
 
@@ -670,9 +660,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
             updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
 
-            //最終調合ボタンの取得
-            compostart_button_obj = canvas.transform.Find("Compound_BGPanel_A/CompoundStartButton").gameObject;
-
             //まずは、レシピ・それ以外の調合用にオブジェクト取得
             if (compound_Main.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
             {
@@ -818,7 +805,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         }
         
         updown_counter_obj.SetActive(false);
-        compostart_button.compofinal_flag = false;
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
@@ -877,9 +863,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //no.SetActive(false);
         updown_counter_obj.SetActive(false);
 
-        compostart_button.compofinal_flag = false;
-        compostart_button_obj.SetActive(false);
-
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
@@ -924,8 +907,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         yes.SetActive(false);
         //no.SetActive(false);
         updown_counter_obj.SetActive(false);
-
-        compostart_button.compofinal_flag = false;
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }

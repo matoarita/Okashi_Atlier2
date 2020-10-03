@@ -808,7 +808,7 @@ public class Quest_Judge : MonoBehaviour {
                     //もし、エクストリームパネルにセットされているお菓子を納品し、個数が０になった場合。処理が必要。
                     if (exp_Controller._temp_extreme_id == _id)
                     {
-                        if (pitemlist.playeritemlist[_id] == _kosu_default)
+                        if (pitemlist.playeritemlist[_id] <= 0)
                         {
                             exp_Controller._temp_extreme_id = 9999;
                         }
@@ -822,7 +822,7 @@ public class Quest_Judge : MonoBehaviour {
                     //もし、エクストリームパネルにセットされているお菓子を納品し、個数が０になった場合。処理が必要。
                     if (exp_Controller._temp_extreme_id == _id)
                     {
-                        if (pitemlist.player_originalitemlist[_id].ItemKosu == _kosu_default)
+                        if (pitemlist.player_originalitemlist[_id].ItemKosu <= 0)
                         {
                             exp_Controller._temp_extreme_id = 9999;
                         }

@@ -51,6 +51,8 @@ public class shopQuestSelectToggle : MonoBehaviour
     private ItemCompoundDataBase databaseCompo;
     private QuestSetDataBase quest_database;
 
+    private SoundController sc;
+
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
@@ -154,6 +156,9 @@ public class shopQuestSelectToggle : MonoBehaviour
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //黒半透明パネルの取得
         black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
@@ -271,8 +276,9 @@ public class shopQuestSelectToggle : MonoBehaviour
                 shopquestlistController.reset_and_DrawView();
 
                 _text.text = "受注しました！" + "頑張ってね～！";
-                
-                //ジャキーンみたいな音を鳴らす。
+
+                //音を鳴らす。
+                sc.PlaySe(25);
 
                 Debug.Log("受注完了！");
 

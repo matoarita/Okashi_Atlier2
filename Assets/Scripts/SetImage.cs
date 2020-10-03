@@ -143,6 +143,7 @@ public class SetImage : MonoBehaviour
     private int _lasthardness_score;
     private int _lastjiggly_score;
     private int _lastchewy_score;
+    private int _lastjuice_score;
 
     private int _eat_kaisu;
     private bool _highscore_flag;
@@ -417,6 +418,7 @@ public class SetImage : MonoBehaviour
                 _lastfluffy_score = database.items[check_counter].last_fluffy_score;
                 _lastsmooth_score = database.items[check_counter].last_smooth_score;
                 _lasthardness_score = database.items[check_counter].last_hardness_score;
+                _lastjuice_score = _lastsweat_score + _lastbitter_score + _lastsour_score;
 
                 _eat_kaisu = database.items[check_counter].Eat_kaisu;
                 _highscore_flag = database.items[check_counter].HighScore_flag;
@@ -481,6 +483,7 @@ public class SetImage : MonoBehaviour
                 _lastfluffy_score = pitemlist.player_originalitemlist[check_counter].last_fluffy_score;
                 _lastsmooth_score = pitemlist.player_originalitemlist[check_counter].last_smooth_score;
                 _lasthardness_score = pitemlist.player_originalitemlist[check_counter].last_hardness_score;
+                _lastjuice_score = _lastsweat_score + _lastbitter_score + _lastsour_score;
 
                 _eat_kaisu = pitemlist.player_originalitemlist[check_counter].Eat_kaisu;
                 _highscore_flag = pitemlist.player_originalitemlist[check_counter].HighScore_flag;
@@ -633,9 +636,7 @@ public class SetImage : MonoBehaviour
                 break;
             case "Juice":
                 subcategory = "ジュース";
-                Smooth_Text();
-                item_Shokukan_Type.text = "のどごし";
-                item_lastShokukan_Type.text = "のどごし";
+                Juice_Text();
                 break;
             case "Tea":
                 subcategory = "お茶";
@@ -949,6 +950,15 @@ public class SetImage : MonoBehaviour
         item_Shokukan.text = _hardness_score.ToString();
         _shokukan_score = _hardness_score;
         _lastshokukan_score = _lasthardness_score;
+    }
+
+    void Juice_Text()
+    {
+        item_Shokukan_Type.text = "のどごし";
+        item_lastShokukan_Type.text = "のどごし";
+        item_Shokukan.text = (_sweat_score + _bitter_score + _sour_score).ToString();
+        _shokukan_score = _sweat_score + _bitter_score + _sour_score;
+        _lastshokukan_score = _lastsweat_score + _lastbitter_score + _lastsour_score;
     }
 
     void Etc_Text()
