@@ -47,6 +47,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //プレイヤーのイベントアイテムリスト。
     public List<ItemEvent> eventitemlist = new List<ItemEvent>();
 
+    //エメラルショップなどで購入できるアイテムやイベント関係のアイテム。コスチュームなど。
+    public List<ItemEvent> emeralditemlist = new List<ItemEvent>();
+
     //プレイヤーが作成したオリジナルのアイテムリスト。
     public List<Item> player_originalitemlist = new List<Item>(); 
 
@@ -106,12 +109,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     }
     public void ReseteventitemList()
     {
-        _id = 0;
         sheet_no = 0;
+        sheet_count = 0;
         eventitemlist.Clear();
 
         //エクセルのアイテムIDを順番に読み取り、プレイヤー所持リストに割り当て。
-        while (sheet_no < excel_eventitemdatabase.sheets.Count)
+        while (sheet_count < 1)
         {
             count = 0;
 
@@ -137,8 +140,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ++count;
             }
 
-            ++sheet_no;
+            ++sheet_count;
 
+            /*
             if (sheet_no < excel_eventitemdatabase.sheets.Count)
             {
                 sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる。ここでは、前シートの要素数を取得している。
@@ -148,6 +152,40 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                     eventitemlist.Add(new ItemEvent(_id + i + 1, "", "", "", 0, 0, 0, 0, 0, "", 9999, 9999)); //エクセルに登録されていないアイテムID分、空をいれている。
                 }
             }
+            */
+        }
+
+        sheet_no = 1;
+        sheet_count = 0;
+
+        while (sheet_count < 1)
+        {
+            count = 0;
+
+            while (count < excel_eventitemdatabase.sheets[sheet_no].list.Count)
+            {
+                // 一旦代入 IDだけを取る。
+                _id = excel_eventitemdatabase.sheets[sheet_no].list[count].ev_ItemID;
+                ev_fileName = excel_eventitemdatabase.sheets[sheet_no].list[count].fileName;
+                ev_itemName = excel_eventitemdatabase.sheets[sheet_no].list[count].name;
+                ev_itemNameHyouji = excel_eventitemdatabase.sheets[sheet_no].list[count].nameHyouji;
+                ev_cost = excel_eventitemdatabase.sheets[sheet_no].list[count].cost_price;
+                ev_sell = excel_eventitemdatabase.sheets[sheet_no].list[count].sell_price;
+                ev_kosu = excel_eventitemdatabase.sheets[sheet_no].list[count].kosu;
+                ev_read_flag = excel_eventitemdatabase.sheets[sheet_no].list[count].read_flag;
+                ev_list_on = excel_eventitemdatabase.sheets[sheet_no].list[count].list_hyouji_on;
+                ev_memo = excel_eventitemdatabase.sheets[sheet_no].list[count].memo;
+                ev_reflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Re_flag_num;
+                ev_evflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Ev_flag_num;
+
+                //ここでリストに追加している
+                emeralditemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_list_on, ev_memo, ev_reflag_num, ev_evflag_num));
+
+                ++count;
+            }
+
+            ++sheet_count;
+
         }
     }
 	
@@ -156,6 +194,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 		
 	}
 
+    //アイテムID＋個数で、追加
     public void addPlayerItem(int itemID, int count_kosu)
     {
         playeritemlist[itemID] = playeritemlist[itemID] + count_kosu;
@@ -166,6 +205,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
     }
 
+    //アイテム名＋個数で、追加
     public void addPlayerItemString(string itemName, int count_kosu)
     {
         for (i = 0; i <= database.sheet_topendID[1]; i++)
@@ -214,6 +254,61 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             if (database.items[count].itemName == itemName)
             {
                 addPlayerItem(count, count_kosu);
+            }
+            ++count;
+        }
+
+    }
+
+    //アイテム名＋個数で、指定した個数に変更する。（加算とは別。）
+    public void ReSetPlayerItemString(string itemName, int count_kosu)
+    {
+        for (i = 0; i <= database.sheet_topendID[1]; i++)
+        {
+            if (database.items[i].itemName == itemName)
+            {
+                playeritemlist[i] = count_kosu;
+            }
+        }
+
+        //お菓子タイプ
+        count = database.sheet_topendID[2];
+
+        j = database.sheet_topendID[3] - database.sheet_topendID[2];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                playeritemlist[count] = count_kosu;
+            }
+            ++count;
+        }
+
+        //ポーションタイプ
+        count = database.sheet_topendID[4];
+
+        j = database.sheet_topendID[5] - database.sheet_topendID[4];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                playeritemlist[count] = count_kosu;
+            }
+            ++count;
+        }
+
+        //その他タイプ
+        count = database.sheet_topendID[6];
+
+        j = database.sheet_topendID[7] - database.sheet_topendID[6];
+
+        for (i = 0; i <= j; i++)
+        {
+            if (database.items[count].itemName == itemName)
+            {
+                playeritemlist[count] = count_kosu;
             }
             ++count;
         }
@@ -429,6 +524,17 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
     }
 
+    public void add_EmeraldPlayerItem(int ev_id, int count_kosu)
+    {
+
+        emeralditemlist[ev_id].ev_itemKosu = emeralditemlist[ev_id].ev_itemKosu + count_kosu;
+
+        if (emeralditemlist[ev_id].ev_itemKosu > 99)
+        {
+            emeralditemlist[ev_id].ev_itemKosu = 99; //上限 99個
+        }
+    }
+
     public void add_eventPlayerItemString(string itemName, int count_kosu)
     {
         event_id = Find_eventitemdatabase(itemName);
@@ -480,6 +586,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext));
     }
 
+    //指定したIDのオリジナルアイテムを削除する
     public void deleteOriginalItem(int _id, int _kosu)
     {
         player_originalitemlist[_id].ItemKosu -= _kosu;
@@ -532,5 +639,23 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
 
         return _itemcount; //該当するIDがない場合
+    }
+
+    //イベントアイテムのリストを参照。
+    public void eventitemlist_Sansho()
+    {
+        for (i = 0; i < eventitemlist.Count; i++)
+        {
+            Debug.Log("アイテム名: " + eventitemlist[i].event_itemName + "　所持数: " + eventitemlist[i].ev_itemKosu);
+        }
+    }
+
+    //エメラルドアイテムのリストを参照。
+    public void emeralditemlist_Sansho()
+    {
+        for(i=0; i < emeralditemlist.Count; i++)
+        {
+            Debug.Log("アイテム名: " + emeralditemlist[i].event_itemName + "　所持数: " + emeralditemlist[i].ev_itemKosu);
+        }
     }
 }

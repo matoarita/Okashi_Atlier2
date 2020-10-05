@@ -72,7 +72,9 @@ public class shopitemSelectToggle : MonoBehaviour
     private int kettei_item1; //このスクリプトは、プレファブのインスタンスに取り付けているので、各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
 
     private int count_1;
-
+    private int _cost;
+    private int player_money;
+    private int emeraldonguriID;
 
     void Start()
     {
@@ -97,7 +99,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
         shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
         shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-        back_ShopFirst_obj = shopitemlistController_obj.transform.Find("Back_ShopFirst").gameObject;
+        back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
 
         yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
@@ -247,6 +249,8 @@ public class shopitemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -258,11 +262,9 @@ public class shopitemSelectToggle : MonoBehaviour
                 shopitemlistController.shop_final_itemkosu_1 = updown_counter.updown_kosu; //最終個数を入れる。
 
                 shopitemlistController.shop_final_select_flag = true; //確認のフラグ
-                yes_selectitem_kettei.kettei1 = false;
 
                 Debug.Log("選択完了！");
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                
                 break;
 
             case false: //キャンセルが押された
@@ -274,15 +276,12 @@ public class shopitemSelectToggle : MonoBehaviour
                 //キャンセル時、リストのインタラクティブ解除。その時、プレイヤーの所持金をチェックし、足りないものはOFF表示にする。
                 Money_Check();
 
-               
-                yes_selectitem_kettei.kettei1 = false;
                 yes.SetActive(false);
                 no.SetActive(false);
                 updown_counter_obj.SetActive(false);
 
                 back_ShopFirst_btn.interactable = true;
 
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                 break;
         }
     }
@@ -304,6 +303,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -311,7 +311,7 @@ public class shopitemSelectToggle : MonoBehaviour
             case true: //決定が押された。購入決定。
 
 
-                exp_Controller.shop_buy_ok = true; //購入完了のフラグをたてる。
+                //exp_Controller.shop_buy_ok = true; //購入完了のフラグをたてる。
 
                 for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
                 {
@@ -332,9 +332,7 @@ public class shopitemSelectToggle : MonoBehaviour
                 updown_button[2].interactable = true;
                 updown_button[3].interactable = true;
                 updown_counter_obj.SetActive(false);
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
+                
                 exp_Controller.Shop_ResultOK();
 
                 break;
@@ -360,7 +358,6 @@ public class shopitemSelectToggle : MonoBehaviour
                 updown_button[3].interactable = true;
                 updown_counter_obj.SetActive(false);
 
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                 break;
         }
 
@@ -368,12 +365,43 @@ public class shopitemSelectToggle : MonoBehaviour
 
     void Money_Check()
     {
+        MoneyCheck_Method();          
+    }
+
+    void MoneyCheck_Method()
+    {
         for (i = 0; i < shopitemlistController._shop_listitem.Count; i++)
         {
             shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
 
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Shop":
+
+                    player_money = PlayerStatus.player_money;
+                    _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+
+                    break;
+
+                case "Farm":
+
+                    player_money = PlayerStatus.player_money;
+                    _cost = shop_database.farmitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+
+                    break;
+
+                case "Emerald_Shop":
+
+                    emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+
+                    player_money = pitemlist.playeritemlist[emeraldonguriID];
+                    _cost = shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+
+                    break;
+            }
+
             //お金が足りない場合は、選択できないようにする。
-            if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice)
+            if (player_money < _cost)
             {
                 shopitemlistController._shop_listitem[i].GetComponent<Toggle>().interactable = false;
             }
@@ -387,7 +415,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
         for (i = 0; i < category_toggle.Count; i++)
         {
-            category_toggle[i].GetComponent<Toggle>().interactable = true;            
+            category_toggle[i].GetComponent<Toggle>().interactable = true;
         }
     }
 }

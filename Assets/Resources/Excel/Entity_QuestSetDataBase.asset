@@ -73,7 +73,7 @@ MonoBehaviour:
     - ID: 2
       QuestID: 20
       QuestType: 1
-      QuestHyouji: 0
+      QuestHyouji: 9999
       file_name: grape
       quest_itemName: grape
       quest_itemsubtype: Non
@@ -129,7 +129,7 @@ MonoBehaviour:
     - ID: 4
       QuestID: 40
       QuestType: 1
-      QuestHyouji: 0
+      QuestHyouji: 9999
       file_name: orange
       quest_itemName: orange
       quest_itemsubtype: Non
@@ -157,7 +157,7 @@ MonoBehaviour:
     - ID: 5
       QuestID: 50
       QuestType: 1
-      QuestHyouji: 0
+      QuestHyouji: 9999
       file_name: nuts
       quest_itemName: nuts
       quest_itemsubtype: Non
@@ -185,7 +185,7 @@ MonoBehaviour:
     - ID: 6
       QuestID: 60
       QuestType: 1
-      QuestHyouji: 0
+      QuestHyouji: 9999
       file_name: kirakira_stone1
       quest_itemName: kirakira_stone1
       quest_itemsubtype: Non
@@ -213,7 +213,7 @@ MonoBehaviour:
     - ID: 7
       QuestID: 70
       QuestType: 1
-      QuestHyouji: 0
+      QuestHyouji: 9999
       file_name: emerald_suger
       quest_itemName: emerald_suger
       quest_itemsubtype: Non
@@ -242,34 +242,6 @@ MonoBehaviour:
       QuestID: 80
       QuestType: 0
       QuestHyouji: 2
-      file_name: honey_neko_cookie
-      quest_itemName: shishamo_cookie
-      quest_itemsubtype: Non
-      kosu_default: 0
-      kosu_min: 1
-      kosu_max: 3
-      buy_price: 750
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 20
-      fluffy: 0
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      quest_Title: "\u3057\u3057\u3083\u3082\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1"
-      desc: "\u3053\u308C\u306F\u3001\u3068\u3042\u308B\u304A\u5BA2\u69D8\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D..\u3002\n<color=#FF78B4>\u3057\u3057\u3083\u3082\u30AF\u30C3\u30AD\u30FC</color>\u3092\u9AD8\u5024\u3067\u8CB7\u3044\u53D6\u308A\u305F\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
-    - ID: 9
-      QuestID: 90
-      QuestType: 0
-      QuestHyouji: 2
       file_name: rich_tea
       quest_itemName: lavender_tea
       quest_itemsubtype: Non
@@ -294,10 +266,38 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u30E9\u30D9\u30F3\u30C0\u30FC\u30C6\u30A3\u30FC\u306E\u7D0D\u54C1"
       desc: "\u3042\u308B\u8CB4\u65CF\u306E\u65B9\u304B\u3089\u3001\u30D1\u30FC\u30C6\u30A3\u30FC\u7528\u306B\u7D05\u8336\u304C\u307B\u3057\u3044\u305D\u3046\u3088\u3002\n<color=#FF78B4>\u30E9\u30D9\u30F3\u30C0\u30FC\u30C6\u30A3\u30FC</color>\u304C\u3001\u51FA\u6765\u305F\u3089\u307B\u3057\u3044\u3093\u3060\u3063\u3066\uFF01"
+    - ID: 9
+      QuestID: 90
+      QuestType: 0
+      QuestHyouji: 4
+      file_name: honey_neko_cookie
+      quest_itemName: shishamo_cookie
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 3
+      buy_price: 750
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 20
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u3057\u3057\u3083\u3082\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1"
+      desc: "\u3053\u308C\u306F\u3001\u3068\u3042\u308B\u304A\u5BA2\u69D8\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D..\u3002\n<color=#FF78B4>\u3057\u3057\u3083\u3082\u30AF\u30C3\u30AD\u30FC</color>\u3092\u9AD8\u5024\u3067\u8CB7\u3044\u53D6\u308A\u305F\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
     - ID: 10
       QuestID: 100
       QuestType: 1
-      QuestHyouji: 4
+      QuestHyouji: 9999
       file_name: strange_grass
       quest_itemName: himawari_seed
       quest_itemsubtype: Non

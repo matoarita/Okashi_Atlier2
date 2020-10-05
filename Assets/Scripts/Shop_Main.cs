@@ -39,13 +39,14 @@ public class Shop_Main : MonoBehaviour {
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
 
-    private GameObject backbutton_obj;
+    private GameObject backshopfirst_obj;
 
     private GameObject black_effect;
 
     private GameObject canvas;
     private GameObject shop_select;
     private GameObject shopon_toggle_buy;
+    private GameObject shopon_toggle_sell;
     private GameObject shopon_toggle_talk;
     private GameObject shopon_toggle_quest;
     private GameObject shopon_toggle_uwasa;
@@ -108,30 +109,19 @@ public class Shop_Main : MonoBehaviour {
         character = GameObject.FindWithTag("Character");
         character.GetComponent<FadeCharacter>().SetOff();
 
-        hukidasi_oneshot = false;
-
-        //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
-        for ( i= 0; i < shop_database.shopitems.Count; i++)
-        {
-            if (shop_database.shopitems[i].shop_itemType == 0 || shop_database.shopitems[i].shop_itemType == 3)
-            {
-                shop_database.shopitems[i].shop_itemzaiko = 50;
-            }
-            else
-            {
-
-            }
-        }
+        hukidasi_oneshot = false;       
 
         shop_select = canvas.transform.Find("Shop_Select").gameObject;
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
+        shopon_toggle_sell = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Sell").gameObject;
         shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
         shopon_toggle_quest = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Quest").gameObject;
         shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
-        //backbutton_obj = shop_select.transform.Find("Viewport/Content/Button_modoru").gameObject;
+        backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
+        backshopfirst_obj.SetActive(false);
 
         //自分の持ってるお金などのステータス
-        money_status_obj = GameObject.FindWithTag("MoneyStatus_panel");
+        money_status_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
         money_status_obj.SetActive(false);
 
         //場所名前パネル
@@ -147,7 +137,7 @@ public class Shop_Main : MonoBehaviour {
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
 
-        playeritemlist_onoff.SetActive(false); //ショップ画面では使わないのでOFF
+        playeritemlist_onoff.SetActive(false); //
 
         //ショップリスト画面。初期設定で最初はOFF。
         shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
@@ -170,6 +160,19 @@ public class Shop_Main : MonoBehaviour {
 
         check_lvevent = false;
         lvevent_loading = false;
+
+        //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+            if (shop_database.shopitems[i].shop_itemType == 0 || shop_database.shopitems[i].shop_itemType == 3)
+            {
+                shop_database.shopitems[i].shop_itemzaiko = 50;
+            }
+            else
+            {
+
+            }
+        }
 
         //入店の音
         sc.PlaySe(51);
@@ -277,16 +280,16 @@ public class Shop_Main : MonoBehaviour {
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {
+            playeritemlist_onoff.SetActive(false);
             shopitemlist_onoff.SetActive(false);
             shopquestlist_obj.SetActive(false);
+            backshopfirst_obj.SetActive(false);
             shop_select.SetActive(false);
             text_area.SetActive(false);
             money_status_obj.SetActive(false);
             placename_panel.SetActive(false);
             black_effect.SetActive(false);
 
-            shop_status = 0;
-            shop_scene = 0;
         }
         else
         {
@@ -311,13 +314,15 @@ public class Shop_Main : MonoBehaviour {
                         character.GetComponent<FadeCharacter>().SetOn();
                         shopitemlist_onoff.SetActive(false);
                         shopquestlist_obj.SetActive(false);
+                        playeritemlist_onoff.SetActive(false);
+                        backshopfirst_obj.SetActive(false);
                         shop_select.SetActive(true);
                         text_area.SetActive(true);
                         money_status_obj.SetActive(true);
                         placename_panel.SetActive(true);
                         black_effect.SetActive(false);
 
-                        //_text.text = shopdefault_text;
+                        _text.text = shopdefault_text;
 
                         shop_scene = 0;
                         shop_status = 100;
@@ -373,6 +378,7 @@ public class Shop_Main : MonoBehaviour {
             shopon_toggle_buy.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             shopitemlist_onoff.SetActive(true); //ショップリスト画面を表示。
+            backshopfirst_obj.SetActive(true);
             shop_select.SetActive(false);
             placename_panel.SetActive(false);
 
@@ -399,6 +405,7 @@ public class Shop_Main : MonoBehaviour {
             GameMgr.talk_flag = true;
             GameMgr.talk_number = 100;
 
+            StartCoroutine("UtageEndWait");
         }
     }
 
@@ -409,6 +416,7 @@ public class Shop_Main : MonoBehaviour {
             shopon_toggle_quest.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             shopquestlist_obj.SetActive(true); //ショップリスト画面を表示。
+            backshopfirst_obj.SetActive(true);
             shop_select.SetActive(false);
             placename_panel.SetActive(false);
             //money_status_obj.SetActive(false);
@@ -416,7 +424,7 @@ public class Shop_Main : MonoBehaviour {
             shop_status = 3; //クエストを押したときのフラグ
             shop_scene = 3;
 
-            _text.text = "いっぱい働いて、お金をじゃんじゃん稼ぐのよ！";
+            _text.text = "いまは、こんな依頼があるわよ。どれをうける？";
 
             //カメラ寄る。
             trans++; //transが1を超えたときに、ズームするように設定されている。
@@ -449,10 +457,29 @@ public class Shop_Main : MonoBehaviour {
 
             //一度読んだうわさ話は出ない。
             InitUwasaList();
-            
+
+            StartCoroutine("UtageEndWait");
         }
     }
 
+    public void OnCheck_5() //ショップ　アイテムを売る
+    {
+        if (shopon_toggle_sell.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle_sell.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            playeritemlist_onoff.SetActive(true); //プレイヤーアイテムリスト画面を表示。
+            backshopfirst_obj.SetActive(true);
+            shop_select.SetActive(false);
+            placename_panel.SetActive(false);
+
+            shop_status = 5; //ショップのシーンに入っている、というフラグ
+            shop_scene = 5;
+
+            _text.text = "フルーツとかのアイテムは買い取れるわ。" + "\n" + "何を売るの？";
+
+        }
+    }
 
 
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
@@ -484,6 +511,17 @@ public class Shop_Main : MonoBehaviour {
             lvevent_loading = true;
             StartCoroutine("Scenario_loading");
         }
+    }
+
+    IEnumerator UtageEndWait()
+    {
+        while (GameMgr.scenario_ON)
+        {
+            yield return null;
+        }
+
+        shop_status = 0;
+        shop_scene = 0;
     }
 
     IEnumerator Scenario_loading()

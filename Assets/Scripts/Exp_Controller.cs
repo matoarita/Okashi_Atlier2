@@ -54,6 +54,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
+    private KaeruCoin_Controller kaeruCoin_Controller;
+
     private ExpTable exp_table;
     private SoundController sc;
 
@@ -128,7 +130,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool roast_result_ok; //「焼く」完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
 
     public bool girleat_ok; // 女の子にアイテムをあげた時の完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
-    public bool shop_buy_ok; //購入完了のフラグ。これがたっていたら、購入の処理を行い、フラグをオフに。
+    //public bool shop_buy_ok; //購入完了のフラグ。これがたっていたら、購入の処理を行い、フラグをオフに。
     public bool qbox_ok; // クエスト納品時の完了フラグ。
 
     //アニメーション用
@@ -952,14 +954,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        shopitemlistController_obj = GameObject.FindWithTag("ShopitemList_ScrollView");
+        shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
         shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
 
         text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
         //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
+        MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         kettei_item1 = shopitemlistController.shop_kettei_item1;
@@ -979,6 +981,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
             pitemlist.add_eventPlayerItem(kettei_item1, result_kosu);
+
+            pitemlist.eventitemlist_Sansho(); //デバッグ用
+
+        }
+        else if (toggle_type1 == 5) //shop_itemType=5のものは、エメラルショップ特有のレアアイテム。コスチュームなどのイベントアイテム系。
+        {
+            //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
+            pitemlist.add_EmeraldPlayerItem(kettei_item1, result_kosu);
+
+            pitemlist.emeralditemlist_Sansho(); //デバッグ用
 
         }
         else //トッピング・機材アイテムなど
@@ -1007,6 +1019,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
                 break;
 
+            case "Emerald_Shop":
+
+                kaeruCoin_Controller = canvas.transform.Find("KaeruCoin_Panel").GetComponent<KaeruCoin_Controller>();
+
+                //エメラルどんぐり数をへらす
+                kaeruCoin_Controller.UseCoin(shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
+
+                //ショップの在庫をへらす。
+                shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
+                break;
+
             default:
                 break;
         }
@@ -1018,7 +1041,63 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         shopitemlistController.ReDraw(); //リスト描画の更新
 
-        shop_buy_ok = false;
+    }
+
+
+    //
+    //「ショップで売る」の場合、ここでアイテムリストの更新行う。
+    //
+    public void Shop_SellOK()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        //お金の増減用パネルの取得
+        MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
+        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
+        kettei_item1 = pitemlistController.kettei_item1;
+        toggle_type1 = pitemlistController._toggle_type1;
+        result_kosu = pitemlistController.final_kettei_kosu1; //買った個数
+
+        //通常アイテム
+        if (toggle_type1 == 0)
+        {
+            //プレイヤーアイテムリストに追加。
+            pitemlist.deletePlayerItem(kettei_item1, result_kosu);
+        }
+        else if (toggle_type1 == 1) //プレイヤーオリジナルアイテム
+        {
+            //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
+            pitemlist.deleteOriginalItem(kettei_item1, result_kosu);
+
+        }
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Shop":
+
+                //所持金を増やす
+                moneyStatus_Controller.GetMoney(database.items[pitemlistController.final_kettei_item1].sell_price * pitemlistController.final_kettei_kosu1);
+
+                break;
+
+            default:
+                break;
+        }
+
+        //効果音
+        sc.PlaySe(32);
+
+        _text.text = "売りました！他にはなにか売る？";
+
+        pitemlistController.reset_and_DrawView(); //リスト描画の更新
 
     }
 

@@ -122,7 +122,7 @@ public class shopQuestSelectToggle : MonoBehaviour
 
         shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-        back_ShopFirst_obj = shopquestlistController_obj.transform.Find("Back_ShopFirst").gameObject;
+        back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
         
         questListToggle_obj = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_QuestList").gameObject;

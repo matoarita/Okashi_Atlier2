@@ -69,6 +69,7 @@ TagManager:
   - UtageManageres
   - Map_Ambience
   - FadeOutBlack
+  - EmeraldShop_Main
   layers:
   - Default
   - TransparentFX

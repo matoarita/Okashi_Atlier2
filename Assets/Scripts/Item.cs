@@ -135,6 +135,7 @@ public class Item
         Coffee,
         Machine,
         Donguri,
+        Rare,
         Etc
     }
 

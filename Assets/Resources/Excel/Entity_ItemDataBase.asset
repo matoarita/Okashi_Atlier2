@@ -41,8 +41,8 @@ MonoBehaviour:
       type: Mat
       subtype: Komugiko
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -87,8 +87,8 @@ MonoBehaviour:
       type: Mat
       subtype: Butter
       girl1_like: 0
-      cost_price: 20
-      sell_price: 10
+      cost_price: 0
+      sell_price: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -133,8 +133,8 @@ MonoBehaviour:
       type: Mat
       subtype: Butter
       girl1_like: 0
-      cost_price: 20
-      sell_price: 10
+      cost_price: 0
+      sell_price: 0
       topping01: Kogashi_Butter
       topping02: Non
       topping03: Non
@@ -179,8 +179,8 @@ MonoBehaviour:
       type: Mat
       subtype: Suger
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 2
       topping01: Non
       topping02: Non
       topping03: Non
@@ -317,8 +317,8 @@ MonoBehaviour:
       type: Mat
       subtype: Suger
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 500
       topping01: PinkSuger
       topping02: Non
       topping03: Non
@@ -363,8 +363,8 @@ MonoBehaviour:
       type: Mat
       subtype: Suger
       girl1_like: 20
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 300
       topping01: EmeraldSuger
       topping02: Non
       topping03: Non
@@ -409,7 +409,7 @@ MonoBehaviour:
       type: Mat
       subtype: Egg
       girl1_like: 0
-      cost_price: 12
+      cost_price: 0
       sell_price: 6
       topping01: Non
       topping02: Non
@@ -455,7 +455,7 @@ MonoBehaviour:
       type: Mat
       subtype: Egg
       girl1_like: 0
-      cost_price: 12
+      cost_price: 0
       sell_price: 6
       topping01: Non
       topping02: Non
@@ -501,7 +501,7 @@ MonoBehaviour:
       type: Mat
       subtype: Egg
       girl1_like: 0
-      cost_price: 12
+      cost_price: 0
       sell_price: 6
       topping01: Non
       topping02: Non
@@ -547,8 +547,8 @@ MonoBehaviour:
       type: Mat
       subtype: Salt
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -593,8 +593,8 @@ MonoBehaviour:
       type: Mat
       subtype: Source
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -685,7 +685,7 @@ MonoBehaviour:
       type: Mat
       subtype: Komugiko
       girl1_like: 0
-      cost_price: 10
+      cost_price: 0
       sell_price: 5
       topping01: Non
       topping02: Non
@@ -731,7 +731,7 @@ MonoBehaviour:
       type: Mat
       subtype: Butter
       girl1_like: 0
-      cost_price: 20
+      cost_price: 0
       sell_price: 10
       topping01: Non
       topping02: Non
@@ -777,7 +777,7 @@ MonoBehaviour:
       type: Mat
       subtype: Butter
       girl1_like: 0
-      cost_price: 20
+      cost_price: 0
       sell_price: 10
       topping01: Non
       topping02: Non
@@ -823,8 +823,8 @@ MonoBehaviour:
       type: Mat
       subtype: Fruits
       girl1_like: 0
-      cost_price: 10
-      sell_price: 0
+      cost_price: 0
+      sell_price: 15
       topping01: Orange
       topping02: Non
       topping03: Non
@@ -870,7 +870,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 35
       topping01: PinkBloodOrange
       topping02: Non
       topping03: Non
@@ -962,7 +962,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 20
       topping01: Grape
       topping02: Non
       topping03: Non
@@ -1008,7 +1008,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 35
       topping01: Blueberry
       topping02: Non
       topping03: Non
@@ -1054,7 +1054,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 50
       topping01: Strawberry
       topping02: Non
       topping03: Non
@@ -1100,7 +1100,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 40
       topping01: Banana
       topping02: Non
       topping03: Non
@@ -1146,7 +1146,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 70
       topping01: Pear
       topping02: Non
       topping03: Non
@@ -1192,7 +1192,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 100
       topping01: Peach
       topping02: Non
       topping03: Non
@@ -1238,7 +1238,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 50
       topping01: Cherry
       topping02: Non
       topping03: Non
@@ -1284,7 +1284,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 200
       topping01: Cherry
       topping02: Non
       topping03: Non
@@ -1330,7 +1330,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 50
       topping01: Pineapple
       topping02: Non
       topping03: Non
@@ -1376,7 +1376,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 12
       topping01: Nuts
       topping02: Non
       topping03: Non
@@ -1421,8 +1421,8 @@ MonoBehaviour:
       type: Mat
       subtype: Source
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -1465,10 +1465,10 @@ MonoBehaviour:
       oily: 0
       watery: 1
       type: Mat
-      subtype: Source
+      subtype: Fruits
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 7
       topping01: Non
       topping02: Non
       topping03: Non
@@ -1511,10 +1511,10 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Mat
-      subtype: Source
+      subtype: Fruits
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 20
       topping01: Non
       topping02: Non
       topping03: Non
@@ -1557,10 +1557,10 @@ MonoBehaviour:
       oily: 0
       watery: 1
       type: Mat
-      subtype: Source
+      subtype: Fruits
       girl1_like: 0
-      cost_price: 10
-      sell_price: 5
+      cost_price: 0
+      sell_price: 30
       topping01: Non
       topping02: Non
       topping03: Non
@@ -1651,8 +1651,8 @@ MonoBehaviour:
       type: Mat
       subtype: Source
       girl1_like: 0
-      cost_price: 50
-      sell_price: 25
+      cost_price: 0
+      sell_price: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -1789,7 +1789,7 @@ MonoBehaviour:
       type: Mat
       subtype: Source
       girl1_like: 0
-      cost_price: 10
+      cost_price: 0
       sell_price: 0
       topping01: Non
       topping02: Non
@@ -1835,7 +1835,7 @@ MonoBehaviour:
       type: Mat
       subtype: Source
       girl1_like: 0
-      cost_price: 10
+      cost_price: 0
       sell_price: 0
       topping01: Yoguruto
       topping02: Non
@@ -1881,7 +1881,7 @@ MonoBehaviour:
       type: Mat
       subtype: Source
       girl1_like: 0
-      cost_price: 10
+      cost_price: 0
       sell_price: 0
       topping01: Orange
       topping02: Non
@@ -12051,10 +12051,10 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Etc
-      subtype: Donguri
+      subtype: Rare
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 300
       topping01: Non
       topping02: Non
       topping03: Non

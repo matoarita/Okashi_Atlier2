@@ -44,6 +44,11 @@ public class PlaceNamePanel : MonoBehaviour {
                 }
                 break;
 
+            case "Emerald_Shop":
+
+                _text = "エメラルショップ";
+                break;
+
             case "Contest":
 
                 _text = "コンテスト会場";

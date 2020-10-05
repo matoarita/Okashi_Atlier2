@@ -30,6 +30,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
 
     public List<ItemShop> shopitems = new List<ItemShop>();
     public List<ItemShop> farmitems = new List<ItemShop>();
+    public List<ItemShop> emeraldshop_items = new List<ItemShop>();
 
     // Use this for initialization
     void Start () {
@@ -87,6 +88,27 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
             ++sheet_count;
         }
 
+        //エメラルドショップデータの読み込み
+        sheet_no = 2;
+        sheet_count = 0;
+
+        while (sheet_count < 1)
+        {
+            count = 0;
+
+            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
+            {
+
+                InitShopDB_Common();
+
+                //ここでリストに追加している
+                emeraldshop_items.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji));
+
+                ++count;
+            }
+            ++sheet_count;
+        }
+
 
         /*for (i = 0; i < shopitems.Count; i++)
         {
@@ -106,26 +128,8 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
 
         //Debug.Log("ショップ_itemType: " + _itemType);
 
-        if (_itemType != 1)
-        {
-            i = 0;
-
-            while (i < database.items.Count)
-            {
-
-                if (database.items[i].itemName == _name)
-                {
-                    _itemID = database.items[i].itemID;
-                    _icon = database.items[i].itemIcon_sprite;
-                    _name_hyouji = database.items[i].itemNameHyouji;
-
-                    break;
-                }
-
-                ++i;
-            }
-        }
-        else if (_itemType == 1)
+        
+        if (_itemType == 1) //レシピ
         {
 
             i = 0;
@@ -148,6 +152,49 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 }
 
                 i++;
+            }
+        }
+        else if (_itemType == 5) //エメラルショップのアイテム
+        {
+            i = 0;
+            //Debug.Log("エメラルドショップアイテムを検出");
+
+            //Debug.Log("エメラルドショップアイテムリストカウント: " + pitemlist.eventitemlist.Count);
+
+            while (i < pitemlist.emeralditemlist.Count)
+            {
+                if (pitemlist.emeralditemlist[i].event_itemName == _name)
+                {
+                    //Debug.Log("ショップアイテム名: " + _name);
+
+                    _itemID = pitemlist.emeralditemlist[i].ev_ItemID;
+                    //Debug.Log("イベントアイテムID: " + _itemID);
+                    _icon = Resources.Load<Sprite>("Sprites/" + pitemlist.emeralditemlist[i].event_fileName);
+                    _name_hyouji = pitemlist.emeralditemlist[i].event_itemNameHyouji;
+
+                    break;
+                }
+
+                i++;
+            }
+        }
+        else
+        {
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+
+                if (database.items[i].itemName == _name)
+                {
+                    _itemID = database.items[i].itemID;
+                    _icon = database.items[i].itemIcon_sprite;
+                    _name_hyouji = database.items[i].itemNameHyouji;
+
+                    break;
+                }
+
+                ++i;
             }
         }
     }

@@ -41,6 +41,15 @@ public class BackTown : MonoBehaviour {
         BackScene();
     }
 
+    public void OnClickToHiroba2()
+    {
+        //_text.text = "また来てね～";
+
+        //StartCoroutine(CoUnload());
+        //広場シーン読み込み
+        FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
+    }
+
     IEnumerator CoUnload()
     {
         //SceneAをアンロード

@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_eventItemDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Excel_Data/Entity_eventItemDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Excel_Data/Entity_eventItemDataBase.asset";
-	private static readonly string[] sheetNames = { "01_event_recipi", };
+	private static readonly string[] sheetNames = { "01_event_recipi","02_eventitem_emerald", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{

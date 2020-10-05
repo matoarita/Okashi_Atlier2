@@ -20,6 +20,7 @@ public class MainListController2 : MonoBehaviour
     private GameObject npc5_toggle_obj;
     private GameObject npc6_toggle_obj;
     private GameObject npc7_toggle_obj;
+    private GameObject npc8_toggle_obj;
     private GameObject shopstreet_toggle_obj;
     private GameObject hiroba1_toggle_obj;
 
@@ -30,6 +31,7 @@ public class MainListController2 : MonoBehaviour
     private Toggle npc5_toggle;
     private Toggle npc6_toggle;
     private Toggle npc7_toggle;
+    private Toggle npc8_toggle;
     private Toggle shopstreet_toggle;
     private Toggle hiroba1_toggle;
 
@@ -90,6 +92,7 @@ public class MainListController2 : MonoBehaviour
         npc5_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC5_SelectToggle").gameObject;
         npc6_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC6_SelectToggle").gameObject;
         npc7_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC7_SelectToggle").gameObject;
+        npc8_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC8_SelectToggle").gameObject;
         shopstreet_toggle_obj = this.transform.Find("Viewport/Content_Main/ShopStreet_SelectToggle").gameObject;
         hiroba1_toggle_obj = this.transform.Find("Viewport/Content_Main/Hiroba1_SelectToggle").gameObject;
 
@@ -101,6 +104,7 @@ public class MainListController2 : MonoBehaviour
         npc5_toggle = npc5_toggle_obj.GetComponent<Toggle>();
         npc6_toggle = npc6_toggle_obj.GetComponent<Toggle>();
         npc7_toggle = npc7_toggle_obj.GetComponent<Toggle>();
+        npc8_toggle = npc8_toggle_obj.GetComponent<Toggle>();
         shopstreet_toggle = shopstreet_toggle_obj.GetComponent<Toggle>();
         hiroba1_toggle = hiroba1_toggle_obj.GetComponent<Toggle>();
 
@@ -109,6 +113,7 @@ public class MainListController2 : MonoBehaviour
         npc5_toggle_obj.SetActive(false);
         npc6_toggle_obj.SetActive(false);
         npc7_toggle_obj.SetActive(false);
+        npc8_toggle_obj.SetActive(false);
         shopstreet_toggle_obj.SetActive(false);
 
         //フラグをチェックし、必要ならONにする。
@@ -125,12 +130,13 @@ public class MainListController2 : MonoBehaviour
 
     public void ToggleFlagCheck()
     {
-        //新しく3人のNPCのとこへいける
+        //新しく4人のNPCのとこへいける
         if(GameMgr.hiroba_event_end[0])
         {
             npc5_toggle_obj.SetActive(true);
             npc6_toggle_obj.SetActive(true);
             npc7_toggle_obj.SetActive(true);
+            npc8_toggle_obj.SetActive(true);
         }
 
         //パン工房へいける
@@ -471,6 +477,18 @@ public class MainListController2 : MonoBehaviour
             Hiroba_main2.EventReadingStart();
 
             CanvasOff();
+        }
+    }
+
+    //不思議なお店
+    public void OnNPC8_toggle()
+    {
+        if (npc8_toggle.isOn == true)
+        {
+            npc8_toggle.isOn = false;
+
+            //エメラルどんぐりショップへ
+            FadeManager.Instance.LoadScene("Emerald_Shop", 0.3f);
         }
     }
 

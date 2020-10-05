@@ -29,6 +29,8 @@ public class itemSelectToggle : MonoBehaviour
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private Shop_Main shop_Main;
+
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
 
@@ -51,6 +53,9 @@ public class itemSelectToggle : MonoBehaviour
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
     private Button[] updown_button = new Button[2];
+
+    private GameObject back_ShopFirst_obj;
+    private Button back_ShopFirst_btn;
 
     private GameObject itemselect_cancel_obj;
     private ItemSelect_Cancel itemselect_cancel;
@@ -135,17 +140,27 @@ public class itemSelectToggle : MonoBehaviour
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
+        switch (SceneManager.GetActiveScene().name) // 調合シーンでやりたい処理。
         {
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+            case "Compound":
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-            kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
-            kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+                kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
-            compound_Check_obj = GameObject.FindWithTag("Compound_Check");
-            compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
+                compound_Check_obj = GameObject.FindWithTag("Compound_Check");
+                compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
 
+                break;
+
+            case "Shop":
+
+                shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
+
+                back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
+                back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
+                break;
         }
 
 
@@ -205,7 +220,15 @@ public class itemSelectToggle : MonoBehaviour
 
     void Update()
     {
-        
+        if (pitemlistController.shopsell_final_select_flag == true) //最後、これを売るかどうかを待つフラグ
+        {
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+            updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
+            pitemlistController.shopsell_final_select_flag = false;
+            StartCoroutine("shop_sell_Final_select");
+        }
     }
 
     //Output the new state of the Toggle into Text
@@ -214,7 +237,7 @@ public class itemSelectToggle : MonoBehaviour
         //m_Text.text = "New Value : " + m_Toggle.isOn;
         if (m_Toggle.isOn == true)
         {
-            
+
             if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理
             {
 
@@ -223,7 +246,7 @@ public class itemSelectToggle : MonoBehaviour
                 compound_Main.compound_status = 100; //トグルを押して、調合中の状態。All_cancelで、status=4に戻る。status=4でキャンセルすると、最初の調合選択シーンに戻る。
 
                 // オリジナル調合を選択した場合の処理
-                if ( compound_Main.compound_select == 3 )
+                if (compound_Main.compound_select == 3)
                 {
                     yes.SetActive(true);
 
@@ -259,30 +282,36 @@ public class itemSelectToggle : MonoBehaviour
                 }
             }
 
-            else if (SceneManager.GetActiveScene().name == "GirlEat") // 女の子にアイテムあげるシーンでやりたい処理
-            {
-
-                itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
-
-                girleat_active();
-            }
-
-            else if (SceneManager.GetActiveScene().name == "Shop") // ショップ（納品時の画面開いた時）でやりたい処理
+            else if (SceneManager.GetActiveScene().name == "Shop") // ショップでやりたい処理
             {
                 itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
-                NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+                back_ShopFirst_btn.interactable = false;
 
-                shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
-                shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+                switch (shop_Main.shop_scene)
+                {
 
-                questjudge_obj = GameObject.FindWithTag("Quest_Judge");
-                questjudge = questjudge_obj.GetComponent<Quest_Judge>();
+                    case 3: //納品時の画面開いた時
+                        
+                        NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
-                //黒半透明パネルの取得
-                black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+                        shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                        shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
 
-                nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
+                        questjudge_obj = GameObject.FindWithTag("Quest_Judge");
+                        questjudge = questjudge_obj.GetComponent<Quest_Judge>();
+
+                        //黒半透明パネルの取得
+                        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+
+                        nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
+                        break;
+
+                    case 5: //売るとき
+
+                        itemsell_active(); //アイテムを売る
+                        break;
+                }
             }
 
             else // その他シーンでやりたい処理
@@ -1140,7 +1169,6 @@ public class itemSelectToggle : MonoBehaviour
                 //exp_Controller.Roast_ResultOK();
 
                 card_view.DeleteCard_DrawView();
-                Off_Flag_Setting();
 
                 break;
 
@@ -1157,16 +1185,14 @@ public class itemSelectToggle : MonoBehaviour
     }
 
 
+    /* ### アイテム売るときのシーン ### */
 
-    /* ### 女の子にあげるときのシーン ### */
-
-    public void girleat_active()
+    public void itemsell_active()
     {
 
         //アイテムを選択したときの処理（トグルの処理）
 
         count = 0;
-        //max = pitemlist.playeritemlist.Count; //現在のプレイヤーアイテムリストの最大数を更新
 
         while (count < pitemlistController._listitem.Count)
         {
@@ -1186,8 +1212,9 @@ public class itemSelectToggle : MonoBehaviour
         itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
         pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
 
-        //pitemlistController.cardImage_onoff_pcontrol.SetActive(true);
-        _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。これでいいですか？";
+        _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" + 
+            GameMgr.ColorYellow + database.items[itemID_1].sell_price + "G</color>"
+            + "\n" + "個数を選択してください";
 
         //Debug.Log(count + "番が押されたよ");
         //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
@@ -1197,11 +1224,16 @@ public class itemSelectToggle : MonoBehaviour
 
         SelectPaused();
 
-        StartCoroutine("girlselect_kakunin");
+        yes.SetActive(true);
+        no.SetActive(true);
+        updown_counter_obj.SetActive(true);
+        back_ShopFirst_btn.interactable = false;
+
+        StartCoroutine("itemsellselect_kakunin");
 
     }
 
-    IEnumerator girlselect_kakunin()
+    IEnumerator itemsellselect_kakunin()
     {
 
         // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
@@ -1212,6 +1244,8 @@ public class itemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -1219,13 +1253,9 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
 
-                text_area.SetActive(false);
+                pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu; //最終個数を入れる。
 
-                exp_Controller.girleat_ok = true; //ガールにアイテムあげた完了のフラグをたてておく。
-
-                card_view.DeleteCard_DrawView();
-
-                Off_Flag_Setting();
+                pitemlistController.shopsell_final_select_flag = true; //確認のフラグ
 
                 break;
 
@@ -1233,13 +1263,99 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("一個目はcancel");
 
-                _text.text = "女の子にあげるアイテムを選択してください。";
+                _text.text = "売るアイテムを選択してね。";
 
-                itemselect_cancel.All_cancel();
+                for (i = 0; i < pitemlistController._listitem.Count; i++)
+                {
+                    pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                yes.SetActive(false);
+                no.SetActive(false);
+                updown_counter_obj.SetActive(false);
+                back_ShopFirst_btn.interactable = true;
+
+                card_view.DeleteCard_DrawView();
+
                 break;
         }
     }
 
+    IEnumerator shop_sell_Final_select()
+    {
+
+        _text.text = database.items[pitemlistController.final_kettei_item1].itemNameHyouji + "を　" + pitemlistController.final_kettei_kosu1 + "個 売りますか？" + "\n" +
+            "全部で　" + GameMgr.ColorYellow + database.items[pitemlistController.final_kettei_item1].sell_price * pitemlistController.final_kettei_kosu1 + "G</color>" + "で買い取ります。";
+
+        updown_button[0].interactable = false;
+        updown_button[1].interactable = false;
+        updown_button[2].interactable = false;
+        updown_button[3].interactable = false;
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された。売り決定。
+               
+
+                for (i = 0; i < pitemlistController._listitem.Count; i++)
+                {
+                    pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                yes.SetActive(false);
+                no.SetActive(false);
+                back_ShopFirst_btn.interactable = true;
+
+                updown_button[0].interactable = true;
+                updown_button[1].interactable = true;
+                updown_button[2].interactable = true;
+                updown_button[3].interactable = true;
+                updown_counter_obj.SetActive(false);
+
+                card_view.DeleteCard_DrawView();
+               
+                exp_Controller.Shop_SellOK();
+
+                break;
+
+            case false:
+
+                //Debug.Log("cancel");
+
+                _text.text = "何を売りますか？";
+
+                for (i = 0; i < pitemlistController._listitem.Count; i++)
+                {
+                    pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                yes.SetActive(false);
+                no.SetActive(false);
+                back_ShopFirst_btn.interactable = true;
+
+                updown_button[0].interactable = true;
+                updown_button[1].interactable = true;
+                updown_button[2].interactable = true;
+                updown_button[3].interactable = true;
+                updown_counter_obj.SetActive(false);
+
+                card_view.DeleteCard_DrawView();
+
+                break;
+        }
+
+    }
 
 
     /* ### 納品時のシーン ### */
@@ -1422,34 +1538,6 @@ public class itemSelectToggle : MonoBehaviour
     }
 
 
-
-    void Off_Flag_Setting()
-    {
-        //解除
-        for (i = 0; i < pitemlistController._listitem.Count; i++)
-        {
-            pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
-            pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false;
-        }
-
-        //カード全て削除
-        //card_view.DeleteCard_DrawView();
-
-        pitemlistController.kettei1_bunki = 0;
-
-        itemselect_cancel.kettei_on_waiting = false;
-
-        updown_counter_obj.SetActive(false);
-
-        yes_selectitem_kettei.kettei1 = false;
-        yes.SetActive(false);
-
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
-        //Debug.Log("選択完了！");
-    }
-
-
     void SelectPaused()
     {
         //一時的にリスト要素への入力受付を停止している。
@@ -1459,7 +1547,6 @@ public class itemSelectToggle : MonoBehaviour
         }
         
         no.SetActive(true);
-
         
         yes.SetActive(true);
         yes_text.text = "決定";

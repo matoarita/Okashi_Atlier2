@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1438699900283532
 GameObject:
   m_ObjectHideFlags: 1
@@ -329,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1887615946770544
 GameObject:
   m_ObjectHideFlags: 1
@@ -957,6 +957,7 @@ MonoBehaviour:
   final_base_kettei_kosu: 0
   _listkosu: 
   extremepanel_on: 0
+  shopsell_final_select_flag: 0
 --- !u!114 &114404347787794950
 MonoBehaviour:
   m_ObjectHideFlags: 1

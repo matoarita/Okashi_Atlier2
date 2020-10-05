@@ -77,8 +77,6 @@ public class MoneyStatus_Controller : MonoBehaviour {
             if (timeOut <= 0.0)
             {
                 timeOut = 0.1f;
-                //音を鳴らす
-                //audioSource.PlayOneShot(sound1);
             }
         }
     }

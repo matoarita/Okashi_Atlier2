@@ -32,6 +32,8 @@ public class Farm_Main : MonoBehaviour {
     private GameObject updown_counter_obj;
     private GameObject updown_counter_Prefab;
 
+    private GameObject backshopfirst_obj;
+
     public int farm_status;
     public int farm_scene; //どのシーンを選択しているかを判別
 
@@ -68,6 +70,8 @@ public class Farm_Main : MonoBehaviour {
         farm_select = canvas.transform.Find("Farm_Select").gameObject;
         farm_toggle_buy = farm_select.transform.Find("Viewport/Content/FarmOn_Toggle_Buy").gameObject;
         farm_toggle_talk = farm_select.transform.Find("Viewport/Content/FarmOn_Toggle_Talk").gameObject;
+        backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
+        backshopfirst_obj.SetActive(false);
 
         //ファームでのショップリスト画面。初期設定で最初はOFF。
         shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
@@ -137,6 +141,7 @@ public class Farm_Main : MonoBehaviour {
         if (GameMgr.scenario_ON == true)
         {
             shopitemlist_onoff.SetActive(false);
+            backshopfirst_obj.SetActive(false);
             farm_select.SetActive(false);
             text_area.SetActive(false);
             money_status_obj.SetActive(false);
@@ -153,6 +158,7 @@ public class Farm_Main : MonoBehaviour {
                 case 0:
 
                     shopitemlist_onoff.SetActive(false);
+                    backshopfirst_obj.SetActive(false);
                     farm_select.SetActive(true);
                     text_area.SetActive(true);
                     money_status_obj.SetActive(true);
@@ -198,6 +204,7 @@ public class Farm_Main : MonoBehaviour {
             farm_toggle_buy.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             shopitemlist_onoff.SetActive(true); //ショップリスト画面を表示。
+            backshopfirst_obj.SetActive(true);
             farm_select.SetActive(false);
             placename_panel.SetActive(false);
 

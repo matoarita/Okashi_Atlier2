@@ -287,6 +287,10 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 break;
 
+            case "Emerald_Shop":
+
+                break;
+
             case "Contest":
 
                 break;

@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_shopItemDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Excel_Data/Entity_shopItemDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Excel_Data/Entity_shopItemDataBase.asset";
-	private static readonly string[] sheetNames = { "ShopItemDB_1","FarmItemDB_1", };
+	private static readonly string[] sheetNames = { "ShopItemDB_1","FarmItemDB_1","EmeraldShopItemDB_1", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{

@@ -11,6 +11,8 @@ public class Debug_Panel : MonoBehaviour {
 
     private SoundController sc;
 
+    private PlayerItemList pitemlist;
+
     private ItemMatPlaceDataBase matplace_database;
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
@@ -27,23 +29,25 @@ public class Debug_Panel : MonoBehaviour {
     private GameObject StageNumber;
     private Text StageNumber_text;
 
+    private KaeruCoin_Controller kaeruCoin_Controller;
+    private MoneyStatus_Controller moneyStatus_Controller;
+
     private Text DebugInputOn;
 
-    private InputField input_scenario;
+    private InputField input_money;
+    private InputField input_edonguri;
     private InputField input_event;
     private InputField input_girllove;
     private string input_text;
     private string input_text2;
     private string input_text3;
-    private int scenario_num;
+    private int money_num;
+    private int edonguri_num;
     private int event_num;
     private int girllove_param;
     private Text girl_lv;
     private Text girl_param;
     public bool Debug_INPUT_ON; //デバッグ外部からの入力受け付けるかどうか。PSコントローラーでやるときはOFFにしたほうがよい。バグがでるため。
-
-    private Toggle Mazui_toggle;
-    private Toggle Mazui_toggle_input;
 
     private Text Counter;
     private int i;
@@ -71,13 +75,10 @@ public class Debug_Panel : MonoBehaviour {
         StageNumber = this.transform.Find("Hyouji/StageNumber").gameObject;
         StageNumber_text = StageNumber.GetComponent<Text>();
 
-        input_scenario = this.transform.Find("Hyouji/InputField").gameObject.GetComponent<InputField>();
+        input_money = this.transform.Find("Hyouji/InputField_Money").gameObject.GetComponent<InputField>();
+        input_edonguri = this.transform.Find("Hyouji/InputField_EDonguri").gameObject.GetComponent<InputField>();
         input_event = this.transform.Find("Hyouji/InputField_EventNum").gameObject.GetComponent<InputField>();
         input_girllove = this.transform.Find("Hyouji/InputField_GirlLove").gameObject.GetComponent<InputField>();
-
-
-        Mazui_toggle = this.transform.Find("Hyouji/MazuiToggle").gameObject.GetComponent<Toggle>();
-        Mazui_toggle_input = this.transform.Find("Hyouji/MazuiToggleInput").gameObject.GetComponent<Toggle>();
 
         Debug_INPUT_ON = false;
         DebugInputOn = this.transform.Find("Hyouji/DebugInputOnText").GetComponent<Text>();        
@@ -90,6 +91,9 @@ public class Debug_Panel : MonoBehaviour {
 
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
     }
 
@@ -107,13 +111,10 @@ public class Debug_Panel : MonoBehaviour {
             StageNumber = this.transform.Find("Hyouji/StageNumber").gameObject;
             StageNumber_text = StageNumber.GetComponent<Text>();
 
-            input_scenario = this.transform.Find("Hyouji/InputField").gameObject.GetComponent<InputField>();
+            input_money = this.transform.Find("Hyouji/InputField_Money").gameObject.GetComponent<InputField>();
+            input_edonguri = this.transform.Find("Hyouji/InputField_EDonguri").gameObject.GetComponent<InputField>();
             input_event = this.transform.Find("Hyouji/InputField_EventNum").gameObject.GetComponent<InputField>();
             input_girllove = this.transform.Find("Hyouji/InputField_GirlLove").gameObject.GetComponent<InputField>();
-
-
-            Mazui_toggle = this.transform.Find("Hyouji/MazuiToggle").gameObject.GetComponent<Toggle>();
-            Mazui_toggle_input = this.transform.Find("Hyouji/MazuiToggleInput").gameObject.GetComponent<Toggle>();
 
             Debug_INPUT_ON = false;
             DebugInputOn = this.transform.Find("Hyouji/DebugInputOnText").GetComponent<Text>();
@@ -130,7 +131,7 @@ public class Debug_Panel : MonoBehaviour {
             StoryNumber_text.text = "TutorialNumber: " + GameMgr.tutorial_Num;
         } else
         {
-            StoryNumber_text.text = "StNum: " + GameMgr.scenario_flag;
+            StoryNumber_text.text = "ScN: " + GameMgr.scenario_flag;
         }
 
         if(Debug_INPUT_ON)
@@ -145,7 +146,6 @@ public class Debug_Panel : MonoBehaviour {
         EventNumber_text.text = "Event: " + GameMgr.OkashiQuest_Num;
 
         StageNumber_text.text = "Stage: " + GameMgr.stage_number;
-        Mazui_toggle.isOn = girl1_status.girl_Mazui_flag;
 
         //ここに処理。時間カウント。デバッグ用。
         Counter = this.transform.Find("Hyouji/TimeCount").gameObject.GetComponentInChildren<Text>(); //デバッグ用
@@ -153,13 +153,39 @@ public class Debug_Panel : MonoBehaviour {
 
     }
 
-    public void InputScenarioNum()
+    public void InputMoneyNum()
     {
         if (Debug_INPUT_ON)
         {
-            input_text = input_scenario.text;
-            Int32.TryParse(input_text, out scenario_num);
-            GameMgr.scenario_flag = scenario_num;
+            input_text = input_money.text;
+            Int32.TryParse(input_text, out money_num);
+
+            canvas = GameObject.FindWithTag("Canvas");
+
+            PlayerStatus.player_money = money_num;
+            if (canvas.transform.Find("MoneyStatus_panel").gameObject)
+            {
+                moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+                moneyStatus_Controller.money_Draw();
+            }
+        }
+    }
+
+    public void InputEDonguriNum()
+    {
+        if (Debug_INPUT_ON)
+        {
+            input_text = input_edonguri.text;
+            Int32.TryParse(input_text, out edonguri_num);
+
+            canvas = GameObject.FindWithTag("Canvas");
+
+            pitemlist.ReSetPlayerItemString("emeralDongri", edonguri_num);
+            if ( canvas.transform.Find("KaeruCoin_Panel").gameObject )
+            {
+                kaeruCoin_Controller = canvas.transform.Find("KaeruCoin_Panel").GetComponent<KaeruCoin_Controller>();
+                kaeruCoin_Controller.ReDrawParam();
+            }            
         }
     }
 
@@ -263,22 +289,6 @@ public class Debug_Panel : MonoBehaviour {
         }
     }
 
-    public void InputMazuiFlag()
-    {
-        if (Debug_INPUT_ON)
-        {
-            if (Mazui_toggle_input.isOn) //まずいフラグをONにする。
-            {
-                girl1_status.girl_Mazui_flag = true;
-
-            }
-            else
-            {
-                girl1_status.girl_Mazui_flag = false;
-            }
-            Mazui_toggle.isOn = Mazui_toggle_input.isOn;
-        }
-    }
 
     public void InputMainFlagOn()
     {

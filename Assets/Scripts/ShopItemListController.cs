@@ -54,6 +54,8 @@ public class ShopItemListController : MonoBehaviour
     public List<GameObject> category_toggle = new List<GameObject>();
     private int category_status;
 
+    private int emeraldonguriID;
+
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
@@ -230,6 +232,21 @@ public class ShopItemListController : MonoBehaviour
                 }
                 break;
 
+            case "Emerald_Shop":
+
+                for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+                {
+                    //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0)
+                    {
+                        if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
+                        {
+                            drawEmerarldShopItem();
+                        }
+                    }
+                }
+                break;
+
             default:
 
                 break;
@@ -279,7 +296,7 @@ public class ShopItemListController : MonoBehaviour
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
                         {
 
-                            drawFarmItem();
+                            drawEmerarldShopItem();
 
                         }
                     }
@@ -484,6 +501,53 @@ public class ShopItemListController : MonoBehaviour
 
         //お金が足りない場合は、選択できないようにする。
         if (PlayerStatus.player_money < shop_database.farmitems[i].shop_costprice)
+        {
+            _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
+            //_togglebg.sprite = touchoff;
+        }
+        else
+        {
+            _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
+            //_togglebg.sprite = touchon;
+        }
+        //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
+
+        ++list_count;
+    }
+
+    void drawEmerarldShopItem()
+    {
+        _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
+        _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _togglebg = _shop_listitem[list_count].transform.Find("Background").GetComponent<Image>(); //アイコン背景データ
+
+        _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
+        _toggle_itemID.toggle_shop_ID = shop_database.emeraldshop_items[i].shop_ID; //ショップに登録されている、ショップデータベース上のアイテムID。iと同じ値になる。
+        _toggle_itemID.toggle_shopitem_ID = shop_database.emeraldshop_items[i].shop_itemID; //ショップに登録されている、アイテムDB上のアイテムID
+        _toggle_itemID.toggle_shopitem_type = shop_database.emeraldshop_items[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
+        _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.emeraldshop_items[i].shop_itemNameHyouji; //表示用の名前
+        _toggle_itemID.toggle_shopitem_costprice = shop_database.emeraldshop_items[i].shop_costprice; //単価
+
+
+        item_name = shop_database.emeraldshop_items[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+
+        _text[0].text = item_name;
+
+        item_cost = shop_database.emeraldshop_items[i].shop_costprice;
+
+        _text[2].text = item_cost.ToString(); //必要なエメラルどんぐりの数
+
+        item_zaiko = shop_database.emeraldshop_items[i].shop_itemzaiko;
+
+        //_text[4].text = item_zaiko.ToString(); //在庫
+
+        texture2d = shop_database.emeraldshop_items[i].shop_itemIcon;
+        _Img.sprite = texture2d;
+
+        //エメラルどんぐりが足りない場合は、選択できないようにする。
+        emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+        if (pitemlist.playeritemlist[emeraldonguriID] < shop_database.emeraldshop_items[i].shop_costprice)
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
             //_togglebg.sprite = touchoff;

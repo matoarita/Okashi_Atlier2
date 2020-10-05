@@ -16,9 +16,9 @@ public class FadeCharacter : MonoBehaviour {
     void Start()
     {
 
-        red = this.gameObject.GetComponent<SpriteRenderer>().color.r;
-        green = this.gameObject.GetComponent<SpriteRenderer>().color.g;
-        blue = this.gameObject.GetComponent<SpriteRenderer>().color.b;
+        red = 1;//this.gameObject.GetComponent<SpriteRenderer>().color.r;
+        green = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.g;
+        blue = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.b;
         alfa = this.gameObject.GetComponent<SpriteRenderer>().color.a;
 
         fade_flag = false;

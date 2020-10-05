@@ -17,6 +17,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private Shop_Main shop_Main;
+
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
@@ -92,6 +94,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private GameObject yes_button;
     private GameObject no_button;
 
+    public bool shopsell_final_select_flag;
+
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
@@ -154,6 +158,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         i = 0;
 
         extremepanel_on = false;
+
+        shopsell_final_select_flag = false;
+
+        _listitem.Clear();
+        _prelistitem.Clear();
     }
 
     // Use this for initialization
@@ -180,46 +189,44 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         keymanager.cursor_cullent_num = 0;
         keymanager.itemCursor_On = false;
 
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        switch (SceneManager.GetActiveScene().name) 
         {
-            if (compound_Main_obj != null) //ゲームのセットアップ時は無視
-            {
-                //キャンバスの読み込み
-                canvas = GameObject.FindWithTag("Canvas");
+            case "Compound":　// 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
 
-                updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-                updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+                if (compound_Main_obj != null) //ゲームのセットアップ時は無視
+                {
+                    //キャンバスの読み込み
+                    canvas = GameObject.FindWithTag("Canvas");
 
-                //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
-                updown_counter_obj.SetActive(true);
-                updown_counter.updown_kosu = 1;
+                    updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+                    updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
-                updown_counter_obj.SetActive(false);
-            }
+                    //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
+                    updown_counter_obj.SetActive(true);
+                    updown_counter.updown_kosu = 1;
 
-            ResetKettei_item();
+                    updown_counter_obj.SetActive(false);
+                }
 
-            if (GameMgr.tutorial_ON == true)
-            {
-                no_button.SetActive(false);
-            }
-            else
-            {
-                no_button.SetActive(true);
-            }
+                ResetKettei_item();
 
-            if (extremepanel_on == true)
-            {
+                if (GameMgr.tutorial_ON == true)
+                {
+                    no_button.SetActive(false);
+                }
+                else
+                {
+                    no_button.SetActive(true);
+                }
 
-            }
-            else
-            {
-                kettei1_bunki = 0;
-            }
+                if (extremepanel_on == true)
+                {
 
-
-            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-            {
+                }
+                else
+                {
+                    kettei1_bunki = 0;
+                }
 
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -241,22 +248,43 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     reset_and_DrawView();
                 }
 
-            }
-            else
-            {
-                reset_and_DrawView();
-            }
-        }
 
-        else if (SceneManager.GetActiveScene().name == "Shop")
-        {
-            //納品時にアイテムを選択するときの処理
-            yes_button.SetActive(false);
-            no_button.SetActive(false);
-            reset_and_DrawView();
+                break;
+
+            case "Shop":
+
+                shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
+
+                switch (shop_Main.shop_scene)
+                {
+                    case 3: //納品時にアイテムを選択するときの処理
+
+                        yes_button.SetActive(false);
+                        no_button.SetActive(false);
+                        reset_and_DrawView();
+
+                        break;
+
+                    case 5: //売るとき
+
+                        yes_button.SetActive(false);
+                        no_button.SetActive(false);
+                        reset_and_DrawView();
+                        break;
+
+                }
+                break;
+
+            default:
+
+                reset_and_DrawView();
+                break;
         }
 
         OpenAnim();
+
+        //開いたときは、必ず、全てのアイテムは未選択の状態にする。
+        ResetAllItemSelected();
     }
 
     void OpenAnim()
@@ -307,37 +335,18 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         final_base_kettei_item = 9999;
     }
 
-    public void AddItemList()
+    void ResetAllItemSelected()
     {
-        //アイテムリストを表示中に、アイテムを追加した場合、リアルタイムに表示を更新する      
-
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        if (_listitem.Count > 0)
         {
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-            // トッピング調合を選択した場合の処理
-            if (compound_Main.compound_select == 2)
+            for (i = 0; i < _listitem.Count; i++)
             {
-                if (kettei1_bunki == 0)
-                {
-                    topping_DrawView_1();
-                }
-                else
-                {
-                    topping_DrawView_2();
-                }
+                _listitem[i].GetComponent<Toggle>().interactable = true;
+                _listitem[i].GetComponent<Toggle>().isOn = false;
             }
-            else
-            {
-                reset_and_DrawView();
-            }
-        }
-        else
-        {
-            reset_and_DrawView();
         }
     }
+
 
     // リストビューの描画部分。重要。
     public void reset_and_DrawView()
@@ -349,8 +358,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         max = pitemlist.playeritemlist.Count; //現在のプレイヤーアイテムリストの最大数を更新
         max_original = pitemlist.player_originalitemlist.Count; //現在のプレイヤーオリジナルアイテムリストの最大数を更新
-        //Debug.Log("max: " + max);
-        //Debug.Log("max_original: " + max_original);
 
         list_count = 0;
         _listitem.Clear();
@@ -438,21 +445,31 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 break;
                         }
                     }
-                    else if (SceneManager.GetActiveScene().name == "GirlEat" || SceneManager.GetActiveScene().name == "QuestBox")
-                    {
-                        //お菓子のみ表示
-                        if (database.items[i].itemType.ToString() == "Okashi")
-                        {
-                            itemlist_hyouji();
-                        }
-                    }
 
                     else if (SceneManager.GetActiveScene().name == "Shop") //納品時にリストを開くとき
                     {
-                        //お菓子のみ表示
-                        if (database.items[i].itemType.ToString() == "Okashi")
+                        switch (shop_Main.shop_scene)
                         {
-                            itemlist_hyouji();
+                            case 3:
+
+                                //お菓子のみ表示
+                                if (database.items[i].itemType.ToString() == "Okashi")
+                                {
+                                    itemlist_hyouji();
+                                }
+                                break;
+
+                            case 5:
+
+                                //フルーツかレアアイテムを表示
+                                if (database.items[i].itemType_sub.ToString() == "Egg" || database.items[i].itemType_sub.ToString() == "Suger" || 
+                                    database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Rare")
+                                {
+
+                                    itemlist_hyouji();
+                                }
+                                
+                                break;
                         }
                     }
 
@@ -537,21 +554,31 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
                 }
-                else if (SceneManager.GetActiveScene().name == "GirlEat" || SceneManager.GetActiveScene().name == "QuestBox")
-                {
-                    //お菓子のみ表示
-                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
-                    {
-                        original_itemlist_hyouji();
-                    }
-                }
+
                 else if (SceneManager.GetActiveScene().name == "Shop") //納品時にリストを開くとき
                 {
-                    //お菓子のみ表示
-                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                    switch (shop_Main.shop_scene)
                     {
-                        original_itemlist_hyouji();
-                    }
+                        case 3:
+
+                            //お菓子のみ表示
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                            {
+                                original_itemlist_hyouji();
+                            }
+                            break;
+
+                        case 5:
+
+                            //フルーツかレアアイテムを表示
+                            if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || 
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Rare")
+                            {
+
+                                original_itemlist_hyouji();
+                            }
+                                break;
+                    }                   
                 }
                 else
                 {
@@ -630,7 +657,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
 
     
-    //トッピング調合の時のみ使用。トッピング材料を決める時。
+    //トッピング調合の時のみ使用する。
 
     public void topping_DrawView_2()
     {
@@ -698,7 +725,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 if (SceneManager.GetActiveScene().name == "Compound")
                 {
                     //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Nuts" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
+                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || 
+                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Nuts" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" ||
+                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
                     {
                         original_itemlist_hyouji();
                     }
@@ -808,6 +837,40 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                        Vector2.zero);*/
 
         ++list_count;
+    }
+
+    //
+    //アイテムリストを表示中に、アイテムを追加した場合、リアルタイムに表示を更新する
+    //
+    public void AddItemList()
+    {
+          
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        {
+            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+            // トッピング調合を選択した場合の処理
+            if (compound_Main.compound_select == 2)
+            {
+                if (kettei1_bunki == 0)
+                {
+                    topping_DrawView_1();
+                }
+                else
+                {
+                    topping_DrawView_2();
+                }
+            }
+            else
+            {
+                reset_and_DrawView();
+            }
+        }
+        else
+        {
+            reset_and_DrawView();
+        }
     }
 
     //一時的に全てのアイテムを触れなくする。
