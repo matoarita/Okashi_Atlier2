@@ -12,7 +12,7 @@ SE表
 ・SE_10		audiostock_66343.mp3				キラコリリーン　採取時の取得音
 ・SE_11		audiostock_175671.mp3				シュイイーーン　調合中ためる音
 ・SE_12		audiostock_7724_sample				【#未使用】吹き出しでるっぽい音
-・SE_13		audiostock_65015_sample				ポワン　決定音
+・SE_13		audiostock_105207_sample			クリアボタン登場音　シャキーン	旧：ポワン　audiostock_65015_sample
 ・SE_14		ファンファーレ9（ゲーム向け）.mp3		レベルアップ時のファンファーレ
 ・SE_15		audiostock_279165_sample			【#未使用】ジャキーーン
 ・SE_16		shine2.mp3					【宴で鳴らす用　ゲーム本編では音が鳴らなくなる　SE79と同一】キララ～～～ン　ウィンドチャイム
@@ -22,7 +22,7 @@ SE表
 ・SE_20		audiostock_805128				ファンファーレ。テッテレー
 ・SE_21		audiostock_5538.mp3				失敗爆発音
 ・SE_22		decision22.mp3					決定音　未使用？
-・SE_23		audiostock_60838_sample.mp3			【#未使用】　カーソル選択音①　未使用
+・SE_23		audiostock_83086_sample				クエストの受注音　キラリン
 ・SE_24		button63.mp3					カーソル選択音②
 ・SE_25		足音・雑草、茂み.mp3				探索中の音
 ・SE_26		audiostock_104037.mp3				レシピ閃いた音

@@ -301,6 +301,7 @@ public class Shop_Main : MonoBehaviour {
                 if (lvevent_loading) { }
                 else
                 {
+                    //すべてのイベントをチェックし終わって、何もなければfalseになっており、lveventのチェックをtrueにして終了する。はず。
                     check_lvevent = true;
                 }
             }
@@ -316,13 +317,14 @@ public class Shop_Main : MonoBehaviour {
                         shopquestlist_obj.SetActive(false);
                         playeritemlist_onoff.SetActive(false);
                         backshopfirst_obj.SetActive(false);
+                        backshopfirst_obj.GetComponent<Button>().interactable = true;
                         shop_select.SetActive(true);
                         text_area.SetActive(true);
                         money_status_obj.SetActive(true);
                         placename_panel.SetActive(true);
                         black_effect.SetActive(false);
 
-                        _text.text = shopdefault_text;
+                        //_text.text = shopdefault_text;
 
                         shop_scene = 0;
                         shop_status = 100;
@@ -467,14 +469,15 @@ public class Shop_Main : MonoBehaviour {
         if (shopon_toggle_sell.GetComponent<Toggle>().isOn == true)
         {
             shopon_toggle_sell.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
-
-            playeritemlist_onoff.SetActive(true); //プレイヤーアイテムリスト画面を表示。
+            
             backshopfirst_obj.SetActive(true);
             shop_select.SetActive(false);
             placename_panel.SetActive(false);
 
             shop_status = 5; //ショップのシーンに入っている、というフラグ
             shop_scene = 5;
+
+            playeritemlist_onoff.SetActive(true); //プレイヤーアイテムリスト画面を表示。
 
             _text.text = "フルーツとかのアイテムは買い取れるわ。" + "\n" + "何を売るの？";
 
@@ -489,6 +492,7 @@ public class Shop_Main : MonoBehaviour {
         {
             if (!GameMgr.ShopLVEvent_stage[0])
             {
+                //Debug.Log("ショップレベルイベント１　開始");
                 GameMgr.ShopLVEvent_stage[0] = true;
                 GameMgr.scenario_ON = true;
 
@@ -526,19 +530,27 @@ public class Shop_Main : MonoBehaviour {
 
     IEnumerator Scenario_loading()
     {
+        //Debug.Log("シナリオ開始");
+        check_lvevent = true;
 
         while (!GameMgr.scenario_read_endflag)
         {
             yield return null;
         }
 
+        //Debug.Log("シナリオ終了");
         GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
 
-        if (lvevent_loading)
+        check_lvevent = false;
+        lvevent_loading = false;
+        shop_status = 0;
+
+        /*if (lvevent_loading)
         {
             check_lvevent = true;
             lvevent_loading = false;
-        }
+        }*/
     }
 
     void InitUwasaList()

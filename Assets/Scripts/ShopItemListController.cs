@@ -22,6 +22,7 @@ public class ShopItemListController : MonoBehaviour
     private Girl1_status girl1_status;
 
     private GameObject shopitem_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
+    private GameObject shopitem_Prefab2; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
 
     private PlayerItemList pitemlist;
 
@@ -76,6 +77,7 @@ public class ShopItemListController : MonoBehaviour
         //スクロールビュー内の、コンテンツ要素を取得
         content = GameObject.FindWithTag("ShopitemListContent");
         shopitem_Prefab = (GameObject)Resources.Load("Prefabs/shopitemSelectToggle");
+        shopitem_Prefab2 = (GameObject)Resources.Load("Prefabs/emeralditemSelectToggle");
 
         //アイコン背景画像データの取得
         touchon = Resources.Load<Sprite>("Sprites/Window/sabwindowB");
@@ -517,7 +519,7 @@ public class ShopItemListController : MonoBehaviour
 
     void drawEmerarldShopItem()
     {
-        _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _shop_listitem.Add(Instantiate(shopitem_Prefab2, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
         _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
         _togglebg = _shop_listitem[list_count].transform.Find("Background").GetComponent<Image>(); //アイコン背景データ

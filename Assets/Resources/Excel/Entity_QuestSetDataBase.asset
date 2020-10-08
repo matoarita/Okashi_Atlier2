@@ -73,34 +73,6 @@ MonoBehaviour:
     - ID: 2
       QuestID: 20
       QuestType: 1
-      QuestHyouji: 9999
-      file_name: grape
-      quest_itemName: grape
-      quest_itemsubtype: Non
-      kosu_default: 0
-      kosu_min: 1
-      kosu_max: 7
-      buy_price: 70
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 0
-      fluffy: 0
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      quest_Title: "\u3076\u3069\u3046\u306E\u5165\u624B"
-      desc: "<color=#FF78B4>\u3076\u3069\u3046</color>\u304C\u3042\u308B\u3068\u8CB7\u53D6\u308B\u308F\u3088\u3002\n\u4ECA\u8DB3\u308A\u306A\u304F\u3066\u56F0\u3063\u3066\u3044\u308B\u306E\u3002"
-    - ID: 3
-      QuestID: 30
-      QuestType: 1
       QuestHyouji: 0
       file_name: strange_grass
       quest_itemName: strange_grass
@@ -126,6 +98,34 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u5909\u306A\u8349\u306E\u5165\u624B"
       desc: "\u8FD1\u304F\u306E\u68EE\u306B\u751F\u3048\u3066\u308B<color=#FF78B4>\u8349</color>\u304C\u3042\u308B\u3068\u52A9\u304B\u308B\u308F\u306D\u3002\n\u63A1\u3063\u3066\u304D\u3066\u304F\u308C\u305F\u3089\u304A\u99C4\u8CC3\u3092\u3042\u3052\u308B\u308F\u3088\uFF5E\u3002"
+    - ID: 3
+      QuestID: 30
+      QuestType: 0
+      QuestHyouji: 1
+      file_name: orange_juice
+      quest_itemName: orange_juice
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 2
+      buy_price: 350
+      rich: 0
+      sweat: 40
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u30AA\u30EC\u30F3\u30B8\u30B8\u30E5\u30FC\u30B9\u304C\u98F2\u307F\u305F\u3044"
+      desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u5B66\u6821</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D5\u30EC\u30C3\u30B7\u30E5\u306A\u30B8\u30E5\u30FC\u30B9\u3067\u3001\u6804\u990A\u3092\u3064\u3051\u305F\u3044\u305D\u3046\u3088\u3002"
     - ID: 4
       QuestID: 40
       QuestType: 1

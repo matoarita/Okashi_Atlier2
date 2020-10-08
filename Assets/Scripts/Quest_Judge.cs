@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using System.Linq;
 
 public class Quest_Judge : MonoBehaviour {
@@ -161,6 +162,13 @@ public class Quest_Judge : MonoBehaviour {
 
     private GameObject character;
 
+    private GameObject questResultPanel;
+    private bool endresultbutton;
+    private Transform questResultPanel_tsukatext_pos;
+    private Vector3 questResultPanel_tsukatext_defpos;
+
+    private int keta;
+
     // Use this for initialization
     void Start () {
 
@@ -238,6 +246,13 @@ public class Quest_Judge : MonoBehaviour {
         judge_anim_on = false;
         judge_anim_status = 0;
         judge_end = false;
+
+        //クエストリザルトパネル
+        questResultPanel = canvas.transform.Find("QuestResultPanel").gameObject;
+        questResultPanel.SetActive(false);
+        endresultbutton = false;
+        questResultPanel_tsukatext_pos = questResultPanel.transform.Find("QuestResultImage/MoneyTsukaText").transform;
+        questResultPanel_tsukatext_defpos = questResultPanel_tsukatext_pos.localPosition;
     }
 
     // Update is called once per frame
@@ -253,6 +268,7 @@ public class Quest_Judge : MonoBehaviour {
                     //text_area.SetActive(false);
                     shopquestlistController_obj.SetActive(false);
                     black_effect.SetActive(false);
+                    back_ShopFirst_obj.SetActive(false);
 
                     timeOut = 1.5f;
                     judge_anim_status = 1;
@@ -415,10 +431,23 @@ public class Quest_Judge : MonoBehaviour {
             }
         }
 
+        StartCoroutine("Okashi_Judge_Anim1");
+         
+    }
+
+    IEnumerator Okashi_Judge_Anim1()
+    {
+        judge_anim_on = true;
+
+        while (judge_end != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        judge_end = false;
+
         if (nouhinOK_flag)
         {
-            //StartCoroutine("Quest_result_Anim");
-
             //アイテム削除
             if (deleteOriginalList.Count > 0)
             {
@@ -431,46 +460,38 @@ public class Quest_Judge : MonoBehaviour {
             //足りてるので、納品完了の処理
             _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
 
-            //ジャキーンみたいな音を鳴らす。
-            sc.PlaySe(31);
-
-            //所持金をプラス
-            //PlayerStatus.player_money += _getMoney;
-            moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
-
             //該当のクエストを削除
             quest_database.questTakeset.RemoveAt(_qitemID);
 
-            //リスト更新
-            shopquestlistController.NouhinList_DrawView();
-
-
             Debug.Log("納品完了！");
-           
+
+            //ジャキーンみたいな音を鳴らす。
+            sc.PlaySe(31);
+            sc.PlaySe(19);
+
+            //クエストリザルト画面をだす。
+            questResultPanel.SetActive(true);
+            questResultPanel.transform.Find("QuestResultImage/GetMoneyParam").GetComponent<Text>().text = _getMoney.ToString();
+            keta = Digit(_getMoney);
+            questResultPanel_tsukatext_pos.DOLocalMove(new Vector3(20f * (keta - 1), 0f, 0), 0.0f).SetRelative();
+
+            StartCoroutine("EndQuestResultButton");
+
         }
         else
-        { 
-
+        {
+            sc.PlaySe(6);
             _text.text = "まだ数が足りてないようね..。";
 
             //リスト更新
             shopquestlistController.NouhinList_DrawView();
 
+            back_ShopFirst_obj.SetActive(true);
+            ResetQuestStatus();
         }
-
-        shopquestlistController.nouhin_select_on = 0;
-
-        yes.SetActive(false);
-        no.SetActive(false);
-
-        questListToggle.interactable = true;
-        nouhinToggle.interactable = true;
-
-        back_ShopFirst_btn.interactable = true;
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
-    void DeleteOriginalItem()
+        void DeleteOriginalItem()
     {
 
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
@@ -854,11 +875,11 @@ public class Quest_Judge : MonoBehaviour {
         DeleteOriginalItem();
         
 
-        StartCoroutine("Okashi_Judge_Anim");
+        StartCoroutine("Okashi_Judge_Anim2");
         
     }
 
-    IEnumerator Okashi_Judge_Anim()
+    IEnumerator Okashi_Judge_Anim2()
     {
         judge_anim_on = true;
 
@@ -895,44 +916,93 @@ public class Quest_Judge : MonoBehaviour {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score));
                     _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんすごく喜んでたわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                     sc.PlaySe(77);
-                }
+                }                
+
+                Debug.Log("納品完了！");
+
+                //該当のクエストを削除
+                quest_database.questTakeset.RemoveAt(_qitemID);
 
                 //ジャキーンみたいな音を鳴らす。
                 sc.PlaySe(31);
+                sc.PlaySe(19);
 
-                //所持金をプラス
-                moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
+                //クエストリザルト画面をだす。
+                questResultPanel.SetActive(true);
+                questResultPanel.transform.Find("QuestResultImage/GetMoneyParam").GetComponent<Text>().text = _getMoney.ToString();
+                keta = Digit(_getMoney);
+                questResultPanel_tsukatext_pos.DOLocalMove(new Vector3(20f* (keta-1), 0f, 0), 0.0f).SetRelative();
 
-                Debug.Log("納品完了！");
+                StartCoroutine("EndQuestResultButton");
                 break;
 
             case 1: //そもそも違うお菓子を納品
 
+                sc.PlaySe(6);
+
                 _text.text = "これはちょっと違うお菓子みたいね。";
 
                 Debug.Log("納品失敗..");
+
+                //該当のクエストを削除
+                quest_database.questTakeset.RemoveAt(_qitemID);
+
+                ResetQuestStatus();
                 break;
 
             case 2: //ほしいトッピングが乗ってなかった場合。
 
+                sc.PlaySe(6);
+
                 if (_a != "")
                 {
                     //_text.text = _a + "\n" + "う～ん。もうちょっと味を頑張ったほうがいいかも。";
-                    _text.text = "う～ん。もうちょっと味を頑張ったほうがいいかも。";
+                    _text.text = "う～ん。お客さん、あまり喜んでいないみたい..。";
                 }
                 else
                 {
-                    _text.text = "う～ん。もうちょっと味を頑張ったほうがいいかも。";
+                    _text.text = "う～ん。お客さん、あまり喜んでいないみたい..";
                 }
 
                 Debug.Log("納品失敗..");
+
+                //該当のクエストを削除
+                quest_database.questTakeset.RemoveAt(_qitemID);
+
+                ResetQuestStatus();
                 break;
         }
+        
+    }
 
+    public void OnEndResultButton() //クエストリザルトボタンおすと、フラグがONに。
+    {
+        sc.PlaySe(2);
 
-        //該当のクエストを削除
-        quest_database.questTakeset.RemoveAt(_qitemID);
+        endresultbutton = true;
+        questResultPanel.SetActive(false);
 
+        //通貨のテキスト位置を元に戻しておく
+        questResultPanel_tsukatext_pos.localPosition = questResultPanel_tsukatext_defpos;
+    }
+
+    IEnumerator EndQuestResultButton()
+    {
+        while (!endresultbutton)
+        {
+            yield return null;
+        }
+
+        endresultbutton = false;        
+
+        //所持金をプラス
+        moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
+
+        ResetQuestStatus();
+    }
+
+    void ResetQuestStatus()
+    {
         //リスト更新
         shopquestlistController.NouhinList_DrawView();
         shopquestlistController.nouhin_select_on = 0;
@@ -950,6 +1020,9 @@ public class Quest_Judge : MonoBehaviour {
     }
 
 
+    //
+    //パラメータのセットアップ
+    //
     void SetInitQItem(int _count)
     {
         // 判定用に依頼のお菓子のパラメータを代入
@@ -1155,5 +1228,16 @@ public class Quest_Judge : MonoBehaviour {
             itemslot_NouhinScore.Add(0); //納品アイテムの必要スロットパラメータ
             itemslot_PitemScore.Add(0); //選択したアイテムのスロットパラメータ
         }
+    }
+
+    //入れた数字の桁数を取得する
+    public int Digit(int num)
+    {
+        int digit = 1;
+        for (int i = num; i >= 10; i /= 10)
+        {
+            digit++;
+        }
+        return digit;
     }
 }

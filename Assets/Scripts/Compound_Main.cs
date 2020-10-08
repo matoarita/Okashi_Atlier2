@@ -1854,6 +1854,7 @@ public class Compound_Main : MonoBehaviour
         text_area.SetActive(false);
         text_area_Main.SetActive(false);
         black_panel_A.SetActive(false);
+        yes_no_panel.SetActive(false);
 
         //一時的に腹減りを止める。
         girl1_status.GirlEat_Judge_on = false;
@@ -1886,6 +1887,7 @@ public class Compound_Main : MonoBehaviour
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
         text_area_Main.SetActive(true);
+        yes_no_panel.SetActive(true);
         compound_status = 1;
     }
 

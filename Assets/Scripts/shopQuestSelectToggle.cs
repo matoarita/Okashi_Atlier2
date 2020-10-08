@@ -278,7 +278,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                 _text.text = "受注しました！" + "頑張ってね～！";
 
                 //音を鳴らす。
-                sc.PlaySe(25);
+                sc.PlaySe(22);
 
                 Debug.Log("受注完了！");
 
