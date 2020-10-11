@@ -215,6 +215,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //プレイヤーのイベントアイテムリスト。
             save_eventitemlist = pitemlist.eventitemlist,
 
+            //プレイヤーのエメラルドアイテムリスト。
+            save_player_emeralditemlist = pitemlist.emeralditemlist,
+
             //アイテムリスト＜オリジナル＞
             save_player_originalitemlist = pitemlist.player_originalitemlist,
 
@@ -376,6 +379,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //プレイヤーのイベントアイテムリスト。
         pitemlist.eventitemlist.Clear();
         pitemlist.eventitemlist = playerData.save_eventitemlist;
+
+        //プレイヤーのエメラルドアイテムリスト。
+        pitemlist.emeralditemlist.Clear();
+        pitemlist.emeralditemlist = playerData.save_player_emeralditemlist;
 
         //アイテムリスト＜オリジナル＞
         pitemlist.player_originalitemlist.Clear();

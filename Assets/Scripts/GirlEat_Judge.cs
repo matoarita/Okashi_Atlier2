@@ -81,7 +81,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
-    private Dictionary<int, int> girlLikeCompoScore = new Dictionary<int, int>();
 
     private string _commentrandom;
     private List<string> _commentDict = new List<string>();
@@ -2002,7 +2001,6 @@ public class GirlEat_Judge : MonoBehaviour {
             star_Count = 1;
             SetHintText(0); //通常得点時
             Hint_Text.text = temp_hint_text;
-            //HighScore_flag = false;
         }
         else if (total_score >= 30 && total_score < GameMgr.low_score)
         {
@@ -2012,7 +2010,6 @@ public class GirlEat_Judge : MonoBehaviour {
             star_Count = 2;
             SetHintText(0); //通常得点時
             Hint_Text.text = temp_hint_text;
-            //HighScore_flag = false;
         }
         else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
         {
@@ -2022,7 +2019,6 @@ public class GirlEat_Judge : MonoBehaviour {
             star_Count = 3;
             SetHintText(0); //通常得点時
             Hint_Text.text = temp_hint_text;
-            //HighScore_flag = false;
         }
         else if (total_score >= GameMgr.high_score && total_score < 95)
         {
@@ -2032,7 +2028,6 @@ public class GirlEat_Judge : MonoBehaviour {
             star_Count = 4;
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
-            //HighScore_flag = true; //高得点をとれた！その場合、サブクエストが発生したり、特別なイベントが発生することもある。
             if (!database.items[_baseID].HighScore_flag)
             {
                 database.items[_baseID].HighScore_flag = true;
@@ -2046,7 +2041,6 @@ public class GirlEat_Judge : MonoBehaviour {
             star_Count = 5;
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
-            //HighScore_flag = true;
             if (!database.items[_baseID].HighScore_flag)
             {
                 database.items[_baseID].HighScore_flag = true;
@@ -2060,7 +2054,6 @@ public class GirlEat_Judge : MonoBehaviour {
             star_Count = 0;
             SetHintText(2); //マズイとき時
             Hint_Text.text = temp_hint_text;
-            //HighScore_flag = false;
         }
 
         if (Mazui_flag)
@@ -2149,17 +2142,7 @@ public class GirlEat_Judge : MonoBehaviour {
             itemslotScore.Add(0);
         }
             
-    }
-
-    void InitializeGirlLikeCompoScore()
-    {
-        girlLikeCompoScore.Clear();
-
-        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
-        {
-            girlLikeCompoScore.Add(girlLikeCompo_database.girllike_composet[i].set_ID, girlLikeCompo_database.girllike_composet[i].set_score);
-        }
-    }
+    }    
 
     void delete_Item()
     {
@@ -2540,7 +2523,7 @@ public class GirlEat_Judge : MonoBehaviour {
     void SelectNewOkashiSet()
     {
 
-        //クエストクリアかどうかを判定  回数制限はとりあえず無し。
+        //クエストクリアかどうかを判定
 
         //判定
         HighScore_flag = false;
@@ -2570,25 +2553,20 @@ public class GirlEat_Judge : MonoBehaviour {
             }
         }*/
 
-        //初期化
-        girl1_status.OkashiNew_Status = 1; //クエストクリアで、1に戻す。0にすると、次のクエストが開始する。（スペシャル吹き出し登場する）
+        //初期化 
         subQuestClear_check = true;
         special_quest.special_kaisu = 0;       
         girl1_status.special_animatFirst = false;
 
-        //その他、通常の状態で、何らかの条件を満たした場合。現在未使用。
-
-        //点数をまず初期化
-        InitializeGirlLikeCompoScore();
-
     }
 
     //
-    //クエストクリアトグルをおして、スキップした場合に処理されるメソッド。
+    //クエストクリアトグルをおした場合に処理されるメソッド。
     //
     public void QuestClearMethod()
     {
         SelectNewOkashiSet();
+        ClearFlagOn();
         ResultPanel_On();
     }
 
@@ -2645,7 +2623,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         break;
                 }
 
-                ClearFlagOn();
+                //ClearFlagOn();
                 MainQuestText.text = _mainquest_name;
 
                 if (!HighScore_flag) //通常クリア

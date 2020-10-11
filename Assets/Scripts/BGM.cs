@@ -114,7 +114,7 @@ public class BGM : MonoBehaviour {
     public void PlayMain()
     {
 
-        if (GameMgr.GirlLoveEvent_stage1[5]) //コンテストの日の曲
+        if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
         {
             _bgm[0].clip = sound10;
         }

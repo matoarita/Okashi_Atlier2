@@ -44,13 +44,14 @@ public class Debug_Panel : MonoBehaviour {
     private int money_num;
     private int edonguri_num;
     private int event_num;
+    private int _temp_event_num;
     private int girllove_param;
     private Text girl_lv;
     private Text girl_param;
     public bool Debug_INPUT_ON; //デバッグ外部からの入力受け付けるかどうか。PSコントローラーでやるときはOFFにしたほうがよい。バグがでるため。
 
     private Text Counter;
-    private int i;
+    private int i, count;
 
     private Girl1_status girl1_status;
     private GirlEat_Judge girlEat_judge;
@@ -212,16 +213,31 @@ public class Debug_Panel : MonoBehaviour {
                         GameMgr.GirlLoveEvent_stage1[i] = false;
                     }
 
+
                     //クエストクリアフラグをたてる
+                    count = 0;
                     for (i = 0; i < event_num; i++)
                     {
-                        GameMgr.OkashiQuest_flag_stage1[i] = true;
+                        if(i == 0)
+                        {
+                            GameMgr.OkashiQuest_flag_stage1[count] = true;
+                        }
+
+                        if (i != 0 && i % 10 == 0)
+                        {
+                            GameMgr.OkashiQuest_flag_stage1[count] = true;
+                            count++;
+                        }
+                    }
+                        
+                    /*for (i = 0; i < event_num; i++)
+                    {                                    
                         GameMgr.GirlLoveEvent_stage1[i] = true;
                         //Debug.Log("GameMgr.GirlLoveEvent_stage1[i]: " + GameMgr.GirlLoveEvent_stage1[i]);
 
                         //点数は、60点でクリアしたことにする。
                         special_quest.special_score_record[i, 0] = 60;
-                    }
+                    }*/
                     break;
 
                 default:
@@ -238,16 +254,41 @@ public class Debug_Panel : MonoBehaviour {
                 //現在のクエストを再度設定。前クエストの終わりから、スタート。
                 if (event_num != 0)
                 {
-                    special_quest.SetSpecialOkashi(event_num - 1, 0);
-                    GameMgr.GirlLoveEvent_stage1[event_num - 1] = true;
-                    Debug.Log("event_num: " + event_num);
+                    if (event_num % 10 == 0)
+                    {
+                        special_quest.SetSpecialOkashi(event_num - 10, 0);
+                        GameMgr.GirlLoveEvent_stage1[event_num - 10] = true;
+                        Debug.Log("event_num: " + event_num);
+                    }
+                    else
+                    {
+                        count = 0;
+                        for (i = 0; i < event_num; i++)
+                        {
+                            if (i != 0 && i % 10 == 0) //0は除外し、10桁をカウントするごとに+1
+                            {
+                                count++;
+                            }
+                        }
+                        if (count == 0)
+                        {
+                            _temp_event_num = 0;
+                        }
+                        else
+                        {
+                            _temp_event_num = count * 10;
+                        }
+                        special_quest.SetSpecialOkashi(_temp_event_num - 10, 0);
+                        GameMgr.GirlLoveEvent_stage1[_temp_event_num - 10] = true;
+                        Debug.Log("event_num: " + _temp_event_num);
+                    }
                 }
 
                 //女の子判定データの取得
                 girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
                                                                                
                 //** 初期化               
-                girlEat_judge.subQuestClear_check = true;
+                girlEat_judge.subQuestClear_check = true; //強制的に、そのクエストをクリアしたことにする。
                 girlEat_judge.Gameover_flag = false;
                 girlEat_judge.clear_spokashi_status = 1; //SPお菓子でクリアしたことにする。
 
@@ -302,12 +343,12 @@ public class Debug_Panel : MonoBehaviour {
         {
             switch (i)
             {
-                case 2:
+                case 20:
 
                     matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑
                     break;
 
-                case 4:
+                case 40:
 
                     GameMgr.hiroba_event_end[0] = true; //アマクサ会話終了　広場「お花屋さん」「図書館」「道端奥さん」ON
                     GameMgr.hiroba_event_end[1] = true; //パン工房ON
@@ -332,7 +373,7 @@ public class Debug_Panel : MonoBehaviour {
                     }
                     break;
 
-                case 5:
+                case 50:
 
                     GameMgr.hiroba_event_end[8] = true; //ドーナツイベントの終了
 

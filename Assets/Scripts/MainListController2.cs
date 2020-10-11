@@ -177,7 +177,7 @@ public class MainListController2 : MonoBehaviour
                                                //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
-                case 4: //ドーナツイベント時
+                case 40: //ドーナツイベント時
 
                     if (!GameMgr.hiroba_event_end[2])
                     {
@@ -216,7 +216,7 @@ public class MainListController2 : MonoBehaviour
             //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
-                case 4: //ドーナツイベント時
+                case 40: //ドーナツイベント時
 
                     if (!GameMgr.hiroba_event_end[0])
                     {
@@ -258,7 +258,7 @@ public class MainListController2 : MonoBehaviour
             //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
-                case 4: //ドーナツイベント時
+                case 40: //ドーナツイベント時
 
                     if (!GameMgr.hiroba_event_end[0] || !GameMgr.hiroba_event_end[3] || !GameMgr.hiroba_event_end[5])
                     {
@@ -305,7 +305,7 @@ public class MainListController2 : MonoBehaviour
             //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
-                case 4: //ドーナツイベント時
+                case 40: //ドーナツイベント時
 
                     if (!GameMgr.hiroba_event_end[8])
                     {
@@ -366,7 +366,7 @@ public class MainListController2 : MonoBehaviour
             //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
-                case 4: //ドーナツイベント時
+                case 40: //ドーナツイベント時
 
                     if (!GameMgr.hiroba_event_end[6])
                     {
@@ -418,7 +418,7 @@ public class MainListController2 : MonoBehaviour
             //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
-                case 4: //ドーナツイベント時
+                case 40: //ドーナツイベント時
 
                     if (!GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
                     {
@@ -460,7 +460,7 @@ public class MainListController2 : MonoBehaviour
             //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
-                case 4: //ドーナツイベント時
+                case 40: //ドーナツイベント時
 
                     //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
                     rndnum = Random.Range(0, 5);

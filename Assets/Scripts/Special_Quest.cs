@@ -40,7 +40,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         special_kaisu = 0;
         special_kaisu_max = 1;
-        special_score_record = new int[30, special_kaisu_max];
+        special_score_record = new int[GameMgr.GirlLoveEvent_stage1.Length, special_kaisu_max];
 
         for (i = 0; i < special_score_record.GetLength(0); i++)
         {
@@ -81,7 +81,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 
                 break;
 
-            case 1: //ラスク食べたい
+            case 10: //ラスク食べたい
 
                 girl1_status.OkashiQuest_ID = 1100;
                 QuestNameFind();
@@ -89,28 +89,28 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 2: //クレープ食べたい
+            case 20: //クレープ食べたい
 
                 girl1_status.OkashiQuest_ID = 1200;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 break;
 
-            case 3: //シュークリーム食べたい
+            case 30: //シュークリーム食べたい
 
                 girl1_status.OkashiQuest_ID = 1300;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 break;
 
-            case 4: //ドーナツ食べたい
+            case 40: //ドーナツ食べたい
 
                 girl1_status.OkashiQuest_ID = 1400;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 break;
 
-            case 5: //ステージ１ラスト　コンテスト開始
+            case 50: //ステージ１ラスト　コンテスト開始
 
                 girl1_status.OkashiQuest_ID = 1500;
                 QuestNameFind();

@@ -110,6 +110,9 @@ public class PlayerData
     //プレイヤーが作成したオリジナルのアイテムリスト。
     public List<Item> save_player_originalitemlist = new List<Item>();
 
+    //プレイヤーのエメラルドアイテムリスト。
+    public List<ItemEvent> save_player_emeralditemlist = new List<ItemEvent>();
+
     //アイテムの前回スコアなどを記録する
     public List<ItemSaveparam> save_itemdatabase = new List<ItemSaveparam>();
 

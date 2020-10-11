@@ -59210,7 +59210,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#FDFF80FF>\u7802\u7CD6 </color>\u3092\u307E\u3076\u3057\u3066\u3001\u51FA\u6765\u4E0A\u304C\u308A\uFF01"
+      - "<color=#FDFF80FF>\u7802\u7CD6 </color>\u3092\u307E\u3076\u3057\u3066\u3001\u51FA\u6765\u4E0A\u304C\u308A\uFF01\n\u30D0\u30B2\u30C3\u30C8\u3000\uFF1A\u3000\u7802\u7CD6\u3000\uFF1D\u3000<color=#FDFF80FF>\uFF11\u3000\uFF1A\u3000\uFF12</color>"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -59390,7 +59390,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#FDFF80FF>\u7802\u7CD6\u306B\u305F\u307E\u3054\u3001\u30DF\u30EB\u30AF</color>\u3092\u6DF7\u305C\u3066\u751F\u5730\u3092\u4F5C\u308B\u3002"
+      - "<color=#FDFF80FF>\u7802\u7CD6\u306B\u305F\u307E\u3054\u3001\u30DF\u30EB\u30AF</color>\u3092\u6DF7\u305C\u3066\u751F\u5730\u3092\u4F5C\u308B\u3002\n<color=#FDFF80FF>\uFF11\u3000\uFF1A\u3000\uFF11\u3000\uFF1A\u3000\uFF11</color>"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -59405,7 +59405,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001<color=#FDFF80FF>\u5C0F\u9EA6\u7C89</color>\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002"
+      - "\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001<color=#FDFF80FF>\u5C0F\u9EA6\u7C89</color>\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002\n<color=#FDFF80FF>\uFF11\u3000\uFF1A\u3000\uFF12</color>"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -60582,7 +60582,67 @@ MonoBehaviour:
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 183
-      debugIndex: 324
+      debugIndex: 325
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u2606\u30E9\u30D9\u30F3\u30C0\u30FC\u306E\u304A\u82B1\u306E\u3068\u308A\u65B9\n"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 184
+      debugIndex: 326
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30A2\u30E1\u30B8\u30B9\u30C8\u6E56\u7554\u5468\u8FBA\u3067\u3044\u3063\u3071\u3044\u63A1\u308C\u308B\u3002\u6E56\u7554\u306E\u884C\u304D\u65B9\u306F\u3001\u30B7\u30E7\u30C3\u30D7\u306E\u304A\u59C9\u3055\u3093\u304C\u8A73\u3057\u3044\u304B\u3082..\uFF1F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 185
+      debugIndex: 328
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u2606\u30A2\u30FC\u30EB\u30B0\u30EC\u30A4\u30EA\u30FC\u30D5\u306E\u3068\u308A\u65B9"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 186
+      debugIndex: 329
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u9CE5\u305F\u3061\u306E\u697D\u5712\u3067\u63A1\u308C\u308B\u3001\u8CB4\u91CD\u306A\u8349\u3002\u697D\u5712\u306F\u3001\u8FD1\u304F\u306E\u68EE\u306E\u5468\u8FBA\u306B\u3042\u308B\u3089\u3057\u3044..\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 187
+      debugIndex: 332
       strings:
       - EndScenario
       isEmpty: 0
@@ -60590,7 +60650,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Event_Recipi
     type: 1
-    textLength: 5081
+    textLength: 5298
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -60626,7 +60686,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_01"
-      - Girllove_event_num == 1
+      - Girllove_event_num == 10
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -60635,7 +60695,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_02"
-      - Girllove_event_num == 2
+      - Girllove_event_num == 20
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -60644,7 +60704,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_03"
-      - Girllove_event_num == 3
+      - Girllove_event_num == 30
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -60653,7 +60713,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_04"
-      - Girllove_event_num == 4
+      - Girllove_event_num == 40
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -60662,7 +60722,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_05"
-      - Girllove_event_num == 5
+      - Girllove_event_num == 50
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -66844,7 +66904,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:GirlLove_Event
     type: 1
-    textLength: 8883
+    textLength: 8888
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -159506,7 +159566,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#FDFF80FF>\u7802\u7CD6 </color>\u3092\u307E\u3076\u3057\u3066\u3001\u51FA\u6765\u4E0A\u304C\u308A\uFF01"
+      - "<color=#FDFF80FF>\u7802\u7CD6 </color>\u3092\u307E\u3076\u3057\u3066\u3001\u51FA\u6765\u4E0A\u304C\u308A\uFF01\n\u30D0\u30B2\u30C3\u30C8\u3000\uFF1A\u3000\u7802\u7CD6\u3000\uFF1D\u3000<color=#FDFF80FF>\uFF11\u3000\uFF1A\u3000\uFF12</color>"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -159776,7 +159836,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "<color=#FDFF80FF>\u7802\u7CD6\u306B\u305F\u307E\u3054\u3001\u30DF\u30EB\u30AF</color>\u3092\u6DF7\u305C\u3066\u751F\u5730\u3092\u4F5C\u308B\u3002"
+      - "<color=#FDFF80FF>\u7802\u7CD6\u306B\u305F\u307E\u3054\u3001\u30DF\u30EB\u30AF</color>\u3092\u6DF7\u305C\u3066\u751F\u5730\u3092\u4F5C\u308B\u3002\n<color=#FDFF80FF>\uFF11\u3000\uFF1A\u3000\uFF11\u3000\uFF1A\u3000\uFF11</color>"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -159797,7 +159857,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001<color=#FDFF80FF>\u5C0F\u9EA6\u7C89</color>\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002"
+      - "\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001<color=#FDFF80FF>\u5C0F\u9EA6\u7C89</color>\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002\n<color=#FDFF80FF>\uFF11\u3000\uFF1A\u3000\uFF12</color>"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -161471,13 +161531,133 @@ MonoBehaviour:
     - rowIndex: 324
       debugIndex: 324
       strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 325
+      debugIndex: 325
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u2606\u30E9\u30D9\u30F3\u30C0\u30FC\u306E\u304A\u82B1\u306E\u3068\u308A\u65B9\n"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 326
+      debugIndex: 326
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u30A2\u30E1\u30B8\u30B9\u30C8\u6E56\u7554\u5468\u8FBA\u3067\u3044\u3063\u3071\u3044\u63A1\u308C\u308B\u3002\u6E56\u7554\u306E\u884C\u304D\u65B9\u306F\u3001\u30B7\u30E7\u30C3\u30D7\u306E\u304A\u59C9\u3055\u3093\u304C\u8A73\u3057\u3044\u304B\u3082..\uFF1F"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 327
+      debugIndex: 327
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 328
+      debugIndex: 328
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u2606\u30A2\u30FC\u30EB\u30B0\u30EC\u30A4\u30EA\u30FC\u30D5\u306E\u3068\u308A\u65B9"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 329
+      debugIndex: 329
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - "\u9CE5\u305F\u3061\u306E\u697D\u5712\u3067\u63A1\u308C\u308B\u3001\u8CB4\u91CD\u306A\u8349\u3002\u697D\u5712\u306F\u3001\u8FD1\u304F\u306E\u68EE\u306E\u5468\u8FBA\u306B\u3042\u308B\u3089\u3057\u3044..\u3002"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 330
+      debugIndex: 330
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 331
+      debugIndex: 331
+      strings:
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 332
+      debugIndex: 332
+      strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Event_Recipi
     type: 1
-    textLength: 5081
+    textLength: 5298
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -161523,7 +161703,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_01"
-      - Girllove_event_num == 1
+      - Girllove_event_num == 10
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -161532,7 +161712,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_02"
-      - Girllove_event_num == 2
+      - Girllove_event_num == 20
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -161541,7 +161721,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_03"
-      - Girllove_event_num == 3
+      - Girllove_event_num == 30
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -161550,7 +161730,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_04"
-      - Girllove_event_num == 4
+      - Girllove_event_num == 40
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -161559,7 +161739,7 @@ MonoBehaviour:
       strings:
       - Jump
       - "*\u597D\u611F\u5EA6\u30A4\u30D9\u30F3\u30C8_05"
-      - Girllove_event_num == 5
+      - Girllove_event_num == 50
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -168902,7 +169082,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:GirlLove_Event
     type: 1
-    textLength: 8883
+    textLength: 8888
     headerRow: 0
   - rows:
     - rowIndex: 0

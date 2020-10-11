@@ -204,7 +204,7 @@ public class Shop_Main : MonoBehaviour {
 
                 break;
 
-            case 1: //ショップ二度目。ラスク作りの材料を買いにきた。
+            case 10: //ショップ二度目。ラスク作りの材料を買いにきた。
 
                 if (!GameMgr.ShopEvent_stage[1])
                 {
@@ -219,7 +219,7 @@ public class Shop_Main : MonoBehaviour {
 
                 break;
 
-            case 2: //クレープイベント
+            case 20: //クレープイベント
 
                 if (!GameMgr.ShopEvent_stage[2])
                 {
@@ -234,7 +234,7 @@ public class Shop_Main : MonoBehaviour {
 
                 break;
 
-            case 3: //シュークリームイベント
+            case 30: //シュークリームイベント
 
                 if (!GameMgr.ShopEvent_stage[3])
                 {
@@ -249,7 +249,7 @@ public class Shop_Main : MonoBehaviour {
 
                 break;
 
-            case 4: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
+            case 40: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
 
                 if (!GameMgr.ShopEvent_stage[4])
                 {
@@ -488,7 +488,7 @@ public class Shop_Main : MonoBehaviour {
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
     void CheckShopLvEvent()
     {
-        if (girl1_status.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 1) //好感度レベル２以上 or ラスクイベント開始
+        if (girl1_status.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 10) //好感度レベル２以上 or ラスクイベント開始
         {
             if (!GameMgr.ShopLVEvent_stage[0])
             {
@@ -504,7 +504,7 @@ public class Shop_Main : MonoBehaviour {
             }
         }
 
-        if (GameMgr.GirlLoveEvent_num >= 3 && !GameMgr.ShopLVEvent_stage[1]) //シュークリームイベント以降
+        if (GameMgr.GirlLoveEvent_num >= 30 && !GameMgr.ShopLVEvent_stage[1]) //シュークリームイベント以降
         {
             GameMgr.ShopLVEvent_stage[1] = true;
             GameMgr.scenario_ON = true;
@@ -567,7 +567,7 @@ public class Shop_Main : MonoBehaviour {
         }
 
 
-        if (GameMgr.GirlLoveEvent_stage1[1]) //ラスク
+        if (GameMgr.GirlLoveEvent_stage1[10]) //ラスク
         {
 
         }

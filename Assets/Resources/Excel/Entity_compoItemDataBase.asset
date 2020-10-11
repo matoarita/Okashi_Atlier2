@@ -4084,17 +4084,65 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       best_kosu1: 5
-      best_kosu2: 2
+      best_kosu2: 1
       best_kosu3: 1
       cmp_flag: 0
       cost_time: 1
       success_rate: 95
       renkin_Bexp: 3
       Comment: "\u30B8\u30E5\u30FC\u30B9\u7CFB"
-      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u7D5E\u308A\u6A5F"
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u30DF\u30AD\u30B5\u30FC"
       KeisanMethod: Use
       comp_count: 0
     - ItemID: 170
+      cmpitemName: orange_juice_suger
+      cmpitemID_1: orange
+      cmpitemID_2: suger
+      cmpitemID_3: juice_mixer
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: orange_juice
+      result_kosu: 1
+      cmpitem_kosu1: 3
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 5
+      best_kosu2: 2
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u30DF\u30AD\u30B5\u30FC\xD7\u7802\u7CD6"
+      KeisanMethod: Use
+      comp_count: 0
+    - ItemID: 171
+      cmpitemName: orange_juice_Free
+      cmpitemID_1: orange
+      cmpitemID_2: juice_mixer
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: Suger
+      result_itemID: orange_juice
+      result_kosu: 1
+      cmpitem_kosu1: 3
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 5
+      best_kosu2: 1
+      best_kosu3: 2
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u30DF\u30AD\u30B5\u30FC\xD7\u7802\u7CD6"
+      KeisanMethod: Use
+      comp_count: 0
+    - ItemID: 172
       cmpitemName: grape_juice
       cmpitemID_1: grape
       cmpitemID_2: juice_mixer
@@ -4108,6 +4156,30 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       best_kosu1: 5
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u3076\u3069\u3046\xD7\u30DF\u30AD\u30B5\u30FC"
+      KeisanMethod: Use
+      comp_count: 0
+    - ItemID: 173
+      cmpitemName: grape_juice_suger
+      cmpitemID_1: grape
+      cmpitemID_2: suger
+      cmpitemID_3: juice_mixer
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: grape_juice
+      result_kosu: 1
+      cmpitem_kosu1: 3
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 5
       best_kosu2: 2
       best_kosu3: 1
       cmp_flag: 0
@@ -4115,10 +4187,34 @@ MonoBehaviour:
       success_rate: 95
       renkin_Bexp: 3
       Comment: 
-      Comment2: "\u3076\u3069\u3046\xD7\u7D5E\u308A\u6A5F"
+      Comment2: "\u3076\u3069\u3046\xD7\u30DF\u30AD\u30B5\u30FC"
       KeisanMethod: Use
       comp_count: 0
-    - ItemID: 171
+    - ItemID: 174
+      cmpitemName: grape_juice_Free
+      cmpitemID_1: grape
+      cmpitemID_2: juice_mixer
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: Suger
+      result_itemID: grape_juice
+      result_kosu: 1
+      cmpitem_kosu1: 3
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 5
+      best_kosu2: 1
+      best_kosu3: 2
+      cmp_flag: 0
+      cost_time: 1
+      success_rate: 95
+      renkin_Bexp: 3
+      Comment: 
+      Comment2: "\u3076\u3069\u3046\xD7\u30DF\u30AD\u30B5\u30FC"
+      KeisanMethod: Use
+      comp_count: 0
+    - ItemID: 175
       cmpitemName: haloween_juice
       cmpitemID_1: orange
       cmpitemID_2: grape
@@ -4139,10 +4235,10 @@ MonoBehaviour:
       success_rate: 95
       renkin_Bexp: 3
       Comment: 
-      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u3076\u3069\u3046\xD7\u7D5E\u308A\u6A5F"
+      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u3076\u3069\u3046\xD7\u30DF\u30AD\u30B5\u30FC"
       KeisanMethod: Use
       comp_count: 0
-    - ItemID: 172
+    - ItemID: 176
       cmpitemName: mix_fruits_juice
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
@@ -4166,7 +4262,7 @@ MonoBehaviour:
       Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
       KeisanMethod: Non
       comp_count: 0
-    - ItemID: 173
+    - ItemID: 177
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 

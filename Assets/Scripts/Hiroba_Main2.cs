@@ -90,7 +90,7 @@ public class Hiroba_Main2 : MonoBehaviour
     {
         switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
         {
-            case 4: //ドーナツイベント時
+            case 40: //ドーナツイベント時
                 if (GameMgr.hiroba_event_end[8])
                 {
                     _text.text = "ピンクのドーナツを作ってみよう！";

@@ -29,9 +29,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
     public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
 
-    public static bool[] GirlLoveEvent_stage1 = new bool[30];  //各イベントの、現在読み中かどうかのフラグ。
-    public static bool[] GirlLoveEvent_stage2 = new bool[30];
-    public static bool[] GirlLoveEvent_stage3 = new bool[30];
+    public static bool[] GirlLoveEvent_stage1 = new bool[100];  //各イベントの、現在読み中かどうかのフラグ。
+    public static bool[] GirlLoveEvent_stage2 = new bool[100];
+    public static bool[] GirlLoveEvent_stage3 = new bool[100];
 
     //好感度やパティシエレベルで発生するサブイベントのフラグ
     public static int GirlLoveSubEvent_num;
@@ -331,13 +331,17 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             GirlLoveEvent_stage1[system_i] = false;
             GirlLoveEvent_stage2[system_i] = false;
-            GirlLoveEvent_stage3[system_i] = false;
+            GirlLoveEvent_stage3[system_i] = false;            
+        }
 
+        //好感度サブイベントフラグの初期化
+        for (system_i = 0; system_i < GirlLoveSubEvent_stage1.Length; system_i++)
+        {
             GirlLoveSubEvent_stage1[system_i] = false;
         }
 
         //ショップイベントフラグの初期化
-        for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
+        for (system_i = 0; system_i < ShopEvent_stage.Length; system_i++)
         {
             ShopEvent_stage[system_i] = false;
             ShopLVEvent_stage[system_i] = false;
