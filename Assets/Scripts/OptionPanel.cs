@@ -15,7 +15,12 @@ public class OptionPanel : MonoBehaviour {
 
     private GameObject system_panel;
 
+    private GameObject StageClearButton_panel;
+    private AudioSource StageClearbutton_audio;
+
     private Compound_Main compound_Main;
+
+    private int i;
 
     // Use this for initialization
     void Start () {
@@ -48,6 +53,9 @@ public class OptionPanel : MonoBehaviour {
 
         mastervolume_Slider = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider").GetComponent<Slider>();
         mastervolume_paramtext = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider/Param").GetComponent<Text>();
+
+        StageClearButton_panel = canvas.transform.Find("StageClearButton_Panel").gameObject;
+        StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -71,6 +79,10 @@ public class OptionPanel : MonoBehaviour {
         //反映
         GameMgr.MasterVolumeParam = mastervolume_Slider.value / 100;
         sc.VolumeSetting();
+
+        //ステージクリアボタンの音量
+        StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam;
+        
     }
 
     public void BackOption()

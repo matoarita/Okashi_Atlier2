@@ -466,8 +466,9 @@ public class Quest_Judge : MonoBehaviour {
             Debug.Log("納品完了！");
 
             //ジャキーンみたいな音を鳴らす。
-            sc.PlaySe(31);
+            //sc.PlaySe(4);
             sc.PlaySe(19);
+            sc.PlaySe(31);
 
             //クエストリザルト画面をだす。
             questResultPanel.SetActive(true);
@@ -915,7 +916,7 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score));
                     _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんすごく喜んでたわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
-                    sc.PlaySe(77);
+                    //sc.PlaySe(77); //女性声でありがとうございます
                 }                
 
                 Debug.Log("納品完了！");
@@ -923,9 +924,10 @@ public class Quest_Judge : MonoBehaviour {
                 //該当のクエストを削除
                 quest_database.questTakeset.RemoveAt(_qitemID);
 
-                //ジャキーンみたいな音を鳴らす。
-                sc.PlaySe(31);
+                //ジャキーンみたいな音を鳴らす。                
+                //sc.PlaySe(4);
                 sc.PlaySe(19);
+                sc.PlaySe(31);
 
                 //クエストリザルト画面をだす。
                 questResultPanel.SetActive(true);
@@ -996,7 +998,7 @@ public class Quest_Judge : MonoBehaviour {
         endresultbutton = false;        
 
         //所持金をプラス
-        moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
+        moneyStatus_Controller.GetMoney(_getMoney); //アニメつき        
 
         ResetQuestStatus();
     }

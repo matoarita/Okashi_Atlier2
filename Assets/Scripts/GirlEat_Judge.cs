@@ -411,7 +411,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
                 Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
                 playableDirector = canvas.transform.Find("StageClearButton_Panel").GetComponent<PlayableDirector>();
-                playableDirector.enabled = false;
+                playableDirector.enabled = false;               
 
                 //ハートプレファブの取得
                 heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
@@ -445,7 +445,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 stageclear_panel = canvas.transform.Find("StageClearButton_Panel").gameObject;
                 stageclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
                 stageclear_Button = canvas.transform.Find("StageClearButton_Panel/StageClear_Button").gameObject;
-                stageclear_button_on = false;
+                stageclear_button_on = false;                
 
                 Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
                 Delicious_Text = ScoreHyoujiPanel.transform.Find("Image/DeliciousPanel/Text").GetComponent<Text>();
@@ -3050,6 +3050,8 @@ public class GirlEat_Judge : MonoBehaviour {
         yield return new WaitForSeconds(4.0f);
 
         playableDirector.enabled = false;
+        stageclear_Button.GetComponent<Toggle>().interactable = true;
+
         //stageclear_Button.SetActive(true);
         GameMgr.QuestClearflag = true;
 
