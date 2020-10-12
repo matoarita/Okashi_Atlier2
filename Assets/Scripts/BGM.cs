@@ -47,6 +47,18 @@ public class BGM : MonoBehaviour {
                 PlayMain();
                 break;
 
+            case "110_TotalResult":
+
+                if(GameMgr.ending_number == 4)
+                {
+                    EndingBGM_A();
+                }
+                else
+                {
+                    EndingBGM_B();
+                }
+                break;
+
             default:
 
                 PlaySub();
@@ -150,6 +162,18 @@ public class BGM : MonoBehaviour {
         _bgm[0].clip = sound1;
         _bgm[0].Play();
 
+    }
+
+    public void EndingBGM_A()
+    {
+        _bgm[0].clip = sound1;
+        _bgm[0].Play();
+    }
+
+    public void EndingBGM_B()
+    {
+        _bgm[0].clip = sound2;
+        _bgm[0].Play();
     }
 
     public void OnMainBGM()

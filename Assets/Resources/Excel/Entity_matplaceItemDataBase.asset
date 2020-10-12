@@ -178,7 +178,7 @@ MonoBehaviour:
       drop_item10: Non
       drop_rare1: Non
       drop_rare2: emerald_suger
-      drop_rare3: Non
+      drop_rare3: lemon
       drop_prob1: 20
       drop_prob2: 25
       drop_prob3: 20
@@ -189,9 +189,9 @@ MonoBehaviour:
       drop_prob8: 0
       drop_prob9: 0
       drop_prob10: 0
-      drop_rare_prob1: 90
+      drop_rare_prob1: 70
       drop_rare_prob2: 10
-      drop_rare_prob3: 0
+      drop_rare_prob3: 20
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
     - ItemID: 5

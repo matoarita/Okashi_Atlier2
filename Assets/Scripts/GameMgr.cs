@@ -33,6 +33,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] GirlLoveEvent_stage2 = new bool[100];
     public static bool[] GirlLoveEvent_stage3 = new bool[100];
 
+    //クッキーをはじめて作ったかどうか、などのゲーム序盤に○○の処理をしたかどうかを判定するイベントフラグ
+    public static bool[] Beginner_flag = new bool[20]; //0=はじめてクッキーを作った 1=ラスクのレシピを読んだ
+
     //好感度やパティシエレベルで発生するサブイベントのフラグ
     public static int GirlLoveSubEvent_num;
     public static int girlloveevent_bunki; //メインイベントかサブイベントかを分岐する
@@ -153,6 +156,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //エンディングのフラッグ
     public static bool ending_on;
+    public static int ending_number;
 
     //牧場のイベントリスト
     public static bool[] FarmEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -338,6 +342,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < GirlLoveSubEvent_stage1.Length; system_i++)
         {
             GirlLoveSubEvent_stage1[system_i] = false;
+        }
+
+        //ビギナーフラグの初期化
+        for (system_i = 0; system_i < Beginner_flag.Length; system_i++)
+        {
+            Beginner_flag[system_i] = false;
         }
 
         //ショップイベントフラグの初期化

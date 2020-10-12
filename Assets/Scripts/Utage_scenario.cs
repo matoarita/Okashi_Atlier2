@@ -1147,6 +1147,11 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
+        if(ev_flag == 40 && !GameMgr.Beginner_flag[1]) //ラスクのレシピを初めて読んだ
+        {
+            GameMgr.Beginner_flag[1] = true;
+        }
+
         GameMgr.recipi_read_endflag = true; //レシピを読み終えたフラグ
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
@@ -1869,18 +1874,22 @@ public class Utage_scenario : MonoBehaviour
         if (girl1_status.girl1_Love_lv <= 3) //LV3以下 badED ED:D
         {
             engine.Param.TrySetParameter("ED_num", 1);
+            GameMgr.ending_number = 1;
         }
         else if (girl1_status.girl1_Love_lv > 3 && girl1_status.girl1_Love_lv <= 4) // LV4 ノーマルED ED:C
         {           
             engine.Param.TrySetParameter("ED_num", 2);
+            GameMgr.ending_number = 2;
         }
         else if (girl1_status.girl1_Love_lv > 4 && yusho_flag == false) // LV5~ ベストED ED:B ケーキED
         {
             engine.Param.TrySetParameter("ED_num", 3);
+            GameMgr.ending_number = 3;
         }
         else if (girl1_status.girl1_Love_lv > 4 && yusho_flag == true) // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
         {
             engine.Param.TrySetParameter("ED_num", 4);
+            GameMgr.ending_number = 4;
         }
 
         //続きから再度読み込み

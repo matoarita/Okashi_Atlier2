@@ -443,7 +443,7 @@ public class Compound_Main : MonoBehaviour
         questname.text = girl1_status.OkashiQuest_Name; //現在のクエストネーム更新
 
         //初期メッセージ
-        _textmain.text = "どうしようかなぁ？";
+        StartMessage();        
         text_area_Main.SetActive(true);
 
         //初期アイテムの取得。一度きり。
@@ -1831,7 +1831,7 @@ public class Compound_Main : MonoBehaviour
             {
                 if (GameMgr.QuestClearflag)
                 {
-                    _text.text = "次のお話にすすむの？おにいちゃん。";
+                    _text.text = "次のお菓子を作る？おにいちゃん。";
 
                     compound_status = 42;
                     yes_no_clear_okashi_panel.SetActive(true);
@@ -2560,6 +2560,31 @@ public class Compound_Main : MonoBehaviour
                 //matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
             }
         }
+    }
+
+    //初期メッセージを更新・表示する
+    public void StartMessage()
+    {
+        _textmain.text = "どうしようかなぁ？";
+        switch(GameMgr.GirlLoveEvent_num)
+        {
+            case 0: //クッキー
+
+                if (!GameMgr.Beginner_flag[0]) //最初クリアしてないときだけ、ヒントがでる。
+                {
+                    _textmain.text = "まずは、クッキーを作って、妹にあげてみよう！";
+                }
+                break;
+
+            case 10: //ラスクのとき
+
+                if (!GameMgr.Beginner_flag[1]) //ラスクのレシピをまだ読んだことが無い
+                {
+                    _textmain.text = "村長からラスクのレシピをもらった！" + "\n" + "ラスクのレシピを読んでみよう。";
+                }
+                break;
+        }
+        
     }
 
     //SPお菓子とは別で、パティシエレベルor好感度が一定に達すると発生するイベント

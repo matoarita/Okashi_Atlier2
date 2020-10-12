@@ -81,9 +81,26 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 
                 break;
 
+            case 1: //クッキー２
+
+                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
+                girl1_status.OkashiQuest_ID = 1010;
+                QuestNameFind();
+                girl1_status.ResetHukidashi();
+
+                break;
+
             case 10: //ラスク食べたい
 
                 girl1_status.OkashiQuest_ID = 1100;
+                QuestNameFind();
+                girl1_status.ResetHukidashi();
+
+                break;
+
+            case 11: //すっぱいラスク食べたい
+
+                girl1_status.OkashiQuest_ID = 1110;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
 
