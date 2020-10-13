@@ -98,6 +98,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private int _getexp;
 
+    //プレイヤーが選んだ個数の組み合わせセット。Compound_Check.csから書き出す。
+    public List<int> result_kosuset = new List<int>();
+
     //成功確率(外部スクリプトから保存・読み込み用）
     public float _temp_srate_1;
     public float _temp_srate_2;
@@ -488,6 +491,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     PlayerStatus.First_extreme_on = true;
                 }
             }
+
+            //オリジナルの個数をCompoDBにセットしなおす。セットしなおすかどうかを聞く。
+            databaseCompo.compoitems[result_ID].cmpitem_kosu1 = result_kosuset[0];
+            databaseCompo.compoitems[result_ID].cmpitem_kosu2 = result_kosuset[1];
+            databaseCompo.compoitems[result_ID].cmpitem_kosu3 = result_kosuset[2];
+            //compound_keisan.ResetDefaultTasteParam();
 
             //テキストの表示
             renkin_exp_up();

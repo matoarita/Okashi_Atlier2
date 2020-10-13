@@ -1526,7 +1526,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_panel.SetActive(false);
     }
 
-    public void QuestClearCheck()
+    public void QuestClearCheck() //SaveControllerからも読み込んでいる。
     {
         //5個クエストをクリアしたら、クリアボタンがでる。
         if (GameMgr.OkashiQuest_flag_stage1[4])
@@ -2229,7 +2229,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[0] && GameMgr.GirlLoveEvent_stage1[0]) //レベル２のときのイベント
+                    if (GameMgr.OkashiQuest_flag_stage1[0]) //レベル２のときのイベント
                     {
 
                         event_num = 10;
@@ -2254,7 +2254,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[1] && GameMgr.GirlLoveEvent_stage1[10]) //レベル３のときのイベント。
+                    if (GameMgr.OkashiQuest_flag_stage1[1]) //レベル３のときのイベント。
                     {
                         event_num = 20;
 
@@ -2277,7 +2277,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[2] && GameMgr.GirlLoveEvent_stage1[20]) //レベル４のときのイベント。
+                    if (GameMgr.OkashiQuest_flag_stage1[2]) //レベル４のときのイベント。
                     {
                         event_num = 30;
 
@@ -2297,7 +2297,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[3] && GameMgr.GirlLoveEvent_stage1[30]) //レベル５のときのイベント。
+                    if (GameMgr.OkashiQuest_flag_stage1[3]) //レベル５のときのイベント。
                     {
                         event_num = 40;
 
@@ -2317,7 +2317,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[4] && GameMgr.GirlLoveEvent_stage1[40]) //ステージ１　５つクリアしたので、コンテストイベント
+                    if (GameMgr.OkashiQuest_flag_stage1[4]) //ステージ１　５つクリアしたので、コンテストイベント
                     {
                         event_num = 50;
 
@@ -2548,21 +2548,15 @@ public class Compound_Main : MonoBehaviour
     }
 
     //外へ出る、などのコマンドを増やす系のイベント
-    public void FlagEvent()
+    void FlagEvent()
     {
         if (GameMgr.KeyInputOff_flag)
         {
-            if (GameMgr.GirlLoveEvent_stage1[0]) //ラスクのタイミングで、外へ出るが出現
-            {
-                getmaterial_toggle.SetActive(true);
 
-                //いける場所を追加
-                //matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
-            }
         }
     }
 
-    //初期メッセージを更新・表示する
+    //初期メッセージを更新・表示する. QuestTitlePanel.csからも読んでいる。
     public void StartMessage()
     {
         _textmain.text = "どうしようかなぁ？";

@@ -60,6 +60,7 @@ public class Compound_Check : MonoBehaviour {
     private bool compoDB_select_judge;
     private string resultitemID;
     private int result_compoID;
+    private List<int> result_kosuset = new List<int>();
 
     private string success_text;
     private float _success_rate;
@@ -235,6 +236,12 @@ public class Compound_Check : MonoBehaviour {
 
                         exp_Controller.set_kaisu = updown_counter.updown_kosu; //何セット作るかの個数もいれる。
 
+                        exp_Controller.result_kosuset.Clear();
+                        for (i = 0; i < result_kosuset.Count; i++)
+                        {
+                            exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                        }
+
                         compound_Main.compound_status = 4;
 
                         card_view.CardCompo_Anim();
@@ -293,6 +300,12 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller.extreme_on = false;
 
                         exp_Controller.set_kaisu = updown_counter.updown_kosu; //何セット作るかの個数もいれる。
+
+                        exp_Controller.result_kosuset.Clear();
+                        for (i = 0; i < result_kosuset.Count; i++)
+                        {
+                            exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                        }
 
                         compound_Main.compound_status = 4;
 
@@ -701,7 +714,6 @@ public class Compound_Check : MonoBehaviour {
 
         //判定処理//
 
-        //一個目に選んだアイテムが生地タイプでもなく、フルーツ同士の合成でもない場合、
         //新規作成のため、以下の判定処理を行う。個数は、判定に関係しない。
 
 
@@ -716,6 +728,11 @@ public class Compound_Check : MonoBehaviour {
             resultitemID = Combinationmain.resultitemName;
             result_compoID = Combinationmain.result_compID;
 
+            result_kosuset.Clear();
+            for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
+            {
+                result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
+            }
         }
 
 
@@ -731,6 +748,11 @@ public class Compound_Check : MonoBehaviour {
                 resultitemID = Combinationmain.resultitemName;
                 result_compoID = Combinationmain.result_compID;
 
+                result_kosuset.Clear();
+                for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
+                {
+                    result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
+                }
             }
         }
 
@@ -747,6 +769,11 @@ public class Compound_Check : MonoBehaviour {
                 resultitemID = Combinationmain.resultitemName;
                 result_compoID = Combinationmain.result_compID;
 
+                result_kosuset.Clear();
+                for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
+                {
+                    result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
+                }
             }
             
         }

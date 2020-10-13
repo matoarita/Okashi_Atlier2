@@ -92,7 +92,6 @@ public class QuestTitlePanel : MonoBehaviour {
     void EndAnim()
     {
         GameMgr.KeyInputOff_flag = true; //キー入力受付開始
-        compound_Main.FlagEvent(); //イベント出現
         compound_Main.StartMessage();
         this.gameObject.SetActive(false);
     }

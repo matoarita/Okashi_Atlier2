@@ -187,11 +187,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private int total_kosu;
     
-    //小麦粉との比率計算用パラメータ
-    private int komugiko_id; //小麦粉を使っている、材料の_addID
-    private int komugiko_flag; //使っていた場合、1にする。
-    private int Komugiko_count;
-    private float komugiko_ratio;
+    //比率計算用パラメータ
     private float _add_ratio;
     private float _bad_ratio;
     private float _komugibad_ratio;
@@ -311,6 +307,354 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
     }
 
+    //決定アイテムなどのパラメータを取得
+    void SetParamInit()
+    {
+        //プレイヤーアイテム表示用コントローラーの取得
+        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        //レシピリストコントローラーの取得
+        recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+
+        //分岐を取得
+        Comp_method_bunki = exp_Controller.Comp_method_bunki;
+
+        if (Comp_method_bunki == 0) //オリジナル調合の場合
+        {
+            //オリジナル調合の設定
+            if (exp_Controller.extreme_on != true)
+            {
+                //**重要** 
+                //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
+                //店売りの場合は、実質アイテムIDと数字は一緒。
+                //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
+
+                kettei_item1 = pitemlistController.kettei_item1;
+                kettei_item2 = pitemlistController.kettei_item2;
+                kettei_item3 = pitemlistController.kettei_item3;
+
+                toggle_type1 = pitemlistController._toggle_type1;
+                toggle_type2 = pitemlistController._toggle_type2;
+                toggle_type3 = pitemlistController._toggle_type3;
+
+                final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
+                final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
+                final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+
+                //Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+                //Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);
+            }
+            else //エクストリーム調合から閃いた場合
+            {
+                kettei_item1 = pitemlistController.base_kettei_item;
+                kettei_item2 = pitemlistController.kettei_item1;
+                kettei_item3 = pitemlistController.kettei_item2;
+
+                toggle_type1 = pitemlistController._base_toggle_type;
+                toggle_type2 = pitemlistController._toggle_type1;
+                toggle_type3 = pitemlistController._toggle_type2;
+
+                final_kette_kosu1 = pitemlistController.final_base_kettei_kosu;
+                final_kette_kosu2 = pitemlistController.final_kettei_kosu1;
+                final_kette_kosu3 = pitemlistController.final_kettei_kosu2;
+            }
+
+            /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
+            Debug.Log("pitemlistController.kettei_item2: " + kettei_item2);
+            Debug.Log("pitemlistController._toggle_type1: " + toggle_type1);
+            Debug.Log("pitemlistController._toggle_type2: " + toggle_type2);
+            Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+            Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
+
+            //
+            final_select_kaisu = exp_Controller.set_kaisu;
+
+            //パラメータを取得
+            result_item = pitemlistController.result_item;
+
+            //コンポ調合データベースのIDを代入
+            result_ID = pitemlistController.result_compID;
+        }
+
+        if (Comp_method_bunki == 2) //レシピ調合の場合
+        {
+            //レシピの場合。使うアイテムを自動的に選択する。
+            //今のところ、店売りアイテムのみでしか、レシピの材料にならないので、以下の定め方にしている。もし、オリジナルアイテムから使う場合は、toggle_typeなどの判定がちゃんと必要。
+
+            kettei_item1 = recipilistController.kettei_recipiitem1;
+            kettei_item2 = recipilistController.kettei_recipiitem2;
+            kettei_item3 = recipilistController.kettei_recipiitem3;
+
+            toggle_type1 = 0;
+            toggle_type2 = 0;
+            toggle_type3 = 0;
+
+            final_kette_kosu1 = recipilistController.final_kettei_recipikosu1; //一回あたりの必要個数×セット回数
+            final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
+            final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
+
+            final_select_kaisu = recipilistController.final_select_kosu;
+
+            if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+            {
+                kettei_item2 = 9999;
+                kettei_item3 = 9999;
+            }
+
+            if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+            {
+                kettei_item3 = 9999;
+            }
+
+            //パラメータを取得
+            result_item = recipilistController.result_recipiitem;
+
+            //コンポ調合データベースのIDを代入
+            result_ID = recipilistController.result_recipicompID;
+        }
+
+        if (Comp_method_bunki == 3) //トッピング調合の場合
+        {
+            //プレイヤーリストコントローラーで更新した変数を、こっちでも一度代入
+            kettei_item1 = pitemlistController.kettei_item1;
+            kettei_item2 = pitemlistController.kettei_item2;
+            kettei_item3 = pitemlistController.kettei_item3;
+            base_kettei_item = pitemlistController.base_kettei_item;
+
+            toggle_type1 = pitemlistController._toggle_type1;
+            toggle_type2 = pitemlistController._toggle_type2;
+            toggle_type3 = pitemlistController._toggle_type3;
+            base_toggle_type = pitemlistController._base_toggle_type;
+
+
+            if (pitemlistController.final_kettei_item2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+            {
+                kettei_item2 = 9999;
+                kettei_item3 = 9999;
+            }
+
+            if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+            {
+                kettei_item3 = 9999;
+            }
+
+            base_kosu = 1;
+            final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
+            final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
+            final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+
+            //オリジナル・トッピングは、現在のところ、1セットのみの対応
+            final_select_kaisu = 1;
+        }
+
+        //**ここまで**
+    }
+
+    //調合の際、事前に計算してカードに表示する場合などに使う予定。現在未使用。
+    /*void SetParamYosokuInit()
+    {
+        //プレイヤーアイテム表示用コントローラーの取得
+        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        //レシピリストコントローラーの取得
+        recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+
+        //パラメータを取得
+        result_item = recipilistController.result_recipiitem;
+
+        //コンポ調合データベースのIDを代入
+        result_ID = recipilistController.result_recipicompID;
+
+        Comp_method_bunki = 2;
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
+            {
+                kettei_item1 = i;
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_2 == database.items[i].itemName)
+            {
+                kettei_item2 = i;
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_3 == database.items[i].itemName)
+            {
+                kettei_item3 = i;
+                break;
+            }
+            i++;
+        }
+
+        toggle_type1 = 0;
+        toggle_type2 = 0;
+        toggle_type3 = 0;
+
+        final_kette_kosu1 = databaseCompo.compoitems[result_ID].cmpitem_kosu1;
+        final_kette_kosu2 = databaseCompo.compoitems[result_ID].cmpitem_kosu2;
+        final_kette_kosu3 = databaseCompo.compoitems[result_ID].cmpitem_kosu3;
+
+        if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+        {
+            kettei_item2 = 9999;
+            kettei_item3 = 9999;
+        }
+
+        if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+        {
+            kettei_item3 = 9999;
+        }
+
+        //**ここまで**
+    }*/
+
+    //ゲーム最初に、アイテムデータベースの味パラメータを、コンポDBから計算して初期化
+    void SetParamDatabaseInit()
+    {
+
+        Comp_method_bunki = 2;
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
+            {
+                kettei_item1 = i;
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_2 == database.items[i].itemName)
+            {
+                kettei_item2 = i;
+                break;
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i < database.items.Count)
+        {
+            if (databaseCompo.compoitems[result_ID].cmpitemID_3 == database.items[i].itemName)
+            {
+                kettei_item3 = i;
+                break;
+            }
+            i++;
+        }
+
+        toggle_type1 = 0;
+        toggle_type2 = 0;
+        toggle_type3 = 0;
+
+        final_kette_kosu1 = databaseCompo.compoitems[result_ID].cmpitem_kosu1;
+        final_kette_kosu2 = databaseCompo.compoitems[result_ID].cmpitem_kosu2;
+        final_kette_kosu3 = databaseCompo.compoitems[result_ID].cmpitem_kosu3;
+
+        if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+        {
+            kettei_item2 = 9999;
+            kettei_item3 = 9999;
+        }
+
+        if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+        {
+            kettei_item3 = 9999;
+        }
+
+        //**ここまで**
+    }
+
+    void SetParamKosuHosei()
+    {
+        _itemIDtemp_result.Clear();
+        _itemKosutemp_result.Clear();
+        _itemSubtype_temp_result.Clear();
+
+        _itemIDtemp_result.Add(database.items[kettei_item1].itemName);
+        _itemIDtemp_result.Add(database.items[kettei_item2].itemName);
+
+        _itemSubtype_temp_result.Add(database.items[kettei_item1].itemType_sub.ToString());
+        _itemSubtype_temp_result.Add(database.items[kettei_item2].itemType_sub.ToString());
+
+        _itemKosutemp_result.Add(final_kette_kosu1);
+        _itemKosutemp_result.Add(final_kette_kosu2);
+
+        if (final_kette_kosu3 == 9999) //二個しか選択していないときは、9999が入っている。
+        {
+            _itemIDtemp_result.Add("empty");
+            _itemSubtype_temp_result.Add("empty");
+            _itemKosutemp_result.Add(final_kette_kosu3);
+        }
+        else
+        {
+            _itemIDtemp_result.Add(database.items[kettei_item3].itemName);
+            _itemSubtype_temp_result.Add(database.items[kettei_item3].itemType_sub.ToString());
+            _itemKosutemp_result.Add(final_kette_kosu3);
+        }
+
+
+        compoDB_select_judge = false;
+
+
+        //判定処理//
+
+        //一個目に選んだアイテムが生地タイプでもなく、フルーツ同士の合成でもない場合、
+        //新規作成のため、以下の判定処理を行う。個数は、判定に関係しない。
+
+
+        //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
+
+        //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     
+        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 99); //決めた３つのアイテム＋それぞれの個数、の配列
+
+        compoDB_select_judge = Combinationmain.compFlag;
+
+
+        //②　①の組み合わせにない場合は、2通りが考えられる。　アイテム名＋サブ＋サブ　か　アイテム名＋アイテム名＋サブの組み合わせ
+        if (compoDB_select_judge == false)
+        {
+            //個数計算していないので、バグあり
+            Combinationmain.Combination2(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
+
+            compoDB_select_judge = Combinationmain.compFlag;
+        }
+
+
+        //③固有の組み合わせがなかった場合のみ、サブジャンル同士の組み合わせがないかも見る。サブ＋サブ＋サブ
+
+        if (compoDB_select_judge == false)
+        {
+            Combinationmain.Combination(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
+
+            compoDB_select_judge = Combinationmain.compFlag;
+        }
+    }
+
+
+
 
     //           //
     //  合成処理 //
@@ -339,7 +683,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         else if (_mstatus == 1)
         {
             //パラメータを取得。予測用
-            SetParamYosokuInit();
+            //SetParamYosokuInit();
         }
 
         else if (_mstatus == 99)
@@ -630,356 +974,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     }   
 
 
-    //決定アイテムなどのパラメータを取得
-    void SetParamInit()
-    {
-        //プレイヤーアイテム表示用コントローラーの取得
-        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-        //レシピリストコントローラーの取得
-        recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-
-        //分岐を取得
-        Comp_method_bunki = exp_Controller.Comp_method_bunki;
-
-        if (Comp_method_bunki == 0) //オリジナル調合の場合
-        {
-            //オリジナル調合の設定
-            if (exp_Controller.extreme_on != true)
-            {
-                //**重要** 
-                //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
-                //店売りの場合は、実質アイテムIDと数字は一緒。
-                //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
-
-                kettei_item1 = pitemlistController.kettei_item1;
-                kettei_item2 = pitemlistController.kettei_item2;
-                kettei_item3 = pitemlistController.kettei_item3;
-
-                toggle_type1 = pitemlistController._toggle_type1;
-                toggle_type2 = pitemlistController._toggle_type2;
-                toggle_type3 = pitemlistController._toggle_type3;
-
-                final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
-                final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
-                final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
-
-                //Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
-                //Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);
-            }
-
-            //エクストリーム調合から閃いた場合
-            else
-            {
-                kettei_item1 = pitemlistController.base_kettei_item;
-                kettei_item2 = pitemlistController.kettei_item1;
-                kettei_item3 = pitemlistController.kettei_item2;
-
-                toggle_type1 = pitemlistController._base_toggle_type;
-                toggle_type2 = pitemlistController._toggle_type1;
-                toggle_type3 = pitemlistController._toggle_type2;
-
-                final_kette_kosu1 = pitemlistController.final_base_kettei_kosu;
-                final_kette_kosu2 = pitemlistController.final_kettei_kosu1;
-                final_kette_kosu3 = pitemlistController.final_kettei_kosu2;
-            }
-
-            /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
-            Debug.Log("pitemlistController.kettei_item2: " + kettei_item2);
-            Debug.Log("pitemlistController._toggle_type1: " + toggle_type1);
-            Debug.Log("pitemlistController._toggle_type2: " + toggle_type2);
-            Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
-            Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
-
-            //
-            final_select_kaisu = exp_Controller.set_kaisu;
-
-            //パラメータを取得
-            result_item = pitemlistController.result_item;
-
-            //コンポ調合データベースのIDを代入
-            result_ID = pitemlistController.result_compID;
-        }
-
-        if (Comp_method_bunki == 2) //レシピ調合の場合
-        {
-            //レシピの場合。今のところ、店売りアイテムのみでしか、レシピの材料にならないので、以下の定め方にしている。もし、オリジナルアイテムから使う場合は、toggle_typeなどの判定がちゃんと必要。
-
-            kettei_item1 = recipilistController.kettei_recipiitem1;
-            kettei_item2 = recipilistController.kettei_recipiitem2;
-            kettei_item3 = recipilistController.kettei_recipiitem3;            
-
-            toggle_type1 = 0;
-            toggle_type2 = 0;
-            toggle_type3 = 0;
-
-            final_kette_kosu1 = recipilistController.final_kettei_recipikosu1; //一回あたりの必要個数×セット回数
-            final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
-            final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
-
-            final_select_kaisu = recipilistController.final_select_kosu;
-
-            if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
-            {
-                kettei_item2 = 9999;
-                kettei_item3 = 9999;
-            }
-
-            if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
-            {
-                kettei_item3 = 9999;
-            }
-
-            //パラメータを取得
-            result_item = recipilistController.result_recipiitem;
-
-            //コンポ調合データベースのIDを代入
-            result_ID = recipilistController.result_recipicompID;
-        }
-
-        if (Comp_method_bunki == 3) //トッピング調合の場合
-        {
-            //プレイヤーリストコントローラーで更新した変数を、こっちでも一度代入
-            kettei_item1 = pitemlistController.kettei_item1;
-            kettei_item2 = pitemlistController.kettei_item2;
-            kettei_item3 = pitemlistController.kettei_item3;
-            base_kettei_item = pitemlistController.base_kettei_item;
-
-            toggle_type1 = pitemlistController._toggle_type1;
-            toggle_type2 = pitemlistController._toggle_type2;
-            toggle_type3 = pitemlistController._toggle_type3;
-            base_toggle_type = pitemlistController._base_toggle_type;
-
-
-            if (pitemlistController.final_kettei_item2 == 9999) //2個目が空の場合、トッピングは一個のみ。
-            {
-                kettei_item2 = 9999;
-                kettei_item3 = 9999;
-            }
-
-            if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、トッピングは二個のみ。
-            {
-                kettei_item3 = 9999;
-            }
-
-            base_kosu = 1;
-            final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
-            final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
-            final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
-
-            //オリジナル・トッピングは、現在のところ、1セットのみの対応
-            final_select_kaisu = 1;
-        }
-
-        //**ここまで**
-    }
-
-    //調合の際、事前に計算してカードに表示する場合などに使う予定。現在未使用。
-    void SetParamYosokuInit()
-    {
-        //プレイヤーアイテム表示用コントローラーの取得
-        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-        //レシピリストコントローラーの取得
-        recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-
-        //パラメータを取得
-        result_item = recipilistController.result_recipiitem;
-
-        //コンポ調合データベースのIDを代入
-        result_ID = recipilistController.result_recipicompID;
-
-        Comp_method_bunki = 2;
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
-            {
-                kettei_item1 = i;
-                break;
-            }
-            i++;
-        }
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_2 == database.items[i].itemName)
-            {
-                kettei_item2 = i;
-                break;
-            }
-            i++;
-        }
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_3 == database.items[i].itemName)
-            {
-                kettei_item3 = i;
-                break;
-            }
-            i++;
-        }
-
-        toggle_type1 = 0;
-        toggle_type2 = 0;
-        toggle_type3 = 0;
-
-        final_kette_kosu1 = databaseCompo.compoitems[result_ID].cmpitem_kosu1;
-        final_kette_kosu2 = databaseCompo.compoitems[result_ID].cmpitem_kosu2;
-        final_kette_kosu3 = databaseCompo.compoitems[result_ID].cmpitem_kosu3;
-
-        if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
-        {
-            kettei_item2 = 9999;
-            kettei_item3 = 9999;
-        }
-
-        if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
-        {
-            kettei_item3 = 9999;
-        }
-
-        //**ここまで**
-    }
-
-    //ゲーム最初に、アイテムデータベースの味パラメータを、コンポDBから計算して初期化
-    void SetParamDatabaseInit()
-    {       
-
-        Comp_method_bunki = 2;
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
-            {
-                kettei_item1 = i;
-                break;
-            }
-            i++;
-        }
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_2 == database.items[i].itemName)
-            {
-                kettei_item2 = i;
-                break;
-            }
-            i++;
-        }
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_3 == database.items[i].itemName)
-            {
-                kettei_item3 = i;
-                break;
-            }
-            i++;
-        }
-
-
-
-        toggle_type1 = 0;
-        toggle_type2 = 0;
-        toggle_type3 = 0;
-
-        final_kette_kosu1 = databaseCompo.compoitems[result_ID].cmpitem_kosu1;
-        final_kette_kosu2 = databaseCompo.compoitems[result_ID].cmpitem_kosu2;
-        final_kette_kosu3 = databaseCompo.compoitems[result_ID].cmpitem_kosu3;
-
-        if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
-        {
-            kettei_item2 = 9999;
-            kettei_item3 = 9999;
-        }
-
-        if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
-        {
-            kettei_item3 = 9999;
-        }
-
-        //**ここまで**
-    }
-
-    void SetParamKosuHosei()
-    {
-        _itemIDtemp_result.Clear();
-        _itemKosutemp_result.Clear();
-        _itemSubtype_temp_result.Clear();
-
-        _itemIDtemp_result.Add(database.items[kettei_item1].itemName);
-        _itemIDtemp_result.Add(database.items[kettei_item2].itemName);
-
-        _itemSubtype_temp_result.Add(database.items[kettei_item1].itemType_sub.ToString());
-        _itemSubtype_temp_result.Add(database.items[kettei_item2].itemType_sub.ToString());
-
-        _itemKosutemp_result.Add(final_kette_kosu1);
-        _itemKosutemp_result.Add(final_kette_kosu2);
-
-        if (final_kette_kosu3 == 9999) //二個しか選択していないときは、9999が入っている。
-        {
-            _itemIDtemp_result.Add("empty");
-            _itemSubtype_temp_result.Add("empty");
-            _itemKosutemp_result.Add(final_kette_kosu3);
-        }
-        else
-        {
-            _itemIDtemp_result.Add(database.items[kettei_item3].itemName);
-            _itemSubtype_temp_result.Add(database.items[kettei_item3].itemType_sub.ToString());
-            _itemKosutemp_result.Add(final_kette_kosu3);
-        }
-
-
-        compoDB_select_judge = false;
-
-
-        //判定処理//
-
-        //一個目に選んだアイテムが生地タイプでもなく、フルーツ同士の合成でもない場合、
-        //新規作成のため、以下の判定処理を行う。個数は、判定に関係しない。
-
-
-        //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
-
-        //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     
-        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 99); //決めた３つのアイテム＋それぞれの個数、の配列
-
-        compoDB_select_judge = Combinationmain.compFlag;
-
-
-        //②　①の組み合わせにない場合は、2通りが考えられる。　アイテム名＋サブ＋サブ　か　アイテム名＋アイテム名＋サブの組み合わせ
-        if (compoDB_select_judge == false)
-        {
-            //個数計算していないので、バグあり
-            Combinationmain.Combination2(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
-
-            compoDB_select_judge = Combinationmain.compFlag;
-        }
-
-
-        //③固有の組み合わせがなかった場合のみ、サブジャンル同士の組み合わせがないかも見る。サブ＋サブ＋サブ
-
-        if (compoDB_select_judge == false)
-        {
-            Combinationmain.Combination(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
-
-            compoDB_select_judge = Combinationmain.compFlag;
-        }
-    }
-
-
     //
     // 合成の処理・計算を行うメソッド。入口。
     //
@@ -1196,7 +1190,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             //Debug.Log("各個数: " + _additemlist[i]._Addkosu);
         }
 
-        //生地合成・トッピングのときのみ、ベース個数を含む。
+        //トッピングのときのみ、ベース個数を含む。
         if (Comp_method_bunki == 1 || Comp_method_bunki == 3)
         {
             total_kosu += base_kosu;
@@ -1257,7 +1251,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             if (keisan_method_flag == 1) //1=ベスト配合との距離の補正をかける。
             {
-                totalkyori = Combinationmain.totalkyori;
+                totalkyori = Combinationmain.totalkyori; //_mstatus=99のときにこのスクリプトから計算するか、調合時にもCombinationmain.csで計算して、値が更新されてるはず。
                 if (mstatus != 99)
                 {
                     Debug.Log("ベスト配合との距離: " + totalkyori);
@@ -1559,13 +1553,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     void AddParam_Method()
     {
         //初期化
-        komugiko_id = 0;
-        komugiko_flag = 0;
-        Komugiko_count = 0;
         etc_mat_count = 0;
 
-
-        
+       
         //特定のアイテムの場合は、加算のみでOK。例えばアマンドファリーヌのような、粉同士を組み合わせただけ、など。
         if(databaseCompo.compoitems[result_ID].KeisanMethod == "Non")
         {
@@ -1575,106 +1565,19 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             keisan_method_flag = 1;
 
-            /*
-            //比率計算。キーとなるアイテム（例えば、小麦粉）をベースに、他の材料の比率がどのぐらいかを計算
-            for (i = 0; i < _additemlist.Count; i++)
-            {
-                if (_additemlist[i]._Addname == databaseCompo.compoitems[result_ID].KeisanMethod)
-                {
-                    komugiko_id = i;
-                    komugiko_flag = 1;
-                    Komugiko_count++;
-                }
-            }*/
         }
 
-        //材料に小麦粉を使っているか否かで処理を分岐　→　現在は、この処理は削除。
-        switch (komugiko_flag)
+        for (i = 0; i < _additemlist.Count; i++)
         {
-            case 0: //材料に小麦粉を使っていない
-
-                //Debug.Log("小麦粉を使っていない");
-
-                for (i = 0; i < _additemlist.Count; i++)
-                {
-                    AddTasteParam(); //各材料を加算していく。     
-                }
-
-                //DivisionTasteparam(); //その後、個数で割り算する。
-
-                break;
-
-            case 1: //小麦粉を使っている場合
-
-                /*
-                //Debug.Log("小麦粉を使っている" + "  材料ID(0 or 1 or 2): " + komugiko_id);
-
-                //また一からみていき、今度は加算していく。小麦粉IDだけ取り除く
-
-                for (i = 0; i < _additemlist.Count; i++)
-                {
-                    if (i == komugiko_id) //小麦粉それ自体の計算は取り除く
-                    {
-
-                    }
-                    else
-                    {
-                        etc_mat_count++;
-                        komugiko_ratio = (float)_additemlist[i]._Addkosu / _additemlist[komugiko_id]._Addkosu; // 小麦粉に対する、各材料の分量・比率
-                        //Debug.Log("komugiko_ratio（材料の個数 / 小麦粉の個数）: " + _additemlist[i]._Addname + " " + komugiko_ratio);
-
-                        //食感の計算。材料の値を計算する。
-                        AddRatioTasteParam();
-
-                        //甘さなどの味4パラメータは、入れた材料分だけ加算。
-                        _temprich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
-                        _tempsweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
-                        _tempbitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
-                        _tempsour += _additemlist[i]._Addsour * _additemlist[i]._Addkosu;
-                    }
-                }
-
-                //最後に、小麦粉の値を計算し、加算。
-
-                //小麦粉以外の材料の「種類数」（個数ではない）の分、AddRatioTasteParam()メソッドで、小麦粉の値もその都度加算している。
-                //なので、あとで加算した回数分を割り算して、小麦粉1種類あたりの平均値のパラメータをだし、加算する。
-                //例えば、3個調合の場合、小麦粉を除いて、残り2種類なので、etc_mat_countは、2が入っているはず。
-                _komugikocrispy /= etc_mat_count;
-                _komugikofluffy /= etc_mat_count;
-                _komugikosmooth /= etc_mat_count;
-                _komugikohardness /= etc_mat_count;
-                _komugikojiggly /= etc_mat_count;
-                _komugikochewy /= etc_mat_count;
-                _komugikopowdery /= etc_mat_count;
-                _komugikooily /= etc_mat_count;
-                _komugikowatery /= etc_mat_count;
-
-                //_tempに加算。
-                _tempcrispy += _komugikocrispy;
-                _tempfluffy += _komugikofluffy;
-                _tempsmooth += _komugikosmooth;
-                _temphardness += _komugikohardness;
-                _tempjiggly += _komugikojiggly;
-                _tempchewy += _komugikochewy;
-                _temppowdery += _komugikopowdery;
-                _tempoily += _komugikooily;
-                _tempwatery += _komugikowatery;
-
-                total_kosu = _additemlist.Count;
-                */
-
-                break;
-
-            default:
-                break;
-
+            AddTasteParam(); //各材料を加算していく。     
         }
+        //DivisionTasteparam(); //その後、個数で割り算する。
+        
     }
 
     void AddTasteParam()
     {
         //そのまま加算する。
-
         _temprich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
         _tempsweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
         _tempbitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
@@ -1709,113 +1612,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _temppowdery /= total_kosu;
         _tempoily /= total_kosu;
         _tempwatery /= total_kosu;
-    }
-
-    void AddRatioTasteParam()
-    {
-        //小麦粉 1に対して、 バターや砂糖などの材料の比率で、加算する値が変わる。
-        //大体　2:1:1がほどよいとされている。
-        //あまりに小麦粉の量に対して、材料を多く入れすぎていると、マイナス。
-
-        komugiko_distance = (komugiko_ratio - (float)0.5); //0.5は、小麦粉*材料=2:1の場合の値。材料ごとに設定してもよいかも。
-        //Debug.Log("小麦粉と " + _additemlist[i]._Addname + " との距離: " + komugiko_ratio  + " - 0.5 = " + komugiko_distance);
-
-        //誤差が、-0.3以上　極端に小麦粉を入れすぎた場合
-        if (komugiko_distance < -0.3)
-        {
-            //小麦8: バター1などの場合。（比率的には、比率0.125で、0.125-0.5=-0.375になる。） 小麦粉を入れすぎたときの補正
-            _add_ratio = -(Mathf.Abs(komugiko_distance) * (float)10.0);
-            komugiko_ratio = -(Mathf.Abs(komugiko_distance) * (float)10.0);
-            _bad_ratio = (float)3.0;
-            _komugibad_ratio = (float)3.0;
-        }
-
-        //誤差が-0.0 ~ -0.3
-        else if (komugiko_distance >= -0.3 && komugiko_distance < 0)
-        {
-            //小麦4: バター1などの場合。（比率的には、4:1で入れた場合。比率0.25で、0.25-0.5=-0.25になる。） 小麦粉を多めにしたときの補正
-            _add_ratio = (float)0.7;
-            komugiko_ratio = (float)1.2;
-            _bad_ratio = (float)0.7;
-            _komugibad_ratio = (float)1.5;
-        }
-
-        //もし、小麦粉1に対して、材料0.5を基準に、誤差が0.0~0.5未満なら。一番ほどよい距離である。
-        else if (komugiko_distance >= 0 && komugiko_distance < 0.5)
-        {
-            _add_ratio = (float)1.0;
-            komugiko_ratio = (float)1.0;
-            _bad_ratio = (float)1.0;
-            _komugibad_ratio = (float)1.0;
-        }
-
-        //誤差が0.5～1.2
-        else if (komugiko_distance >= 0.5 && komugiko_distance < 1.2)
-        {
-            //小麦2: バター2などの場合。（比率的には、1:1で入れた場合。）
-
-            _add_ratio = ((float)0.5 + Mathf.Abs(komugiko_distance)) * (float)1.5; //若干、材料のほうが多い分、材料の値が強くなる。
-            komugiko_ratio = (float)0.9 * komugiko_distance;
-            _bad_ratio = ((float)0.5 + Mathf.Abs(komugiko_distance)) * (float)1.5;
-            _komugibad_ratio = (float)0.9 * komugiko_distance;
-        }
-        //誤差が1.2～2.2
-        else if (komugiko_distance >= 1.2 && komugiko_distance < 2.2)
-        {
-            //小麦2: バター4などの場合。（2.0。　2.0-0.5=1.5の場合）　少し材料が多めになっているとき
-
-            _add_ratio = (float)1.5 * komugiko_distance;
-            komugiko_ratio = (float)0.75 * komugiko_distance;
-            _bad_ratio = (float)1.0 * komugiko_distance;
-            _komugibad_ratio = (float)0.9 * komugiko_distance;
-        }
-        //誤差が2.2～3.0
-        else if (komugiko_distance >= 2.2 && komugiko_distance < 3.0)
-        {
-            //小麦2: バター6などの場合。（3.0。　3.0-0.5=2.5の場合）　かなり材料が多めになっているとき
-
-            _add_ratio = (float)1.7 * komugiko_distance;
-            komugiko_ratio = (float)0.4 * komugiko_distance;
-            _bad_ratio = (float)0.9 * komugiko_distance;
-            _komugibad_ratio = (float)0.8 * komugiko_distance;
-        }
-        //誤差が3.0以上　材料を入れすぎた
-        else if (komugiko_distance >= 3.0)
-        {
-            //小麦2: バター10などの場合。（5.0。　5.0-0.5=4.5の場合）　明らかに材料を入れすぎた
-
-            _add_ratio = -(Mathf.Abs(komugiko_distance) * (float)10.0);
-            komugiko_ratio = -(Mathf.Abs(komugiko_distance) * (float)10.0);
-            _bad_ratio = (float)3.5;
-            _komugibad_ratio = (float)3.5;
-        }
-
-
-        //Debug.Log("_add_ratio: " + _add_ratio);
-        //Debug.Log("_komugiko_ratio: " + komugiko_ratio);
-
-        //その時の材料の値　×　_add_ratioで、加算する。       
-        _tempcrispy += (int)(_additemlist[i]._Addcrispy * _add_ratio);
-        _tempfluffy += (int)(_additemlist[i]._Addfluffy * _add_ratio);
-        _tempsmooth += (int)(_additemlist[i]._Addsmooth * _add_ratio);
-        _temphardness += (int)(_additemlist[i]._Addhardness * _add_ratio);
-        _tempjiggly += (int)(_additemlist[i]._Addjiggly * _add_ratio);
-        _tempchewy += (int)(_additemlist[i]._Addchewy * _add_ratio);
-        _temppowdery += (int)(_additemlist[i]._Addpowdery * _bad_ratio);
-        _tempoily += (int)(_additemlist[i]._Addoily * _bad_ratio);
-        _tempwatery += (int)(_additemlist[i]._Addwatery * _bad_ratio);
-
-        //小麦粉の値の計算用。
-        _komugikocrispy += (int)(_additemlist[komugiko_id]._Addcrispy * komugiko_ratio);
-        _komugikofluffy += (int)(_additemlist[komugiko_id]._Addfluffy * komugiko_ratio);
-        _komugikosmooth += (int)(_additemlist[komugiko_id]._Addsmooth * komugiko_ratio);
-        _komugikohardness += (int)(_additemlist[komugiko_id]._Addhardness * komugiko_ratio);
-        _komugikojiggly += (int)(_additemlist[komugiko_id]._Addjiggly * komugiko_ratio);
-        _komugikochewy += (int)(_additemlist[komugiko_id]._Addchewy * komugiko_ratio);
-        _komugikopowdery += (int)(_additemlist[komugiko_id]._Addpowdery * _komugibad_ratio);
-        _komugikooily += (int)(_additemlist[komugiko_id]._Addoily * _komugibad_ratio);
-        _komugikowatery += (int)(_additemlist[komugiko_id]._Addwatery * _komugibad_ratio);
-    }
+    }   
 
 
     //プレイヤーアイテムリストから、選んだ材料の削除処理

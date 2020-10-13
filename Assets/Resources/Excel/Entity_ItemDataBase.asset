@@ -1257,7 +1257,7 @@ MonoBehaviour:
       item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 27
-      file_name: cherry
+      file_name: lemon
       name: lemon
       nameHyouji: "\u30EC\u30E2\u30F3"
       desc: "\u9178\u5473\u304C\u304B\u306A\u308A\u5F37\u3044\u3001\u9EC4\u8272\u306E\u679C\u5B9F\u3002\u30AF\u30EA\u30FC\u30E0\u306A\u3069\u306B\u6DF7\u305C\u308B\u3068\u723D\u3084\u304B\u306A\u98A8\u5473\u304C\u697D\u3057\u3081\u308B\u3002"

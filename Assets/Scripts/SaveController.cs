@@ -505,9 +505,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         debug_panel.GirlLove_Koushin(girl1_status.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
         GameMgr.KeyInputOff_flag = true;
-        
-        compound_Main.QuestClearCheck(); //クエストクリアしてたか確認
-        compound_Main.FlagEvent();
+
+        compound_Main.compound_status = 0;
 
     }
 

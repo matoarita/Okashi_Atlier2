@@ -44,7 +44,6 @@ public class Debug_Panel : MonoBehaviour {
     private int money_num;
     private int edonguri_num;
     private int event_num;
-    private int _temp_event_num;
     private int girllove_param;
     private Text girl_lv;
     private Text girl_param;
@@ -229,15 +228,17 @@ public class Debug_Panel : MonoBehaviour {
                             count++;
                         }
                     }
-                        
-                    /*for (i = 0; i < event_num; i++)
-                    {                                    
+
+                    //過去のお菓子の点数を60点で更新
+                    for (i= 0; i < event_num; i++)
+                    {
                         GameMgr.GirlLoveEvent_stage1[i] = true;
                         //Debug.Log("GameMgr.GirlLoveEvent_stage1[i]: " + GameMgr.GirlLoveEvent_stage1[i]);
 
                         //点数は、60点でクリアしたことにする。
                         special_quest.special_score_record[i, 0] = 60;
-                    }*/
+                                            
+                    }
                     break;
 
                 default:
@@ -251,50 +252,47 @@ public class Debug_Panel : MonoBehaviour {
 
             if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
-                //現在のクエストを再度設定。前クエストの終わりから、スタート。
+                //女の子判定データの取得
+                girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                //現在のクエストを再度設定。
                 if (event_num != 0)
                 {
-                    if (event_num % 10 == 0)
+                    if (event_num % 10 == 0) //10番台の数字の場合、前クエストの終わりから、スタート。
                     {
                         special_quest.SetSpecialOkashi(event_num - 10, 0);
                         GameMgr.GirlLoveEvent_stage1[event_num - 10] = true;
                         Debug.Log("event_num: " + event_num);
+
+                        //** 初期化               
+                        girlEat_judge.subQuestClear_check = true; //強制的に、そのクエストをクリアしたことにする。
+                        girlEat_judge.Gameover_flag = false;
+                        girlEat_judge.clear_spokashi_status = 1; //SPお菓子でクリアしたことにする。
+                        girlEat_judge.ResultPanel_On();
                     }
-                    else
+                    else //11、22など、途中のクエストからはじめるときは、そこからはじまる。
                     {
-                        count = 0;
-                        for (i = 0; i < event_num; i++)
-                        {
-                            if (i != 0 && i % 10 == 0) //0は除外し、10桁をカウントするごとに+1
-                            {
-                                count++;
-                            }
-                        }
-                        if (count == 0)
-                        {
-                            _temp_event_num = 0;
-                        }
-                        else
-                        {
-                            _temp_event_num = count * 10;
-                        }
-                        special_quest.SetSpecialOkashi(_temp_event_num - 10, 0);
-                        GameMgr.GirlLoveEvent_stage1[_temp_event_num - 10] = true;
-                        Debug.Log("event_num: " + _temp_event_num);
+                        special_quest.SetSpecialOkashi(event_num, 0);
+                        GameMgr.GirlLoveEvent_stage1[event_num] = true;
+                        GameMgr.GirlLoveEvent_num = event_num;
+                        Debug.Log("event_num: " + event_num);
+
+                        girlEat_judge.subQuestClear_check = false;
+                        girlEat_judge.ResultOFF();
+
+                        //お菓子の判定処理を終了
+                        compound_Main.girlEat_ON = false;
+                        compound_Main.compound_status = 0;
+
+                        girl1_status.timeGirl_hungry_status = 0;
+                        girl1_status.timeOut = 1.0f; //次クエストをすぐ開始
+
+                        GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
+                        GameMgr.QuestClearButton_anim = false;
                     }
-                }
-
-                //女の子判定データの取得
-                girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
-                                                                               
-                //** 初期化               
-                girlEat_judge.subQuestClear_check = true; //強制的に、そのクエストをクリアしたことにする。
-                girlEat_judge.Gameover_flag = false;
-                girlEat_judge.clear_spokashi_status = 1; //SPお菓子でクリアしたことにする。
-
-                if (event_num != 0)
-                {
-                    girlEat_judge.ResultPanel_On();
                 }
                 else
                 {

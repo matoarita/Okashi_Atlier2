@@ -1153,12 +1153,13 @@ public class GirlEat_Judge : MonoBehaviour {
                 //吹き出しにあっているかいないかの判定。
                 if (dislike_flag == false) //吹き出しに合っていない場合
                 {
+                    non_spquest_flag = true;
 
-                    //dislike_status = 5; //スペシャルクエストだった場合は、これじゃないという。
+                    dislike_status = 5; //スペシャルクエストだった場合は、これじゃないという。
 
                     //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。
-
-                    non_spquest_flag = true;
+                    /*
+                    
 
                     if (database.items[_baseID].Eat_kaisu == 0) //新しい食べ物の場合
                     {
@@ -1189,7 +1190,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         //
                         Dislike_Okashi_Judge();
 
-                    }
+                    }*/
                 }
                 else //吹き出しに合っていた場合に、味を判定する。
                 {
@@ -2589,10 +2590,20 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         switch (girl1_status.OkashiQuest_ID % 100) //1000 1100 1200.. で割り切れる。割り切れないときは、端数が10, 20, 30.. と続く。
         {
-            case 0: //最初のクエストを完了したら、次は、+10番のクエスト。1000でクリアした場合。
+            
+            case 10: //1010でクリアした場合。全てのクエストを完了できたので、次のお菓子へ。10ごとに１つのクエスト
+
+                subQuestClear_check = true;
+                ResultPanel_On();
+
+                break;
+
+            default: //最初のクエストを完了したら、次は、+10番のクエスト。1000でクリアした場合。
+
+                GameMgr.GirlLoveEvent_num += 1;
 
                 subQuestClear_check = false;
-                special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num + 1, 0);
+                special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 0);
 
                 ResultOFF();
 
@@ -2606,14 +2617,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
                 GameMgr.QuestClearButton_anim = false;
 
-                GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num + 1] = true;
-                break;
-
-            case 10: //1010でクリアした場合。全てのクエストを完了できたので、次のお菓子へ。10ごとに１つのクエスト
-
-                subQuestClear_check = true;
-                ResultPanel_On();
-
+                GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
                 break;
         }
     }
