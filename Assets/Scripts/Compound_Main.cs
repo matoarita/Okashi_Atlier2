@@ -2541,8 +2541,8 @@ public class Compound_Main : MonoBehaviour
             pitemlist.addPlayerItemString("komugiko", 10);
             pitemlist.addPlayerItemString("butter", 5);
             pitemlist.addPlayerItemString("suger", 5);
-            pitemlist.addPlayerItemString("orange", 5);
-            pitemlist.addPlayerItemString("grape", 2);
+            pitemlist.addPlayerItemString("orange", 3);
+            //pitemlist.addPlayerItemString("grape", 2);
             pitemlist.addPlayerItemString("stone_oven", 1);
         }
     }

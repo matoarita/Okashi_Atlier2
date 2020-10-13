@@ -1059,8 +1059,8 @@ MonoBehaviour:
       cmpitem_kosu1: 2
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
-      best_kosu1: 2
-      best_kosu2: 3.3
+      best_kosu1: 2.4
+      best_kosu2: 5.3
       best_kosu3: 3
       cmp_flag: 0
       cost_time: 12

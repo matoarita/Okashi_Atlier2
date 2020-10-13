@@ -135,7 +135,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 0
-      crispy: 30
+      crispy: 1
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -146,12 +146,12 @@ MonoBehaviour:
       topping03: JewerySuger
       topping04: KirakiraHeart
       topping05: MixColor
-      tp_score01: 15
-      tp_score02: 25
-      tp_score03: 30
-      tp_score04: 40
-      tp_score05: 20
-      Non_tpscore: -10
+      tp_score01: 5
+      tp_score02: 10
+      tp_score03: 15
+      tp_score04: 20
+      tp_score05: 10
+      Non_tpscore: -30
       desc: "\u304A\u5144\u3061\u3083\u3093\u306E<color=#FF78B4>\u30AA\u30EA\u30B8\u30CA\u30EB</color>\u306E\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u3055\u305B\u3066\uFF01"
       commet_flag: 1
     - setID: 5
@@ -191,7 +191,7 @@ MonoBehaviour:
       sweat: 50
       bitter: 0
       sour: 0
-      crispy: 20
+      crispy: 10
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
       crispy: 0
       fluffy: 0
       smooth: 0
-      hardness: 0
+      hardness: 10
       jiggly: 0
       chewy: 0
       topping01: Non
@@ -276,7 +276,7 @@ MonoBehaviour:
       bitter: 0
       sour: 30
       crispy: 0
-      fluffy: 30
+      fluffy: 10
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -304,7 +304,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 30
+      fluffy: 10
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -332,7 +332,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 30
+      fluffy: 10
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -344,7 +344,7 @@ MonoBehaviour:
       topping05: Non
       tp_score01: 5
       tp_score02: 10
-      tp_score03: 20
+      tp_score03: 40
       tp_score04: 20
       tp_score05: 0
       Non_tpscore: -20
@@ -387,7 +387,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 30
-      crispy: 0
+      crispy: 1
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -412,10 +412,10 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 50
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -438,7 +438,7 @@ MonoBehaviour:
       compNum: 509
       girllike_itemname: strawberry_cookie
       girllike_itemsubtype: Non
-      set_score: 0
+      set_score: 20
       rich: 0
       sweat: 30
       bitter: 0
@@ -471,18 +471,18 @@ MonoBehaviour:
       sweat: 50
       bitter: 0
       sour: 0
-      crispy: 60
+      crispy: 10
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: Non
+      topping01: Lemon
       topping02: Non
       topping03: Non
       topping04: Non
       topping05: Non
-      tp_score01: 0
+      tp_score01: 20
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
       sweat: 50
       bitter: 0
       sour: 30
-      crispy: 20
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -522,7 +522,7 @@ MonoBehaviour:
       compNum: 533
       girllike_itemname: rusk_lemon
       girllike_itemsubtype: Non
-      set_score: 0
+      set_score: 20
       rich: 0
       sweat: 50
       bitter: 0
@@ -556,7 +556,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 70
+      fluffy: 20
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -583,8 +583,8 @@ MonoBehaviour:
       sweat: 50
       bitter: 0
       sour: 0
-      crispy: 60
-      fluffy: 0
+      crispy: 0
+      fluffy: 10
       smooth: 0
       hardness: 0
       jiggly: 0

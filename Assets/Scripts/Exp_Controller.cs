@@ -493,9 +493,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //オリジナルの個数をCompoDBにセットしなおす。セットしなおすかどうかを聞く。
-            databaseCompo.compoitems[result_ID].cmpitem_kosu1 = result_kosuset[0];
+            /*databaseCompo.compoitems[result_ID].cmpitem_kosu1 = result_kosuset[0];
             databaseCompo.compoitems[result_ID].cmpitem_kosu2 = result_kosuset[1];
-            databaseCompo.compoitems[result_ID].cmpitem_kosu3 = result_kosuset[2];
+            databaseCompo.compoitems[result_ID].cmpitem_kosu3 = result_kosuset[2];*/
             //compound_keisan.ResetDefaultTasteParam();
 
             //テキストの表示

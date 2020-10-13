@@ -1490,7 +1490,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //④が決まった場合、③は無視し、①と②だけ計算する。④が空=Nonの場合、③を計算。④も③も空の場合、お菓子の種類は関係なくなる。
         girl1_likeOkashi[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_itemName;
 
-        //セットごとの固有の好感度をセット
+        //セットごとの固有の味の採点値をセット
         girl1_like_set_score[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_set_score;
 
         //コメントをセット
@@ -2013,7 +2013,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("..ママ。");
                 _touchface_comment_lib.Add("ぐすん..。");
                 _touchface_comment_lib.Add("..おかし、食べたい。");
-                _touchface_comment_lib.Add("..はじめてなら、簡単にクッキーを作ってみようね。");
+                _touchface_comment_lib.Add("..まずはクッキーを作ってみようね。");
+                _touchface_comment_lib.Add("にいちゃん、フルーツは外でしか採れないよ～。");
                 _touchface_comment_lib.Add("兄ちゃん..。");
                 break;
 

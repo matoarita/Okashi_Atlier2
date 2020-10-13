@@ -24,12 +24,12 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 2
-      buy_price: 400
+      buy_price: 200
       rich: 0
       sweat: 20
       bitter: 0
       sour: 0
-      crispy: 20
+      crispy: 1
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -52,12 +52,12 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 2
-      buy_price: 600
+      buy_price: 400
       rich: 0
       sweat: 0
       bitter: 0
       sour: 0
-      crispy: 20
+      crispy: 1
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
       sweat: 0
       bitter: 0
       sour: 0
-      crispy: 10
+      crispy: 1
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
       sweat: 0
       bitter: 0
       sour: 0
-      crispy: 20
+      crispy: 1
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -360,12 +360,12 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 2
-      buy_price: 400
+      buy_price: 300
       rich: 0
       sweat: 20
       bitter: 0
       sour: 0
-      crispy: 30
+      crispy: 10
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -392,8 +392,8 @@ MonoBehaviour:
       rich: 0
       sweat: 20
       bitter: 0
-      sour: 10
-      crispy: 20
+      sour: 1
+      crispy: 10
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -417,12 +417,12 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 4
-      buy_price: 550
+      buy_price: 300
       rich: 0
       sweat: 20
       bitter: 0
       sour: 0
-      crispy: 20
+      crispy: 10
       fluffy: 0
       smooth: 0
       hardness: 0
