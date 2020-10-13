@@ -1054,7 +1054,7 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         non_spquest_flag = false;
 
-        if (GameMgr.GirlLoveEvent_num == 5 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
+        if (GameMgr.GirlLoveEvent_num == 50 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
         {
             non_spquest_flag = true;
 

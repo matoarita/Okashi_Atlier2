@@ -76,7 +76,7 @@ SE表
 ・SE_74		audiostock_84822_sample				ドラムロール後のジャーン
 ・SE_75		eye-shine1					キュピーーーン
 ・SE_76		flee1						逃げ足早いヒュイーーン
-・SE_77		audiostock_832293_sample			歓声「オーーー」 →　使わない
+・SE_77		audiostock_806876_sample			クエスト納品完了音　キラリン
 ・SE_78		audiostock_308893_sample			女性声「ありがとうございます」
 ・SE_79		shine2.mp3					キララ～～～ン　ウィンドチャイム
 ・SE_80		door-cl01.mp3					【宴で使用　SE39と同一】ドア開く音１。チャイムは無し。

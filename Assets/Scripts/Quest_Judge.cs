@@ -467,7 +467,7 @@ public class Quest_Judge : MonoBehaviour {
 
             //ジャキーンみたいな音を鳴らす。
             //sc.PlaySe(4);
-            sc.PlaySe(19);
+            sc.PlaySe(76);
             sc.PlaySe(31);
 
             //クエストリザルト画面をだす。
@@ -926,7 +926,7 @@ public class Quest_Judge : MonoBehaviour {
 
                 //ジャキーンみたいな音を鳴らす。                
                 //sc.PlaySe(4);
-                sc.PlaySe(19);
+                sc.PlaySe(76);
                 sc.PlaySe(31);
 
                 //クエストリザルト画面をだす。
