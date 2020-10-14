@@ -74,6 +74,7 @@ public class Entity_compoItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(21); p.Comment2 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(23); p.KeisanMethod = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(24); p.comp_count = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(25); p.release_recipi = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

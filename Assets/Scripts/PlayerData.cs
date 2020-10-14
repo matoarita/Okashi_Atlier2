@@ -17,6 +17,7 @@ public class PlayerData
 
     public int save_player_ninki_param; //人気度。いるかな？とりあえず置き
     public int save_player_zairyobox; // 材料カゴの大きさ
+    public int save_player_zairyobox_lv; // 材料カゴのLV
 
 
     //妹のステータス

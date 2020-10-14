@@ -1284,7 +1284,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 200
+      sell_price: 50
       topping01: Lemon
       topping02: Non
       topping03: Non
@@ -1469,7 +1469,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 7
-      topping01: Non
+      topping01: HimawariSeed
       topping02: Non
       topping03: Non
       topping04: Non
@@ -1515,7 +1515,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 20
-      topping01: Non
+      topping01: StrangeGlass
       topping02: Non
       topping03: Non
       topping04: Non
@@ -1561,7 +1561,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 30
-      topping01: Non
+      topping01: Lavender
       topping02: Non
       topping03: Non
       topping04: Non
@@ -10610,7 +10610,7 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.85
       rich: 0
-      sweat: 30
+      sweat: 5
       bitter: 0
       sour: 0
       crispy: 0
@@ -10656,7 +10656,7 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.6
       rich: 0
-      sweat: 30
+      sweat: 5
       bitter: 0
       sour: 0
       crispy: 0
@@ -10702,7 +10702,7 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.5
       rich: 0
-      sweat: 30
+      sweat: 5
       bitter: 0
       sour: 0
       crispy: 0
@@ -10840,7 +10840,7 @@ MonoBehaviour:
       exp: 50
       ex_probability: 0.88
       rich: 0
-      sweat: 10
+      sweat: 20
       bitter: 2
       sour: 0
       crispy: 0
@@ -11392,12 +11392,12 @@ MonoBehaviour:
       exp: 300
       ex_probability: 0.5
       rich: 0
-      sweat: 20
-      bitter: 0
+      sweat: 10
+      bitter: 10
       sour: 0
-      crispy: 0
-      fluffy: 0
-      smooth: 0
+      crispy: 10
+      fluffy: 10
+      smooth: 10
       hardness: 0
       jiggly: 0
       chewy: 0
@@ -11441,7 +11441,7 @@ MonoBehaviour:
       sweat: 0
       bitter: 0
       sour: 0
-      crispy: 30
+      crispy: 10
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -12119,6 +12119,144 @@ MonoBehaviour:
       item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 1012
+      file_name: item_box1
+      name: itembox_1
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30D6\u30ED\u30F3\u30BA\uFF1E"
+      desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv2\u3002\u4E00\u5EA6\u306B15\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Machine
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1013
+      file_name: item_box2
+      name: itembox_2
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30B7\u30EB\u30D0\u30FC\uFF1E"
+      desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv3\u3002\u4E00\u5EA6\u306B30\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Machine
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1014
+      file_name: item_box3
+      name: itembox_3
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30B4\u30FC\u30EB\u30C9\uFF1E"
+      desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv4\u3002\u4E00\u5EA6\u306B50\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Machine
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1015
       file_name: emeralDonguri
       name: emeralDongri
       nameHyouji: "\u30A8\u30E1\u30E9\u30EB\u3069\u3093\u3050\u308A"
@@ -12164,7 +12302,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1013
+    - ItemID: 1016
       file_name: kirakira_stone1
       name: kirakira_stone1
       nameHyouji: "\u304D\u308C\u3044\u306A\u77F3"
@@ -12192,7 +12330,7 @@ MonoBehaviour:
       subtype: Rare
       girl1_like: 0
       cost_price: 0
-      sell_price: 300
+      sell_price: 30
       topping01: Non
       topping02: Non
       topping03: Non

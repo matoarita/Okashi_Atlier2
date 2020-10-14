@@ -143,15 +143,15 @@ MonoBehaviour:
       chewy: 0
       topping01: SilverChip
       topping02: SakuraChip
-      topping03: JewerySuger
+      topping03: CrystalSuger
       topping04: KirakiraHeart
       topping05: MixColor
-      tp_score01: 5
+      tp_score01: 2
       tp_score02: 10
-      tp_score03: 15
-      tp_score04: 20
-      tp_score05: 10
-      Non_tpscore: -30
+      tp_score03: 5
+      tp_score04: 12
+      tp_score05: 3
+      Non_tpscore: -20
       desc: "\u304A\u5144\u3061\u3083\u3093\u306E<color=#FF78B4>\u30AA\u30EA\u30B8\u30CA\u30EB</color>\u306E\u30AF\u30C3\u30AD\u30FC\u3092\u98DF\u3079\u3055\u305B\u3066\uFF01"
       commet_flag: 1
     - setID: 5

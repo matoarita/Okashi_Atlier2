@@ -34,8 +34,12 @@ public class ItemCompound
     public string KeisanMethod; //値を加算するか、比率で計算するか。Nonの場合、加算。何らかのアイテム名が入ってる場合、それを基準に（例えば小麦粉）他の材料の値を計算する。
     public int comp_count;
 
+    public string release_recipi; //新しくお菓子を作ったとき、ここに入った名前のレシピを解放する
+
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, string result_item, int _result_kosu, int _kosu1, int _kosu2, int _kosu3, float _bestkosu1, float _bestkosu2, float _bestkosu3, int _flag, int cost_time, int srate, int renkin_bexp, string _keisanm, int _comp_count)
+    public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, 
+        string result_item, int _result_kosu, int _kosu1, int _kosu2, int _kosu3, float _bestkosu1, float _bestkosu2, float _bestkosu3, 
+        int _flag, int cost_time, int srate, int renkin_bexp, string _keisanm, int _comp_count, string _release_recipi)
     {
         cmpitemID = id;
         cmpitem_Name = cmpname;
@@ -64,6 +68,8 @@ public class ItemCompound
 
         KeisanMethod = _keisanm;
         comp_count = _comp_count;
+
+        release_recipi = _release_recipi;
     }
 
 }

@@ -251,6 +251,10 @@ public class GirlEat_Judge : MonoBehaviour {
     public int topping_flag_point;
     public bool topping_flag;
     public bool topping_all_non;
+    private bool tpcheck;
+    private string tpcheck_slot;
+    private bool nontp_utageON;
+    private int nontp_utagebunki;
 
     public int total_score;
 
@@ -1025,23 +1029,6 @@ public class GirlEat_Judge : MonoBehaviour {
             dislike_status = 4;
         }
 
-        i = 0;
-        while (i < itemslotScore.Count) //トッピングスロットを計算。嫌いなトッピングが使われていると、嫌われる。
-        {
-            //0はNonなので、無視
-            if (i != 0)
-            {
-                //あげたアイテムに、女の子の嫌いな材料が使われていた！
-                if (slotnamedatabase.slotname_lists[i].slot_totalScore < 0 && itemslotScore[i] > 0)
-                {
-                    dislike_flag = false;
-                    dislike_status = 4;
-                    break;
-                }
-            }
-            i++;
-        }
-
         if(!dislike_flag)
         {
             //粉っぽさなどのマイナス判定。一番強い。ここであまりに粉っぽさなどが強い場合は、問答無用で嫌われる。
@@ -1223,7 +1210,7 @@ public class GirlEat_Judge : MonoBehaviour {
         topping_score = 0;
         topping_flag_point = 0;
         topping_flag = false;
-        topping_all_non = true; //判定のトッピングスロットが全てNon
+        topping_all_non = false; //判定のトッピングスロットが全てNon
         last_score_kousin = false;
 
         //未使用。
@@ -1437,7 +1424,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //0はNonなので、無視　かつ、女の子のスコアが1以上
                     if (i != 0 && girl1_status.girl1_hungryScoreSet1[i] > 0)
                     {
-                        topping_all_non = false;
+                        topping_all_non = true; //女の子が食べたいトッピングがある場合true
 
                         //女の子のスコア(所持数)より、生成したアイテムのスロットの所持数が大きい場合は、そのトッピングが好みとマッチしている。正解
                         if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet1[i])
@@ -1448,9 +1435,9 @@ public class GirlEat_Judge : MonoBehaviour {
                             topping_flag_point = girl1_status.girl1_hungryToppingNumberSet1[i];
                             topping_flag = true; //好みが一致するトッピングが、一つでもあった。
                         }
-                        else //逆に、必要なトッピングがあるのに、そのトッピングがのってなかった場合、こっち。大抵マイナスに働く。
+                        else //逆に、必要なトッピングがあるのに、そのトッピングがのってなかった場合、
                         {
-                            NonToppingHint();                           
+                                                     
                         }
                     }
                 }
@@ -1466,7 +1453,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //0はNonなので、無視
                     if (i != 0 && girl1_status.girl1_hungryScoreSet2[i] > 0)
                     {
-                        topping_all_non = false;
+                        topping_all_non = true;
 
                         //女の子のスコア(所持数)より、生成したアイテムのスロットの所持数が大きい場合は、そのトッピングが好みとマッチしている。正解
                         if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet2[i])
@@ -1479,7 +1466,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                         else
                         {
-                            NonToppingHint();
+                            
                         }
                     }
                 }
@@ -1494,7 +1481,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //0はNonなので、無視
                     if (i != 0 && girl1_status.girl1_hungryScoreSet3[i] > 0)
                     {
-                        topping_all_non = false;
+                        topping_all_non = true;
 
                         //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
                         if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet3[i])
@@ -1507,7 +1494,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                         else
                         {
-                            NonToppingHint();
+                            
                         }
                     }
                 }
@@ -1518,8 +1505,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
         }
 
-        //女の子の食べたいトッピングがあるにも関わらず、そのトッピングがのっていなかった。
-        if (!topping_all_non && !topping_flag)
+        //女の子の食べたいトッピングがあるにも関わらず、そのトッピングが一つものっていなかった。
+        if (topping_all_non && !topping_flag)
         {
             topping_score += girl1_status.girl1_NonToppingScoreSet[countNum]; //点数がマイナスに働く。
         }
@@ -1636,25 +1623,6 @@ public class GirlEat_Judge : MonoBehaviour {
             Debug.Log(taste_type + "death..");
             taste_level = 1;
             taste_score = -80;
-        }
-    }
-
-    void NonToppingHint()
-    {
-        //必要なトッピングがのってなかった場合の処理
-        switch (girl1_status.OkashiQuest_ID)
-        {
-            case 1200: //クレープの場合の処理
-
-                //ホイップクリームがのってなかった時
-                _slotid = slotnamedatabase.SlotSearchString("WhipeedCream");
-
-                if (i == _slotid)
-                {
-                    GameMgr.okashinontphint_flag = true;
-                    GameMgr.okashinontphint_ID = 1200;
-                }
-                break;
         }
     }
 
@@ -3272,46 +3240,106 @@ public class GirlEat_Judge : MonoBehaviour {
         ShokukanHintHyouji();
 
 
-        //トータルスコアが低いときは、そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
+        //クエストクリアの条件を満たしていない場合、そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
         if (!non_spquest_flag)
         {
-            if (total_score < GameMgr.low_score)
+
+            for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
             {
-                for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
                 {
-                    if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
-                    {
-                        _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
-                    }
+                    _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
                 }
-
-                //必要なトッピングがのってなかった場合の処理
-                switch (girl1_status.OkashiQuest_ID)
-                {
-                    case 1200: //クレープの場合の処理
-
-                        //ホイップクリームがのってなかった時
-                        if (GameMgr.okashinontphint_flag)
-                        {
-                            _special_kansou = _temp_spkansou;
-                        }
-                        else
-                        {
-                            _special_kansou = "";
-                        }
-                        break;
-
-                    default:
-
-                        _special_kansou = _temp_spkansou;
-                        break;
-                }
-                
             }
-            else if (total_score >= GameMgr.low_score)
+
+            tpcheck = false;
+            nontp_utagebunki = 0;
+
+            //条件判定
+            switch (girl1_status.OkashiQuest_ID)
+            {
+                case 1000: //クッキー１　かわいいトッピングがのってないとき
+
+                    if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
+                    {
+                        nontp_utageON = true;
+                    }
+                    else
+                    {
+                        tpcheck = true;
+                    }                
+                    break;
+
+                case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
+
+                    //トッピングスロットをみる
+                    tpcheck_slot = "WhipeedCream";
+                    ToppingCheck();
+
+                    nontp_utageON = true;
+
+                    break;
+
+                case 1300: //シュークリーム１　ホイップクリームがのってなかった時　tp_check=false
+
+                    //トッピングスロットをみる
+                    tpcheck_slot = "WhipeedCream";
+                    ToppingCheck();
+
+                    tpcheck_slot = "WhipeedCreamStrawberry";
+                    ToppingCheck();
+
+                    nontp_utageON = false;
+
+                    break;
+
+                case 1400: //ドーナツ１　ストロベリーホイップクリームがのってなかった時　tp_check=false
+
+                    //トッピングスロットをみる
+                    tpcheck_slot = "WhipeedCreamStrawberry";
+                    ToppingCheck();
+
+                    if (!tpcheck) //ストロベリークリームはのっていなかった。
+                    {
+                        tpcheck_slot = "Strawberry"; 
+                        ToppingCheck();
+
+                        if (tpcheck)　//ストロベリークリームはのってなかったけど、いちごはのってた場合。惜しい。
+                        {
+                            tpcheck = false;
+                            nontp_utagebunki = 1;
+                        }
+                        else //ストロベリークリームも、いちごものってなかった
+                        {
+                            tpcheck = false;
+                        }
+                    }
+
+                    nontp_utageON = true;
+
+                    break;
+
+                default:
+
+                    break;
+            }
+
+            //
+            if (!tpcheck)
+            {
+                _special_kansou = _temp_spkansou;
+
+                if (nontp_utageON) //クエストをヒントを出す際、宴でも表示するか否か。
+                {
+                    GameMgr.okashinontphint_flag = true;
+                    GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + nontp_utagebunki;
+                }
+            }
+            else
             {
                 _special_kansou = "";
             }
+
         }
         else //クエスト以外のお菓子をあげたときの感想・ヒント
         {
@@ -3366,6 +3394,26 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         Result_Text.text = _result_text;*/
+    }
+
+    void ToppingCheck()
+    {
+        for (i = 0; i < _basetp.Length; i++)
+        {
+            if (_basetp[i] == tpcheck_slot) //キーと一致するアイテムスロットがあれば、点数を+1
+            {
+                tpcheck = true;
+            }
+        }
+
+        //固有トッピングスロットも見る。
+        for (i = 0; i < _koyutp.Length; i++)
+        {
+            if (_koyutp[i] == tpcheck_slot) //キーと一致するアイテムスロットがあれば、点数を+1
+            {
+                tpcheck = true;
+            }
+        }
     }
 
     void SweatHintHyouji()

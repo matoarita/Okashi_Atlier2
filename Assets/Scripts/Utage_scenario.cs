@@ -1094,6 +1094,17 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
+        scenarioLabel = "Recipi_read_after"; //アイテム発見力があがるメッセージ
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+
         //オレンジクッキーのレシピをはじめて読みおえた
         if (GameMgr.scenario_flag == 115)
         {
@@ -1396,6 +1407,8 @@ public class Utage_scenario : MonoBehaviour
         //食べたいお菓子に、必要なトッピングのってなかったときの処理。
         if (GameMgr.okashinontphint_flag)
         {
+            GameMgr.okashinontphint_flag = false;
+
             scenarioLabel = "SpOkashiHintNonTopping"; //イベントレシピタグのシナリオを再生。
 
             //ここで、宴のパラメータ設定
@@ -1409,8 +1422,7 @@ public class Utage_scenario : MonoBehaviour
             {
                 yield return null;
             }
-
-            GameMgr.okashinontphint_flag = false;
+           
         }
 
         if ( !PlayerStatus.First_extreme_on ) //仕上げを一度もやったことがなかったら、ヒントだす。

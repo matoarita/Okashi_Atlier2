@@ -101,6 +101,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject SelectCompo_panel_1;
     private GameObject system_panel;
+    private GameObject status_panel;
 
     private CombinationMain Combinationmain;
 
@@ -141,6 +142,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject stageclear_toggle;
     private GameObject sleep_toggle;
     private GameObject system_toggle;
+    private GameObject status_toggle;
 
     private Button extreme_Button;
     private Button recipi_Button;
@@ -305,6 +307,9 @@ public class Compound_Main : MonoBehaviour
         //システムパネルの取得
         system_panel = canvas.transform.Find("SystemPanel").gameObject;
 
+        //ステータスパネルの取得
+        status_panel = canvas.transform.Find("StatusPanel").gameObject;
+
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
@@ -394,6 +399,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
+        status_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Status_Toggle").gameObject;
 
         stageclear_panel = canvas.transform.Find("StageClearButton_Panel").gameObject;
         stageclear_Button = canvas.transform.Find("StageClearButton_Panel/StageClear_Button").gameObject;
@@ -954,6 +960,7 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A.SetActive(false);
                 compoBG_A_effect.SetActive(false);
                 system_panel.SetActive(false);
+                status_panel.SetActive(false);
 
                 TimePanel_obj1.SetActive(true);
                 TimePanel_obj2.SetActive(false);
@@ -1508,7 +1515,28 @@ public class Compound_Main : MonoBehaviour
 
             case 201: //システム画面選択中
 
-                break;                
+                break;
+
+            case 300: //ステータス画面を開いたとき
+
+                compoundselect_onoff_obj.SetActive(false);
+                compound_status = 301;
+                compound_select = 300;
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = false;
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+
+                status_panel.SetActive(true); //システムパネルを表示。
+
+                WindowOff();
+
+                break;
+
+            case 301: //ステータス画面選択中
+
+                break;
 
             default:
                 break;
@@ -1549,7 +1577,7 @@ public class Compound_Main : MonoBehaviour
             {
                 stageclear_panel.SetActive(true);
                 stageclear_Button.SetActive(true);
-                stageclear_button_text.text = "次のお話へ";
+                stageclear_button_text.text = "次のお菓子へ";
                 //stageclear_toggle.SetActive(true);
             }
         }
@@ -1715,6 +1743,18 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();            
 
             compound_status = 200;
+        }
+    }
+
+    public void OnStatus_toggle() //システムボタンを押した
+    {
+        if (status_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            status_toggle.GetComponent<Toggle>().isOn = false;
+
+            card_view.DeleteCard_DrawView();
+
+            compound_status = 300;
         }
     }
 
@@ -1983,6 +2023,9 @@ public class Compound_Main : MonoBehaviour
         pitemlist.eventitemlist[recipi_num].ev_ReadFlag = 1; //該当のイベントアイテムのレシピのフラグをONにしておく（読んだ、という意味）
         Recipi_FlagON_Method();
         Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji + "を読んだ");
+
+        //レシピを読むと、知識がつきアイテム発見力が上がる。
+        PlayerStatus.player_girl_findpower += 5;
     }
 
 

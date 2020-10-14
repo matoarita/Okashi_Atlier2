@@ -257,6 +257,8 @@ public class GetMaterial : MonoBehaviour {
         InitializeEventDicts();
         event_num = ChooseEvent(); //
 
+        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
+
         switch (event_num)
         {
             case 0: //アイテム取得
@@ -623,7 +625,7 @@ public class GetMaterial : MonoBehaviour {
     void InitializeEventDicts()
     {
         //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
-        rare_event_kakuritsu = (PlayerStatus.player_girl_findpower - 100) * 0.2f;
+        rare_event_kakuritsu = (PlayerStatus.player_girl_findpower - PlayerStatus.player_girl_findpower_def) * 0.3f;
 
         switch (mat_place)
         {
@@ -823,6 +825,7 @@ public class GetMaterial : MonoBehaviour {
 
         // Random.valueでは0から1までのfloat値を返すので
         // そこにドロップ率の合計を掛ける
+        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
         randomPoint = Random.value * total;
 
         // randomPointの位置に該当するキーを返す
@@ -853,6 +856,7 @@ public class GetMaterial : MonoBehaviour {
 
         // Random.valueでは0から1までのfloat値を返すので
         // そこにドロップ率の合計を掛ける
+        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
         randomPoint = Random.value * total;
 
         // randomPointの位置に該当するキーを返す

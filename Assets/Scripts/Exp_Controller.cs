@@ -123,6 +123,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public bool NewRecipiFlag;  //新しいレシピをひらめいたフラグをON
     public int NewRecipi_compoID;   //そのときの、調合DBのID
+    private int _releaseID;
 
     public bool NewRecipiflag_check;
     public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
@@ -454,7 +455,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 databaseCompo.compoitems[result_ID].comp_count++;
 
                 //完成アイテムの、レシピフラグをONにする。
-                databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
+                _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
+                databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
 
                 _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                 PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
@@ -839,7 +841,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     databaseCompo.compoitems[result_ID].comp_count++;
 
                     //完成アイテムの、レシピフラグをONにする。
-                    databaseCompo.compoitems[result_ID].cmpitem_flag = 1;
+                    _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
+                    databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
 
                     _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                     PlayerStatus.player_renkin_exp += _getexp; //エクストリームで新しく閃いた場合の経験値
@@ -994,7 +997,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.eventitemlist_Sansho(); //デバッグ用
 
         }
-        else if (toggle_type1 == 5) //shop_itemType=5のものは、エメラルショップ特有のレアアイテム。コスチュームなどのイベントアイテム系。
+        else if (toggle_type1 == 5) //shop_itemType = 5 のものは、特殊・レアアイテム。コスチュームなどのイベントアイテム系。
         {
             //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
             pitemlist.add_EmeraldPlayerItem(kettei_item1, result_kosu);
@@ -1002,7 +1005,38 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.emeralditemlist_Sansho(); //デバッグ用
 
         }
-        else //トッピング・機材アイテムなど
+        else if (toggle_type1 == 6) //shop_itemType = 6 は、アイテムかごなどの装備品や特殊アイテム。買うことでパラメータを上昇させる。
+        {
+            //プレイヤーアイテムリストに追加。
+            pitemlist.addPlayerItem(kettei_item1, result_kosu);
+
+            //条件分岐
+            if(kettei_item1 == pitemlist.SearchItemString("itembox_1")) //アイテムかごLv2
+            {
+                if (PlayerStatus.player_zairyobox_lv < 2) //LV3とか買った後で買っても、持てる量は更新されない。
+                {
+                    PlayerStatus.player_zairyobox = 15;
+                    PlayerStatus.player_zairyobox_lv = 2;
+                }
+            }
+            if (kettei_item1 == pitemlist.SearchItemString("itembox_2")) //アイテムかごLv3
+            {
+                if (PlayerStatus.player_zairyobox_lv < 3)
+                {
+                    PlayerStatus.player_zairyobox = 30;
+                    PlayerStatus.player_zairyobox_lv = 3;
+                }
+            }
+            if (kettei_item1 == pitemlist.SearchItemString("itembox_3")) //アイテムかごLv4
+            {
+                if (PlayerStatus.player_zairyobox_lv < 4)
+                {
+                    PlayerStatus.player_zairyobox = 50;
+                    PlayerStatus.player_zairyobox_lv = 4;
+                }
+            }
+        }
+        else //トッピング・機材アイテムなど。2は機材。
         {
             //プレイヤーアイテムリストに追加。
             pitemlist.addPlayerItem(kettei_item1, result_kosu);

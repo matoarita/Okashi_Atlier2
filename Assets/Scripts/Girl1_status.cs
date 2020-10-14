@@ -1753,6 +1753,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //ランダムで、吹き出しの内容を決定
         Init_touchFaceComment();
+
+        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
         random = Random.Range(0, _touchface_comment_lib.Count);
         _hintrandom = _touchface_comment_lib[random];
         
@@ -2321,15 +2323,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         return _sum;
     }
 
-    public void LvUpStatus() //好感度レベルがあがったときに、ステータス上昇などの処理
+    public void LvUpStatus() //好感度レベルがあがったときに、ステータス上昇などの処理.GirlEatJudgeから読み出し。
     {
         //レベルがあがるごとに、アイテム発見力があがる。
-        PlayerStatus.player_girl_findpower = 100 + ((girl1_Love_lv-1) * 10);
+        /*PlayerStatus.player_girl_findpower = 100 + ((girl1_Love_lv-1) * 10);
 
         //上限処理
         if(PlayerStatus.player_girl_findpower >= 999)
         {
             PlayerStatus.player_girl_findpower = 999;
-        }
+        }*/
     }
 }

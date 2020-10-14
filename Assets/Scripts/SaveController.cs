@@ -126,6 +126,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_renkin_exp = PlayerStatus.player_renkin_exp, //錬金経験
 
             save_player_ninki_param = PlayerStatus.player_ninki_param, //人気度。いるかな？とりあえず置き
+            save_player_zairyobox_lv = PlayerStatus.player_zairyobox_lv, // 材料カゴの大きさ
             save_player_zairyobox = PlayerStatus.player_zairyobox, // 材料カゴの大きさ
 
 
@@ -295,6 +296,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_renkin_exp = playerData.save_player_renkin_exp; //錬金経験
 
         PlayerStatus.player_ninki_param = playerData.save_player_ninki_param; //人気度。いるかな？とりあえず置き
+        PlayerStatus.player_zairyobox_lv = playerData.save_player_zairyobox_lv; // 材料カゴの大きさ
         PlayerStatus.player_zairyobox = playerData.save_player_zairyobox; // 材料カゴの大きさ
 
         //妹のステータス

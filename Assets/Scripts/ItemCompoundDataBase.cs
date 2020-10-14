@@ -36,6 +36,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private string _keisan_method;
     private int _comp_count;
 
+    private string release_recipi;
+
     private int i, j;
     private int count;
     private int sheet_count;
@@ -93,9 +95,12 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
             _keisan_method = excel_compoitemdatabase.sheets[sheet_no].list[count].KeisanMethod;
             _comp_count = excel_compoitemdatabase.sheets[sheet_no].list[count].comp_count;
 
+            release_recipi = excel_compoitemdatabase.sheets[sheet_no].list[count].release_recipi;
+
             //ここでリストに追加している
             compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
-                cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3, cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count));
+                cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3, 
+                cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi));
 
             ++count;
         }
@@ -118,8 +123,29 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
                 break;
             }
             j++;
-        }
+        }      
+    }
 
-        
+    //レシピの名前を入力すると、該当のレシピIDを返す。
+    public int SearchCompoIDString(string itemName)
+    {
+        if (itemName == "Non")
+        {
+            return 9999;
+        }
+        else
+        {
+            i = 0;
+            while (i <= compoitems.Count)
+            {
+                if (compoitems[i].cmpitem_Name == itemName)
+                {
+                    return i;
+                }
+                i++;
+            }
+
+            return 9999; //見つからなかった場合、9999
+        }
     }
 }

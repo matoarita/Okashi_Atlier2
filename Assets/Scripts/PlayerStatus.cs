@@ -13,11 +13,13 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static int player_ninki_param; //人気度。いるかな？とりあえず置き
 
+    public static int player_zairyobox_lv; // 材料カゴのLV
     public static int player_zairyobox; // 材料カゴの大きさ
 
 
     //妹のステータス
     public static int player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
+    public static int player_girl_findpower_def; //デフォルト初期値。変動しない。
 
 
     //日付・フラグ関係
@@ -52,10 +54,12 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_renkin_exp = 0;
         player_ninki_param = 10;
         player_kaeru_coin = 0;
-        player_zairyobox = 10;
+        player_zairyobox = 10; //カゴの大きさ
+        player_zairyobox_lv = 1;
 
         //妹のステータス初期設定
-        player_girl_findpower = 100; //探索力
+        player_girl_findpower_def = 100;
+        player_girl_findpower = player_girl_findpower_def; //探索力
 
         First_recipi_on = false;
         First_extreme_on = false;

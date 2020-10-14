@@ -185,14 +185,14 @@ MonoBehaviour:
     - ID: 6
       QuestID: 60
       QuestType: 1
-      QuestHyouji: 9999
+      QuestHyouji: 0
       file_name: kirakira_stone1
       quest_itemName: kirakira_stone1
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
       kosu_max: 1
-      buy_price: 300
+      buy_price: 500
       rich: 0
       sweat: 0
       bitter: 0

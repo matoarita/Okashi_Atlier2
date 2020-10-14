@@ -333,13 +333,16 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag && shop_database.shopitems[i].shop_itemType == 2)
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag )
                     {
-                        if (shop_database.shopitems[i].shop_itemzaiko > 0)
+                        if (shop_database.shopitems[i].shop_itemType == 2 || shop_database.shopitems[i].shop_itemType == 6)
                         {
+                            if (shop_database.shopitems[i].shop_itemzaiko > 0)
+                            {
 
-                            drawItem();
+                                drawItem();
 
+                            }
                         }
                     }
                 }
@@ -349,13 +352,16 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag && shop_database.farmitems[i].shop_itemType == 2)
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag )
                     {
-                        if (shop_database.farmitems[i].shop_itemzaiko > 0)
+                        if (shop_database.farmitems[i].shop_itemType == 2 || shop_database.farmitems[i].shop_itemType == 6)
                         {
+                            if (shop_database.farmitems[i].shop_itemzaiko > 0)
+                            {
 
-                            drawFarmItem();
+                                drawFarmItem();
 
+                            }
                         }
                     }
                 }
