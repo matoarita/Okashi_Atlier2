@@ -1596,6 +1596,11 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
 
+        if(matplace_database.matplace_lists[matplace_database.SearchMapString("Farm")].placeFlag == 1)
+        {
+            engine.Param.TrySetParameter("Farm_Flag", true);
+        }
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -1650,7 +1655,7 @@ public class Utage_scenario : MonoBehaviour
                 moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
                 //お金の消費
-                PlayerStatus.player_money -= 100;
+                PlayerStatus.player_money -= 50;
                 GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true;
                 //moneyStatus_Controller.UseMoney(100); //うわさ話をきくをONにしたので、-100G
             }

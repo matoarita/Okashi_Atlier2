@@ -824,7 +824,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 15
+      sell_price: 8
       topping01: Orange
       topping02: Non
       topping03: Non
@@ -962,7 +962,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 20
+      sell_price: 12
       topping01: Grape
       topping02: Non
       topping03: Non
@@ -1008,7 +1008,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 35
+      sell_price: 25
       topping01: Blueberry
       topping02: Non
       topping03: Non
@@ -1054,7 +1054,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 50
+      sell_price: 30
       topping01: Strawberry
       topping02: Non
       topping03: Non
@@ -1192,7 +1192,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 100
+      sell_price: 35
       topping01: Peach
       topping02: Non
       topping03: Non
@@ -1330,7 +1330,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 50
+      sell_price: 25
       topping01: Pineapple
       topping02: Non
       topping03: Non
@@ -1376,7 +1376,7 @@ MonoBehaviour:
       subtype: Fruits
       girl1_like: 0
       cost_price: 0
-      sell_price: 12
+      sell_price: 5
       topping01: Nuts
       topping02: Non
       topping03: Non
@@ -1469,7 +1469,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 7
-      topping01: HimawariSeed
+      topping01: StrangeGlass
       topping02: Non
       topping03: Non
       topping04: Non
@@ -1515,7 +1515,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 20
-      topping01: StrangeGlass
+      topping01: HimawariSeed
       topping02: Non
       topping03: Non
       topping04: Non

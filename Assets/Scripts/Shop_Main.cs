@@ -479,7 +479,7 @@ public class Shop_Main : MonoBehaviour {
 
             playeritemlist_onoff.SetActive(true); //プレイヤーアイテムリスト画面を表示。
 
-            _text.text = "フルーツとかのアイテムは買い取れるわ。" + "\n" + "何を売るの？";
+            _text.text = "フルーツや材料は、買い取りをしてるわよ。" + "\n" + "何を売るの？";
 
         }
     }

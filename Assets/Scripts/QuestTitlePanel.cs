@@ -30,6 +30,7 @@ public class QuestTitlePanel : MonoBehaviour {
 
         //音ならす
         sc.PlaySe(25); //25 鐘の音:50 キラリン:17
+        //sc.PlaySe(27);
 
         //アニメーションスタート
         OnStartAnim();
@@ -54,7 +55,7 @@ public class QuestTitlePanel : MonoBehaviour {
         this.GetComponent<CanvasGroup>().alpha = 0;
         this.transform.Find("QuestPanel").GetComponent<CanvasGroup>().alpha = 0;
         //sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
-        sequence.Append(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.0f)
+        sequence.Append(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, 20f, 0), 0.0f)
             .SetRelative()); //元の位置から30px右に置いておく。
         
                              //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
@@ -63,14 +64,15 @@ public class QuestTitlePanel : MonoBehaviour {
         /*sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
             .SetEase(Ease.OutExpo));*/
 
-        //まず黒画面をフェードイン
-        sequence.Append(this.GetComponent<CanvasGroup>().DOFade(1, 0.3f));
+        //まず画面をフェードイン
+        sequence.Append(this.GetComponent<CanvasGroup>().DOFade(1, 0.3f)
+            .SetEase(Ease.OutQuart));
 
         //次にクエストタイトルを登場させる
-        sequence.Join(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.5f)
-            .SetRelative()
-            .SetEase(Ease.OutExpo)); //30px右から、元の位置に戻る。
-        sequence.Join(this.transform.Find("QuestPanel").GetComponent<CanvasGroup>().DOFade(1, 0.3f));
+        sequence.Join(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0.0f, 0.0f, 0.0f), 0.7f)
+            .SetEase(Ease.OutQuart)); //30px右から、元の位置に戻る。
+        sequence.Join(this.transform.Find("QuestPanel").GetComponent<CanvasGroup>().DOFade(1, 0.3f)
+             .SetEase(Ease.OutQuart));
     }
 
     void FadeOut()
@@ -78,14 +80,15 @@ public class QuestTitlePanel : MonoBehaviour {
         Sequence sequence = DOTween.Sequence();
 
         sequence.Append(this.GetComponent<CanvasGroup>().DOFade(0, 0.3f)
+            .SetEase(Ease.OutQuart)
             .OnComplete(EndAnim));
-        sequence.Join(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.3f)
+        /*sequence.Join(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, -30f, 0), 1.0f)
             .SetRelative()
-            .SetEase(Ease.InQuart));
+            .SetEase(Ease.OutQuart));
 
         //元位置にもどしておく。
         sequence.Append(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.0f)
-            .SetRelative());
+            .SetRelative());*/
 
     }
 

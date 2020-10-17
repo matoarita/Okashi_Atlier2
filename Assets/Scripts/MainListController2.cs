@@ -136,7 +136,7 @@ public class MainListController2 : MonoBehaviour
             npc5_toggle_obj.SetActive(true);
             npc6_toggle_obj.SetActive(true);
             npc7_toggle_obj.SetActive(true);
-            npc8_toggle_obj.SetActive(true);
+            //npc8_toggle_obj.SetActive(true);
         }
 
         //パン工房へいける

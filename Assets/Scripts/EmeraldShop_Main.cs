@@ -125,7 +125,7 @@ public class EmeraldShop_Main : MonoBehaviour {
         _text = text_area.GetComponentInChildren<Text>();
 
         //初期メッセージ
-        shopdefault_text = "ヒヒヒ..。ようこそ～..。";
+        shopdefault_text = "ニャ～～..。いらっしゃいだミュ。";
         _text.text = shopdefault_text;
         text_area.SetActive(false);
 

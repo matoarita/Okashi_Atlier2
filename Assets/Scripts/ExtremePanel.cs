@@ -56,9 +56,6 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
-    private GameObject kakuritsuPanel_obj;
-    private KakuritsuPanel kakuritsuPanel;
-
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
 
@@ -127,10 +124,6 @@ public class ExtremePanel : MonoBehaviour {
 
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
-
-        //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
-        kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;

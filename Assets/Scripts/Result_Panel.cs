@@ -310,7 +310,15 @@ public class Result_Panel : MonoBehaviour
         //取得した好感度をキラキラアニメーション       
         sequence.Append(Getlove_param.GetComponent<CanvasGroup>().DOFade(1, 0.01f));
 
-        sc.PlaySe(17);
+        if (getlove_exp >= 0)
+        {
+            sc.PlaySe(17);
+        }
+        else //さがったときの音
+        {
+            sc.PlaySe(20);
+        }
+
         //エフェクト生成＋アニメ開始
         _listEffect.Clear();
         _listEffect.Add(Instantiate(Magic_effect_Prefab1));

@@ -134,8 +134,8 @@ MonoBehaviour:
       clear: 0
     - ID: 9
       set_compID: 1110
-      set1: 532
-      set2: 533
+      set1: 31
+      set2: 9999
       set3: 9999
       spquest_name1: "\u3059\u3063\u3071\u3044\u30E9\u30B9\u30AF\u3092\u4F5C\u308D\u3046\uFF01"
       spquest_name2: '-'

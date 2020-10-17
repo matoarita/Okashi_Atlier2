@@ -301,8 +301,8 @@ public class Updown_counter : MonoBehaviour {
 
                 if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    this.transform.localPosition = new Vector3(173, -238, 0);
-                    this.transform.localScale = new Vector3(0.65f, 0.65f, 0.65f);
+                    this.transform.localPosition = new Vector3(0, 5, 0);
+                    this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
                     this.transform.Find("counter_img1").gameObject.SetActive(false);
                 }
                 else

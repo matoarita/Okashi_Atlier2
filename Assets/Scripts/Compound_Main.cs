@@ -157,6 +157,7 @@ public class Compound_Main : MonoBehaviour
     private bool GirlLove_loading;
     public bool check_recipi_flag;
     public bool check_GirlLoveEvent_flag;
+    public bool check_GirlLoveSubEvent_flag;
     private int not_read_total;
     private int _checkexp;
 
@@ -301,7 +302,7 @@ public class Compound_Main : MonoBehaviour
         updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //システムパネルの取得
@@ -416,6 +417,7 @@ public class Compound_Main : MonoBehaviour
         GirlLove_loading = false;
         check_recipi_flag = false;
         check_GirlLoveEvent_flag = false;
+        check_GirlLoveSubEvent_flag = false;
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
@@ -896,22 +898,34 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
-                    //読んでいないレシピがあれば、読む処理。優先順位二番目。
-                    if (check_recipi_flag != true)
+                    //サブイベントの発生をチェック。
+                    if (check_GirlLoveSubEvent_flag == false)
                     {
                         //腹減りカウント一時停止
                         girl1_status.GirlEat_Judge_on = false;
 
-                        Check_RecipiFlag();
+                        //好感度に応じて発生するサブイベント
+                        GirlLove_EventMethod();
                     }
                     else
                     {
-                        
+                        //読んでいないレシピがあれば、読む処理。優先順位二番目。
+                        if (check_recipi_flag != true)
+                        {
+                            //腹減りカウント一時停止
+                            girl1_status.GirlEat_Judge_on = false;
+
+                            Check_RecipiFlag();
+                        }
+                        else
+                        {
+
                             //Debug.Log("compound_status: " + compound_status);
                             //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
                             MainCompoundMethod();
-                        
 
+
+                        }
                     }
                 }
             }
@@ -2252,7 +2266,7 @@ public class Compound_Main : MonoBehaviour
 
             switch (GameMgr.stage_number)
             {
-                //ステージ１のサブイベント
+                //ステージ１のメインイベント
                 case 1:
                   
                     if (!GameMgr.OkashiQuest_flag_stage1[0]) //レベル１のときのイベント。一番最初で起こるイベント。
@@ -2384,20 +2398,14 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (!GirlLove_loading)
-                    {
-                        //好感度に応じて発生するイベント
-                        GirlLove_EventMethod();
-                    }
-
                     break;
 
-                //ステージ２のサブイベント
+                //ステージ２のイベント
                 case 2:
 
                     break;
 
-                //ステージ３のサブイベント
+                //ステージ３のイベント
                 case 3:
 
                     break;
@@ -2410,6 +2418,7 @@ public class Compound_Main : MonoBehaviour
             if(!GirlLove_loading)
             {
                 check_GirlLoveEvent_flag = true;
+                check_GirlLoveSubEvent_flag = false;
             }
             compound_status = 0;
         }
@@ -2624,21 +2633,32 @@ public class Compound_Main : MonoBehaviour
         
     }
 
-    //SPお菓子とは別で、パティシエレベルor好感度が一定に達すると発生するイベント
+    //SPお菓子とは別で、パティシエレベルor好感度が一定に達すると発生するサブイベント
     void GirlLove_EventMethod()
     {
-        GameMgr.girlloveevent_bunki = 1; //メインイベントが発生しなかった場合、次にサブイベントの発生のチェック
+        GameMgr.girlloveevent_bunki = 1; //サブイベントの発生のチェック。宴用に分岐。
 
-        if (girl1_status.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[0] == false) //4になったときのサブイベントを使う。
+        if (GirlLove_loading)
         {
-            GameMgr.GirlLoveSubEvent_num = 0;
-            GameMgr.GirlLoveSubEvent_stage1[0] = true;           
 
-            //クエスト発生
-            Debug.Log("好感度イベントの発生");
+        }
+        else
+        {
+            check_GirlLoveSubEvent_flag = true;
 
-            //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
-            StartCoroutine("ReadGirlLoveEvent");
+            if (girl1_status.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[0] == false) //4になったときのサブイベントを使う。
+            {
+                GameMgr.GirlLoveSubEvent_num = 0;
+                GameMgr.GirlLoveSubEvent_stage1[0] = true;
+
+                check_GirlLoveSubEvent_flag = false;
+
+                //クエスト発生
+                Debug.Log("好感度イベントの発生");
+
+                //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+                StartCoroutine("ReadGirlLoveEvent");
+            }            
         }
     }
 
@@ -2649,7 +2669,8 @@ public class Compound_Main : MonoBehaviour
         shop_toggle.GetComponent<Toggle>().interactable = false;
         girleat_toggle.GetComponent<Toggle>().interactable = false;
         sleep_toggle.GetComponent<Toggle>().interactable = false;
-        system_toggle.GetComponent<Toggle>().interactable = false;      
+        system_toggle.GetComponent<Toggle>().interactable = false;
+        status_toggle.GetComponent<Toggle>().interactable = false;
     }
 
     public void OffCompoundSelect()
@@ -2660,6 +2681,7 @@ public class Compound_Main : MonoBehaviour
         girleat_toggle.GetComponent<Toggle>().interactable = false;
         sleep_toggle.GetComponent<Toggle>().interactable = false;
         system_toggle.GetComponent<Toggle>().interactable = false;
+        status_toggle.GetComponent<Toggle>().interactable = false;
         extreme_Button.interactable = false;
     }
 
@@ -2671,6 +2693,7 @@ public class Compound_Main : MonoBehaviour
         girleat_toggle.GetComponent<Toggle>().interactable = true;
         sleep_toggle.GetComponent<Toggle>().interactable = true;
         system_toggle.GetComponent<Toggle>().interactable = true;
+        status_toggle.GetComponent<Toggle>().interactable = true;
         extreme_Button.interactable = true;
     }
 

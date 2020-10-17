@@ -64,13 +64,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private string _touchhead_comment;
     private List<string> _touchface_comment_lib = new List<string>();
     private string _touchface_comment;
+    private List<string> _touchchest_comment_lib = new List<string>();
+    private string _touchchest_comment;
+    private List<string> _touchtwintail_comment_lib = new List<string>();
+    private string _touchtwintail_comment;
 
     private string MazuiHintComment;
     private int MazuiStatus;
     private int touchhint_num;
-
-    private List<string> _touchtwintail_comment_lib = new List<string>();
-    private string _touchtwintail_comment;
 
     public bool WaitHint_on;
     public float timeOutHint;
@@ -613,7 +614,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                     timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
-                                    rnd = Random.Range(1.0f, 5.0f);
+                                    rnd = Random.Range(1.0f, 2.0f);
                                     timeOut = Default_hungry_cooltime + rnd;
                                     Girl_Full();
 
@@ -999,11 +1000,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }       
 
         //表示用吹き出しを生成                   
-        hukidasiInit();
+        //hukidasiInit();
 
         //吹き出しのテキスト決定
-        _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-        _text.text = _desc;
+        //_text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+        //_text.text = _desc;
 
         //現在のクエストネーム更新。Special_Quest.csで、OkashiQuest_Nameは更新している。パネル表示後にネーム更新されるように、ここで描画更新している。
         questname.text = OkashiQuest_Name;
@@ -1166,6 +1167,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             //ランダムで、吹き出しの内容を決定
             RandomGenkiInit();
+
+            Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
             random = Random.Range(0, _hintrandomDict.Count);
             _hintrandom = _hintrandomDict[random];
 
@@ -1861,7 +1864,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidasiInit();
         }
 
-        hukidashiitem.GetComponent<TextController>().SetText("兄ちゃんのえっちー！");
+        //吹き出し内容の決定
+        Init_touchChestComment();
+
+        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
+        random = Random.Range(0, _touchchest_comment_lib.Count);
+        _touchchest_comment = _touchchest_comment_lib[random];
+
+        hukidashiitem.GetComponent<TextController>().SetText(_touchchest_comment);
 
         //5秒ほど表示したら、また食べたいお菓子を表示か削除
         WaitHint_on = true;
@@ -2138,6 +2148,75 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
         }
         
+    }
+
+    void Init_touchChestComment()
+    {
+        //髪の毛触るときは、上から順番に表示されていく。回数に注意。
+        _touchchest_comment_lib.Clear();
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+
+                _touchchest_comment_lib.Add("..。");
+                _touchchest_comment_lib.Add("（触られるのを、かなりいやがっているようだ..。）");
+
+                break;
+
+            case 1:
+
+                _touchchest_comment_lib.Add("..？");
+                _touchchest_comment_lib.Add("..。");
+                _touchchest_comment_lib.Add("（すこしいやがっているようだ..。）");
+
+                break;
+
+            case 2:
+
+                _touchchest_comment_lib.Add(".。");
+                _touchchest_comment_lib.Add("..はずかしいよ～..。");
+                _touchchest_comment_lib.Add("..さわるのはやめて。");
+                _touchchest_comment_lib.Add("（いやがっているようだ..。）");
+
+                break;
+
+            case 3:
+
+                _touchchest_comment_lib.Add("..！");
+                _touchchest_comment_lib.Add("兄ちゃんのえっちー！");
+                _touchchest_comment_lib.Add("あまりさわられると、恥ずかしいよ..。にいちゃん。");
+                _touchchest_comment_lib.Add("..あまりしつこいとおこるよ。");
+
+                break;
+
+            case 4:
+
+                _touchchest_comment_lib.Add("！！");
+                _touchchest_comment_lib.Add("えっち！ばか！！");
+                _touchchest_comment_lib.Add("どこさわってんの？にいちゃんのばか！！");
+                _touchchest_comment_lib.Add("く、くすぐったい..。");
+                _touchchest_comment_lib.Add("ぎゃ！！");
+
+                break;
+
+            case 5:
+
+                _touchchest_comment_lib.Add("！");
+                _touchchest_comment_lib.Add("にいちゃんのばか..！へんたいにいちゃん！！");
+                _touchchest_comment_lib.Add("にいちゃんのおてて、あったか～い♪");
+                _touchchest_comment_lib.Add("でも..そんなとこさわられると、恥ずかしいよ。にいちゃん～。");
+                _touchchest_comment_lib.Add("ぐひぃ～・・。");
+                _touchchest_comment_lib.Add("やめなさい？");
+                _touchchest_comment_lib.Add("あひぃ～。");
+                _touchchest_comment_lib.Add("（ちょっときもちいい。）");
+                _touchchest_comment_lib.Add("ホントにやめて！！");
+                _touchchest_comment_lib.Add("けがれる！！");
+                _touchchest_comment_lib.Add("ホントにヤメロといっている。");
+
+                break;
+        }
+
     }
 
     void RandomGenkiInit()

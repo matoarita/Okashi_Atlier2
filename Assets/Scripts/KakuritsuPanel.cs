@@ -11,7 +11,7 @@ public class KakuritsuPanel : MonoBehaviour {
 	void Start () {
 
         srate_hyouji = this.transform.Find("Image/Kakuritsu_param").gameObject.GetComponent<Text>();
-        srate_hyouji.text = "-";
+        //srate_hyouji.text = "-";
 
     }
 	
@@ -19,6 +19,12 @@ public class KakuritsuPanel : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnEnable()
+    {
+        srate_hyouji = this.transform.Find("Image/Kakuritsu_param").gameObject.GetComponent<Text>();
+        //srate_hyouji.text = "-";
+    }
 
     public void KakuritsuYosoku_Img( float _srate )
     {
@@ -38,9 +44,5 @@ public class KakuritsuPanel : MonoBehaviour {
         srate_hyouji.text = "-";
     }
 
-    private void OnEnable()
-    {
-        srate_hyouji = this.transform.Find("Image/Kakuritsu_param").gameObject.GetComponent<Text>();
-        srate_hyouji.text = "-";
-    }
+    
 }

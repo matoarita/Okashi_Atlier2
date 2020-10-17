@@ -440,7 +440,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
                 Okashi_Score = ScoreHyoujiPanel.transform.Find("Image/Okashi_Score").GetComponent<Text>();
                 MainQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/MainQuestOKPanel").gameObject;
-                MainQuestText = MainQuestOKPanel.transform.Find("Image/QuestClearText").GetComponent<Text>();
+                MainQuestText = MainQuestOKPanel.transform.Find("QuestPanel/Image/QuestClearText").GetComponent<Text>();
                 Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
                 Result_Text = ScoreHyoujiPanel.transform.Find("GetLovePanelBG/Result_GetLoveText/Result_Text").GetComponent<Text>();
                 ScoreHyoujiPanel.SetActive(false);
@@ -1142,12 +1142,10 @@ public class GirlEat_Judge : MonoBehaviour {
                 {
                     non_spquest_flag = true;
 
-                    dislike_status = 5; //スペシャルクエストだった場合は、これじゃないという。
+                    //dislike_status = 5; //スペシャルクエストだった場合は、これじゃないという。
 
                     //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。
-                    /*
-                    
-
+                                        
                     if (database.items[_baseID].Eat_kaisu == 0) //新しい食べ物の場合
                     {
                         //お菓子の判定値をセッティング
@@ -1177,7 +1175,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         //
                         Dislike_Okashi_Judge();
 
-                    }*/
+                    }
                 }
                 else //吹き出しに合っていた場合に、味を判定する。
                 {
@@ -1522,7 +1520,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         Debug.Log("###  ###");
 
-        if (total_score <= 0) //total_scoreが0以下だと、マズイ。
+        if (total_score <= 30) //total_scoreが30以下だと、マズイ。
         {
             Mazui_flag = true;
         }
@@ -2212,12 +2210,13 @@ public class GirlEat_Judge : MonoBehaviour {
                     //点数計算。トータルスコアの10桁の位が基準の好感度。そこに女の子の好みの補正値(_basegirl1_like)と、スコアごとの補正をかける。
                     //_basegirl1_likeは、女の子の好みで補正値。ねこクッキーで１が基準。オレンジクッキーだと２とか。
 
-                    if (total_score < 40) //60点以下のときは、好感度ほぼあがらず。
+                    if (total_score < 30) //30点以下のときは、まずいになるので、実質30より下の処理は通らない。
                     {
-                        Getlove_exp = (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                        //Getlove_exp = (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                        //Getlove_exp = (int)(-(total_score * 0.1f) * (_basegirl1_like * 1.0f));
                         //GetMoney = (int)(_basecost * 0.5f) + (int)(total_score * 0.3f) + slot_money;
                     }
-                    else if (total_score >= 40 && total_score < GameMgr.low_score) //60点以下のときは、好感度ほぼあがらず。
+                    else if (total_score >= 30 && total_score < GameMgr.low_score) //60点以下のときは、好感度ほぼあがらず。
                     {
                         Getlove_exp = (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
                     }
@@ -2313,8 +2312,11 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void GetLoveEnd()
     {
+        //Debug.Log("好感度　内部を更新");
+        StartCoroutine("HeartKoushin");
+
         //一時的に触れなくする。
-        if(emerarudonguri_get)
+        if (emerarudonguri_get)
         {
             girl1_status.GirlEat_Judge_on = false;
             girl1_status.WaitHint_on = false;
@@ -2339,18 +2341,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 compound_Main.compound_status = 0;
             }
 
-        }      
-
-        //Debug.Log("好感度　内部を更新");
-
-        //好感度　取得分増加
-        girl1_status.girl1_Love_exp += Getlove_exp;
-
-        //念のため、テキストも更新
-        girl_param.text = girl1_status.girl1_Love_exp.ToString();
-
-        //リセット
-        Getlove_exp = 0;
+        }
 
         //エメラルどんぐり入るかチェック
         if (emerarudonguri_get)
@@ -2391,6 +2382,28 @@ public class GirlEat_Judge : MonoBehaviour {
             compound_Main.compound_status = 0;
             canvas.SetActive(true);
         }
+    }
+
+    //発生したハートが全てなくなったら、実際の好感度の変動と、表示も更新
+    IEnumerator HeartKoushin()
+    {
+
+        while (heart_count > 0)
+        {
+            yield return null;
+        }
+
+        //好感度　取得分増加
+        girl1_status.girl1_Love_exp += Getlove_exp;
+
+        //念のため、テキストも更新
+        girl_param.text = girl1_status.girl1_Love_exp.ToString();
+
+        //リセット
+        Getlove_exp = 0;
+
+        //好感度によって発生するサブイベントがないかチェック
+        compound_Main.check_GirlLoveSubEvent_flag = false;
     }
 
     //ハートがゲージに衝突した時に、このメソッドが呼び出される。
@@ -2494,6 +2507,12 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         //実際の好感度に値を反映
         girl1_status.girl1_Love_exp += Getlove_exp;
+
+        //0以下になったら、下限は0
+        if(girl1_status.girl1_Love_exp <= 0)
+        {
+            girl1_status.girl1_Love_exp = 0;
+        }
         girl_param.text = girl1_status.girl1_Love_exp.ToString();
         girl_param.color = origin_color;
 
@@ -2854,8 +2873,8 @@ public class GirlEat_Judge : MonoBehaviour {
         canvas.SetActive(false);
         touch_controller.Touch_OnAllOFF();
 
-        if (!Mazui_flag) //まずいがなければ、通常の感想
-        {
+        //if (!Mazui_flag) //まずいがなければ、通常の感想
+        //{
             if (GameMgr.GirlLoveEvent_num == 50 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
             {
                 //GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID;
@@ -2891,6 +2910,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
                 else //クエスト以外のお菓子をあげた場合、お菓子ごとの感想などを表示する？
                 {
+                    //違うお菓子を送った場合のヒントを、アフター感想のあとにだす。
                     if (GameMgr.GirlLoveEvent_num == 30)
                     {
                         GameMgr.okashihint_flag = true;
@@ -2900,6 +2920,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     {
                         GameMgr.okashihint_flag = false;
                     }
+                    //
 
                     if (total_score < 30) //30点以下
                     {
@@ -2929,11 +2950,11 @@ public class GirlEat_Judge : MonoBehaviour {
             }
 
             GameMgr.recipi_read_endflag = false;
-        }
+        /*}
         else
         {
             //まずいの場合、お菓子後の感想なし
-        }
+        }*/
 
         //満足度にあわせて音を鳴らす。
         if (total_score < GameMgr.low_score)　//60点以下
@@ -2956,7 +2977,7 @@ public class GirlEat_Judge : MonoBehaviour {
            
         }
 
-        if (Mazui_flag)
+        if (Getlove_exp < 0)
         {
             DegHeart(Getlove_exp);
 
@@ -3239,7 +3260,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
         ShokukanHintHyouji();
 
-
         //クエストクリアの条件を満たしていない場合、そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
         if (!non_spquest_flag)
         {
@@ -3262,12 +3282,24 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
                     {
-                        nontp_utageON = true;
+                        nontp_utageON = true;                       
                     }
                     else
                     {
                         tpcheck = true;
                     }                
+                    break;
+
+                case 1110: //ラスク２　すっぱいトッピングがのってないとき
+
+                    if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
+                    {
+                        nontp_utageON = true;
+                    }
+                    else
+                    {
+                        tpcheck = true;
+                    }
                     break;
 
                 case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
@@ -3321,6 +3353,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 default:
 
+                    tpcheck = true;
                     break;
             }
 

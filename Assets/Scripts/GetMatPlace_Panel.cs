@@ -260,6 +260,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Shop", 0.3f);
                     break;
 
+                case "Emerald_Shop":
+
+                    Slot_view_on = false;
+                    FadeManager.Instance.LoadScene("Emerald_Shop", 0.3f);
+                    break;
+
                 case "Farm":
 
                     Slot_view_on = false;

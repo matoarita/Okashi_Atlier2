@@ -53,6 +53,9 @@ public class Compound_Check : MonoBehaviour {
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
+    private GameObject FinalCheckPanel;
+    private Text FinalCheck_Text;
+
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
     private List<string> _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
     private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
@@ -85,8 +88,11 @@ public class Compound_Check : MonoBehaviour {
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("KakuritsuPanel").gameObject;
+        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+        FinalCheckPanel = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel").gameObject;
+        FinalCheck_Text = FinalCheckPanel.transform.Find("TextPanel/Image/Text").GetComponent<Text>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -181,7 +187,11 @@ public class Compound_Check : MonoBehaviour {
                 SelectPaused();
 
                 final_select_flag = false;
-               
+
+                FinalCheckPanel.SetActive(true);
+                yes.GetComponent<Button>().interactable = false;
+                no.GetComponent<Button>().interactable = false;
+
                 StartCoroutine("Final_select");
 
             }
@@ -209,11 +219,13 @@ public class Compound_Check : MonoBehaviour {
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
                 updown_counter_obj.SetActive(true);
-                updown_counter_setpanel.SetActive(true);                
+                updown_counter_setpanel.SetActive(true);
+
+                //確率に応じて、テキストが変わる。
+                FinalCheck_Text.text = success_text + "\n" + "何セット作る？";
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
-                    + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
-                    + success_text + "　何セット作る？";
+                    + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個";
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
@@ -222,6 +234,10 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
+
+                FinalCheckPanel.SetActive(false);
+                yes.GetComponent<Button>().interactable = true;
+                no.GetComponent<Button>().interactable = true;
 
                 switch (yes_selectitem_kettei.kettei1)
                 {
@@ -275,10 +291,12 @@ public class Compound_Check : MonoBehaviour {
                 updown_counter_obj.SetActive(true);
                 updown_counter_setpanel.SetActive(true);
 
+                //確率に応じて、テキストが変わる。
+                FinalCheck_Text.text = success_text + "\n" + "何セット作る？";
+
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
-                    + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + "\n"
-                    + success_text + "　何セット作る？";
+                    + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個";
 
                 //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
 
@@ -287,6 +305,10 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
+
+                FinalCheckPanel.SetActive(false);
+                yes.GetComponent<Button>().interactable = true;
+                no.GetComponent<Button>().interactable = true;
 
                 switch (yes_selectitem_kettei.kettei1)
                 {

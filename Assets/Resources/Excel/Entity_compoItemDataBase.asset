@@ -1053,7 +1053,7 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       best_kosu1: 2.4
-      best_kosu2: 4.3
+      best_kosu2: 3.5
       best_kosu3: 3
       cmp_flag: 0
       cost_time: 12
@@ -2999,7 +2999,7 @@ MonoBehaviour:
       cmp_subtype_3: empty
       result_itemID: sponge_cake
       result_kosu: 1
-      cmpitem_kosu1: 1
+      cmpitem_kosu1: 2
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       best_kosu1: 3
@@ -3074,7 +3074,7 @@ MonoBehaviour:
       cmp_subtype_3: empty
       result_itemID: crepe
       result_kosu: 1
-      cmpitem_kosu1: 1
+      cmpitem_kosu1: 2
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
       best_kosu1: 4

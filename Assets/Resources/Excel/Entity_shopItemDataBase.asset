@@ -153,7 +153,7 @@ MonoBehaviour:
       itemType: 3
       shop_sell_price: 70
       shop_buy_price: 35
-      item_hyouji: 3
+      item_hyouji: 1
     - ItemID: 20
       name: decopen_choco
       zaiko: 50
@@ -235,8 +235,8 @@ MonoBehaviour:
       name: cookie_base_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 500
-      shop_buy_price: 250
+      shop_sell_price: 100
+      shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 32
       name: recipibook_2
