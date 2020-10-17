@@ -55,6 +55,7 @@ public class Compound_Check : MonoBehaviour {
 
     private GameObject FinalCheckPanel;
     private Text FinalCheck_Text;
+    private Text FinalCheck_itemText;
 
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
     private List<string> _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
@@ -77,6 +78,7 @@ public class Compound_Check : MonoBehaviour {
 
     private int i;
     private int _rate;
+    private int _releaseID;
 
     // Use this for initialization
     void Start () {
@@ -88,11 +90,12 @@ public class Compound_Check : MonoBehaviour {
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/KakuritsuPanel").gameObject;
+        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         FinalCheckPanel = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel").gameObject;
-        FinalCheck_Text = FinalCheckPanel.transform.Find("TextPanel/Image/Text").GetComponent<Text>();
+        FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Text").GetComponent<Text>();
+        FinalCheck_itemText = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/ItemText").GetComponent<Text>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -222,7 +225,9 @@ public class Compound_Check : MonoBehaviour {
                 updown_counter_setpanel.SetActive(true);
 
                 //確率に応じて、テキストが変わる。
-                FinalCheck_Text.text = success_text + "\n" + "何セット作る？";
+                FinalCheck_itemText.text = database.items[itemID_1].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu1 + "\n"
+                    + database.items[itemID_2].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu2;
+                FinalCheck_Text.text = success_text;
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個";
@@ -292,7 +297,10 @@ public class Compound_Check : MonoBehaviour {
                 updown_counter_setpanel.SetActive(true);
 
                 //確率に応じて、テキストが変わる。
-                FinalCheck_Text.text = success_text + "\n" + "何セット作る？";
+                FinalCheck_itemText.text = database.items[itemID_1].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu1 + "\n"
+                    + database.items[itemID_2].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu2 + "\n"
+                    + database.items[itemID_3].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu3;
+                FinalCheck_Text.text = success_text;
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
@@ -831,38 +839,38 @@ public class Compound_Check : MonoBehaviour {
             if (_success_rate >= 0.0 && _success_rate < 20.0)
             {
                 //成功率超低い
-                success_text = "ほぼ失敗しそう..。";
+                success_text = "絶望的。奇跡が起こるかも..？";
             }
             else if (_success_rate >= 20.0 && _success_rate < 40.0)
             {
                 //成功率低め
-                success_text = "かなりきつい・・かも。";
+                success_text = "たぶん、失敗しそう..。";
             }
             else if (_success_rate >= 40.0 && _success_rate < 60.0)
             {
                 //普通
-                success_text = "頑張れば、いける・・！";
+                success_text = "頑張れば、いける・・！？";
             }
             else if (_success_rate >= 60.0 && _success_rate < 80.0)
             {
                 //成功率高め
-                success_text = "ちょっと難しいかも。";
+                success_text = "ちょっと難しいかも..。";
             }
             else if (_success_rate >= 80.0 && _success_rate < 99.9)
             {
                 //成功率かなり高い
-                success_text = "これなら楽勝！！";
+                success_text = "これなら楽勝だね！";
             }
             else //100%~
             {
                 //１００％成功
-                success_text = "100%パーフェクト！";
+                success_text = "１００％成功する！！";
             }
 
 
             //調合判定を行うかどうか+成功確率の表示更新
 
-            //新規調合の場合　もしくは、　エクストリーム調合の場合で、新しいレシピをひらめきそうな場合。else ifがエクストリーム調合の場合
+            //新規調合の場合　もしくは、　エクストリーム調合の場合。
             if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
             {
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
@@ -871,13 +879,18 @@ public class Compound_Check : MonoBehaviour {
             }
             else if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
             {
-                //?? 新しいお菓子を思いつきそうだ
+                //
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
                 exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+            }
 
+            //新しいレシピかどうか。
+            _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
+            if(databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
+            {
                 //kakuritsuPanel.KakuritsuYosoku_NewImg();
-                //success_text = "新しいお菓子を思いつきそうだ。";
+                success_text = "新しいお菓子を思いつきそう..？";
             }
         }
 

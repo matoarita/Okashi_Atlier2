@@ -105,7 +105,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-            kakuritsuPanel_obj = GameObject.FindWithTag("KakuritsuPanel");
+            kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
             kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
             compound_Check_obj = GameObject.FindWithTag("Compound_Check");

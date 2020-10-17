@@ -268,7 +268,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text = text_area.GetComponentInChildren<Text>();
 
         //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/KakuritsuPanel").gameObject;
+        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //レシピメモボタンを取得

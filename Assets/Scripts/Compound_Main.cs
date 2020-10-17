@@ -302,7 +302,7 @@ public class Compound_Main : MonoBehaviour
         updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/KakuritsuPanel").gameObject;
+        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //システムパネルの取得
