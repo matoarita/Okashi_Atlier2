@@ -96,6 +96,18 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public bool shopsell_final_select_flag;
 
+    public ItemCompoundDataBase DatabaseCompo
+    {
+        get
+        {
+            return databaseCompo;
+        }
+
+        set
+        {
+            databaseCompo = value;
+        }
+    }
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {

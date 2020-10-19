@@ -79,6 +79,15 @@ public class Compound_Check : MonoBehaviour {
     private int i;
     private int _rate;
     private int _releaseID;
+    private bool newrecipi_flag;
+
+    private GameObject finalcheck_Prefab; //調合最終チェック用のアイテムプレファブ
+    private GameObject finalcheck_Prefab2; //間の掛け算表記「×」
+    private GameObject resultitem_Hyouji;
+    private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
+    private List<GameObject> _listitem = new List<GameObject>();
+    private int list_count;
+    private Sprite texture2d;
 
     // Use this for initialization
     void Start () {
@@ -125,6 +134,12 @@ public class Compound_Check : MonoBehaviour {
 
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
+
+        //スクロールビュー内の、コンテンツ要素を取得
+        content = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Scroll View/Viewport/Content").gameObject;
+        finalcheck_Prefab = (GameObject)Resources.Load("Prefabs/finalcheck_item");
+        finalcheck_Prefab2 = (GameObject)Resources.Load("Prefabs/finalcheck_kakeru");
+        resultitem_Hyouji = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Result_item").gameObject;
 
         final_select_flag = false;
     }
@@ -195,6 +210,14 @@ public class Compound_Check : MonoBehaviour {
                 yes.GetComponent<Button>().interactable = false;
                 no.GetComponent<Button>().interactable = false;
 
+                //一度contentの中身を削除
+                foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+                {
+                    Destroy(child.gameObject);
+                }
+                list_count = 0;
+                _listitem.Clear();
+
                 StartCoroutine("Final_select");
 
             }
@@ -225,9 +248,13 @@ public class Compound_Check : MonoBehaviour {
                 updown_counter_setpanel.SetActive(true);
 
                 //確率に応じて、テキストが変わる。
-                FinalCheck_itemText.text = database.items[itemID_1].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu1 + "\n"
-                    + database.items[itemID_2].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu2;
                 FinalCheck_Text.text = success_text;
+
+                //選んだアイテムを表示する。リザルトアイテムも表示する。
+                FinalCheck_ItemIconHyouji(0); //2個表示のとき
+                /*FinalCheck_itemText.text = database.items[itemID_1].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu1 + "\n"
+                    + database.items[itemID_2].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu2;*/
+               
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個";
@@ -297,10 +324,14 @@ public class Compound_Check : MonoBehaviour {
                 updown_counter_setpanel.SetActive(true);
 
                 //確率に応じて、テキストが変わる。
-                FinalCheck_itemText.text = database.items[itemID_1].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu1 + "\n"
-                    + database.items[itemID_2].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu2 + "\n"
-                    + database.items[itemID_3].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu3;
+                
                 FinalCheck_Text.text = success_text;
+
+                //選んだアイテムを表示する。リザルトアイテムも表示する。
+                /*FinalCheck_itemText.text = database.items[itemID_1].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu1 + "\n"
+                    + database.items[itemID_2].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu2 + "\n"
+                    + database.items[itemID_3].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu3;*/
+                FinalCheck_ItemIconHyouji(1); //3個表示のとき
 
                 _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
@@ -891,6 +922,11 @@ public class Compound_Check : MonoBehaviour {
             {
                 //kakuritsuPanel.KakuritsuYosoku_NewImg();
                 success_text = "新しいお菓子を思いつきそう..？";
+                newrecipi_flag = true;
+            }
+            else
+            {
+                newrecipi_flag = false;
             }
         }
 
@@ -986,6 +1022,64 @@ public class Compound_Check : MonoBehaviour {
         //Debug.Log("選択完了！");
     }
 
+    //最後、アイテムアイコンを表示
+    void FinalCheck_ItemIconHyouji(int _status)
+    {
+        //一個目
+        _listitem.Add(Instantiate(finalcheck_Prefab, content.transform));
+        _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_1].itemNameHyouji; //アイテム名
+        texture2d = database.items[itemID_1].itemIcon_sprite;
+        _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
+        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = "× " + pitemlistController.final_kettei_kosu1.ToString(); //個数
+
+        //×をいれる
+        _listitem.Add(Instantiate(finalcheck_Prefab2, content.transform));
+        list_count += 2; //一個飛ばし
+
+        //二個目
+        _listitem.Add(Instantiate(finalcheck_Prefab, content.transform));
+        _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_2].itemNameHyouji; //アイテム名
+        texture2d = database.items[itemID_2].itemIcon_sprite;
+        _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
+        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = "× " + pitemlistController.final_kettei_kosu2.ToString(); //個数
+
+        if(_status == 1) //3個表示のとき
+        {
+            //×をいれる
+            _listitem.Add(Instantiate(finalcheck_Prefab2, content.transform));
+            list_count += 2;
+
+            //三個目
+            _listitem.Add(Instantiate(finalcheck_Prefab, content.transform));
+            _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_3].itemNameHyouji; //アイテム名
+            texture2d = database.items[itemID_3].itemIcon_sprite;
+            _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
+            _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = "× " + pitemlistController.final_kettei_kosu3.ToString(); //個数
+
+        }
+
+        //リザルトアイテムの表示
+        if (!newrecipi_flag)
+        {
+            resultitem_Hyouji.transform.Find("NameText").GetComponent<Text>().text = database.items[pitemlistController.result_item].itemNameHyouji; //アイテム名
+            texture2d = database.items[pitemlistController.result_item].itemIcon_sprite;
+            resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
+            resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(true);
+            resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
+                "× " + databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
+            resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(false);
+        }
+        else //新しいお菓子を思いつきそうな場合。アイコンは「？」とかになる。
+        {
+            resultitem_Hyouji.transform.Find("NameText").GetComponent<Text>().text = "???"; //アイテム名
+            texture2d = Resources.Load<Sprite>("Sprites/Icon/question");
+            resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
+            //resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().color = new Color(256,256,256);
+            resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(false); //個数
+            resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(true);
+        }
+    }
+
     //確率計算式
     public int Kakuritsu_Keisan(int _compID)
     {
@@ -1004,4 +1098,5 @@ public class Compound_Check : MonoBehaviour {
         return _rate;
     }
  
+    
 }
