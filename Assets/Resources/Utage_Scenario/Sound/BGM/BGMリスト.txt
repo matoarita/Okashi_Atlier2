@@ -33,4 +33,4 @@
 ・BGM_31		audiostock_94283_sample			【未使用】月夜の曲２
 ・BGM_32		audiostock_824733_sample		月夜の曲３
 ・BGM_33		audiostock_158582_sample		バードサンクチュアリイメージの静かなピアノ曲
-・BGM_34		audiostock_871086_sample		じいさんのテーマ曲　ファンキー 	候補：audiostock_871079_sample
+・BGM_34		audiostock_371284_sample		じいさんのテーマ曲　ファンキー 	候補：audiostock_871079_sample audiostock_871086_sample

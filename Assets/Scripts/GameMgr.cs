@@ -104,6 +104,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int low_score;
     public static int high_score;
 
+    //お菓子の点数
+    public static int Okashi_totalscore; //女の子にあげたときの点数
+
     //ショップの話すコマンド
     public static bool shop_event_flag;  //ショップで発生するイベントのフラグ。
     public static int shop_event_num;

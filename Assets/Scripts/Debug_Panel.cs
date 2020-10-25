@@ -60,12 +60,20 @@ public class Debug_Panel : MonoBehaviour {
     private GameObject GirlHeartEffect_obj;
     private Particle_Heart_Character GirlHeartEffect;
 
+    private GameObject TastePanel;
+
     //好感度レベルテーブルの取得
     private List<int> stage_levelTable = new List<int>();
 
     // Use this for initialization
     void Start () {
 
+        InitDebug();
+
+    }
+
+    void InitDebug()
+    {
         StoryNumber = this.transform.Find("Hyouji/StoryNumber").gameObject;
         StoryNumber_text = StoryNumber.GetComponent<Text>();
 
@@ -81,7 +89,10 @@ public class Debug_Panel : MonoBehaviour {
         input_girllove = this.transform.Find("Hyouji/InputField_GirlLove").gameObject.GetComponent<InputField>();
 
         Debug_INPUT_ON = false;
-        DebugInputOn = this.transform.Find("Hyouji/DebugInputOnText").GetComponent<Text>();        
+        DebugInputOn = this.transform.Find("Hyouji/DebugInputOnText").GetComponent<Text>();
+
+        TastePanel = this.transform.Find("Hyouji/OkashiTaste_Scroll View").gameObject;
+        TastePanel.SetActive(false);
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -94,7 +105,6 @@ public class Debug_Panel : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
     }
 
     // Update is called once per frame
@@ -102,28 +112,7 @@ public class Debug_Panel : MonoBehaviour {
     {
         if(StoryNumber == null)
         {
-            StoryNumber = this.transform.Find("Hyouji/StoryNumber").gameObject;
-            StoryNumber_text = StoryNumber.GetComponent<Text>();
-
-            EventNumber = this.transform.Find("Hyouji/EventNumber").gameObject;
-            EventNumber_text = EventNumber.GetComponent<Text>();
-
-            StageNumber = this.transform.Find("Hyouji/StageNumber").gameObject;
-            StageNumber_text = StageNumber.GetComponent<Text>();
-
-            input_money = this.transform.Find("Hyouji/InputField_Money").gameObject.GetComponent<InputField>();
-            input_edonguri = this.transform.Find("Hyouji/InputField_EDonguri").gameObject.GetComponent<InputField>();
-            input_event = this.transform.Find("Hyouji/InputField_EventNum").gameObject.GetComponent<InputField>();
-            input_girllove = this.transform.Find("Hyouji/InputField_GirlLove").gameObject.GetComponent<InputField>();
-
-            Debug_INPUT_ON = false;
-            DebugInputOn = this.transform.Find("Hyouji/DebugInputOnText").GetComponent<Text>();
-
-            //女の子データの取得
-            girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
-
-            //スペシャルお菓子クエストの取得
-            special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+            InitDebug();
         }
 
         if( GameMgr.tutorial_ON == true )
@@ -476,4 +465,15 @@ public class Debug_Panel : MonoBehaviour {
         }
     }
 
+    public void OnTasteButton()
+    {
+        if(TastePanel.activeInHierarchy)
+        {
+            TastePanel.SetActive(false);
+        }
+        else
+        {
+            TastePanel.SetActive(true);
+        }
+    }
 }

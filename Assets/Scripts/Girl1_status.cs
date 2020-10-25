@@ -109,6 +109,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private string[] girllike_desc;
     private string _desc;
     public int[] girllike_comment_flag;
+    public int[] girllike_judgeNum;
 
     public int[] girl1_like_set_score;
     public int[] girl1_NonToppingScoreSet;
@@ -343,6 +344,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girllike_desc = new string[youso_count];
         girllike_comment_flag = new int[youso_count];
 
+        girllike_judgeNum = new int[youso_count];
 
         //デフォルトステータスを設定
         ResetDefaultStatus();
@@ -1502,7 +1504,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //お菓子食べた後の感想用フラグのセット
         girllike_comment_flag[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_comment_flag;
 
-
+        //compNumの番号も保存。どの判定用お菓子セットを選んだかがわかる。
+        girllike_judgeNum[_set_num] = _id;
     }
 
     public void TouchSisterHair()

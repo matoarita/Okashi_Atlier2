@@ -35,6 +35,9 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private GameObject Girlloveexp_bar;
 
+    private Debug_Panel debug_panel;
+    private Text debug_taste_resultText;
+
     private GameObject ScoreHyoujiPanel;
     private GameObject MainQuestOKPanel;
     private Text MainQuestText;
@@ -137,6 +140,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private Texture2D texture2d;
     private GameObject EatStartEffect;
 
+    private GameObject GLvup_panel_obj;
+
     //時間
     private float timeOut;
 
@@ -197,6 +202,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private int[] _girl_set_score;
     private int[] _girl_comment_flag;
+    private int[] _girl_judgenum;
 
 
     //女の子の採点用パラメータ
@@ -364,12 +370,11 @@ public class GirlEat_Judge : MonoBehaviour {
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
 
         //BGMの取得
-        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();        
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -435,6 +440,10 @@ public class GirlEat_Judge : MonoBehaviour {
                 EatAnimPanel.SetActive(false);
 
                 EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
+
+                //好感度レベルアップ時の演出パネル取得
+                GLvup_panel_obj = canvas.transform.Find("GirlLoveLevelUpPanel").gameObject;
+                GLvup_panel_obj.SetActive(false);
 
                 //お菓子採点結果表示用パネルの取得
                 ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
@@ -560,6 +569,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         _girl_set_score = new int[girl1_status.youso_count];
         _girl_comment_flag = new int[girl1_status.youso_count];
+        _girl_judgenum = new int[girl1_status.youso_count];
 
         //サブクエストチェック用フラグ
         subQuestClear_check = false;
@@ -910,27 +920,42 @@ public class GirlEat_Judge : MonoBehaviour {
                     break;
             }
         }
-        
+
 
         // => Compound_Mainに戻る
 
 
-        //window_param_result_obj.SetActive(true);
-
         //デバッグ用　計算結果の表示
-        /*window_result_text.text = "###  好みの比較　結果　###"
-            + "\n" + "\n" + _basenameHyouji + " のあまさ: " + _basesweat + "\n" + " 女の子の好みの甘さ: " + _girlsweat + "\n" + "あまさの差: " + sweat_result + " 点数: " + sweat_score
-            + "\n" + "\n" + _basenameHyouji + " の苦さ: " + _basebitter + "\n" + " 女の子の好みの苦さ: " + _girlbitter + "\n" + "にがさの差: " + bitter_result + " 点数: " + bitter_score
-            + "\n" + "\n" + _basenameHyouji + " の酸味: " + _basesour + "\n" + " 女の子の好みの酸味: " + _girlsour + "\n" + "酸味の差: " + sour_result + " 点数: " + sour_score
-            + "\n" + "\n" + "さくさく度: " + _basecrispy + "\n" + "さくさく閾値: " + _girlcrispy + "\n" + "差: " + crispy_result + " 点数: " + crispy_score
-            + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _girlfluffy + "\n" + "差: " + fluffy_result + " 点数: " + fluffy_score
-            + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _girlsmooth + "\n" + "差: " + smooth_result + " 点数: " + smooth_score
-            + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness + "\n" + "差: " + hardness_result + " 点数: " + hardness_score
+        //デバッグパネルの取得
+        debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
+        debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
+
+        debug_taste_resultText.text = 
+            "###  好みの比較　結果　###"
+            + "\n" + "\n" + "コンポ判定の番号(0~2）: " + countNum
+            + "\n" + "\n" + "判定用お菓子セットの番号: " + _girl_judgenum[countNum]
+            + "\n" + "\n" + "アイテム名: " + _basenameHyouji
+            + "\n" + "\n" + "あまさ: " + _basesweat 
+            + "\n" + " 女の子の好みの甘さ: " + _girlsweat[countNum]
+            + "\n" + "あまさの差: " + sweat_result
+            + "\n" + " 点数: " + sweat_score
+            + "\n" + "\n" + "苦さ: " + _basebitter 
+            + "\n" + " 女の子の好みの苦さ: " + _girlbitter[countNum]
+            + "\n" + "にがさの差: " + bitter_result
+            + "\n" + " 点数: " + bitter_score
+            + "\n" + "\n" + "酸味: " + _basesour 
+            + "\n" + " 女の子の好みの酸味: " + _girlsour[countNum]
+            + "\n" + "酸味の差: " + sour_result
+            + "\n" + " 点数: " + sour_score
+            + "\n" + "\n" + "さくさく度: " + _basecrispy + "\n" + "さくさく閾値: " + _girlcrispy[countNum] + "\n" + " 点数: " + crispy_score
+            + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _girlfluffy[countNum] + "\n" + " 点数: " + fluffy_score
+            + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _girlsmooth[countNum] + "\n" + " 点数: " + smooth_score
+            + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness[countNum] + "\n" + " 点数: " + hardness_score
             + "\n" + "\n" + "ぷるぷる度: " + "-"
             + "\n" + "\n" + "噛み応え度: " + "-"
-            + "\n" + "\n" + girl1_status.girl1_Subtype1 + "が好き " + "点数: " + subtype1_score
-            + "\n" + "\n" + girl1_status.girl1_Subtype2 + "が好き " + "点数: " + subtype2_score
-            + "\n" + "\n" + "総合得点: " + total_score;*/
+            + "\n" + "\n" + "判定セットごとの基本得点: " + set_score
+            + "\n" + "\n" + "トッピングスコア: " + topping_score
+            + "\n" + "\n" + "総合得点: " + total_score;
     }
 
     void SetGirlTasteInit()
@@ -955,6 +980,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
             _girl_set_score[i] = girl1_status.girl1_like_set_score[i];
             _girl_comment_flag[i] = girl1_status.girllike_comment_flag[i];
+
+            _girl_judgenum[i] = girl1_status.girllike_judgeNum[i];
         }
 
         //一回だけ代入すればよい。
@@ -1513,6 +1540,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //以上、全ての点数を合計。
         total_score = set_score + sweat_score + bitter_score + sour_score
             + shokukan_score + topping_score;
+        GameMgr.Okashi_totalscore = total_score;
 
         Debug.Log("###  ###");
 
@@ -1938,30 +1966,6 @@ public class GirlEat_Judge : MonoBehaviour {
             //減る場合は、update内でちぇっく
         }      
 
-        //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
-        /*if (GameMgr.tutorial_ON)
-        {
-
-            StartCoroutine("WaitForSeconds");  //1秒まって次へ              
-
-        }*/
-    }
-
-    IEnumerator WaitForSeconds()
-    {
-        yield return new WaitForSeconds(1.0f);
-
-        /*
-        if (GameMgr.tutorial_Num == 105)
-        {
-            GameMgr.tutorial_Progress = true;
-            GameMgr.tutorial_Num = 110;
-        }
-        if (GameMgr.tutorial_Num == 285)
-        {
-            GameMgr.tutorial_Progress = true;
-            GameMgr.tutorial_Num = 290;
-        }*/
     }
 
 
@@ -2435,6 +2439,9 @@ public class GirlEat_Judge : MonoBehaviour {
             _slider.value = 0;
 
             girl_lv.text = girl1_status.girl1_Love_lv.ToString();
+
+            //分かりやすくするように、レベルアップ時のパネルも表示
+            GLvup_panel_obj.SetActive(true);
         }
 
         //エフェクト
@@ -3117,6 +3124,9 @@ public class GirlEat_Judge : MonoBehaviour {
             yield return null;
         }
 
+        //レベルアップパネルは一時オフ
+        GLvup_panel_obj.SetActive(false);
+
         //GameMgr.scenario_ON = false;
         GameMgr.recipi_read_endflag = false;
 
@@ -3144,6 +3154,12 @@ public class GirlEat_Judge : MonoBehaviour {
         //お菓子の判定処理を終了
         compound_Main.girlEat_ON = false;
         compound_Main.compound_status = 0;
+
+        //まだレベルアップパネルステータス開いてたらONにする。
+        if(GLvup_panel_obj.GetComponent<GirlLoveLevelUpPanel>().OnPanelflag)
+        {
+            GLvup_panel_obj.SetActive(true);
+        }
     }
 
 
@@ -3280,7 +3296,7 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 case 1000: //クッキー１　かわいいトッピングがのってないとき
 
-                    if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
+                    if (topping_all_non && !topping_flag) //好みのトッピングはある(toppingu_all_non=true)が、一つものってなかった場合(topping_flag=false)だった
                     {
                         nontp_utageON = true;                       
                     }

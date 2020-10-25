@@ -24,13 +24,7 @@ public class PlaceNamePanel : MonoBehaviour {
         {
             case "Shop":
 
-                for (i = 0; i < matplace_database.matplace_lists.Count; i++)
-                {
-                    if (matplace_database.matplace_lists[i].placeName == "Shop")
-                    {
-                        _text = matplace_database.matplace_lists[i].placeNameHyouji;
-                    }
-                }
+                _text = "ザッハトルテ";
                 break;
 
             case "Farm":
@@ -52,6 +46,10 @@ public class PlaceNamePanel : MonoBehaviour {
             case "Contest":
 
                 _text = "コンテスト会場";
+                break;
+
+            default:
+
                 break;
         }
 

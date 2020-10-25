@@ -1372,6 +1372,26 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("SpOkashiAfter_num", sp_Okashi_ID);
 
+        //Debug.Log("GameMgr.Okashi_totalscore: " + GameMgr.Okashi_totalscore);
+
+        //デフォルト感想用に、お菓子の点数で感想の番号を変える。
+        if(GameMgr.Okashi_totalscore <= 30) //まずい
+        {
+            engine.Param.TrySetParameter("OkashiScore_num", 0);
+        }
+        else if (GameMgr.Okashi_totalscore > 30 && GameMgr.Okashi_totalscore <= GameMgr.low_score) //30~60
+        {
+            engine.Param.TrySetParameter("OkashiScore_num", 1);
+        }
+        else if (GameMgr.Okashi_totalscore > GameMgr.low_score && GameMgr.Okashi_totalscore <= GameMgr.high_score) //60~85
+        {
+            engine.Param.TrySetParameter("OkashiScore_num", 2);
+        }
+        else if (GameMgr.Okashi_totalscore > GameMgr.high_score)
+        {
+            engine.Param.TrySetParameter("OkashiScore_num", 3);
+        }
+
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 

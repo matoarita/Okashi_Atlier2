@@ -414,8 +414,8 @@ MonoBehaviour:
       rich: 0
       sweat: 30
       bitter: 0
-      sour: 30
-      crispy: 1
+      sour: 50
+      crispy: 10
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -442,7 +442,7 @@ MonoBehaviour:
       rich: 0
       sweat: 50
       bitter: 0
-      sour: 0
+      sour: 50
       crispy: 30
       fluffy: 0
       smooth: 0

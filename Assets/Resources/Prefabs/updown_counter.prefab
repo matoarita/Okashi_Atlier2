@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 114811488427181334}
   - component: {fileID: 223500592275586878}
   - component: {fileID: 114337746244422010}
+  - component: {fileID: 225296525760347526}
   m_Layer: 0
   m_Name: updown_counter
   m_TagString: updown_counter
@@ -1478,3 +1479,14 @@ RectTransform:
   m_AnchoredPosition: {x: 81, y: 0.000022888184}
   m_SizeDelta: {x: 101, y: 81}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225296525760347526
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1545341307858976}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

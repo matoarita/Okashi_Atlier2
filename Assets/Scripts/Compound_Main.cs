@@ -561,7 +561,6 @@ public class Compound_Main : MonoBehaviour
                         compoBG_A.transform.Find("ExtremeImage").GetComponent<Image>().raycastTarget = false;
                         pitemlistController.Offinteract();
                         kakuritsuPanel_obj.SetActive(false);
-                        no.SetActive(false);
 
                         Extremepanel_obj.SetActive(false);
 
@@ -2618,7 +2617,7 @@ public class Compound_Main : MonoBehaviour
 
                 if (!GameMgr.Beginner_flag[0]) //最初クリアしてないときだけ、ヒントがでる。
                 {
-                    _textmain.text = "まずは、クッキーを作って、妹にあげてみよう！";
+                    _textmain.text = "かわいいクッキーを作って、妹にあげてみよう！";
                 }
                 break;
 
