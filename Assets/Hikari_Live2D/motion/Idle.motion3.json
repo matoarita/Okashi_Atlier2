@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 44,
-		"TotalSegmentCount": 74,
-		"TotalPointCount": 228,
+		"CurveCount": 45,
+		"TotalSegmentCount": 76,
+		"TotalPointCount": 235,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -241,6 +241,28 @@
 				0.222,
 				2.967,
 				0.201
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBreath",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.5,
+				0,
+				1,
+				1,
+				1.5,
+				1,
+				1,
+				1.989,
+				1,
+				2.478,
+				0.044,
+				2.967,
+				0.001
 			]
 		},
 		{

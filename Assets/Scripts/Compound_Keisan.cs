@@ -931,7 +931,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery,
                 _basegirl1_like, _basecost, _basesell,
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-                result_kosu, _base_extreme_kaisu, _base_item_hyouji);
+                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
 
             new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1211,7 +1211,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _baseexp += _tempexp;
         _getExp = _tempexp; //トッピング調合時に取得する経験値。パブリック
 
-
+        totalkyori = Combinationmain.totalkyori; //_mstatus=99のときにこのスクリプトから計算するか、調合時にもCombinationmain.csで計算して、値が更新されてるはず。
 
 
 
@@ -1251,7 +1251,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             if (keisan_method_flag == 1) //1=ベスト配合との距離の補正をかける。
             {
-                totalkyori = Combinationmain.totalkyori; //_mstatus=99のときにこのスクリプトから計算するか、調合時にもCombinationmain.csで計算して、値が更新されてるはず。
+                
                 if (mstatus != 99)
                 {
                     Debug.Log("ベスト配合との距離: " + totalkyori);

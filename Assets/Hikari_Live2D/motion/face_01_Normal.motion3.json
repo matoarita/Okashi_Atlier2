@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 17,
-		"TotalSegmentCount": 17,
-		"TotalPointCount": 34,
+		"CurveCount": 18,
+		"TotalSegmentCount": 18,
+		"TotalPointCount": 36,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -191,6 +191,17 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamCry",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamHiLightOn",
 			"Segments": [
 				0,
 				0,

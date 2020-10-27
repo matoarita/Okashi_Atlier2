@@ -53,6 +53,8 @@ public class Item
     public int item_Hyouji;
     public int SetJudge_Num;
 
+    public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
+
     //以下パラメータはExcel上には記載なし
     public int Eat_kaisu;
     public bool HighScore_flag;
@@ -145,7 +147,7 @@ public class Item
         string type, string subtype, float _girl1_like, int cost, int sell, 
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
-        int _judge_num, int _eat_kaisu, bool _highscore, int _lasttotal_score, string _hinttext)
+        int _judge_num, int _eat_kaisu, bool _highscore, int _lasttotal_score, string _hinttext, float _total_kyori)
     {
         itemID = id;
         fileName = file_name;
@@ -232,6 +234,8 @@ public class Item
         last_hinttext = _hinttext;
         item_SlotName = "";
         item_FullName = item_SlotName + itemNameHyouji; //何もしなければ、アイテム名が入っている。
+
+        total_kyori = _total_kyori;
     }
 
 }
