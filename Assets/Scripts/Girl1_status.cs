@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
+using DG.Tweening;
 
 public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 {
@@ -138,6 +139,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private bool isRunning;
     private bool isRunning2;
 
+    private bool facemotion_start;
+    private float facemotion_duration;
+    private float facemotion_length;
+    private float facemotion_time;
+    private bool facemotion_init; //一度だけの更新用
+    private Tween weightTween;
+    private float facemotion_weight;
+
     private float rnd;
     private int random;
 
@@ -208,6 +217,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Animator live2d_animator;
     private int trans_expression;
     private int trans_motion;
+    private int trans_facemotion;
 
     //ハートレベルのテーブル
     public List<int> stage1_lvTable = new List<int>();
@@ -374,6 +384,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         OkashiNew_Status = 1;
         Special_ignore_count = 0;
 
+        facemotion_start = false;
+        facemotion_time = 0.3f;
+        facemotion_init = false;
+        facemotion_weight = 0f;
+
         GirlEat_Judge_on = true;
         WaitHint_on = false;
         timeOutHint = 5.0f;
@@ -509,6 +524,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if(WaitHint_on) //吹き出しヒントを表示中
         {
             timeOutHint -= Time.deltaTime;
+            timeOutIdle -= Time.deltaTime;
 
             if (timeOutHint <= 0.0f)
             {
@@ -545,6 +561,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         Girl1_touchhair_count = 0;
                         Girl1_touchhair_start = false;
                         GirlEat_Judge_on = true;
+
+                        //Idleにリセット
+                        trans_motion = 1000;                       
+                        live2d_animator.SetInteger("trans_motion", trans_motion);
+                        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
 
                         //吹き出し・ハングリーステータスをリセット
                         ResetHukidashi();
@@ -614,6 +635,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                 case 1:
 
+                                    _model.GetComponent<CubismEyeBlinkController>().enabled = true;
                                     timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
                                     rnd = Random.Range(1.0f, 2.0f);
@@ -655,13 +677,60 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             Girl1_Hint();
                         }
 
-                        if (timeOutIdle <= 0.0)
-                        {
-                            timeOutIdle = 5.0f;
+                        
 
-                            //10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
-                            IdleChange();
+                        if (facemotion_start)
+                        {
                             
+                            facemotion_duration = live2d_animator.GetCurrentAnimatorStateInfo(2).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
+                            //Debug.Log("ステート長さ" + facemotion_duration); 
+
+                            facemotion_length = live2d_animator.GetCurrentAnimatorStateInfo(2).length;
+                            if (!facemotion_init)
+                            {
+                                if (facemotion_length != 1) //Resetモーションで出る、再生秒数1を捨てる。アニメのほうでは、1以上で設定する。
+                                {
+                                    Debug.Log("ステート全体長さ" + facemotion_length);
+                                    
+                                    facemotion_time = SujiMap(facemotion_length, 3f, 20f, 0.7f, 0.95f); //facemotion_lengthの値が、３～２０秒を、0.75~0.9に変換する 
+                                    facemotion_init = true;
+                                    Debug.Log("何秒からフェードアウト" + facemotion_time);
+                                }
+                            }
+                            
+
+                            if (facemotion_duration >= facemotion_time) //再生終了前から徐々にウェイトを戻し、ふぇーどでアニメを戻す
+                            {
+                                facemotion_weight = 1.0f;
+
+                                weightTween = DOTween.To(
+                                    () => facemotion_weight,          // 何を対象にするのか
+                                    num => {
+                                        facemotion_weight = num;
+                                        live2d_animator.SetLayerWeight(2, facemotion_weight);
+                                    },   // 値の更新
+                                    0f,                  // 最終的な値
+                                    1.0f      // アニメーション時間
+                                ).OnComplete(() => {
+                                    facemotion_init = false;
+                                    facemotion_start = false;
+                                    timeOutIdle = 5.0f;
+                                    live2d_animator.SetLayerWeight(2, 0f);
+                                    _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                                });
+                            }
+
+                        }
+                        else
+                        {
+                            if (timeOutIdle <= 0.0)
+                            {
+                                timeOutIdle = 5.0f;
+
+                                //10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
+                                IdleChange(); //吹き出しのタイミングで出るように調整。
+
+                            }
                         }
 
                         //5秒程度放置すると、ハートが１ずつ減っていく。
@@ -828,13 +897,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void IdleChange()
     {
+        _model.GetComponent<CubismEyeBlinkController>().enabled = false;
+        live2d_animator.Play("Reset"); //一度デュレーションをリセット
+        live2d_animator.Update(2);
+
         switch (GirlGokigenStatus)
         {
             case 0:
                 
+                random = Random.Range(0, 4); //0~3
+                trans_facemotion = random;
+                
                 break;
 
             case 1:
+
                 
                 break;
 
@@ -863,6 +940,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 
                 break;
         }
+
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion);
+
+        //facemotion_weight = 0f;
+        weightTween = DOTween.To(
+                                    () => facemotion_weight,          // 何を対象にするのか
+                                    num =>
+                                    {
+                                        facemotion_weight = num;
+                                        live2d_animator.SetLayerWeight(2, facemotion_weight);
+                                    },   // 値の更新
+                                    1f,                  // 最終的な値
+                                    0.5f      // アニメーション時間
+                                );
+        //live2d_animator.SetLayerWeight(2, 1f);
+
+        //モーション再生スタートの合図をだす。
+        facemotion_start = true;
+        
     }
 
 
@@ -1193,6 +1289,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
             
         }
+
+        //ついでに仕草もでる。
+        //IdleChange();
+
+        //Idleにリセット
+        trans_motion = 1000;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+        
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
         WaitHint_on = true;
@@ -2416,5 +2521,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             PlayerStatus.player_girl_findpower = 999;
         }*/
+    }
+
+    //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
+    float SujiMap(float value, float start1, float stop1, float start2, float stop2)
+    {
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     }
 }
