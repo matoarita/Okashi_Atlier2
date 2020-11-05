@@ -40,6 +40,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public float timeOut2;
     public float timeOut3;
     public float timeOutIdle;
+    private float timeOutIdle_time = 20.0f;
     public float timeOutHeartDeg;
     private float Default_hungry_cooltime;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
@@ -374,7 +375,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Default_hungry_cooltime = 0.5f;
         timeOut = Default_hungry_cooltime;
         timeOut2 = 10.0f;
-        timeOutIdle = 5.0f;
+        timeOutIdle = timeOutIdle_time;
         timeOutHeartDeg = 5.0f;
         timeGirl_hungry_status = 1;
 
@@ -480,7 +481,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //タイマーをリセット
                     timeOut = Default_hungry_cooltime;
                     timeOut2 = 10.0f;
-                    timeOutIdle = 5.0f;
+                    timeOutIdle = timeOutIdle_time;
                     GirlEat_Judge_on = true;
 
                     break;
@@ -653,6 +654,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
                                     timeOut = Default_hungry_cooltime;
+                                    timeOutIdle = timeOutIdle_time;
                                     Girl_Full();
 
                                     //キャラクタ表情変更
@@ -714,7 +716,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 ).OnComplete(() => {
                                     facemotion_init = false;
                                     facemotion_start = false;
-                                    timeOutIdle = 5.0f;
+                                    timeOutIdle = timeOutIdle_time;
                                     live2d_animator.SetLayerWeight(2, 0f);
                                     _model.GetComponent<CubismEyeBlinkController>().enabled = true;
                                 });
@@ -725,10 +727,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         {
                             if (timeOutIdle <= 0.0)
                             {
-                                timeOutIdle = 5.0f;
+                                timeOutIdle = timeOutIdle_time;
 
                                 //10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
-                                IdleChange(); //吹き出しのタイミングで出るように調整。
+                                //IdleChange();
 
                             }
                         }
@@ -905,7 +907,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             case 0:
                 
-                random = Random.Range(0, 4); //0~3
+                random = Random.Range(0, 3); //0~3
                 trans_facemotion = random;
                 
                 break;
@@ -2477,6 +2479,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         trans_expression = 13; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
 
+    }
+
+    public void ResetGirlIdleTime()
+    {
+        timeOutIdle = timeOutIdle_time;
     }
 
 

@@ -103,7 +103,7 @@ public class Compound_Check : MonoBehaviour {
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         FinalCheckPanel = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel").gameObject;
-        FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Text").GetComponent<Text>();
+        FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/KakuritsuMessage/Text").GetComponent<Text>();
         FinalCheck_itemText = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/ItemText").GetComponent<Text>();
 
         //Expコントローラーの取得

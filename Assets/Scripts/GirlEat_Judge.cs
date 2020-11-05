@@ -1151,6 +1151,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
                     if (dislike_flag)
                     {
+                        quest_clear = true;
                         break;
                     }
 
@@ -2118,10 +2119,10 @@ public class GirlEat_Judge : MonoBehaviour {
                 //クエスト挑戦回数を増やす。
                 special_quest.special_kaisu++;
 
-                //60点以上だったら、そのクエストをクリアできる、スキップボタンが表示
+                //60点以上。クエストクリアボタンは、食べたいお菓子をあげた時点で、でるようにした。judge_result内に移動。
                 if (total_score >= GameMgr.low_score)
                 {
-                    quest_clear = true;
+                    //quest_clear = true;
 
                     _windowtext.text = "満足しているようだ。";
                 }

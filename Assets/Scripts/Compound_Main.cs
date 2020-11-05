@@ -1122,6 +1122,7 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
+                girl1_status.ResetGirlIdleTime();
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1168,6 +1169,7 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
+                girl1_status.ResetGirlIdleTime();
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1222,6 +1224,7 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
+                girl1_status.ResetGirlIdleTime();
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1302,6 +1305,7 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
+                girl1_status.ResetGirlIdleTime();
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -2594,7 +2598,7 @@ public class Compound_Main : MonoBehaviour
             pitemlist.addPlayerItemString("suger", 5);
             pitemlist.addPlayerItemString("orange", 3);
             //pitemlist.addPlayerItemString("grape", 2);
-            pitemlist.addPlayerItemString("stone_oven", 1);
+            //pitemlist.addPlayerItemString("stone_oven", 1);
         }
     }
 
@@ -2615,10 +2619,10 @@ public class Compound_Main : MonoBehaviour
         {
             case 0: //クッキー
 
-                if (!GameMgr.Beginner_flag[0]) //最初クリアしてないときだけ、ヒントがでる。
+                /*if (!GameMgr.Beginner_flag[0]) //最初クリアしてないときだけ、ヒントがでる。
                 {
                     _textmain.text = "かわいいクッキーを作って、妹にあげてみよう！";
-                }
+                }*/
                 break;
 
             case 10: //ラスクのとき
