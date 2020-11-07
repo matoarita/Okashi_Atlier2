@@ -955,7 +955,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         //オプションパネル読み込み
         option_panel = canvas.transform.Find("OptionPanel").GetComponent<OptionPanel>();
 
-        cursor2 = canvas.transform.Find("ExtremePanel/Comp/SelectCursor2").gameObject;        
+        cursor2 = canvas.transform.Find("MainUIPanel/ExtremePanel/Comp/SelectCursor2").gameObject;        
 
         Cursor_On = false;
         itemCursor_On = false;
@@ -983,9 +983,9 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
         itemselect_cancel = GameObject.FindWithTag("ItemSelect_Cancel").GetComponent<ItemSelect_Cancel>();
 
-        extreme_panel = canvas.transform.Find("ExtremePanel").GetComponent<ExtremePanel>();
+        extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponent<ExtremePanel>();
 
-        compoundselect_onoff_obj = canvas.transform.Find("CompoundSelect_ScrollView").gameObject;
+        compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/CompoundSelect_ScrollView").gameObject;
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
         girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
@@ -995,7 +995,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
 
         toggle_list.Clear();
-        foreach(Transform child in canvas.transform.Find("CompoundSelect_ScrollView/Viewport/Content_compound").transform)
+        foreach(Transform child in canvas.transform.Find("MainUIPanel/CompoundSelect_ScrollView/Viewport/Content_compound").transform)
         {
             if(child.gameObject.activeSelf)
             {

@@ -399,7 +399,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 character = GameObject.FindWithTag("Character");
 
                 //お金の増減用パネルの取得
-                MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MoneyStatus_panel").gameObject;
+                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
                 //エメラルドングリパネルの取得
@@ -410,8 +410,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
 
                 //女の子のレベル表示取得
-                girl_lv = canvas.transform.Find("Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
-                girl_param = canvas.transform.Find("Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();               
+                girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();               
 
 
                 //エフェクトプレファブの取得
@@ -420,7 +420,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Emo_effect_daimanzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
                 Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
                 Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
-                playableDirector = canvas.transform.Find("StageClearButton_Panel").GetComponent<PlayableDirector>();
+                playableDirector = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").GetComponent<PlayableDirector>();
                 playableDirector.enabled = false;               
 
                 //ハートプレファブの取得
@@ -456,9 +456,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 MainQuestOKPanel.SetActive(false);
 
                 //クエストクリアボタンの取得
-                stageclear_panel = canvas.transform.Find("StageClearButton_Panel").gameObject;
-                stageclear_toggle = canvas.transform.Find("CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
-                stageclear_Button = canvas.transform.Find("StageClearButton_Panel/StageClear_Button").gameObject;
+                stageclear_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
+                stageclear_toggle = canvas.transform.Find("MainUIPanel/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
+                stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
                 stageclear_button_on = false;                
 
                 Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
@@ -2103,7 +2103,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         
         //キャラクタ表情変更
         girl1_status.face_girl_Yorokobi();
-        StartCoroutine("DefaultFaceChange");//2秒ぐらいしたら、表情だけすぐに戻す。
+        StartCoroutine("OkashiAfterFaceChange");//2秒ぐらいしたら、表情だけすぐに戻す。
 
         //そのクエストでの最高得点を保持。（マズイときは、失敗フラグ＝0点）
         if (special_quest.special_score_record[special_quest.spquest_set_num, 0] <= total_score)
@@ -2122,7 +2122,6 @@ public class GirlEat_Judge : MonoBehaviour {
                 //60点以上。クエストクリアボタンは、食べたいお菓子をあげた時点で、でるようにした。judge_result内に移動。
                 if (total_score >= GameMgr.low_score)
                 {
-                    //quest_clear = true;
 
                     _windowtext.text = "満足しているようだ。";
                 }
@@ -2141,11 +2140,12 @@ public class GirlEat_Judge : MonoBehaviour {
         }
     }
 
-    IEnumerator DefaultFaceChange()
+    IEnumerator OkashiAfterFaceChange()
     {
         yield return new WaitForSeconds(2.0f);
 
-        girl1_status.DefaultFace();
+        //girl1_status.DefaultFace();
+        girl1_status.face_girl_Fine();
     }
 
     void InitializeItemSlotDicts()
@@ -3125,6 +3125,9 @@ public class GirlEat_Judge : MonoBehaviour {
             yield return null;
         }
 
+        //表情も喜びの表情に。
+        girl1_status.face_girl_Yorokobi();
+
         //レベルアップパネルは一時オフ
         GLvup_panel_obj.SetActive(false);
 
@@ -3156,8 +3159,11 @@ public class GirlEat_Judge : MonoBehaviour {
         compound_Main.girlEat_ON = false;
         compound_Main.compound_status = 0;
 
+        //表情をお菓子食べたあとの喜びの表情。
+        girl1_status.face_girl_Fine();
+
         //まだレベルアップパネルステータス開いてたらONにする。
-        if(GLvup_panel_obj.GetComponent<GirlLoveLevelUpPanel>().OnPanelflag)
+        if (GLvup_panel_obj.GetComponent<GirlLoveLevelUpPanel>().OnPanelflag)
         {
             GLvup_panel_obj.SetActive(true);
         }

@@ -133,6 +133,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool topping_result_ok; //トッピング調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool roast_result_ok; //「焼く」完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
 
+    public bool ResultSuccess; //成功か失敗かのフラグ
+
     public bool girleat_ok; // 女の子にアイテムをあげた時の完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     //public bool shop_buy_ok; //購入完了のフラグ。これがたっていたら、購入の処理を行い、フラグをオフに。
     public bool qbox_ok; // クエスト納品時の完了フラグ。
@@ -230,6 +232,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         result_ok = false;
         recipiresult_ok = false;
         girleat_ok = false;
+
+        ResultSuccess = false;
 
         //blend_flag = false;
 
@@ -508,6 +512,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
+            ResultSuccess = true;
         }
         else //調合失敗
         {
@@ -547,8 +552,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //完成エフェクト
             ResultEffect_NG();
 
-            //調合完了＋成功
+            //調合完了＋失敗
             compound_Main.ResultComplete_flag = 2;
+            ResultSuccess = false;
         }
 
         result_ok = false;
@@ -705,6 +711,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
+            ResultSuccess = true;
         }
         else //失敗した
         {
@@ -744,8 +751,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //完成エフェクト
             ResultEffect_NG();
 
-            //調合完了＋成功
+            //調合完了＋失敗
             compound_Main.ResultComplete_flag = 2;
+            ResultSuccess = false;
         }
 
         recipiresult_ok = false;
@@ -906,6 +914,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
+            ResultSuccess = true;
         }
         else //失敗の場合
         {
@@ -944,8 +953,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //完成エフェクト
             ResultEffect_NG();
 
-            //調合完了＋成功
+            //調合完了＋失敗
             compound_Main.ResultComplete_flag = 2;
+            ResultSuccess = false;
         }
 
         topping_result_ok = false;

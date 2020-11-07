@@ -292,7 +292,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
 
                 //お金の増減用パネルの取得
-                MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
+                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
 
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -303,7 +303,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                girl_param = canvas.transform.Find("Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
+                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
                 _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
 
                 s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
@@ -451,7 +451,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
 
                     //お金の増減用パネルの取得
-                    MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
+                    MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
 
                     //s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
 
@@ -630,8 +630,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     Girl_Hungry();
 
                                     //キャラクタ表情変更
-                                    DefaultFace();
-                                    
+                                    DefFaceChange();
+
                                     break;
 
                                 case 1:
@@ -644,7 +644,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     Girl_Full();
 
                                     //キャラクタ表情変更
-                                    DefaultFace();
+                                    DefFaceChange();
                                     break;
 
                                 case 2:
@@ -658,7 +658,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     Girl_Full();
 
                                     //キャラクタ表情変更
-                                    DefaultFace();
+                                    DefFaceChange();
+                                    
                                     break;
 
                                 default:
@@ -805,7 +806,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //intパラメーターの値を設定する.
                     maincam_animator.SetInteger("trans", trans);
 
-                    //キャラクタ表情変更
+                    //キャラクタ表情変更。お菓子食べる前の表情。
                     DefaultFace();                    
 
                     special_animstart_flag = false;
@@ -814,6 +815,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
 
             special_timeOut -= Time.deltaTime;
+        }
+    }
+
+    void DefFaceChange()
+    {
+        if (GameMgr.QuestClearflag) //そのお菓子をクリアしたあとの表情
+        {
+            AfterOkashiDefaultFace();
+        }
+        else
+        {
+            DefaultFace();
         }
     }
 
@@ -858,6 +871,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
+    //お菓子を食べる前の、デフォルトの状態。
     public void DefaultFace()
     {
         //Live2Dモデルの取得
@@ -873,6 +887,46 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1:
                 face_girl_Little_Fine();
+                break;
+
+            case 2:
+                face_girl_Fine();
+                break;
+
+            case 3:
+                face_girl_Normal();
+                break;
+
+            case 4:
+                face_girl_Joukigen();
+                break;
+
+            case 5:
+                face_girl_Joukigen();
+                break;
+
+            default:
+                face_girl_Joukigen();
+                break;
+        }
+    }
+
+    //お菓子に満足したあとの表情。基本的に喜んでいる。好感度によって、少し差がある。
+    public void AfterOkashiDefaultFace()
+    {
+        //Live2Dモデルの取得
+        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+        live2d_animator = _model.GetComponent<Animator>();
+        trans_expression = live2d_animator.GetInteger("trans_expression");
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+                face_girl_Fine();
+                break;
+
+            case 1:
+                face_girl_Fine();
                 break;
 
             case 2:
@@ -1260,7 +1314,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //まだ一度も調合していない
         if (PlayerStatus.First_recipi_on != true)
         {
-            _hint1 = "..まずは左のパネルで、お菓子を作ろうね。おにいちゃん。";            
+            _hint1 = "..まずは左のメニューから、お菓子を作ろうね。おにいちゃん。";            
             hukidashiitem.GetComponent<TextController>().SetText(_hint1);
         }
         else
@@ -1283,6 +1337,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (GameMgr.QuestClearflag)
                 {
                     hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
+
+                    //表情喜びに。2秒ほどしてすぐ戻す。
+                    face_girl_Yorokobi();
+
+                    StartCoroutine("FaceModosu");
                 }
                 else
                 {
@@ -1305,7 +1364,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         WaitHint_on = true;
         timeOutHint = 15.0f;
         GirlEat_Judge_on = false;
-    }    
+    }
+
+    IEnumerator FaceModosu()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        AfterOkashiDefaultFace();
+    }
 
     IEnumerator WaitHintDesc()
     {
@@ -2270,7 +2336,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 0:
 
                 _touchchest_comment_lib.Add("..。");
-                _touchchest_comment_lib.Add("（触られるのを、かなりいやがっているようだ..。）");
+                _touchchest_comment_lib.Add("は、恥ずかしい..。");
 
                 break;
 
@@ -2278,7 +2344,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchchest_comment_lib.Add("..？");
                 _touchchest_comment_lib.Add("..。");
-                _touchchest_comment_lib.Add("（いやがっているようだ..。）");
+                _touchchest_comment_lib.Add("変なとこ触っちゃだめ！");
 
                 break;
 
@@ -2286,8 +2352,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchchest_comment_lib.Add(".。");
                 _touchchest_comment_lib.Add("胸をさわられると、はずかしいよ～。");
-                _touchchest_comment_lib.Add("こりゃ！胸をさわるのはやめろ、にいちゃん！");
-                _touchchest_comment_lib.Add("（ちょっといやがっているようだ..。）");
+                _touchchest_comment_lib.Add("こりゃ！胸をさわるのはやめて、にいちゃん！");
+                _touchchest_comment_lib.Add("変なとこ触っちゃだめ！");
 
                 break;
 
@@ -2296,7 +2362,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchchest_comment_lib.Add("..！");
                 _touchchest_comment_lib.Add("兄ちゃんのえっちー！");
                 _touchchest_comment_lib.Add("胸をさわるんじゃない！にいちゃん！");
-                _touchchest_comment_lib.Add("..あまり胸を触ると、おこるよ！");
+                _touchchest_comment_lib.Add("..あまり変なとこを触ると、おこるよ！");
 
                 break;
 
@@ -2307,23 +2373,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchchest_comment_lib.Add("どこさわってんの？にいちゃんのばか！！");
                 _touchchest_comment_lib.Add("く、くすぐったい..。");
                 _touchchest_comment_lib.Add("ぎゃー！！");
-                _touchchest_comment_lib.Add("胸を触るなといっている！！");
+                _touchchest_comment_lib.Add("胸を触るなといっているよ！！にいちゃん！！");
 
                 break;
 
             case 5:
 
                 _touchchest_comment_lib.Add("！");
-                _touchchest_comment_lib.Add("にいちゃんのばか..！へんたいにいちゃん！！");
+                _touchchest_comment_lib.Add("ばか..！！");
                 _touchchest_comment_lib.Add("にいちゃんのおてて、あったか～い♪");
-                _touchchest_comment_lib.Add("そんなとこさわられると、恥ずかしいよ。にいちゃん～！");
+                _touchchest_comment_lib.Add("そんなとこさわられると、くすぐったいよ。にいちゃん～！");
                 _touchchest_comment_lib.Add("ぐひぃ～・・。");
-                _touchchest_comment_lib.Add("胸を触るのを、やめなさい？あにぃ～。");
+                _touchchest_comment_lib.Add("胸を触るのを、やめなさい！あにぃ～。");
                 _touchchest_comment_lib.Add("あひぃ～。");
                 _touchchest_comment_lib.Add("（ちょっときもちいい。）");
-                _touchchest_comment_lib.Add("胸をさわるのは、やめろ！ばかあに！！");
-                _touchchest_comment_lib.Add("けがれる！！");
-                _touchchest_comment_lib.Add("ぎぃ～～。（くすぐったい..。）");
+                _touchchest_comment_lib.Add("胸をさわるのは、やめろ！ばか兄！！");
+                _touchchest_comment_lib.Add("は、はずかしいよ～。にいちゃん！");
+                _touchchest_comment_lib.Add("ぎぃや～～。（くすぐったいよ..。にいちゃん～。）");
 
                 break;
         }

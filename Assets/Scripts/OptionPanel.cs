@@ -54,7 +54,7 @@ public class OptionPanel : MonoBehaviour {
         mastervolume_Slider = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider").GetComponent<Slider>();
         mastervolume_paramtext = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider/Param").GetComponent<Text>();
 
-        StageClearButton_panel = canvas.transform.Find("StageClearButton_Panel").gameObject;
+        StageClearButton_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
         StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
     }
 

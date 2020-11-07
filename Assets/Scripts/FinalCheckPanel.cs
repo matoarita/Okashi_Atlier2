@@ -34,7 +34,7 @@ public class FinalCheckPanel : MonoBehaviour {
     private void OnEnable()
     {
         InitStart();
-        StartAnim();
+        //StartAnim();
     }
 
     void StartAnim()

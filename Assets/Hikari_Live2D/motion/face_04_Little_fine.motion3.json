@@ -39,10 +39,10 @@
 			"Id": "ParamEyeL_CloseChousei",
 			"Segments": [
 				0,
-				1,
+				0.6,
 				0,
 				1,
-				1
+				0.6
 			]
 		},
 		{
@@ -50,10 +50,10 @@
 			"Id": "ParamEyeR_CloseChousei",
 			"Segments": [
 				0,
-				1,
+				0.6,
 				0,
 				1,
-				1
+				0.6
 			]
 		},
 		{
@@ -61,10 +61,10 @@
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
-				0,
+				-0.4,
 				0,
 				1,
-				0
+				-0.4
 			]
 		},
 		{
@@ -72,10 +72,10 @@
 			"Id": "ParamBrowRForm",
 			"Segments": [
 				0,
-				0,
+				-0.4,
 				0,
 				1,
-				0
+				-0.4
 			]
 		},
 		{

@@ -211,7 +211,6 @@ public class Sound_Trigger : MonoBehaviour {
                 break;
 
 
-
             case "CompoundResultButton":
 
                 //ポインタが入ったときに鳴る音
@@ -362,6 +361,26 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音。
                 SE_point_click(0);
+                break;
+
+            case "MainUIOpenButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(36);
+                break;
+
+            case "MainUICloseButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(36);
                 break;
 
             default: //特に指定がない場合
