@@ -60,6 +60,7 @@ public class Utage_scenario : MonoBehaviour
     //Live2Dモデルの取得
     private CubismModel _model;
     private CubismRenderController _renderController;
+    private Animator live2d_animator;
 
     //シーン中のキャラクタ画像を取得（NPCなど）
     private GameObject character;
@@ -195,6 +196,7 @@ public class Utage_scenario : MonoBehaviour
                     //Live2Dモデルの取得
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     _renderController = _model.GetComponent<CubismRenderController>();
+                    live2d_animator = _model.GetComponent<Animator>();
                 }
 
                 if (!sceneBGM)
@@ -1948,20 +1950,24 @@ public class Utage_scenario : MonoBehaviour
 
 
 
-    //表示中のLive2DキャラクタをONにする。
+    //ゲームメイン中のLive2DキャラクタをONにする。
     void CharacterLive2DImageON()
-    {
-        
+    {        
         _renderController.Opacity = 1.0f;
+
+        //宴用の表情モードはオフに。
+        live2d_animator.SetLayerWeight(3, 0.0f);
     }
 
-    //表示中のLive2DキャラクタをOFFにする。
+    //ゲームメイン中のLive2DキャラクタをOFFにする。
     void CharacterLive2DImageOFF()
-    {
-        
+    {        
         _renderController.Opacity = 1.0f;
         FadeAnim_flag = true;
         FadeAnim_status = 1;
+
+        //宴用の表情モードに切り替える。
+        live2d_animator.SetLayerWeight(3, 1.0f);
     }
 
     //キャラクタスプライト画像をONにする

@@ -114,6 +114,8 @@ public class Quest_Judge : MonoBehaviour {
 
     private string _a;
     private int _temp_shokukan;
+    private int _temp_kyori;
+    private float _temp_ratio;
 
     private int itemType;
     private string _basename;
@@ -135,6 +137,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
+    private int _basescore;
     private float _basegirl1_like;
     private int _basecost;
     private int _basesell;
@@ -673,7 +676,25 @@ public class Quest_Judge : MonoBehaviour {
 
             if (_crispy > 0)
             {
-                if (_basecrispy >= _crispy)
+                _temp_kyori = _basecrispy - _crispy;
+
+                if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+                {
+                    _temp_ratio = 1.0f;
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                }
+                else
+                {
+                    _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio);
+                    _a = "さくさくした感じがちょっと足りないみたい。";
+                }
+
+                /*if (_basecrispy >= _crispy)
                 {
                     _temp_shokukan = _basecrispy - _crispy;
                     okashi_score += _temp_shokukan;
@@ -683,84 +704,111 @@ public class Quest_Judge : MonoBehaviour {
                     okashi_score += 0;
                     //nouhinOK_status = 2;                
                     _a = "さくさくした感じがちょっと足りないみたい。";
-                }
+                }*/
             }
 
             if (_fluffy > 0)
             {
-                if (_basefluffy >= _fluffy)
-                {
-                    _temp_shokukan = _basefluffy - _fluffy;
-                    okashi_score += _temp_shokukan;
+                _temp_kyori = _basefluffy - _fluffy;
 
+                if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+                {
+                    _temp_ratio = 1.0f;
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
-                    okashi_score += 0;
-                    //nouhinOK_status = 2;
+                    _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio);
                     _a = "ふんわり感がちょっと足りないみたい。";
                 }
             }
 
             if (_smooth > 0)
             {
-                if (_basesmooth >= _smooth)
-                {
-                    _temp_shokukan = _basesmooth - _smooth;
-                    okashi_score += _temp_shokukan;
+                _temp_kyori = _basesmooth - _smooth;
 
+                if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+                {
+                    _temp_ratio = 1.0f;
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
-                    okashi_score += (int)(_basesmooth * 0.5f);
-                    //nouhinOK_status = 2;
+                    _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio);
                     _a = "なめらかな感じがちょっと足りないみたい。";
                 }
             }
 
             if (_hardness > 0)
             {
-                if (_basehardness >= _hardness)
-                {
-                    _temp_shokukan = _basehardness - _hardness;
-                    okashi_score += _temp_shokukan;
+                _temp_kyori = _basehardness - _hardness;
 
+                if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+                {
+                    _temp_ratio = 1.0f;
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
-                    okashi_score += (int)(_basehardness * 0.5f);
-                    //nouhinOK_status = 2;
+                    _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio);
                     _a = "歯ごたえがちょっと足りないみたい。";
                 }
+
             }
 
             if (_jiggly > 0)
             {
-                if (_basejiggly >= _jiggly)
-                {
-                    _temp_shokukan = _basejiggly - _jiggly;
-                    okashi_score += _temp_shokukan;
+                _temp_kyori = _basejiggly - _jiggly;
 
+                if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+                {
+                    _temp_ratio = 1.0f;
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
-                    okashi_score += (int)(_basejiggly * 0.5f);
-                    //nouhinOK_status = 2;
+                    _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio);
                     _a = "ぷにぷに感がちょっと足りないみたい。";
                 }
             }
 
             if (_chewy > 0)
             {
-                if (_basechewy >= _chewy)
+                _temp_kyori = _basechewy - _chewy;
+
+                if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
                 {
-                    _temp_shokukan = _basechewy - _chewy;
-                    okashi_score += _temp_shokukan;
+                    _temp_ratio = 1.0f;
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
-                    okashi_score += (int)(_basechewy * 0.5f);
-                    //nouhinOK_status = 2;
+                    _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio);
                     _a = "噛みごたえがちょっと足りないみたい。";
                 }
             }
@@ -1158,6 +1206,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basepowdery = database.items[_id].Powdery;
                 _baseoily = database.items[_id].Oily;
                 _basewatery = database.items[_id].Watery;
+                _basescore = database.items[_id].Base_Score;
                 _basegirl1_like = database.items[_id].girl1_itemLike;
                 _basecost = database.items[_id].cost_price;
                 _basesell = database.items[_id].sell_price;
@@ -1204,6 +1253,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basepowdery = pitemlist.player_originalitemlist[_id].Powdery;
                 _baseoily = pitemlist.player_originalitemlist[_id].Oily;
                 _basewatery = pitemlist.player_originalitemlist[_id].Watery;
+                _basescore = pitemlist.player_originalitemlist[_id].Base_Score;
                 _basegirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
                 _basecost = pitemlist.player_originalitemlist[_id].cost_price;
                 _basesell = pitemlist.player_originalitemlist[_id].sell_price;
@@ -1286,5 +1336,11 @@ public class Quest_Judge : MonoBehaviour {
             digit++;
         }
         return digit;
+    }
+
+    //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
+    float SujiMap(float value, float start1, float stop1, float start2, float stop2)
+    {
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     }
 }

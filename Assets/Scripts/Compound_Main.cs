@@ -386,6 +386,7 @@ public class Compound_Main : MonoBehaviour
         default_live2d_draworder = cubism_rendercontroller.SortingOrder;
         Live2d_default_pos = _model_obj.transform.localPosition;
         live2d_animator = _model_obj.GetComponent<Animator>();
+        live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
         ResultComplete_flag = 0; //調合が完了したよフラグ
         live2d_posmove_flag = false;
 
@@ -1015,19 +1016,22 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
-                    if (live2d_posmove_flag){
+                    if (live2d_posmove_flag)
+                    {
                         trans_motion = 11; //位置をもとに戻す。
                         live2d_animator.SetInteger("trans_motion", trans_motion);
                         live2d_posmove_flag = false;
-
-                        if (GameMgr.QuestClearflag) {
-                            girl1_status.AfterOkashiDefaultFace();
-                        }
-                        else
-                        {
-                            girl1_status.DefaultFace();
-                        }
                     }
+
+                    if (GameMgr.QuestClearflag)
+                    {
+                        girl1_status.AfterOkashiDefaultFace();
+                    }
+                    else
+                    {
+                        girl1_status.DefaultFace();
+                    }
+
                 }
 
                 //音関係
@@ -2510,7 +2514,9 @@ public class Compound_Main : MonoBehaviour
         _textmain.text = "";
 
         check_GirlLoveEvent_flag = true;
-        check_recipi_flag = false;        
+        check_recipi_flag = false;
+
+        mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
     }
 
     //レシピの番号チェック。コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。

@@ -17,6 +17,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private string _file_name, _nameHyouji, _desc;
     private string _type;
     private string _subtype;
+    private int _base_score;
     private string[] _koyutp = new string[5];
     private int _judge_num;
     private int _eat_kaisu;
@@ -565,6 +566,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _desc = database.items[i].itemDesc;
                 _type = database.items[i].itemType.ToString();
                 _subtype = database.items[i].itemType_sub.ToString();
+                _base_score = database.items[i].Base_Score;
                 _judge_num = database.items[i].SetJudge_Num;
                 _eat_kaisu = database.items[i].Eat_kaisu;
                 _highscore_flag = database.items[i].HighScore_flag;
@@ -581,7 +583,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
 
         player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty, 
-            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _girl1_like, _cost, _sell, 
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _base_score, _girl1_like, _cost, _sell, 
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori));
     }

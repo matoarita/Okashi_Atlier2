@@ -163,6 +163,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
+    private int _basescore;
     private float _basegirl1_like;
     private int _baseSetjudge_num;
     private string[] _basetp;
@@ -253,6 +254,8 @@ public class GirlEat_Judge : MonoBehaviour {
     public int subtype1_score;
     public int subtype2_score;
 
+    private int _temp_kyori;
+    private float _temp_ratio;
     public int topping_score;
     public int topping_flag_point;
     public bool topping_flag;
@@ -268,6 +271,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private int dislike_status;
 
     public int girllike_point;
+
+    private bool quest_bunki_flag;
 
     private bool emerarudonguri_get;
     private bool last_score_kousin;
@@ -755,6 +760,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basepowdery = database.items[kettei_item1].Powdery;
                 _baseoily = database.items[kettei_item1].Oily;
                 _basewatery = database.items[kettei_item1].Watery;
+                _basescore = database.items[kettei_item1].Base_Score;
                 _basegirl1_like = database.items[kettei_item1].girl1_itemLike;
                 _baseitemtype = database.items[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = database.items[kettei_item1].itemType_sub.ToString();
@@ -792,6 +798,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basepowdery = pitemlist.player_originalitemlist[kettei_item1].Powdery;
                 _baseoily = pitemlist.player_originalitemlist[kettei_item1].Oily;
                 _basewatery = pitemlist.player_originalitemlist[kettei_item1].Watery;
+                _basescore = pitemlist.player_originalitemlist[kettei_item1].Base_Score;
                 _basegirl1_like = pitemlist.player_originalitemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_originalitemlist[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = pitemlist.player_originalitemlist[kettei_item1].itemType_sub.ToString();
@@ -1463,7 +1470,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                         else //逆に、必要なトッピングがあるのに、そのトッピングがのってなかった場合、
                         {
-                                                     
+                            
                         }
                     }
                 }
@@ -1535,6 +1542,7 @@ public class GirlEat_Judge : MonoBehaviour {
         if (topping_all_non && !topping_flag)
         {
             topping_score += girl1_status.girl1_NonToppingScoreSet[countNum]; //点数がマイナスに働く。
+            quest_clear = false;
         }
         Debug.Log("トッピングスコア: " + topping_score);
 
@@ -1656,7 +1664,24 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void Crispy_Score()
     {
-        if (_basecrispy >= _girlcrispy[countNum])
+        _temp_kyori = _basecrispy - _girlcrispy[countNum];
+
+        if(_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        {
+            _temp_ratio = 1.0f;
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            crispy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+        }
+        else
+        {
+            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            crispy_score = (int)(_basescore * _temp_ratio);
+        }
+        
+        /*if (_basecrispy >= _girlcrispy[countNum])
         {
             
             crispy_score = _basecrispy - _girlcrispy[countNum]; //お菓子のサクサク度-好み値が点数に。
@@ -1664,7 +1689,7 @@ public class GirlEat_Judge : MonoBehaviour {
         else
         {
             crispy_score = 0;
-        }
+        }*/
 
         //crispy_score = _basecrispy;
         shokukan_score = crispy_score;
@@ -1674,14 +1699,22 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void Fluffy_Score()
     {
-        if (_basefluffy >= _girlfluffy[countNum])
-        {            
-            fluffy_score = _basefluffy - _girlfluffy[countNum]; //お菓子のサクサク度-好み値が点数に。
+        _temp_kyori = _basefluffy - _girlfluffy[countNum];
+
+        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        {
+            _temp_ratio = 1.0f;
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            fluffy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
         }
         else
         {
-            fluffy_score = 0;
-        }
+            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            fluffy_score = (int)(_basescore * _temp_ratio);
+        }        
 
         //fluffy_score = _basefluffy;
         shokukan_score = fluffy_score;
@@ -1691,13 +1724,21 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void Smooth_Score()
     {
-        if (_basesmooth >= _girlsmooth[countNum])
+        _temp_kyori = _basesmooth - _girlsmooth[countNum];
+
+        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
         {
-            smooth_score = _basesmooth - _girlsmooth[countNum]; //お菓子のサクサク度-好み値が点数に。
+            _temp_ratio = 1.0f;
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            smooth_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
         }
         else
         {
-            smooth_score = 0;
+            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            smooth_score = (int)(_basescore * _temp_ratio);
         }
 
         //smooth_score = _basesmooth;
@@ -1708,13 +1749,21 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void Hardness_Score()
     {
-        if (_basehardness >= _girlhardness[countNum])
+        _temp_kyori = _basehardness - _girlhardness[countNum];
+
+        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
         {
-            hardness_score = _basehardness - _girlhardness[countNum]; //お菓子のサクサク度-好み値が点数に。
+            _temp_ratio = 1.0f;
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            hardness_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
         }
         else
         {
-            hardness_score = 0;
+            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            hardness_score = (int)(_basescore * _temp_ratio);
         }
 
         //hardness_score = _basehardness;
@@ -1725,21 +1774,28 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void Juice_Score()
     {
-        shokukan_score = _basesweat + _basebitter + _basesour;
+        shokukan_score = _basescore + _basesweat + _basebitter + _basesour;
         shokukan_mes = "のどごし";
         Debug.Log("のどごしの点: " + shokukan_score);
     }
 
     void Tea_Score()
     {
-        if (_basecrispy >= _girlcrispy[countNum])
+        _temp_kyori = _basecrispy - _girlcrispy[countNum];
+
+        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
         {
-            //crispy_score = _basecrispy;
-            crispy_score = _basecrispy - _girlcrispy[countNum]; //お菓子のサクサク度-好み値が点数に。
+            _temp_ratio = 1.0f;
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            crispy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
         }
         else
         {
-            crispy_score = 0;
+            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            crispy_score = (int)(_basescore * _temp_ratio);
         }
 
         shokukan_score = crispy_score;
@@ -2119,11 +2175,20 @@ public class GirlEat_Judge : MonoBehaviour {
                 //クエスト挑戦回数を増やす。
                 special_quest.special_kaisu++;
 
-                //60点以上。クエストクリアボタンは、食べたいお菓子をあげた時点で、でるようにした。judge_result内に移動。
+                //食べたいお菓子で、60点以上かつトッピングもちゃんとのってる場合は、クエストクリアボタンでるように。
                 if (total_score >= GameMgr.low_score)
                 {
-
-                    _windowtext.text = "満足しているようだ。";
+                    if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
+                    {
+                        quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
+                    else if (!topping_all_non) //そもそも食べたいトッピングない場合
+                    {
+                        quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
+                    
                 }
                 else
                 {
@@ -2597,7 +2662,10 @@ public class GirlEat_Judge : MonoBehaviour {
         special_quest.special_kaisu = 0;
         girl1_status.special_animatFirst = false;
 
-        switch (GameMgr.GirlLoveEvent_num)
+        //次のお菓子クエストがあるかどうかをチェック。
+        QuestBunki();
+
+        /*switch (GameMgr.GirlLoveEvent_num)
         {
             case 0: //クッキー
 
@@ -2614,13 +2682,55 @@ public class GirlEat_Judge : MonoBehaviour {
                 subQuestClear_check = true;
                 ResultPanel_On();
                 break;
-        }        
+        }      */  
 
     }
 
     void QuestBunki()
     {
-        switch (girl1_status.OkashiQuest_ID % 100) //1000 1100 1200.. で割り切れる。割り切れないときは、端数が10, 20, 30.. と続く。
+        //次のクエスト（+10）があるかどうかをみる。
+        i = 0;
+        quest_bunki_flag = false;
+
+        while (i < girlLikeCompo_database.girllike_composet.Count)
+        {
+            if(girlLikeCompo_database.girllike_composet[i].set_ID == (girl1_status.OkashiQuest_ID+10)) //+10のクエストあった場合はそのクエスト
+            {
+                GameMgr.GirlLoveEvent_num += 1;
+
+                subQuestClear_check = false;
+                special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 0);
+
+                ResultOFF();
+
+                //お菓子の判定処理を終了
+                compound_Main.girlEat_ON = false;
+                compound_Main.compound_status = 0;
+
+                girl1_status.timeGirl_hungry_status = 0;
+                girl1_status.timeOut = 1.0f; //次クエストをすぐ開始
+
+                GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
+                GameMgr.QuestClearButton_anim = false;
+
+                GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
+                quest_bunki_flag = true;
+                break;
+            }
+            else 
+            {
+                
+            }
+            i++;
+        }
+
+        if(!quest_bunki_flag) //ない場合は、次のSpお菓子へ
+        {
+            subQuestClear_check = true;
+            ResultPanel_On();
+        }
+
+        /*switch (girl1_status.OkashiQuest_ID % 100) //1000 1100 1200.. で割り切れる。割り切れないときは、端数が10, 20, 30.. と続く。
         {
             
             case 10: //1010でクリアした場合。全てのクエストを完了できたので、次のお菓子へ。10ごとに１つのクエスト
@@ -2651,7 +2761,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
                 break;
-        }
+        }*/
     }
 
     //
@@ -3725,5 +3835,11 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
         }
         
+    }
+
+    //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
+    float SujiMap(float value, float start1, float stop1, float start2, float stop2)
+    {
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     }
 }

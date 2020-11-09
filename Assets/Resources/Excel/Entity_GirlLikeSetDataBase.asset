@@ -79,7 +79,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 30
-      crispy: 0
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 0
-      crispy: 1
+      crispy: 50
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
       sweat: 50
       bitter: 0
       sour: 0
-      crispy: 10
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -231,7 +231,7 @@ MonoBehaviour:
       topping04: Non
       topping05: Non
       tp_score01: 10
-      tp_score02: 20
+      tp_score02: 30
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
       sweat: 20
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -278,7 +278,7 @@ MonoBehaviour:
       crispy: 0
       fluffy: 0
       smooth: 0
-      hardness: 10
+      hardness: 40
       jiggly: 0
       chewy: 0
       topping01: Non
@@ -304,7 +304,7 @@ MonoBehaviour:
       bitter: 0
       sour: 30
       crispy: 0
-      fluffy: 10
+      fluffy: 40
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -332,7 +332,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 10
+      fluffy: 40
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 10
+      fluffy: 40
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 0
-      crispy: 0
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -415,7 +415,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 50
-      crispy: 10
+      crispy: 40
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -450,7 +450,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       topping01: Grape
-      topping02: Nuts
+      topping02: Non
       topping03: Non
       topping04: Non
       topping05: Non
@@ -471,7 +471,7 @@ MonoBehaviour:
       sweat: 30
       bitter: 0
       sour: 30
-      crispy: 0
+      crispy: 30
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -492,14 +492,14 @@ MonoBehaviour:
       commet_flag: 0
     - setID: 17
       compNum: 531
-      girllike_itemname: Non
-      girllike_itemsubtype: Rusk
+      girllike_itemname: rusk_butter
+      girllike_itemsubtype: Non
       set_score: 0
       rich: 0
       sweat: 50
       bitter: 0
       sour: 0
-      crispy: 10
+      crispy: 40
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -527,7 +527,7 @@ MonoBehaviour:
       sweat: 50
       bitter: 0
       sour: 30
-      crispy: 30
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -555,7 +555,7 @@ MonoBehaviour:
       sweat: 50
       bitter: 0
       sour: 30
-      crispy: 20
+      crispy: 50
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 20
+      fluffy: 50
       smooth: 0
       hardness: 0
       jiggly: 0
@@ -612,7 +612,7 @@ MonoBehaviour:
       bitter: 0
       sour: 0
       crispy: 0
-      fluffy: 10
+      fluffy: 40
       smooth: 0
       hardness: 0
       jiggly: 0

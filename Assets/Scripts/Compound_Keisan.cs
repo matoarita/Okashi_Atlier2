@@ -131,6 +131,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _addpowdery;
     private int _addoily;
     private int _addwatery;
+    private int _addbase_score;
     private float _addgirl1_like;
     private int _addcost;
     private int _addsell;
@@ -1423,6 +1424,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addpowdery = database.items[_id].Powdery;
         _addoily = database.items[_id].Oily;
         _addwatery = database.items[_id].Watery;
+        _addbase_score = database.items[_id].Base_Score;
         _addgirl1_like = database.items[_id].girl1_itemLike;
         _addcost = database.items[_id].cost_price;
         _addsell = database.items[_id].sell_price;
@@ -1471,7 +1473,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //Debug.Log("_addkosu: " + _addkosu);
-        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
+        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour,
+            _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub,
+            _addbase_score, _addgirl1_like, _addcost, _addsell, 
+            _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
 
     void Set_add_originparam()
@@ -1494,6 +1499,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addpowdery = pitemlist.player_originalitemlist[_id].Powdery;
         _addoily = pitemlist.player_originalitemlist[_id].Oily;
         _addwatery = pitemlist.player_originalitemlist[_id].Watery;
+        _addbase_score = pitemlist.player_originalitemlist[_id].Base_Score;
         _addgirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
         _addcost = pitemlist.player_originalitemlist[_id].cost_price;
         _addsell = pitemlist.player_originalitemlist[_id].sell_price;
@@ -1541,7 +1547,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //Debug.Log("_addkosu: " + _addkosu);
-        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub, _addgirl1_like, _addcost, _addsell, _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
+        _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, 
+            _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub,
+            _addbase_score, _addgirl1_like, _addcost, _addsell, 
+            _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
 
 

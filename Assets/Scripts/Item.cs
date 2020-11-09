@@ -42,10 +42,11 @@ public class Item
     public int Oily;                //油っぽさ　マイナス要因   バターを入れすぎると、油っこくなり、気持ち悪くなる。
     public int Watery;              //水っぽさ　マイナス要因   水・ミルクなどを入れすぎると、水っぽくなり、固まらない。
 
-    public ItemType itemType;      //アイテムの種類メインカテゴリー
-    public ItemType_sub itemType_sub;      //アイテムの種類サブカテゴリー（クッキー系とかパイ系など）
+    public ItemType itemType;               //アイテムの種類メインカテゴリー
+    public ItemType_sub itemType_sub;       //アイテムの種類サブカテゴリー（クッキー系とかパイ系など）
 
-    public float girl1_itemLike; //そのアイテムに対する女の子１の好み値。固有。
+    public int Base_Score;          //アイテムごとの、基本得点。好みの食感との距離で、得点に倍率をかけて、最終点数になる。
+    public float girl1_itemLike;    //そのアイテムに対する女の子１の好み値。固有。取得好感度に影響する。
 
     public int cost_price; //ショップで買うときの値段
     public int sell_price; //ショップに売るときの値段
@@ -144,7 +145,7 @@ public class Item
     //ここでリスト化時に渡す引数をあてがいます   
     public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, 
         int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, 
-        string type, string subtype, float _girl1_like, int cost, int sell, 
+        string type, string subtype, int _base_score, float _girl1_like, int cost, int sell, 
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
         int _judge_num, int _eat_kaisu, bool _highscore, int _lasttotal_score, string _hinttext, float _total_kyori)
@@ -188,6 +189,7 @@ public class Item
         itemType = (ItemType)Enum.Parse(typeof(ItemType), type);      
         itemType_sub = (ItemType_sub)Enum.Parse(typeof(ItemType_sub), subtype);
 
+        Base_Score = _base_score;
         girl1_itemLike = _girl1_like;
 
         cost_price = cost;
