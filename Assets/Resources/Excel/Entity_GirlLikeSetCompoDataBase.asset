@@ -95,7 +95,7 @@ MonoBehaviour:
       clear: 0
     - ID: 6
       set_compID: 1000
-      set1: 12
+      set1: 2
       set2: 9999
       set3: 9999
       spquest_name1: "\u30AF\u30C3\u30AD\u30FC\u3092\u4F5C\u308D\u3046\uFF01\uFF01"
@@ -104,7 +104,7 @@ MonoBehaviour:
       comment: "\uFF1C\u81EA\u7531\uFF1E\u30AF\u30C3\u30AD\u30FC\u7CFB"
       set_flag: 0
       set_score: 0
-      hint_text: "\u898B\u305F\u76EE\u304C\u304B\u308F\u3044\u3044\u306E\u304C\u3044\u3044\uFF01"
+      hint_text: 
       clear: 0
     - ID: 7
       set_compID: 1010
@@ -120,6 +120,19 @@ MonoBehaviour:
       hint_text: 
       clear: 0
     - ID: 8
+      set_compID: 1020
+      set1: 12
+      set2: 9999
+      set3: 9999
+      spquest_name1: "\u304B\u308F\u3044\u3044\u30AF\u30C3\u30AD\u30FC\u3092\u4F5C\u308D\u3046\uFF01\uFF01"
+      spquest_name2: '-'
+      desc: "\u304A\u5144\u3061\u3083\u3093! \u304B\u308F\u3044\u3044\u898B\u305F\u76EE\u306E\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044\u3002"
+      comment: "\uFF1C\u81EA\u7531\uFF1E\u30AF\u30C3\u30AD\u30FC\u7CFB\uFF13"
+      set_flag: 0
+      set_score: 0
+      hint_text: "\u898B\u305F\u76EE\u304C\u304B\u308F\u3044\u3044\u306E\u304C\u3044\u3044\uFF01"
+      clear: 0
+    - ID: 9
       set_compID: 1100
       set1: 531
       set2: 9999
@@ -132,7 +145,7 @@ MonoBehaviour:
       set_score: 0
       hint_text: "\u5144\u3061\u3083\u3093\u3001\u30D0\u30BF\u30FC\u3092\u3044\u308C\u308B\u3068\u3001\u3055\u304F\u3055\u304F\u306B\u306A\u308B\u304B\u3082..\uFF1F"
       clear: 0
-    - ID: 9
+    - ID: 10
       set_compID: 1110
       set1: 31
       set2: 9999
@@ -145,7 +158,7 @@ MonoBehaviour:
       set_score: 0
       hint_text: 
       clear: 0
-    - ID: 10
+    - ID: 11
       set_compID: 1200
       set1: 60
       set2: 9999
@@ -158,7 +171,7 @@ MonoBehaviour:
       set_score: 0
       hint_text: "\u4F55\u304B\u304C\u3082\u306E\u305F\u308A\u306A\u3044..\u3002"
       clear: 0
-    - ID: 11
+    - ID: 12
       set_compID: 1300
       set1: 70
       set2: 9999
@@ -171,7 +184,7 @@ MonoBehaviour:
       set_score: 0
       hint_text: 
       clear: 0
-    - ID: 12
+    - ID: 13
       set_compID: 1400
       set1: 80
       set2: 9999
@@ -185,7 +198,7 @@ MonoBehaviour:
       hint_text: "\u5144\u3061\u3083\u3093\uFF01\u3000\u30D4\u30F3\u30AF\u306E\u3064\u3076\u3064\u3076..
         \u307B\u3057\u3044\u306A\uFF5E\uFF01"
       clear: 0
-    - ID: 13
+    - ID: 14
       set_compID: 1500
       set1: 9999
       set2: 9999

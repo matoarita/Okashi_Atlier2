@@ -238,37 +238,43 @@ public class Result_Panel : MonoBehaviour
 
         if (_poncount >= star_count-1) //最後の星が出るタイミング
         {
+            
+
+            _listEffect2.Clear();
+            for (i = 0; i < _liststar.Count; i++)
+            {
+                _listEffect2.Add(Instantiate(Magic_effect_Prefab2, _liststar[i].transform));
+                _listEffect2.Add(Instantiate(Magic_effect_Prefab1, _liststar[i].transform));
+            }
+
             //合格演出
-            if (star_count >= 3 && star_count <= 4)
+            if(Total_score < 30) //まずい
+            {
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "マズい..。";
+            }
+            if (Total_score >= 30 && Total_score < GameMgr.low_score)
             {
                 sc.PlaySe(19);
-
-                _listEffect2.Clear();
-                for (i = 0; i < _liststar.Count; i++)
-                {
-                    _listEffect2.Add(Instantiate(Magic_effect_Prefab2, _liststar[i].transform));
-                    _listEffect2.Add(Instantiate(Magic_effect_Prefab1, _liststar[i].transform));
-                }
-
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = new Color(91f / 255f, 55f / 255f, 206f / 255f);
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "合格";
-                GoukakuPanelOn();
+                //GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = new Color(91f / 255f, 55f / 255f, 206f / 255f);
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "兄ちゃん！あとひといき..！";                
             }
-            else if (star_count >= 5) //☆５以上のとき エフェクト
+            else if (Total_score >= GameMgr.low_score && Total_score < GameMgr.high_score)
             {
                 sc.PlaySe(19);
-
-                _listEffect2.Clear();
-                for (i = 0; i < _liststar.Count; i++)
-                {
-                    _listEffect2.Add(Instantiate(Magic_effect_Prefab2, _liststar[i].transform));
-                    _listEffect2.Add(Instantiate(Magic_effect_Prefab1, _liststar[i].transform));
-                }
-
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = text_default_color;
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "大満足!!";
-                GoukakuPanelOn();
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "うみゃあ！！";
             }
+            else if (Total_score >= GameMgr.high_score && Total_score < 100)
+            {
+                sc.PlaySe(19);
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "大うみゃあ！！";
+            }
+            else if (Total_score >= 100)
+            {
+                sc.PlaySe(19);
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "このお菓子は最高だ！！";
+            }
+
+            GoukakuPanelOn();
         }
 
         yield return new WaitForSeconds(0.2f);

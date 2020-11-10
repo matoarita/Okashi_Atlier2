@@ -2071,7 +2071,10 @@ public class Compound_Main : MonoBehaviour
         Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji + "を読んだ");
 
         //レシピを読むと、知識がつきアイテム発見力が上がる。
-        PlayerStatus.player_girl_findpower += 5;
+        if (pitemlist.eventitemlist[recipi_num].event_itemName != "najya_start_recipi")
+        {
+            PlayerStatus.player_girl_findpower += 5;
+        }
     }
 
 
@@ -2285,7 +2288,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    //好感度によって発生する、サブイベント達
+    //好感度によって発生する、メインイベント。基本、クエストクリアボタンを押さないと発動しない。
     public void Check_GirlLoveEvent()
     {
         if (GirlLove_loading == true)
@@ -2318,7 +2321,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[0]) //レベル２のときのイベント
+                    if (GameMgr.OkashiQuest_flag_stage1[0] && GameMgr.questclear_After) //レベル２のときのイベント
                     {
 
                         event_num = 10;
@@ -2327,6 +2330,8 @@ public class Compound_Main : MonoBehaviour
                         {
                             GameMgr.GirlLoveEvent_num = 10;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;　//1番がtrueになってたら、現在は、ステージ１－２のクエストが発生中という意味。
+
+                            GameMgr.questclear_After = false;
 
                             //レシピの追加
                             pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                            
@@ -2343,7 +2348,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[1]) //レベル３のときのイベント。
+                    if (GameMgr.OkashiQuest_flag_stage1[1] && GameMgr.questclear_After) //レベル３のときのイベント。
                     {
                         event_num = 20;
 
@@ -2351,6 +2356,8 @@ public class Compound_Main : MonoBehaviour
                         {
                             GameMgr.GirlLoveEvent_num = 20;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            GameMgr.questclear_After = false;
 
                             //レシピの追加
                             pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加                                
@@ -2366,7 +2373,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[2]) //レベル４のときのイベント。
+                    if (GameMgr.OkashiQuest_flag_stage1[2] && GameMgr.questclear_After) //レベル４のときのイベント。
                     {
                         event_num = 30;
 
@@ -2374,6 +2381,8 @@ public class Compound_Main : MonoBehaviour
                         {
                             GameMgr.GirlLoveEvent_num = 30;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            GameMgr.questclear_After = false;
 
                             //クエスト発生
                             Debug.Log("好感度イベント４をON: シュークリームが食べたい　開始");
@@ -2386,7 +2395,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[3]) //レベル５のときのイベント。
+                    if (GameMgr.OkashiQuest_flag_stage1[3] && GameMgr.questclear_After) //レベル５のときのイベント。
                     {
                         event_num = 40;
 
@@ -2394,6 +2403,8 @@ public class Compound_Main : MonoBehaviour
                         {
                             GameMgr.GirlLoveEvent_num = 40;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            GameMgr.questclear_After = false;
 
                             //クエスト発生
                             Debug.Log("好感度イベント５をON: ドーナツが食べたい　開始");
@@ -2406,7 +2417,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (GameMgr.OkashiQuest_flag_stage1[4]) //ステージ１　５つクリアしたので、コンテストイベント
+                    if (GameMgr.OkashiQuest_flag_stage1[4] && GameMgr.questclear_After) //ステージ１　５つクリアしたので、コンテストイベント
                     {
                         event_num = 50;
 
@@ -2414,6 +2425,8 @@ public class Compound_Main : MonoBehaviour
                         {
                             GameMgr.GirlLoveEvent_num = 50;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true;
+
+                            GameMgr.questclear_After = false;
 
                             //コンテストの締め切り日を設定
                             GameMgr.stage1_limit_day = PlayerStatus.player_day + 7;

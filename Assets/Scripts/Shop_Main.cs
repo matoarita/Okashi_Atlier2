@@ -51,6 +51,8 @@ public class Shop_Main : MonoBehaviour {
     private GameObject shopon_toggle_quest;
     private GameObject shopon_toggle_uwasa;
 
+    private bool check_event;
+    private bool event_loading;
     private bool check_lvevent;
     private bool lvevent_loading;
 
@@ -158,7 +160,9 @@ public class Shop_Main : MonoBehaviour {
         shop_status = 0;
         shop_scene = 0;
 
-        check_lvevent = false;
+        check_event = false; //強制で発生するイベントのフラグ
+        event_loading = false;
+        check_lvevent = false; //レベルに応じて発生するイベントのフラグ
         lvevent_loading = false;
 
         //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
@@ -177,105 +181,128 @@ public class Shop_Main : MonoBehaviour {
         //入店の音
         sc.PlaySe(51);
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        //イベント発生フラグをチェック
-        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+    // Update is called once per frame
+    void Update()
+    {
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (event_loading) { }
+        else
         {
+            if (!GameMgr.ShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+            {
+                GameMgr.ShopEvent_stage[0] = true;
+                GameMgr.scenario_ON = true;
 
-            case 0: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+                GameMgr.shop_event_num = 0;
+                GameMgr.shop_event_flag = true;
 
-                if (!GameMgr.ShopEvent_stage[0])
-                {
-                    GameMgr.ShopEvent_stage[0] = true;
-                    GameMgr.scenario_ON = true;
+                //メイン画面にもどったときに、イベントを発生させるフラグをON
+                GameMgr.CompoundEvent_num = 0;
+                GameMgr.CompoundEvent_flag = true;
 
-                    GameMgr.shop_event_num = 0;
-                    GameMgr.shop_event_flag = true;
+                check_event = true;
+                event_loading = true;
 
-                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                    GameMgr.CompoundEvent_num = 0;
-                    GameMgr.CompoundEvent_flag = true;
-
-                    StartCoroutine("Scenario_loading");
-                }
-
-                break;
-
-            case 10: //ショップ二度目。ラスク作りの材料を買いにきた。
-
-                if (!GameMgr.ShopEvent_stage[1])
-                {
-                    GameMgr.ShopEvent_stage[1] = true;
-                    GameMgr.scenario_ON = true;
-
-                    GameMgr.shop_event_num = 10;
-                    GameMgr.shop_event_flag = true;
-
-                    StartCoroutine("Scenario_loading");
-                }
-
-                break;
-
-            case 20: //クレープイベント
-
-                if (!GameMgr.ShopEvent_stage[2])
-                {
-                    GameMgr.ShopEvent_stage[2] = true;
-                    GameMgr.scenario_ON = true;
-
-                    GameMgr.shop_event_num = 20;
-                    GameMgr.shop_event_flag = true;
-
-                    StartCoroutine("Scenario_loading");
-                }
-
-                break;
-
-            case 30: //シュークリームイベント
-
-                if (!GameMgr.ShopEvent_stage[3])
-                {
-                    GameMgr.ShopEvent_stage[3] = true;
-                    GameMgr.scenario_ON = true;
-
-                    GameMgr.shop_event_num = 30;
-                    GameMgr.shop_event_flag = true;
-
-                    StartCoroutine("Scenario_loading");
-                }
-
-                break;
-
-            case 40: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
-
-                if (!GameMgr.ShopEvent_stage[4])
-                {
-                    GameMgr.ShopEvent_stage[4] = true;
-                    GameMgr.scenario_ON = true;
-
-                    GameMgr.shop_event_num = 40;
-                    GameMgr.shop_event_flag = true;
-
-                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                    GameMgr.CompoundEvent_num = 20;
-                    GameMgr.CompoundEvent_flag = true;
-
-                    //村の広場にいけるようになる。
-                    matplace_database.matPlaceKaikin("Hiroba");
-
-                    StartCoroutine("Scenario_loading");
-                }
-
-                break;
-
-
-            default:
-                break;
+                StartCoroutine("Scenario_loading");
+            }
         }
-              
+
+        if (!check_event)
+        {
+            //イベント発生フラグをチェック
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+
+                case 2: //かわいい材料を探しに来た。
+
+                    if (!GameMgr.ShopEvent_stage[5])
+                    {
+                        GameMgr.ShopEvent_stage[5] = true;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 2;
+                        GameMgr.shop_event_flag = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+
+                    break;
+
+                case 10: //ショップ二度目。ラスク作りの材料を買いにきた。
+
+                    if (!GameMgr.ShopEvent_stage[1])
+                    {
+                        GameMgr.ShopEvent_stage[1] = true;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 10;
+                        GameMgr.shop_event_flag = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+
+                    break;
+
+                case 20: //クレープイベント
+
+                    if (!GameMgr.ShopEvent_stage[2])
+                    {
+                        GameMgr.ShopEvent_stage[2] = true;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 20;
+                        GameMgr.shop_event_flag = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+
+                    break;
+
+                case 30: //シュークリームイベント
+
+                    if (!GameMgr.ShopEvent_stage[3])
+                    {
+                        GameMgr.ShopEvent_stage[3] = true;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 30;
+                        GameMgr.shop_event_flag = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+
+                    break;
+
+                case 40: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
+
+                    if (!GameMgr.ShopEvent_stage[4])
+                    {
+                        GameMgr.ShopEvent_stage[4] = true;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 40;
+                        GameMgr.shop_event_flag = true;
+
+                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                        GameMgr.CompoundEvent_num = 20;
+                        GameMgr.CompoundEvent_flag = true;
+
+                        //村の広場にいけるようになる。
+                        matplace_database.matPlaceKaikin("Hiroba");
+
+                        StartCoroutine("Scenario_loading");
+                    }
+
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+
+
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
@@ -336,7 +363,8 @@ public class Shop_Main : MonoBehaviour {
 
                             //intパラメーターの値を設定する.
                             maincam_animator.SetInteger("trans", trans);
-                        } else if (trans == 10) //カメラが寄っていたら、デフォに戻す。
+                        }
+                        else if (trans == 10) //カメラが寄っていたら、デフォに戻す。
                         {
                             //カメラ寄る。
                             trans = 0; //transが1を超えたときに、ズームするように設定されている。
@@ -371,7 +399,7 @@ public class Shop_Main : MonoBehaviour {
             }
         }
 
-	}
+    }
 
     public void OnCheck_1() //ショップ　アイテムを買う
     {
@@ -542,6 +570,8 @@ public class Shop_Main : MonoBehaviour {
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
 
+        check_event = false;
+        event_loading = false;
         check_lvevent = false;
         lvevent_loading = false;
         shop_status = 0;

@@ -199,7 +199,7 @@ MonoBehaviour:
     - ItemID: 26
       slot_Name: MachaPowder
       slot_Hyouki_1: "\u62B9\u8336"
-      slot_Hyouki_2: "\u62B9\u8336"
+      slot_Hyouki_2: "\u62B9\u8336\u5473"
       slot_totalscore: 3
       slot_getgirllove: 7
       slot_money: 120
@@ -262,7 +262,7 @@ MonoBehaviour:
     - ItemID: 35
       slot_Name: Yoguruto
       slot_Hyouki_1: "\u30E8\u30FC\u30B0\u30EB\u30C8"
-      slot_Hyouki_2: "\u30E8\u30FC\u30B0\u30EB\u30C8"
+      slot_Hyouki_2: "\u30E8\u30FC\u30B0\u30EB\u30C8\u6DFB\u3048"
       slot_totalscore: 3
       slot_getgirllove: 4
       slot_money: 50
@@ -346,8 +346,8 @@ MonoBehaviour:
     - ItemID: 47
       slot_Name: StrangeGlass
       slot_Hyouki_1: "\u3078\u3093\u306A\u8349"
-      slot_Hyouki_2: "\u3078\u3093\u306A\u9999\u308A"
-      slot_totalscore: -30
+      slot_Hyouki_2: "\u3078\u3093\u306A\u8349\u306E"
+      slot_totalscore: -60
       slot_getgirllove: -30
       slot_money: 150
     - ItemID: 48

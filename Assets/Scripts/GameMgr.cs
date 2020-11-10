@@ -28,6 +28,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int GirlLoveEvent_num;            //女の子の好感度に応じて発生するイベントの、イベント番号
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
     public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
+    public static bool questclear_After;            //クエストクリアボタンを押したよ、というフラグ。セーブの必要はなし。
 
     public static bool[] GirlLoveEvent_stage1 = new bool[100];  //各イベントの、現在読み中かどうかのフラグ。
     public static bool[] GirlLoveEvent_stage2 = new bool[100];
@@ -319,6 +320,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GirlLoveEvent_num = 0;
         girlloveevent_flag = false;
         girlloveevent_endflag = false;
+        questclear_After = false;
 
         sleep_flag = false;
         sleep_status = 0;

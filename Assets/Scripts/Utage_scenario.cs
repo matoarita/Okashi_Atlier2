@@ -1096,14 +1096,17 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
-        scenarioLabel = "Recipi_read_after"; //アイテム発見力があがるメッセージ
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
+        if (re_flag != 0) //最初のレシピだけは表示しない。
         {
-            yield return null;
+            scenarioLabel = "Recipi_read_after"; //アイテム発見力があがるメッセージ
+                                                 //「宴」のシナリオを呼び出す
+            Engine.JumpScenario(scenarioLabel);
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario)
+            {
+                yield return null;
+            }
         }
 
 
