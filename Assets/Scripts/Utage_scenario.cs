@@ -1680,9 +1680,20 @@ public class Utage_scenario : MonoBehaviour
                 moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
                 //お金の消費
-                PlayerStatus.player_money -= 50;
-                GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true;
-                //moneyStatus_Controller.UseMoney(100); //うわさ話をきくをONにしたので、-100G
+                if (PlayerStatus.player_money >= 50)
+                {
+                    PlayerStatus.player_money -= 50;
+                    GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true;
+                    //moneyStatus_Controller.UseMoney(100); //うわさ話をきくをONにしたので、-100G
+
+                    //ここで、宴で呼び出したいイベント番号を設定する。
+                    engine.Param.TrySetParameter("MoneyCheck_Flag", true);
+                }
+                else //お金がたりないので、きけない。
+                {
+                    //ここで、宴で呼び出したいイベント番号を設定する。
+                    engine.Param.TrySetParameter("MoneyCheck_Flag", false);
+                }
             }
             else //きける話がひとつもない場合は、無視
             {

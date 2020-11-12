@@ -454,8 +454,8 @@ MonoBehaviour:
       topping03: Non
       topping04: Non
       topping05: Non
-      tp_score01: 10
-      tp_score02: 15
+      tp_score01: 30
+      tp_score02: 0
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0

@@ -148,6 +148,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject system_toggle;
     private GameObject status_toggle;
 
+    private GameObject MainUICloseButton;
     private Button extreme_Button;
     private Button recipi_Button;
     private GameObject sell_Button;
@@ -415,6 +416,8 @@ public class Compound_Main : MonoBehaviour
         stageclear_button_toggle.isOn = false;
         stageclear_Button.SetActive(false);
 
+        MainUICloseButton = canvas.transform.Find("MainUIPanel/MainUICloseButton").gameObject;
+
         compound_status = 0;
         compound_select = 0;       
 
@@ -464,7 +467,8 @@ public class Compound_Main : MonoBehaviour
         DefaultStartPitem();
 
         //各調合時のシステムメッセージ集
-        originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
+        originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + 
+            "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
         recipi_text = "レシピから作るよ。何を作る？";
 
@@ -2718,6 +2722,7 @@ public class Compound_Main : MonoBehaviour
         sleep_toggle.GetComponent<Toggle>().interactable = false;
         system_toggle.GetComponent<Toggle>().interactable = false;
         status_toggle.GetComponent<Toggle>().interactable = false;
+        MainUICloseButton.GetComponent<Button>().interactable = false;
     }
 
     public void OffCompoundSelect()
@@ -2729,6 +2734,7 @@ public class Compound_Main : MonoBehaviour
         sleep_toggle.GetComponent<Toggle>().interactable = false;
         system_toggle.GetComponent<Toggle>().interactable = false;
         status_toggle.GetComponent<Toggle>().interactable = false;
+        MainUICloseButton.GetComponent<Button>().interactable = false;
         extreme_Button.interactable = false;
     }
 
@@ -2741,6 +2747,7 @@ public class Compound_Main : MonoBehaviour
         sleep_toggle.GetComponent<Toggle>().interactable = true;
         system_toggle.GetComponent<Toggle>().interactable = true;
         status_toggle.GetComponent<Toggle>().interactable = true;
+        MainUICloseButton.GetComponent<Button>().interactable = true;
         extreme_Button.interactable = true;
     }
 

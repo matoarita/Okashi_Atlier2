@@ -1792,8 +1792,8 @@ MonoBehaviour:
     - ItemID: 71
       cmpitemName: sugerbutter_cookie
       cmpitemID_1: neko_cookie
-      cmpitemID_2: zarame
-      cmpitemID_3: whipped cream
+      cmpitemID_2: whipped cream
+      cmpitemID_3: empty
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
@@ -1801,17 +1801,17 @@ MonoBehaviour:
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 1
-      best_kosu1: 2
-      best_kosu2: 3.3
-      best_kosu3: 3
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
       cmp_flag: 0
       cost_time: 3
-      success_rate: 95
-      renkin_Bexp: 3
+      success_rate: 85
+      renkin_Bexp: 6
       Comment: 
-      Comment2: "\u30AF\u30C3\u30AD\u30FC*\u30B6\u30E9\u30E1*\u30DB\u30A4\u30C3\u30D7\u30AF\u30EA\u30FC\u30E0"
-      KeisanMethod: Use
+      Comment2: "\u30AF\u30C3\u30AD\u30FC*\u30DB\u30A4\u30C3\u30D7\u30AF\u30EA\u30FC\u30E0"
+      KeisanMethod: Non
       comp_count: 0
       release_recipi: sugerbutter_cookie
     - ItemID: 72

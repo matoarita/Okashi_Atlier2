@@ -266,7 +266,7 @@ public class Result_Panel : MonoBehaviour
             else if (Total_score >= GameMgr.high_score && Total_score < 100)
             {
                 sc.PlaySe(19);
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "大うみゃあ！！";
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "大好きぃ！！";
             }
             else if (Total_score >= 100)
             {

@@ -2358,8 +2358,11 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 83
       debugIndex: 83
-      strings: []
-      isEmpty: 1
+      strings:
+      - MoneyCheck_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 84
@@ -2394,7 +2397,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 1552
+    textLength: 1576
     headerRow: 0
   - rows:
     - rowIndex: 0

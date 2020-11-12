@@ -33,6 +33,8 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
+    private GameObject MainUIPanel_obj;
+
     private GameObject Girlloveexp_bar;
 
     private Debug_Panel debug_panel;
@@ -392,6 +394,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
                 extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
 
+                MainUIPanel_obj = canvas.transform.Find("MainUIPanel").gameObject;
+
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
@@ -602,10 +606,11 @@ public class GirlEat_Judge : MonoBehaviour {
                  
                     girl1_status.GirlEat_Judge_on = false;
 
-                    Extremepanel_obj.SetActive(false);
-                    MoneyStatus_Panel_obj.SetActive(false);
+                    //Extremepanel_obj.SetActive(false);
+                    //MoneyStatus_Panel_obj.SetActive(false);
                     text_area.SetActive(false);
-                    Girlloveexp_bar.SetActive(false);
+                    //Girlloveexp_bar.SetActive(false);
+                    MainUIPanel_obj.SetActive(false);
 
                     if (stageclear_Button.activeInHierarchy)
                     {
@@ -676,7 +681,8 @@ public class GirlEat_Judge : MonoBehaviour {
                     Extremepanel_obj.SetActive(true);
                     MoneyStatus_Panel_obj.SetActive(true);
                     text_area.SetActive(true);
-                    Girlloveexp_bar.SetActive(true);                    
+                    Girlloveexp_bar.SetActive(true);
+                    MainUIPanel_obj.SetActive(true);
 
                     if (stageclear_button_on)
                     {
