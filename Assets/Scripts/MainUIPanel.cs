@@ -9,6 +9,8 @@ public class MainUIPanel : MonoBehaviour {
 
     private SoundController sc;
 
+    private Compound_Main compound_Main;
+
     // Use this for initialization
     void Start () {
 
@@ -19,6 +21,8 @@ public class MainUIPanel : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
     }
 	
 	// Update is called once per frame
@@ -34,7 +38,7 @@ public class MainUIPanel : MonoBehaviour {
             //child.GetComponent<CanvasGroup>().alpha = 1;
         }
         UIOpenButton_obj.SetActive(false);
-        
+        compound_Main.QuestClearCheck();
     }
 
     public void OnCloseButton()

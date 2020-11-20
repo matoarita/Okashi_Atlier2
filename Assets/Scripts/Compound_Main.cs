@@ -1065,6 +1065,7 @@ public class Compound_Main : MonoBehaviour
 
                 //クエストをクリアしたら、クリアボタンがでる。
                 QuestClearCheck();
+                Debug.Log("GameMgr.QuestClearflag: " + GameMgr.QuestClearflag);
 
                 //イベントに応じてコマンドを増やす関係
                 FlagEvent();
@@ -1606,6 +1607,8 @@ public class Compound_Main : MonoBehaviour
 
     public void QuestClearCheck() //SaveControllerからも読み込んでいる。
     {
+        stageclear_panel.SetActive(false);
+
         //5個クエストをクリアしたら、クリアボタンがでる。
         if (GameMgr.OkashiQuest_flag_stage1[4])
         {
