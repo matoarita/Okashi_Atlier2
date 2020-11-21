@@ -347,8 +347,8 @@ MonoBehaviour:
       slot_Name: StrangeGlass
       slot_Hyouki_1: "\u3078\u3093\u306A\u8349"
       slot_Hyouki_2: "\u3078\u3093\u306A\u8349\u306E"
-      slot_totalscore: -60
-      slot_getgirllove: -30
+      slot_totalscore: -30
+      slot_getgirllove: -5
       slot_money: 150
     - ItemID: 48
       slot_Name: HimawariSeed

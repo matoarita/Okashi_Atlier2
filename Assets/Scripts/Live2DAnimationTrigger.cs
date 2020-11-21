@@ -37,11 +37,17 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         //うまく調合できた場合は、「おいしそ～」って感じで、ワクワクした表情に。
         if(exp_Controller.ResultSuccess) //成功した場合
         {
-            girl1_status.face_girl_Surprise(); //おいしそ～
+            girl1_status.face_girl_Yodare(); //おいしそ～ よだれの表情
+
+            //「おいしそ～」って吹き出しもだしていいかも。
+            girl1_status.hukidashiReturnHome();
         } else //失敗した場合
         {
             girl1_status.DefaultFace(); //現在の機嫌に合わせた表情に戻す
-        }      
+        }
+
+        //腹減りカウント再開
+        girl1_status.GirlEat_Judge_on = true;
     }
 
     public void OnEndOriCompoPosition()

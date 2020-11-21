@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 48,
-		"TotalSegmentCount": 177,
-		"TotalPointCount": 533,
+		"CurveCount": 50,
+		"TotalSegmentCount": 179,
+		"TotalPointCount": 537,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -880,6 +880,28 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamCry",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamYodare",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamKirakiraEye",
 			"Segments": [
 				0,
 				0,

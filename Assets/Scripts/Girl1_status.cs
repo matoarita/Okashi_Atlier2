@@ -621,7 +621,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         {
                             switch (timeGirl_hungry_status)
                             {
-                                case 0:
+                                //timeGirl_hungry_status = 0: 満腹
+                                //timeGirl_hungry_status = 1: 腹減った
+                                //timeGirl_hungry_status = 2: あげた直後
+
+                                case 0: //満腹状態のとき
 
                                     timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
@@ -634,7 +638,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                     break;
 
-                                case 1:
+                                case 1: //腹減ったのとき
 
                                     _model.GetComponent<CubismEyeBlinkController>().enabled = true;
                                     timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
@@ -647,9 +651,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     DefFaceChange();
                                     break;
 
-                                case 2:
-
-                                    //お菓子をあげたあとの状態。
+                                case 2: //お菓子をあげたあとの状態。
 
                                     timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
@@ -1285,6 +1287,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         DeleteHukidashi();
     }
 
+    //お菓子出来たて直後の吹き出しリセット設定
+    public void ResetHukidashiYodare()
+    {
+        //一度吹き出しを削除し、クエスト吹き出しなどを表示する。
+        timeOut = 30.0f;
+        timeOut2 = 10.0f;
+        timeGirl_hungry_status = 1;
+
+        DeleteHukidashi();
+    }
+
     //デフォルト・共通の腹減り初期化設定
     public void Girl1_Status_Init()
     {
@@ -1395,6 +1408,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         isRunning = false;
     }
 
+    public void hukidashiReturnHome()
+    {
+        hukidasiInit();
+
+        hukidashiitem.GetComponent<TextController>().SetText("おいしそ～♪");
+    }
 
     public void hukidasiInit()
     {
@@ -1405,7 +1424,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(true);
         hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(false);
-
 
         //音を鳴らす
         sc.PlaySe(7);
@@ -1442,7 +1460,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             sc.PlaySe(8);
         }
 
-        //まず全ての値を0に初期化
+        //判定用の全ての値を0に初期化
         for (i = 0; i < girl1_hungryScoreSet1.Count; i++)
         {
             girl1_hungryScoreSet1[i] = 0;
@@ -2448,6 +2466,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //表情を変更するメソッド
     public void face_girl_Normal()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 1; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2455,6 +2475,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Joukigen()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 2; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2462,6 +2484,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Bad()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 3; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2469,6 +2493,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Little_Fine()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 4; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2476,6 +2502,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Fine()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 5; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2483,6 +2511,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Tereru()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 6; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2490,6 +2520,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Yorokobi()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 7; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2499,6 +2531,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Angry()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 8; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2508,6 +2542,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Hirameki()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 9; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2517,6 +2553,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Mazui()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 10; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2525,6 +2563,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Mazui2()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 11; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2533,6 +2573,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Iya()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 12; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
@@ -2541,10 +2583,40 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void face_girl_Surprise()
     {
+        face_girl_Reset();
+
         //intパラメーターの値を設定する.  
         trans_expression = 13; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
 
+    }
+
+    public void face_girl_Cry()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 14; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Yodare()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 15; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    //表情パラメータを一旦リセット
+    public void face_girl_Reset()
+    {
+        //intパラメーターの値を設定する.  
+        trans_expression = 999; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
     }
 
     public void ResetGirlIdleTime()

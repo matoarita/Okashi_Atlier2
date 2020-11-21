@@ -1010,6 +1010,12 @@ public class Compound_Main : MonoBehaviour
 
                 if (ResultComplete_flag != 0) //厨房から帰ってくるときの動き
                 {
+                    //吹き出しの時間はリセット
+                    girl1_status.ResetHukidashiYodare();
+
+                    //腹減りカウント一時停止
+                    girl1_status.GirlEat_Judge_on = false;
+
                     ResultComplete_flag = 0;
                     //intパラメーターの値を設定する.  
 

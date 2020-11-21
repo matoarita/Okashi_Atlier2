@@ -1430,9 +1430,24 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 46
+      debugIndex: 46
+      strings:
+      - "\u30A4\u30D9\u30F3\u30C8_\u3046\u307E\u3044\u305E\uFF01\u306B\u3044\u3061\u3083\u3093\u306E\u30AF\u30C3\u30AD\u30FC"
+      - Event
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - Ev_cookie_umaizo.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Texture
     type: 1
-    textLength: 1481
+    textLength: 1526
     headerRow: 0
   - rows:
     - rowIndex: 0
