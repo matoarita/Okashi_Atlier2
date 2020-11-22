@@ -552,21 +552,21 @@ MonoBehaviour:
     list:
     - ItemID: 200
       name: Meid_Costume
-      zaiko: 50
+      zaiko: 1
       itemType: 5
       shop_sell_price: 5
       shop_buy_price: 5
       item_hyouji: 1
     - ItemID: 201
       name: Miko_Costume
-      zaiko: 50
+      zaiko: 1
       itemType: 5
       shop_sell_price: 5
       shop_buy_price: 10
       item_hyouji: 1
     - ItemID: 202
       name: Sukumizu_Costume
-      zaiko: 50
+      zaiko: 1
       itemType: 5
       shop_sell_price: 7
       shop_buy_price: 10

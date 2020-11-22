@@ -211,7 +211,7 @@ public class shopitemSelectToggle : MonoBehaviour
         else //それ以外の通常のアイテムは個数が表示
         {           
             _itemcount = pitemlist.KosuCount(database.items[shopitemlistController.shop_kettei_item1].itemName);
-            _text.text = _item_Namehyouji + "を買いますか？個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+            _text.text = _item_Namehyouji + "を買いますか？" + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
         }
 
         Debug.Log(count + "番が押されたよ");
@@ -289,9 +289,20 @@ public class shopitemSelectToggle : MonoBehaviour
 
     IEnumerator shop_buy_Final_select()
     {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Emerald_Shop":
 
-        _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" + 
+                _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
+            "エメラルどんぐり　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + "個</color>" + "いただくよ。";
+                break;
+
+            default:
+
+                _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
             "お金が　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + "G</color>" + "かかります。";
+                break;
+        }
 
         updown_button[0].interactable = false;
         updown_button[1].interactable = false;

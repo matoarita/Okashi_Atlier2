@@ -1247,7 +1247,7 @@ public class Updown_counter : MonoBehaviour {
     void BuyYosokuText()
     {
         _itemcount = pitemlist.KosuCount(database.items[shopitemlistController.shop_kettei_item1].itemName);
-        _text.text = shopitemlistController.shop_itemName_Hyouji + "を買いますか？個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+        _text.text = shopitemlistController.shop_itemName_Hyouji + "を買いますか？" + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
     }
 
     void SellYosokuText()

@@ -513,7 +513,7 @@ public class GetMaterial : MonoBehaviour {
 
             case 3:
 
-                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "きれいな石" + "</color>" + "をみつけた！";
+                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "蛍石" + "</color>" + "をみつけた！";
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItemString("kirakira_stone1", 1);
@@ -555,7 +555,7 @@ public class GetMaterial : MonoBehaviour {
         {
             case 3:
 
-                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "きれいな石" + "</color>" + "をみつけた！";
+                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "蛍石" + "</color>" + "をみつけた！";
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItemString("kirakira_stone1", 1);
@@ -579,7 +579,7 @@ public class GetMaterial : MonoBehaviour {
                 }
                 else
                 {
-                    _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "きれいな石" + "</color>" + "をみつけた！";
+                    _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" + GameMgr.ColorYellow + "蛍石" + "</color>" + "をみつけた！";
 
                     //アイテムの取得処理
                     pitemlist.addPlayerItemString("kirakira_stone1", 1);
