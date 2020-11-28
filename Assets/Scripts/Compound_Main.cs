@@ -1071,7 +1071,7 @@ public class Compound_Main : MonoBehaviour
 
                 //クエストをクリアしたら、クリアボタンがでる。
                 QuestClearCheck();
-                Debug.Log("GameMgr.QuestClearflag: " + GameMgr.QuestClearflag);
+                //Debug.Log("GameMgr.QuestClearflag: " + GameMgr.QuestClearflag);
 
                 //イベントに応じてコマンドを増やす関係
                 FlagEvent();
