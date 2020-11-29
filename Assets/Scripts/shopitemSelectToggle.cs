@@ -208,6 +208,11 @@ public class shopitemSelectToggle : MonoBehaviour
         {
             _text.text = _item_Namehyouji + "を何個買いますか？";
         }
+        else if (shopitemlistController.shop_itemType == 5) //エメラルドショップのアイテムを選択したとき
+        {
+            _itemcount = pitemlist.KosuCountEmerald(pitemlist.emeralditemlist[shopitemlistController.shop_kettei_item1].event_itemName);
+            _text.text = _item_Namehyouji + "を買いますか？" + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+        }
         else //それ以外の通常のアイテムは個数が表示
         {           
             _itemcount = pitemlist.KosuCount(database.items[shopitemlistController.shop_kettei_item1].itemName);

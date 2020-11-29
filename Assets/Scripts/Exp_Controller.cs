@@ -221,7 +221,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             case "Compound":
 
-                InitObject();
+                //InitObject();
 
                 break;
 
@@ -265,7 +265,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-        extremePanel_obj = GameObject.FindWithTag("ExtremePanel");
+        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
         text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
@@ -312,7 +312,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
             if (compound_Main_obj == null)
             {
-                InitObject();
+                //InitObject();
             }
 
             //調合中ウェイト+アニメ
@@ -332,6 +332,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //
     public void ResultOK()
     {
+        InitObject();
 
         text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
@@ -577,6 +578,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //
     public void Recipi_ResultOK()
     {
+        InitObject();
 
         text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
@@ -774,6 +776,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //
     public void Topping_Result_OK()
     {
+        InitObject();
+
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 

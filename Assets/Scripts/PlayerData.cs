@@ -44,6 +44,10 @@ public class PlayerData
     //初期アイテム取得フラグ
     public bool save_gamestart_recipi_get;
 
+    //コスチューム番号
+    public int save_costume_num;
+    public int[] save_acce_num = new int[GameMgr.Accesory_Num.Length];
+
     //イベントフラグ
     public int save_GirlLoveEvent_num;
     public bool[] save_GirlLoveEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];  //各イベントの、現在読み中かどうかのフラグ。

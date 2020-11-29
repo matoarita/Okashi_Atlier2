@@ -40,7 +40,7 @@ public class PlaceNamePanel : MonoBehaviour {
 
             case "Emerald_Shop":
 
-                _text = "エメラル☆ショップ";
+                _text = "怪しげな館";
                 break;
 
             case "Contest":

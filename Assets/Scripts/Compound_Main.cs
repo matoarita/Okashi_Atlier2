@@ -472,6 +472,11 @@ public class Compound_Main : MonoBehaviour
         extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
         recipi_text = "レシピから作るよ。何を作る？";
 
+        //メインUIパネルの取得
+        mainUI_panel_obj = canvas.transform.Find("MainUIPanel").gameObject;        
+        UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
+        SceneStart_flag = false;
+
         if (GameMgr.Scene_back_home)
         {
             GameMgr.Scene_back_home = false;
@@ -479,20 +484,18 @@ public class Compound_Main : MonoBehaviour
             //入店の音
             sc.PlaySe(38); //ドア
             sc.PlaySe(50); //ベル
+
+            //パネルを閉じる
+            mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
         }
 
         //ロード画面から読み込んだ際の処理
-        if(GameMgr.GameLoadOn)
+        if (GameMgr.GameLoadOn)
         {
             GameMgr.GameLoadOn = false;
             save_controller.DrawGameScreen();
             keymanager.InitCompoundMainScene();
         }
-
-        //メインUIパネルの取得
-        mainUI_panel_obj = canvas.transform.Find("MainUIPanel").gameObject;
-        UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
-        SceneStart_flag = false;
 
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
     }
@@ -2626,7 +2629,7 @@ public class Compound_Main : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
-            
+
         }
     }
 

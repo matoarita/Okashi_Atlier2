@@ -37,6 +37,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<int> _temp_shopzaiko = new List<int>();
     private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
 
+    private GameObject _model_obj;
+
     private int i;
     private int _itemID;
 
@@ -143,6 +145,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_First_extreme_on = PlayerStatus.First_extreme_on,
 
             save_special_animatFirst = girl1_status.special_animatFirst,
+
+            //コスチューム番号
+            save_costume_num = GameMgr.Costume_Num,
+            save_acce_num = GameMgr.Accesory_Num,
 
             //ステージ番号
             save_stage_number = GameMgr.stage_number,
@@ -313,6 +319,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         girl1_status.special_animatFirst = playerData.save_special_animatFirst;
 
+        //コスチューム番号
+        GameMgr.Costume_Num = playerData.save_costume_num;
+        GameMgr.Accesory_Num = playerData.save_acce_num;
+
         //ステージ番号
         GameMgr.stage_number = playerData.save_stage_number;
 
@@ -476,7 +486,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
-                money_status = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+                money_status = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+
+                //Live2Dモデルの取得
+                _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
 
                 //メイン画面に表示する、現在のクエスト
                 questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
@@ -490,7 +503,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 if (GameMgr.sys_extreme_itemID != 9999)
                 {
-                    extreme_panel = canvas.transform.Find("ExtremePanel").GetComponentInChildren<ExtremePanel>();
+                    extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponentInChildren<ExtremePanel>();
                     extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
                     extreme_panel.SetInitParamExtreme();
 
@@ -507,6 +520,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         debug_panel.GirlLove_Koushin(girl1_status.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
         GameMgr.KeyInputOff_flag = true;
+
+        //衣装チェンジ
+        _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
 
         compound_Main.compound_status = 0;
 

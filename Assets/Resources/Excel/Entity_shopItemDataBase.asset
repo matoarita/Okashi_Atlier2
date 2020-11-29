@@ -554,37 +554,51 @@ MonoBehaviour:
       name: Meid_Costume
       zaiko: 1
       itemType: 5
-      shop_sell_price: 5
-      shop_buy_price: 5
+      shop_sell_price: 3
+      shop_buy_price: 1
       item_hyouji: 1
     - ItemID: 201
       name: Miko_Costume
       zaiko: 1
       itemType: 5
       shop_sell_price: 5
-      shop_buy_price: 10
+      shop_buy_price: 1
       item_hyouji: 1
     - ItemID: 202
       name: Sukumizu_Costume
       zaiko: 1
       itemType: 5
       shop_sell_price: 7
-      shop_buy_price: 10
+      shop_buy_price: 1
       item_hyouji: 1
     - ItemID: 203
+      name: Glass_Acce
+      zaiko: 1
+      itemType: 5
+      shop_sell_price: 3
+      shop_buy_price: 1
+      item_hyouji: 1
+    - ItemID: 204
+      name: Bafomet_Acce
+      zaiko: 1
+      itemType: 5
+      shop_sell_price: 5
+      shop_buy_price: 1
+      item_hyouji: 1
+    - ItemID: 205
       name: slimejelly_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 5
       shop_buy_price: 2
       item_hyouji: 0
-    - ItemID: 204
+    - ItemID: 206
       name: Kakejiku
       zaiko: 1
       itemType: 5
       shop_sell_price: 3
       shop_buy_price: 5
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 0
       name: 
       zaiko: 0

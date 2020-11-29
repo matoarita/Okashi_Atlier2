@@ -159,6 +159,42 @@ MonoBehaviour:
       center_bg: Non
       back_bg: Non
     - ItemID: 4
+      file_name: oldhouse_mini_icon
+      place_Name: Emerald_Shop
+      place_Name_Hyouji: "\u602A\u3057\u3052\u306A\u9928"
+      comment: "\u30A8\u30E1\u30E9\u30EB\u30C9\u30B7\u30E7\u30C3\u30D7\u3000\u9811\u5F35\u3063\u3066\u96C6\u3081\u305F\u30A8\u30E1\u30E9\u30EB\u3069\u3093\u3050\u308A\u306F\u3001\u3053\u3053\u3067\u3054\u307B\u3046\u3073\u306B\u5909\u308F\u308B\u3002"
+      place_day: 1
+      place_cost: 0
+      place_flag: 1
+      drop_item1: "\u306A\u3057"
+      drop_item2: Non
+      drop_item3: Non
+      drop_item4: Non
+      drop_item5: Non
+      drop_item6: Non
+      drop_item7: Non
+      drop_item8: Non
+      drop_item9: Non
+      drop_item10: Non
+      drop_rare1: Non
+      drop_rare2: Non
+      drop_rare3: Non
+      drop_prob1: 10
+      drop_prob2: 30
+      drop_prob3: 30
+      drop_prob4: 30
+      drop_prob5: 0
+      drop_prob6: 0
+      drop_prob7: 0
+      drop_prob8: 0
+      drop_prob9: 0
+      drop_prob10: 0
+      drop_rare_prob1: 95
+      drop_rare_prob2: 5
+      drop_rare_prob3: 0
+      center_bg: Non
+      back_bg: Non
+    - ItemID: 5
       file_name: forest_mini_icon
       place_Name: Forest
       place_Name_Hyouji: "\u8FD1\u304F\u306E\u68EE"
@@ -194,7 +230,7 @@ MonoBehaviour:
       drop_rare_prob3: 20
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
-    - ItemID: 5
+    - ItemID: 6
       file_name: lake_mini_icon
       place_Name: BirdSanctuali
       place_Name_Hyouji: "\u30D0\u30FC\u30C9\u30B5\u30F3\u30AF\u30C1\u30E5\u30A2\u30EA"
@@ -230,7 +266,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
       back_bg: mnkuhi471565673986
-    - ItemID: 6
+    - ItemID: 7
       file_name: forest_mini_icon
       place_Name: Emerald_Forest
       place_Name_Hyouji: "\u30A8\u30E1\u30E9\u30EB\u30C9\u306E\u68EE"
@@ -266,7 +302,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
-    - ItemID: 7
+    - ItemID: 8
       file_name: lake_mini_icon
       place_Name: Lavender_field
       place_Name_Hyouji: "\u30A2\u30E1\u30B8\u30B9\u30C8\u306E\u6E56\u7554"
@@ -302,7 +338,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 5_lavender_field_600_300
       back_bg: 450-20170710225117319536
-    - ItemID: 8
+    - ItemID: 9
       file_name: hill_mini_icon
       place_Name: StrawberryGarden
       place_Name_Hyouji: "\u30EB\u30D3\u30FC\u30AC\u30FC\u30C7\u30F3"
@@ -338,7 +374,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 3_strawberrygarden_600_300
       back_bg: 03l
-    - ItemID: 9
+    - ItemID: 10
       file_name: mountain_mini_icon
       place_Name: HimawariHill
       place_Name_Hyouji: "\u30B7\u30C8\u30EA\u30F3\u306E\u4E18"
@@ -374,7 +410,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 4_himawarihill_600_300
       back_bg: himawari_sample
-    - ItemID: 10
+    - ItemID: 11
       file_name: legendtree_mini_icon
       place_Name: Forget_Island
       place_Name_Hyouji: "\u5FD8\u308C\u3089\u308C\u308B\u308B\u5CF6"
@@ -410,7 +446,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
-    - ItemID: 11
+    - ItemID: 12
       file_name: mountain_mini_icon
       place_Name: Star_Mountain
       place_Name_Hyouji: "\u661F\u964D\u308A\u306E\u4E18"
@@ -446,39 +482,3 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
-    - ItemID: 12
-      file_name: oldhouse_mini_icon
-      place_Name: Emerald_Shop
-      place_Name_Hyouji: "\u30A8\u30E1\u30E9\u30EB\u2606\u30B7\u30E7\u30C3\u30D7"
-      comment: "\u30A8\u30E1\u30E9\u30EB\u30C9\u30B7\u30E7\u30C3\u30D7\u3000\u9811\u5F35\u3063\u3066\u96C6\u3081\u305F\u30A8\u30E1\u30E9\u30EB\u3069\u3093\u3050\u308A\u306F\u3001\u3053\u3053\u3067\u3054\u307B\u3046\u3073\u306B\u5909\u308F\u308B\u3002"
-      place_day: 1
-      place_cost: 0
-      place_flag: 1
-      drop_item1: "\u306A\u3057"
-      drop_item2: Non
-      drop_item3: Non
-      drop_item4: Non
-      drop_item5: Non
-      drop_item6: Non
-      drop_item7: Non
-      drop_item8: Non
-      drop_item9: Non
-      drop_item10: Non
-      drop_rare1: Non
-      drop_rare2: Non
-      drop_rare3: Non
-      drop_prob1: 10
-      drop_prob2: 30
-      drop_prob3: 30
-      drop_prob4: 30
-      drop_prob5: 0
-      drop_prob6: 0
-      drop_prob7: 0
-      drop_prob8: 0
-      drop_prob9: 0
-      drop_prob10: 0
-      drop_rare_prob1: 95
-      drop_rare_prob2: 5
-      drop_rare_prob3: 0
-      center_bg: Non
-      back_bg: Non

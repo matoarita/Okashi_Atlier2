@@ -288,40 +288,64 @@ MonoBehaviour:
     - ev_ItemID: 0
       fileName: Icon/Book01
       name: Meid_Costume
-      nameHyouji: "\u30E1\u30A4\u30C9\u3055\u3093\u8863\u88C5"
+      nameHyouji: "\u30E1\u30A4\u30C9\u3055\u3093"
       cost_price: 0
       sell_price: 0
       kosu: 0
       read_flag: 0
       list_hyouji_on: 1
-      memo: "\u30D2\u30AB\u30EA\u306E\u30E1\u30A4\u30C9\u30B3\u30B9\u30C1\u30E5\u30FC\u30E0"
+      memo: "\u30D2\u30AB\u30EA\u306E\u30B3\u30B9\u30C1\u30E5\u30FC\u30E0"
       Re_flag_num: 9999
       Ev_flag_num: 9999
     - ev_ItemID: 1
       fileName: Icon/Book01
       name: Sukumizu_Costume
-      nameHyouji: "\u30B9\u30AF\u6C34\u8863\u88C5"
+      nameHyouji: "\u6C34\u7740"
       cost_price: 0
       sell_price: 0
       kosu: 0
       read_flag: 0
       list_hyouji_on: 1
-      memo: "\u30D2\u30AB\u30EA\u306E\u30E1\u30A4\u30C9\u30B3\u30B9\u30C1\u30E5\u30FC\u30E0"
+      memo: "\u30D2\u30AB\u30EA\u306E\u30B3\u30B9\u30C1\u30E5\u30FC\u30E0"
       Re_flag_num: 9999
       Ev_flag_num: 9999
     - ev_ItemID: 2
       fileName: Icon/Book01
       name: Miko_Costume
-      nameHyouji: "\u5DEB\u5973\u3055\u3093\u8863\u88C5"
+      nameHyouji: "\u5DEB\u5973\u3055\u3093"
       cost_price: 0
       sell_price: 0
       kosu: 0
       read_flag: 0
       list_hyouji_on: 1
-      memo: "\u30D2\u30AB\u30EA\u306E\u30E1\u30A4\u30C9\u30B3\u30B9\u30C1\u30E5\u30FC\u30E0"
+      memo: "\u30D2\u30AB\u30EA\u306E\u30B3\u30B9\u30C1\u30E5\u30FC\u30E0"
       Re_flag_num: 9999
       Ev_flag_num: 9999
     - ev_ItemID: 3
+      fileName: Icon/Book01
+      name: Glass_Acce
+      nameHyouji: "\u30E1\u30AC\u30CD"
+      cost_price: 0
+      sell_price: 0
+      kosu: 0
+      read_flag: 0
+      list_hyouji_on: 1
+      memo: "\u30D2\u30AB\u30EA\u306E\u30A2\u30AF\u30BB\u30B5\u30EA\u30FC"
+      Re_flag_num: 9999
+      Ev_flag_num: 9999
+    - ev_ItemID: 4
+      fileName: Icon/Book01
+      name: Bafomet_Acce
+      nameHyouji: "\u30D0\u30D5\u30A9\u30E1\u30C3\u30C8\u306E\u89D2"
+      cost_price: 0
+      sell_price: 0
+      kosu: 0
+      read_flag: 0
+      list_hyouji_on: 1
+      memo: "\u30D2\u30AB\u30EA\u306E\u30A2\u30AF\u30BB\u30B5\u30EA\u30FC"
+      Re_flag_num: 9999
+      Ev_flag_num: 9999
+    - ev_ItemID: 5
       fileName: Icon/Book01
       name: Kakejiku
       nameHyouji: "\u639B\u3051\u8EF8\u306E\u90E8\u5C4B"

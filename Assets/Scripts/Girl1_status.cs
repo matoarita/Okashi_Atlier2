@@ -280,9 +280,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 trans = maincam_animator.GetInteger("trans");
 
                 //Live2Dモデルの取得
-                /*_model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                 live2d_animator = _model.GetComponent<Animator>();
-                trans_expression = live2d_animator.GetInteger("trans_expression");*/
+                /*trans_expression = live2d_animator.GetInteger("trans_expression");*/
 
                 //初期表情の設定
                 CheckGokigen();
@@ -464,8 +464,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //Live2Dモデルの取得
                     _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
-                    /*
                     live2d_animator = _model.GetComponent<Animator>();
+                    /*                    
                     trans_expression = live2d_animator.GetInteger("trans_expression");*/
 
                     //メイン画面に表示する、現在のクエスト

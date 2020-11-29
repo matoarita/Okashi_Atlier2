@@ -92,6 +92,8 @@ public class KaeruCoin_Controller : MonoBehaviour
     //すぐに数字を更新
     public void ReDrawParam()
     {
+        InitParam();
+
         emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
         kaerucoin = pitemlist.playeritemlist[emeraldonguriID];
 
@@ -101,6 +103,8 @@ public class KaeruCoin_Controller : MonoBehaviour
     //減った
     public void UseCoin(int _usemoney)
     {
+        InitParam();
+
         _getmoney_obj.Add(Instantiate(_getmoneyPrefab, moneyicon_transfrom.transform));
         list_size = _getmoney_obj.Count;
         _getmoney_text = _getmoney_obj[list_size - 1].GetComponent<Text>();

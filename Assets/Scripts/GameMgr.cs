@@ -24,6 +24,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int recipi_read_ID;       //その時のイベント番号
     public static bool recipi_read_endflag; //レシピを読み終えたときのフラグ
 
+    //現在着ているコスチュームの番号
+    public static int Costume_Num;
+    public static int[] Accesory_Num = new int[6]; //アクセ番号 現在アクセ数６個
+
     //イベントフラグ
     public static int GirlLoveEvent_num;            //女の子の好感度に応じて発生するイベントの、イベント番号
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
@@ -274,6 +278,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         scenario_ON = false;
         scenario_flag_input = 0;
         scenario_flag_cullent = scenario_flag;
+
+        Costume_Num = 0;
+        for (system_i = 0; system_i < Accesory_Num.Length; system_i++)
+        {
+            Accesory_Num[system_i] = 0;
+        }
 
         event_recipi_flag = false;
         event_recipi_endflag = false;
