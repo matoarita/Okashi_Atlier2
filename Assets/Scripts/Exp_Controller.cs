@@ -221,7 +221,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             case "Compound":
 
-                //InitObject();
+                InitObject();
 
                 break;
 
@@ -312,7 +312,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
             if (compound_Main_obj == null)
             {
-                //InitObject();
+                InitObject();
             }
 
             //調合中ウェイト+アニメ
@@ -1375,6 +1375,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score)
     {
+
         text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
@@ -1385,6 +1386,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public void GirlDisLikeText(int _getlove_exp)
     {
+
         text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
@@ -1393,6 +1395,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public void GirlNotEatText()
     {
+
         text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 

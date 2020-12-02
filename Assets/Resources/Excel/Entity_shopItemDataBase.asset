@@ -558,41 +558,55 @@ MonoBehaviour:
       shop_buy_price: 1
       item_hyouji: 1
     - ItemID: 201
+      name: Sukumizu_Costume
+      zaiko: 1
+      itemType: 5
+      shop_sell_price: 3
+      shop_buy_price: 1
+      item_hyouji: 1
+    - ItemID: 202
       name: Miko_Costume
       zaiko: 1
       itemType: 5
       shop_sell_price: 5
       shop_buy_price: 1
       item_hyouji: 1
-    - ItemID: 202
-      name: Sukumizu_Costume
+    - ItemID: 203
+      name: PinkGoth_Costume
       zaiko: 1
       itemType: 5
       shop_sell_price: 7
       shop_buy_price: 1
       item_hyouji: 1
-    - ItemID: 203
+    - ItemID: 204
       name: Glass_Acce
       zaiko: 1
       itemType: 5
       shop_sell_price: 3
       shop_buy_price: 1
       item_hyouji: 1
-    - ItemID: 204
+    - ItemID: 205
       name: Bafomet_Acce
       zaiko: 1
       itemType: 5
       shop_sell_price: 5
       shop_buy_price: 1
       item_hyouji: 1
-    - ItemID: 205
+    - ItemID: 206
+      name: AngelWing_Acce
+      zaiko: 1
+      itemType: 5
+      shop_sell_price: 5
+      shop_buy_price: 1
+      item_hyouji: 1
+    - ItemID: 207
       name: slimejelly_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 5
       shop_buy_price: 2
       item_hyouji: 0
-    - ItemID: 206
+    - ItemID: 208
       name: Kakejiku
       zaiko: 1
       itemType: 5

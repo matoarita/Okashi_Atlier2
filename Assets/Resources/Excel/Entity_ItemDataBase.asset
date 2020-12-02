@@ -12149,7 +12149,7 @@ MonoBehaviour:
     - ItemID: 1007
       file_name: oil_extracter
       name: juice_mixer
-      nameHyouji: "\u30DE\u30B8\u30C3\u30AF\u30D0\u30EC\u30C3\u30C8\u30DF\u30AD\u30B5\u30FC"
+      nameHyouji: "\u9B54\u6CD5\u306E\u30B8\u30E5\u30FC\u30B9\u30DF\u30AD\u30B5\u30FC"
       desc: "\u679C\u7269\u3092\u62BC\u3057\u3064\u3076\u3057\u3001\u679C\u6C41\u3092\u53D6\u308B\u305F\u3081\u306E\u5668\u5177\u3002\u30B8\u30E5\u30FC\u30B9\u304C\u4F5C\u308C\u308B\u3002"
       comp_hosei: 0
       hp: 0
@@ -12196,7 +12196,7 @@ MonoBehaviour:
     - ItemID: 1008
       file_name: flyer
       name: flyer
-      nameHyouji: "\u30D5\u30E9\u30A4\u30E4\u30FC"
+      nameHyouji: "\u30C8\u30EC\u30F3\u30C8\u306E\u30D5\u30E9\u30A4\u30E4\u30FC"
       desc: "\u63DA\u3052\u7269\u3092\u4F5C\u308B\u305F\u3081\u306E\u6A5F\u68B0\u3002\u934B\u306B\u6CB9\u3092\u5927\u91CF\u306B\u5F35\u3063\u3066\u3044\u308B\u3002"
       comp_hosei: 0
       hp: 0
@@ -12384,7 +12384,7 @@ MonoBehaviour:
     - ItemID: 1012
       file_name: item_box1
       name: itembox_1
-      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u308A\u3093\u3054\u30AF\u30E9\u30B9\uFF1E"
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30DD\u30E0\uFF1E"
       desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv2\u3002\u4E00\u5EA6\u306B15\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
       comp_hosei: 0
       hp: 0
@@ -12431,7 +12431,7 @@ MonoBehaviour:
     - ItemID: 1013
       file_name: item_box2
       name: itembox_2
-      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30D0\u30CA\u30CA\u30AF\u30E9\u30B9\uFF1E"
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30D5\u30EC\u30FC\u30BA\uFF1E"
       desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv3\u3002\u4E00\u5EA6\u306B30\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
       comp_hosei: 0
       hp: 0
@@ -12478,7 +12478,7 @@ MonoBehaviour:
     - ItemID: 1014
       file_name: item_box3
       name: itembox_3
-      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30E1\u30ED\u30F3\u30AF\u30E9\u30B9\uFF1E"
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30E1\u30ED\u30F3\uFF1E"
       desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv4\u3002\u4E00\u5EA6\u306B50\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
       comp_hosei: 0
       hp: 0

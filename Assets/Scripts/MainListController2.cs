@@ -190,6 +190,19 @@ public class MainListController2 : MonoBehaviour
 
                     break;
 
+                case 50: //コンテストイベント時
+
+                    if (!GameMgr.hiroba_event_end[10])
+                    {
+                        GameMgr.hiroba_event_ID = 50; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    else
+                    {
+                        GameMgr.hiroba_event_ID = 51; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+
+                    break;
+
                 default:
 
                     GameMgr.hiroba_event_ID = 0; //そのときに呼び出すイベント番号 placeNumとセットで使う。

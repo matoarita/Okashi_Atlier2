@@ -643,7 +643,7 @@ public class Contest_Judge : MonoBehaviour {
 
             //次に味の判定処理。判定後、採点の数値がかえってくる。
 
-            total_score[count] = girlEat_judge.Judge_Score_Return(kettei_item1, _toggle_type1, 1, count); //点数の判定。0~1の数字は、女の子のお菓子の判定か、コンテストでの判定かのタイプ分け
+            total_score[count] = girlEat_judge.Judge_Score_Return(kettei_item1, _toggle_type1, 1, count); //点数の判定。3番目の0~1の数字は、女の子のお菓子の判定か、コンテストでの判定かのタイプ分け
             //Debug.Log("審査員　点数: " + total_score[count]);
 
             count++;

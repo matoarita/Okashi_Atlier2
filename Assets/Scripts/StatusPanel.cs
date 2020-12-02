@@ -106,6 +106,11 @@ public class StatusPanel : MonoBehaviour {
                 costume_list[2].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
             }
 
+            if (pitemlist.emeralditemlist[i].event_itemName == "PinkGoth_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ピンクゴスロリ
+            {
+                costume_list[3].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+            }
+
             if (pitemlist.emeralditemlist[i].event_itemName == "Glass_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メガネ
             {
                 costume_list[6].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
@@ -114,6 +119,11 @@ public class StatusPanel : MonoBehaviour {
             if (pitemlist.emeralditemlist[i].event_itemName == "Bafomet_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //バフォメットの角
             {
                 costume_list[7].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+            }
+
+            if (pitemlist.emeralditemlist[i].event_itemName == "AngelWing_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //天使のはね
+            {
+                costume_list[8].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
             }
         }
 

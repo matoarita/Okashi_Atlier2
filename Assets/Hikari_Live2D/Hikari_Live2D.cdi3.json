@@ -2,6 +2,11 @@
 	"Version": 3,
 	"Parameters": [
 		{
+			"Id": "ParamKeyFrame",
+			"GroupId": "",
+			"Name": "原画キーフレーム(メモ）"
+		},
+		{
 			"Id": "headPosX",
 			"GroupId": "ParamGroup",
 			"Name": "headPosX"
@@ -10,6 +15,11 @@
 			"Id": "headPosY",
 			"GroupId": "ParamGroup",
 			"Name": "headPosY"
+		},
+		{
+			"Id": "ParamHeadScale",
+			"GroupId": "ParamGroup",
+			"Name": "headScale"
 		},
 		{
 			"Id": "ParamAngleX",
@@ -47,6 +57,16 @@
 			"Name": "右目　笑顔"
 		},
 		{
+			"Id": "ParamEyeL_CloseChousei",
+			"GroupId": "ParamGroup",
+			"Name": "左目少し閉じ"
+		},
+		{
+			"Id": "ParamEyeR_CloseChousei",
+			"GroupId": "ParamGroup",
+			"Name": "右目少し閉じ"
+		},
+		{
 			"Id": "ParamEyeBallX",
 			"GroupId": "ParamGroup",
 			"Name": "目玉 X"
@@ -55,6 +75,11 @@
 			"Id": "ParamEyeBallY",
 			"GroupId": "ParamGroup",
 			"Name": "目玉 Y"
+		},
+		{
+			"Id": "ParamEyeSmall",
+			"GroupId": "ParamGroup",
+			"Name": "目玉縮小"
 		},
 		{
 			"Id": "ParamBrowLY",
@@ -157,239 +182,274 @@
 			"Name": "泣き"
 		},
 		{
+			"Id": "ParamYodare",
+			"GroupId": "ParamGroup",
+			"Name": "よだれ"
+		},
+		{
+			"Id": "ParamKirakiraEye",
+			"GroupId": "ParamGroup",
+			"Name": "キラキラ目"
+		},
+		{
+			"Id": "ParamKirakira_yure",
+			"GroupId": "ParamGroup",
+			"Name": "キラキラ揺らし"
+		},
+		{
+			"Id": "ParamHiLightOn",
+			"GroupId": "ParamGroup",
+			"Name": "ハイライト揺らしあり"
+		},
+		{
 			"Id": "ParamBodyAngleX",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "体の回転　X"
 		},
 		{
 			"Id": "ParamBodyAngleY",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "体の回転　Y"
 		},
 		{
 			"Id": "ParamBodyAngleZ",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "体の回転　Z"
 		},
 		{
 			"Id": "ParamBreath",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "呼吸"
 		},
 		{
 			"Id": "Param",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "MainX"
 		},
 		{
 			"Id": "Param2",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "MainY"
 		},
 		{
 			"Id": "waistPosX",
-			"GroupId": "",
-			"Name": "waistPosX"
+			"GroupId": "ParamGroup2",
+			"Name": "腰位置X"
 		},
 		{
 			"Id": "waistPosY",
-			"GroupId": "",
-			"Name": "waistPosY"
+			"GroupId": "ParamGroup2",
+			"Name": "腰位置Y"
 		},
 		{
 			"Id": "waistR",
-			"GroupId": "",
-			"Name": "waistR"
+			"GroupId": "ParamGroup2",
+			"Name": "腰回転"
 		},
 		{
 			"Id": "upperbodyPosX",
-			"GroupId": "",
-			"Name": "upperbodyPosX"
+			"GroupId": "ParamGroup2",
+			"Name": "上半身位置X"
 		},
 		{
 			"Id": "upperbodyPosY",
-			"GroupId": "",
-			"Name": "upperbodyPosY"
+			"GroupId": "ParamGroup2",
+			"Name": "上半身位置Y"
 		},
 		{
 			"Id": "upperboddyR",
-			"GroupId": "",
-			"Name": "upperboddyR"
+			"GroupId": "ParamGroup2",
+			"Name": "上半身回転"
 		},
 		{
 			"Id": "Param3",
-			"GroupId": "",
-			"Name": "R_upperPosX"
+			"GroupId": "ParamGroup2",
+			"Name": "右肩位置X"
 		},
 		{
 			"Id": "R_upperPosY",
-			"GroupId": "",
-			"Name": "R_upperPosY"
+			"GroupId": "ParamGroup2",
+			"Name": "右肩位置Y"
 		},
 		{
 			"Id": "R_upperR",
-			"GroupId": "",
-			"Name": "R_upperR"
+			"GroupId": "ParamGroup2",
+			"Name": "右肩回転"
 		},
 		{
 			"Id": "R_armR",
-			"GroupId": "",
-			"Name": "R_armR"
+			"GroupId": "ParamGroup2",
+			"Name": "右腕回転"
 		},
 		{
 			"Id": "R_handR",
-			"GroupId": "",
-			"Name": "R_handR"
+			"GroupId": "ParamGroup2",
+			"Name": "右手回転"
 		},
 		{
 			"Id": "L_upperPosX",
-			"GroupId": "",
-			"Name": "L_upperPosX"
+			"GroupId": "ParamGroup2",
+			"Name": "左肩位置X"
 		},
 		{
 			"Id": "L_upperPosY",
-			"GroupId": "",
-			"Name": "L_upperPosY"
+			"GroupId": "ParamGroup2",
+			"Name": "左肩位置Y"
 		},
 		{
 			"Id": "L_upperR",
-			"GroupId": "",
-			"Name": "L_upperR"
+			"GroupId": "ParamGroup2",
+			"Name": "左肩回転"
 		},
 		{
 			"Id": "L_armR",
-			"GroupId": "",
-			"Name": "L_armR"
+			"GroupId": "ParamGroup2",
+			"Name": "左腕回転"
 		},
 		{
 			"Id": "L_handR",
-			"GroupId": "",
-			"Name": "L_handR"
+			"GroupId": "ParamGroup2",
+			"Name": "左手回転"
 		},
 		{
 			"Id": "WaistDownPosX",
-			"GroupId": "",
-			"Name": "WaistDownPosX"
+			"GroupId": "ParamGroup2",
+			"Name": "下半身位置X"
 		},
 		{
 			"Id": "WaistDownPosY",
-			"GroupId": "",
-			"Name": "WaistDownPosY"
+			"GroupId": "ParamGroup2",
+			"Name": "下半身位置Y"
 		},
 		{
 			"Id": "WaistDownR",
-			"GroupId": "",
-			"Name": "WaistDownR"
-		},
-		{
-			"Id": "R_upperleg_PosX",
-			"GroupId": "",
-			"Name": "R_upperleg_PosX"
-		},
-		{
-			"Id": "Param6",
-			"GroupId": "",
-			"Name": "R_upperleg_PosY"
+			"GroupId": "ParamGroup2",
+			"Name": "下半身回転"
 		},
 		{
 			"Id": "R_upperleg_R",
-			"GroupId": "",
-			"Name": "R_upperleg_R"
-		},
-		{
-			"Id": "L_upperleg_PosX",
-			"GroupId": "",
-			"Name": "L_upperleg_PosX"
-		},
-		{
-			"Id": "L_upperleg_PosY",
-			"GroupId": "",
-			"Name": "L_upperleg_PosY"
+			"GroupId": "ParamGroup2",
+			"Name": "右足回転"
 		},
 		{
 			"Id": "L_upperleg_R",
-			"GroupId": "",
-			"Name": "L_upperleg_R"
+			"GroupId": "ParamGroup2",
+			"Name": "左足回転"
 		},
 		{
-			"Id": "ParamHairFront",
-			"GroupId": "",
+			"Id": "ParamGothLoliCostume",
+			"GroupId": "ParamGroup4",
+			"Name": "メイド服"
+		},
+		{
+			"Id": "ParamSukuMizuCostume",
+			"GroupId": "ParamGroup4",
+			"Name": "スク水"
+		},
+		{
+			"Id": "ParamPinkGothLoliCostume",
+			"GroupId": "ParamGroup4",
+			"Name": "ピンクゴスロリ"
+		},
+		{
+			"Id": "ParamAcceBafomet",
+			"GroupId": "ParamGroup5",
+			"Name": "バフォメットの角"
+		},
+		{
+			"Id": "ParamAcceGlass",
+			"GroupId": "ParamGroup5",
+			"Name": "メガネ"
+		},
+		{
+			"Id": "ParamAcceAngelWing",
+			"GroupId": "ParamGroup5",
+			"Name": "天使のはね"
+		},
+		{
+			"Id": "ParamHairFront_z1",
+			"GroupId": "ParamGroup3",
 			"Name": "髪揺れ前1"
 		},
 		{
-			"Id": "Param4",
-			"GroupId": "",
+			"Id": "ParamHairFront_z2",
+			"GroupId": "ParamGroup3",
 			"Name": "髪揺れ前2"
 		},
 		{
-			"Id": "ParamHairSide",
-			"GroupId": "",
+			"Id": "ParamHairSide_z1",
+			"GroupId": "ParamGroup3",
 			"Name": "髪揺れ横1"
 		},
 		{
-			"Id": "Param5",
-			"GroupId": "",
+			"Id": "ParamHairSide_z2",
+			"GroupId": "ParamGroup3",
 			"Name": "髪揺れ横2"
 		},
 		{
+			"Id": "ParamHairSide_z3",
+			"GroupId": "ParamGroup3",
+			"Name": "髪揺れ横3"
+		},
+		{
 			"Id": "ParamHairBack",
-			"GroupId": "",
+			"GroupId": "ParamGroup3",
 			"Name": "髪揺れ　後"
 		},
 		{
-			"Id": "Param7",
-			"GroupId": "",
+			"Id": "ParamLribbon_z1",
+			"GroupId": "ParamGroup3",
+			"Name": "左リボン揺れ1"
+		},
+		{
+			"Id": "ParamLribbon_z2",
+			"GroupId": "ParamGroup3",
+			"Name": "左リボン揺れ2"
+		},
+		{
+			"Id": "ParamLribbon_z3",
+			"GroupId": "ParamGroup3",
+			"Name": "左リボン揺れ3"
+		},
+		{
+			"Id": "ParamRribbon_z1",
+			"GroupId": "ParamGroup3",
+			"Name": "右リボン揺れ1"
+		},
+		{
+			"Id": "ParamRribbon_z2",
+			"GroupId": "ParamGroup3",
+			"Name": "右リボン揺れ2"
+		},
+		{
+			"Id": "ParamRribbon_z3",
+			"GroupId": "ParamGroup3",
+			"Name": "右リボン揺れ3"
+		},
+		{
+			"Id": "skirt_z1",
+			"GroupId": "ParamGroup3",
 			"Name": "スカートの揺れ1"
 		},
 		{
-			"Id": "Param8",
-			"GroupId": "",
+			"Id": "skirt_z2",
+			"GroupId": "ParamGroup3",
 			"Name": "スカートの揺れ2"
 		},
 		{
-			"Id": "Skirt_z",
-			"GroupId": "",
+			"Id": "Skirt_zentai_z",
+			"GroupId": "ParamGroup3",
 			"Name": "スカート全体揺れ"
 		},
 		{
 			"Id": "Hair_All_z_rotate",
-			"GroupId": "",
+			"GroupId": "ParamGroup3",
 			"Name": "髪揺れ全体回転"
 		},
 		{
 			"Id": "Hair_All_z_Pos",
-			"GroupId": "",
+			"GroupId": "ParamGroup3",
 			"Name": "髪揺れ全体位置"
-		},
-		{
-			"Id": "Param_Angle_Rotation_1_L_ribbon2",
-			"GroupId": "ParamGroup4",
-			"Name": "[0]L_ribbon"
-		},
-		{
-			"Id": "Param_Angle_Rotation_2_L_ribbon2",
-			"GroupId": "ParamGroup4",
-			"Name": "[1]L_ribbon"
-		},
-		{
-			"Id": "Param_Angle_Rotation_3_L_ribbon2",
-			"GroupId": "ParamGroup4",
-			"Name": "[2]L_ribbon"
-		},
-		{
-			"Id": "Param_Angle_Rotation_1_R_ribbon2",
-			"GroupId": "ParamGroup5",
-			"Name": "[0]R_ribbon"
-		},
-		{
-			"Id": "Param_Angle_Rotation_2_R_ribbon2",
-			"GroupId": "ParamGroup5",
-			"Name": "[1]R_ribbon"
-		},
-		{
-			"Id": "Param_Angle_Rotation_3_R_ribbon2",
-			"GroupId": "ParamGroup5",
-			"Name": "[2]R_ribbon"
 		},
 		{
 			"Id": "Param_Angle_Rotation_1_R_twintail2",
@@ -484,14 +544,24 @@
 			"Name": "顔"
 		},
 		{
+			"Id": "ParamGroup2",
+			"GroupId": "",
+			"Name": "体"
+		},
+		{
 			"Id": "ParamGroup4",
 			"GroupId": "",
-			"Name": "L_ribbon"
+			"Name": "衣装チェンジ"
 		},
 		{
 			"Id": "ParamGroup5",
 			"GroupId": "",
-			"Name": "R_ribbon"
+			"Name": "アクセサリー"
+		},
+		{
+			"Id": "ParamGroup3",
+			"GroupId": "",
+			"Name": "髪の毛と揺れもの"
 		},
 		{
 			"Id": "ParamGroup6",
@@ -510,6 +580,98 @@
 		}
 	],
 	"Parts": [
+		{
+			"Id": "Part17",
+			"Name": "デフォーマ"
+		},
+		{
+			"Id": "Part18",
+			"Name": "アクセサリー顔"
+		},
+		{
+			"Id": "Part10",
+			"Name": "顔"
+		},
+		{
+			"Id": "Part22",
+			"Name": "ピンクゴスロリ"
+		},
+		{
+			"Id": "Part23",
+			"Name": "スク水"
+		},
+		{
+			"Id": "Part11",
+			"Name": "メイド服"
+		},
+		{
+			"Id": "Part13",
+			"Name": "通常服"
+		},
+		{
+			"Id": "Part12",
+			"Name": "顔後ろ"
+		},
+		{
+			"Id": "Part27",
+			"Name": "アクセサリー後ろ"
+		},
+		{
+			"Id": "Part16",
+			"Name": "表情"
+		},
+		{
+			"Id": "Part15",
+			"Name": "髪の毛"
+		},
+		{
+			"Id": "skirt_Skinning",
+			"Name": "skirt(スキニング)"
+		},
+		{
+			"Id": "Part2",
+			"Name": "skirt(回転)"
+		},
+		{
+			"Id": "B_hair2_Skinning",
+			"Name": "B_hair(スキニング)"
+		},
+		{
+			"Id": "Part7",
+			"Name": "B_hair(回転)"
+		},
+		{
+			"Id": "L_ribbon2_Skinning",
+			"Name": "L_ribbon(スキニング)"
+		},
+		{
+			"Id": "Part3",
+			"Name": "L_ribbon(回転)"
+		},
+		{
+			"Id": "R_ribbon2_Skinning",
+			"Name": "R_ribbon(スキニング)"
+		},
+		{
+			"Id": "Part4",
+			"Name": "R_ribbon(回転)"
+		},
+		{
+			"Id": "L_twintail2_Skinning",
+			"Name": "L_twintail(スキニング)"
+		},
+		{
+			"Id": "Part6",
+			"Name": "L_twintail(回転)"
+		},
+		{
+			"Id": "R_twintail2_Skinning",
+			"Name": "R_twintail(スキニング)"
+		},
+		{
+			"Id": "Part5",
+			"Name": "R_twintail(回転)"
+		},
 		{
 			"Id": "F_hair2_Skinning",
 			"Name": "F_hair(スキニング)"
@@ -533,54 +695,6 @@
 		{
 			"Id": "Part9",
 			"Name": "LF_hair(回転)"
-		},
-		{
-			"Id": "L_ribbon2_Skinning",
-			"Name": "L_ribbon(スキニング)"
-		},
-		{
-			"Id": "Part3",
-			"Name": "L_ribbon(回転)"
-		},
-		{
-			"Id": "R_ribbon2_Skinning",
-			"Name": "R_ribbon(スキニング)"
-		},
-		{
-			"Id": "Part4",
-			"Name": "R_ribbon(回転)"
-		},
-		{
-			"Id": "skirt_Skinning",
-			"Name": "skirt(スキニング)"
-		},
-		{
-			"Id": "Part2",
-			"Name": "skirt(回転)"
-		},
-		{
-			"Id": "B_hair2_Skinning",
-			"Name": "B_hair(スキニング)"
-		},
-		{
-			"Id": "Part7",
-			"Name": "B_hair(回転)"
-		},
-		{
-			"Id": "L_twintail2_Skinning",
-			"Name": "L_twintail(スキニング)"
-		},
-		{
-			"Id": "Part6",
-			"Name": "L_twintail(回転)"
-		},
-		{
-			"Id": "R_twintail2_Skinning",
-			"Name": "R_twintail(スキニング)"
-		},
-		{
-			"Id": "Part5",
-			"Name": "R_twintail(回転)"
 		}
 	]
 }

@@ -892,7 +892,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         if (contest_type == 0) //コンテストでは使用しない
         {
-        switch (girl1_status.timeGirl_hungry_status)
+            switch (girl1_status.timeGirl_hungry_status)
             {
                 case 0: //お腹が特に減ってない状態。
 
@@ -1810,7 +1810,6 @@ public class GirlEat_Judge : MonoBehaviour {
     }
 
 
-
     public int Judge_Score_Return(int value1, int value2, int SetType, int _Setcount)
     {
         SetGirlTasteInit();
@@ -1822,6 +1821,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         return total_score;
     } 
+
 
     void Girl_reaction()
     {

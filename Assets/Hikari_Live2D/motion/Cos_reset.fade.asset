@@ -16,7 +16,43 @@ MonoBehaviour:
   FadeOutTime: 1
   ParameterIds:
   - ParamGothLoliCostume
+  - ParamSukuMizuCostume
+  - ParamPinkGothLoliCostume
   ParameterCurves:
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   - serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
@@ -36,6 +72,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   ParameterFadeInTimes:
   - -1
+  - -1
+  - -1
   ParameterFadeOutTimes:
+  - -1
+  - -1
   - -1
   MotionLength: 1

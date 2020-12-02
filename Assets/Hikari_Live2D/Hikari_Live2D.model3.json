@@ -3,7 +3,7 @@
 	"FileReferences": {
 		"Moc": "Hikari_Live2D.moc3",
 		"Textures": [
-			"Hikari_Live2D.1024/texture_00.png"
+			"Hikari_Live2D.2048/texture_00.png"
 		],
 		"Physics": "Hikari_Live2D.physics3.json",
 		"DisplayInfo": "Hikari_Live2D.cdi3.json"

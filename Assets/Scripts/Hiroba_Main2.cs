@@ -152,6 +152,7 @@ public class Hiroba_Main2 : MonoBehaviour
         //読み終わったフラグをたてる
         switch(GameMgr.hiroba_event_ID)
         {
+            //クエスト４　「ドーナツ作り」～
             case 40:
 
                 GameMgr.hiroba_event_end[2] = true;                
@@ -198,6 +199,12 @@ public class Hiroba_Main2 : MonoBehaviour
             case 5042:
 
                 GameMgr.hiroba_event_end[5] = true;
+                break;
+
+            //クエスト５　コンテスト～
+            case 50:
+
+                GameMgr.hiroba_event_end[10] = true;
                 break;
 
             default:

@@ -81,6 +81,22 @@ public class Live2DCostumeTrigger : MonoBehaviour {
                     }
                     break;
 
+                case 2: //天使のはね
+
+                    if (GameMgr.Accesory_Num[i] == 0) //OFF
+                    {
+                        trans_acce = 0;
+                        live2d_animator.SetInteger("trans_acce03", trans_acce);
+                        Debug.Log("trans_acce OFF: " + trans_acce);
+                    }
+                    else //ON
+                    {
+                        trans_acce = 1;
+                        live2d_animator.SetInteger("trans_acce03", trans_acce);
+                        Debug.Log("trans_acce ON: " + trans_acce);
+                    }
+                    break;
+
                 default:
 
                     break;
