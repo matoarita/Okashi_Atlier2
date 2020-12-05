@@ -205,7 +205,7 @@ public class MainListController2 : MonoBehaviour
 
                 default:
 
-                    GameMgr.hiroba_event_ID = 0; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    GameMgr.hiroba_event_ID = 0;
                     break;
             }
             
@@ -235,19 +235,24 @@ public class MainListController2 : MonoBehaviour
                     {
                         sceneBGM.FadeOutBGM();
                         Hiroba_main2.bgm_change_flag = true;
-                        GameMgr.hiroba_event_ID = 1040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        GameMgr.hiroba_event_ID = 1040;
 
                         MenuWindowExpand();                       
                     }
                     else
                     {
-                        GameMgr.hiroba_event_ID = 1041; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        GameMgr.hiroba_event_ID = 1041; 
                     }
+                    break;
+
+                case 50:
+
+                    GameMgr.hiroba_event_ID = 1050;
                     break;
 
                 default:
 
-                    GameMgr.hiroba_event_ID = 1000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    GameMgr.hiroba_event_ID = 1000;
                     break;
             }
            
@@ -282,19 +287,24 @@ public class MainListController2 : MonoBehaviour
                         if (!GameMgr.hiroba_event_end[1])
                         {
                             
-                            GameMgr.hiroba_event_ID = 2045; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                            GameMgr.hiroba_event_ID = 2045;
                         }
                         else
                         {
-                            GameMgr.hiroba_event_ID = 2046; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                            GameMgr.hiroba_event_ID = 2046;
                         }
                         
                     }
                     break;
 
+                case 50:
+
+                    GameMgr.hiroba_event_ID = 2050;
+                    break;
+
                 default:
 
-                    GameMgr.hiroba_event_ID = 2000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    GameMgr.hiroba_event_ID = 2000;
                     break;
             }
 
@@ -338,24 +348,29 @@ public class MainListController2 : MonoBehaviour
 
                                 sceneBGM.FadeOutBGM();
                                 Hiroba_main2.bgm_change_flag = true;
-                                GameMgr.hiroba_event_ID = 3042; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                                GameMgr.hiroba_event_ID = 3042;
                             }
                             else
                             {
-                                GameMgr.hiroba_event_ID = 3041; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                                GameMgr.hiroba_event_ID = 3041;
                             }
                         }
                     }
                     else //ドーナツレシピを教わった。
                     {
-                        GameMgr.hiroba_event_ID = 3043; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        GameMgr.hiroba_event_ID = 3043;
                         
                     }
                     break;
 
+                case 50:
+
+                    GameMgr.hiroba_event_ID = 3050;
+                    break;
+
                 default:
 
-                    GameMgr.hiroba_event_ID = 3000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    GameMgr.hiroba_event_ID = 3000;
                     break;
             }
 
@@ -385,7 +400,7 @@ public class MainListController2 : MonoBehaviour
                     {
                         if (!GameMgr.hiroba_event_end[3])
                         {
-                            GameMgr.hiroba_event_ID = 4040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                            GameMgr.hiroba_event_ID = 4040;
                         }
                         else
                         {
@@ -396,18 +411,23 @@ public class MainListController2 : MonoBehaviour
                     {
                         if(!GameMgr.hiroba_event_end[7])
                         {
-                            GameMgr.hiroba_event_ID = 4042; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                            GameMgr.hiroba_event_ID = 4042;
                         }
                         else
                         {
-                            GameMgr.hiroba_event_ID = 4043; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                            GameMgr.hiroba_event_ID = 4043;
                         }
                     }
                     break;
 
+                case 50:
+
+                    GameMgr.hiroba_event_ID = 4050;
+                    break;
+
                 default:
 
-                    GameMgr.hiroba_event_ID = 4000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    GameMgr.hiroba_event_ID = 4000;
                     break;
             }
 
@@ -435,7 +455,7 @@ public class MainListController2 : MonoBehaviour
 
                     if (!GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
                     {
-                        GameMgr.hiroba_event_ID = 5040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        GameMgr.hiroba_event_ID = 5040;
                     }
                     else if (GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
                     {
@@ -477,12 +497,12 @@ public class MainListController2 : MonoBehaviour
 
                     //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
                     rndnum = Random.Range(0, 5);
-                    GameMgr.hiroba_event_ID = 6040 + rndnum; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    GameMgr.hiroba_event_ID = 6040 + rndnum;
                     break;
 
                 default:
 
-                    GameMgr.hiroba_event_ID = 6000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    GameMgr.hiroba_event_ID = 6000;
                     break;
             }
 
