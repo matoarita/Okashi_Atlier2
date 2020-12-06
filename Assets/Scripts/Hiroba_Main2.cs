@@ -152,7 +152,7 @@ public class Hiroba_Main2 : MonoBehaviour
         //読み終わったフラグをたてる
         switch(GameMgr.hiroba_event_ID)
         {
-            //クエスト４　「ドーナツ作り」～
+            //クエスト４　「ドーナツ作り」～　0番台
             case 40:
 
                 GameMgr.hiroba_event_end[2] = true;                
@@ -201,10 +201,25 @@ public class Hiroba_Main2 : MonoBehaviour
                 GameMgr.hiroba_event_end[5] = true;
                 break;
 
-            //クエスト５　コンテスト～
+            //クエスト５　コンテスト～  10番台
             case 50:
 
                 GameMgr.hiroba_event_end[10] = true;
+                break;
+
+            case 3050:
+
+                GameMgr.hiroba_event_end[11] = true;
+                break;
+
+            case 4050:
+
+                GameMgr.hiroba_event_end[12] = true;
+                break;
+
+            case 5050:
+
+                GameMgr.hiroba_event_end[13] = true;
                 break;
 
             default:

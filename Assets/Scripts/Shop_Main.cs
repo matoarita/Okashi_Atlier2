@@ -296,6 +296,22 @@ public class Shop_Main : MonoBehaviour {
 
                     break;
 
+                case 50: //コンテストイベント
+
+                    if (!GameMgr.ShopEvent_stage[5])
+                    {
+                        GameMgr.ShopEvent_stage[5] = true;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 50;
+                        GameMgr.shop_event_flag = true;
+
+                        GameMgr.CompoundEvent_flag = false; //もし一度もショップへきたことなかった場合は、帰ってきてもヒカリが「なに買ってきたの？」と聞くイベントは発生しない。
+
+                        StartCoroutine("Scenario_loading");
+                    }
+
+                    break;
 
                 default:
                     break;

@@ -1164,7 +1164,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
                     if (dislike_flag)
                     {
-                        quest_clear = true;
+                        //quest_clear = true;
                         break;
                     }
 

@@ -205,7 +205,7 @@ public class Contest_Main : MonoBehaviour {
             kettei_itemID = exp_Controller._temp_extreme_id;
             kettei_itemType = exp_Controller._temp_extreme_itemtype;
         }
-        else //エクストリームパネルにお菓子が入っていない時
+        else //エクストリームパネルにお菓子が入っていない時。デバッグ用。
         {
             //お試し　店売りねこクッキー
             kettei_itemID = 200;
@@ -251,7 +251,7 @@ public class Contest_Main : MonoBehaviour {
         }
         else if (judge_Type == 1)
         {
-            DB_list_Type = 1500;
+            DB_list_Type = 1500; //現在は使用していない。
         }
 
         i = 0;
@@ -267,6 +267,7 @@ public class Contest_Main : MonoBehaviour {
                         //一致した場合の番号を入れる。
                         compNum = girlLikeSet_database.girllikeset[i].girlLike_compNum;
                         judge_flag = true;
+                        Debug.Log("判定番号: " + compNum);
                         break;
                     }
                 }
@@ -276,6 +277,7 @@ public class Contest_Main : MonoBehaviour {
                     {
                         compNum = girlLikeSet_database.girllikeset[i].girlLike_compNum;
                         judge_flag = true;
+                        Debug.Log("判定番号: " + compNum);
                         break;
                     }
                 }

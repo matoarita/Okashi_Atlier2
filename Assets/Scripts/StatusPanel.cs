@@ -149,7 +149,23 @@ public class StatusPanel : MonoBehaviour {
             {
                 Debug.Log("衣装チェンジ: " + i);
 
-                GameMgr.Costume_Num = i;                
+                switch(i)
+                {
+                    case 0:
+                        GameMgr.Costume_Num = 1;
+                        break;
+
+                    case 1:
+                        GameMgr.Costume_Num = 0;
+                        break;
+
+                    default:
+
+                        GameMgr.Costume_Num = i;
+                        break;
+
+                }
+                              
                 _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
             }
         }

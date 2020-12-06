@@ -1486,7 +1486,7 @@ MonoBehaviour:
       sweat: 0
       bitter: 12
       sour: 12
-      crispy: 15
+      crispy: 5
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -12384,7 +12384,7 @@ MonoBehaviour:
     - ItemID: 1012
       file_name: item_box1
       name: itembox_1
-      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30DD\u30E0\uFF1E"
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u3061\u3073\uFF1E"
       desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv2\u3002\u4E00\u5EA6\u306B15\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
       comp_hosei: 0
       hp: 0
@@ -12431,7 +12431,7 @@ MonoBehaviour:
     - ItemID: 1013
       file_name: item_box2
       name: itembox_2
-      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30D5\u30EC\u30FC\u30BA\uFF1E"
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u4E2D\uFF1E"
       desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv3\u3002\u4E00\u5EA6\u306B30\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
       comp_hosei: 0
       hp: 0
@@ -12478,7 +12478,7 @@ MonoBehaviour:
     - ItemID: 1014
       file_name: item_box3
       name: itembox_3
-      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u30E1\u30ED\u30F3\uFF1E"
+      nameHyouji: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054\uFF1C\u3067\u304B\uFF1E"
       desc: "\u30A2\u30A4\u30C6\u30E0\u304B\u3054Lv4\u3002\u4E00\u5EA6\u306B50\u500B\u307E\u3067\u53CE\u7A6B\u304C\u53EF\u80FD\u306B\u306A\u308B\u3002"
       comp_hosei: 0
       hp: 0

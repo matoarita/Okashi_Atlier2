@@ -365,7 +365,15 @@ public class MainListController2 : MonoBehaviour
 
                 case 50:
 
-                    GameMgr.hiroba_event_ID = 3050;
+                    if (!GameMgr.hiroba_event_end[11])
+                    {
+                        GameMgr.hiroba_event_ID = 3050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    else
+                    {
+                        GameMgr.hiroba_event_ID = 3051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    
                     break;
 
                 default:
@@ -422,7 +430,15 @@ public class MainListController2 : MonoBehaviour
 
                 case 50:
 
-                    GameMgr.hiroba_event_ID = 4050;
+                    if (!GameMgr.hiroba_event_end[12])
+                    {
+                        GameMgr.hiroba_event_ID = 4050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    else
+                    {
+                        GameMgr.hiroba_event_ID = 4051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+
                     break;
 
                 default:
@@ -467,6 +483,19 @@ public class MainListController2 : MonoBehaviour
                     }
                     break;
 
+                case 50:
+
+                    if (!GameMgr.hiroba_event_end[13])
+                    {
+                        GameMgr.hiroba_event_ID = 5050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+                    else
+                    {
+                        GameMgr.hiroba_event_ID = 5051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                    }
+
+                    break;
+
                 default:
 
                     GameMgr.hiroba_event_ID = 5000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
@@ -498,6 +527,13 @@ public class MainListController2 : MonoBehaviour
                     //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
                     rndnum = Random.Range(0, 5);
                     GameMgr.hiroba_event_ID = 6040 + rndnum;
+                    break;
+
+                case 50: //
+
+                    //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
+                    rndnum = Random.Range(0, 5);
+                    GameMgr.hiroba_event_ID = 6050;
                     break;
 
                 default:

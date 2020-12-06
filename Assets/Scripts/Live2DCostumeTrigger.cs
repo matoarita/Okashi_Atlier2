@@ -15,8 +15,8 @@ public class Live2DCostumeTrigger : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -55,13 +55,13 @@ public class Live2DCostumeTrigger : MonoBehaviour {
                     {
                         trans_acce = 0;
                         live2d_animator.SetInteger("trans_acce01", trans_acce);
-                        Debug.Log("trans_acce OFF: " + trans_acce);
+                        //Debug.Log("trans_acce OFF: " + trans_acce);
                     }
                     else //ON
                     {
                         trans_acce = 1;
                         live2d_animator.SetInteger("trans_acce01", trans_acce);
-                        Debug.Log("trans_acce ON: " + trans_acce);
+                        //Debug.Log("trans_acce ON: " + trans_acce);
                     }
                     break;
 
@@ -71,13 +71,13 @@ public class Live2DCostumeTrigger : MonoBehaviour {
                     {
                         trans_acce = 0;
                         live2d_animator.SetInteger("trans_acce02", trans_acce);
-                        Debug.Log("trans_acce OFF: " + trans_acce);
+                        //Debug.Log("trans_acce OFF: " + trans_acce);
                     }
                     else //ON
                     {
                         trans_acce = 1;
                         live2d_animator.SetInteger("trans_acce02", trans_acce);
-                        Debug.Log("trans_acce ON: " + trans_acce);
+                        //Debug.Log("trans_acce ON: " + trans_acce);
                     }
                     break;
 
@@ -87,13 +87,13 @@ public class Live2DCostumeTrigger : MonoBehaviour {
                     {
                         trans_acce = 0;
                         live2d_animator.SetInteger("trans_acce03", trans_acce);
-                        Debug.Log("trans_acce OFF: " + trans_acce);
+                        //Debug.Log("trans_acce OFF: " + trans_acce);
                     }
                     else //ON
                     {
                         trans_acce = 1;
                         live2d_animator.SetInteger("trans_acce03", trans_acce);
-                        Debug.Log("trans_acce ON: " + trans_acce);
+                        //Debug.Log("trans_acce ON: " + trans_acce);
                     }
                     break;
 

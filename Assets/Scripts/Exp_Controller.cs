@@ -37,6 +37,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject recipiMemoButton;
     private GameObject memoResult_obj;
 
+    private GameObject recipi_archivement_obj;
+
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
@@ -280,6 +282,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
         memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
 
+        //レシピ達成率を取得
+        recipi_archivement_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiCompoImage/Panel").gameObject;
+
         //レベルアップチェック用オブジェクトの取得
         exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
 
@@ -462,6 +467,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //完成アイテムの、レシピフラグをONにする。
                 _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
                 databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+
+                //レシピ達成率を更新
+                databaseCompo.RecipiCount_database();
 
                 _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                 PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
@@ -856,6 +864,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
                     databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
 
+                    //レシピ達成率を更新
+                    databaseCompo.RecipiCount_database();
+
                     _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                     PlayerStatus.player_renkin_exp += _getexp; //エクストリームで新しく閃いた場合の経験値
 
@@ -1178,6 +1189,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
+                recipi_archivement_obj.SetActive(false);
                 kakuritsuPanel_obj.SetActive(false);
                 yes_no_panel.SetActive(false);
 

@@ -43,6 +43,9 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
 
+    private int all_recipicount, cullent_recipi_count;
+    private float recipi_archivement_rate;
+
     //調合データベース。3つのアイテムの組み合わせを見て、一個のアイテムを決定する。
     //アイテム番号が低いものをベースに、残りの番号との組み合わせを見る。番号は、アイテムID。
 
@@ -53,6 +56,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         DontDestroyOnLoad(this); //ゲーム中のアイテムリスト情報は、ゲーム中で全て共通のデータベースで管理したい。なので、破壊されないようにしておく。
 
         ResetDefaultCompoExcel();
+
+        RecipiCount_database(); //初期値設定。
     }
 
     public void ResetDefaultCompoExcel()
@@ -147,5 +152,34 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
             return 9999; //見つからなかった場合、9999
         }
+    }
+
+    public void RecipiCount_database()
+    {
+        all_recipicount = 0;
+        cullent_recipi_count = 0;
+
+        for (i = 0; i < compoitems.Count; i++)
+        {
+            if (compoitems[i].cmpitem_Name != "" && compoitems[i].cmpitem_flag != 9999)
+            {
+                all_recipicount++;
+
+                if (compoitems[i].cmpitem_flag >= 1)
+                {
+                    cullent_recipi_count++;
+                }
+            }
+        }
+
+        recipi_archivement_rate = ((float)cullent_recipi_count / (float)all_recipicount) * 100.0f;
+
+        GameMgr.game_Cullent_recipi_count = cullent_recipi_count;
+        GameMgr.game_All_recipi_count = all_recipicount;
+        GameMgr.game_Recipi_archivement_rate = recipi_archivement_rate;
+
+        //Debug.Log("総レシピ数: " + all_recipicount);
+        //Debug.Log("現在覚えているレシピ数: " + cullent_recipi_count);
+        //Debug.Log("達成率: " + recipi_archivement_rate);
     }
 }

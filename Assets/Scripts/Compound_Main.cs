@@ -130,6 +130,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject compoBGA_image;
     private GameObject compoBGA_imageOri;
+    private GameObject compoBGA_imageRecipi;
     private GameObject compoBGA_imageExtreme;
 
     private GameObject original_toggle;
@@ -357,6 +358,7 @@ public class Compound_Main : MonoBehaviour
         compoBG_A.SetActive(false);
         compoBGA_image = canvas.transform.Find("Compound_BGPanel_A/Image").gameObject;
         compoBGA_imageOri = canvas.transform.Find("Compound_BGPanel_A/OriCompoImage").gameObject;
+        compoBGA_imageRecipi = canvas.transform.Find("Compound_BGPanel_A/RecipiCompoImage").gameObject;
         compoBGA_imageExtreme = canvas.transform.Find("Compound_BGPanel_A/ExtremeImage").gameObject;
         ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
         ResultBGimage.SetActive(false);
@@ -1133,7 +1135,8 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(true);
                 compoBGA_image.SetActive(false);
-                compoBGA_imageOri.SetActive(true);
+                compoBGA_imageOri.SetActive(false);
+                compoBGA_imageRecipi.SetActive(true);
                 compoBGA_imageExtreme.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();               
@@ -1184,6 +1187,7 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A_effect.SetActive(true);
                 compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(false);
+                compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(true);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
@@ -1237,6 +1241,7 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A_effect.SetActive(true);
                 compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(true);
+                compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
@@ -1317,6 +1322,7 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A_effect.SetActive(true);
                 compoBGA_image.SetActive(true);
                 compoBGA_imageOri.SetActive(false);
+                compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
@@ -1328,7 +1334,7 @@ public class Compound_Main : MonoBehaviour
 
                 //ヒカリちゃんを表示しない。デフォルト描画順
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
-                trans_motion = 0; //調合シーン用のヒカリちゃんの位置
+                trans_motion = 1000; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 girl1_status.face_girl_Normal();
 
@@ -2659,6 +2665,10 @@ public class Compound_Main : MonoBehaviour
             pitemlist.addPlayerItemString("orange", 3);
             //pitemlist.addPlayerItemString("grape", 2);
             //pitemlist.addPlayerItemString("stone_oven", 1);
+
+            //初期コスチューム　メイド服がデフォルト
+            GameMgr.Costume_Num = 1;
+            _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
         }
     }
 

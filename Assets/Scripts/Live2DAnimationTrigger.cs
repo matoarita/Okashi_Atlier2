@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
+using Live2D.Cubism.Rendering;
 
 public class Live2DAnimationTrigger : MonoBehaviour {
 
@@ -21,12 +24,18 @@ public class Live2DAnimationTrigger : MonoBehaviour {
        
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        this.GetComponent<CubismRenderController>().SortingOrder = -500;
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    private void OnEnable()
+    {        
+    }
 
     //調合から戻ってきたときに、元の表情にもどる。
     public void OnEndReturnBackHome()
