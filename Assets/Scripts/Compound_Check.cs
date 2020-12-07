@@ -53,6 +53,8 @@ public class Compound_Check : MonoBehaviour {
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
+    private GameObject resultitemName_obj;
+
     private GameObject FinalCheckPanel;
     private Text FinalCheck_Text;
     private Text FinalCheck_itemText;
@@ -101,6 +103,8 @@ public class Compound_Check : MonoBehaviour {
         //確率パネルの取得
         kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+        resultitemName_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/TextPanel/Image/Result_item/NameText").gameObject;
 
         FinalCheckPanel = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel").gameObject;
         FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/KakuritsuMessage/Text").GetComponent<Text>();
@@ -179,6 +183,7 @@ public class Compound_Check : MonoBehaviour {
                 SelectPaused();
 
                 final_select_flag = false;
+                resultitemName_obj.SetActive(true);
 
                 StartCoroutine("recipiFinal_select");
 
@@ -192,6 +197,7 @@ public class Compound_Check : MonoBehaviour {
                 SelectPaused();
 
                 final_select_flag = false;
+                resultitemName_obj.SetActive(true);
 
                 StartCoroutine("topping_Final_select");
 
@@ -205,6 +211,7 @@ public class Compound_Check : MonoBehaviour {
                 SelectPaused();
 
                 final_select_flag = false;
+                resultitemName_obj.SetActive(true);
 
                 FinalCheckPanel.SetActive(true);
                 yes.GetComponent<Button>().interactable = false;
@@ -919,10 +926,11 @@ public class Compound_Check : MonoBehaviour {
             //新しいレシピかどうか。
             _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
             if(databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
-            {
-                //kakuritsuPanel.KakuritsuYosoku_NewImg();
+            {                
                 success_text = "新しいお菓子を思いつきそう..？";
                 newrecipi_flag = true;
+                kakuritsuPanel.KakuritsuYosoku_NewImg();
+                resultitemName_obj.SetActive(false);
             }
             else
             {

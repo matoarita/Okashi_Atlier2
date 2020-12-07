@@ -1679,10 +1679,13 @@ public class Utage_scenario : MonoBehaviour
                 canvas = GameObject.FindWithTag("Canvas");
                 moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
+                GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true; //そのうわさを読んだフラグをON
+                engine.Param.TrySetParameter("MoneyCheck_Flag", true);
+
                 //お金の消費
-                if (PlayerStatus.player_money >= 50)
+                /*if (PlayerStatus.player_money >= 0)
                 {
-                    PlayerStatus.player_money -= 50;
+                    //PlayerStatus.player_money -= 50;
                     GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true;
                     //moneyStatus_Controller.UseMoney(100); //うわさ話をきくをONにしたので、-100G
 
@@ -1693,13 +1696,24 @@ public class Utage_scenario : MonoBehaviour
                 {
                     //ここで、宴で呼び出したいイベント番号を設定する。
                     engine.Param.TrySetParameter("MoneyCheck_Flag", false);
-                }
+                }*/
             }
-            else //きける話がひとつもない場合は、無視
+            else //きける話がひとつもない場合は、無視。現在は、うわさ話無しは、削除。
             {
 
             }
         }
+
+        //宴でのフラグ関係を設定
+        if (matplace_database.matplace_lists[matplace_database.SearchMapString("Lavender_field")].placeFlag == 1) {
+            engine.Param.TrySetParameter("UwasaFlag01Check", true);
+        }
+
+        if (databaseCompo.compoitems[databaseCompo.SearchCompoIDString("bugget")].cmpitem_flag == 1)
+        {
+            engine.Param.TrySetParameter("UwasaFlag02Check", true);
+        }
+            
 
         //続きから再度読み込み
         engine.ResumeScenario();

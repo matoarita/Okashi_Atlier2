@@ -48,6 +48,9 @@ public class PlayerData
     public int save_costume_num;
     public int[] save_acce_num = new int[GameMgr.Accesory_Num.Length];
 
+    //エンディングカウント
+    public int save_ending_count;
+
     //イベントフラグ
     public int save_GirlLoveEvent_num;
     public bool[] save_GirlLoveEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];  //各イベントの、現在読み中かどうかのフラグ。

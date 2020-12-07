@@ -168,8 +168,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int contest_TotalScore;
 
     //エンディングのフラッグ
-    public static bool ending_on;
-    public static int ending_number;
+    public static bool ending_on;       //コンテストメインで、エンディングシーンへ移動するためのフラグ
+    public static int ending_number;    //エンディング番号
+    public static int ending_count;     //エンディングを迎えた回数
 
     //牧場のイベントリスト
     public static bool[] FarmEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -238,6 +239,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //秒計算。　
         timeLeft = 1.0f;
+
+        //エンディングカウント。リセットされない。
+        ending_count = 0;
 
         //各イベントフラグ・ゲームパラメーターの初期設定
         ResetGameDefaultStatus();

@@ -190,6 +190,7 @@ public class Compound_Main : MonoBehaviour
     private int comp_ID;
     private int clear_love;
     private int recipi_id;
+    private bool read_girlevent;
 
     public int compound_status;
     public int compound_select;
@@ -429,6 +430,7 @@ public class Compound_Main : MonoBehaviour
         check_recipi_flag = false;
         check_GirlLoveEvent_flag = false;
         check_GirlLoveSubEvent_flag = false;
+        read_girlevent = false;
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
@@ -1003,9 +1005,9 @@ public class Compound_Main : MonoBehaviour
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
                 OnCompoundSelect();
-                touch_controller.Touch_OnAllON();
+                touch_controller.Touch_OnAllON();                
 
-                recipiMemoButton.SetActive(false);               
+                recipiMemoButton.SetActive(false);          
 
                 //お金パネルの配置を初期値に戻す
                 //moneystatus_panel.transform.localPosition = moneypanel_startPos;
@@ -1087,6 +1089,12 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(false);
                 text_area_Main.SetActive(true);
+
+                if (read_girlevent)
+                {
+                    read_girlevent = false;
+                    mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
+                }
 
 
                 //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
@@ -1969,6 +1977,7 @@ public class Compound_Main : MonoBehaviour
 
         compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
         compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = false;
+        compoBG_A.transform.Find("RecipiCompoImage").GetComponent<Image>().raycastTarget = false;
         Extremepanel_obj.SetActive(false);
 
 
@@ -1992,6 +2001,7 @@ public class Compound_Main : MonoBehaviour
 
         compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
         compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = true;
+        compoBG_A.transform.Find("RecipiCompoImage").GetComponent<Image>().raycastTarget = true;
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
         text_area_Main.SetActive(true);
@@ -2074,6 +2084,7 @@ public class Compound_Main : MonoBehaviour
         Extremepanel_obj.SetActive(false);
         text_area.SetActive(false);
         text_area_Main.SetActive(false);
+        UIOpenButton_obj.SetActive(false);
 
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -2550,6 +2561,8 @@ public class Compound_Main : MonoBehaviour
 
         check_GirlLoveEvent_flag = true;
         check_recipi_flag = false;
+
+        read_girlevent = true;
 
         mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
     }

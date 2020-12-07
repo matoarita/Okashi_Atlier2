@@ -38,6 +38,8 @@ public class Item
     public int Jiggly;              //おかしの食感　ぷるぷる
     public int Chewy;               //おかしの食感　もちもち
 
+    public int Juice;               //ジュースの　のどごし
+
     public int Powdery;             //粉っぽさ　マイナス要因   粉を入れすぎると、ガッチガチを超えて、粉の塊になりマズくなる。
     public int Oily;                //油っぽさ　マイナス要因   バターを入れすぎると、油っこくなり、気持ち悪くなる。
     public int Watery;              //水っぽさ　マイナス要因   水・ミルクなどを入れすぎると、水っぽくなり、固まらない。
@@ -180,6 +182,8 @@ public class Item
         Hardness = hardness;
         Jiggly = jiggly;
         Chewy = chewy;
+
+        Juice = Sweat + Bitter + Sour;
 
         Powdery = powdery;
         Oily = oily;

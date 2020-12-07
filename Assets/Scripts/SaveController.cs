@@ -150,6 +150,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_costume_num = GameMgr.Costume_Num,
             save_acce_num = GameMgr.Accesory_Num,
 
+            //エンディングカウント
+            save_ending_count = GameMgr.ending_count,
+
             //ステージ番号
             save_stage_number = GameMgr.stage_number,
 
@@ -322,6 +325,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //コスチューム番号
         GameMgr.Costume_Num = playerData.save_costume_num;
         GameMgr.Accesory_Num = playerData.save_acce_num;
+
+        //エンディングカウント
+        GameMgr.ending_count = playerData.save_ending_count;
 
         //ステージ番号
         GameMgr.stage_number = playerData.save_stage_number;

@@ -126,6 +126,8 @@ public class SetImage : MonoBehaviour
     private int _jiggly_score;
     private int _chewy_score;
 
+    private int _juice_score;
+
     private int _powdery_score;
     private int _oily_score;
     private int _watery_score;
@@ -403,6 +405,8 @@ public class SetImage : MonoBehaviour
                 _smooth_score = database.items[check_counter].Smooth;
                 _hardness_score = database.items[check_counter].Hardness;
 
+                _juice_score = database.items[check_counter].Juice;
+
                 _powdery_score = database.items[check_counter].Powdery;
                 _oily_score = database.items[check_counter].Oily;
                 _watery_score = database.items[check_counter].Watery;
@@ -467,6 +471,8 @@ public class SetImage : MonoBehaviour
                 _fluffy_score = pitemlist.player_originalitemlist[check_counter].Fluffy;
                 _smooth_score = pitemlist.player_originalitemlist[check_counter].Smooth;
                 _hardness_score = pitemlist.player_originalitemlist[check_counter].Hardness;
+
+                _juice_score = pitemlist.player_originalitemlist[check_counter].Juice;
 
                 _powdery_score = pitemlist.player_originalitemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_originalitemlist[check_counter].Oily;
@@ -956,8 +962,8 @@ public class SetImage : MonoBehaviour
     {
         item_Shokukan_Type.text = "のどごし";
         item_lastShokukan_Type.text = "のどごし";
-        item_Shokukan.text = (_sweat_score + _bitter_score + _sour_score).ToString();
-        _shokukan_score = _sweat_score + _bitter_score + _sour_score;
+        item_Shokukan.text = _juice_score.ToString();
+        _shokukan_score = _juice_score;
         _lastshokukan_score = _lastsweat_score + _lastbitter_score + _lastsour_score;
     }
 

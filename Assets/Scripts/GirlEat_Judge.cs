@@ -70,6 +70,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private ItemMatPlaceDataBase matplace_database;
 
     public bool subQuestClear_check;
     private bool HighScore_flag;
@@ -355,6 +356,9 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
@@ -3137,6 +3141,9 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //GameMgr.scenario_ON = false;
         GameMgr.recipi_read_endflag = false;
+
+        //はじめてエメラルどんぐりをゲットしたら、怪しげな館登場
+        matplace_database.matPlaceKaikin("Emerald_Shop"); //怪しげな館解禁
 
         canvas.SetActive(true);
         emerarudonguri_end = true;

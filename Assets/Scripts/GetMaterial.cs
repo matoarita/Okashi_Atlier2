@@ -205,18 +205,18 @@ public class GetMaterial : MonoBehaviour {
         mat_place = matplace_database.matplace_lists[index].placeName;
 
         //お金のチェック       
-        /*if (PlayerStatus.player_money < mat_cost)
+        if (PlayerStatus.player_money < mat_cost)
         {
-            _text.text = "お金が足らない。";
+            _text.text = "にいちゃん。お金が足りないよ～・・。";
         }
         else
-        {*/
+        {
             //カゴの大きさのチェック。取った数の総量がMAXを超えると、これ以上取れない。
             if (PlayerStatus.player_zairyobox >= cullent_total_mat)
             {
 
                 //お金の消費 なくした
-                //moneyStatus_Controller.UseMoney(mat_cost);
+                moneyStatus_Controller.UseMoney(mat_cost);
 
                 //日数の経過
                 PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
@@ -237,7 +237,7 @@ public class GetMaterial : MonoBehaviour {
                 _text.text = "もうカゴがいっぱいだよ～。";
             }
 
-        //}
+        }
 
     }
 

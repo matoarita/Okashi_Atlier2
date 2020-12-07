@@ -32,7 +32,7 @@ public class MainUIPanel : MonoBehaviour {
 
     public void OnOpenButton()
     {
-        foreach (Transform child in this.transform) //content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        foreach (Transform child in this.transform) 
         {
             child.gameObject.SetActive(true);
             //child.GetComponent<CanvasGroup>().alpha = 1;
@@ -43,7 +43,7 @@ public class MainUIPanel : MonoBehaviour {
 
     public void OnCloseButton()
     {
-        foreach (Transform child in this.transform) //content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        foreach (Transform child in this.transform) 
         {
             child.gameObject.SetActive(false);
             //child.GetComponent<CanvasGroup>().alpha = 0;

@@ -110,6 +110,8 @@ public class Quest_Judge : MonoBehaviour {
     private int _jiggly;
     private int _chewy;
 
+    private int _juice;
+
     private string[] _tp;
 
     private string _a;
@@ -134,6 +136,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _basehardness;
     private int _basejiggly;
     private int _basechewy;
+    private int _basejuice;
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
@@ -612,18 +615,20 @@ public class Quest_Judge : MonoBehaviour {
             }
 
             //②味パラメータの計算
-            if (_baserich >= _rich)
+            if (_rich > 0)
             {
-                if (_rich != 0)
+                if (_baserich >= _rich)
                 {
-                    okashi_score += _baserich;
+                    
+                    okashi_score += (_baserich - _rich);
+
                 }
-            }
-            else
-            {
-                okashi_score += 0;
-                //nouhinOK_status = 2;
-                _a = "コクがちょっと足りないみたい。";
+                else
+                {
+                    okashi_score += (_baserich - _rich); //マイナスになる。
+                    //nouhinOK_status = 2;
+                    _a = "コクがちょっと足りないみたい。";
+                }
             }
 
             if (_sweat > 0)
@@ -631,12 +636,12 @@ public class Quest_Judge : MonoBehaviour {
                 if (_basesweat >= _sweat)
                 {
 
-                    okashi_score += _basesweat;
+                    okashi_score += (_basesweat - _sweat);
 
                 }
                 else
                 {
-                    okashi_score += 0;
+                    okashi_score += (_basesweat - _sweat);
                     //nouhinOK_status = 2;
                     _a = "甘さがちょっと足りないみたい。";
                 }
@@ -647,12 +652,12 @@ public class Quest_Judge : MonoBehaviour {
                 if (_basebitter >= _bitter)
                 {
 
-                    okashi_score += _basebitter;
+                    okashi_score += (_basebitter - _bitter);
 
                 }
                 else
                 {
-                    okashi_score += 0;
+                    okashi_score += (_basebitter - _bitter);
                     //nouhinOK_status = 2;
                     _a = "苦味がちょっと足りないみたい。";
                 }
@@ -663,16 +668,18 @@ public class Quest_Judge : MonoBehaviour {
                 if (_basesour >= _sour)
                 {
 
-                    okashi_score += _basesour;
+                    okashi_score += (_basesour - _sour);
 
                 }
                 else
                 {
-                    okashi_score += 0;
+                    okashi_score += (_basesour - _sour);
                     //nouhinOK_status = 2;
                     _a = "酸味がちょっと足りないみたい。";
                 }
             }
+
+
 
             if (_crispy > 0)
             {
@@ -810,6 +817,27 @@ public class Quest_Judge : MonoBehaviour {
 
                     okashi_score = (int)(_basescore * _temp_ratio);
                     _a = "噛みごたえがちょっと足りないみたい。";
+                }
+            }
+
+            if (_juice > 0)
+            {
+                _temp_kyori = _basejuice - _juice;
+
+                if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+                {
+                    _temp_ratio = 1.0f;
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                }
+                else
+                {
+                    _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                    okashi_score = (int)(_basescore * _temp_ratio);
+                    _a = "のどごしがちょっと足りないみたい。";
                 }
             }
 
@@ -1145,6 +1173,8 @@ public class Quest_Judge : MonoBehaviour {
         _jiggly = quest_database.questTakeset[_count].Quest_jiggly;
         _chewy = quest_database.questTakeset[_count].Quest_chewy;
 
+        _juice = quest_database.questTakeset[_count].Quest_juice;
+
         for (i = 0; i < _tp.Length; i++)
         {
             _tp[i] = quest_database.questTakeset[_count].Quest_topping[i];
@@ -1201,6 +1231,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basefluffy = database.items[_id].Fluffy;
                 _basesmooth = database.items[_id].Smooth;
                 _basehardness = database.items[_id].Hardness;
+                _basejuice = database.items[_id].Juice;
                 _basejiggly = database.items[_id].Jiggly;
                 _basechewy = database.items[_id].Chewy;
                 _basepowdery = database.items[_id].Powdery;
@@ -1248,6 +1279,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basefluffy = pitemlist.player_originalitemlist[_id].Fluffy;
                 _basesmooth = pitemlist.player_originalitemlist[_id].Smooth;
                 _basehardness = pitemlist.player_originalitemlist[_id].Hardness;
+                _basejuice = pitemlist.player_originalitemlist[_id].Juice;
                 _basejiggly = pitemlist.player_originalitemlist[_id].Jiggly;
                 _basechewy = pitemlist.player_originalitemlist[_id].Chewy;
                 _basepowdery = pitemlist.player_originalitemlist[_id].Powdery;

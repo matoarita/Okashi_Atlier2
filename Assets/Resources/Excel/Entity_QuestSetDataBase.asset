@@ -35,6 +35,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -54,7 +55,7 @@ MonoBehaviour:
       kosu_max: 2
       buy_price: 400
       rich: 0
-      sweat: 0
+      sweat: 20
       bitter: 0
       sour: 0
       crispy: 50
@@ -63,6 +64,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -91,6 +93,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -110,7 +113,7 @@ MonoBehaviour:
       kosu_max: 2
       buy_price: 350
       rich: 0
-      sweat: 40
+      sweat: 0
       bitter: 0
       sour: 0
       crispy: 0
@@ -119,13 +122,14 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 50
       topping01: Non
       topping02: Non
       topping03: Non
       topping04: Non
       topping05: Non
-      quest_Title: "\u30AA\u30EC\u30F3\u30B8\u30B8\u30E5\u30FC\u30B9\u304C\u98F2\u307F\u305F\u3044"
-      desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u5B66\u6821</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D5\u30EC\u30C3\u30B7\u30E5\u306A\u30B8\u30E5\u30FC\u30B9\u3067\u3001\u6804\u990A\u3092\u3064\u3051\u305F\u3044\u305D\u3046\u3088\u3002"
+      quest_Title: "\u30AA\u30EC\u30F3\u30B8\u30B8\u30E5\u30FC\u30B9\u304C\u307B\u3057\u3044"
+      desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u304A\u83D3\u5B50\u5B66\u6821</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D4\u30AF\u30CB\u30C3\u30AF\u306E\u304A\u3068\u3082\u306B\u3001\u30B8\u30E5\u30FC\u30B9\u304C\u6B32\u3057\u3044\u305D\u3046\u306D\u3002"
     - ID: 4
       QuestID: 40
       QuestType: 1
@@ -147,6 +151,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -175,6 +180,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -203,6 +209,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -231,6 +238,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -259,6 +267,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -287,6 +296,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -315,6 +325,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -343,6 +354,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -371,6 +383,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -399,6 +412,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Grape
       topping02: Blueberry
       topping03: Honey
@@ -428,6 +442,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       topping01: Non
       topping02: Non
       topping03: Non

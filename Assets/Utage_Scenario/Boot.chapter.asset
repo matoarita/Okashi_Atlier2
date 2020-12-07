@@ -2383,7 +2383,7 @@ MonoBehaviour:
     - rowIndex: 84
       debugIndex: 84
       strings:
-      - MoneyCheck_Flag
+      - UwasaFlag01Check
       - Bool
       - FALSE
       isEmpty: 0
@@ -2391,18 +2391,36 @@ MonoBehaviour:
       debugInfo: 
     - rowIndex: 85
       debugIndex: 85
-      strings: []
-      isEmpty: 1
+      strings:
+      - UwasaFlag02Check
+      - Bool
+      - FALSE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 86
       debugIndex: 86
-      strings: []
-      isEmpty: 1
+      strings:
+      - MoneyCheck_Flag
+      - Bool
+      - FALSE
+      isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     - rowIndex: 87
       debugIndex: 87
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 88
+      debugIndex: 88
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 89
+      debugIndex: 89
       strings:
       - Ev_flag
       - Int
@@ -2410,8 +2428,8 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
-    - rowIndex: 88
-      debugIndex: 88
+    - rowIndex: 90
+      debugIndex: 90
       strings:
       - Re_flag
       - Int
@@ -2421,7 +2439,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 1603
+    textLength: 1653
     headerRow: 0
   - rows:
     - rowIndex: 0

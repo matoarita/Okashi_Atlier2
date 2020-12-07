@@ -304,6 +304,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             }
 
             slot_view.SetActive(false);
+            this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.0f); //背景黒フェードをOFF
 
             //girl1_status.hukidasiOn();
 
@@ -410,7 +411,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 mat_cost = matplace_database.matplace_lists[select_place_num].placeCost;
                 if (PlayerStatus.player_money < mat_cost)
                 {
-                    _text.text = "お金が足らない。";
+                    _text.text = "にいちゃん。お金が足りないよ～・・。";
 
                     All_Off();
                 }
@@ -467,10 +468,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel_image.SetActive(false);
                 moveanim_panel_image_text.SetActive(false);
                 moveanim_panel_image.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
+                this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.5f); //背景黒フェード
 
                 if (next_on) //先へ進む場合、背景も黒フェードを消す
-                {
-                    this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.5f);
+                {                    
                     text_area.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
                 }
 
@@ -766,6 +767,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //全ての処理が完了し、家に戻るときに、以下の処理でリセット
                 All_Off();
 
+                slot_tansaku_button_obj.SetActive(false);
+
                 modoru_anim_on = true;
 
                 //音量フェードアウト
@@ -861,10 +864,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel.GetComponent<FadeImage>().SetOn();
                 moveanim_panel_image.SetActive(true);
                 moveanim_panel_image_text.SetActive(true);
+                this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
 
-                if(next_on) //先へ進む場合、背景も黒フェード
+                if (next_on) //先へ進む場合
                 {
-                    this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+                    
                 }
 
                 _text.text = "移動中 .";
@@ -956,6 +960,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel.GetComponent<FadeImage>().FadeImageOn();
                 moveanim_panel_image.SetActive(true);
                 moveanim_panel_image_text.SetActive(true);
+                this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
 
                 //背景のSEを止める。
                 map_ambience.FadeOut();
@@ -994,7 +999,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 moveanim_panel.SetActive(false);
                 moveanim_panel_image.SetActive(false);
-                moveanim_panel_image_text.SetActive(false);
+                moveanim_panel_image_text.SetActive(false);                
                 modoru_anim_status = 0;
 
                 break;

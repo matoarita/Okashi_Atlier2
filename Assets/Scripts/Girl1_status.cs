@@ -232,9 +232,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     // Use this for initialization
     void Start()
     {
-
         DontDestroyOnLoad(this);
-
         
         girl_comment_flag = false;
         girl_comment_endflag = false;

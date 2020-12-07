@@ -11,8 +11,17 @@ public class Title_Main : MonoBehaviour {
 
     private Debug_Panel_Init debug_panel_init;
 
+    private GameObject option_panel_obj;
+
+    private GameObject canvas;
+
+    private GameObject galleryButton_obj;
+
     // Use this for initialization
     void Start () {
+
+        //Prefab内の、コンテンツ要素を取得
+        canvas = GameObject.FindWithTag("Canvas");
 
         save_controller = SaveController.Instance.GetComponent<SaveController>();
 
@@ -22,6 +31,19 @@ public class Title_Main : MonoBehaviour {
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
+
+        option_panel_obj = canvas.transform.Find("OptionPanel").gameObject;
+
+        galleryButton_obj = canvas.transform.Find("TitleMenu/Viewport/Content/GalleryButton").gameObject;
+
+        if (GameMgr.ending_count >= 1)
+        {
+            galleryButton_obj.SetActive(true);
+        }
+        else
+        {
+            galleryButton_obj.SetActive(false);
+        }
     }
 	
 	// Update is called once per frame
@@ -52,7 +74,7 @@ public class Title_Main : MonoBehaviour {
 
     public void OnOptionButton()
     {
-
+        option_panel_obj.SetActive(true);
     }
 
     public void OnGameEndButton()

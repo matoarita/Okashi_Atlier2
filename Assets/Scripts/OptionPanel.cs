@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OptionPanel : MonoBehaviour {
 
@@ -44,25 +45,34 @@ public class OptionPanel : MonoBehaviour {
         canvas = GameObject.FindWithTag("Canvas");
 
         //調合メイン取得
-        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
 
-        system_panel = canvas.transform.Find("SystemPanel").gameObject;
+                compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+                system_panel = canvas.transform.Find("SystemPanel").gameObject;
+                system_panel.SetActive(false);
 
+                StageClearButton_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
+                StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
+                break;
+
+            case "001_Title":
+
+                break;
+        }
+       
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         mastervolume_Slider = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider").GetComponent<Slider>();
         mastervolume_paramtext = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider/Param").GetComponent<Text>();
-
-        StageClearButton_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
-        StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
+       
     }
 
     private void OnEnable()
     {
         OptionInit();
-
-        system_panel.SetActive(false);
 
         mastervolume_param = (int)(GameMgr.MasterVolumeParam * 100) / 2;
         mastervolume_Slider.value = (int)(GameMgr.MasterVolumeParam * 100);
@@ -81,14 +91,31 @@ public class OptionPanel : MonoBehaviour {
         sc.VolumeSetting();
 
         //ステージクリアボタンの音量
-        StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam;
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam;
+                break;
+        }
         
     }
 
     public void BackOption()
     {
-        compound_Main.compound_select = 200;
-        system_panel.SetActive(true);
-        this.gameObject.SetActive(false);
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                compound_Main.compound_select = 200;
+                system_panel.SetActive(true);
+                this.gameObject.SetActive(false);
+                break;
+
+            case "001_Title":
+
+                this.gameObject.SetActive(false);
+                break;
+        }
     }
 }

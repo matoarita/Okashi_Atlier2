@@ -100,6 +100,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     public int _basehardness;
     public int _basejiggly;
     public int _basechewy;
+    public int _basejuice;
     public int _basepowdery;
     public int _baseoily;
     public int _basewatery;
@@ -971,6 +972,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             database.items[itemNum].Powdery = _basepowdery;
             database.items[itemNum].Oily = _baseoily;
             database.items[itemNum].Watery = _basewatery;
+            database.items[itemNum].Juice = _basesweat + _basebitter + _basesour;
         }
     }   
 
@@ -1339,6 +1341,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
             }
         }
+
+        //ジュースののどごしを計算する。
+        _basejuice = _basesweat + _basebitter + _basesour;
     }
 
 
@@ -2015,6 +2020,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         Debug.Log("コク: " + _baserich);
         Debug.Log("さくさく感: " + _basecrispy + " ふわふわ感: " + _basefluffy);
         Debug.Log("しっとり感: " + _basesmooth + " 歯ごたえ: " + _basehardness);
+        Debug.Log("ジュースののどごし: " + _basejuice);
         Debug.Log("_basejiggly: " + _basejiggly + " _basechewy: " + _basechewy);
         Debug.Log("粉っぽさ: " + _basepowdery + " 油っぽさ: " + _baseoily + " 水っぽさ: " + _basewatery);
         Debug.Log("_basegirl1_like:" + _basegirl1_like + " _basecost:" + _basecost + " _basesell:" + _basesell);
@@ -2030,335 +2036,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         Debug.Log("スロット8: " + _basetp[7]);
         Debug.Log("スロット9: " + _basetp[8]);
         Debug.Log("スロット10: " + _basetp[9]);*/
-    }
-
-
-
-
-    //
-    //Qboxにお菓子を入れたときの、お菓子の評価＋報酬額の決定
-    //
-
-    void Judge_QuestOkashi()
-    {
-
-        //まず、アイテムの値を取得
-
-        switch (toggle_type1)
-        {
-            case 0: //プレイヤーアイテムリストから選択している。
-
-                _id = kettei_item1;
-
-                //各パラメータを取得
-                _basename = database.items[_id].itemName;
-                _basehp = database.items[_id].itemHP;
-                _baseday = database.items[_id].item_day;
-                _basequality = database.items[_id].Quality;
-                _baserich = database.items[_id].Rich;
-                _basesweat = database.items[_id].Sweat;
-                _basebitter = database.items[_id].Bitter;
-                _basesour = database.items[_id].Sour;
-                _basecrispy = database.items[_id].Crispy;
-                _basefluffy = database.items[_id].Fluffy;
-                _basesmooth = database.items[_id].Smooth;
-                _basehardness = database.items[_id].Hardness;
-                _basejiggly = database.items[_id].Jiggly;
-                _basechewy = database.items[_id].Chewy;
-                _basepowdery = database.items[_id].Powdery;
-                _baseoily = database.items[_id].Oily;
-                _basewatery = database.items[_id].Watery;
-                _basegirl1_like = database.items[_id].girl1_itemLike;
-                _basecost = database.items[_id].cost_price;
-                _basesell = database.items[_id].sell_price;
-                _base_itemType = database.items[_id].itemType.ToString();
-                _base_itemType_sub = database.items[_id].itemType_sub.ToString();
-
-                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
-                {
-                    _basetp[i] = database.items[_id].toppingtype[i].ToString();
-                }
-
-                break;
-
-            case 1: //オリジナルプレイヤーアイテムリストから選択している場合
-
-                //さらに、オリジナルのプレイヤーアイテムリストの番号を参照する。
-
-                _id = kettei_item1;
-
-                //各パラメータを取得
-                _basename = pitemlist.player_originalitemlist[_id].itemName;
-                _basehp = pitemlist.player_originalitemlist[_id].itemHP;
-                _baseday = pitemlist.player_originalitemlist[_id].item_day;
-                _basequality = pitemlist.player_originalitemlist[_id].Quality;
-                _baserich = pitemlist.player_originalitemlist[_id].Rich;
-                _basesweat = pitemlist.player_originalitemlist[_id].Sweat;
-                _basebitter = pitemlist.player_originalitemlist[_id].Bitter;
-                _basesour = pitemlist.player_originalitemlist[_id].Sour;
-                _basecrispy = pitemlist.player_originalitemlist[_id].Crispy;
-                _basefluffy = pitemlist.player_originalitemlist[_id].Fluffy;
-                _basesmooth = pitemlist.player_originalitemlist[_id].Smooth;
-                _basehardness = pitemlist.player_originalitemlist[_id].Hardness;
-                _basejiggly = pitemlist.player_originalitemlist[_id].Jiggly;
-                _basechewy = pitemlist.player_originalitemlist[_id].Chewy;
-                _basepowdery = pitemlist.player_originalitemlist[_id].Powdery;
-                _baseoily = pitemlist.player_originalitemlist[_id].Oily;
-                _basewatery = pitemlist.player_originalitemlist[_id].Watery;
-                _basegirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
-                _basecost = pitemlist.player_originalitemlist[_id].cost_price;
-                _basesell = pitemlist.player_originalitemlist[_id].sell_price;
-                _base_itemType = pitemlist.player_originalitemlist[_id].itemType.ToString();
-                _base_itemType_sub = pitemlist.player_originalitemlist[_id].itemType_sub.ToString();
-
-                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
-                {
-                    _basetp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
-                }
-
-                break;
-
-            default:
-                break;
-        }
-
-        // アイテムに対して、各パラメータの値をもとに、報酬額を計算する。
-        //
-        // 【計算方法】
-        // 基本売値価格（_basesell）×　品質値の修正　×　４味による修正　×　各４食感による特殊修正　×　３雑味によるマイナス補正　×　個数
-        // 修正の値は、依頼の種類（時期・ストーリー進行度）によって変わる。
-        // 序盤は、フィナンシェを売って金を稼ぐ。後半はもっと、すごいアイテムなどを渡すとより多く稼げるように。
-        //
-        // 納品ボックスには締め切りがない。
-        //
-
-        _quality_revise = 1;
-        _rich_revise = 1;
-        _sweat_revise = 1;
-        _bitter_revise = 1;
-        _sour_revise = 1;
-        _crispy_revise = 1;
-        _fluffy_revise = 1;
-        _smooth_revise = 1;
-        _hardness_revise = 1;
-        _powdery_revise = 1;
-        _oily_revise = 1;
-        _watery_revise = 1;
-
-        //品質値補正の計算
-        if (_basequality > 95 && _basequality <= 100) //95.1 ~ 100
-        {
-            _quality_revise = 3;
-        }
-        else if (_basequality > 80 && _basequality <= 95) // 80.1 ~ 95
-        {
-            _quality_revise = 2;
-        }
-        else if (_basequality > 60 && _basequality <= 80) // 60.1 ~ 80
-        {
-            _quality_revise = (float)1.5;
-        }
-        else if (_basequality <= 60) // 60以下
-        {
-            _quality_revise = 1;
-        }
-
-        //味のよる修正。依頼によって、求められる味が変わる。値に近いほど、高得点の補正がかかる。
-        //あまみ・にがみ・さんみに対して、それぞれの評価。差の値により、6段階で評価する。
-
-        //味のコク
-        rich_result = _baserich - 50;
-        if (Mathf.Abs(rich_result) == 0)
-        {
-            Debug.Log("味の深み: Perfect!!");
-            _rich_revise = 3;
-        }
-        else if (Mathf.Abs(rich_result) < 5)
-        {
-            Debug.Log("味の深み: Great!!");
-            _rich_revise = 2;
-        }
-        else if (Mathf.Abs(rich_result) < 15)
-        {
-            Debug.Log("味の深み: Good!");
-            _rich_revise = (float)1.5;
-        }
-        else if (Mathf.Abs(rich_result) < 50)
-        {
-            Debug.Log("味の深み: Normal");
-            _rich_revise = 1;
-        }
-        else if (Mathf.Abs(rich_result) < 80)
-        {
-            Debug.Log("味の深み: poor");
-            _rich_revise = (float)0.5;
-        }
-        else if (Mathf.Abs(rich_result) <= 100)
-        {
-            Debug.Log("味の深み: death..");
-            _rich_revise = (float)0.25;
-        }
-        else
-        {
-            Debug.Log("100を超える場合はなし");
-        }
-
-
-        //甘味
-        sweat_result = _basesweat - 50;
-        if (Mathf.Abs(sweat_result) == 0)
-        {
-            Debug.Log("甘み: Perfect!!");
-            _sweat_revise = 3;
-        }
-        else if (Mathf.Abs(sweat_result) < 5)
-        {
-            Debug.Log("甘み: Great!!");
-            _sweat_revise = 2;
-        }
-        else if (Mathf.Abs(sweat_result) < 15)
-        {
-            Debug.Log("甘み: Good!");
-            _sweat_revise = (float)1.5;
-        }
-        else if (Mathf.Abs(sweat_result) < 50)
-        {
-            Debug.Log("甘み: Normal");
-            _sweat_revise = 1;
-        }
-        else if (Mathf.Abs(sweat_result) < 80)
-        {
-            Debug.Log("甘み: poor");
-            _sweat_revise = (float)0.5;
-        }
-        else if (Mathf.Abs(sweat_result) <= 100)
-        {
-            Debug.Log("甘み: death..");
-            _sweat_revise = (float)0.25;
-        }
-        else
-        {
-            Debug.Log("100を超える場合はなし");
-        }
-
-
-        //苦味
-        bitter_result = _basebitter - 50;
-        if (Mathf.Abs(bitter_result) == 0)
-        {
-            Debug.Log("苦味: Perfect!!");
-            _bitter_revise = 3;
-        }
-        else if (Mathf.Abs(bitter_result) < 5)
-        {
-            Debug.Log("苦味: Great!!");
-            _bitter_revise = 2;
-        }
-        else if (Mathf.Abs(bitter_result) < 15)
-        {
-            Debug.Log("苦味: Good!");
-            _bitter_revise = (float)1.5;
-        }
-        else if (Mathf.Abs(bitter_result) < 50)
-        {
-            Debug.Log("苦味: Normal");
-            _bitter_revise = 1;
-        }
-        else if (Mathf.Abs(bitter_result) < 80)
-        {
-            Debug.Log("苦味: poor");
-            _bitter_revise = (float)0.5;
-        }
-        else if (Mathf.Abs(bitter_result) <= 100)
-        {
-            Debug.Log("苦味: death..");
-            _bitter_revise = (float)0.25;
-        }
-        else
-        {
-            Debug.Log("100を超える場合はなし");
-        }
-
-
-        //酸味
-        sour_result = _basesour - 50;
-        if (Mathf.Abs(sour_result) == 0)
-        {
-            Debug.Log("酸味: Perfect!!");
-            _sour_revise = 3;
-        }
-        else if (Mathf.Abs(sour_result) < 5)
-        {
-            Debug.Log("酸味: Great!!");
-            _sour_revise = 2;
-        }
-        else if (Mathf.Abs(sour_result) < 15)
-        {
-            Debug.Log("酸味: Good!");
-            _sour_revise = (float)1.5;
-        }
-        else if (Mathf.Abs(sour_result) < 50)
-        {
-            Debug.Log("酸味: Normal");
-            _sour_revise = 1;
-        }
-        else if (Mathf.Abs(sour_result) < 80)
-        {
-            Debug.Log("酸味: poor");
-            _sour_revise = (float)0.5;
-        }
-        else if (Mathf.Abs(sour_result) <= 100)
-        {
-            Debug.Log("酸味: death..");
-            _sour_revise = (float)0.25;
-        }
-        else
-        {
-            Debug.Log("100を超える場合はなし");
-        }
-
-
-        //食感による修正。ある閾値を超えた分で、補正が変わる。依頼の内容で、求められる食感が変わる。
-        if (_basecrispy >= 50) //50以上のとき、超えた分が補正にかかる
-        {
-            _crispy_revise = (float)_basecrispy / 50; //最大2.0倍
-        }
-        if (_basefluffy >= 50) //50以上のとき、超えた分が補正にかかる
-        {
-            _fluffy_revise = (float)_basecrispy / 50; //最大2.0倍
-        }
-        if (_basesmooth >= 50) //50以上のとき、超えた分が補正にかかる
-        {
-            _smooth_revise = (float)_basecrispy / 50; //最大2.0倍
-        }
-        if (_basehardness >= 50) //50以上のとき、超えた分が補正にかかる
-        {
-            _hardness_revise = (float)_basecrispy / 50; //最大2.0倍
-        }
-
-        //マイナス補正。あまりに粉っぽかったり、油っこかったりすると、まずくなってしまい、補正がかかる。
-        if (_basepowdery >= 50) //50以上のとき、超えた分が補正にかかる
-        {
-            _powdery_revise = SujiMap(_basepowdery / 50, 1, 2, (float)0.75, (float)0.2); //1.0~2.0倍の間で、0.75~0.2の補正がかかる。
-        }
-        if (_baseoily >= 50) //50以上のとき、超えた分が補正にかかる
-        {
-            _oily_revise = SujiMap(_baseoily / 50, 1, 2, (float)0.75, (float)0.2); //1.0~2.0倍の間で、0.75~0.2の補正がかかる。
-        }
-        if (_basewatery >= 50) //50以上のとき、超えた分が補正にかかる
-        {
-            _watery_revise = SujiMap(_basewatery / 50, 1, 2, (float)0.75, (float)0.2); //1.0~2.0倍の間で、0.75~0.2の補正がかかる。
-        }
-
-        //合計額
-        total_qbox_money = (int)(_basesell * _quality_revise * _rich_revise * _sweat_revise * _bitter_revise * _sour_revise * _crispy_revise * _fluffy_revise * _smooth_revise * _hardness_revise
-            * _powdery_revise * _oily_revise * _watery_revise) * result_kosu;
-
-        Debug.Log("_basesell: " + _basesell + " _quality_revise: " + _quality_revise + " _rich_revise: " + _rich_revise + " _sweat_revise: " + _sweat_revise + " _bitter_revise: " + _bitter_revise +
-           " _sour_revise: " + _sour_revise);
-        Debug.Log("_crispy_revise: " + _crispy_revise + " _fluffy_revise: " + _fluffy_revise + " _smooth_revise: " + _smooth_revise + " _hardness_revise: " + _hardness_revise);
-        Debug.Log("_powdery_revise: " + _powdery_revise + " _oily_revise: " + _oily_revise + " _watery_revise: " + _watery_revise);
-        Debug.Log("result_kosu: " + result_kosu);
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

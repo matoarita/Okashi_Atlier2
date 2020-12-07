@@ -43,7 +43,13 @@ public class BGM : MonoBehaviour {
 
         switch (SceneManager.GetActiveScene().name)
         {
+            case "001_Title":
+
+                PlaySub();
+                break;
+
             case "Compound":
+
                 PlayMain();
                 break;
 

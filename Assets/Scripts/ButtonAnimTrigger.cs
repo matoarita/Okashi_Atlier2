@@ -62,6 +62,10 @@ public class ButtonAnimTrigger : MonoBehaviour {
                 Animation1();                
             }
         }
+    }
+
+    public void OnImageEnterAnim() //一回小さくなってすぐ戻る
+    {
 
         if (this.GetComponent<Image>())
         {
@@ -94,6 +98,10 @@ public class ButtonAnimTrigger : MonoBehaviour {
                 Animation2();
             }
         }
+    }
+
+    public void OnImageEnterAnimScaleUp() //Enter時でかくなり、ボタン外へいくと元に戻る。
+    {
         if (this.GetComponent<Image>())
         {
             Animation2();

@@ -32,6 +32,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private int _jiggly;
     private int _chewy;
 
+    private int _juice;
+
     private string _tp01;
     private string _tp02;
     private string _tp03;
@@ -102,6 +104,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                 _jiggly = excel_questset_database.sheets[sheet_no].list[count].jiggly;
                 _chewy = excel_questset_database.sheets[sheet_no].list[count].chewy;
 
+                _juice = excel_questset_database.sheets[sheet_no].list[count].juice;
+
                 _tp01 = excel_questset_database.sheets[sheet_no].list[count].topping01;
                 _tp02 = excel_questset_database.sheets[sheet_no].list[count].topping02;
                 _tp03 = excel_questset_database.sheets[sheet_no].list[count].topping03;
@@ -113,7 +117,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
                 //ここでリストに追加している
                 questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
-                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy,
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice,
                     _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
 
                 //Debug.Log("QuestID: " + questset[count].Quest_ID);
@@ -159,6 +163,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _jiggly = questset[count].Quest_jiggly;
         _chewy = questset[count].Quest_chewy;
 
+        _juice = questset[count].Quest_juice;
+
         _tp01 = questset[count].Quest_topping[0];
         _tp02 = questset[count].Quest_topping[1];
         _tp03 = questset[count].Quest_topping[2];
@@ -170,7 +176,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         //ここでリストに追加している
         questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
-            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice,
             _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
     }
 
@@ -204,6 +210,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _jiggly = questRandomset[count].Quest_jiggly;
         _chewy = questRandomset[count].Quest_chewy;
 
+        _juice = questRandomset[count].Quest_juice;
+
         _tp01 = questRandomset[count].Quest_topping[0];
         _tp02 = questRandomset[count].Quest_topping[1];
         _tp03 = questRandomset[count].Quest_topping[2];
@@ -215,7 +223,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         //ここでリストに追加している
         questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
-            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice,
             _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
     }
 }

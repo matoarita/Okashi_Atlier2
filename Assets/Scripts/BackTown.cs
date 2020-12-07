@@ -68,8 +68,9 @@ public class BackTown : MonoBehaviour {
 
     void BackScene()
     {
-        //メインシーン読み込み
-        FadeManager.Instance.LoadScene("Compound", 0.3f);
         GameMgr.Scene_back_home = true;
+
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Compound", 0.3f);        
     }
 }

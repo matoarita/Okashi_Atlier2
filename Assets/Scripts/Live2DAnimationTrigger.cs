@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 using Live2D.Cubism.Rendering;
@@ -25,7 +26,13 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        this.GetComponent<CubismRenderController>().SortingOrder = -500;
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                this.GetComponent<CubismRenderController>().SortingOrder = -500;
+                break;
+        }
     }
 	
 	// Update is called once per frame
