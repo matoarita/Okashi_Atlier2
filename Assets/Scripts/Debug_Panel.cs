@@ -174,7 +174,9 @@ public class Debug_Panel : MonoBehaviour {
             {
                 kaeruCoin_Controller = canvas.transform.Find("KaeruCoin_Panel").GetComponent<KaeruCoin_Controller>();
                 kaeruCoin_Controller.ReDrawParam();
-            }            
+            }
+
+            matplace_database.matPlaceKaikin("Emerald_Shop"); //怪しげな館解禁
         }
     }
 

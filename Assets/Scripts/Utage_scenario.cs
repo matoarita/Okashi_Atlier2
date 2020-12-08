@@ -46,6 +46,7 @@ public class Utage_scenario : MonoBehaviour
     private Contest_Main contest_main;
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
     private MoneyStatus_Controller moneyStatus_Controller;
+    private EmeraldShop_Main emeraldshop_main;
 
     private int j;
     private string recipi_Name;
@@ -401,6 +402,23 @@ public class Utage_scenario : MonoBehaviour
 
                     scenarioLabel = "Farm_Event";
                     StartCoroutine(Scenario_Start());
+
+                }
+            }
+
+            //エメラルショップシーンでのイベント処理
+            if (SceneManager.GetActiveScene().name == "Emerald_Shop")
+            {
+                character = GameObject.FindWithTag("Character");
+
+                if (GameMgr.emeraldshop_event_flag)
+                {
+                    GameMgr.emeraldshop_event_flag = false;
+                    story_num = GameMgr.emeraldshop_event_num;
+                    CharacterSpriteSetOFF();
+
+                    scenarioLabel = "emeraldShop_Event";
+                    StartCoroutine(Emerald_Shop());
 
                 }
             }
@@ -1781,6 +1799,50 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
+    }
+
+    IEnumerator Emerald_Shop()
+    {
+        scenario_loading = true;
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        engine.Param.TrySetParameter("Story_num", story_num);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        switch(story_num)
+        {
+            case 0:
+
+                //
+                //「宴」のポーズ終了待ち
+                while (!engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                emeraldshop_main = GameObject.FindWithTag("EmeraldShop_Main").gameObject.GetComponent<EmeraldShop_Main>();
+                emeraldshop_main.BlackOff();
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
+                break;
+        }
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        CharacterSpriteFadeON();
+
+
+        scenario_loading = false;
+
+        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
     }
 
     //

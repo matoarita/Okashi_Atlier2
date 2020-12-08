@@ -96,6 +96,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1020;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -112,6 +113,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1110;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -120,6 +122,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1200;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
                 break;
 
             case 30: //シュークリーム食べたい
@@ -127,6 +131,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1300;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
                 break;
 
             case 40: //ドーナツ食べたい
@@ -134,6 +140,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1400;
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
                 break;
 
             case 50: //ステージ１ラスト　コンテスト開始

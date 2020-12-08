@@ -69,7 +69,7 @@ public class Quest_Judge : MonoBehaviour {
     private Dictionary<int, int> deleteOriginalList = new Dictionary<int, int>(); //オリジナルアイテムリストの削除用のリスト。ID, 個数のセット
 
     private int i, count, list_count;
-    private bool nouhinOK_flag;
+    public bool nouhinOK_flag;
     private int nouhinOK_status;
 
     private int _getMoney;
@@ -362,7 +362,7 @@ public class Quest_Judge : MonoBehaviour {
     //
     //指定のアイテムを、必要個数だけ納品する場合の処理。味の判定などはしない。
     //
-    public void Quest_result(int _ID)
+    public void Quest_result(int _ID, bool _status)
     {
         _qitemID = _ID;
 
@@ -388,17 +388,24 @@ public class Quest_Judge : MonoBehaviour {
                     {
                         nouhinOK_flag = true;
 
-                        //所持アイテムを削除
-                        pitemlist.deletePlayerItem(i, _kosu_total);
+                        if (_status) //削除処理もいれる場合
+                        {
+                            //所持アイテムを削除
+                            pitemlist.deletePlayerItem(i, _kosu_total);
+                        }
                     }
                     else
                     {
-                        _kosu_total -= pitemlist.playeritemlist[i];
-                        //さらにデリートリストに追加しておく。
-                        del_itemid = i;
-                        del_itemkosu = pitemlist.playeritemlist[i];
-
                         nouhinOK_flag = false;
+
+                        _kosu_total -= pitemlist.playeritemlist[i];
+
+                        if (_status) //削除処理もいれる場合
+                        {
+                            //さらにデリートリストに追加しておく。
+                            del_itemid = i;
+                            del_itemkosu = pitemlist.playeritemlist[i];
+                        }
                     }
                 }
             }
@@ -419,26 +426,60 @@ public class Quest_Judge : MonoBehaviour {
                     {
                         nouhinOK_flag = true;
 
-                        //デリートリストに追加しておく。
-                        //さらにデリートリストに追加しておく。あとで降順に削除
-                        deleteOriginalList.Add(i, _kosu_total);
+                        if (_status) //削除処理もいれる場合
+                        {
+                            //さらにデリートリストに追加しておく。あとで降順に削除
+                            deleteOriginalList.Add(i, _kosu_total);
+                        }
 
                         break;
                     }
                     else
                     {
-                        _kosu_total -= pitemlist.player_originalitemlist[i].ItemKosu;
-                        //さらにデリートリストに追加しておく。あとで降順に削除
-                        deleteOriginalList.Add(i, pitemlist.player_originalitemlist[i].ItemKosu);
-
                         nouhinOK_flag = false;
+
+                        _kosu_total -= pitemlist.player_originalitemlist[i].ItemKosu;
+
+                        if (_status) //削除処理もいれる場合
+                        {
+                            //さらにデリートリストに追加しておく。あとで降順に削除
+                            deleteOriginalList.Add(i, pitemlist.player_originalitemlist[i].ItemKosu);
+                        }
+                        
                     }
                 }
                 i++;
             }
         }
 
-        StartCoroutine("Okashi_Judge_Anim1");
+        if (nouhinOK_flag)
+        {
+            if (_status) //決定した場合。削除処理や演出アニメがはいる
+            {
+                StartCoroutine("Okashi_Judge_Anim1");
+            }
+        }
+        else //納品、数が足りてない場合
+        {
+            if (_status) //削除処理もいれる場合
+            {
+                sc.PlaySe(6);
+                _text.text = "まだ数が足りてないようね..。";
+
+                //リスト更新
+                shopquestlistController.NouhinList_DrawView();
+                shopquestlistController.nouhin_select_on = 0;
+
+                yes.SetActive(false);
+                no.SetActive(false);
+
+                questListToggle.interactable = true;
+                nouhinToggle.interactable = true;
+
+                //back_ShopFirst_btn.interactable = true;
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+            }
+        }
          
     }
 
@@ -488,14 +529,15 @@ public class Quest_Judge : MonoBehaviour {
         }
         else
         {
-            sc.PlaySe(6);
+            /*
+            //sc.PlaySe(6);
             _text.text = "まだ数が足りてないようね..。";
 
             //リスト更新
             shopquestlistController.NouhinList_DrawView();
 
             back_ShopFirst_obj.SetActive(true);
-            ResetQuestStatus();
+            ResetQuestStatus();*/
         }
     }
 
@@ -982,29 +1024,29 @@ public class Quest_Judge : MonoBehaviour {
 
                 if (okashi_totalscore < 30) //粗悪なお菓子だと、マイナス評価
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * 0.5f);
+                    _getMoney = (int)(_buy_price * _kosu_default * 0.35f);
                     _kanso = "う～ん..。お客さん不満だったみたい。次からは気をつけてね。" + "\n" + "報酬額を少し減らされてしまった！";
                     
                 }
                 else if (okashi_totalscore >= 30 && okashi_totalscore < 45) //30~45
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * 0.5f);
-                    _kanso = "少し不満が残るわね..。";
+                    _getMoney = (int)(_buy_price * _kosu_default * 0.65f);
+                    _kanso = "ありがとう。　..少しお客さん不満だったみたい。" + "\n" + "次はもっと期待してるわね！";
                 }
                 else if (okashi_totalscore >= 45 && okashi_totalscore < GameMgr.low_score) //45~60
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.85f);
-                    _kanso = "まずまずの出来ね。";
+                    _kanso = "ありがとう！　お客さん喜んでたわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 75) //60~75
                 {
                     _getMoney = _buy_price * _kosu_default;
-                    _kanso = "ありがとう！　おいしいって喜んでたわ！";
+                    _kanso = "ありがとう！　お客さん、気に入ってたみたい！";
                 }
                 else if (okashi_totalscore >= 75 && okashi_totalscore < GameMgr.high_score) //75~85
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.2f);
-                    _kanso = "ありがとう！　お客さん、かなり喜んでくれたみたい！";
+                    _kanso = "ありがとう！　お客さん、大喜びだったわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 100) //85~100
                 {

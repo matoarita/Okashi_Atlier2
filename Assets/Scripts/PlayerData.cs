@@ -98,6 +98,8 @@ public class PlayerData
 
     //ショップの在庫
     public List<int> save_shopzaiko = new List<int>();
+    public List<int> save_farmzaiko = new List<int>();
+    public List<int> save_emeraldshop_zaiko = new List<int>();
 
     //ショップのうわさ話リスト
     public bool[] save_ShopUwasa_stage1 = new bool[GameMgr.ShopUwasa_stage1.Length];
@@ -111,6 +113,9 @@ public class PlayerData
 
     //牧場のイベントリスト
     public bool[] save_FarmEvent_stage = new bool[GameMgr.FarmEvent_stage.Length];
+
+    //エメラルドアイテムイベントリスト
+    public bool[] save_emeraldShopEvent_stage = new bool[GameMgr.emeraldShopEvent_stage.Length];
 
     //アイテムリスト<デフォルト> 所持数のみのリスト
     public List<int> save_playeritemlist = new List<int>();

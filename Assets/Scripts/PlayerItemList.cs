@@ -663,6 +663,17 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return _itemcount; //該当するIDがない場合 0
     }
 
+
+    //イベントアイテムのリストを参照。
+    public void eventitemlist_Sansho()
+    {
+        for (i = 0; i < eventitemlist.Count; i++)
+        {
+            Debug.Log("アイテム名: " + eventitemlist[i].event_itemName + "　所持数: " + eventitemlist[i].ev_itemKosu);
+        }
+    }
+
+
     //アイテム名を入力すると、エメラルドアイテムの現在の所持数を返す処理
     public int KosuCountEmerald(string _itemname)
     {
@@ -683,13 +694,26 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return _itemcount; //該当するIDがない場合 0
     }
 
-    //イベントアイテムのリストを参照。
-    public void eventitemlist_Sansho()
+    //アイテムIDを入力すると、エメラルドアイテム名を返す処理
+    public string NameFindEmerald(int _itemid)
     {
-        for (i = 0; i < eventitemlist.Count; i++)
+        i = 0;
+        _itemcount = 0;
+
+        while (i < eventitemlist.Count)
         {
-            Debug.Log("アイテム名: " + eventitemlist[i].event_itemName + "　所持数: " + eventitemlist[i].ev_itemKosu);
+            if (emeralditemlist[i].ev_ItemID == _itemid)
+            {
+                _itemcount = emeralditemlist[i].ev_itemKosu;
+                Debug.Log("アイテム名: " + emeralditemlist[i].event_itemName + "　所持数: " + emeralditemlist[i].ev_itemKosu);
+
+
+                return emeralditemlist[i].event_itemName;
+            }
+            i++;
         }
+
+        return ""; //該当するIDがない場合 0
     }
 
     //エメラルドアイテムのリストを参照。

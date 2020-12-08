@@ -257,6 +257,7 @@ public class shopQuestSelectToggle : MonoBehaviour
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -288,9 +289,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                 questListToggle.interactable = true;
                 nouhinToggle.interactable = true;
 
-                back_ShopFirst_btn.interactable = true;
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-        
+                back_ShopFirst_btn.interactable = true;        
                 
                 break;
 
@@ -316,7 +315,6 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                 back_ShopFirst_btn.interactable = true;
 
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                 break;
         }
     }    
@@ -345,8 +343,15 @@ public class shopQuestSelectToggle : MonoBehaviour
 
         if (shopquestlistController.quest_itemID != 9999)
         {
-            _itemcount = pitemlist.KosuCount(database.items[shopquestlistController.quest_itemID].itemName);
-            _text.text = "依頼のアイテムを納品する？" + "\n" + "現在の所持数: " + GameMgr.ColorYellow + _itemcount + "</color>";
+            if (shopquestlistController.questType == 0) //お菓子タイプ
+            {
+                _text.text = "依頼のアイテムを納品する？";
+            }
+            else if (shopquestlistController.questType == 1) //材料タイプ
+            {
+                _itemcount = pitemlist.KosuCount(database.items[shopquestlistController.quest_itemID].itemName);
+                _text.text = "依頼のアイテムを納品する？" + "\n" + "現在の所持数: " + GameMgr.ColorYellow + _itemcount + "</color>";
+            }
         }
         else
         {
@@ -369,6 +374,22 @@ public class shopQuestSelectToggle : MonoBehaviour
 
         questListToggle.interactable = false;
         nouhinToggle.interactable = false;
+
+        //足りてるかどうかを事前チェック。材料系を納品する場合、のみ
+        if (shopquestlistController.questType == 1)
+        {
+            questjudge.Quest_result(shopquestlistController._count, false);
+            if (questjudge.nouhinOK_flag)
+            {
+
+            }
+            else //足りてないときは、そもそもyesが押せない
+            {
+                yes.SetActive(false);
+                _text.text = "依頼のアイテムを納品する？" + "\n" + "現在の所持数: " + GameMgr.ColorYellow + _itemcount + "</color>" + 
+                    "\n" + "まだ数が足りてないようね..。";
+            }
+        }
 
         StartCoroutine("questTake_select");
 
@@ -419,8 +440,8 @@ public class shopQuestSelectToggle : MonoBehaviour
                     questListToggle.interactable = true;
                     nouhinToggle.interactable = true;
 
-                    //足りてる場合、材料アイテムなら即納品。お菓子ならお菓子の判定。ちなみにチェック中は、「.. 」のアニメも入れたい。
-                    questjudge.Quest_result(shopquestlistController._count);
+                    //足りてるかどうかをチェック、材料アイテムなら即納品。
+                    questjudge.Quest_result(shopquestlistController._count, true);
                 }               
                
                 break;
@@ -437,7 +458,6 @@ public class shopQuestSelectToggle : MonoBehaviour
                     shopquestlistController._quest_listitem[i].GetComponent<Toggle>().interactable = true;
                     shopquestlistController._quest_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
-
 
                 yes.SetActive(false);
                 no.SetActive(false);

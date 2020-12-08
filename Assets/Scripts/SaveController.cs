@@ -35,6 +35,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<int> _tempplayeritemlist = new List<int>();
     private List<int> _tempmap_placeflaglist = new List<int>();
     private List<int> _temp_shopzaiko = new List<int>();
+    private List<int> _temp_farmzaiko = new List<int>();
+    private List<int> _temp_emeraldshop_zaiko = new List<int>();
     private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
 
     private GameObject _model_obj;
@@ -104,6 +106,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < shop_database.shopitems.Count; i++)
         {
             _temp_shopzaiko.Add(shop_database.shopitems[i].shop_itemzaiko);
+        }
+
+        //牧場の在庫のみ取得
+        _temp_farmzaiko.Clear();
+        for (i = 0; i < shop_database.farmitems.Count; i++)
+        {
+            _temp_farmzaiko.Add(shop_database.farmitems[i].shop_itemzaiko);
+        }
+
+        //エメラルドショップの在庫のみ取得
+        _temp_emeraldshop_zaiko.Clear();
+        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+        {
+            _temp_emeraldshop_zaiko.Add(shop_database.emeraldshop_items[i].shop_itemzaiko);
         }
 
         //アイテムの前回得点のみ取得
@@ -208,6 +224,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ショップの在庫
             save_shopzaiko = _temp_shopzaiko,
+            save_farmzaiko = _temp_farmzaiko,
+            save_emeraldshop_zaiko = _temp_emeraldshop_zaiko,
 
             //ショップのうわさ話リスト
             save_ShopUwasa_stage1 = GameMgr.ShopUwasa_stage1,
@@ -221,6 +239,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //牧場のイベントリスト
             save_FarmEvent_stage = GameMgr.FarmEvent_stage,
+
+            //エメラルドショップのイベントリスト
+            save_emeraldShopEvent_stage = GameMgr.emeraldShopEvent_stage,
 
             //アイテムリスト＜デフォルト＞
             save_playeritemlist = _tempplayeritemlist,
@@ -393,6 +414,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //牧場のイベントリスト
         GameMgr.FarmEvent_stage = playerData.save_FarmEvent_stage;
+
+        //エメラルドショップのイベントリスト
+        GameMgr.emeraldShopEvent_stage = playerData.save_emeraldShopEvent_stage;
         
         //アイテムリスト＜デフォルト＞
         for (i = 0; i < pitemlist.playeritemlist.Count; i++)
@@ -453,6 +477,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < shop_database.shopitems.Count; i++)
         {
             shop_database.shopitems[i].shop_itemzaiko = playerData.save_shopzaiko[i];
+        }
+        for (i = 0; i < shop_database.farmitems.Count; i++)
+        {
+            shop_database.farmitems[i].shop_itemzaiko = playerData.save_farmzaiko[i];
+        }
+        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+        {
+            shop_database.emeraldshop_items[i].shop_itemzaiko = playerData.save_emeraldshop_zaiko[i];
         }
 
         //エクストリームパネルのアイテムを読み込み

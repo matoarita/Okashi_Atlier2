@@ -105,7 +105,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
     //public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。現在未使用。
-    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ
+    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。
+    public static bool QuestClearAnim_Flag;   //クリアしたときに、ボタンを登場させるか否かのフラグ。そのクエストの最後のときだけ演出をだす時に使う。
 
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num;
@@ -153,6 +154,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //ショップのうわさ話リスト
     public static bool[] ShopUwasa_stage1 = new bool[30]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
+
+    //エメラルドショップのイベントリスト
+    public static bool[] emeraldShopEvent_stage = new bool[30];
+    public static bool emeraldshop_event_flag;  //ショップで発生するイベントのフラグ。
+    public static int emeraldshop_event_num;
 
     //コンテストのイベントリスト
     public static bool[] ContestEvent_stage = new bool[30]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -320,6 +326,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         farm_event_flag = false;
         farm_event_num = 0;
 
+        emeraldshop_event_flag = false;
+        emeraldshop_event_num = 0;
+
         hiroba_event_flag = false;
         //広場イベント読み終えたフラグの初期化
         for (system_i = 0; system_i < hiroba_event_end.Length; system_i++)
@@ -382,6 +391,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             FarmEvent_stage[system_i] = false;
         }
 
+        //エメラルドショップイベントフラグの初期化
+        for (system_i = 0; system_i < emeraldShopEvent_stage.Length; system_i++)
+        {
+            emeraldShopEvent_stage[system_i] = false;
+        }
+
         for (system_i = 0; system_i < ShopUwasa_stage1.Length; system_i++)
         {
             ShopUwasa_stage1[system_i] = false;
@@ -431,6 +446,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiQuest_Num = 0;
         QuestClearflag = false;
         QuestClearButton_anim = false;
+        QuestClearAnim_Flag = false;
 
         //お菓子のクリア基準値
         low_score = 60;

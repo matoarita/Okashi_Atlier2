@@ -117,7 +117,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
 
-    private int i, sw, count;    
+    private int i, sw, count;
 
     public int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ
 
@@ -153,6 +153,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab4;
     private GameObject Compo_Magic_effect_Prefab5;
     private GameObject Compo_Magic_effect_Prefab6;
+    private GameObject Compo_Magic_effect_Prefab_kiraexplode;   
     private List<GameObject> _listEffect = new List<GameObject>();
 
     private GameObject ResultBGimage;
@@ -217,7 +218,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Compo_Magic_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Particle_Compo3");
         Compo_Magic_effect_Prefab4 = (GameObject)Resources.Load("Prefabs/Particle_Compo4");
         Compo_Magic_effect_Prefab5 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
-        Compo_Magic_effect_Prefab6 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");
+        Compo_Magic_effect_Prefab6 = (GameObject)Resources.Load("Prefabs/Particle_Compo6");
+        Compo_Magic_effect_Prefab_kiraexplode = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");
+        
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -474,7 +477,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                 PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
 
-                NewRecipiFlag = true;
+                //NewRecipiFlag = true;
                 NewRecipi_compoID = result_ID;
 
                 _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！"  + "\n";
@@ -545,6 +548,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
 
             result_kosu = 1;
+            NewRecipiFlag = false;
 
             //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
             pitemlist.addPlayerItem(result_item, result_kosu);
@@ -870,7 +874,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
                     PlayerStatus.player_renkin_exp += _getexp; //エクストリームで新しく閃いた場合の経験値
 
-                    NewRecipiFlag = true;
+                    //NewRecipiFlag = true;
                     NewRecipi_compoID = result_ID;
 
                     _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
@@ -952,6 +956,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
 
             result_kosu = 1;
+            NewRecipiFlag = false;
 
             //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
             pitemlist.addPlayerItem(result_item, result_kosu);
@@ -1027,8 +1032,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
             pitemlist.add_EmeraldPlayerItem(kettei_item1, result_kosu);
 
-            pitemlist.emeralditemlist_Sansho(); //デバッグ用
+            pitemlist.emeralditemlist_Sansho(); //デバッグ用。コメントアウトしても大丈夫。
 
+            //買ったものに応じて、家へかえるとイベント発生
+            emeralditem_event(pitemlist.NameFindEmerald(kettei_item1));
+            
         }
         else if (toggle_type1 == 6) //shop_itemType = 6 は、アイテムかごなどの装備品や飾りなどの特殊アイテム。買うことでパラメータを上昇させたり、フラグをたてる。
         {
@@ -1089,6 +1097,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     }
 
+
     void specialitemFlagOn()
     {
         //条件分岐
@@ -1115,6 +1124,23 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 PlayerStatus.player_zairyobox = 50;
                 PlayerStatus.player_zairyobox_lv = 4;
             }
+        }
+    }
+
+    void emeralditem_event(string _itemname)
+    {
+        switch (_itemname)
+        {
+            case "Glass_Acce":
+
+                //メイン画面にもどったときに、イベントを発生させるフラグをON
+                GameMgr.CompoundEvent_num = 30;
+                GameMgr.CompoundEvent_flag = true;
+                break;
+
+            default:
+
+                break;
         }
     }
 
@@ -1175,12 +1201,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     }
 
-
+    //
+    //調合中のアニメ
+    //
     void Compo_Magic_Animation()
     {
-        //ウェイトアニメ
-
-
+        
         switch (compo_anim_status)
         {
             case 0: //初期化 状態１
@@ -1230,13 +1256,51 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 if (timeOut <= 0.0)
                 {
-                    timeOut = 0.5f;
-                    compo_anim_status = 3;
+                    //新しいアイテムができるときは、さらに追加のキラキラ演出
+                    if(NewRecipiFlag)
+                    {
+                        timeOut = 1.0f;
+                        compo_anim_status = 3;
+
+                        //エフェクト生成＋アニメ開始
+                        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab6));
+
+                        //音を鳴らす
+                        sc.PlaySe(10);
+
+                        _text.text = "調合中 . . . ";
+                    }
+                    else
+                    {
+                        timeOut = 0.5f;
+                        compo_anim_status = 5;
+                    }
+                    
 
                 }
                 break;
 
-            case 3: //アニメ終了。判定する
+            case 3:
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 2.0f;
+                    compo_anim_status = 4;
+
+                    _text.text = "調合中 . . . . ";
+                }
+                break;
+
+            case 4:
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 0.5f;
+                    compo_anim_status = 5;
+                }
+                break;
+
+            case 5: //アニメ終了。判定する
 
                 
                 //カードビューのカードアニメもストップ
@@ -1306,7 +1370,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect[1].GetComponent<Canvas>().worldCamera = Camera.main;
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab5));
         _listEffect[2].GetComponent<Canvas>().worldCamera = Camera.main;
-        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab6));
+        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab_kiraexplode));
         _listEffect[3].GetComponent<Canvas>().worldCamera = Camera.main;
 
         //音を鳴らす

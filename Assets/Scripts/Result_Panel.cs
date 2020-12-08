@@ -240,11 +240,16 @@ public class Result_Panel : MonoBehaviour
         {
             
 
-            _listEffect2.Clear();
-            for (i = 0; i < _liststar.Count; i++)
-            {
-                _listEffect2.Add(Instantiate(Magic_effect_Prefab2, _liststar[i].transform));
-                _listEffect2.Add(Instantiate(Magic_effect_Prefab1, _liststar[i].transform));
+            
+            if (Total_score < GameMgr.low_score)
+            { }
+            else {
+                _listEffect2.Clear();
+                for (i = 0; i < _liststar.Count; i++)
+                {
+                    _listEffect2.Add(Instantiate(Magic_effect_Prefab2, _liststar[i].transform));
+                    _listEffect2.Add(Instantiate(Magic_effect_Prefab1, _liststar[i].transform));
+                }
             }
 
             //合格演出
@@ -254,13 +259,13 @@ public class Result_Panel : MonoBehaviour
             }
             if (Total_score >= 30 && Total_score < GameMgr.low_score)
             {
-                sc.PlaySe(19);
+                //sc.PlaySe(19);
                 //GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = new Color(91f / 255f, 55f / 255f, 206f / 255f);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "兄ちゃん！あとひといき..！";                
             }
             else if (Total_score >= GameMgr.low_score && Total_score < GameMgr.high_score)
             {
-                sc.PlaySe(19);
+                //sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "うみゃあ！！";
             }
             else if (Total_score >= GameMgr.high_score && Total_score < 100)
@@ -318,19 +323,28 @@ public class Result_Panel : MonoBehaviour
 
         if (getlove_exp >= 0)
         {
-            sc.PlaySe(17);
+            if (Total_score < GameMgr.low_score)
+            {
+                sc.PlaySe(30);
+            }
+            else
+            {
+                sc.PlaySe(17);
+
+                //エフェクト生成＋アニメ開始
+                _listEffect.Clear();
+                _listEffect.Add(Instantiate(Magic_effect_Prefab1));
+                _listEffect[0].GetComponent<Canvas>().worldCamera = main_cam;
+                _listEffect[0].transform.Find("Pos").transform.localPosition = Getlove_panel.transform.localPosition;
+                _listEffect[0].transform.Find("Pos").transform.DOLocalMove(new Vector3(0f, -20f, 0), 0.0f).SetRelative();
+            }
         }
         else //さがったときの音
         {
             sc.PlaySe(20);
         }
 
-        //エフェクト生成＋アニメ開始
-        _listEffect.Clear();
-        _listEffect.Add(Instantiate(Magic_effect_Prefab1));
-        _listEffect[0].GetComponent<Canvas>().worldCamera = main_cam;
-        _listEffect[0].transform.Find("Pos").transform.localPosition = Getlove_panel.transform.localPosition;
-        _listEffect[0].transform.Find("Pos").transform.DOLocalMove(new Vector3(0f, -20f, 0), 0.0f).SetRelative();
+        
 
         sequence.Append(Getlove_param.transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.3f)
             .SetRelative()

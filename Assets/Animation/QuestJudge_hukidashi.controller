@@ -64,7 +64,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: huwahuwa_hukidasi_Loop
+  m_Name: huwahuwa_hukidasi_Loop_shop
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -77,7 +77,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 2dca3f97fc6daf741a6d897249a66936, type: 2}
+  m_Motion: {fileID: 7400000, guid: 5d3974896599163488c3868d618b3755, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

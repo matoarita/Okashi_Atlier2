@@ -929,11 +929,13 @@ public class Compound_Check : MonoBehaviour {
             {                
                 success_text = "新しいお菓子を思いつきそう..？";
                 newrecipi_flag = true;
+                exp_Controller.NewRecipiFlag = true;
                 kakuritsuPanel.KakuritsuYosoku_NewImg();
                 resultitemName_obj.SetActive(false);
             }
             else
             {
+                exp_Controller.NewRecipiFlag = false;
                 newrecipi_flag = false;
             }
         }

@@ -107,7 +107,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1471676458
+  randomSeed: 1653856357
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -155,7 +155,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3
+      scalar: -10
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -197,7 +197,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.8161765, g: 0.7565774, b: 0.6001297, a: 0.378}
+      maxColor: {r: 0.72794116, g: 0.72794116, b: 0.72794116, a: 0.316}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -558,7 +558,7 @@ ParticleSystem:
     donutRadius: 0.5
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 0.31450856, y: 0.31450856, z: 1}
     placementMode: 0
     m_Mesh: {fileID: 0}
     m_MeshRenderer: {fileID: 0}
@@ -667,7 +667,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -2731,7 +2731,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.7058823, g: 0.7058823, b: 0.7058823, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -3379,7 +3379,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4e03e5f7cf4ed6c46b07d3487d0bd5a1, type: 2}
+  - {fileID: 2100000, guid: 18d2a799b06c2984f9391b12dd3c0603, type: 2}
   - {fileID: 2100000, guid: 4e03e5f7cf4ed6c46b07d3487d0bd5a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -3406,7 +3406,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 3
+  m_LengthScale: 1
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_RenderAlignment: 0

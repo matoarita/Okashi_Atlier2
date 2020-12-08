@@ -357,7 +357,7 @@ public class Compound_Main : MonoBehaviour
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
         compoBG_A.SetActive(false);
-        compoBGA_image = canvas.transform.Find("Compound_BGPanel_A/Image").gameObject;
+        compoBGA_image = canvas.transform.Find("Compound_BGPanel_A/BG").gameObject;
         compoBGA_imageOri = canvas.transform.Find("Compound_BGPanel_A/OriCompoImage").gameObject;
         compoBGA_imageRecipi = canvas.transform.Find("Compound_BGPanel_A/RecipiCompoImage").gameObject;
         compoBGA_imageExtreme = canvas.transform.Find("Compound_BGPanel_A/ExtremeImage").gameObject;
@@ -578,9 +578,10 @@ public class Compound_Main : MonoBehaviour
                         compoundselect_onoff_obj.SetActive(false);
                         text_area.SetActive(false);
 
-                        compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = false;
-                        compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = false;
-                        compoBG_A.transform.Find("ExtremeImage").GetComponent<Image>().raycastTarget = false;
+                        compoBGA_image.GetComponent<Image>().raycastTarget = false;
+                        compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
+                        compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
+                        compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
                         pitemlistController.Offinteract();
                         kakuritsuPanel_obj.SetActive(false);
 
@@ -973,10 +974,11 @@ public class Compound_Main : MonoBehaviour
                     //腹減りカウント開始
                     girl1_status.GirlEat_Judge_on = true;
                     girl1_status.WaitHint_on = true;
-                    
-                    compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
-                    compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = true;
-                    compoBG_A.transform.Find("ExtremeImage").GetComponent<Image>().raycastTarget = true;
+
+                    compoBGA_image.GetComponent<Image>().raycastTarget = true;
+                    compoBGA_imageOri.GetComponent<Image>().raycastTarget = true;
+                    compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = true;
+                    compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
                     
                     keymanager.InitCompoundMainScene();
@@ -1004,6 +1006,7 @@ public class Compound_Main : MonoBehaviour
                 select_original_button.interactable = true;
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
+                MainUICloseButton.SetActive(true);
                 OnCompoundSelect();
                 touch_controller.Touch_OnAllON();                
 
@@ -1626,6 +1629,7 @@ public class Compound_Main : MonoBehaviour
         moneystatus_panel.SetActive(false);
         //kaerucoin_panel.SetActive(false);
         stageclear_panel.SetActive(false);
+        MainUICloseButton.SetActive(false);
     }
 
     public void QuestClearCheck() //SaveControllerからも読み込んでいる。
@@ -1975,9 +1979,9 @@ public class Compound_Main : MonoBehaviour
         //一時的に腹減りを止める。
         girl1_status.GirlEat_Judge_on = false;
 
-        compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
-        compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = false;
-        compoBG_A.transform.Find("RecipiCompoImage").GetComponent<Image>().raycastTarget = false;
+        compoBGA_image.GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
+        compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
+        compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
         Extremepanel_obj.SetActive(false);
 
 
@@ -1999,9 +2003,9 @@ public class Compound_Main : MonoBehaviour
         GameMgr.recipi_read_endflag = false;
         Recipi_loading = false;
 
-        compoBG_A.transform.Find("Image").GetComponent<Image>().raycastTarget = true;
-        compoBG_A.transform.Find("OriCompoImage").GetComponent<Image>().raycastTarget = true;
-        compoBG_A.transform.Find("RecipiCompoImage").GetComponent<Image>().raycastTarget = true;
+        compoBGA_image.GetComponent<Image>().raycastTarget = true;
+        compoBGA_imageOri.GetComponent<Image>().raycastTarget = true;
+        compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = true;
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
         text_area_Main.SetActive(true);

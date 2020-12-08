@@ -54,6 +54,8 @@ public class EmeraldShop_Main : MonoBehaviour {
     public int shop_status;
     public int shop_scene; //どのシーンを選択しているかを判別
 
+    private bool event_loading;
+
     // Use this for initialization
     void Start () {
 
@@ -85,8 +87,10 @@ public class EmeraldShop_Main : MonoBehaviour {
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
-        //黒半透明パネルの取得
-        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+        //黒パネルの取得
+        black_effect = canvas.transform.Find("BlackBG").gameObject;
+        if (!GameMgr.emeraldShopEvent_stage[0]) { black_effect.SetActive(true); }
+        else { black_effect.SetActive(false); }
 
         character = GameObject.FindWithTag("Character");
         character.GetComponent<FadeCharacter>().SetOff();
@@ -132,12 +136,36 @@ public class EmeraldShop_Main : MonoBehaviour {
         shop_status = 0;
         shop_scene = 0;
 
+        event_loading = false;
+
         //入店の音
         sc.PlaySe(51);
     }
 	
 	// Update is called once per frame
 	void Update () {
+
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (event_loading) { }
+        else
+        {
+            if (!GameMgr.emeraldShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+            {
+                GameMgr.emeraldShopEvent_stage[0] = true;
+                GameMgr.scenario_ON = true;
+
+                GameMgr.emeraldshop_event_num = 0;
+                GameMgr.emeraldshop_event_flag = true;
+
+                //メイン画面にもどったときに、イベントを発生させるフラグをON
+                //GameMgr.CompoundEvent_num = 0;
+                //GameMgr.CompoundEvent_flag = true;
+
+                event_loading = true;
+
+                StartCoroutine("Scenario_loading");
+            }
+        }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
@@ -148,12 +176,10 @@ public class EmeraldShop_Main : MonoBehaviour {
             shop_select.SetActive(false);
             text_area.SetActive(false);
             placename_panel.SetActive(false);
-            black_effect.SetActive(false);
 
         }
         else
         {
-
             //Debug.Log("shop_status" + shop_status);
             switch (shop_status)
             {
@@ -259,5 +285,28 @@ public class EmeraldShop_Main : MonoBehaviour {
 
         shop_status = 0;
         shop_scene = 0;
+    }
+
+    IEnumerator Scenario_loading()
+    {
+        //Debug.Log("シナリオ開始");
+
+        while (!GameMgr.scenario_read_endflag)
+        {
+            yield return null;
+        }
+
+        //Debug.Log("シナリオ終了");
+        GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
+
+        event_loading = false;
+        shop_status = 0;
+
+    }
+
+    public void BlackOff()
+    {
+        black_effect.SetActive(false);
     }
 }

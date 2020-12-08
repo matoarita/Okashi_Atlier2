@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MoneyStatus_Controller : MonoBehaviour {
 
+    private SoundController sc;
+
     private GameObject _money_param;
     private Text _money_text;
 
@@ -29,6 +31,8 @@ public class MoneyStatus_Controller : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         _money_param = this.transform.Find("Money_param").gameObject;
         _money_text = _money_param.GetComponent<Text>();
@@ -50,6 +54,7 @@ public class MoneyStatus_Controller : MonoBehaviour {
 
         if (moneyanim_on == true)
         {
+            
             if ( zougen_sw == 0 )
             {
                 _before_pmoney++;
@@ -76,7 +81,9 @@ public class MoneyStatus_Controller : MonoBehaviour {
 
             if (timeOut <= 0.0)
             {
-                timeOut = 0.1f;
+                //アニメ中は、音がチャリチャリ鳴り続ける。ゼルダのルピー音
+                sc.PlaySe(29);
+                timeOut = 0.12f;
             }
         }
     }

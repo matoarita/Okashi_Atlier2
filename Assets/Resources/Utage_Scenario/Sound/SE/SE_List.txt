@@ -6,7 +6,7 @@ SE表
 ・SE_04		audiostock_809049				収束キラキラ音
 ・SE_05		audiostock_104038.mp3				調合の成功音
 ・SE_06		audiostock_66345.mp3				キララーン
-・SE_07		audiostock_126643.mp3				キャンセル音・バッドな音
+・SE_07		audiostock_126643.mp3				ステータスが下がる音
 ・SE_08		audiostock_60258.mp3				ピコン　吹き出し出てくる音
 ・SE_09		audiostock_66421.mp3				ピコッ　吹き出し消える音
 ・SE_10		audiostock_66343.mp3				キラコリリーン　採取時の取得音
@@ -15,7 +15,7 @@ SE表
 ・SE_13		audiostock_65015				クリアボタン登場音ポワン　 旧：シャキーン　105207_sample
 ・SE_14		ファンファーレ9（ゲーム向け）.mp3		レベルアップ時のファンファーレ
 ・SE_15		audiostock_279165_sample			【#未使用】ジャキーーン
-・SE_16		shine2.mp3					【宴で鳴らす用　ゲーム本編では音が鳴らなくなる　SE79と同一】キララ～～～ン　ウィンドチャイム
+・SE_16		shine2.mp3					【宴で使用　ゲーム本編では音が鳴らなくなる　SE79と同一】キララ～～～ン　ウィンドチャイム
 ・SE_17		tin2.mp3					電子レンジ
 ・SE_18		audiostock_59502				リザルト時の好感度獲得の音
 ・SE_19		audiostock_57729.mp3				キャンセル音
@@ -29,9 +29,9 @@ SE表
 ・SE_27		audiostock_39671.mp3				アイキャッチ音
 ・SE_28		audiostock_219045.mp3				調合完成音　低音シャキン
 ・SE_29		audiostock_104911.mp3				ステージクリア音　キララーン決定音
-・SE_30		audiostock_221662_sample.mp3			【#未使用】　カッ　鍵なんかを締めたような音（決定音に使える？）
+・SE_30		audiostock_52941				お金シャキン　ロール用に短めに編集
 ・SE_31		audiostock_251375				ポコ音　探索時
-・SE_32		audiostock_52941				お金キーーン
+・SE_32		audiostock_52941				お金シャキン
 ・SE_33		audiostock_261320				レジの音
 ・SE_34		button64.mp3					ハートがゲージにヒットしたときの音
 ・SE_35		page09.mp3					レシピメモ開くときの軽い紙の音
@@ -73,11 +73,12 @@ SE表
 ・SE_71		audiostock_785135_sample			【#未使用】和風のジングル（シャウエッセン登場） 
 ・SE_72		Motion-Pop21-1					お菓子アニメ用　皿にお菓子が落下した音
 ・SE_73		audiostock_142318				お菓子アニメ用　キラキラ音(別候補：audiostock_18587_sample)
-・SE_74		audiostock_84822_sample				ドラムロール後のジャーン
+・SE_74		audiostock_84822				ドラムロール後のジャーン
 ・SE_75		eye-shine1					キュピーーーン
 ・SE_76		flee1						逃げ足早いヒュイーーン
-・SE_77		audiostock_806876_sample			クエスト納品完了音　キラリン
+・SE_77		audiostock_806876				クエスト納品完了音　キラリン
 ・SE_78		audiostock_308893_sample			女性声「ありがとうございます」
-・SE_79		shine2.mp3					キララ～～～ン　ウィンドチャイム
+・SE_79		shine2.mp3					【SE_16でも使用　こっちは本編用】キララ～～～ン　ウィンドチャイム
 ・SE_80		door-cl01.mp3					【宴で使用　SE39と同一】ドア開く音１。チャイムは無し。
 ・SE_81		audiostock_712907				【宴で使用　SE51と同一】ドア開けた時のベル音１　ホーム用
+・SE_82		audiostock_221662_sample.mp3			【#未使用】　カッ　鍵なんかを締めたような音（決定音に使える？）
