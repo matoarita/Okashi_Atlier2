@@ -73373,13 +73373,28 @@ MonoBehaviour:
     - rowIndex: 108
       debugIndex: 164
       strings:
+      - BgEventOff
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 109
+      debugIndex: 165
+      strings:
+      - Bg
+      - "\u80CC\u666F\u7A7A\u3063\u307D"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 110
+      debugIndex: 167
+      strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:GirlLove_EventSub
     type: 1
-    textLength: 1723
+    textLength: 1740
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -183713,13 +183728,34 @@ MonoBehaviour:
     - rowIndex: 164
       debugIndex: 164
       strings:
+      - BgEventOff
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 165
+      debugIndex: 165
+      strings:
+      - Bg
+      - "\u80CC\u666F\u7A7A\u3063\u307D"
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 166
+      debugIndex: 166
+      strings: []
+      isEmpty: 1
+      isCommentOut: 0
+      debugInfo: 
+    - rowIndex: 167
+      debugIndex: 167
+      strings:
       - EndScenario
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:GirlLove_EventSub
     type: 1
-    textLength: 1723
+    textLength: 1740
     headerRow: 0
   - rows:
     - rowIndex: 0

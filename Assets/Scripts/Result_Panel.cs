@@ -323,21 +323,16 @@ public class Result_Panel : MonoBehaviour
 
         if (getlove_exp >= 0)
         {
-            if (Total_score < GameMgr.low_score)
-            {
-                sc.PlaySe(30);
-            }
-            else
-            {
-                sc.PlaySe(17);
 
-                //エフェクト生成＋アニメ開始
-                _listEffect.Clear();
-                _listEffect.Add(Instantiate(Magic_effect_Prefab1));
-                _listEffect[0].GetComponent<Canvas>().worldCamera = main_cam;
-                _listEffect[0].transform.Find("Pos").transform.localPosition = Getlove_panel.transform.localPosition;
-                _listEffect[0].transform.Find("Pos").transform.DOLocalMove(new Vector3(0f, -20f, 0), 0.0f).SetRelative();
-            }
+            sc.PlaySe(17);
+
+            //エフェクト生成＋アニメ開始
+            _listEffect.Clear();
+            _listEffect.Add(Instantiate(Magic_effect_Prefab1));
+            _listEffect[0].GetComponent<Canvas>().worldCamera = main_cam;
+            _listEffect[0].transform.Find("Pos").transform.localPosition = Getlove_panel.transform.localPosition;
+            _listEffect[0].transform.Find("Pos").transform.DOLocalMove(new Vector3(0f, -20f, 0), 0.0f).SetRelative();
+
         }
         else //さがったときの音
         {

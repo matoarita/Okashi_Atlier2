@@ -838,7 +838,12 @@ public class GirlEat_Judge : MonoBehaviour {
         if (contest_type == 0) //コンテストではこのセッティングは使用しない
         {
             //通常の場合は、あげたお菓子によって、その好み値をセッティングする。girlLikeSetのcompNum番号を指定して、判定用に使う。
-            if (girl1_status.OkashiNew_Status == 1)
+            //未使用？
+            if (girl1_status.OkashiNew_Status == 0)
+            {
+                girl1_status.SetQuestRandomSet(girl1_status.OkashiQuest_ID, false);
+            }
+            else if (girl1_status.OkashiNew_Status == 1)
             {
                 girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
             }
@@ -1475,7 +1480,7 @@ public class GirlEat_Judge : MonoBehaviour {
                             topping_score += girl1_status.girl1_hungryToppingScoreSet1[i];
 
                             //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。今のとこ、一番後ろのTPに反応する。
-                            topping_flag_point = girl1_status.girl1_hungryToppingNumberSet1[i];
+                            topping_flag_point = girl1_status.girl1_hungryToppingNumberSet1[i]; //スロット左から何番目がヒットしたか。
                             topping_flag = true; //好みが一致するトッピングが、一つでもあった。
                         }
                         else //逆に、必要なトッピングがあるのに、そのトッピングがのってなかった場合、

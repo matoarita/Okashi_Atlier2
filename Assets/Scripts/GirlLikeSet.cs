@@ -38,7 +38,10 @@ public class GirlLikeSet
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _set_score, int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, string tp01, string tp02, string tp03, string tp04, string tp05, int tp_score01, int tp_score02, int tp_score03, int tp_score04, int tp_score05, int non_tp_score, string _setkansou, int _comment_flag)
+    public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _set_score, int _rich, int _sweat, int _bitter, int _sour, 
+        int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, 
+        string tp01, string tp02, string tp03, string tp04, string tp05, int tp_score01, int tp_score02, int tp_score03, int tp_score04, int tp_score05, 
+        int non_tp_score, string _setkansou, int _comment_flag)
     {
         girlLike_ID = id;
         girlLike_compNum = _compnum;

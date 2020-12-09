@@ -172,7 +172,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     //女の子の好み組み合わせセットのデータ
     public int Set_compID;
-    private int glike_compID;
     private int set1_ID;
     private int set2_ID;
     private int set3_ID;
@@ -1045,16 +1044,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //
                     //①特定の課題お菓子。
-                    //
-
-                    //番号を入れると、女の子の好みデータベースから、値を取得し、セット。OkashiQuest_IDは、外部から指定。
-                    glike_compID = OkashiQuest_ID;
+                    //                   
 
                     //今選んだやつの、girllikeComposetのIDも保存しておく。（こっちは直接選んでいる。）
-                    Set_compID = glike_compID;
+                    Set_compID = OkashiQuest_ID;
 
                     //OkashiQuest_ID = compIDを指定すると、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
-                    SetQuestRandomSet(glike_compID, false);
+                    //SetQuestRandomSet(OkashiQuest_ID, false);
 
                     if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
                     {
@@ -1086,13 +1082,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //そこからランダムで選択。compIDを指定しているわけではないので、注意！
                     random = Random.Range(0, girlLikeCompo_database.girllike_compoRandomset.Count);
 
-                    glike_compID = random;
-
                     //今選んだやつの、randomsetのIDも保存しておく。
-                    Set_compID = glike_compID;
+                    Set_compID = random;
 
                     //ランダムセットから、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
-                    SetQuestRandomSet(glike_compID, true);                   
+                    SetQuestRandomSet(random, true);                   
 
 
                     break;
@@ -1185,7 +1179,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
     
-    void SetQuestRandomSet(int _ID, bool _rndset)
+    public void SetQuestRandomSet(int _ID, bool _rndset)
     {
         if (_rndset == true)
         {
