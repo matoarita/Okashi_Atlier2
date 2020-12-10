@@ -1080,7 +1080,7 @@ public class Quest_Judge : MonoBehaviour {
                 }
 
                 _text.text = "評価: " + GameMgr.ColorYellow + okashi_totalscore + "</color>" + "点" + 
-                    "　報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + _kanso;
+                    "　報酬 " + GameMgr.ColorYellow + _getMoney + GameMgr.MoneyCurrency + "　</color>" + "を受け取った！" + "\n" + _kanso;
 
                 Debug.Log("納品完了！" + " 採点：" + okashi_totalscore + "点！");
 

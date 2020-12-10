@@ -305,7 +305,7 @@ public class shopitemSelectToggle : MonoBehaviour
             default:
 
                 _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
-            "お金が　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + "G</color>" + "かかります。";
+            "お金が　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + GameMgr.MoneyCurrency + "　</color>" + "かかります。";
                 break;
         }
 

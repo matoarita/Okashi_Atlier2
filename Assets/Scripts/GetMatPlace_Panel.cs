@@ -360,7 +360,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + matplace_database.matplace_lists[i].placeCost.ToString() + "G";
+                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>";
                     }
 
                     select_place_num = place_num;

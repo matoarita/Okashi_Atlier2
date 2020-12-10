@@ -232,6 +232,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string ColorOrange;
     public static string ColorGreen;
 
+    //ゲームの通貨名
+    public static string MoneyCurrency;
+
     public static bool Scene_back_home; //シーンから、メイン画面にもどるときの、ドア開閉時の音を鳴らす用のフラグ。
 
 
@@ -265,6 +268,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ColorCyan = "<color=#44A2FF>";
         ColorOrange = "<color=#FF8400>";
         ColorGreen = "<color=48EE72FF>";
+
+        //通貨の名前
+        MoneyCurrency = "ルピア";
     }
 	
 	// Update is called once per frame
