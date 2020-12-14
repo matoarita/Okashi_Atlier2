@@ -117,10 +117,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int[] girl1_NonToppingScoreSet;
 
     public int youso_count; //GirlEat_judgeでも、パラメータ初期化の際使う。
-    public int Set_Count;
-
-    public int girl1_Love_exp; //女の子の好感度値のこと。ゲーム中に、お菓子をあげることで変動する。
-    public int girl1_Love_lv; //好感度のレベル。100ごとに１上がる。
+    public int Set_Count;   
 
     public bool girl_comment_flag; //女の子が感想をいうときに、宴をON/OFFにするフラグ
     public bool girl_comment_endflag; //感想を全て言い終えたフラグ
@@ -376,9 +373,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeOutHeartDeg = 5.0f;
         timeGirl_hungry_status = 1;
 
-        GirlGokigenStatus = 0;
-        girl1_Love_exp = 0;
-        girl1_Love_lv = 1;
+        GirlGokigenStatus = 0;        
         OkashiNew_Status = 1;
         Special_ignore_count = 0;
 
@@ -832,37 +827,37 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void CheckGokigen()
     {
         //女の子の今のご機嫌
-        if (girl1_Love_exp >= 0 && girl1_Love_lv < 2)
+        if (PlayerStatus.girl1_Love_exp >= 0 && PlayerStatus.girl1_Love_lv < 2)
         {
             //ご機嫌ななめ
             GirlGokigenStatus = 0;
            
         }
-        else if (girl1_Love_lv >= 2 && girl1_Love_lv < 3)
+        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 3)
         {
             //少し機嫌が悪い
             GirlGokigenStatus = 1;
            
         }
-        else if (girl1_Love_lv >= 3 && girl1_Love_lv < 4)
+        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 4)
         {
             //ちょっと元気でてきた
             GirlGokigenStatus = 2;
             
         }
-        else if (girl1_Love_lv >= 4 && girl1_Love_lv < 5)
+        else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 5)
         {
             //だいぶ元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (girl1_Love_lv >= 5 && girl1_Love_lv < 6)
+        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 6)
         {
             //元気
             GirlGokigenStatus = 4;
             
         }
-        else if (girl1_Love_lv >= 6)
+        else if (PlayerStatus.girl1_Love_lv >= 6)
         {
             //最高に上機嫌
             GirlGokigenStatus = 5;

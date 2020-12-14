@@ -6,8 +6,15 @@ using UnityEngine.UI;
 public class TimeController : MonoBehaviour
 {
 
+    //時間の概念を使用するかどうかは、GameMgr.csに記述  使用しないときは、TimePanelオブジェクトもオフにする
+
+    private GameObject canvas;
+    private Compound_Main compound_main;
+
     private GameObject _month_obj1;
+    private GameObject _monthday_obj1;
     private GameObject _month_obj2;
+    private Text _month_text1;
     private Text _day_text1;
     private Text _day_text2;
 
@@ -45,7 +52,10 @@ public class TimeController : MonoBehaviour
     private float timeLeft;
     private bool count_switch;
 
+    private bool money_counter;
+
     public bool TimeCheck_flag; //調合メインメソッドのトップ画面で起動開始
+   
 
     // Use this for initialization
     void Start()
@@ -57,6 +67,11 @@ public class TimeController : MonoBehaviour
 
     void InitParam()
     {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+
         //カレンダー初期化
         calender.Clear();
 
@@ -74,18 +89,21 @@ public class TimeController : MonoBehaviour
         calender.Add(31); //１２月
 
         _month_obj1 = this.transform.Find("TimeHyouji_1/Image/Month").gameObject;
-        _day_text1 = _month_obj1.GetComponent<Text>();
+        _month_text1 = _month_obj1.GetComponent<Text>();
+
+        _monthday_obj1 = this.transform.Find("TimeHyouji_1/Image/Month_Day").gameObject;
+        _day_text1 = _monthday_obj1.GetComponent<Text>();
 
         _month_obj2 = this.transform.Find("TimeHyouji_2/Month").gameObject;
         _day_text2 = _month_obj2.GetComponent<Text>();
 
-        _time_obj1_hour = this.transform.Find("TimeHyouji_1/Image/Hour").gameObject;
+        _time_obj1_hour = this.transform.Find("TimeHyouji_1/Image/HourPanel/Hour").gameObject;
         _time_hour1 = _time_obj1_hour.GetComponent<Text>();
 
-        _time_obj1_count = this.transform.Find("TimeHyouji_1/Image/TimeCount").gameObject;
+        _time_obj1_count = this.transform.Find("TimeHyouji_1/Image/HourPanel/TimeCount").gameObject;
         _time_count1 = _time_obj1_count.GetComponent<Text>();
 
-        _time_obj1_minute = this.transform.Find("TimeHyouji_1/Image/Minute").gameObject;
+        _time_obj1_minute = this.transform.Find("TimeHyouji_1/Image/HourPanel/Minute").gameObject;
         _time_minute1 = _time_obj1_minute.GetComponent<Text>();
 
         _time_obj2_hour = this.transform.Find("TimeHyouji_2/Hour").gameObject;
@@ -109,6 +127,13 @@ public class TimeController : MonoBehaviour
 
         timeLeft = 1.0f;
         count_switch = true;
+
+        money_counter = false;
+    }
+
+    private void OnEnable()
+    {
+        InitParam();
     }
 
     // Update is called once per frame
@@ -129,87 +154,97 @@ public class TimeController : MonoBehaviour
             //表示
             _time_count1.text = ":";
             _time_count2.text = ":";
+
+            //お金が1秒ごとに減る。
+            /*if (!money_counter)
+            {
+                money_counter = true;
+                PlayerStatus.player_money -= 1;
+                compound_main.MoneyTextKoushin();
+            }*/
         }
         else
         {
             //表示
             _time_count1.text = " ";
             _time_count2.text = " ";
+
+            //money_counter = false; //お金減る
         }
     }
 
     public void TimeKoushin()
     {
         //時間、ひとまず未使用のため、OFFに。
-        /*
-        InitParam();
-
-        //プレイヤーデイを基に、カレンダーの日付に変換。
-        if (PlayerStatus.player_day > 365)
+        if (GameMgr.TimeUSE_FLAG) //TRUEのときは使用。オフにするときは、TimePanelのゲームオブジェクトもオフにする。
         {
-            PlayerStatus.player_day = 1;
-        }
+            InitParam();
 
-        _cullent_day = PlayerStatus.player_day;
-        month = 0;
-        day = 0;
-
-        switch (GameMgr.stage_number)
-        {
-            case 1:
-
-                _stage_limit_day = GameMgr.stage1_limit_day;               
-                break;
-
-            case 2:
-
-                _stage_limit_day = GameMgr.stage2_limit_day;
-                break;
-
-            case 3:
-
-                _stage_limit_day = GameMgr.stage3_limit_day;
-                break;
-
-        }
-
-        //残り日数
-        _time_limit1.text = (_stage_limit_day - _cullent_day).ToString() + "日";
-        _time_limit2.text = (_stage_limit_day - _cullent_day).ToString() + "日";
-
-        count = 0;
-        while (count < calender.Count)
-        {
-            if (_cullent_day > calender[count]) { _cullent_day -= calender[count]; }
-            else //その月の日付
+            //プレイヤーデイを基に、カレンダーの日付に変換。
+            if (PlayerStatus.player_day > 365)
             {
-                month = count + 1; //月　0始まりなので、足す１
-                day = _cullent_day; //日
-                break;
+                PlayerStatus.player_day = 1;
             }
-            ++count;
+
+            _cullent_day = PlayerStatus.player_day;
+            month = 0;
+            day = 0;
+
+            switch (GameMgr.stage_number)
+            {
+                case 1:
+
+                    _stage_limit_day = GameMgr.stage1_limit_day;
+                    break;
+
+                case 2:
+
+                    _stage_limit_day = GameMgr.stage2_limit_day;
+                    break;
+
+                case 3:
+
+                    _stage_limit_day = GameMgr.stage3_limit_day;
+                    break;
+
+            }
+
+            //残り日数
+            _time_limit1.text = (_stage_limit_day - _cullent_day).ToString() + "日";
+            _time_limit2.text = (_stage_limit_day - _cullent_day).ToString() + "日";
+
+            count = 0;
+            while (count < calender.Count)
+            {
+                if (_cullent_day > calender[count]) { _cullent_day -= calender[count]; }
+                else //その月の日付
+                {
+                    month = count + 1; //月　0始まりなので、足す１
+                    day = _cullent_day; //日
+                    break;
+                }
+                ++count;
+            }
+
+            //現在の月と日を更新しておく。
+            PlayerStatus.player_cullent_month = month;
+            PlayerStatus.player_cullent_day = day;
+
+
+            //表示
+            _month_text1.text = month.ToString();
+            _day_text1.text = day.ToString();
+            _day_text2.text = month.ToString() + "/" + day.ToString();
+
+            //時間を計算
+            TimeKeisan();
+
+            //表示
+            _time_hour1.text = hour.ToString("00");
+            _time_minute1.text = minute.ToString("00");
+            _time_hour2.text = hour.ToString("00");
+            _time_minute2.text = minute.ToString("00");
         }
-
-        //現在の月と日を更新しておく。
-        PlayerStatus.player_cullent_month = month;
-        PlayerStatus.player_cullent_day = day;
-
-
-        //表示
-        _day_text1.text = month.ToString() + "/" + day.ToString();
-        _day_text2.text = month.ToString() + "/" + day.ToString();
-
-        //時間を計算
-        TimeKeisan();
-
-
-
-        //表示
-        _time_hour1.text = hour.ToString("00");
-        _time_minute1.text = minute.ToString("00");
-        _time_hour2.text = hour.ToString("00");
-        _time_minute2.text = minute.ToString("00");
-        */
     }
 
     void TimeKeisan()
@@ -256,7 +291,7 @@ public class TimeController : MonoBehaviour
 
                 //寝るイベントが発生
                 GameMgr.sleep_status = 0;
-                StartCoroutine("SleepDayEnd");
+                compound_main.OnSleepReceive();
 
                 //もし、材料採取などしていたら、別でイベントを発生し、家に戻す。か、無視。
 
@@ -274,36 +309,11 @@ public class TimeController : MonoBehaviour
         }
     }
 
-    IEnumerator SleepDayEnd()
-    {
-        //好感度によって発生するイベントチェック
-
-        //** ここまで **
-
-        GameMgr.scenario_ON = true;      
-        GameMgr.sleep_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-                                         //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
-
-        while (!GameMgr.scenario_read_endflag)
-        {
-            yield return null;
-        }
-
-        GameMgr.scenario_read_endflag = false;
-        GameMgr.scenario_ON = false;
-
-        //リセット。
-        PlayerStatus.player_day++;
-        PlayerStatus.player_time = 0;
-
-        //TimeKeisan();
-    }
-
     //他のスクリプトから寝るを選択
     public void OnSleepMethod()
     {
         GameMgr.sleep_status = 1;
-        StartCoroutine("SleepDayEnd");
+        compound_main.OnSleepReceive();
     }
 
     public void DeadLine_Setting()

@@ -37,11 +37,11 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
         _comp = this.transform.Find("Comp").gameObject;
 
         glovelv_param = this.transform.Find("Comp/Image/LvParam").GetComponent<Text>();
-        glovelv_param.text = girl1_status.girl1_Love_lv.ToString();
+        glovelv_param.text = PlayerStatus.girl1_Love_lv.ToString();
 
         glovestatus_param = this.transform.Find("Comp/Image/GenkiMessage").GetComponent<Text>();
 
-        switch(girl1_status.girl1_Love_lv)
+        switch(PlayerStatus.girl1_Love_lv)
         {
             case 1:
 

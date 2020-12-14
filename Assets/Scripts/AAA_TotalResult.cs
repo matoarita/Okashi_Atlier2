@@ -61,7 +61,7 @@ public class AAA_TotalResult : MonoBehaviour {
         //その他、各クエストクリア時の最高得点、各お菓子の最高得点、パティシエレベル
         //アイテム発見力（見つけたレシピの本の数）
 
-        girl_love_score = SujiMap(girl1_status.girl1_Love_exp, 0f, 999f, 0f, 100f);
+        girl_love_score = SujiMap(PlayerStatus.girl1_Love_exp, 0f, 999f, 0f, 100f);
         recipi_archivement_score = GameMgr.game_Recipi_archivement_rate;
         contest_score = SujiMap(GameMgr.contest_TotalScore, 0f, 300f, 0f, 100f);
 

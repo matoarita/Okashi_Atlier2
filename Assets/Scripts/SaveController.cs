@@ -150,8 +150,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //妹のステータス
             save_player_girl_findpower = PlayerStatus.player_girl_findpower, //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
-            save_girl_love_exp = girl1_status.girl1_Love_exp, //妹の好感度
-            save_girl_love_lv = girl1_status.girl1_Love_lv, //妹の好感度レベル
+            save_girl_love_exp = PlayerStatus.girl1_Love_exp, //妹の好感度
+            save_girl_love_lv = PlayerStatus.girl1_Love_lv, //妹の好感度レベル
 
             //日付・フラグ関係
             save_player_day = PlayerStatus.player_day, //現在の日付
@@ -331,8 +331,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //妹のステータス
         PlayerStatus.player_girl_findpower = playerData.save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
-        girl1_status.girl1_Love_exp = playerData.save_girl_love_exp; //妹の好感度
-        girl1_status.girl1_Love_lv = playerData.save_girl_love_lv; //妹の好感度レベル
+        PlayerStatus.girl1_Love_exp = playerData.save_girl_love_exp; //妹の好感度
+        PlayerStatus.girl1_Love_lv = playerData.save_girl_love_lv; //妹の好感度レベル
 
         //日付・フラグ関係
         PlayerStatus.player_day = playerData.save_player_day; //現在の日付
@@ -556,7 +556,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1);
         special_quest.RedrawQeustName();       
 
-        debug_panel.GirlLove_Koushin(girl1_status.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
+        debug_panel.GirlLove_Koushin(PlayerStatus.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
         GameMgr.KeyInputOff_flag = true;
 
         //衣装チェンジ

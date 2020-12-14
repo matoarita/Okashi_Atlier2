@@ -73,6 +73,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int select_place_num;
     private string select_place_name;
     private int select_place_day;
+    private int _place_num;
 
     private bool Slot_view_on;
     public int slot_view_status;
@@ -101,6 +102,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private bool next_on; //先へ進んだ場合、ON
 
     private GameObject NextButton_obj;
+    private GameObject OpenTreasureButton_obj;
+
+    private GameObject HeroineLifePanel;
+    private Text HeroineLifeText;
+    private int HeroineLife;
 
     // Use this for initialization
     void Start()
@@ -134,12 +140,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //時間管理オブジェクトの取得
-        TimePanel_obj1 = canvas.transform.Find("TimePanel").gameObject;
-        time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
+        TimePanel_obj1 = canvas.transform.Find("MainUIPanel/TimePanel").gameObject;
+        time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
         
-
         //女の子データの取得
-        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子  
+
+        //ヒロインライフパネル
+        HeroineLifePanel = this.transform.Find("Comp/HeroineLife").gameObject;
+        HeroineLifeText = HeroineLifePanel.transform.Find("HPguage/HPparam").GetComponent<Text>();
+        
 
         //移動中アニメーション用パネルの取得
         moveanim_panel = this.transform.Find("Comp/MoveAnimPanel").gameObject;
@@ -196,6 +206,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         slot_tansaku_button = slot_tansaku_button_obj.transform.Find("TansakuActionList/Viewport/Content").gameObject;
 
         NextButton_obj = slot_tansaku_button_obj.transform.Find("TansakuActionList/Viewport/Content/Next_tansaku").gameObject;
+        OpenTreasureButton_obj = slot_tansaku_button_obj.transform.Find("TansakuActionList/Viewport/Content/Open_treasure").gameObject;
 
         i = 0;
         foreach (Transform child in slot_view.transform.Find("EventPanel/").transform)
@@ -225,7 +236,45 @@ public class GetMatPlace_Panel : MonoBehaviour {
         InitializeResultItemDicts(); //取得したアイテム表示用のディクショナリー
     }
 
-    
+    private void OnEnable()
+    {
+        
+    }
+
+    //外から読み込む。初期化用。
+    public void SetInit()
+    {
+        //スロットビューは最初Off
+        slot_view.SetActive(false);
+
+        //背景マップも最初はOff
+        map_imageBG.SetActive(false);
+
+        //最初は、採取地選択画面をonに。
+        getmatplace_view.SetActive(true);
+
+        moveanim_panel.SetActive(false);
+
+        move_anim_on = false;
+        modoru_anim_on = false;
+
+        //表示フラグにそって、採取地の表示/非表示の決定
+        for (i = 0; i < matplace_toggle.Count; i++)
+        {
+            if (matplace_database.matplace_lists[i].placeFlag == 1)
+            {
+                matplace_toggle[i].SetActive(true);
+            }
+            else
+            {
+                matplace_toggle[i].SetActive(false);
+            }
+        }
+
+        //妹の体力（HP)を表示
+        //HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
+        HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+    }
 
     // Update is called once per frame
     void Update () {
@@ -323,6 +372,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
             PlayerStatus.player_time += select_place_day;
             time_controller.TimeKoushin();
 
+            //ハートゲージを更新。
+            compound_Main.HeartGuageTextKoushin();
+
             _text.text = "家に戻ってきた。どうしようかなぁ？";
 
             //リザルトパネルを表示
@@ -337,43 +389,66 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public void OnClick_Place(int place_num)
     {
         i = 0;
+        _place_num = place_num;
         while (i < matplace_toggle.Count)
         {
             if (matplace_toggle[i].GetComponent<Toggle>().isOn == true)
             {
                 select_num = i;
 
-                /*
-                //時間が20時をこえないかチェック
-                _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[place_num].placeDay); //行きの時間だけ計算
-                if (_yosokutime >= time_controller.max_time * 6)
+                //妹の体力が足りてるかチェック
+                if (PlayerStatus.girl1_Love_exp <= 0)
                 {
-                    //20時を超えるので、妹に止められる。
-                    _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
+                    _text.text = "にいちゃん。怖くて外にでれないよ～・・。" + "\n" + "まずは、ヒカリのハートをあげてね！";
+
                     All_Off();
                 }
                 else
-                {*/
-                    if (matplace_database.matplace_lists[i].placeCost == 0)
+                {
+                    //時間が20時をこえないかチェック
+                    if (GameMgr.TimeUSE_FLAG)
                     {
-                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？";
+                        _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[_place_num].placeDay); //行きの時間だけ計算
+                        if (_yosokutime >= time_controller.max_time * 6)
+                        {
+                            //20時を超えるので、妹に止められる。
+                            _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
+                            All_Off();
+                        }
+                        else
+                        {
+                            KakuninPlace();
+                            break;
+                        }
                     }
                     else
                     {
-                        _text.text = matplace_database.matplace_lists[place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>";
+                        KakuninPlace();
+                        break;
                     }
-
-                    select_place_num = place_num;
-                    select_place_name = matplace_database.matplace_lists[place_num].placeName;
-                    select_place_day = matplace_database.matplace_lists[place_num].placeDay;
-
-                    Select_Pause();
-                    break;
-                //}
+                }
 
             }
             i++;
         }
+    }
+
+    void KakuninPlace()
+    {
+        if (matplace_database.matplace_lists[i].placeCost == 0)
+        {
+            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？";
+        }
+        else
+        {
+            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>";
+        }
+
+        select_place_num = _place_num;
+        select_place_name = matplace_database.matplace_lists[_place_num].placeName;
+        select_place_day = matplace_database.matplace_lists[_place_num].placeDay;
+
+        Select_Pause();
     }
 
     void Select_Pause()
@@ -406,43 +481,44 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
 
             case true: //決定が押された
+               
+                    //お金が足りてるかチェック
+                    mat_cost = matplace_database.matplace_lists[select_place_num].placeCost;
+                    if (PlayerStatus.player_money < mat_cost)
+                    {
+                        _text.text = "にいちゃん。お金が足りないよ～・・。";
 
-                //お金が足りてるかチェック
-                mat_cost = matplace_database.matplace_lists[select_place_num].placeCost;
-                if (PlayerStatus.player_money < mat_cost)
-                {
-                    _text.text = "にいちゃん。お金が足りないよ～・・。";
+                        All_Off();
+                    }
+                    else
+                    {
+                        //Debug.Log("ok");
+                        //解除
 
-                    All_Off();
-                }
-                else
-                {
-                    //Debug.Log("ok");
-                    //解除
+                        itemselect_cancel.kettei_on_waiting = false;
 
-                    itemselect_cancel.kettei_on_waiting = false;
+                        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                    yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                        //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
 
-                    //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
+                        move_anim_on = true;
+                        move_anim_status = 0;
 
-                    move_anim_on = true;
-                    move_anim_status = 0;
+                        next_on = false;
 
-                    next_on = false;
+                        girl1_status.hukidasiOff();
 
-                    girl1_status.hukidasiOff();
+                        //音量フェードアウト
+                        sceneBGM.FadeOutBGM();
 
-                    //音量フェードアウト
-                    sceneBGM.FadeOutBGM();
+                        //日数の経過。場所ごとに、移動までの日数が変わる。
+                        PlayerStatus.player_time += select_place_day;
+                        time_controller.TimeKoushin();
 
-                    //日数の経過。場所ごとに、移動までの日数が変わる。
-                    PlayerStatus.player_time += select_place_day;
-                    time_controller.TimeKoushin();
-
-                    //お金の消費
-                    moneyStatus_Controller.UseMoney(mat_cost);
-                }
+                        //お金の消費
+                        moneyStatus_Controller.UseMoney(mat_cost);
+                    }
+                
                 break;
                     
 
@@ -815,38 +891,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
-    }
-
-    //外から読み込む。初期化用。
-    public void SetInit()
-    {
-        //スロットビューは最初Off
-        slot_view.SetActive(false);
-
-        //背景マップも最初はOff
-        map_imageBG.SetActive(false);
-
-        //最初は、採取地選択画面をonに。
-        getmatplace_view.SetActive(true);
-
-        moveanim_panel.SetActive(false);
-
-        move_anim_on = false;
-        modoru_anim_on = false;
-
-        //表示フラグにそって、採取地の表示/非表示の決定
-        for (i = 0; i < matplace_toggle.Count; i++)
-        {
-            if (matplace_database.matplace_lists[i].placeFlag == 1)
-            {
-                matplace_toggle[i].SetActive(true);
-            }
-            else
-            {
-                matplace_toggle[i].SetActive(false);
-            }
-        }
-    }
+    }    
 
     void MoveAnim()
     {
@@ -1015,7 +1060,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
     IEnumerator MapEventOn()
     {
         MoneyStatus_Panel_obj.SetActive(false);
-        //TimePanel_obj1.SetActive(false);
+        HeroineLifePanel.SetActive(false);
+        if (GameMgr.TimeUSE_FLAG)
+        {
+            TimePanel_obj1.SetActive(false);
+        }
 
         while (!GameMgr.recipi_read_endflag)
         {
@@ -1025,7 +1074,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
         GameMgr.recipi_read_endflag = false;
 
         MoneyStatus_Panel_obj.SetActive(true);
-        //TimePanel_obj1.SetActive(true);
+        HeroineLifePanel.SetActive(true);
+        if (GameMgr.TimeUSE_FLAG)
+        {
+            TimePanel_obj1.SetActive(true);
+        }
+
         text_area.SetActive(true);
         slot_tansaku_button_obj.SetActive(true);
         for(i=0; i<mapevent_panel.Count; i++)
@@ -1128,8 +1182,28 @@ public class GetMatPlace_Panel : MonoBehaviour {
         StartCoroutine("modoru_kakunin");
     }
 
+    //
+    //宝箱をあける
+    //
+
+    public void OnOpenTreasure() //「あける」ボタンをおした
+    {
+        OpenTreasureButton_obj.SetActive(false);
+        get_material.GetTreasureBox(select_place_name);
+
+        //ハートを３つ消費
+        PlayerStatus.girl1_Love_exp -= 3;
+        HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+    }
+
+
+
+    //
+    //探索関係
+    //
+
     //さらに奥へ進む場合の処理
-    public void OnNext()
+    public void OnNext() //「先へ進む」ボタンをおした
     {
         //音を鳴らす
         sc.PlaySe(24);
@@ -1148,13 +1222,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             case 100: //バードサンクチュアリを発見
 
-                select_place_name = "BirdSanctuali";
-                select_place_num = matplace_database.SearchMapString(select_place_name);
+                select_place_name = "BirdSanctuali"; //移動後の場所を指定
+                select_place_num = matplace_database.SearchMapString(select_place_name); //次回より、「外へでる」ですぐ行けるよう、フラグ解放
                 break;
 
             default:
 
                 break;
         }
-    }
+    }   
 }

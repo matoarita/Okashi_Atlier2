@@ -383,7 +383,7 @@ public class Debug_Panel : MonoBehaviour {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
 
-        girl1_status.girl1_Love_exp = 0;
+        PlayerStatus.girl1_Love_exp = 0;
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
@@ -435,27 +435,27 @@ public class Debug_Panel : MonoBehaviour {
                     break;
             }
 
-            girl1_status.girl1_Love_exp = _girllove_param;
+            PlayerStatus.girl1_Love_exp = _girllove_param;
 
             i = 0;
-            girl1_status.girl1_Love_lv = 1;
+            PlayerStatus.girl1_Love_lv = 1;
             while (_girllove_param >= stage_levelTable[i])
             {
                 _girllove_param -= stage_levelTable[i];
-                girl1_status.girl1_Love_lv++;
+                PlayerStatus.girl1_Love_lv++;
                 i++;
             }
 
             //スライダマックスバリューも更新
-            _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+            _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
 
             _slider.value = _girllove_param;
             girl1_status.LvUpStatus();
            
 
             //レベル表示も更新
-            girl_lv.text = girl1_status.girl1_Love_lv.ToString();
-            girl_param.text = girl1_status.girl1_Love_exp.ToString();
+            girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
+            girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
 
 
             //表情も即時変更

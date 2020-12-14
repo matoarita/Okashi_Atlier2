@@ -237,6 +237,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static bool Scene_back_home; //シーンから、メイン画面にもどるときの、ドア開閉時の音を鳴らす用のフラグ。
 
+    //時間の概念を使用するかどうかのフラグ
+    public static bool TimeUSE_FLAG = true; //使用するならtrue
+
+    //一日の食費
+    public static int Foodexpenses;
+
 
     // Use this for initialization
     void Start () {
@@ -294,6 +300,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void ResetGameDefaultStatus()
     {
         GameLoadOn = false;
+
+        //食費
+        Foodexpenses = 100;
 
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。
         scenario_ON = false;

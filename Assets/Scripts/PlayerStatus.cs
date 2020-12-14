@@ -18,8 +18,13 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
 
     //妹のステータス
-    public static int player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
-    public static int player_girl_findpower_def; //デフォルト初期値。変動しない。
+    //好感度のexpとlvだけは、girl1_statusに登録。
+    public static int girl1_Love_exp;               //女の子の好感度値のこと。ゲーム中に、お菓子をあげることで変動する。
+    public static int girl1_Love_lv;                //好感度のレベル。100ごとに１上がる。
+    public static int player_girl_findpower;        //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
+    public static int player_girl_findpower_def;    //デフォルト初期値。変動しない。
+    //public static int player_girl_lifepoint;        //妹の体力。探索のときに消費する。大きくなるほど、より遠くまで探索できる、ということ。
+    //public static int player_girl_maxlifepoint;     //妹の体力のMAX
 
 
     //日付・フラグ関係
@@ -58,8 +63,12 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_zairyobox_lv = 1;
 
         //妹のステータス初期設定
+        girl1_Love_exp = 0;
+        girl1_Love_lv = 1;
         player_girl_findpower_def = 100;
         player_girl_findpower = player_girl_findpower_def; //探索力
+        //player_girl_maxlifepoint = 10;
+        //player_girl_lifepoint = player_girl_maxlifepoint;
 
         First_recipi_on = false;
         First_extreme_on = false;

@@ -38,7 +38,7 @@ public class Particle_Heart_Character : MonoBehaviour {
         particle = this.GetComponent<ParticleSystem>();
         particleEm = particle.emission;
 
-        _love = girl1_status.girl1_Love_exp;
+        _love = PlayerStatus.girl1_Love_exp;
         _love = _love * 0.1f;
 
         _setlove = (int)_love;

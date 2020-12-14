@@ -9,6 +9,8 @@ public class QuestTitlePanel : MonoBehaviour {
     private SoundController sc;
     private Compound_Main compound_Main;
 
+    private float qtitlepanel_pos_y;
+
     // Use this for initialization
     void Start () {
 
@@ -31,6 +33,9 @@ public class QuestTitlePanel : MonoBehaviour {
         //音ならす
         sc.PlaySe(25); //25 鐘の音:50 キラリン:17
         //sc.PlaySe(27);
+
+        qtitlepanel_pos_y = 30f; //パネルの初期値
+        //Debug.Log("qtitlepanel_pos_y: " + qtitlepanel_pos_y);
 
         //アニメーションスタート
         OnStartAnim();
@@ -55,7 +60,7 @@ public class QuestTitlePanel : MonoBehaviour {
         this.GetComponent<CanvasGroup>().alpha = 0;
         this.transform.Find("QuestPanel").GetComponent<CanvasGroup>().alpha = 0;
         //sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
-        sequence.Append(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, 20f, 0), 0.0f)
+        sequence.Append(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0f, qtitlepanel_pos_y+20f, 0), 0.0f)
             .SetRelative()); //元の位置から30px右に置いておく。
         
                              //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
@@ -69,7 +74,7 @@ public class QuestTitlePanel : MonoBehaviour {
             .SetEase(Ease.OutQuart));
 
         //次にクエストタイトルを登場させる
-        sequence.Join(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0.0f, 0.0f, 0.0f), 0.7f)
+        sequence.Join(this.transform.Find("QuestPanel").transform.DOLocalMove(new Vector3(0.0f, qtitlepanel_pos_y, 0.0f), 0.7f)
             .SetEase(Ease.OutQuart)); //30px右から、元の位置に戻る。
         sequence.Join(this.transform.Find("QuestPanel").GetComponent<CanvasGroup>().DOFade(1, 0.3f)
              .SetEase(Ease.OutQuart));

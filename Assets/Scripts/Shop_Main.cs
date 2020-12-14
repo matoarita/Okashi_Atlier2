@@ -532,7 +532,7 @@ public class Shop_Main : MonoBehaviour {
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
     void CheckShopLvEvent()
     {
-        if (girl1_status.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 10) //好感度レベル２以上 or ラスクイベント開始
+        if (PlayerStatus.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 10) //好感度レベル２以上 or ラスクイベント開始
         {
             if (!GameMgr.ShopLVEvent_stage[0])
             {

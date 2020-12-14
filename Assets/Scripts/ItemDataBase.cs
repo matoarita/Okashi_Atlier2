@@ -240,4 +240,27 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
             items[i].last_hinttext = "";
         }
     }
+
+    //アイテム名をいれると、そのアイテムのIDを返すメソッド
+    public int SearchItemIDString(string Name)
+    {
+        if (Name == "Non")
+        {
+            return 9999;
+        }
+        else
+        {
+            i = 0;
+            while (i <= items.Count)
+            {
+                if (items[i].itemName == Name)
+                {
+                    return i;
+                }
+                i++;
+            }
+
+            return 9999; //見つからなかった場合、9999
+        }
+    }
 }

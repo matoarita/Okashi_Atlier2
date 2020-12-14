@@ -556,6 +556,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("Sleep_num", GameMgr.sleep_status);
+        engine.Param.TrySetParameter("FoodExpenses", GameMgr.Foodexpenses);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -2000,22 +2001,22 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //好感度LVによって、EDが分岐する。
-        if (girl1_status.girl1_Love_lv <= 3) //LV3以下 badED ED:D
+        if (PlayerStatus.girl1_Love_lv <= 3) //LV3以下 badED ED:D
         {
             engine.Param.TrySetParameter("ED_num", 1);
             GameMgr.ending_number = 1;
         }
-        else if (girl1_status.girl1_Love_lv > 3 && girl1_status.girl1_Love_lv <= 4) // LV4 ノーマルED ED:C
+        else if (PlayerStatus.girl1_Love_lv > 3 && PlayerStatus.girl1_Love_lv <= 4) // LV4 ノーマルED ED:C
         {           
             engine.Param.TrySetParameter("ED_num", 2);
             GameMgr.ending_number = 2;
         }
-        else if (girl1_status.girl1_Love_lv > 4 && yusho_flag == false) // LV5~ ベストED ED:B ケーキED
+        else if (PlayerStatus.girl1_Love_lv > 4 && yusho_flag == false) // LV5~ ベストED ED:B ケーキED
         {
             engine.Param.TrySetParameter("ED_num", 3);
             GameMgr.ending_number = 3;
         }
-        else if (girl1_status.girl1_Love_lv > 4 && yusho_flag == true) // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
+        else if (PlayerStatus.girl1_Love_lv > 4 && yusho_flag == true) // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
         {
             engine.Param.TrySetParameter("ED_num", 4);
             GameMgr.ending_number = 4;

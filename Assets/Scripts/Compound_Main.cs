@@ -42,6 +42,7 @@ public class Compound_Main : MonoBehaviour
     private TimeController time_controller;
 
     private Debug_Panel_Init debug_panel_init;
+    private Debug_Panel debug_panel;
 
     private GameObject selectPanel_1;
     private GameObject select_original_button_obj;
@@ -55,6 +56,7 @@ public class Compound_Main : MonoBehaviour
     private Button select_no_button;
 
     private GameObject girl_love_exp_bar;
+    private Text girl_param;
     private GameObject moneystatus_panel;
     private Vector3 moneypanel_startPos;
     private GameObject kaerucoin_panel;
@@ -201,6 +203,8 @@ public class Compound_Main : MonoBehaviour
     public string extreme_text;
     public string recipi_text;
 
+    private bool gameover_loading;
+
     // Use this for initialization
     void Start()
     {
@@ -231,6 +235,7 @@ public class Compound_Main : MonoBehaviour
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
+        debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
 
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
@@ -240,15 +245,15 @@ public class Compound_Main : MonoBehaviour
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
-
         
         //時間表示パネルの取得
-        TimePanel_obj1 = canvas.transform.Find("TimePanel/TimeHyouji_1").gameObject;
-        TimePanel_obj2 = canvas.transform.Find("TimePanel/TimeHyouji_2").gameObject;
+        TimePanel_obj1 = canvas.transform.Find("MainUIPanel/TimePanel/TimeHyouji_1").gameObject;
+        TimePanel_obj2 = canvas.transform.Find("MainUIPanel/TimePanel/TimeHyouji_2").gameObject;
         TimePanel_obj2.SetActive(false);
        
         //好感度バーの取得
         girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").gameObject;
+        girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
 
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
@@ -379,7 +384,7 @@ public class Compound_Main : MonoBehaviour
         touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
         //時間管理オブジェクトの取得
-        time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
+        time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
 
         //キー入力受付コントローラーの取得
         keymanager = keyManager.Instance.GetComponent<keyManager>();
@@ -431,6 +436,7 @@ public class Compound_Main : MonoBehaviour
         check_GirlLoveEvent_flag = false;
         check_GirlLoveSubEvent_flag = false;
         read_girlevent = false;
+        gameover_loading = false;
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
@@ -507,6 +513,18 @@ public class Compound_Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //お金が0を下回ったらゲームオーバー
+        if(PlayerStatus.player_money <= 0)
+        {
+            if (!gameover_loading)
+            {
+                gameover_loading = true; //アップデートを更新しないようにしている。
+                //お金が0になったので、ゲーム終了　ぐええ
+                Debug.Log("ゲームオーバー画面表示");
+
+                FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+            }
+        }
 
         if (GameMgr.scenario_ON != true)
         {
@@ -540,6 +558,7 @@ public class Compound_Main : MonoBehaviour
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
         if (GameMgr.scenario_ON == true)
         {
+            //Debug.Log("ゲームマネジャー　シナリオON");
 
             //チュートリアルモードがONになったら、この中の処理が始まる。
             if (GameMgr.tutorial_ON == true)
@@ -934,7 +953,8 @@ public class Compound_Main : MonoBehaviour
                             //腹減りカウント一時停止
                             girl1_status.GirlEat_Judge_on = false;
 
-                            Check_RecipiFlag();
+                            //Debug.Log("チェックレシピ中");
+                            Check_RecipiFlag();                            
                         }
                         else
                         {
@@ -1010,10 +1030,7 @@ public class Compound_Main : MonoBehaviour
                 OnCompoundSelect();
                 touch_controller.Touch_OnAllON();                
 
-                recipiMemoButton.SetActive(false);          
-
-                //お金パネルの配置を初期値に戻す
-                //moneystatus_panel.transform.localPosition = moneypanel_startPos;
+                recipiMemoButton.SetActive(false);                
 
                 //Live2Dデフォルト
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
@@ -1145,7 +1162,7 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(true);
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(true);
-                compoBGA_image.SetActive(false);
+                //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(true);
                 compoBGA_imageExtreme.SetActive(false);
@@ -1196,7 +1213,7 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(false);
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(true);
-                compoBGA_image.SetActive(false);
+                //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(true);
@@ -1250,7 +1267,7 @@ public class Compound_Main : MonoBehaviour
 
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(true);
-                compoBGA_image.SetActive(false);
+                //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(true);
                 compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(false);
@@ -2254,19 +2271,19 @@ public class Compound_Main : MonoBehaviour
                 {
                     case 1:
 
-                        GameMgr.stage1_girl1_loveexp = girl1_status.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage1_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
                         FadeManager.Instance.LoadScene("Contest", 0.3f);
                         break;
 
                     case 2:
 
-                        GameMgr.stage2_girl1_loveexp = girl1_status.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage2_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
                         FadeManager.Instance.LoadScene("003_Stage3_eyecatch", 0.3f);
                         break;
 
                     case 3:
 
-                        GameMgr.stage3_girl1_loveexp = girl1_status.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage3_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
                         FadeManager.Instance.LoadScene("100_Ending", 0.3f);
                         break;
 
@@ -2736,7 +2753,7 @@ public class Compound_Main : MonoBehaviour
         {
             check_GirlLoveSubEvent_flag = true;
 
-            if (girl1_status.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[0] == false) //4になったときのサブイベントを使う。
+            if (PlayerStatus.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[0] == false) //4になったときのサブイベントを使う。
             {
                 GameMgr.GirlLoveSubEvent_num = 0;
                 GameMgr.GirlLoveSubEvent_stage1[0] = true;
@@ -2750,6 +2767,39 @@ public class Compound_Main : MonoBehaviour
                 StartCoroutine("ReadGirlLoveEvent");
             }            
         }
+    }
+
+    //タイムコントローラーから、眠りの宴シナリオを呼び出す際に使用。
+    public void OnSleepReceive()
+    {
+        StartCoroutine("SleepDayEnd");
+    }
+
+    IEnumerator SleepDayEnd()
+    {
+        //好感度によって発生するイベントチェック
+
+        //** ここまで **
+
+        GameMgr.scenario_ON = true;
+        GameMgr.sleep_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                   //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
+
+        while (!GameMgr.scenario_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
+
+        //リセット。
+        PlayerStatus.player_day++;
+        PlayerStatus.player_time = 0;
+
+        //一日経つと、食費を消費
+        PlayerStatus.player_money -= GameMgr.Foodexpenses;
+
     }
 
     public void OffCompoundSelectnoExtreme()
@@ -2793,5 +2843,16 @@ public class Compound_Main : MonoBehaviour
     public void OnCompoundSelectObj()
     {
         compoundselect_onoff_obj.SetActive(true);
+    }
+
+    public void HeartGuageTextKoushin()
+    {
+        //好感度ゲージを更新               
+        debug_panel.GirlLove_Koushin(PlayerStatus.girl1_Love_exp);
+    }
+
+    public void MoneyTextKoushin()
+    {
+        moneystatus_panel.GetComponent<MoneyStatus_Controller>().money_Draw();
     }
 }

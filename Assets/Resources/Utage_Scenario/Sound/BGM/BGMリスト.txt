@@ -1,7 +1,7 @@
 
 
 ・BGM_01		konekonoosanpo.mp3			ノベルほのぼのシーン
-・BGM_02		audiostock_215419.mp3			調合シーンメインBGM
+・BGM_02		audiostock_215419.mp3			メインBGM
 ・BGM_03		audiostock_227319.mp3			近くの森のBGM
 ・BGM_04		audiostock_251363.mp3			ショップのBGM
 ・BGM_05		audiostock_805672_sample		アマクサ登場BGM1
@@ -34,3 +34,5 @@
 ・BGM_32		audiostock_824733_sample		月夜の曲３
 ・BGM_33		audiostock_158582_sample		バードサンクチュアリイメージの静かなピアノ曲
 ・BGM_34		audiostock_371284_sample		【未使用】じいさんのテーマ曲　ファンキー
+・BGM_35		audiostock_134515			調合中のテーマ曲
+

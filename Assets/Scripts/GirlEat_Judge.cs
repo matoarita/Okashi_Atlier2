@@ -521,8 +521,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 //スライダ表示を更新
                 i = 0;
-                girllove_param = girl1_status.girl1_Love_exp;
-                while (i < girl1_status.girl1_Love_lv - 1)
+                girllove_param = PlayerStatus.girl1_Love_exp;
+                while (i < PlayerStatus.girl1_Love_lv - 1)
                 {
                     girllove_param -= stage_levelTable[i];
                     i++;
@@ -530,8 +530,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 _slider.value = girllove_param;
 
                 //レベルを表示
-                girl_lv.text = girl1_status.girl1_Love_lv.ToString();
-                girl_param.text = girl1_status.girl1_Love_exp.ToString();
+                girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
+                girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
 
                 //windowテキストエリアの取得
                 text_area = canvas.transform.Find("MessageWindowMain").gameObject;
@@ -2378,7 +2378,7 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         _listHeart.Clear();
         heart_count = Getlove_exp;
-        _sumlove = girl1_status.girl1_Love_exp + Getlove_exp;
+        _sumlove = PlayerStatus.girl1_Love_exp + Getlove_exp;
         //Debug.Log("heart_count: " + heart_count);
 
         //ハートのインスタンスを、獲得好感度分だけ生成する。
@@ -2388,7 +2388,7 @@ public class GirlEat_Judge : MonoBehaviour {
             _listHeart[i].GetComponent<HeartUpObj>()._id = i;
         }
 
-        _tempGirllove = girl1_status.girl1_Love_exp;//あがる前の好感度を一時保存
+        _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
         girl_param.text = _tempGirllove.ToString();
 
         GetLoveEnd();
@@ -2515,10 +2515,10 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         //好感度　取得分増加
-        girl1_status.girl1_Love_exp += Getlove_exp;
+        PlayerStatus.girl1_Love_exp += Getlove_exp;
 
         //念のため、テキストも更新
-        girl_param.text = girl1_status.girl1_Love_exp.ToString();
+        girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
 
         //リセット
         Getlove_exp = 0;
@@ -2547,14 +2547,14 @@ public class GirlEat_Judge : MonoBehaviour {
         //現在のスライダ上限に好感度が達したら、次のレベルへ。
         if (_slider.value >= _slider.maxValue)
         {
-            girl1_status.girl1_Love_lv++;
+            PlayerStatus.girl1_Love_lv++;
             girl1_status.LvUpStatus();           
 
             //Maxバリューを再設定
             Love_Slider_Setting();
             _slider.value = 0;
 
-            girl_lv.text = girl1_status.girl1_Love_lv.ToString();
+            girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
 
             //分かりやすくするように、レベルアップ時のパネルも表示
             GLvup_panel_obj.SetActive(true);
@@ -2573,8 +2573,8 @@ public class GirlEat_Judge : MonoBehaviour {
         //好感度取得
         Getlove_exp = _param;
 
-        _tempGirllove = girl1_status.girl1_Love_exp;//あがる前の好感度を一時保存
-        _tempresultGirllove = girl1_status.girl1_Love_exp + Getlove_exp; //あがった後の好感度を一時保存
+        _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
+        _tempresultGirllove = PlayerStatus.girl1_Love_exp + Getlove_exp; //あがった後の好感度を一時保存
 
         
         //好感度が0の場合、0が下限。
@@ -2592,7 +2592,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //カウントアップのための秒数を割り出す。
         countTime = Mathf.Abs(Getlove_exp) * 0.05f; //1ごとに0.05fで表示する
 
-        currentDispCoin = girl1_status.girl1_Love_exp;
+        currentDispCoin = PlayerStatus.girl1_Love_exp;
 
         origin_color = girl_param.color;
 
@@ -2629,14 +2629,14 @@ public class GirlEat_Judge : MonoBehaviour {
     void EndDegHeart()
     {
         //実際の好感度に値を反映
-        girl1_status.girl1_Love_exp += Getlove_exp;
+        PlayerStatus.girl1_Love_exp += Getlove_exp;
 
         //0以下になったら、下限は0
-        if(girl1_status.girl1_Love_exp <= 0)
+        if(PlayerStatus.girl1_Love_exp <= 0)
         {
-            girl1_status.girl1_Love_exp = 0;
+            PlayerStatus.girl1_Love_exp = 0;
         }
-        girl_param.text = girl1_status.girl1_Love_exp.ToString();
+        girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
         girl_param.color = origin_color;
 
         Slider_Koushin(_tempresultGirllove);
@@ -2658,9 +2658,9 @@ public class GirlEat_Judge : MonoBehaviour {
     //スライダマックスバリューを更新
     public void Love_Slider_Setting()
     {
-        if (girl1_status.girl1_Love_lv <= 5)
+        if (PlayerStatus.girl1_Love_lv <= 5)
         {
-            _slider.maxValue = stage_levelTable[girl1_status.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+            _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
         }
         else //5以上は、現状、同じ数値
         {

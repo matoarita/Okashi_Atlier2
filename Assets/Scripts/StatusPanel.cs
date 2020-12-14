@@ -134,8 +134,8 @@ public class StatusPanel : MonoBehaviour {
         girlFind_power_param = paramview1.transform.Find("ParamC_param/Text").GetComponent<Text>();
         zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
       
-        girlLV_param.text = girl1_status.girl1_Love_lv.ToString();
-        girlHeart_param.text = girl1_status.girl1_Love_exp.ToString();
+        girlLV_param.text = PlayerStatus.girl1_Love_lv.ToString();
+        girlHeart_param.text = PlayerStatus.girl1_Love_exp.ToString();
         girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
 
         zairyobox_lv_param.text = PlayerStatus.player_zairyobox_lv.ToString();

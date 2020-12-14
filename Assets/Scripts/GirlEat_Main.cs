@@ -86,7 +86,7 @@ public class GirlEat_Main : MonoBehaviour
         girl1_status.girl_comment_flag = false;
 
         _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
-        _slider.value = girl1_status.girl1_Love_exp;
+        _slider.value = PlayerStatus.girl1_Love_exp;
 
         final_kettei_item1 = 0;
 
@@ -149,9 +149,9 @@ public class GirlEat_Main : MonoBehaviour
 
             if (_exp <= Getlove_exp)
             {
-                ++girl1_status.girl1_Love_exp;
+                ++PlayerStatus.girl1_Love_exp;
                 ++_exp;
-                _slider.value = girl1_status.girl1_Love_exp;
+                _slider.value = PlayerStatus.girl1_Love_exp;
 
             }
             else if (_exp > Getlove_exp)

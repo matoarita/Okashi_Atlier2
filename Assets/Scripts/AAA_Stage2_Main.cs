@@ -25,8 +25,8 @@ public class AAA_Stage2_Main : MonoBehaviour
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
-        girl1_status.girl1_Love_exp = 0;
-        girl1_status.girl1_Love_lv = 1;
+        PlayerStatus.girl1_Love_exp = 0;
+        PlayerStatus.girl1_Love_lv = 1;
         PlayerStatus.player_day = GameMgr.stage2_start_day;
         GameMgr.stage_number = 2;
     }
