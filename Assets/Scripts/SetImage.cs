@@ -31,6 +31,8 @@ public class SetImage : MonoBehaviour
     private Texture2D newrecipi_Img;
     private Image newrecipi_Img_hyouji;
 
+    private GameObject BlackImage;
+
     private PlayerItemList pitemlist;
     private ExpTable exp_table;
     private Exp_Controller exp_Controller;
@@ -979,6 +981,8 @@ public class SetImage : MonoBehaviour
         item_lastShokukan_Type.text = "-";
     }
 
+
+    //調合完了後、カードのボタンを押すと呼び出される。
     public void CompoundResult_Button()
     {
         //レベルアップチェック用オブジェクトの取得
@@ -991,12 +995,18 @@ public class SetImage : MonoBehaviour
         extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
+        //ブラックエフェクトを取得
+        BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
+
         if (exp_table.check_on == true)
         {
             //レベルチェック中は、カードを消せないようにする。
         }
         else
         {
+            //半透明黒パネルはoff
+            BlackImage.GetComponent<CanvasGroup>().alpha = 0;
+
             //新しいレシピをひらめいたかどうかチェック
             if ( exp_Controller.NewRecipiFlag == true)
             {

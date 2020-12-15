@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GetMaterial : MonoBehaviour
 {
@@ -28,8 +29,7 @@ public class GetMaterial : MonoBehaviour
 
     private ItemMatPlaceDataBase matplace_database;
 
-    private FadeImage slot_view_fade;
-    private FadeImage character_fade;
+    private GameObject TansakuLoding_Panel;
 
     // アイテムのデータを保持する辞書
     Dictionary<int, string> itemInfo;
@@ -86,8 +86,12 @@ public class GetMaterial : MonoBehaviour
 
     private GameObject NextButton_obj;
     private GameObject OpenTreasureButton_obj;
-    private GameObject TreasureImage;
+    private GameObject TreasureImage_obj;
     private GameObject CharacterSDImage;
+
+    private Image _TreasureImg;
+    private Sprite treasure1;
+    private Sprite treasure1Open;
 
     private GameObject HeroineLifePanel;
     private Text HeroineLifeText;
@@ -133,22 +137,28 @@ public class GetMaterial : MonoBehaviour
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //宝箱画像
+        
+        treasure1 = Resources.Load<Sprite>("Sprites/Items/" + "treasureBox");
+        treasure1Open = Resources.Load<Sprite>("Sprites/Items/" + "treasureBoxOpen");        
+
         mat_anim_status = 0;
         mat_anim_on = false;
         mat_anim_end = false;
 
         cullent_total_mat = 0;
 
-        slot_view_fade = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Image").gameObject.GetComponent<FadeImage>();
-        character_fade = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Image/CharacterSD").gameObject.GetComponent<FadeImage>();
+        TansakuLoding_Panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/TansakuLodingPanel").gameObject;
 
         tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Tansaku_panel").gameObject;
 
         NextButton_obj = tansaku_panel.transform.Find("TansakuActionList/Viewport/Content/Next_tansaku").gameObject;
         OpenTreasureButton_obj = tansaku_panel.transform.Find("TansakuActionList/Viewport/Content/Open_treasure").gameObject;
 
-        TreasureImage = getmatplace_panel_obj.transform.Find("Comp/Slot_View/Image/TreasureImage").gameObject;
+        TreasureImage_obj = getmatplace_panel_obj.transform.Find("Comp/Slot_View/Image/TreasureImage").gameObject;
         CharacterSDImage = getmatplace_panel_obj.transform.Find("Comp/Slot_View/Image/CharacterSD").gameObject;
+
+        _TreasureImg = TreasureImage_obj.GetComponent<Image>(); //アイテムの画像データ
     }
 
     // Update is called once per frame
@@ -165,9 +175,7 @@ public class GetMaterial : MonoBehaviour
                     sc.PlaySe(24);
 
                     NextButton_obj.SetActive(false);
-                    OpenTreasureButton_obj.SetActive(false);
-                    TreasureImage.SetActive(false);
-                    CharacterSDImage.SetActive(true);
+                    OpenTreasureButton_obj.SetActive(false);                    
 
                     timeOut = 1.0f;
                     mat_anim_status = 1;
@@ -198,6 +206,9 @@ public class GetMaterial : MonoBehaviour
 
                 case 3: //アニメ終了。判定する
 
+                    //黒で画面消えてる最中に表示を切り替え
+                    TreasureImage_obj.SetActive(false);
+                    CharacterSDImage.SetActive(true);
 
                     mat_anim_on = false;
                     mat_anim_end = true;
@@ -254,17 +265,15 @@ public class GetMaterial : MonoBehaviour
                     time_controller.TimeKoushin();
 
                     //妹の体力消費 一回の行動で1減る。0で倒れる。
-                    //PlayerStatus.player_girl_lifepoint -= 1;
-                    //妹の体力（HP)を表示
-                    //HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
                     PlayerStatus.girl1_Love_exp -= 1;
                     HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
 
                     //ウェイトアニメ
                     mat_anim_on = true;
                     mat_anim_end = false;
-                    slot_view_fade.FadeImageOff(); //ビュー画面を暗くフェード
-                    character_fade.FadeImageOff();
+
+                    //画面を黒くする。
+                    TansakuLoding_Panel.GetComponent<CanvasGroup>().DOFade(1, 0.2f); //背景黒フェード
 
                     tansaku_panel.SetActive(false);
                     StartCoroutine("Mat_Judge_anim_co");
@@ -287,8 +296,7 @@ public class GetMaterial : MonoBehaviour
         }
 
         tansaku_panel.SetActive(true);
-        slot_view_fade.FadeImageOn(); //ビュー画面を戻す
-        character_fade.FadeImageOn();
+        TansakuLoding_Panel.GetComponent<CanvasGroup>().DOFade(0, 0.2f); //背景黒フェード
 
 
         //イベント発生orアイテム取得　の抽選
@@ -944,16 +952,20 @@ public class GetMaterial : MonoBehaviour
     void treasure_Check()
     {
         //おたからを発見
-        _text.text = "にいちゃん！！ お宝だ！！　あけてみる？" + "\n" + "（ハートを３つ消費するよ。）";
+        sc.PlaySe(84);
+        _text.text = "にいちゃん！！ お宝だ！！　あけてみる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        _TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
-        TreasureImage.SetActive(true);
+        TreasureImage_obj.SetActive(true);
         CharacterSDImage.SetActive(false);
     }
 
     //GetMatPlace_Panelから呼び出し
     public void GetTreasureBox(string _place)
     {
-        TreasureImage.SetActive(false);
+        _TreasureImg.sprite = treasure1Open;
+        //TreasureImage_obj.SetActive(false);
 
         switch (_place)
         {
@@ -1002,7 +1014,7 @@ public class GetMaterial : MonoBehaviour
 
     void Treasure_GetItem()
     {
-        _text.text = "にいちゃん！　すげえ！！" + "\n" +
+        _text.text = "にいちゃん！　やったぁ！！" + "\n" +
             GameMgr.ColorYellow + database.items[database.SearchItemIDString(itemName)].itemNameHyouji + "</color>" + "をみつけた！";
 
         //アイテムの取得処理

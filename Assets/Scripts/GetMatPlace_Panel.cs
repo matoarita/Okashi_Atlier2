@@ -90,6 +90,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private bool modoru_anim_end;
     private int modoru_anim_status;
 
+    private bool treasure_anim_on;
+    private int treasure_anim_status;
+
     private int _yosokutime;
     private int mat_cost;
 
@@ -257,6 +260,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         move_anim_on = false;
         modoru_anim_on = false;
+        treasure_anim_on = false;
 
         //表示フラグにそって、採取地の表示/非表示の決定
         for (i = 0; i < matplace_toggle.Count; i++)
@@ -329,6 +333,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
             }                    
         }
 
+        if (treasure_anim_on == true)
+        {
+            //宝箱開け中のウェイトアニメ
+            TreasureAnim();
+        }
+
         if (modoru_anim_on == true)
         {
             //移動中のウェイトアニメ
@@ -353,6 +363,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
             }
 
             slot_view.SetActive(false);
+
+            StatusPanelON();
             this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.0f); //背景黒フェードをOFF
 
             //girl1_status.hukidasiOn();
@@ -571,7 +583,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //背景のセッティング
                 SetMapBG(select_place_name);
-                
+
+                //ステータスパネルをON
+                StatusPanelON();
 
                 switch (select_place_name)
                 {
@@ -801,8 +815,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     default:
                         break;
-                }
-                
+                }                
+
                 break;
 
             case 1: //探索するかどうかの入力まち
@@ -909,6 +923,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel.GetComponent<FadeImage>().SetOn();
                 moveanim_panel_image.SetActive(true);
                 moveanim_panel_image_text.SetActive(true);
+
+                StatusPanelOFF();
                 this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
 
                 if (next_on) //先へ進む場合
@@ -961,6 +977,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             case 3:
 
+                
                 moveanim_panel_image.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
                 text_area.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
 
@@ -1005,6 +1022,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel.GetComponent<FadeImage>().FadeImageOn();
                 moveanim_panel_image.SetActive(true);
                 moveanim_panel_image_text.SetActive(true);
+
+                StatusPanelOFF();
                 this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
 
                 //背景のSEを止める。
@@ -1059,12 +1078,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     IEnumerator MapEventOn()
     {
-        MoneyStatus_Panel_obj.SetActive(false);
-        HeroineLifePanel.SetActive(false);
-        if (GameMgr.TimeUSE_FLAG)
-        {
-            TimePanel_obj1.SetActive(false);
-        }
+        StatusPanelOFF();
 
         while (!GameMgr.recipi_read_endflag)
         {
@@ -1073,12 +1087,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         GameMgr.recipi_read_endflag = false;
 
-        MoneyStatus_Panel_obj.SetActive(true);
-        HeroineLifePanel.SetActive(true);
-        if (GameMgr.TimeUSE_FLAG)
-        {
-            TimePanel_obj1.SetActive(true);
-        }
+        StatusPanelON();
 
         text_area.SetActive(true);
         slot_tansaku_button_obj.SetActive(true);
@@ -1089,6 +1098,26 @@ public class GetMatPlace_Panel : MonoBehaviour {
         
 
         slot_view_status = 1; //通常の材料集めシーンに切り替え
+    }
+
+    void StatusPanelOFF()
+    {
+        MoneyStatus_Panel_obj.SetActive(false);
+        HeroineLifePanel.SetActive(false);
+        if (GameMgr.TimeUSE_FLAG)
+        {
+            TimePanel_obj1.SetActive(false);
+        }
+    }
+
+    void StatusPanelON()
+    {
+        MoneyStatus_Panel_obj.SetActive(true);
+        HeroineLifePanel.SetActive(true);
+        if (GameMgr.TimeUSE_FLAG)
+        {
+            TimePanel_obj1.SetActive(true);
+        }
     }
 
     public void SisterOn1()
@@ -1161,13 +1190,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     public void OnTansaku() //探索ボタンをおした
     {
-        sc.PlaySe(30);
         get_material.GetRandomMaterials(select_place_num);
     }
 
     public void OnModoru() //街へ戻るをおした
     {
-        sc.PlaySe(30);
         slot_view_status = 2;
 
         _text.text = "家に戻る？";
@@ -1189,14 +1216,70 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public void OnOpenTreasure() //「あける」ボタンをおした
     {
         OpenTreasureButton_obj.SetActive(false);
-        get_material.GetTreasureBox(select_place_name);
+        slot_tansaku_button_obj.SetActive(false);
 
         //ハートを３つ消費
         PlayerStatus.girl1_Love_exp -= 3;
         HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+
+        treasure_anim_status = 0;
+        treasure_anim_on = true;
     }
 
+    void TreasureAnim()
+    {
+        switch (treasure_anim_status)
+        {
+            case 0: //初期化 状態１
 
+                timeOut = 1.0f;
+                treasure_anim_status = 1;
+
+                _text.text = "解錠中 .";
+                break;
+
+            case 1: // 状態2
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    treasure_anim_status = 2;
+
+                    _text.text = "解錠中 . .";
+                }
+                break;
+
+            case 2:
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    treasure_anim_status = 3;
+
+                }
+                break;
+
+            case 3: //アニメ終了。判定する
+
+                treasure_anim_on = false;
+                treasure_anim_status = 0;
+
+                TreasureAnimEnd();
+                break;
+
+            default:
+                break;
+        }
+
+        //時間減少
+        timeOut -= Time.deltaTime;
+    }
+
+    void TreasureAnimEnd()
+    {
+        slot_tansaku_button_obj.SetActive(true);
+        get_material.GetTreasureBox(select_place_name);
+    }
 
     //
     //探索関係
@@ -1206,8 +1289,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public void OnNext() //「先へ進む」ボタンをおした
     {
         //音を鳴らす
-        sc.PlaySe(24);
-        sc.PlaySe(30);        
+        sc.PlaySe(24);       
 
         move_anim_on = true;
         move_anim_status = 0;

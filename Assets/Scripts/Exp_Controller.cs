@@ -157,6 +157,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private List<GameObject> _listEffect = new List<GameObject>();
 
     private GameObject ResultBGimage;
+    private GameObject BlackImage;
 
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
     public int _temp_extreme_id;
@@ -293,6 +294,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+        BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
 
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
@@ -1218,6 +1220,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 recipi_archivement_obj.SetActive(false);
                 kakuritsuPanel_obj.SetActive(false);
                 yes_no_panel.SetActive(false);
+
+                //半透明の黒をON
+                Sequence sequence = DOTween.Sequence();
+
+                //まず、初期値。
+                BlackImage.GetComponent<CanvasGroup>().alpha = 0;
+                sequence.Append(BlackImage.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
 
                 //ヒカリちゃんを右にずらす
                 trans_motion = 20; //右に消えるアニメに遷移

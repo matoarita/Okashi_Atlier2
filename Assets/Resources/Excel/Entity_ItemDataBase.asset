@@ -12786,7 +12786,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 30
+      sell_price: 1000
       topping01: Non
       topping02: Non
       topping03: Non
@@ -12833,7 +12833,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 30
+      sell_price: 3000
       topping01: Non
       topping02: Non
       topping03: Non
@@ -12880,7 +12880,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 30
+      sell_price: 10000
       topping01: Non
       topping02: Non
       topping03: Non
@@ -12927,7 +12927,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 30
+      sell_price: 50000
       topping01: Non
       topping02: Non
       topping03: Non

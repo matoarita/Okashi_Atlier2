@@ -308,7 +308,7 @@ MonoBehaviour:
       place_Name_Hyouji: "\u30A2\u30E1\u30B8\u30B9\u30C8\u306E\u6E56\u7554"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3002"
       place_day: 6
-      place_cost: 30
+      place_cost: 10
       place_flag: 0
       drop_item1: "\u306A\u3057"
       drop_item2: lavender_flower
@@ -344,7 +344,7 @@ MonoBehaviour:
       place_Name_Hyouji: "\u30EB\u30D3\u30FC\u30AC\u30FC\u30C7\u30F3"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3002"
       place_day: 6
-      place_cost: 50
+      place_cost: 30
       place_flag: 0
       drop_item1: "\u306A\u3057"
       drop_item2: strawberry
@@ -380,7 +380,7 @@ MonoBehaviour:
       place_Name_Hyouji: "\u30B7\u30C8\u30EA\u30F3\u306E\u4E18"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3002"
       place_day: 6
-      place_cost: 50
+      place_cost: 30
       place_flag: 0
       drop_item1: "\u306A\u3057"
       drop_item2: himawari_seed

@@ -261,6 +261,46 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(23);
                 break;
 
+            case "Yes_tansaku":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(30);
+                break;
+
+            case "No_tansaku":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(30);
+                break;
+
+            case "Next_tansaku":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(30);
+                break;
+
+            case "Open_treasure":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(30);
+                break;
+
             case "Emo_Hukidashi_Anim(Clone)":
 
                 //ポインタが入ったときに鳴る音
