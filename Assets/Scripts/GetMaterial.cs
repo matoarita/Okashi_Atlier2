@@ -137,8 +137,7 @@ public class GetMaterial : MonoBehaviour
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        //宝箱画像
-        
+        //宝箱画像       
         treasure1 = Resources.Load<Sprite>("Sprites/Items/" + "treasureBox");
         treasure1Open = Resources.Load<Sprite>("Sprites/Items/" + "treasureBoxOpen");        
 
@@ -1025,7 +1024,7 @@ public class GetMaterial : MonoBehaviour
         getmatplace_panel.result_items[_itemid] += 1;
 
         //音を鳴らす
-        sc.PlaySe(1);
+        sc.PlaySe(76);
     }
 
     //宝箱データのセッティング

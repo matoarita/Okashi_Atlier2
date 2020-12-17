@@ -11889,7 +11889,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Etc
-      subtype: Non
+      subtype: Garbage
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12453,7 +12453,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Etc
-      subtype: Machine
+      subtype: Equip
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12500,7 +12500,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Etc
-      subtype: Machine
+      subtype: Equip
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12547,7 +12547,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Etc
-      subtype: Machine
+      subtype: Equip
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12594,7 +12594,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Etc
-      subtype: Machine
+      subtype: Object
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12641,7 +12641,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Etc
-      subtype: Machine
+      subtype: Object
       base_score: 0
       girl1_like: 0
       cost_price: 0

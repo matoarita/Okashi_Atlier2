@@ -21,7 +21,7 @@ SE表
 ・SE_19		audiostock_57729.mp3				キャンセル音
 ・SE_20		audiostock_805128				ファンファーレ。テッテレー
 ・SE_21		audiostock_5538.mp3				失敗爆発音
-・SE_22		decision22.mp3					決定音　未使用？
+・SE_22		decision22.mp3					【未使用】決定音　動画でよく使われてる音
 ・SE_23		audiostock_83086				クエストの受注音　キラリン
 ・SE_24		button63.mp3					カーソル選択音②
 ・SE_25		足音・雑草、茂み.mp3				探索中の音
@@ -84,4 +84,5 @@ SE表
 ・SE_82		audiostock_221662_sample.mp3			【#未使用】　カッ　鍵なんかを締めたような音（決定音に使える？）
 ・SE_83		audiostock_824429				【宴で使用】キュララン　アイテム発見力が上がるときのバフのような上昇音
 ・SE_84		audiostock_52941				【宴で使用　SE32と同一】お金シャキン
-・SE_85		audiostock_390280				宝箱を発見した音
+・SE_85		audiostock_390280_sample			宝箱を発見した音
+・SE_86		audiostock_87003_sample				宝箱をガチャガチャ

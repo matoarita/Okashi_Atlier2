@@ -1232,6 +1232,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             case 0: //初期化 状態１
 
+                sc.PlaySe(85);
                 timeOut = 1.0f;
                 treasure_anim_status = 1;
 

@@ -71,4 +71,9 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         trans_motion = 0; //リセット
         live2d_animator.SetInteger("trans_motion", trans_motion);
     }
+
+    public void ResetGazeAnimEnd()
+    {
+
+    }
 }

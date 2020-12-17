@@ -26,7 +26,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
 
-    private Touch_Controller touch_controller;
+    private Touch_Controller touch_controller; //タッチのONOFFのみのスクリプト
+    private Touch_Controll touch_controll; //タッチした際のメソッドを記述
 
     private SpriteRenderer s;
 
@@ -274,6 +275,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 trans = maincam_animator.GetInteger("trans");
 
                 //Live2Dモデルの取得
+                _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                 _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                 live2d_animator = _model.GetComponent<Animator>();
                 /*trans_expression = live2d_animator.GetInteger("trans_expression");*/
@@ -290,6 +292,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+                touch_controll = character.GetComponent<Touch_Controll>();
 
                 //BGMの取得
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -447,9 +450,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
 
-                    //タッチ判定オブジェクトの取得
-                    touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
-
                     //BGMの取得
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
@@ -459,6 +459,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     live2d_animator = _model.GetComponent<Animator>();
                     /*                    
                     trans_expression = live2d_animator.GetInteger("trans_expression");*/
+
+                    //タッチ判定オブジェクトの取得
+                    touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+                    touch_controll = character.GetComponent<Touch_Controll>();
 
                     //メイン画面に表示する、現在のクエスト
                     questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
@@ -548,17 +552,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     WaitHint_on = false;
                     timeOut3 -= Time.deltaTime;
 
+                    //一定時間がたち、元の状態に戻る。
                     if (timeOut3 <= 0.0f)
                     {
                         Girl1_touchhair_status = 0;
-                        Girl1_touchhair_count = 0;
-                        Girl1_touchhair_start = false;
+                        Girl1_touchhair_count = 0;                       
                         GirlEat_Judge_on = true;
 
-                        //Idleにリセット
-                        trans_motion = 1000;                       
-                        live2d_animator.SetInteger("trans_motion", trans_motion);
+                        //gazeをリセット
+                        _model.GetComponent<GazeController>().enabled = false;
+                        DefaultFace();
                         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                        Girl1_touchhair_start = false;
 
                         //吹き出し・ハングリーステータスをリセット
                         ResetHukidashi();
@@ -678,7 +683,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                         if (facemotion_start)
                         {
-                            
+                            //カットで切り替えると違和感があるため、自然にフェードで切り替えるようにする。
                             facemotion_duration = live2d_animator.GetCurrentAnimatorStateInfo(2).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
                             //Debug.Log("ステート長さ" + facemotion_duration); 
 
@@ -725,7 +730,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 timeOutIdle = timeOutIdle_time;
 
                                 //10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
-                                //IdleChange();
+                                IdleChange();
 
                             }
                         }
@@ -945,72 +950,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
-    public void IdleChange()
-    {
-        _model.GetComponent<CubismEyeBlinkController>().enabled = false;
-        live2d_animator.Play("Reset"); //一度デュレーションをリセット
-        live2d_animator.Update(2);
-
-        switch (GirlGokigenStatus)
-        {
-            case 0:
-                
-                random = Random.Range(0, 3); //0~3
-                trans_facemotion = random;
-                
-                break;
-
-            case 1:
-
-                
-                break;
-
-            case 2:
-                
-                break;
-
-            case 3:
-
-                trans_motion = 0;
-                //ランダム仕草3つほど
-                live2d_animator.SetInteger("trans_motion", trans_motion);
-                break;
-
-            case 4:
-
-                //ランダム仕草3つほど。別モーション。
-                break;
-
-            case 5:
-
-                //ランダム仕草3つほど。別モーション。
-                break;
-
-            default:
-                
-                break;
-        }
-
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion);
-
-        //facemotion_weight = 0f;
-        weightTween = DOTween.To(
-                                    () => facemotion_weight,          // 何を対象にするのか
-                                    num =>
-                                    {
-                                        facemotion_weight = num;
-                                        live2d_animator.SetLayerWeight(2, facemotion_weight);
-                                    },   // 値の更新
-                                    1f,                  // 最終的な値
-                                    0.5f      // アニメーション時間
-                                );
-        //live2d_animator.SetLayerWeight(2, 1f);
-
-        //モーション再生スタートの合図をだす。
-        facemotion_start = true;
-        
-    }
-
 
     //女の子が食べたいものの決定。ランダムでもいいし、ストーリーによっては、一つのイベントの感じで、同じものを合格するまで出し続けてもいい。
     public void Girl_Hungry()
@@ -1046,6 +985,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //OkashiQuest_ID = compIDを指定すると、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
                     //SetQuestRandomSet(OkashiQuest_ID, false);
+                    SetQuestHukidashiText(OkashiQuest_ID, false);
 
                     if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
                     {
@@ -1173,6 +1113,33 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _desc = girllike_desc[0];
     }
 
+
+    //クエストごとの固有吹き出しテキストの設定
+    void SetQuestHukidashiText(int _ID, bool _rndset)
+    {
+        if (_rndset == true)
+        {
+            //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
+            _desc = girlLikeCompo_database.girllike_compoRandomset[_ID].desc;
+        }
+        else
+        {
+            //直接組み合わせセットの_compIDを元に選ぶ。
+            i = 0;
+            while (i < girlLikeCompo_database.girllike_composet.Count)
+            {
+                if (girlLikeCompo_database.girllike_composet[i].set_ID == _ID)
+                {
+                    _compID = i;
+                    break;
+                }
+                i++;
+            }
+
+            //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
+            _desc = girlLikeCompo_database.girllike_composet[_compID].desc;
+        }
+    }
     
     public void SetQuestRandomSet(int _ID, bool _rndset)
     {
@@ -1921,11 +1888,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchhair_count = 0;
         Girl1_touchhair_start = true;
         GirlEat_Judge_on = false;
-        timeOut3 = 7.0f;
 
         _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
         _model_obj.GetComponent<GazeController>().enabled = true;
     }
+
+
 
     //口のあたりをクリックすると、ヒントを表示する。
     public void TouchSisterFace()
@@ -1933,7 +1901,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         DeleteHukidashiOnly();
 
         hukidasiInit();
-
 
         //ランダムで、吹き出しの内容を決定
         Init_touchFaceComment();
@@ -2341,7 +2308,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 0:
 
                 _touchchest_comment_lib.Add("..。");
-                _touchchest_comment_lib.Add("は、恥ずかしい..。");
+                _touchchest_comment_lib.Add("こら！胸を触るな、にいちゃん！");
 
                 break;
 
@@ -2358,7 +2325,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchchest_comment_lib.Add(".。");
                 _touchchest_comment_lib.Add("胸をさわられると、はずかしいよ～。");
                 _touchchest_comment_lib.Add("こりゃ！胸をさわるのはやめて、にいちゃん！");
-                _touchchest_comment_lib.Add("変なとこ触っちゃだめ！");
+                _touchchest_comment_lib.Add("えっち！にいちゃんのばか！");
 
                 break;
 
@@ -2367,7 +2334,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchchest_comment_lib.Add("..！");
                 _touchchest_comment_lib.Add("兄ちゃんのえっちー！");
                 _touchchest_comment_lib.Add("胸をさわるんじゃない！にいちゃん！");
-                _touchchest_comment_lib.Add("..あまり変なとこを触ると、おこるよ！");
+                _touchchest_comment_lib.Add("..あまり胸を触ると、おこるよ！");
 
                 break;
 
@@ -2448,7 +2415,74 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
         }
 
-    }    
+    }
+
+    //ランダムで仕草
+    public void IdleChange()
+    {
+        _model.GetComponent<CubismEyeBlinkController>().enabled = false;
+        live2d_animator.Play("Reset"); //一度デュレーションをリセット
+        live2d_animator.Update(2);
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+
+                random = Random.Range(0, 3); //0~3
+                trans_facemotion = random;
+
+                break;
+
+            case 1:
+
+
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+
+                trans_motion = 0;
+                //ランダム仕草3つほど
+                live2d_animator.SetInteger("trans_motion", trans_motion);
+                break;
+
+            case 4:
+
+                //ランダム仕草3つほど。別モーション。
+                break;
+
+            case 5:
+
+                //ランダム仕草3つほど。別モーション。
+                break;
+
+            default:
+
+                break;
+        }
+
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+
+        //facemotion_weight = 0f;
+        weightTween = DOTween.To(
+                                    () => facemotion_weight,          // 何を対象にするのか
+                                    num =>
+                                    {
+                                        facemotion_weight = num;
+                                        live2d_animator.SetLayerWeight(2, facemotion_weight);
+                                    },   // 値の更新
+                                    1f,                  // 最終的な値
+                                    0.5f      // アニメーション時間
+                                );
+        //live2d_animator.SetLayerWeight(2, 1f);
+
+        //モーション再生スタートの合図をだす。
+        facemotion_start = true;
+
+    }
 
     //表情を変更するメソッド
     public void face_girl_Normal()

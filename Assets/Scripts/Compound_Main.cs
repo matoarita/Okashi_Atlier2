@@ -34,6 +34,7 @@ public class Compound_Main : MonoBehaviour
     private BGM sceneBGM;
     public bool bgm_change_flag;
     public bool bgm_change_flag2;
+    private bool bgm_changeuse_ON = true; //調合シーンで、BGMを切り替えるかどうか。
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -1077,10 +1078,13 @@ public class Compound_Main : MonoBehaviour
                     bgm_change_flag = false;
                     sceneBGM.OnMainBGM();
                 }
-                if (bgm_change_flag2 == true)
+                if (bgm_changeuse_ON)
                 {
-                    bgm_change_flag2 = false;
-                    sceneBGM.OnMainBGMFade();
+                    if (bgm_change_flag2 == true)
+                    {
+                        bgm_change_flag2 = false;
+                        sceneBGM.OnMainBGMFade();
+                    }
                 }
                 sceneBGM.MuteOFFBGM();
 
@@ -1184,10 +1188,13 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.face_girl_Normal();
 
                 //BGMを変更
-                if (bgm_change_flag2 != true)
+                if (bgm_changeuse_ON)
                 {
-                    sceneBGM.OnCompoundBGM();
-                    bgm_change_flag2 = true;
+                    if (bgm_change_flag2 != true)
+                    {
+                        sceneBGM.OnCompoundBGM();
+                        bgm_change_flag2 = true;
+                    }
                 }
 
                 //一時的に腹減りを止める。
@@ -1233,10 +1240,13 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.face_girl_Normal();
 
                 //BGMを変更
-                if (bgm_change_flag2 != true)
+                if (bgm_changeuse_ON)
                 {
-                    sceneBGM.OnCompoundBGM();
-                    bgm_change_flag2 = true;
+                    if (bgm_change_flag2 != true)
+                    {
+                        sceneBGM.OnCompoundBGM();
+                        bgm_change_flag2 = true;
+                    }
                 }
 
                 //一時的に腹減りを止める。
@@ -1290,10 +1300,13 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.face_girl_Normal();
 
                 //BGMを変更
-                if (bgm_change_flag2 != true)
+                if (bgm_changeuse_ON)
                 {
-                    sceneBGM.OnCompoundBGM();
-                    bgm_change_flag2 = true;
+                    if (bgm_change_flag2 != true)
+                    {
+                        sceneBGM.OnCompoundBGM();
+                        bgm_change_flag2 = true;
+                    }
                 }
 
                 //一時的に腹減りを止める。
@@ -1329,10 +1342,13 @@ public class Compound_Main : MonoBehaviour
             case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
 
                 //BGMを変更
-                if (bgm_change_flag2 != true)
+                if (bgm_changeuse_ON)
                 {
-                    sceneBGM.OnCompoundBGM();
-                    bgm_change_flag2 = true;
+                    if (bgm_change_flag2 != true)
+                    {
+                        sceneBGM.OnCompoundBGM();
+                        bgm_change_flag2 = true;
+                    }
                 }
 
                 compoundselect_onoff_obj.SetActive(false);

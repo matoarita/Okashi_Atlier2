@@ -49,6 +49,7 @@ public class GazeController : MonoBehaviour
 
     void UpdateRotate(Vector3 targetEulerAngle)
     {
+        //マウス座標からとってきた、現在の顔角度
         currentRotateion = Vector3.SmoothDamp(currentRotateion, targetEulerAngle, ref eulerVelocity, EaseTime);
         // 頭の角度
         SetParameter(HeadAngleX, currentRotateion.x);

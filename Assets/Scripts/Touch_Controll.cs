@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
+using Live2D.Cubism.Rendering;
 
 
 public class Touch_Controll : MonoBehaviour
@@ -13,7 +16,7 @@ public class Touch_Controll : MonoBehaviour
     private Girl1_status girl1_status;
     private GirlEat_Judge girleat_judge;
 
-    private bool touch_flag;
+    private bool ALL_touch_flag;
 
     private int draghair_count;
 
@@ -21,9 +24,6 @@ public class Touch_Controll : MonoBehaviour
     private Animator live2d_animator;
     private int trans_expression;
     private int trans_motion;
-
-    private bool isRunning;
-    private bool touchhair_start;
 
     private float timeOut;
 
@@ -47,9 +47,7 @@ public class Touch_Controll : MonoBehaviour
         _model = GameObject.FindWithTag("CharacterLive2D").gameObject;
         live2d_animator = _model.GetComponent<Animator>();
 
-        touch_flag = true;
-        isRunning = false;
-        touchhair_start = false;
+        ALL_touch_flag = true;
 
         draghair_count = 0;
         timeOut = 2.0f;
@@ -57,28 +55,13 @@ public class Touch_Controll : MonoBehaviour
 
     private void Update()
     {
-        //頭をなでなでしている途中の処理
-        if (touchhair_start)
-        {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
-            {
-                timeOut = 2.0f;
-            }
 
-            if (isRunning)
-            {
-                timeOut -= Time.deltaTime;
-                if(timeOut <= 0)
-                {
-                    ResetGazeControl();
-                }
-            }           
-        }
     }
 
     public void OnTouchFace()
     {
-        if (touch_flag)
+
+        if (ALL_touch_flag)
         {
             //Debug.Log("Touch_Face");
 
@@ -86,22 +69,18 @@ public class Touch_Controll : MonoBehaviour
             girl1_status.touch_status = 2;
             //sc.PlaySe(2);
         }
+
     }
-   
+
 
     public void OnTouchHair()
     {
-        if (touch_flag)
+        if (ALL_touch_flag)
         {
             //Debug.Log("Touch_Hair");            
-            touchhair_start = true;
-            if (isRunning)
-            {
-                timeOut = 2.0f;
-            }
 
             if (!girl1_status.Girl1_touchhair_start)
-            {               
+            {
                 girl1_status.Touchhair_Start();
                 girl1_status.TouchSisterHair();
                 girl1_status.touch_status = 1;
@@ -116,14 +95,10 @@ public class Touch_Controll : MonoBehaviour
 
     public void DragTouchHair()
     {
-        if (touch_flag)
+
+        if (ALL_touch_flag)
         {
             //Debug.Log("Drag_Hair: " + draghair_count);
-            touchhair_start = true;
-            if (isRunning)
-            {
-                timeOut = 2.0f;
-            }
 
             if (girl1_status.Girl1_touchhair_start)
             {
@@ -136,11 +111,12 @@ public class Touch_Controll : MonoBehaviour
                 }
             }
         }
+
     }
 
     public void EndDragTouchHair()
     {
-        if (touch_flag)
+        if (ALL_touch_flag)
         {
             //Debug.Log("EndDrag_Hair");           
 
@@ -148,27 +124,16 @@ public class Touch_Controll : MonoBehaviour
             {
                 girleat_judge.DegHeart(-2); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
             }
-            //girl1_status.Girl1_touchhair_start = false;
+
             draghair_count = 0;
-                        
-            if (isRunning)
-            {
-                timeOut = 2.0f;
-            }
-            else
-            {
-                isRunning = true;
-
-                //Debug.Log("ResetGaze ON");
-
-                timeOut = 2.0f;
-            }
+            
         }
     }
 
     public void OnTouchRibbon()
     {
-        if (touch_flag)
+
+        if (ALL_touch_flag)
         {
             //Debug.Log("Touch_Ribbon");
 
@@ -176,11 +141,13 @@ public class Touch_Controll : MonoBehaviour
             girl1_status.touch_status = 3;
             //sc.PlaySe(0);
         }
+
     }
 
     public void OnTouchTwinTail()
     {
-        if (touch_flag)
+
+        if (ALL_touch_flag)
         {
             //Debug.Log("Touch_LongHair");
 
@@ -188,11 +155,13 @@ public class Touch_Controll : MonoBehaviour
             girl1_status.touch_status = 4;
             //sc.PlaySe(0);
         }
+
     }
 
     public void OnTouchChest()
     {
-        if (touch_flag)
+
+        if (ALL_touch_flag)
         {
             //Debug.Log("Touch_Chest");
 
@@ -200,21 +169,25 @@ public class Touch_Controll : MonoBehaviour
             girl1_status.touch_status = 5;
             //sc.PlaySe(0);
         }
+
     }
 
     public void OnTouchBell()
     {
-        if (touch_flag)
+
+        if (ALL_touch_flag)
         {
             //Debug.Log("Touch_Bell");
 
             sc.PlaySe(16);
         }
+
     }
 
     public void OnTouchFlower()
     {
-        if (touch_flag)
+
+        if (ALL_touch_flag)
         {
             //Debug.Log("Touch_Flower");
 
@@ -222,11 +195,13 @@ public class Touch_Controll : MonoBehaviour
             girl1_status.touch_status = 6;
             //sc.PlaySe(2);
         }
+
     }
 
     public void OnTouchWindow()
     {
-        if (touch_flag)
+
+        if (ALL_touch_flag)
         {
             //Debug.Log("Touch_Window");
 
@@ -235,29 +210,20 @@ public class Touch_Controll : MonoBehaviour
             //audioSource.PlayOneShot(sound1);
             sc.PlaySe(40);
         }
+
     }
 
-    //タッチを一時的にオフ
+    //タッチを一時的にオフ。全て。
     public void TouchOff()
     {
-        touch_flag = false;
+        ALL_touch_flag = false;
     }
 
-    //タッチをオン
+    //タッチをオン。全て。
     public void TouchOn()
     {
-        touch_flag = true;
+        ALL_touch_flag = true;
     }
 
-    void ResetGazeControl()
-    {
-
-        _model.GetComponent<GazeController>().enabled = false;
-
-        trans_motion = 30;
-        live2d_animator.SetInteger("trans_motion", trans_motion);
-
-        isRunning = false;
-        touchhair_start = false;
-    }
+   
 }

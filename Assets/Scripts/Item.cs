@@ -138,7 +138,10 @@ public class Item
         Tea,
         Soup,
         Coffee,
+        Garbage,
         Machine,
+        Equip,
+        Object,
         Donguri,
         Rare,
         Etc
