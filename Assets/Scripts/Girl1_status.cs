@@ -61,8 +61,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private GameObject Extremepanel_obj;
 
-    public int touch_status; //今どこを触っているかの状態。TimeOutが入り組んで、ぐちゃぐちゃにならないように分ける。
-
     private List<string> _touchhead_comment_lib = new List<string>();
     private string _touchhead_comment;
     private List<string> _touchface_comment_lib = new List<string>();
@@ -406,7 +404,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         girl_Mazui_flag = false;
 
-        touch_status = 0;
 
         //ステージごとに、女の子が食べたいお菓子のセットを初期化
         InitializeStageGirlHungrySet(0, 0); //とりあえず0で初期化
@@ -457,8 +454,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     live2d_animator = _model.GetComponent<Animator>();
-                    /*                    
-                    trans_expression = live2d_animator.GetInteger("trans_expression");*/
 
                     //タッチ判定オブジェクトの取得
                     touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -537,69 +532,46 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
         }
 
-        switch (touch_status)
+        //髪の毛触り始めたらカウントスタート
+        if (Girl1_touchhair_start)
         {
+            WaitHint_on = false;
+            timeOut3 -= Time.deltaTime;
 
-            case 0: //何も触っていない。
+            if( Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+            {
+                timeOut3 = 5.0f;
+            }
 
-                break;
+            //一定時間がたち、元の状態に戻る。
+            if (timeOut3 <= 0.0f)
+            {
+                Girl1_touchhair_status = 0;
+                Girl1_touchhair_count = 0;
+                GirlEat_Judge_on = true;
 
-            case 1: //髪の毛
+                //gazeをリセット
+                _model.GetComponent<GazeController>().enabled = false;                
+                _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                Girl1_touchhair_start = false;
 
-                //髪の毛触り始めたらカウントスタート
-                if (Girl1_touchhair_start)
+                //表情をリセット
+                switch (compound_Main.compound_status)
                 {
-                    WaitHint_on = false;
-                    timeOut3 -= Time.deltaTime;
+                    case 4: //調合中のシーン
+                        face_girl_Normal();
+                        break;
 
-                    //一定時間がたち、元の状態に戻る。
-                    if (timeOut3 <= 0.0f)
-                    {
-                        Girl1_touchhair_status = 0;
-                        Girl1_touchhair_count = 0;                       
-                        GirlEat_Judge_on = true;
-
-                        //gazeをリセット
-                        _model.GetComponent<GazeController>().enabled = false;
+                    default:
                         DefaultFace();
-                        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-                        Girl1_touchhair_start = false;
-
-                        //吹き出し・ハングリーステータスをリセット
-                        ResetHukidashi();
-                    }
+                        break;
                 }
-                break;
 
-            case 2: //口を触る。
-
-                Girl1_touchhair_start = false;
-                break;
-
-            case 3: //リボンを触る。
-
-                Girl1_touchhair_start = false;
-                break;
-
-            case 4: //ツインテールを触る。
-
-                Girl1_touchhair_start = false;
-                break;
-
-            case 5: //胸を触る。
-
-                Girl1_touchhair_start = false;
-                break;
-
-            case 6: //お花を触る。
-
-                Girl1_touchhair_start = false;
-                break;
-
-            default:
-                break;
-                
+                //吹き出し・ハングリーステータスをリセット
+                ResetHukidashi();
+            }
         }
+        
 
         if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしない。
         {
@@ -1898,6 +1870,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //口のあたりをクリックすると、ヒントを表示する。
     public void TouchSisterFace()
     {
+        timeOut3 = 5.0f; //タッチ用の時間をリセット
+
         DeleteHukidashiOnly();
 
         hukidasiInit();
@@ -1992,6 +1966,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             hukidasiInit();
         }
+        timeOut3 = 5.0f; //タッチ用の時間をリセット
 
         //コメントランダム
         //random = Random.Range(0, _touchface_comment_lib.Count);
@@ -2011,6 +1986,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             hukidasiInit();
         }
+        timeOut3 = 5.0f; //タッチ用の時間をリセット
 
         //吹き出し内容の決定
         Init_touchChestComment();
@@ -2048,6 +2024,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             hukidasiInit();
         }
+        timeOut3 = 5.0f; //タッチ用の時間をリセット
 
         //コメント順番に表示
         Init_touchTwintailComment();

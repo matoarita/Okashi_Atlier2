@@ -66,7 +66,6 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Face");
 
             girl1_status.TouchSisterFace();
-            girl1_status.touch_status = 2;
             //sc.PlaySe(2);
         }
 
@@ -83,7 +82,6 @@ public class Touch_Controll : MonoBehaviour
             {
                 girl1_status.Touchhair_Start();
                 girl1_status.TouchSisterHair();
-                girl1_status.touch_status = 1;
             }
             else
             {
@@ -138,7 +136,6 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Ribbon");
 
             girl1_status.TouchSisterRibbon();
-            girl1_status.touch_status = 3;
             //sc.PlaySe(0);
         }
 
@@ -152,7 +149,6 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_LongHair");
 
             girl1_status.TouchSisterTwinTail();
-            girl1_status.touch_status = 4;
             //sc.PlaySe(0);
         }
 
@@ -166,7 +162,6 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Chest");
 
             girl1_status.TouchSisterChest();
-            girl1_status.touch_status = 5;
             //sc.PlaySe(0);
         }
 
@@ -192,7 +187,6 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Flower");
 
             girl1_status.TouchFlower();
-            girl1_status.touch_status = 6;
             //sc.PlaySe(2);
         }
 

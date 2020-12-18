@@ -1185,6 +1185,7 @@ public class Compound_Main : MonoBehaviour
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
+                _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
 
                 //BGMを変更
@@ -1237,6 +1238,7 @@ public class Compound_Main : MonoBehaviour
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
+                _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
 
                 //BGMを変更
@@ -1297,6 +1299,7 @@ public class Compound_Main : MonoBehaviour
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
+                _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
 
                 //BGMを変更
@@ -1313,6 +1316,7 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
                 girl1_status.ResetGirlIdleTime();
+                girl1_status.Girl1_touchhair_start = false; //gaze状態もリセット
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1380,6 +1384,7 @@ public class Compound_Main : MonoBehaviour
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
                 trans_motion = 1000; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
+                _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
 
                 recipiMemoButton.SetActive(false);

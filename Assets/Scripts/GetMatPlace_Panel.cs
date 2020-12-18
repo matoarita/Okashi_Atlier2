@@ -411,7 +411,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //妹の体力が足りてるかチェック
                 if (PlayerStatus.girl1_Love_exp <= 0)
                 {
-                    _text.text = "にいちゃん。怖くて外にでれないよ～・・。" + "\n" + "まずは、ヒカリのハートをあげてね！";
+                    _text.text = "にいちゃん。怖くて外にでれないよ～・・。" + "\n" + "まずは、" + GameMgr.ColorYellow + "お菓子をあげて" + "</color>" + "、ヒカリのハートをあげてね！";
 
                     All_Off();
                 }
