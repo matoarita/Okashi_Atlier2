@@ -1326,7 +1326,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("SpOkashiBefore_num", sp_Okashi_ID);
 
         //ゲーム上のキャラクタOFF
-        //CharacterLive2DImageOFF();
+        CharacterLive2DImageOFF();
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -1338,7 +1338,7 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //ゲーム上のキャラクタON
-        //CharacterLive2DImageON();
+        CharacterLive2DImageON();
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 

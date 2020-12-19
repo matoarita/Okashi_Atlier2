@@ -411,7 +411,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //妹の体力が足りてるかチェック
                 if (PlayerStatus.girl1_Love_exp <= 0)
                 {
-                    _text.text = "にいちゃん。怖くて外にでれないよ～・・。" + "\n" + "まずは、" + GameMgr.ColorYellow + "お菓子をあげて" + "</color>" + "、ヒカリのハートをあげてね！";
+                    _text.text = "にいちゃん。怖くて外にでれないよ～・・。" + "\n" + "まずは、" + GameMgr.ColorYellow  + "ヒカリのハートをあげて" + "</color>" + "ね！";
 
                     All_Off();
                 }
@@ -1232,7 +1232,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             case 0: //初期化 状態１
 
-                sc.PlaySe(85);
+                sc.PlaySe(85); //開錠中ガチャガチャ
                 timeOut = 1.0f;
                 treasure_anim_status = 1;
 

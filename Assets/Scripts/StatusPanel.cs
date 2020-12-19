@@ -89,14 +89,14 @@ public class StatusPanel : MonoBehaviour {
             acce_num_before[i] = GameMgr.Accesory_Num[i]; //アクセの場合、トグルチェンジ前の状態を保存。（Live2Dは1Frame内で同時にアニメーション切り替えができないため）
         }
 
-        costume_list[0].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true; //デフォルト服は常時ON
+        costume_list[0].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true; //デフォルト服は常時インタラクトON
         cosIcon_sprite = Resources.Load<Sprite>("Sprites/" + pitemlist.emeralditemlist[0].event_fileName);
         costume_list[0].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().sprite = cosIcon_sprite;
         costume_list[0].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().color = Color.white;
 
         for ( i=0; i < pitemlist.emeralditemlist.Count; i++ )
         {
-            if(pitemlist.emeralditemlist[i].event_itemName == "Meid_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メイド服
+            if(pitemlist.emeralditemlist[i].event_itemName == "Meid_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メイド服２
             {
                 costume_list[1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
             }
@@ -139,6 +139,21 @@ public class StatusPanel : MonoBehaviour {
         girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
 
         zairyobox_lv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
+
+        //現在装備しているアクセや服に応じて、トグルをONにする。
+        costume_list[GameMgr.Costume_Num].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
+        for (i = 0; i < GameMgr.Accesory_Num.Length; i++)
+        {
+            if (GameMgr.Accesory_Num[i] == 1)
+            {
+                //トグルをonにするときに、コールバックを呼ばずにONにできる書き方。ToggleExt.csを追加している。
+                costume_list[i + 6].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true); 
+            }
+            else
+            {
+                costume_list[i + 6].transform.Find("ClothToggle").GetComponent<Toggle>().isOn = false;
+            }
+        }
     }
 
     public void OnCostumeChange() //0~5までのトグルを押すと、衣装チェンジ
@@ -148,24 +163,8 @@ public class StatusPanel : MonoBehaviour {
             if(costume_list[i].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
             {
                 Debug.Log("衣装チェンジ: " + i);
-
-                switch(i)
-                {
-                    case 0:
-                        GameMgr.Costume_Num = 1;
-                        break;
-
-                    case 1:
-                        GameMgr.Costume_Num = 0;
-                        break;
-
-                    default:
-
-                        GameMgr.Costume_Num = i;
-                        break;
-
-                }
-                              
+                GameMgr.Costume_Num = i;
+                             
                 _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
             }
         }
@@ -177,12 +176,13 @@ public class StatusPanel : MonoBehaviour {
         {
             if (costume_list[i+6].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
             {
-                Debug.Log("アクセチェンジ: " + i);
+                Debug.Log("アクセチェンジON: " + i);
 
                 GameMgr.Accesory_Num[i] = 1;               
             }
             else
             {
+                Debug.Log("アクセチェンジOFF: " + i);
                 GameMgr.Accesory_Num[i] = 0;
             }
         }

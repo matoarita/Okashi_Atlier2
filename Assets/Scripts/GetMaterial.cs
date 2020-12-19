@@ -1024,7 +1024,8 @@ public class GetMaterial : MonoBehaviour
         getmatplace_panel.result_items[_itemid] += 1;
 
         //音を鳴らす
-        sc.PlaySe(76);
+        //sc.PlaySe(87); //あけた音
+        sc.PlaySe(86); //獲得音
     }
 
     //宝箱データのセッティング

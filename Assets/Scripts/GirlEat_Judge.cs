@@ -644,6 +644,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     maincam_animator.SetInteger("trans", trans);
 
                     //Live2D「うわぁ～～」のアニメーション
+                    live2d_animator.SetLayerWeight(2, 0); //強制的にAddMotionLayerは0にする。
                     trans_motion = 2;
                     live2d_animator.SetInteger("trans_motion", trans_motion);
 

@@ -180,9 +180,7 @@ public class SetImage : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         SetData();
-
     }   
 
     // Update is called once per frame
@@ -290,6 +288,16 @@ public class SetImage : MonoBehaviour
         item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
         item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
 
+        kosu_panel = this.transform.Find("Item_card_template/ItemKosu_Panel").gameObject;
+        kosu_panel.SetActive(false);
+        kosu_text = this.transform.Find("Item_card_template/ItemKosu_Panel/ItemKosu").gameObject.GetComponent<Text>();
+
+        //各パラメータバーの取得
+        _Crispy_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemCrispyBar").gameObject.GetComponent<Slider>();
+        _Sweat_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
+        _Bitter_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBitterBar").gameObject.GetComponent<Slider>();
+        _Sour_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourBar").gameObject.GetComponent<Slider>();
+
 
         //前回のスコア関係
         item_lastShokukan_Type = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/TxCrispy").gameObject.GetComponent<Text>();
@@ -307,18 +315,7 @@ public class SetImage : MonoBehaviour
         item_LastTotalScore = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemLastTotalScore").gameObject.GetComponent<Text>(); //最高得点
         item_Hint = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemHint").gameObject.GetComponent<Text>(); //前回の妹からのヒント
         item_HighScoreFlag = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/HighScoreFlag").gameObject; //ハイスコア時、星のエンブレムがでる。
-
-
-        kosu_panel = this.transform.Find("Item_card_template/ItemKosu_Panel").gameObject;
-        kosu_panel.SetActive(false);
-        kosu_text = this.transform.Find("Item_card_template/ItemKosu_Panel/ItemKosu").gameObject.GetComponent<Text>();
-
-        //各パラメータバーの取得
-        _Crispy_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemCrispyBar").gameObject.GetComponent<Slider>();
-        _Sweat_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
-        _Bitter_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBitterBar").gameObject.GetComponent<Slider>();
-        _Sour_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourBar").gameObject.GetComponent<Slider>();
-
+      
         _Crispy_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemCrispyBar").gameObject.GetComponent<Slider>();
         _Sweat_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
         _Bitter_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemBitterBar").gameObject.GetComponent<Slider>();
@@ -338,12 +335,20 @@ public class SetImage : MonoBehaviour
     {
         Card_draw();
     }
-   
+
+    //アイテムリストから開いた場合
+    public void SetInitPitemList()
+    {
+        Card_draw();
+        CardParamOFF_2();
+    }
+
 
     void Card_draw()
     {
-        
-        switch (Pitem_or_Origin)
+        Pitemlist_CardDraw();
+
+        /*switch (Pitem_or_Origin)
         {
             case 0: //プレイヤーアイテムリストを選択した場合
                 //Debug.Log("プレイヤーアイテムリスト　check_counter:" + check_counter);
@@ -355,14 +360,14 @@ public class SetImage : MonoBehaviour
                 //Debug.Log("オリジンアイテムリスト　check_counter:" + check_counter);
 
                 //プレイヤー所持アイテムリストの取得
-                pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+                //pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
                 Pitemlist_CardDraw();
                 break;
 
             default:
                 break;
-        }
+        }*/
 
     }
 

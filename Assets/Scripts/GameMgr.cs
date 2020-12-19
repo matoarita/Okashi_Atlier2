@@ -243,6 +243,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //一日の食費
     public static int Foodexpenses;
 
+    //カメラズームアウトの終わりを検出する
+    public static bool camerazoom_endflag;
+
 
     // Use this for initialization
     void Start () {
@@ -309,7 +312,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         scenario_flag_input = 0;
         scenario_flag_cullent = scenario_flag;
 
-        Costume_Num = 0; 
+        camerazoom_endflag = false;
+
+        Costume_Num = 0; //初期コスチューム　メイド服がデフォルト
         for (system_i = 0; system_i < Accesory_Num.Length; system_i++)
         {
             Accesory_Num[system_i] = 0;

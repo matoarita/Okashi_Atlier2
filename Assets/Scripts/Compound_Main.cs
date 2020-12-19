@@ -128,6 +128,8 @@ public class Compound_Main : MonoBehaviour
     private int trans_position;
     public int ResultComplete_flag;
     private bool live2d_posmove_flag; //位置を変更したフラグ
+    private GameObject character_root;
+    private GameObject character_move;
 
     private GameObject compoundselect_onoff_obj;
 
@@ -399,6 +401,8 @@ public class Compound_Main : MonoBehaviour
         live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
         ResultComplete_flag = 0; //調合が完了したよフラグ
         live2d_posmove_flag = false;
+        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+        character_move = character_root.transform.Find("CharacterMove").gameObject;
 
         compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/CompoundSelect_ScrollView").gameObject;
 
@@ -1035,6 +1039,9 @@ public class Compound_Main : MonoBehaviour
 
                 //Live2Dデフォルト
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
+                //character_move.transform.position = new Vector3(0, 0, 0);
+                girl1_status.Walk_Start = true;
+                girl1_status.timeOutMoveX = 7.0f;
 
                 if (ResultComplete_flag != 0) //厨房から帰ってくるときの動き
                 {
@@ -1187,6 +1194,9 @@ public class Compound_Main : MonoBehaviour
                 live2d_posmove_flag = true; //位置を変更したフラグ
                 _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
+                girl1_status.AddMotionAnimReset();
+                character_move.transform.position = new Vector3(0, 0, 0);
+                girl1_status.Walk_Start = false;
 
                 //BGMを変更
                 if (bgm_changeuse_ON)
@@ -1240,6 +1250,9 @@ public class Compound_Main : MonoBehaviour
                 live2d_posmove_flag = true; //位置を変更したフラグ
                 _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
+                girl1_status.AddMotionAnimReset();
+                character_move.transform.position = new Vector3(0, 0, 0);
+                girl1_status.Walk_Start = false;
 
                 //BGMを変更
                 if (bgm_changeuse_ON)
@@ -1301,6 +1314,9 @@ public class Compound_Main : MonoBehaviour
                 live2d_posmove_flag = true; //位置を変更したフラグ
                 _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
+                girl1_status.AddMotionAnimReset();
+                character_move.transform.position = new Vector3(0, 0, 0);
+                girl1_status.Walk_Start = false;
 
                 //BGMを変更
                 if (bgm_changeuse_ON)
@@ -1386,6 +1402,9 @@ public class Compound_Main : MonoBehaviour
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
+                girl1_status.AddMotionAnimReset();
+                character_move.transform.position = new Vector3(0,0,0);
+                girl1_status.Walk_Start = false;
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -1427,6 +1446,7 @@ public class Compound_Main : MonoBehaviour
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
+                girl1_status.Walk_Start = false;
 
                 text_area.SetActive(true);
                 WindowOff();
@@ -1442,6 +1462,7 @@ public class Compound_Main : MonoBehaviour
                 compound_status = 12;
                 text_area.SetActive(false);
                 girlEat_ON = true; //お菓子判定中フラグ
+                character_move.transform.position = new Vector3(0, 0, 0);
 
                 //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1
                 girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype, 0);
@@ -2721,9 +2742,6 @@ public class Compound_Main : MonoBehaviour
             //pitemlist.addPlayerItemString("grape", 2);
             //pitemlist.addPlayerItemString("stone_oven", 1);
 
-            //初期コスチューム　メイド服がデフォルト
-            GameMgr.Costume_Num = 1;
-            _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
         }
     }
 

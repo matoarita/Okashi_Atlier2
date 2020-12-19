@@ -29,19 +29,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Touch_Controller touch_controller; //タッチのONOFFのみのスクリプト
     private Touch_Controll touch_controll; //タッチした際のメソッドを記述
 
-    private SpriteRenderer s;
-
     private SoundController sc;
 
     private Text questname;
     private GameObject questtitle_panel;
     private Text questpanel_text;
 
-    public float timeOut;
-    public float timeOut2;
+    public float timeOut;  //girleat_judgeから読んでいる
+    public float timeOut2; //その他は、デバッグ用に外側からすぐ見れるようにpublicにしてる。
     public float timeOut3;
     public float timeOutIdle;
-    private float timeOutIdle_time = 20.0f;
+    public float timeOutMoveX;
+    public float timeOutIdle_time = 20.0f;
     public float timeOutHeartDeg;
     private float Default_hungry_cooltime;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
@@ -194,6 +193,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int Girl1_touchtwintail_count;
     private bool Girl1_touchtwintail_flag; //全ての会話を表示したら、しばらく触れなくなる
 
+    //歩きスタート
+    public bool Walk_Start;
+
     //特定のお菓子か、ランダムから選ぶかのフラグ
     public int OkashiNew_Status;
     public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
@@ -214,6 +216,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int trans_expression;
     private int trans_motion;
     private int trans_facemotion;
+    private GameObject character_root;
+    private GameObject character_move;
 
     //ハートレベルのテーブル
     public List<int> stage1_lvTable = new List<int>();
@@ -236,8 +240,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //Prefab内の、コンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
         hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
-        character = GameObject.FindWithTag("Character");
-
+        
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
@@ -277,6 +280,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                 live2d_animator = _model.GetComponent<Animator>();
                 /*trans_expression = live2d_animator.GetInteger("trans_expression");*/
+                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                character_move = character_root.transform.Find("CharacterMove").gameObject;
+                character = GameObject.FindWithTag("Character");
 
                 //初期表情の設定
                 CheckGokigen();
@@ -301,8 +307,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
                 _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
 
-                s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
-
                 //メイン画面に表示する、現在のクエスト
                 questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
                 questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
@@ -311,18 +315,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
         }
-
-        //女の子のイラストデータ
-        /*Girl1_img_normal = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_normal");
-        Girl1_img_gokigen = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_gokigen");
-        Girl1_img_smile = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_yorokobi");
-        Girl1_img_eat_start = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_eat_start");
-        Girl1_img_verysad = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_verysad");
-        Girl1_img_verysad_close = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_verysad_close");
-        Girl1_img_hirameki = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_hirameki");
-        Girl1_img_tereru = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_tereru");
-        Girl1_img_angry = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_angry");
-        Girl1_img_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Hikari_iya");*/
        
         // *** パラメータ初期設定 ***
 
@@ -351,7 +343,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girllike_comment_flag = new int[youso_count];
 
         girllike_judgeNum = new int[youso_count];
-
+        
         //デフォルトステータスを設定
         ResetDefaultStatus();
 
@@ -364,12 +356,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
        
     }
 
+    //ゲームのはじめなどで一度だけリセットされる項目。
     public void ResetDefaultStatus()
     {
         //この時間ごとに、女の子は、お菓子を欲しがり始める。
         Default_hungry_cooltime = 0.5f;
         timeOut = Default_hungry_cooltime;
         timeOut2 = 10.0f;
+        timeOutMoveX = 7.0f;
         timeOutIdle = timeOutIdle_time;
         timeOutHeartDeg = 5.0f;
         timeGirl_hungry_status = 1;
@@ -377,6 +371,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         GirlGokigenStatus = 0;        
         OkashiNew_Status = 1;
         Special_ignore_count = 0;
+        special_animatFirst = false;
 
         facemotion_start = false;
         facemotion_time = 0.3f;
@@ -391,7 +386,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         special_animstart_endflag = false;
         special_animstart_status = 0;
         special_timeOut = 3.0f;
-        special_animatFirst = false;
+        
 
         MazuiStatus = 0;
 
@@ -402,6 +397,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchtwintail_count = 0;
         Girl1_touchtwintail_flag = false;
 
+        Walk_Start = true; //歩きフラグをON
+
         girl_Mazui_flag = false;
 
 
@@ -410,7 +407,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //好感度ステータスで変わる吹き出しテキストをセッティング        
         RandomGenkiInit();
-
 
     }
 
@@ -432,9 +428,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     trans = maincam_animator.GetInteger("trans");
 
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-                    character = GameObject.FindWithTag("Character");
+                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();                    
 
                     //テキストエリアの取得
                     text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -445,8 +439,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //お金の増減用パネルの取得
                     MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
 
-                    //s = GameObject.FindWithTag("Character").GetComponent<SpriteRenderer>();
-
                     //BGMの取得
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
@@ -454,6 +446,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     live2d_animator = _model.GetComponent<Animator>();
+                    character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                    character_move = character_root.transform.Find("CharacterMove").gameObject;
+                    character = GameObject.FindWithTag("Character");
 
                     //タッチ判定オブジェクトの取得
                     touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -511,6 +506,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             timeOut2 -= Time.deltaTime;
             timeOutIdle -= Time.deltaTime;
             timeOutHeartDeg -= Time.deltaTime;
+            timeOutMoveX -= Time.deltaTime;
         }
 
         if(WaitHint_on) //吹き出しヒントを表示中
@@ -571,7 +567,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 ResetHukidashi();
             }
         }
-        
+
 
         if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしない。
         {
@@ -707,6 +703,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             }
                         }
 
+                        //自動で歩く
+                        if (Walk_Start)
+                        {
+                            if (timeOutMoveX <= 0.0f)
+                            {
+                                rnd = Random.Range(3.0f, 10.0f);
+                                timeOutMoveX = 2.0f + rnd;
+
+                                IdleMoveX();
+                            }
+                        }
+
                         //5秒程度放置すると、ハートが１ずつ減っていく。
                         /*if (timeOutHeartDeg <= 0.0)
                         {
@@ -733,6 +741,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 case 0: //キュピーン！！１～２秒程度のアクション。まず初期化
 
                     _listEffect.Clear();
+
+                    AddMotionAnimReset();                   
 
                     special_timeOut = 1.0f;
 
@@ -787,6 +797,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             special_timeOut -= Time.deltaTime;
         }
+    }
+
+    //Facemotionを強制的にOFF
+    public void AddMotionAnimReset()
+    {
+        timeOutIdle = timeOutIdle_time;
+        live2d_animator.Play("Reset"); //一度アニメーションをリセット
+        live2d_animator.Update(2);
+        live2d_animator.SetLayerWeight(2, 0); //強制的にAddMotionLayerを0にする。
     }
 
     void DefFaceChange()
@@ -1025,16 +1044,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             yield return null;
         }
 
-        /*while (main_cam.transform.position.z != -10)
-        {
-            yield return null;
-        }*/
 
         //会話イベントがまだの場合、会話を表示
         if (!special_animatFirst)
         {
             canvas.SetActive(false);
-            sceneBGM.MuteBGM();           
+            sceneBGM.MuteBGM();
+
+            while (!GameMgr.camerazoom_endflag)
+            {
+                yield return null;
+            }
+            GameMgr.camerazoom_endflag = false;
 
             //最初にお菓子にまつわるヒントやお話。宴へとぶ。SpOkashiBeforeコメント。
             GameMgr.scenario_ON = true;
@@ -1045,14 +1066,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 yield return null;
             }
-           
+
             GameMgr.scenario_ON = false;
             GameMgr.recipi_read_endflag = false;
             touch_controller.Touch_OnAllON();
             canvas.SetActive(true);
             sceneBGM.MuteOFFBGM();
             sceneBGM.PlayMain();
-        }       
+        }    
 
         //表示用吹き出しを生成                   
         //hukidasiInit();
@@ -1917,7 +1938,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     }
 
-    //宴で表示するようの処理
+    //宴で表示するようの処理<未使用>
     IEnumerator TouchFaceHintHyouji()
     {
         WaitHint_on = false;
@@ -2392,6 +2413,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
         }
 
+    }
+
+    //ランダムで左右に動く
+    void IdleMoveX()
+    {
+        rnd = Random.Range(2.0f, -2.0f);
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(character_move.transform.DOMoveX(rnd, 3.0f)
+        .SetEase(Ease.InOutSine));
+
+        Sequence sequence2 = DOTween.Sequence().SetLoops(3);
+        sequence2.Append(character_move.transform.DOMoveY(0.1f, 0.5f))
+            .SetRelative();
+        sequence2.Append(character_move.transform.DOMoveY(-0.1f, 0.5f))
+            .SetRelative();
     }
 
     //ランダムで仕草

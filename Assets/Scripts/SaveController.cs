@@ -561,11 +561,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //衣装チェンジ
         _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
+        _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeAcce();
 
         compound_Main.compound_status = 0;
 
     }
 
+    //ゲーム「はじめから」で、リセットされる項目
     public void ResetAllParam()
     {
         PlayerStatus.Setup_PlayerStatus(); //プレイヤーステータスの初期化

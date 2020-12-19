@@ -71,8 +71,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
             default://シナリオ系のシーンでは読み込まない。
                 break;
         }
-
-        //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }
 	
 	// Update is called once per frame
@@ -571,7 +569,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //店売りかオリジナルか、アイテムID
         _cardImage.Pitem_or_Origin = _toggleType;
         _cardImage.check_counter = _kettei_item1;
-        _cardImage.SetInit();
+        _cardImage.SetInitPitemList();
 
         //位置とスケール
         Draw1();
@@ -688,11 +686,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
     }
 
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-
-    }
 
     //一時的にカードのインタラクトをOFF
     public void SetinteractiveOFF()

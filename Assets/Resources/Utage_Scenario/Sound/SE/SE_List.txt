@@ -84,5 +84,7 @@ SE表
 ・SE_82		audiostock_221662_sample.mp3			【#未使用】　カッ　鍵なんかを締めたような音（決定音に使える？）
 ・SE_83		audiostock_824429				【宴で使用】キュララン　アイテム発見力が上がるときのバフのような上昇音
 ・SE_84		audiostock_52941				【宴で使用　SE32と同一】お金シャキン
-・SE_85		audiostock_390280_sample			宝箱を発見した音
-・SE_86		audiostock_87003_sample				宝箱をガチャガチャ
+・SE_85		audiostock_390280				宝箱を発見した音
+・SE_86		audiostock_891100				宝箱をガチャガチャ
+・SE_87		audiostock_66346				宝箱を開けたときの獲得音
+・SE_88		audiostock_39891				【未使用】宝箱を開けたときの音

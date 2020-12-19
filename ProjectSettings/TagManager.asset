@@ -70,6 +70,7 @@ TagManager:
   - Map_Ambience
   - FadeOutBlack
   - EmeraldShop_Main
+  - CharacterRoot
   layers:
   - Default
   - TransparentFX

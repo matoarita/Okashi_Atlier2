@@ -2793,7 +2793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12fa3a053144f4042a21bed0517fb7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound1: {fileID: 8300000, guid: 7e3196e0b01f17d489cef58042adf5a6, type: 3}
+  sound1: {fileID: 8300000, guid: f772b1107c8dae8468e41db182b00835, type: 3}
   sound2: {fileID: 0}
   sound3: {fileID: 0}
   sound4: {fileID: 0}
