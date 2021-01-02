@@ -1109,7 +1109,6 @@ public class Compound_Main : MonoBehaviour
 
                 //クエストをクリアしたら、クリアボタンがでる。
                 QuestClearCheck();
-                //Debug.Log("GameMgr.QuestClearflag: " + GameMgr.QuestClearflag);
 
                 //イベントに応じてコマンドを増やす関係
                 FlagEvent();
@@ -1147,9 +1146,7 @@ public class Compound_Main : MonoBehaviour
                     if (girl1_status.special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート。それまでは他のボタン入力できない。
                     {
                         Extremepanel_obj.SetActive(false);
-
                         compoundselect_onoff_obj.SetActive(false);
-
                         touch_controller.Touch_OnAllOFF();
                     }
                 }
@@ -1195,6 +1192,7 @@ public class Compound_Main : MonoBehaviour
                 _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
+                girl1_status.DoTSequence_Kill();
                 character_move.transform.position = new Vector3(0, 0, 0);
                 girl1_status.Walk_Start = false;
 
@@ -1251,6 +1249,7 @@ public class Compound_Main : MonoBehaviour
                 _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
+                girl1_status.DoTSequence_Kill();
                 character_move.transform.position = new Vector3(0, 0, 0);
                 girl1_status.Walk_Start = false;
 
@@ -1315,6 +1314,7 @@ public class Compound_Main : MonoBehaviour
                 _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
+                girl1_status.DoTSequence_Kill();
                 character_move.transform.position = new Vector3(0, 0, 0);
                 girl1_status.Walk_Start = false;
 
@@ -1403,6 +1403,7 @@ public class Compound_Main : MonoBehaviour
                 _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
+                girl1_status.DoTSequence_Kill();
                 character_move.transform.position = new Vector3(0,0,0);
                 girl1_status.Walk_Start = false;
 

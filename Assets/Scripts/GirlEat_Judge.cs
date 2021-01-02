@@ -290,9 +290,11 @@ public class GirlEat_Judge : MonoBehaviour {
     List<int> itemslotScore = new List<int>();
 
     private GameObject effect_Prefab;
+    private GameObject questclear_effect_Prefab;
     private GameObject Emo_effect_manzoku;
     private GameObject Emo_effect_daimanzoku;
     private List<GameObject> _listEffect = new List<GameObject>();
+    private List<GameObject> _questClearEffect = new List<GameObject>();
 
     private GameObject heart_Prefab;
     public List<GameObject> _listHeart = new List<GameObject>();
@@ -429,6 +431,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 //エフェクトプレファブの取得
                 effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
+                questclear_effect_Prefab = (GameObject)Resources.Load("Prefabs/ParticleQClearEffect");
                 Emo_effect_manzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
                 Emo_effect_daimanzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
                 Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
@@ -724,7 +727,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     EatAnimPanel.SetActive(false);
                     EatStartEffect.SetActive(false);
 
-                    touch_controller.Touch_OnAllON();
+                    //touch_controller.Touch_OnAllON();
 
                     break;
 
@@ -1020,11 +1023,21 @@ public class GirlEat_Judge : MonoBehaviour {
         judge_result(); //先に判定し、マズイなどがあったら、アニメにも反映する。
 
         judge_score(0, set_id); //点数の判定。中の数字は、女の子のお菓子の判定か、コンテストでの判定かのタイプ分け
+        
+        Touch_WindowInteractOFF();
 
         while (judge_end != true)
         {
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
+
+        canvas.SetActive(false);
+
+        while (!GameMgr.camerazoom_endflag)
+        {
+            yield return null;
+        }
+        GameMgr.camerazoom_endflag = false;
 
         if (!GameMgr.tutorial_ON)
         {
@@ -2404,23 +2417,13 @@ public class GirlEat_Judge : MonoBehaviour {
         //一時的に触れなくする。
         if (emerarudonguri_get)
         {
-            girl1_status.GirlEat_Judge_on = false;
-            girl1_status.WaitHint_on = false;
-            girl1_status.hukidasiOff();           
-            touch_controller.Touch_OnAllOFF();
-            compound_Main.OffCompoundSelect();
-            compound_Main.OnCompoundSelectObj();
+            Touch_WindowInteractOFF();
         }
         else
         {
             if (quest_clear && !GameMgr.QuestClearButton_anim)
             {
-                girl1_status.GirlEat_Judge_on = false;
-                girl1_status.WaitHint_on = false;
-                girl1_status.hukidasiOff();
-                touch_controller.Touch_OnAllOFF();
-                compound_Main.OffCompoundSelect();
-                compound_Main.OnCompoundSelectObj();
+                Touch_WindowInteractOFF();
             }
             else
             {
@@ -2467,6 +2470,16 @@ public class GirlEat_Judge : MonoBehaviour {
             compound_Main.compound_status = 0;
             canvas.SetActive(true);
         }
+    }
+
+    void Touch_WindowInteractOFF()
+    {
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.WaitHint_on = false;
+        girl1_status.hukidasiOff();
+        touch_controller.Touch_OnAllOFF();
+        compound_Main.OffCompoundSelect();
+        compound_Main.OnCompoundSelectObj();
     }
 
     //
@@ -3065,20 +3078,37 @@ public class GirlEat_Judge : MonoBehaviour {
             //ボタンが登場する演出
             StartCoroutine("ClearButtonAnim");
         }
-        else //アニメがいらない場合、即座に次のSPクエスト開始
+        else //アニメがいらない場合、数秒待って次のSPクエスト開始
         {
-            GameMgr.QuestClearflag = true;
+            canvas.SetActive(true);
 
-            //お菓子の判定処理を終了
-            compound_Main.girlEat_ON = false;
-            compound_Main.compound_status = 0;
+            //クリア音
+            sc.PlaySe(88);
+
+            //クリア演出 クエストクリア！とかだす
+            _questClearEffect.Clear();
+            _questClearEffect.Add(Instantiate(questclear_effect_Prefab));
 
             //表情をお菓子食べたあとの喜びの表情。
             girl1_status.face_girl_Fine();
 
-            QuestClearMethod();
+            StartCoroutine("WaitSPOkashiClearAfter"); //5秒ほど待ってから次へ。その間は、まだ前のセットの情報が残っている。
+            
         }              
     }
+
+    IEnumerator WaitSPOkashiClearAfter()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        //お菓子の判定処理を終了
+        compound_Main.girlEat_ON = false;
+        compound_Main.compound_status = 0;
+
+        GameMgr.QuestClearflag = true;
+        QuestClearMethod();
+    }
+
 
     IEnumerator ClearButtonAnim()
     {

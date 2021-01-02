@@ -154,6 +154,19 @@ public class Touch_Controll : MonoBehaviour
 
     }
 
+    public void OnTouchHand()
+    {
+
+        if (ALL_touch_flag)
+        {
+            //Debug.Log("Touch_Hand");
+
+            girl1_status.TouchSisterHand();
+            //sc.PlaySe(0);
+        }
+
+    }
+
     public void OnTouchChest()
     {
 

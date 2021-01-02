@@ -556,7 +556,7 @@ MonoBehaviour:
       itemType: 5
       shop_sell_price: 3
       shop_buy_price: 1
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 201
       name: Sukumizu_Costume
       zaiko: 1

@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114669429271918848}
   - component: {fileID: 95260113897799380}
   m_Layer: 0
-  m_Name: Image
+  m_Name: ImageParticle_KiraExplode_Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 0e370bc718e5fcf4d900ec3930becd5a, type: 2}
+  m_Material: {fileID: 2100000, guid: 18d2a799b06c2984f9391b12dd3c0603, type: 2}
   m_Color: {r: 1, g: 0.30882353, b: 0.75212985, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -334,7 +334,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -532202026
+  randomSeed: -1893325614
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3749,7 +3749,7 @@ RectTransform:
   m_GameObject: {fileID: 1782270969548744}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224088204421921898}
   m_Father: {fileID: 0}

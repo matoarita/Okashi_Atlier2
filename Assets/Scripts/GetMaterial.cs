@@ -903,10 +903,10 @@ public class GetMaterial : MonoBehaviour
             case "Forest":
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 65.0f); //採集
+                eventDict.Add(0, 70.0f); //採集
                 eventDict.Add(1, 20.0f); //20%でイベント発生
                 eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 15.0f + rare_event_kakuritsu); //お宝発見
+                eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
                 break;
 
             case "HimawariHill":
@@ -921,20 +921,20 @@ public class GetMaterial : MonoBehaviour
                 else
                 {
                     eventDict = new Dictionary<int, float>();
-                    eventDict.Add(0, 75.0f); //採集
+                    eventDict.Add(0, 80.0f); //採集
                     eventDict.Add(1, 10.0f); //10%でイベント
                     eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                    eventDict.Add(3, 15.0f + rare_event_kakuritsu); //お宝発見
+                    eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
                 }
                 break;
 
             default:
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 65.0f); //採集
+                eventDict.Add(0, 70.0f); //採集
                 eventDict.Add(1, 20.0f); //10%でイベント
                 eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 15.0f + rare_event_kakuritsu); //お宝発見
+                eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
                 break;
         }
     }
@@ -1042,15 +1042,15 @@ public class GetMaterial : MonoBehaviour
 
                 treasureInfo.Add(0, "kirakira_stone1"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
                 treasureInfo.Add(1, "diamond_1");
-                treasureInfo.Add(2, "egg");
+                treasureInfo.Add(2, "copper_coin");
                 treasureInfo.Add(3, "pink_suger");
                 treasureInfo.Add(4, "choco_mint_ice_cream");
                
-                treasureDropDict.Add(0, 50.0f); //こっちは確率テーブル
-                treasureDropDict.Add(1, 25.0f);
-                treasureDropDict.Add(2, 10.0f);
-                treasureDropDict.Add(3, 10.0f);
-                treasureDropDict.Add(4, 5.0f);
+                treasureDropDict.Add(0, 57.0f); //こっちは確率テーブル
+                treasureDropDict.Add(1, 3.0f);
+                treasureDropDict.Add(2, 20.0f);
+                treasureDropDict.Add(3, 20.0f);
+                treasureDropDict.Add(4, 0.0f);
                 break;
 
             default:

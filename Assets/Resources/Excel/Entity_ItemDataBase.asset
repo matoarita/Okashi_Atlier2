@@ -12243,8 +12243,8 @@ MonoBehaviour:
     - ItemID: 1008
       file_name: flyer
       name: flyer
-      nameHyouji: "\u30C8\u30EC\u30F3\u30C8\u306E\u30D5\u30E9\u30A4\u30E4\u30FC"
-      desc: "\u63DA\u3052\u7269\u3092\u4F5C\u308B\u305F\u3081\u306E\u6A5F\u68B0\u3002\u934B\u306B\u6CB9\u3092\u5927\u91CF\u306B\u5F35\u3063\u3066\u3044\u308B\u3002"
+      nameHyouji: "\u30D5\u30E9\u30A4\u30E4\u30FC"
+      desc: "\u63DA\u3052\u7269\u30DE\u30A4\u30B9\u30BF\u30FC\u300C\u30C8\u30EC\u30F3\u30C8\u300D\u304C\u88FD\u4F5C\u3057\u305F\u63DA\u3052\u7269\u3092\u4F5C\u308B\u305F\u3081\u306E\u6A5F\u68B0\u3002\u934B\u306B\u6CB9\u3092\u5927\u91CF\u306B\u5F35\u3063\u3066\u3044\u308B\u3002"
       comp_hosei: 0
       hp: 0
       day: 0
@@ -12928,6 +12928,53 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 50000
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1023
+      file_name: diamond_1
+      name: copper_coin
+      nameHyouji: "\u9285\u306E\u30B3\u30A4\u30F3"
+      desc: "\u6614\u306E\u6642\u4EE3\u4F7F\u308F\u308C\u3066\u3044\u305F\u3067\u3042\u308D\u3046\u9285\u8CA8\u3002\u304A\u5E97\u3067\u58F2\u308B\u3053\u3068\u304C\u3067\u304D\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Rare
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 100
       topping01: Non
       topping02: Non
       topping03: Non
