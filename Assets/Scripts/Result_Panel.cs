@@ -186,15 +186,15 @@ public class Result_Panel : MonoBehaviour
 
             if (currentDispCoin < GameMgr.low_score) //文字色をかえる。
             {
-                okashi_score_text.color = new Color(129f / 255f, 87f / 255f, 60f / 255f); //茶色　青文字(105f / 255f, 168f / 255f, 255f / 255f)      
+                okashi_score_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //茶色　(129f / 255f, 87f / 255f, 60f / 255f) 青文字(105f / 255f, 168f / 255f, 255f / 255f)      
             }
             else if (currentDispCoin >= GameMgr.low_score && currentDispCoin < GameMgr.high_score)
             {
-                okashi_score_text.color = new Color(255f / 255f, 105f / 255f, 170f / 255f); //ピンク
+                okashi_score_text.color = new Color(255f / 255f, 252f / 255f, 158f / 255f); //ピンク
             }
             else
             {
-                okashi_score_text.color = new Color(255f / 255f, 105f / 255f, 170f / 255f); //ピンク　黄色(255f / 255f, 252f / 255f, 158f / 255f)
+                okashi_score_text.color = new Color(255f / 255f, 105f / 255f, 139f / 255f); //みどり　(118f / 255f, 255f / 255f, 142f / 255f) 黄色(255f / 255f, 252f / 255f, 158f / 255f)
             }
 
             okashi_score_text.text = string.Format("{0:#,0}", val);

@@ -47,6 +47,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public float timeOutHeartDeg;
     private float Default_hungry_cooltime;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
+    public int touchGirl_status; //今、どこを触っているかの番号
 
     public bool GirlEat_Judge_on;
     public int GirlGokigenStatus; //女の子の現在のご機嫌の状態。6段階ほどあり、好感度が上がるにつれて、だんだん見た目が元気になっていく。
@@ -140,7 +141,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private bool isRunning;
     private bool isRunning2;
 
-    private bool facemotion_start;
+    public bool facemotion_start; //Live2DAnimationTriggerからも読んでいる
     private float facemotion_duration;
     private float facemotion_length;
     private float facemotion_time;
@@ -195,6 +196,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int Girl1_touchhair_status; //髪の毛をなでてあげることで、一時的に機嫌がよくなる。
     private int Girl1_touchhair_count; //一定時間内に触った回数
 
+    public bool Girl1_touchtwintail_start;
     private int Girl1_touchtwintail_count;
     private bool Girl1_touchtwintail_flag; //全ての会話を表示したら、しばらく触れなくなる
 
@@ -395,10 +397,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         MazuiStatus = 0;
 
+        touchGirl_status = 0;
         Girl1_touchhair_start = false;
         Girl1_touchhair_count = 0;
         Girl1_touchhair_status = 0;
 
+        Girl1_touchtwintail_start = false;
         Girl1_touchtwintail_count = 0;
         Girl1_touchtwintail_flag = false;
 
@@ -692,6 +696,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     timeOutIdle = timeOutIdle_time;
                                     live2d_animator.SetLayerWeight(2, 0f);
                                     _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                                    _model.GetComponent<GazeController>().enabled = false;
                                 });
                             }
 
@@ -1055,6 +1060,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             canvas.SetActive(false);
             sceneBGM.MuteBGM();
+            touch_controller.Touch_OnAllOFF();
 
             while (!GameMgr.camerazoom_endflag)
             {
@@ -1651,6 +1657,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girllike_judgeNum[_set_num] = _id;
     }
 
+
+
+    //
+    //タッチ関係
+    //
+
+    public void Touchhair_Start()
+    {
+        Girl1_touchhair_status = 0;
+        Girl1_touchhair_count = 0;
+        Girl1_touchhair_start = true;
+        GirlEat_Judge_on = false;
+
+        //_model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        _model_obj.GetComponent<GazeController>().enabled = true;
+    }
+
     public void TouchSisterHair()
     {
         switch (Girl1_touchhair_status)
@@ -1658,14 +1681,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 0: //初期化
 
-                timeOut3 = 5.0f; //5秒以内に髪の毛を何度か触ると、ちょっと照れる。
-                Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 1;
+                touch_startreset();
 
-                if (hukidashiitem == null)
-                {
-                    hukidasiInit();
-                }
+                //5秒以内に髪の毛を何度か触ると、ちょっと照れる。
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 1;               
 
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[0];
@@ -1688,14 +1708,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 2:
 
-                timeOut3 = 5.0f;
+                touch_startreset();
                 Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 3;
-
-                if (hukidashiitem == null)
-                {
-                    hukidasiInit();
-                }
+                Girl1_touchhair_status = 3;              
 
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[1];
@@ -1718,14 +1733,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 4:
 
-                timeOut3 = 5.0f;
+                touch_startreset();
                 Girl1_touchhair_count = 0;
                 Girl1_touchhair_status = 5;
-
-                if (hukidashiitem == null)
-                {
-                    hukidasiInit();
-                }
 
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[2];
@@ -1750,14 +1760,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 6:
 
-                timeOut3 = 5.0f;
+                touch_startreset();
                 Girl1_touchhair_count = 0;
                 Girl1_touchhair_status = 7;
-
-                if (hukidashiitem == null)
-                {
-                    hukidasiInit();
-                }
 
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[3];
@@ -1781,14 +1786,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 8:
 
-                timeOut3 = 5.0f;
+                touch_startreset();
                 Girl1_touchhair_count = 0;
                 Girl1_touchhair_status = 9;
-
-                if (hukidashiitem == null)
-                {
-                    hukidasiInit();
-                }
 
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[4];
@@ -1812,14 +1812,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 10:
 
-                timeOut3 = 5.0f;
+                touch_startreset();
                 Girl1_touchhair_count = 0;
                 Girl1_touchhair_status = 11;
-
-                if (hukidashiitem == null)
-                {
-                    hukidasiInit();
-                }
 
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[5];
@@ -1844,14 +1839,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 12:
 
-                timeOut3 = 5.0f;
+                touch_startreset();
                 Girl1_touchhair_count = 0;
                 Girl1_touchhair_status = 13;
-
-                if (hukidashiitem == null)
-                {
-                    hukidasiInit();
-                }
 
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[6];
@@ -1880,27 +1870,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
     }
 
-    public void Touchhair_Start()
-    {       
-        Girl1_touchhair_status = 0;
-        Girl1_touchhair_count = 0;
-        Girl1_touchhair_start = true;
-        GirlEat_Judge_on = false;
-
-        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
-        _model_obj.GetComponent<GazeController>().enabled = true;
-    }
+    
 
 
 
     //口のあたりをクリックすると、ヒントを表示する。
     public void TouchSisterFace()
     {
-        timeOut3 = 5.0f; //タッチ用の時間をリセット
-
-        DeleteHukidashiOnly();
-
-        hukidasiInit();
+        
+        DeleteHukidashiOnly(); //必ず吹き出しを一度削除する
+        touch_startreset();
 
         //ランダムで、吹き出しの内容を決定
         Init_touchFaceComment();
@@ -1985,11 +1964,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void TouchSisterRibbon()
     {
-        if (hukidashiitem == null)
-        {
-            hukidasiInit();
-        }
-        timeOut3 = 5.0f; //タッチ用の時間をリセット
+        touch_startreset();
 
         //コメントランダム
         //random = Random.Range(0, _touchface_comment_lib.Count);
@@ -2003,11 +1978,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void TouchSisterHand()
     {
-        if (hukidashiitem == null)
-        {
-            hukidasiInit();
-        }
-        timeOut3 = 5.0f; //タッチ用の時間をリセット
+        touch_startreset();
 
         //吹き出し内容の決定
         Init_touchHandComment();
@@ -2024,11 +1995,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void TouchSisterChest()
     {
-        if (hukidashiitem == null)
-        {
-            hukidasiInit();
-        }
-        timeOut3 = 5.0f; //タッチ用の時間をリセット
+        touch_startreset();
 
         //吹き出し内容の決定
         Init_touchChestComment();
@@ -2045,37 +2012,37 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void TouchFlower()
     {
-        if (hukidashiitem == null)
-        {
-            hukidasiInit();
-        }
+        touch_startreset();
 
         hukidashiitem.GetComponent<TextController>().SetText("お兄ちゃん。それは花だよ。しおれてたら、お水をあげてね。");
 
         comment_statusreset();
     }
 
+
+    public void Touchtwintail_Start()
+    {
+        Girl1_touchtwintail_start = true;
+        
+        //タップモーション　最初触った一回だけ発動        
+        live2d_animator.SetLayerWeight(2, 1);
+        live2d_animator.Play("tapmotion_01", 2, 0.0f);
+
+        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+        facemotion_start = false;
+    }
+
     public void TouchSisterTwinTail()
     {
-        if (hukidashiitem == null)
-        {
-            hukidasiInit();
-        }
-        timeOut3 = 5.0f; //タッチ用の時間をリセット
-
-        //タッチアクション
-        trans_facemotion = 100;
-        live2d_animator.SetLayerWeight(2, 1);
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-        StartCoroutine("AfterTouchSisterHair");
+        touch_startreset();       
 
         //コメント順番に表示
-        Init_touchTwintailComment();
-        //random = Random.Range(0, _touchtwintail_comment_lib.Count);  
+        Init_touchTwintailComment(); 
 
         if (Girl1_touchtwintail_count >= _touchtwintail_comment_lib.Count)
         {
-            Girl1_touchtwintail_flag = true;
+            Girl1_touchtwintail_flag = true; //ツインテールに関する全てのコメントを表示した
             Girl1_touchtwintail_count = 0;
             StartCoroutine("WaitTwintailSeconds");
         }
@@ -2095,6 +2062,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _model_obj.GetComponent<GazeController>().enabled = true;
     }
 
+    IEnumerator WaitTwintailSeconds()
+    {
+        yield return new WaitForSeconds(10.0f);
+
+        Girl1_touchtwintail_flag = false;
+    }
+
+    void touch_startreset() //触り始め共通でリセットする項目。
+    {
+        if (hukidashiitem == null)
+        {
+            hukidasiInit();
+        }
+        timeOut3 = 5.0f; //タッチ用の時間をリセット
+        timeOutIdle = timeOutIdle_time; //タッチ用の時間をリセット
+    }
+
     void comment_statusreset()
     {
         //5秒ほど表示したら、また食べたいお菓子を表示か削除
@@ -2103,19 +2087,96 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         GirlEat_Judge_on = false;
     }
 
-    IEnumerator AfterTouchSisterHair()
-    {
-        yield return new WaitForSeconds(0.1f);
+    
 
-        trans_facemotion = 101; //回避用
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+    //ランダムで左右に動く
+    void IdleMoveX()
+    {
+        rnd = Random.Range(2.0f, -2.0f);
+
+        sequence_girlmove = DOTween.Sequence();
+
+        sequence_girlmove.Append(character_move.transform.DOMoveX(rnd, 3.0f)
+        .SetEase(Ease.InOutSine));
+
+        sequence_girlmove2 = DOTween.Sequence().SetLoops(3);
+        sequence_girlmove2.Append(character_move.transform.DOMoveY(0.1f, 0.5f))
+            .SetRelative();
+        sequence_girlmove2.Append(character_move.transform.DOMoveY(-0.1f, 0.5f))
+            .SetRelative();
     }
 
-    IEnumerator WaitTwintailSeconds()
+    //歩くをストップ
+    public void DoTSequence_Kill()
     {
-        yield return new WaitForSeconds(10.0f);
+        sequence_girlmove.Complete();
+        sequence_girlmove2.Complete();
+    }
 
-        Girl1_touchtwintail_flag = false;
+    //ランダムで仕草
+    public void IdleChange()
+    {
+        _model.GetComponent<CubismEyeBlinkController>().enabled = false;
+        live2d_animator.Play("Reset"); //一度デュレーションをリセット
+        live2d_animator.Update(2);
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+
+                random = Random.Range(0, 3); //0~3
+                trans_facemotion = random;
+
+                break;
+
+            case 1:
+
+
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+
+                trans_motion = 0;
+                //ランダム仕草3つほど
+                live2d_animator.SetInteger("trans_motion", trans_motion);
+                break;
+
+            case 4:
+
+                //ランダム仕草3つほど。別モーション。
+                break;
+
+            case 5:
+
+                //ランダム仕草3つほど。別モーション。
+                break;
+
+            default:
+
+                break;
+        }
+
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+
+        //facemotion_weight = 0f;
+        weightTween = DOTween.To(
+                                    () => facemotion_weight,          // 何を対象にするのか
+                                    num =>
+                                    {
+                                        facemotion_weight = num;
+                                        live2d_animator.SetLayerWeight(2, facemotion_weight);
+                                    },   // 値の更新
+                                    1f,                  // 最終的な値
+                                    0.5f      // アニメーション時間
+                                );
+
+        //モーション再生スタートの合図をだす。
+        facemotion_start = true;
+
     }
 
 
@@ -2492,98 +2553,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
         }
 
-    }
-
-    //ランダムで左右に動く
-    void IdleMoveX()
-    {
-        rnd = Random.Range(2.0f, -2.0f);
-
-        sequence_girlmove = DOTween.Sequence();
-
-        sequence_girlmove.Append(character_move.transform.DOMoveX(rnd, 3.0f)
-        .SetEase(Ease.InOutSine));
-
-        sequence_girlmove2 = DOTween.Sequence().SetLoops(3);
-        sequence_girlmove2.Append(character_move.transform.DOMoveY(0.1f, 0.5f))
-            .SetRelative();
-        sequence_girlmove2.Append(character_move.transform.DOMoveY(-0.1f, 0.5f))
-            .SetRelative();
-    }
-
-    //歩くをストップ
-    public void DoTSequence_Kill()
-    {
-        sequence_girlmove.Complete();
-        sequence_girlmove2.Complete();
-    }
-
-    //ランダムで仕草
-    public void IdleChange()
-    {
-        _model.GetComponent<CubismEyeBlinkController>().enabled = false;
-        live2d_animator.Play("Reset"); //一度デュレーションをリセット
-        live2d_animator.Update(2);
-
-        switch (GirlGokigenStatus)
-        {
-            case 0:
-
-                random = Random.Range(0, 3); //0~3
-                trans_facemotion = random;
-
-                break;
-
-            case 1:
-
-
-                break;
-
-            case 2:
-
-                break;
-
-            case 3:
-
-                trans_motion = 0;
-                //ランダム仕草3つほど
-                live2d_animator.SetInteger("trans_motion", trans_motion);
-                break;
-
-            case 4:
-
-                //ランダム仕草3つほど。別モーション。
-                break;
-
-            case 5:
-
-                //ランダム仕草3つほど。別モーション。
-                break;
-
-            default:
-
-                break;
-        }
-
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-
-        //facemotion_weight = 0f;
-        weightTween = DOTween.To(
-                                    () => facemotion_weight,          // 何を対象にするのか
-                                    num =>
-                                    {
-                                        facemotion_weight = num;
-                                        live2d_animator.SetLayerWeight(2, facemotion_weight);
-                                    },   // 値の更新
-                                    1f,                  // 最終的な値
-                                    0.5f      // アニメーション時間
-                                );
-        //live2d_animator.SetLayerWeight(2, 1f);
-
-        //モーション再生スタートの合図をだす。
-        facemotion_start = true;
-
-    }
+    }   
 
     //表情を変更するメソッド
     public void face_girl_Normal()

@@ -425,7 +425,7 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.367
+      time: 0.267
       value: -0.6
       inSlope: 0
       outSlope: 0
@@ -466,16 +466,16 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.367
+      time: 0.267
       value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.5
+      time: 0.4
       value: 0.4
-      inSlope: 0.6992493
-      outSlope: 0.69265443
+      inSlope: 0.58646655
+      outSlope: 0.59452456
       tangentMode: 0
     - serializedVersion: 2
       time: 1.167
@@ -728,19 +728,19 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.1
+      time: 0.067
       value: -4
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.333
+      time: 0.267
       value: 2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.433
+      time: 0.367
       value: 0
       inSlope: 0
       outSlope: 0
@@ -786,28 +786,16 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.1
-      value: 0.4
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.2
+      time: 0.133
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.433
-      value: 0.9
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.833
+      time: 0.667
       value: 0.1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.45505667
+      outSlope: 0.45839065
       tangentMode: 0
     - serializedVersion: 2
       time: 1.4
@@ -879,40 +867,28 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.167
-      value: -9
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.2
+      time: 0.133
       value: 6
-      inSlope: 139.54556
-      outSlope: 137.87439
+      inSlope: 95.95499
+      outSlope: 95.715096
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.367
+      time: 0.333
       value: 16
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
       time: 0.567
-      value: -11
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.833
-      value: 0
-      inSlope: 10.139107
-      outSlope: 10.105409
-      tangentMode: 0
-    - serializedVersion: 2
       time: 2
       value: 10
-      inSlope: 7.149108
-      outSlope: 7.152007
+      inSlope: 8.991635
+      outSlope: 8.98801
       tangentMode: 0
     - serializedVersion: 2
       time: 3
@@ -938,7 +914,19 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 2
+      time: 0.567
+      value: -1
+      inSlope: -0.0899473
+      outSlope: -0.09003402
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 2.333
+      value: -1.06
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 3.167
       value: 0
       inSlope: 0
       outSlope: 0
@@ -978,7 +966,19 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 2
+      time: 0.567
+      value: 13
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 2.333
+      value: 7
+      inSlope: -8.362976
+      outSlope: -8.352526
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 3.167
       value: 0
       inSlope: 0
       outSlope: 0
@@ -1001,19 +1001,19 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.167
+      time: 0.1
       value: -5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.367
+      time: 0.3
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.833
+      time: 0.667
       value: 0
       inSlope: 0
       outSlope: 0
@@ -1054,34 +1054,28 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.167
+      time: 0.1
       value: 6
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.433
+      time: 0.3
       value: -8
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.667
-      value: 4
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.9
+      time: 0.733
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 7.9191775
+      outSlope: 7.9108214
       tangentMode: 0
     - serializedVersion: 2
       time: 2
       value: 8
-      inSlope: 15.995471
-      outSlope: 15.996016
+      inSlope: 8.78454
+      outSlope: 8.787009
       tangentMode: 0
     - serializedVersion: 2
       time: 3
@@ -1141,19 +1135,19 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.167
+      time: 0.1
       value: -5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.367
+      time: 0.3
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.833
+      time: 0.667
       value: 0
       inSlope: 0
       outSlope: 0
@@ -1194,34 +1188,28 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.167
+      time: 0.1
       value: -4
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.433
+      time: 0.3
       value: 7
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.667
-      value: -3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.9
+      time: 0.733
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -9.678994
+      outSlope: -9.672465
       tangentMode: 0
     - serializedVersion: 2
       time: 2
       value: -10
-      inSlope: -13.025468
-      outSlope: -13.026013
+      inSlope: -8.696931
+      outSlope: -8.700008
       tangentMode: 0
     - serializedVersion: 2
       time: 3

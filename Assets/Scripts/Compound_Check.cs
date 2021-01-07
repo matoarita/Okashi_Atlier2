@@ -251,8 +251,8 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
-                updown_counter_obj.SetActive(true);
-                updown_counter_setpanel.SetActive(true);
+                //updown_counter_obj.SetActive(true);
+                //updown_counter_setpanel.SetActive(true);
 
                 //確率に応じて、テキストが変わる。
                 FinalCheck_Text.text = success_text;
@@ -327,8 +327,8 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
-                updown_counter_obj.SetActive(true);
-                updown_counter_setpanel.SetActive(true);
+                //updown_counter_obj.SetActive(true);
+                //updown_counter_setpanel.SetActive(true);
 
                 //確率に応じて、テキストが変わる。
                 

@@ -7352,7 +7352,7 @@ MonoBehaviour:
       file_name: donuts
       name: pink_charlotte_donuts
       nameHyouji: "\u30D4\u30F3\u30AF\u30B7\u30E3\u30EB\u30ED\u30C3\u30C8\u30C9\u30FC\u30CA\u30C4"
-      desc: "\u30C9\u30FC\u30CA\u30C4\u306B\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC\u5473\u306E\u30DB\u30A4\u30C3\u30D7\u3092\u305F\u3063\u3077\u308A\u304B\u3051\u305F\u30C9\u30EA\u30FC\u30DF\u30FC\u306A\u4E00\u54C1\u3002"
+      desc: "\u30C9\u30FC\u30CA\u30C4\u306B\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC\u5473\u306E\u30DB\u30A4\u30C3\u30D7\u3092\u305F\u3063\u3077\u308A\u304B\u3051\u305F\u30C9\u30FC\u30CA\u30C4\u3002\u304B\u308F\u3044\u3044\u304A\u59EB\u69D8\u3092\u30A4\u30E1\u30FC\u30B8\u3057\u3066\u4F5C\u3089\u308C\u305F\u3002"
       comp_hosei: 0
       hp: 300
       day: 0
@@ -8616,7 +8616,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 520
     - ItemID: 306
       file_name: bugget
       name: bugget_powder
@@ -8663,7 +8663,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 520
     - ItemID: 307
       file_name: bugget
       name: bugget_orange
@@ -8710,7 +8710,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 521
     - ItemID: 308
       file_name: bugget
       name: bugget_blueberry
@@ -8757,7 +8757,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 522
     - ItemID: 309
       file_name: bugget_sliced
       name: bugget_sliced
@@ -8804,7 +8804,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 525
     - ItemID: 310
       file_name: bugget_sliced
       name: bugget_orange_sliced
@@ -8851,7 +8851,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 526
     - ItemID: 311
       file_name: bugget_sliced
       name: bugget_blueberry_sliced
@@ -8898,7 +8898,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 527
     - ItemID: 312
       file_name: bugget_sliced
       name: bugget_sliced_karikari
@@ -12383,9 +12383,9 @@ MonoBehaviour:
       Set_JudgeNum: 0
     - ItemID: 1011
       file_name: hot_plate
-      name: ice_crystal
-      nameHyouji: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30B9\u30BF\u30EB"
-      desc: "\u5165\u308C\u305F\u3082\u306E\u3092\u51B7\u3084\u3057\u3066\u56FA\u3081\u308B\u3001\u6C34\u6676\u3067\u51FA\u6765\u305F\u9B54\u6CD5\u306E\u5668\u3002"
+      name: ice_box
+      nameHyouji: "\u6C37\u5BA4"
+      desc: "\u5165\u308C\u305F\u3082\u306E\u3092\u51B7\u3084\u3057\u3066\u56FA\u3081\u308B\u3001\u6C37\u6C34\u6676\u3067\u51FA\u6765\u305F\u9B54\u6CD5\u306E\u7BB1\u3002"
       comp_hosei: 0
       hp: 0
       day: 0

@@ -3390,120 +3390,126 @@ public class GirlEat_Judge : MonoBehaviour {
 
         ShokukanHintHyouji();
 
-        //クエストクリアの条件を満たしていない場合、そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
+        //60点以下かつクエストクリアの条件を満たしていない場合、
+        //そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
+        _temp_spkansou = "";
+        nontp_utageON = false;
+
         if (!non_spquest_flag)
-        {            
+        {
 
-            //トッピングがのってないときのヒント
-            for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+            if (total_score < GameMgr.low_score)
             {
-                if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+                //トッピングがのってないときのヒント
+                for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
                 {
-                    _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
+                    if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+                    {
+                        _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
+                    }
                 }
-            }
 
-            tpcheck = false;
-            nontp_utagebunki = 0;
+                tpcheck = false;
+                nontp_utagebunki = 0;
 
-            //条件判定
-            switch (girl1_status.OkashiQuest_ID)
-            {
-                case 1020: //クッキー１　かわいいトッピングがのってないとき
+                //条件判定
+                switch (girl1_status.OkashiQuest_ID)
+                {
+                    case 1020: //クッキー１　かわいいトッピングがのってないとき
 
-                    if (topping_all_non && !topping_flag) //好みのトッピングはある(toppingu_all_non=true)が、一つものってなかった場合(topping_flag=false)だった
-                    {
-                        nontp_utageON = true;                       
-                    }
-                    else
-                    {
-                        tpcheck = true;
-                    }                
-                    break;
+                        if (topping_all_non && !topping_flag) //好みのトッピングはある(toppingu_all_non=true)が、一つものってなかった場合(topping_flag=false)だった
+                        {
+                            nontp_utageON = false;
+                        }
+                        else
+                        {
+                            tpcheck = true;
+                        }
+                        break;
 
-                case 1110: //ラスク２　すっぱいトッピングがのってないとき
+                    case 1110: //ラスク２　すっぱいトッピングがのってないとき
 
-                    if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
-                    {
-                        nontp_utageON = true;
-                    }
-                    else
-                    {
-                        tpcheck = true;
-                    }
-                    break;
+                        if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
+                        {
+                            nontp_utageON = false;
+                        }
+                        else
+                        {
+                            tpcheck = true;
+                        }
+                        break;
 
-                case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
+                    case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
 
-                    //トッピングスロットをみる
-                    tpcheck_slot = "WhipeedCream";
-                    ToppingCheck();
-
-                    nontp_utageON = true;
-
-                    break;
-
-                case 1300: //シュークリーム１　ホイップクリームがのってなかった時　tp_check=false
-
-                    //トッピングスロットをみる
-                    tpcheck_slot = "WhipeedCream";
-                    ToppingCheck();
-
-                    tpcheck_slot = "WhipeedCreamStrawberry";
-                    ToppingCheck();
-
-                    nontp_utageON = false;
-
-                    break;
-
-                case 1400: //ドーナツ１　ストロベリーホイップクリームがのってなかった時　tp_check=false
-
-                    //トッピングスロットをみる
-                    tpcheck_slot = "WhipeedCreamStrawberry";
-                    ToppingCheck();
-
-                    if (!tpcheck) //ストロベリークリームはのっていなかった。
-                    {
-                        tpcheck_slot = "Strawberry"; 
+                        //特定のトッピングスロットをみる
+                        tpcheck_slot = "WhipeedCream";
                         ToppingCheck();
 
-                        if (tpcheck)　//ストロベリークリームはのってなかったけど、いちごはのってた場合。惜しい。
+                        nontp_utageON = true;
+
+                        break;
+
+                    case 1300: //シュークリーム１　ホイップクリームがのってなかった時　tp_check=false
+
+                        //トッピングスロットをみる
+                        tpcheck_slot = "WhipeedCream";
+                        ToppingCheck();
+
+                        tpcheck_slot = "WhipeedCreamStrawberry";
+                        ToppingCheck();
+
+                        nontp_utageON = false;
+
+                        break;
+
+                    case 1400: //ドーナツ１　ストロベリーホイップクリームがのってなかった時　tp_check=false
+
+                        //トッピングスロットをみる
+                        tpcheck_slot = "WhipeedCreamStrawberry";
+                        ToppingCheck();
+
+                        if (!tpcheck) //ストロベリークリームはのっていなかった。
                         {
-                            tpcheck = false;
-                            nontp_utagebunki = 1;
+                            tpcheck_slot = "Strawberry";
+                            ToppingCheck();
+
+                            if (tpcheck) //ストロベリークリームはのってなかったけど、いちごはのってた場合。惜しい。
+                            {
+                                tpcheck = false;
+                                nontp_utagebunki = 1;
+                            }
+                            else //ストロベリークリームも、いちごものってなかった
+                            {
+                                tpcheck = false;
+                            }
                         }
-                        else //ストロベリークリームも、いちごものってなかった
-                        {
-                            tpcheck = false;
-                        }
-                    }
 
-                    nontp_utageON = true;
+                        nontp_utageON = true;
 
-                    break;
+                        break;
 
-                default:
+                    default:
 
-                    tpcheck = true;
-                    break;
-            }
+                        nontp_utageON = false;
+                        break;
+                }
 
-            //
-            if (!tpcheck)
-            {
-                _special_kansou = _temp_spkansou;
-
-                if (nontp_utageON) //クエストをヒントを出す際、宴でも表示するか否か。
+                //
+                if (!tpcheck)
                 {
-                    GameMgr.okashinontphint_flag = true;
-                    GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + nontp_utagebunki;
+                    _special_kansou = _temp_spkansou;
+
+                    if (nontp_utageON) //クエストをヒントを出す際、宴でも表示するか否か。
+                    {
+                        GameMgr.okashinontphint_flag = true;
+                        GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + nontp_utagebunki;
+                    }
+                }
+                else
+                {
+                    _special_kansou = "";
                 }
             }
-            else
-            {
-                _special_kansou = "";
-            }
-
         }
         else //クエスト以外のお菓子をあげたときの感想・ヒント
         {

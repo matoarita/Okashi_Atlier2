@@ -85,4 +85,9 @@ public class Live2DAnimationTrigger : MonoBehaviour {
     {
 
     }
+
+    public void FaceMotionEndSignal() //アニメーションをフェードで終了し切り替えるためのフラグ
+    {
+        girl1_status.facemotion_start = true;
+    }
 }

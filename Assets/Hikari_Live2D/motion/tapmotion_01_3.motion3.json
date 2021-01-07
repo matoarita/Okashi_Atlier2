@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 40,
-		"TotalSegmentCount": 83,
-		"TotalPointCount": 221,
+		"CurveCount": 50,
+		"TotalSegmentCount": 93,
+		"TotalPointCount": 241,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -450,6 +450,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "Param",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "Param2",
 			"Segments": [
 				0,
@@ -526,6 +537,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "upperbodyPosX",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "upperbodyPosY",
 			"Segments": [
 				0,
@@ -551,6 +573,17 @@
 				0,
 				4,
 				13
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param3",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
 			]
 		},
 		{
@@ -605,6 +638,39 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "R_armR",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_handR",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_upperPosX",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "L_upperPosY",
 			"Segments": [
 				0,
@@ -648,6 +714,39 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "L_armR",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_handR",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "WaistDownPosX",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "WaistDownPosY",
 			"Segments": [
 				0,
@@ -677,6 +776,17 @@
 				3.333,
 				9,
 				3.667,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "WaistDownR",
+			"Segments": [
+				0,
+				0,
 				0,
 				4,
 				0

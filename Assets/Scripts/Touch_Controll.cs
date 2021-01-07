@@ -58,6 +58,7 @@ public class Touch_Controll : MonoBehaviour
 
     }
 
+    //口を触る
     public void OnTouchFace()
     {
 
@@ -66,12 +67,17 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Face");
 
             girl1_status.TouchSisterFace();
+            girl1_status.touchGirl_status = 0;
+
+            //口以外のタッチステータスをリセット
+            girl1_status.Girl1_touchhair_start = false;
+            girl1_status.Girl1_touchtwintail_start = false;
             //sc.PlaySe(2);
         }
 
     }
 
-
+    //頭を触る
     public void OnTouchHair()
     {
         if (ALL_touch_flag)
@@ -82,18 +88,21 @@ public class Touch_Controll : MonoBehaviour
             {
                 girl1_status.Touchhair_Start();
                 girl1_status.TouchSisterHair();
+                girl1_status.touchGirl_status = 1;
             }
             else
             {
                 girl1_status.TouchSisterHair();
             }
+
+            //頭以外のタッチステータスをリセット
+            girl1_status.Girl1_touchtwintail_start = false;
             //sc.PlaySe(0);
         }
     }
 
     public void DragTouchHair()
     {
-
         if (ALL_touch_flag)
         {
             //Debug.Log("Drag_Hair: " + draghair_count);
@@ -109,7 +118,6 @@ public class Touch_Controll : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void EndDragTouchHair()
@@ -128,6 +136,7 @@ public class Touch_Controll : MonoBehaviour
         }
     }
 
+    //リボンを触る
     public void OnTouchRibbon()
     {
 
@@ -136,11 +145,17 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Ribbon");
 
             girl1_status.TouchSisterRibbon();
+            girl1_status.touchGirl_status = 2;
+
+            //リボン以外のタッチステータスをリセット
+            girl1_status.Girl1_touchhair_start = false;
+            girl1_status.Girl1_touchtwintail_start = false;
             //sc.PlaySe(0);
         }
 
     }
 
+    //ツインテールを触る
     public void OnTouchTwinTail()
     {
 
@@ -148,25 +163,42 @@ public class Touch_Controll : MonoBehaviour
         {
             //Debug.Log("Touch_LongHair");
 
-            girl1_status.TouchSisterTwinTail();
+            if (!girl1_status.Girl1_touchtwintail_start)
+            {
+                girl1_status.Touchtwintail_Start();
+                girl1_status.TouchSisterTwinTail();
+                girl1_status.touchGirl_status = 3;
+            }
+            else
+            {
+                girl1_status.TouchSisterTwinTail();
+            }
+            
+            //ツインテール以外のタッチステータスをリセット
+            girl1_status.Girl1_touchhair_start = false;
             //sc.PlaySe(0);
         }
 
     }
 
+    //手を触る
     public void OnTouchHand()
     {
-
         if (ALL_touch_flag)
         {
             //Debug.Log("Touch_Hand");
 
             girl1_status.TouchSisterHand();
+            girl1_status.touchGirl_status = 4;
+
+            //手以外のタッチステータスをリセット
+            girl1_status.Girl1_touchhair_start = false;
+            girl1_status.Girl1_touchtwintail_start = false;
             //sc.PlaySe(0);
         }
-
     }
 
+    //胸を触る
     public void OnTouchChest()
     {
 
@@ -175,6 +207,11 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Chest");
 
             girl1_status.TouchSisterChest();
+            girl1_status.touchGirl_status = 5;
+
+            //胸以外のタッチステータスをリセット
+            girl1_status.Girl1_touchhair_start = false;
+            girl1_status.Girl1_touchtwintail_start = false;
             //sc.PlaySe(0);
         }
 

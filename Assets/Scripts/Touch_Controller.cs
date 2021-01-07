@@ -23,6 +23,7 @@ public class Touch_Controller : MonoBehaviour {
         //touch_obj.Add(BG.transform.Find("TouchWindow2").gameObject);
         touch_obj.Add(Character.transform.Find("TouchFace").gameObject);
         touch_obj.Add(Character.transform.Find("TouchHair").gameObject);
+        touch_obj.Add(Character.transform.Find("TouchHand").gameObject);
         touch_obj.Add(Character.transform.Find("TouchChest").gameObject);
         touch_obj.Add(Character.transform.Find("TouchRibbonR").gameObject);
         touch_obj.Add(Character.transform.Find("TouchRibbonL").gameObject);

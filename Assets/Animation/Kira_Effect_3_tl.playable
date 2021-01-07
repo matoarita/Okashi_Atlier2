@@ -1784,7 +1784,7 @@ MonoBehaviour:
   - m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 114887493577721402}
-    m_Duration: 4
+    m_Duration: 3.533333333333333
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114717322032025864}
     m_EaseInDuration: 0
@@ -1836,7 +1836,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: SE_04
+    m_DisplayName: SE_89
     m_Version: 1
 --- !u!114 &114880672363587666
 MonoBehaviour:
@@ -1860,7 +1860,7 @@ MonoBehaviour:
   m_Script: {fileID: -1977359656, guid: 6a10b2909283487f913b00d94cd3faf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: d2b19c4d51d14134b8968830263fde3b, type: 3}
+  m_Clip: {fileID: 8300000, guid: a77e3ebc4e869b2428d8cf8b5594a6af, type: 3}
   m_Loop: 0
   m_bufferingTime: 0.1
 --- !u!114 &114916587647649070

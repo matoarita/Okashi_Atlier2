@@ -73904,7 +73904,7 @@ MonoBehaviour:
       - 
       - 
       - "\u304F\u3060\u3082\u306E\u3092\u306E\u305B\u305F\u30AF\u30C3\u30AD\u30FC..
-        \u3063\u3066\u3053\u3068\u304B\u3002"
+        \u3063\u3066\u3053\u3068\uFF1F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -74352,7 +74352,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3044\u3064\u3082\u30AF\u30C3\u30AD\u30FC\u3070\u3063\u304B\u308A\u3067\u3001\u3042\u3093\u307E\u308A\u305F\u307E\u3054\u306F\u4F7F\u3063\u305F\u3053\u3068\u304C\u306A\u3044\u3002"
+      - "\u3044\u3064\u3082\u30AF\u30C3\u30AD\u30FC\u3070\u3063\u304B\u308A\u3067\u3001\u3042\u3093\u307E\u308A\u305F\u307E\u3054\u306F\u4F7F\u3063\u305F\u3053\u3068\u304C\u306A\u3044\u306A\uFF5E\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -74382,7 +74382,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3080\u3045\u3045\u3002"
+      - "\u3080\u3080\u3045\u3045\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -74412,7 +74412,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u6B21\u306A\u308B\u30EC\u30B7\u30D4\u3001\u4F5C\u3063\u3066\u307F\u308B\u304B\uFF01"
+      - "\u6B21\u306E\u304A\u83D3\u5B50\u3001\u4F5C\u3063\u3066\u307F\u308B\u304B\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -75361,7 +75361,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:SpOkashiBefore
     type: 1
-    textLength: 4132
+    textLength: 4133
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -76189,7 +76189,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - 
+      - 0
       - 
       - "\u304A\u3044\u3057\uFF5E\uFF5E\u3044\u266A"
       isEmpty: 0
@@ -77500,7 +77500,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:OkashiEatComment
     type: 1
-    textLength: 4866
+    textLength: 4867
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -78619,7 +78619,7 @@ MonoBehaviour:
       - 
       - 0
       - 
-      - "\u5144\u3061\u3083\u3093\u3001\u30AB\u30E9\u30D5\u30EB\u306E\u3084\u3064\u3001\u3044\u3044\u306D\u3047\u3002"
+      - "\u5144\u3061\u3083\u3093\u3001\u30AB\u30E9\u30D5\u30EB\u306E\u3084\u3064\u3001\u8272\u3068\u308A\u3069\u308A\u3067\u3044\u3044\u306D\u3047\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -78634,7 +78634,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3075\u307B\u307B\u3001\u304B\u308F\u3044\u304B\u3063\u305F\uFF1F"
+      - "\u304B\u308F\u3044\u304B\u3063\u305F\uFF1F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -80862,7 +80862,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:SpOkashiAfter
     type: 1
-    textLength: 6945
+    textLength: 6947
     headerRow: 0
     entityIndexTbl: 
     entityDataList: []
@@ -184734,7 +184734,7 @@ MonoBehaviour:
       - 
       - 
       - "\u304F\u3060\u3082\u306E\u3092\u306E\u305B\u305F\u30AF\u30C3\u30AD\u30FC..
-        \u3063\u3066\u3053\u3068\u304B\u3002"
+        \u3063\u3066\u3053\u3068\uFF1F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -185317,7 +185317,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3044\u3064\u3082\u30AF\u30C3\u30AD\u30FC\u3070\u3063\u304B\u308A\u3067\u3001\u3042\u3093\u307E\u308A\u305F\u307E\u3054\u306F\u4F7F\u3063\u305F\u3053\u3068\u304C\u306A\u3044\u3002"
+      - "\u3044\u3064\u3082\u30AF\u30C3\u30AD\u30FC\u3070\u3063\u304B\u308A\u3067\u3001\u3042\u3093\u307E\u308A\u305F\u307E\u3054\u306F\u4F7F\u3063\u305F\u3053\u3068\u304C\u306A\u3044\u306A\uFF5E\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -185365,7 +185365,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3080\u3045\u3045\u3002"
+      - "\u3080\u3080\u3045\u3045\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -185395,7 +185395,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u6B21\u306A\u308B\u30EC\u30B7\u30D4\u3001\u4F5C\u3063\u3066\u307F\u308B\u304B\uFF01"
+      - "\u6B21\u306E\u304A\u83D3\u5B50\u3001\u4F5C\u3063\u3066\u307F\u308B\u304B\uFF01"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -186575,7 +186575,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:SpOkashiBefore
     type: 1
-    textLength: 4132
+    textLength: 4133
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -187710,7 +187710,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - 
+      - 0
       - 
       - "\u304A\u3044\u3057\uFF5E\uFF5E\u3044\u266A"
       isEmpty: 0
@@ -189411,7 +189411,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:OkashiEatComment
     type: 1
-    textLength: 4866
+    textLength: 4867
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -190762,7 +190762,7 @@ MonoBehaviour:
       - 
       - 0
       - 
-      - "\u5144\u3061\u3083\u3093\u3001\u30AB\u30E9\u30D5\u30EB\u306E\u3084\u3064\u3001\u3044\u3044\u306D\u3047\u3002"
+      - "\u5144\u3061\u3083\u3093\u3001\u30AB\u30E9\u30D5\u30EB\u306E\u3084\u3064\u3001\u8272\u3068\u308A\u3069\u308A\u3067\u3044\u3044\u306D\u3047\u3002"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -190777,7 +190777,7 @@ MonoBehaviour:
       - 
       - 
       - 
-      - "\u3075\u307B\u307B\u3001\u304B\u308F\u3044\u304B\u3063\u305F\uFF1F"
+      - "\u304B\u308F\u3044\u304B\u3063\u305F\uFF1F"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -193902,7 +193902,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:SpOkashiAfter
     type: 1
-    textLength: 6945
+    textLength: 6947
     headerRow: 0
   - rows:
     - rowIndex: 0

@@ -125,7 +125,12 @@ public class Updown_counter : MonoBehaviour {
         {
             case "Compound":
 
-                this.transform.localPosition = new Vector3(0, -80, 0);
+                if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
+                { }
+                else
+                {
+                    this.transform.localPosition = new Vector3(0, -80, 0);
+                }
                 break;
 
             case "Shop":
@@ -301,8 +306,9 @@ public class Updown_counter : MonoBehaviour {
 
                 if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    this.transform.localPosition = new Vector3(115, -106, 0);
-                    this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    //this.transform.localPosition = new Vector3(115, -106, 0);
+                    //this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    updown_counter_setpanel.SetActive(true);
                     this.transform.Find("counter_img1").gameObject.SetActive(false);
                 }
                 else
@@ -353,11 +359,6 @@ public class Updown_counter : MonoBehaviour {
     {
         if (SceneManager.GetActiveScene().name == "Compound")
         {
-            /*Debug.Log("updown_kosu: " + updown_kosu);
-            Debug.Log("分岐: " + pitemlistController.kettei1_bunki);
-            Debug.Log("選択したアイテムID: " + pitemlistController.final_kettei_item1);
-            Debug.Log("選択したアイテム所持数: " + pitemlist.playeritemlist[pitemlistController.final_kettei_item1]);
-            Debug.Log("選択したリスト番号: " + pitemlistController.kettei_item1);*/
 
             if (_p_or_recipi_flag == 0) //プレイヤーアイテムリストのときの処理
             {
@@ -424,12 +425,18 @@ public class Updown_counter : MonoBehaviour {
                         player_itemkosu1 = pitemlistController.final_kettei_kosu1 * updown_kosu;
                         player_itemkosu2 = pitemlistController.final_kettei_kosu2 * updown_kosu;
 
+                        /*Debug.Log("アイテム1 所持数: " + _item_max1 + " プレイヤーカウンタ個数1 : " + player_itemkosu1);
+                        Debug.Log("アイテム2 所持数: " + _item_max2 + " プレイヤーカウンタ個数2 : " + player_itemkosu2);
+                        Debug.Log("アイテム3 所持数: " + _item_max3 + " プレイヤーカウンタ個数3 : " + player_itemkosu3);
+                        Debug.Log("３個めのアイテムを選んだかどうか （空の場合9999）: " + pitemlistController.kettei_item3);*/
+
 
                         //判定。もしどれかのアイテムの一つでも、個数がmaxより超えたら、そこがセット数の上限
-                        if (pitemlistController.kettei_item3 != 9999) //３個目も選んでいれば、下の処理を起動
+                        if (pitemlistController.kettei_item3 == 9999) //３個目も選んでいれば、下の処理を起動
                         {
                             if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2)
                             {
+                                //Debug.Log("どれか一つのアイテムが、所持数を超えた");
                                 updown_kosu--;
                             }
                             else
@@ -440,6 +447,7 @@ public class Updown_counter : MonoBehaviour {
                         {
                             if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2 || player_itemkosu3 > _item_max3)
                             {
+                                //Debug.Log("どれか一つのアイテムが、所持数を超えた");
                                 updown_kosu--;
                             }
                             else
@@ -447,7 +455,7 @@ public class Updown_counter : MonoBehaviour {
                             }
                         }
 
-                        //表示を更新
+                        //表示を更新は下にある。
 
                     }
                 }
