@@ -78,7 +78,7 @@ MonoBehaviour:
       sour: 0
       crispy: 20
       fluffy: 0
-      smooth: 0
+      smooth: 5
       hardness: 0
       jiggly: 0
       chewy: 0
@@ -121,11 +121,11 @@ MonoBehaviour:
       ex_probability: 0.9
       rich: 0
       sweat: 0
-      bitter: 3
+      bitter: 10
       sour: 0
       crispy: 10
       fluffy: 0
-      smooth: 0
+      smooth: 10
       hardness: 0
       jiggly: 0
       chewy: 0
@@ -4057,7 +4057,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 502
     - ItemID: 209
       file_name: neko_cookie
       name: kogashi_neko_cookie
@@ -4104,7 +4104,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 503
     - ItemID: 210
       file_name: neko_cookie
       name: cookie_nonsuger
@@ -4151,7 +4151,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 500
     - ItemID: 211
       file_name: neko_cookie
       name: cookie_himawari_oil
@@ -4198,7 +4198,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 500
     - ItemID: 212
       file_name: neko_cookie
       name: cheese_cookie
@@ -4245,7 +4245,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 500
     - ItemID: 213
       file_name: grape_neko_cookie
       name: grape_cookie
@@ -4668,7 +4668,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 500
     - ItemID: 222
       file_name: honey_neko_cookie
       name: shishamo_cookie
@@ -4715,7 +4715,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 510
     - ItemID: 223
       file_name: cocoa_neko_cookie
       name: cocoa_cookie
@@ -4762,7 +4762,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 500
     - ItemID: 224
       file_name: star_cookie
       name: star_cookie
@@ -4809,7 +4809,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 500
     - ItemID: 225
       file_name: emerald_neko_cookie
       name: emerald_neko_cookie
@@ -4856,7 +4856,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 500
     - ItemID: 226
       file_name: neko_cookie
       name: sugerbutter_cookie
@@ -4903,7 +4903,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 500
     - ItemID: 227
       file_name: rusk
       name: rusk
@@ -6689,7 +6689,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 585
     - ItemID: 265
       file_name: financier
       name: financier
@@ -6736,7 +6736,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 590
     - ItemID: 266
       file_name: financier_Orange
       name: financier_Orange
@@ -6783,7 +6783,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 591
     - ItemID: 267
       file_name: castella
       name: castella
@@ -7916,7 +7916,7 @@ MonoBehaviour:
       file_name: eden
       name: TranscriptLover
       nameHyouji: "\u30C8\u30E9\u30F3\u30B9\u30AF\u30EA\u30D7\u30C8\u30FB\u30E9\u30D0\u30FC"
-      desc: "\u900F\u660E\u306A\u9271\u77F3\u3092\u6A21\u3057\u305F\u25CB\u25CB\u3002\u3072\u3063\u305D\u308A\u3068\u96A0\u308C\u305F\u611B\u60C5\u3092\u610F\u5473\u3059\u308B\u3002"
+      desc: "\u900F\u660E\u306A\u9271\u77F3\u3092\u6A21\u3057\u305F\u30C1\u30E7\u30B3\u30EC\u30FC\u30C8\u3002\u3072\u3063\u305D\u308A\u3068\u96A0\u308C\u305F\u611B\u60C5\u3092\u610F\u5473\u3059\u308B\u3002"
       comp_hosei: 0
       hp: 300
       day: 0
@@ -9650,7 +9650,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 601
     - ItemID: 328
       file_name: rich_tea
       name: strange_tea
@@ -9697,7 +9697,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 600
     - ItemID: 329
       file_name: rich_tea
       name: lavender_tea
@@ -9744,12 +9744,12 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 601
     - ItemID: 330
       file_name: rich_tea
       name: mato_tea
       nameHyouji: "\u307E\u3068\u8336"
-      desc: "\u5929\u4F7F\u307E\u3068\u308A\u3048\u308B\u304C\u3088\u304F\u6DF9\u308C\u3066\u304F\u308C\u308B\u304A\u8336\u3002\u4E2D\u8EAB\u306F\u3001\u714E\u8336\u3002\u7652\u3084\u3057\u306E\u30E0\u30FC\u30C7\u30A3\u30FC\u306A\u9999\u308A\u3002"
+      desc: "\u5927\u5929\u4F7F\u30DE\u30C8\u30EA\u30A8\u30EB\u304C\u6DF9\u308C\u3066\u304F\u308C\u308B\u304A\u8336\u3002\u4E2D\u8EAB\u306F\u3001\u30B8\u30E3\u30B9\u30DF\u30F3\u8336\u3002\u7652\u3084\u3057\u306E\u9999\u308A\u304C\u3059\u308B\u3002"
       comp_hosei: 0
       hp: 300
       day: 0
@@ -9785,13 +9785,13 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: Lavender
+      koyu_topping1: Non
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 601
     - ItemID: 331
       file_name: neko_cookie
       name: sinamon_pie
