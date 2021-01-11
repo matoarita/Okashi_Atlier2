@@ -22,6 +22,7 @@ public class SetImage : MonoBehaviour
 
     private GameObject Card_param_obj;
     private GameObject Card_param_obj2;
+    private GameObject TasteSubWindow;
 
     private GameObject NewRecipi_Prefab1;
     private GameObject NewRecipi;
@@ -85,6 +86,10 @@ public class SetImage : MonoBehaviour
     private Text item_Sour;
 
     private Text item_Shokukan;
+    private Text item_Crispy;
+    private Text item_Fluffy;
+    private Text item_Smooth;
+    private Text item_Hardness;
 
     private Text item_Powdery;
     private Text item_Oily;
@@ -154,12 +159,17 @@ public class SetImage : MonoBehaviour
     private int _lasttotal_score;
     private string _lasthint_text;
 
-    private Slider _Crispy_slider;
+    private Slider _Shokukan_slider;
     private Slider _Sweat_slider;
     private Slider _Bitter_slider;
     private Slider _Sour_slider;
 
-    private Slider _Crispy_lastslider;
+    private Slider _Crispy_slider;
+    private Slider _Fluffy_slider;
+    private Slider _Smooth_slider;
+    private Slider _Hardness_slider;
+
+    private Slider _Shokukan_lastslider;
     private Slider _Sweat_lastslider;
     private Slider _Bitter_lastslider;
     private Slider _Sour_lastslider;
@@ -244,6 +254,8 @@ public class SetImage : MonoBehaviour
 
         Card_param_obj = this.transform.Find("Card_Param_window").gameObject;
         Card_param_obj2 = this.transform.Find("Card_Param_window2").gameObject;
+        TasteSubWindow = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow").gameObject;
+        //TasteSubWindow.SetActive(false);
 
         for (i = 0; i < _slotHyouji1.Length; i++)
         {
@@ -270,7 +282,11 @@ public class SetImage : MonoBehaviour
         item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
 
         //item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
-        item_Shokukan = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanScore").gameObject.GetComponent<Text>(); //さくさくの値
+        item_Shokukan = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanScore").gameObject.GetComponent<Text>(); //食感の値
+        item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/CrispyScore").gameObject.GetComponent<Text>(); //さくさくの値
+        item_Fluffy = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/FluffyScore").gameObject.GetComponent<Text>(); //ふわふわの値
+        item_Smooth = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/SmoothScore").gameObject.GetComponent<Text>(); //なめらかの値
+        item_Hardness = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/HardnessScore").gameObject.GetComponent<Text>(); //かたさの値
 
         item_Powdery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemPowdery").gameObject.GetComponent<Text>(); //粉っぽいの値
         item_Oily = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemOily").gameObject.GetComponent<Text>(); //粉っぽいの値
@@ -293,11 +309,15 @@ public class SetImage : MonoBehaviour
         kosu_text = this.transform.Find("Item_card_template/ItemKosu_Panel/ItemKosu").gameObject.GetComponent<Text>();
 
         //各パラメータバーの取得
-        _Crispy_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemCrispyBar").gameObject.GetComponent<Slider>();
+        _Shokukan_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanBar").gameObject.GetComponent<Slider>();
         _Sweat_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
         _Bitter_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBitterBar").gameObject.GetComponent<Slider>();
         _Sour_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourBar").gameObject.GetComponent<Slider>();
 
+        _Crispy_slider = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/CrispyBar").gameObject.GetComponent<Slider>();
+        _Fluffy_slider = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/FluffyBar").gameObject.GetComponent<Slider>();
+        _Smooth_slider = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/SmoothBar").gameObject.GetComponent<Slider>();
+        _Hardness_slider = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/HardnessBar").gameObject.GetComponent<Slider>();
 
         //前回のスコア関係
         item_lastShokukan_Type = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/TxCrispy").gameObject.GetComponent<Text>();
@@ -315,8 +335,8 @@ public class SetImage : MonoBehaviour
         item_LastTotalScore = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemLastTotalScore").gameObject.GetComponent<Text>(); //最高得点
         item_Hint = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemHint").gameObject.GetComponent<Text>(); //前回の妹からのヒント
         item_HighScoreFlag = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/HighScoreFlag").gameObject; //ハイスコア時、星のエンブレムがでる。
-      
-        _Crispy_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemCrispyBar").gameObject.GetComponent<Slider>();
+
+        _Shokukan_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemShokukanBar").gameObject.GetComponent<Slider>();
         _Sweat_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
         _Bitter_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemBitterBar").gameObject.GetComponent<Slider>();
         _Sour_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemSourBar").gameObject.GetComponent<Slider>();
@@ -729,13 +749,21 @@ public class SetImage : MonoBehaviour
         item_Sweat.text = _sweat_score.ToString();
         item_Bitter.text = _bitter_score.ToString();
         item_Sour.text = _sour_score.ToString();
-       
+        item_Crispy.text = _crispy_score.ToString();
+        item_Fluffy.text = _fluffy_score.ToString();
+        item_Smooth.text = _smooth_score.ToString();
+        item_Hardness.text = _hardness_score.ToString();
+
 
         //ゲージの更新
-        _Crispy_slider.value = _shokukan_score;
+        _Shokukan_slider.value = _shokukan_score;
         _Sweat_slider.value = _sweat_score;
         _Bitter_slider.value = _bitter_score;
         _Sour_slider.value = _sour_score;
+        _Crispy_slider.value = _crispy_score;
+        _Fluffy_slider.value = _fluffy_score;
+        _Smooth_slider.value = _smooth_score;
+        _Hardness_slider.value = _hardness_score;
 
 
         //粉っぽさなどの、マイナス要素の表示
@@ -775,7 +803,7 @@ public class SetImage : MonoBehaviour
             item_lastSour.text = _lastsour_score.ToString();
 
             //ゲージの更新
-            _Crispy_lastslider.value = _lastshokukan_score;
+            _Shokukan_lastslider.value = _lastshokukan_score;
             _Sweat_lastslider.value = _lastsweat_score;
             _Bitter_lastslider.value = _lastbitter_score;
             _Sour_lastslider.value = _lastsour_score;
@@ -794,7 +822,7 @@ public class SetImage : MonoBehaviour
             item_lastSour.text = "-";
 
             //ゲージの更新
-            _Crispy_lastslider.value = 0;
+            _Shokukan_lastslider.value = 0;
             _Sweat_lastslider.value = 0;
             _Bitter_lastslider.value = 0;
             _Sour_lastslider.value = 0;
@@ -816,6 +844,7 @@ public class SetImage : MonoBehaviour
 
 
         //品質の表示
+        /*
         if (_quality_score <= 0)
         {
             _quality = "";
@@ -874,17 +903,31 @@ public class SetImage : MonoBehaviour
         item_Quality.text = _quality;
         item_Quality_Bar.text = _quality_bar;
         item_Quality_Score.text = _quality_score.ToString();
+        */
 
-
+        //
+        //味ウィンドウの表示のON/OFFを分類
+        //
+        Card_param_obj.SetActive(false);
+        Card_param_obj2.SetActive(false);
+        TasteSubWindow.SetActive(false);
 
         if (item_type == "Mat" || item_type == "Etc")
         {
             switch (item_type_sub)
             {
-                /*case "Appaleil":
-                    //Card_param_obj.SetActive(true);
-                    //Card_param_obj2.SetActive(false);
-                    break;*/
+                case "Appaleil":
+                    Card_param_obj.SetActive(true);
+                    Card_param_obj2.SetActive(false);
+                    TasteSubWindow.SetActive(true);
+                    item_Shokukan.text = "-";
+                    break;
+                case "Cream":
+                    Card_param_obj.SetActive(true);
+                    Card_param_obj2.SetActive(false);
+                    TasteSubWindow.SetActive(true);
+                    item_Shokukan.text = "-";
+                    break;
                 case "Fruits":
                     Card_param_obj.SetActive(true);
                     Card_param_obj2.SetActive(false);
@@ -911,8 +954,7 @@ public class SetImage : MonoBehaviour
                     break;
 
                 default:
-                    Card_param_obj.SetActive(false);
-                    Card_param_obj2.SetActive(false);
+                    
                     break;
             }
         }

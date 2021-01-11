@@ -398,7 +398,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 set_kaisu = 1;
             }
-            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu;
+            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数は、updowncounterの数値がセットされる。スクリプトは、Compound_Checkから参照。
 
 
             //①調合処理

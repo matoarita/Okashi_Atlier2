@@ -547,9 +547,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
     }
-
-
-    
+   
 
 
     //持ち物リストで、開いたときのカード表示処理

@@ -48,7 +48,8 @@ public class Compound_Check : MonoBehaviour {
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
-    private GameObject updown_counter_setpanel;
+    private GameObject updown_counter_oricompofinalcheck_obj;
+    private Updown_counter updown_counter_oricompofinalcheck;
 
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
@@ -162,7 +163,8 @@ public class Compound_Check : MonoBehaviour {
 
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-            updown_counter_setpanel = updown_counter_obj.transform.Find("SetPanel").gameObject;
+            updown_counter_oricompofinalcheck_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/updown_counter").gameObject; //オリジナル調合の場合、参照先が異なる
+            updown_counter_oricompofinalcheck = updown_counter_oricompofinalcheck_obj.GetComponent<Updown_counter>();
 
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
@@ -251,9 +253,6 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
-                //updown_counter_obj.SetActive(true);
-                //updown_counter_setpanel.SetActive(true);
-
                 //確率に応じて、テキストが変わる。
                 FinalCheck_Text.text = success_text;
 
@@ -289,7 +288,7 @@ public class Compound_Check : MonoBehaviour {
 
                         exp_Controller.extreme_on = false;
 
-                        exp_Controller.set_kaisu = updown_counter.updown_kosu; //何セット作るかの個数もいれる。
+                        exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
 
                         exp_Controller.result_kosuset.Clear();
                         for (i = 0; i < result_kosuset.Count; i++)
@@ -326,9 +325,6 @@ public class Compound_Check : MonoBehaviour {
                 card_view.OKCard_DrawView03(pitemlistController.final_kettei_kosu3);
 
                 CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
-
-                //updown_counter_obj.SetActive(true);
-                //updown_counter_setpanel.SetActive(true);
 
                 //確率に応じて、テキストが変わる。
                 
@@ -367,7 +363,7 @@ public class Compound_Check : MonoBehaviour {
 
                         exp_Controller.extreme_on = false;
 
-                        exp_Controller.set_kaisu = updown_counter.updown_kosu; //何セット作るかの個数もいれる。
+                        exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
 
                         exp_Controller.result_kosuset.Clear();
                         for (i = 0; i < result_kosuset.Count; i++)

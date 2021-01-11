@@ -370,7 +370,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
             Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
 
-            //
+            //セット数　実際にできる個数は、exp_controllerで決定
             final_select_kaisu = exp_Controller.set_kaisu;
 
             //パラメータを取得
