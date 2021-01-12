@@ -99,7 +99,6 @@ public class RecipiListController : MonoBehaviour {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");  
 
-
         final_recipiselect_flag = false;
         reset_and_DrawView();
 

@@ -8,8 +8,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_money; // 所持金
     public static int player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
     
-    public static int player_renkin_lv; //錬金レベル
-    public static int player_renkin_exp; //錬金経験
+    public static int player_renkin_lv; //パティシエレベル
+    public static int player_renkin_exp; //パティシエ経験
 
     public static int player_ninki_param; //人気度。いるかな？とりあえず置き
 

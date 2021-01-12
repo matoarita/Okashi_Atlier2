@@ -22,6 +22,7 @@ MonoBehaviour:
       place_day: 2
       place_cost: 0
       place_flag: 0
+      place_type: 0
       drop_item1: "\u306A\u3057"
       drop_item2: Non
       drop_item3: Non
@@ -58,6 +59,7 @@ MonoBehaviour:
       place_day: 1
       place_cost: 0
       place_flag: 0
+      place_type: 0
       drop_item1: "\u306A\u3057"
       drop_item2: Non
       drop_item3: Non
@@ -94,6 +96,7 @@ MonoBehaviour:
       place_day: 1
       place_cost: 0
       place_flag: 0
+      place_type: 0
       drop_item1: "\u306A\u3057"
       drop_item2: water
       drop_item3: Non
@@ -130,6 +133,7 @@ MonoBehaviour:
       place_day: 3
       place_cost: 0
       place_flag: 0
+      place_type: 0
       drop_item1: "\u306A\u3057"
       drop_item2: Non
       drop_item3: Non
@@ -166,6 +170,7 @@ MonoBehaviour:
       place_day: 1
       place_cost: 0
       place_flag: 0
+      place_type: 0
       drop_item1: "\u306A\u3057"
       drop_item2: Non
       drop_item3: Non
@@ -202,6 +207,7 @@ MonoBehaviour:
       place_day: 3
       place_cost: 0
       place_flag: 1
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: orange
       drop_item3: grape
@@ -238,6 +244,7 @@ MonoBehaviour:
       place_day: 3
       place_cost: 0
       place_flag: 0
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: egg
       drop_item3: peach
@@ -274,6 +281,7 @@ MonoBehaviour:
       place_day: 6
       place_cost: 100
       place_flag: 0
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: komugiko
       drop_item3: butter
@@ -305,11 +313,12 @@ MonoBehaviour:
     - ItemID: 8
       file_name: lake_mini_icon
       place_Name: Lavender_field
-      place_Name_Hyouji: "\u30A2\u30E1\u30B8\u30B9\u30C8\u306E\u6E56\u7554"
+      place_Name_Hyouji: "\u30A2\u30E1\u30B8\u30B9\u30C8\u306E\u6E56"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3002"
       place_day: 6
       place_cost: 10
       place_flag: 0
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: lavender_flower
       drop_item3: peach
@@ -346,6 +355,7 @@ MonoBehaviour:
       place_day: 6
       place_cost: 30
       place_flag: 0
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: strawberry
       drop_item3: blueberry
@@ -382,6 +392,7 @@ MonoBehaviour:
       place_day: 6
       place_cost: 30
       place_flag: 0
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: himawari_seed
       drop_item3: banana
@@ -418,6 +429,7 @@ MonoBehaviour:
       place_day: 18
       place_cost: 300
       place_flag: 0
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: komugiko
       drop_item3: butter
@@ -454,6 +466,7 @@ MonoBehaviour:
       place_day: 18
       place_cost: 300
       place_flag: 0
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: komugiko
       drop_item3: butter

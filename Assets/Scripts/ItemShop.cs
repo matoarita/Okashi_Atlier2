@@ -14,7 +14,7 @@ public class ItemShop
     public string shop_itemName;        //名前、画像ファイル名
     public string shop_itemNameHyouji;  //名前　ゲーム中での表示用。日本語。
     public Sprite shop_itemIcon;     //アイコン
-    public int shop_itemType;
+    public int shop_itemType;       //アイテムのカテゴリータイプ　レシピなのか、機材系なのか、など。
 
     public int shop_costprice; //アイテムの値段。アイテムDBから引っ張ってくる。
     public int shop_sellprice; //アイテムの売却時の値段。アイテムDBから引っ張ってくる。

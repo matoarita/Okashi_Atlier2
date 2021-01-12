@@ -167,7 +167,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
     //小麦粉の比率計算時に使用。
-    private int _komugikomp;
+    /*private int _komugikomp;
     private int _komugikoday;
     private int _komugikoquality;
     private int _komugikorich;
@@ -185,7 +185,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _komugikowatery;
     private float _komugikogirl1_like;
     private int _komugikocost;
-    private int _komugikosell;
+    private int _komugikosell;*/
 
     private int total_kosu;
     
@@ -453,80 +453,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //**ここまで**
     }
-
-    //調合の際、事前に計算してカードに表示する場合などに使う予定。現在未使用。
-    /*void SetParamYosokuInit()
-    {
-        //プレイヤーアイテム表示用コントローラーの取得
-        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-        //レシピリストコントローラーの取得
-        recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-
-        //パラメータを取得
-        result_item = recipilistController.result_recipiitem;
-
-        //コンポ調合データベースのIDを代入
-        result_ID = recipilistController.result_recipicompID;
-
-        Comp_method_bunki = 2;
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
-            {
-                kettei_item1 = i;
-                break;
-            }
-            i++;
-        }
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_2 == database.items[i].itemName)
-            {
-                kettei_item2 = i;
-                break;
-            }
-            i++;
-        }
-
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_3 == database.items[i].itemName)
-            {
-                kettei_item3 = i;
-                break;
-            }
-            i++;
-        }
-
-        toggle_type1 = 0;
-        toggle_type2 = 0;
-        toggle_type3 = 0;
-
-        final_kette_kosu1 = databaseCompo.compoitems[result_ID].cmpitem_kosu1;
-        final_kette_kosu2 = databaseCompo.compoitems[result_ID].cmpitem_kosu2;
-        final_kette_kosu3 = databaseCompo.compoitems[result_ID].cmpitem_kosu3;
-
-        if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
-        {
-            kettei_item2 = 9999;
-            kettei_item3 = 9999;
-        }
-
-        if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
-        {
-            kettei_item3 = 9999;
-        }
-
-        //**ここまで**
-    }*/
+    
 
     //ゲーム最初に、アイテムデータベースの味パラメータを、コンポDBから計算して初期化
     void SetParamDatabaseInit()
@@ -684,15 +611,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (_mstatus == 1)
         {
-            //パラメータを取得。予測用
-            //SetParamYosokuInit();
+
         }
 
         else if (_mstatus == 99)
         {
             //パラメータを取得。アイテムデータベースを、ここで計算して初期化する。ゲーム開始時のみ使用。
             SetParamDatabaseInit();
-            SetParamKosuHosei();
+            SetParamKosuHosei();            
         }
 
 
@@ -701,69 +627,139 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _id = result_item;
 
-            if (database.items[_id].itemComp_Hosei == 0) //アイテム自体が持っている値を加算しない場合
+            if (_mstatus == 99)
             {
-                //各パラメータを取得
-                _baseID = database.items[_id].itemID;
-                _basename = database.items[_id].itemName;
-                _basehp = database.items[_id].itemHP;
-                _baseday = 0;
-                _basequality = 0;
-                _baseexp = 0;
-                _baseprobability = database.items[_id].Ex_Probability;
-                _baserich = 0;
-                _basesweat = 0;
-                _basebitter = 0;
-                _basesour = 0;
-                _basecrispy = 0;
-                _basefluffy = 0;
-                _basesmooth = 0;
-                _basehardness = 0;
-                _basejiggly = 0;
-                _basechewy = 0;
-                _basepowdery = 0;
-                _baseoily = 0;
-                _basewatery = 0;
-                _basegirl1_like = database.items[_id].girl1_itemLike;
-                _basecost = database.items[_id].cost_price;
-                _basesell = database.items[_id].sell_price;
-                _base_itemType = database.items[_id].itemType.ToString();
-                _base_itemType_sub = database.items[_id].itemType_sub.ToString();
-                _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
-                _base_item_hyouji = database.items[_id].item_Hyouji;
-                _base_itemdesc = database.items[_id].itemDesc;
+                if (database.items[_id].itemComp_Hosei == 0) //アイテム自体が持っている値を加算しない場合
+                {
+                    //各パラメータを取得
+                    _baseID = database.items[_id].itemID;
+                    _basename = database.items[_id].itemName;
+                    _basehp = database.items[_id].itemHP;
+                    _baseday = 0;
+                    _basequality = 0;
+                    _baseexp = 0;
+                    _baseprobability = database.items[_id].Ex_Probability;
+                    _baserich = 0;
+                    _basesweat = 0;
+                    _basebitter = 0;
+                    _basesour = 0;
+                    _basecrispy = 0;
+                    _basefluffy = 0;
+                    _basesmooth = 0;
+                    _basehardness = 0;
+                    _basejiggly = 0;
+                    _basechewy = 0;
+                    _basepowdery = 0;
+                    _baseoily = 0;
+                    _basewatery = 0;
+                    _basegirl1_like = database.items[_id].girl1_itemLike;
+                    _basecost = database.items[_id].cost_price;
+                    _basesell = database.items[_id].sell_price;
+                    _base_itemType = database.items[_id].itemType.ToString();
+                    _base_itemType_sub = database.items[_id].itemType_sub.ToString();
+                    _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
+                    _base_item_hyouji = database.items[_id].item_Hyouji;
+                    _base_itemdesc = database.items[_id].itemDesc;
+                }
+                else //アイテム自体が持っている値を加算する補正の処理。データベース最初の初期化のときのみ。
+                {
+                    //各パラメータを取得
+                    _baseID = database.items[_id].itemID;
+                    _basename = database.items[_id].itemName;
+                    _basehp = database.items[_id].itemHP;
+                    _baseday = 0;
+                    _basequality = 0;
+                    _baseexp = 0;
+                    _baseprobability = database.items[_id].Ex_Probability;
+                    _baserich = database.items[_id].Rich;
+                    _basesweat = database.items[_id].Sweat;
+                    _basebitter = database.items[_id].Bitter;
+                    _basesour = database.items[_id].Sour;
+                    _basecrispy = database.items[_id].Crispy;
+                    _basefluffy = database.items[_id].Fluffy;
+                    _basesmooth = database.items[_id].Smooth;
+                    _basehardness = database.items[_id].Hardness;
+                    _basejiggly = database.items[_id].Jiggly;
+                    _basechewy = database.items[_id].Chewy;
+                    _basepowdery = database.items[_id].Powdery;
+                    _baseoily = database.items[_id].Oily;
+                    _basewatery = database.items[_id].Watery;
+                    _basegirl1_like = database.items[_id].girl1_itemLike;
+                    _basecost = database.items[_id].cost_price;
+                    _basesell = database.items[_id].sell_price;
+                    _base_itemType = database.items[_id].itemType.ToString();
+                    _base_itemType_sub = database.items[_id].itemType_sub.ToString();
+                    _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
+                    _base_item_hyouji = database.items[_id].item_Hyouji;
+                    _base_itemdesc = database.items[_id].itemDesc;
+                }
             }
-            else //アイテム自体が持っている値を加算する補正の処理。
+            else
             {
-                //各パラメータを取得
-                _baseID = database.items[_id].itemID;
-                _basename = database.items[_id].itemName;
-                _basehp = database.items[_id].itemHP;
-                _baseday = 0;
-                _basequality = 0;
-                _baseexp = 0;
-                _baseprobability = database.items[_id].Ex_Probability;
-                _baserich = database.items[_id].Rich;
-                _basesweat = database.items[_id].Sweat;
-                _basebitter = database.items[_id].Bitter;
-                _basesour = database.items[_id].Sour;
-                _basecrispy = database.items[_id].Crispy;
-                _basefluffy = database.items[_id].Fluffy;
-                _basesmooth = database.items[_id].Smooth;
-                _basehardness = database.items[_id].Hardness;
-                _basejiggly = database.items[_id].Jiggly;
-                _basechewy = database.items[_id].Chewy;
-                _basepowdery = database.items[_id].Powdery;
-                _baseoily = database.items[_id].Oily;
-                _basewatery = database.items[_id].Watery;
-                _basegirl1_like = database.items[_id].girl1_itemLike;
-                _basecost = database.items[_id].cost_price;
-                _basesell = database.items[_id].sell_price;
-                _base_itemType = database.items[_id].itemType.ToString();
-                _base_itemType_sub = database.items[_id].itemType_sub.ToString();
-                _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
-                _base_item_hyouji = database.items[_id].item_Hyouji;
-                _base_itemdesc = database.items[_id].itemDesc;
+                if (database.items[_id].itemComp_Hosei == 0) //アイテム自体が持っている値を加算しない場合
+                {
+                    //各パラメータを取得
+                    _baseID = database.items[_id].itemID;
+                    _basename = database.items[_id].itemName;
+                    _basehp = database.items[_id].itemHP;
+                    _baseday = 0;
+                    _basequality = 0;
+                    _baseexp = 0;
+                    _baseprobability = database.items[_id].Ex_Probability;
+                    _baserich = 0;
+                    _basesweat = 0;
+                    _basebitter = 0;
+                    _basesour = 0;
+                    _basecrispy = 0;
+                    _basefluffy = 0;
+                    _basesmooth = 0;
+                    _basehardness = 0;
+                    _basejiggly = 0;
+                    _basechewy = 0;
+                    _basepowdery = 0;
+                    _baseoily = 0;
+                    _basewatery = 0;
+                    _basegirl1_like = database.items[_id].girl1_itemLike;
+                    _basecost = database.items[_id].cost_price;
+                    _basesell = database.items[_id].sell_price;
+                    _base_itemType = database.items[_id].itemType.ToString();
+                    _base_itemType_sub = database.items[_id].itemType_sub.ToString();
+                    _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
+                    _base_item_hyouji = database.items[_id].item_Hyouji;
+                    _base_itemdesc = database.items[_id].itemDesc;
+                }
+                else //アイテム自体が持っている値を加算する補正の処理。
+                {
+                    //各パラメータを取得
+                    _baseID = database.items_gamedefault[_id].itemID;
+                    _basename = database.items_gamedefault[_id].itemName;
+                    _basehp = database.items_gamedefault[_id].itemHP;
+                    _baseday = 0;
+                    _basequality = 0;
+                    _baseexp = 0;
+                    _baseprobability = database.items_gamedefault[_id].Ex_Probability;
+                    _baserich = database.items_gamedefault[_id].Rich;
+                    _basesweat = database.items_gamedefault[_id].Sweat;
+                    _basebitter = database.items_gamedefault[_id].Bitter;
+                    _basesour = database.items_gamedefault[_id].Sour;
+                    _basecrispy = database.items_gamedefault[_id].Crispy;
+                    _basefluffy = database.items_gamedefault[_id].Fluffy;
+                    _basesmooth = database.items_gamedefault[_id].Smooth;
+                    _basehardness = database.items_gamedefault[_id].Hardness;
+                    _basejiggly = database.items_gamedefault[_id].Jiggly;
+                    _basechewy = database.items_gamedefault[_id].Chewy;
+                    _basepowdery = database.items_gamedefault[_id].Powdery;
+                    _baseoily = database.items_gamedefault[_id].Oily;
+                    _basewatery = database.items_gamedefault[_id].Watery;
+                    _basegirl1_like = database.items_gamedefault[_id].girl1_itemLike;
+                    _basecost = database.items_gamedefault[_id].cost_price;
+                    _basesell = database.items_gamedefault[_id].sell_price;
+                    _base_itemType = database.items_gamedefault[_id].itemType.ToString();
+                    _base_itemType_sub = database.items_gamedefault[_id].itemType_sub.ToString();
+                    _base_extreme_kaisu = database.items_gamedefault[_id].ExtremeKaisu;
+                    _base_item_hyouji = database.items_gamedefault[_id].item_Hyouji;
+                    _base_itemdesc = database.items_gamedefault[_id].itemDesc;
+                }
             }
 
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
@@ -1007,7 +1003,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _tempcost = 0;
         _tempsell = 0;
 
-        _komugikorich = 0;
+        /*_komugikorich = 0;
         _komugikosweat = 0;
         _komugikobitter = 0;
         _komugikosour = 0;
@@ -1019,7 +1015,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _komugikochewy = 0;
         _komugikopowdery = 0;
         _komugikooily = 0;
-        _komugikowatery = 0;
+        _komugikowatery = 0;*/
 
         for (i = 0; i < database.items[0].toppingtype.Length; i++)
         {

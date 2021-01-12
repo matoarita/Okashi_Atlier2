@@ -121,6 +121,7 @@ public class Shop_Main : MonoBehaviour {
         shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
+        shopon_toggle_quest.SetActive(false);
 
         //自分の持ってるお金などのステータス
         money_status_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
@@ -369,6 +370,12 @@ public class Shop_Main : MonoBehaviour {
 
                         //_text.text = shopdefault_text;
 
+                        //依頼コマンド追加
+                        if (GameMgr.ShopLVEvent_stage[10])
+                        {
+                            shopon_toggle_quest.SetActive(true);
+                        }
+
                         shop_scene = 0;
                         shop_status = 100;
 
@@ -532,6 +539,7 @@ public class Shop_Main : MonoBehaviour {
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
     void CheckShopLvEvent()
     {
+        //品物追加　いくつかの器具解禁
         if (PlayerStatus.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 10) //好感度レベル２以上 or ラスクイベント開始
         {
             if (!GameMgr.ShopLVEvent_stage[0])
@@ -548,12 +556,26 @@ public class Shop_Main : MonoBehaviour {
             }
         }
 
-        if (GameMgr.GirlLoveEvent_num >= 30 && !GameMgr.ShopLVEvent_stage[1]) //シュークリームイベント以降
+        //品物追加　シュークリームイベント以降
+        if (GameMgr.GirlLoveEvent_num >= 30 && !GameMgr.ShopLVEvent_stage[1])
         {
             GameMgr.ShopLVEvent_stage[1] = true;
             GameMgr.scenario_ON = true;
 
             GameMgr.shop_lvevent_num = 1;
+            GameMgr.shop_lvevent_flag = true;
+
+            lvevent_loading = true;
+            StartCoroutine("Scenario_loading");
+        }
+
+        //「依頼」コマンド追加　パティシエレベル３以上で追加
+        if (PlayerStatus.player_renkin_lv >= 3 && !GameMgr.ShopLVEvent_stage[10]) //シュークリームイベント以降
+        {
+            GameMgr.ShopLVEvent_stage[10] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_lvevent_num = 10;
             GameMgr.shop_lvevent_flag = true;
 
             lvevent_loading = true;
@@ -599,6 +621,9 @@ public class Shop_Main : MonoBehaviour {
         }*/
     }
 
+    //
+    //ショップうわさ関係
+    //
     void InitUwasaList()
     {
         shopuwasa_List.Clear();

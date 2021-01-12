@@ -990,7 +990,7 @@ public class Quest_Judge : MonoBehaviour {
         if (okashi_totalkosu == 0) { okashi_totalkosu = 1; }
 
         //最終スコア
-        okashi_totalscore /= okashi_totalkosu;
+        okashi_totalscore /= okashi_totalkosu;       
 
         if(okashi_totalscore <= 0) //0点以下でも、無条件でダメ
         {
@@ -1024,18 +1024,18 @@ public class Quest_Judge : MonoBehaviour {
 
                 if (okashi_totalscore < 30) //粗悪なお菓子だと、マイナス評価
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * 0.35f);
+                    _getMoney = (int)(_buy_price * _kosu_default * 0.2f);
                     _kanso = "う～ん..。お客さん不満だったみたい。次からは気をつけてね。" + "\n" + "報酬額を少し減らされてしまった！";
                     
                 }
                 else if (okashi_totalscore >= 30 && okashi_totalscore < 45) //30~45
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * 0.65f);
+                    _getMoney = (int)(_buy_price * _kosu_default * 0.4f);
                     _kanso = "ありがとう。　..少しお客さん不満だったみたい。" + "\n" + "次はもっと期待してるわね！";
                 }
                 else if (okashi_totalscore >= 45 && okashi_totalscore < GameMgr.low_score) //45~60
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * 0.85f);
+                    _getMoney = (int)(_buy_price * _kosu_default * 0.8f);
                     _kanso = "ありがとう！　お客さん喜んでたわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 75) //60~75

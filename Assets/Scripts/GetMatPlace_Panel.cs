@@ -409,7 +409,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 select_num = i;
 
                 //妹の体力が足りてるかチェック
-                if (PlayerStatus.girl1_Love_exp <= 0)
+                if (PlayerStatus.girl1_Love_exp <= 0 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
                 {
                     _text.text = "にいちゃん。怖くて外にでれないよ～・・。" + "\n" + "まずは、" + GameMgr.ColorYellow  + "ヒカリのハートをあげて" + "</color>" + "ね！";
 

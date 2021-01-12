@@ -371,3 +371,10 @@ MonoBehaviour:
       slot_totalscore: 2
       slot_getgirllove: 3
       slot_money: 30
+    - ItemID: 51
+      slot_Name: Premium
+      slot_Hyouki_1: "\u30D7\u30EC\u30DF\u30A2\u30E0"
+      slot_Hyouki_2: "\u30D7\u30EC\u30DF\u30A2\u30E0"
+      slot_totalscore: 5
+      slot_getgirllove: 30
+      slot_money: 300

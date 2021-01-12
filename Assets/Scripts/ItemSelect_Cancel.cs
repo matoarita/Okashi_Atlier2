@@ -82,6 +82,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         canvas = GameObject.FindWithTag("Canvas");
 
         update_ListSelect_Flag = 0;
+        kettei_on_waiting = false;
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -224,6 +225,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     _text = text_area.GetComponentInChildren<Text>();
 
                     exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+                    kettei_on_waiting = false;
                 }
 
                 //プレイヤーアイテムリストオブジェクトの初期化
@@ -276,6 +279,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                     text_area = canvas.transform.Find("MessageWindow").gameObject;
                     _text = text_area.GetComponentInChildren<Text>();
+
+                    kettei_on_waiting = false;
                 }
 
                 //プレイヤーアイテムリストオブジェクトの初期化

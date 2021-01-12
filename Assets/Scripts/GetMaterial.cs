@@ -952,7 +952,7 @@ public class GetMaterial : MonoBehaviour
     {
         //おたからを発見
         sc.PlaySe(84);
-        _text.text = "にいちゃん！！ お宝だ！！　あけてみる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+        _text.text = "にいちゃん！！ なんか箱があるよ..？　あける？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
         _TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);

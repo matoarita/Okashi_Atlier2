@@ -570,6 +570,7 @@ public class ShopItemListController : MonoBehaviour
         ++list_count;
     }
 
+    //品物追加イベントにしたがって、ショップのリストに追加
     void Check_ShopListFlag()
     {
         shop_hyouji_flag = 1; //最小は1
