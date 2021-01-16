@@ -604,59 +604,63 @@ public class SetImage : MonoBehaviour
                 subcategory = "";
                 break;
             case "Cookie":
-                subcategory = "クッキー系";
+                subcategory = "クッキー";
                 Crispy_Text();
                 break;
             case "Bread":
-                subcategory = "パン系";
+                subcategory = "パン";
                 Crispy_Text();
                 break;
             case "Rusk":
-                subcategory = "ラスク系";
+                subcategory = "ラスク";
                 Crispy_Text();
                 break;
             case "Pie":
-                subcategory = "パイ系";
+                subcategory = "パイ";
                 Crispy_Text();
                 break;
             case "Chocolate":
-                subcategory = "チョコレート系";
+                subcategory = "チョコレート";
                 Smooth_Text();
                 break;
             case "Chocolate_Mat":
-                subcategory = "チョコレート系";
+                subcategory = "チョコレート";
                 Smooth_Text();
                 break;           
             case "Cake":
-                subcategory = "ケーキ系";
+                subcategory = "ケーキ";
                 Fluffy_Text();               
                 break;
             case "PanCake":
-                subcategory = "パンケーキ系";
+                subcategory = "パンケーキ";
                 Fluffy_Text();
                 break;
             case "Financier":
-                subcategory = "フィナンシェ系";
+                subcategory = "フィナンシェ";
                 Fluffy_Text();
                 break;
             case "Maffin":
-                subcategory = "マフィン系";
+                subcategory = "マフィン";
                 Fluffy_Text();
                 break;
+            case "Cannoli":
+                subcategory = "カンノーリ";
+                Crispy_Text();
+                break;
             case "Crepe":
-                subcategory = "クレープ系";
+                subcategory = "クレープ";
                 Fluffy_Text();
                 break;
             case "Creampuff":
-                subcategory = "シュークリーム系";
+                subcategory = "シュークリーム";
                 Fluffy_Text();
                 break;
             case "Biscotti":
-                subcategory = "ビスコッティ系";
+                subcategory = "ビスコッティ";
                 Hardness_Text();                
                 break;
             case "Donuts":
-                subcategory = "ドーナツ系";
+                subcategory = "ドーナツ";
                 Fluffy_Text();
                 break;
             case "IceCream":

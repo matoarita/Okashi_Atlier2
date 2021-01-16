@@ -1074,6 +1074,7 @@ public class Compound_Check : MonoBehaviour {
             resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
                 "× " + databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(false);
+            resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(true);
         }
         else //新しいお菓子を思いつきそうな場合。アイコンは「？」とかになる。
         {
@@ -1083,6 +1084,7 @@ public class Compound_Check : MonoBehaviour {
             //resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().color = new Color(256,256,256);
             resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(false); //個数
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(true);
+            resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(false);
         }
     }
 

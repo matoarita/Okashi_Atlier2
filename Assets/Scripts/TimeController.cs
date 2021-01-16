@@ -55,7 +55,7 @@ public class TimeController : MonoBehaviour
     private bool money_counter;
 
     public bool TimeCheck_flag; //調合メインメソッドのトップ画面で起動開始
-   
+
 
     // Use this for initialization
     void Start()
@@ -155,13 +155,6 @@ public class TimeController : MonoBehaviour
             _time_count1.text = ":";
             _time_count2.text = ":";
 
-            //お金が1秒ごとに減る。
-            /*if (!money_counter)
-            {
-                money_counter = true;
-                PlayerStatus.player_money -= 1;
-                compound_main.MoneyTextKoushin();
-            }*/
         }
         else
         {
@@ -286,7 +279,6 @@ public class TimeController : MonoBehaviour
             //一日が経った。
             if (TimeCheck_flag) //Compound_MainでTimeCheck_flagをtrueにしている。
             {
-
                 TimeCheck_flag = false;
 
                 //寝るイベントが発生

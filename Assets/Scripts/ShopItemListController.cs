@@ -116,7 +116,7 @@ public class ShopItemListController : MonoBehaviour
         }
         category_toggle[0].GetComponent<Toggle>().isOn = true;
         reset_and_DrawView();
-
+        
     }
 
     public void ShopList_DrawView()

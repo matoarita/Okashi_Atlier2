@@ -213,7 +213,7 @@ MonoBehaviour:
       drop_item3: grape
       drop_item4: nuts
       drop_item5: strange_grass
-      drop_item6: Non
+      drop_item6: mushroom
       drop_item7: Non
       drop_item8: Non
       drop_item9: Non
@@ -222,11 +222,11 @@ MonoBehaviour:
       drop_rare2: emerald_suger
       drop_rare3: lemon
       drop_prob1: 20
-      drop_prob2: 25
+      drop_prob2: 15
       drop_prob3: 20
       drop_prob4: 15
       drop_prob5: 20
-      drop_prob6: 0
+      drop_prob6: 10
       drop_prob7: 0
       drop_prob8: 0
       drop_prob9: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
       file_name: lake_mini_icon
       place_Name: BirdSanctuali
       place_Name_Hyouji: "\u30D0\u30FC\u30C9\u30B5\u30F3\u30AF\u30C1\u30E5\u30A2\u30EA"
-      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30D9\u30EB\u30AE\u30FC\u3000\u30CF\u30EC\u30EB\u30DC\u30B9\u3000\u4E00\u9762\u306B\u30D6\u30EB\u30FC\u30D9\u30EB\u306E\u82B1\u304C\u54B2\u304D\u4E71\u308C\u3001\u5149\u306B\u5305\u307E\u308C\u308B\u3088\u3046\u306A\u5834\u6240"
+      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5929\u5730\u5275\u9020\u306E\u30D0\u30FC\u30C9\u30B5\u30F3\u30AF\u30C1\u30E5\u30A2\u30EA\u3000\u5927\u304D\u306A\u6E56\u3068\u8056\u5263\u4F1D\u8AAC\u306B\u51FA\u3066\u304D\u305D\u3046\u306A\u308A\u3063\u3071\u306A\u5927\u6A39\u3000\u9CE5\u306E\u4ED6\u3001\u305F\u304F\u3055\u3093\u306E\u5C0F\u52D5\u7269\u305F\u3061"
       place_day: 3
       place_cost: 0
       place_flag: 0
@@ -250,21 +250,21 @@ MonoBehaviour:
       drop_item3: peach
       drop_item4: cherry
       drop_item5: strange_grass
-      drop_item6: Non
-      drop_item7: Non
+      drop_item6: earlgrey_leaf
+      drop_item7: egg_premiaum
       drop_item8: Non
       drop_item9: Non
       drop_item10: Non
       drop_rare1: Non
       drop_rare2: pink_suger
       drop_rare3: Non
-      drop_prob1: 40
+      drop_prob1: 25
       drop_prob2: 15
       drop_prob3: 15
       drop_prob4: 10
-      drop_prob5: 20
-      drop_prob6: 0
-      drop_prob7: 0
+      drop_prob5: 10
+      drop_prob6: 10
+      drop_prob7: 15
       drop_prob8: 0
       drop_prob9: 0
       drop_prob10: 0
@@ -314,7 +314,7 @@ MonoBehaviour:
       file_name: lake_mini_icon
       place_Name: Lavender_field
       place_Name_Hyouji: "\u30A2\u30E1\u30B8\u30B9\u30C8\u306E\u6E56"
-      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3002"
+      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3068\u3001\u5927\u304D\u306A\u6E56"
       place_day: 6
       place_cost: 10
       place_flag: 0

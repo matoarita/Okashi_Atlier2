@@ -441,7 +441,7 @@ public class Debug_Panel : MonoBehaviour {
             PlayerStatus.girl1_Love_lv = 1;
             while (_girllove_param >= stage_levelTable[i])
             {
-                _girllove_param -= stage_levelTable[i];
+                //_girllove_param -= stage_levelTable[i];
                 PlayerStatus.girl1_Love_lv++;
                 i++;
             }

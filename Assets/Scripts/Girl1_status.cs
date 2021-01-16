@@ -230,7 +230,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public List<int> stage1_lvTable = new List<int>();
 
     private int _sum;
-    private int _temp_lvTablecount;
 
     private Text girl_param;
     private Slider _slider; //好感度バーを取得
@@ -695,6 +694,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     facemotion_start = false;
                                     timeOutIdle = timeOutIdle_time;
                                     live2d_animator.SetLayerWeight(2, 0f);
+                                    live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotionは、表情も含めた体全体の動き
                                     _model.GetComponent<CubismEyeBlinkController>().enabled = true;
                                     _model.GetComponent<GazeController>().enabled = false;
                                 });
@@ -703,13 +703,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         }
                         else
                         {
-                            if (timeOutIdle <= 0.0)
+                            if (facemotion_start) { }
+                            else
                             {
-                                timeOutIdle = timeOutIdle_time;
+                                if (timeOutIdle <= 0.0)
+                                {
+                                    timeOutIdle = timeOutIdle_time;
 
-                                //10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
-                                IdleChange();
+                                    //10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
+                                    IdleChange();
 
+                                }
                             }
                         }
 
@@ -1323,7 +1327,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
         //ついでに仕草もでる。
-        //IdleChange();
 
         //Idleにリセット
         trans_motion = 1000;
@@ -2125,34 +2128,38 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 0:
 
                 random = Random.Range(0, 3); //0~3
-                trans_facemotion = random;
+                trans_facemotion = random + 1; //1はじまり
 
                 break;
 
             case 1:
 
-
+                random = Random.Range(0, 3); //0~3
+                trans_facemotion = random + 1; //1はじまり
                 break;
 
             case 2:
 
+                random = Random.Range(0, 3); //0~3
+                trans_facemotion = random + 1; //1はじまり
                 break;
 
             case 3:
 
-                trans_motion = 0;
-                //ランダム仕草3つほど
-                live2d_animator.SetInteger("trans_motion", trans_motion);
+                random = Random.Range(0, 3); //0~3
+                trans_facemotion = random + 1; //1はじまり
                 break;
 
             case 4:
 
-                //ランダム仕草3つほど。別モーション。
+                random = Random.Range(0, 3); //0~3
+                trans_facemotion = random + 1; //1はじまり
                 break;
 
             case 5:
 
-                //ランダム仕草3つほど。別モーション。
+                random = Random.Range(0, 3); //0~3
+                trans_facemotion = random + 1; //1はじまり
                 break;
 
             default:
@@ -2174,7 +2181,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     0.5f      // アニメーション時間
                                 );
 
-        //モーション再生スタートの合図をだす。
+        //全身モーション再生スタートの合図をだす。
         facemotion_start = true;
 
     }
@@ -2721,17 +2728,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         stage1_lvTable.Clear();
         stage1_lvTable.Add(20); //LV2。LV1で、次のレベルが上がるまでの好感度値
-        stage1_lvTable.Add(50);　//LV3 LV1の分も含めている。トータルだと75。の意味。
-        stage1_lvTable.Add(100); //LV4　LV1~LV2の分も含めている。
-        stage1_lvTable.Add(150); //LV5
-        stage1_lvTable.Add(200); //LV6以上
+        stage1_lvTable.Add(70);　//LV3 LV1の分は含めない。
+        stage1_lvTable.Add(200); //LV4
+        stage1_lvTable.Add(450); //LV5
+        stage1_lvTable.Add(600); //LV6
 
-        _temp_lvTablecount = stage1_lvTable.Count;
-
-        //LV6以上～99まで　200ごとに上がるように設定
-        for (i=0; i < ( 99 - _temp_lvTablecount); i++)
+        //LV7以上～99まで　200ごとに上がるように設定
+        for (i=1; i < ( 99 - stage1_lvTable.Count); i++)
         {
-            stage1_lvTable.Add(200);
+            stage1_lvTable.Add(600+(i*200));
         }
     }
 

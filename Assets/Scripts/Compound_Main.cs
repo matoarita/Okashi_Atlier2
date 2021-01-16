@@ -207,6 +207,7 @@ public class Compound_Main : MonoBehaviour
     public string recipi_text;
 
     private bool gameover_loading;
+    private bool Sleep_on;
 
     // Use this for initialization
     void Start()
@@ -432,7 +433,8 @@ public class Compound_Main : MonoBehaviour
         MainUICloseButton = canvas.transform.Find("MainUIPanel/MainUICloseButton").gameObject;
 
         compound_status = 0;
-        compound_select = 0;       
+        compound_select = 0;
+        Sleep_on = false;
 
         girlEat_ON = false;
         Recipi_loading = false;
@@ -1043,30 +1045,59 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.Walk_Start = true;
                 girl1_status.timeOutMoveX = 7.0f;
 
-                if (ResultComplete_flag != 0) //厨房から帰ってくるときの動き
+                //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
+                if (getmatplace.slot_view_status == 0)
                 {
-                    //吹き出しの時間はリセット
-                    girl1_status.ResetHukidashiYodare();
+                    Debug.Log("時間更新＆チェック");
+                    time_controller.TimeCheck_flag = true;
+                    time_controller.TimeKoushin(); //時間の更新
+                }
 
-                    //腹減りカウント一時停止
-                    girl1_status.GirlEat_Judge_on = false;
+                if (!Sleep_on)
+                {                  
+                    if (ResultComplete_flag != 0) //厨房から帰ってくるときの動き
+                    {
+                        Debug.Log("厨房から戻ってくる。");
+                        //吹き出しの時間はリセット
+                        girl1_status.ResetHukidashiYodare();
 
-                    ResultComplete_flag = 0;
-                    //intパラメーターの値を設定する.  
+                        //腹減りカウント一時停止
+                        girl1_status.GirlEat_Judge_on = false;
 
-                    trans_motion = 100; //戻るアニメに遷移
-                    live2d_animator.SetInteger("trans_motion", trans_motion);
-                    trans_expression = 2;
-                    live2d_animator.SetInteger("trans_expression", trans_expression);
+                        ResultComplete_flag = 0;
+                        //intパラメーターの値を設定する.  
+
+                        trans_motion = 100; //戻るアニメに遷移
+                        live2d_animator.SetInteger("trans_motion", trans_motion);
+                        trans_expression = 2;
+                        live2d_animator.SetInteger("trans_expression", trans_expression);
+                    }
+                    else
+                    {
+                        if (live2d_posmove_flag)
+                        {
+                            trans_motion = 11; //位置をもとに戻す。
+                            live2d_animator.SetInteger("trans_motion", trans_motion);
+                            live2d_posmove_flag = false;
+                        }
+
+                        if (GameMgr.QuestClearflag)
+                        {
+                            girl1_status.AfterOkashiDefaultFace();
+                        }
+                        else
+                        {
+                            girl1_status.DefaultFace();
+                        }
+
+                    }
                 }
                 else
                 {
-                    if (live2d_posmove_flag)
-                    {
-                        trans_motion = 11; //位置をもとに戻す。
-                        live2d_animator.SetInteger("trans_motion", trans_motion);
-                        live2d_posmove_flag = false;
-                    }
+                    ResultComplete_flag = 0;
+
+                    trans_motion = 11; //位置をもとに戻す。
+                    live2d_animator.SetInteger("trans_motion", trans_motion);
 
                     if (GameMgr.QuestClearflag)
                     {
@@ -1076,7 +1107,6 @@ public class Compound_Main : MonoBehaviour
                     {
                         girl1_status.DefaultFace();
                     }
-
                 }
 
                 //音関係
@@ -1125,14 +1155,7 @@ public class Compound_Main : MonoBehaviour
                     read_girlevent = false;
                     mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
                 }
-
-
-                //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
-                if (getmatplace.slot_view_status == 0)
-                {
-                    time_controller.TimeCheck_flag = true;
-                    time_controller.TimeKoushin(); //時間の更新
-                }
+               
 
                 //残りあげる回数の更新
                 //nokori_kaisu = special_quest.special_kaisu_max - special_quest.special_kaisu;
@@ -2812,6 +2835,7 @@ public class Compound_Main : MonoBehaviour
     //タイムコントローラーから、眠りの宴シナリオを呼び出す際に使用。
     public void OnSleepReceive()
     {
+        Sleep_on = true;
         StartCoroutine("SleepDayEnd");
     }
 
@@ -2840,6 +2864,8 @@ public class Compound_Main : MonoBehaviour
         //一日経つと、食費を消費
         PlayerStatus.player_money -= GameMgr.Foodexpenses;
 
+        //寝たらスリープフラグもOFFに。
+        Sleep_on = false;
     }
 
     public void OffCompoundSelectnoExtreme()

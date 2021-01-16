@@ -414,7 +414,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     itemlist_hyouji();
                                 }
                                 else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
-                                    database.items[i].itemType_sub.ToString() == "Bread")
+                                    database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
+                                    database.items[i].itemType_sub.ToString() == "Crepe_Mat")
                                 {
                                     itemlist_hyouji();
                                 }
@@ -518,7 +519,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 original_itemlist_hyouji();
                             }
                             else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
-                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread")
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
+                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat")
                             {
                                 original_itemlist_hyouji();
                             }

@@ -261,7 +261,7 @@ public class Result_Panel : MonoBehaviour
             {
                 //sc.PlaySe(19);
                 //GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = new Color(91f / 255f, 55f / 255f, 206f / 255f);
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "兄ちゃん！あとひといき..！";                
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "あとひといき..！";                
             }
             else if (Total_score >= GameMgr.low_score && Total_score < GameMgr.high_score)
             {

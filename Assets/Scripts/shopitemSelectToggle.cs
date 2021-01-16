@@ -45,10 +45,7 @@ public class shopitemSelectToggle : MonoBehaviour
     private ItemCompoundDataBase databaseCompo;
     private ItemShopDataBase shop_database;
 
-    private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
-    private Text yes_text;
-    private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
-    private Text no_text;
+    private GameObject yes_no_panel;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -102,10 +99,8 @@ public class shopitemSelectToggle : MonoBehaviour
         back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
 
-        yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
-        yes_text = yes.GetComponentInChildren<Text>();
-        no = shopitemlistController_obj.transform.Find("No").gameObject;
-        no_text = no.GetComponentInChildren<Text>();
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+        yes_no_panel.SetActive(false);
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
@@ -145,8 +140,6 @@ public class shopitemSelectToggle : MonoBehaviour
 
         count = 0;
 
-        yes.SetActive(false);
-        no.SetActive(false);
     }
 
 
@@ -234,8 +227,7 @@ public class shopitemSelectToggle : MonoBehaviour
             category_toggle[i].GetComponent<Toggle>().interactable = false;
         }
 
-        yes.SetActive(true);
-        no.SetActive(true);
+        yes_no_panel.SetActive(true);
         updown_counter_obj.SetActive(true);
 
         StartCoroutine("shop_buy_kosu_select");
@@ -281,8 +273,7 @@ public class shopitemSelectToggle : MonoBehaviour
                 //キャンセル時、リストのインタラクティブ解除。その時、プレイヤーの所持金をチェックし、足りないものはOFF表示にする。
                 Money_Check();
 
-                yes.SetActive(false);
-                no.SetActive(false);
+                yes_no_panel.SetActive(false);
                 updown_counter_obj.SetActive(false);
 
                 back_ShopFirst_btn.interactable = true;
@@ -339,8 +330,7 @@ public class shopitemSelectToggle : MonoBehaviour
                     category_toggle[i].GetComponent<Toggle>().interactable = true;
                 }
 
-                yes.SetActive(false);
-                no.SetActive(false);
+                yes_no_panel.SetActive(false);
                 back_ShopFirst_btn.interactable = true;
 
                 updown_button[0].interactable = true;
@@ -363,8 +353,7 @@ public class shopitemSelectToggle : MonoBehaviour
                 Money_Check();
 
                 yes_selectitem_kettei.kettei1 = false;
-                yes.SetActive(false);
-                no.SetActive(false);
+                yes_no_panel.SetActive(false);
 
                 back_ShopFirst_btn.interactable = true;
 

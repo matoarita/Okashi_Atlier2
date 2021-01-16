@@ -135,17 +135,17 @@ public class Updown_counter : MonoBehaviour {
 
             case "Shop":
 
-                this.transform.localPosition = new Vector3(280, -15, 0);
+                ShopUpdownCounter_Pos();
                 break;
 
             case "Farm":
 
-                this.transform.localPosition = new Vector3(280, -15, 0);
+                ShopUpdownCounter_Pos();
                 break;
 
             case "Emerald_Shop":
 
-                this.transform.localPosition = new Vector3(280, -15, 0);
+                ShopUpdownCounter_Pos();
                 break;
 
             default:
@@ -165,12 +165,11 @@ public class Updown_counter : MonoBehaviour {
                 {
                     if (shop_Main.shop_scene == 1) //ショップ「買う」の時
                     {
-                        this.transform.localPosition = new Vector3(280, -15, 0);
+                        ShopUpdownCounter_Pos();
                     }
                     else if (shop_Main.shop_scene == 3) //依頼の納品の時
                     {
-                        this.transform.localPosition = new Vector3(0, -80, 0);
-
+                        ShopUpdownCounter_Pos2();
                     }
 
                     OpenFlag = true;
@@ -178,6 +177,16 @@ public class Updown_counter : MonoBehaviour {
 
                 break;
         }
+    }
+
+    void ShopUpdownCounter_Pos()
+    {
+        this.transform.localPosition = new Vector3(280, -60, 0);
+    }
+
+    void ShopUpdownCounter_Pos2()
+    {
+        this.transform.localPosition = new Vector3(0, -80, 0);
     }
 
     void OnEnable()

@@ -34,7 +34,7 @@ public class QuestTitlePanel : MonoBehaviour {
         sc.PlaySe(25); //25 鐘の音:50 キラリン:17
         //sc.PlaySe(27);
 
-        qtitlepanel_pos_y = 30f; //パネルの初期値
+        qtitlepanel_pos_y = 0f; //パネルの初期値
         //Debug.Log("qtitlepanel_pos_y: " + qtitlepanel_pos_y);
 
         //アニメーションスタート

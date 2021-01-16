@@ -239,7 +239,7 @@ MonoBehaviour:
       shop_buy_price: 1000
       item_hyouji: 1
     - ItemID: 32
-      name: white_Orchid
+      name: white_lily
       zaiko: 1
       itemType: 6
       shop_sell_price: 600

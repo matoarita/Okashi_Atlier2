@@ -143,8 +143,6 @@ public class GirlEat_Judge : MonoBehaviour {
     private Texture2D texture2d;
     private GameObject EatStartEffect;
 
-    private GameObject GLvup_panel_obj;
-
     //時間
     private float timeOut;
 
@@ -304,7 +302,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private List<GameObject> _listHeartHit = new List<GameObject>();
 
     private GameObject hearthit2_Prefab;
-    private List<GameObject> _listHeartHit2 = new List<GameObject>();
+    private List<GameObject> _listHeartHit2 = new List<GameObject>();   
 
     private Vector3 heartPos;
 
@@ -321,6 +319,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
     //好感度レベルテーブルの取得
     private List<int> stage_levelTable = new List<int>();
+    //レベルアップ用
+    private GameObject lvuppanel_Prefab;
+    private List<GameObject> _listlvup_obj = new List<GameObject>();
+
 
     //Live2Dモデルの取得
     private CubismModel _model;
@@ -458,8 +460,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
 
                 //好感度レベルアップ時の演出パネル取得
-                GLvup_panel_obj = canvas.transform.Find("GirlLoveLevelUpPanel").gameObject;
-                GLvup_panel_obj.SetActive(false);
+                lvuppanel_Prefab = (GameObject)Resources.Load("Prefabs/GirlLoveLevelUpPanel");
 
                 //お菓子採点結果表示用パネルの取得
                 ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
@@ -488,6 +489,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Getlove_exp = 0;
                 GetMoney = 0;
 
+                
                 stage_levelTable.Clear();
 
                 //バーの最大値の設定。テーブルの初期設定はGirl1_statusで行っている。ここではそれをもとにコピーしてるだけ。
@@ -523,13 +525,13 @@ public class GirlEat_Judge : MonoBehaviour {
                 Love_Slider_Setting();
 
                 //スライダ表示を更新
-                i = 0;
+                //i = 0;
                 girllove_param = PlayerStatus.girl1_Love_exp;
-                while (i < PlayerStatus.girl1_Love_lv - 1)
+                /*while (i < PlayerStatus.girl1_Love_lv - 1)
                 {
                     girllove_param -= stage_levelTable[i];
                     i++;
-                }
+                }*/
                 _slider.value = girllove_param;
 
                 //レベルを表示
@@ -1407,6 +1409,12 @@ public class GirlEat_Judge : MonoBehaviour {
             case "Financier":
 
                 Fluffy_Score();
+
+                break;
+
+            case "Cannoli":
+
+                Crispy_Score();
 
                 break;
 
@@ -2583,12 +2591,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //Maxバリューを再設定
             Love_Slider_Setting();
-            _slider.value = 0;
+            //_slider.value = 0;
 
             girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
 
             //分かりやすくするように、レベルアップ時のパネルも表示
-            GLvup_panel_obj.SetActive(true);
+            _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, canvas.transform));
         }
 
         //エフェクト
@@ -2677,12 +2685,12 @@ public class GirlEat_Judge : MonoBehaviour {
     void Slider_Koushin(int cullent_value)
     {
         
-        i = 0;
+        /*i = 0;
         while (cullent_value >= stage_levelTable[i])
         {
             cullent_value -= stage_levelTable[i];
             i++;
-        }
+        }*/
         _slider.value = cullent_value;
     }
 
@@ -3131,7 +3139,10 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         //レベルアップパネルは一時オフ
         GameMgr.QuestClearButton_anim = true;
-        GLvup_panel_obj.SetActive(false);
+        for(i=0; i<_listlvup_obj.Count; i++)
+        {
+            _listlvup_obj[i].SetActive(false);
+        }        
 
         canvas.SetActive(true);
         stageclear_panel.SetActive(true);
@@ -3155,9 +3166,12 @@ public class GirlEat_Judge : MonoBehaviour {
         girl1_status.face_girl_Fine();
 
         //まだレベルアップパネルステータス開いてたらONにする。
-        if (GLvup_panel_obj.GetComponent<GirlLoveLevelUpPanel>().OnPanelflag)
+        for (i = 0; i < _listlvup_obj.Count; i++)
         {
-            GLvup_panel_obj.SetActive(true);
+            if (_listlvup_obj[i].GetComponent<GirlLoveLevelUpPanel>().OnPanelflag)
+            {
+                _listlvup_obj[i].SetActive(true);
+            }
         }
     }
 

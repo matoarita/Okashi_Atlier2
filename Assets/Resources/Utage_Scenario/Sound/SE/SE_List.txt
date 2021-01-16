@@ -9,7 +9,7 @@ SE表
 ・SE_07		audiostock_126643.mp3				ステータスが下がる音
 ・SE_08		audiostock_60258.mp3				ピコン　吹き出し出てくる音
 ・SE_09		audiostock_66421.mp3				ピコッ　吹き出し消える音
-・SE_10		audiostock_66343.mp3				キラコリリーン　採取時の取得音
+・SE_10		audiostock_66343.mp3				コリンコリンコリン　採取時の取得音
 ・SE_11		audiostock_175671.mp3				シュイイーーン　調合中ためる音
 ・SE_12		audiostock_7724_sample				【#未使用】吹き出しでるっぽい音
 ・SE_13		audiostock_65015				クリアボタン登場音ポワン　 旧：シャキーン　105207_sample
@@ -87,5 +87,6 @@ SE表
 ・SE_85		audiostock_390280				宝箱を発見した音
 ・SE_86		audiostock_891100				宝箱をガチャガチャ
 ・SE_87		audiostock_66346				宝箱を開けたときの獲得音
-・SE_88		audiostock_39891				【未使用】宝箱を開けたときの音
+・SE_88		audiostock_39891				宝箱を開けたときの音
 ・SE_89		audiostock_856263_sample			クエストクリアキラキラ音
+・SE_90		audiostock_175671.mp3				シュイイーーン２　新規レシピ時に、さらに調合ためる音

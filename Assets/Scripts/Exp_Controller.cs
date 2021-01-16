@@ -1274,8 +1274,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         //エフェクト生成＋アニメ開始
                         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab6));
 
+                        //色を変更 難しい..。
+                        //ParticleSystem.MainModule main = _listEffect[0].gameObject.GetComponent<ParticleSystem>().main;
+                        //main.startColor = Color.red;
+                        //_listEffect[0].gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", Color.red);
+                        //_listEffect[0].gameObject.GetComponents<Renderer>().material.SetColor("_TintColor", Color.red);
+
                         //音を鳴らす
-                        sc.PlaySe(10);
+                        sc.PlaySe(89);
 
                         _text.text = "調合中 . . . ";
                     }

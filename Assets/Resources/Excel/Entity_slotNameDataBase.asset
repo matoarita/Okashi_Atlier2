@@ -131,7 +131,7 @@ MonoBehaviour:
       slot_Hyouki_1: "\u7126\u304C\u3057\u30D0\u30BF\u30FC"
       slot_Hyouki_2: "\u7126\u304C\u3057\u30D0\u30BF\u30FC\u9999\u308B"
       slot_totalscore: 10
-      slot_getgirllove: 15
+      slot_getgirllove: 7
       slot_money: 20
     - ItemID: 17
       slot_Name: Honey
@@ -316,65 +316,86 @@ MonoBehaviour:
       slot_getgirllove: 10
       slot_money: 150
     - ItemID: 43
+      slot_Name: Mint
+      slot_Hyouki_1: "\u30DF\u30F3\u30C8"
+      slot_Hyouki_2: "\u30DF\u30F3\u30C8\u6DFB\u3048"
+      slot_totalscore: -15
+      slot_getgirllove: 10
+      slot_money: 150
+    - ItemID: 44
       slot_Name: SilverChip
       slot_Hyouki_1: "\u30B7\u30EB\u30D0\u30FC\u30C1\u30C3\u30D7"
       slot_Hyouki_2: "\u30B7\u30EB\u30D0\u30FC"
       slot_totalscore: 10
       slot_getgirllove: 10
       slot_money: 150
-    - ItemID: 44
+    - ItemID: 45
       slot_Name: KirakiraHeart
       slot_Hyouki_1: "\u30AD\u30E9\u30AD\u30E9\u30CF\u30FC\u30C8"
       slot_Hyouki_2: "\u30CF\u30FC\u30C8"
       slot_totalscore: 12
       slot_getgirllove: 12
       slot_money: 150
-    - ItemID: 45
+    - ItemID: 46
       slot_Name: JewerySuger
       slot_Hyouki_1: "\u30B8\u30E5\u30A8\u30EA\u30FC\u30B7\u30E5\u30AC\u30FC"
       slot_Hyouki_2: "\u30AD\u30E9\u30AD\u30E9"
       slot_totalscore: 7
       slot_getgirllove: 14
       slot_money: 150
-    - ItemID: 46
+    - ItemID: 47
       slot_Name: MixColor
       slot_Hyouki_1: "\u30DF\u30C3\u30AF\u30B9\u30AB\u30E9\u30FC\u30B9\u30D7\u30EC\u30FC"
       slot_Hyouki_2: "\u30DF\u30C3\u30AF\u30B9\u30AB\u30E9\u30FC"
       slot_totalscore: 12
       slot_getgirllove: 15
       slot_money: 150
-    - ItemID: 47
+    - ItemID: 48
       slot_Name: MixChoco
       slot_Hyouki_1: "\u30DF\u30C3\u30AF\u30B9\u30C1\u30E7\u30B3\u30B9\u30D7\u30EC\u30FC"
       slot_Hyouki_2: "\u30DF\u30C3\u30AF\u30B9\u30C1\u30E7\u30B3"
       slot_totalscore: 3
       slot_getgirllove: 6
       slot_money: 150
-    - ItemID: 48
+    - ItemID: 49
       slot_Name: Lavender
       slot_Hyouki_1: "\u30E9\u30D9\u30F3\u30C0\u30FC"
       slot_Hyouki_2: "\u30E9\u30D9\u30F3\u30C0\u30FC\u306E\u9999\u308A"
       slot_totalscore: 2
       slot_getgirllove: 5
       slot_money: 150
-    - ItemID: 49
+    - ItemID: 50
       slot_Name: StrangeGlass
       slot_Hyouki_1: "\u3078\u3093\u306A\u8349"
       slot_Hyouki_2: "\u3078\u3093\u306A\u8349\u306E"
       slot_totalscore: -50
       slot_getgirllove: -5
       slot_money: 150
-    - ItemID: 50
+    - ItemID: 51
       slot_Name: HimawariSeed
       slot_Hyouki_1: "\u3072\u307E\u308F\u308A\u306E\u7A2E"
       slot_Hyouki_2: "\u3064\u3076\u3064\u3076\u3072\u307E\u308F\u308A"
       slot_totalscore: 2
       slot_getgirllove: 3
       slot_money: 30
-    - ItemID: 51
+    - ItemID: 52
+      slot_Name: Shiratama
+      slot_Hyouki_1: "\u767D\u7389"
+      slot_Hyouki_2: "\u767D\u7389\u3060\u3093\u3054"
+      slot_totalscore: -10
+      slot_getgirllove: 10
+      slot_money: 30
+    - ItemID: 53
       slot_Name: Premium
       slot_Hyouki_1: "\u30D7\u30EC\u30DF\u30A2\u30E0"
       slot_Hyouki_2: "\u30D7\u30EC\u30DF\u30A2\u30E0"
       slot_totalscore: 5
       slot_getgirllove: 30
+      slot_money: 300
+    - ItemID: 54
+      slot_Name: ALLPotion
+      slot_Hyouki_1: "\u5B8C\u5168\u7121\u6B20"
+      slot_Hyouki_2: "\u5B8C\u5168\u7121\u6B20\u306E"
+      slot_totalscore: 50
+      slot_getgirllove: 100
       slot_money: 300

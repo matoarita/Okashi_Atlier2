@@ -86,9 +86,11 @@ public class GetMaterial : MonoBehaviour
 
     private GameObject NextButton_obj;
     private GameObject OpenTreasureButton_obj;
+    private Text treasure_text;
     private GameObject TreasureImage_obj;
     private GameObject CharacterSDImage;
 
+    public int Treasure_Status; //宝箱なのか、怪しい場所を散策なのかを判別する
     private Image _TreasureImg;
     private Sprite treasure1;
     private Sprite treasure1Open;
@@ -153,11 +155,14 @@ public class GetMaterial : MonoBehaviour
 
         NextButton_obj = tansaku_panel.transform.Find("TansakuActionList/Viewport/Content/Next_tansaku").gameObject;
         OpenTreasureButton_obj = tansaku_panel.transform.Find("TansakuActionList/Viewport/Content/Open_treasure").gameObject;
+        treasure_text = OpenTreasureButton_obj.transform.Find("Text").GetComponent<Text>();
 
         TreasureImage_obj = getmatplace_panel_obj.transform.Find("Comp/Slot_View/Image/TreasureImage").gameObject;
         CharacterSDImage = getmatplace_panel_obj.transform.Find("Comp/Slot_View/Image/CharacterSD").gameObject;
 
         _TreasureImg = TreasureImage_obj.GetComponent<Image>(); //アイテムの画像データ
+        Treasure_Status = 0;
+        
     }
 
     // Update is called once per frame
@@ -212,7 +217,7 @@ public class GetMaterial : MonoBehaviour
                     mat_anim_on = false;
                     mat_anim_end = true;
                     mat_anim_status = 0;
-
+                    
                     break;
 
                 default:
@@ -229,7 +234,7 @@ public class GetMaterial : MonoBehaviour
 
     public void GetRandomMaterials(int _index) //材料を３つランダムでゲットする処理
     {
-
+        
         index = _index; //採取地IDの決定
 
         // 入手できるアイテムのデータベース
@@ -302,8 +307,6 @@ public class GetMaterial : MonoBehaviour
         InitializeEventDicts();
         event_num = ChooseEvent(); //eventDictから算出
 
-        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
-
         switch (event_num)
         {
             case 0: //アイテム取得
@@ -320,6 +323,11 @@ public class GetMaterial : MonoBehaviour
 
                         //イベント１
                         event_Forest();
+                        break;
+
+                    case "BirdSanctuali":
+
+                        event_BirdSanctuali();
                         break;
 
                     case "HimawariHill":
@@ -358,8 +366,31 @@ public class GetMaterial : MonoBehaviour
 
             case 3: //お宝を発見
 
-                treasure_Check();
+                switch (mat_place)
+                {
+                    case "Forest":
 
+                        //イベント１
+                        treasure_Check();
+                        break;
+
+                    case "BirdSanctuali":
+
+                        treasure_Check2();
+                        break;
+
+                    case "HimawariHill":
+
+                        treasure_no();
+                        break;
+
+                    default:
+
+                        //イベント１
+                        treasure_no();
+                        break;
+                }
+                
                 break;
 
             default:
@@ -693,7 +724,6 @@ public class GetMaterial : MonoBehaviour
 
         // Random.valueでは0から1までのfloat値を返すので
         // そこにドロップ率の合計を掛ける
-        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
         randomPoint = Random.value * total;
 
         // randomPointの位置に該当するキーを返す
@@ -724,7 +754,6 @@ public class GetMaterial : MonoBehaviour
 
         // Random.valueでは0から1までのfloat値を返すので
         // そこにドロップ率の合計を掛ける
-        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
         randomPoint = Random.value * total;
 
         // randomPointの位置に該当するキーを返す
@@ -780,23 +809,12 @@ public class GetMaterial : MonoBehaviour
 
             case 3:
 
-                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" +
-                    GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone1")].itemNameHyouji + "</color>" + "をみつけた！";
-
-                //アイテムの取得処理
-                pitemlist.addPlayerItemString("kirakira_stone1", 1);
-
-                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-                _itemid = pitemlist.SearchItemString("kirakira_stone1");
-                getmatplace_panel.result_items[_itemid] += 1;
-
-                //音を鳴らす
-                sc.PlaySe(1);
+                event_itemGet01();
                 break;
 
             default:
 
-                if (PlayerStatus.player_girl_findpower >= 130) //player_girl_findpowerは、girl_status内でパラメータ処理
+                if (PlayerStatus.player_girl_findpower >= 120) //player_girl_findpowerは、girl_status内でパラメータ処理
                 {
                     //バードサンクチュアリへ繋がる道を発見
                     //_text.text = "にいちゃん！！ なんか抜け道があるよ？";
@@ -823,23 +841,12 @@ public class GetMaterial : MonoBehaviour
         {
             case 3:
 
-                _text.text = "にいちゃん。みてみて！　キラキラな石！" + "\n" +
-                    GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone1")].itemNameHyouji + "</color>" + "をみつけた！";
-
-                //アイテムの取得処理
-                pitemlist.addPlayerItemString("kirakira_stone1", 1);
-
-                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-                _itemid = pitemlist.SearchItemString("kirakira_stone1");
-                getmatplace_panel.result_items[_itemid] += 1;
-
-                //音を鳴らす
-                sc.PlaySe(1);
+                event_itemGet01();
                 break;
 
             default:
 
-                if (PlayerStatus.player_girl_findpower >= 130)
+                if (PlayerStatus.player_girl_findpower >= 120)
                 {
                     //バードサンクチュアリを発見
                     _text.text = "にいちゃん！！ なんか抜け道があるよ？";
@@ -848,18 +855,52 @@ public class GetMaterial : MonoBehaviour
                 }
                 else
                 {
-                    _text.text = "にいちゃん。みてみて！　キラキラな石！" +
-                        "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone1")].itemNameHyouji + "</color>" + "をみつけた！";
+                    event_itemGet01();                   
+                }
 
-                    //アイテムの取得処理
-                    pitemlist.addPlayerItemString("kirakira_stone1", 1);
+                break;
+        }
+    }
 
-                    //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-                    _itemid = pitemlist.SearchItemString("kirakira_stone1");
-                    getmatplace_panel.result_items[_itemid] += 1;
+    //バードサンクチュアリ
+    void event_BirdSanctuali()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん！　とりさん、ふわふわ～！";
+                break;
+
+            case 1:
+
+                _text.text = "どんぐり.. ないかな。（妹はサボっている。）";
+                break;
+
+            case 2:
+
+                _text.text = "にいちゃん。お花畑きもちいい・・。" + "\n" + "妹は寝ている。";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            default:
+
+                if (PlayerStatus.player_girl_findpower >= 150) //player_girl_findpowerは、girl_status内でパラメータ処理
+                {
+                    _text.text = "にいちゃん！！　ここに石像があるよ？";
+                }
+                else
+                {
+                    _text.text = "はっぱがキラキラしてる！！にいちゃん！！";
 
                     //音を鳴らす
-                    sc.PlaySe(1);
+                    //sc.PlaySe(6);
                 }
 
                 break;
@@ -892,6 +933,25 @@ public class GetMaterial : MonoBehaviour
     }
 
 
+    void event_itemGet01()
+    {
+        _text.text = "にいちゃん。みてみて！　キラキラな石！" +
+                        "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone1")].itemNameHyouji + "</color>" + "をみつけた！";
+
+        //アイテムの取得処理
+        pitemlist.addPlayerItemString("kirakira_stone1", 1);
+
+        //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+        _itemid = pitemlist.SearchItemString("kirakira_stone1");
+        getmatplace_panel.result_items[_itemid] += 1;
+
+        //音を鳴らす
+        sc.PlaySe(1);
+    }
+
+
+
+
     //イベントの発生確率をセット
     void InitializeEventDicts()
     {
@@ -904,9 +964,18 @@ public class GetMaterial : MonoBehaviour
 
                 eventDict = new Dictionary<int, float>();
                 eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 20.0f); //20%でイベント発生
+                eventDict.Add(1, 25.0f); //20%でイベント発生
                 eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
+                break;
+
+            case "BirdSanctuali":
+
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 70.0f); //採集
+                eventDict.Add(1, 25.0f); //20%でイベント発生
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
                 break;
 
             case "HimawariHill":
@@ -932,9 +1001,9 @@ public class GetMaterial : MonoBehaviour
 
                 eventDict = new Dictionary<int, float>();
                 eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 20.0f); //10%でイベント
+                eventDict.Add(1, 25.0f); //10%でイベント
                 eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
                 break;
         }
     }
@@ -951,13 +1020,36 @@ public class GetMaterial : MonoBehaviour
     void treasure_Check()
     {
         //おたからを発見
-        sc.PlaySe(84);
+        //sc.PlaySe(84);
         _text.text = "にいちゃん！！ なんか箱があるよ..？　あける？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
         _TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "あける";
         TreasureImage_obj.SetActive(true);
         CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 0;
+    }
+
+    void treasure_Check2()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ きれいなお花畑！　探索してみる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "探索";
+        TreasureImage_obj.SetActive(false);
+        CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
+    void treasure_no()
+    {
+        _text.text = "とくに何もみつからなかった。";
     }
 
     //GetMatPlace_Panelから呼び出し
@@ -1024,8 +1116,27 @@ public class GetMaterial : MonoBehaviour
         getmatplace_panel.result_items[_itemid] += 1;
 
         //音を鳴らす
-        //sc.PlaySe(87); //あけた音
-        sc.PlaySe(86); //獲得音
+        switch (Treasure_Status)
+        {
+            case 0: //宝箱
+
+                sc.PlaySe(87); //あけた音
+                sc.PlaySe(86); //獲得音
+
+                break;
+
+            case 1: //あやしい場所を探索
+
+                sc.PlaySe(86); //獲得音
+
+                break;
+
+
+            default:
+
+                break;
+        }
+        
     }
 
     //宝箱データのセッティング

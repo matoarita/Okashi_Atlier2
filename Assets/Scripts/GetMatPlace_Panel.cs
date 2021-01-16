@@ -51,6 +51,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject text_area;
     private Text _text;
+    private string _temp_tx;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -493,46 +494,48 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
 
             case true: //決定が押された
-               
-                    //お金が足りてるかチェック
-                    mat_cost = matplace_database.matplace_lists[select_place_num].placeCost;
-                    if (PlayerStatus.player_money < mat_cost)
-                    {
-                        _text.text = "にいちゃん。お金が足りないよ～・・。";
 
-                        All_Off();
-                    }
-                    else
-                    {
-                        //Debug.Log("ok");
-                        //解除
+                //お金が足りてるかチェック
+                mat_cost = matplace_database.matplace_lists[select_place_num].placeCost;
+                if (PlayerStatus.player_money < mat_cost)
+                {
+                    _text.text = "にいちゃん。お金が足りないよ～・・。";
 
-                        itemselect_cancel.kettei_on_waiting = false;
+                    All_Off();
+                }
+                else
+                {
+                    //Debug.Log("ok");
+                    //解除
 
-                        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                    itemselect_cancel.kettei_on_waiting = false;
 
-                        //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
+                    yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                        move_anim_on = true;
-                        move_anim_status = 0;
+                    //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
 
-                        next_on = false;
+                    move_anim_on = true;
+                    move_anim_status = 0;
 
-                        girl1_status.hukidasiOff();
+                    next_on = false;
 
-                        //音量フェードアウト
-                        sceneBGM.FadeOutBGM();
+                    girl1_status.hukidasiOff();
 
-                        //日数の経過。場所ごとに、移動までの日数が変わる。
-                        PlayerStatus.player_time += select_place_day;
-                        time_controller.TimeKoushin();
+                    //音量フェードアウト
+                    sceneBGM.FadeOutBGM();
 
-                        //お金の消費
-                        moneyStatus_Controller.UseMoney(mat_cost);
-                    }
-                
+                    //日数の経過。場所ごとに、移動までの日数が変わる。
+                    PlayerStatus.player_time += select_place_day;
+                    time_controller.TimeKoushin();
+
+                    //お金の消費
+                    moneyStatus_Controller.UseMoney(mat_cost);
+
+                    Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
+                }
+
                 break;
-                    
+
 
             case false: //キャンセルが押された
 
@@ -615,7 +618,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 1;
+                            GameMgr.map_ev_ID = 10;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
@@ -655,7 +658,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 6;
+                            GameMgr.map_ev_ID = 60;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
@@ -692,7 +695,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 4;
+                            GameMgr.map_ev_ID = 40;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
@@ -729,7 +732,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 5;
+                            GameMgr.map_ev_ID = 50;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
@@ -763,10 +766,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_tansaku_button_obj.SetActive(false);
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
+                            event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 5;
+                            GameMgr.map_ev_ID = 20;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             //次回以降、バードサンクチュアリにいけるようになる。
@@ -776,7 +779,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
                         else
                         {
-                            _text.text = "兄ちゃん。とりさんと遊ぼう！！";
+                            _text.text = "兄ちゃん。とりさんとあそぼ！！";
                         }
 
                         break;
@@ -1210,7 +1213,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     }
 
     //
-    //宝箱をあける
+    //宝箱をあける（怪しい場所を散策するなども、このメソッド）
     //
 
     public void OnOpenTreasure() //「あける」ボタンをおした
@@ -1231,12 +1234,32 @@ public class GetMatPlace_Panel : MonoBehaviour {
         switch (treasure_anim_status)
         {
             case 0: //初期化 状態１
-
-                sc.PlaySe(85); //開錠中ガチャガチャ
+               
                 timeOut = 1.0f;
                 treasure_anim_status = 1;
 
-                _text.text = "解錠中 .";
+                switch (get_material.Treasure_Status)
+                {
+                    case 0: //宝箱
+
+                        sc.PlaySe(85); //開錠中ガチャガチャ
+                        _text.text = "解錠中 .";
+                        _temp_tx = "解錠中 . .";
+                        break;
+
+                    case 1: //あやしい場所を探索
+
+                        sc.PlaySe(24); //シャカシャカ
+                        _text.text = "探索中 .";
+                        _temp_tx = "探索中 . .";
+                        break;
+
+
+                    default:
+                        
+                        break;
+                }
+                
                 break;
 
             case 1: // 状態2
@@ -1246,7 +1269,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     timeOut = 1.0f;
                     treasure_anim_status = 2;
 
-                    _text.text = "解錠中 . .";
+                    _text.text = _temp_tx;
                 }
                 break;
 
