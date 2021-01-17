@@ -909,6 +909,130 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         }
     }
 
+    public void Combination3(string[] args, int[] _kosu, int _mstatus) //順列・組み合わせ計算プログラム
+    {
+        n = 3; //3個の入力から
+        k = 3; //nの中から、3個を選ぶ
+
+        item = new string[n]; //3個の入力から
+        subtype = new string[n];
+        kosu = new int[n];
+        dictID = new int[n];
+
+        mstatus = _mstatus;
+
+        for (i = 0; i < dictID.Length; i++)
+        {
+            dictID[i] = i; // 0, 1, 2のIDが入ったリスト。
+        }
+
+        item = args;
+        kosu = _kosu;
+
+        //アイテム名・個数をディクショナリー化。dictIDと結びつける。
+        Init_ItemSet();
+        Init_KosuSet();
+
+
+        //var nums = Enumerable.Range(1, n).ToArray();
+        var combinations = CombinationMethod.Enumerate(dictID, k); //, withRepetition: true withRepetitionがfalseだと、重複しなくなる。trueで、重複する。
+
+
+        //CompoDBの１行目から見ていく。
+        count = 0;
+        compFlag = false;
+
+        while (count < databaseCompo.compoitems.Count)
+        {
+            //cmp_flag=9999の場合、その組み合わせは無視する。
+            if (databaseCompo.compoitems[count].cmpitem_flag == 9999)
+            {
+
+            }
+            else
+            {
+                set_count = 1;
+
+                //入力した要素を、順番に全て出力する。3個入力なら、6個出力
+                foreach (var elem in combinations)
+                {
+                    youso = new List<int>(elem);
+
+                    //デバッグ用
+                    //s = "(" + string.Join(",", elem.Select(x => x.ToString()).ToArray()) + ")";
+                    //Debug.Log("set" + set_count + ": " + s);
+
+                    //0,1,2とか2,0,1といった、IDの組み合わせがyousoに入っている。それを取り出し比較する。
+                    //Excelルールで、サブの頭がemptyの場合は、固有＋固有か固有＋サブの場合しかないので、サブ同士の組み合わせは計算しない
+                    if (databaseCompo.compoitems[count].cmp_subtype_1 != "empty") 
+                    {
+                        if (databaseCompo.compoitems[count].cmp_subtype_1 == itemset[youso[0]] &&
+                            databaseCompo.compoitems[count].cmp_subtype_2 == itemset[youso[1]] &&
+                            databaseCompo.compoitems[count].cmp_subtype_3 == itemset[youso[2]])
+                        {
+
+                            switch (kosu_Check)
+                            {
+                                case false:
+
+                                    //一致していたら、true
+                                    if (_mstatus != 99)
+                                    {
+                                        Debug.Log("サブ同士で一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                    }
+
+                                    compFlag = true;
+                                    resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                    result_compID = count;
+
+                                    Kyori_Keisan();
+                                    break;
+
+                                case true:
+
+                                    //更に、個数も確認。
+                                    if (databaseCompo.compoitems[count].cmpitem_kosu1 == kosuset[youso[0]] &&
+                                        databaseCompo.compoitems[count].cmpitem_kosu2 == kosuset[youso[1]] &&
+                                        databaseCompo.compoitems[count].cmpitem_kosu3 == kosuset[youso[2]])
+                                    {
+                                        //一致していたら、true
+                                        if (_mstatus != 99)
+                                        {
+                                            Debug.Log("サブ同士で一致した。" + " アイテム名: " + databaseCompo.compoitems[count].cmpitem_Name);
+                                        }
+
+                                        compFlag = true;
+                                        resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
+                                        result_compID = count;
+
+                                        Kyori_Keisan();
+                                    }
+                                    break;
+                            }
+
+
+                        }
+                    }
+
+                    /*for (i = 0; i < youso.Count; i++) 
+                    {
+                        Debug.Log(youso[i] + " Item: " + itemset[youso[i]] + " Kosu: " + kosuset[youso[i]]);                    
+                    }*/
+                    set_count++;
+                }
+            }
+            if (compFlag) { break; }
+            count++;
+        }
+
+        //該当するものがなければ、compFlagはFalseのまま
+        if (!compFlag)
+        {
+            if (_mstatus != 99)
+            { Debug.Log("＜サブ名称組み合わせ＞コンポDBに一致するもの無し"); }
+        }
+    }
+
     void CombinationSubSample() //アイテム・サブの組み合わせをみる
     {
         n = 6; //3個の入力から

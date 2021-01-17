@@ -135,6 +135,7 @@ public class Item
         Nuts,
         Fish,
         Source,
+        Topping,
         Potion,
         Juice,
         Tea,

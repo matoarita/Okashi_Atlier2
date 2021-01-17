@@ -921,7 +921,7 @@ public class Quest_Judge : MonoBehaviour {
                     //トッピングごとに、得点を加算する。妹の採点のtotal_scoreの加算値と共有。
                     if (itemslot_PitemScore[i] > 0)
                     {
-                        okashi_score += slotnamedatabase.slotname_lists[i].slot_totalScore;                       
+                        okashi_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslot_PitemScore[i];                       
                     }
                 }
             }
@@ -1372,8 +1372,8 @@ public class Quest_Judge : MonoBehaviour {
             }
         }
 
-        //固有トッピングスロットも見る。一致する効果があれば、所持数+1
-        for (i = 0; i < _koyutp.Length; i++)
+        //固有トッピングスロットも見る。一致する効果があれば、所持数+1。現在未使用。
+        /*for (i = 0; i < _koyutp.Length; i++)
         {
             count = 0;
             //itemslotInfoディクショナリのキーを全て取得
@@ -1387,7 +1387,7 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 count++;
             }
-        }
+        }*/
     }
 
     void InitializeItemSlotDicts()

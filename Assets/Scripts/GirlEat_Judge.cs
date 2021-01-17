@@ -881,8 +881,8 @@ public class GirlEat_Judge : MonoBehaviour {
             }                      
         }
 
-        //固有トッピングスロットも見る。一致する効果があれば、所持数+1
-        for (i = 0; i < _koyutp.Length; i++)
+        //固有トッピングスロットも見る。一致する効果があれば、所持数+1。現在は未使用。
+        /*for (i = 0; i < _koyutp.Length; i++)
         {
             count = 0;
             //itemslotInfoディクショナリのキーを全て取得
@@ -895,7 +895,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
                 count++;
             }
-        }
+        }*/
 
         //確認用
         /*count = 0;
@@ -1478,7 +1478,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 //トッピングされているものに応じて、得点
                 if (itemslotScore[i] > 0)
                 {
-                    topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore;
+                    topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslotScore[i];
                 }
 
             }
@@ -1501,7 +1501,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         //女の子のスコア(所持数)より、生成したアイテムのスロットの所持数が大きい場合は、そのトッピングが好みとマッチしている。正解
                         if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet1[i])
                         {
-                            topping_score += girl1_status.girl1_hungryToppingScoreSet1[i];
+                            topping_score += girl1_status.girl1_hungryToppingScoreSet1[i] * itemslotScore[i];
 
                             //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。今のとこ、一番後ろのTPに反応する。
                             topping_flag_point = girl1_status.girl1_hungryToppingNumberSet1[i]; //スロット左から何番目がヒットしたか。
@@ -1530,7 +1530,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         //女の子のスコア(所持数)より、生成したアイテムのスロットの所持数が大きい場合は、そのトッピングが好みとマッチしている。正解
                         if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet2[i])
                         {
-                            topping_score += girl1_status.girl1_hungryToppingScoreSet2[i];
+                            topping_score += girl1_status.girl1_hungryToppingScoreSet2[i] * itemslotScore[i];
 
                             //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。
                             topping_flag_point = girl1_status.girl1_hungryToppingNumberSet2[i];
@@ -1558,7 +1558,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         //女の子のスコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
                         if (itemslotScore[i] >= girl1_status.girl1_hungryScoreSet3[i])
                         {
-                            topping_score += girl1_status.girl1_hungryToppingScoreSet3[i];
+                            topping_score += girl1_status.girl1_hungryToppingScoreSet3[i] * itemslotScore[i];
 
                             //該当したスロットの、フラグもたてる。複数のフラグがたつ場合は、何か処理をしたい。けど、とりあえず未実装。一個だけ対応。
                             topping_flag_point = girl1_status.girl1_hungryToppingNumberSet3[i];

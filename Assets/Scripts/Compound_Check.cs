@@ -825,21 +825,20 @@ public class Compound_Check : MonoBehaviour {
 
         if (compoDB_select_judge == false)
         {
-            Combinationmain.Combination(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 0);
+                Combinationmain.Combination3(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 0);
 
-            compoDB_select_judge = Combinationmain.compFlag;
-            if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
-            {
-                resultitemID = Combinationmain.resultitemName;
-                result_compoID = Combinationmain.result_compID;
-
-                result_kosuset.Clear();
-                for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
+                compoDB_select_judge = Combinationmain.compFlag;
+                if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
                 {
-                    result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
-                }
-            }
-            
+                    resultitemID = Combinationmain.resultitemName;
+                    result_compoID = Combinationmain.result_compID;
+
+                    result_kosuset.Clear();
+                    for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
+                    {
+                        result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
+                    }
+                }            
         }
 
 

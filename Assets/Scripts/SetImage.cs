@@ -23,6 +23,7 @@ public class SetImage : MonoBehaviour
     private GameObject Card_param_obj;
     private GameObject Card_param_obj2;
     private GameObject TasteSubWindow;
+    private GameObject Slot_SubWindow;
 
     private GameObject NewRecipi_Prefab1;
     private GameObject NewRecipi;
@@ -54,6 +55,7 @@ public class SetImage : MonoBehaviour
 
     private Image item_Icon;
     private Text item_Name;
+    private string _name;
     private string item_SlotName;
 
     private Text item_Rank;
@@ -254,6 +256,7 @@ public class SetImage : MonoBehaviour
 
         Card_param_obj = this.transform.Find("Card_Param_window").gameObject;
         Card_param_obj2 = this.transform.Find("Card_Param_window2").gameObject;
+        Slot_SubWindow = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot").gameObject;
         TasteSubWindow = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow").gameObject;
         //TasteSubWindow.SetActive(false);
 
@@ -292,17 +295,17 @@ public class SetImage : MonoBehaviour
         item_Oily = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemOily").gameObject.GetComponent<Text>(); //粉っぽいの値
         item_Watery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemWatery").gameObject.GetComponent<Text>(); //粉っぽいの値
 
-        //現在は未表示
-        item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
-        item_Slot[1] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_02").gameObject.GetComponent<Text>(); //Slot02の値
-        item_Slot[2] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_03").gameObject.GetComponent<Text>(); //Slot03の値
-        item_Slot[3] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_04").gameObject.GetComponent<Text>(); //Slot04の値
-        item_Slot[4] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_05").gameObject.GetComponent<Text>(); //Slot05の値
-        item_Slot[5] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_06").gameObject.GetComponent<Text>(); //Slot06の値
-        item_Slot[6] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_07").gameObject.GetComponent<Text>(); //Slot07の値
-        item_Slot[7] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_08").gameObject.GetComponent<Text>(); //Slot08の値
-        item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
-        item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
+        //スロット表示
+        item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
+        item_Slot[1] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_02").gameObject.GetComponent<Text>(); //Slot02の値
+        item_Slot[2] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_03").gameObject.GetComponent<Text>(); //Slot03の値
+        item_Slot[3] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_04").gameObject.GetComponent<Text>(); //Slot04の値
+        item_Slot[4] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_05").gameObject.GetComponent<Text>(); //Slot05の値
+        item_Slot[5] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_06").gameObject.GetComponent<Text>(); //Slot06の値
+        item_Slot[6] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_07").gameObject.GetComponent<Text>(); //Slot07の値
+        item_Slot[7] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_08").gameObject.GetComponent<Text>(); //Slot08の値
+        item_Slot[8] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_09").gameObject.GetComponent<Text>(); //Slot09の値
+        item_Slot[9] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_10").gameObject.GetComponent<Text>(); //Slot10の値
 
         kosu_panel = this.transform.Find("Item_card_template/ItemKosu_Panel").gameObject;
         kosu_panel.SetActive(false);
@@ -415,7 +418,7 @@ public class SetImage : MonoBehaviour
                 item_SlotName = database.items[check_counter].item_SlotName;
 
                 //カードのアイテム名フル
-                item_Name.text = database.items[check_counter].itemNameHyouji;
+                _name = database.items[check_counter].itemNameHyouji;                
                 
                 //アイテムの品質値
                 _quality = database.items[check_counter].Quality.ToString();
@@ -482,7 +485,8 @@ public class SetImage : MonoBehaviour
                 item_SlotName = pitemlist.player_originalitemlist[check_counter].item_SlotName;
 
                 //カードのアイテム名
-                item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
+                //item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
+                _name = pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
 
                 //アイテムの品質値
                 _quality = pitemlist.player_originalitemlist[check_counter].Quality.ToString();
@@ -909,12 +913,16 @@ public class SetImage : MonoBehaviour
         item_Quality_Score.text = _quality_score.ToString();
         */
 
+        //名称デフォルト
+        item_Name.text = _name;
+
         //
         //味ウィンドウの表示のON/OFFを分類
         //
         Card_param_obj.SetActive(false);
         Card_param_obj2.SetActive(false);
         TasteSubWindow.SetActive(false);
+        Slot_SubWindow.SetActive(false);
 
         if (item_type == "Mat" || item_type == "Etc")
         {
@@ -925,6 +933,8 @@ public class SetImage : MonoBehaviour
                     Card_param_obj2.SetActive(false);
                     TasteSubWindow.SetActive(true);
                     item_Shokukan.text = "-";
+
+                    item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
                     break;
                 case "Cream":
                     Card_param_obj.SetActive(true);
@@ -966,7 +976,9 @@ public class SetImage : MonoBehaviour
         {
             Card_param_obj.SetActive(true);
             Card_param_obj2.SetActive(true);
+            Slot_SubWindow.SetActive(true);
 
+            //item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
         }
         else if (item_type == "Potion")
         {

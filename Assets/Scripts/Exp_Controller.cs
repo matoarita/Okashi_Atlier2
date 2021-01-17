@@ -401,51 +401,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数は、updowncounterの数値がセットされる。スクリプトは、Compound_Checkから参照。
 
 
-            //①調合処理
-            compound_keisan.Topping_Compound_Method(0);
+            //調合処理
+            Compo_1();
 
-            result_item = pitemlist.player_originalitemlist.Count - 1;
-
-            renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
-
-            //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
-            if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
-            {
-            }
-            else
-            {
-                //パネルに、作ったやつを表示する。
-                extremePanel.SetExtremeItem(result_item, 1);
-
-            }
-
-            new_item = result_item;
-
-            card_view.ResultCard_DrawView(1, new_item);
-
-            /*②店売りアイテムとして生成
-            //アイテム削除
-            compound_keisan.Delete_playerItemList();
-
-            renkin_hyouji = database.items[result_item].itemNameHyouji;
-
-            //店売りアイテムとして生成
-            pitemlist.addPlayerItem(result_item, result_kosu);
-
-            //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
-            if (database.items[result_item].itemType.ToString() == "Mat" || database.items[result_item].itemType.ToString() == "Potion")
-            {
-            }
-            else
-            {
-                //右側パネルに、作ったやつを表示する。
-                extremePanel.SetExtremeItem(result_item, 0);
-
-            }
-
-            new_item = result_item;
-
-            card_view.ResultCard_DrawView(0, new_item);*/
+            
 
             //チュートリアルのときは、一時的にOFF
             if (GameMgr.tutorial_ON == true)
@@ -585,7 +544,55 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         exp_table.Check_LevelUp();
     }
 
+    void Compo_1()
+    {
+        //①調合処理 オリジナルアイテムとして生成
+        compound_keisan.Topping_Compound_Method(0);
 
+        result_item = pitemlist.player_originalitemlist.Count - 1;
+
+        renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
+
+        //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
+        if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
+        {
+        }
+        else
+        {
+            //パネルに、作ったやつを表示する。
+            extremePanel.SetExtremeItem(result_item, 1);
+
+        }
+
+        new_item = result_item;
+
+        card_view.ResultCard_DrawView(1, new_item);
+    }
+
+    //使ってない
+    void Compo_2()
+    {
+        //②店売りアイテムとして生成し、実際にアイテムを追加。
+        
+        //リザルトアイテムを代入
+        result_item = recipilistController.result_recipiitem;
+
+        compound_keisan.Delete_playerItemList();
+        renkin_hyouji = database.items[result_item].itemNameHyouji;
+        pitemlist.addPlayerItem(result_item, result_kosu);
+
+        if (database.items[result_item].itemType.ToString() == "Mat" || database.items[result_item].itemType.ToString() == "Potion")
+        {
+        }
+        else
+        {
+            //右側パネルに、作ったやつを表示する。
+            extremePanel.SetExtremeItem(result_item, 0);
+
+        }
+
+        card_view.RecipiResultCard_DrawView(0, result_item);
+    }
 
     //
     //レシピ調合完了の場合、ここでアイテムリストの更新行う。
@@ -645,50 +652,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (compound_success == true)
         {
 
-            //①調合処理
-            /*compound_keisan.Topping_Compound_Method(0);
-            
-            result_item = pitemlist.player_originalitemlist.Count - 1;
+            //調合処理
+            Compo_1();
 
-            renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
-
-            
-            //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
-            if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
-            {
-            }
-            else
-            {
-                //右側パネルに、作ったやつを表示する。
-                extremePanel.SetExtremeItem(result_item, 1);
-
-            }
-
-            new_item = result_item;
-
-            card_view.ResultCard_DrawView(1, new_item);*/
-
-
-            //②店売りアイテムとして生成し、実際にアイテムを追加。
-            
-            //リザルトアイテムを代入
-            result_item = recipilistController.result_recipiitem;
-
-            compound_keisan.Delete_playerItemList();
-            renkin_hyouji = database.items[result_item].itemNameHyouji;
-            pitemlist.addPlayerItem(result_item, result_kosu);
-
-            if (database.items[result_item].itemType.ToString() == "Mat" || database.items[result_item].itemType.ToString() == "Potion")
-            {
-            }
-            else
-            {
-                //右側パネルに、作ったやつを表示する。
-                extremePanel.SetExtremeItem(result_item, 0);
-
-            }
-
-            card_view.RecipiResultCard_DrawView(0, result_item);
             
 
             //チュートリアルのときは、一時的にOFF
@@ -1441,14 +1407,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (_getexp != 0)
         {
             _text.text = "やったね！ " +
-            GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
+            //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
+            pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "パティシエ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
-            GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + pitemlist.player_originalitemlist[new_item].itemNameHyouji +
+            //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + 
+            pitemlist.player_originalitemlist[new_item].itemNameHyouji +
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "パティシエ経験値は上がらなかった。"; ;
         }

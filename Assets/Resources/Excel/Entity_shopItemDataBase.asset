@@ -291,8 +291,8 @@ MonoBehaviour:
       name: maffin_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 300
-      shop_buy_price: 150
+      shop_sell_price: 100
+      shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 40
       name: bisucouti_recipi
@@ -312,15 +312,15 @@ MonoBehaviour:
       name: financier_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 200
-      shop_buy_price: 100
+      shop_sell_price: 500
+      shop_buy_price: 250
       item_hyouji: 1
     - ItemID: 43
       name: creampuff_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 500
-      shop_buy_price: 250
+      shop_sell_price: 300
+      shop_buy_price: 150
       item_hyouji: 1
     - ItemID: 44
       name: slimejelly_recipi

@@ -36,7 +36,6 @@ public class ExtremePanel : MonoBehaviour {
     private Texture2D texture2d;
 
     private Image item_Icon;
-    private Text item_Name;
     private Text extreme_Param;
 
     private Text extreme_itemName;
@@ -297,7 +296,8 @@ public class ExtremePanel : MonoBehaviour {
             extreme_kaisu = pitemlist.player_originalitemlist[extreme_itemID].ExtremeKaisu;
 
             //スロット名+アイテム名の表示
-            extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_originalitemlist[extreme_itemID].item_SlotName + "</color>" + pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
+            //extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_originalitemlist[extreme_itemID].item_SlotName + "</color>" + pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
+            extreme_itemName.text = pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
         }
 
 

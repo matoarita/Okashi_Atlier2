@@ -1657,7 +1657,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 35
       file_name: himawari_seeds
@@ -2248,7 +2248,7 @@ MonoBehaviour:
       oily: 0
       watery: 10
       type: Mat
-      subtype: Source
+      subtype: Potion
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -2295,7 +2295,7 @@ MonoBehaviour:
       oily: 0
       watery: 1
       type: Mat
-      subtype: Source
+      subtype: Potion
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -2342,7 +2342,7 @@ MonoBehaviour:
       oily: 0
       watery: 10
       type: Mat
-      subtype: Source
+      subtype: Potion
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -3161,7 +3161,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 0
+      item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 67
       file_name: apareiyu
@@ -3212,6 +3212,53 @@ MonoBehaviour:
       Set_JudgeNum: 0
     - ItemID: 68
       file_name: apareiyu
+      name: appaleil_maffin
+      nameHyouji: "\u30DE\u30D5\u30A3\u30F3\u751F\u5730"
+      desc: "\u7802\u7CD6\u3001\u30D0\u30BF\u30FC\u3001\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC\u3092\u30DF\u30C3\u30AF\u30B9\u3057\u305F\u751F\u5730\u3002\u3088\u304F\u81A8\u3089\u3080\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0.95
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Mat
+      subtype: Appaleil
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 69
+      file_name: apareiyu
       name: custard_cream
       nameHyouji: "\u30AB\u30B9\u30BF\u30FC\u30C9\u30AF\u30EA\u30FC\u30E0"
       desc: "\u5375\u9EC4\u30FB\u7802\u7CD6\u30FB\u5C0F\u9EA6\u7C89\u30FB\u6E29\u3081\u305F\u30DF\u30EB\u30AF\u3092\u6DF7\u305C\u3066\u4F5C\u308B\u30AF\u30EA\u30FC\u30E0\u751F\u5730\u3002"
@@ -3257,7 +3304,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 69
+    - ItemID: 70
       file_name: apareiyu
       name: appaleil_yellow
       nameHyouji: "\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30A4\u30A8\u30ED\u30FC\uFF1E"
@@ -3304,7 +3351,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 70
+    - ItemID: 71
       file_name: apareiyu
       name: meringue
       nameHyouji: "\u30E1\u30EC\u30F3\u30B2"
@@ -3351,7 +3398,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 71
+    - ItemID: 72
       file_name: powder_bowl
       name: financier_powder
       nameHyouji: "\u30A2\u30DE\u30F3\u30C9\u30FB\u30D5\u30A1\u30EA\u30FC\u30CC"
@@ -3398,7 +3445,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 72
+    - ItemID: 73
       file_name: powder_bowl
       name: baking_mix
       nameHyouji: "\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9"
@@ -3445,7 +3492,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 73
+    - ItemID: 74
       file_name: apareiyu
       name: mazekiji
       nameHyouji: "\u6DF7\u305C\u751F\u5730"
@@ -3492,7 +3539,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 74
+    - ItemID: 75
       file_name: apareiyu
       name: cookie_base
       nameHyouji: "\u30D0\u30BF\u30FC\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
@@ -3539,7 +3586,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 75
+    - ItemID: 76
       file_name: apareiyu
       name: cookie_base_salad_Oil
       nameHyouji: "\u30B7\u30F3\u30D7\u30EB\u306A\u30AF\u30C3\u30AD\u30FC\u751F\u5730"
@@ -3586,7 +3633,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 76
+    - ItemID: 77
       file_name: apareiyu
       name: cookie_base_nosuger
       nameHyouji: "\u30AF\u30C3\u30AD\u30FC\u751F\u5730<\u7802\u7CD6\u306A\u3057>"
@@ -3633,7 +3680,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 77
+    - ItemID: 78
       file_name: apareiyu
       name: cookie_base_cheese
       nameHyouji: "\u30C1\u30FC\u30BA\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
@@ -3680,7 +3727,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 78
+    - ItemID: 79
       file_name: apareiyu
       name: cookie_base_orange
       nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
@@ -3727,7 +3774,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 79
+    - ItemID: 80
       file_name: apareiyu
       name: cookie_base_grape
       nameHyouji: "\u3076\u3069\u3046\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
@@ -3774,7 +3821,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 80
+    - ItemID: 81
       file_name: apareiyu
       name: cookie_base_cocoa
       nameHyouji: "\u30B3\u30B3\u30A2\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
@@ -3821,7 +3868,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 81
+    - ItemID: 82
       file_name: apareiyu
       name: cookie_base_icebox
       nameHyouji: "\u30A2\u30A4\u30B9\u30DC\u30C3\u30AF\u30B9\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
@@ -3868,7 +3915,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 82
+    - ItemID: 83
       file_name: apareiyu
       name: cookie_base_honey
       nameHyouji: "\u306F\u3061\u307F\u3064\u30AF\u30C3\u30AD\u30FC\u306E\u751F\u5730"
@@ -3915,7 +3962,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 83
+    - ItemID: 84
       file_name: apareiyu
       name: cake_base
       nameHyouji: "\u57FA\u672C\u306E\u30B1\u30FC\u30AD\u306E\u751F\u5730"
@@ -3962,7 +4009,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 84
+    - ItemID: 85
       file_name: apareiyu
       name: financier_base
       nameHyouji: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u751F\u5730"
@@ -4009,7 +4056,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 85
+    - ItemID: 86
       file_name: apareiyu
       name: cake_base_cheese
       nameHyouji: "\u30C1\u30FC\u30BA\u30B1\u30FC\u30AD\u306E\u751F\u5730"
@@ -4056,7 +4103,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 86
+    - ItemID: 87
       file_name: apareiyu
       name: chocolate_base
       nameHyouji: "\u57FA\u672C\u306E\u30C1\u30E7\u30B3\u306E\u30BF\u30CD"
@@ -4103,7 +4150,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 87
+    - ItemID: 88
       file_name: apareiyu
       name: pie_base
       nameHyouji: "\u57FA\u672C\u306E\u30D1\u30A4\u751F\u5730"
@@ -5354,7 +5401,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Cookie
       base_score: 60
-      girl1_like: 3
+      girl1_like: 2
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -5401,7 +5448,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Cookie
       base_score: 60
-      girl1_like: 4
+      girl1_like: 3
       cost_price: 50
       sell_price: 50
       topping01: Non
@@ -5636,7 +5683,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe_Mat
       base_score: 60
-      girl1_like: 2
+      girl1_like: 1
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -5730,7 +5777,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -5777,7 +5824,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -5824,7 +5871,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -5871,7 +5918,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -5918,7 +5965,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -5965,7 +6012,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6012,7 +6059,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6059,7 +6106,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6106,7 +6153,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6153,7 +6200,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6200,7 +6247,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6247,7 +6294,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6294,7 +6341,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6341,7 +6388,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6388,7 +6435,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6435,7 +6482,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6482,7 +6529,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6529,7 +6576,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6576,7 +6623,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6623,7 +6670,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6670,7 +6717,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6717,7 +6764,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6764,7 +6811,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6811,7 +6858,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6858,7 +6905,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6905,7 +6952,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6952,7 +6999,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -6999,7 +7046,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -7046,7 +7093,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Crepe
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -7093,7 +7140,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Cannoli
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -7140,7 +7187,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Maffin
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -7187,7 +7234,7 @@ MonoBehaviour:
       type: Okashi
       subtype: Biscotti
       base_score: 60
-      girl1_like: 2
+      girl1_like: 2.5
       cost_price: 300
       sell_price: 150
       topping01: Non
@@ -10900,7 +10947,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -10947,7 +10994,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -10994,7 +11041,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11041,7 +11088,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11088,7 +11135,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11135,7 +11182,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11182,7 +11229,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11229,7 +11276,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11276,7 +11323,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11323,7 +11370,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11370,7 +11417,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11417,7 +11464,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11464,7 +11511,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11511,7 +11558,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11558,7 +11605,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11605,7 +11652,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11652,7 +11699,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 500
@@ -11793,7 +11840,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11819,7 +11866,7 @@ MonoBehaviour:
       file_name: mint
       name: mint
       nameHyouji: "\u30DF\u30F3\u30C8"
-      desc: "\u3061\u3063\u3061\u3083\u306A\u3001\u723D\u5FEB\u3067\u9BAE\u70C8\u306A\u9999\u308A\u306E\u8449\u3063\u3071\u3002\u6599\u7406\u306A\u3069\u306B\u3082\u4F7F\u308F\u308C\u308B\u3002"
+      desc: "\u3061\u3063\u3061\u3083\u306A\u3001\u723D\u5FEB\u3067\u9BAE\u70C8\u306A\u9999\u308A\u306E\u8449\u3063\u3071\u3002\u6599\u7406\u306A\u3069\u306B\u3082\u4F7F\u308F\u308C\u308B\u3002\u9999\u308A\u304C\u72EC\u7279\u3067\u3001\u4E3B\u5F35\u304C\u6FC0\u3057\u3044\u3002"
       comp_hosei: 0
       hp: 0
       day: 0
@@ -11840,7 +11887,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11887,7 +11934,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11934,7 +11981,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -11981,7 +12028,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12028,7 +12075,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12075,7 +12122,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12122,7 +12169,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12169,7 +12216,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
@@ -12263,7 +12310,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Potion
-      subtype: Potion
+      subtype: Topping
       base_score: 0
       girl1_like: 0
       cost_price: 0
