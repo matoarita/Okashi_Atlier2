@@ -200,6 +200,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int Girl1_touchtwintail_count;
     private bool Girl1_touchtwintail_flag; //全ての会話を表示したら、しばらく触れなくなる
 
+    public bool Girl1_touchchest_start;
+
     //歩きスタート
     public bool Walk_Start;
 
@@ -404,6 +406,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchtwintail_start = false;
         Girl1_touchtwintail_count = 0;
         Girl1_touchtwintail_flag = false;
+
+        Girl1_touchchest_start = false;
 
         Walk_Start = true; //歩きフラグをON
 
@@ -1887,7 +1891,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //ランダムで、吹き出しの内容を決定
         Init_touchFaceComment();
 
-        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
         random = Random.Range(0, _touchface_comment_lib.Count);
         _hintrandom = _touchface_comment_lib[random];
         
@@ -1986,7 +1989,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //吹き出し内容の決定
         Init_touchHandComment();
 
-        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
         random = Random.Range(0, _touchhand_comment_lib.Count);
         _touchhand_comment = _touchhand_comment_lib[random];
 
@@ -1996,6 +1998,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _model_obj.GetComponent<GazeController>().enabled = true;
     }
 
+    public void TouchChest_Start()
+    {
+        Girl1_touchchest_start = true;
+
+        //タップモーション　最初触った一回だけ発動        
+        live2d_animator.SetLayerWeight(2, 1);
+        live2d_animator.Play("tapmotion_02", 2, 0.0f);
+
+        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+        facemotion_start = false;
+    }
+
     public void TouchSisterChest()
     {
         touch_startreset();
@@ -2003,7 +2018,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //吹き出し内容の決定
         Init_touchChestComment();
 
-        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
         random = Random.Range(0, _touchchest_comment_lib.Count);
         _touchchest_comment = _touchchest_comment_lib[random];
 

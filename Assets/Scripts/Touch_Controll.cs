@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
@@ -55,8 +56,21 @@ public class Touch_Controll : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetMouseButtonUp(0))
+        {
+            //Debug.Log("マウス左クリックが離された");
+            /*if(girl1_status.Girl1_touchtwintail_start)
+            {
+                girl1_status.Girl1_touchtwintail_start = false;
+            }
 
+            if (girl1_status.Girl1_touchchest_start)
+            {
+                girl1_status.Girl1_touchchest_start = false;
+            }*/
+        }
     }
+
 
     //口を触る
     public void OnTouchFace()
@@ -72,6 +86,7 @@ public class Touch_Controll : MonoBehaviour
             //口以外のタッチステータスをリセット
             girl1_status.Girl1_touchhair_start = false;
             girl1_status.Girl1_touchtwintail_start = false;
+            girl1_status.Girl1_touchchest_start = false;
             //sc.PlaySe(2);
         }
 
@@ -97,6 +112,7 @@ public class Touch_Controll : MonoBehaviour
 
             //頭以外のタッチステータスをリセット
             girl1_status.Girl1_touchtwintail_start = false;
+            girl1_status.Girl1_touchchest_start = false;
             //sc.PlaySe(0);
         }
     }
@@ -150,6 +166,7 @@ public class Touch_Controll : MonoBehaviour
             //リボン以外のタッチステータスをリセット
             girl1_status.Girl1_touchhair_start = false;
             girl1_status.Girl1_touchtwintail_start = false;
+            girl1_status.Girl1_touchchest_start = false;
             //sc.PlaySe(0);
         }
 
@@ -176,6 +193,7 @@ public class Touch_Controll : MonoBehaviour
             
             //ツインテール以外のタッチステータスをリセット
             girl1_status.Girl1_touchhair_start = false;
+            girl1_status.Girl1_touchchest_start = false;
             //sc.PlaySe(0);
         }
 
@@ -194,6 +212,7 @@ public class Touch_Controll : MonoBehaviour
             //手以外のタッチステータスをリセット
             girl1_status.Girl1_touchhair_start = false;
             girl1_status.Girl1_touchtwintail_start = false;
+            girl1_status.Girl1_touchchest_start = false;
             //sc.PlaySe(0);
         }
     }
@@ -206,8 +225,16 @@ public class Touch_Controll : MonoBehaviour
         {
             //Debug.Log("Touch_Chest");
 
-            girl1_status.TouchSisterChest();
-            girl1_status.touchGirl_status = 5;
+            if (!girl1_status.Girl1_touchchest_start)
+            {
+                girl1_status.TouchChest_Start();
+                girl1_status.TouchSisterChest();
+                girl1_status.touchGirl_status = 5;
+            }
+            else
+            {
+                girl1_status.TouchSisterChest();
+            }                       
 
             //胸以外のタッチステータスをリセット
             girl1_status.Girl1_touchhair_start = false;

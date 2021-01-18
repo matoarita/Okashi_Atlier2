@@ -1406,7 +1406,7 @@ public class Compound_Main : MonoBehaviour
 
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(true);
+                compoBG_A_effect.SetActive(false);
                 compoBGA_image.SetActive(true);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
