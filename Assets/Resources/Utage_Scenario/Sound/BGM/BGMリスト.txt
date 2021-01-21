@@ -31,8 +31,8 @@
 ・BGM_29		audiostock_854783_sample		【未使用】クリスタルのイメージの音２
 ・BGM_30		audiostock_823980_sample		【未使用】月夜の曲
 ・BGM_31		audiostock_94283_sample			【未使用】月夜の曲２
-・BGM_32		audiostock_824733_sample		月夜の曲３
-・BGM_33		audiostock_158582_sample		バードサンクチュアリイメージの静かなピアノ曲
+・BGM_32		audiostock_824733			月夜の曲３
+・BGM_33		audiostock_158582			バードサンクチュアリイメージの静かなピアノ曲
 ・BGM_34		audiostock_371284_sample		【未使用】じいさんのテーマ曲　ファンキー
 ・BGM_35		audiostock_134515			調合テーマ２　ピアノ系の不思議なクッキングBGM
 ・BGM_36		audiostock_120586			エメラルショップの曲

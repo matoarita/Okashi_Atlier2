@@ -88,5 +88,5 @@ SE表
 ・SE_86		audiostock_891100				宝箱をガチャガチャ
 ・SE_87		audiostock_66346				宝箱を開けたときの獲得音
 ・SE_88		audiostock_39891				宝箱を開けたときの音
-・SE_89		audiostock_856263_sample			クエストクリアキラキラ音
+・SE_89		audiostock_856263				クエストクリアキラキラ音
 ・SE_90		audiostock_175671.mp3				シュイイーーン２　新規レシピ時に、さらに調合ためる音

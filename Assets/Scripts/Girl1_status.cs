@@ -733,17 +733,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             }
                         }
 
-                        //5秒程度放置すると、ハートが１ずつ減っていく。
-                        /*if (timeOutHeartDeg <= 0.0)
-                        {
-                            timeOutHeartDeg = 5.0f;
-
-                            --girl1_Love_exp;
-                            girl_param.text = girl1_Love_exp.ToString();
-
-                            //スライダにも反映
-                            _slider.value -= 1;
-                        }*/
                     }
                     break;
 
@@ -2128,6 +2117,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         sequence_girlmove.Complete();
         sequence_girlmove2.Complete();
+    }
+
+    //移動した位置を元に戻す。
+    public void ResetCharacterPosition()
+    {
+        character_move.transform.DOMoveX(0, 0.0f);
     }
 
     //ランダムで仕草

@@ -576,7 +576,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         if (compoDB_select_judge == false)
         {
-            Combinationmain.Combination(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
+            Combinationmain.Combination3(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
 
             compoDB_select_judge = Combinationmain.compFlag;
         }

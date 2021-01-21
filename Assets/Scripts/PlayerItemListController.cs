@@ -796,7 +796,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         item_name = pitemlist.player_originalitemlist[i].itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
 
         //_slotHyouji1[]は、一度名前を、全て空白に初期化
-        for (n = 0; n < _slotHyouji1.Length; n++)
+        /*for (n = 0; n < _slotHyouji1.Length; n++)
         {
             _slotHyouji1[n] = "";
         }
@@ -820,8 +820,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             }
         }
 
-        _text[0].text = _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + item_name;
-                
+        _text[0].text = _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + 
+        _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + item_name;
+                */
+        _text[0].text = item_name;
 
         item_kosu = pitemlist.player_originalitemlist[i].ItemKosu;
 

@@ -805,7 +805,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 2;
+                            GameMgr.map_ev_ID = 30;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");

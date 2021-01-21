@@ -243,10 +243,10 @@ public class GetMaterial : MonoBehaviour
         mat_cost = matplace_database.matplace_lists[index].placeCost;
         mat_place = matplace_database.matplace_lists[index].placeName;
 
-        //妹の体力がないと、先へ進めない。
-        if (PlayerStatus.girl1_Love_exp <= 0)
+        //妹の体力がないと、先へ進めない。井戸は、ハートなくても水がとれる。
+        if (PlayerStatus.girl1_Love_exp <= 0 && mat_place != "Ido")
         {
-            _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。";
+            _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（ハートが０になったので、動けないようだ。）";
         }
         else
         {

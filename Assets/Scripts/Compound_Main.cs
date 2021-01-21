@@ -2296,6 +2296,9 @@ public class Compound_Main : MonoBehaviour
                 yes_no_clear_okashi_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
 
+                //キャラクタ位置を0にもどす。
+                girl1_status.ResetCharacterPosition();
+
                 girlEat_judge.QuestClearMethod();
 
                 break;
@@ -2333,7 +2336,10 @@ public class Compound_Main : MonoBehaviour
                 yes_no_clear_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
 
-                switch(GameMgr.stage_number)
+                //キャラクタ位置を0にもどす。
+                girl1_status.ResetCharacterPosition();
+
+                switch (GameMgr.stage_number)
                 {
                     case 1:
 

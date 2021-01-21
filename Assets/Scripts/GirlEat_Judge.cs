@@ -1388,6 +1388,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 break;
 
+            case "Crepe_Mat":
+
+                Fluffy_Score();
+
+                break;
+
             case "Creampuff":
 
                 Fluffy_Score();
@@ -1456,6 +1462,12 @@ public class GirlEat_Judge : MonoBehaviour {
             case "Tea":
 
                 Tea_Score();                
+
+                break;
+
+            case "Tea_Mat":
+
+                Tea_Score();
 
                 break;
 
@@ -1676,24 +1688,31 @@ public class GirlEat_Judge : MonoBehaviour {
             //sweat_score = (int)(_basesweat * 1.5f);
             taste_score = 75;
         }
-        else if (Mathf.Abs(taste_result) < 15) //+-5~15
+        else if (Mathf.Abs(taste_result) < 10) //+-5~10
+        {
+            Debug.Log(taste_type + "Well done!");
+            taste_level = 5;
+            //sweat_score = (int)(_basesweat * 0.75f);
+            taste_score = 50;
+        }
+        else if (Mathf.Abs(taste_result) < 15) //+-10~15
         {
             Debug.Log(taste_type + "Well!");
             taste_level = 5;
             //sweat_score = (int)(_basesweat * 0.75f);
-            taste_score = 50;
+            taste_score = 30;
         }
         else if (Mathf.Abs(taste_result) < 30) //+-15~30
         {
             Debug.Log(taste_type + "Good!");
             taste_level = 4;
-            taste_score = 30;
+            taste_score = 10;
         }
         else if (Mathf.Abs(taste_result) < 50) //+-30~49
         {
             Debug.Log(taste_type + "Normal");
             taste_level = 3;
-            taste_score = 10;
+            taste_score = 2;
         }
         else if (Mathf.Abs(taste_result) < 80) //+-50~79
         {
@@ -3516,7 +3535,7 @@ public class GirlEat_Judge : MonoBehaviour {
                             }
                         }
 
-                        nontp_utageON = true;
+                        nontp_utageON = false;
 
                         break;
 
@@ -3527,11 +3546,11 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
 
                 //
-                if (!tpcheck)
+                if (!tpcheck) //falseのときは、ヒントだす。
                 {
                     _special_kansou = _temp_spkansou;
 
-                    if (nontp_utageON) //クエストをヒントを出す際、宴でも表示するか否か。
+                    if (nontp_utageON) //宴でもヒント表示するか否か。
                     {
                         GameMgr.okashinontphint_flag = true;
                         GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + nontp_utagebunki;

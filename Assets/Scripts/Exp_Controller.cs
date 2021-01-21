@@ -1449,7 +1449,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
-        _text.text = "好感度が" + Mathf.Abs(_getlove_exp) + "下がった..。";
+        _text.text = "ハートが" + Mathf.Abs(_getlove_exp) + "下がった..。";
     }
 
     public void GirlNotEatText()

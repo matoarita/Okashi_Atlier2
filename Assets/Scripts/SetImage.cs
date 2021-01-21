@@ -655,6 +655,10 @@ public class SetImage : MonoBehaviour
                 subcategory = "クレープ";
                 Fluffy_Text();
                 break;
+            case "Crepe_Mat":
+                subcategory = "クレープ";
+                Fluffy_Text();
+                break;
             case "Creampuff":
                 subcategory = "シュークリーム";
                 Fluffy_Text();
@@ -680,6 +684,12 @@ public class SetImage : MonoBehaviour
                 Juice_Text();
                 break;
             case "Tea":
+                subcategory = "お茶";
+                Crispy_Text();
+                item_Shokukan_Type.text = "香り";
+                item_lastShokukan_Type.text = "香り";
+                break;
+            case "Tea_Mat":
                 subcategory = "お茶";
                 Crispy_Text();
                 item_Shokukan_Type.text = "香り";
@@ -941,6 +951,8 @@ public class SetImage : MonoBehaviour
                     Card_param_obj2.SetActive(false);
                     TasteSubWindow.SetActive(true);
                     item_Shokukan.text = "-";
+
+                    item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
                     break;
                 case "Fruits":
                     Card_param_obj.SetActive(true);
@@ -976,9 +988,9 @@ public class SetImage : MonoBehaviour
         {
             Card_param_obj.SetActive(true);
             Card_param_obj2.SetActive(true);
-            Slot_SubWindow.SetActive(true);
+            //Slot_SubWindow.SetActive(true);
 
-            //item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
+            item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
         }
         else if (item_type == "Potion")
         {

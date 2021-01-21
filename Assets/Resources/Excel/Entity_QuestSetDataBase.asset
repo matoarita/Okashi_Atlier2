@@ -169,7 +169,7 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 1
-      buy_price: 500
+      buy_price: 300
       rich: 0
       sweat: 0
       bitter: 0
@@ -227,7 +227,7 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 6
-      buy_price: 400
+      buy_price: 200
       rich: 0
       sweat: 0
       bitter: 0
@@ -314,7 +314,7 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 2
-      buy_price: 1100
+      buy_price: 700
       rich: 0
       sweat: 20
       bitter: 0
