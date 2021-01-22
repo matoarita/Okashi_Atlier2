@@ -107,6 +107,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。現在未使用。
     public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。
     public static bool QuestClearAnim_Flag;   //クリアしたときに、ボタンを登場させるか否かのフラグ。そのクエストの最後のときだけ演出をだす時に使う。
+    public static string Okashi_lasthint; //さっき食べたお菓子のヒント。セーブする。
 
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num;
@@ -117,6 +118,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //お菓子の点数
     public static int Okashi_totalscore; //女の子にあげたときの点数
+    public static int Okashi_dislike_status; //状態。2で、新しいお菓子をあげた場合
+    
 
     //ショップの話すコマンド
     public static bool shop_event_flag;  //ショップで発生するイベントのフラグ。
@@ -467,6 +470,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         QuestClearflag = false;
         QuestClearButton_anim = false;
         QuestClearAnim_Flag = false;
+        Okashi_lasthint = "";
 
         //お菓子のクリア基準値
         low_score = 60;

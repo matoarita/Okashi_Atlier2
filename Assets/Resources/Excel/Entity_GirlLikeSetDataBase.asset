@@ -300,7 +300,7 @@ MonoBehaviour:
       girllike_itemsubtype: Crepe
       set_score: 0
       rich: 0
-      sweat: 95
+      sweat: 85
       bitter: 0
       sour: 30
       crispy: 0

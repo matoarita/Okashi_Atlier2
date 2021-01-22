@@ -54,6 +54,8 @@ public class MainUIPanel : MonoBehaviour {
         {
             TimePanel_obj.SetActive(false);
         }
+
+        compound_Main.CheckButtonFlag();
         compound_Main.QuestClearCheck();
     }
 

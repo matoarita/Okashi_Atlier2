@@ -749,7 +749,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     _listEffect.Clear();
 
-                    AddMotionAnimReset();                   
+                    AddMotionAnimReset();
+                    ResetCharacterPosition();
 
                     special_timeOut = 1.0f;
 

@@ -109,6 +109,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject SelectCompo_panel_1;
     private GameObject system_panel;
     private GameObject status_panel;
+    private GameObject okashihint_panel;
 
     private CombinationMain Combinationmain;
 
@@ -155,6 +156,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject status_toggle;
 
     private GameObject MainUICloseButton;
+    private GameObject HintTasteButton;
     private Button extreme_Button;
     private Button recipi_Button;
     private GameObject sell_Button;
@@ -169,6 +171,7 @@ public class Compound_Main : MonoBehaviour
     public bool check_recipi_flag;
     public bool check_GirlLoveEvent_flag;
     public bool check_GirlLoveSubEvent_flag;
+    public bool check_OkashiAfter_flag;
     private int not_read_total;
     private int _checkexp;
 
@@ -208,6 +211,7 @@ public class Compound_Main : MonoBehaviour
 
     private bool gameover_loading;
     private bool Sleep_on;
+    private bool mute_on;
 
     // Use this for initialization
     void Start()
@@ -328,6 +332,9 @@ public class Compound_Main : MonoBehaviour
         //ステータスパネルの取得
         status_panel = canvas.transform.Find("StatusPanel").gameObject;
 
+        //お菓子ヒントパネルの取得
+        okashihint_panel = canvas.transform.Find("TasteHintPanel").gameObject;
+
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
@@ -431,6 +438,8 @@ public class Compound_Main : MonoBehaviour
         stageclear_Button.SetActive(false);
 
         MainUICloseButton = canvas.transform.Find("MainUIPanel/MainUICloseButton").gameObject;
+        HintTasteButton = canvas.transform.Find("MainUIPanel/HintTasteButton").gameObject;
+        HintTasteButton.SetActive(false);
 
         compound_status = 0;
         compound_select = 0;
@@ -442,8 +451,10 @@ public class Compound_Main : MonoBehaviour
         check_recipi_flag = false;
         check_GirlLoveEvent_flag = false;
         check_GirlLoveSubEvent_flag = false;
+        check_OkashiAfter_flag = false;
         read_girlevent = false;
         gameover_loading = false;
+        mute_on = false;
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
@@ -1022,6 +1033,7 @@ public class Compound_Main : MonoBehaviour
                 compoBG_A_effect.SetActive(false);
                 system_panel.SetActive(false);
                 status_panel.SetActive(false);
+                okashihint_panel.SetActive(false);
 
                 TimePanel_obj1.SetActive(true);
                 TimePanel_obj2.SetActive(false);
@@ -1033,11 +1045,14 @@ public class Compound_Main : MonoBehaviour
                 select_original_button.interactable = true;
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
-                MainUICloseButton.SetActive(true);
+                MainUICloseButton.SetActive(true);               
                 OnCompoundSelect();
                 touch_controller.Touch_OnAllON();                
 
-                recipiMemoButton.SetActive(false);                
+                recipiMemoButton.SetActive(false);
+
+                //ゲーム進行度に応じて、ヒントボタンなどは表示する。
+                CheckButtonFlag();
 
                 //Live2Dデフォルト
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
@@ -1677,6 +1692,27 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
+            case 250: //お菓子ヒント画面を開いたとき
+
+                compoundselect_onoff_obj.SetActive(false);
+                compound_status = 251;
+                compound_select = 250;
+
+                //一時的に腹減りを止める。
+                girl1_status.GirlEat_Judge_on = false;
+
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+
+                okashihint_panel.SetActive(true); //お菓子ヒントパネルを表示。
+
+                WindowOff();
+
+                break;
+
+            case 251: //お菓子ヒント画面選択中
+
+                break;
+
             case 300: //ステータス画面を開いたとき
 
                 compoundselect_onoff_obj.SetActive(false);
@@ -1713,6 +1749,7 @@ public class Compound_Main : MonoBehaviour
         //kaerucoin_panel.SetActive(false);
         stageclear_panel.SetActive(false);
         MainUICloseButton.SetActive(false);
+        HintTasteButton.SetActive(false);
     }
 
     public void QuestClearCheck() //SaveControllerからも読み込んでいる。
@@ -1909,7 +1946,14 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    public void OnStatus_toggle() //システムボタンを押した
+    public void OnTasteHint_Button() //お菓子ヒントボタンを押した
+    {
+        card_view.DeleteCard_DrawView();
+
+        compound_status = 250;
+    }
+
+    public void OnStatus_toggle() //ステータスボタンを押した
     {
         if (status_toggle.GetComponent<Toggle>().isOn == true)
         {
@@ -2626,7 +2670,11 @@ public class Compound_Main : MonoBehaviour
 
         canvas.SetActive(false);
         GirlHeartEffect_obj.SetActive(false);
-        sceneBGM.MuteBGM();
+
+        if (mute_on)
+        {
+            sceneBGM.MuteBGM();
+        }
         
         GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
@@ -2637,6 +2685,7 @@ public class Compound_Main : MonoBehaviour
 
         GameMgr.girlloveevent_endflag = false;
         sceneBGM.MuteOFFBGM();
+        mute_on = false;
 
         canvas.SetActive(true);
         GirlHeartEffect_obj.SetActive(true);
@@ -2822,15 +2871,67 @@ public class Compound_Main : MonoBehaviour
         {
             check_GirlLoveSubEvent_flag = true;
 
-            if (PlayerStatus.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[0] == false) //4になったときのサブイベントを使う。
+            //はじめてのお菓子。食べた直後に発生する。
+            if (GameMgr.GirlLoveSubEvent_stage1[0] == false) //4になったときのサブイベントを使う。
             {
-                GameMgr.GirlLoveSubEvent_num = 0;
-                GameMgr.GirlLoveSubEvent_stage1[0] = true;
+                if (check_OkashiAfter_flag)
+                {
+                    GameMgr.GirlLoveSubEvent_stage1[0] = true;
+                    GameMgr.GirlLoveSubEvent_stage1[1] = true;
+                    GameMgr.GirlLoveSubEvent_stage1[2] = true;
+                    GameMgr.GirlLoveSubEvent_stage1[3] = true;
+                    GameMgr.GirlLoveSubEvent_stage1[4] = true;
+
+                    if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
+                    {
+                        if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできないときのヒントをだす。＋クッキーを食べたいなぁ～。
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 3;
+                        }
+                        else //クリアできたら、そのままOK!　＋　でもクッキーが食べたいから、にいちゃん、クッキーを作って！！
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 4;
+                        }
+                    }
+                    else
+                    {
+                        if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合、ヒントをだす。
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 0;
+                        }
+                        else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 1;
+                        }
+                        else //クリアできた。85~
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 2;
+                        }
+                    }
+
+                    check_GirlLoveSubEvent_flag = false;
+                    check_OkashiAfter_flag = false;
+
+                    //クエスト発生
+                    Debug.Log("サブ好感度イベントの発生");
+
+                    //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+                    StartCoroutine("ReadGirlLoveEvent");
+                }
+            }
+
+            //キラキラポンポン
+            if (PlayerStatus.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[10] == false) //4になったときのサブイベントを使う。
+            {
+                GameMgr.GirlLoveSubEvent_num = 10;
+                GameMgr.GirlLoveSubEvent_stage1[10] = true;
 
                 check_GirlLoveSubEvent_flag = false;
 
+                mute_on = true;
+
                 //クエスト発生
-                Debug.Log("好感度イベントの発生");
+                Debug.Log("サブ好感度イベントの発生");
 
                 //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                 StartCoroutine("ReadGirlLoveEvent");
@@ -2884,6 +2985,7 @@ public class Compound_Main : MonoBehaviour
         system_toggle.GetComponent<Toggle>().interactable = false;
         status_toggle.GetComponent<Toggle>().interactable = false;
         MainUICloseButton.GetComponent<Button>().interactable = false;
+        HintTasteButton.GetComponent<Button>().interactable = false;
     }
 
     public void OffCompoundSelect()
@@ -2896,6 +2998,7 @@ public class Compound_Main : MonoBehaviour
         system_toggle.GetComponent<Toggle>().interactable = false;
         status_toggle.GetComponent<Toggle>().interactable = false;
         MainUICloseButton.GetComponent<Button>().interactable = false;
+        HintTasteButton.GetComponent<Button>().interactable = false;
         extreme_Button.interactable = false;
     }
 
@@ -2909,12 +3012,26 @@ public class Compound_Main : MonoBehaviour
         system_toggle.GetComponent<Toggle>().interactable = true;
         status_toggle.GetComponent<Toggle>().interactable = true;
         MainUICloseButton.GetComponent<Button>().interactable = true;
+        HintTasteButton.GetComponent<Button>().interactable = true;
         extreme_Button.interactable = true;
     }
 
     public void OnCompoundSelectObj()
     {
         compoundselect_onoff_obj.SetActive(true);
+    }
+
+    //ゲームの進行度合いなどに応じて、表示ボタンなどを追加する。
+    public void CheckButtonFlag()
+    {
+        if (GameMgr.GirlLoveSubEvent_stage1[0])
+        {
+            HintTasteButton.SetActive(true);
+        }
+        else
+        {
+            HintTasteButton.SetActive(false);
+        }
     }
 
     public void HeartGuageTextKoushin()

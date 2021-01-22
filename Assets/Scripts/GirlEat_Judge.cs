@@ -1221,6 +1221,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                         dislike_flag = true;
                         dislike_status = 2;
+
                         set_id = 0;
 
                         //
@@ -1252,9 +1253,10 @@ public class GirlEat_Judge : MonoBehaviour {
                     //
                     Dislike_Okashi_Judge();
                 }
-
             }
         }
+
+        GameMgr.Okashi_dislike_status = dislike_status;
     }
 
     public void judge_score(int _setType, int _setCountNum)
@@ -1676,43 +1678,43 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         if (Mathf.Abs(taste_result) == 0)
         {
-            Debug.Log(taste_type + "Perfect!!");
-            taste_level = 7;
+            Debug.Log(taste_type + "Perfect!!");　//完璧な具合
+            taste_level = 8;
             //sweat_score = (int)(_basesweat * 2.0f);
             taste_score = 100;
         }
-        else if (Mathf.Abs(taste_result) < 5) //+-1~5
+        else if (Mathf.Abs(taste_result) < 5) //+-1~5　絶妙な塩梅
         {
             Debug.Log(taste_type + "Great!!");
-            taste_level = 6;
+            taste_level = 7;
             //sweat_score = (int)(_basesweat * 1.5f);
             taste_score = 75;
         }
-        else if (Mathf.Abs(taste_result) < 10) //+-5~10
+        else if (Mathf.Abs(taste_result) < 10) //+-5~10  ほどよく良い塩梅
         {
             Debug.Log(taste_type + "Well done!");
-            taste_level = 5;
+            taste_level = 6;
             //sweat_score = (int)(_basesweat * 0.75f);
             taste_score = 50;
         }
-        else if (Mathf.Abs(taste_result) < 15) //+-10~15
+        else if (Mathf.Abs(taste_result) < 15) //+-10~15　いい感じ
         {
             Debug.Log(taste_type + "Well!");
             taste_level = 5;
             //sweat_score = (int)(_basesweat * 0.75f);
-            taste_score = 30;
+            taste_score = 35;
         }
-        else if (Mathf.Abs(taste_result) < 30) //+-15~30
+        else if (Mathf.Abs(taste_result) < 30) //+-15~30  ちょっと足りないかな
         {
             Debug.Log(taste_type + "Good!");
             taste_level = 4;
-            taste_score = 10;
+            taste_score = 20;
         }
-        else if (Mathf.Abs(taste_result) < 50) //+-30~49
+        else if (Mathf.Abs(taste_result) < 50) //+-30~49　全然足りない
         {
             Debug.Log(taste_type + "Normal");
             taste_level = 3;
-            taste_score = 2;
+            taste_score = 5;
         }
         else if (Mathf.Abs(taste_result) < 80) //+-50~79
         {
@@ -2583,6 +2585,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //好感度によって発生するサブイベントがないかチェック
         compound_Main.check_GirlLoveSubEvent_flag = false;
+        compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
     }
 
     //ハートがゲージに衝突した時に、このメソッドが呼び出される。
@@ -3339,6 +3342,8 @@ public class GirlEat_Judge : MonoBehaviour {
         touch_controller.Touch_OnAllOFF();
         sceneBGM.MuteBGM();
 
+        girl1_status.ResetCharacterPosition();
+
         GameMgr.KeyInputOff_flag = false;
         GameMgr.scenario_ON = true;
         GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
@@ -3598,7 +3603,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case 1:
 
-                temp_hint_text = _shokukan_kansou + "兄ちゃん！" + "\n" + "この" + _basenameHyouji + "うますぎィ！" + "\n" + "最高！！";
+                temp_hint_text = _shokukan_kansou + "\n" + "兄ちゃん！" + "\n" + "この" + _basenameHyouji + "うますぎィ！" + "最高！！";
                 break;
 
             case 2:
@@ -3611,6 +3616,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         database.items[_baseID].last_hinttext = temp_hint_text;
+        GameMgr.Okashi_lasthint = temp_hint_text;
 
         /*if (Getlove_exp > 0)
         {
@@ -3650,24 +3656,32 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void SweatHintHyouji()
     {
-        //甘さがどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
-        if (sweat_level == 7)
+        //甘さがどの程度好みにあっていたかを、感想でいう。８はピッタリパーフェクト。
+        if (sweat_level == 8)
         {
-            _sweat_kansou = "絶妙な甘さ！";
+            _sweat_kansou = "神の甘さ！";
+        }
+        else if (sweat_level == 7)
+        {
+            _sweat_kansou = "甘さ、絶妙な塩梅！";
         }
         else if (sweat_level == 6)
         {
-            _sweat_kansou = "甘さ、かなりいい感じ！";
+            _sweat_kansou = "甘さ、ほどよくよい具合！";
         }
-        else if (sweat_level == 4 || sweat_level == 5)
+        else if (sweat_level == 5)
+        {
+            _sweat_kansou = "甘さ、いい感じ！";
+        }
+        else if (sweat_level == 4)
         {
             if (sweat_result < 0)
             {
-                _sweat_kansou = "ほどよい甘さ！";
+                _sweat_kansou = "甘さがちょっと足りない";
             }
             else
             {
-                _sweat_kansou = "ほどよい甘さ！";
+                _sweat_kansou = "少し甘いかも？";
             }
         }
         else if (sweat_level == 3)
@@ -3710,23 +3724,31 @@ public class GirlEat_Judge : MonoBehaviour {
     void BitterHintHyouji()
     {
         //苦さがどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
-        if (bitter_level == 7)
+        if (bitter_level == 8)
         {
-            _bitter_kansou = "絶妙な苦さ！";
+            _bitter_kansou = "神の苦さ！";
+        }
+        else if (bitter_level == 7)
+        {
+            _bitter_kansou = "苦さ、絶妙な塩梅！";
         }
         else if (bitter_level == 6)
         {
-            _bitter_kansou = "かなりいい感じの苦み！";
+            _bitter_kansou = "苦さ、ほどよくいい具合！";
         }
-        else if (bitter_level == 4 || bitter_level == 5)
+        else if (bitter_level == 5)
+        {
+            _bitter_kansou = "苦さ、いい感じ！";
+        }
+        else if (bitter_level == 4)
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = "ほどよい苦み！";
+                _bitter_kansou = "苦さがちょっと足りない";
             }
             else
             {
-                _bitter_kansou = "ほどよい苦み！";
+                _bitter_kansou = "少し苦いかも？";
             }
 
         }
@@ -3772,23 +3794,31 @@ public class GirlEat_Judge : MonoBehaviour {
     void SourHintHyouji()
     {
         //酸味がどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
-        if (sour_level == 7)
+        if (sour_level == 8)
         {
-            _sour_kansou = "絶妙なすっぱさ！";
+            _sour_kansou = "神のすっぱさ！";
+        }
+        else if (sour_level == 7)
+        {
+            _sour_kansou = "すっぱさ、絶妙な塩梅！";
         }
         else if (sour_level == 6)
         {
-            _sour_kansou = "かなりいいすっぱみ！";
+            _sour_kansou = "すっぱさ、ほどよくいい具合！";
         }
-        else if (sour_level == 4 || sour_level == 5)
+        else if (sour_level == 5)
+        {
+            _sour_kansou = "すっぱさ、いい感じ！";
+        }
+        else if (sour_level == 4)
         {
             if (sour_result < 0)
             {
-                _sour_kansou = "ほどよい酸っぱさ！";
+                _sour_kansou = "すっぱさちょっと足りない";
             }
             else
             {
-                _sour_kansou = "ほどよい酸っぱさ！";
+                _sour_kansou = "少しすっぱいかも？";
             }
 
         }
@@ -3796,11 +3826,11 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (sour_result < 0)
             {
-                _sour_kansou = "酸っぱさが足りない";
+                _sour_kansou = "すっぱさが足りない";
             }
             else
             {
-                _sour_kansou = "少し酸っぱ過ぎる？";
+                _sour_kansou = "少しすっぱ過ぎる？";
             }
 
         }
@@ -3808,11 +3838,11 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (sour_result < 0)
             {
-                _sour_kansou = "全然酸っぱさがない";
+                _sour_kansou = "全然すっぱさがない";
             }
             else
             {
-                _sour_kansou = "酸っぺぇ..。";
+                _sour_kansou = "すっぺぇ..。";
             }
 
         }
