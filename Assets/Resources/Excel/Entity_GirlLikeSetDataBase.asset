@@ -132,10 +132,10 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 60
       bitter: 0
       sour: 0
-      crispy: 50
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -160,7 +160,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 60
       bitter: 0
       sour: 30
       crispy: 60
@@ -179,7 +179,7 @@ MonoBehaviour:
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
-      Non_tpscore: 0
+      Non_tpscore: -30
       desc: "<color=#FF78B4>\u3076\u3069\u3046\u30AF\u30C3\u30AD\u30FC</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       commet_flag: 0
     - setID: 6
@@ -218,7 +218,7 @@ MonoBehaviour:
       rich: 0
       sweat: 50
       bitter: 0
-      sour: 30
+      sour: 55
       crispy: 70
       fluffy: 0
       smooth: 0
@@ -227,12 +227,12 @@ MonoBehaviour:
       chewy: 0
       topping01: Orange
       topping02: Lemon
-      topping03: Non
+      topping03: Grape
       topping04: Non
       topping05: Non
-      tp_score01: 10
-      tp_score02: 30
-      tp_score03: 0
+      tp_score01: 0
+      tp_score02: 10
+      tp_score03: -10
       tp_score04: 0
       tp_score05: 0
       Non_tpscore: -15
@@ -496,7 +496,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 60
       bitter: 0
       sour: 30
       crispy: 60
@@ -515,7 +515,7 @@ MonoBehaviour:
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
-      Non_tpscore: 0
+      Non_tpscore: -30
       desc: "\u3076\u3069\u3046\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
       commet_flag: 0
     - setID: 18
@@ -543,7 +543,7 @@ MonoBehaviour:
       tp_score03: 10
       tp_score04: 5
       tp_score05: 0
-      Non_tpscore: 0
+      Non_tpscore: -30
       desc: "\u3044\u3061\u3054\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
       commet_flag: 0
     - setID: 19

@@ -10,8 +10,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private ItemMatPlaceDataBase matplace_database;
     private ItemDataBase database;
 
-    private GameObject canvas;
-    private Texture2D texture2d;
+    private GameObject canvas;    
     private Sprite map_icon;
 
     private BGM sceneBGM;
@@ -65,6 +64,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GetMaterial get_material;
 
     private GameObject map_imageBG;
+    private Texture2D texture2d;
     private Texture2D texture2d_map;
 
     private GameObject map_bg_effect;
@@ -448,7 +448,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     void KakuninPlace()
     {
-        if (matplace_database.matplace_lists[i].placeCost == 0)
+        if (matplace_database.matplace_lists[_place_num].placeCost == 0)
         {
             _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？";
         }
@@ -457,9 +457,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
             _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>";
         }
 
+        
         select_place_num = _place_num;
         select_place_name = matplace_database.matplace_lists[_place_num].placeName;
         select_place_day = matplace_database.matplace_lists[_place_num].placeDay;
+
+        Debug.Log("mapID: " + _place_num + " " + select_place_name + "が選択されました。");
 
         Select_Pause();
     }
@@ -579,10 +582,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 } 
 
                 slot_view_status = 1;
-                compound_Main.compound_status = 21;
+                compound_Main.compound_status = 22;
                 
                 //音量フェードイン
                 sceneBGM.FadeInBGM();
+
+                Debug.Log(select_place_name + "へ移動");
+                //slot_view.transform.Find("DebugText").GetComponent<Text>().text = select_place_name;
 
                 //背景のセッティング
                 SetMapBG(select_place_name);

@@ -376,7 +376,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     break;
 
                 
-                case 20: //status=20。材料採取地選択
+                case 21: //status=21。材料採取地選択
 
                     if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
                     {

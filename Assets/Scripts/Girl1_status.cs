@@ -1105,7 +1105,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //チュートリアルで使用
     public void SetOneQuest(int _ID)
     {
-        InitializeStageGirlHungrySet(_ID, 0);
+        InitializeStageGirlHungrySet(_ID, 0);　//comp_Numの値を直接指定
 
         Set_Count = 1;
         OkashiNew_Status = 1; //回避用

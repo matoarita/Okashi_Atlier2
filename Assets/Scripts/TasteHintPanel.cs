@@ -9,7 +9,7 @@ public class TasteHintPanel : MonoBehaviour {
     private Compound_Main compound_Main;
 
     private Text Okashi_lasthint_text;
-    private int i;
+    private Text Okashi_lastname_text;
 
     // Use this for initialization
     void Start () {
@@ -33,6 +33,9 @@ public class TasteHintPanel : MonoBehaviour {
 
         Okashi_lasthint_text = this.transform.Find("HintPanel/HintText").GetComponent<Text>();
         Okashi_lasthint_text.text = GameMgr.Okashi_lasthint;
+
+        Okashi_lastname_text = this.transform.Find("HintPanel/OkashiName").GetComponent<Text>();
+        Okashi_lastname_text.text = GameMgr.Okashi_lastname;
     }
 
     public void BackOption()

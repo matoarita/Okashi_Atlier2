@@ -107,7 +107,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。現在未使用。
     public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。
     public static bool QuestClearAnim_Flag;   //クリアしたときに、ボタンを登場させるか否かのフラグ。そのクエストの最後のときだけ演出をだす時に使う。
-    public static string Okashi_lasthint; //さっき食べたお菓子のヒント。セーブする。
+
+    //さっき食べたお菓子情報 セーブする。まだセーブは未登録
+    public static string Okashi_lasthint; //さっき食べたお菓子のヒント。
+    public static string Okashi_lastname; //さっき食べたお菓子の名前。
+    public static int Okashi_lastID; //さっき食べたお菓子のアイテムID
 
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num;

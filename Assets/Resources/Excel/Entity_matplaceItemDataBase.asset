@@ -124,7 +124,7 @@ MonoBehaviour:
       drop_rare_prob2: 5
       drop_rare_prob3: 0
       center_bg: 2_ido_a_600_300
-      back_bg: nexfan_01_800.600
+      back_bg: nexfan_01_800_600
     - ItemID: 3
       file_name: farm_mini_icon
       place_Name: Farm

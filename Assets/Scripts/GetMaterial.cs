@@ -268,9 +268,12 @@ public class GetMaterial : MonoBehaviour
                     PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
                     time_controller.TimeKoushin();
 
-                    //妹の体力消費 一回の行動で1減る。0で倒れる。
-                    PlayerStatus.girl1_Love_exp -= 1;
-                    HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+                    //妹の体力消費 一回の行動で1減る。0で倒れる。井戸などでは、減らない。
+                    if (mat_place != "Ido")
+                    {
+                        PlayerStatus.girl1_Love_exp -= 1;
+                        HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+                    }
 
                     //ウェイトアニメ
                     mat_anim_on = true;

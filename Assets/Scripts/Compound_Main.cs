@@ -1518,15 +1518,20 @@ public class Compound_Main : MonoBehaviour
 
             case 20: //材料採取地を選択中
 
+                compound_status = 21; //
+                compound_select = 20; //
+
                 compoundselect_onoff_obj.SetActive(false);
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                Extremepanel_obj.SetActive(false);
-                text_area.SetActive(true);
-                text_area_Main.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 time_controller.TimeCheck_flag = false;
-                stageclear_panel.SetActive(false);
+
+                //UI OFF
+                WindowOff();
+
+                text_area.SetActive(true);
+                moneystatus_panel.SetActive(true);
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1535,12 +1540,13 @@ public class Compound_Main : MonoBehaviour
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
 
-                //お金パネルの配置を変更
-                //moneystatus_panel.transform.localPosition = new Vector3(279, -100, 0);
+                break;
+
+            case 21: //採取地選択中
 
                 break;
 
-            case 21: //材料採取地に到着。探索中
+            case 22: //材料採取地に到着。探索中
 
                 break;
 
@@ -2078,7 +2084,7 @@ public class Compound_Main : MonoBehaviour
             {
                 if (GameMgr.QuestClearflag)
                 {
-                    _text.text = "次のお菓子を作る？おにいちゃん。";
+                    _text.text = "新たなお菓子作りに挑戦する？おにいちゃん。";
 
                     compound_status = 42;
                     yes_no_clear_okashi_panel.SetActive(true);
@@ -2872,24 +2878,23 @@ public class Compound_Main : MonoBehaviour
             check_GirlLoveSubEvent_flag = true;
 
             //はじめてのお菓子。食べた直後に発生する。
-            if (GameMgr.GirlLoveSubEvent_stage1[0] == false) //4になったときのサブイベントを使う。
+            if (GameMgr.GirlLoveSubEvent_stage1[0] == false)
             {
                 if (check_OkashiAfter_flag)
                 {
                     GameMgr.GirlLoveSubEvent_stage1[0] = true;
-                    GameMgr.GirlLoveSubEvent_stage1[1] = true;
-                    GameMgr.GirlLoveSubEvent_stage1[2] = true;
-                    GameMgr.GirlLoveSubEvent_stage1[3] = true;
-                    GameMgr.GirlLoveSubEvent_stage1[4] = true;
-
+                                       
+                   
                     if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
                     {
                         if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできないときのヒントをだす。＋クッキーを食べたいなぁ～。
                         {
+                            GameMgr.GirlLoveSubEvent_stage1[3] = true;
                             GameMgr.GirlLoveSubEvent_num = 3;
                         }
                         else //クリアできたら、そのままOK!　＋　でもクッキーが食べたいから、にいちゃん、クッキーを作って！！
                         {
+                            GameMgr.GirlLoveSubEvent_stage1[4] = true;
                             GameMgr.GirlLoveSubEvent_num = 4;
                         }
                     }
@@ -2901,22 +2906,51 @@ public class Compound_Main : MonoBehaviour
                         }
                         else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
                         {
+                            GameMgr.GirlLoveSubEvent_stage1[1] = true;
                             GameMgr.GirlLoveSubEvent_num = 1;
                         }
                         else //クリアできた。85~
                         {
+                            GameMgr.GirlLoveSubEvent_stage1[2] = true;
                             GameMgr.GirlLoveSubEvent_num = 2;
                         }
                     }
 
                     check_GirlLoveSubEvent_flag = false;
                     check_OkashiAfter_flag = false;
+                }
+            }
 
-                    //クエスト発生
-                    Debug.Log("サブ好感度イベントの発生");
+            //一度お菓子を作って失敗し、次に作って成功した。または、クッキー以外のお菓子を作り、その後、クッキーを作って成功した。
+            if (GameMgr.GirlLoveSubEvent_stage1[0] == true && GameMgr.GirlLoveSubEvent_stage1[1] == false && GameMgr.GirlLoveSubEvent_stage1[2] == false) 
+            {
+                if (check_OkashiAfter_flag)
+                {
 
-                    //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
-                    StartCoroutine("ReadGirlLoveEvent");
+                    if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
+                    {
+
+                    }
+                    else
+                    {
+                        if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合。フラグはたたず、やり直し
+                        {
+
+                        }
+                        else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[1] = true;
+                            GameMgr.GirlLoveSubEvent_num = 5;
+                        }
+                        else //クリアできた。85~
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[2] = true;
+                            GameMgr.GirlLoveSubEvent_num = 6;
+                        }
+                    }
+
+                    check_GirlLoveSubEvent_flag = false;
+                    check_OkashiAfter_flag = false;
                 }
             }
 
@@ -2929,13 +2963,17 @@ public class Compound_Main : MonoBehaviour
                 check_GirlLoveSubEvent_flag = false;
 
                 mute_on = true;
-
+               
+            }
+            
+            if(!check_GirlLoveSubEvent_flag) //サブイベント発生した
+            {
                 //クエスト発生
                 Debug.Log("サブ好感度イベントの発生");
 
                 //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                 StartCoroutine("ReadGirlLoveEvent");
-            }            
+            }
         }
     }
 

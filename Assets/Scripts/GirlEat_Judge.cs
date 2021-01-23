@@ -150,6 +150,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _baseID;
     private string _basename;
     private string _basenameHyouji;
+    private string _basenameFull;
     private int _basequality;
     private int _basesweat;
     private int _basebitter;
@@ -762,6 +763,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _baseID = database.items[kettei_item1].itemID;
                 _basename = database.items[kettei_item1].itemName;
                 _basenameHyouji = database.items[kettei_item1].itemNameHyouji;
+                _basenameFull = database.items[kettei_item1].item_FullName;
                 _basequality = database.items[kettei_item1].Quality;
                 _basesweat = database.items[kettei_item1].Sweat;
                 _basebitter = database.items[kettei_item1].Bitter;
@@ -800,6 +802,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _baseID = pitemlist.player_originalitemlist[kettei_item1].itemID;
                 _basename = pitemlist.player_originalitemlist[kettei_item1].itemName;
                 _basenameHyouji = pitemlist.player_originalitemlist[kettei_item1].itemNameHyouji;
+                _basenameFull = pitemlist.player_originalitemlist[kettei_item1].item_FullName;
                 _basequality = pitemlist.player_originalitemlist[kettei_item1].Quality;
                 _basesweat = pitemlist.player_originalitemlist[kettei_item1].Sweat;
                 _basebitter = pitemlist.player_originalitemlist[kettei_item1].Bitter;
@@ -1054,6 +1057,7 @@ public class GirlEat_Judge : MonoBehaviour {
             }
             else if (dislike_status == 5)
             {
+                canvas.SetActive(true);
                 Girl_reaction();
             }
 
@@ -1064,44 +1068,17 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else
         {
+            Debug.Log("チュートリアル中");
+            canvas.SetActive(true);
             Girl_reaction();
         }
     }    
 
-    void Dislike_Okashi_Judge()
-    {
-        Mazui_flag = false; //初期化
+    
 
-        if (_basepowdery > 50)
-        {
-            dislike_flag = false;
-            dislike_status = 3;
-        }
-        if (_baseoily > 50)
-        {
-            dislike_flag = false;
-            dislike_status = 3;
-        }
-        if (_basewatery > 50)
-        {
-            dislike_flag = false;
-            dislike_status = 3;
-        }
-
-        if (_basegirl1_like <= 0) //女の子の好みが-のものも、嫌われる。お菓子それ自体が嫌い、ということ。
-        {
-            dislike_flag = false;
-            dislike_status = 4;
-        }
-
-        if(!dislike_flag)
-        {
-            //粉っぽさなどのマイナス判定。一番強い。ここであまりに粉っぽさなどが強い場合は、問答無用で嫌われる。
-            Mazui_flag = true;
-
-        }
-    }
-
+    //
+    //お菓子判定処理
+    //
     void judge_result()
     {
         non_spquest_flag = false;
@@ -1125,9 +1102,11 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else
         {
-            //通常
+            //主にチュートリアル
             if (girl1_status.OkashiNew_Status == 1)
             {
+                non_spquest_flag = true;
+
                 dislike_flag = true;
                 dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
                 set_id = 0;
@@ -1138,7 +1117,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Dislike_Okashi_Judge();
 
             }
-            //スペシャルお菓子の場合
+            //通常かスペシャルお菓子の場合
             else if (girl1_status.OkashiNew_Status == 0)
             {
 
@@ -1257,6 +1236,40 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         GameMgr.Okashi_dislike_status = dislike_status;
+    }
+
+    void Dislike_Okashi_Judge()
+    {
+        Mazui_flag = false; //初期化
+
+        if (_basepowdery > 50)
+        {
+            dislike_flag = false;
+            dislike_status = 3;
+        }
+        if (_baseoily > 50)
+        {
+            dislike_flag = false;
+            dislike_status = 3;
+        }
+        if (_basewatery > 50)
+        {
+            dislike_flag = false;
+            dislike_status = 3;
+        }
+
+        if (_basegirl1_like <= 0) //女の子の好みが-のものも、嫌われる。お菓子それ自体が嫌い、ということ。
+        {
+            dislike_flag = false;
+            dislike_status = 4;
+        }
+
+        if (!dislike_flag)
+        {
+            //粉っぽさなどのマイナス判定。一番強い。ここであまりに粉っぽさなどが強い場合は、問答無用で嫌われる。
+            Mazui_flag = true;
+
+        }
     }
 
     public void judge_score(int _setType, int _setCountNum)
@@ -1697,24 +1710,24 @@ public class GirlEat_Judge : MonoBehaviour {
             //sweat_score = (int)(_basesweat * 0.75f);
             taste_score = 50;
         }
-        else if (Mathf.Abs(taste_result) < 15) //+-10~15　いい感じ
+        else if (Mathf.Abs(taste_result) < 20) //+-10~20　いい感じ
         {
             Debug.Log(taste_type + "Well!");
             taste_level = 5;
             //sweat_score = (int)(_basesweat * 0.75f);
             taste_score = 35;
         }
-        else if (Mathf.Abs(taste_result) < 30) //+-15~30  ちょっと足りないかな
+        else if (Mathf.Abs(taste_result) < 35) //+-20~35  ちょっと足りないかな
         {
             Debug.Log(taste_type + "Good!");
             taste_level = 4;
-            taste_score = 20;
+            taste_score = 10;
         }
-        else if (Mathf.Abs(taste_result) < 50) //+-30~49　全然足りない
+        else if (Mathf.Abs(taste_result) < 50) //+-35~49　全然足りない
         {
             Debug.Log(taste_type + "Normal");
             taste_level = 3;
-            taste_score = 5;
+            taste_score = 0;
         }
         else if (Mathf.Abs(taste_result) < 80) //+-50~79
         {
@@ -1936,7 +1949,7 @@ public class GirlEat_Judge : MonoBehaviour {
                             }
                         }
                     }
-                    else if (girl1_status.OkashiNew_Status == 1) //通常の場合
+                    else if (girl1_status.OkashiNew_Status == 1) //通常かチュートリアルの場合
                     {
                         if (GameMgr.tutorial_ON == true) //チュートリアルモードなど回避用
                         { }
@@ -1971,24 +1984,8 @@ public class GirlEat_Judge : MonoBehaviour {
             //アイテムの削除
             delete_Item();
 
+            OkashiSaitenhyouji(); //採点パネル表示してからリザルト
             
-            switch (dislike_status)
-            {
-
-                case 2: //新しいお菓子をあげた場合の処理
-
-                    OkashiSaitenhyouji(); //採点パネル表示してからリザルト
-                    //Okashi_Result();
-
-                    break;
-
-                default:
-
-                    OkashiSaitenhyouji(); //採点パネル表示してからリザルト
-                    //Okashi_Result();
-
-                    break;
-            }
         }
         else //失敗の場合
         {
@@ -3617,6 +3614,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         database.items[_baseID].last_hinttext = temp_hint_text;
         GameMgr.Okashi_lasthint = temp_hint_text;
+        GameMgr.Okashi_lastname = _basenameFull;
+        GameMgr.Okashi_lastID = _baseID;
 
         /*if (Getlove_exp > 0)
         {

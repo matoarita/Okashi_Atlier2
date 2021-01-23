@@ -768,9 +768,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //画像を変更
         texture2d = database.items[i].itemIcon_sprite;
         _Img.sprite = texture2d;
-        /*_Img.sprite = Sprite.Create(texture2d,
-                       new Rect(0, 0, texture2d.width, texture2d.height),
-                       Vector2.zero);*/
 
         ++list_count;
     }
@@ -836,9 +833,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //画像を変更
         texture2d = pitemlist.player_originalitemlist[i].itemIcon_sprite;
         _Img.sprite = texture2d;
-        /*_Img.sprite = Sprite.Create(texture2d,
-                       new Rect(0, 0, texture2d.width, texture2d.height),
-                       Vector2.zero);*/
 
         ++list_count;
     }
