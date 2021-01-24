@@ -10,6 +10,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     
     public static int player_renkin_lv; //パティシエレベル
     public static int player_renkin_exp; //パティシエ経験
+    public static int player_extreme_kaisu_Max; //仕上げ可能回数
+    public static int player_extreme_kaisu; //現在の仕上げ可能回数
 
     public static int player_ninki_param; //人気度。いるかな？とりあえず置き
 
@@ -61,6 +63,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_kaeru_coin = 0;
         player_zairyobox = 10; //カゴの大きさ
         player_zairyobox_lv = 1;
+        player_extreme_kaisu_Max = 1;
+        player_extreme_kaisu = player_extreme_kaisu_Max;
 
         //妹のステータス初期設定
         girl1_Love_exp = 0;

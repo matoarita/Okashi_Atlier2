@@ -140,8 +140,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_money = PlayerStatus.player_money, // 所持金
             save_player_kaeru_coin = PlayerStatus.player_kaeru_coin, //かえるコインの所持数。危ないお店などで使える。
 
-            save_player_renkin_lv = PlayerStatus.player_renkin_lv, //錬金レベル
-            save_player_renkin_exp = PlayerStatus.player_renkin_exp, //錬金経験
+            save_player_renkin_lv = PlayerStatus.player_renkin_lv, //パティシエレベル
+            save_player_renkin_exp = PlayerStatus.player_renkin_exp, //パティシエ経験
+            save_player_extreme_kaisu_Max = PlayerStatus.player_extreme_kaisu_Max, //仕上げ可能回数
+            save_player_extreme_kaisu = PlayerStatus.player_extreme_kaisu,//現在の仕上げ可能回数
+
 
             save_player_ninki_param = PlayerStatus.player_ninki_param, //人気度。いるかな？とりあえず置き
             save_player_zairyobox_lv = PlayerStatus.player_zairyobox_lv, // 材料カゴの大きさ
@@ -193,10 +196,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_OkashiQuest_flag_stage1 = GameMgr.OkashiQuest_flag_stage1, //各SPイベントのクリアしたかどうかのフラグ。
             save_OkashiQuest_flag_stage2 = GameMgr.OkashiQuest_flag_stage2,
             save_OkashiQuest_flag_stage3 = GameMgr.OkashiQuest_flag_stage3,
-            
+
             //現在のクエストクリアフラグ
             save_QuestClearflag = GameMgr.QuestClearflag,
             save_QuestClearButton_anim = GameMgr.QuestClearButton_anim,
+
+            //さっき食べたお菓子の情報
+            save_Okashi_lasthint = GameMgr.Okashi_lasthint, //さっき食べたお菓子のヒント。
+            save_Okashi_lastname = GameMgr.Okashi_lastname, //さっき食べたお菓子の名前。
+            save_Okashi_lastID = GameMgr.Okashi_lastID, //さっき食べたお菓子のアイテムID
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -267,7 +275,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //エクストリームパネルのアイテムIDも保存
             save_extreme_itemid = GameMgr.sys_extreme_itemID,
             save_extreme_itemtype = GameMgr.sys_extreme_itemType,
-    };
+        };
        
 
         //デバッグ用
@@ -322,8 +330,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_money = playerData.save_player_money; // 所持金
         PlayerStatus.player_kaeru_coin = playerData.save_player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
 
-        PlayerStatus.player_renkin_lv = playerData.save_player_renkin_lv; //錬金レベル
-        PlayerStatus.player_renkin_exp = playerData.save_player_renkin_exp; //錬金経験
+        PlayerStatus.player_renkin_lv = playerData.save_player_renkin_lv; //パティシエレベル
+        PlayerStatus.player_renkin_exp = playerData.save_player_renkin_exp; //パティシエ経験
+        PlayerStatus.player_extreme_kaisu_Max = playerData.save_player_extreme_kaisu_Max; //仕上げ可能回数
+        PlayerStatus.player_extreme_kaisu = playerData.save_player_extreme_kaisu;//現在の仕上げ可能回数
 
         PlayerStatus.player_ninki_param = playerData.save_player_ninki_param; //人気度。いるかな？とりあえず置き
         PlayerStatus.player_zairyobox_lv = playerData.save_player_zairyobox_lv; // 材料カゴの大きさ
@@ -377,6 +387,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         GameMgr.QuestClearflag = playerData.save_QuestClearflag;
         GameMgr.QuestClearButton_anim = playerData.save_QuestClearButton_anim;
+
+        //さっき食べたお菓子の情報
+        GameMgr.Okashi_lasthint = playerData.save_Okashi_lasthint; //さっき食べたお菓子のヒント。
+        GameMgr.Okashi_lastname = playerData.save_Okashi_lastname; //さっき食べたお菓子の名前。
+        GameMgr.Okashi_lastID = playerData.save_Okashi_lastID; //さっき食べたお菓子のアイテムID
 
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。

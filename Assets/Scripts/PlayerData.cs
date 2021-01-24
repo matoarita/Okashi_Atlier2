@@ -12,8 +12,11 @@ public class PlayerData
     public int save_player_money; // 所持金
     public int save_player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
 
-    public int save_player_renkin_lv; //錬金レベル
-    public int save_player_renkin_exp; //錬金経験
+    public int save_player_renkin_lv; //パティシエレベル
+    public int save_player_renkin_exp; //パティシエ経験
+    public int save_player_extreme_kaisu_Max; //仕上げ可能回数
+    public int save_player_extreme_kaisu; //現在の仕上げ可能回数
+
 
     public int save_player_ninki_param; //人気度。いるかな？とりあえず置き
     public int save_player_zairyobox; // 材料カゴの大きさ
@@ -82,6 +85,11 @@ public class PlayerData
     //現在のクエストのクリアフラグ
     public bool save_QuestClearflag;
     public bool save_QuestClearButton_anim; //クエストクリア演出が発生したか否か
+
+    //さっき食べたお菓子の情報
+    public string save_Okashi_lasthint; //さっき食べたお菓子のヒント。
+    public string save_Okashi_lastname; //さっき食べたお菓子の名前。
+    public int save_Okashi_lastID; //さっき食べたお菓子のアイテムID
 
     //ステージ１クリア時の好感度を保存
     public int save_stage1_girl1_loveexp;

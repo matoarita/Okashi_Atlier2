@@ -1056,7 +1056,6 @@ public class Compound_Main : MonoBehaviour
 
                 //Live2Dデフォルト
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
-                //character_move.transform.position = new Vector3(0, 0, 0);
                 girl1_status.Walk_Start = true;
                 girl1_status.timeOutMoveX = 7.0f;
 
@@ -1449,7 +1448,7 @@ public class Compound_Main : MonoBehaviour
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
                 
-                if (extreme_panel.extreme_itemID != 9999 && extreme_panel.extreme_kaisu > 0)
+                if (extreme_panel.extreme_itemID != 9999 && PlayerStatus.player_extreme_kaisu > 0)　//extreme_panel.extreme_kaisu
                 {
                     select_extreme_button.interactable = true;
                 } else
@@ -2659,9 +2658,8 @@ public class Compound_Main : MonoBehaviour
 
     IEnumerator ReadGirlLoveEvent()
     {
-        touch_controller.Touch_OnAllOFF();
+        OffCompoundSelect();
         compoundselect_onoff_obj.SetActive(false);
-        extreme_Button.interactable = false;
         GirlLove_loading = true;
 
         //腹減りカウント一時停止
@@ -2694,9 +2692,8 @@ public class Compound_Main : MonoBehaviour
         mute_on = false;
 
         canvas.SetActive(true);
+        OnCompoundSelect();
         GirlHeartEffect_obj.SetActive(true);
-        extreme_Button.interactable = true;
-        touch_controller.Touch_OnAllON();
 
         //腹減りカウント開始
         girl1_status.GirlEat_Judge_on = true;
@@ -2882,9 +2879,10 @@ public class Compound_Main : MonoBehaviour
             {
                 if (check_OkashiAfter_flag)
                 {
+                    check_OkashiAfter_flag = false;
+
                     GameMgr.GirlLoveSubEvent_stage1[0] = true;
-                                       
-                   
+                                                         
                     if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
                     {
                         if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできないときのヒントをだす。＋クッキーを食べたいなぁ～。
@@ -2916,8 +2914,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    check_GirlLoveSubEvent_flag = false;
-                    check_OkashiAfter_flag = false;
+                    check_GirlLoveSubEvent_flag = false;                   
                 }
             }
 
@@ -2926,6 +2923,7 @@ public class Compound_Main : MonoBehaviour
             {
                 if (check_OkashiAfter_flag)
                 {
+                    check_OkashiAfter_flag = false;
 
                     if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
                     {
@@ -2941,16 +2939,17 @@ public class Compound_Main : MonoBehaviour
                         {
                             GameMgr.GirlLoveSubEvent_stage1[1] = true;
                             GameMgr.GirlLoveSubEvent_num = 5;
+
+                            check_GirlLoveSubEvent_flag = false;
                         }
                         else //クリアできた。85~
                         {
                             GameMgr.GirlLoveSubEvent_stage1[2] = true;
                             GameMgr.GirlLoveSubEvent_num = 6;
-                        }
-                    }
 
-                    check_GirlLoveSubEvent_flag = false;
-                    check_OkashiAfter_flag = false;
+                            check_GirlLoveSubEvent_flag = false;
+                        }
+                    }                   
                 }
             }
 
@@ -3015,6 +3014,7 @@ public class Compound_Main : MonoBehaviour
 
     public void OffCompoundSelectnoExtreme()
     {
+        touch_controller.Touch_OnAllOFF();
         menu_toggle.GetComponent<Toggle>().interactable = false;
         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
         shop_toggle.GetComponent<Toggle>().interactable = false;
@@ -3028,6 +3028,7 @@ public class Compound_Main : MonoBehaviour
 
     public void OffCompoundSelect()
     {
+        touch_controller.Touch_OnAllOFF();
         menu_toggle.GetComponent<Toggle>().interactable = false;
         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
         shop_toggle.GetComponent<Toggle>().interactable = false;
@@ -3042,6 +3043,7 @@ public class Compound_Main : MonoBehaviour
 
     public void OnCompoundSelect()
     {
+        touch_controller.Touch_OnAllON();
         menu_toggle.GetComponent<Toggle>().interactable = true;
         getmaterial_toggle.GetComponent<Toggle>().interactable = true;
         shop_toggle.GetComponent<Toggle>().interactable = true;

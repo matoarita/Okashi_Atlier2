@@ -104,7 +104,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 30
       bitter: 0
       sour: 30
       crispy: 60
@@ -132,7 +132,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 30
       bitter: 0
       sour: 0
       crispy: 60
@@ -160,7 +160,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 30
       bitter: 0
       sour: 30
       crispy: 60
@@ -412,7 +412,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 30
       bitter: 0
       sour: 50
       crispy: 60
@@ -440,7 +440,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 30
       bitter: 0
       sour: 0
       crispy: 60
@@ -468,7 +468,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 30
       bitter: 20
       sour: 0
       crispy: 60
@@ -496,7 +496,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 30
       bitter: 0
       sour: 30
       crispy: 60
@@ -524,7 +524,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 20
       rich: 0
-      sweat: 60
+      sweat: 30
       bitter: 0
       sour: 30
       crispy: 60

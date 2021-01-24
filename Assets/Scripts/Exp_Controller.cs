@@ -65,7 +65,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private Compound_Keisan compound_keisan;
 
-    private GameObject black_panel_A;
     private GameObject compoBG_A;
 
     private GameObject yes_no_panel;
@@ -293,7 +292,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
 
         //黒半透明パネルの取得
-        black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
         BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
 
         //コンポBGパネルの取得
@@ -533,8 +531,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         result_ok = false;
 
-        //black_panel_A.SetActive(true);
-
         //日数の経過
         PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
 
@@ -739,8 +735,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         recipiresult_ok = false;
-
-        //black_panel_A.SetActive(true);
 
         //日数の経過
         PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;

@@ -303,6 +303,9 @@ public class Compound_Check : MonoBehaviour {
 
                         exp_Controller.ResultOK();
 
+                        //仕上げ回数をリセット
+                        PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+
                         break;
 
                     case false:
@@ -379,6 +382,8 @@ public class Compound_Check : MonoBehaviour {
 
                         exp_Controller.ResultOK();
 
+                        //仕上げ回数をリセット
+                        PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
 
                         break;
 
@@ -439,24 +444,8 @@ public class Compound_Check : MonoBehaviour {
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
-                        /*
-                        //新しいアイテムを閃く
-                        if (compoDB_select_judge == true)
-                        {                           
-                            exp_Controller.NewRecipiflag_check = true;
-                        }
-
-                        //コンポDBに該当していなければ、通常通りトッピングの処理
-                        else
-                        {
-                            exp_Controller.NewRecipiflag_check = false;
-                        }
-                       
-
-                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-                        exp_Controller.Topping_Result_OK();*/
-
+                        //仕上げ回数を減らす
+                        PlayerStatus.player_extreme_kaisu--;
                         
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
@@ -525,24 +514,10 @@ public class Compound_Check : MonoBehaviour {
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
-                        /*
-                        //新しいアイテムを閃く
-                        if (compoDB_select_judge == true)
-                        {                           
-                            exp_Controller.NewRecipiflag_check = true;
-                        }
+                        //仕上げ回数を減らす
+                        PlayerStatus.player_extreme_kaisu--;
 
-                        //コンポDBに該当していなければ、通常通りトッピングの処理
-                        else
-                        {
-                            exp_Controller.NewRecipiflag_check = false;
-                        }                       
 
-                        //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
-                        exp_Controller.Topping_Result_OK();*/
-
-                        
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
                         {
@@ -601,6 +576,7 @@ public class Compound_Check : MonoBehaviour {
                 switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
+
                         //選んだ三つをもとに、一つのアイテムを生成する。
 
                         //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
@@ -608,9 +584,11 @@ public class Compound_Check : MonoBehaviour {
 
                         compound_Main.compound_status = 4;
 
-                        //card_view.DeleteCard_DrawView();
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
+
+                        //仕上げ回数を減らす
+                        PlayerStatus.player_extreme_kaisu--;
 
                         exp_Controller.Topping_Result_OK();
 
@@ -673,6 +651,9 @@ public class Compound_Check : MonoBehaviour {
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 exp_Controller.Recipi_ResultOK();
+
+                //仕上げ回数をリセット
+                PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
 
                 Debug.Log("選択完了！");
                 break;

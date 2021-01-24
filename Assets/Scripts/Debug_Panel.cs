@@ -252,6 +252,9 @@ public class Debug_Panel : MonoBehaviour {
                 //現在のクエストを再度設定。
                 if (event_num != 0)
                 {
+                    //0以外を押したら、メモはとりあえず出る。
+                    GameMgr.GirlLoveSubEvent_stage1[0] = true;
+
                     if (event_num % 10 == 0) //10番台の数字の場合、前クエストの終わりから、スタート。
                     {
                         special_quest.SetSpecialOkashi(event_num - 10, 0);

@@ -2123,6 +2123,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //移動した位置を元に戻す。
     public void ResetCharacterPosition()
     {
+        DoTSequence_Kill();
         character_move.transform.DOMoveX(0, 0.0f);
     }
 

@@ -21,11 +21,14 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
     private int i, count;
 
-    private int now_level, before_level;
+    private int now_level, before_level, before_start_lv;
+    private int _temp_lv;
 
     private GameObject canvas;
     private GameObject text_area;
     private Text _text;
+
+    private List<string> _temp_skill = new List<string>();
 
     //SEを鳴らす
     private SoundController sc;
@@ -81,6 +84,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
+        if(!check_on)
+        {
+            before_start_lv = PlayerStatus.player_renkin_lv; //現在のレベル（レベルアップ前）
+        }
+
         check_on = true; //チェック中
 
         for (i = 1; i < exp_table_setting.Length - 1; i++)
@@ -92,7 +100,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             }
         }
 
-        before_level = PlayerStatus.player_renkin_lv; //現在のレベル（レベルアップ前）
+        before_level = PlayerStatus.player_renkin_lv; //現在のレベル（レベルアップ更新中）
 
         //現在のレベルより、ナウレベルのほうが高い場合は、レベルアップ
         if (now_level > before_level)
@@ -171,11 +179,20 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         
         //１ずつあげて、その時に覚えるスキルなどがあれば、それをチェックする。
         PlayerStatus.player_renkin_lv++;
-        
+
         //○○を覚えた！など
+        _temp_skill.Clear();
+        SkillCheck(PlayerStatus.player_renkin_lv);
 
         //最後にテキスト表示
-        _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！";
+        if (_temp_skill.Count > 0)
+        {
+            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！" + "\n" + _temp_skill[0];
+        }
+        else
+        {
+            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！";
+        }
 
         Check_LevelUp(); //もう一回繰り返し
     }
@@ -190,9 +207,36 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         PlayerStatus.player_renkin_lv = now_level;
 
+        //○○を覚えた！など
+        //前のレベルから現在レベルまでの間に、スキルがないかチェックする。
+        _temp_skill.Clear();
+        _temp_lv = before_start_lv;
+        for (count=0; count <  (now_level-before_start_lv); count++ )
+        {          
+            SkillCheck(_temp_lv+count+1);
+        }
+
         //最後にテキスト表示
-        _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！";
+        if (_temp_skill.Count > 0)
+        {
+            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！" + "\n" + _temp_skill[0];
+        }
+        else
+        {
+            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！";
+        }
     }
 
+    void SkillCheck(int _nowlevel)
+    {
 
+        switch(_nowlevel)
+        {
+            case 3:
+
+                _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
+                PlayerStatus.player_extreme_kaisu_Max++;
+                break;
+        }
+    }
 }

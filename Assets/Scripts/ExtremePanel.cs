@@ -287,13 +287,13 @@ public class ExtremePanel : MonoBehaviour {
         if (extreme_itemtype == 0) //デフォルトアイテムの場合
         {
             texture2d = database.items[extreme_itemID].itemIcon;
-            extreme_kaisu = database.items[extreme_itemID].ExtremeKaisu;
+            //extreme_kaisu = database.items[extreme_itemID].ExtremeKaisu;
             extreme_itemName.text = database.items[extreme_itemID].itemNameHyouji;
         }
         else if (extreme_itemtype == 1) //オリジナルアイテムの場合
         {
             texture2d = pitemlist.player_originalitemlist[extreme_itemID].itemIcon;
-            extreme_kaisu = pitemlist.player_originalitemlist[extreme_itemID].ExtremeKaisu;
+            //extreme_kaisu = pitemlist.player_originalitemlist[extreme_itemID].ExtremeKaisu;
 
             //スロット名+アイテム名の表示
             extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_originalitemlist[extreme_itemID].item_SlotName + "</color>" + pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
@@ -307,6 +307,7 @@ public class ExtremePanel : MonoBehaviour {
                                    Vector2.zero);
 
         //エクストリーム残り回数の表示更新。
+        extreme_kaisu = PlayerStatus.player_extreme_kaisu;
         extreme_Param.text = extreme_kaisu.ToString();
 
         //エフェクトの表示

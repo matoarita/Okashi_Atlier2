@@ -108,7 +108,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。
     public static bool QuestClearAnim_Flag;   //クリアしたときに、ボタンを登場させるか否かのフラグ。そのクエストの最後のときだけ演出をだす時に使う。
 
-    //さっき食べたお菓子情報 セーブする。まだセーブは未登録
+    //さっき食べたお菓子情報
     public static string Okashi_lasthint; //さっき食べたお菓子のヒント。
     public static string Okashi_lastname; //さっき食べたお菓子の名前。
     public static int Okashi_lastID; //さっき食べたお菓子のアイテムID
