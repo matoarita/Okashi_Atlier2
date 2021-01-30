@@ -1433,6 +1433,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType = database.items[_id].itemType.ToString();
         _add_itemType_sub = database.items[_id].itemType_sub.ToString();
 
+        //店売りアイテムを合成に使う場合は、固有トッピングを計算する。
+
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
@@ -1444,32 +1446,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 _addkoyutp[i] = database.items[_id].koyu_toppingtype[i].ToString();
             }
-            /*
-            if (exp_Controller.extreme_on) //エクストリームから新規作成される場合はトッピングの計算をしない。
-            {
-                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
-                {
-                    _addtp[i] = "Non";
-                }
-
-                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
-                {
-                    _addkoyutp[i] = "Non";
-                }
-            }
-            else //通常のオリジナル・レシピ調合の場合も、トッピングの計算はしない。ただし、プレイヤーが好みで種類を変えて、かつトッピングがついているものは、トッピングの計算をする。現状必要なさそうなので、未実装。
-            {
-                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
-                {
-                    _addtp[i] = "Non";
-                    //_addtp[i] = database.items[_id].toppingtype[i].ToString(); //フリーで制作した場合のみ、トッピングがつく。その場合の計算方法。
-                }
-
-                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
-                {
-                    _addkoyutp[i] = "Non";
-                }
-            }*/
         }
         else if (Comp_method_bunki == 3) //トッピング時。通常トッピング＋固有トッピングどちらも計算
         {
@@ -1518,7 +1494,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType = pitemlist.player_originalitemlist[_id].itemType.ToString();
         _add_itemType_sub = pitemlist.player_originalitemlist[_id].itemType_sub.ToString();
 
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時は固有トッピングの値は計算しない。
+
+        //オリジナルアイテムを合成に使う場合は、固有トッピングは計算しない。二重スロットを回避するため。
+
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -1527,34 +1506,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
             {
-                _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
+                _addkoyutp[i] = "Non";
+                //_addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
             }
-            /*if (exp_Controller.extreme_on) //エクストリームから新規作成される場合はトッピングの計算をしない。
-            {
-                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
-                {
-                    _addtp[i] = "Non";
-                }
-
-                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
-                {
-                    _addkoyutp[i] = "Non";
-                }
-            }
-            else //通常のオリジナル・レシピ調合の場合は、トッピングの値だけ計算する。固有は無視。
-            {
-                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
-                {
-                    _addtp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
-                }
-
-                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
-                {
-                    _addkoyutp[i] = "Non";
-                }
-            }*/
         }
-        else if (Comp_method_bunki == 3) //トッピング時は、通常トッピング＋固有トッピングどちらも計算
+        else if (Comp_method_bunki == 3) //トッピング時
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -1563,7 +1519,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
             {
-                _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
+                _addkoyutp[i] = "Non";
+                //_addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
             }
         }
 

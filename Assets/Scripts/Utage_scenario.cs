@@ -716,6 +716,24 @@ public class Utage_scenario : MonoBehaviour
         //続きから再度読み込み
         engine.ResumeScenario();
 
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        //ゲームの再開処理を書く
+        GameMgr.tutorial_Num = 15;
+
+        while (!GameMgr.tutorial_Progress) //オリジナル調合を押し待ち
+        {
+            yield return null;
+        }
+        GameMgr.tutorial_Progress = false;
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
 
         //
         //「宴」のポーズ終了待ち
@@ -723,6 +741,7 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
         GameMgr.tutorial_Num = 30;
 
         while (!GameMgr.tutorial_Progress) //右のレシピメモ開き押し待ち
@@ -1496,15 +1515,18 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // お菓子 食べたあと　採点表示のあとの感想表示
+    // エメラルどんぐりゲット時の表示
     //
     IEnumerator EmeralDonguri_Hyouji()
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
+        scenario_loading = true;
+
         scenarioLabel = "EmeralDonguri"; //イベントレシピタグのシナリオを再生。
 
-        scenario_loading = true;
+        //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("EmeralDongri_num", GameMgr.emeralDonguri_status);      
 
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();

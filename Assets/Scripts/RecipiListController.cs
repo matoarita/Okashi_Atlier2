@@ -25,6 +25,7 @@ public class RecipiListController : MonoBehaviour {
     private Sprite texture2d;
     private Image _Img;
     private GameObject _HighStar;
+    private GameObject _HighStar_2;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -65,6 +66,9 @@ public class RecipiListController : MonoBehaviour {
     private GameObject yes_button;
     private GameObject no_button;
 
+    public List<GameObject> category_toggle = new List<GameObject>();
+    private int category_status;
+
     // Use this for initialization
     void Awake () {
 
@@ -87,6 +91,13 @@ public class RecipiListController : MonoBehaviour {
 
         i = 0;
 
+        foreach (Transform child in this.transform.Find("CategoryViewRecipi/Viewport/Content/").transform)
+        {
+            //Debug.Log(child.name);           
+            category_toggle.Add(child.gameObject);
+        }
+        category_status = 0;
+
     }
 	
 	// Update is called once per frame
@@ -100,11 +111,18 @@ public class RecipiListController : MonoBehaviour {
         //Debug.Log("OnEnable");  
 
         final_recipiselect_flag = false;
+        for (i = 0; i < category_toggle.Count; i++)
+        {
+            category_toggle[i].GetComponent<Toggle>().isOn = false;
+        }
+        category_toggle[0].GetComponent<Toggle>().isOn = true;
+
         reset_and_DrawView();
 
         OpenAnim();
     }
 
+    //アニメーション
     void OpenAnim()
     {
         //まず、初期値。
@@ -121,12 +139,43 @@ public class RecipiListController : MonoBehaviour {
         sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
+
+    public void RecipiList_DrawView()
+    {
+        if (category_toggle[0].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 0;
+            reset_and_DrawView();
+        }
+    }
+
+    public void RecipiList_DrawView2()
+    {
+        if (category_toggle[1].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 1;
+            reset_and_DrawView_Okashi();
+        }
+    }
+
     public void RecipiList_Draw()
     {
         //アイテムリストを表示中に、アイテムを追加した場合、リアルタイムに表示を更新する
+        switch (category_status)
+        {
+            case 0:
 
-        reset_and_DrawView();
+                reset_and_DrawView();
+                break;
+
+            case 1:
+
+                reset_and_DrawView_Okashi();
+                break;
+
+        }
     }
+
 
     // リストビューの描画部分。重要。
     void reset_and_DrawView()
@@ -152,92 +201,131 @@ public class RecipiListController : MonoBehaviour {
                 if (pitemlist.eventitemlist[i].ev_itemKosu > 0 && pitemlist.eventitemlist[i].ev_ListOn == 1) //イベントレシピを所持してる　かつ　リスト表示がONのものを表示
                 {
                     //Debug.Log(i);
+                    drawEvRecipi();
 
-                    _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
-                    _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
-                    _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
-                    _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
-
-                    _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
-                    _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
-                    _toggle_itemID.recipi_toggleEventType = 0; //イベントアイテムタイプなので、0
-
-
-                    j = 0;
-
-                    //調合DBの生成アイテムはローマ字表記なので、データベースから、日本語表記をひっぱってくる。
-                    item_name = pitemlist.eventitemlist[i].event_itemNameHyouji;
-
-                    _toggle_itemID.recipi_itemNameHyouji = item_name;
-
-                    _text.text = item_name;
-                    //_text.color = new Color(153f / 255f, 89f / 255f, 201f / 255f); //9959C980
-
-                    //画像を変更
-                    texture2d = Resources.Load<Sprite>("Sprites/Icon/Book01");
-                    _Img.sprite = texture2d;
-
-                    _HighStar.SetActive(false);
-
-                    ++list_count;
                 }
             }
         }
+
+        //調合DBのフラグをチェック
+        /*for (i = 0; i < databaseCompo.compoitems.Count; i++)
+        {
+            if (databaseCompo.compoitems[i].cmpitem_flag == 1) //調合DBのフラグが1のアイテムのみ、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
+            {
+                //Debug.Log(i);
+                drawNormalRecipi();
+
+            }
+        }*/
+    }
+
+    void reset_and_DrawView_Okashi()
+    {
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        list_count = 0;
+        _recipi_listitem.Clear();
+
 
         //調合DBのフラグをチェック
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
             if (databaseCompo.compoitems[i].cmpitem_flag == 1) //調合DBのフラグが1のアイテムのみ、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
             {
-
                 //Debug.Log(i);
+                drawNormalRecipi();
 
-                _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
-                _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
-                _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
-                _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
-
-                _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
-                _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
-                _toggle_itemID.recipi_toggleEventType = 1; //コンポ調合アイテムタイプなので、1
-
-                
-
-                j = 0;
-
-                //調合DBの生成アイテムはローマ字表記なので、アイテムデータベースから、日本語表記をひっぱってくる。
-                while( j < database.items.Count )
-                {
-                    if (database.items[j].itemName == databaseCompo.compoitems[i].cmpitemID_result)
-                    {
-                        item_name = database.items[j].itemNameHyouji;
-                        texture2d = database.items[j].itemIcon_sprite;
-                        _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
-
-                        if (database.items[j].HighScore_flag) {
-                            _HighStar.SetActive(true);
-                        }
-                        else
-                        {
-                            _HighStar.SetActive(false);
-                        }                        
-
-                        break;
-                    }
-                    ++j;
-                }
-
-                _toggle_itemID.recipi_itemNameHyouji = item_name;
-
-                _text.text = item_name;
-
-                //画像を変更              
-                _Img.sprite = texture2d;
-
-                ++list_count;
             }
         }
-
     }
 
+    void drawEvRecipi()
+    {
+        _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
+        _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
+        _HighStar_2 = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar_2").gameObject;
+
+        _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
+        _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
+        _toggle_itemID.recipi_toggleEventType = 0; //イベントアイテムタイプなので、0
+
+
+        j = 0;
+
+        //調合DBの生成アイテムはローマ字表記なので、データベースから、日本語表記をひっぱってくる。
+        item_name = pitemlist.eventitemlist[i].event_itemNameHyouji;
+
+        _toggle_itemID.recipi_itemNameHyouji = item_name;
+
+        _text.text = item_name;
+        //_text.color = new Color(153f / 255f, 89f / 255f, 201f / 255f); //9959C980
+
+        //画像を変更
+        texture2d = Resources.Load<Sprite>("Sprites/Icon/Book01");
+        _Img.sprite = texture2d;
+
+        _HighStar.SetActive(false);
+        _HighStar_2.SetActive(false);
+
+        ++list_count;
+    }
+
+    void drawNormalRecipi()
+    {
+        _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
+        _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
+        _HighStar_2 = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar_2").gameObject;
+
+        _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
+        _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
+        _toggle_itemID.recipi_toggleEventType = 1; //コンポ調合アイテムタイプなので、1
+
+
+        j = 0;
+
+        //調合DBの生成アイテムはローマ字表記なので、アイテムデータベースから、日本語表記をひっぱってくる。
+        while (j < database.items.Count)
+        {
+            if (database.items[j].itemName == databaseCompo.compoitems[i].cmpitemID_result)
+            {
+                item_name = database.items[j].itemNameHyouji;
+                texture2d = database.items[j].itemIcon_sprite;
+                _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
+
+                if (database.items[j].HighScore_flag == 1)
+                {
+                    _HighStar.SetActive(true);
+                    _HighStar_2.SetActive(false);
+                }
+                else if (database.items[j].HighScore_flag == 2)
+                {
+                    _HighStar.SetActive(true);
+                    _HighStar_2.SetActive(true);
+                } else
+                {
+                    _HighStar.SetActive(false);
+                    _HighStar_2.SetActive(false);
+                }
+
+                break;
+            }
+            ++j;
+        }
+
+        _toggle_itemID.recipi_itemNameHyouji = item_name;
+
+        _text.text = item_name;
+
+        //画像を変更              
+        _Img.sprite = texture2d;
+
+        ++list_count;
+    }
 }

@@ -115,6 +115,7 @@ public class SetImage : MonoBehaviour
     private Text[] item_Slot = new Text[10];
 
     private GameObject item_HighScoreFlag;
+    private GameObject item_HighScoreFlag_2;
 
     private GameObject kosu_panel;
     private Text kosu_text;
@@ -157,7 +158,7 @@ public class SetImage : MonoBehaviour
     private int _lastjuice_score;
 
     private int _eat_kaisu;
-    private bool _highscore_flag;
+    private int _highscore_flag;
     private int _lasttotal_score;
     private string _lasthint_text;
 
@@ -338,6 +339,7 @@ public class SetImage : MonoBehaviour
         item_LastTotalScore = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemLastTotalScore").gameObject.GetComponent<Text>(); //最高得点
         item_Hint = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemHint").gameObject.GetComponent<Text>(); //前回の妹からのヒント
         item_HighScoreFlag = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/HighScoreFlag").gameObject; //ハイスコア時、星のエンブレムがでる。
+        item_HighScoreFlag_2 = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/HighScoreFlag_2").gameObject; //ハイスコア時、星のエンブレムがでる。
 
         _Shokukan_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemShokukanBar").gameObject.GetComponent<Slider>();
         _Sweat_lastslider = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
@@ -851,13 +853,20 @@ public class SetImage : MonoBehaviour
         }
 
         //ハイスコアゲットできたら、星マーク
-        if (_highscore_flag)
+        if (_highscore_flag == 1)
         {
             item_HighScoreFlag.SetActive(true);
+            item_HighScoreFlag_2.SetActive(false);
+        }
+        else if (_highscore_flag == 2)
+        {
+            item_HighScoreFlag.SetActive(true);
+            item_HighScoreFlag_2.SetActive(true);
         }
         else
         {
             item_HighScoreFlag.SetActive(false);
+            item_HighScoreFlag_2.SetActive(false);
         }
 
 

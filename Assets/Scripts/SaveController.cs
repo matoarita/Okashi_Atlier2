@@ -181,6 +181,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //初期アイテム取得フラグ
             save_gamestart_recipi_get = GameMgr.gamestart_recipi_get,
 
+            //クエスト以外で、クリアするのに必要なハート量
+            save_stageclear_love = GameMgr.stageclear_love,
+            save_stageclear_cullentlove = GameMgr.stageclear_cullentlove,
+
             //イベントフラグ
             save_GirlLoveEvent_num = GameMgr.GirlLoveEvent_num,
             save_GirlLoveEvent_stage1 = GameMgr.GirlLoveEvent_stage1,  //各イベントの、現在読み中かどうかのフラグ。           
@@ -368,6 +372,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //初期アイテム取得フラグ
         GameMgr.gamestart_recipi_get = playerData.save_gamestart_recipi_get;
+
+        //クエスト以外で、クリアするのに必要なハート量
+        GameMgr.stageclear_love = playerData.save_stageclear_love;
+        GameMgr.stageclear_cullentlove = playerData.save_stageclear_cullentlove;
 
         //イベントフラグ
         GameMgr.GirlLoveEvent_num = playerData.save_GirlLoveEvent_num;

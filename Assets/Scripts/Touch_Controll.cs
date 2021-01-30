@@ -27,6 +27,7 @@ public class Touch_Controll : MonoBehaviour
     private int trans_motion;
 
     private float timeOut;
+    private bool mouseLclick_off;
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -51,24 +52,46 @@ public class Touch_Controll : MonoBehaviour
         ALL_touch_flag = true;
 
         draghair_count = 0;
-        timeOut = 2.0f;
+        timeOut = 3.0f;
+
+        mouseLclick_off = false;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonUp(0))
+        /*if(girl1_status.touchanim_start) //タッチがONになった。
         {
-            //Debug.Log("マウス左クリックが離された");
-            /*if(girl1_status.Girl1_touchtwintail_start)
+            if (Input.GetMouseButtonUp(0))
             {
-                girl1_status.Girl1_touchtwintail_start = false;
+                //Debug.Log("マウス左クリックが離された");
+                mouseLclick_off = true;
+                timeOut = 3.0f;
+                //3秒ほど待って、タッチをオフにする。
+              
             }
 
-            if (girl1_status.Girl1_touchchest_start)
+            if (mouseLclick_off)
             {
-                girl1_status.Girl1_touchchest_start = false;
-            }*/
-        }
+                timeOut -= Time.deltaTime;
+            }
+
+            if( timeOut <= 0.0f)
+            {
+                girl1_status.touchanim_start = false;
+                girl1_status.facemotion_start = true;
+
+                if (girl1_status.Girl1_touchtwintail_start)
+                {
+                    girl1_status.Girl1_touchtwintail_start = false;
+                }
+
+                if (girl1_status.Girl1_touchchest_start)
+                {
+                    girl1_status.Girl1_touchchest_start = false;
+                }
+            }
+        }*/
+        
     }
 
 

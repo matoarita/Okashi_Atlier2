@@ -392,7 +392,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (compound_success == true)
         {
             //個数の決定
-            if(set_kaisu == 0) //例外処理。ロードしたてのときは、回数0のまま、仕上げから新規作成される際、0になることがある。
+            if (set_kaisu == 0) //例外処理。ロードしたてのときは、回数0のまま、仕上げから新規作成される際、0になることがある。
             {
                 set_kaisu = 1;
             }
@@ -402,7 +402,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //調合処理
             Compo_1();
 
-            
+
 
             //チュートリアルのときは、一時的にOFF
             if (GameMgr.tutorial_ON == true)
@@ -439,7 +439,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //NewRecipiFlag = true;
                 NewRecipi_compoID = result_ID;
 
-                _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！"  + "\n";
+                _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
 
             }
             //すでに作っていたことがある場合
@@ -454,12 +454,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _ex_text = "";
             }
 
-
             //はじめて、アイテムを制作した場合は、フラグをONに。
-            if (PlayerStatus.First_recipi_on != true)
+            if (!GameMgr.tutorial_ON)
             {
-                PlayerStatus.First_recipi_on = true;
+                if (PlayerStatus.First_recipi_on != true)
+                {
+                    PlayerStatus.First_recipi_on = true;
+                }
             }
+
 
             if (extreme_on) //トッピング調合から、新規作成に分岐した場合
             {
@@ -468,6 +471,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     PlayerStatus.First_extreme_on = true;
                 }
             }
+
 
             //オリジナルの個数をCompoDBにセットしなおす。セットしなおすかどうかを聞く。
             /*databaseCompo.compoitems[result_ID].cmpitem_kosu1 = result_kosuset[0];
@@ -536,6 +540,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         _ex_text = "";
 
+        //メインテキストも更新
+        compound_Main.StartMessage();
+        compound_Main.check_CompoAfter_flag = true;
+        //compound_Main.check_GirlLoveSubEvent_flag = false; //作った直後のサブイベントもチェック
+
         //経験値の増減後、レベルアップしたかどうかをチェック
         exp_table.Check_LevelUp();
     }
@@ -546,6 +555,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compound_keisan.Topping_Compound_Method(0);
 
         result_item = pitemlist.player_originalitemlist.Count - 1;
+        GameMgr.Okashi_makeID = pitemlist.player_originalitemlist[result_item].itemID;
 
         renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
 
@@ -681,6 +691,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             }
 
+            //はじめて、アイテムを制作した場合は、フラグをONに。
+            if (!GameMgr.tutorial_ON)
+            {
+                if (PlayerStatus.First_recipi_on != true)
+                {
+                    PlayerStatus.First_recipi_on = true;
+                }
+            }
+
             //テキストの表示            
             renkin_default_exp_up();
 
@@ -735,6 +754,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         recipiresult_ok = false;
+
+        //メインテキストも更新
+        compound_Main.StartMessage();
+        compound_Main.check_CompoAfter_flag = true;
 
         //日数の経過
         PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
@@ -944,6 +967,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //テキスト表示後、閃いた～をリセットしておく
         _ex_text = "";
+
+        //メインテキストも更新
+        compound_Main.StartMessage();
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         exp_table.Check_LevelUp();

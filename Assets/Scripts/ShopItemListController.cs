@@ -155,6 +155,15 @@ public class ShopItemListController : MonoBehaviour
         }
     }
 
+    public void ShopList_DrawView5()
+    {
+        if (category_toggle[4].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 4;
+            reset_and_DrawView_Etc();
+        }
+    }
+
     public void ReDraw()
     {       
 
@@ -178,6 +187,11 @@ public class ShopItemListController : MonoBehaviour
             case 3:
 
                 reset_and_DrawView_Recipi();
+                break;
+
+            case 4:
+
+                reset_and_DrawView_Etc();
                 break;
 
         }
@@ -205,7 +219,8 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
                     //1～だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemType=0は基本の材料系
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag && shop_database.shopitems[i].shop_itemType == 0)
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                        && shop_database.shopitems[i].shop_itemType == 0)
                     {
                         if (shop_database.shopitems[i].shop_itemzaiko > 0)
                         {
@@ -222,7 +237,8 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
                     //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemType=0は基本の材料系
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag && shop_database.farmitems[i].shop_itemType == 0)
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                        && shop_database.farmitems[i].shop_itemType == 0)
                     {
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
                         {
@@ -277,7 +293,8 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag && shop_database.shopitems[i].shop_itemType == 3)
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                        && shop_database.shopitems[i].shop_itemType == 3)
                     {
                         if (shop_database.shopitems[i].shop_itemzaiko > 0)
                         {
@@ -293,7 +310,8 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag && shop_database.farmitems[i].shop_itemType == 3)
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                        && shop_database.farmitems[i].shop_itemType == 3)
                     {
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
                         {
@@ -335,7 +353,7 @@ public class ShopItemListController : MonoBehaviour
                 {
                     if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag )
                     {
-                        if (shop_database.shopitems[i].shop_itemType == 2 || shop_database.shopitems[i].shop_itemType == 6)
+                        if (shop_database.shopitems[i].shop_itemType == 2)
                         {
                             if (shop_database.shopitems[i].shop_itemzaiko > 0)
                             {
@@ -354,7 +372,7 @@ public class ShopItemListController : MonoBehaviour
                 {
                     if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag )
                     {
-                        if (shop_database.farmitems[i].shop_itemType == 2 || shop_database.farmitems[i].shop_itemType == 6)
+                        if (shop_database.farmitems[i].shop_itemType == 2)
                         {
                             if (shop_database.farmitems[i].shop_itemzaiko > 0)
                             {
@@ -395,7 +413,8 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag && shop_database.shopitems[i].shop_itemType == 1)
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                        && shop_database.shopitems[i].shop_itemType == 1)
                     {
                         if (shop_database.shopitems[i].shop_itemzaiko > 0)
                         {
@@ -411,7 +430,8 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag && shop_database.farmitems[i].shop_itemType == 1)
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                        && shop_database.farmitems[i].shop_itemType == 1)
                     {
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
                         {
@@ -429,6 +449,65 @@ public class ShopItemListController : MonoBehaviour
         }
 
         
+    }
+
+    // お土産系
+    void reset_and_DrawView_Etc()
+    {
+        //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
+        Check_ShopListFlag();
+
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        list_count = 0;
+        _shop_listitem.Clear();
+        //Debug.Log(shop_database.shopitems.Count);
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Shop":
+
+                for (i = 0; i < shop_database.shopitems.Count; i++)
+                {
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                        && shop_database.shopitems[i].shop_itemType == 6)
+                    {
+                        if (shop_database.shopitems[i].shop_itemzaiko > 0)
+                        {
+
+                            drawItem();
+
+                        }
+                    }
+                }
+                break;
+
+            case "Farm":
+
+                for (i = 0; i < shop_database.farmitems.Count; i++)
+                {
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                        && shop_database.farmitems[i].shop_itemType == 6)
+                    {
+                        if (shop_database.farmitems[i].shop_itemzaiko > 0)
+                        {
+
+                            drawFarmItem();
+
+                        }
+                    }
+                }
+                break;
+
+            default:
+
+                break;
+        }
+
+
     }
 
     void drawItem()

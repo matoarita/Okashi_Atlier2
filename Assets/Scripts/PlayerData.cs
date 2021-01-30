@@ -47,6 +47,10 @@ public class PlayerData
     //初期アイテム取得フラグ
     public bool save_gamestart_recipi_get;
 
+    //クエスト以外で、クリアするのに必要なハート量
+    public int save_stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様
+    public int save_stageclear_cullentlove; //クエストをクリアするのに、必要なハートの蓄積量。
+
     //コスチューム番号
     public int save_costume_num;
     public int[] save_acce_num = new int[GameMgr.Accesory_Num.Length];

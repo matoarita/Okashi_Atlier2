@@ -163,12 +163,12 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                 items.Add(new Item(_id, _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _base_score, _girl1_like, 
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
-                    _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, false, 0, "", 0));
+                    _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0));
                 //comp_hoseiでバグらないようにするための、クローン
                 items_gamedefault.Add(new Item(_id, _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _type, _subtype, _base_score, _girl1_like,
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
-                    _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, false, 0, "", 0));
+                    _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0));
 
                 ++count;
             }
@@ -185,11 +185,11 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                 {
                     items.Add(new Item(_id+i+1, "orange", "empty", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 
-                        _ex_kaisu, 0, 0, 0, false, 0, "", 0));
+                        _ex_kaisu, 0, 0, 0, 0, 0, "", 0));
                     //comp_hoseiでバグらないようにするための、クローン
                     items_gamedefault.Add(new Item(_id + i + 1, "orange", "empty", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
-                        _ex_kaisu, 0, 0, 0, false, 0, "", 0));
+                        _ex_kaisu, 0, 0, 0, 0, 0, "", 0));
                 }
 
                 sheet_topendID.Add(excel_itemdatabase.sheets[sheet_no].list[0].ItemID); // 次sheetの頭のIDを入れる。
@@ -237,7 +237,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
         {
             items[i].ExtremeKaisu = _ex_kaisu;
             items[i].Eat_kaisu = 0;
-            items[i].HighScore_flag = false;
+            items[i].HighScore_flag = 0;
 
             items[i].last_total_score = 0;
             items[i].last_rich_score = 0;

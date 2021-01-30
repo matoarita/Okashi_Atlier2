@@ -76,6 +76,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1000;
+                GameMgr.stageclear_love = 30; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 
@@ -85,6 +86,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1010;
+                GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
 
@@ -94,6 +96,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1020;
+                GameMgr.stageclear_love = 70; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
@@ -103,6 +106,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 10: //ラスク食べたい
 
                 girl1_status.OkashiQuest_ID = 1100;
+                GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
 
@@ -111,6 +115,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 11: //すっぱいラスク食べたい
 
                 girl1_status.OkashiQuest_ID = 1110;
+                GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
@@ -120,6 +125,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 20: //クレープ食べたい
 
                 girl1_status.OkashiQuest_ID = 1200;
+                GameMgr.stageclear_love = 100; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
@@ -129,6 +135,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 30: //シュークリーム食べたい
 
                 girl1_status.OkashiQuest_ID = 1300;
+                GameMgr.stageclear_love = 100; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
@@ -138,6 +145,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 40: //ドーナツ食べたい
 
                 girl1_status.OkashiQuest_ID = 1400;
+                GameMgr.stageclear_love = 100; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
@@ -147,6 +155,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 50: //ステージ１ラスト　コンテスト開始
 
                 girl1_status.OkashiQuest_ID = 1500;
+                GameMgr.stageclear_love = 300; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 girl1_status.ResetHukidashi();
                 break;

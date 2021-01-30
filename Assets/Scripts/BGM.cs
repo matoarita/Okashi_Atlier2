@@ -20,6 +20,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound10;  //コンテスト時のメインBGM
     public AudioClip sound11;  //「ラベンダー畑」BGM
     public AudioClip sound12;  //「バードサンクチュアリ」BGM
+    public AudioClip sound13;  //お好みBGM_01
 
     [Range(0, 1)]
     public float _mixRate = 0;

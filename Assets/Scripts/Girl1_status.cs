@@ -51,6 +51,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public bool GirlEat_Judge_on;
     public int GirlGokigenStatus; //女の子の現在のご機嫌の状態。6段階ほどあり、好感度が上がるにつれて、だんだん見た目が元気になっていく。
+    public int GirlOishiso_Status; //食べたあとの、「おいしそ～」の状態。この状態では、アイドルモーションが少し変化する。
 
     private GameObject text_area;
 
@@ -59,6 +60,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public GameObject hukidashiitem;
     private Text _text;
+
+    private int _temp_status;
 
     private GameObject MoneyStatus_Panel_obj;
 
@@ -202,6 +205,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public bool Girl1_touchchest_start;
 
+    public bool touchanim_start; //タッチしはじめたら、その他のモーションなどを一時的に止める。
+
     //歩きスタート
     public bool Walk_Start;
 
@@ -210,6 +215,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
     public string OkashiQuest_Name; //そのときのお菓子のクエストネーム
     public int Special_ignore_count; //スペシャルを無視した場合、カウント。3回あたりをこえると、スペシャルは無視される。
+    public bool HukidashiFlag; //イベント中などでは、吹き出しを一時的にださない。主に、Live2DAnimationTrigger用に使用。
 
     //エフェクト関係
     private GameObject Emo_effect_Prefab1;
@@ -236,6 +242,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Text girl_param;
     private Slider _slider; //好感度バーを取得
 
+    public bool gireleat_start_flag; //食べ始めアニメ開始のスイッチ
+
     // Use this for initialization
     void Start()
     {
@@ -243,6 +251,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
         girl_comment_flag = false;
         girl_comment_endflag = false;
+        HukidashiFlag = true;
+        gireleat_start_flag = false;
         _desc = "";
 
         //Prefab内の、コンテンツ要素を取得
@@ -376,7 +386,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeOutHeartDeg = 5.0f;
         timeGirl_hungry_status = 1;
 
-        GirlGokigenStatus = 0;        
+        GirlGokigenStatus = 0;
+        GirlOishiso_Status = 0;
         OkashiNew_Status = 1;
         Special_ignore_count = 0;
         special_animatFirst = false;
@@ -408,6 +419,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchtwintail_flag = false;
 
         Girl1_touchchest_start = false;
+
+        touchanim_start = false;
 
         Walk_Start = true; //歩きフラグをON
 
@@ -482,6 +495,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     timeOutIdle = timeOutIdle_time;
                     GirlEat_Judge_on = true;
 
+                    HukidashiFlag = true;
+                    gireleat_start_flag = false;
+
+                    GirlOishiso_Status = 0; //シーン移動でも、おいしそ～状態はリセット
+
                     break;
 
                 case "Shop":
@@ -515,16 +533,24 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (GirlEat_Judge_on == true)
         {
             timeOut -= Time.deltaTime;
-            timeOut2 -= Time.deltaTime;
-            timeOutIdle -= Time.deltaTime;
+            timeOut2 -= Time.deltaTime;            
             timeOutHeartDeg -= Time.deltaTime;
             timeOutMoveX -= Time.deltaTime;
+
+            if (!touchanim_start) //タッチアニメ中は、移動はしなくなる。
+            {
+                timeOutIdle -= Time.deltaTime;                
+            }
         }
 
         if(WaitHint_on) //吹き出しヒントを表示中
         {
             timeOutHint -= Time.deltaTime;
-            timeOutIdle -= Time.deltaTime;
+
+            if (!touchanim_start) //タッチアニメ中は、移動はしなくなる。
+            {
+                timeOutIdle -= Time.deltaTime;
+            }
 
             if (timeOutHint <= 0.0f)
             {
@@ -637,6 +663,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             {
                                 Girl1_touchhair_status = 0;
                                 Girl1_touchhair_count = 0;
+                                touchanim_start = false;
                                 GirlEat_Judge_on = true;
 
                                 //gazeをリセット
@@ -981,9 +1008,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //今選んだやつの、girllikeComposetのIDも保存しておく。（こっちは直接選んでいる。）
                     Set_compID = OkashiQuest_ID;
-
                     //OkashiQuest_ID = compIDを指定すると、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
-                    //SetQuestRandomSet(OkashiQuest_ID, false);
+
                     SetQuestHukidashiText(OkashiQuest_ID, false);
 
                     if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
@@ -994,13 +1020,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     break;
 
-                case 1:
+                case 1: //チュートリアル用の回避
 
                     //前の残りの吹き出しアイテムを削除。
                     if (hukidashiitem != null)
                     {
                         Destroy(hukidashiitem);
                     }
+                   
+
+                    break;
+
+                case 2: //現在未使用だが、一応残し
 
                     //
                     //②通常ステージ、ランダムセット。
@@ -1009,7 +1040,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //その他、通常のステージ攻略時は、セット組み合わせからランダムに選ぶ。
                     //例えば、セット1・4の組み合わせだと、1でも4でもどっちでも正解。カリっとしたお菓子を食べたい～、のような感じ。    
 
-                    
+
                     //まず、表示フラグが1のもののみのセットを作る。
                     girlLikeCompo_database.StageSet();
 
@@ -1020,10 +1051,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     Set_compID = random;
 
                     //ランダムセットから、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
-                    SetQuestRandomSet(random, true);                   
-
-
+                    SetQuestRandomSet(random, true);
                     break;
+
 
                 default:
                     break;
@@ -1084,8 +1114,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             sceneBGM.PlayMain();
         }    
 
-        //表示用吹き出しを生成                   
-        //hukidasiInit();
 
         //吹き出しのテキスト決定
         //_text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
@@ -1108,7 +1136,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         InitializeStageGirlHungrySet(_ID, 0);　//comp_Numの値を直接指定
 
         Set_Count = 1;
-        OkashiNew_Status = 1; //回避用
+        OkashiNew_Status = 1; //チュートリアルなど。直接指定できるときの状態
         Set_compID = _ID;
 
         //テキストの設定。直接しているか、セット組み合わせエクセルにかかれたキャプションのどちらかが入る。
@@ -1320,8 +1348,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             
         }
 
-        //ついでに仕草もでる。
-
         //Idleにリセット
         trans_motion = 1000;
         live2d_animator.SetInteger("trans_motion", trans_motion);
@@ -1370,10 +1396,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidashiitem.GetComponent<TextController>().SetText("おいしそ～♪");
     }
 
+    //吹き出しの生成メソッド
     public void hukidasiInit()
     {
         //Live2Dモデルの取得
         _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+
+        if (hukidashiitem != null)
+        {
+            DeleteHukidashi();
+        }
 
         hukidashiitem = Instantiate(hukidashiPrefab, _model_obj.transform);
 
@@ -1414,7 +1446,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //音を鳴らす
             sc.PlaySe(8);
         }
-
+        
+        /*
         //判定用の全ての値を0に初期化
         for (i = 0; i < girl1_hungryScoreSet1.Count; i++)
         {
@@ -1427,11 +1460,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             girl1_hungryToppingNumberSet1[i] = 0;
             girl1_hungryToppingNumberSet2[i] = 0;
             girl1_hungryToppingNumberSet3[i] = 0;
-        }        
+        } */       
 
     }
 
-    public void DeleteHukidashiOnly() //こっちは消すだけ
+    public void DeleteHukidashiOnly() //こっちは消すだけ。音無し。
     {
         //前の残りの吹き出しアイテムを削除。
         if (hukidashiitem != null)
@@ -1665,6 +1698,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchhair_status = 0;
         Girl1_touchhair_count = 0;
         Girl1_touchhair_start = true;
+        touchanim_start = true;
         GirlEat_Judge_on = false;
 
         //_model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
@@ -1991,6 +2025,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void TouchChest_Start()
     {
         Girl1_touchchest_start = true;
+        touchanim_start = true;
 
         //タップモーション　最初触った一回だけ発動        
         live2d_animator.SetLayerWeight(2, 1);
@@ -2030,7 +2065,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void Touchtwintail_Start()
     {
         Girl1_touchtwintail_start = true;
-        
+        touchanim_start = true;
+
         //タップモーション　最初触った一回だけ発動        
         live2d_animator.SetLayerWeight(2, 1);
         live2d_animator.Play("tapmotion_01", 2, 0.0f);
@@ -2101,9 +2137,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         rnd = Random.Range(2.0f, -2.0f);
 
+        MoveXMethod(rnd);
+        
+    }
+
+    void MoveXMethod(float _move)
+    {
         sequence_girlmove = DOTween.Sequence();
 
-        sequence_girlmove.Append(character_move.transform.DOMoveX(rnd, 3.0f)
+        sequence_girlmove.Append(character_move.transform.DOMoveX(_move, 3.0f)
         .SetEase(Ease.InOutSine));
 
         sequence_girlmove2 = DOTween.Sequence().SetLoops(3);
@@ -2118,6 +2160,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         sequence_girlmove.Complete();
         sequence_girlmove2.Complete();
+        timeOutMoveX = 7.0f;
     }
 
     //移動した位置を元に戻す。
@@ -2134,48 +2177,80 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator.Play("Reset"); //一度デュレーションをリセット
         live2d_animator.Update(2);
 
-        switch (GirlGokigenStatus)
+        if (GirlOishiso_Status == 0) //デフォルトの状態
+        { }
+        else if (GirlOishiso_Status == 1) //お菓子出来たてのあと、おいしそ～状態
         {
-            case 0:
+            //_temp_status = 1; //デバッグ用
+            
+            random = Random.Range(0, 100); //抽選 2分の1で、おいしそ～状態特有のアイドルモーションに変化
+            if (random >= 50)
+            {
+                _temp_status = 0;
+            }
+            else
+            {
+                _temp_status = 1;
+            }
+        }
 
-                random = Random.Range(0, 3); //0~3
-                trans_facemotion = random + 1; //1はじまり
+        if (_temp_status == 0) //デフォルトの状態
+        {
+            switch (GirlGokigenStatus)
+            {
+                case 0:
 
-                break;
+                    random = Random.Range(0, 3); //0~3
+                    trans_facemotion = random + 1; //1はじまり
 
-            case 1:
+                    break;
 
-                random = Random.Range(0, 3); //0~3
-                trans_facemotion = random + 1; //1はじまり
-                break;
+                case 1:
 
-            case 2:
+                    random = Random.Range(0, 3); //0~3
+                    trans_facemotion = random + 1; //1はじまり
+                    break;
 
-                random = Random.Range(0, 3); //0~3
-                trans_facemotion = random + 1; //1はじまり
-                break;
+                case 2:
 
-            case 3:
+                    random = Random.Range(0, 3); //0~3
+                    trans_facemotion = random + 1; //1はじまり
+                    break;
 
-                random = Random.Range(0, 3); //0~3
-                trans_facemotion = random + 1; //1はじまり
-                break;
+                case 3:
 
-            case 4:
+                    random = Random.Range(0, 3); //0~3
+                    trans_facemotion = random + 1; //1はじまり
+                    break;
 
-                random = Random.Range(0, 3); //0~3
-                trans_facemotion = random + 1; //1はじまり
-                break;
+                case 4:
 
-            case 5:
+                    random = Random.Range(0, 3); //0~3
+                    trans_facemotion = random + 1; //1はじまり
+                    break;
 
-                random = Random.Range(0, 3); //0~3
-                trans_facemotion = random + 1; //1はじまり
-                break;
+                case 5:
 
-            default:
+                    random = Random.Range(0, 3); //0~3
+                    trans_facemotion = random + 1; //1はじまり
+                    break;
 
-                break;
+                default:
+
+                    break;
+            }
+
+            //全身モーション再生スタートの合図をだす。
+            facemotion_start = true;
+        }
+        else if (_temp_status == 1) //お菓子出来たてのあと、おいしそ～状態
+        {
+            DoTSequence_Kill();
+            MoveXMethod(-1.18f);
+            timeOutMoveX = 12.0f;
+            trans_facemotion = 500; //歩いている間のモーション　その後、くんくん
+            Walk_Start = false; //一時的に歩きをOFF
+            StartCoroutine(ChangeFaceMotion(9999)); 
         }
 
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
@@ -2192,9 +2267,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     0.5f      // アニメーション時間
                                 );
 
-        //全身モーション再生スタートの合図をだす。
-        facemotion_start = true;
+    }
 
+    IEnumerator ChangeFaceMotion(int _num) //番号を指定すると、0.1秒後に、facemotionの値を自動で切り替え。主に、モーションの重複の回避用
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        trans_facemotion = _num;
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion);
     }
 
 

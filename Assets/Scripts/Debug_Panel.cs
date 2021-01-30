@@ -241,6 +241,9 @@ public class Debug_Panel : MonoBehaviour {
             special_quest.special_kaisu = 0;
             girl1_status.special_animatFirst = false;
 
+            GameMgr.QuestClearflag = false; //クエストクリアフラグ系をオフに。
+            GameMgr.QuestClearButton_anim = false;
+
             if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
                 //女の子判定データの取得

@@ -62,6 +62,53 @@ MonoBehaviour:
       item_hyouji: 1
       Set_JudgeNum: 0
     - ItemID: 1
+      file_name: komugiko
+      name: kyorikiko
+      nameHyouji: "\u5F37\u529B\u7C89"
+      desc: "\u8584\u529B\u7C89\u3088\u308A\u3082\u3001\u3055\u304F\u3055\u304F\u611F\u3001\u3082\u3061\u3063\u3068\u3057\u305F\u6B6F\u3054\u305F\u3048\u3092\u51FA\u305B\u308B\u5C0F\u9EA6\u7C89\u3002\u53CD\u9762\u3001\u3075\u3093\u308F\u308A\u611F\u306F\u51FA\u306B\u304F\u3044\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 50
+      exp: 3
+      ex_probability: 0.95
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 30
+      fluffy: 3
+      smooth: 0
+      hardness: 30
+      jiggly: 0
+      chewy: 0
+      powdery: 30
+      oily: 0
+      watery: 0
+      type: Mat
+      subtype: Komugiko
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 2
       file_name: butter
       name: butter
       nameHyouji: "\u30D0\u30BF\u30FC"
@@ -108,7 +155,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 2
+    - ItemID: 3
       file_name: kogashi_butter
       name: kogashi_butter
       nameHyouji: "\u7126\u304C\u3057\u30D0\u30BF\u30FC"
@@ -155,7 +202,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 3
+    - ItemID: 4
       file_name: suger
       name: suger
       nameHyouji: "\u7802\u7CD6"
@@ -202,7 +249,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 4
+    - ItemID: 5
       file_name: suger
       name: granusuger
       nameHyouji: "\u30B0\u30E9\u30CB\u30E5\u30FC\u7CD6"
@@ -249,7 +296,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 5
+    - ItemID: 6
       file_name: suger
       name: powder_suger
       nameHyouji: "\u7C89\u7CD6"
@@ -296,7 +343,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 0
       Set_JudgeNum: 0
-    - ItemID: 6
+    - ItemID: 7
       file_name: pink_suger
       name: pink_suger
       nameHyouji: "\u30D4\u30F3\u30AF\u30B7\u30E5\u30AC\u30FC"
@@ -343,7 +390,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 7
+    - ItemID: 8
       file_name: emerald_suger
       name: emerald_suger
       nameHyouji: "\u30A8\u30E1\u30E9\u30EB\u30C9\u30B7\u30E5\u30AC\u30FC"
@@ -390,7 +437,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 8
+    - ItemID: 9
       file_name: egg
       name: egg
       nameHyouji: "\u305F\u307E\u3054"
@@ -437,7 +484,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 9
+    - ItemID: 10
       file_name: egg
       name: egg_white
       nameHyouji: "\u5375\u767D"
@@ -484,7 +531,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 10
+    - ItemID: 11
       file_name: egg
       name: egg_yellow
       nameHyouji: "\u5375\u9EC4"
@@ -531,7 +578,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 11
+    - ItemID: 12
       file_name: egg_premium
       name: egg_premiaum
       nameHyouji: "\u30D7\u30EC\u30DF\u30A2\u30E0\u305F\u307E\u3054"
@@ -578,7 +625,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 12
+    - ItemID: 13
       file_name: salt
       name: salt
       nameHyouji: "\u5869"
@@ -625,7 +672,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 13
+    - ItemID: 14
       file_name: baking_powder
       name: baking_powder
       nameHyouji: "\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC"
@@ -672,7 +719,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 14
+    - ItemID: 15
       file_name: cacao_beans
       name: cacao_beans
       nameHyouji: "\u30AB\u30AB\u30AA\u8C46"
@@ -718,53 +765,6 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
-    - ItemID: 15
-      file_name: komugiko
-      name: kyorikiko
-      nameHyouji: "\u5C0F\u9EA6\u7C89\uFF1C\u5F37\u529B\uFF1E"
-      desc: "\u8584\u529B\u7C89\u3088\u308A\u3082\u3082\u3063\u3061\u308A\u3057\u305F\u98DF\u611F\u3092\u51FA\u305B\u308B\u3002\uFF1C\u4E0A\u7D1A\u7D20\u6750\uFF1E"
-      comp_hosei: 0
-      hp: 0
-      day: 0
-      quality: 50
-      exp: 3
-      ex_probability: 0.95
-      rich: 0
-      sweat: 0
-      bitter: 0
-      sour: 0
-      crispy: 35
-      fluffy: 50
-      smooth: 50
-      hardness: 85
-      jiggly: 0
-      chewy: 0
-      powdery: 50
-      oily: 0
-      watery: 0
-      type: Mat
-      subtype: Komugiko
-      base_score: 0
-      girl1_like: 0
-      cost_price: 0
-      sell_price: 5
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      topping10: Non
-      koyu_topping1: Non
-      koyu_topping2: Non
-      koyu_topping3: Non
-      koyu_topping4: Non
-      koyu_topping5: Non
-      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 16
       file_name: himawari_Oil
@@ -1783,7 +1783,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 30
-      topping01: Lavender
+      topping01: Earlgrey
       topping02: Non
       topping03: Non
       topping04: Non
@@ -2253,7 +2253,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Non
+      topping01: Marsala
       topping02: Non
       topping03: Non
       topping04: Non
@@ -2347,7 +2347,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Vanilla
+      topping01: RoseWater
       topping02: Non
       topping03: Non
       topping04: Non
@@ -7582,7 +7582,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 90
     - ItemID: 272
       file_name: pan_cake
       name: choco_banana_pan_cake
@@ -7629,7 +7629,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 90
     - ItemID: 273
       file_name: pan_cake
       name: blueberry_pan_cake
@@ -7676,7 +7676,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 90
     - ItemID: 274
       file_name: pan_cake
       name: threeberry_banana_pan_cake
@@ -7723,7 +7723,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 0
+      Set_JudgeNum: 90
     - ItemID: 275
       file_name: dorayaki
       name: dorayaki
@@ -10302,7 +10302,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: Non
+      koyu_topping1: StrangeGlass
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -10312,8 +10312,8 @@ MonoBehaviour:
     - ItemID: 330
       file_name: rich_tea
       name: mato_tea
-      nameHyouji: "\u307E\u3068\u8336"
-      desc: "\u5927\u5929\u4F7F\u30DE\u30C8\u30EA\u30A8\u30EB\u304C\u6DF9\u308C\u3066\u304F\u308C\u308B\u304A\u8336\u3002\u4E2D\u8EAB\u306F\u3001\u30B8\u30E3\u30B9\u30DF\u30F3\u306E\u304A\u82B1\u306E\u7D05\u8336\u3002\u4F53\u306E\u82AF\u304B\u3089\u3042\u305F\u305F\u307E\u308B\u3002"
+      nameHyouji: "\u307E\u3068\u308A\u3048\u308B\u30C6\u30A3\u30FC"
+      desc: "\u96E8\u306E\u5929\u4F7F\u300C\u307E\u3068\u308A\u3048\u308B\u300D\u304C\u6DF9\u308C\u3066\u304F\u308C\u308B\u304A\u8336\u3002\u4E2D\u8EAB\u306F\u3001\u30B8\u30E3\u30B9\u30DF\u30F3\u306E\u82B1\u306E\u7D05\u8336\u3002\u4F53\u306E\u82AF\u304B\u3089\u3042\u305F\u305F\u307E\u308B\u3002"
       comp_hosei: 0
       hp: 300
       day: 0
@@ -10381,7 +10381,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Okashi
-      subtype: Tea
+      subtype: Tea_Mat
       base_score: 60
       girl1_like: 10
       cost_price: 2500
@@ -10396,7 +10396,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: Non
+      koyu_topping1: Lavender
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -10428,7 +10428,7 @@ MonoBehaviour:
       oily: 0
       watery: 0
       type: Okashi
-      subtype: Tea
+      subtype: Tea_Mat
       base_score: 60
       girl1_like: 10
       cost_price: 2500
@@ -10443,7 +10443,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: Non
+      koyu_topping1: Apple
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -11939,7 +11939,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Non
+      topping01: WhipeedCream
       topping02: Non
       topping03: Non
       topping04: Non
@@ -11949,7 +11949,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: WhipeedCream
+      koyu_topping1: Non
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -11996,7 +11996,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: WhipeedCreamOrange
+      koyu_topping1: Non
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -12043,7 +12043,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: WhipeedCreamGrape
+      koyu_topping1: Non
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -12090,7 +12090,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: WhipeedCreamBlueberry
+      koyu_topping1: Non
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -12127,7 +12127,7 @@ MonoBehaviour:
       girl1_like: 0
       cost_price: 0
       sell_price: 0
-      topping01: Non
+      topping01: WhipeedCreamStrawberry
       topping02: Non
       topping03: Non
       topping04: Non
@@ -12137,7 +12137,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: WhipeedCreamStrawberry
+      koyu_topping1: Non
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -12184,7 +12184,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: WhipeedCreamBanana
+      koyu_topping1: Non
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -12231,7 +12231,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       topping10: Non
-      koyu_topping1: WhipeedCreamPeach
+      koyu_topping1: Non
       koyu_topping2: Non
       koyu_topping3: Non
       koyu_topping4: Non
@@ -13135,6 +13135,53 @@ MonoBehaviour:
       Set_JudgeNum: 0
     - ItemID: 1015
       file_name: item_box3
+      name: teaset_wedgewood
+      nameHyouji: "\u30A6\u30A7\u30C3\u30B8\u30A6\u30C3\u30C9\u306E\u30C6\u30A3\u30FC\u30BB\u30C3\u30C8"
+      desc: "\u30A6\u30A7\u30C3\u30B8\u30A6\u30C3\u30C9\u304C\u4F5C\u3063\u305F\u3001\u304A\u8336\u4F1A\u7528\u306E\u98DF\u5668\u30BB\u30C3\u30C8\u3002\u25CB\u25CB\u304C\u4E0A\u304C\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Equip
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1016
+      file_name: item_box3
       name: himmeli
       nameHyouji: "\u9B54\u6CD5\u306E\u30D2\u30F3\u30E1\u30EA"
       desc: "\u5B99\u306B\u6D6E\u304F\u771F\u936E\u7D20\u6750\u3067\u51FA\u6765\u305F\u3001\u98FE\u308A\u7528\u306E\u7F6E\u7269\u3002\u591A\u89D2\u5F62\u304B\u3064\u5E7E\u4F55\u5B66\u7684\u306A\u7BB1\u304C\u3001\u3044\u304F\u3064\u3082\u9023\u306A\u3063\u305F\u73CD\u3057\u3044\u5F62\u3092\u3057\u3066\u3044\u308B\u3002"
@@ -13180,7 +13227,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1016
+    - ItemID: 1017
       file_name: white_lily
       name: white_lily
       nameHyouji: "\u767D\u767E\u5408"
@@ -13227,7 +13274,242 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1017
+    - ItemID: 1018
+      file_name: white_lily
+      name: amabie_pendant
+      nameHyouji: "\u30A2\u30DE\u30D3\u30A8\u306E\u30DA\u30F3\u30C0\u30F3\u30C8"
+      desc: "\u30A2\u30DE\u30D3\u30A8\u306E\u30DA\u30F3\u30C0\u30F3\u30C8\u3002\u25CB\u25CB\u304C\u4E0A\u304C\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Object
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1019
+      file_name: white_lily
+      name: green_pendant
+      nameHyouji: "\u65B0\u7DD1\u306E\u30DA\u30F3\u30C0\u30F3\u30C8"
+      desc: "\u30DA\u30EA\u30C9\u30C3\u30C8\u304C\u306F\u3081\u3053\u307E\u308C\u305F\u30DA\u30F3\u30C0\u30F3\u30C8\u3002\u25CB\u25CB\u304C\u4E0A\u304C\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Object
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1020
+      file_name: white_lily
+      name: star_pendant
+      nameHyouji: "\u661F\u5C51\u306E\u30DA\u30F3\u30C0\u30F3\u30C8"
+      desc: "\u661F\u3092\u9589\u3058\u8FBC\u3081\u305F\u30A4\u30A8\u30ED\u30FC\u30C8\u30D1\u30FC\u30BA\u306E\u30DA\u30F3\u30C0\u30F3\u30C8\u3002\u25CB\u25CB\u304C\u4E0A\u304C\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Object
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1021
+      file_name: aquamarine_pendant
+      name: aquamarine_pendant
+      nameHyouji: "\u30A2\u30AF\u30A2\u30DE\u30EA\u30F3\u30DA\u30F3\u30C0\u30F3\u30C8"
+      desc: "\u30A2\u30AF\u30A2\u30DE\u30EA\u30F3\u304C\u306F\u3081\u3053\u307E\u308C\u305F\u30DA\u30F3\u30C0\u30F3\u30C8\u3002\u25CB\u25CB\u304C\u4E0A\u304C\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Object
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1022
+      file_name: white_lily
+      name: maneki_cat
+      nameHyouji: "\u62DB\u304D\u732B"
+      desc: "\u798F\u3092\u547C\u3076\u62DB\u304D\u732B\u306E\u7F6E\u7269\u3002\u25CB\u25CB\u304C\u4E0A\u304C\u308B\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Object
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1023
       file_name: emeralDonguri
       name: emeralDongri
       nameHyouji: "\u30A8\u30E1\u30E9\u30EB\u3069\u3093\u3050\u308A"
@@ -13274,7 +13556,54 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1018
+    - ItemID: 1024
+      file_name: sapphireDonguri
+      name: sapphireDongri
+      nameHyouji: "\u30B5\u30D5\u30A1\u30A4\u30A2\u3069\u3093\u3050\u308A"
+      desc: "\u59B9\u304C\u62FE\u3063\u3066\u304D\u305F\u30B5\u30D5\u30A1\u30A4\u30A2\u306E\u3088\u3046\u306A\u8F1D\u304D\u3092\u3082\u3064\u3069\u3093\u3050\u308A\u3002"
+      comp_hosei: 0
+      hp: 0
+      day: 0
+      quality: 0
+      exp: 0
+      ex_probability: 0
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      powdery: 0
+      oily: 0
+      watery: 0
+      type: Etc
+      subtype: Donguri
+      base_score: 0
+      girl1_like: 0
+      cost_price: 0
+      sell_price: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      topping10: Non
+      koyu_topping1: Non
+      koyu_topping2: Non
+      koyu_topping3: Non
+      koyu_topping4: Non
+      koyu_topping5: Non
+      item_hyouji: 1
+      Set_JudgeNum: 0
+    - ItemID: 1025
       file_name: kirakira_stone1
       name: kirakira_stone1
       nameHyouji: "\u304D\u3089\u304D\u3089\u77F3"
@@ -13321,7 +13650,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1019
+    - ItemID: 1026
       file_name: diamond_1
       name: diamond_1
       nameHyouji: "\u30C0\u30A4\u30A2\u30E2\u30F3\u30C90.5\u30AB\u30E9\u30C3\u30C8"
@@ -13368,7 +13697,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1020
+    - ItemID: 1027
       file_name: diamond_1
       name: diamond_2
       nameHyouji: "\u30C0\u30A4\u30A2\u30E2\u30F3\u30C92.0\u30AB\u30E9\u30C3\u30C8"
@@ -13415,7 +13744,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1021
+    - ItemID: 1028
       file_name: diamond_1
       name: diamond_3
       nameHyouji: "\u30C0\u30A4\u30A2\u30E2\u30F3\u30C93.0\u30AB\u30E9\u30C3\u30C8"
@@ -13462,7 +13791,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1022
+    - ItemID: 1029
       file_name: diamond_1
       name: diamond_4
       nameHyouji: "\u30C0\u30A4\u30A2\u30E2\u30F3\u30C95.0\u30AB\u30E9\u30C3\u30C8"
@@ -13509,7 +13838,7 @@ MonoBehaviour:
       koyu_topping5: Non
       item_hyouji: 1
       Set_JudgeNum: 0
-    - ItemID: 1023
+    - ItemID: 1030
       file_name: copper_coin
       name: copper_coin
       nameHyouji: "\u9285\u306E\u30B3\u30A4\u30F3"

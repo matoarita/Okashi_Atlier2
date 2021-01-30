@@ -21,7 +21,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private string[] _koyutp = new string[5];
     private int _judge_num;
     private int _eat_kaisu;
-    private bool _highscore_flag;
+    private int _highscore_flag;
     private int _lasttotal_score;
     private string _hinttext;
 

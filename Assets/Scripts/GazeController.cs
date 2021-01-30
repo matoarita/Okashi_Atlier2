@@ -19,6 +19,8 @@ public class GazeController : MonoBehaviour
 
     void LateUpdate()
     {
+        centerOnScreen = Camera.main.WorldToScreenPoint(Anchor.position);
+
         if (Input.GetMouseButton(0)) //マウス左クリックしてるときだけ、追従
         {
             var mousePos = Input.mousePosition - centerOnScreen;
@@ -65,5 +67,10 @@ public class GazeController : MonoBehaviour
         {
             parameter.Value = Mathf.Clamp(value, parameter.MinimumValue, parameter.MaximumValue);
         }
+    }
+
+    public void FadeDefaultRot() //切り替えオフの信号をもらったら、フェードで元の角度に戻す。
+    {
+
     }
 }

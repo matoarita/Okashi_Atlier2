@@ -53,26 +53,44 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         SetInit();
     }
 
-    //調合から戻ってきたときに、元の表情にもどる。
+    //調合終了後、元の位置まで戻ってきたときに、下のメソッドを呼び出し、元の表情にもどる。
     public void OnEndReturnBackHome()
+    {
+        if (girl1_status.gireleat_start_flag) //食べ始めアニメが入ったら、trans_motionは触らない
+        { }
+        else
+        { 
+            trans_motion = 101; //念の為、100を繰り返すのを止めておく。
+            live2d_animator.SetInteger("trans_motion", trans_motion);
+
+            //うまく調合できた場合は、「おいしそ～」って感じで、ワクワクした表情に。
+            if (exp_Controller.ResultSuccess) //成功した場合
+            {
+                girl1_status.face_girl_Yodare(); //おいしそ～ よだれの表情
+
+                //「おいしそ～」って吹き出しもだしていいかも。
+                if (girl1_status.HukidashiFlag)
+                {
+                    girl1_status.hukidashiReturnHome();
+                }
+
+                //「おいしそ～」状態に変化する
+                girl1_status.GirlOishiso_Status = 1;
+            }
+            else //失敗した場合
+            {
+                girl1_status.DefaultFace(); //現在の機嫌に合わせた表情に戻す
+            }
+
+            //腹減りカウント再開
+            girl1_status.GirlEat_Judge_on = true;
+        }
+    }
+
+    public void OnResetMotion()
     {
         trans_motion = 0; //リセット
         live2d_animator.SetInteger("trans_motion", trans_motion);
-
-        //うまく調合できた場合は、「おいしそ～」って感じで、ワクワクした表情に。
-        if(exp_Controller.ResultSuccess) //成功した場合
-        {
-            girl1_status.face_girl_Yodare(); //おいしそ～ よだれの表情
-
-            //「おいしそ～」って吹き出しもだしていいかも。
-            girl1_status.hukidashiReturnHome();
-        } else //失敗した場合
-        {
-            girl1_status.DefaultFace(); //現在の機嫌に合わせた表情に戻す
-        }
-
-        //腹減りカウント再開
-        girl1_status.GirlEat_Judge_on = true;
     }
 
     public void OnEndOriCompoPosition()
@@ -88,6 +106,29 @@ public class Live2DAnimationTrigger : MonoBehaviour {
 
     public void FaceMotionEndSignal() //アニメーションをフェードで終了し切り替えるためのフラグ
     {
+        girl1_status.facemotion_start = true;
+    }
+
+    public void TapMotionEndSignal() //タップアニメーションをフェードで終了し切り替えるためのフラグ。タッチフラグもオフにする。
+    {
+        girl1_status.facemotion_start = true;
+
+        girl1_status.Girl1_touchtwintail_start = false;
+        girl1_status.Girl1_touchchest_start = false;
+        girl1_status.touchanim_start = false;
+    }
+
+    public void OishisoEndSignal() //アニメーションをフェードで終了し切り替えるためのフラグ
+    {
+        girl1_status.facemotion_start = true;
+        girl1_status.GirlOishiso_Status = 0; //０に戻す。
+        girl1_status.Walk_Start = true;
+    }
+
+    IEnumerator Waitalittle() //使用していない
+    {
+        yield return new WaitForSeconds(0.1f);
+
         girl1_status.facemotion_start = true;
     }
 }

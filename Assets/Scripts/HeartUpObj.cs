@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 using DG.Tweening;
 
 public class HeartUpObj : MonoBehaviour {
@@ -120,6 +121,8 @@ public class HeartUpObj : MonoBehaviour {
         }
 
         StartCoroutine("WaitSeconds");
+
+        //StartCoroutine("DestroySelf_5");
     }
 
     void AttackEffect()
@@ -129,6 +132,7 @@ public class HeartUpObj : MonoBehaviour {
         _listEffect = Instantiate(Magic_effect_Prefab1, Girl_love_exp_bar.transform);
         _listEffect.GetComponent<Canvas>().worldCamera = main_cam;
         _listEffect.transform.localPosition = this.transform.localPosition;
+        _listEffect.GetComponent<PlayableDirector>().Play();
         //Debug.Log("this.transform.localPosition" + this.transform.localPosition);
     }
 
@@ -237,6 +241,7 @@ public class HeartUpObj : MonoBehaviour {
         girlEat_judge.GetHeartValue();
 
         girlEat_judge.heart_count--;
+
         Destroy(this.gameObject);
     }
 
@@ -258,5 +263,18 @@ public class HeartUpObj : MonoBehaviour {
         {
             _deg = 10;
         }
+    }
+
+    public void DestObjNow()
+    {
+        Destroy(_listEffect);
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator DestroySelf_5()
+    {
+        yield return new WaitForSeconds(5.0f); //5秒待つ
+
+        Destroy(this.gameObject);
     }
 }
