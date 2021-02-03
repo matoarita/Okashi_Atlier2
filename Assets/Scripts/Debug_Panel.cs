@@ -17,6 +17,8 @@ public class Debug_Panel : MonoBehaviour {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject exp_table;
+
     private GameObject mainlist_controller2_obj;
     private MainListController2 mainlist_controller2;
 
@@ -36,6 +38,7 @@ public class Debug_Panel : MonoBehaviour {
 
     private InputField input_money;
     private InputField input_edonguri;
+    private InputField input_plevel;
     private InputField input_event;
     private InputField input_girllove;
     private string input_text;
@@ -43,6 +46,7 @@ public class Debug_Panel : MonoBehaviour {
     private string input_text3;
     private int money_num;
     private int edonguri_num;
+    private int plevel_num;
     private int event_num;
     private int girllove_param;
     private Text girl_lv;
@@ -85,6 +89,7 @@ public class Debug_Panel : MonoBehaviour {
 
         input_money = this.transform.Find("Hyouji/InputField_Money").gameObject.GetComponent<InputField>();
         input_edonguri = this.transform.Find("Hyouji/InputField_EDonguri").gameObject.GetComponent<InputField>();
+        input_plevel = this.transform.Find("Hyouji/InputField_PLevel").gameObject.GetComponent<InputField>();
         input_event = this.transform.Find("Hyouji/InputField_EventNum").gameObject.GetComponent<InputField>();
         input_girllove = this.transform.Find("Hyouji/InputField_GirlLove").gameObject.GetComponent<InputField>();
 
@@ -156,6 +161,25 @@ public class Debug_Panel : MonoBehaviour {
             {
                 moneyStatus_Controller = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
                 moneyStatus_Controller.money_Draw();
+            }
+        }
+    }
+
+    public void InputPLevelNum()
+    {
+        if (Debug_INPUT_ON)
+        {
+            input_text = input_plevel.text;
+            Int32.TryParse(input_text, out plevel_num);
+
+            canvas = GameObject.FindWithTag("Canvas");
+
+            exp_table = GameObject.FindWithTag("ExpTable");
+
+            PlayerStatus.player_renkin_lv = plevel_num;
+            for (count = 0; count < (plevel_num); count++)
+            {
+                exp_table.GetComponent<ExpTable>().SkillCheck(count + 1);
             }
         }
     }

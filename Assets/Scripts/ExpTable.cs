@@ -42,21 +42,26 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     // Use this for initialization
     void Start () {
 
+        DontDestroyOnLoad(this.gameObject);
+
+        SetInit_ExpTable();
+        InitSetup();
+    }
+
+    private void InitSetup()
+    {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-        SetInit_ExpTable();
-
+        
         check_on = false;
         check_Lclick = false;
-
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
         if ( check_on == true )
         {
@@ -64,6 +69,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             {
                 check_Lclick = true;
             }
+        }
+
+        if(canvas == null)
+        {
+            InitSetup();
         }
 	}
 
@@ -227,7 +237,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
     }
 
-    void SkillCheck(int _nowlevel)
+    public void SkillCheck(int _nowlevel)
     {
 
         switch(_nowlevel)

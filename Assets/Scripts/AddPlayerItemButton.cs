@@ -150,7 +150,10 @@ public class AddPlayerItemButton : MonoBehaviour {
 
         for (i = 0; i <= j; i++)
         {
-            pitemlist.addPlayerItem(count, 5);
+            if (database.items[count].itemType_sub.ToString() != "Equip")
+            {
+                pitemlist.addPlayerItem(count, 5);
+            }
             ++count;
         }
 

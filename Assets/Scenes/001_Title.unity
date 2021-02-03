@@ -1606,7 +1606,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1138156009582102, guid: 1572a561a3271bf40af6dcda124f4eba, type: 2}
       propertyPath: m_Name
-      value: StartButton
+      value: GameStartButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1572a561a3271bf40af6dcda124f4eba, type: 2}
@@ -3054,7 +3054,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1138156009582102, guid: 1572a561a3271bf40af6dcda124f4eba, type: 2}
       propertyPath: m_Name
-      value: LoadButton
+      value: GameLoadButton
       objectReference: {fileID: 0}
     - target: {fileID: 114306349606182838, guid: 1572a561a3271bf40af6dcda124f4eba,
         type: 2}
@@ -3842,6 +3842,7 @@ MonoBehaviour:
   sound10: {fileID: 8300000, guid: cfcbd05ea7c25974c97aff4ebcf02d45, type: 3}
   sound11: {fileID: 0}
   sound12: {fileID: 0}
+  sound13: {fileID: 0}
   _mixRate: 0
 --- !u!4 &1770838346
 Transform:

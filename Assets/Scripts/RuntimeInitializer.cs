@@ -133,6 +133,10 @@ public class RuntimeInitializer : MonoBehaviour
         var savecontroller_init = new GameObject("SaveController", typeof(SaveController));
         GameObject.DontDestroyOnLoad(savecontroller_init);
 
+        //バフ効果計算メソッド
+        var buf_Power_Keisan_init = new GameObject("Buf_Power_Keisan", typeof(Buf_Power_Keisan));
+        GameObject.DontDestroyOnLoad(buf_Power_Keisan_init);
+
     }
 
 } // class RuntimeInitializer

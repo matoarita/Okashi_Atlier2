@@ -115,6 +115,8 @@ public class Compound_Main : MonoBehaviour
 
     private PlayerItemList pitemlist;
 
+    private Buf_Power_Keisan bufpower_keisan;
+
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
@@ -228,6 +230,9 @@ public class Compound_Main : MonoBehaviour
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //バフ効果計算メソッドの取得
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
@@ -1087,6 +1092,8 @@ public class Compound_Main : MonoBehaviour
                 //ゲーム進行度に応じて、ヒントボタンなどは表示する。
                 CheckButtonFlag();
 
+                //装備品アイテムの効果計算
+                bufpower_keisan.CheckEquip_Keisan();
 
                 //
                 //アニメーション、キャラの表情関係
@@ -2843,7 +2850,7 @@ public class Compound_Main : MonoBehaviour
 
             case "ice_cream_recipi": //アイスクリームの書
 
-                databaseCompo.CompoON_compoitemdatabase("ice_cream");
+                //databaseCompo.CompoON_compoitemdatabase("ice_cream");
 
                 break;
 
@@ -3099,6 +3106,7 @@ public class Compound_Main : MonoBehaviour
 
             }
 
+            
             //キラキラポンポン
             if (PlayerStatus.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[10] == false) //4になったときのサブイベントを使う。
             {
@@ -3224,6 +3232,13 @@ public class Compound_Main : MonoBehaviour
         else
         {
             HintTasteButton.SetActive(false);
+        }
+
+        //ベリーファームへ行けるようになる。
+        if (PlayerStatus.player_renkin_lv >= 2) //
+        {
+
+            matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
         }
     }
 

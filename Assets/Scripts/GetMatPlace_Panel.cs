@@ -664,7 +664,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 60;
+                            GameMgr.map_ev_ID = 70;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
@@ -673,6 +673,48 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         {
                             _text.text = "兄ちゃん、ちょっとゴロゴロしよ～！";
                         }
+
+                        break;
+
+                    case "BerryFarm":
+
+                        //森のBGM
+                        sceneBGM.OnGetMat_ForestBGM();
+                        compound_Main.bgm_change_flag = true;
+
+                        //背景のSEを鳴らす。
+                        //map_ambience.OnLavenderField();
+
+                        //背景エフェクト
+                        map_bg_effect.transform.Find("MapBG_Effect_Lavender").gameObject.SetActive(true);
+
+                        //イベントチェック
+                        /*if (!GameMgr.MapEvent_05[0])
+                        {
+                            GameMgr.MapEvent_05[0] = true;
+
+                            _text.text = "ラベンダー畑だ～！いい香り～。";
+
+                            slot_view_status = 3; //イベント読み込み中用に退避
+
+                            //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
+                            slot_tansaku_button_obj.SetActive(false);
+
+                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                            event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
+                            text_area.SetActive(false);
+
+                            GameMgr.map_ev_ID = 60;
+                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                            StartCoroutine("MapEventOn");
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん、ちょっとゴロゴロしよ～！";
+                        }*/
+
+                        _text.text = "兄ちゃん、色とりどりの実がなってる！！";
 
                         break;
 

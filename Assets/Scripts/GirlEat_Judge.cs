@@ -1750,13 +1750,13 @@ public class GirlEat_Judge : MonoBehaviour {
             taste_level = 5;
             taste_score = 15;
         }
-        else if (Mathf.Abs(taste_result) < 35) //+-20~34  ちょっと足りないかな
+        else if (Mathf.Abs(taste_result) < 30) //+-20~29  ちょっと足りないかな
         {
             Debug.Log(taste_type + "Good!");
             taste_level = 4;
             taste_score = 10;
         }
-        else if (Mathf.Abs(taste_result) < 50) //+-35~49　全然足りない
+        else if (Mathf.Abs(taste_result) < 50) //+-30~49　全然足りない
         {
             Debug.Log(taste_type + "Normal");
             taste_level = 3;
@@ -2816,84 +2816,75 @@ public class GirlEat_Judge : MonoBehaviour {
 
         if (subQuestClear_check)
         {
-            if (!Gameover_flag)
+            //クリアフラッグをたてる。
+            _temp_count = 0;
+            while (_temp_count <= girl1_status.OkashiQuest_ID)
             {
-                //クリアフラッグをたてる。
-                _temp_count = 0;
-                while (_temp_count <= girl1_status.OkashiQuest_ID)
+                _temp_count += 100;
+                if (_temp_count > girl1_status.OkashiQuest_ID)
                 {
-                    _temp_count += 100;
-                    if(_temp_count > girl1_status.OkashiQuest_ID)
-                    {
-                        _temp_count -= 100;
-                        break;
-                    }
+                    _temp_count -= 100;
+                    break;
                 }
+            }
 
-                switch (_temp_count)
-                {
-                    case 1000: //クッキー系完了
+            switch (_temp_count)
+            {
+                case 1000: //クッキー系完了
 
-                        GameMgr.OkashiQuest_flag_stage1[0] = true;
+                    GameMgr.OkashiQuest_flag_stage1[0] = true;
 
-                        break;
+                    break;
 
-                    case 1100: //ラスク
+                case 1100: //ラスク
 
-                        GameMgr.OkashiQuest_flag_stage1[1] = true;
+                    GameMgr.OkashiQuest_flag_stage1[1] = true;
 
-                        break;
+                    break;
 
-                    case 1200: //クレープ
+                case 1200: //クレープ
 
-                        GameMgr.OkashiQuest_flag_stage1[2] = true;
+                    GameMgr.OkashiQuest_flag_stage1[2] = true;
 
-                        break;
+                    break;
 
-                    case 1300: //シュークリーム
+                case 1300: //シュークリーム
 
-                        GameMgr.OkashiQuest_flag_stage1[3] = true;
+                    GameMgr.OkashiQuest_flag_stage1[3] = true;
 
-                        break;
+                    break;
 
-                    case 1400: //ドーナツ
+                case 1400: //ドーナツ
 
-                        GameMgr.OkashiQuest_flag_stage1[4] = true;
+                    GameMgr.OkashiQuest_flag_stage1[4] = true;
 
-                        break;
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
+            }
 
-                ClearQuestName();
-                MainQuestText.text = _mainquest_name;
+            ClearQuestName();
+            MainQuestText.text = _mainquest_name;
 
-                if (!HighScore_flag) //通常クリア
-                {
-                    _set_MainQuestID = _temp_count;
-                }
-                else
-                {
-                    _set_MainQuestID = _temp_count + 1;
-                }
-
-                StartCoroutine("SubQuestClearEvent");
+            if (!HighScore_flag) //通常クリア
+            {
+                _set_MainQuestID = _temp_count;
             }
             else
             {
-                //ゲームオーバー画面を表示。現在、ゲームオーバーを使用していない。
-                Debug.Log("ゲームオーバー画面表示");
-
-                FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+                _set_MainQuestID = _temp_count + 1;
             }
+
+            StartCoroutine("SubQuestClearEvent");
+
         }
         else
         {
             if (!GameMgr.tutorial_ON)
             {
                 //クエストまだクリアでなければ、お菓子の感想を表示する。
-                StartCoroutine("OkashiAfter_Comment");                
+                StartCoroutine("OkashiAfter_Comment");
             }
             else
             {

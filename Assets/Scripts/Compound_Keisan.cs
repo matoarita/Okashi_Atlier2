@@ -762,10 +762,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
             }
 
-            for (i = 0; i < database.items[_id].toppingtype.Length; i++)
-            {
-                _basetp[i] = "Non";
-            }
+
+                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+                {
+                    _basetp[i] = "Non";
+                }
+            
+            
             
         }
 
@@ -1003,20 +1006,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _tempgirl1_like = 0;
         _tempcost = 0;
         _tempsell = 0;
-
-        /*_komugikorich = 0;
-        _komugikosweat = 0;
-        _komugikobitter = 0;
-        _komugikosour = 0;
-        _komugikocrispy = 0;
-        _komugikofluffy = 0;
-        _komugikosmooth = 0;
-        _komugikohardness = 0;
-        _komugikojiggly = 0;
-        _komugikochewy = 0;
-        _komugikopowdery = 0;
-        _komugikooily = 0;
-        _komugikowatery = 0;*/
 
         for (i = 0; i < database.items[0].toppingtype.Length; i++)
         {
@@ -1377,12 +1366,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                                 _basetp[j] = _additemlist[count]._Addtp[i];
                                 break;
                             }
-
                             else if (_basetp[j] == _additemlist[count]._Addtp[i]) //ベースに入っているトッピングと、_addが重複の場合。
                             {
                                 //無視して、次の_baseトッピングのスロットを見る。
                             }
-
                             else //ベースが空でない場合。
                             {
                                 //無視して、次の_baseトッピングのスロットを見る。
@@ -1495,7 +1482,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType_sub = pitemlist.player_originalitemlist[_id].itemType_sub.ToString();
 
 
-        //オリジナルアイテムを合成に使う場合は、固有トッピングは計算しない。二重スロットを回避するため。
+        //オリジナルアイテムを合成に使う場合も、固有トッピングを計算する。
 
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時
         {
@@ -1506,8 +1493,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
             {
-                _addkoyutp[i] = "Non";
-                //_addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
+                //_addkoyutp[i] = "Non";
+                _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
             }
         }
         else if (Comp_method_bunki == 3) //トッピング時
@@ -1519,8 +1506,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
             {
-                _addkoyutp[i] = "Non";
-                //_addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
+                //_addkoyutp[i] = "Non";
+                _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
             }
         }
 

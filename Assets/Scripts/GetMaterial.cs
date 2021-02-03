@@ -25,6 +25,8 @@ public class GetMaterial : MonoBehaviour
 
     private PlayerItemList pitemlist;
 
+    private Buf_Power_Keisan bufpower_keisan;
+
     private ItemDataBase database;
 
     private ItemMatPlaceDataBase matplace_database;
@@ -57,6 +59,9 @@ public class GetMaterial : MonoBehaviour
     private string itemName;
 
     private int event_num;
+
+    private int player_girl_findpower_final;
+    private int _buf_findpower;
 
     private int random;
     private int i, count, empty;
@@ -107,6 +112,9 @@ public class GetMaterial : MonoBehaviour
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //バフ効果計算メソッドの取得
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
@@ -274,6 +282,10 @@ public class GetMaterial : MonoBehaviour
                         PlayerStatus.girl1_Love_exp -= 1;
                         HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
                     }
+
+                    //プレイヤーのアイテム発見力をバフつきで計算
+                    _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
+                    player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
 
                     //ウェイトアニメ
                     mat_anim_on = true;
@@ -817,7 +829,7 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                if (PlayerStatus.player_girl_findpower >= 120) //player_girl_findpowerは、girl_status内でパラメータ処理
+                if (player_girl_findpower_final >= 120) //player_girl_findpowerは、girl_status内でパラメータ処理
                 {
                     //バードサンクチュアリへ繋がる道を発見
                     //_text.text = "にいちゃん！！ なんか抜け道があるよ？";
@@ -849,7 +861,7 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                if (PlayerStatus.player_girl_findpower >= 120)
+                if (player_girl_findpower_final >= 120)
                 {
                     //バードサンクチュアリを発見
                     _text.text = "にいちゃん！！ なんか抜け道があるよ？";
@@ -894,7 +906,7 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                if (PlayerStatus.player_girl_findpower >= 150) //player_girl_findpowerは、girl_status内でパラメータ処理
+                if (player_girl_findpower_final >= 150) //player_girl_findpowerは、girl_status内でパラメータ処理
                 {
                     _text.text = "にいちゃん！！　ここに石像があるよ？";
                 }
@@ -959,7 +971,7 @@ public class GetMaterial : MonoBehaviour
     void InitializeEventDicts()
     {
         //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
-        rare_event_kakuritsu = (PlayerStatus.player_girl_findpower - PlayerStatus.player_girl_findpower_def) * 0.3f;
+        rare_event_kakuritsu = (player_girl_findpower_final - PlayerStatus.player_girl_findpower_def) * 0.3f;
 
         switch (mat_place)
         {

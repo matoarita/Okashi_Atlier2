@@ -1026,16 +1026,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             emeralditem_event(pitemlist.NameFindEmerald(kettei_item1));
             
         }
-        else if (toggle_type1 == 6) //shop_itemType = 6 は、アイテムかごなどの装備品や飾りなどの特殊アイテム。買うことでパラメータを上昇させたり、フラグをたてる。
+        else if (toggle_type1 == 2 || toggle_type1 == 6) //2は機材。shop_itemType = 6 は、装備品や飾りなどの特殊アイテム。買うことでパラメータを上昇させたり、フラグをたてる。
         {
             //プレイヤーアイテムリストに追加。
             pitemlist.addPlayerItem(kettei_item1, result_kosu);
-
-            //フラグをON
-            specialitemFlagOn();
             
         }
-        else //トッピング・機材アイテムなど。2は機材。
+        else //トッピングなど
         {
             //プレイヤーアイテムリストに追加。
             pitemlist.addPlayerItem(kettei_item1, result_kosu);
@@ -1083,36 +1080,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         shopitemlistController.ReDraw(); //リスト描画の更新
 
-    }
-
-
-    void specialitemFlagOn()
-    {
-        //条件分岐
-        if (kettei_item1 == pitemlist.SearchItemString("itembox_1")) //アイテムかごLv2
-        {
-            if (PlayerStatus.player_zairyobox_lv < 2) //LV3とか買った後で買っても、持てる量は更新されない。
-            {
-                PlayerStatus.player_zairyobox = 15;
-                PlayerStatus.player_zairyobox_lv = 2;
-            }
-        }
-        if (kettei_item1 == pitemlist.SearchItemString("itembox_2")) //アイテムかごLv3
-        {
-            if (PlayerStatus.player_zairyobox_lv < 3)
-            {
-                PlayerStatus.player_zairyobox = 30;
-                PlayerStatus.player_zairyobox_lv = 3;
-            }
-        }
-        if (kettei_item1 == pitemlist.SearchItemString("itembox_3")) //アイテムかごLv4
-        {
-            if (PlayerStatus.player_zairyobox_lv < 4)
-            {
-                PlayerStatus.player_zairyobox = 50;
-                PlayerStatus.player_zairyobox_lv = 4;
-            }
-        }
     }
 
     void emeralditem_event(string _itemname)

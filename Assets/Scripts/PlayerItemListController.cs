@@ -703,9 +703,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             else
                             {
                                 //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                                if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Fruits" ||
+                                if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Potion" || 
+                                    database.items[i].itemType_sub.ToString() == "Fruits" ||
                                     database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate_Mat" ||
-                                    database.items[i].itemType_sub.ToString() == "IceCream")
+                                    database.items[i].itemType_sub.ToString() == "IceCream" )
                                 {
                                     itemlist_hyouji();
                                 }

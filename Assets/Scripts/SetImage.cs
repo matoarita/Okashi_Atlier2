@@ -1005,6 +1005,8 @@ public class SetImage : MonoBehaviour
         {
             Card_param_obj.SetActive(true);
             Card_param_obj2.SetActive(false);
+
+            item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
         }
     }
 

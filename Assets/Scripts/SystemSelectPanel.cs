@@ -154,8 +154,18 @@ public class SystemSelectPanel : MonoBehaviour {
 
                 //Debug.Log("ok");
                 //解除
+
                 save_controller.OnLoadMethod();
-                _textmain.text = "ロードしました。";
+
+                if (GameMgr.saveOK)
+                {
+                    _textmain.text = "ロードしました。";
+                }
+                else
+                {
+                    _textmain.text = "セーブデータがありません。";
+                }
+
                 compound_Main.compound_status = 0;
                 titleback_panel.SetActive(false);
                 this.transform.parent.gameObject.SetActive(false);

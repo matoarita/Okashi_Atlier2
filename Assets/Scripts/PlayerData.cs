@@ -44,6 +44,9 @@ public class PlayerData
     //シナリオの進み具合
     public int save_scenario_flag;
 
+    //セーブしたかどうかを保存するフラグ
+    public bool save_saveOK = false;
+
     //初期アイテム取得フラグ
     public bool save_gamestart_recipi_get;
 

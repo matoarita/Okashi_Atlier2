@@ -81,6 +81,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     //セーブ処理
     public void OnSaveMethod()
     {
+        GameMgr.saveOK = true;
+
         //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
         DataBank bank = DataBank.Open();
 
@@ -177,6 +179,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //シナリオの進み具合
             save_scenario_flag = GameMgr.scenario_flag,
+
+            //セーブ保存フラグ
+            save_saveOK = GameMgr.saveOK,
 
             //初期アイテム取得フラグ
             save_gamestart_recipi_get = GameMgr.gamestart_recipi_get,
@@ -306,30 +311,24 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
     //ロード処理
     public void OnLoadMethod()
-    {       
+    {
 
-        //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
-        DataBank bank = DataBank.Open();
+        //セーブデータがあるかどうかをチェック
+        SaveCheck();
 
-        Debug.Log("DataBank.Open()");
-        Debug.Log($"save path of bank is { bank.SavePath }");
+        if (GameMgr.saveOK)
+        {
+            LoadingContents();
+        }
+        else
+        {
+            //なければ、無視
+        }
+               
+    }
 
-        //初期化(念のため)
-        playerData = new PlayerData();
-
-        //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
-        bank.Load<PlayerData>("player1");
-        Debug.Log("ロード完了");
-
-        //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
-        playerData = bank.Get<PlayerData>("player1");
-        //Debug.Log(playerData);
-
-
-        //
-        //*** 以下、読み込み・更新 ***
-        //
-
+    void LoadingContents()
+    {
         //プレイヤーステータス
         PlayerStatus.player_money = playerData.save_player_money; // 所持金
         PlayerStatus.player_kaeru_coin = playerData.save_player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
@@ -440,13 +439,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //エメラルドショップのイベントリスト
         GameMgr.emeraldShopEvent_stage = playerData.save_emeraldShopEvent_stage;
-        
+
         //アイテムリスト＜デフォルト＞
         for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
             pitemlist.playeritemlist[i] = playerData.save_playeritemlist[i];
         }
-        
+
         //プレイヤーのイベントアイテムリスト。
         pitemlist.eventitemlist.Clear();
         pitemlist.eventitemlist = playerData.save_eventitemlist;
@@ -460,7 +459,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         pitemlist.player_originalitemlist = playerData.save_player_originalitemlist;
 
         //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。
-        for(i=0; i < pitemlist.player_originalitemlist.Count; i++)
+        for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             _itemID = pitemlist.SearchItemString(pitemlist.player_originalitemlist[i].itemName);
             pitemlist.player_originalitemlist[i].itemIcon = database.items[_itemID].itemIcon;
@@ -489,7 +488,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //調合のフラグ＋調合回数を記録する
         databaseCompo.compoitems.Clear();
         databaseCompo.compoitems = playerData.save_itemCompodatabase;
-        
+
         //マップフラグの読み込み
         for (i = 0; i < matplace_database.matplace_lists.Count; i++)
         {
@@ -531,7 +530,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 DrawGameScreen();
                 break;
         }
-        
     }
 
     public void DrawGameScreen()
@@ -621,5 +619,34 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //マップフラグの初期化
         matplace_database.ResetDefaultMapExcel();
+    }
+
+    //セーブデータがあるかどうかだけをチェック
+    public void SaveCheck()
+    {
+        //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
+        DataBank bank = DataBank.Open();
+
+        Debug.Log("DataBank.Open()");
+        Debug.Log($"save path of bank is { bank.SavePath }");
+
+        //初期化(念のため)
+        playerData = new PlayerData();
+
+        //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
+        bank.Load<PlayerData>("player1");
+        Debug.Log("ロード完了");
+
+        //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
+        playerData = bank.Get<PlayerData>("player1");
+        //Debug.Log(playerData);
+
+
+        //
+        //*** 以下、読み込み・更新 ***
+        //
+
+        //まず、セーブデータがあるかどうかをチェック
+        GameMgr.saveOK = playerData.save_saveOK;
     }
 }

@@ -236,6 +236,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int sys_extreme_itemID;
     public static int sys_extreme_itemType;
 
+    //セーブしたかどうかを保存しておくフラグ
+    public static bool saveOK;
+
     //ロード「続きから」を押したフラグ
     public static bool GameLoadOn;
 
@@ -327,6 +330,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void ResetGameDefaultStatus()
     {
         GameLoadOn = false;
+        saveOK = false;
 
         //食費
         Foodexpenses = 100;
@@ -496,7 +500,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //お菓子のクリア基準値
         low_score = 60;
         high_score = 85;
-        high_score_2 = 100;
+        high_score_2 = 120;
 
         //チュートリアルフラグ
         tutorial_ON = false;
