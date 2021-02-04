@@ -119,6 +119,7 @@ public class Item
         PanCake,
         Financier,
         Cannoli,
+        Candy,
         Maffin,
         Biscotti,
         Jelly,

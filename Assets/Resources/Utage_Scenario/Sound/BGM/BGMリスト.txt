@@ -1,10 +1,10 @@
 
 
 ・BGM_01		konekonoosanpo.mp3			ノベルほのぼのシーン
-・BGM_02		audiostock_215419.mp3			メインBGM
+・BGM_02		audiostock_215419.mp3			調合テーマ３　アトリエメインテーマ１　英国風
 ・BGM_03		audiostock_227319.mp3			近くの森のBGM
 ・BGM_04		audiostock_251363.mp3			ショップのBGM
-・BGM_05		audiostock_805672_sample		アマクサ登場BGM1
+・BGM_05		audiostock_805672_sample		アマクサ登場BGM1 ドタバタ
 ・BGM_06		audiostock_328315			アマクサ登場BGM2
 ・BGM_07		audiostock_196574			ステージ２BGM
 ・BGM_08		audiostock_209981			ステージ３BGM
@@ -36,5 +36,7 @@
 ・BGM_34		audiostock_371284_sample		【未使用】じいさんのテーマ曲　ファンキー
 ・BGM_35		audiostock_134515			調合テーマ２　ピアノ系の不思議なクッキングBGM
 ・BGM_36		audiostock_120586			エメラルショップの曲
-・BGM_37		audiostock_78487			調合テーマ１　アトリエ風楽しい音楽
+・BGM_37		audiostock_78487			調合テーマ２　アトリエメインテーマ２　楽しい音楽
+・BGM_38		audiostock_61835			調合テーマ３　アトリエメインテーマ３　おフランス
+・BGM_39		audiostock_227194_sample		ショップBGMテーマ２　イタリアとかヨーロッパのカフェ風
 

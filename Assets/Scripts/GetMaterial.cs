@@ -611,9 +611,9 @@ public class GetMaterial : MonoBehaviour
         itemDropDict.Add(9, matplace_database.matplace_lists[index].dropProb10);
 
         itemDropKosuDict = new Dictionary<int, float>();
-        itemDropKosuDict.Add(1, 60.0f); //1個　60%
+        itemDropKosuDict.Add(1, 75.0f); //1個　75%
         itemDropKosuDict.Add(2, 25.0f); //2個　25%
-        itemDropKosuDict.Add(3, 12.0f); //3個　12%
+        itemDropKosuDict.Add(3, 0.0f); //3個　15%
 
 
         //レア関係
@@ -1036,26 +1036,27 @@ public class GetMaterial : MonoBehaviour
     {
         //おたからを発見
         //sc.PlaySe(84);
-        _text.text = "にいちゃん！！ なんか箱があるよ..？　あける？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+        _text.text = "にいちゃん！！ なんかあやしい草むらがあるよ..？　しらべる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
-        _TreasureImg.sprite = treasure1;
+        //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
-        treasure_text.text = "あける";
-        TreasureImage_obj.SetActive(true);
+        treasure_text.text = "調べる";
+        TreasureImage_obj.SetActive(false);
         CharacterSDImage.SetActive(false);
 
-        Treasure_Status = 0;
+        //Treasure_Status = 0; //0=宝箱
+        Treasure_Status = 1;
     }
 
     void treasure_Check2()
     {
         //怪しげな場所
         //sc.PlaySe(84);
-        _text.text = "にいちゃん！！ きれいなお花畑！　探索してみる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+        _text.text = "にいちゃん！！ きれいなお花畑！　探検してみる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
-        treasure_text.text = "探索";
+        treasure_text.text = "探検";
         TreasureImage_obj.SetActive(false);
         CharacterSDImage.SetActive(false);
 
