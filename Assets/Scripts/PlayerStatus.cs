@@ -61,7 +61,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_renkin_exp = 0;
         player_ninki_param = 10;
         player_kaeru_coin = 0;
-        player_zairyobox = 10; //カゴの大きさ
+        player_zairyobox = 5; //カゴの大きさ
         player_zairyobox_lv = 1;
         player_extreme_kaisu_Max = 1;
         player_extreme_kaisu = player_extreme_kaisu_Max;

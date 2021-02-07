@@ -214,6 +214,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_Okashi_lasthint = GameMgr.Okashi_lasthint, //さっき食べたお菓子のヒント。
             save_Okashi_lastname = GameMgr.Okashi_lastname, //さっき食べたお菓子の名前。
             save_Okashi_lastID = GameMgr.Okashi_lastID, //さっき食べたお菓子のアイテムID
+            save_Okashi_totalscore = GameMgr.Okashi_totalscore, //さっき食べたお菓子の点数
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -399,6 +400,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Okashi_lasthint = playerData.save_Okashi_lasthint; //さっき食べたお菓子のヒント。
         GameMgr.Okashi_lastname = playerData.save_Okashi_lastname; //さっき食べたお菓子の名前。
         GameMgr.Okashi_lastID = playerData.save_Okashi_lastID; //さっき食べたお菓子のアイテムID
+        GameMgr.Okashi_totalscore = playerData.save_Okashi_totalscore; //さっき食べたお菓子の点数
 
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。

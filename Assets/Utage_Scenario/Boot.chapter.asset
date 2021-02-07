@@ -1460,9 +1460,24 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 48
+      debugIndex: 48
+      strings:
+      - "\u30A4\u30D9\u30F3\u30C8_\u521D\u30AF\u30EC\u30FC\u30D7\uFF01"
+      - Event
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - Ev03_crepe_hajimete.png
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Texture
     type: 1
-    textLength: 1569
+    textLength: 1608
     headerRow: 0
   - rows:
     - rowIndex: 0
@@ -3115,9 +3130,19 @@ MonoBehaviour:
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
+    - rowIndex: 66
+      debugIndex: 66
+      strings:
+      - "BGM\u697D\u3057\u3052"
+      - 
+      - Bgm
+      - BGM_40.mp3
+      isEmpty: 0
+      isCommentOut: 0
+      debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Sound
     type: 1
-    textLength: 1349
+    textLength: 1368
     headerRow: 0
   - rows:
     - rowIndex: 0

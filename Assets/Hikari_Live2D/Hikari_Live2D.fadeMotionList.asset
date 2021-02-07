@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: Hikari_Live2D.fadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: 6207feff5607fefffef2fdfff6f2fdffeef2fdffe6f2fdffdef2fdffd6f2fdffcef2fdffc6f2fdffbef2fdffb6f2fdffaef2fdffa6f2fdff9ef2fdff96f2fdff8ef2fdff86f2fdff7ef2fdff76f2fdff6ef2fdff66f2fdff5ef2fdff56f2fdff4ef2fdff46f2fdff3ef2fdff36f2fdff2ef2fdff1ef2fdff16f2fdff0ef2fdff06f2fdfffef1fdff760298ff6ecc97ff66cc97ff24caffff7aecfcff72ecfcff0840000074ccffff346cebff3e4ef8ff66a7ffff903f000006330000325bf0ff
+  MotionInstanceIds: 6207feff5607fefffef2fdfff6f2fdffeef2fdffe6f2fdffdef2fdffd6f2fdffcef2fdffc6f2fdffbef2fdffb6f2fdffaef2fdffa6f2fdff9ef2fdff96f2fdff8ef2fdff86f2fdff7ef2fdff76f2fdff6ef2fdff66f2fdff5ef2fdff56f2fdff4ef2fdff46f2fdff3ef2fdff36f2fdff2ef2fdff1ef2fdff16f2fdff0ef2fdff06f2fdfffef1fdff760298ff6ecc97ff66cc97ff24caffff7aecfcff72ecfcff0840000074ccffff346cebff3e4ef8ff66a7ffff903f000006330000325bf0ff4c13feff
   CubismFadeMotionObjects:
   - {fileID: 11400000, guid: 4de78ab4445cd0d41b9d150a2faa70c5, type: 2}
   - {fileID: 11400000, guid: 789a9898829509b4ca8dcd60cf448299, type: 2}
@@ -61,3 +61,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5a203968d5899744296acd985cf199ec, type: 2}
   - {fileID: 11400000, guid: 9ff35172f3e58114eb9b144a6816d08b, type: 2}
   - {fileID: 11400000, guid: 1ff9564139de45b4fbe14fdeca0d8038, type: 2}
+  - {fileID: 11400000, guid: 0918234b86573614f9d13fa941fa2f17, type: 2}

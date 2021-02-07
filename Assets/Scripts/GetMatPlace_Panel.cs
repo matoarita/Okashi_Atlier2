@@ -714,7 +714,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             _text.text = "兄ちゃん、ちょっとゴロゴロしよ～！";
                         }*/
 
-                        _text.text = "兄ちゃん、色とりどりの実がなってる！！";
+                        _text.text = "兄ちゃん、色んな実がなってるよ～！！";
 
                         break;
 

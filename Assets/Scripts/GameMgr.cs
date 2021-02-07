@@ -140,7 +140,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //お菓子の点数
     public static int Okashi_totalscore; //女の子にあげたときの点数
     public static int Okashi_dislike_status; //状態。2で、新しいお菓子をあげた場合
-    
+    public static int Okashi_OnepointHint_num; //お菓子あげたあと、一言メモを更新する。そのときのヒント番号
 
     //ショップの話すコマンド
     public static bool shop_event_flag;  //ショップで発生するイベントのフラグ。
@@ -407,6 +407,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CompoundEvent_num = 0;
         CompoundEvent_storyflag = false;
         CompoundEvent_storynum = 0;
+
+        Okashi_totalscore = 0;
+        Okashi_dislike_status = 0;
+        Okashi_OnepointHint_num = 0;
 
         sys_extreme_itemID = 9999;
         sys_extreme_itemType = 0;

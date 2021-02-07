@@ -3022,6 +3022,7 @@ public class Compound_Main : MonoBehaviour
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[3] = true;
                                     GameMgr.GirlLoveSubEvent_num = 3;
+                                    GameMgr.Okashi_OnepointHint_num = 0;
                                 }
                                 else //クリアできたら、そのままOK!　＋　でもクッキーが食べたいから、にいちゃん、クッキーを作って！！
                                 {
@@ -3034,6 +3035,7 @@ public class Compound_Main : MonoBehaviour
                                 if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合、ヒントをだす。
                                 {
                                     GameMgr.GirlLoveSubEvent_num = 0;
+                                    GameMgr.Okashi_OnepointHint_num = 0;
                                 }
                                 else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
                                 {
@@ -3072,6 +3074,7 @@ public class Compound_Main : MonoBehaviour
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[5] = true;
                                     GameMgr.GirlLoveSubEvent_num = 5;
+                                    GameMgr.Okashi_OnepointHint_num = 9999;
 
                                     check_GirlLoveSubEvent_flag = false;
                                 }
@@ -3079,6 +3082,7 @@ public class Compound_Main : MonoBehaviour
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[6] = true;
                                     GameMgr.GirlLoveSubEvent_num = 6;
+                                    GameMgr.Okashi_OnepointHint_num = 9999;
 
                                     check_GirlLoveSubEvent_flag = false;
                                 }
@@ -3225,7 +3229,7 @@ public class Compound_Main : MonoBehaviour
     //ゲームの進行度合いなどに応じて、表示ボタンなどを追加する。
     public void CheckButtonFlag()
     {
-        if (GameMgr.GirlLoveSubEvent_stage1[0])
+        if (GameMgr.GirlLoveSubEvent_stage1[0] || GameMgr.GirlLoveEvent_num >= 1)
         {
             HintTasteButton.SetActive(true);
         }

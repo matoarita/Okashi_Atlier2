@@ -109,7 +109,7 @@ MonoBehaviour:
     - ID: 7
       set_compID: 1010
       set1: 508
-      set2: 21
+      set2: 9999
       set3: 9999
       spquest_name1: "\u3080\u3089\u3055\u304D\u8272\u306E\u30AF\u30C3\u30AD\u30FC\u3092\u4F5C\u308D\u3046\uFF01\uFF01"
       spquest_name2: '-'

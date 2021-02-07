@@ -3719,7 +3719,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if (sweat_level == 5)
         {
-            _sweat_kansou = "甘さ、いい感じ！";
+            _sweat_kansou = "甘さ、かなり近い。";
         }
         else if (sweat_level == 4)
         {
@@ -3786,7 +3786,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if (bitter_level == 5)
         {
-            _bitter_kansou = "苦さ、いい感じ！";
+            _bitter_kansou = "苦さ、かなり近い。";
         }
         else if (bitter_level == 4)
         {
@@ -3856,7 +3856,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else if (sour_level == 5)
         {
-            _sour_kansou = "すっぱさ、いい感じ！";
+            _sour_kansou = "すっぱさ、かなり近い。";
         }
         else if (sour_level == 4)
         {
