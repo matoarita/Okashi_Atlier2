@@ -1358,6 +1358,10 @@ public class itemSelectToggle : MonoBehaviour
     }
 
 
+
+
+
+
     /* ### 納品時のシーン ### */
 
     public void nouhin_active()
@@ -1454,18 +1458,24 @@ public class itemSelectToggle : MonoBehaviour
                     }
 
                     _text.text = "これで納品する？";
-
+               
                     NouhinKetteiPanel_obj.SetActive(true);
                     NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(true);
 
-                    shopquestlistController.final_select_flag = true;
+                    shopquestlistController.final_select_flag = true; //shopQuestSelectToggleで待ち中　yes_selectitem_kettei.onclick2でyes, noを待っている
 
                     black_effect.SetActive(true);
                     yes.SetActive(false);
                     no.SetActive(false);
 
+                    //納品するアイテムを表示する
+                    //card_view.DeleteCard_DrawView();
+                    card_view.SelectCard_DrawView(pitemlistController._listitem[pitemlistController._listcount[0]].GetComponent<itemSelectToggle>().toggleitem_type,
+                        pitemlistController._listitem[pitemlistController._listcount[0]].GetComponent<itemSelectToggle>().toggle_originplist_ID); //選択したアイテムをカードで表示
+
+                                                                                                                                                  
                     //最終確認へ
-                   
+
                 }
                 else
                 {
@@ -1476,10 +1486,10 @@ public class itemSelectToggle : MonoBehaviour
 
                     NouhinKetteiPanel_obj.SetActive(false);
                     itemselect_cancel.kettei_on_waiting = false;
-                }
 
+                    card_view.DeleteCard_DrawView();
+                }               
                 
-                card_view.DeleteCard_DrawView();
 
                 updown_counter.OpenFlag = false;
                 updown_counter_obj.SetActive(false);

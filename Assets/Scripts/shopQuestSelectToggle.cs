@@ -433,6 +433,8 @@ public class shopQuestSelectToggle : MonoBehaviour
                     NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(false);
 
                     StartCoroutine("QuestTake_Pitemlist_wait");
+
+                    //itemselectToggleで入力処理を続けている。
                 }
                 else if (shopquestlistController.questType == 1) //材料タイプの判定
                 {
@@ -472,7 +474,9 @@ public class shopQuestSelectToggle : MonoBehaviour
         }
     }
 
-    //納品するアイテムを選択中
+    //
+    //納品するアイテムを選択中　「納品決定」ボタンをおすと、ここの処理再開。
+    //
     IEnumerator QuestTake_Pitemlist_wait()
     {
         // 一時的にここでコルーチンの処理を止める。別オブジェクトで、「納品決定」ボタンをおすと、処理再開。
@@ -489,6 +493,9 @@ public class shopQuestSelectToggle : MonoBehaviour
         {
 
             case true: //決定が押された。
+
+                //カード削除
+                card_view.DeleteCard_DrawView();
 
                 //Debug.Log("ok");
                 //解除

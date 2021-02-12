@@ -15,7 +15,7 @@ MonoBehaviour:
   - name: 01_event_recipi
     list:
     - ev_ItemID: 0
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: ev00_orange_cookie_recipi
       nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4"
       cost_price: 500
@@ -27,7 +27,7 @@ MonoBehaviour:
       Re_flag_num: 9999
       Ev_flag_num: 0
     - ev_ItemID: 1
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: ev01_neko_cookie_recipi
       nameHyouji: "\u30CA\u30B8\u30E3\u306E\u7C21\u5358\uFF01\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u306E\u30EC\u30B7\u30D4"
       cost_price: 500
@@ -40,7 +40,7 @@ MonoBehaviour:
       Re_flag_num: 9999
       Ev_flag_num: 1
     - ev_ItemID: 2
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: ev02_orangeneko_cookie_memo
       nameHyouji: "\u30AA\u30EC\u30F3\u30B8\u30CD\u30B3\u30AF\u30C3\u30AD\u30FC\u9583\u304D\u306E\u30E1\u30E2"
       cost_price: 500
@@ -52,7 +52,7 @@ MonoBehaviour:
       Re_flag_num: 9999
       Ev_flag_num: 9999
     - ev_ItemID: 3
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: najya_start_recipi
       nameHyouji: "\u30CA\u30B8\u30E3\u306E\u304A\u83D3\u5B50\u4F5C\u308A\u306E\u57FA\u672C"
       cost_price: 500
@@ -64,7 +64,7 @@ MonoBehaviour:
       Re_flag_num: 0
       Ev_flag_num: 9999
     - ev_ItemID: 4
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: cookie_base_recipi
       nameHyouji: "\u304A\u83D3\u5B50\u306E\u57FA\u672C\uFF1C\u521D\u7D1A\uFF1E"
       cost_price: 500
@@ -76,7 +76,7 @@ MonoBehaviour:
       Re_flag_num: 10
       Ev_flag_num: 10
     - ev_ItemID: 5
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: recipibook_2
       nameHyouji: "\u96C6\u3081\u308D\uFF01\u304A\u83D3\u5B50\u306E\u6750\u6599\uFF5E\u8EAB\u306E\u56DE\u308A\u7DE8\uFF5E"
       cost_price: 500
@@ -88,7 +88,7 @@ MonoBehaviour:
       Re_flag_num: 1000
       Ev_flag_num: 1000
     - ev_ItemID: 6
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: recipibook_3
       nameHyouji: "\u3061\u3087\u3044\u30D0\u30BF\u30FC"
       cost_price: 500
@@ -100,7 +100,7 @@ MonoBehaviour:
       Re_flag_num: 1010
       Ev_flag_num: 1010
     - ev_ItemID: 7
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: recipibook_4
       nameHyouji: "\u7AE5\u8A71\uFF1A\u30A2\u30A4\u30B9\u306E\u5B9F\u306E\u68EE"
       cost_price: 500
@@ -114,7 +114,7 @@ MonoBehaviour:
       Re_flag_num: 1020
       Ev_flag_num: 1020
     - ev_ItemID: 8
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: recipibook_5
       nameHyouji: "\u306F\u3058\u3081\u3066\u306E\u30D1\u30F3\u30B1\u30FC\u30AD"
       cost_price: 500
@@ -126,7 +126,7 @@ MonoBehaviour:
       Re_flag_num: 1030
       Ev_flag_num: 1030
     - ev_ItemID: 9
-      fileName: Icon/Book01
+      fileName: Items/recipibook
       name: recipibook_6
       nameHyouji: "\u304A\u8336\u306E\u3059\u3059\u3081"
       cost_price: 500
@@ -138,6 +138,18 @@ MonoBehaviour:
       Re_flag_num: 1040
       Ev_flag_num: 1040
     - ev_ItemID: 10
+      fileName: Items/recipibook
+      name: recipibook_7
+      nameHyouji: "\u8C6A\u83EF\u3055\u306E\u79D8\u8A23"
+      cost_price: 500
+      sell_price: 40
+      kosu: 0
+      read_flag: 0
+      list_hyouji_on: 0
+      memo: "\u304A\u83D3\u5B50\u3092\u8C6A\u83EF\u306B\u307F\u305B\u308B\u305F\u3081\u306E\u3001\n\u79D8\u8A23\u304C\u306E\u3063\u3066\u3044\u308B\u3002"
+      Re_flag_num: 1040
+      Ev_flag_num: 1040
+    - ev_ItemID: 11
       fileName: Items/bugget
       name: bugget_recipi
       nameHyouji: "\u30D0\u30B2\u30C3\u30C8\u306E\u30EC\u30B7\u30D4"
@@ -149,7 +161,7 @@ MonoBehaviour:
       memo: "\u3010\u30D0\u30B2\u30C3\u30C8\u306E\u30EC\u30B7\u30D4\u3011\n\u30D7\u30EA\u30F3\u59C9\u3055\u3093\u306E\u76F4\u4F1D\uFF01\n\n\u5C0F\u9EA6\u7C89\uFF1A\u6C34\u3000\uFF1D\u3000\n\n<color=#BA9535FF>\uFF14\uFF1A\uFF11</color>\n\n\u3061\u3087\u3063\u3068\u7C89\u3063\u307D\u304F\u56FA\u3044\u3089\u3057\u3044\u3002\n\n\u3082\u3046\u5C11\u3057\u5C0F\u9EA6\u7C89\u306E\u91CF\u3092\u6E1B\u3089\u305B\u3070\u3001\n\n\u30E9\u30B9\u30AF\u5411\u3051\u306B\u826F\u3044\u304B\u3082\uFF01\n\n"
       Re_flag_num: 50
       Ev_flag_num: 50
-    - ev_ItemID: 11
+    - ev_ItemID: 12
       fileName: Items/rusk
       name: rusk_recipi
       nameHyouji: "\u30AB\u30EA\u30AB\u30EA\u30B5\u30AF\u30B5\u30AF\u30E9\u30B9\u30AF\u306E\u30EC\u30B7\u30D4"
@@ -163,7 +175,7 @@ MonoBehaviour:
         </color>\u3092\u307E\u3076\u3057\u3066\u3001\u51FA\u6765\u4E0A\u304C\u308A\uFF01\n\n\u30D0\u30B2\u30C3\u30C8\u3000\uFF1A\u3000\u7802\u7CD6\u3000\uFF1D\u3000<color=#BA9535FF>\uFF11\u3000\uFF1A\u3000\uFF12</color>\n"
       Re_flag_num: 40
       Ev_flag_num: 40
-    - ev_ItemID: 12
+    - ev_ItemID: 13
       fileName: Items/icecream
       name: ice_cream_recipi
       nameHyouji: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0\u306E\u30EC\u30B7\u30D4"
@@ -175,7 +187,7 @@ MonoBehaviour:
       memo: "\u3010\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0\u306E\u30EC\u30B7\u30D4\u3011\n\n\u2460<color=#BA9535FF>\u30DF\u30EB\u30AF\u30FB\u7802\u7CD6\u30FB\u30D0\u30CB\u30E9\u30A8\u30C3\u30BB\u30F3\u30B9</color>\u3092\u6570\u6EF4\u307E\u305C\u3001\u6DB2\u4F53\u3092\u4F5C\u308A\u307E\u3059\u3002\n\n\u2461\u6DB2\u4F53\u3092\u51B7\u3084\u3057\u307E\u3059\u3002\u51B7\u3084\u3059\u6642\u306F\u3001<color=#FF5CA1FF>\u6C37\u5BA4</color>\u306B\u5165\u308C\u308B\u3068\u826F\u3044\u3067\u3057\u3087\u3046\u3002\n\n\u2462\u3057\u3070\u3089\u304F\u7D4C\u3064\u3068\u3001\u6DB2\u4F53\u304C\u56FA\u307E\u3063\u3066\u3001\u30A2\u30A4\u30B9\u306E\u51FA\u6765\u4E0A\u304C\u308A\uFF01\n\n\u5BD2\u3044\u6642\u307B\u3069\u3001\u306A\u305C\u304B\u98DF\u3079\u305F\u304F\u306A\u308B\u3001\u73E0\u7389\u306E\u304A\u83D3\u5B50\u3067\u3059\u266A"
       Re_flag_num: 20
       Ev_flag_num: 20
-    - ev_ItemID: 13
+    - ev_ItemID: 14
       fileName: Items/financier
       name: financier_recipi
       nameHyouji: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u306E\u30EC\u30B7\u30D4\uFF1C\u521D\u7D1A\uFF1E"
@@ -187,7 +199,7 @@ MonoBehaviour:
       memo: "\u2460<color=#BA9535FF>\u305F\u307E\u3054\u30FB\u7802\u7CD6\u30FB\u306F\u3061\u307F\u3064</color>\u3092\u6DF7\u305C\u305F\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30CF\u30CB\u30FC\uFF1E\u3092\u4F5C\u308B\u3002\n\n\u2461<color=#BA9535FF>\uFF1C\u5C0F\u9EA6\u7C89\uFF1E\uFF0B\uFF1C\u30A2\u30FC\u30E2\u30F3\u30C9\u30D7\u30FC\u30C9\u30EB\uFF1E</color>\u3092\u6DF7\u305C\u308B\u3002\n\n\u2460\u3068\u2461\u3092\u5408\u308F\u305B\u3001\u3058\u3063\u304F\u308A\u6DF7\u305C\u3064\u3064\u3001<color=#BA9535FF>\uFF1C\u7126\u304C\u3057\u30D0\u30BF\u30FC\uFF1E</color>\u3092\u52A0\u3048\u3066\u4ED5\u4E0A\u3052\u308B\u3002\n\n\u751F\u5730\u3092\u5BDD\u304B\u305B\u3001\u713C\u304D\u4E0A\u3052\u305F\u3089\u5B8C\u6210\u3002\n\n"
       Re_flag_num: 30
       Ev_flag_num: 30
-    - ev_ItemID: 14
+    - ev_ItemID: 15
       fileName: Items/crepe
       name: crepe_recipi
       nameHyouji: "\u30AF\u30EC\u30FC\u30D7\u306E\u30EC\u30B7\u30D4"
@@ -199,7 +211,7 @@ MonoBehaviour:
       memo: "<color=#BA9535FF>\u7802\u7CD6\u306B\u305F\u307E\u3054\u3001\u30DF\u30EB\u30AF</color>\u3092\u6DF7\u305C\u3066\u751F\u5730\u3092\u4F5C\u308B\u3002\n\n\u4F5C\u3063\u305F\u751F\u5730\uFF08\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30DF\u30EB\u30AF\uFF1E\uFF09\u306B\u3001<color=#BA9535FF>\u5C0F\u9EA6\u7C89</color>\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002\n<color=#BA9535FF>\uFF11\u3000\uFF1A\u3000\uFF12</color>\n\n\u8584\u304F\u713C\u3044\u3066\u3001\u5B8C\u6210\uFF01\n\n"
       Re_flag_num: 60
       Ev_flag_num: 60
-    - ev_ItemID: 15
+    - ev_ItemID: 16
       fileName: Items/maffin
       name: maffin_recipi
       nameHyouji: "\u30DE\u30D5\u30A3\u30F3\u306E\u30EC\u30B7\u30D4"
@@ -211,7 +223,7 @@ MonoBehaviour:
       memo: "\u2460<color=#BA9535FF>\u7802\u7CD6\u3001\u30D0\u30BF\u30FC\u3001\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC</color>\u3092\u6DF7\u305C\u3066\u3001\u30DE\u30D5\u30A3\u30F3\u751F\u5730\u3092\u4F5C\u308B\u3002\n\n\u2461\u30DE\u30D5\u30A3\u30F3\u751F\u5730\u306B\u3001<color=#BA9535FF>\u5C0F\u9EA6\u7C89\u30FB\u5869</color>\u3092\u3075\u308B\u3044\u306A\u304C\u3089\u6DF7\u305C\u308B\u3002\n\n\u713C\u3044\u3066\u5B8C\u6210\uFF01\n"
       Re_flag_num: 70
       Ev_flag_num: 70
-    - ev_ItemID: 16
+    - ev_ItemID: 17
       fileName: Items/biscouti
       name: bisucouti_recipi
       nameHyouji: "\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u306E\u30EC\u30B7\u30D4"
@@ -223,7 +235,7 @@ MonoBehaviour:
       memo: "\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u306F\u6CB9\u5206\u3092\u4E00\u5207\u4F7F\u308F\u306A\u3044\u304A\u83D3\u5B50\n\n\u2460\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9\u306F\u3001<color=#BA9535FF>\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC\u306B\u5C0F\u9EA6\u7C89</color>\u3001\u305D\u308C\u306B<color=#BA9535FF>\u7802\u7CD6</color>\u3092\u6DF7\u305C\u5408\u308F\u305B\u3066\u4F5C\u308B\u3002\n\n\u2461<color=#BA9535FF>\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9</color>\u3068<color=#BA9535FF>\u305F\u307E\u3054</color>\u3092\u6DF7\u305C\u3066\u751F\u5730\u3092\u4F5C\u308B\u3002\n\n\u751F\u5730\u3092\u5BDD\u304B\u305B\u3001\u713C\u304D\u4E0A\u3052\u305F\u3089\u5B8C\u6210\u266A\n\n"
       Re_flag_num: 80
       Ev_flag_num: 80
-    - ev_ItemID: 17
+    - ev_ItemID: 18
       fileName: Items/slimejelly
       name: slimejelly_recipi
       nameHyouji: "\u30B9\u30E9\u30BC\u30EA\u30FC\u306E\u30EC\u30B7\u30D4"
@@ -235,7 +247,7 @@ MonoBehaviour:
       memo: "\u30B9\u30E9\u30A4\u30E0\u30BC\u30EA\u30FC\u3000\u900F\u660E\u3067\u3077\u308B\u3077\u308B\u266A\u304D\u308C\u3044\u306A\u30BC\u30EA\u30FC\u306E\u4F5C\u308A\u65B9\n\n\u30BC\u30E9\u30C1\u30F3\u3092\u6DF7\u305C\u306A\u304C\u3089\u3001\u7802\u7CD6\u30FB\u30D6\u30EB\u30FC\u30BD\u30FC\u30C0\u3092\u5165\u308C\u308B\u3002\n\n\u51B7\u3084\u3059\u3002\u5B8C\u6210\u266A\n\n"
       Re_flag_num: 9999
       Ev_flag_num: 9999
-    - ev_ItemID: 18
+    - ev_ItemID: 19
       fileName: Items/creampuff
       name: creampuff_recipi
       nameHyouji: "\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0\u306E\u30EC\u30B7\u30D4"
@@ -247,7 +259,7 @@ MonoBehaviour:
       memo: "\u3055\u304F\u3055\u304F\u3075\u308F\u3075\u308F\u3000\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0\u306E\u57FA\u672C\u266A\n\n\u2460<color=#BA9535FF>\u30DF\u30EB\u30AF\u30FB\u5869\u30FB\u30D0\u30BF\u30FC</color>\u3092\u6DF7\u305C\u308B\u3002\n\n\u2461<color=#BA9535FF>\u5C0F\u9EA6\u7C89\u30FB\u305F\u307E\u3054</color>\u3092\u5165\u308C\u3001\u3055\u3089\u306B\u6DF7\u305C\u308B\u3002\n\n\u2462<color=#FF5CA1FF>\u7D5E\u308A\u888B</color>\u306B\u5165\u308C\u3001\u7D5E\u308A\u51FA\u3057\u305F\u751F\u5730\u3092\u713C\u304F\u3002\n\u3075\u308F\u3075\u308F\u306B\u751F\u5730\u304C\u3075\u304F\u3089\u3080\u3002\n\n\u2463\u4ED5\u4E0A\u3052\u306B\u3001<color=#BA9535FF>\u30DB\u30A4\u30C3\u30D7\u30AF\u30EA\u30FC\u30E0</color>\u3092\u631F\u3093\u3067\u3001\u53EC\u3057\u4E0A\u304C\u308C\u266A\n"
       Re_flag_num: 100
       Ev_flag_num: 100
-    - ev_ItemID: 19
+    - ev_ItemID: 20
       fileName: Items/donuts
       name: donuts_recipi
       nameHyouji: "\u30B7\u30F3\u30D7\u30EB\u30C9\u30FC\u30CA\u30C4\u306E\u30EC\u30B7\u30D4"
@@ -259,7 +271,7 @@ MonoBehaviour:
       memo: "\u63DA\u3052\u305F\u3066\u3000\u3055\u3063\u304F\u308A\u30C9\u30FC\u30CA\u30C4\u306E\u57FA\u672C\u266A\n\n\u2460<color=#BA9535FF>\u30D0\u30BF\u30FC</color>\u306B\u3001<color=#BA9535FF>\u7802\u7CD6\u30FB\u305F\u307E\u3054</color>\u3092\u5165\u308C\u3001\u6DF7\u305C\u5408\u308F\u305B\u308B\u3002\n\n\u2461\u51FA\u6765\u305F\u751F\u5730\u306B\u3001<color=#BA9535FF>\u5C0F\u9EA6\u7C89\u30FB\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC</color>\u3092\u5165\u308C\u3001\u3088\u304F\u6DF7\u305C\u5408\u308F\u305B\u30D9\u30FC\u30B9\u3068\u306A\u308B\u751F\u5730\u3092\u4F5C\u308B\u3002\n\n\u2462\u5C11\u3057\u5BDD\u304B\u305B\u305F\u751F\u5730\u3092\u3001\u9069\u5EA6\u306B\u5927\u304D\u3055\u306B\u5207\u308A\u53D6\u308A\u3001<color=#BA9535FF>\u30D5\u30E9\u30A4\u30E4\u30FC</color>\u306B\u5165\u308C\u3066\u63DA\u3052\u308B\u3002\n"
       Re_flag_num: 110
       Ev_flag_num: 110
-    - ev_ItemID: 20
+    - ev_ItemID: 21
       fileName: Items/pan_cake
       name: princesstota_recipi
       nameHyouji: "\u30D7\u30EA\u30F3\u30BB\u30B9\u30C8\u30FC\u30BF\u306E\u30EC\u30B7\u30D4"
@@ -271,7 +283,7 @@ MonoBehaviour:
       memo: "\u30D7\u30EA\u30F3\u30BB\u30B9\u30C8\u30FC\u30BF\u306E\u57FA\u672C\n"
       Re_flag_num: 90
       Ev_flag_num: 90
-    - ev_ItemID: 21
+    - ev_ItemID: 22
       fileName: Items/whip_cream
       name: whippedcream_recipi
       nameHyouji: "\u30DB\u30A4\u30C3\u30D7\u30AF\u30EA\u30FC\u30E0\u306E\u30EC\u30B7\u30D4"

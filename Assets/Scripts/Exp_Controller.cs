@@ -1011,7 +1011,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
             pitemlist.add_eventPlayerItem(kettei_item1, result_kosu);
-
             pitemlist.eventitemlist_Sansho(); //デバッグ用
 
         }
@@ -1019,7 +1018,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
             pitemlist.add_EmeraldPlayerItem(kettei_item1, result_kosu);
-
             pitemlist.emeralditemlist_Sansho(); //デバッグ用。コメントアウトしても大丈夫。
 
             //買ったものに応じて、家へかえるとイベント発生

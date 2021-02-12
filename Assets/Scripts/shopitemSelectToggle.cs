@@ -27,6 +27,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
     private GameObject card_view_obj;
     private CardView card_view;
+    private GameObject blackpanel_A;
 
     private GameObject shopitemlistController_obj;
     private ShopItemListController shopitemlistController;
@@ -105,7 +106,7 @@ public class shopitemSelectToggle : MonoBehaviour
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
-        
+        blackpanel_A = canvas.transform.Find("Black_Panel_A").gameObject;
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -200,6 +201,7 @@ public class shopitemSelectToggle : MonoBehaviour
         if (shopitemlistController.shop_itemType == 1) //レシピを選択したとき
         {
             _text.text = _item_Namehyouji + "を何個買いますか？";
+            card_view.ShopSelectCard_DrawView(1, shopitemlistController.shop_kettei_item1);
         }
         else if (shopitemlistController.shop_itemType == 5) //エメラルドショップのアイテムを選択したとき
         {
@@ -210,10 +212,13 @@ public class shopitemSelectToggle : MonoBehaviour
         {           
             _itemcount = pitemlist.KosuCount(database.items[shopitemlistController.shop_kettei_item1].itemName);
             _text.text = _item_Namehyouji + "を買いますか？" + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+            card_view.ShopSelectCard_DrawView(0, shopitemlistController.shop_kettei_item1);
         }
 
         Debug.Log(count + "番が押されたよ");
         Debug.Log("アイテム:" + _item_Namehyouji + "が選択されました。");
+
+        blackpanel_A.SetActive(true);
 
         //Debug.Log("これでいいですか？");
 
@@ -278,6 +283,9 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 back_ShopFirst_btn.interactable = true;
 
+                card_view.DeleteCard_DrawView();
+                blackpanel_A.SetActive(false);
+
                 break;
         }
     }
@@ -330,6 +338,9 @@ public class shopitemSelectToggle : MonoBehaviour
                     category_toggle[i].GetComponent<Toggle>().interactable = true;
                 }
 
+                card_view.DeleteCard_DrawView();
+                blackpanel_A.SetActive(false);
+
                 yes_no_panel.SetActive(false);
                 back_ShopFirst_btn.interactable = true;
 
@@ -351,6 +362,9 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 //キャンセル時、リストのインタラクティブ解除。その時、プレイヤーの所持金をチェックし、足りないものはOFF表示にする。
                 Money_Check();
+
+                card_view.DeleteCard_DrawView();
+                blackpanel_A.SetActive(false);
 
                 yes_selectitem_kettei.kettei1 = false;
                 yes_no_panel.SetActive(false);

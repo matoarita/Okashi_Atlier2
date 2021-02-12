@@ -21,19 +21,6 @@ public class DestroySelfObj2 : MonoBehaviour
 
     private void OnEnable()
     {
-        /*switch (transform.name)
-        {
-            case "Particle_Compo2":
-
-                break;
-
-            case "Particle_Compo3":
-
-                break;
-
-            default:
-                break;
-        }*/
 
         StartCoroutine("DestroySelf_3");
     }

@@ -10,6 +10,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     private int i;
 
+    private ItemDataBase database;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -51,6 +53,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
     // Use this for initialization
     void Start () {
 
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
         //カードのプレファブコンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
         cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
@@ -81,6 +86,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             //カードのプレファブコンテンツ要素を取得
             canvas = GameObject.FindWithTag("Canvas");
             cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
+
 
             Pitem_or_Origin_judge = 0;
 
@@ -466,7 +472,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
-        _cardImage.result_on = true;
+        _cardImage.anim_status = 99;
 
         _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
 
@@ -530,7 +536,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
-        _cardImage.result_on = true;
+        _cardImage.anim_status = 99;
 
         _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
 
@@ -599,18 +605,79 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw1();
     }
 
-    void Draw1()
+    //ショップで、選択したときのカード表示処理
+    public void ShopSelectCard_DrawView(int _toggleType, int _kettei_item1)
+    {
+        //初期化しておく
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+        _cardImage_obj.Clear();
+
+
+        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+
+        //通常、もしくはレシピ系
+        if (_toggleType == 0)
+        {
+            _cardImage.Pitem_or_Origin = 0;
+            _cardImage.check_counter = _kettei_item1; //アイテムID
+            _cardImage.SetInitPitemList();
+        }
+        else if (_toggleType == 1) //レシピ
+        {
+            //_cardImage.Pitem_or_Origin = _toggleType;
+            _cardImage.check_counter = _kettei_item1; //イベントアイテムID
+            _cardImage.SetInitEventItem();
+        }
+
+        //位置とスケール
+        if (database.items[_kettei_item1].itemType.ToString() == "Potion" || database.items[_kettei_item1].itemType.ToString() == "Okashi")
+        {
+            Draw4();
+        }
+        else
+        {
+            Draw3();
+        }        
+    }
+
+
+    void Draw1() //調合時など。センター表示
     {
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
+        _cardImage.def_scale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage.CardHyoujiAnim();
     }
 
-    void Draw2()
+    void Draw2() //レシピ時。Window２まで表示可能
     {
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(-200, 80, 0);
+        _cardImage.def_scale = new Vector3(0.85f, 0.85f, 1);
+        _cardImage.CardHyoujiAnim();
     }
 
+    void Draw3() //お店用
+    {
+        _cardImage_obj[0].transform.localScale = new Vector3(0.95f, 0.95f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
+        _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
+        _cardImage.CardHyoujiAnim();
+    }
+
+    void Draw4() //お店用
+    {
+        _cardImage_obj[0].transform.localScale = new Vector3(0.95f, 0.95f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(-170, 80, 0);
+        _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
+        _cardImage.CardHyoujiAnim();
+    }
+
+    //調合時のカードアニメーション
     public void CardCompo_Anim()
     {
         _movetime = 60; //移動にかかるフレーム数

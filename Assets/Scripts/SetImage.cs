@@ -177,8 +177,10 @@ public class SetImage : MonoBehaviour
     private Slider _Bitter_lastslider;
     private Slider _Sour_lastslider;
 
-    public int check_counter;
+    public int check_counter; //cardViewから直接指定
     public int Pitem_or_Origin; //プレイヤーアイテムか、オリジナルアイテムかの判定
+
+    public Vector3 def_scale; //cardview.csからも指定できる
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -187,7 +189,7 @@ public class SetImage : MonoBehaviour
 
     private SoundController sc;
 
-    public bool result_on = false; //リザルトのときのみ、アニメーションをちょっと変えるためのフラグ
+    public int anim_status = 0; //リザルトのときのみ、アニメーションをちょっと変えるためのフラグ。 CardViewから読んでいる。
 
 
     // Use this for initialization
@@ -204,29 +206,45 @@ public class SetImage : MonoBehaviour
 
     private void OnEnable()
     {
-        SetData();
+        SetData();        
+    }
 
+    //カードを表示用のアニメ
+    public void CardHyoujiAnim()
+    {
         //
         //Dotweenでアニメーションの設定
         //
-        if (!result_on)
+        switch (anim_status)
         {
-            Sequence sequence = DOTween.Sequence();
+            case 0:
 
-            //まず、初期値。
-            this.GetComponent<CanvasGroup>().alpha = 0;
-            sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
-            /*sequence.Append(transform.DOLocalMove(new Vector3(30f, 0, 0), 0.0f)
-                .SetRelative());*/ //元の位置から30px右に置いておく。
-                                   //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
+                Sequence sequence = DOTween.Sequence();
 
-            //移動のアニメ
-            sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
-                .SetEase(Ease.OutExpo));
-            /*sequence.Append(transform.DOLocalMove(new Vector3(-30f, 0, 0), 0.3f)
-                .SetRelative()
-                .SetEase(Ease.OutExpo)); *///30px右から、元の位置に戻る。
-            sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+                //まず、初期値。
+                this.GetComponent<CanvasGroup>().alpha = 0;
+                sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
+                /*sequence.Append(transform.DOLocalMove(new Vector3(30f, 0, 0), 0.0f)
+                    .SetRelative());*/ //元の位置から30px右に置いておく。
+                                       //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
+
+                //移動のアニメ
+                sequence.Append(transform.DOScale(def_scale, 0.2f)
+                    .SetEase(Ease.OutExpo));
+                /*sequence.Append(transform.DOLocalMove(new Vector3(-30f, 0, 0), 0.3f)
+                    .SetRelative()
+                    .SetEase(Ease.OutExpo)); *///30px右から、元の位置に戻る。
+                sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+
+                break;
+
+            case 99: //アニメなし
+
+                break;
+
+            default:
+
+                break;
         }
     }
 
@@ -368,37 +386,32 @@ public class SetImage : MonoBehaviour
         CardParamOFF_2();
     }
 
-
-    void Card_draw()
+    //お店でイベントアイテムを選択した場合
+    public void SetInitEventItem()
     {
-        Pitemlist_CardDraw();
-
-        /*switch (Pitem_or_Origin)
-        {
-            case 0: //プレイヤーアイテムリストを選択した場合
-                //Debug.Log("プレイヤーアイテムリスト　check_counter:" + check_counter);
-
-                Pitemlist_CardDraw();
-                break;
-
-            case 1: //オリジナルアイテムリストを選択した場合
-                //Debug.Log("オリジンアイテムリスト　check_counter:" + check_counter);
-
-                //プレイヤー所持アイテムリストの取得
-                //pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
-                Pitemlist_CardDraw();
-                break;
-
-            default:
-                break;
-        }*/
-
+        Card_draw2();
+        CardParamOFF();
     }
 
+    //カード描画用のパラメータ読み込み
+    void Card_draw2()
+    {
+        //アイテムタイプを代入//
+        item_Name.text = pitemlist.eventitemlist[check_counter].event_itemNameHyouji;
+        item_Category.text = "レシピ";
+        item_RankDesc.text = pitemlist.eventitemlist[check_counter].event_itemNameHyouji;
+
+        texture2d = Resources.Load<Texture2D>("Sprites/" + pitemlist.eventitemlist[check_counter].event_fileName);
+
+        // texture2dを使い、Spriteを作って、反映させる
+        item_Icon.sprite = Sprite.Create(texture2d,
+                                   new Rect(0, 0, texture2d.width, texture2d.height),
+                                   Vector2.zero);
+    }
 
     //カード描画用のパラメータ読み込み
-    void Pitemlist_CardDraw() {
+    void Card_draw()
+    {
 
         switch (Pitem_or_Origin)
         {
@@ -544,10 +557,11 @@ public class SetImage : MonoBehaviour
         //カード　スロット名 現在は、特に表示はしていない
         Slotname_Hyouji();
 
-        DrawCard();
+        //実際にカードの表示を更新する部分
+        DrawCardParam();
     }    
 
-    void DrawCard()
+    void DrawCardParam()
     {
     
         // texture2dを使い、Spriteを作って、反映させる

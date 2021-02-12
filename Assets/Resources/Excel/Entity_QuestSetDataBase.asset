@@ -23,7 +23,7 @@ MonoBehaviour:
       quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 2
+      kosu_max: 1
       buy_price: 250
       rich: 0
       sweat: 20
@@ -52,7 +52,7 @@ MonoBehaviour:
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 2
+      kosu_max: 1
       buy_price: 400
       rich: 0
       sweat: 20
@@ -226,7 +226,7 @@ MonoBehaviour:
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 6
+      kosu_max: 1
       buy_price: 200
       rich: 0
       sweat: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 3
+      kosu_max: 1
       buy_price: 750
       rich: 0
       sweat: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 3
+      kosu_max: 1
       buy_price: 300
       rich: 0
       sweat: 0
@@ -313,7 +313,7 @@ MonoBehaviour:
       quest_itemsubtype: Biscotti
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 2
+      kosu_max: 1
       buy_price: 700
       rich: 0
       sweat: 20
@@ -400,7 +400,7 @@ MonoBehaviour:
       quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 5
+      kosu_max: 1
       buy_price: 300
       rich: 0
       sweat: 20
@@ -430,7 +430,7 @@ MonoBehaviour:
       quest_itemsubtype: Cookie
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 5
+      kosu_max: 1
       buy_price: 400
       rich: 0
       sweat: 20
@@ -460,7 +460,7 @@ MonoBehaviour:
       quest_itemsubtype: Rusk
       kosu_default: 0
       kosu_min: 1
-      kosu_max: 4
+      kosu_max: 1
       buy_price: 300
       rich: 0
       sweat: 20

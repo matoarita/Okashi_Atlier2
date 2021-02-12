@@ -67,6 +67,7 @@ public class GetMaterial : MonoBehaviour
     private int i, count, empty;
     private int index;
     private int _itemid;
+    private int _getMoney;
 
     private int cullent_total_mat;
 
@@ -99,6 +100,9 @@ public class GetMaterial : MonoBehaviour
     private Image _TreasureImg;
     private Sprite treasure1;
     private Sprite treasure1Open;
+
+    private GameObject TreasureGetitem_obj;
+    private Image TreasureGetitem_img;
 
     private GameObject HeroineLifePanel;
     private Text HeroineLifeText;
@@ -165,6 +169,9 @@ public class GetMaterial : MonoBehaviour
         OpenTreasureButton_obj = tansaku_panel.transform.Find("TansakuActionList/Viewport/Content/Open_treasure").gameObject;
         treasure_text = OpenTreasureButton_obj.transform.Find("Text").GetComponent<Text>();
 
+        TreasureGetitem_obj = getmatplace_panel_obj.transform.Find("Comp/Slot_View/Image/TreasureGetImage").gameObject;
+        TreasureGetitem_img = TreasureGetitem_obj.transform.Find("ItemImage").GetComponent<Image>(); //アイテムの画像データ
+
         TreasureImage_obj = getmatplace_panel_obj.transform.Find("Comp/Slot_View/Image/TreasureImage").gameObject;
         CharacterSDImage = getmatplace_panel_obj.transform.Find("Comp/Slot_View/Image/CharacterSD").gameObject;
 
@@ -187,7 +194,8 @@ public class GetMaterial : MonoBehaviour
                     sc.PlaySe(24);
 
                     NextButton_obj.SetActive(false);
-                    OpenTreasureButton_obj.SetActive(false);                    
+                    OpenTreasureButton_obj.SetActive(false);
+                    TreasureGetitem_obj.SetActive(false);
 
                     timeOut = 1.0f;
                     mat_anim_status = 1;
@@ -251,8 +259,8 @@ public class GetMaterial : MonoBehaviour
         mat_cost = matplace_database.matplace_lists[index].placeCost;
         mat_place = matplace_database.matplace_lists[index].placeName;
 
-        //妹の体力がないと、先へ進めない。井戸は、ハートなくても水がとれる。
-        if (PlayerStatus.girl1_Love_exp <= 0 && mat_place != "Ido")
+        //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
+        if (PlayerStatus.girl1_Love_exp <= 0 && matplace_database.matplace_lists[index].placeType != 0)
         {
             _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（ハートが０になったので、動けないようだ。）";
         }
@@ -275,9 +283,9 @@ public class GetMaterial : MonoBehaviour
                     //日数の経過
                     PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
                     time_controller.TimeKoushin();
-
+                   
                     //妹の体力消費 一回の行動で1減る。0で倒れる。井戸などでは、減らない。
-                    if (mat_place != "Ido")
+                    if (matplace_database.matplace_lists[index].placeType != 0)
                     {
                         PlayerStatus.girl1_Love_exp -= 1;
                         HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
@@ -286,6 +294,9 @@ public class GetMaterial : MonoBehaviour
                     //プレイヤーのアイテム発見力をバフつきで計算
                     _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
                     player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
+
+                    //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
+                    rare_event_kakuritsu = (player_girl_findpower_final - PlayerStatus.player_girl_findpower_def) * 0.3f;
 
                     //ウェイトアニメ
                     mat_anim_on = true;
@@ -343,6 +354,16 @@ public class GetMaterial : MonoBehaviour
                     case "BirdSanctuali":
 
                         event_BirdSanctuali();
+                        break;
+
+                    case "BerryFarm":
+
+                        event_BerryFarm();
+                        break;
+
+                    case "Lavender_field":
+
+                        event_LavenderField();
                         break;
 
                     case "HimawariHill":
@@ -636,6 +657,554 @@ public class GetMaterial : MonoBehaviour
     }
 
 
+
+    //
+    //★★★マップイベントの設定まとめ★★★
+    //
+
+    //近くの森
+    void event_Forest()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん。だんごむし、みつけた～！";
+                break;
+
+            case 1:
+
+                _text.text = "わ～い。ちょうちょ～～。（妹はサボっている。）";
+                break;
+
+            case 2:
+
+                _text.text = "にいちゃん。腹へった～。" + "\n" + "妹は帰りたそうにしている。";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "にいちゃん！！　とんぼが飛んでる～！！";
+                break;
+
+            default:
+
+                _text.text = "ギャーー！ムカデ！！にいちゃん！！";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    void rare_event_Forest()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                event_itemGet02();
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            default:
+
+                if (player_girl_findpower_final >= 120 && !GameMgr.MapEvent_06[0])                 
+                {
+                    //バードサンクチュアリを発見
+                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                    getmatplace_panel.next_flag = 100;
+                    NextButton_obj.SetActive(true);
+                }
+                else
+                {
+                    event_itemGet01();                   
+                }
+
+                break;
+        }
+    }
+
+    //バードサンクチュアリ
+    void event_BirdSanctuali()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん！　とりさん、ふわふわ～！";
+                break;
+
+            case 1:
+
+                _text.text = "どんぐり.. ないかな。（妹はサボっている。）";
+                break;
+
+            case 2:
+
+                _text.text = "にいちゃん。お花畑きもちいい・・。" + "\n" + "妹は寝ている。";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            default:
+
+                if (player_girl_findpower_final >= 150) //player_girl_findpowerは、girl_status内でパラメータ処理
+                {
+                    _text.text = "にいちゃん！！　ここに石像があるよ？";
+                }
+                else
+                {
+                    _text.text = "はっぱがキラキラしてる！！にいちゃん！！";
+
+                    //音を鳴らす
+                    //sc.PlaySe(6);
+                }
+
+                break;
+        }
+    }
+
+    //ベリーファーム
+    void event_BerryFarm()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん。この実、食べられるのかなぁ～？";
+                break;
+
+            case 1:
+
+                _text.text = "えへへ..。赤いどんぐりないかな。";
+                break;
+
+            case 2:
+
+                _text.text = "あ！てんとうむしだ！　にいちゃん！" + "\n" + "妹は、はしゃいでいる。";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "赤い実と黒い実。黒いやつはすっぱいんだよね..。" + "\n" + "妹は、熱中している。";
+                break;
+
+            default:
+
+                _text.text = "ギャッ！　草のとげがささった！！　いだいよ～・・。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //ラベンダー畑
+    void event_LavenderField()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん。水がいっぱいで、すっごくひろ～いね！";
+                break;
+
+            case 1:
+
+                _text.text = "さやさや..。ぽかぽか。" + "\n" + "風がきもちいいねぇ。にいちゃん。";
+                break;
+
+            case 2:
+
+                _text.text = "この紫のお花、ラベンダーっていうの？　いい香り～。";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "お花がつぶれちゃうから、この草に寝ようね！にいちゃん。" + "\n" + "妹は、ごろごろしている。";
+                break;
+
+            default:
+
+                _text.text = "ギャーー！どろんこの地面に足がはいっちゃった..！　どろどろ～・・。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //ひまわりの丘
+    void event_HimawariHill()
+    {
+        if (!GameMgr.MapEvent_04[1])
+        {
+            GameMgr.MapEvent_04[1] = true;
+
+            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + GameMgr.ColorYellow + "絞り器" + "</color>" + "をみつけた！";
+
+            //アイテムの取得処理
+            pitemlist.addPlayerItemString("oil_extracter", 1);
+
+            //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+            _itemid = pitemlist.SearchItemString("oil_extracter");
+            getmatplace_panel.result_items[_itemid] += 1;
+
+            //音を鳴らす
+            sc.PlaySe(1);
+        }
+        else
+        {
+            _text.text = "廃屋がある。";
+        }
+    }
+
+
+    void event_itemGet01()
+    {
+        _text.text = "にいちゃん。みてみて！　キラキラな石！" +
+                        "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone1")].itemNameHyouji + "</color>" + "をみつけた！";
+
+        //アイテムの取得処理
+        pitemlist.addPlayerItemString("kirakira_stone1", 1);
+
+        //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+        _itemid = pitemlist.SearchItemString("kirakira_stone1");
+        getmatplace_panel.result_items[_itemid] += 1;
+
+        //音を鳴らす
+        sc.PlaySe(1);
+    }
+
+    void event_itemGet02()
+    {
+        _getMoney = Random.Range(0, 100);
+
+        _text.text = "にいちゃん。お金ひろった！へへ。" +
+                        "\n" + _getMoney + "</color>" + "ルピアをみつけた！";
+
+        //所持金をプラス
+        moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
+
+        //音を鳴らす
+        sc.PlaySe(1);
+    }
+
+
+
+
+    //イベントの発生確率をセット
+    void InitializeEventDicts()
+    {       
+
+        switch (mat_place)
+        {
+            case "Forest":
+
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 70.0f); //採集
+                eventDict.Add(1, 25.0f); //20%でイベント発生
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
+                break;
+
+            case "BirdSanctuali":
+
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 70.0f); //採集
+                eventDict.Add(1, 25.0f); //20%でイベント発生
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
+                break;
+
+            case "HimawariHill":
+
+                if (!GameMgr.MapEvent_04[1])
+                {
+                    eventDict = new Dictionary<int, float>();
+                    eventDict.Add(0, 70.0f); //採集
+                    eventDict.Add(1, 30.0f); //30%でイベント 廃屋をみつけるまでは、発生しやすくなる。
+                    eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                }
+                else
+                {
+                    eventDict = new Dictionary<int, float>();
+                    eventDict.Add(0, 80.0f); //採集
+                    eventDict.Add(1, 10.0f); //10%でイベント
+                    eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                    eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
+                }
+                break;
+
+            default:
+
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 70.0f); //採集
+                eventDict.Add(1, 25.0f); //10%でイベント
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
+                break;
+        }
+    }
+
+
+
+
+
+
+
+    //
+    //お宝関係
+    //
+    void treasure_Check()
+    {
+        //おたからを発見
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ なんかあやしい草むらがあるよ..？　しらべる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "調べる";
+        TreasureImage_obj.SetActive(false);
+        CharacterSDImage.SetActive(false);
+
+        //Treasure_Status = 0; //0=宝箱
+        Treasure_Status = 1;
+    }
+
+    void treasure_Check2()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ きれいなお花畑！　探検してみる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "探検";
+        TreasureImage_obj.SetActive(false);
+        CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
+    void treasure_no()
+    {
+        _text.text = "とくに何もみつからなかった。";
+    }
+
+    //GetMatPlace_Panelから呼び出し
+    public void GetTreasureBox(string _place)
+    {
+        _TreasureImg.sprite = treasure1Open;
+        //TreasureImage_obj.SetActive(false);
+
+        switch (_place)
+        {
+            case "Forest":
+
+                Treasure_Forest();
+                break;
+
+            case "Lavender_field":
+
+                Treasure_Forest();
+                break;
+
+            case "StrawberryGarden":
+
+                Treasure_Forest();
+                break;
+
+            case "HimawariHill":
+
+                Treasure_Forest();
+                break;
+
+            case "BirdSanctuali":
+
+                Treasure_Forest();
+                break;
+
+            default:
+                Treasure_Forest();
+                break;
+        }
+    }
+
+    void Treasure_Forest()
+    {
+        InitializeTreasureDicts(0); //中の番号で、どの宝箱かを指定する
+
+        //何が当たるかな？
+        // 宝箱アイテムの抽選。
+        itemId = TreasureChoose();
+        itemName = treasureInfo[itemId];
+
+        if (itemName == "Non") //はずれ
+        {
+            _text.text = "にいちゃん..。なにもなかった～..。";
+        }
+        else
+        {
+            Treasure_GetItem();
+        }
+    }
+
+    void Treasure_GetItem()
+    {
+        _text.text = "にいちゃん！　やったぁ！！" + "\n" +
+            GameMgr.ColorYellow + database.items[database.SearchItemIDString(itemName)].itemNameHyouji + "</color>" + "をみつけた！";
+
+        TreasureGetitem_obj.SetActive(true);
+        TreasureGetitem_img.sprite = database.items[database.SearchItemIDString(itemName)].itemIcon_sprite;
+
+        //アイテムの取得処理
+        pitemlist.addPlayerItemString(itemName, 1);
+
+        //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+        _itemid = pitemlist.SearchItemString(itemName);
+        getmatplace_panel.result_items[_itemid] += 1;
+
+        //音を鳴らす
+        switch (Treasure_Status)
+        {
+            case 0: //宝箱
+
+                sc.PlaySe(87); //あけた音
+                sc.PlaySe(86); //獲得音
+
+                break;
+
+            case 1: //あやしい場所を探索
+
+                sc.PlaySe(86); //獲得音
+
+                break;
+
+
+            default:
+
+                break;
+        }
+        
+    }
+
+    //宝箱データのセッティング。せっかくなので、骨董品とか収集品とかレシピとか、コレクションアイテム中心にする。
+    void InitializeTreasureDicts(int _treasure_num)
+    {
+
+        //まずは初期化
+        treasureInfo = new Dictionary<int, string>();
+        treasureDropDict = new Dictionary<int, float>();
+
+        switch (_treasure_num)
+        {
+            case 0: //お宝セットテーブル１
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "doro_dango");
+                treasureInfo.Add(2, "kirakira_stone1");
+                treasureInfo.Add(3, "compass");
+                treasureInfo.Add(4, "copper_coin");
+                treasureInfo.Add(5, "star_bottle");
+                treasureInfo.Add(6, "diamond_1");
+               
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 30.0f);
+                treasureDropDict.Add(2, 20.0f);
+                treasureDropDict.Add(3, 8.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(4, 8.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(5, 8.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(6, 6.0f + rare_event_kakuritsu);
+                break;
+
+            default:
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名
+                treasureInfo.Add(1, "kirakira_stone1");
+                treasureInfo.Add(2, "kirakira_stone1");
+                treasureInfo.Add(3, "kirakira_stone1");
+                treasureInfo.Add(4, "kirakira_stone1");
+
+                treasureDropDict.Add(0, 50.0f); //こっちは確率テーブル
+                treasureDropDict.Add(1, 20.0f);
+                treasureDropDict.Add(2, 10.0f);
+                treasureDropDict.Add(3, 10.0f);
+                treasureDropDict.Add(4, 10.0f);
+                break;
+        }
+        
+    }
+
+    int TreasureChoose()
+    {
+        // 確率の合計値を格納
+        total = 0;
+
+        // 敵ドロップ用の辞書からドロップ率を合計する
+        foreach (KeyValuePair<int, float> elem in treasureDropDict)
+        {
+            total += elem.Value;
+        }
+
+        // Random.valueでは0から1までのfloat値を返すので
+        // そこにドロップ率の合計を掛ける
+        randomPoint = Random.value * total;
+
+        // randomPointの位置に該当するキーを返す
+        foreach (KeyValuePair<int, float> elem in treasureDropDict)
+        {
+            if (randomPoint < elem.Value)
+            {
+                return elem.Key;
+            }
+            else
+            {
+                randomPoint -= elem.Value;
+            }
+        }
+        return 0;
+    }
+
     int Choose()
     {
         // 確率の合計値を格納
@@ -790,441 +1359,5 @@ public class GetMaterial : MonoBehaviour
     {
         cullent_total_mat = 0;
         _a_zairyomax = "";
-    }
-
-
-
-
-
-    //
-    //マップイベントの設定まとめ
-    //
-
-    //近くの森
-    void event_Forest()
-    {
-        random = Random.Range(0, 10);
-
-        switch (random)
-        {
-            case 0:
-
-                _text.text = "にいちゃん。だんごむし、みつけた～！";
-                break;
-
-            case 1:
-
-                _text.text = "わ～い。ちょうちょ～～。（妹はサボっている。）";
-                break;
-
-            case 2:
-
-                _text.text = "にいちゃん。腹へった～。" + "\n" + "妹は帰りたそうにしている。";
-                break;
-
-            case 3:
-
-                event_itemGet01();
-                break;
-
-            default:
-
-                if (player_girl_findpower_final >= 120) //player_girl_findpowerは、girl_status内でパラメータ処理
-                {
-                    //バードサンクチュアリへ繋がる道を発見
-                    //_text.text = "にいちゃん！！ なんか抜け道があるよ？";
-                    //NextButton_obj.SetActive(true);
-                    _text.text = "にいちゃん！！　とんぼが飛んでる～！！";
-                }
-                else
-                {
-                    _text.text = "ギャーー！ムカデ！！にいちゃん！！";
-
-                    //音を鳴らす
-                    sc.PlaySe(6);
-                }
-
-                break;
-        }
-    }
-
-    void rare_event_Forest()
-    {
-        random = Random.Range(0, 10);
-
-        switch (random)
-        {
-            case 3:
-
-                event_itemGet01();
-                break;
-
-            default:
-
-                if (player_girl_findpower_final >= 120)
-                {
-                    //バードサンクチュアリを発見
-                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
-                    getmatplace_panel.next_flag = 100;
-                    NextButton_obj.SetActive(true);
-                }
-                else
-                {
-                    event_itemGet01();                   
-                }
-
-                break;
-        }
-    }
-
-    //バードサンクチュアリ
-    void event_BirdSanctuali()
-    {
-        random = Random.Range(0, 10);
-
-        switch (random)
-        {
-            case 0:
-
-                _text.text = "にいちゃん！　とりさん、ふわふわ～！";
-                break;
-
-            case 1:
-
-                _text.text = "どんぐり.. ないかな。（妹はサボっている。）";
-                break;
-
-            case 2:
-
-                _text.text = "にいちゃん。お花畑きもちいい・・。" + "\n" + "妹は寝ている。";
-                break;
-
-            case 3:
-
-                event_itemGet01();
-                break;
-
-            default:
-
-                if (player_girl_findpower_final >= 150) //player_girl_findpowerは、girl_status内でパラメータ処理
-                {
-                    _text.text = "にいちゃん！！　ここに石像があるよ？";
-                }
-                else
-                {
-                    _text.text = "はっぱがキラキラしてる！！にいちゃん！！";
-
-                    //音を鳴らす
-                    //sc.PlaySe(6);
-                }
-
-                break;
-        }
-    }
-
-    //ひまわりの丘
-    void event_HimawariHill()
-    {
-        if (!GameMgr.MapEvent_04[1])
-        {
-            GameMgr.MapEvent_04[1] = true;
-
-            _text.text = "兄ちゃん！！ なんかここに、建物があるよ？" + "\n" + GameMgr.ColorYellow + "絞り器" + "</color>" + "をみつけた！";
-
-            //アイテムの取得処理
-            pitemlist.addPlayerItemString("oil_extracter", 1);
-
-            //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-            _itemid = pitemlist.SearchItemString("oil_extracter");
-            getmatplace_panel.result_items[_itemid] += 1;
-
-            //音を鳴らす
-            sc.PlaySe(1);
-        }
-        else
-        {
-            _text.text = "廃屋がある。";
-        }
-    }
-
-
-    void event_itemGet01()
-    {
-        _text.text = "にいちゃん。みてみて！　キラキラな石！" +
-                        "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone1")].itemNameHyouji + "</color>" + "をみつけた！";
-
-        //アイテムの取得処理
-        pitemlist.addPlayerItemString("kirakira_stone1", 1);
-
-        //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        _itemid = pitemlist.SearchItemString("kirakira_stone1");
-        getmatplace_panel.result_items[_itemid] += 1;
-
-        //音を鳴らす
-        sc.PlaySe(1);
-    }
-
-
-
-
-    //イベントの発生確率をセット
-    void InitializeEventDicts()
-    {
-        //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
-        rare_event_kakuritsu = (player_girl_findpower_final - PlayerStatus.player_girl_findpower_def) * 0.3f;
-
-        switch (mat_place)
-        {
-            case "Forest":
-
-                eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 25.0f); //20%でイベント発生
-                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
-                break;
-
-            case "BirdSanctuali":
-
-                eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 25.0f); //20%でイベント発生
-                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
-                break;
-
-            case "HimawariHill":
-
-                if (!GameMgr.MapEvent_04[1])
-                {
-                    eventDict = new Dictionary<int, float>();
-                    eventDict.Add(0, 70.0f); //採集
-                    eventDict.Add(1, 30.0f); //30%でイベント 廃屋をみつけるまでは、発生しやすくなる。
-                    eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                }
-                else
-                {
-                    eventDict = new Dictionary<int, float>();
-                    eventDict.Add(0, 80.0f); //採集
-                    eventDict.Add(1, 10.0f); //10%でイベント
-                    eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                    eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
-                }
-                break;
-
-            default:
-
-                eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 25.0f); //10%でイベント
-                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
-                break;
-        }
-    }
-
-
-
-
-
-
-
-    //
-    //お宝関係
-    //
-    void treasure_Check()
-    {
-        //おたからを発見
-        //sc.PlaySe(84);
-        _text.text = "にいちゃん！！ なんかあやしい草むらがあるよ..？　しらべる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
-
-        //_TreasureImg.sprite = treasure1;
-        OpenTreasureButton_obj.SetActive(true);
-        treasure_text.text = "調べる";
-        TreasureImage_obj.SetActive(false);
-        CharacterSDImage.SetActive(false);
-
-        //Treasure_Status = 0; //0=宝箱
-        Treasure_Status = 1;
-    }
-
-    void treasure_Check2()
-    {
-        //怪しげな場所
-        //sc.PlaySe(84);
-        _text.text = "にいちゃん！！ きれいなお花畑！　探検してみる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
-
-        //_TreasureImg.sprite = treasure1;
-        OpenTreasureButton_obj.SetActive(true);
-        treasure_text.text = "探検";
-        TreasureImage_obj.SetActive(false);
-        CharacterSDImage.SetActive(false);
-
-        Treasure_Status = 1;
-    }
-
-    void treasure_no()
-    {
-        _text.text = "とくに何もみつからなかった。";
-    }
-
-    //GetMatPlace_Panelから呼び出し
-    public void GetTreasureBox(string _place)
-    {
-        _TreasureImg.sprite = treasure1Open;
-        //TreasureImage_obj.SetActive(false);
-
-        switch (_place)
-        {
-            case "Forest":
-
-                Treasure_Forest();
-                break;
-
-            case "Lavender_field":
-
-                Treasure_Forest();
-                break;
-
-            case "StrawberryGarden":
-
-                Treasure_Forest();
-                break;
-
-            case "HimawariHill":
-
-                Treasure_Forest();
-                break;
-
-            case "BirdSanctuali":
-
-                Treasure_Forest();
-                break;
-
-            default:
-                Treasure_Forest();
-                break;
-        }
-    }
-
-    void Treasure_Forest()
-    {
-        InitializeTreasureDicts(0); //中の番号で、どの宝箱かを指定する
-
-        //何が当たるかな？
-        // 宝箱アイテムの抽選
-        itemId = TreasureChoose();
-        itemName = treasureInfo[itemId];
-
-        Treasure_GetItem();
-    }
-
-    void Treasure_GetItem()
-    {
-        _text.text = "にいちゃん！　やったぁ！！" + "\n" +
-            GameMgr.ColorYellow + database.items[database.SearchItemIDString(itemName)].itemNameHyouji + "</color>" + "をみつけた！";
-
-        //アイテムの取得処理
-        pitemlist.addPlayerItemString(itemName, 1);
-
-        //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        _itemid = pitemlist.SearchItemString(itemName);
-        getmatplace_panel.result_items[_itemid] += 1;
-
-        //音を鳴らす
-        switch (Treasure_Status)
-        {
-            case 0: //宝箱
-
-                sc.PlaySe(87); //あけた音
-                sc.PlaySe(86); //獲得音
-
-                break;
-
-            case 1: //あやしい場所を探索
-
-                sc.PlaySe(86); //獲得音
-
-                break;
-
-
-            default:
-
-                break;
-        }
-        
-    }
-
-    //宝箱データのセッティング
-    void InitializeTreasureDicts(int _treasure_num)
-    {
-
-        //まずは初期化
-        treasureInfo = new Dictionary<int, string>();
-        treasureDropDict = new Dictionary<int, float>();
-
-        switch (_treasure_num)
-        {
-            case 0: //お宝セットテーブル１
-
-                treasureInfo.Add(0, "kirakira_stone1"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "diamond_1");
-                treasureInfo.Add(2, "copper_coin");
-                treasureInfo.Add(3, "pink_suger");
-                treasureInfo.Add(4, "choco_mint_ice_cream");
-               
-                treasureDropDict.Add(0, 57.0f); //こっちは確率テーブル
-                treasureDropDict.Add(1, 3.0f);
-                treasureDropDict.Add(2, 20.0f);
-                treasureDropDict.Add(3, 20.0f);
-                treasureDropDict.Add(4, 0.0f);
-                break;
-
-            default:
-
-                treasureInfo.Add(0, "kirakira_stone1"); //宝箱データ　こっちはアイテム名
-                treasureInfo.Add(1, "kirakira_stone1");
-                treasureInfo.Add(2, "kirakira_stone1");
-                treasureInfo.Add(3, "kirakira_stone1");
-                treasureInfo.Add(4, "kirakira_stone1");
-
-                treasureDropDict.Add(0, 50.0f); //こっちは確率テーブル
-                treasureDropDict.Add(1, 20.0f);
-                treasureDropDict.Add(2, 10.0f);
-                treasureDropDict.Add(3, 10.0f);
-                treasureDropDict.Add(4, 10.0f);
-                break;
-        }
-        
-    }
-
-    int TreasureChoose()
-    {
-        // 確率の合計値を格納
-        total = 0;
-
-        // 敵ドロップ用の辞書からドロップ率を合計する
-        foreach (KeyValuePair<int, float> elem in treasureDropDict)
-        {
-            total += elem.Value;
-        }
-
-        // Random.valueでは0から1までのfloat値を返すので
-        // そこにドロップ率の合計を掛ける
-        randomPoint = Random.value * total;
-
-        // randomPointの位置に該当するキーを返す
-        foreach (KeyValuePair<int, float> elem in treasureDropDict)
-        {
-            if (randomPoint < elem.Value)
-            {
-                return elem.Key;
-            }
-            else
-            {
-                randomPoint -= elem.Value;
-            }
-        }
-        return 0;
     }
 }

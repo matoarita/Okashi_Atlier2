@@ -454,7 +454,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
         else
         {
-            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>";
+            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
+                + "  " + "ハート消費：" + GameMgr.ColorPink + "1" + "</color>";
         }
 
         
@@ -574,6 +575,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 yes_no_panel.SetActive(false);
                 map_imageBG.SetActive(true);
                 slot_tansaku_button_obj.SetActive(true);
+                OpenTreasureButton_obj.SetActive(false);
+                NextButton_obj.SetActive(false);
 
                 if (!next_on)//先へ進むの場合は、リセットしない。
                 {
@@ -1266,15 +1269,23 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     public void OnOpenTreasure() //「あける」ボタンをおした
     {
-        OpenTreasureButton_obj.SetActive(false);
-        slot_tansaku_button_obj.SetActive(false);
+        //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
+        if (PlayerStatus.girl1_Love_exp < 3)
+        {
+            _text.text = "にいちゃん。やっぱりこわいよう..。" + "\n" + "（ハートが足りないようだ。）";
+        }
+        else
+        {
+            OpenTreasureButton_obj.SetActive(false);
+            slot_tansaku_button_obj.SetActive(false);
 
-        //ハートを３つ消費
-        PlayerStatus.girl1_Love_exp -= 3;
-        HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+            //ハートを３つ消費
+            PlayerStatus.girl1_Love_exp -= 3;
+            HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
 
-        treasure_anim_status = 0;
-        treasure_anim_on = true;
+            treasure_anim_status = 0;
+            treasure_anim_on = true;
+        }
     }
 
     void TreasureAnim()

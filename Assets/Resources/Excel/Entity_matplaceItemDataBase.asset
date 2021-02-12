@@ -207,7 +207,7 @@ MonoBehaviour:
       place_day: 3
       place_cost: 0
       place_flag: 1
-      place_type: 1
+      place_type: 0
       drop_item1: "\u306A\u3057"
       drop_item2: orange
       drop_item3: grape
