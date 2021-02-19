@@ -9,9 +9,6 @@ using Live2D.Cubism.Rendering;
 public class Touch_Controll : MonoBehaviour
 {
 
-    public Vector3 force = new Vector3(0, 10, 0);
-    public ForceMode forceMode = ForceMode.VelocityChange;
-
     private SoundController sc;
 
     private Girl1_status girl1_status;
@@ -29,16 +26,15 @@ public class Touch_Controll : MonoBehaviour
     private float timeOut;
     private bool mouseLclick_off;
 
-    //SEを鳴らす
-    public AudioClip sound1;
-    AudioSource audioSource;
+    private bool isHimmeli;
+    private Animator himmeli_animator;
+
 
     // Use this for initialization
     void Start()
     {
         //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-        audioSource = GetComponent<AudioSource>();        
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();     
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
@@ -55,10 +51,12 @@ public class Touch_Controll : MonoBehaviour
         timeOut = 3.0f;
 
         mouseLclick_off = false;
+        isHimmeli = false;
     }
 
     private void Update()
     {
+
         /*if(girl1_status.touchanim_start) //タッチがONになった。
         {
             if (Input.GetMouseButtonUp(0))
@@ -91,7 +89,7 @@ public class Touch_Controll : MonoBehaviour
                 }
             }
         }*/
-        
+
     }
 
 
@@ -300,24 +298,37 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Window");
 
             //音を鳴らす。被り無し
-            //audioSource.clip = sound1;
-            //audioSource.PlayOneShot(sound1);
             sc.PlaySe(40);
         }
 
     }
 
+    //
+    //飾りもの類
+    //
+    public void OnTouchHimmeli()
+    {
+        if (ALL_touch_flag)
+        {
+            Debug.Log("Touch_Himmeli");
+
+            himmeli_animator = this.transform.Find("himmeli_live2d").GetComponent<Animator>();
+            himmeli_animator.Play("himmeli_Touch", 0, 0); //第２引数は、レイヤーの番号、第３が再生時間で、0を指定している。
+            //isHimmeli = true;
+        }
+    }
+
+
     //タッチを一時的にオフ。全て。
-    public void TouchOff()
+    void TouchOff()
     {
         ALL_touch_flag = false;
     }
 
     //タッチをオン。全て。
-    public void TouchOn()
+    void TouchOn()
     {
         ALL_touch_flag = true;
     }
 
-   
 }

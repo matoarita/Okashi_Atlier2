@@ -25,8 +25,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int girl1_Love_lv;                //好感度のレベル。100ごとに１上がる。
     public static int player_girl_findpower;        //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
     public static int player_girl_findpower_def;    //デフォルト初期値。変動しない。
-    //public static int player_girl_lifepoint;        //妹の体力。探索のときに消費する。大きくなるほど、より遠くまで探索できる、ということ。
-    //public static int player_girl_maxlifepoint;     //妹の体力のMAX
+    public static int player_girl_lifepoint;        //妹の体力。探索のときに消費する。大きくなるほど、より遠くまで探索できる、ということ。
+    public static int player_girl_maxlifepoint;     //妹の体力のMAX
 
 
     //日付・フラグ関係
@@ -71,8 +71,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         girl1_Love_lv = 1;
         player_girl_findpower_def = 100;
         player_girl_findpower = player_girl_findpower_def; //探索力
-        //player_girl_maxlifepoint = 10;
-        //player_girl_lifepoint = player_girl_maxlifepoint;
+        player_girl_maxlifepoint = 10;
+        player_girl_lifepoint = player_girl_maxlifepoint;
 
         First_recipi_on = false;
         First_extreme_on = false;

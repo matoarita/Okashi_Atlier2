@@ -157,10 +157,22 @@ public class Debug_Panel : MonoBehaviour {
             canvas = GameObject.FindWithTag("Canvas");
 
             PlayerStatus.player_money = money_num;
-            if (canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject)
+
+            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
-                moneyStatus_Controller = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
-                moneyStatus_Controller.money_Draw();
+                if (canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject)
+                {
+                    moneyStatus_Controller = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+                    moneyStatus_Controller.money_Draw();
+                }
+            }
+            else
+            {
+                if (canvas.transform.Find("MoneyStatus_panel").gameObject)
+                {
+                    moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+                    moneyStatus_Controller.money_Draw();
+                }
             }
         }
     }
@@ -176,11 +188,16 @@ public class Debug_Panel : MonoBehaviour {
 
             exp_table = GameObject.FindWithTag("ExpTable");
 
+            //レベルで上がるスキルなどは初期値にしておく。
+            PlayerStatus.player_extreme_kaisu_Max = 1;
+
             PlayerStatus.player_renkin_lv = plevel_num;
             for (count = 0; count < (plevel_num); count++)
             {
                 exp_table.GetComponent<ExpTable>().SkillCheck(count + 1);
             }
+
+            matplace_database.matPlaceKaikin("Emerald_Shop"); //怪しげな館解禁
         }
     }
 

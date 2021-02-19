@@ -742,8 +742,6 @@ public class GirlEat_Judge : MonoBehaviour {
                     EatAnimPanel.SetActive(false);
                     EatStartEffect.SetActive(false);
 
-                    //touch_controller.Touch_OnAllON();
-
                     break;
 
                 default:
@@ -1624,7 +1622,7 @@ public class GirlEat_Judge : MonoBehaviour {
         if (topping_all_non && !topping_flag)
         {
             topping_score += girl1_status.girl1_NonToppingScoreSet[countNum]; //点数がマイナスに働く。
-            quest_clear = false;
+            //quest_clear = false;
         }
         Debug.Log("トッピングスコア: " + topping_score);
 
@@ -2297,17 +2295,20 @@ public class GirlEat_Judge : MonoBehaviour {
                         quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
-                    
+
+                    //それ以外で、食べたいトッピングの登録があるけど、それに該当するトッピングがない場合は、クリアはできない仕様。
+
                 }
                 else
                 {
+                    quest_clear = false;
                     _windowtext.text = "";
                 }
             }
 
 
             //クリア分岐2　クエストお菓子・クエスト以外のお菓子、両方でチェック。ステージクリアに必要なハート量がたまったかどうか。
-
+            /*
             if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
             {
             }
@@ -2320,7 +2321,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     _windowtext.text = "満足しているようだ。";
                 }
             }
-
+            */
 
         }
     }
@@ -3366,6 +3367,8 @@ public class GirlEat_Judge : MonoBehaviour {
             subQuestClear_check = true;
             GameMgr.QuestClearAnim_Flag = false; //次のメインクエストへ行くまえに、また演出はOFFに。
             ResultPanel_On();
+
+            GameMgr.stageclear_cullentlove = 0;
         }
 
     }
@@ -3483,7 +3486,6 @@ public class GirlEat_Judge : MonoBehaviour {
         girl1_status.timeOut = 5.0f;
         girl1_status.GirlEat_Judge_on = true;//またカウントが進み始める
         girl1_status.hukidasiOn();
-        touch_controller.Touch_OnAllON();
         
         //初期化
         for (i = 0; i < _listScoreEffect.Count; i++)

@@ -142,7 +142,7 @@ public class GetMaterial : MonoBehaviour
         getmatplace_panel = getmatplace_panel_obj.GetComponent<GetMatPlace_Panel>();
 
         //ヒロインライフパネル
-        HeroineLifePanel = getmatplace_panel_obj.transform.Find("Comp/HeroineLife").gameObject;
+        HeroineLifePanel = canvas.transform.Find("MainUIPanel/GetMatStatusPanel/HeroineLife").gameObject;
         HeroineLifeText = HeroineLifePanel.transform.Find("HPguage/HPparam").GetComponent<Text>();
 
         //材料採取のための、消費コスト
@@ -260,7 +260,7 @@ public class GetMaterial : MonoBehaviour
         mat_place = matplace_database.matplace_lists[index].placeName;
 
         //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
-        if (PlayerStatus.girl1_Love_exp <= 0 && matplace_database.matplace_lists[index].placeType != 0)
+        if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[index].placeType != 0)
         {
             _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（ハートが０になったので、動けないようだ。）";
         }
@@ -281,14 +281,14 @@ public class GetMaterial : MonoBehaviour
                     moneyStatus_Controller.UseMoney(mat_cost);
 
                     //日数の経過
-                    PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
+                    PlayerStatus.player_time += 1; //場所に関係なく、一回とるごとに10分
                     time_controller.TimeKoushin();
                    
                     //妹の体力消費 一回の行動で1減る。0で倒れる。井戸などでは、減らない。
                     if (matplace_database.matplace_lists[index].placeType != 0)
                     {
-                        PlayerStatus.girl1_Love_exp -= 1;
-                        HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+                        PlayerStatus.player_girl_lifepoint -= 1;
+                        HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
                     }
 
                     //プレイヤーのアイテム発見力をバフつきで計算
@@ -799,7 +799,7 @@ public class GetMaterial : MonoBehaviour
 
             case 1:
 
-                _text.text = "えへへ..。赤いどんぐりないかな。";
+                _text.text = "えへへ..。赤いどんぐりないかな。" + "\n" + "妹は、どんぐり探しに夢中のようだ。";
                 break;
 
             case 2:
@@ -814,7 +814,7 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
-                _text.text = "赤い実と黒い実。黒いやつはすっぱいんだよね..。" + "\n" + "妹は、熱中している。";
+                _text.text = "赤と黒。くろいやつはすっぱいんだよね..。" + "\n" + "妹は、熱中している。";
                 break;
 
             default:
@@ -838,12 +838,12 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                _text.text = "にいちゃん。水がいっぱいで、すっごくひろ～いね！";
+                _text.text = "にいちゃん。水がいっぱい！　すっごくひろ～い。" + "\n" + "妹は感動しているようだ。";
                 break;
 
             case 1:
 
-                _text.text = "さやさや..。ぽかぽか。" + "\n" + "風がきもちいいねぇ。にいちゃん。";
+                _text.text = "風がさやさや。" + "\n" + "きもちいいねぇ～・・。にいちゃん。";
                 break;
 
             case 2:
@@ -858,12 +858,12 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
-                _text.text = "お花がつぶれちゃうから、この草に寝ようね！にいちゃん。" + "\n" + "妹は、ごろごろしている。";
+                _text.text = "お花がつぶれちゃうから、草の上に寝ようね。　にいちゃん！" + "\n" + "妹は、気持ちよさそうにしている。";
                 break;
 
             default:
 
-                _text.text = "ギャーー！どろんこの地面に足がはいっちゃった..！　どろどろ～・・。";
+                _text.text = "ギャーー！どろんこにはまっちゃった..！　どろどろ～。";
 
                 //音を鳴らす
                 sc.PlaySe(6);

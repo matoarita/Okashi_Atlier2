@@ -687,6 +687,34 @@ MonoBehaviour:
       desc: "\u3057\u3057\u3083\u3082\u30AF\u30C3\u30AD\u30FC"
       commet_flag: 0
     - setID: 24
+      compNum: 511
+      girllike_itemname: cherry_cookie
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 50
+      bitter: 0
+      sour: 20
+      crispy: 70
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      Non_tpscore: 0
+      desc: "\u3055\u304F\u3089\u3093\u307C\u30AF\u30C3\u30AD\u30FC"
+      commet_flag: 0
+    - setID: 25
       compNum: 520
       girllike_itemname: bugget
       girllike_itemsubtype: Non
@@ -714,7 +742,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D1\u30F3"
       commet_flag: 0
-    - setID: 25
+    - setID: 26
       compNum: 521
       girllike_itemname: bugget_orange
       girllike_itemsubtype: Non
@@ -742,7 +770,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D1\u30F3\uFF1C\u30AA\u30EC\u30F3\u30B8\uFF1E"
       commet_flag: 0
-    - setID: 26
+    - setID: 27
       compNum: 522
       girllike_itemname: bugget_blueberry
       girllike_itemsubtype: Non
@@ -770,7 +798,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D1\u30F3\uFF1C\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC\uFF1E"
       commet_flag: 0
-    - setID: 27
+    - setID: 28
       compNum: 525
       girllike_itemname: bugget_sliced
       girllike_itemsubtype: Non
@@ -798,7 +826,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D1\u30F3"
       commet_flag: 0
-    - setID: 28
+    - setID: 29
       compNum: 526
       girllike_itemname: bugget_orange_sliced
       girllike_itemsubtype: Non
@@ -826,7 +854,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D1\u30F3\uFF1C\u30AA\u30EC\u30F3\u30B8\uFF1E"
       commet_flag: 0
-    - setID: 29
+    - setID: 30
       compNum: 527
       girllike_itemname: bugget_blueberry_sliced
       girllike_itemsubtype: Non
@@ -854,7 +882,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D1\u30F3\uFF1C\u30D6\u30EB\u30FC\u30D9\u30EA\u30FC\uFF1E"
       commet_flag: 0
-    - setID: 30
+    - setID: 31
       compNum: 531
       girllike_itemname: rusk_butter
       girllike_itemsubtype: Non
@@ -882,7 +910,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30E9\u30B9\u30AF\uFF1C\u30D0\u30BF\u30FC\uFF1E"
       commet_flag: 0
-    - setID: 31
+    - setID: 32
       compNum: 532
       girllike_itemname: rusk_orange
       girllike_itemsubtype: Non
@@ -910,7 +938,7 @@ MonoBehaviour:
       Non_tpscore: -15
       desc: "\u30E9\u30B9\u30AF\u30AA\u30EC\u30F3\u30B8"
       commet_flag: 0
-    - setID: 32
+    - setID: 33
       compNum: 533
       girllike_itemname: rusk_lemon
       girllike_itemsubtype: Non
@@ -938,7 +966,7 @@ MonoBehaviour:
       Non_tpscore: -15
       desc: "\u30EC\u30E2\u30F3\u30E9\u30B9\u30AF"
       commet_flag: 0
-    - setID: 33
+    - setID: 34
       compNum: 561
       girllike_itemname: crepe
       girllike_itemsubtype: Non
@@ -966,7 +994,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30AF\u30EC\u30FC\u30D7\u751F\u5730\u306E\u307E\u307E\u3002\u4F55\u3082\u304B\u3051\u3066\u306A\u3044\u72B6\u614B\u3002"
       commet_flag: 0
-    - setID: 34
+    - setID: 35
       compNum: 580
       girllike_itemname: Non
       girllike_itemsubtype: Maffin
@@ -994,7 +1022,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30DE\u30D5\u30A3\u30F3"
       commet_flag: 0
-    - setID: 35
+    - setID: 36
       compNum: 585
       girllike_itemname: strawberry_milfiyu
       girllike_itemsubtype: Non
@@ -1022,7 +1050,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u3044\u3061\u3054\u30DF\u30EB\u30D5\u30A3\u30FC\u30E6"
       commet_flag: 0
-    - setID: 36
+    - setID: 37
       compNum: 590
       girllike_itemname: financier
       girllike_itemsubtype: Non
@@ -1050,7 +1078,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 37
+    - setID: 38
       compNum: 591
       girllike_itemname: financier_Orange
       girllike_itemsubtype: Non
@@ -1078,7 +1106,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\uFF1C\u30AA\u30EC\u30F3\u30B8\uFF1E"
       commet_flag: 0
-    - setID: 38
+    - setID: 39
       compNum: 600
       girllike_itemname: strange_tea
       girllike_itemsubtype: Non
@@ -1106,7 +1134,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u3078\u3093\u306A\u8349\u30C6\u30A3\u30FC"
       commet_flag: 0
-    - setID: 39
+    - setID: 40
       compNum: 601
       girllike_itemname: lavender_tea
       girllike_itemsubtype: Non

@@ -667,7 +667,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 GirlEat_Judge_on = true;
 
                                 //gazeをリセット
-                                _model.GetComponent<GazeController>().enabled = false;
+                                //_model.GetComponent<GazeController>().enabled = false;
                                 _model.GetComponent<CubismEyeBlinkController>().enabled = true;
                                 Girl1_touchhair_start = false;
 
@@ -727,7 +727,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     live2d_animator.SetLayerWeight(2, 0f);
                                     live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotionは、表情も含めた体全体の動き
                                     _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-                                    _model.GetComponent<GazeController>().enabled = false;
+                                    //_model.GetComponent<GazeController>().enabled = false;
                                 });
                             }
 
@@ -1108,7 +1108,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             GameMgr.scenario_ON = false;
             GameMgr.recipi_read_endflag = false;
-            touch_controller.Touch_OnAllON();
+            //touch_controller.Touch_OnAllON();
             canvas.SetActive(true);
             sceneBGM.MuteOFFBGM();
             sceneBGM.PlayMain();
@@ -1702,7 +1702,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         GirlEat_Judge_on = false;
 
         //_model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
-        _model_obj.GetComponent<GazeController>().enabled = true;
+        //_model_obj.GetComponent<GazeController>().enabled = true;
     }
 
     public void TouchSisterHair()
@@ -1978,7 +1978,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         hukidasiOn();
         canvas.SetActive(true);
-        touch_controller.Touch_OnAllON();
 
         //5秒ほど表示したら、また食べたいお菓子を表示か削除
         comment_statusreset();
@@ -2003,7 +2002,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidashiitem.GetComponent<TextController>().SetText("お母さんが誕生日にくれたリボンだよ～。うひひ。");
 
         comment_statusreset();
-        _model_obj.GetComponent<GazeController>().enabled = true;
+        //_model_obj.GetComponent<GazeController>().enabled = true;
     }
 
     public void TouchSisterHand()
@@ -2019,7 +2018,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidashiitem.GetComponent<TextController>().SetText(_touchhand_comment);
 
         comment_statusreset();
-        _model_obj.GetComponent<GazeController>().enabled = true;
+        //_model_obj.GetComponent<GazeController>().enabled = true;
     }
 
     public void TouchChest_Start()
@@ -2049,7 +2048,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidashiitem.GetComponent<TextController>().SetText(_touchchest_comment);
 
         comment_statusreset();
-        _model_obj.GetComponent<GazeController>().enabled = true;
+        //_model_obj.GetComponent<GazeController>().enabled = true;
     }
 
     public void TouchFlower()
@@ -2102,7 +2101,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchtwintail_count++;
 
         comment_statusreset();
-        _model_obj.GetComponent<GazeController>().enabled = true;
+        //_model_obj.GetComponent<GazeController>().enabled = true;
     }
 
     IEnumerator WaitTwintailSeconds()

@@ -40,6 +40,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Costume_Num;
     public static int[] Accesory_Num = new int[6]; //アクセ番号 現在アクセ数６個
 
+    //飾っているアイテムのリスト
+    public static bool[] DecoItems = new bool[10];
+
+    //コレクションに登録したアイテムのリスト
+    public static List<bool> CollectionItems = new List<bool>(); //登録済みか否か。こっちはセーブ必要。
+    public static List<string> CollectionItemsName = new List<string>(); //登録済みか否か。こっちはセーブ不要。
+
     //現在覚えているレシピの数と達成率
     public static int game_Cullent_recipi_count;
     public static int game_All_recipi_count;
@@ -527,6 +534,29 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage1_limit_day = 98;
         stage2_limit_day = 151;
         stage3_limit_day = 211;
+
+        //コレクションアイテムリストと、登録リスト初期化
+        CollectionItemsName.Add("amabie_pendant");
+        CollectionItemsName.Add("green_pendant");
+        CollectionItemsName.Add("star_pendant");
+        CollectionItemsName.Add("aquamarine_pendant");
+        CollectionItemsName.Add("white_lily");
+        CollectionItemsName.Add("himmeli");
+        CollectionItemsName.Add("maneki_cat");
+        CollectionItemsName.Add("copper_coin");
+        CollectionItemsName.Add("compass");
+        CollectionItemsName.Add("star_bottle");
+
+        for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
+        {
+            CollectionItems.Add(false);
+        }
+
+        //飾りアイテムの初期化
+        for (system_i = 0; system_i < DecoItems.Length; system_i++)
+        {
+            DecoItems[system_i] = false;
+        }
         
     }
     

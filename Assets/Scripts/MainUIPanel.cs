@@ -1,12 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
 
 public class MainUIPanel : MonoBehaviour {
 
     private GameObject canvas;
     private GameObject UIOpenButton_obj;
+    private GameObject GetMatStatusButton_obj;
     private GameObject TimePanel_obj;
+
+    private GameObject OsawariToggle_obj;
+    private Toggle OsawariToggle;
+    private Text Osawarion_text;
 
     private SoundController sc;
 
@@ -14,19 +22,33 @@ public class MainUIPanel : MonoBehaviour {
 
     private int total_obj_count;
 
+    private Touch_Controller touch_controller;
+    private CubismModel _model;
+
     // Use this for initialization
     void Start () {
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
+        //Live2Dモデル取得
+        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+
         UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
         TimePanel_obj = this.transform.Find("TimePanel").gameObject;
+        GetMatStatusButton_obj = this.transform.Find("GetMatStatusPanel").gameObject;
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //タッチ判定オブジェクトの取得
+        touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+
         compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+
+        OsawariToggle_obj = canvas.transform.Find("OsawariPanel").gameObject;
+        OsawariToggle = OsawariToggle_obj.transform.Find("OsawariToggle").GetComponent<Toggle>();
+        Osawarion_text = OsawariToggle_obj.transform.Find("OsawariToggle/Background/Text").GetComponent<Text>();
 
         total_obj_count = 0;
         foreach (Transform child in this.transform)
@@ -49,14 +71,22 @@ public class MainUIPanel : MonoBehaviour {
             //child.GetComponent<CanvasGroup>().alpha = 1;
         }
         UIOpenButton_obj.SetActive(false);
+        
 
-        if(GameMgr.TimeUSE_FLAG == false)
+        if (GameMgr.TimeUSE_FLAG == false)
         {
             TimePanel_obj.SetActive(false);
         }
 
+        //材料採取系ボタンもオフにする。
+        GetMatStatusButton_obj.SetActive(false);
+
         compound_Main.CheckButtonFlag();
         compound_Main.QuestClearCheck();
+
+        OsawariToggle_obj.SetActive(false);
+        OsawariToggle.isOn = false;
+        OsawariOFF();
     }
 
     public void OnCloseButton()
@@ -67,5 +97,36 @@ public class MainUIPanel : MonoBehaviour {
             //child.GetComponent<CanvasGroup>().alpha = 0;
         }
         UIOpenButton_obj.SetActive(true);
+        OsawariToggle_obj.SetActive(true);
+        OsawariToggle.isOn = false;
+        OsawariOFF();
+    }
+
+    public void OnOsawariToggle()
+    {
+        if(OsawariToggle.isOn)
+        {
+            //おさわりモードON
+            OsawariON();
+        }
+        else
+        {
+            //おさわりモードOFF
+            OsawariOFF();
+        }
+    }
+
+    void OsawariON()
+    {
+        _model.GetComponent<GazeController>().enabled = true;
+        touch_controller.Touch_OnAllON();
+        Osawarion_text.text = "ON";
+    }
+
+    void OsawariOFF()
+    {
+        _model.GetComponent<GazeController>().enabled = false;
+        touch_controller.Touch_OnAllOFF();
+        Osawarion_text.text = "OFF";
     }
 }

@@ -29,6 +29,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private MoneyStatus_Controller moneyStatus_Controller;
 
     private GameObject content;
+    private GameObject GetMatStatusButton_obj;
 
     private GameObject getmatplace_view;
     private GameObject getmatResult_panel_obj;
@@ -112,6 +113,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Text HeroineLifeText;
     private int HeroineLife;
 
+    private GameObject TreasureGetitem_obj;
+
     // Use this for initialization
     void Start()
     {
@@ -151,9 +154,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子  
 
         //ヒロインライフパネル
-        HeroineLifePanel = this.transform.Find("Comp/HeroineLife").gameObject;
+        HeroineLifePanel = canvas.transform.Find("MainUIPanel/GetMatStatusPanel/HeroineLife").gameObject;
         HeroineLifeText = HeroineLifePanel.transform.Find("HPguage/HPparam").GetComponent<Text>();
-        
+        GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/GetMatStatusPanel").gameObject;
+
+        TreasureGetitem_obj = this.transform.Find("Comp/Slot_View/Image/TreasureGetImage").gameObject;
 
         //移動中アニメーション用パネルの取得
         moveanim_panel = this.transform.Find("Comp/MoveAnimPanel").gameObject;
@@ -277,8 +282,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
 
         //妹の体力（HP)を表示
-        //HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
-        HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+        HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
+        //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
     }
 
     // Update is called once per frame
@@ -410,7 +415,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 select_num = i;
 
                 //妹の体力が足りてるかチェック
-                if (PlayerStatus.girl1_Love_exp <= 0 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
+                if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
                 {
                     _text.text = "にいちゃん。怖くて外にでれないよ～・・。" + "\n" + "まずは、" + GameMgr.ColorYellow  + "ヒカリのハートをあげて" + "</color>" + "ね！";
 
@@ -448,14 +453,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     void KakuninPlace()
     {
-        if (matplace_database.matplace_lists[_place_num].placeCost == 0)
+        if (matplace_database.matplace_lists[_place_num].placeType == 0)
         {
             _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？";
         }
         else
         {
             _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
-                + "  " + "ハート消費：" + GameMgr.ColorPink + "1" + "</color>";
+                + "  " + "体力消費：" + GameMgr.ColorPink + "1" + "</color>";
         }
 
         
@@ -571,7 +576,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 }
 
                 getmatplace_view.SetActive(false);
+                TreasureGetitem_obj.SetActive(false);
                 slot_view.SetActive(true);
+                GetMatStatusButton_obj.SetActive(true);
                 yes_no_panel.SetActive(false);
                 map_imageBG.SetActive(true);
                 slot_tansaku_button_obj.SetActive(true);
@@ -667,7 +674,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
                             text_area.SetActive(false);
 
-                            GameMgr.map_ev_ID = 70;
+                            GameMgr.map_ev_ID = 60;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                             StartCoroutine("MapEventOn");
@@ -685,37 +692,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         sceneBGM.OnGetMat_ForestBGM();
                         compound_Main.bgm_change_flag = true;
 
-                        //背景のSEを鳴らす。
-                        //map_ambience.OnLavenderField();
-
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Lavender").gameObject.SetActive(true);
-
-                        //イベントチェック
-                        /*if (!GameMgr.MapEvent_05[0])
-                        {
-                            GameMgr.MapEvent_05[0] = true;
-
-                            _text.text = "ラベンダー畑だ～！いい香り～。";
-
-                            slot_view_status = 3; //イベント読み込み中用に退避
-
-                            //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button_obj.SetActive(false);
-
-                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
-                            text_area.SetActive(false);
-
-                            GameMgr.map_ev_ID = 60;
-                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                            StartCoroutine("MapEventOn");
-                        }
-                        else
-                        {
-                            _text.text = "兄ちゃん、ちょっとゴロゴロしよ～！";
-                        }*/
 
                         _text.text = "兄ちゃん、色んな実がなってるよ～！！";
 
@@ -1157,7 +1135,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     void StatusPanelOFF()
     {
         MoneyStatus_Panel_obj.SetActive(false);
-        HeroineLifePanel.SetActive(false);
+        GetMatStatusButton_obj.SetActive(false);
         if (GameMgr.TimeUSE_FLAG)
         {
             TimePanel_obj1.SetActive(false);
@@ -1167,7 +1145,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     void StatusPanelON()
     {
         MoneyStatus_Panel_obj.SetActive(true);
-        HeroineLifePanel.SetActive(true);
+        GetMatStatusButton_obj.SetActive(true);
         if (GameMgr.TimeUSE_FLAG)
         {
             TimePanel_obj1.SetActive(true);
@@ -1270,7 +1248,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public void OnOpenTreasure() //「あける」ボタンをおした
     {
         //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
-        if (PlayerStatus.girl1_Love_exp < 3)
+        if (PlayerStatus.player_girl_lifepoint < 3)
         {
             _text.text = "にいちゃん。やっぱりこわいよう..。" + "\n" + "（ハートが足りないようだ。）";
         }
@@ -1280,8 +1258,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
             slot_tansaku_button_obj.SetActive(false);
 
             //ハートを３つ消費
-            PlayerStatus.girl1_Love_exp -= 3;
-            HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+            //PlayerStatus.girl1_Love_exp -= 3;
+            PlayerStatus.player_girl_lifepoint -= 3;
+            HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
 
             treasure_anim_status = 0;
             treasure_anim_on = true;

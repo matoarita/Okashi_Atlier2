@@ -451,6 +451,26 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(36);
                 break;
 
+            case "CardDeco_Toggle":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                //SE_point_click(36);
+                break;
+
+            case "Yes_collect":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                //SE_point_click(36);
+                break;
+
             default: //特に指定がない場合
 
                 //Debug.Log("リストボタンを押した");

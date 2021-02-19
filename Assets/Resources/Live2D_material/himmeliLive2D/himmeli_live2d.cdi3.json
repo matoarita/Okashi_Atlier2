@@ -1,0 +1,62 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "",
+			"Name": "揺れ用ボーン"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "",
+			"Name": "揺れ用ボーンY"
+		},
+		{
+			"Id": "ParamH1AngleX",
+			"GroupId": "",
+			"Name": "ヒンメリ１の角度 X"
+		},
+		{
+			"Id": "ParamH1AngleY",
+			"GroupId": "",
+			"Name": "ヒンメリ１の角度 Y"
+		},
+		{
+			"Id": "ParamH1AngleZ",
+			"GroupId": "",
+			"Name": "ヒンメリ１の揺れ"
+		},
+		{
+			"Id": "ParamH1PosY",
+			"GroupId": "",
+			"Name": "ヒンメリ１の位置Y"
+		},
+		{
+			"Id": "ParamH1AngleX2",
+			"GroupId": "",
+			"Name": "ヒンメリ２の角度 X"
+		},
+		{
+			"Id": "ParamH1AngleY2",
+			"GroupId": "",
+			"Name": "ヒンメリ２の角度 Y"
+		},
+		{
+			"Id": "ParamH1AngleZ2",
+			"GroupId": "",
+			"Name": "ヒンメリ2の揺れ"
+		},
+		{
+			"Id": "ParamH1YureString",
+			"GroupId": "",
+			"Name": "ヒンメリ１の糸の揺れ"
+		},
+		{
+			"Id": "ParamH2YureString",
+			"GroupId": "",
+			"Name": "ヒンメリ２の糸の揺れ"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}

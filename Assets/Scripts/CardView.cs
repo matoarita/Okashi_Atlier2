@@ -555,8 +555,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
     }
    
 
-
+    //
     //持ち物リストで、開いたときのカード表示処理
+    //
     public void ItemListCard_DrawView(int _toggleType, int _kettei_item1)
     {
         //初期化しておく
@@ -578,9 +579,46 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //位置とスケール
         Draw1();
 
+        //アイテムによっては、使用するかどうかのビューも表示する。
+        UseToggleSetInit(); //まず初期化
+        switch (database.items[_cardImage.itemID].itemName)
+        {
+            case "himmeli":
+                
+                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardDeco_Toggle").gameObject.SetActive(true);
+
+                break;
+
+
+            default:
+
+                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(false);
+                break;
+        }
+
+        for( i=0; i< GameMgr.CollectionItemsName.Count; i++)
+        {
+            if(database.items[_cardImage.itemID].itemName == GameMgr.CollectionItemsName[i])
+            {
+                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
+                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardCollect_Toggle").gameObject.SetActive(true);
+            }
+        }
     }
 
+    void UseToggleSetInit()
+    {
+        _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
+        foreach (Transform child in _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/").transform) //
+        {
+            child.gameObject.SetActive(false);
+        }
+        _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardCancel_Toggle").gameObject.SetActive(true);
+    }
 
+    //
+    //あげるをおしたときのカード表示処理
+    //
     public void PresentGirl(int _toggleType, int _result_item)
     {
         for (i = 0; i < _cardImage_obj.Count; i++)
@@ -672,7 +710,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     void Draw4() //お店用
     {
         _cardImage_obj[0].transform.localScale = new Vector3(0.95f, 0.95f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(-170, 80, 0);
+        _cardImage_obj[0].transform.localPosition = new Vector3(-180, 80, 0);
         _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
         _cardImage.CardHyoujiAnim();
     }

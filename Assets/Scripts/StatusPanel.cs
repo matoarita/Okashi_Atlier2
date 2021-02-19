@@ -12,21 +12,28 @@ public class StatusPanel : MonoBehaviour {
 
     private Buf_Power_Keisan bufpower_keisan;
 
+    private ItemDataBase database;
+
     private SoundController sc;
 
     private Compound_Main compound_Main;
     private Girl1_status girl1_status;
 
-    private GameObject statusList;
+    private GameObject statusList;   
     private GameObject paramview1;
     private GameObject paramview2;
     private GameObject paramview3;
+
+    private GameObject StatusList_obj;
+    private GameObject Costume_Panel_obj;
+    private GameObject Collection_Panel_obj;
 
     private List<GameObject> costume_list = new List<GameObject>();
 
     private Text girlLV_param;
     private Text girlHeart_param;
     private Text girlFind_power_param;
+    private Text girlLifepoint_param;
     private Text playerLV_param;
 
     private Text girlFind_power_param_buf;
@@ -34,12 +41,16 @@ public class StatusPanel : MonoBehaviour {
     private Text zairyobox_lv_param;
 
     private GameObject _model_obj;
+    private GameObject collectionitem_toggle_obj;
+    public List<GameObject> collectionitem_toggle = new List<GameObject>();
 
     private int[] acce_num_before = new int[GameMgr.Accesory_Num.Length];
 
     private Sprite cosIcon_sprite;
+    private Sprite hatena_sprite;
     private int change_acce_id;
     private int i, count;
+    private int _itemID;
 
     private int _buf_findpower;
     private int player_girl_findpower_final;
@@ -79,11 +90,88 @@ public class StatusPanel : MonoBehaviour {
         //調合メイン取得
         compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
         //各ステータスパネルの値を取得。
         statusList = this.transform.Find("StatusList").gameObject;
         paramview1 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView1/Viewport/Content").gameObject;
         paramview2 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView2/Scroll View/Viewport/Content").gameObject;
-        paramview3 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView3/Scroll View/Viewport/Content").gameObject;
+        paramview3 = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
+
+        StatusList_obj = this.transform.Find("StatusList").gameObject;
+        Costume_Panel_obj = this.transform.Find("CostumePanel").gameObject;
+        Collection_Panel_obj = this.transform.Find("CollectionPanel").gameObject;
+        collectionitem_toggle_obj = (GameObject)Resources.Load("Prefabs/CollectionIcon");
+
+        hatena_sprite = Resources.Load<Sprite>("Sprites/Icon/question");
+
+        foreach (Transform child in Collection_Panel_obj.transform.Find("ParamView/Scroll View/Viewport/Content").transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        collectionitem_toggle.Clear();
+        for (i = 0; i < GameMgr.CollectionItems.Count; i++)
+        {
+            collectionitem_toggle.Add(Instantiate(collectionitem_toggle_obj, Collection_Panel_obj.transform.Find("ParamView/Scroll View/Viewport/Content").transform));
+        }
+
+        girlLV_param = paramview1.transform.Find("ParamA_param/Text").GetComponent<Text>();
+        girlHeart_param = paramview1.transform.Find("ParamB_param/Text").GetComponent<Text>();
+        girlFind_power_param = paramview1.transform.Find("ParamC_param/Text").GetComponent<Text>();
+        playerLV_param = paramview1.transform.Find("ParamD_param/Text").GetComponent<Text>();
+        girlLifepoint_param = paramview1.transform.Find("ParamE_param/Text").GetComponent<Text>();
+        zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
+
+        /* メインステータス画面更新 */
+        OnStatusMainPanel();
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/StatusMain_Toggle").GetComponent<Toggle>().isOn = true;
+
+    }
+
+    public void OnStatusMainPanel()
+    {
+        WindowAllOFF();
+        StatusList_obj.SetActive(true);
+
+        //パラメータ更新
+        girlLV_param.text = PlayerStatus.girl1_Love_lv.ToString();
+        girlHeart_param.text = PlayerStatus.girl1_Love_exp.ToString();
+        girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
+        if (PlayerStatus.player_girl_lifepoint <= 3)
+        {
+            girlLifepoint_param.text = GameMgr.ColorRed + PlayerStatus.player_girl_lifepoint.ToString() + "</color>" + " / " + PlayerStatus.player_girl_maxlifepoint.ToString();
+        }
+        else
+        {
+            girlLifepoint_param.text = PlayerStatus.player_girl_lifepoint.ToString() + " / " + PlayerStatus.player_girl_maxlifepoint.ToString();
+        }
+        playerLV_param.text = PlayerStatus.player_renkin_lv.ToString();
+        zairyobox_lv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
+
+        //装備品があった場合、バフ効果も表示        
+        girlFind_power_param_buf = paramview1.transform.Find("ParamC_param/Buf_Text").GetComponent<Text>();
+
+        _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
+        girlFind_power_param_buf.text = _buf_findpower.ToString();
+
+        if (_buf_findpower > 0)
+        {
+            paramview1.transform.Find("ParamC_param/Text_plus").gameObject.SetActive(true);
+            paramview1.transform.Find("ParamC_param/Buf_Text").gameObject.SetActive(true);
+        }
+        else
+        {
+            paramview1.transform.Find("ParamC_param/Text_plus").gameObject.SetActive(false);
+            paramview1.transform.Find("ParamC_param/Buf_Text").gameObject.SetActive(false);
+        }
+    }
+
+    public void OnCostumePanel()
+    {
+        WindowAllOFF();
+        Costume_Panel_obj.SetActive(true);
 
         //コスチューム関係のフラグ
         costume_list.Clear();
@@ -105,9 +193,9 @@ public class StatusPanel : MonoBehaviour {
         costume_list[0].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().sprite = cosIcon_sprite;
         costume_list[0].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().color = Color.white;
 
-        for ( i=0; i < pitemlist.emeralditemlist.Count; i++ )
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
-            if(pitemlist.emeralditemlist[i].event_itemName == "Meid_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メイド服２
+            if (pitemlist.emeralditemlist[i].event_itemName == "Meid_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メイド服２
             {
                 costume_list[1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
             }
@@ -138,42 +226,6 @@ public class StatusPanel : MonoBehaviour {
             }
         }
 
-
-        //値を更新
-        girlLV_param = paramview1.transform.Find("ParamA_param/Text").GetComponent<Text>();
-        girlHeart_param = paramview1.transform.Find("ParamB_param/Text").GetComponent<Text>();
-        girlFind_power_param = paramview1.transform.Find("ParamC_param/Text").GetComponent<Text>();
-        playerLV_param = paramview1.transform.Find("ParamD_param/Text").GetComponent<Text>();
-        zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
-      
-        girlLV_param.text = PlayerStatus.girl1_Love_lv.ToString();
-        girlHeart_param.text = PlayerStatus.girl1_Love_exp.ToString();
-        girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
-        playerLV_param.text = PlayerStatus.player_renkin_lv.ToString();
-        zairyobox_lv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
-
-        //装備品があった場合、バフ効果も表示        
-        girlFind_power_param_buf = paramview1.transform.Find("ParamC_param/Buf_Text").GetComponent<Text>();
-
-        _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
-        girlFind_power_param_buf.text = _buf_findpower.ToString();
-
-        if(_buf_findpower > 0)
-        {
-            paramview1.transform.Find("ParamC_param/Text_plus").gameObject.SetActive(true);
-            paramview1.transform.Find("ParamC_param/Buf_Text").gameObject.SetActive(true);
-        }
-        else
-        {
-            paramview1.transform.Find("ParamC_param/Text_plus").gameObject.SetActive(false);
-            paramview1.transform.Find("ParamC_param/Buf_Text").gameObject.SetActive(false);
-        }
-
-
-
-
-        
-
         //現在装備しているアクセや服に応じて、トグルをONにする。
         costume_list[GameMgr.Costume_Num].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
         for (i = 0; i < GameMgr.Accesory_Num.Length; i++)
@@ -181,7 +233,7 @@ public class StatusPanel : MonoBehaviour {
             if (GameMgr.Accesory_Num[i] == 1)
             {
                 //トグルをonにするときに、コールバックを呼ばずにONにできる書き方。ToggleExt.csを追加している。
-                costume_list[i + 6].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true); 
+                costume_list[i + 6].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
             }
             else
             {
@@ -189,6 +241,28 @@ public class StatusPanel : MonoBehaviour {
             }
         }
     }
+
+    public void OnCollectionPanel()
+    {
+        WindowAllOFF();
+        Collection_Panel_obj.SetActive(true);
+
+        for (i = 0; i < GameMgr.CollectionItems.Count; i++)
+        {
+            if(GameMgr.CollectionItems[i]) //登録済みの場合、コレクションとして表示される。
+            {
+                _itemID = database.SearchItemIDString(GameMgr.CollectionItemsName[i]);
+                collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = database.items[_itemID].itemIcon_sprite;
+                collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().interactable = true;
+            }
+            else //それ以外は？で表示
+            {
+                collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = hatena_sprite;
+                collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().interactable = false;
+            }
+        }
+    }
+
 
     public void OnCostumeChange() //0~5までのトグルを押すと、衣装チェンジ
     {
@@ -224,4 +298,10 @@ public class StatusPanel : MonoBehaviour {
         _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeAcce();
     }
 
+    void WindowAllOFF()
+    {
+        StatusList_obj.SetActive(false);
+        Costume_Panel_obj.SetActive(false);
+        Collection_Panel_obj.SetActive(false);
+    }
 }

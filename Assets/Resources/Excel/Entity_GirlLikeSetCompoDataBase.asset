@@ -121,9 +121,9 @@ MonoBehaviour:
       clear: 0
     - ID: 8
       set_compID: 1020
-      set1: 12
-      set2: 9999
-      set3: 9999
+      set1: 509
+      set2: 511
+      set3: 12
       spquest_name1: "\u304B\u308F\u3044\u3044\u30AF\u30C3\u30AD\u30FC\u3092\u4F5C\u308D\u3046\uFF01\uFF01"
       spquest_name2: '-'
       desc: "\u304A\u5144\u3061\u3083\u3093! \u304B\u308F\u3044\u3044\u898B\u305F\u76EE\u306E\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044\u3002"

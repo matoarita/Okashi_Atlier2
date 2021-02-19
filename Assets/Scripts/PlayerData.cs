@@ -27,6 +27,8 @@ public class PlayerData
     public int save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
     public int save_girl_love_exp; //妹の好感度
     public int save_girl_love_lv; //妹の好感度レベル
+    public int save_player_girl_lifepoint; //妹の体力
+    public int save_player_girl_maxlifepoint; //妹のMAX体力
 
 
     //日付・フラグ関係
@@ -57,6 +59,12 @@ public class PlayerData
     //コスチューム番号
     public int save_costume_num;
     public int[] save_acce_num = new int[GameMgr.Accesory_Num.Length];
+
+    //飾っているアイテムのリスト
+    public bool[] save_DecoItems = new bool[GameMgr.DecoItems.Length];
+
+    //コレクションに登録したアイテムのリスト
+    public List<bool> save_CollectionItems = new List<bool>();
 
     //エンディングカウント
     public int save_ending_count;

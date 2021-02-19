@@ -20,6 +20,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject mainUI_panel_obj;
     private GameObject UIOpenButton_obj;
+    private GameObject OsawariToggle_obj;
     private bool SceneStart_flag;
 
     private SaveController save_controller;
@@ -61,6 +62,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject moneystatus_panel;
     private Vector3 moneypanel_startPos;
     private GameObject kaerucoin_panel;
+    private GameObject GetMatStatusButton_obj;
 
     private GameObject GirlHeartEffect_obj;
 
@@ -112,6 +114,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject okashihint_panel;
 
     private CombinationMain Combinationmain;
+    private BGAcceTrigger BGAccetrigger;
 
     private PlayerItemList pitemlist;
 
@@ -396,6 +399,7 @@ public class Compound_Main : MonoBehaviour
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel/Comp").gameObject;
         getmatplace = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
         getmatplace_panel.SetActive(false);
+        GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/GetMatStatusPanel").gameObject;
 
         //タッチ判定オブジェクトの取得
         touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -510,7 +514,13 @@ public class Compound_Main : MonoBehaviour
         //メインUIパネルの取得
         mainUI_panel_obj = canvas.transform.Find("MainUIPanel").gameObject;        
         UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
+        OsawariToggle_obj = canvas.transform.Find("OsawariPanel").gameObject;
         SceneStart_flag = false;
+
+        //飾りアイテムのセット
+        BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();
+        BGAccetrigger.DrawBGAcce();
+
 
         if (GameMgr.Scene_back_home)
         {
@@ -955,6 +965,7 @@ public class Compound_Main : MonoBehaviour
             {
                 mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
                 UIOpenButton_obj.SetActive(false);
+                OsawariToggle_obj.SetActive(false);
                 text_area.SetActive(false);
                 text_area_Main.SetActive(false);
                 check_recipi_flag = false;
@@ -1060,6 +1071,7 @@ public class Compound_Main : MonoBehaviour
                 }
 
                 mainUI_panel_obj.SetActive(true);
+                GetMatStatusButton_obj.SetActive(false);
                 recipilist_onoff.SetActive(false);
                 playeritemlist_onoff.SetActive(false);
                 yes_no_panel.SetActive(false);
@@ -1085,7 +1097,7 @@ public class Compound_Main : MonoBehaviour
                 select_no_button.interactable = true;
                 MainUICloseButton.SetActive(true);               
                 OnCompoundSelect();
-                touch_controller.Touch_OnAllON();                
+                //touch_controller.Touch_OnAllON();                
 
                 recipiMemoButton.SetActive(false);
 
@@ -1813,6 +1825,10 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
+            case 999: //その他、なんらかの選択確認などで一時退避として使う。
+
+                break;
+
             default:
                 break;
         }
@@ -2096,7 +2112,7 @@ public class Compound_Main : MonoBehaviour
             yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
 
             TimePanel_obj1.SetActive(false);
-            TimePanel_obj2.SetActive(true);
+            TimePanel_obj2.SetActive(true);            
         }
     }
 
@@ -2314,6 +2330,7 @@ public class Compound_Main : MonoBehaviour
         text_area.SetActive(false);
         text_area_Main.SetActive(false);
         UIOpenButton_obj.SetActive(false);
+        OsawariToggle_obj.SetActive(false);
 
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -3167,6 +3184,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.scenario_ON = false;
 
         //リセット。
+        PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint; //体力は全回復
         PlayerStatus.player_day++;
         PlayerStatus.player_time = 0;
 
@@ -3208,7 +3226,6 @@ public class Compound_Main : MonoBehaviour
 
     public void OnCompoundSelect()
     {
-        touch_controller.Touch_OnAllON();
         menu_toggle.GetComponent<Toggle>().interactable = true;
         getmaterial_toggle.GetComponent<Toggle>().interactable = true;
         shop_toggle.GetComponent<Toggle>().interactable = true;

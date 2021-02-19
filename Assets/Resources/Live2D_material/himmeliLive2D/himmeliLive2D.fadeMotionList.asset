@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
+  m_Name: himmeliLive2D.fadeMotionList
+  m_EditorClassIdentifier: 
+  MotionInstanceIds: 48adffff7ca9caff74a9caff224a0000
+  CubismFadeMotionObjects:
+  - {fileID: 11400000, guid: ff87a82301762114d94f39e22b1175f4, type: 2}
+  - {fileID: 11400000, guid: 0c88971d529c56e4c87a8147d68d6827, type: 2}
+  - {fileID: 11400000, guid: a04efc6c50e717748af86f4d46ce0eb5, type: 2}
+  - {fileID: 11400000, guid: ff87a82301762114d94f39e22b1175f4, type: 2}

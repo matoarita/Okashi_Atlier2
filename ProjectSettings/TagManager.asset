@@ -71,6 +71,7 @@ TagManager:
   - FadeOutBlack
   - EmeraldShop_Main
   - CharacterRoot
+  - BGAccessory
   layers:
   - Default
   - TransparentFX

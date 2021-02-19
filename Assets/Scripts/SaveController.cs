@@ -8,8 +8,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 {
 
     //保存するものリスト
-    //GameMgrから、シナリオ・イベントのフラグ類
-    //プレイヤーステータス　staticなので、インスタンスの取得の必要はなし。
+    //☆GameMgrのパラメータ全般。シナリオ・イベントのフラグ類
+    //☆プレイヤーステータス　staticなので、インスタンスの取得の必要はなし。
     private PlayerItemList pitemlist; //プレイヤーアイテムのデータ
     private Girl1_status girl1_status; //女の子ステータス
     private ItemDataBase database; //前回の最高得点などを記録する
@@ -22,6 +22,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
     private PlayerData playerData;
     private Compound_Keisan compound_keisan;
+    private BGAcceTrigger BGAccetrigger;
     private Debug_Panel debug_panel; //画面更新用のメソッドを借りる。
     private BGM sceneBGM;
     private Special_Quest special_quest;
@@ -157,6 +158,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_girl_findpower = PlayerStatus.player_girl_findpower, //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
             save_girl_love_exp = PlayerStatus.girl1_Love_exp, //妹の好感度
             save_girl_love_lv = PlayerStatus.girl1_Love_lv, //妹の好感度レベル
+            save_player_girl_lifepoint = PlayerStatus.player_girl_lifepoint, //妹の体力
+            save_player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint,
 
             //日付・フラグ関係
             save_player_day = PlayerStatus.player_day, //現在の日付
@@ -170,6 +173,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //コスチューム番号
             save_costume_num = GameMgr.Costume_Num,
             save_acce_num = GameMgr.Accesory_Num,
+
+            //飾っているアイテムのリスト
+            save_DecoItems = GameMgr.DecoItems,
+
+             //コレクションに登録したアイテムのリスト
+            save_CollectionItems = GameMgr.CollectionItems,
 
             //エンディングカウント
             save_ending_count = GameMgr.ending_count,
@@ -347,6 +356,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_girl_findpower = playerData.save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
         PlayerStatus.girl1_Love_exp = playerData.save_girl_love_exp; //妹の好感度
         PlayerStatus.girl1_Love_lv = playerData.save_girl_love_lv; //妹の好感度レベル
+        PlayerStatus.player_girl_lifepoint = playerData.save_player_girl_lifepoint; //妹の体力
+        PlayerStatus.player_girl_maxlifepoint = playerData.save_player_girl_maxlifepoint; //妹のMax体力
 
         //日付・フラグ関係
         PlayerStatus.player_day = playerData.save_player_day; //現在の日付
@@ -360,6 +371,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //コスチューム番号
         GameMgr.Costume_Num = playerData.save_costume_num;
         GameMgr.Accesory_Num = playerData.save_acce_num;
+
+        //飾っているアイテムのリスト
+        GameMgr.DecoItems = playerData.save_DecoItems;
+
+        //コレクションに登録したアイテムのリスト
+        GameMgr.CollectionItems = playerData.save_CollectionItems;
 
         //エンディングカウント
         GameMgr.ending_count = playerData.save_ending_count;
@@ -558,6 +575,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 //BGMの取得
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
+                //飾りアイテムのセット
+                BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();
+
                 money_status.money_Draw();
                 questname.text = girl1_status.OkashiQuest_Name;
                 sceneBGM.PlayMain(); //BGMの更新                               
@@ -585,6 +605,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //衣装チェンジ
         _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
         _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeAcce();
+
+        //飾りアイテムのセット
+        BGAccetrigger.DrawBGAcce();
 
         compound_Main.compound_status = 0;
 

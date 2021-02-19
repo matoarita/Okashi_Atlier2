@@ -53,6 +53,7 @@ public class SetImage : MonoBehaviour
     private GameObject extremePanel_obj;
     private ExtremePanel extremePanel;
 
+    public int itemID; //CardViewなどから呼び出すこともあり。
     private Image item_Icon;
     private Text item_Name;
     private string _name;
@@ -76,7 +77,7 @@ public class SetImage : MonoBehaviour
     private Text item_Category;
     private string category;
     private string subcategory;
-
+   
     private Text item_Name_Full;
     private Text item_Quality;
     private Text item_Quality_Bar;
@@ -417,6 +418,9 @@ public class SetImage : MonoBehaviour
         {
             case 0: //店売りアイテムリストを選択した場合
 
+                //アイテムID
+                itemID = database.items[check_counter].itemID;
+
                 //アイテムタイプを代入//
                 item_type = database.items[check_counter].itemType.ToString();
 
@@ -483,6 +487,9 @@ public class SetImage : MonoBehaviour
                 break;
 
             case 1: //オリジナルプレイヤーアイテムリストを選択した場合
+
+                //アイテムID
+                itemID = pitemlist.player_originalitemlist[check_counter].itemID;
 
                 //アイテムタイプを代入//
                 item_type = pitemlist.player_originalitemlist[check_counter].itemType.ToString();
@@ -978,6 +985,11 @@ public class SetImage : MonoBehaviour
                     item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
                     break;
                 case "Fruits":
+                    Card_param_obj.SetActive(true);
+                    Card_param_obj2.SetActive(false);
+                    break;
+
+                case "Berry":
                     Card_param_obj.SetActive(true);
                     Card_param_obj2.SetActive(false);
                     break;

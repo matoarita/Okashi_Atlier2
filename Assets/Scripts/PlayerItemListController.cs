@@ -469,8 +469,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             case 5:
 
                                 //フルーツかレアアイテムを表示
-                                if (database.items[i].itemType_sub.ToString() == "Egg" || database.items[i].itemType_sub.ToString() == "Suger" || 
-                                    database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Rare")
+                                if (database.items[i].itemType.ToString() == "Mat" || database.items[i].itemType_sub.ToString() == "Rare")
                                 {
 
                                     itemlist_hyouji();
@@ -573,8 +572,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         case 5:
 
                             //フルーツかレアアイテムを表示
-                            if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Egg" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Suger" || 
-                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Rare")
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Rare")
                             {
 
                                 original_itemlist_hyouji();
@@ -704,7 +702,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             {
                                 //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
                                 if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Potion" || 
-                                    database.items[i].itemType_sub.ToString() == "Fruits" ||
+                                    database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Berry" ||
                                     database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate_Mat" ||
                                     database.items[i].itemType_sub.ToString() == "IceCream" )
                                 {
@@ -728,7 +726,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 if (SceneManager.GetActiveScene().name == "Compound")
                 {
                     //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || 
+                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Potion" ||
+                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Berry" ||
                         pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Nuts" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" ||
                         pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream")
                     {
