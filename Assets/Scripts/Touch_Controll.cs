@@ -17,6 +17,7 @@ public class Touch_Controll : MonoBehaviour
     private bool ALL_touch_flag;
 
     private int draghair_count;
+    private int dragtwintail_count;
 
     private GameObject _model;
     private Animator live2d_animator;
@@ -28,6 +29,9 @@ public class Touch_Controll : MonoBehaviour
 
     private bool isHimmeli;
     private Animator himmeli_animator;
+
+    private bool touch_interval_flag;
+    private float time_inter_default;
 
 
     // Use this for initialization
@@ -48,93 +52,62 @@ public class Touch_Controll : MonoBehaviour
         ALL_touch_flag = true;
 
         draghair_count = 0;
+        dragtwintail_count = 0;
         timeOut = 3.0f;
+        time_inter_default = 1.2f;
 
         mouseLclick_off = false;
         isHimmeli = false;
+
+        touch_interval_flag = false;
     }
 
     private void Update()
     {
-
-        /*if(girl1_status.touchanim_start) //タッチがONになった。
+        if(touch_interval_flag)
         {
-            if (Input.GetMouseButtonUp(0))
+            timeOut -= Time.deltaTime;
+
+            if (timeOut <= 0.0f)
             {
-                //Debug.Log("マウス左クリックが離された");
-                mouseLclick_off = true;
-                timeOut = 3.0f;
-                //3秒ほど待って、タッチをオフにする。
-              
+                touch_interval_flag = false;
             }
-
-            if (mouseLclick_off)
-            {
-                timeOut -= Time.deltaTime;
-            }
-
-            if( timeOut <= 0.0f)
-            {
-                girl1_status.touchanim_start = false;
-                girl1_status.facemotion_start = true;
-
-                if (girl1_status.Girl1_touchtwintail_start)
-                {
-                    girl1_status.Girl1_touchtwintail_start = false;
-                }
-
-                if (girl1_status.Girl1_touchchest_start)
-                {
-                    girl1_status.Girl1_touchchest_start = false;
-                }
-            }
-        }*/
-
-    }
-
-
-    //口を触る
-    public void OnTouchFace()
-    {
-
-        if (ALL_touch_flag)
-        {
-            //Debug.Log("Touch_Face");
-
-            girl1_status.TouchSisterFace();
-            girl1_status.touchGirl_status = 0;
-
-            //口以外のタッチステータスをリセット
-            girl1_status.Girl1_touchhair_start = false;
-            girl1_status.Girl1_touchtwintail_start = false;
-            girl1_status.Girl1_touchchest_start = false;
-            //sc.PlaySe(2);
         }
-
     }
+ 
+    //
+    /* タップ＋ドラッグにも対応してるモーション */
+    //
 
-    //頭を触る
+    //頭を触る。一回ならびっくりモーション。ドラッグすると、さわさわ触る反応。
     public void OnTouchHair()
     {
         if (ALL_touch_flag)
         {
-            //Debug.Log("Touch_Hair");            
-
-            if (!girl1_status.Girl1_touchhair_start)
+            if (!touch_interval_flag)
             {
-                girl1_status.Touchhair_Start();
-                girl1_status.TouchSisterHair();
-                girl1_status.touchGirl_status = 1;
-            }
-            else
-            {
-                girl1_status.TouchSisterHair();
-            }
+                //Debug.Log("Touch_Hair");            
 
-            //頭以外のタッチステータスをリセット
-            girl1_status.Girl1_touchtwintail_start = false;
-            girl1_status.Girl1_touchchest_start = false;
-            //sc.PlaySe(0);
+                if (!girl1_status.Girl1_touchhair_start)
+                {
+                    girl1_status.Touchhair_Start();
+                    girl1_status.TouchSisterHair();
+                    girl1_status.touchGirl_status = 1;
+                }
+                else
+                {
+                    girl1_status.TouchSisterHair();
+                }
+
+                //頭以外のタッチステータスをリセット
+                girl1_status.Girl1_touchtwintail_start = false;
+                girl1_status.Girl1_touchchest_start = false;
+                //sc.PlaySe(0);
+
+                //一回触ったら連続で触れないように、少し時間をおく。
+                touch_interval_flag = true;
+                timeOut = time_inter_default;
+            }
         }
     }
 
@@ -144,8 +117,8 @@ public class Touch_Controll : MonoBehaviour
         {
             //Debug.Log("Drag_Hair: " + draghair_count);
 
-            if (girl1_status.Girl1_touchhair_start)
-            {
+            //if (girl1_status.Girl1_touchhair_start)
+            //{
                 draghair_count++;
 
                 if (draghair_count >= 30)
@@ -153,7 +126,7 @@ public class Touch_Controll : MonoBehaviour
                     draghair_count = 0;
                     girl1_status.TouchSisterHair();
                 }
-            }
+            //}
         }
     }
 
@@ -169,53 +142,163 @@ public class Touch_Controll : MonoBehaviour
             }
 
             draghair_count = 0;
+            girl1_status.Girl1_touchhair_start = false;
+            EndTouchMethod();
             
         }
     }
+
+    public void EndTouchHair()
+    {
+        if (ALL_touch_flag)
+        {
+            //Debug.Log("EndTouch_Hair");
+            draghair_count = 0;
+            girl1_status.Girl1_touchhair_start = false;
+            EndTouchMethod();
+        }
+    }
+
+    void EndTouchMethod()
+    {        
+        girl1_status.Girl1_touch_end = true;
+        girl1_status.timeOut3 = 5.0f;        
+        girl1_status.touchanim_start = false;
+    }
+
+
+
+    //ツインテールを触る。一回ならびっくりモーション。ドラッグすると、さわさわ触る反応。
+    public void OnTouchTwinTail()
+    {
+        if (ALL_touch_flag)
+        {
+            if (!touch_interval_flag)
+            {
+                //Debug.Log("Touch_LongHair");
+
+                if (!girl1_status.Girl1_touchtwintail_start)
+                {
+                    girl1_status.Touchtwintail_Start();
+                    girl1_status.TouchSisterTwinTail();
+                    girl1_status.touchGirl_status = 3;
+                }
+                else
+                {
+                    girl1_status.TouchSisterTwinTail();
+                }
+
+                //ツインテール以外のタッチステータスをリセット
+                girl1_status.Girl1_touchhair_start = false;
+                girl1_status.Girl1_touchchest_start = false;
+                girl1_status.Girl1_touch_end = false;
+                //sc.PlaySe(0);
+
+                //一回触ったら連続で触れないように、少し時間をおく。
+                touch_interval_flag = true;
+                timeOut = time_inter_default;
+            }
+        }
+
+    }
+
+    public void DragTouchTwintail()
+    {
+        if (ALL_touch_flag)
+        {
+            //Debug.Log("Drag_Twintail: " + dragtwintail_count);
+
+            if (girl1_status.Girl1_touchtwintail_start)
+            {
+                dragtwintail_count++;
+
+                if (dragtwintail_count >= 150)
+                {
+                    dragtwintail_count = 0;
+                    girl1_status.TouchSisterTwinTail(); ;
+                }
+            }
+        }
+    }
+
+    public void EndDragTouchTwintail()
+    {
+        if (ALL_touch_flag)
+        {
+            //Debug.Log("EndDrag_Hair");           
+
+            dragtwintail_count = 0;
+            EndTouchMethod();
+            girl1_status.Girl1_touchtwintail_start = false;
+
+        }
+    }
+
+    public void EndTouchTwintail()
+    {
+        if (ALL_touch_flag)
+        {
+            //Debug.Log("EndTouch_Hair");  
+            dragtwintail_count = 0;
+            EndTouchMethod();
+            girl1_status.Girl1_touchtwintail_start = false;
+        }
+    }
+
+
+
+
+    //
+    /* タップのみに反応するモーション（ドラッグ未対応） */
+    //
 
     //リボンを触る
     public void OnTouchRibbon()
     {
-
         if (ALL_touch_flag)
         {
-            //Debug.Log("Touch_Ribbon");
+            if (!touch_interval_flag)
+            {
+                //Debug.Log("Touch_Ribbon");
 
-            girl1_status.TouchSisterRibbon();
-            girl1_status.touchGirl_status = 2;
+                girl1_status.TouchSisterRibbon();
+                girl1_status.touchGirl_status = 2;
 
-            //リボン以外のタッチステータスをリセット
-            girl1_status.Girl1_touchhair_start = false;
-            girl1_status.Girl1_touchtwintail_start = false;
-            girl1_status.Girl1_touchchest_start = false;
-            //sc.PlaySe(0);
+                //リボン以外のタッチステータスをリセット
+                girl1_status.Girl1_touchhair_start = false;
+                girl1_status.Girl1_touchtwintail_start = false;
+                girl1_status.Girl1_touchchest_start = false;
+                //sc.PlaySe(0);
+
+                //一回触ったら連続で触れないように、少し時間をおく。
+                touch_interval_flag = true;
+                timeOut = time_inter_default;
+            }
         }
-
     }
 
-    //ツインテールを触る
-    public void OnTouchTwinTail()
+    //口を触る
+    public void OnTouchFace()
     {
-
         if (ALL_touch_flag)
         {
-            //Debug.Log("Touch_LongHair");
+            if (!touch_interval_flag)
+            {
+                //Debug.Log("Touch_Face");
 
-            if (!girl1_status.Girl1_touchtwintail_start)
-            {
-                girl1_status.Touchtwintail_Start();
-                girl1_status.TouchSisterTwinTail();
-                girl1_status.touchGirl_status = 3;
+                girl1_status.TouchSisterFace();
+                girl1_status.touchGirl_status = 0;
+
+                //口以外のタッチステータスをリセット
+                girl1_status.Girl1_touchhair_start = false;
+                girl1_status.Girl1_touchtwintail_start = false;
+                girl1_status.Girl1_touchchest_start = false;
+                //sc.PlaySe(2);
+
+                //一回触ったら連続で触れないように、少し時間をおく。
+                //touch_interval_flag = true;
+                //timeOut = time_inter_default;
             }
-            else
-            {
-                girl1_status.TouchSisterTwinTail();
-            }
-            
-            //ツインテール以外のタッチステータスをリセット
-            girl1_status.Girl1_touchhair_start = false;
-            girl1_status.Girl1_touchchest_start = false;
-            //sc.PlaySe(0);
         }
 
     }
@@ -225,44 +308,69 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
-            //Debug.Log("Touch_Hand");
+            if (!touch_interval_flag)
+            {
+                //Debug.Log("Touch_Hand");
 
-            girl1_status.TouchSisterHand();
-            girl1_status.touchGirl_status = 4;
+                girl1_status.TouchSisterHand();
+                girl1_status.touchGirl_status = 4;
 
-            //手以外のタッチステータスをリセット
-            girl1_status.Girl1_touchhair_start = false;
-            girl1_status.Girl1_touchtwintail_start = false;
-            girl1_status.Girl1_touchchest_start = false;
-            //sc.PlaySe(0);
+                //手以外のタッチステータスをリセット
+                girl1_status.Girl1_touchhair_start = false;
+                girl1_status.Girl1_touchtwintail_start = false;
+                girl1_status.Girl1_touchchest_start = false;
+                girl1_status.Girl1_touch_end = false;
+                //sc.PlaySe(0);
+
+                //一回触ったら連続で触れないように、少し時間をおく。
+                touch_interval_flag = true;
+                timeOut = time_inter_default;
+            }
         }
+    }
+
+    public void EndTouchHand()
+    {
+        EndTouchMethod();
     }
 
     //胸を触る
     public void OnTouchChest()
     {
-
         if (ALL_touch_flag)
         {
-            //Debug.Log("Touch_Chest");
-
-            if (!girl1_status.Girl1_touchchest_start)
+            if (!touch_interval_flag)
             {
-                girl1_status.TouchChest_Start();
-                girl1_status.TouchSisterChest();
-                girl1_status.touchGirl_status = 5;
+                //Debug.Log("Touch_Chest");
+
+                if (!girl1_status.Girl1_touchchest_start)
+                {
+                    girl1_status.TouchChest_Start();
+                    girl1_status.TouchSisterChest();
+                    girl1_status.touchGirl_status = 5;
+                }
+                else
+                {
+                    girl1_status.TouchSisterChest();
+                }
+
+                //胸以外のタッチステータスをリセット
+                girl1_status.Girl1_touchhair_start = false;
+                girl1_status.Girl1_touchtwintail_start = false;
+                girl1_status.Girl1_touch_end = false;
+                //sc.PlaySe(0);
+
+                //一回触ったら連続で触れないように、少し時間をおく。
+                touch_interval_flag = true;
+                timeOut = time_inter_default;
             }
-            else
-            {
-                girl1_status.TouchSisterChest();
-            }                       
-
-            //胸以外のタッチステータスをリセット
-            girl1_status.Girl1_touchhair_start = false;
-            girl1_status.Girl1_touchtwintail_start = false;
-            //sc.PlaySe(0);
         }
+    }
 
+    public void EndToucheChest()
+    {
+        girl1_status.Girl1_touchchest_start = false;
+        EndTouchMethod();
     }
 
     public void OnTouchBell()

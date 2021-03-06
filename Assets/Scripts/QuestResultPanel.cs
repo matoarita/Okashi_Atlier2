@@ -11,6 +11,8 @@ public class QuestResultPanel : MonoBehaviour {
     private GameObject Magic_effect_Prefab1;
     private List<GameObject> _listEffect = new List<GameObject>();
 
+    private int i;
+
     // Use this for initialization
     void Start () {
         
@@ -42,5 +44,16 @@ public class QuestResultPanel : MonoBehaviour {
         sequence.Append(questResult_obj.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.75f)
             .SetEase(Ease.OutElastic));
         sequence.Join(questResult_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+    }
+
+    private void OnDisable()
+    {
+        // 子オブジェクトをループして取得
+        for (i=0; i<_listEffect.Count; i++)
+        {
+            // 一つずつ破棄する
+            Destroy(_listEffect[(_listEffect.Count-1) - i].gameObject);
+        }
+        _listEffect.Clear();
     }
 }

@@ -417,7 +417,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //妹の体力が足りてるかチェック
                 if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
                 {
-                    _text.text = "にいちゃん。怖くて外にでれないよ～・・。" + "\n" + "まずは、" + GameMgr.ColorYellow  + "ヒカリのハートをあげて" + "</color>" + "ね！";
+                    _text.text = "にいちゃん。からだがグタグタでもう動けねぇ～・・。" + "\n" + "（寝て、" + GameMgr.ColorYellow  + "体力を回復" + "</color>" + "しよう。）";
 
                     All_Off();
                 }

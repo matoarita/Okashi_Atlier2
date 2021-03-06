@@ -84,9 +84,9 @@ public class MainUIPanel : MonoBehaviour {
         compound_Main.CheckButtonFlag();
         compound_Main.QuestClearCheck();
 
-        OsawariToggle_obj.SetActive(false);
-        OsawariToggle.isOn = false;
-        OsawariOFF();
+        //OsawariToggle_obj.SetActive(false);
+        //OsawariToggle.isOn = false;
+        //OsawariOFF();
     }
 
     public void OnCloseButton()
@@ -97,9 +97,9 @@ public class MainUIPanel : MonoBehaviour {
             //child.GetComponent<CanvasGroup>().alpha = 0;
         }
         UIOpenButton_obj.SetActive(true);
-        OsawariToggle_obj.SetActive(true);
-        OsawariToggle.isOn = false;
-        OsawariOFF();
+        //OsawariToggle_obj.SetActive(true);
+        //OsawariToggle.isOn = false;
+        //OsawariOFF();
     }
 
     public void OnOsawariToggle()

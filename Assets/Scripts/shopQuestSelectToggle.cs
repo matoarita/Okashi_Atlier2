@@ -54,9 +54,9 @@ public class shopQuestSelectToggle : MonoBehaviour
     private SoundController sc;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
-    private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
-    private Text no_text;
+
+    private GameObject yes_no_panel;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -130,10 +130,11 @@ public class shopQuestSelectToggle : MonoBehaviour
         nouhinToggle_obj = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_Nouhin").gameObject;
         nouhinToggle = nouhinToggle_obj.GetComponent<Toggle>();
 
-        yes = shopquestlistController_obj.transform.Find("Yes").gameObject;
-        yes_text = yes.GetComponentInChildren<Text>();
-        no = shopquestlistController_obj.transform.Find("No").gameObject;
-        no_text = no.GetComponentInChildren<Text>();
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+        yes_no_panel.SetActive(false);
+
+        yes = yes_no_panel.transform.Find("Yes").gameObject;
+        no = yes_no_panel.transform.Find("No").gameObject;
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
@@ -170,8 +171,6 @@ public class shopQuestSelectToggle : MonoBehaviour
 
         count = 0;
 
-        yes.SetActive(false);
-        no.SetActive(false);
     }
 
 
@@ -236,6 +235,7 @@ public class shopQuestSelectToggle : MonoBehaviour
             shopquestlistController._quest_listitem[i].GetComponent<Toggle>().interactable = false;
         }
 
+        yes_no_panel.SetActive(true);
         yes.SetActive(true);
         no.SetActive(true);
 
@@ -279,12 +279,11 @@ public class shopQuestSelectToggle : MonoBehaviour
                 _text.text = "受注しました！" + "頑張ってね～！";
 
                 //音を鳴らす。
-                sc.PlaySe(22);
+                sc.PlaySe(21);
 
                 Debug.Log("受注完了！");
 
-                yes.SetActive(false);
-                no.SetActive(false);
+                yes_no_panel.SetActive(false);
 
                 questListToggle.interactable = true;
                 nouhinToggle.interactable = true;
@@ -306,9 +305,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                     shopquestlistController._quest_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
 
-
-                yes.SetActive(false);
-                no.SetActive(false);
+                yes_no_panel.SetActive(false);
 
                 questListToggle.interactable = true;
                 nouhinToggle.interactable = true;
@@ -345,7 +342,8 @@ public class shopQuestSelectToggle : MonoBehaviour
         {
             if (shopquestlistController.questType == 0) //お菓子タイプ
             {
-                _text.text = "依頼のアイテムを納品する？";
+                _text.text = "渡したいお菓子を選んでね。";
+                //_text.text = "依頼のアイテムを納品する？";
             }
             else if (shopquestlistController.questType == 1) //材料タイプ
             {
@@ -369,15 +367,35 @@ public class shopQuestSelectToggle : MonoBehaviour
             shopquestlistController._quest_listitem[i].GetComponent<Toggle>().interactable = false;
         }
 
+        yes_no_panel.SetActive(true);
         yes.SetActive(true);
         no.SetActive(true);
 
         questListToggle.interactable = false;
         nouhinToggle.interactable = false;
 
-        //足りてるかどうかを事前チェック。材料系を納品する場合、のみ
-        if (shopquestlistController.questType == 1)
+
+        if (shopquestlistController.questType == 0) //お菓子タイプの判定
         {
+            _text.text = "渡したいお菓子を選んでね。";
+
+            //お菓子の納品なら、このタイミングでプレイヤーリストを開く。
+            shopquestlistController.nouhin_select_on = 1;
+            pitemlistController_obj.SetActive(true);
+            NouhinKetteiPanel_obj.SetActive(true);
+
+            yes_no_panel.SetActive(false);
+            back_ShopFirst_btn.interactable = false;
+
+            NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(false);
+
+            StartCoroutine("QuestTake_Pitemlist_wait");
+
+            //itemselectToggleで入力処理を続けている。
+        }
+        else if (shopquestlistController.questType == 1)
+        {
+            //足りてるかどうかを事前チェック。材料系を納品する場合、のみ
             questjudge.Quest_result(shopquestlistController._count, false);
             if (questjudge.nouhinOK_flag)
             {
@@ -386,13 +404,13 @@ public class shopQuestSelectToggle : MonoBehaviour
             else //足りてないときは、そもそもyesが押せない
             {
                 yes.SetActive(false);
-                _text.text = "依頼のアイテムを納品する？" + "\n" + "現在の所持数: " + GameMgr.ColorYellow + _itemcount + "</color>" + 
+                _text.text = "依頼のアイテムを納品する？" + "\n" + "現在の所持数: " + GameMgr.ColorYellow + _itemcount + "</color>" +
                     "\n" + "まだ数が足りてないようね..。";
             }
+
+            StartCoroutine("questTake_select");
         }
-
-        StartCoroutine("questTake_select");
-
+            
     }
 
 
@@ -417,24 +435,10 @@ public class shopQuestSelectToggle : MonoBehaviour
                 //Debug.Log("ok");
                 //解除
 
-                if(shopquestlistController.questType == 0) //お菓子タイプの判定
+                yes_no_panel.SetActive(false);
+                if (shopquestlistController.questType == 0) //お菓子タイプの判定
                 {
-                    _text.text = "渡したいお菓子を選んでね。";
 
-                    //お菓子の納品なら、このタイミングでプレイヤーリストを開く。
-                    shopquestlistController.nouhin_select_on = 1;
-                    pitemlistController_obj.SetActive(true);
-                    NouhinKetteiPanel_obj.SetActive(true);
-
-                    yes.SetActive(false);
-                    no.SetActive(false);
-                    back_ShopFirst_btn.interactable = false;
-                    
-                    NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(false);
-
-                    StartCoroutine("QuestTake_Pitemlist_wait");
-
-                    //itemselectToggleで入力処理を続けている。
                 }
                 else if (shopquestlistController.questType == 1) //材料タイプの判定
                 {
@@ -461,8 +465,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                     shopquestlistController._quest_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
 
-                yes.SetActive(false);
-                no.SetActive(false);
+                yes_no_panel.SetActive(false);
 
                 shopquestlistController.nouhin_select_on = 0;
                 questListToggle.interactable = true;
@@ -511,6 +514,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                 pitemlistController._listcount.Clear();
 
                 pitemlistController_obj.SetActive(false);
+                yes_no_panel.SetActive(false);
                 NouhinKetteiPanel_obj.SetActive(false);
                 break;
 
@@ -572,8 +576,8 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                     _text.text = "";
 
-                    yes.SetActive(false);
-                    no.SetActive(false);
+                    yes_no_panel.SetActive(false);
+
                     back_ShopFirst_btn.interactable = true;
 
                     pitemlistController_obj.SetActive(false);

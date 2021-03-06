@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 54,
-		"TotalSegmentCount": 178,
-		"TotalPointCount": 578,
+		"CurveCount": 61,
+		"TotalSegmentCount": 185,
+		"TotalPointCount": 604,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -918,6 +918,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMouth2_OnOff",
+			"Segments": [
+				0,
+				0,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamNormal",
 			"Segments": [
 				0,
@@ -1132,6 +1143,21 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "Param",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "Param2",
 			"Segments": [
 				0,
@@ -1220,13 +1246,28 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "upperbodyPosY",
+			"Id": "upperbodyPosX",
 			"Segments": [
 				0,
 				0,
 				1,
-				0.111,
+				1.667,
 				0,
+				3.333,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "upperbodyPosY",
+			"Segments": [
+				0,
+				1.297,
+				1,
+				0.111,
+				1.297,
 				0.222,
 				8,
 				0.333,
@@ -1263,9 +1304,9 @@
 				4.333,
 				0,
 				4.667,
-				0,
+				1.297,
 				5,
-				0
+				1.297
 			]
 		},
 		{
@@ -1292,6 +1333,21 @@
 				4.333,
 				7,
 				4.667,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param3",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
 				0,
 				5,
 				0
@@ -1415,6 +1471,21 @@
 				4.333,
 				-8,
 				4.667,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_upperPosX",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
 				0,
 				5,
 				0
@@ -1546,6 +1617,36 @@
 		{
 			"Target": "Parameter",
 			"Id": "WaistDownPosX",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "WaistDownPosY",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "WaistDownR",
 			"Segments": [
 				0,
 				0,

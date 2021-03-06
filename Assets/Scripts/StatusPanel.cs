@@ -16,6 +16,8 @@ public class StatusPanel : MonoBehaviour {
 
     private SoundController sc;
 
+    private ExpTable exp_table;
+
     private Compound_Main compound_Main;
     private Girl1_status girl1_status;
 
@@ -31,10 +33,12 @@ public class StatusPanel : MonoBehaviour {
     private List<GameObject> costume_list = new List<GameObject>();
 
     private Text girlLV_param;
+    private Text renkinnextLV_param;
     private Text girlHeart_param;
     private Text girlFind_power_param;
     private Text girlLifepoint_param;
     private Text playerLV_param;
+    private Text girlExtremeKaisu_param;
 
     private Text girlFind_power_param_buf;
 
@@ -93,6 +97,9 @@ public class StatusPanel : MonoBehaviour {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
+        //経験値テーブルを取得
+        exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
+
         //各ステータスパネルの値を取得。
         statusList = this.transform.Find("StatusList").gameObject;
         paramview1 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView1/Viewport/Content").gameObject;
@@ -122,6 +129,8 @@ public class StatusPanel : MonoBehaviour {
         girlFind_power_param = paramview1.transform.Find("ParamC_param/Text").GetComponent<Text>();
         playerLV_param = paramview1.transform.Find("ParamD_param/Text").GetComponent<Text>();
         girlLifepoint_param = paramview1.transform.Find("ParamE_param/Text").GetComponent<Text>();
+        girlExtremeKaisu_param = paramview1.transform.Find("ParamH_param/Text").GetComponent<Text>();
+        renkinnextLV_param = paramview1.transform.Find("ParamG_param/Text").GetComponent<Text>();
         zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
 
         /* メインステータス画面更新 */
@@ -139,6 +148,9 @@ public class StatusPanel : MonoBehaviour {
         girlLV_param.text = PlayerStatus.girl1_Love_lv.ToString();
         girlHeart_param.text = PlayerStatus.girl1_Love_exp.ToString();
         girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
+        girlExtremeKaisu_param.text = PlayerStatus.player_extreme_kaisu_Max.ToString();
+        renkinnextLV_param.text = (exp_table.exp_table[PlayerStatus.player_renkin_lv + 1] - PlayerStatus.player_renkin_exp).ToString(); //次レベルに必要な経験値がでる。
+
         if (PlayerStatus.player_girl_lifepoint <= 3)
         {
             girlLifepoint_param.text = GameMgr.ColorRed + PlayerStatus.player_girl_lifepoint.ToString() + "</color>" + " / " + PlayerStatus.player_girl_maxlifepoint.ToString();

@@ -104,7 +104,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         for (i = 1; i < exp_table_setting.Length - 1; i++)
         {
             //Console.WriteLine("[{0}:{1}]", table.Key, table.Value);
-            if (PlayerStatus.player_renkin_exp >= exp_table[i] && PlayerStatus.player_renkin_exp < exp_table[i+1])
+            if (PlayerStatus.player_renkin_exp >= exp_table[i] && PlayerStatus.player_renkin_exp < exp_table[i+1]) //ex: 0~15なら、LV1。15~45ならLV2、といった具合。
             {
                 now_level = i;
             }

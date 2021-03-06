@@ -43,7 +43,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -90,7 +90,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -137,7 +137,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -184,7 +184,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Kogashi_Butter
       topping02: Non
       topping03: Non
@@ -231,7 +231,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 2
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -466,7 +466,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 6
+      sell_price: 3
       topping01: Non
       topping02: Non
       topping03: Non
@@ -513,7 +513,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 6
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -560,7 +560,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 6
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -607,7 +607,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 6
+      sell_price: 10
       topping01: Premium
       topping02: Non
       topping03: Non
@@ -654,7 +654,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -701,7 +701,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -748,7 +748,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -795,7 +795,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 10
+      sell_price: 3
       topping01: Non
       topping02: Non
       topping03: Non
@@ -889,7 +889,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 8
+      sell_price: 3
       topping01: Orange
       topping02: Non
       topping03: Non
@@ -936,7 +936,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 35
+      sell_price: 6
       topping01: PinkBloodOrange
       topping02: Non
       topping03: Non
@@ -1030,7 +1030,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 12
+      sell_price: 4
       topping01: Grape
       topping02: Non
       topping03: Non
@@ -1077,7 +1077,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 25
+      sell_price: 6
       topping01: Blueberry
       topping02: Non
       topping03: Non
@@ -1124,7 +1124,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 25
+      sell_price: 6
       topping01: Raspberry
       topping02: Non
       topping03: Non
@@ -1171,7 +1171,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 25
+      sell_price: 6
       topping01: Cranberry
       topping02: Non
       topping03: Non
@@ -1218,7 +1218,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 25
+      sell_price: 10
       topping01: Blackberry
       topping02: Non
       topping03: Non
@@ -1265,7 +1265,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 25
+      sell_price: 6
       topping01: Blackcurrant
       topping02: Non
       topping03: Non
@@ -1312,7 +1312,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 30
+      sell_price: 5
       topping01: Strawberry
       topping02: Non
       topping03: Non
@@ -1359,7 +1359,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 50
+      sell_price: 5
       topping01: Cherry
       topping02: Non
       topping03: Non
@@ -1406,7 +1406,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 40
+      sell_price: 3
       topping01: Banana
       topping02: Non
       topping03: Non
@@ -1453,7 +1453,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 70
+      sell_price: 6
       topping01: Pear
       topping02: Non
       topping03: Non
@@ -1500,7 +1500,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 35
+      sell_price: 8
       topping01: Peach
       topping02: Non
       topping03: Non
@@ -1547,7 +1547,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 50
+      sell_price: 3
       topping01: Lemon
       topping02: Non
       topping03: Non
@@ -1594,7 +1594,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 50
+      sell_price: 4
       topping01: Apple
       topping02: Non
       topping03: Non
@@ -1641,7 +1641,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 25
+      sell_price: 7
       topping01: Pineapple
       topping02: Non
       topping03: Non
@@ -1688,7 +1688,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 5
+      sell_price: 2
       topping01: Nuts
       topping02: Non
       topping03: Non
@@ -1735,7 +1735,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -1782,7 +1782,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 7
+      sell_price: 2
       topping01: StrangeGlass
       topping02: Non
       topping03: Non
@@ -1829,7 +1829,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 3
       topping01: Mint
       topping02: Non
       topping03: Non
@@ -1923,7 +1923,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 20
+      sell_price: 1
       topping01: HimawariSeed
       topping02: Non
       topping03: Non
@@ -1970,7 +1970,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 30
+      sell_price: 2
       topping01: Lavender
       topping02: Non
       topping03: Non
@@ -2017,7 +2017,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 30
+      sell_price: 5
       topping01: Earlgrey
       topping02: Non
       topping03: Non
@@ -2064,7 +2064,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2111,7 +2111,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2158,7 +2158,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 5
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2205,7 +2205,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2252,7 +2252,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2299,7 +2299,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2346,7 +2346,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2393,7 +2393,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 3
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2440,7 +2440,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 15
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2487,7 +2487,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2534,7 +2534,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 10
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2581,7 +2581,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2628,7 +2628,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2675,7 +2675,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2722,7 +2722,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non
@@ -2769,7 +2769,7 @@ MonoBehaviour:
       base_score: 0
       girl1_like: 0
       cost_price: 0
-      sell_price: 0
+      sell_price: 1
       topping01: Non
       topping02: Non
       topping03: Non

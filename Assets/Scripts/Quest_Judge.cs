@@ -57,9 +57,8 @@ public class Quest_Judge : MonoBehaviour {
     List<int> result_OkashiScore = new List<int>();
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
-    private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
-    private Text no_text;
+    private GameObject yes_no_panel;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -198,10 +197,10 @@ public class Quest_Judge : MonoBehaviour {
         questListToggle = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_QuestList").GetComponent<Toggle>();
         nouhinToggle = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_Nouhin").GetComponent<Toggle>();
 
-        yes = shopquestlistController_obj.transform.Find("Yes").gameObject;
-        yes_text = yes.GetComponentInChildren<Text>();
-        no = shopquestlistController_obj.transform.Find("No").gameObject;
-        no_text = no.GetComponentInChildren<Text>();
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+        yes = yes_no_panel.transform.Find("Yes").gameObject;
+        no = yes_no_panel.transform.Find("No").gameObject;
+        
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();       
@@ -454,9 +453,10 @@ public class Quest_Judge : MonoBehaviour {
 
         if (nouhinOK_flag)
         {
-            if (_status) //決定した場合。削除処理や演出アニメがはいる
+            if (_status) //決定した場合。削除処理や演出アニメははいらない
             {
-                StartCoroutine("Okashi_Judge_Anim1");
+                Result_Okashi_Judge1();
+                //StartCoroutine("Okashi_Judge_Anim1");
             }
         }
         else //納品、数が足りてない場合
@@ -470,8 +470,7 @@ public class Quest_Judge : MonoBehaviour {
                 shopquestlistController.NouhinList_DrawView();
                 shopquestlistController.nouhin_select_on = 0;
 
-                yes.SetActive(false);
-                no.SetActive(false);
+                yes_no_panel.SetActive(false);
 
                 questListToggle.interactable = true;
                 nouhinToggle.interactable = true;
@@ -496,52 +495,47 @@ public class Quest_Judge : MonoBehaviour {
 
         if (nouhinOK_flag)
         {
-            //アイテム削除
-            if (deleteOriginalList.Count > 0)
-            {
-                pitemlist.deletePlayerItem(del_itemid, del_itemkosu); //デフォルトアイテムから先に削除
-                DeleteOriginalItem(); //オリジナルからも削除
-            }
-
-            _getMoney = _buy_price * _kosu_default;
-
-            //足りてるので、納品完了の処理
-            _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
-
-            //該当のクエストを削除
-            quest_database.questTakeset.RemoveAt(_qitemID);
-
-            Debug.Log("納品完了！");
-
-            //ジャキーンみたいな音を鳴らす。
-            //sc.PlaySe(4);
-            sc.PlaySe(76);
-            sc.PlaySe(31);
-
-            //クエストリザルト画面をだす。
-            questResultPanel.SetActive(true);
-            questResultPanel.transform.Find("QuestResultImage/GetMoneyParam").GetComponent<Text>().text = _getMoney.ToString();
-            keta = Digit(_getMoney);
-            questResultPanel_tsukatext_pos.DOLocalMove(new Vector3(20f * (keta - 1), 0f, 0), 0.0f).SetRelative();
-
-            StartCoroutine("EndQuestResultButton");
-
+            Result_Okashi_Judge1();            
         }
         else
         {
-            /*
-            //sc.PlaySe(6);
-            _text.text = "まだ数が足りてないようね..。";
-
-            //リスト更新
-            shopquestlistController.NouhinList_DrawView();
-
-            back_ShopFirst_obj.SetActive(true);
-            ResetQuestStatus();*/
         }
     }
 
-        void DeleteOriginalItem()
+    void Result_Okashi_Judge1()
+    {
+        //アイテム削除
+        if (deleteOriginalList.Count > 0)
+        {
+            pitemlist.deletePlayerItem(del_itemid, del_itemkosu); //デフォルトアイテムから先に削除
+            DeleteOriginalItem(); //オリジナルからも削除
+        }
+
+        _getMoney = _buy_price * _kosu_default;
+
+        //足りてるので、納品完了の処理
+        _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
+
+        //該当のクエストを削除
+        quest_database.questTakeset.RemoveAt(_qitemID);
+
+        Debug.Log("納品完了！");
+
+        //ジャキーンみたいな音を鳴らす。
+        //sc.PlaySe(4);
+        sc.PlaySe(76);
+        sc.PlaySe(31);
+
+        //クエストリザルト画面をだす。
+        questResultPanel.SetActive(true);
+        questResultPanel.transform.Find("QuestResultImage/GetMoneyParam").GetComponent<Text>().text = _getMoney.ToString();
+        keta = Digit(_getMoney);
+        questResultPanel_tsukatext_pos.DOLocalMove(new Vector3(20f * (keta - 1), 0f, 0), 0.0f).SetRelative();
+
+        StartCoroutine("EndQuestResultButton");
+    }
+
+    void DeleteOriginalItem()
     {
 
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
@@ -1105,12 +1099,17 @@ public class Quest_Judge : MonoBehaviour {
 
                 sc.PlaySe(6);
 
-                _text.text = "これはちょっと違うお菓子みたいね。";
+                _getMoney = (int)(_buy_price * _kosu_default * 0.1f);
+                _text.text = "ごめんなさい。お客様、あまり満足じゃなかったみたい。" + "\n" + "次は頑張ってね。" + "\n" +
+                    "　報酬 " + GameMgr.ColorYellow + _getMoney + GameMgr.MoneyCurrency + "　</color>" + "を受け取った！";
 
                 Debug.Log("納品失敗..");
 
                 //該当のクエストを削除
                 quest_database.questTakeset.RemoveAt(_qitemID);
+
+                //所持金をプラス
+                moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
 
                 ResetQuestStatus();
                 break;
@@ -1172,8 +1171,7 @@ public class Quest_Judge : MonoBehaviour {
         shopquestlistController.NouhinList_DrawView();
         shopquestlistController.nouhin_select_on = 0;
 
-        yes.SetActive(false);
-        no.SetActive(false);
+        yes_no_panel.SetActive(false);
 
         questListToggle.interactable = true;
         nouhinToggle.interactable = true;

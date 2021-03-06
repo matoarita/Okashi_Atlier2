@@ -262,7 +262,7 @@ public class GetMaterial : MonoBehaviour
         //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
         if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[index].placeType != 0)
         {
-            _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（ハートが０になったので、動けないようだ。）";
+            _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（体力が０になったので、動けないようだ。）";
         }
         else
         {
@@ -999,7 +999,7 @@ public class GetMaterial : MonoBehaviour
     {
         //おたからを発見
         //sc.PlaySe(84);
-        _text.text = "にいちゃん！！ なんかあやしい草むらがあるよ..？　しらべる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+        _text.text = "にいちゃん！！ なんかあやしい草むらがあるよ..？　しらべる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
@@ -1015,7 +1015,7 @@ public class GetMaterial : MonoBehaviour
     {
         //怪しげな場所
         //sc.PlaySe(84);
-        _text.text = "にいちゃん！！ きれいなお花畑！　探検してみる？" + "\n" + "（ハートを" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+        _text.text = "にいちゃん！！ きれいなお花畑！　探検してみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);

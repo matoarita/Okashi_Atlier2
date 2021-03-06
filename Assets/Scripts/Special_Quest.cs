@@ -70,6 +70,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         }
 
+        GameMgr.QuestClearAnim_Flag = false; //クエスト前に一度falseでリセット
+
         switch (_num)
         {
             case 0: //オリジナルクッキーを食べたい

@@ -1097,7 +1097,8 @@ public class Compound_Main : MonoBehaviour
                 select_no_button.interactable = true;
                 MainUICloseButton.SetActive(true);               
                 OnCompoundSelect();
-                //touch_controller.Touch_OnAllON();                
+                //OsawariToggle_obj.SetActive(true);
+                touch_controller.Touch_OnAllON();                
 
                 recipiMemoButton.SetActive(false);
 
@@ -1115,6 +1116,10 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.Walk_Start = true;
                 girl1_status.timeOutMoveX = 7.0f;
                 girl1_status.HukidashiFlag = true;
+                girl1_status.IdleChangeTemp = false;
+                girl1_status.facemotion_start = false;
+                girl1_status.facemotion_init = false;
+                girl1_status.tween_start = false;
 
                 //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
                 if (getmatplace.slot_view_status == 0)
@@ -1197,17 +1202,6 @@ public class Compound_Main : MonoBehaviour
                 sceneBGM.MuteOFFBGM();
 
 
-                //一度でも調合成功していれば、エクストリーム調合が出現になる。
-                /*if ( PlayerStatus.First_recipi_on == true )
-                {
-                    select_extreme_button_obj.SetActive(true);
-                   
-                }
-                else
-                {
-                    select_extreme_button_obj.SetActive(false);
-                }*/
-
                 //クエストをクリアしたら、クリアボタンがでる。
                 QuestClearCheck();
 
@@ -1266,7 +1260,7 @@ public class Compound_Main : MonoBehaviour
                 recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
                 kakuritsuPanel_obj.SetActive(true);
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(true);
+                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(true);
@@ -1326,7 +1320,7 @@ public class Compound_Main : MonoBehaviour
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 kakuritsuPanel_obj.SetActive(false);
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(true);
+                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
@@ -1389,7 +1383,7 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(true);
 
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(true);
+                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(true);
                 compoBGA_imageRecipi.SetActive(false);

@@ -626,10 +626,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     girl1_status.gireleat_start_flag = true;
                     girl1_status.GirlEat_Judge_on = false;
 
-                    //Extremepanel_obj.SetActive(false);
-                    //MoneyStatus_Panel_obj.SetActive(false);
                     text_area.SetActive(false);
-                    //Girlloveexp_bar.SetActive(false);
                     MainUIPanel_obj.SetActive(false);
 
                     if (stageclear_Button.activeInHierarchy)
@@ -2495,8 +2492,6 @@ public class GirlEat_Judge : MonoBehaviour {
         for (i = 0; i < heart_count; i++)
         {
             _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
-            //_temppos = _listHeart[i].transform.localPosition;           
-            //_listHeartAtkeffect.Add(Instantiate(Magic_effect_Prefab1, _temppos, q, _slider_obj.transform));
             _listHeart[i].GetComponent<HeartUpObj>()._id = i;
         }
 
@@ -2519,9 +2514,10 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else
         {
-            if (quest_clear && !GameMgr.QuestClearButton_anim)
+            if (quest_clear && !GameMgr.QuestClearButton_anim) //クエストクリアした際は、一連の演出をみせる。
             {
                 Touch_WindowInteractOFF();
+                
             }
             else
             {
@@ -2585,6 +2581,7 @@ public class GirlEat_Judge : MonoBehaviour {
         touch_controller.Touch_OnAllOFF();
         compound_Main.OffCompoundSelect();
         compound_Main.OnCompoundSelectObj();
+        Extremepanel_obj.SetActive(false);
     }
 
     //
@@ -3185,20 +3182,22 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             yield return null;
         }
-        //GameMgr.scenario_ON = false;
+        
         GameMgr.recipi_read_endflag = false;
 
         //表情も喜びの表情に。
         girl1_status.face_girl_Yorokobi();
 
-        if (GameMgr.QuestClearAnim_Flag)
+
+
+        if (GameMgr.QuestClearAnim_Flag) //ステージクリアの場合、クリアボタンも登場する演出
         {
             //ボタンが登場する演出
             StartCoroutine("ClearButtonAnim");
         }
-        else //アニメがいらない場合、数秒待って次のSPクエスト開始
+        else //クエストクリアの場合、下からハートと光がでる演出。数秒待って次のSPクエスト開始
         {
-            canvas.SetActive(true);
+            canvas.SetActive(false);
 
             //クリア音
             sc.PlaySe(88);
@@ -3219,6 +3218,8 @@ public class GirlEat_Judge : MonoBehaviour {
     IEnumerator WaitSPOkashiClearAfter()
     {
         yield return new WaitForSeconds(3.0f);
+
+        canvas.SetActive(true);
 
         //お菓子の判定処理を終了
         Extremepanel_obj.SetActive(true);
@@ -3286,7 +3287,6 @@ public class GirlEat_Judge : MonoBehaviour {
     //
     void SelectNewOkashiSet()
     {
-
         //判定
         HighScore_flag = false;
         Gameover_flag = false;
@@ -3295,25 +3295,6 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             HighScore_flag = true;
         }
-        /*
-        for (i=0; i < special_quest.special_score_record.GetLength(1); i++)
-        {
-            if(special_quest.special_score_record[special_quest.spquest_set_num, i] < 85 && 
-                special_quest.special_score_record[special_quest.spquest_set_num, i] >= 60 ) //60点~85点でノーマル合格
-            {
-                Gameover_flag = false;
-            }
-            else if (special_quest.special_score_record[special_quest.spquest_set_num, i] >= 85) //85点以上でハイスコア合格
-            {
-                HighScore_flag = true;
-                Gameover_flag = false;
-            }
-            else //60未満だとゲームオーバーフラグ
-            {
-                Debug.Log("ゲームオーバーフラグ ON");                
-                //ゲーム終了　ぐええ
-            }
-        }*/
 
         //初期化 
         special_quest.special_kaisu = 0;

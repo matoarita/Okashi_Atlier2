@@ -88,63 +88,63 @@ MonoBehaviour:
       name: silver_chip
       zaiko: 50
       itemType: 3
-      shop_sell_price: 50
+      shop_sell_price: 10
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 11
       name: kirakira_heart
       zaiko: 50
       itemType: 3
-      shop_sell_price: 50
+      shop_sell_price: 10
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 12
       name: jewely_suger
       zaiko: 50
       itemType: 3
-      shop_sell_price: 50
+      shop_sell_price: 10
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 13
       name: mix_color_sprinkles
       zaiko: 50
       itemType: 3
-      shop_sell_price: 50
+      shop_sell_price: 10
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 14
       name: sakura_chip
       zaiko: 50
       itemType: 3
-      shop_sell_price: 50
+      shop_sell_price: 10
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 15
       name: crystal_suger
       zaiko: 50
       itemType: 3
-      shop_sell_price: 50
+      shop_sell_price: 10
       shop_buy_price: 50
       item_hyouji: 1
     - ItemID: 16
       name: cocoa_powder
       zaiko: 50
       itemType: 3
-      shop_sell_price: 50
+      shop_sell_price: 10
       shop_buy_price: 25
       item_hyouji: 3
     - ItemID: 17
       name: honey
       zaiko: 50
       itemType: 3
-      shop_sell_price: 30
+      shop_sell_price: 20
       shop_buy_price: 7
       item_hyouji: 1
     - ItemID: 18
       name: vanilla_potion
       zaiko: 50
       itemType: 3
-      shop_sell_price: 80
+      shop_sell_price: 30
       shop_buy_price: 40
       item_hyouji: 1
     - ItemID: 19
@@ -158,28 +158,28 @@ MonoBehaviour:
       name: shishamo
       zaiko: 50
       itemType: 3
-      shop_sell_price: 70
+      shop_sell_price: 50
       shop_buy_price: 35
       item_hyouji: 1
     - ItemID: 21
       name: decopen_choco
       zaiko: 50
       itemType: 3
-      shop_sell_price: 100
+      shop_sell_price: 10
       shop_buy_price: 50
       item_hyouji: 0
     - ItemID: 22
       name: decopen_choco_white
       zaiko: 50
       itemType: 3
-      shop_sell_price: 100
+      shop_sell_price: 10
       shop_buy_price: 50
       item_hyouji: 0
     - ItemID: 23
       name: parfe_base
       zaiko: 50
       itemType: 0
-      shop_sell_price: 50
+      shop_sell_price: 10
       shop_buy_price: 25
       item_hyouji: 0
     - ItemID: 24
@@ -193,7 +193,7 @@ MonoBehaviour:
       name: corn_frake
       zaiko: 50
       itemType: 0
-      shop_sell_price: 20
+      shop_sell_price: 12
       shop_buy_price: 10
       item_hyouji: 0
     - ItemID: 26

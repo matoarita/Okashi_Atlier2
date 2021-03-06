@@ -477,12 +477,12 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: Mint
+      topping01: Non
       topping02: Non
       topping03: Non
       topping04: Non
       topping05: Non
-      tp_score01: 25
+      tp_score01: 0
       tp_score02: 0
       tp_score03: 0
       tp_score04: 0
