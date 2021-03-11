@@ -224,6 +224,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_Okashi_lastname = GameMgr.Okashi_lastname, //さっき食べたお菓子の名前。
             save_Okashi_lastID = GameMgr.Okashi_lastID, //さっき食べたお菓子のアイテムID
             save_Okashi_totalscore = GameMgr.Okashi_totalscore, //さっき食べたお菓子の点数
+            save_Okashi_lastshokukan_param = GameMgr.Okashi_lastshokukan_param, //さっき食べたお菓子のパラメータ
+            save_Okashi_lastshokukan_mes = GameMgr.Okashi_lastshokukan_mes, //さっき食べたお菓子のパラメータ
+            save_Okashi_lastsweat_param = GameMgr.Okashi_lastsweat_param, //さっき食べたお菓子のパラメータ
+            save_Okashi_lastsour_param = GameMgr.Okashi_lastsour_param, //さっき食べたお菓子のパラメータ
+            save_Okashi_lastbitter_param = GameMgr.Okashi_lastbitter_param, //さっき食べたお菓子のパラメータ
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -418,6 +423,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Okashi_lastname = playerData.save_Okashi_lastname; //さっき食べたお菓子の名前。
         GameMgr.Okashi_lastID = playerData.save_Okashi_lastID; //さっき食べたお菓子のアイテムID
         GameMgr.Okashi_totalscore = playerData.save_Okashi_totalscore; //さっき食べたお菓子の点数
+        GameMgr.Okashi_lastshokukan_param = playerData.save_Okashi_lastshokukan_param; //さっき食べたお菓子のパラメータ
+        GameMgr.Okashi_lastshokukan_mes = playerData.save_Okashi_lastshokukan_mes; //さっき食べたお菓子のパラメータ
+        GameMgr.Okashi_lastsweat_param = playerData.save_Okashi_lastsweat_param; //さっき食べたお菓子のパラメータ
+        GameMgr.Okashi_lastsour_param = playerData.save_Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
+        GameMgr.Okashi_lastbitter_param = playerData.save_Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
 
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Live2D.Cubism.Core;
+using DG.Tweening;
 
 /// <summary>
 /// 目線の追従を行うクラス
@@ -12,9 +13,20 @@ public class GazeController : MonoBehaviour
     Transform Anchor = null;
     Vector3 centerOnScreen;
 
+    private Tween sequence_gaze;
+    [SerializeField]
+    private float gaze_inf; //ゲーズの影響値。なめらかに０にすれば、なめらかにゲーズをOFFにできるはず。
+
     void Start()
     {
         centerOnScreen = Camera.main.WorldToScreenPoint(Anchor.position);
+        gaze_inf = 1.0f;
+    }
+
+    private void OnEnable()
+    {
+        gaze_inf = 1.0f;
+        //FadeGazeOn();
     }
 
     void LateUpdate()
@@ -24,13 +36,14 @@ public class GazeController : MonoBehaviour
         if (Input.GetMouseButton(0)) //マウス左クリックしてるときだけ、追従
         {
             var mousePos = Input.mousePosition - centerOnScreen;
-            UpdateRotate(new Vector3(mousePos.x, mousePos.y, 0) * 0.2f);
+            UpdateRotate(new Vector3(mousePos.x * gaze_inf, mousePos.y * gaze_inf, 0) * 0.2f);
         }
         else if (!Input.GetMouseButton(0))
         {
             //var mousePos = centerOnScreen;
             UpdateRotate(new Vector3(0, 0, 0) * 0.2f);
         }
+
     }
 
     Vector3 currentRotateion = Vector3.zero;
@@ -48,6 +61,8 @@ public class GazeController : MonoBehaviour
     float EyeBallYRate = 0.02f;
     [SerializeField]
     bool ReversedGazing = false;
+    [SerializeField]
+    bool GazeOn = false;
 
     void UpdateRotate(Vector3 targetEulerAngle)
     {
@@ -69,8 +84,29 @@ public class GazeController : MonoBehaviour
         }
     }
 
-    public void FadeDefaultRot() //切り替えオフの信号をもらったら、フェードで元の角度に戻す。
+    public void FadeGazeOn() //切り替えオフの信号をもらったら、フェードで元の角度に戻す。
     {
 
+        DOTween.Kill(sequence_gaze);
+        sequence_gaze = DOTween.To(() => gaze_inf, (val) =>
+        {
+            gaze_inf = val;
+
+        }, 1.0f, 0.5f).SetEase(Ease.InOutSine);
+    }
+
+    public void FadeGazeOff() //切り替えオフの信号をもらったら、フェードで元の角度に戻す。
+    {
+
+        DOTween.Kill(sequence_gaze);
+        sequence_gaze = DOTween.To(() => gaze_inf, (val) =>
+        {
+            gaze_inf = val;
+
+        }, 0.0f, 1f).SetEase(Ease.InOutSine)
+        .OnComplete(() =>
+        {
+            this.GetComponent<GazeController>().enabled = false; 
+        });
     }
 }

@@ -408,9 +408,9 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.00022073771
     y: 0
-    width: 1
+    width: 0.9995585
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assets:
-  - asset: {fileID: 1603576178991816, guid: 8285c7cdcefe22642b7f3b2dcb7b1074, type: 2}
+  - asset: {fileID: 1512051265789034, guid: 8285c7cdcefe22642b7f3b2dcb7b1074, type: 2}
 --- !u!114 &325824993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3437,9 +3437,9 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.00022073771
     y: 0
-    width: 1
+    width: 0.9995585
     height: 1
   near clip plane: 0.3
   far clip plane: 1000

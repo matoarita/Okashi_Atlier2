@@ -665,10 +665,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             if (timeOut3 <= 0.0f)
                             {
                                 GirlEat_Judge_on = true;
-
-                                //gazeをリセット
-                                _model.GetComponent<GazeController>().enabled = false;
-                                _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                                
+                                _model.GetComponent<CubismEyeBlinkController>().enabled = true;                               
+                                live2d_animator.SetInteger("trans_facemotion", 0);
                                 Girl1_touch_end = false;
 
                                 //表情をリセット
@@ -682,6 +681,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                         DefaultFace();
                                         break;
                                 }
+
+                                //フェードで終了する。
+                                //_model.GetComponent<GazeController>().enabled = false;
+                                facemotion_start = true;
+                                facemotion_init = false;
 
                                 //吹き出し・ハングリーステータスをリセット
                                 ResetHukidashi();
@@ -823,7 +827,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         live2d_animator.SetLayerWeight(2, 0f);
                         live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotionは、表情も含めた体全体の動き
                     _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-                    //_model.GetComponent<GazeController>().enabled = false;
+                    _model.GetComponent<GazeController>().enabled = false;
                 });
                 }
             }
@@ -839,10 +843,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     timeOutIdle = timeOutIdle_time;
 
                     //アイドルモーションをランダムで決定。10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
-                    IdleChange();
+                    if (GirlGokigenStatus < 2)
+                    {
+                        //HLV1~2のときは　アイドルモーションなし
+                    }
+                    else
+                    {
+                        //HLV3~
+                        IdleChange();
 
-                    IdleChangeTemp = true;
-
+                        IdleChangeTemp = true;
+                    }
                 }
             }
             else
@@ -916,37 +927,37 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void CheckGokigen()
     {
         //女の子の今のご機嫌
-        if (PlayerStatus.girl1_Love_exp >= 0 && PlayerStatus.girl1_Love_lv < 2)
+        if (PlayerStatus.girl1_Love_exp >= 0 && PlayerStatus.girl1_Love_lv < 2) //1
         {
             //ご機嫌ななめ
             GirlGokigenStatus = 0;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 3)
+        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 3) //2
         {
             //少し機嫌が悪い
             GirlGokigenStatus = 1;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 4)
+        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 4) //3
         {
             //ちょっと元気でてきた
             GirlGokigenStatus = 2;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 5)
+        else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 5) //4
         {
             //だいぶ元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 6)
+        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 6) //5
         {
             //元気
             GirlGokigenStatus = 4;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 6)
+        else if (PlayerStatus.girl1_Love_lv >= 6) //6~
         {
             //最高に上機嫌
             GirlGokigenStatus = 5;
@@ -1786,7 +1797,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //5秒以内に髪の毛を何度か触ると、ちょっと照れる。
                 Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 1;        
+                Girl1_touchhair_status = 1;
+
+                live2d_animator.SetInteger("trans_nade", 0); //リセット
 
                 //Init_touchHeadComment();
                 //_touchhead_comment = _touchhead_comment_lib[0];
@@ -1799,7 +1812,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1: //髪の毛触る回数カウント中
 
-                Girl1_touchhair_count++;
+                Girl1_touch_end = false;
+
+                Girl1_touchhair_count++;               
 
                 if (Girl1_touchhair_count >= 3) //〇回以上触ると、ステータスが1段階上がる。
                 {
@@ -1815,10 +1830,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 Init_touchHeadComment();
                 _touchhead_comment = _touchhead_comment_lib[1];
-                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);                
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
-                //キャラクタ表情変更
-                face_girl_Tereru();
+                //キャラクタ表情・モーション変更
+                HairTouch_Motion();
 
                 _model_obj.GetComponent<GazeController>().enabled = true;
 
@@ -1844,8 +1859,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment = _touchhead_comment_lib[2];
                 hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
-                //キャラクタ表情変更
-                //s.sprite = Girl1_img_tereru;
+                //表情変化２
+                HairTouch_Motion2();
 
                 break;
 
@@ -1870,8 +1885,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment = _touchhead_comment_lib[3];
                 hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
-                //キャラクタ表情変更
-                //s.sprite = Girl1_img_tereru;
+                //表情変化２
+                HairTouch_Motion3();
+
                 break;
 
             case 7:
@@ -1895,8 +1911,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment = _touchhead_comment_lib[4];
                 hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
-                //キャラクタ表情変更
-                //s.sprite = Girl1_img_tereru;
                 break;
 
             case 9:
@@ -1921,6 +1935,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //キャラクタ表情変更　ちょっと嫌そう？真顔に。
+                facemotion_start = true; //Facemotionは、このタイミングでオフに。
                 face_girl_Iya();
 
                 break;
@@ -1949,7 +1964,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //音鳴らす
                 sc.PlaySe(45);
 
-                //キャラクタ表情変更  怒る              
+                //キャラクタ表情変更  怒る
                 face_girl_Angry();
 
                 //エモ
@@ -1967,7 +1982,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }             
         
     }
-
+    
 
     //ツインテール　一回さわった
     public void Touchtwintail_Start()
@@ -1975,9 +1990,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchtwintail_start = true;
         touchanim_start = true;
 
-        //タップモーション　ランダムで決定
+        //タップモーション
         live2d_animator.SetLayerWeight(2, 1);
-        live2d_animator.Play("tapmotion_01", 2, 0.0f); //tapmotion_01は、ツインテール固有のモーション
+        live2d_animator.Play("tapmotion_01", 2, 0.0f); //tapmotion_01は、頭なでなで・ツインテール共通のモーション
 
         trans_facemotion = 9999; //その他のモーションに遷移しないように回避
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
@@ -2013,7 +2028,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchtwintail_count++;
 
         comment_statusreset();
-        //_model_obj.GetComponent<GazeController>().enabled = true;
     }
 
     IEnumerator WaitTwintailSeconds()
@@ -2077,7 +2091,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidashiitem.GetComponent<TextController>().SetText("お母さんが誕生日にくれたリボンだよ～。うひひ。");
 
         comment_statusreset();
-        //_model_obj.GetComponent<GazeController>().enabled = true;
+
     }
 
     //手
@@ -2094,7 +2108,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidashiitem.GetComponent<TextController>().SetText(_touchhand_comment);
 
         comment_statusreset();
-        //_model_obj.GetComponent<GazeController>().enabled = true;
+
     }
 
     //胸
@@ -2125,7 +2139,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         hukidashiitem.GetComponent<TextController>().SetText(_touchchest_comment);
 
         comment_statusreset();
-        //_model_obj.GetComponent<GazeController>().enabled = true;
+
     }
 
     //花
@@ -2185,9 +2199,136 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         GirlEat_Judge_on = false;
     }
 
-    
+    //髪なでなで時のモーションセット
+    void HairTouch_Motion()
+    {
+        weightTween.Kill(); //フェードアウト中なら中断する
+        tween_start = false;
+        facemotion_start = false;
 
-    
+        switch (GirlGokigenStatus)
+        {
+            case 0: //HLv 1
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("Nade_motion_01", 2, 0.0f);
+                break;
+
+            case 1: //HLv 2
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("Nade_motion_01", 2, 0.0f);
+                break;
+
+            case 2: //HLv 3
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
+                break;
+
+            case 3: //HLv 4
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
+                break;
+
+            case 4: //HLv 5
+
+
+                break;
+
+            case 5: //HLv 6
+
+
+                break;
+
+            default:
+
+                break;
+        }
+    }
+
+    //髪なでなで時のモーションセット
+    void HairTouch_Motion2()
+    {
+
+        switch (GirlGokigenStatus)
+        {
+            case 0: //HLv 1
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 1: //HLv 2
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 2: //HLv 3
+
+
+                break;
+
+            case 3: //HLv 4
+
+                break;
+
+            case 4: //HLv 5
+
+
+                break;
+
+            case 5: //HLv 6
+
+
+                break;
+
+            default:
+
+                break;
+        }
+    }
+
+    //髪なでなで時のモーションセット
+    void HairTouch_Motion3()
+    {
+
+        switch (GirlGokigenStatus)
+        {
+            case 0: //HLv 1
+
+                //live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 1: //HLv 2
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 2: //HLv 3
+
+
+                break;
+
+            case 3: //HLv 4
+
+                break;
+
+            case 4: //HLv 5
+
+
+                break;
+
+            case 5: //HLv 6
+
+
+                break;
+
+            default:
+
+                break;
+        }
+    }
 
     //ランダムで左右に動く
     void IdleMoveX()
@@ -2604,7 +2745,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     void Init_touchHandComment()
     {
-        //髪の毛触るときは、上から順番に表示されていく。回数に注意。
         _touchhand_comment_lib.Clear();
 
         switch (GirlGokigenStatus)

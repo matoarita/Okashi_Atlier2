@@ -11,6 +11,11 @@ public class TasteHintPanel : MonoBehaviour {
     private Text Okashi_lasthint_text;
     private Text Okashi_lastname_text;
     private Text Okashi_lastscore_text;
+    private Text Okashi_lastshokukan_param_text;
+    private Text Okashi_lastshokukan_mes_text;
+    private Text Okashi_lastsweat_param_text;
+    private Text Okashi_lastsour_param_text;
+    private Text Okashi_lastbitter_param_text;
     private Text Okashi_onepoint_text;
 
     private string _onepoint;
@@ -43,6 +48,21 @@ public class TasteHintPanel : MonoBehaviour {
 
         Okashi_lastscore_text = this.transform.Find("HintPanel/OkashiScore").GetComponent<Text>();
         Okashi_lastscore_text.text = GameMgr.Okashi_totalscore.ToString();
+
+        Okashi_lastshokukan_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelA/PanelA_Param/Text").GetComponent<Text>();
+        Okashi_lastshokukan_param_text.text = GameMgr.Okashi_lastshokukan_param.ToString();
+
+        Okashi_lastshokukan_mes_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelA/PanelA_Title/Text").GetComponent<Text>();
+        Okashi_lastshokukan_mes_text.text = GameMgr.Okashi_lastshokukan_mes;
+
+        Okashi_lastsweat_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelB/PanelB_Param/Text").GetComponent<Text>();
+        Okashi_lastsweat_param_text.text = GameMgr.Okashi_lastsweat_param.ToString();
+
+        Okashi_lastsour_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelC/PanelC_Param/Text").GetComponent<Text>();
+        Okashi_lastsour_param_text.text = GameMgr.Okashi_lastsour_param.ToString();
+
+        Okashi_lastbitter_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelD/PanelD_Param/Text").GetComponent<Text>();
+        Okashi_lastbitter_param_text.text = GameMgr.Okashi_lastbitter_param.ToString();
 
         Okashi_onepoint_text = this.transform.Find("HintPanel/OnepointText").GetComponent<Text>();
         SetOnepointHint();

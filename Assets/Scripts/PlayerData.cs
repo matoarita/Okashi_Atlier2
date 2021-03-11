@@ -106,6 +106,11 @@ public class PlayerData
     public string save_Okashi_lastname; //さっき食べたお菓子の名前。
     public int save_Okashi_lastID; //さっき食べたお菓子のアイテムID
     public int save_Okashi_totalscore; //さっき食べたお菓子の点数
+    public int save_Okashi_lastshokukan_param; //さっき食べたお菓子のパラメータ
+    public string save_Okashi_lastshokukan_mes; //さっき食べたお菓子のパラメータ
+    public int save_Okashi_lastsweat_param; //さっき食べたお菓子のパラメータ
+    public int save_Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
+    public int save_Okashi_lastbitter_param; 
 
     //ステージ１クリア時の好感度を保存
     public int save_stage1_girl1_loveexp;

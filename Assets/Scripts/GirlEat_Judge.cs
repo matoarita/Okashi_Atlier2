@@ -281,6 +281,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private bool emerarudonguri_get;
     private bool last_score_kousin;
     private string shokukan_mes;
+    private int shokukan_baseparam;
 
     private bool emerarudonguri_end;
 
@@ -1796,7 +1797,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             crispy_score = (int)(_basescore * _temp_ratio);
         }
-        
+
         /*if (_basecrispy >= _girlcrispy[countNum])
         {
             
@@ -1808,6 +1809,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }*/
 
         //crispy_score = _basecrispy;
+        shokukan_baseparam = _basecrispy;
         shokukan_score = crispy_score;
         shokukan_mes = "さくさく感";
         Debug.Log("サクサク度の点: " + crispy_score);
@@ -1830,9 +1832,10 @@ public class GirlEat_Judge : MonoBehaviour {
             Debug.Log("_temp_ratio: " + _temp_ratio);
 
             fluffy_score = (int)(_basescore * _temp_ratio);
-        }        
+        }
 
         //fluffy_score = _basefluffy;
+        shokukan_baseparam = _basefluffy;
         shokukan_score = fluffy_score;
         shokukan_mes = "ふわふわ感";
         Debug.Log("ふわふわ度の点: " + fluffy_score);
@@ -1858,6 +1861,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         //smooth_score = _basesmooth;
+        shokukan_baseparam = _basesmooth;
         shokukan_score = smooth_score;
         shokukan_mes = "くちどけ感";
         Debug.Log("くちどけの点: " + smooth_score);
@@ -1883,14 +1887,16 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         //hardness_score = _basehardness;
+        shokukan_baseparam = _basehardness;
         shokukan_score = hardness_score;
         shokukan_mes = "歯ごたえ";
         Debug.Log("歯ごたえの点: " + hardness_score);
     }
 
     void Juice_Score()
-    {
+    {       
         shokukan_score = _basescore + _basesweat + _basebitter + _basesour;
+        shokukan_baseparam = shokukan_score;
         shokukan_mes = "のどごし";
         Debug.Log("のどごしの点: " + shokukan_score);
     }
@@ -1914,6 +1920,7 @@ public class GirlEat_Judge : MonoBehaviour {
             crispy_score = (int)(_basescore * _temp_ratio);
         }
 
+        shokukan_baseparam = _basecrispy;
         shokukan_score = crispy_score;
         shokukan_mes = "香り";
         Debug.Log("香り（サクサク度）の点: " + crispy_score);
@@ -3662,7 +3669,11 @@ public class GirlEat_Judge : MonoBehaviour {
         GameMgr.Okashi_lasthint = temp_hint_text;
         GameMgr.Okashi_lastname = _basenameFull;
         GameMgr.Okashi_lastID = _baseID;
-
+        GameMgr.Okashi_lastshokukan_param = shokukan_baseparam;
+        GameMgr.Okashi_lastshokukan_mes = shokukan_mes;
+        GameMgr.Okashi_lastsweat_param = _basesweat;
+        GameMgr.Okashi_lastsour_param = _basesour;
+        GameMgr.Okashi_lastbitter_param = _basebitter;
     }
 
     void ToppingCheck()

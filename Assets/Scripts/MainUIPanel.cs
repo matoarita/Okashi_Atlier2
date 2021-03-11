@@ -12,10 +12,6 @@ public class MainUIPanel : MonoBehaviour {
     private GameObject GetMatStatusButton_obj;
     private GameObject TimePanel_obj;
 
-    private GameObject OsawariToggle_obj;
-    private Toggle OsawariToggle;
-    private Text Osawarion_text;
-
     private SoundController sc;
 
     private Compound_Main compound_Main;
@@ -45,10 +41,6 @@ public class MainUIPanel : MonoBehaviour {
         touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
         compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
-
-        OsawariToggle_obj = canvas.transform.Find("OsawariPanel").gameObject;
-        OsawariToggle = OsawariToggle_obj.transform.Find("OsawariToggle").GetComponent<Toggle>();
-        Osawarion_text = OsawariToggle_obj.transform.Find("OsawariToggle/Background/Text").GetComponent<Text>();
 
         total_obj_count = 0;
         foreach (Transform child in this.transform)
@@ -84,9 +76,6 @@ public class MainUIPanel : MonoBehaviour {
         compound_Main.CheckButtonFlag();
         compound_Main.QuestClearCheck();
 
-        //OsawariToggle_obj.SetActive(false);
-        //OsawariToggle.isOn = false;
-        //OsawariOFF();
     }
 
     public void OnCloseButton()
@@ -97,36 +86,17 @@ public class MainUIPanel : MonoBehaviour {
             //child.GetComponent<CanvasGroup>().alpha = 0;
         }
         UIOpenButton_obj.SetActive(true);
-        //OsawariToggle_obj.SetActive(true);
-        //OsawariToggle.isOn = false;
-        //OsawariOFF();
-    }
-
-    public void OnOsawariToggle()
-    {
-        if(OsawariToggle.isOn)
-        {
-            //おさわりモードON
-            OsawariON();
-        }
-        else
-        {
-            //おさわりモードOFF
-            OsawariOFF();
-        }
     }
 
     void OsawariON()
     {
         _model.GetComponent<GazeController>().enabled = true;
         touch_controller.Touch_OnAllON();
-        Osawarion_text.text = "ON";
     }
 
     void OsawariOFF()
     {
         _model.GetComponent<GazeController>().enabled = false;
         touch_controller.Touch_OnAllOFF();
-        Osawarion_text.text = "OFF";
     }
 }

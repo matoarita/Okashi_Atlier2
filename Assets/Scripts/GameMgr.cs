@@ -135,6 +135,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Okashi_lastname; //さっき食べたお菓子の名前。
     public static int Okashi_lastID; //さっき食べたお菓子のアイテムID
     public static int Okashi_makeID; //さっき作ったお菓子のアイテムID。セーブ不要。
+    public static int Okashi_lastshokukan_param; //さっき食べたお菓子のパラメータ
+    public static string Okashi_lastshokukan_mes; //さっき食べたお菓子のパラメータ
+    public static int Okashi_lastsweat_param; //さっき食べたお菓子のパラメータ
+    public static int Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
+    public static int Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
 
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num;
@@ -507,6 +512,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         QuestClearButton_anim = false;
         QuestClearAnim_Flag = false;
         Okashi_lasthint = "";
+        Okashi_lastshokukan_param = 0;
+        Okashi_lastsweat_param = 0;
+        Okashi_lastsour_param = 0;
+        Okashi_lastbitter_param = 0;
 
         //お菓子のクリア基準値
         low_score = 60;
