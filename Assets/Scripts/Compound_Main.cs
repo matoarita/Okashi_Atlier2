@@ -1297,7 +1297,6 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
-                girl1_status.ResetGirlIdleTime();
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1355,7 +1354,6 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
-                girl1_status.ResetGirlIdleTime();
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1421,7 +1419,6 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
-                girl1_status.ResetGirlIdleTime();
                 girl1_status.Girl1_touchhair_start = false; //gaze状態もリセット
 
                 //吹き出しも消す
@@ -1530,7 +1527,6 @@ public class Compound_Main : MonoBehaviour
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
                 girl1_status.WaitHint_on = false;
-                girl1_status.ResetGirlIdleTime();
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -1607,6 +1603,7 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(true);
                 moneystatus_panel.SetActive(true);
+                GetMatStatusButton_obj.SetActive(true);
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;

@@ -30,7 +30,7 @@ public class SetImage : MonoBehaviour
     private int newrecipi_id;
     private Text newrecipi_text;
     private string newrecipi_name;
-    private Texture2D newrecipi_Img;
+    private Sprite newrecipi_Img;
     private Image newrecipi_Img_hyouji;
 
     private GameObject BlackImage;
@@ -44,7 +44,7 @@ public class SetImage : MonoBehaviour
     private SlotNameDataBase slotnamedatabase;
     private SlotChangeName slotchangename;
 
-    private Texture2D texture2d;
+    private Sprite texture2d;
     private Texture2D card_template_1;
     private Texture2D card_template_2;
     private ItemDataBase database;
@@ -402,12 +402,10 @@ public class SetImage : MonoBehaviour
         item_Category.text = "レシピ";
         item_RankDesc.text = pitemlist.eventitemlist[check_counter].event_itemNameHyouji;
 
-        texture2d = Resources.Load<Texture2D>("Sprites/" + pitemlist.eventitemlist[check_counter].event_fileName);
+        texture2d = Resources.Load<Sprite>("Sprites/" + pitemlist.eventitemlist[check_counter].event_fileName);
 
         // texture2dを使い、Spriteを作って、反映させる
-        item_Icon.sprite = Sprite.Create(texture2d,
-                                   new Rect(0, 0, texture2d.width, texture2d.height),
-                                   Vector2.zero);
+        item_Icon.sprite = texture2d;
     }
 
     //カード描画用のパラメータ読み込み
@@ -431,7 +429,7 @@ public class SetImage : MonoBehaviour
                 item_RankDesc.text = database.items[check_counter].itemDesc;
 
                 // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
-                texture2d = database.items[check_counter].itemIcon;
+                texture2d = database.items[check_counter].itemIcon_sprite;
 
                 //カードのスロット部分の名
                 item_SlotName = database.items[check_counter].item_SlotName;
@@ -501,7 +499,7 @@ public class SetImage : MonoBehaviour
                 item_RankDesc.text = pitemlist.player_originalitemlist[check_counter].itemDesc;
 
                 // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
-                texture2d = pitemlist.player_originalitemlist[check_counter].itemIcon;
+                texture2d = pitemlist.player_originalitemlist[check_counter].itemIcon_sprite;
 
                 //カードのスロット部分の名
                 item_SlotName = pitemlist.player_originalitemlist[check_counter].item_SlotName;
@@ -572,9 +570,7 @@ public class SetImage : MonoBehaviour
     {
     
         // texture2dを使い、Spriteを作って、反映させる
-        item_Icon.sprite = Sprite.Create(texture2d,
-                                   new Rect(0, 0, texture2d.width, texture2d.height),
-                                   Vector2.zero);
+        item_Icon.sprite = texture2d;
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
         switch (item_type_sub)
@@ -1131,7 +1127,7 @@ public class SetImage : MonoBehaviour
                     if( database.items[i].itemName == databaseCompo.compoitems[newrecipi_id].cmpitemID_result)
                     {
                         newrecipi_name = database.items[i].itemNameHyouji;
-                        newrecipi_Img = database.items[i].itemIcon;
+                        newrecipi_Img = database.items[i].itemIcon_sprite;
                         break;
                     }
                     i++;
@@ -1146,9 +1142,7 @@ public class SetImage : MonoBehaviour
                 newrecipi_text.text = GameMgr.ColorLemon + newrecipi_name + "</color>" + "\n" + "を閃いた！";
 
                 // texture2dを使い、Spriteを作って、反映させる
-                newrecipi_Img_hyouji.sprite = Sprite.Create(newrecipi_Img,
-                                           new Rect(0, 0, newrecipi_Img.width, newrecipi_Img.height),
-                                           Vector2.zero);
+                newrecipi_Img_hyouji.sprite = newrecipi_Img;
 
                 //音を鳴らす 新しいレシピ閃いたときの音 scのほうに音を送ると、途中で音が途切れない。
                 //audioSource.PlayOneShot(sound1);

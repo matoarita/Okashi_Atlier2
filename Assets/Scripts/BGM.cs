@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class BGM : MonoBehaviour {
 
     //[SerializeField]
-    private AudioSource[] _bgm = new AudioSource[2];
+    private AudioSource[] _bgm = new AudioSource[3];
 
     public AudioClip sound1;  //Stage1MainのBGM
     public AudioClip sound2;  //調合中のBGM
@@ -21,6 +22,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound11;  //「ラベンダー畑」BGM
     public AudioClip sound12;  //「バードサンクチュアリ」BGM
     public AudioClip sound13;  //お好みBGM_01
+    public AudioClip sound14;  //メインクリア後アイキャッチのBGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -81,6 +83,7 @@ public class BGM : MonoBehaviour {
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
+
                 _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam;
                 break;
         }
@@ -266,6 +269,21 @@ public class BGM : MonoBehaviour {
         _bgm[1].Play();
 
         _mixRate = 1;
+    }
+
+    public void OnMainClearResultBGM()
+    {
+        _bgm[2].clip = sound14;
+        _bgm[2].volume = 0.4f * GameMgr.MasterVolumeParam;
+        _bgm[2].Play();
+    }
+
+    public void OnMainClearResultBGMOFF()
+    {
+        _bgm[2].DOFade(0.0f, 1.0f).OnComplete(() =>
+        {
+            _bgm[2].Stop();
+        });
     }
 
     public void MuteBGM()

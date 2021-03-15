@@ -102,7 +102,6 @@ public class Touch_Controll : MonoBehaviour
                 //頭以外のタッチステータスをリセット
                 girl1_status.Girl1_touchtwintail_start = false;
                 girl1_status.Girl1_touchchest_start = false;
-                //sc.PlaySe(0);
 
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
@@ -192,7 +191,6 @@ public class Touch_Controll : MonoBehaviour
                 girl1_status.Girl1_touchhair_start = false;
                 girl1_status.Girl1_touchchest_start = false;
                 girl1_status.Girl1_touch_end = false;
-                //sc.PlaySe(0);
 
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
@@ -268,7 +266,6 @@ public class Touch_Controll : MonoBehaviour
                 girl1_status.Girl1_touchhair_start = false;
                 girl1_status.Girl1_touchtwintail_start = false;
                 girl1_status.Girl1_touchchest_start = false;
-                //sc.PlaySe(0);
 
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
@@ -293,7 +290,6 @@ public class Touch_Controll : MonoBehaviour
                 girl1_status.Girl1_touchhair_start = false;
                 girl1_status.Girl1_touchtwintail_start = false;
                 girl1_status.Girl1_touchchest_start = false;
-                //sc.PlaySe(2);
 
                 //一回触ったら連続で触れないように、少し時間をおく。
                 //touch_interval_flag = true;
@@ -320,7 +316,6 @@ public class Touch_Controll : MonoBehaviour
                 girl1_status.Girl1_touchtwintail_start = false;
                 girl1_status.Girl1_touchchest_start = false;
                 girl1_status.Girl1_touch_end = false;
-                //sc.PlaySe(0);
 
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
@@ -331,7 +326,10 @@ public class Touch_Controll : MonoBehaviour
 
     public void EndTouchHand()
     {
-        EndTouchMethod();
+        if (ALL_touch_flag)
+        {
+            //EndTouchMethod();
+        }
     }
 
     //胸を触る
@@ -358,7 +356,6 @@ public class Touch_Controll : MonoBehaviour
                 girl1_status.Girl1_touchhair_start = false;
                 girl1_status.Girl1_touchtwintail_start = false;
                 girl1_status.Girl1_touch_end = false;
-                //sc.PlaySe(0);
 
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
@@ -369,10 +366,17 @@ public class Touch_Controll : MonoBehaviour
 
     public void EndToucheChest()
     {
-        girl1_status.Girl1_touchchest_start = false;
-        EndTouchMethod();
+        if (ALL_touch_flag)
+        {
+            //Debug.Log("Touch_Chest End");
+            girl1_status.Girl1_touchchest_start = false;
+            //EndTouchMethod();
+        }
     }
 
+    //
+    //その他系
+    //
     public void OnTouchBell()
     {
 
@@ -393,7 +397,6 @@ public class Touch_Controll : MonoBehaviour
             //Debug.Log("Touch_Flower");
 
             girl1_status.TouchFlower();
-            //sc.PlaySe(2);
         }
 
     }

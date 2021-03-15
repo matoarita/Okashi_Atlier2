@@ -338,14 +338,14 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       topping01: WhipeedCream
-      topping02: Strawberry
-      topping03: Blueberry
-      topping04: CreamCheese
+      topping02: Mint
+      topping03: SilverChip
+      topping04: Non
       topping05: Non
       tp_score01: 0
-      tp_score02: 10
+      tp_score02: 25
       tp_score03: 10
-      tp_score04: 12
+      tp_score04: 0
       tp_score05: 0
       Non_tpscore: -30
       desc: "<color=#FF78B4>\u3061\u3087\u3063\u3068\u8C6A\u83EF\u306A\u30AF\u30EC\u30FC\u30D7</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"

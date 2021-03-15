@@ -21,7 +21,7 @@ SE表
 ・SE_19		audiostock_57729.mp3				キャンセル音
 ・SE_20		audiostock_805128				ファンファーレ。テッテレー
 ・SE_21		audiostock_5538.mp3				失敗爆発音
-・SE_22		audiostock_66349_sample				クエスト受注の音　キラリン１
+・SE_22		audiostock_66349				クエスト受注の音　キラリン１
 ・SE_23		audiostock_83086				【未使用】クエストの受注音　キラリン２　ちょっと電子音っぽい
 ・SE_24		button63.mp3					カーソル選択音②
 ・SE_25		足音・雑草、茂み.mp3				探索中の音

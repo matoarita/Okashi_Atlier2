@@ -221,7 +221,8 @@ public class Result_Panel : MonoBehaviour
         if(_poncount >= star_count)
         {
             HintTextAnim();
-            GetLoveBarAnim();           
+            //GetLoveBarAnim();
+            StartCoroutine("AnimEndWait");
             yield break;
         }
 
@@ -239,8 +240,6 @@ public class Result_Panel : MonoBehaviour
         if (_poncount >= star_count-1) //最後の星が出るタイミング
         {
             
-
-            
             if (Total_score < GameMgr.low_score)
             { }
             else {
@@ -255,26 +254,30 @@ public class Result_Panel : MonoBehaviour
             //合格演出
             if(Total_score < 30) //まずい
             {
+                sc.PlaySe(20);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "マズい..。";
             }
             if (Total_score >= 30 && Total_score < GameMgr.low_score)
             {
-                //sc.PlaySe(19);
-                //GoukakuPanel.transform.Find("Text").GetComponent<Text>().color = new Color(91f / 255f, 55f / 255f, 206f / 255f);
+                //sc.PlaySe(17);
+                StartCoroutine(DelaySound(17));
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "あとひといき..！";                
             }
-            else if (Total_score >= GameMgr.low_score && Total_score < GameMgr.high_score)
+            else if (Total_score >= GameMgr.low_score && Total_score < GameMgr.high_score) //60点以上で、パンパカファンファーレ♪
             {
-                //sc.PlaySe(19);
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "うみゃあ！！";
+                StartCoroutine(DelaySound(17));
+                sc.PlaySe(19);
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "うみゃあ！！　合格！";
             }
             else if (Total_score >= GameMgr.high_score && Total_score < 100)
             {
+                StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "大好きぃ！！";
             }
             else if (Total_score >= 100)
             {
+                StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "このお菓子は最高だ！！";
             }
@@ -338,9 +341,7 @@ public class Result_Panel : MonoBehaviour
         {
             sc.PlaySe(20);
         }
-
         
-
         sequence.Append(Getlove_param.transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.3f)
             .SetRelative()
             .SetEase(Ease.OutQuart));
@@ -394,5 +395,21 @@ public class Result_Panel : MonoBehaviour
         .SetRelative()
         .SetEase(Ease.OutElastic)); 
         sequence.Join(GoukakuPanel.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+    }
+
+    //星が出た後、数秒たったら閉じるボタンをおせるようになる。
+    IEnumerator AnimEndWait()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        AnimEnd = true;
+    }
+
+    //少しディレイをかけて、音を鳴らす。
+    IEnumerator DelaySound(int _num)
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        sc.PlaySe(_num);
     }
 }

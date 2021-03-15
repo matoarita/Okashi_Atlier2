@@ -1417,15 +1417,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Debug.Log("失敗..！");
     }
 
-    public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score)
+    public void GirlLikeText(int _getlove_exp, int total_score)
     {
 
         text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
-        _text.text = "";
-        /*_text.text = "好感度が " + GameMgr.ColorPink + _getlove_exp + "</color>" + "アップ！　" 
-            + "お金を " + GameMgr.ColorLemon + _getmoney + "</color>" + "G ゲットした！";*/
+        //_text.text = "";
+        _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！　" 
+            + "\n" + "少し元気になってきたようだ！";
     }
 
     public void GirlDisLikeText(int _getlove_exp)

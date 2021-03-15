@@ -96,7 +96,7 @@ MonoBehaviour:
       place_day: 1
       place_cost: 0
       place_flag: 1
-      place_type: 0
+      place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: water
       drop_item3: Non

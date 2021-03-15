@@ -14,7 +14,7 @@ public class Item
     public string itemNameHyouji;   //名前　ゲーム中での表示用。日本語。
     public int itemID;              //アイテムID
     public string itemDesc;         //アイテムの説明文
-    public Texture2D itemIcon;      //アイコン
+    //public Texture2D itemIcon;      //アイコン
     public Sprite itemIcon_sprite;      //アイコン
     public int itemComp_Hosei;      //材料が生成される際、お菓子自体のパラメータを加算するかどうか。1だと加算する。現状使ってない。いらないかも。
     public int itemHP;              //消費MP
@@ -166,7 +166,7 @@ public class Item
         itemNameHyouji = nameHyouji;
         
         //アイコンはnameとイコールにするのでアイコンがあるパス＋nameで取ってきます    
-        itemIcon = Resources.Load<Texture2D>("Sprites/Items/" + fileName);
+        //itemIcon = Resources.Load<Texture2D>("Sprites/Items/" + fileName);
         itemIcon_sprite = Resources.Load<Sprite>("Sprites/Items/" + fileName);
         itemDesc = desc;
         itemHP = hp;

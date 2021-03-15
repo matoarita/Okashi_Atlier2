@@ -40,6 +40,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private Debug_Panel debug_panel;
     private Text debug_taste_resultText;
 
+    private GameObject BlackPanel_event;
     private GameObject ScoreHyoujiPanel;
     private GameObject MainQuestOKPanel;
     private Text MainQuestText;
@@ -142,7 +143,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private GameObject EatAnimPanel;
     private Image EatAnimPanel_itemImage;
-    private Texture2D texture2d;
+    private Sprite texture2d;
     private GameObject EatStartEffect;
 
     //時間
@@ -413,6 +414,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 MainUIPanel_obj = canvas.transform.Find("MainUIPanel").gameObject;
 
+                BlackPanel_event = canvas.transform.Find("Black_Panel_Event").gameObject;
+
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
@@ -644,11 +647,9 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     //食べ始めのアニメーションをスタート
                     EatAnimPanel.SetActive(true);
-                    texture2d = database.items[_baseID].itemIcon;
-                    EatAnimPanel_itemImage.sprite = Sprite.Create(texture2d,
-                                   new Rect(0, 0, texture2d.width, texture2d.height),
-                                   Vector2.zero);
-                    
+                    texture2d = database.items[_baseID].itemIcon_sprite;
+                    EatAnimPanel_itemImage.sprite = texture2d;
+
 
 
                     //カメラ寄る。
@@ -1616,6 +1617,19 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
         }
 
+        //クエストによっては、トッピングの豪華さで、採点に影響するのもあるので、それの特殊計算。
+        if (!non_spquest_flag)
+        {
+            if (girl1_status.OkashiQuest_ID == 1210) //豪華なクレープクエストのとき
+            {
+                if (topping_score <= 20)
+                {
+                    _temp_ratio = SujiMap(Mathf.Abs(20 - topping_score), 0, 20, 0.0f, 1.0f);
+                    topping_score += (int)(-60 * _temp_ratio);
+                }
+            }
+        }
+
         //女の子の食べたいトッピングがあるにも関わらず、そのトッピングが一つものっていなかった。
         if (topping_all_non && !topping_flag)
         {
@@ -2492,9 +2506,6 @@ public class GirlEat_Judge : MonoBehaviour {
         _sumlove = PlayerStatus.girl1_Love_exp + Getlove_exp;
         //Debug.Log("heart_count: " + heart_count);
 
-        //Quaternion q = new Quaternion(); //回転０の状態。Instantiateでは、位置を指定する際にいるらしい。
-        //q = Quaternion.identity;
-
         //ハートのインスタンスを、獲得好感度分だけ生成する。
         for (i = 0; i < heart_count; i++)
         {
@@ -3110,7 +3121,7 @@ public class GirlEat_Judge : MonoBehaviour {
             sc.PlaySe(5);
 
             //テキストウィンドウの更新
-            exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
+            exp_Controller.GirlLikeText(Getlove_exp, total_score);
 
         }
 
@@ -3204,6 +3215,7 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else //クエストクリアの場合、下からハートと光がでる演出。数秒待って次のSPクエスト開始
         {
+            /*
             canvas.SetActive(false);
 
             //クリア音
@@ -3218,7 +3230,7 @@ public class GirlEat_Judge : MonoBehaviour {
             girl1_status.face_girl_Fine();
 
             StartCoroutine("WaitSPOkashiClearAfter"); //5秒ほど待ってから次へ。その間は、まだ前のセットの情報が残っている。
-            
+            */
         }              
     }
 
@@ -3381,11 +3393,11 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 if (!HighScore_flag) //通常クリア
                 {
-                    _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                    _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name2;
                 }
                 else //さらに高得点だったら、特別なイベントや報酬などが発生
                 {
-                    _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name2;
+                    _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name3;
                 }
             }
         }
@@ -3425,14 +3437,15 @@ public class GirlEat_Judge : MonoBehaviour {
         GameMgr.QuestClearButton_anim = false;
 
         //表示の音を鳴らす。
-        sc.PlaySe(19);　//前は、25, 47
+        sceneBGM.OnMainClearResultBGM();
+        //sc.PlaySe(19);　//前は、25, 47
 
-        MainQuestOKPanel.SetActive(true);
-
+        MainQuestOKPanel.SetActive(true);        
     }
 
     public void ResultOFF()
     {
+        
         MainQuestOKPanel.SetActive(false);
         subQuestClear_check = false;
 
@@ -3442,8 +3455,10 @@ public class GirlEat_Judge : MonoBehaviour {
     //メインクエストOKパネルを閉じたあと
     public void PanelResultOFF()
     {
+        BlackPanel_event.SetActive(true);
         MainQuestOKPanel.SetActive(false);
         sc.PlaySe(18); //閉じる音
+        sceneBGM.OnMainClearResultBGMOFF();
 
         subQuestClear_check = false;
 
@@ -3457,6 +3472,7 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         yield return new WaitForSeconds(1.0f);
 
+        BlackPanel_event.SetActive(false);
         canvas.SetActive(false);
         Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut();
 
@@ -3990,12 +4006,6 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         _listHeartHit2.Clear();
 
-        /*for (i = 0; i < _listHeart.Count; i++)
-        {
-            _listHeart[i].GetComponent<HeartUpObj>().DestObjNow();
-            Destroy(_listHeart[i]);
-        }
-        _listHeart.Clear();*/
 
     }
 

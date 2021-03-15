@@ -188,6 +188,9 @@ public class Debug_Panel : MonoBehaviour {
 
             exp_table = GameObject.FindWithTag("ExpTable");
 
+            //経験値も補填
+            PlayerStatus.player_renkin_exp = exp_table.GetComponent<ExpTable>().exp_table[plevel_num];
+
             //レベルで上がるスキルなどは初期値にしておく。
             PlayerStatus.player_extreme_kaisu_Max = 1;
 

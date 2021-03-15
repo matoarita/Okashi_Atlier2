@@ -39,4 +39,5 @@
 ・BGM_37		audiostock_78487			調合テーマ２　アトリエメインテーマ２　楽しい音楽
 ・BGM_38		audiostock_61835			調合テーマ３　アトリエメインテーマ３　おフランス
 ・BGM_39		audiostock_227194_sample		ショップBGMテーマ２　イタリアとかヨーロッパのカフェ風
-・BGM_40		audiostock_894571_sample		楽しげなBGM　宴用
+・BGM_40		audiostock_894571			楽しげなBGM　宴用
+・BGM_41		audiostock_152403			井戸BGM

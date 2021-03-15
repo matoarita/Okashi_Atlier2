@@ -34,6 +34,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Text questname;
     private GameObject questtitle_panel;
     private Text questpanel_text;
+    private Text questpanel_num;
 
     private Sequence sequence_girlmove;
     private Sequence sequence_girlmove2;
@@ -41,9 +42,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public float timeOut;  //girleat_judgeから読んでいる
     public float timeOut2; //その他は、デバッグ用に外側からすぐ見れるようにpublicにしてる。
     public float timeOut3;
-    public float timeOutIdle;
     public float timeOutMoveX;
-    public float timeOutIdle_time = 10.0f;
     public float timeOutHeartDeg;
     private float Default_hungry_cooltime;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
@@ -55,6 +54,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private GameObject text_area;
 
+    private GameObject questprogress_Prefab1;
+    private List<GameObject> questview_obj = new List<GameObject>();
+    private Sprite questprogress_nowImg;
     private GameObject hukidashiPrefab;
     private GameObject canvas;
 
@@ -64,7 +66,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int _temp_status;
 
     private GameObject MoneyStatus_Panel_obj;
-
     private GameObject Extremepanel_obj;
 
     private List<string> _touchhead_comment_lib = new List<string>();
@@ -157,6 +158,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private float rnd;
     private int random;
+    private bool IdleMotionStart;
 
     //ランダムで変化する、女の子が今食べたいお菓子のテーブル
     public List<string> girl1_hungryInfo = new List<string>();
@@ -218,6 +220,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int OkashiNew_Status;
     public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
     public string OkashiQuest_Name; //そのときのお菓子のクエストネーム
+    public string OkashiQuest_Number; //そのときのお菓子のクエスト番号　文字列で直接表示
+    public int OkashiQuest_AllCount; //そのステージ内のクエスト総数
+    public int OkashiQuest_Count; //そのステージ内のクエストの番号
     public int Special_ignore_count; //スペシャルを無視した場合、カウント。3回あたりをこえると、スペシャルは無視される。
     public bool HukidashiFlag; //イベント中などでは、吹き出しを一時的にださない。主に、Live2DAnimationTrigger用に使用。
 
@@ -262,7 +267,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //Prefab内の、コンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
         hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
-        
+        questprogress_Prefab1 = (GameObject)Resources.Load("Prefabs/QProgressButton");
+        questprogress_nowImg = Resources.Load<Sprite>("Sprites/Window/pageguideD_pink_50");
+
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
@@ -333,6 +340,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
                 questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
                 questpanel_text = questtitle_panel.transform.Find("QuestPanel/QuestName").GetComponent<Text>();
+                questpanel_num = questtitle_panel.transform.Find("QuestPanel/TitleImage/Questnum").GetComponent<Text>();
                 questtitle_panel.SetActive(false);
 
                 break;
@@ -386,7 +394,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeOut = Default_hungry_cooltime;
         timeOut2 = 10.0f;
         timeOutMoveX = 7.0f;
-        timeOutIdle = timeOutIdle_time;
         timeOutHeartDeg = 5.0f;
         timeGirl_hungry_status = 1;
 
@@ -402,6 +409,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         facemotion_init = false;
         facemotion_weight = 0f;
         IdleChangeTemp = false;
+        IdleMotionStart = false;
 
         GirlEat_Judge_on = true;
         WaitHint_on = false;
@@ -438,9 +446,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //ステージごとに、女の子が食べたいお菓子のセットを初期化
         InitializeStageGirlHungrySet(0, 0); //とりあえず0で初期化
 
-        //好感度ステータスで変わる吹き出しテキストをセッティング        
-        RandomGenkiInit();
-
     }
 
     // Update is called once per frame
@@ -450,7 +455,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if( canvas == null )
         {
             canvas = GameObject.FindWithTag("Canvas");
-           
+            facemotion_start = false;
+            IdleChangeTemp = false;
+
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Compound":
@@ -491,6 +498,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
                     questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
                     questpanel_text = questtitle_panel.transform.Find("QuestPanel/QuestName").GetComponent<Text>();
+                    questpanel_num = questtitle_panel.transform.Find("QuestPanel/TitleImage/Questnum").GetComponent<Text>();
                     questtitle_panel.SetActive(false);
 
                     //初期表情の設定
@@ -500,7 +508,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //タイマーをリセット
                     timeOut = Default_hungry_cooltime;
                     timeOut2 = 10.0f;
-                    timeOutIdle = timeOutIdle_time;
                     GirlEat_Judge_on = true;
 
                     HukidashiFlag = true;
@@ -545,20 +552,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             timeOutHeartDeg -= Time.deltaTime;
             timeOutMoveX -= Time.deltaTime;
 
-            if (!touchanim_start) //タッチアニメ中は、移動はしなくなる。
-            {
-                timeOutIdle -= Time.deltaTime;                
-            }
         }
 
         if(WaitHint_on) //吹き出しヒントを表示中
         {
             timeOutHint -= Time.deltaTime;
-
-            if (!touchanim_start) //タッチアニメ中は、移動はしなくなる。
-            {
-                timeOutIdle -= Time.deltaTime;
-            }
 
             if (timeOutHint <= 0.0f)
             {
@@ -629,7 +627,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
                                     timeOut = Default_hungry_cooltime;
-                                    timeOutIdle = timeOutIdle_time;
                                     Girl_Full();
 
                                     //キャラクタ表情変更
@@ -645,14 +642,26 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                         }
 
-                        //一定時間たつとヒントを出す。
+                        //一定時間たつとヒントを出すか、アイドルモーションを再生
                         if (timeOut2 <= 0.0)
                         {
                             timeOut2 = 5.0f;
                             timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
                             Girl_Hungry();
-                            Girl1_Hint();
+
+                            random = Random.Range(0, 100);
+                            if (random < 50)
+                            {
+                                Girl1_Hint();
+                                IdleMotionStart = false;
+                            }
+                            else
+                            {
+                                IdleMotionStart = true;
+                            }
+
+                            
                         }
 
                         //タッチを終えたら、カウントスタートし、数秒後に元の状態にリセット
@@ -683,7 +692,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 }
 
                                 //フェードで終了する。
-                                //_model.GetComponent<GazeController>().enabled = false;
+                                _model.GetComponent<GazeController>().enabled = false;
                                 facemotion_start = true;
                                 facemotion_init = false;
 
@@ -780,133 +789,129 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private void LateUpdate()
     {
-        if (facemotion_start)
+        switch (SceneManager.GetActiveScene().name)
         {
-            //カットで切り替えると違和感があるため、自然にフェードで切り替えるようにする。
-            facemotion_duration = live2d_animator.GetCurrentAnimatorStateInfo(2).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
-            facemotion_length = live2d_animator.GetCurrentAnimatorStateInfo(2).length;
-            //Debug.Log("ステート長さ" + facemotion_duration); 
+            case "Compound":
 
-
-            if (!facemotion_init)
-            {
-
-                if (facemotion_length != 1) //Resetモーションで出る、再生秒数1を捨てる。アニメのほうでは、1以上で設定する。
+                if (facemotion_start)
                 {
-                    Debug.Log("ステート全体長さ" + facemotion_length);
-
-                    facemotion_time = SujiMap(facemotion_length, 3f, 20f, 0.7f, 0.95f); //facemotion_lengthの値が、３～２０秒を、0.75~0.9に変換する 
-                    facemotion_init = true;
-                    Debug.Log("何秒からフェードアウト" + facemotion_time);
-                }
-            }
+                    //カットで切り替えると違和感があるため、自然にフェードで切り替えるようにする。
+                    facemotion_duration = live2d_animator.GetCurrentAnimatorStateInfo(2).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
+                    facemotion_length = live2d_animator.GetCurrentAnimatorStateInfo(2).length;
+                    //Debug.Log("ステート長さ" + facemotion_duration); 
 
 
-            if (facemotion_duration >= facemotion_time) //再生終了前から徐々にウェイトを戻し、ふぇーどでアニメを戻す
-            {
-                facemotion_weight = 1.0f;
+                    if (!facemotion_init)
+                    {
 
-                if (!tween_start)
-                {
-                    tween_start = true;
-                    weightTween = DOTween.To(
-                        () => facemotion_weight,          // 何を対象にするのか
-                        num =>
+                        if (facemotion_length != 1) //Resetモーションで出る、再生秒数1を捨てる。アニメのほうでは、1以上で設定する。
                         {
-                            facemotion_weight = num;
-                            live2d_animator.SetLayerWeight(2, facemotion_weight);
-                        },   // 値の更新
-                        0f,                  // 最終的な値
-                        1.0f      // アニメーション時間
-                    ).OnComplete(() =>
+                            Debug.Log("ステート全体長さ" + facemotion_length);
+
+                            facemotion_time = SujiMap(facemotion_length, 3f, 20f, 0.7f, 0.95f); //facemotion_lengthの値が、３～２０秒を、0.75~0.9に変換する 
+                            facemotion_init = true;
+                            Debug.Log("何秒からフェードアウト" + facemotion_time);
+                        }
+                    }
+
+
+                    if (facemotion_duration >= facemotion_time) //再生終了前から徐々にウェイトを戻し、ふぇーどでアニメを戻す
                     {
-                        tween_start = false;
-                        facemotion_init = false;
-                        facemotion_start = false;
-                        timeOutIdle = timeOutIdle_time;
-                        live2d_animator.SetLayerWeight(2, 0f);
-                        live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotionは、表情も含めた体全体の動き
-                    _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-                    _model.GetComponent<GazeController>().enabled = false;
-                });
+                        facemotion_weight = 1.0f;
+
+                        if (!tween_start)
+                        {
+                            tween_start = true;
+                            weightTween = DOTween.To(
+                                () => facemotion_weight,          // 何を対象にするのか
+                                num =>
+                                {
+                                    facemotion_weight = num;
+                                    live2d_animator.SetLayerWeight(2, facemotion_weight);
+                                },   // 値の更新
+                                0f,                  // 最終的な値
+                                1.0f      // アニメーション時間
+                            ).OnComplete(() =>
+                            {
+                                tween_start = false;
+                                facemotion_init = false;
+                                facemotion_start = false;
+                                live2d_animator.SetLayerWeight(2, 0f);
+                                live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotionは、表情も含めた体全体の動き
+                        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                        //_model.GetComponent<GazeController>().enabled = false;
+                    });
+                        }
+                    }
+
                 }
-            }
-
-        }
-        else
-        {
-
-            if (!IdleChangeTemp)
-            {
-                if (timeOutIdle <= 0.0)
+                else
                 {
-                    timeOutIdle = timeOutIdle_time;
 
-                    //アイドルモーションをランダムで決定。10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
-                    if (GirlGokigenStatus < 2)
+                    if (!IdleChangeTemp)
                     {
-                        //HLV1~2のときは　アイドルモーションなし
+
+                        //アイドルモーションをランダムで決定。10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
+
+                        if (IdleMotionStart)
+                        {
+                            IdleMotionStart = false;
+
+                            IdleChange();
+                        }
                     }
                     else
                     {
-                        //HLV3~
-                        IdleChange();
+                        //ベースレイヤーのアイドルのタイムが0のときに、モーション切り替えをスタートする。
+                        Idle_duration = live2d_animator.GetCurrentAnimatorStateInfo(0).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
+                        Idle_duration = Idle_duration - Mathf.Floor(Idle_duration);
+                        //Debug.Log("Idle_duration: " + Idle_duration);
 
-                        IdleChangeTemp = true;
+                        if (Idle_duration <= 0.01)
+                        {
+                            IdleChangeTemp = false;
+
+                            //全身モーション再生スタートの合図をだす。
+                            facemotion_start = true;
+
+                            //再生開始
+                            //一度再生をリセットして、ヘッドを0に戻す。
+                            live2d_animator.Play("None_facemotion");
+                            live2d_animator.Update(2);
+
+                            live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+                            StartCoroutine(ChangeFaceMotion(9999)); //trans_facemotionの連続防止用
+
+                            if (!tween_start)
+                            {
+                                tween_start = true;
+                                facemotion_weight = 0f;
+                                weightTween = DOTween.To(
+                                                            () => facemotion_weight,          // 何を対象にするのか
+                                                            num =>
+                                                            {
+                                                                facemotion_weight = num;
+                                                                live2d_animator.SetLayerWeight(2, facemotion_weight);
+                                                            },   // 値の更新
+                                                            1f,                  // 最終的な値
+                                                            0.5f      // アニメーション時間
+                                                        ).OnComplete(() =>
+                                                        {
+                                                            tween_start = false;
+                                                        });
+                            }
+
+                        }
                     }
                 }
-            }
-            else
-            {
-                //ベースレイヤーのアイドルのタイムが0のときに、モーション切り替えをスタートする。
-                Idle_duration = live2d_animator.GetCurrentAnimatorStateInfo(0).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
-                Idle_duration = Idle_duration - Mathf.Floor(Idle_duration);
-                //Debug.Log("Idle_duration: " + Idle_duration);
 
-                if (Idle_duration <= 0.01)
-                {
-                    IdleChangeTemp = false;
-                    timeOutIdle = timeOutIdle_time;
-
-                    //全身モーション再生スタートの合図をだす。
-                    facemotion_start = true;
-
-                    //再生開始
-                    //一度再生をリセットして、ヘッドを0に戻す。
-                    live2d_animator.Play("None_facemotion");
-                    live2d_animator.Update(2);
-
-                    live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-                    StartCoroutine(ChangeFaceMotion(9999)); //trans_facemotionの連続防止用
-
-                    if (!tween_start)
-                    {
-                        tween_start = true;
-                        facemotion_weight = 0f;
-                        weightTween = DOTween.To(
-                                                    () => facemotion_weight,          // 何を対象にするのか
-                                                    num =>
-                                                    {
-                                                        facemotion_weight = num;
-                                                        live2d_animator.SetLayerWeight(2, facemotion_weight);
-                                                    },   // 値の更新
-                                                    1f,                  // 最終的な値
-                                                    0.5f      // アニメーション時間
-                                                ).OnComplete(() =>
-                                                {
-                                                    tween_start = false;
-                                                });
-                    }
-
-                }
-            }
+                break;
         }
     }
 
     //Facemotionを強制的にOFF
     public void AddMotionAnimReset()
     {
-        timeOutIdle = timeOutIdle_time;
         live2d_animator.Play("None_facemotion"); //一度アニメーションをリセット
         live2d_animator.Update(2);
         live2d_animator.SetLayerWeight(2, 0); //強制的にAddMotionLayerを0にする。
@@ -1183,16 +1188,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             sceneBGM.PlayMain();
         }    
 
-
-        //吹き出しのテキスト決定
-        //_text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-        //_text.text = _desc;
-
         //現在のクエストネーム更新。Special_Quest.csで、OkashiQuest_Nameは更新している。パネル表示後にネーム更新されるように、ここで描画更新している。
         questname.text = OkashiQuest_Name;
 
         //クエストタイトルパネルを表示
         questpanel_text.text = OkashiQuest_Name;
+        questpanel_num.text = OkashiQuest_Number;
+
+        questview_obj.Clear();
+        foreach (Transform child in questtitle_panel.transform.Find("QuestPanel/QuestProgressView/Viewport/Content").gameObject.transform) //
+        {
+            Destroy(child.gameObject);
+        }
+
+        for(i=0; i< OkashiQuest_AllCount; i++)
+        {
+            questview_obj.Add(Instantiate(questprogress_Prefab1, questtitle_panel.transform.Find("QuestPanel/QuestProgressView/Viewport/Content").gameObject.transform));
+        }
+        questview_obj[OkashiQuest_Count - 1].GetComponent<Image>().sprite = questprogress_nowImg;
+
         questtitle_panel.SetActive(true);
 
         special_animatFirst = true;
@@ -1385,12 +1399,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else
         {
-            //ランダムで、吹き出しの内容を決定
-            RandomGenkiInit();
-
             Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
-            random = Random.Range(0, _hintrandomDict.Count);
-            _hintrandom = _hintrandomDict[random];
+
+            //ランダムで、吹き出しの内容を決定。口を触った時のコメントと一緒。
+            Init_touchFaceComment();
+            
+            random = Random.Range(0, _touchface_comment_lib.Count);
+            _hintrandom = _touchface_comment_lib[random];
 
             //ヒントをだすか、今食べたいもののどちらかを表示する。
             random = Random.Range(0, 100);
@@ -1425,7 +1440,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
         WaitHint_on = true;
-        timeOutHint = 15.0f;
+        timeOutHint = 10.0f;
         GirlEat_Judge_on = false;
     }
 
@@ -2074,7 +2089,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
         comment_statusreset();
-        timeOutHint = 15.0f;
+        timeOutHint = 10.0f;
 
     }
 
@@ -2123,7 +2138,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         trans_facemotion = 9999; //その他のモーションに遷移しないように回避
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-        facemotion_start = false;
+        facemotion_start = true;
     }
 
     public void TouchSisterChest()
@@ -2186,7 +2201,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidasiInit();
         }
 
-        timeOutIdle = timeOutIdle_time; //タッチ用の時間をリセット
         weightTween.Kill(); //フェードアウト中なら中断する
         tween_start = false;
     }
@@ -2199,7 +2213,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         GirlEat_Judge_on = false;
     }
 
-    //髪なでなで時のモーションセット
+    //髪なでなで時のモーションセット1
     void HairTouch_Motion()
     {
         weightTween.Kill(); //フェードアウト中なら中断する
@@ -2248,7 +2262,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
-    //髪なでなで時のモーションセット
+    //髪なでなで時のモーションセット2
     void HairTouch_Motion2()
     {
 
@@ -2289,7 +2303,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
-    //髪なでなで時のモーションセット
+    //髪なでなで時のモーションセット3
     void HairTouch_Motion3()
     {
 
@@ -2393,44 +2407,76 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         if (_temp_status == 0) //デフォルトの状態
         {
+            
             switch (GirlGokigenStatus)
-            {
+            {               
                 case 0:
 
-                    random = Random.Range(0, 4); //0~3
-                    //random = 0;
-                    trans_facemotion = random + 1; //1はじまり
+                    random = Random.Range(0, 100); //抽選
+                    if (random >= 80)
+                    {
+                        trans_facemotion = 0; //0は、何も動かない状態。
+                    }
+                    else
+                    {
+                        trans_facemotion = 3; //ママのいない悲しみモーション
+                        
+                        IdleMotionHukidashiSetting(trans_facemotion); //吹き出しも一緒に生成
+                        IdleChangeTemp = true;
+                    }
 
                     break;
 
                 case 1:
 
-                    random = Random.Range(0, 4); //0~3
-                    trans_facemotion = random + 1; //1はじまり
+                    random = Random.Range(0, 100); //抽選
+                    if (random >= 80)
+                    {
+                        trans_facemotion = 0; //0は、何も動かない状態。
+                    }
+                    else
+                    {
+                        trans_facemotion = 3; //ママのいない悲しみモーション
+
+                        IdleMotionHukidashiSetting(trans_facemotion);
+                        IdleChangeTemp = true;
+                    }
                     break;
 
                 case 2:
 
                     random = Random.Range(0, 4); //0~3
                     trans_facemotion = random + 1; //1はじまり
+
+                    IdleMotionHukidashiSetting(trans_facemotion);
+                    IdleChangeTemp = true;
                     break;
 
                 case 3:
 
                     random = Random.Range(0, 4); //0~3
                     trans_facemotion = random + 1; //1はじまり
+
+                    IdleMotionHukidashiSetting(trans_facemotion);
+                    IdleChangeTemp = true;
                     break;
 
                 case 4:
 
                     random = Random.Range(0, 4); //0~3
                     trans_facemotion = random + 1; //1はじまり
+
+                    IdleMotionHukidashiSetting(trans_facemotion);
+                    IdleChangeTemp = true;
                     break;
 
                 case 5:
 
                     random = Random.Range(0, 4); //0~3
                     trans_facemotion = random + 1; //1はじまり
+
+                    IdleMotionHukidashiSetting(trans_facemotion);
+                    IdleChangeTemp = true;
                     break;
 
                 default:
@@ -2459,6 +2505,30 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion);
     }
 
+    void IdleMotionHukidashiSetting(int _motion_num)
+    {
+        switch (_motion_num)
+        {
+
+            case 3:
+
+                if (hukidashiitem == null)
+                {
+                    hukidasiInit();
+                }
+                _touchface_comment_lib.Clear();
+                _touchface_comment_lib.Add("..ママ。");
+                _touchface_comment_lib.Add("ぐすん..。");
+                _touchface_comment_lib.Add("（..ママ。）");
+                _touchface_comment_lib.Add("..ママ。会いたいなぁ..。");
+
+                random = Random.Range(0, _touchface_comment_lib.Count);
+                _hintrandom = _touchface_comment_lib[random];
+                hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
+
+                break;
+        }
+    }
 
     void Init_touchHeadComment()
     {
@@ -2544,22 +2614,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             case 0:
 
-                _touchface_comment_lib.Add("..");
-                _touchface_comment_lib.Add("..ママ。");
-                _touchface_comment_lib.Add("ぐすん..。");
+                _touchface_comment_lib.Add("..");               
                 _touchface_comment_lib.Add("..おかし、食べたい。");
-                _touchface_comment_lib.Add("..まずはクッキーを作ってみようね。");
-                _touchface_comment_lib.Add("にいちゃん、フルーツは外でしか採れないよ～。");
+                _touchface_comment_lib.Add("..まずはクッキーを作ってみようね。");                
                 _touchface_comment_lib.Add("兄ちゃん..。");
+                _touchface_comment_lib.Add("..おなか、すいた。");
                 break;
 
             case 1:
 
-                _touchface_comment_lib.Add(".. ..。");
-                _touchface_comment_lib.Add("（..ママ。）");
+                _touchface_comment_lib.Add(".. ..。");               
                 _touchface_comment_lib.Add("お腹へった。");
                 _touchface_comment_lib.Add("..兄ちゃんのおかし、食べたい。");
-                _touchface_comment_lib.Add("兄ちゃんのお菓子作り、てつだう。");
+                _touchface_comment_lib.Add("兄ちゃんのおかし作り、てつだう。");
                 break;
 
             case 2:
@@ -2567,7 +2634,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("ちょっと元気。");
                 _touchface_comment_lib.Add("材料の比率は、兄ちゃんの好みに変えられるんだよ～。");
                 _touchface_comment_lib.Add("..。");
-                _touchface_comment_lib.Add("おいしい。兄ちゃんのお菓子。");
+                _touchface_comment_lib.Add("うまうま・・。");
+                _touchface_comment_lib.Add("兄ちゃんのおかし.. たべたい。");
                 break;
 
             case 3:
@@ -2576,6 +2644,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("うきうき。いっぱい手伝うよ～！");
                 _touchface_comment_lib.Add("味見..。味見..。");
                 _touchface_comment_lib.Add("ねぇねぇ兄ちゃん。材料を採りにいこうよ～。");
+                _touchface_comment_lib.Add("いい朝だねぇ～。お兄ちゃん～。");
+                _touchface_comment_lib.Add("いっぱい手伝うね！お兄ちゃん。");
                 break;
 
             case 4:
@@ -2584,6 +2654,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("材料の比率は、兄ちゃんの好みに変えられるんだよ～。");
                 _touchface_comment_lib.Add("兄ちゃん、もうコンテストとか余裕？");
                 _touchface_comment_lib.Add("あ～～。今日はあたたかいね、兄ちゃん！");
+                _touchface_comment_lib.Add("♪");
+                _touchface_comment_lib.Add("エメラルどんぐり、拾いにいこうよ～。お兄ちゃん。");
                 break;
 
             case 5:
@@ -2592,9 +2664,27 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("兄ちゃん！大好き！！");
                 _touchface_comment_lib.Add("兄ちゃんのお菓子、こころがぽかぽかするんだ～");
                 _touchface_comment_lib.Add("兄ちゃんのおてて、あたたか～い");
+                _touchface_comment_lib.Add("お兄ちゃん。あたたかい～。");
+                _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
                 break;
         }
-        
+
+        //パティシエレベルに応じて、ヒントをだす。
+        if(PlayerStatus.player_renkin_lv < 3) //LV 1~2
+        {
+            _touchface_comment_lib.Add("さくさく感の出し方は、ショップのおねえちゃんが知ってたかも？");
+            _touchface_comment_lib.Add("さわられると、ビックリしちゃうよ～・・。おにいちゃん。");
+            _touchface_comment_lib.Add("にいちゃん、フルーツは外でしか採れないよ～。");
+            _touchface_comment_lib.Add("にいちゃん、たいりょくが０になったら、材料集めはムリぃ～・・。");
+        }
+        else if (PlayerStatus.player_renkin_lv >= 3 && PlayerStatus.player_renkin_lv < 5) //LV 3~4 大体クレープきたぐらい
+        {
+            _touchface_comment_lib.Add("にいちゃん。こまったときは、ショップのおねえちゃんにきこう。");
+            _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
+            _touchface_comment_lib.Add("にいちゃん。今日のご飯は、ビールと枝豆の炊き込みご飯だよ♪");
+            _touchface_comment_lib.Add("にいちゃん。伝説のお菓子のレシピが・・。どこかにあるらしいよ。");
+            _touchface_comment_lib.Add("にいちゃん。新しいおかしをいっぱい作れば、パティシエの腕前が上がるよ！");
+        }
     }
 
     void Init_touchTwintailComment()
@@ -2628,7 +2718,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 2:
 
-                _touchtwintail_comment_lib.Add("髪の毛が気になるの？");
+                _touchtwintail_comment_lib.Add("にいちゃん、髪の毛さわる？");
                 _touchtwintail_comment_lib.Add("お母さんゆずりで、さらさらなんだよ～。");
                 _touchtwintail_comment_lib.Add("お母さん、元気かなぁ～..。");
                 _touchtwintail_comment_lib.Add("..。");
@@ -2785,54 +2875,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     }
 
-    void RandomGenkiInit()
-    {
-        _hintrandomDict.Clear();
-
-        switch (GirlGokigenStatus)
-        {
-            case 0:
-
-                _hintrandomDict.Add("..。");
-                _hintrandomDict.Add("..ママ。");
-                _hintrandomDict.Add("..ぐすん。");
-                _hintrandomDict.Add("..おなか、すいた。");
-                break;
-
-            case 1:
-
-                _hintrandomDict.Add("..。");
-                _hintrandomDict.Add("..ママ。");
-                _hintrandomDict.Add("..ママ。会いたいなぁ..。");
-                break;
-
-            case 2:
-
-                _hintrandomDict.Add("（ちょっと元気）");
-                _hintrandomDict.Add("兄ちゃんのおかし.. たべたいなぁ～。");
-                _hintrandomDict.Add("おいしい。兄ちゃんのお菓子。");
-                break;
-
-            case 3:
-
-                _hintrandomDict.Add("いい朝だねぇ～。お兄ちゃん～。");
-                _hintrandomDict.Add("いっぱい手伝うね！お兄ちゃん。");
-                break;
-
-            case 4:
-
-                _hintrandomDict.Add("♪");
-                _hintrandomDict.Add("エメラルどんぐり、拾いにいこうよ～。お兄ちゃん。");
-                break;
-
-            case 5:
-
-                _hintrandomDict.Add("お兄ちゃん。あたたかい～。");
-                _hintrandomDict.Add("どこかへ出かけたいなぁ～");
-                break;
-        }
-
-    }   
 
     //表情を変更するメソッド
     public void face_girl_Normal()
@@ -2990,10 +3032,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator.SetInteger("trans_expression", trans_expression);
     }
 
-    public void ResetGirlIdleTime()
-    {
-        timeOutIdle = timeOutIdle_time;
-    }
 
 
     void Init_Stage1_LVTable()

@@ -179,6 +179,9 @@ public class Shop_Main : MonoBehaviour {
             }
         }
 
+        //入店のタイミングでのみ、クエスト更新
+        shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
+
         //入店の音
         sc.PlaySe(51);
     }

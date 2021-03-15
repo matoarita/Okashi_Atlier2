@@ -44,6 +44,7 @@ public class ShopQuestListController : MonoBehaviour
     private int i, j;
     private int _hoshu;
 
+    public bool SetQuestInit; //ショップ入店時に、クエストをリセットするフラグ。shop_mainから読み出し。
     public int _count; //選択したリスト番号が入る。
     public int _ID; //ショップデータベースIDが入る。
     public int questID; //選択したアイテムのアイテムIDが入る。通常アイテムなら、アイテムID、イベントアイテムならイベントリストのアイテムID。
@@ -109,8 +110,11 @@ public class ShopQuestListController : MonoBehaviour
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
 
-        
-        RandomQuestSelect();
+        if (SetQuestInit)
+        {
+            SetQuestInit = false;
+            RandomQuestSelect();
+        }
 
         questListToggle.isOn = true;
         nouhinToggle.isOn = false;
@@ -121,8 +125,8 @@ public class ShopQuestListController : MonoBehaviour
 
     }
 
-    //ランダムでクエストを３つ選ぶ。
-    void RandomQuestSelect()
+    //ランダムでクエストを３つ選ぶ。現在は、ショップ入店時のタイミング
+    public void RandomQuestSelect()
     {
         InitiallizeRandomQuestDatabase(); //ストーリー進行にそって、どのクエストが選ばれるかを初期化
 

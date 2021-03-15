@@ -8,6 +8,8 @@ public class TasteHintPanel : MonoBehaviour {
 
     private Compound_Main compound_Main;
 
+    private ItemDataBase database;
+
     private Text Okashi_lasthint_text;
     private Text Okashi_lastname_text;
     private Text Okashi_lastscore_text;
@@ -16,13 +18,12 @@ public class TasteHintPanel : MonoBehaviour {
     private Text Okashi_lastsweat_param_text;
     private Text Okashi_lastsour_param_text;
     private Text Okashi_lastbitter_param_text;
-    private Text Okashi_onepoint_text;
-
-    private string _onepoint;
+    private Sprite Okashi_Img;
+    private Image Okashi_Icon;
+    private GameObject HikariIcon_Angry;
 
     // Use this for initialization
     void Start () {
-
         
     }
 	
@@ -38,6 +39,9 @@ public class TasteHintPanel : MonoBehaviour {
 
     private void SetInit()
     {
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
         compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
         Okashi_lasthint_text = this.transform.Find("HintPanel/HintText").GetComponent<Text>();
@@ -64,9 +68,19 @@ public class TasteHintPanel : MonoBehaviour {
         Okashi_lastbitter_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelD/PanelD_Param/Text").GetComponent<Text>();
         Okashi_lastbitter_param_text.text = GameMgr.Okashi_lastbitter_param.ToString();
 
-        Okashi_onepoint_text = this.transform.Find("HintPanel/OnepointText").GetComponent<Text>();
-        SetOnepointHint();
-        Okashi_onepoint_text.text = _onepoint;
+        Okashi_Img = database.items[GameMgr.Okashi_lastID].itemIcon_sprite;
+        Okashi_Icon = this.transform.Find("HintPanel/OkashiImage").GetComponent<Image>(); //画像アイコン
+        Okashi_Icon.sprite = Okashi_Img;
+
+        HikariIcon_Angry = this.transform.Find("HintPanel/CharaIcon/HikariIcon2").gameObject;
+        if(GameMgr.Okashi_totalscore <= 30)
+        {
+            HikariIcon_Angry.SetActive(true);
+        }
+        else
+        {
+            HikariIcon_Angry.SetActive(false);
+        }
     }
 
     public void BackOption()
@@ -75,21 +89,5 @@ public class TasteHintPanel : MonoBehaviour {
         compound_Main.compound_status = 0;
         this.gameObject.SetActive(false);
 
-    }
-
-    void SetOnepointHint()
-    {
-        switch(GameMgr.Okashi_OnepointHint_num)
-        {
-            case 0:
-
-                _onepoint = "ショップへ行くと、おねえちゃんが「さくさく感」について教えてくれそう。";
-                break;
-
-            default: //9999とか。空にする。
-
-                _onepoint = "";
-                break;
-        }
     }
 }

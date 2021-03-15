@@ -491,7 +491,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             _itemID = pitemlist.SearchItemString(pitemlist.player_originalitemlist[i].itemName);
-            pitemlist.player_originalitemlist[i].itemIcon = database.items[_itemID].itemIcon;
             pitemlist.player_originalitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
         }
 

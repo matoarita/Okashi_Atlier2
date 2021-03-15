@@ -15,6 +15,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
 
     private string _spquest_name1;
     private string _spquest_name2;
+    private string _spquest_name3;
     private string _desc;
     private string _comment;
 
@@ -65,6 +66,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
 
                 _spquest_name1 = excel_girlLikecompo_database.sheets[sheet_no].list[count].spquest_name1;
                 _spquest_name2 = excel_girlLikecompo_database.sheets[sheet_no].list[count].spquest_name2;
+                _spquest_name3 = excel_girlLikecompo_database.sheets[sheet_no].list[count].spquest_name3;
                 _desc = excel_girlLikecompo_database.sheets[sheet_no].list[count].desc;
                 _comment = excel_girlLikecompo_database.sheets[sheet_no].list[count].comment;
 
@@ -75,7 +77,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
                 _clear_flag = excel_girlLikecompo_database.sheets[sheet_no].list[count].clear;
 
                 //ここでリストに追加している
-                girllike_composet.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _spquest_name1, _spquest_name2, _desc, _comment, _set_flag, _set_score, _hint_text, _clear_flag));
+                girllike_composet.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _spquest_name1, _spquest_name2, _spquest_name3, _desc, _comment, _set_flag, _set_score, _hint_text, _clear_flag));
 
                 //Debug.Log("GirlLike_tp01: " + girllikeset[count].girlLike_topping[0]);
 
@@ -110,6 +112,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
 
                 _spquest_name1 = girllike_composet[count].spquest_name1;
                 _spquest_name2 = girllike_composet[count].spquest_name2;
+                _spquest_name3 = girllike_composet[count].spquest_name3;
 
                 _desc = girllike_composet[count].desc;
                 _comment = girllike_composet[count].comment;
@@ -122,7 +125,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
                 _clear_flag = girllike_composet[count].clearFlag;
 
                 //ここでリストに追加している
-                girllike_compoRandomset.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _spquest_name1, _spquest_name2, _desc, _comment, _set_flag, _set_score, _hint_text, _clear_flag));
+                girllike_compoRandomset.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _spquest_name1, _spquest_name2, _spquest_name3, _desc, _comment, _set_flag, _set_score, _hint_text, _clear_flag));
 
             }
 

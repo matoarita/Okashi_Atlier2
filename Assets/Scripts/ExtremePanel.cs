@@ -33,7 +33,7 @@ public class ExtremePanel : MonoBehaviour {
 
     private SlotChangeName slotchangename;
 
-    private Texture2D texture2d;
+    private Sprite texture2d;
 
     private Image item_Icon;
     private Text extreme_Param;
@@ -286,13 +286,13 @@ public class ExtremePanel : MonoBehaviour {
     {
         if (extreme_itemtype == 0) //デフォルトアイテムの場合
         {
-            texture2d = database.items[extreme_itemID].itemIcon;
+            texture2d = database.items[extreme_itemID].itemIcon_sprite;
             //extreme_kaisu = database.items[extreme_itemID].ExtremeKaisu;
             extreme_itemName.text = database.items[extreme_itemID].itemNameHyouji;
         }
         else if (extreme_itemtype == 1) //オリジナルアイテムの場合
         {
-            texture2d = pitemlist.player_originalitemlist[extreme_itemID].itemIcon;
+            texture2d = pitemlist.player_originalitemlist[extreme_itemID].itemIcon_sprite;
             //extreme_kaisu = pitemlist.player_originalitemlist[extreme_itemID].ExtremeKaisu;
 
             //スロット名+アイテム名の表示
@@ -302,9 +302,8 @@ public class ExtremePanel : MonoBehaviour {
 
 
         item_Icon.color = new Color(1, 1, 1, 1);
-        item_Icon.sprite = Sprite.Create(texture2d,
-                                   new Rect(0, 0, texture2d.width, texture2d.height),
-                                   Vector2.zero);
+        item_Icon.sprite = texture2d;
+                                   
 
         //エクストリーム残り回数の表示更新。
         extreme_kaisu = PlayerStatus.player_extreme_kaisu;
