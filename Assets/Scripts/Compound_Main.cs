@@ -176,7 +176,7 @@ public class Compound_Main : MonoBehaviour
     public bool check_GirlLoveEvent_flag;
     public bool check_GirlLoveSubEvent_flag;
     public bool check_OkashiAfter_flag;
-    public bool check_CompoAfter_flag;
+    public bool check_CompoAfter_flag; //Exp_Controllerから読み出し
     private int not_read_total;
     private int _checkexp;
 
@@ -3015,7 +3015,6 @@ public class Compound_Main : MonoBehaviour
                     {
                         if (check_OkashiAfter_flag) //お菓子をあげたあとのフラグ
                         {
-                            //check_OkashiAfter_flag = false;
 
                             GameMgr.GirlLoveSubEvent_stage1[0] = true;
 
@@ -3061,7 +3060,6 @@ public class Compound_Main : MonoBehaviour
                     {
                         if (check_OkashiAfter_flag)
                         {
-                            //check_OkashiAfter_flag = false;
 
                             if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
                             {
@@ -3096,14 +3094,12 @@ public class Compound_Main : MonoBehaviour
 
                 case 20: //クレープ1
 
-                    if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ
+                    if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
                     {
-                        //check_CompoAfter_flag = false;
-
-                        if (GameMgr.GirlLoveSubEvent_stage1[8] == false && database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "Crepe")
+                        if (GameMgr.GirlLoveSubEvent_stage1[20] == false && database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "Crepe")
                         {
-                            GameMgr.GirlLoveSubEvent_stage1[8] = true;
-                            GameMgr.GirlLoveSubEvent_num = 8;
+                            GameMgr.GirlLoveSubEvent_stage1[20] = true;
+                            GameMgr.GirlLoveSubEvent_num = 20;
                             check_GirlLoveSubEvent_flag = false;
 
                             mute_on = true;
@@ -3113,12 +3109,15 @@ public class Compound_Main : MonoBehaviour
 
             }
 
-            
+            //
+            //メインクエストに関係しないサブイベント関係は、60番台～
+            //
+
             //キラキラポンポン
-            if (PlayerStatus.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[10] == false) //4になったときのサブイベントを使う。
+            if (PlayerStatus.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
             {
-                GameMgr.GirlLoveSubEvent_num = 10;
-                GameMgr.GirlLoveSubEvent_stage1[10] = true;
+                GameMgr.GirlLoveSubEvent_num = 60;
+                GameMgr.GirlLoveSubEvent_stage1[60] = true;
 
                 check_GirlLoveSubEvent_flag = false;
 

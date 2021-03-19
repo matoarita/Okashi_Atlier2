@@ -12,6 +12,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //イベント数をセッティング
     //
     public static int GirlLoveEvent_stage_num = 100;
+    public static int GirlLoveSubEvent_stage_num = 100;
     public static int Event_num = 30;
 
     //** --ここまで-- **//
@@ -68,7 +69,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //好感度やパティシエレベルで発生するサブイベントのフラグ
     public static int GirlLoveSubEvent_num;
     public static int girlloveevent_bunki; //メインイベントかサブイベントかを分岐する
-    public static bool[] GirlLoveSubEvent_stage1 = new bool[Event_num];
+    public static bool[] GirlLoveSubEvent_stage1 = new bool[GirlLoveSubEvent_stage_num];
 
     //マップイベント
     public static int　map_ev_ID;           //その時のイベント番号
@@ -544,7 +545,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage2_limit_day = 151;
         stage3_limit_day = 211;
 
-        //コレクションアイテムリストと、登録リスト初期化
+        //コレクションアイテムリストDBと、登録リスト初期化
+        CollectionItemsName.Clear();
         CollectionItemsName.Add("amabie_pendant");
         CollectionItemsName.Add("green_pendant");
         CollectionItemsName.Add("star_pendant");
@@ -556,6 +558,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("compass");
         CollectionItemsName.Add("star_bottle");
 
+        CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
         {
             CollectionItems.Add(false);

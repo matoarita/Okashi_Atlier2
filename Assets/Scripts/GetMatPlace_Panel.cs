@@ -1250,7 +1250,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
         if (PlayerStatus.player_girl_lifepoint < 3)
         {
-            _text.text = "にいちゃん。やっぱりこわいよう..。" + "\n" + "（ハートが足りないようだ。）";
+            _text.text = "にいちゃん。やっぱりこわいよう..。" + "\n" + "（体力が足りないようだ。）";
         }
         else
         {

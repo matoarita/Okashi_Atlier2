@@ -56,7 +56,7 @@ MonoBehaviour:
       place_Name: Shop
       place_Name_Hyouji: "\u30B7\u30E7\u30C3\u30D7"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30B7\u30E7\u30C3\u30D7\u3002\u304B\u308F\u3044\u3044\u611F\u3058\u3002"
-      place_day: 1
+      place_day: 3
       place_cost: 0
       place_flag: 1
       place_type: 0
@@ -89,43 +89,6 @@ MonoBehaviour:
       center_bg: Non
       back_bg: Non
     - ItemID: 2
-      file_name: village_mini_icon
-      place_Name: Ido
-      place_Name_Hyouji: "\u6751\u306E\u4E95\u6238"
-      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30A2\u30A4\u30EB\u30E9\u30F3\u30C9\u3000\u30A2\u30C7\u30A2\u3000\u5E83\u5834\u306E\u306F\u305A\u308C\u306B\u3042\u308B\u4E95\u6238\u3002\u6728\u30FB\u85C1\u3076\u304D\u5C4B\u6839\u306E\u77F3\u9020\u5BB6\u5C4B\u304C\u7ACB\u3061\u4E26\u3076\u3002\u5EFA\u7269\u306F\u5C11\u306A\u76EE\u3002"
-      place_day: 1
-      place_cost: 0
-      place_flag: 1
-      place_type: 1
-      drop_item1: "\u306A\u3057"
-      drop_item2: water
-      drop_item3: Non
-      drop_item4: Non
-      drop_item5: Non
-      drop_item6: Non
-      drop_item7: Non
-      drop_item8: Non
-      drop_item9: Non
-      drop_item10: Non
-      drop_rare1: Non
-      drop_rare2: Non
-      drop_rare3: Non
-      drop_prob1: 10
-      drop_prob2: 90
-      drop_prob3: 0
-      drop_prob4: 0
-      drop_prob5: 0
-      drop_prob6: 0
-      drop_prob7: 0
-      drop_prob8: 0
-      drop_prob9: 0
-      drop_prob10: 0
-      drop_rare_prob1: 95
-      drop_rare_prob2: 5
-      drop_rare_prob3: 0
-      center_bg: 2_ido_a_600_300
-      back_bg: nexfan_01_800_600
-    - ItemID: 3
       file_name: farm_mini_icon
       place_Name: Farm
       place_Name_Hyouji: "\u30E2\u30BF\u30EA\u30B1\u306E\u7267\u5834"
@@ -162,7 +125,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: Non
       back_bg: Non
-    - ItemID: 4
+    - ItemID: 3
       file_name: oldhouse_mini_icon
       place_Name: Emerald_Shop
       place_Name_Hyouji: "\u602A\u3057\u3052\u306A\u9928"
@@ -199,6 +162,43 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: Non
       back_bg: Non
+    - ItemID: 4
+      file_name: village_mini_icon
+      place_Name: Ido
+      place_Name_Hyouji: "\u6751\u306E\u4E95\u6238"
+      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30A2\u30A4\u30EB\u30E9\u30F3\u30C9\u3000\u30A2\u30C7\u30A2\u3000\u5E83\u5834\u306E\u306F\u305A\u308C\u306B\u3042\u308B\u4E95\u6238\u3002\u6728\u30FB\u85C1\u3076\u304D\u5C4B\u6839\u306E\u77F3\u9020\u5BB6\u5C4B\u304C\u7ACB\u3061\u4E26\u3076\u3002\u5EFA\u7269\u306F\u5C11\u306A\u76EE\u3002"
+      place_day: 1
+      place_cost: 0
+      place_flag: 1
+      place_type: 1
+      drop_item1: "\u306A\u3057"
+      drop_item2: water
+      drop_item3: Non
+      drop_item4: Non
+      drop_item5: Non
+      drop_item6: Non
+      drop_item7: Non
+      drop_item8: Non
+      drop_item9: Non
+      drop_item10: Non
+      drop_rare1: Non
+      drop_rare2: Non
+      drop_rare3: Non
+      drop_prob1: 10
+      drop_prob2: 90
+      drop_prob3: 0
+      drop_prob4: 0
+      drop_prob5: 0
+      drop_prob6: 0
+      drop_prob7: 0
+      drop_prob8: 0
+      drop_prob9: 0
+      drop_prob10: 0
+      drop_rare_prob1: 95
+      drop_rare_prob2: 5
+      drop_rare_prob3: 0
+      center_bg: 2_ido_a_600_300
+      back_bg: nexfan_01_800_600
     - ItemID: 5
       file_name: forest_mini_icon
       place_Name: Forest
