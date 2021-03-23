@@ -9,6 +9,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private ItemMatPlaceDataBase matplace_database;
     private ItemDataBase database;
+    private PlayerItemList pitemlist;
 
     private GameObject canvas;    
     private Sprite map_icon;
@@ -131,6 +132,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //調合シーンメインオブジェクトの取得
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -627,12 +631,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
-                            //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button_obj.SetActive(false);
-
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
-                            text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 10;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -642,6 +642,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         else
                         {
                             _text.text = "兄ちゃん、いっぱいとろうね！";
+
+                            //サブイベントチェック
+                            if(!GameMgr.MapEvent_01[1] && pitemlist.ReturnItemKosu("shishamo_cookie") > 0) //ししゃもクッキーをもっている
+                            {
+                                GameMgr.map_ev_ID = 11;
+                                GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                StartCoroutine("MapEventOn");
+                            }
                         }
 
                         break;
@@ -667,12 +676,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
-                            //初森へきたイベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button_obj.SetActive(false);
-
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
-                            text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 60;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -717,12 +722,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
-                            //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button_obj.SetActive(false);
-
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
-                            text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 40;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -754,12 +755,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
-                            //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button_obj.SetActive(false);
-
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
-                            text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 50;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -791,12 +788,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
-                            //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
-                            slot_tansaku_button_obj.SetActive(false);
-
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
-                            text_area.SetActive(false);
 
                             GameMgr.map_ev_ID = 20;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -826,13 +819,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             _text.text = "いっぱい水を汲もう。兄ちゃん。";
 
-                            slot_view_status = 3; //イベント読み込み中用に退避
-
-                            slot_tansaku_button_obj.SetActive(false);
+                            slot_view_status = 3; //イベント読み込み中用に退避                           
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
-                            text_area.SetActive(false);
+                            
 
                             GameMgr.map_ev_ID = 30;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -1109,7 +1100,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
     }
 
     IEnumerator MapEventOn()
-    {
+    {      
+        //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
+        slot_tansaku_button_obj.SetActive(false);
+        text_area.SetActive(false);
+
         StatusPanelOFF();
 
         while (!GameMgr.recipi_read_endflag)

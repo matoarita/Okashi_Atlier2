@@ -59,6 +59,8 @@ public class StatusPanel : MonoBehaviour {
     private int _buf_findpower;
     private int player_girl_findpower_final;
 
+    private int Acce_Startnum;
+
     // Use this for initialization
     void Start () {
 		
@@ -99,6 +101,9 @@ public class StatusPanel : MonoBehaviour {
 
         //経験値テーブルを取得
         exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
+
+        //アクセサリーのスタート　配列番号
+        Acce_Startnum = 6;
 
         //各ステータスパネルの値を取得。
         statusList = this.transform.Find("StatusList").gameObject;
@@ -201,40 +206,39 @@ public class StatusPanel : MonoBehaviour {
         }
 
         costume_list[0].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true; //デフォルト服は常時インタラクトON
-        cosIcon_sprite = Resources.Load<Sprite>("Sprites/" + pitemlist.emeralditemlist[0].event_fileName);
-        costume_list[0].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().sprite = cosIcon_sprite;
-        costume_list[0].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().color = Color.white;
+        CostumeIconDraw(0, 0);
 
         for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
-            if (pitemlist.emeralditemlist[i].event_itemName == "Meid_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メイド服２
-            {
-                costume_list[1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-            }
 
             if (pitemlist.emeralditemlist[i].event_itemName == "Sukumizu_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //スク水
             {
-                costume_list[2].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                costume_list[1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, 1);
             }
 
             if (pitemlist.emeralditemlist[i].event_itemName == "PinkGoth_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ピンクゴスロリ
             {
-                costume_list[3].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                costume_list[2].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, 2);
             }
 
             if (pitemlist.emeralditemlist[i].event_itemName == "Glass_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メガネ
             {
-                costume_list[6].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                costume_list[Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, Acce_Startnum);
             }
 
             if (pitemlist.emeralditemlist[i].event_itemName == "Bafomet_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //バフォメットの角
             {
-                costume_list[7].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                costume_list[Acce_Startnum+1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, Acce_Startnum + 1);
             }
 
             if (pitemlist.emeralditemlist[i].event_itemName == "AngelWing_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //天使のはね
             {
-                costume_list[8].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                costume_list[Acce_Startnum + 2].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, Acce_Startnum + 2);
             }
         }
 
@@ -245,13 +249,20 @@ public class StatusPanel : MonoBehaviour {
             if (GameMgr.Accesory_Num[i] == 1)
             {
                 //トグルをonにするときに、コールバックを呼ばずにONにできる書き方。ToggleExt.csを追加している。
-                costume_list[i + 6].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
+                costume_list[i + Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
             }
             else
             {
-                costume_list[i + 6].transform.Find("ClothToggle").GetComponent<Toggle>().isOn = false;
+                costume_list[i + Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().isOn = false;
             }
         }
+    }
+
+    void CostumeIconDraw(int _list, int _num)
+    {
+        cosIcon_sprite = Resources.Load<Sprite>("Sprites/" + pitemlist.emeralditemlist[_list].event_fileName);
+        costume_list[_num].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().sprite = cosIcon_sprite;
+        costume_list[_num].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().color = Color.white;
     }
 
     public void OnCollectionPanel()
@@ -278,7 +289,7 @@ public class StatusPanel : MonoBehaviour {
 
     public void OnCostumeChange() //0~5までのトグルを押すと、衣装チェンジ
     {
-        for( i = 0; i < 6; i++)
+        for( i = 0; i < Acce_Startnum; i++)
         {
             if(costume_list[i].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
             {
@@ -294,7 +305,7 @@ public class StatusPanel : MonoBehaviour {
     {
         for (i = 0; i < GameMgr.Accesory_Num.Length; i++)
         {
-            if (costume_list[i+6].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
+            if (costume_list[i+ Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
             {
                 Debug.Log("アクセチェンジON: " + i);
 
