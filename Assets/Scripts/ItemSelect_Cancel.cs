@@ -60,6 +60,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     private GameObject shopMain_obj;
     private Shop_Main shopMain;
+    //private Bar_Main barMain;
 
     private GameObject black_effect;
 
@@ -110,7 +111,35 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 break;
 
-            case "Shop":
+            /*case "Shop":
+
+                
+                NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+                shopMain_obj = GameObject.FindWithTag("Shop_Main");
+                shopMain = shopMain_obj.GetComponent<Shop_Main>();
+
+                shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+                yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
+                yes_text = yes.GetComponentInChildren<Text>();
+                no = shopitemlistController_obj.transform.Find("No").gameObject;
+                no_text = no.GetComponentInChildren<Text>();
+
+                text_area = canvas.transform.Find("MessageWindow").gameObject;
+                _text = text_area.GetComponentInChildren<Text>();              
+
+                break;
+
+            case "Bar":
+
 
                 NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
@@ -134,7 +163,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 text_area = canvas.transform.Find("MessageWindow").gameObject;
                 _text = text_area.GetComponentInChildren<Text>();
 
-                break;
+                break;*/
 
             case "GirlEat":
                 GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
@@ -253,6 +282,46 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 break;
 
             case "Shop":
+
+                if (shopMain_obj == null)
+                {
+                    canvas = GameObject.FindWithTag("Canvas");
+
+                    NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+                    shopMain_obj = GameObject.FindWithTag("Shop_Main");
+                    shopMain = shopMain_obj.GetComponent<Shop_Main>();
+
+                    shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                    shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                    shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                    shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+                    yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
+                    yes_text = yes.GetComponentInChildren<Text>();
+                    no = shopitemlistController_obj.transform.Find("No").gameObject;
+                    no_text = no.GetComponentInChildren<Text>();
+
+                    text_area = canvas.transform.Find("MessageWindow").gameObject;
+                    _text = text_area.GetComponentInChildren<Text>();
+
+                    kettei_on_waiting = false;
+                }
+
+                //プレイヤーアイテムリストオブジェクトの初期化
+                if (pitemlistController_obj == null)
+                {
+                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+                }
+
+                break;
+
+            case "Bar":
 
                 if (shopMain_obj == null)
                 {
@@ -587,7 +656,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             }
         }
 
-        if (SceneManager.GetActiveScene().name == "Shop")
+        if (SceneManager.GetActiveScene().name == "Bar")
         {
             if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
             {

@@ -52,6 +52,7 @@ public class Utage_scenario : MonoBehaviour
     private string recipi_Name;
 
     private bool tutorial_flag;
+    private int catgrave_flag;
 
     private bool FadeAnim_flag;
     private int FadeAnim_status;
@@ -345,7 +346,7 @@ public class Utage_scenario : MonoBehaviour
             }               
 
             //ショップ・牧場シーンでのイベント処理
-            if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm")
+            if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm" || SceneManager.GetActiveScene().name == "Bar")
             {
                 character = GameObject.FindWithTag("Character");
                
@@ -510,7 +511,7 @@ public class Utage_scenario : MonoBehaviour
                 break;
         }
 
-        if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm")
+        if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm" || SceneManager.GetActiveScene().name == "Bar")
         {
             CharacterSpriteFadeON();
 
@@ -557,6 +558,7 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("Sleep_num", GameMgr.sleep_status);
         engine.Param.TrySetParameter("FoodExpenses", GameMgr.Foodexpenses);
+        engine.Param.TrySetParameter("TodayFood", GameMgr.MgrTodayFood);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -1287,6 +1289,21 @@ public class Utage_scenario : MonoBehaviour
         }
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
+
+        if (map_ev_ID == 11)
+        {
+            catgrave_flag = (int)engine.Param.GetParameter("CatGrave_Flag");
+
+            if (catgrave_flag == 0)
+            {
+                GameMgr.MapSubEvent_Flag = 0;
+            }
+            else
+            {
+                GameMgr.MapSubEvent_Flag = 10;
+            }
+        }
+        
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 

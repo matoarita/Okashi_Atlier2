@@ -197,6 +197,7 @@ public class Compound_Main : MonoBehaviour
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
     private int i, j, _id, ev_id;
+    private int random;
     private int nokori_kaisu;
     private int event_num;
     private int recipi_num;
@@ -204,6 +205,11 @@ public class Compound_Main : MonoBehaviour
     private int clear_love;
     private int recipi_id;
     private bool read_girlevent;
+
+    private string _todayfood;
+    private List<string> _todayfood_lib = new List<string>();
+    private int _todayfoodexpence;
+    private List<int> _todayfoodexpence_lib = new List<int>();
 
     public int compound_status;
     public int compound_select;
@@ -1207,6 +1213,10 @@ public class Compound_Main : MonoBehaviour
                 Extremepanel_obj.SetActive(true);
                 extreme_panel.extremeButtonInteractOn();
                 extreme_panel.LifeAnimeOnTrue();
+                if(!exp_Controller._temp_extremeSetting) //もしfalseだったら、このタイミングでも、パネルのアイテムを削除する。
+                {
+                    extreme_panel.deleteExtreme_Item();
+                }
 
                 text_area.SetActive(false);
                 text_area_Main.SetActive(true);
@@ -3152,7 +3162,16 @@ public class Compound_Main : MonoBehaviour
 
     IEnumerator SleepDayEnd()
     {
-        //好感度によって発生するイベントチェック
+        //今日の食事がランダムで決まる
+        InitTodayFoodLibrary();
+        random = Random.Range(0, _todayfood_lib.Count);
+        _todayfood = _todayfood_lib[random];
+        _todayfoodexpence = _todayfoodexpence_lib[random];
+
+        random = Random.Range(0, 10);
+        _todayfoodexpence += (random-5);
+        GameMgr.MgrTodayFood = _todayfood;
+        GameMgr.Foodexpenses = _todayfoodexpence;
 
         //** ここまで **
 
@@ -3257,5 +3276,50 @@ public class Compound_Main : MonoBehaviour
     public void MoneyTextKoushin()
     {
         moneystatus_panel.GetComponent<MoneyStatus_Controller>().money_Draw();
+    }
+
+    void InitTodayFoodLibrary()
+    {
+        _todayfood_lib.Clear();
+        _todayfoodexpence_lib.Clear();
+
+        _todayfood_lib.Add("じゃがいもとベーコンのバター焼き");
+        _todayfoodexpence_lib.Add(75);
+        _todayfood_lib.Add("黄金じゃがバター");
+        _todayfoodexpence_lib.Add(50);
+        _todayfood_lib.Add("ビールとえだまめの炊き込みご飯");
+        _todayfoodexpence_lib.Add(120);
+        _todayfood_lib.Add("ゴールデンカレーライス");
+        _todayfoodexpence_lib.Add(80);
+        _todayfood_lib.Add("じゃがいもガレット");
+        _todayfoodexpence_lib.Add(50);
+        _todayfood_lib.Add("きのことお豆のスープ");
+        _todayfoodexpence_lib.Add(60);
+        _todayfood_lib.Add("とうもろこしのパン");
+        _todayfoodexpence_lib.Add(50);
+        _todayfood_lib.Add("じゃがいもコーンシチュー");
+        _todayfoodexpence_lib.Add(80);
+        _todayfood_lib.Add("お豆だんご");
+        _todayfoodexpence_lib.Add(50);
+        _todayfood_lib.Add("ほしにく");
+        _todayfoodexpence_lib.Add(100);
+        _todayfood_lib.Add("トマトコンソメリゾット");
+        _todayfoodexpence_lib.Add(60);
+        _todayfood_lib.Add("ボンゴレ・ヴィアンゴ");
+        _todayfoodexpence_lib.Add(100);
+        _todayfood_lib.Add("ペスカトーレ");
+        _todayfoodexpence_lib.Add(100);
+        _todayfood_lib.Add("子牛のオレンジソースかけステーキ");
+        _todayfoodexpence_lib.Add(120);
+        _todayfood_lib.Add("ハンバーグもどき");
+        _todayfoodexpence_lib.Add(70);
+        _todayfood_lib.Add("バリバリ貝のブイヤ・ベース");
+        _todayfoodexpence_lib.Add(110);
+        _todayfood_lib.Add("チキン串焼き");
+        _todayfoodexpence_lib.Add(90);
+        _todayfood_lib.Add("さかなの地中海風蒸し焼き");
+        _todayfoodexpence_lib.Add(120);
+        _todayfood_lib.Add("落雷スープ");
+        _todayfoodexpence_lib.Add(100);
     }
 }

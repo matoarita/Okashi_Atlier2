@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 29,
-		"TotalSegmentCount": 107,
-		"TotalPointCount": 314,
+		"CurveCount": 30,
+		"TotalSegmentCount": 108,
+		"TotalPointCount": 316,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -891,6 +891,17 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamCry",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamTojime",
 			"Segments": [
 				0,
 				0,

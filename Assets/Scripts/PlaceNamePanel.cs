@@ -24,7 +24,12 @@ public class PlaceNamePanel : MonoBehaviour {
         {
             case "Shop":
 
-                _text = "ザッハトルテ";
+                _text = "ショパンの夢";
+                break;
+
+            case "Bar":
+
+                _text = "酒場";
                 break;
 
             case "Farm":
@@ -40,7 +45,7 @@ public class PlaceNamePanel : MonoBehaviour {
 
             case "Emerald_Shop":
 
-                _text = "怪しげな館";
+                _text = "どんぐりコレクターズ";
                 break;
 
             case "Contest":

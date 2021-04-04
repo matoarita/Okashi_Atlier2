@@ -41,3 +41,8 @@
 ・BGM_39		audiostock_227194_sample		ショップBGMテーマ２　イタリアとかヨーロッパのカフェ風
 ・BGM_40		audiostock_894571			楽しげなBGM　宴用
 ・BGM_41		audiostock_152403			井戸BGM
+・BGM_42		audiostock_227319.mp3			【宴用】近くの森のBGM　03と同じ
+・BGM_43		gymnopedies1.mp3			【宴用】優しく、悲しいBGM（猫ししゃもクッキーのイベント）
+・BGM_44		hometown.mp3				優しく、悲しいBGM2（猫ししゃもクッキーのイベント）
+・BGM_45		kaerimiti.mp3				ほっと安心BGM（猫ししゃもクッキーのイベント）
+・BGM_46		gymnopedies1.mp3			43と同じ。ジムノペディ第一番。

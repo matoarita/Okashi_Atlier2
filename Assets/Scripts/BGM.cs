@@ -23,6 +23,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound12;  //「バードサンクチュアリ」BGM
     public AudioClip sound13;  //お好みBGM_01
     public AudioClip sound14;  //メインクリア後アイキャッチのBGM
+    public AudioClip sound15;  //「ねこのお墓」BGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -257,6 +258,15 @@ public class BGM : MonoBehaviour {
     {
         _bgm[1].Stop();
         _bgm[1].clip = sound12;
+        _bgm[1].Play();
+
+        _mixRate = 1;
+    }
+
+    public void OnGetMat_CatGraveBGM()
+    {
+        _bgm[1].Stop();
+        _bgm[1].clip = sound15;
         _bgm[1].Play();
 
         _mixRate = 1;

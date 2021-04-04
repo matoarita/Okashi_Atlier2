@@ -2244,6 +2244,7 @@ public class GirlEat_Judge : MonoBehaviour {
         else if (total_score <= 0) //0以下。つまりまずかった
         {
             total_score = 0;
+            GameMgr.Okashi_totalscore = total_score;
             //Delicious_Text.text = "Death..";
 
             star_Count = 0;
@@ -2646,8 +2647,10 @@ public class GirlEat_Judge : MonoBehaviour {
                 pitemlist.addPlayerItemString("emeralDongri", 1);
                 break;
 
-        } 
+        }
 
+        //ついでに妹の体力が上がる。
+        PlayerStatus.player_girl_maxlifepoint++;
         
 
         //はじめてエメラルどんぐりをゲットしたら、怪しげな館登場

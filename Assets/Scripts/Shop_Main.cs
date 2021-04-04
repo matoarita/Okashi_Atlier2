@@ -121,7 +121,7 @@ public class Shop_Main : MonoBehaviour {
         shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
-        shopon_toggle_quest.SetActive(false);
+        //shopon_toggle_quest.SetActive(false);
 
         //自分の持ってるお金などのステータス
         money_status_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
@@ -150,7 +150,7 @@ public class Shop_Main : MonoBehaviour {
         shopquestlist_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
         shopquestlist_obj.SetActive(false);
 
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         //初期メッセージ
@@ -374,10 +374,10 @@ public class Shop_Main : MonoBehaviour {
                         //_text.text = shopdefault_text;
 
                         //依頼コマンド追加
-                        if (GameMgr.ShopLVEvent_stage[10])
+                        /*if (GameMgr.ShopLVEvent_stage[10])
                         {
                             shopon_toggle_quest.SetActive(true);
-                        }
+                        }*/
 
                         shop_scene = 0;
                         shop_status = 100;
@@ -573,7 +573,7 @@ public class Shop_Main : MonoBehaviour {
         }
 
         //「依頼」コマンド追加　パティシエレベル３以上で追加
-        if (PlayerStatus.player_renkin_lv >= 3 && !GameMgr.ShopLVEvent_stage[10]) //シュークリームイベント以降
+        /*if (PlayerStatus.player_renkin_lv >= 3 && !GameMgr.ShopLVEvent_stage[10]) //シュークリームイベント以降
         {
             GameMgr.ShopLVEvent_stage[10] = true;
             GameMgr.scenario_ON = true;
@@ -583,7 +583,7 @@ public class Shop_Main : MonoBehaviour {
 
             lvevent_loading = true;
             StartCoroutine("Scenario_loading");
-        }
+        }*/
     }
 
     IEnumerator UtageEndWait()

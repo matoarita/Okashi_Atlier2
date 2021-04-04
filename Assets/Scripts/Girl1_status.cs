@@ -817,7 +817,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     if (facemotion_duration >= facemotion_time) //再生終了前から徐々にウェイトを戻し、ふぇーどでアニメを戻す
                     {
-                        facemotion_weight = 1.0f;
+                        //facemotion_weight = 1.0f;
 
                         if (!tween_start)
                         {
@@ -2008,6 +2008,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //タップモーション
         live2d_animator.SetLayerWeight(2, 1);
         live2d_animator.Play("tapmotion_01", 2, 0.0f); //tapmotion_01は、頭なでなで・ツインテール共通のモーション
+        facemotion_weight = 1.0f;
 
         trans_facemotion = 9999; //その他のモーションに遷移しないように回避
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
@@ -2135,6 +2136,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //タップモーション　最初触った一回だけ発動        
         live2d_animator.SetLayerWeight(2, 1);
         live2d_animator.Play("tapmotion_02", 2, 0.0f);
+        facemotion_weight = 1.0f;
 
         trans_facemotion = 9999; //その他のモーションに遷移しないように回避
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
@@ -2173,7 +2175,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         _model_obj.GetComponent<GazeController>().enabled = false;
 
-        random = Random.Range(0, 2);
+        random = Random.Range(0, 3);
 
         switch(random)
         {
@@ -2190,8 +2192,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 live2d_animator.Play("tapmotion_03_2", 2, 0.0f);
                 hukidashiitem.GetComponent<TextController>().SetText("あいたっ！");
                 break;
+
+            case 2:
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("tapmotion_03_3", 2, 0.0f);
+                hukidashiitem.GetComponent<TextController>().SetText("いてぃっ！");
+                break;
         }
-        
+        facemotion_weight = 1.0f;
     }
 
     void touch_startreset() //触り始め共通でリセットする項目。
@@ -2260,6 +2269,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
         }
+        facemotion_weight = 1.0f;
     }
 
     //髪なでなで時のモーションセット2

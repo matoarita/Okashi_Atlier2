@@ -5157,7 +5157,7 @@ MonoBehaviour:
       best_kosu3: 1
       cmp_flag: 0
       cost_time: 6
-      success_rate: 95
+      success_rate: 75
       renkin_Bexp: 12
       Comment: 
       Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u3076\u3069\u3046\xD7\u30DF\u30AD\u30B5\u30FC"
@@ -5182,7 +5182,7 @@ MonoBehaviour:
       best_kosu3: 1
       cmp_flag: 0
       cost_time: 6
-      success_rate: 95
+      success_rate: 85
       renkin_Bexp: 12
       Comment: 
       Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
@@ -5207,7 +5207,7 @@ MonoBehaviour:
       best_kosu3: 1
       cmp_flag: 0
       cost_time: 6
-      success_rate: 95
+      success_rate: 85
       renkin_Bexp: 12
       Comment: 
       Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
@@ -5232,7 +5232,7 @@ MonoBehaviour:
       best_kosu3: 1
       cmp_flag: 0
       cost_time: 6
-      success_rate: 95
+      success_rate: 85
       renkin_Bexp: 12
       Comment: 
       Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
@@ -5257,10 +5257,35 @@ MonoBehaviour:
       best_kosu3: 1
       cmp_flag: 0
       cost_time: 6
-      success_rate: 95
+      success_rate: 85
       renkin_Bexp: 12
       Comment: 
       Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
       KeisanMethod: Non
       comp_count: 0
       release_recipi: mix_berry_juice
+    - ItemID: 210
+      cmpitemName: juice_float
+      cmpitemID_1: ice_cream
+      cmpitemID_2: empty
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: Juice
+      cmp_subtype_3: empty
+      result_itemID: juice_float
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 6
+      success_rate: 85
+      renkin_Bexp: 12
+      Comment: 
+      Comment2: "\u30B8\u30E5\u30FC\u30B9\xD7\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: juice_float

@@ -281,7 +281,7 @@ public class GetMaterial : MonoBehaviour
                     moneyStatus_Controller.UseMoney(mat_cost);
 
                     //日数の経過
-                    PlayerStatus.player_time += 1; //場所に関係なく、一回とるごとに10分
+                    PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
                     time_controller.TimeKoushin();
                    
                     //妹の体力消費 一回の行動で1減る。0で倒れる。井戸などでは、減らない。

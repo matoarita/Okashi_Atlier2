@@ -15,43 +15,6 @@ MonoBehaviour:
   - name: Sheet1
     list:
     - ItemID: 0
-      file_name: town2_mini_icon
-      place_Name: Hiroba
-      place_Name_Hyouji: "\u6751\u306E\u5E83\u5834"
-      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30C9\u30A4\u30C4\u3000\u30B2\u30F3\u30B2\u30F3\u30D0\u30C3\u30CF\u3000\u304B\u308F\u3044\u3044\u30AB\u30E9\u30D5\u30EB\u306A\u5BB6\u3084\u30B7\u30E7\u30C3\u30D7\u304C\u7ACB\u3061\u4E26\u3076\u3002"
-      place_day: 2
-      place_cost: 0
-      place_flag: 0
-      place_type: 0
-      drop_item1: "\u306A\u3057"
-      drop_item2: Non
-      drop_item3: Non
-      drop_item4: Non
-      drop_item5: Non
-      drop_item6: Non
-      drop_item7: Non
-      drop_item8: Non
-      drop_item9: Non
-      drop_item10: Non
-      drop_rare1: Non
-      drop_rare2: Non
-      drop_rare3: Non
-      drop_prob1: 10
-      drop_prob2: 30
-      drop_prob3: 30
-      drop_prob4: 30
-      drop_prob5: 0
-      drop_prob6: 0
-      drop_prob7: 0
-      drop_prob8: 0
-      drop_prob9: 0
-      drop_prob10: 0
-      drop_rare_prob1: 95
-      drop_rare_prob2: 5
-      drop_rare_prob3: 0
-      center_bg: Non
-      back_bg: Non
-    - ItemID: 1
       file_name: town_mini_icon
       place_Name: Shop
       place_Name_Hyouji: "\u30B7\u30E7\u30C3\u30D7"
@@ -88,7 +51,81 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: Non
       back_bg: Non
+    - ItemID: 1
+      file_name: town_mini_icon
+      place_Name: Bar
+      place_Name_Hyouji: "\u9152\u5834"
+      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30B7\u30E7\u30C3\u30D7\u3002\u304B\u308F\u3044\u3044\u611F\u3058\u3002"
+      place_day: 3
+      place_cost: 0
+      place_flag: 1
+      place_type: 0
+      drop_item1: "\u306A\u3057"
+      drop_item2: Non
+      drop_item3: Non
+      drop_item4: Non
+      drop_item5: Non
+      drop_item6: Non
+      drop_item7: Non
+      drop_item8: Non
+      drop_item9: Non
+      drop_item10: Non
+      drop_rare1: Non
+      drop_rare2: Non
+      drop_rare3: Non
+      drop_prob1: 10
+      drop_prob2: 30
+      drop_prob3: 30
+      drop_prob4: 30
+      drop_prob5: 0
+      drop_prob6: 0
+      drop_prob7: 0
+      drop_prob8: 0
+      drop_prob9: 0
+      drop_prob10: 0
+      drop_rare_prob1: 95
+      drop_rare_prob2: 5
+      drop_rare_prob3: 0
+      center_bg: Non
+      back_bg: Non
     - ItemID: 2
+      file_name: town2_mini_icon
+      place_Name: Hiroba
+      place_Name_Hyouji: "\u6751\u306E\u5E83\u5834"
+      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30C9\u30A4\u30C4\u3000\u30B2\u30F3\u30B2\u30F3\u30D0\u30C3\u30CF\u3000\u304B\u308F\u3044\u3044\u30AB\u30E9\u30D5\u30EB\u306A\u5BB6\u3084\u30B7\u30E7\u30C3\u30D7\u304C\u7ACB\u3061\u4E26\u3076\u3002"
+      place_day: 2
+      place_cost: 0
+      place_flag: 0
+      place_type: 0
+      drop_item1: "\u306A\u3057"
+      drop_item2: Non
+      drop_item3: Non
+      drop_item4: Non
+      drop_item5: Non
+      drop_item6: Non
+      drop_item7: Non
+      drop_item8: Non
+      drop_item9: Non
+      drop_item10: Non
+      drop_rare1: Non
+      drop_rare2: Non
+      drop_rare3: Non
+      drop_prob1: 10
+      drop_prob2: 30
+      drop_prob3: 30
+      drop_prob4: 30
+      drop_prob5: 0
+      drop_prob6: 0
+      drop_prob7: 0
+      drop_prob8: 0
+      drop_prob9: 0
+      drop_prob10: 0
+      drop_rare_prob1: 95
+      drop_rare_prob2: 5
+      drop_rare_prob3: 0
+      center_bg: Non
+      back_bg: Non
+    - ItemID: 3
       file_name: farm_mini_icon
       place_Name: Farm
       place_Name_Hyouji: "\u30E2\u30BF\u30EA\u30B1\u306E\u7267\u5834"
@@ -125,7 +162,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: Non
       back_bg: Non
-    - ItemID: 3
+    - ItemID: 4
       file_name: oldhouse_mini_icon
       place_Name: Emerald_Shop
       place_Name_Hyouji: "\u602A\u3057\u3052\u306A\u9928"
@@ -162,7 +199,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: Non
       back_bg: Non
-    - ItemID: 4
+    - ItemID: 5
       file_name: village_mini_icon
       place_Name: Ido
       place_Name_Hyouji: "\u6751\u306E\u4E95\u6238"
@@ -199,11 +236,11 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 2_ido_a_600_300
       back_bg: nexfan_01_800_600
-    - ItemID: 5
+    - ItemID: 6
       file_name: forest_mini_icon
       place_Name: Forest
       place_Name_Hyouji: "\u8FD1\u304F\u306E\u68EE"
-      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30D9\u30EB\u30AE\u30FC\u3000\u30CF\u30EC\u30EB\u30DC\u30B9\u3000\u4E00\u9762\u306B\u30D6\u30EB\u30FC\u30D9\u30EB\u306E\u82B1\u304C\u54B2\u304D\u4E71\u308C\u3001\u5149\u306B\u5305\u307E\u308C\u308B\u3088\u3046\u306A\u5834\u6240"
+      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5C11\u3057\u6697\u3044\u304C\u3001\u65E5\u304C\u5DEE\u3057\u8FBC\u3080\u68EE"
       place_day: 3
       place_cost: 0
       place_flag: 1
@@ -236,7 +273,7 @@ MonoBehaviour:
       drop_rare_prob3: 20
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
-    - ItemID: 6
+    - ItemID: 7
       file_name: lake_mini_icon
       place_Name: BirdSanctuali
       place_Name_Hyouji: "\u30D0\u30FC\u30C9\u30B5\u30F3\u30AF\u30C1\u30E5\u30A2\u30EA"
@@ -273,11 +310,48 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
       back_bg: mnkuhi471565673986
-    - ItemID: 7
+    - ItemID: 8
+      file_name: forest_mini_icon
+      place_Name: CatGrave
+      place_Name_Hyouji: "\u307E\u3082\u308A\u732B\u306E\u304A\u5893"
+      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30D9\u30EB\u30AE\u30FC\u3000\u30CF\u30EC\u30EB\u30DC\u30B9\u3000\u4E00\u9762\u306B\u30D6\u30EB\u30FC\u30D9\u30EB\u306E\u82B1\u304C\u54B2\u304D\u4E71\u308C\u3001\u5149\u306B\u5305\u307E\u308C\u308B\u3088\u3046\u306A\u5834\u6240"
+      place_day: 12
+      place_cost: 0
+      place_flag: 0
+      place_type: 1
+      drop_item1: "\u306A\u3057"
+      drop_item2: orange
+      drop_item3: grape
+      drop_item4: nuts
+      drop_item5: strange_grass
+      drop_item6: mint
+      drop_item7: Non
+      drop_item8: Non
+      drop_item9: Non
+      drop_item10: Non
+      drop_rare1: Non
+      drop_rare2: emerald_suger
+      drop_rare3: lemon
+      drop_prob1: 20
+      drop_prob2: 15
+      drop_prob3: 20
+      drop_prob4: 15
+      drop_prob5: 20
+      drop_prob6: 10
+      drop_prob7: 0
+      drop_prob8: 0
+      drop_prob9: 0
+      drop_prob10: 0
+      drop_rare_prob1: 70
+      drop_rare_prob2: 10
+      drop_rare_prob3: 20
+      center_bg: 1_forest_a_600_300
+      back_bg: belg_harerubos
+    - ItemID: 9
       file_name: forest_mini_icon
       place_Name: BerryFarm
       place_Name_Hyouji: "\u30D9\u30EA\u30FC\u30D5\u30A1\u30FC\u30E0"
-      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30D9\u30EB\u30AE\u30FC\u3000\u30CF\u30EC\u30EB\u30DC\u30B9\u3000\u4E00\u9762\u306B\u30D6\u30EB\u30FC\u30D9\u30EB\u306E\u82B1\u304C\u54B2\u304D\u4E71\u308C\u3001\u5149\u306B\u5305\u307E\u308C\u308B\u3088\u3046\u306A\u5834\u6240"
+      comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A"
       place_day: 6
       place_cost: 10
       place_flag: 0
@@ -310,7 +384,7 @@ MonoBehaviour:
       drop_rare_prob3: 1
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
-    - ItemID: 8
+    - ItemID: 10
       file_name: forest_mini_icon
       place_Name: Emerald_Forest
       place_Name_Hyouji: "\u30A8\u30E1\u30E9\u30EB\u30C9\u306E\u68EE"
@@ -347,7 +421,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
-    - ItemID: 9
+    - ItemID: 11
       file_name: lake_mini_icon
       place_Name: Lavender_field
       place_Name_Hyouji: "\u30A2\u30E1\u30B8\u30B9\u30C8\u306E\u6E56"
@@ -360,7 +434,7 @@ MonoBehaviour:
       drop_item2: lavender_flower
       drop_item3: peach
       drop_item4: water
-      drop_item5: Non
+      drop_item5: elder_flower
       drop_item6: Non
       drop_item7: Non
       drop_item8: Non
@@ -371,9 +445,9 @@ MonoBehaviour:
       drop_rare3: Non
       drop_prob1: 48
       drop_prob2: 25
-      drop_prob3: 7
+      drop_prob3: 2
       drop_prob4: 20
-      drop_prob5: 0
+      drop_prob5: 5
       drop_prob6: 0
       drop_prob7: 0
       drop_prob8: 0
@@ -384,7 +458,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 5_lavender_field_600_300
       back_bg: 450-20170710225117319536
-    - ItemID: 10
+    - ItemID: 12
       file_name: hill_mini_icon
       place_Name: StrawberryGarden
       place_Name_Hyouji: "\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC\u30AC\u30FC\u30C7\u30F3"
@@ -421,7 +495,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 3_strawberrygarden_600_300
       back_bg: 03l
-    - ItemID: 11
+    - ItemID: 13
       file_name: mountain_mini_icon
       place_Name: HimawariHill
       place_Name_Hyouji: "\u3072\u307E\u308F\u308A\u306E\u4E18"
@@ -458,7 +532,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 4_himawarihill_600_300
       back_bg: himawari_sample
-    - ItemID: 12
+    - ItemID: 14
       file_name: legendtree_mini_icon
       place_Name: Forget_Island
       place_Name_Hyouji: "\u5FD8\u308C\u3089\u308C\u308B\u308B\u5CF6"
@@ -495,7 +569,7 @@ MonoBehaviour:
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
       back_bg: 110618_
-    - ItemID: 13
+    - ItemID: 15
       file_name: mountain_mini_icon
       place_Name: Star_Mountain
       place_Name_Hyouji: "\u661F\u964D\u308A\u306E\u4E18"

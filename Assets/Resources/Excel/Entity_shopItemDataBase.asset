@@ -239,14 +239,14 @@ MonoBehaviour:
       shop_buy_price: 500
       item_hyouji: 1
     - ItemID: 32
-      name: maneki_cat
+      name: kuma_nuigurumi
       zaiko: 1
       itemType: 6
-      shop_sell_price: 200
-      shop_buy_price: 100
+      shop_sell_price: 800
+      shop_buy_price: 400
       item_hyouji: 1
     - ItemID: 33
-      name: amabie_pendant
+      name: amabie_statue
       zaiko: 1
       itemType: 6
       shop_sell_price: 600
@@ -690,13 +690,13 @@ MonoBehaviour:
       shop_sell_price: 5
       shop_buy_price: 2
       item_hyouji: 1
-    - ItemID: 0
-      name: 
-      zaiko: 0
-      itemType: 0
-      shop_sell_price: 0
-      shop_buy_price: 0
-      item_hyouji: 0
+    - ItemID: 210
+      name: maneki_cat
+      zaiko: 1
+      itemType: 6
+      shop_sell_price: 3
+      shop_buy_price: 2
+      item_hyouji: 1
     - ItemID: 0
       name: 
       zaiko: 0

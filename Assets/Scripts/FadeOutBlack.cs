@@ -33,4 +33,20 @@ public class FadeOutBlack : MonoBehaviour {
         this.GetComponent<CanvasGroup>().alpha = 1;
         sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 1.0f));
     }
+
+    public void NowIn()
+    {
+
+        //まず、初期値。
+        this.GetComponent<CanvasGroup>().alpha = 1;
+
+    }
+
+    public void NowOut()
+    {
+
+        //まず、初期値。
+        this.GetComponent<CanvasGroup>().alpha = 0;
+
+    }
 }

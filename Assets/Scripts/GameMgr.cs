@@ -80,7 +80,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] MapEvent_03 = new bool[Event_num];         //ストロベリーガーデン
     public static bool[] MapEvent_04 = new bool[Event_num];         //ひまわりの丘
     public static bool[] MapEvent_05 = new bool[Event_num];         //ラベンダー畑
-    public static bool[] MapEvent_06 = new bool[Event_num];         //バードサンクチュアリ
+    public static bool[] MapEvent_06 = new bool[Event_num];         //バードサンクチュアリ   
 
     //広場でのイベント
     public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ
@@ -226,6 +226,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool CompoundEvent_storyflag;
     public static int CompoundEvent_storynum; //メインシーンから、宴に移る際に、どのシナリオを読むかを指定する。
 
+    //その他、一時的なフラグ
+    public static int MapSubEvent_Flag;
+
     private PlayerItemList pitemlist;
 
     public static int system_i;
@@ -282,6 +285,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //一日の食費
     public static int Foodexpenses;
+    public static int Foodexpenses_default;
+    public static string MgrTodayFood; //今日の食事　セーブはしない
 
     //カメラズームアウトの終わりを検出する
     public static bool camerazoom_endflag;
@@ -346,7 +351,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         saveOK = false;
 
         //食費
-        Foodexpenses = 100;
+        Foodexpenses_default = 100;
+        Foodexpenses = Foodexpenses_default;
 
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。
         scenario_ON = false;

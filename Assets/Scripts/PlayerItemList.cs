@@ -11,6 +11,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
     private ItemDataBase database;
 
+    private Exp_Controller exp_Controller;
+
     private int _id;
     private int event_id;
     private int _comp_hosei;
@@ -40,7 +42,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int sheet_no; //アイテムが格納されているシート番号
 
     private int _itemcount;
-    private int _itemid;
+    private int _itemid;    
 
     //プレイヤーの所持アイテムリスト。Dictionaryなので、｛アイテムID, 個数｝の関係で格納する。
     public Dictionary<int, int> playeritemlist = new Dictionary<int, int>();
@@ -61,6 +63,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         excel_itemdatabase = Resources.Load("Excel/Entity_ItemDataBase") as Entity_ItemDataBase; //エクセルからアイテムIDを取得し、プレイヤーアイテムリストのIDと同期。
 
@@ -494,6 +499,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             {
                 if (player_originalitemlist[i].ItemKosu > 0)
                 {
+                   
                     deleteOriginalItem(i, 1);
                 }
             }
@@ -593,6 +599,17 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     {
         player_originalitemlist[_id].ItemKosu -= _kosu;
 
+        //オリジナルアイテムリスト最後のアイテムが残り一個で、extremepanelにセットされていた場合は、
+        //削除すると、expanel上のアイテムも消える。
+        if (exp_Controller._temp_extremeSetting)
+        {
+            if (_id == exp_Controller._temp_extreme_id && player_originalitemlist[exp_Controller._temp_extreme_id].ItemKosu <= 0)
+            {
+                exp_Controller._temp_extremeSetting = false;
+            }
+        }
+
+        //0以下になったら、リストそのものから削除する。
         if (player_originalitemlist[_id].ItemKosu <= 0)
         {
             player_originalitemlist.RemoveAt(_id);

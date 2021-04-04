@@ -86,6 +86,7 @@ public class Quest_Judge : MonoBehaviour {
     private int okashi_totalscore;
     private int okashi_totalkosu;
     private int okashi_score;
+    private int shokukan_score;
 
     private string _filename;
     private string _itemname;
@@ -174,6 +175,7 @@ public class Quest_Judge : MonoBehaviour {
     private Vector3 questResultPanel_tsukatext_defpos;
 
     private int keta;
+    private bool slot_ok;
 
     // Use this for initialization
     void Start () {
@@ -223,7 +225,7 @@ public class Quest_Judge : MonoBehaviour {
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        text_area = canvas.transform.Find("MessageWindow").gameObject; ; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
         //サウンドコントローラーの取得
@@ -608,9 +610,10 @@ public class Quest_Judge : MonoBehaviour {
             //①指定のトッピングがあるかをチェック。一つでも指定のものがあれば、OK
 
             nouhinOK_status = 2; //先にNGはたてておく。
+            slot_ok = false;
 
             //納品用スコアがすべて０の場合、トッピングを計算しないので、無視する。
-            for(i=0; i < itemslot_NouhinScore.Count; i++)
+            for (i=0; i < itemslot_NouhinScore.Count; i++)
             {
                 //0はNonなので、無視
                 if (i != 0)
@@ -637,17 +640,29 @@ public class Quest_Judge : MonoBehaviour {
                             if (itemslot_NouhinScore[i] != 0)
                             {
                                 nouhinOK_status = 0;
+                                slot_ok = true;
                                 break;
                             }
                         }
-                        //一つでも満たしてないものがある場合は、NGフラグがたつ。いちごくっきーがほしいのに、いちごがのってなければ、ダメ、という理屈。
+                        //のっていなかった場合は、マイナス補正
                         else
                         {
-
+                            nouhinOK_status = 0;
+                            
                         }
                     }
                     i++;
                 }
+            }
+
+            if(slot_ok)
+            {
+                //補正なし
+            }
+            else
+            {
+                //ほしいトッピングのっていないので、マイナス
+                okashi_score -= 30;
             }
 
             //②味パラメータの計算
@@ -683,7 +698,7 @@ public class Quest_Judge : MonoBehaviour {
                 }
             }
 
-            if (_sour > 0)
+            if (_bitter > 0)
             {
                 if (_basebitter >= _bitter)
                 {
@@ -726,28 +741,18 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio);
+                    shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "さくさくした感じがちょっと足りないみたい。";
                 }
 
-                /*if (_basecrispy >= _crispy)
-                {
-                    _temp_shokukan = _basecrispy - _crispy;
-                    okashi_score += _temp_shokukan;
-                }
-                else
-                {
-                    okashi_score += 0;
-                    //nouhinOK_status = 2;                
-                    _a = "さくさくした感じがちょっと足りないみたい。";
-                }*/
+                okashi_score += shokukan_score;
             }
 
             if (_fluffy > 0)
@@ -759,16 +764,18 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio);
+                    shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "ふんわり感がちょっと足りないみたい。";
                 }
+
+                okashi_score += shokukan_score;
             }
 
             if (_smooth > 0)
@@ -780,16 +787,18 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio);
+                    shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "なめらかな感じがちょっと足りないみたい。";
                 }
+
+                okashi_score += shokukan_score;
             }
 
             if (_hardness > 0)
@@ -801,17 +810,18 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio);
+                    shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "歯ごたえがちょっと足りないみたい。";
                 }
 
+                okashi_score += shokukan_score;
             }
 
             if (_jiggly > 0)
@@ -823,16 +833,18 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio);
+                    shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "ぷにぷに感がちょっと足りないみたい。";
                 }
+
+                okashi_score += shokukan_score;
             }
 
             if (_chewy > 0)
@@ -844,16 +856,18 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio);
+                    shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "噛みごたえがちょっと足りないみたい。";
                 }
+
+                okashi_score += shokukan_score;
             }
 
             if (_juice > 0)
@@ -865,16 +879,18 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    okashi_score = (int)(_basescore * _temp_ratio);
+                    shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "のどごしがちょっと足りないみたい。";
                 }
+
+                okashi_score += shokukan_score;
             }
 
             //特定のお菓子の判定。一致していない場合は、③は計算するまでもなく不正解となる。

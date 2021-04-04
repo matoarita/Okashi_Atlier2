@@ -212,6 +212,7 @@ public class Contest_Judge : MonoBehaviour {
     public bool topping_all_non;
 
     public int[] total_score;
+    private float _temp_score;
 
     private bool[] dislike_flag;
     private int dislike_status;
@@ -541,6 +542,13 @@ public class Contest_Judge : MonoBehaviour {
                             "審査員２　点数：" + total_score[1] + "点" + "\n" +
                             "審査員３　点数：" + total_score[2] + "点";
 
+                        //点数を200点を上限にし、100点に正規化する処理
+                        for (i = 0; i < GameMgr.contest_Score.Length; i++)
+                        {
+                            _temp_score = SujiMap(total_score[i], 0, 200, 0, 100);
+                            total_score[i] = (int)_temp_score;
+                        }
+
                         sum = 0;
                         for (i=0; i< GameMgr.contest_Score.Length; i++)
                         {
@@ -724,5 +732,11 @@ public class Contest_Judge : MonoBehaviour {
 
         //girllikeCompoのOkashiQuest_IDのこと。コンテストでは使ってないかも。
         _set_compID = girl1_status.Set_compID;
+    }
+
+    //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
+    float SujiMap(float value, float start1, float stop1, float start2, float stop2)
+    {
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     }
 }

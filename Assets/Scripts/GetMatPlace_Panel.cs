@@ -32,6 +32,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject content;
     private GameObject GetMatStatusButton_obj;
 
+    private GameObject getmatplace_panel;
     private GameObject getmatplace_view;
     private GameObject getmatResult_panel_obj;
     private GetMatResult_Panel getmatResult_panel;
@@ -104,6 +105,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public Dictionary<int, int> result_items;
     private bool result_off;
 
+    private bool subevent_on;
+    private bool event_end_flag;
+
     public int next_flag; //先へ進める場合のイベントナンバー
     private bool next_on; //先へ進んだ場合、ON
 
@@ -115,6 +119,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int HeroineLife;
 
     private GameObject TreasureGetitem_obj;
+
+    private GameObject Fadeout_Black_obj;
 
     // Use this for initialization
     void Start()
@@ -185,12 +191,17 @@ public class GetMatPlace_Panel : MonoBehaviour {
         MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
+        //材料採取地パネルの取得
+        getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel/Comp").gameObject;
         getmatplace_view = this.transform.Find("Comp/GetMatPlace_View").gameObject;
         getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
         getmatResult_panel = canvas.transform.Find("GetMatResult_Panel").GetComponent<GetMatResult_Panel>();
 
         //マップ背景エフェクト
         map_bg_effect = GameObject.FindWithTag("MapBG_Effect");
+
+        //フェードアウトブラックのオブジェクトを取得
+        Fadeout_Black_obj = GameObject.FindWithTag("FadeOutBlack");
 
         content = getmatplace_view.transform.Find("Viewport/Content").gameObject;
         matplace_toggle_obj = (GameObject)Resources.Load("Prefabs/MatPlace_toggle1");
@@ -245,6 +256,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         slot_view_status = 0;
 
         next_on = false;
+        subevent_on = false;
 
         InitializeResultItemDicts(); //取得したアイテム表示用のディクショナリー
     }
@@ -321,6 +333,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     Slot_view_on = false;
                     FadeManager.Instance.LoadScene("Shop", 0.3f);
+                    break;
+
+                case "Bar":
+
+                    Slot_view_on = false;
+                    FadeManager.Instance.LoadScene("Bar", 0.3f);
                     break;
 
                 case "Emerald_Shop":
@@ -530,6 +548,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     move_anim_on = true;
                     move_anim_status = 0;
 
+                    subevent_on = false;
+                    event_end_flag = false;
+
                     next_on = false;
 
                     girl1_status.hukidasiOff();
@@ -571,8 +592,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 moveanim_panel.GetComponent<FadeImage>().FadeImageOff();
                 moveanim_panel_image.SetActive(false);
                 moveanim_panel_image_text.SetActive(false);
-                moveanim_panel_image.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
-                this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.5f); //背景黒フェード
+                moveanim_panel_image.GetComponent<CanvasGroup>().DOFade(1, 0.0f);               
 
                 if (next_on) //先へ進む場合、背景も黒フェードを消す
                 {                    
@@ -589,7 +609,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 OpenTreasureButton_obj.SetActive(false);
                 NextButton_obj.SetActive(false);
 
-                if (!next_on)//先へ進むの場合は、リセットしない。
+                if (!next_on)//先へ進まない場合は、リセットしない。
                 {
                     InitializeResultItemDicts();
                     get_material.SetInit();
@@ -597,8 +617,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 slot_view_status = 1;
                 compound_Main.compound_status = 22;
-                
+
                 //音量フェードイン
+                sceneBGM.MuteOFFBGM();
                 sceneBGM.FadeInBGM();
 
                 Debug.Log(select_place_name + "へ移動");
@@ -637,19 +658,37 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             GameMgr.map_ev_ID = 10;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-                            StartCoroutine("MapEventOn");
+                            StartCoroutine(MapEventOn(0));
                         }
                         else
                         {
                             _text.text = "兄ちゃん、いっぱいとろうね！";
 
                             //サブイベントチェック
-                            if(!GameMgr.MapEvent_01[1] && pitemlist.ReturnItemKosu("shishamo_cookie") > 0) //ししゃもクッキーをもっている
+                            //Debug.Log("ししゃもクッキー所持数: " + pitemlist.ReturnItemKosu("shishamo_cookie"));
+                            if (!event_end_flag) //来るたびの初回のみイベントチェック
                             {
-                                GameMgr.map_ev_ID = 11;
-                                GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                event_end_flag = true;
 
-                                StartCoroutine("MapEventOn");
+                                //アイテム発見力が120以上のとき
+                                if (PlayerStatus.player_girl_findpower >= 120)
+                                {
+                                    if (!GameMgr.MapEvent_01[1] && pitemlist.ReturnItemKosu("shishamo_cookie") != 9999) //ししゃもクッキーをもっている
+                                    {
+                                        GameMgr.map_ev_ID = 11;
+                                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                        pitemlist.SearchDeleteItem("shishamo_cookie"); //ししゃもクッキーを一個消費
+                                       
+                                        subevent_on = true;
+                                        sceneBGM.MuteBGM();
+                                        this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
+                                        getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
+                                        Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
+
+                                        StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
+                                    }
+                                }
                             }
                         }
 
@@ -682,7 +721,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             GameMgr.map_ev_ID = 60;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-                            StartCoroutine("MapEventOn");
+                            StartCoroutine(MapEventOn(0));
                         }
                         else
                         {
@@ -728,7 +767,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             GameMgr.map_ev_ID = 40;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-                            StartCoroutine("MapEventOn");
+                            StartCoroutine(MapEventOn(0));
                         }
                         else
                         {
@@ -761,7 +800,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             GameMgr.map_ev_ID = 50;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-                            StartCoroutine("MapEventOn");
+                            StartCoroutine(MapEventOn(0));
                         }
                         else
                         {
@@ -797,12 +836,50 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             //次回以降、バードサンクチュアリにいけるようになる。
                             matplace_database.matPlaceKaikin("BirdSanctuali");
 
-                            StartCoroutine("MapEventOn");
+                            StartCoroutine(MapEventOn(0));
                         }
                         else
                         {
                             _text.text = "兄ちゃん。とりさんとあそぼ！！";
                         }
+
+                        break;
+
+                    case "CatGrave":
+
+                        //ねこのおはかのBGM
+                        sceneBGM.OnGetMat_CatGraveBGM();
+                        compound_Main.bgm_change_flag = true;
+
+                        //背景エフェクト
+                        //map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
+
+                        //イベントチェック
+                        /*if (!GameMgr.MapEvent_06[0])
+                        {
+                            GameMgr.MapEvent_06[0] = true;
+
+                            _text.text = "兄ちゃん。とりさんがいっぱいいるよ～！！";
+
+                            slot_view_status = 3; //イベント読み込み中用に退避
+
+                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                            event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
+
+                            GameMgr.map_ev_ID = 20;
+                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                            //次回以降、バードサンクチュアリにいけるようになる。
+                            matplace_database.matPlaceKaikin("BirdSanctuali");
+
+                            StartCoroutine(MapEventOn(0));
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん。とりさんとあそぼ！！";
+                        }*/
+
+                        _text.text = "ねこのお墓がある。";
 
                         break;
 
@@ -828,7 +905,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             GameMgr.map_ev_ID = 30;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-                            StartCoroutine("MapEventOn");
+                            StartCoroutine(MapEventOn(0));
                         }
                         else
                         {
@@ -838,7 +915,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     default:
                         break;
-                }                
+                }          
+                
+                if(!subevent_on) //サブイベントなどが発生しなければ、そのままフェードをONにして探索開始
+                {
+                    this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.5f); //背景黒フェード
+                }
 
                 break;
 
@@ -1099,7 +1181,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         timeOut -= Time.deltaTime;
     }
 
-    IEnumerator MapEventOn()
+    IEnumerator MapEventOn(int _status)
     {      
         //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
         slot_tansaku_button_obj.SetActive(false);
@@ -1118,13 +1200,44 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         text_area.SetActive(true);
         slot_tansaku_button_obj.SetActive(true);
-        for(i=0; i<mapevent_panel.Count; i++)
+        getmatplace_panel.SetActive(true);　//Compオブジェクトをon
+
+        subevent_on = false;
+
+        for (i=0; i<mapevent_panel.Count; i++)
         {
             mapevent_panel[i].SetActive(false);
         }
-        
 
-        slot_view_status = 1; //通常の材料集めシーンに切り替え
+        switch(GameMgr.MapSubEvent_Flag)
+        {
+            case 0:
+               
+                break;
+
+            case 10: //ねこのお墓をみつけた
+
+                GameMgr.MapEvent_01[1] = true; //ししゃもクッキーイベント終了のフラグ
+
+                matplace_database.matPlaceKaikin("CatGrave"); //ねこのお墓解禁
+                select_place_name = "CatGrave";
+                _text.text = "ねこのお墓がある。";
+
+                PlayerStatus.girl1_Love_exp += 50;//ハートが50あがっている。
+               
+                break;
+        }
+
+        if(_status == 0)
+        {
+            slot_view_status = 1; //通常の材料集めシーンに切り替え
+        }
+        else //マップでサブイベントも読み込んだ場合
+        {
+            slot_view_status = 0; //イベント後にマップを切り替える場合
+            Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut(); //FadeOutBlackは、家の背景を隠す用のブラック。フェードアウトでOFFにする。
+        }
+
     }
 
     void StatusPanelOFF()

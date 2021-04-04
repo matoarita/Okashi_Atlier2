@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 20,
-		"TotalSegmentCount": 20,
-		"TotalPointCount": 40,
+		"CurveCount": 22,
+		"TotalSegmentCount": 22,
+		"TotalPointCount": 44,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -58,6 +58,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeSmall",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
@@ -83,10 +94,10 @@
 			"Id": "ParamMouthForm",
 			"Segments": [
 				0,
-				-1,
+				-0.7,
 				0,
 				1,
-				-1
+				-0.7
 			]
 		},
 		{
@@ -202,6 +213,17 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamCry",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamTojime",
 			"Segments": [
 				0,
 				0,

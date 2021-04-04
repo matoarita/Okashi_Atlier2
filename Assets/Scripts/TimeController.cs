@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TimeController : MonoBehaviour
 {
@@ -70,7 +71,13 @@ public class TimeController : MonoBehaviour
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+                break;
+        }
 
         //カレンダー初期化
         calender.Clear();
