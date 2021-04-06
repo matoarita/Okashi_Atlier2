@@ -627,7 +627,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     {
         PlayerStatus.Setup_PlayerStatus(); //プレイヤーステータスの初期化
         girl1_status.ResetDefaultStatus(); //女の子ステータスの初期化
-        GameMgr.ResetGameDefaultStatus(); //ゲームステータスの初期化
+        GameMgr.ResetGameDefaultStatus(); //ゲームステータスの初期化　イベントフラグ関係は、ここで初期化
 
         //アイテムデータの初期化
         //アイテムリスト＜デフォルト＞
@@ -653,6 +653,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //マップフラグの初期化
         matplace_database.ResetDefaultMapExcel();
+
+        //各ショップのイベントアイテムの在庫の初期化
     }
 
     //セーブデータがあるかどうかだけをチェック

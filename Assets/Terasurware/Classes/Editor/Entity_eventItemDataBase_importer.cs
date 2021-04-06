@@ -58,10 +58,11 @@ public class Entity_eventItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(5); p.sell_price = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(6); p.kosu = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(7); p.read_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(8); p.list_hyouji_on = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(9); p.memo = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(10); p.Re_flag_num = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(11); p.Ev_flag_num = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(8); p.item_Type = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.list_hyouji_on = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(10); p.memo = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(11); p.Re_flag_num = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(12); p.Ev_flag_num = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

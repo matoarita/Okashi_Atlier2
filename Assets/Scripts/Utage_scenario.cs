@@ -1997,9 +1997,9 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);
 
         //採点をセット
-        engine.Param.TrySetParameter("contest_score1", GameMgr.contest_Score[0]);
-        engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]);
-        engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]);
+        engine.Param.TrySetParameter("contest_score1", GameMgr.contest_Score[0]); //タカノ
+        engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]); //アントワネット
+        engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]); //村長
         engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
 
         //

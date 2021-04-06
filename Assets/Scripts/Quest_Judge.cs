@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System.Linq;
 
@@ -14,6 +15,7 @@ public class Quest_Judge : MonoBehaviour {
 
     private GameObject shopMain_obj;
     private Shop_Main shopMain;
+    private Bar_Main barMain;
 
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -189,7 +191,20 @@ public class Quest_Judge : MonoBehaviour {
         trans = maincam_animator.GetInteger("trans");
 
         shopMain_obj = GameObject.FindWithTag("Shop_Main");
-        shopMain = shopMain_obj.GetComponent<Shop_Main>();
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Bar":
+
+                barMain = shopMain_obj.GetComponent<Bar_Main>();
+                break;
+
+            case "Shop":
+
+                shopMain = shopMain_obj.GetComponent<Shop_Main>();
+                break;
+        }
+                       
 
         shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
@@ -1195,7 +1210,19 @@ public class Quest_Judge : MonoBehaviour {
         back_ShopFirst_btn.interactable = true;
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-        shopMain.shop_status = 0;
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Bar":
+
+                barMain.shop_status = 0;
+                break;
+
+            case "Shop":
+
+                shopMain.shop_status = 0;
+                break;
+        }
+        
     }
 
 

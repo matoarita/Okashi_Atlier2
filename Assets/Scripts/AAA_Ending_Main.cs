@@ -51,7 +51,6 @@ public class AAA_Ending_Main : MonoBehaviour {
         timeOut = 1.0f;
         TotalcountSec = 1;
 
-        PlayerStatus.girl1_Love_exp = 0;
         GameMgr.stage_number = 100;
 
         ed_end_flag = false;

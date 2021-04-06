@@ -621,12 +621,12 @@ MonoBehaviour:
   - name: EmeraldShopItemDB_1
     list:
     - ItemID: 200
-      name: Meid_Costume
+      name: Meid_Black_Costume
       zaiko: 1
       itemType: 5
       shop_sell_price: 3
       shop_buy_price: 1
-      item_hyouji: 0
+      item_hyouji: 1
     - ItemID: 201
       name: Sukumizu_Costume
       zaiko: 1
@@ -635,7 +635,7 @@ MonoBehaviour:
       shop_buy_price: 1
       item_hyouji: 1
     - ItemID: 202
-      name: Miko_Costume
+      name: RedDress_Costume
       zaiko: 1
       itemType: 5
       shop_sell_price: 5
@@ -670,27 +670,48 @@ MonoBehaviour:
       shop_buy_price: 1
       item_hyouji: 1
     - ItemID: 207
+      name: TwincleStarDust_Acce
+      zaiko: 1
+      itemType: 5
+      shop_sell_price: 5
+      shop_buy_price: 1
+      item_hyouji: 1
+    - ItemID: 208
+      name: FlowerHairpin_Acce
+      zaiko: 1
+      itemType: 5
+      shop_sell_price: 5
+      shop_buy_price: 1
+      item_hyouji: 1
+    - ItemID: 209
+      name: BalloonHat_Acce
+      zaiko: 1
+      itemType: 5
+      shop_sell_price: 5
+      shop_buy_price: 1
+      item_hyouji: 1
+    - ItemID: 210
       name: slimejelly_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 5
       shop_buy_price: 2
       item_hyouji: 0
-    - ItemID: 208
+    - ItemID: 211
       name: Kakejiku
       zaiko: 1
-      itemType: 5
+      itemType: 6
       shop_sell_price: 3
       shop_buy_price: 5
       item_hyouji: 0
-    - ItemID: 209
+    - ItemID: 212
       name: itembox_3
       zaiko: 1
       itemType: 6
       shop_sell_price: 5
       shop_buy_price: 2
       item_hyouji: 1
-    - ItemID: 210
+    - ItemID: 213
       name: maneki_cat
       zaiko: 1
       itemType: 6

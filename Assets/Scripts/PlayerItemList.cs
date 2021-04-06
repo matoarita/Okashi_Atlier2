@@ -30,6 +30,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private string ev_fileName, ev_itemName, ev_itemNameHyouji;
     private int ev_kosu;
     private int ev_cost, ev_sell;
+    private int ev_itemType;
     private int ev_read_flag; //そのレシピを読み終えたかどうかをチェックするフラグ
     private int ev_list_on; //レシピリストに、表示するか否か。1の場合、リストに表示され、使用すると、そのレシピの内容を読むことができる。
     private string ev_memo;
@@ -135,13 +136,14 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_sell = excel_eventitemdatabase.sheets[sheet_no].list[count].sell_price;
                 ev_kosu = excel_eventitemdatabase.sheets[sheet_no].list[count].kosu;
                 ev_read_flag = excel_eventitemdatabase.sheets[sheet_no].list[count].read_flag;
+                ev_itemType = excel_eventitemdatabase.sheets[sheet_no].list[count].item_Type;
                 ev_list_on = excel_eventitemdatabase.sheets[sheet_no].list[count].list_hyouji_on;
                 ev_memo = excel_eventitemdatabase.sheets[sheet_no].list[count].memo;
                 ev_reflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Re_flag_num;
                 ev_evflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Ev_flag_num;
 
                 //ここでリストに追加している
-                eventitemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_list_on, ev_memo, ev_reflag_num, ev_evflag_num));
+                eventitemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_itemType, ev_list_on, ev_memo, ev_reflag_num, ev_evflag_num));
 
                 ++count;
             }
@@ -179,13 +181,14 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 ev_sell = excel_eventitemdatabase.sheets[sheet_no].list[count].sell_price;
                 ev_kosu = excel_eventitemdatabase.sheets[sheet_no].list[count].kosu;
                 ev_read_flag = excel_eventitemdatabase.sheets[sheet_no].list[count].read_flag;
+                ev_itemType = excel_eventitemdatabase.sheets[sheet_no].list[count].item_Type;
                 ev_list_on = excel_eventitemdatabase.sheets[sheet_no].list[count].list_hyouji_on;
                 ev_memo = excel_eventitemdatabase.sheets[sheet_no].list[count].memo;
                 ev_reflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Re_flag_num;
                 ev_evflag_num = excel_eventitemdatabase.sheets[sheet_no].list[count].Ev_flag_num;
 
                 //ここでリストに追加している
-                emeralditemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_list_on, ev_memo, ev_reflag_num, ev_evflag_num));
+                emeralditemlist.Add(new ItemEvent(_id, ev_fileName, ev_itemName, ev_itemNameHyouji, ev_cost, ev_sell, ev_kosu, ev_read_flag, ev_itemType, ev_list_on, ev_memo, ev_reflag_num, ev_evflag_num));
 
                 ++count;
             }
@@ -711,6 +714,40 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return _itemcount; //該当するIDがない場合 0
     }
 
+    //エメラルドアイテムの衣装アイテムの総所持数をカウント
+    public int emeralditemlist_CostumeCount()
+    {
+        _itemcount = 0;
+
+        for (i = 0; i < emeralditemlist.Count; i++)
+        {
+            if(emeralditemlist[i].ev_itemType == 1 && emeralditemlist[i].ev_itemKosu >= 1)
+            {
+                _itemcount++;
+            }
+            //Debug.Log("アイテム名: " + emeralditemlist[i].event_itemName + "　所持数: " + emeralditemlist[i].ev_itemKosu);
+        }
+
+        return _itemcount;
+    }
+
+    //エメラルドアイテムの衣装アイテムの総数をカウント
+    public int emeralditemlist_CostumeAllCount()
+    {
+        _itemcount = 0;
+
+        for (i = 0; i < emeralditemlist.Count; i++)
+        {
+            if (emeralditemlist[i].ev_itemType == 1)
+            {
+                _itemcount++;
+            }
+            //Debug.Log("アイテム名: " + emeralditemlist[i].event_itemName + "　所持数: " + emeralditemlist[i].ev_itemKosu);
+        }
+
+        return _itemcount;
+    }
+
     //アイテムIDを入力すると、エメラルドアイテム名を返す処理
     public string NameFindEmerald(int _itemid)
     {
@@ -741,4 +778,6 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             Debug.Log("アイテム名: " + emeralditemlist[i].event_itemName + "　所持数: " + emeralditemlist[i].ev_itemKosu);
         }
     }
+
+    
 }

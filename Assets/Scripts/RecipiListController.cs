@@ -24,6 +24,7 @@ public class RecipiListController : MonoBehaviour {
 
     private Sprite texture2d;
     private Image _Img;
+    private Image _TextBGImg;
     private GameObject _HighStar;
     private GameObject _HighStar_2;
 
@@ -247,6 +248,8 @@ public class RecipiListController : MonoBehaviour {
         _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
         _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _TextBGImg = _recipi_listitem[list_count].transform.Find("Background/TextBG").GetComponent<Image>();
+        _TextBGImg.color = new Color(239f / 250f, 184f / 255f, 255f / 255f);
         _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
         _HighStar_2 = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar_2").gameObject;
 
@@ -280,6 +283,8 @@ public class RecipiListController : MonoBehaviour {
         _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
         _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _TextBGImg = _recipi_listitem[list_count].transform.Find("Background/TextBG").GetComponent<Image>();
+        _TextBGImg.color = new Color(255f / 255f, 250f / 255f, 184f / 255f);
         _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
         _HighStar_2 = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar_2").gameObject;
 

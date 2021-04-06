@@ -30,6 +30,7 @@ public class itemSelectToggle : MonoBehaviour
     private Compound_Main compound_Main;
 
     private Shop_Main shop_Main;
+    private Bar_Main bar_Main;
 
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
@@ -157,6 +158,14 @@ public class itemSelectToggle : MonoBehaviour
             case "Shop":
 
                 shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
+
+                back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
+                back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
+                break;
+
+            case "Bar":
+
+                bar_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Bar_Main>();
 
                 back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
                 back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
@@ -311,6 +320,34 @@ public class itemSelectToggle : MonoBehaviour
 
                         itemsell_active(); //アイテムを売る
                         break;
+                }
+            }
+
+            else if (SceneManager.GetActiveScene().name == "Bar") // ショップでやりたい処理
+            {
+                itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
+
+                back_ShopFirst_btn.interactable = false;
+
+                switch (bar_Main.shop_scene)
+                {
+
+                    case 3: //納品時の画面開いた時
+
+                        NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+                        shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                        shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+                        questjudge_obj = GameObject.FindWithTag("Quest_Judge");
+                        questjudge = questjudge_obj.GetComponent<Quest_Judge>();
+
+                        //黒半透明パネルの取得
+                        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+
+                        nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
+                        break;
+
                 }
             }
 

@@ -255,11 +255,14 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
                 {
                     //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
-                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0)
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag)
                     {
-                        if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
+                        if (shop_database.emeraldshop_items[i].shop_itemType == 0 || shop_database.emeraldshop_items[i].shop_itemType == 5)
                         {
-                            drawEmerarldShopItem();
+                            if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
+                            {
+                                drawEmerarldShopItem();
+                            }
                         }
                     }
                 }
@@ -316,8 +319,24 @@ public class ShopItemListController : MonoBehaviour
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
                         {
 
-                            drawEmerarldShopItem();
+                            drawFarmItem();
 
+                        }
+                    }
+                }
+                break;
+
+            case "Emerald_Shop":
+
+                for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+                {
+                    //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag
+                        && shop_database.emeraldshop_items[i].shop_itemType == 3)
+                    {
+                        if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
+                        {
+                            drawEmerarldShopItem();
                         }
                     }
                 }
@@ -385,6 +404,22 @@ public class ShopItemListController : MonoBehaviour
                 }
                 break;
 
+            case "Emerald_Shop":
+
+                for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+                {
+                    //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag
+                        && shop_database.emeraldshop_items[i].shop_itemType == 2)
+                    {
+                        if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
+                        {
+                            drawEmerarldShopItem();
+                        }
+                    }
+                }
+                break;
+
             default:
 
                 break;
@@ -438,6 +473,22 @@ public class ShopItemListController : MonoBehaviour
 
                             drawFarmItem();
 
+                        }
+                    }
+                }
+                break;
+
+            case "Emerald_Shop":
+
+                for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+                {
+                    //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag
+                        && shop_database.emeraldshop_items[i].shop_itemType == 1)
+                    {
+                        if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
+                        {
+                            drawEmerarldShopItem();
                         }
                     }
                 }
@@ -497,6 +548,22 @@ public class ShopItemListController : MonoBehaviour
 
                             drawFarmItem();
 
+                        }
+                    }
+                }
+                break;
+
+            case "Emerald_Shop":
+
+                for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+                {
+                    //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag
+                        && shop_database.emeraldshop_items[i].shop_itemType == 6)
+                    {
+                        if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
+                        {
+                            drawEmerarldShopItem();
                         }
                     }
                 }

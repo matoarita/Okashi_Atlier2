@@ -15,6 +15,7 @@ public class ItemEvent
     public int event_cost_price;
     public int event_sell_price;
     public int ev_itemKosu;
+    public int ev_itemType;
     public int ev_ReadFlag;
     public int ev_ListOn;
 
@@ -25,7 +26,7 @@ public class ItemEvent
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemEvent(int id, string file_Name, string ev_item, string ev_itemNameHyouji, int _cost, int _sell, int kosu, int flag, int list_on, string _memo, int reflag_num, int evflag_num)
+    public ItemEvent(int id, string file_Name, string ev_item, string ev_itemNameHyouji, int _cost, int _sell, int kosu, int flag, int itemType, int list_on, string _memo, int reflag_num, int evflag_num)
     {
         ev_ItemID = id;
         event_fileName = file_Name;
@@ -35,6 +36,7 @@ public class ItemEvent
         event_cost_price = _cost;
         event_sell_price = _sell;
         ev_itemKosu = kosu;
+        ev_itemType = itemType;
         ev_ReadFlag = flag;
         ev_ListOn = list_on;
 

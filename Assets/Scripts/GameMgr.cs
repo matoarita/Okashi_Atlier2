@@ -304,6 +304,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         timeLeft = 1.0f;
 
         //エンディングカウント。リセットされない。
+        ending_number = 1;
         ending_count = 0;
 
         //各イベントフラグ・ゲームパラメーターの初期設定

@@ -18,6 +18,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private Compound_Main compound_Main;
 
     private Shop_Main shop_Main;
+    private Bar_Main bar_Main;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -287,6 +288,23 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
+            case "Bar":
+
+                bar_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Bar_Main>();
+
+                switch (bar_Main.shop_scene)
+                {
+                    case 3: //納品時にアイテムを選択するときの処理
+
+                        yes_button.SetActive(false);
+                        no_button.SetActive(false);
+                        reset_and_DrawView();
+
+                        break;
+
+                }
+                break;
+
             default:
 
                 reset_and_DrawView();
@@ -479,6 +497,32 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         }
                     }
 
+                    else if (SceneManager.GetActiveScene().name == "Bar") //納品時にリストを開くとき
+                    {
+                        switch (bar_Main.shop_scene)
+                        {
+                            case 3:
+
+                                //お菓子のみ表示
+                                if (database.items[i].itemType.ToString() == "Okashi")
+                                {
+                                    itemlist_hyouji();
+                                }
+                                break;
+
+                            case 5:
+
+                                //フルーツかレアアイテムを表示
+                                if (database.items[i].itemType.ToString() == "Mat" || database.items[i].itemType_sub.ToString() == "Rare")
+                                {
+
+                                    itemlist_hyouji();
+                                }
+
+                                break;
+                        }
+                    }
+
                     else //調合以外のシーンでは、所持アイテム全て表示
                     {
                         itemlist_hyouji();
@@ -579,6 +623,30 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             }
                                 break;
                     }                   
+                }
+                else if (SceneManager.GetActiveScene().name == "Bar") //納品時にリストを開くとき
+                {
+                    switch (bar_Main.shop_scene)
+                    {
+                        case 3:
+
+                            //お菓子のみ表示
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                            {
+                                original_itemlist_hyouji();
+                            }
+                            break;
+
+                        case 5:
+
+                            //フルーツかレアアイテムを表示
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Rare")
+                            {
+
+                                original_itemlist_hyouji();
+                            }
+                            break;
+                    }
                 }
                 else
                 {
