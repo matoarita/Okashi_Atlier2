@@ -427,19 +427,29 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
 
-                                if (database.items[i].itemType.ToString() == "Mat")
+                                if (GameMgr.tutorial_ON == true)
                                 {
-                                    itemlist_hyouji();
+                                    if (database.items[i].itemName == "komugiko" || database.items[i].itemName == "butter" || database.items[i].itemName == "suger")
+                                    {
+                                        itemlist_hyouji();
+                                    }
                                 }
-                                else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
-                                    database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
-                                    database.items[i].itemType_sub.ToString() == "Crepe_Mat")
+                                else
                                 {
-                                    itemlist_hyouji();
-                                }
-                                else if (database.items[i].itemType_sub.ToString() == "Garbage" || database.items[i].itemType_sub.ToString() == "Machine")
-                                {
-                                    itemlist_hyouji();
+                                    if (database.items[i].itemType.ToString() == "Mat")
+                                    {
+                                        itemlist_hyouji();
+                                    }
+                                    else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
+                                        database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
+                                        database.items[i].itemType_sub.ToString() == "Crepe_Mat" || database.items[i].itemType_sub.ToString() == "Castella")
+                                    {
+                                        itemlist_hyouji();
+                                    }
+                                    else if (database.items[i].itemType_sub.ToString() == "Garbage" || database.items[i].itemType_sub.ToString() == "Machine")
+                                    {
+                                        itemlist_hyouji();
+                                    }
                                 }
 
                                 break;
@@ -557,19 +567,30 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。
 
-                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat")
+                            if (GameMgr.tutorial_ON == true)
                             {
-                                original_itemlist_hyouji();
+                                if (pitemlist.player_originalitemlist[i].itemName == "komugiko" || pitemlist.player_originalitemlist[i].itemName == "butter" ||
+                                    pitemlist.player_originalitemlist[i].itemName == "suger")
+                                {
+                                    original_itemlist_hyouji();
+                                }
                             }
-                            else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
-                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
-                                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat")
+                            else
                             {
-                                original_itemlist_hyouji();
-                            }
-                            else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Garbage" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Machine")
-                            {
-                                original_itemlist_hyouji();
+                                if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat")
+                                {
+                                    original_itemlist_hyouji();
+                                }
+                                else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
+                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
+                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Castella")
+                                {
+                                    original_itemlist_hyouji();
+                                }
+                                else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Garbage" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Machine")
+                                {
+                                    original_itemlist_hyouji();
+                                }
                             }
 
                             break;
@@ -772,7 +793,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Potion" || 
                                     database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Berry" ||
                                     database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate_Mat" ||
-                                    database.items[i].itemType_sub.ToString() == "IceCream" )
+                                    database.items[i].itemType_sub.ToString() == "IceCream")
                                 {
                                     itemlist_hyouji();
                                 }

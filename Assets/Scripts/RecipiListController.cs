@@ -207,17 +207,6 @@ public class RecipiListController : MonoBehaviour {
                 }
             }
         }
-
-        //調合DBのフラグをチェック
-        /*for (i = 0; i < databaseCompo.compoitems.Count; i++)
-        {
-            if (databaseCompo.compoitems[i].cmpitem_flag == 1) //調合DBのフラグが1のアイテムのみ、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
-            {
-                //Debug.Log(i);
-                drawNormalRecipi();
-
-            }
-        }*/
     }
 
     void reset_and_DrawView_Okashi()
@@ -234,7 +223,8 @@ public class RecipiListController : MonoBehaviour {
         //調合DBのフラグをチェック
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
-            if (databaseCompo.compoitems[i].cmpitem_flag == 1) //調合DBのフラグが1のアイテムのみ、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
+            //調合DBのフラグが1（調合したことがある）かつ、ゲーム中に登場するフラグがONのやつを、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
+            if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)                
             {
                 //Debug.Log(i);
                 drawNormalRecipi();
@@ -332,5 +322,29 @@ public class RecipiListController : MonoBehaviour {
         _Img.sprite = texture2d;
 
         ++list_count;
+    }
+
+    //デバッグ用　本全て解放　本を所持したことにする。
+    public void Debug_R1_button()
+    {
+        //イベント用レシピのフラグをチェック。レシピリストから、さらに読めるものを表示。章クリア用のメモなど。
+        for (i = 0; i < pitemlist.eventitemlist.Count; i++)
+        {
+            pitemlist.eventitemlist[i].ev_itemKosu = 1;
+        }
+
+        RecipiList_DrawView();
+    }
+
+    //デバッグ用　全てのレシピ全て解放
+    public void Debug_R2_button()
+    {
+        //調合DBのフラグをチェック
+        for (i = 0; i < databaseCompo.compoitems.Count; i++)
+        {
+            databaseCompo.compoitems[i].cmpitem_flag = 1;
+        }
+
+        RecipiList_DrawView2();
     }
 }

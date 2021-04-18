@@ -17,8 +17,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //** --ここまで-- **//
 
-
-    public static int scenario_flag;    //全シーンで共通。今、どのシナリオまできているか。
+   
     public static bool scenario_ON;     //全シーンで共通。宴・シナリオを優先するフラグ。これがONのときは、調合シーンなどでも、宴の表示をまず優先する。宴を読み終えたらOFFにする。
     public static int scenario_flag_input;     //デバッグ用。シナリオフラグをインスペクタから入力
     public static int scenario_flag_cullent;   //デバッグ用。現在のシナリオフラグを確認用
@@ -37,6 +36,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様
     public static int stageclear_cullentlove; //クエストをクリアするのに、必要なハートの蓄積量。
 
+
+
+    /* セーブする */
+
+    public static int scenario_flag;    //全シーンで共通。今、どのシナリオまできているか。クエストやステージではなく、ゲーム自体の進行度を表す。
+    public static int ending_count;     //エンディングを迎えた回数
+    public static int stage_number;     //ステージ番号
+
+    //セーブしたかどうかを保存しておくフラグ
+    public static bool saveOK;
+
+    //初期アイテム取得のフラグ
+    public static bool gamestart_recipi_get;
+
     //現在着ているコスチュームの番号
     public static int Costume_Num;
     public static int[] Accesory_Num = new int[6]; //アクセ番号 現在アクセ数６個
@@ -54,27 +67,33 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float game_Recipi_archivement_rate;
 
     //イベントフラグ
-    public static int GirlLoveEvent_num;            //女の子の好感度に応じて発生するイベントの、イベント番号
-    public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
-    public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
-    public static bool questclear_After;            //クエストクリアボタンを押したよ、というフラグ。セーブの必要はなし。
-
+    public static int GirlLoveEvent_num;            //女の子の好感度に応じて発生するイベントの、イベント番号   
     public static bool[] GirlLoveEvent_stage1 = new bool[GirlLoveEvent_stage_num];  //各イベントの、現在読み中かどうかのフラグ。
     public static bool[] GirlLoveEvent_stage2 = new bool[GirlLoveEvent_stage_num];
     public static bool[] GirlLoveEvent_stage3 = new bool[GirlLoveEvent_stage_num];
 
-    //クッキーをはじめて作ったかどうか、などのゲーム序盤に○○の処理をしたかどうかを判定するイベントフラグ
-    public static bool[] Beginner_flag = new bool[Event_num]; //0=はじめてクッキーを作った 1=ラスクのレシピを読んだ
+    //クリア時の好感度
+    public static int stage1_girl1_loveexp; //ステージ１クリア時の好感度を保存
+    public static int stage2_girl1_loveexp;
+    public static int stage3_girl1_loveexp;
 
-    //好感度やパティシエレベルで発生するサブイベントのフラグ
-    public static int GirlLoveSubEvent_num;
-    public static int girlloveevent_bunki; //メインイベントかサブイベントかを分岐する
+    public static int stage1_clear_love;
+    public static int stage2_clear_love;
+    public static int stage3_clear_love;
+
+    //クッキーをはじめて作ったかどうか、などのゲーム序盤に○○の処理をしたかどうかを判定するイベントフラグ   
+    public static bool[] Beginner_flag = new bool[Event_num];
+    //0:はじめてクッキーを作った
+    //1:ラスクのレシピを読んだ
+    //2:コレクションアイテムをはじめて手に入れた
+    //3:チュートリアルを読んだ
+    //4:体力がはじめて0になった
+    //はじめての調合、はじめての仕上げは、PlayerStatusで管理
+
+    //好感度やパティシエレベルで発生するサブイベントのフラグ   
     public static bool[] GirlLoveSubEvent_stage1 = new bool[GirlLoveSubEvent_stage_num];
 
     //マップイベント
-    public static int　map_ev_ID;           //その時のイベント番号
-    public static bool map_event_flag;      //マップイベントの、宴を表示する用のフラグ
-
     public static bool[] MapEvent_01 = new bool[Event_num];         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
     public static bool[] MapEvent_02 = new bool[Event_num];         //井戸。
     public static bool[] MapEvent_03 = new bool[Event_num];         //ストロベリーガーデン
@@ -83,8 +102,58 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] MapEvent_06 = new bool[Event_num];         //バードサンクチュアリ   
 
     //広場でのイベント
-    public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ
     public static bool[] hiroba_event_end = new bool[99]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。
+
+    //ショップのイベントリスト
+    public static bool[] ShopEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+    public static bool[] ShopLVEvent_stage = new bool[Event_num]; //パティシエレベルなどに応じたイベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+
+    //ショップのうわさ話リスト
+    public static bool[] ShopUwasa_stage1 = new bool[Event_num]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
+
+    //エメラルドショップのイベントリスト
+    public static bool[] emeraldShopEvent_stage = new bool[Event_num];
+
+    //牧場のイベントリスト
+    public static bool[] FarmEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+
+    //コンテストのイベントリスト
+    public static bool[] ContestEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+
+    //エクストリームパネルのアイテム保存
+    public static int sys_extreme_itemID;
+    public static int sys_extreme_itemType;
+
+    //お菓子イベントクリアのフラグ
+    public static bool[] OkashiQuest_flag_stage1 = new bool[Event_num]; //各イベントのクリアしたかどうかのフラグ。
+    public static bool[] OkashiQuest_flag_stage2 = new bool[Event_num];
+    public static bool[] OkashiQuest_flag_stage3 = new bool[Event_num];
+
+    public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
+    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。
+
+    //さっき食べたお菓子情報
+    public static string Okashi_lasthint; //さっき食べたお菓子のヒント。
+    public static string Okashi_lastname; //さっき食べたお菓子の名前。
+    public static int Okashi_lastID; //さっき食べたお菓子のアイテムID
+    public static int Okashi_makeID; //さっき作ったお菓子のアイテムID。セーブ不要。
+    public static int Okashi_lastshokukan_param; //さっき食べたお菓子のパラメータ
+    public static string Okashi_lastshokukan_mes; //さっき食べたお菓子のパラメータ
+    public static int Okashi_lastsweat_param; //さっき食べたお菓子のパラメータ
+    public static int Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
+    public static int Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
+    public static int Okashi_totalscore; //女の子にあげたときの点数
+
+    //コンテスト審査員の点数
+    public static int[] contest_Score = new int[3];
+    public static int contest_TotalScore;
+
+    /* セーブ　ここまで */
+
+
+
+    //広場イベント発生フラグ
+    public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ   
     public static int hiroba_event_placeNum;  //どの場所を選んだか
     public static int hiroba_event_ID; //イベントID
 
@@ -109,6 +178,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool mainClear_flag;      //クエストクリア時のイベント    
     public static bool QuestClearButtonMessage_flag;  //クエストクリア時のボタン出現時、一言しゃべる
 
+    //好感度イベント発生フラグ
+    public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
+    public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
+    public static bool questclear_After;            //クエストクリアボタンを押したよ、というフラグ。セーブの必要はなし。
+
+    public static int GirlLoveSubEvent_num;
+    public static int girlloveevent_bunki; //メインイベントかサブイベントかを分岐する
+
     //エメラルどんぐりゲット時の会話
     public static bool emeralDonguri_flag;  //高得点時、エメラルどんぐりをくれるイベント発生のフラグ
     public static int emeralDonguri_status;
@@ -121,37 +198,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool sleep_flag;
     public static int sleep_status;
 
-    //お菓子イベントクリアのフラグ
-    public static bool[] OkashiQuest_flag_stage1 = new bool[Event_num]; //各イベントのクリアしたかどうかのフラグ。
-    public static bool[] OkashiQuest_flag_stage2 = new bool[Event_num];
-    public static bool[] OkashiQuest_flag_stage3 = new bool[Event_num];
-
-    public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
+    //お菓子クエストクリアフラグの発生関係
     //public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。現在未使用。
-    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。
     public static bool QuestClearAnim_Flag;   //クリアしたときに、ボタンを登場させるか否かのフラグ。そのクエストの最後のときだけ演出をだす時に使う。
 
-    //さっき食べたお菓子情報
-    public static string Okashi_lasthint; //さっき食べたお菓子のヒント。
-    public static string Okashi_lastname; //さっき食べたお菓子の名前。
-    public static int Okashi_lastID; //さっき食べたお菓子のアイテムID
-    public static int Okashi_makeID; //さっき作ったお菓子のアイテムID。セーブ不要。
-    public static int Okashi_lastshokukan_param; //さっき食べたお菓子のパラメータ
-    public static string Okashi_lastshokukan_mes; //さっき食べたお菓子のパラメータ
-    public static int Okashi_lastsweat_param; //さっき食べたお菓子のパラメータ
-    public static int Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
-    public static int Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
-
+    
     //お菓子イベント現在のナンバー
-    public static int OkashiQuest_Num;
+    public static int OkashiQuest_Num; //セーブはしなくてもGirlLoveEvent_numからロード時に自動で設定し直すので大丈夫。
 
     //お菓子の点数基準値
     public static int low_score;
     public static int high_score;
     public static int high_score_2;
 
-    //お菓子の点数
-    public static int Okashi_totalscore; //女の子にあげたときの点数
+    //お菓子の点数    
     public static int Okashi_dislike_status; //状態。2で、新しいお菓子をあげた場合
     public static int Okashi_OnepointHint_num; //お菓子あげたあと、一言メモを更新する。そのときのヒント番号
 
@@ -167,16 +227,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool shop_hint;
     public static int shop_hint_num;
 
-    public static int stage_number;     //ステージ番号
+    //マップイベント発生フラグ
+    public static int map_ev_ID;           //その時のイベント番号
+    public static bool map_event_flag;      //マップイベントの、宴を表示する用のフラグ
 
-    public static int stage1_girl1_loveexp; //ステージ１クリア時の好感度を保存
-    public static int stage2_girl1_loveexp;
-    public static int stage3_girl1_loveexp;
-
-    public static int stage1_clear_love;
-    public static int stage2_clear_love;
-    public static int stage3_clear_love;
-
+   
+    //ステージはじまりの日付
     public static int stage1_start_day;
     public static int stage2_start_day;
     public static int stage3_start_day;
@@ -185,38 +241,24 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage2_limit_day;
     public static int stage3_limit_day;
 
-    //ショップのイベントリスト
-    public static bool[] ShopEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
-    public static bool[] ShopLVEvent_stage = new bool[Event_num]; //パティシエレベルなどに応じたイベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
-
-    //ショップのうわさ話リスト
-    public static bool[] ShopUwasa_stage1 = new bool[Event_num]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
-
-    //エメラルドショップのイベントリスト
-    public static bool[] emeraldShopEvent_stage = new bool[Event_num];
+    //エメラルドショップのイベント発生フラグ
     public static bool emeraldshop_event_flag;  //ショップで発生するイベントのフラグ。
     public static int emeraldshop_event_num;
 
-    //コンテストのイベントリスト
-    public static bool[] ContestEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+    //コンテストのイベント発生フラグ
     public static bool contest_event_flag;  //ショップで発生するイベントのフラグ。
     public static int contest_event_num;
 
     //コンテストに提出したお菓子
     public static string contest_okashiName;
     public static string contest_okashiSlotName;
-
-    //コンテスト審査員の点数
-    public static int[] contest_Score = new int[3];
-    public static int contest_TotalScore;
+    
 
     //エンディングのフラッグ
     public static bool ending_on;       //コンテストメインで、エンディングシーンへ移動するためのフラグ
-    public static int ending_number;    //エンディング番号
-    public static int ending_count;     //エンディングを迎えた回数
+    public static int ending_number;    //エンディング番号    
 
-    //牧場のイベントリスト
-    public static bool[] FarmEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+    //牧場のイベント発生フラグ
     public static bool farm_event_flag;  //ショップで発生するイベントのフラグ。
     public static int farm_event_num;
 
@@ -245,16 +287,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ステージ最初の読み込みフラグ
     public static bool stage1_load_ok;
 
-    //初期アイテム取得のフラグ
-    public static bool gamestart_recipi_get;
-
-    //エクストリームパネルのアイテム保存
-    public static int sys_extreme_itemID;
-    public static int sys_extreme_itemType;
-
-    //セーブしたかどうかを保存しておくフラグ
-    public static bool saveOK;
-
     //ロード「続きから」を押したフラグ
     public static bool GameLoadOn;
 
@@ -263,6 +295,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //オプションの設定　マスター音量など
     public static float MasterVolumeParam;
+
+    public static bool Scene_back_home; //シーンから、メイン画面にもどるときの、ドア開閉時の音を鳴らす用のフラグ。
+
+    //カメラズームアウトの終わりを検出する
+    public static bool camerazoom_endflag;
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
@@ -278,18 +315,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ゲームの通貨名
     public static string MoneyCurrency;
 
-    public static bool Scene_back_home; //シーンから、メイン画面にもどるときの、ドア開閉時の音を鳴らす用のフラグ。
-
     //時間の概念を使用するかどうかのフラグ
     public static bool TimeUSE_FLAG = true; //使用するならtrue
 
     //一日の食費
     public static int Foodexpenses;
     public static int Foodexpenses_default;
-    public static string MgrTodayFood; //今日の食事　セーブはしない
-
-    //カメラズームアウトの終わりを検出する
-    public static bool camerazoom_endflag;
+    public static string MgrTodayFood; //今日の食事　セーブはしない   
 
 
     // Use this for initialization
@@ -493,6 +525,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             MapEvent_02[system_i] = false;
             MapEvent_03[system_i] = false;
             MapEvent_04[system_i] = false;
+            MapEvent_05[system_i] = false;
+            MapEvent_06[system_i] = false;
         }
 
         //通常お菓子感想フラグ
@@ -553,17 +587,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage3_limit_day = 211;
 
         //コレクションアイテムリストDBと、登録リスト初期化
-        CollectionItemsName.Clear();
-        CollectionItemsName.Add("amabie_pendant");
-        CollectionItemsName.Add("green_pendant");
-        CollectionItemsName.Add("star_pendant");
-        CollectionItemsName.Add("aquamarine_pendant");
-        CollectionItemsName.Add("white_lily");
-        CollectionItemsName.Add("himmeli");
-        CollectionItemsName.Add("maneki_cat");
-        CollectionItemsName.Add("copper_coin");
-        CollectionItemsName.Add("compass");
-        CollectionItemsName.Add("star_bottle");
+        InitCollectionItemsLibrary();        
 
         CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
@@ -579,4 +603,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         
     }
     
+    public static void InitCollectionItemsLibrary()
+    {
+        CollectionItemsName.Clear();
+        CollectionItemsName.Add("amabie_pendant");
+        CollectionItemsName.Add("green_pendant");
+        CollectionItemsName.Add("star_pendant");
+        CollectionItemsName.Add("aquamarine_pendant");
+        CollectionItemsName.Add("white_lily");
+        CollectionItemsName.Add("himmeli");
+        CollectionItemsName.Add("maneki_cat");
+        CollectionItemsName.Add("copper_coin");
+        CollectionItemsName.Add("compass");
+        CollectionItemsName.Add("star_bottle");
+    }
 }

@@ -43,6 +43,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private List<GameObject> mapevent_panel = new List<GameObject>();
     private GameObject event_panel;
+    private GameObject event_Frame;
 
     private GameObject moveanim_panel;
     private GameObject moveanim_panel_image;
@@ -65,6 +66,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject get_material_obj;
     private GetMaterial get_material;
+
+    private GameObject mainUIFrame_panel;
 
     private GameObject map_imageBG;
     private Texture2D texture2d;
@@ -197,6 +200,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
         getmatResult_panel = canvas.transform.Find("GetMatResult_Panel").GetComponent<GetMatResult_Panel>();
 
+        mainUIFrame_panel = canvas.transform.Find("MainUIPanel/MainUIPanelTopFrame").gameObject;
+
         //マップ背景エフェクト
         map_bg_effect = GameObject.FindWithTag("MapBG_Effect");
 
@@ -241,7 +246,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
             i++;
         }
         event_panel = slot_view.transform.Find("EventPanel/").gameObject;
-
+        event_Frame = slot_view.transform.Find("EventFrame").gameObject;
+        event_Frame.SetActive(false);
 
         map_imageBG = this.transform.Find("Comp/Map_ImageBG").gameObject;
         map_imageBG.SetActive(false);
@@ -481,7 +487,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
         else
         {
-            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "探索費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
+            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "移動費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
                 + "  " + "体力消費：" + GameMgr.ColorPink + "1" + "</color>";
         }
 
@@ -654,6 +660,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
+                            event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 10;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -717,6 +724,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
+                            event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 60;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -762,7 +770,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
+                            event_panel.transform.Find("MapEv_FirstStrawberry").gameObject.SetActive(true);
+                            event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 40;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -795,7 +804,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
+                            //event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
+                            //event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 50;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -829,6 +839,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
+                            event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 20;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -888,7 +899,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //井戸のBGM
                         sceneBGM.OnGetMat_IdoBGM();
                         compound_Main.bgm_change_flag = true;
-                        
+
+                        //背景エフェクト
+                        map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
                         //イベントチェック
                         if (!GameMgr.MapEvent_02[0])
                         {
@@ -900,7 +914,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
                             event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
-                            
+                            event_Frame.SetActive(true);
+
 
                             GameMgr.map_ev_ID = 30;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -1208,8 +1223,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             mapevent_panel[i].SetActive(false);
         }
+        event_Frame.SetActive(false);
 
-        switch(GameMgr.MapSubEvent_Flag)
+        switch (GameMgr.MapSubEvent_Flag)
         {
             case 0:
                
@@ -1244,6 +1260,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         MoneyStatus_Panel_obj.SetActive(false);
         GetMatStatusButton_obj.SetActive(false);
+        mainUIFrame_panel.SetActive(false);
         if (GameMgr.TimeUSE_FLAG)
         {
             TimePanel_obj1.SetActive(false);
@@ -1254,6 +1271,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         MoneyStatus_Panel_obj.SetActive(true);
         GetMatStatusButton_obj.SetActive(true);
+        mainUIFrame_panel.SetActive(true);
         if (GameMgr.TimeUSE_FLAG)
         {
             TimePanel_obj1.SetActive(true);

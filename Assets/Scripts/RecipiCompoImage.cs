@@ -11,7 +11,6 @@ public class RecipiCompoImage : MonoBehaviour {
     private Text recipi_tassei_text;
 
     private int i, count;
-    private int all_recipicount, cullent_recipi_count;
     private float recipi_archivement_rate;
 
     // Use this for initialization
@@ -36,9 +35,7 @@ public class RecipiCompoImage : MonoBehaviour {
 
         this.transform.Find("Panel").gameObject.SetActive(true);
 
-        all_recipicount = 0;
-        cullent_recipi_count = 0;
-
+        //現在のレシピ数を更新
         databaseCompo.RecipiCount_database();
 
         recipi_tassei_text.text = GameMgr.game_Cullent_recipi_count + " / " + GameMgr.game_All_recipi_count + " " 

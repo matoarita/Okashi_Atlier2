@@ -138,10 +138,11 @@ public class StatusPanel : MonoBehaviour {
         renkinnextLV_param = paramview1.transform.Find("ParamG_param/Text").GetComponent<Text>();
         zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
 
-        /* メインステータス画面更新 */
-        OnStatusMainPanel();
+        /* メインステータス画面更新 */       
         this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/StatusMain_Toggle").GetComponent<Toggle>().isOn = true;
-
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Costume_Toggle").GetComponent<Toggle>().isOn = false;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Collection_Toggle").GetComponent<Toggle>().isOn = false;
+        OnStatusMainPanel();
     }
 
     public void OnStatusMainPanel()

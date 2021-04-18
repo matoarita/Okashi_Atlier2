@@ -361,7 +361,7 @@ MonoBehaviour:
       slot_Name: Mint
       slot_Hyouki_1: "\u30DF\u30F3\u30C8\u6DFB\u3048"
       slot_Hyouki_2: "\u30DF\u30F3\u30C8\u6DFB\u3048"
-      slot_totalscore: -15
+      slot_totalscore: -50
       slot_getgirllove: 10
       slot_money: 150
     - ItemID: 50

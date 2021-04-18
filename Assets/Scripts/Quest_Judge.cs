@@ -1091,7 +1091,7 @@ public class Quest_Judge : MonoBehaviour {
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 175) //150~175
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 3.5f);
-                    _kanso = "まるで宝石のように美しい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
+                    _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 175 && okashi_totalscore < 200) //175~200
                 {
@@ -1131,7 +1131,7 @@ public class Quest_Judge : MonoBehaviour {
                 sc.PlaySe(6);
 
                 _getMoney = (int)(_buy_price * _kosu_default * 0.1f);
-                _text.text = "ごめんなさい。お客様、あまり満足じゃなかったみたい。" + "\n" + "次は頑張ってね。" + "\n" +
+                _text.text = "ごめんなさい。ちょっとお菓子が違ってたみたい。" + "\n" + "次はちゃんと正しいものを持ってきてね。" + "\n" +
                     "　報酬 " + GameMgr.ColorYellow + _getMoney + GameMgr.MoneyCurrency + "　</color>" + "を受け取った！";
 
                 Debug.Log("納品失敗..");
@@ -1145,18 +1145,17 @@ public class Quest_Judge : MonoBehaviour {
                 ResetQuestStatus();
                 break;
 
-            case 2: //ほしいトッピングが乗ってなかった場合。
+            case 2: //0点以下の場合
 
                 sc.PlaySe(6);
 
                 if (_a != "")
                 {
-                    //_text.text = _a + "\n" + "う～ん。もうちょっと味を頑張ったほうがいいかも。";
-                    _text.text = "う～ん。お客さん、あまり喜んでいないみたい..。";
+                    _text.text = "う～ん。お客さん、あまり喜んでいないみたい..。" + "\n" + "次は頑張ってね。";
                 }
                 else
                 {
-                    _text.text = "う～ん。お客さん、あまり喜んでいないみたい..";
+                    _text.text = "う～ん。お客さん、あまり喜んでいないみたい.." + "\n" + "次は頑張ってね。";
                 }
 
                 Debug.Log("納品失敗..");

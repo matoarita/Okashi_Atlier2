@@ -39,6 +39,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil
+      recipi_count: 1
     - ItemID: 1
       cmpitemName: appaleil_Free
       cmpitemID_1: empty
@@ -64,6 +65,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil
+      recipi_count: 0
     - ItemID: 2
       cmpitemName: appaleil_Potion
       cmpitemID_1: appaleil
@@ -89,6 +91,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil
+      recipi_count: 0
     - ItemID: 3
       cmpitemName: appaleil_honey
       cmpitemID_1: suger
@@ -114,6 +117,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_honey
+      recipi_count: 1
     - ItemID: 4
       cmpitemName: appaleil_honey_Free
       cmpitemID_1: honey
@@ -139,6 +143,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_honey
+      recipi_count: 0
     - ItemID: 5
       cmpitemName: appaleil_milk
       cmpitemID_1: suger
@@ -164,6 +169,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_milk
+      recipi_count: 1
     - ItemID: 6
       cmpitemName: appaleil_milk_Free
       cmpitemID_1: milk
@@ -189,6 +195,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_milk
+      recipi_count: 0
     - ItemID: 7
       cmpitemName: appaleil_icecream
       cmpitemID_1: milk
@@ -214,6 +221,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_icecream
+      recipi_count: 1
     - ItemID: 8
       cmpitemName: appaleil_icecream_Free
       cmpitemID_1: milk
@@ -239,6 +247,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_icecream
+      recipi_count: 0
     - ItemID: 9
       cmpitemName: shio_milk
       cmpitemID_1: salt
@@ -264,6 +273,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: shio_milk
+      recipi_count: 1
     - ItemID: 10
       cmpitemName: appaleil_creampuff2
       cmpitemID_1: shio_milk
@@ -289,6 +299,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: appaleil_creampuff2
+      recipi_count: 1
     - ItemID: 11
       cmpitemName: appaleil_creampuff_nouse
       cmpitemID_1: appaleil_creampuff
@@ -305,7 +316,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 1
       success_rate: 100
       renkin_Bexp: 3
@@ -314,6 +325,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_creampuff_nouse
+      recipi_count: 0
     - ItemID: 12
       cmpitemName: appaleil_creampuff_Free
       cmpitemID_1: shio_milk
@@ -339,6 +351,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: appaleil_creampuff2
+      recipi_count: 0
     - ItemID: 13
       cmpitemName: appaleil_donuts
       cmpitemID_1: appaleil
@@ -364,6 +377,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_donuts
+      recipi_count: 1
     - ItemID: 14
       cmpitemName: appaleil_maffin
       cmpitemID_1: suger
@@ -389,6 +403,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_maffin
+      recipi_count: 1
     - ItemID: 15
       cmpitemName: appaleil_maffin_Free
       cmpitemID_1: baking_powder
@@ -414,6 +429,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_maffin
+      recipi_count: 0
     - ItemID: 16
       cmpitemName: baking_mix
       cmpitemID_1: suger
@@ -439,6 +455,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: baking_mix
+      recipi_count: 1
     - ItemID: 17
       cmpitemName: baking_mix_Free
       cmpitemID_1: baking_powder
@@ -464,6 +481,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: baking_mix
+      recipi_count: 0
     - ItemID: 18
       cmpitemName: appaleil_cookie
       cmpitemID_1: butter
@@ -489,6 +507,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_cookie
+      recipi_count: 1
     - ItemID: 19
       cmpitemName: appaleil_cookie_Free
       cmpitemID_1: empty
@@ -514,6 +533,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_cookie
+      recipi_count: 0
     - ItemID: 20
       cmpitemName: appaleil_cookie_Potion
       cmpitemID_1: appaleil_cookie
@@ -539,6 +559,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_cookie
+      recipi_count: 0
     - ItemID: 21
       cmpitemName: appaleil_cookie_Tea
       cmpitemID_1: appaleil_cookie
@@ -564,6 +585,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_cookie
+      recipi_count: 0
     - ItemID: 22
       cmpitemName: appaleil_cookie_2
       cmpitemID_1: appaleil_cookie
@@ -589,6 +611,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil
+      recipi_count: 1
     - ItemID: 23
       cmpitemName: mazekiji
       cmpitemID_1: empty
@@ -614,6 +637,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: mazekiji
+      recipi_count: 0
     - ItemID: 24
       cmpitemName: appaleil_yellow
       cmpitemID_1: egg_yellow
@@ -639,6 +663,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: appaleil_yellow
+      recipi_count: 1
     - ItemID: 25
       cmpitemName: meringue
       cmpitemID_1: egg_white
@@ -664,6 +689,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: meringue
+      recipi_count: 1
     - ItemID: 26
       cmpitemName: custard_cream
       cmpitemID_1: appaleil_yellow
@@ -689,6 +715,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: custard_cream
+      recipi_count: 1
     - ItemID: 27
       cmpitemName: financier_powder
       cmpitemID_1: komugiko
@@ -714,6 +741,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: financier_powder
+      recipi_count: 1
     - ItemID: 28
       cmpitemName: whipped cream_row
       cmpitemID_1: row_cream
@@ -739,6 +767,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_row
+      recipi_count: 1
     - ItemID: 29
       cmpitemName: whipped cream_row_Free
       cmpitemID_1: row_cream
@@ -764,6 +793,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_row
+      recipi_count: 0
     - ItemID: 30
       cmpitemName: cream_row_ricotta
       cmpitemID_1: ricotta_cheese
@@ -789,6 +819,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_row_ricotta
+      recipi_count: 1
     - ItemID: 31
       cmpitemName: cream_row_orange
       cmpitemID_1: whipped cream_row
@@ -814,6 +845,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_row_orange
+      recipi_count: 0
     - ItemID: 32
       cmpitemName: cream_row_grape
       cmpitemID_1: whipped cream_row
@@ -839,6 +871,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_row_grape
+      recipi_count: 0
     - ItemID: 33
       cmpitemName: cream_row_blueberry
       cmpitemID_1: whipped cream_row
@@ -864,6 +897,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_row_blueberry
+      recipi_count: 0
     - ItemID: 34
       cmpitemName: cream_row_strawberry
       cmpitemID_1: whipped cream_row
@@ -889,6 +923,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_row_strawberry
+      recipi_count: 1
     - ItemID: 35
       cmpitemName: cream_row_banana
       cmpitemID_1: whipped cream_row
@@ -914,6 +949,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_row_banana
+      recipi_count: 0
     - ItemID: 36
       cmpitemName: whipped cream_row_Fruits
       cmpitemID_1: whipped cream_row
@@ -939,6 +975,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_row
+      recipi_count: 0
     - ItemID: 37
       cmpitemName: whipped cream
       cmpitemID_1: whipped cream_row
@@ -964,6 +1001,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream
+      recipi_count: 1
     - ItemID: 38
       cmpitemName: whipped cream_orange
       cmpitemID_1: cream_row_orange
@@ -989,6 +1027,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_orange
+      recipi_count: 0
     - ItemID: 39
       cmpitemName: whipped cream_grape
       cmpitemID_1: cream_row_grape
@@ -1014,6 +1053,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_grape
+      recipi_count: 0
     - ItemID: 40
       cmpitemName: whipped cream_blurberry
       cmpitemID_1: cream_row_blueberry
@@ -1039,6 +1079,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_blurberry
+      recipi_count: 0
     - ItemID: 41
       cmpitemName: whipped cream_strawberry
       cmpitemID_1: cream_row_strawberry
@@ -1064,6 +1105,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_strawberry
+      recipi_count: 1
     - ItemID: 42
       cmpitemName: whipped cream_banana
       cmpitemID_1: cream_row_banana
@@ -1089,6 +1131,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_banana
+      recipi_count: 0
     - ItemID: 43
       cmpitemName: whipped cream_strawberry2
       cmpitemID_1: whipped cream_row
@@ -1114,6 +1157,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: whipped cream_strawberry2
+      recipi_count: 0
     - ItemID: 44
       cmpitemName: himawari_Oil
       cmpitemID_1: himawari_seed
@@ -1139,6 +1183,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: himawari_Oil
+      recipi_count: 1
     - ItemID: 45
       cmpitemName: 
       cmpitemID_1: 
@@ -1164,11 +1209,12 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 46
       cmpitemName: orange_jam
       cmpitemID_1: orange
       cmpitemID_2: suger
-      cmpitemID_3: empty
+      cmpitemID_3: milkpan
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
@@ -1176,7 +1222,7 @@ MonoBehaviour:
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
+      cmpitem_kosu3: 1
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
@@ -1189,6 +1235,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: orange_jam
+      recipi_count: 0
     - ItemID: 47
       cmpitemName: 
       cmpitemID_1: 
@@ -1214,6 +1261,7 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 48
       cmpitemName: kogashi_butter
       cmpitemID_1: butter
@@ -1239,6 +1287,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: kogashi_butter
+      recipi_count: 1
     - ItemID: 49
       cmpitemName: 
       cmpitemID_1: 
@@ -1264,6 +1313,7 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 50
       cmpitemName: 
       cmpitemID_1: 
@@ -1289,6 +1339,7 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 51
       cmpitemName: 
       cmpitemID_1: 
@@ -1314,6 +1365,7 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 52
       cmpitemName: 
       cmpitemID_1: 
@@ -1339,6 +1391,7 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 53
       cmpitemName: 
       cmpitemID_1: 
@@ -1364,6 +1417,7 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 54
       cmpitemName: neko_cookie
       cmpitemID_1: komugiko
@@ -1389,6 +1443,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: neko_cookie
+      recipi_count: 1
     - ItemID: 55
       cmpitemName: neko_cookie_2
       cmpitemID_1: komugiko
@@ -1414,6 +1469,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: neko_cookie
+      recipi_count: 0
     - ItemID: 56
       cmpitemName: kogashi_neko_cookie
       cmpitemID_1: komugiko
@@ -1439,6 +1495,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: kogashi_neko_cookie
+      recipi_count: 1
     - ItemID: 57
       cmpitemName: kogashi_neko_cookie_Free
       cmpitemID_1: komugiko
@@ -1464,6 +1521,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: kogashi_neko_cookie
+      recipi_count: 0
     - ItemID: 58
       cmpitemName: cookie_nonsuger
       cmpitemID_1: komugiko
@@ -1489,6 +1547,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: cookie_nonsuger
+      recipi_count: 1
     - ItemID: 59
       cmpitemName: cookie_nonsuger_Free
       cmpitemID_1: komugiko
@@ -1514,6 +1573,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: cookie_nonsuger
+      recipi_count: 0
     - ItemID: 60
       cmpitemName: emerald_neko_cookie
       cmpitemID_1: komugiko
@@ -1539,6 +1599,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: emerald_neko_cookie
+      recipi_count: 1
     - ItemID: 61
       cmpitemName: cookie_himawari_oil
       cmpitemID_1: komugiko
@@ -1564,6 +1625,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: cookie_himawari_oil
+      recipi_count: 0
     - ItemID: 62
       cmpitemName: neko_cookie_Free
       cmpitemID_1: empty
@@ -1589,6 +1651,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: neko_cookie
+      recipi_count: 0
     - ItemID: 63
       cmpitemName: egg_neko_cookie
       cmpitemID_1: komugiko
@@ -1614,6 +1677,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: egg_neko_cookie
+      recipi_count: 1
     - ItemID: 64
       cmpitemName: cheese_cookie
       cmpitemID_1: neko_cookie
@@ -1639,6 +1703,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cheese_cookie
+      recipi_count: 1
     - ItemID: 65
       cmpitemName: aizan_neko_cookie
       cmpitemID_1: neko_cookie
@@ -1664,6 +1729,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: aizan_neko_cookie
+      recipi_count: 1
     - ItemID: 66
       cmpitemName: heart_neko_cookie
       cmpitemID_1: neko_cookie
@@ -1689,6 +1755,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: heart_neko_cookie
+      recipi_count: 1
     - ItemID: 67
       cmpitemName: jewely_neko_cookie
       cmpitemID_1: neko_cookie
@@ -1714,6 +1781,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: jewely_neko_cookie
+      recipi_count: 1
     - ItemID: 68
       cmpitemName: mixcolor_neko_cookie
       cmpitemID_1: neko_cookie
@@ -1739,6 +1807,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: mixcolor_neko_cookie
+      recipi_count: 1
     - ItemID: 69
       cmpitemName: orange_neko_cookie
       cmpitemID_1: neko_cookie
@@ -1764,6 +1833,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: orange_neko_cookie
+      recipi_count: 1
     - ItemID: 70
       cmpitemName: orange_neko_cookie_jam
       cmpitemID_1: neko_cookie
@@ -1789,6 +1859,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: orange_neko_cookie_jam
+      recipi_count: 0
     - ItemID: 71
       cmpitemName: pinkorange_neko_cookie
       cmpitemID_1: neko_cookie
@@ -1814,6 +1885,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: pinkorange_neko_cookie
+      recipi_count: 0
     - ItemID: 72
       cmpitemName: grape_cookie
       cmpitemID_1: neko_cookie
@@ -1839,6 +1911,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: grape_cookie
+      recipi_count: 1
     - ItemID: 73
       cmpitemName: strawberry_cookie
       cmpitemID_1: neko_cookie
@@ -1864,6 +1937,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: strawberry_cookie
+      recipi_count: 1
     - ItemID: 74
       cmpitemName: banana_cookie
       cmpitemID_1: neko_cookie
@@ -1889,6 +1963,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: banana_cookie
+      recipi_count: 1
     - ItemID: 75
       cmpitemName: blueberry_cookie
       cmpitemID_1: neko_cookie
@@ -1914,6 +1989,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: blueberry_cookie
+      recipi_count: 1
     - ItemID: 76
       cmpitemName: pear_cookie
       cmpitemID_1: neko_cookie
@@ -1939,6 +2015,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: pear_cookie
+      recipi_count: 1
     - ItemID: 77
       cmpitemName: peach_cookie
       cmpitemID_1: neko_cookie
@@ -1964,6 +2041,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: peach_cookie
+      recipi_count: 1
     - ItemID: 78
       cmpitemName: cherry_cookie
       cmpitemID_1: neko_cookie
@@ -1989,6 +2067,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cherry_cookie
+      recipi_count: 1
     - ItemID: 79
       cmpitemName: sakura_cookie
       cmpitemID_1: neko_cookie
@@ -2014,6 +2093,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: sakura_cookie
+      recipi_count: 1
     - ItemID: 80
       cmpitemName: honey_cookie
       cmpitemID_1: neko_cookie
@@ -2039,6 +2119,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: honey_cookie
+      recipi_count: 1
     - ItemID: 81
       cmpitemName: cocoa_cookie
       cmpitemID_1: neko_cookie
@@ -2064,6 +2145,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cocoa_cookie
+      recipi_count: 1
     - ItemID: 82
       cmpitemName: shishamo_cookie
       cmpitemID_1: neko_cookie
@@ -2089,6 +2171,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: shishamo_cookie
+      recipi_count: 1
     - ItemID: 83
       cmpitemName: cookie_base_icebox
       cmpitemID_1: cookie_base
@@ -2114,6 +2197,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cookie_base_icebox
+      recipi_count: 0
     - ItemID: 84
       cmpitemName: star_cookie
       cmpitemID_1: neko_cookie
@@ -2139,6 +2223,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: star_cookie
+      recipi_count: 1
     - ItemID: 85
       cmpitemName: sugerbutter_cookie
       cmpitemID_1: neko_cookie
@@ -2164,6 +2249,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: sugerbutter_cookie
+      recipi_count: 1
     - ItemID: 86
       cmpitemName: 
       cmpitemID_1: 
@@ -2189,6 +2275,7 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 87
       cmpitemName: bugget
       cmpitemID_1: komugiko
@@ -2214,6 +2301,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: bugget
+      recipi_count: 1
     - ItemID: 88
       cmpitemName: bugget_Free
       cmpitemID_1: water
@@ -2239,6 +2327,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: bugget
+      recipi_count: 0
     - ItemID: 89
       cmpitemName: bugget_orange
       cmpitemID_1: bugget
@@ -2255,7 +2344,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
@@ -2264,6 +2353,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: bugget_orange
+      recipi_count: 0
     - ItemID: 90
       cmpitemName: bugget_blueberry
       cmpitemID_1: bugget
@@ -2280,7 +2370,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
@@ -2289,6 +2379,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: bugget_blueberry
+      recipi_count: 0
     - ItemID: 91
       cmpitemName: bugget_sliced
       cmpitemID_1: bugget
@@ -2314,6 +2405,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: bugget_sliced
+      recipi_count: 1
     - ItemID: 92
       cmpitemName: bugget_sliced_powder
       cmpitemID_1: bugget_powder
@@ -2339,6 +2431,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: bugget_sliced_powder
+      recipi_count: 0
     - ItemID: 93
       cmpitemName: bugget_orange_sliced
       cmpitemID_1: bugget_orange
@@ -2355,7 +2448,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 1
       success_rate: 100
       renkin_Bexp: 5
@@ -2364,6 +2457,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: bugget_orange_sliced
+      recipi_count: 0
     - ItemID: 94
       cmpitemName: bugget_blueberry_sliced
       cmpitemID_1: bugget_blueberry
@@ -2380,7 +2474,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 1
       success_rate: 100
       renkin_Bexp: 5
@@ -2389,6 +2483,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: bugget_blueberry_sliced
+      recipi_count: 0
     - ItemID: 95
       cmpitemName: bugget_sliced_karikari
       cmpitemID_1: bugget_sliced
@@ -2405,7 +2500,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 1
       success_rate: 100
       renkin_Bexp: 5
@@ -2414,6 +2509,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: bugget_sliced_karikari
+      recipi_count: 0
     - ItemID: 96
       cmpitemName: bugget_sliced_karikari_butter
       cmpitemID_1: bugget_sliced
@@ -2430,7 +2526,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 2.5
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 1
       success_rate: 100
       renkin_Bexp: 5
@@ -2439,6 +2535,7 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: bugget_sliced_karikari_butter
+      recipi_count: 0
     - ItemID: 97
       cmpitemName: 
       cmpitemID_1: 
@@ -2464,6 +2561,7 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 98
       cmpitemName: financier
       cmpitemID_1: appaleil_honey
@@ -2485,36 +2583,12 @@ MonoBehaviour:
       success_rate: 95
       renkin_Bexp: 5
       Comment: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7CFB"
-      Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30FC\u30E2\u30F3\u30C9\u30D7\u30FC\u30C9\u30EB\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
+      Comment2: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7528\u306E\u7C89\xD7\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30CF\u30CB\u30FC\uFF1E\xD7\u7126\u304C\u3057\u30D0\u30BF\u30FC"
       KeisanMethod: Use
       comp_count: 0
       release_recipi: financier
+      recipi_count: 1
     - ItemID: 99
-      cmpitemName: financier_Hard
-      cmpitemID_1: financier_powder
-      cmpitemID_2: appaleil_white
-      cmpitemID_3: kogashi_butter
-      cmp_subtype_1: empty
-      cmp_subtype_2: empty
-      cmp_subtype_3: empty
-      result_itemID: financier
-      result_kosu: 1
-      cmpitem_kosu1: 1
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 1
-      best_kosu1: 1
-      best_kosu2: 1
-      best_kosu3: 1
-      cmp_flag: 0
-      cost_time: 3
-      success_rate: 5
-      renkin_Bexp: 34
-      Comment: 
-      Comment2: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\u7528\u306E\u7C89\xD7\u5375\u767D\xD7\u7802\u7CD6\xD7\u7126\u304C\u3057\u30D0\u30BF\u30FC"
-      KeisanMethod: Non
-      comp_count: 0
-      release_recipi: financier_Hard
-    - ItemID: 100
       cmpitemName: financier_Orange
       cmpitemID_1: financier
       cmpitemID_2: orange
@@ -2530,7 +2604,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 3
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 3
       success_rate: 95
       renkin_Bexp: 8
@@ -2539,7 +2613,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: financier_Orange
-    - ItemID: 101
+      recipi_count: 0
+    - ItemID: 100
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -2564,7 +2639,86 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
+    - ItemID: 101
+      cmpitemName: castella
+      cmpitemID_1: appaleil_honey
+      cmpitemID_2: komugiko
+      cmpitemID_3: zarame
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: castella
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 1
+      best_kosu2: 5
+      best_kosu3: 2.5
+      cmp_flag: 0
+      cost_time: 3
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: "\u30AB\u30B9\u30C6\u30E9\u7CFB"
+      Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30FC\u30E2\u30F3\u30C9\u30D7\u30FC\u30C9\u30EB\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
+      KeisanMethod: Use
+      comp_count: 0
+      release_recipi: castella
+      recipi_count: 1
     - ItemID: 102
+      cmpitemName: castella_Free
+      cmpitemID_1: appaleil_honey
+      cmpitemID_2: zarame
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: Komugiko
+      result_itemID: castella
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 1
+      best_kosu2: 2.5
+      best_kosu3: 5
+      cmp_flag: 0
+      cost_time: 3
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u8584\u529B\u7C89\xD7\u30A2\u30FC\u30E2\u30F3\u30C9\u30D7\u30FC\u30C9\u30EB\xD7\u30A2\u30D1\u30EC\u30A4\u30E6"
+      KeisanMethod: Use
+      comp_count: 0
+      release_recipi: castella
+      recipi_count: 0
+    - ItemID: 0
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
+      comp_count: 0
+      release_recipi: 
+      recipi_count: 0
+    - ItemID: 104
       cmpitemName: maffin
       cmpitemID_1: appaleil
       cmpitemID_2: komugiko
@@ -2589,7 +2743,34 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: maffin_baking
-    - ItemID: 103
+      recipi_count: 0
+    - ItemID: 105
+      cmpitemName: maffin_Free
+      cmpitemID_1: appaleil
+      cmpitemID_2: salt
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: Komugiko
+      result_itemID: maffin
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 1
+      best_kosu2: 1.3
+      best_kosu3: 4.3
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u30A2\u30D1\u30EC\u30A4\u30E6\xD7\u5C0F\u9EA6\u7C89\xD7\u5869"
+      KeisanMethod: Use
+      comp_count: 0
+      release_recipi: maffin_baking
+      recipi_count: 0
+    - ItemID: 106
       cmpitemName: maffin_baking
       cmpitemID_1: appaleil_maffin
       cmpitemID_2: komugiko
@@ -2614,106 +2795,33 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: maffin_baking
-    - ItemID: 104
-      cmpitemName: 
-      cmpitemID_1: 
-      cmpitemID_2: 
-      cmpitemID_3: 
-      cmp_subtype_1: 
-      cmp_subtype_2: 
-      cmp_subtype_3: 
-      result_itemID: 
-      result_kosu: 0
-      cmpitem_kosu1: 0
-      cmpitem_kosu2: 0
-      cmpitem_kosu3: 0
-      best_kosu1: 0
-      best_kosu2: 0
-      best_kosu3: 0
-      cmp_flag: 0
-      cost_time: 0
-      success_rate: 0
-      renkin_Bexp: 0
-      Comment: 
-      Comment2: 
-      KeisanMethod: 
-      comp_count: 0
-      release_recipi: 
-    - ItemID: 105
-      cmpitemName: biscotti
-      cmpitemID_1: baking_mix
-      cmpitemID_2: egg
+      recipi_count: 1
+    - ItemID: 107
+      cmpitemName: maffin_baking_Free
+      cmpitemID_1: appaleil_maffin
+      cmpitemID_2: salt
       cmpitemID_3: empty
       cmp_subtype_1: empty
       cmp_subtype_2: empty
-      cmp_subtype_3: empty
-      result_itemID: biscotti
+      cmp_subtype_3: Komugiko
+      result_itemID: maffin
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
+      cmpitem_kosu3: 1
       best_kosu1: 1
-      best_kosu2: 3.3
-      best_kosu3: 1
+      best_kosu2: 1.3
+      best_kosu3: 4.3
       cmp_flag: 0
-      cost_time: 36
+      cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
-      Comment: "\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u7CFB"
-      Comment2: "\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9\xD7\u305F\u307E\u3054"
+      Comment: 
+      Comment2: "\u30D9\u30FC\u30AD\u30F3\u30B0\u30D1\u30A6\u30C0\u30FC\u3067\u4F5C\u308B\u5834\u5408"
       KeisanMethod: Use
       comp_count: 0
-      release_recipi: biscotti
-    - ItemID: 106
-      cmpitemName: 
-      cmpitemID_1: 
-      cmpitemID_2: 
-      cmpitemID_3: 
-      cmp_subtype_1: 
-      cmp_subtype_2: 
-      cmp_subtype_3: 
-      result_itemID: 
-      result_kosu: 0
-      cmpitem_kosu1: 0
-      cmpitem_kosu2: 0
-      cmpitem_kosu3: 0
-      best_kosu1: 0
-      best_kosu2: 0
-      best_kosu3: 0
-      cmp_flag: 0
-      cost_time: 0
-      success_rate: 0
-      renkin_Bexp: 0
-      Comment: 
-      Comment2: 
-      KeisanMethod: 
-      comp_count: 0
-      release_recipi: 
-    - ItemID: 107
-      cmpitemName: 
-      cmpitemID_1: 
-      cmpitemID_2: 
-      cmpitemID_3: 
-      cmp_subtype_1: 
-      cmp_subtype_2: 
-      cmp_subtype_3: 
-      result_itemID: 
-      result_kosu: 0
-      cmpitem_kosu1: 0
-      cmpitem_kosu2: 0
-      cmpitem_kosu3: 0
-      best_kosu1: 0
-      best_kosu2: 0
-      best_kosu3: 0
-      cmp_flag: 0
-      cost_time: 0
-      success_rate: 0
-      renkin_Bexp: 0
-      Comment: 
-      Comment2: 
-      KeisanMethod: 
-      comp_count: 0
-      release_recipi: 
+      release_recipi: maffin_baking
+      recipi_count: 0
     - ItemID: 108
       cmpitemName: 
       cmpitemID_1: 
@@ -2739,7 +2847,112 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
+      recipi_count: 0
     - ItemID: 109
+      cmpitemName: biscotti
+      cmpitemID_1: baking_mix
+      cmpitemID_2: egg
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: biscotti
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 3.3
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 36
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: "\u30D3\u30B9\u30B3\u30C3\u30C6\u30A3\u7CFB"
+      Comment2: "\u30D9\u30FC\u30AD\u30F3\u30B0\u30DF\u30C3\u30AF\u30B9\xD7\u305F\u307E\u3054"
+      KeisanMethod: Use
+      comp_count: 0
+      release_recipi: biscotti
+      recipi_count: 1
+    - ItemID: 110
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
+      comp_count: 0
+      release_recipi: 
+      recipi_count: 0
+    - ItemID: 111
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
+      comp_count: 0
+      release_recipi: 
+      recipi_count: 0
+    - ItemID: 112
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
+      comp_count: 0
+      release_recipi: 
+      recipi_count: 0
+    - ItemID: 113
       cmpitemName: rusk
       cmpitemID_1: bugget_sliced
       cmpitemID_2: suger
@@ -2764,7 +2977,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: rusk
-    - ItemID: 110
+      recipi_count: 1
+    - ItemID: 114
       cmpitemName: rusk_butter
       cmpitemID_1: bugget_sliced
       cmpitemID_2: suger
@@ -2789,7 +3003,60 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: rusk_butter
-    - ItemID: 111
+      recipi_count: 1
+    - ItemID: 115
+      cmpitemName: rusk_juwery
+      cmpitemID_1: bugget_sliced
+      cmpitemID_2: jewely_suger
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: rusk_juwery
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 3.7
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
+      KeisanMethod: Use
+      comp_count: 0
+      release_recipi: rusk_juwery
+      recipi_count: 1
+    - ItemID: 116
+      cmpitemName: rusk_juwery_butter
+      cmpitemID_1: bugget_sliced
+      cmpitemID_2: jewely_suger
+      cmpitemID_3: butter
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: rusk_juwery
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 1
+      best_kosu2: 2.3
+      best_kosu3: 3
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30D0\u30B2\u30C3\u30C8\xD7\u30D0\u30BF\u30FC\xD7\u7802\u7CD6"
+      KeisanMethod: Use
+      comp_count: 0
+      release_recipi: rusk_juwery
+      recipi_count: 0
+    - ItemID: 117
       cmpitemName: rusk_orange
       cmpitemID_1: bugget_orange_sliced
       cmpitemID_2: suger
@@ -2805,7 +3072,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 3.7
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
@@ -2814,7 +3081,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: rusk_orange
-    - ItemID: 112
+      recipi_count: 0
+    - ItemID: 118
       cmpitemName: rusk_orange2
       cmpitemID_1: rusk
       cmpitemID_2: orange
@@ -2839,7 +3107,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: rusk_orange2
-    - ItemID: 113
+      recipi_count: 0
+    - ItemID: 119
       cmpitemName: rusk_orange_butter
       cmpitemID_1: bugget_orange_sliced
       cmpitemID_2: suger
@@ -2855,7 +3124,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 3.7
       best_kosu3: 2
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
@@ -2864,7 +3133,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: rusk_orange_butter
-    - ItemID: 114
+      recipi_count: 0
+    - ItemID: 120
       cmpitemName: rusk_orange_butter2
       cmpitemID_1: rusk_butter
       cmpitemID_2: orange
@@ -2889,7 +3159,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: rusk_orange_butter2
-    - ItemID: 115
+      recipi_count: 1
+    - ItemID: 121
       cmpitemName: rusk_lemon
       cmpitemID_1: rusk
       cmpitemID_2: lemon
@@ -2914,7 +3185,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: rusk_lemon
-    - ItemID: 116
+      recipi_count: 0
+    - ItemID: 122
       cmpitemName: rusk_lemon_butter
       cmpitemID_1: rusk_butter
       cmpitemID_2: lemon
@@ -2939,7 +3211,112 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: rusk_lemon_butter
-    - ItemID: 117
+      recipi_count: 1
+    - ItemID: 123
+      cmpitemName: rusk_berry
+      cmpitemID_1: rusk
+      cmpitemID_2: blueberry
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: rusk_berry
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: rusk_berry
+      recipi_count: 0
+    - ItemID: 124
+      cmpitemName: rusk_berry_Free
+      cmpitemID_1: rusk
+      cmpitemID_2: empty
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: Berry
+      cmp_subtype_3: empty
+      result_itemID: rusk_berry
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: rusk_berry
+      recipi_count: 0
+    - ItemID: 125
+      cmpitemName: rusk_berry_butter
+      cmpitemID_1: rusk_butter
+      cmpitemID_2: blueberry
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: rusk_berry
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: rusk_berry_butter
+      recipi_count: 1
+    - ItemID: 126
+      cmpitemName: rusk_berry_butter_Free
+      cmpitemID_1: rusk_butter
+      cmpitemID_2: empty
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: Berry
+      cmp_subtype_3: empty
+      result_itemID: rusk_berry
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 5
+      Comment: 
+      Comment2: "\u30B9\u30E9\u30A4\u30B9\u3057\u305F\u30AA\u30EC\u30F3\u30B8\u30D0\u30B2\u30C3\u30C8\xD7\u7802\u7CD6"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: rusk_berry_butter
+      recipi_count: 0
+    - ItemID: 127
       cmpitemName: rusk_Free
       cmpitemID_1: bugget_sliced
       cmpitemID_2: empty
@@ -2964,7 +3341,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: rusk
-    - ItemID: 118
+      recipi_count: 0
+    - ItemID: 128
       cmpitemName: rusk_butter_Free
       cmpitemID_1: bugget_sliced
       cmpitemID_2: butter
@@ -2989,7 +3367,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: rusk_butter
-    - ItemID: 119
+      recipi_count: 0
+    - ItemID: 129
       cmpitemName: rusk_orange_Free
       cmpitemID_1: bugget_orange_sliced
       cmpitemID_2: empty
@@ -3005,7 +3384,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
@@ -3014,7 +3393,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: rusk_orange
-    - ItemID: 120
+      recipi_count: 0
+    - ItemID: 130
       cmpitemName: rusk_orange_butter_Free
       cmpitemID_1: bugget_orange_sliced
       cmpitemID_2: empty
@@ -3030,7 +3410,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 18
       success_rate: 95
       renkin_Bexp: 5
@@ -3039,7 +3419,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: rusk_orange_butter
-    - ItemID: 121
+      recipi_count: 0
+    - ItemID: 131
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -3064,7 +3445,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 122
+      recipi_count: 0
+    - ItemID: 132
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -3089,7 +3471,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 123
+      recipi_count: 0
+    - ItemID: 133
       cmpitemName: pan_cake
       cmpitemID_1: appaleil_milk
       cmpitemID_2: komugiko
@@ -3114,7 +3497,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: pan_cake
-    - ItemID: 124
+      recipi_count: 1
+    - ItemID: 134
       cmpitemName: choco_banana_pan_cake
       cmpitemID_1: pan_cake
       cmpitemID_2: chocolate
@@ -3139,7 +3523,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: choco_banana_pan_cake
-    - ItemID: 125
+      recipi_count: 0
+    - ItemID: 135
       cmpitemName: blueberry_pan_cake
       cmpitemID_1: pan_cake
       cmpitemID_2: blueberry
@@ -3164,7 +3549,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: blueberry_pan_cake
-    - ItemID: 126
+      recipi_count: 1
+    - ItemID: 136
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -3189,7 +3575,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 127
+      recipi_count: 0
+    - ItemID: 137
       cmpitemName: puff
       cmpitemID_1: appaleil_creampuff2
       cmpitemID_2: siboribukuro
@@ -3214,7 +3601,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: puff
-    - ItemID: 128
+      recipi_count: 1
+    - ItemID: 138
       cmpitemName: creampuff
       cmpitemID_1: puff
       cmpitemID_2: whipped cream
@@ -3239,7 +3627,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: creampuff
-    - ItemID: 129
+      recipi_count: 1
+    - ItemID: 139
       cmpitemName: strawberry_creampuff
       cmpitemID_1: puff
       cmpitemID_2: whipped cream_strawberry
@@ -3264,7 +3653,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: strawberry_creampuff
-    - ItemID: 130
+      recipi_count: 1
+    - ItemID: 140
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -3289,7 +3679,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 131
+      recipi_count: 0
+    - ItemID: 141
       cmpitemName: donuts
       cmpitemID_1: appaleil_donuts
       cmpitemID_2: flyer
@@ -3314,7 +3705,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: donuts
-    - ItemID: 132
+      recipi_count: 1
+    - ItemID: 142
       cmpitemName: pink_charlotte_donuts
       cmpitemID_1: donuts
       cmpitemID_2: whipped cream_strawberry
@@ -3339,7 +3731,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: pink_charlotte_donuts
-    - ItemID: 133
+      recipi_count: 1
+    - ItemID: 143
       cmpitemName: izet_color_donuts
       cmpitemID_1: pink_charlotte_donuts
       cmpitemID_2: blueberry
@@ -3364,7 +3757,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: izet_color_donuts
-    - ItemID: 134
+      recipi_count: 1
+    - ItemID: 144
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -3389,7 +3783,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 135
+      recipi_count: 0
+    - ItemID: 145
       cmpitemName: sponge_cake
       cmpitemID_1: komugiko
       cmpitemID_2: appaleil_mixer
@@ -3414,7 +3809,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: sponge_cake
-    - ItemID: 136
+      recipi_count: 1
+    - ItemID: 146
       cmpitemName: princess_tota
       cmpitemID_1: sponge_cake
       cmpitemID_2: appaleil_mixer
@@ -3439,7 +3835,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: princess_tota
-    - ItemID: 137
+      recipi_count: 1
+    - ItemID: 147
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -3464,7 +3861,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 138
+      recipi_count: 0
+    - ItemID: 148
       cmpitemName: crepe
       cmpitemID_1: komugiko
       cmpitemID_2: appaleil_milk
@@ -3489,7 +3887,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: crepe
-    - ItemID: 139
+      recipi_count: 1
+    - ItemID: 149
       cmpitemName: cream_crepe
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream
@@ -3514,7 +3913,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_crepe
-    - ItemID: 140
+      recipi_count: 1
+    - ItemID: 150
       cmpitemName: cream_crepe_orange
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_orange
@@ -3539,7 +3939,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_crepe_orange
-    - ItemID: 141
+      recipi_count: 0
+    - ItemID: 151
       cmpitemName: cream_crepe_grape
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_grape
@@ -3564,7 +3965,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_crepe_grape
-    - ItemID: 142
+      recipi_count: 0
+    - ItemID: 152
       cmpitemName: cream_crepe_blueberry
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_blurberry
@@ -3589,7 +3991,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_crepe_blueberry
-    - ItemID: 143
+      recipi_count: 0
+    - ItemID: 153
       cmpitemName: cream_crepe_strawberry
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_strawberry
@@ -3597,7 +4000,7 @@ MonoBehaviour:
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
-      result_itemID: cream_crepe
+      result_itemID: strawberry_crepe
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
@@ -3614,7 +4017,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_crepe_strawberry
-    - ItemID: 144
+      recipi_count: 1
+    - ItemID: 154
       cmpitemName: cream_crepe_banana
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_banana
@@ -3639,7 +4043,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_crepe_banana
-    - ItemID: 145
+      recipi_count: 0
+    - ItemID: 155
       cmpitemName: cream_crepe_peach
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_peach
@@ -3664,7 +4069,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cream_crepe_peach
-    - ItemID: 146
+      recipi_count: 0
+    - ItemID: 156
       cmpitemName: orange_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: orange
@@ -3689,7 +4095,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: orange_crepe
-    - ItemID: 147
+      recipi_count: 1
+    - ItemID: 157
       cmpitemName: grape_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: grape
@@ -3714,7 +4121,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: grape_crepe
-    - ItemID: 148
+      recipi_count: 1
+    - ItemID: 158
       cmpitemName: blueberry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: blueberry
@@ -3739,7 +4147,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: blueberry_crepe
-    - ItemID: 149
+      recipi_count: 1
+    - ItemID: 159
       cmpitemName: strawberry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: strawberry
@@ -3764,7 +4173,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: strawberry_crepe
-    - ItemID: 150
+      recipi_count: 1
+    - ItemID: 160
       cmpitemName: berry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: raspberry
@@ -3789,7 +4199,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: berry_crepe
-    - ItemID: 151
+      recipi_count: 1
+    - ItemID: 161
       cmpitemName: berry_crepe_Free
       cmpitemID_1: cream_crepe
       cmpitemID_2: empty
@@ -3814,7 +4225,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: berry_crepe
-    - ItemID: 152
+      recipi_count: 0
+    - ItemID: 162
       cmpitemName: doubleberry_crepe
       cmpitemID_1: blueberry_crepe
       cmpitemID_2: strawberry
@@ -3839,7 +4251,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: doubleberry_crepe
-    - ItemID: 153
+      recipi_count: 1
+    - ItemID: 163
       cmpitemName: doubleberry_crepe2
       cmpitemID_1: blueberry_crepe
       cmpitemID_2: empty
@@ -3864,7 +4277,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: doubleberry_crepe
-    - ItemID: 154
+      recipi_count: 0
+    - ItemID: 164
       cmpitemName: doubleberry_crepe3
       cmpitemID_1: strawberry_crepe
       cmpitemID_2: empty
@@ -3889,7 +4303,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: doubleberry_crepe
-    - ItemID: 155
+      recipi_count: 0
+    - ItemID: 165
       cmpitemName: doubleberry_crepe4
       cmpitemID_1: berry_crepe
       cmpitemID_2: empty
@@ -3914,7 +4329,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: doubleberry_crepe
-    - ItemID: 156
+      recipi_count: 0
+    - ItemID: 166
       cmpitemName: doubleberry_icecream_crepe
       cmpitemID_1: doubleberry_crepe
       cmpitemID_2: ice_cream
@@ -3939,7 +4355,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: doubleberry_icecream_crepe
-    - ItemID: 157
+      recipi_count: 1
+    - ItemID: 167
       cmpitemName: cheese_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: cream_cheese
@@ -3955,7 +4372,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -3964,7 +4381,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cheese_crepe
-    - ItemID: 158
+      recipi_count: 0
+    - ItemID: 168
       cmpitemName: strawberry_cheese_crepe
       cmpitemID_1: cheese_crepe
       cmpitemID_2: strawberry
@@ -3980,7 +4398,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -3989,7 +4407,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: strawberry_cheese_crepe
-    - ItemID: 159
+      recipi_count: 0
+    - ItemID: 169
       cmpitemName: strawberry_cheese_ice_crepe
       cmpitemID_1: strawberry_cheese_crepe
       cmpitemID_2: ice_cream
@@ -4005,7 +4424,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -4014,7 +4433,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: strawberry_cheese_ice_crepe
-    - ItemID: 160
+      recipi_count: 0
+    - ItemID: 170
       cmpitemName: strawberry_cheese_ice_crepe2
       cmpitemID_1: cheese_crepe
       cmpitemID_2: strawberry
@@ -4030,7 +4450,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -4039,7 +4459,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: strawberry_cheese_ice_crepe2
-    - ItemID: 161
+      recipi_count: 0
+    - ItemID: 171
       cmpitemName: blueberry_cheese_crepe
       cmpitemID_1: cheese_crepe
       cmpitemID_2: blueberry
@@ -4055,7 +4476,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -4064,7 +4485,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: blueberry_cheese_crepe
-    - ItemID: 162
+      recipi_count: 0
+    - ItemID: 172
       cmpitemName: blueberry_cheese_ice_crepe
       cmpitemID_1: blueberry_cheese_crepe
       cmpitemID_2: ice_cream
@@ -4080,7 +4502,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -4089,7 +4511,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: blueberry_cheese_ice_crepe
-    - ItemID: 163
+      recipi_count: 0
+    - ItemID: 173
       cmpitemName: blueberry_cheese_ice_crepe2
       cmpitemID_1: blueberry_cheese_crepe
       cmpitemID_2: blueberry
@@ -4105,7 +4528,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -4114,7 +4537,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: blueberry_cheese_ice_crepe2
-    - ItemID: 164
+      recipi_count: 0
+    - ItemID: 174
       cmpitemName: peach_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: peach
@@ -4139,7 +4563,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: peach_crepe
-    - ItemID: 165
+      recipi_count: 1
+    - ItemID: 175
       cmpitemName: peach_icecream_crepe
       cmpitemID_1: peach_crepe
       cmpitemID_2: ice_cream
@@ -4164,7 +4589,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: peach_icecream_crepe
-    - ItemID: 166
+      recipi_count: 0
+    - ItemID: 176
       cmpitemName: banana_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: banana
@@ -4189,7 +4615,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: banana_crepe
-    - ItemID: 167
+      recipi_count: 1
+    - ItemID: 177
       cmpitemName: banana_icecream_crepe
       cmpitemID_1: banana_crepe
       cmpitemID_2: ice_cream
@@ -4214,7 +4641,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: banana_icecream_crepe
-    - ItemID: 168
+      recipi_count: 0
+    - ItemID: 178
       cmpitemName: choco_banana_crepe
       cmpitemID_1: banana_crepe
       cmpitemID_2: chocolate
@@ -4239,7 +4667,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: choco_banana_crepe
-    - ItemID: 169
+      recipi_count: 0
+    - ItemID: 179
       cmpitemName: choco_banana_ice_crepe
       cmpitemID_1: choco_banana_crepe
       cmpitemID_2: ice_cream
@@ -4264,7 +4693,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: choco_banana_ice_crepe
-    - ItemID: 170
+      recipi_count: 0
+    - ItemID: 180
       cmpitemName: cherry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: cherry
@@ -4289,7 +4719,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cherry_crepe
-    - ItemID: 171
+      recipi_count: 1
+    - ItemID: 181
       cmpitemName: cherry_ice_crepe
       cmpitemID_1: cherry_crepe
       cmpitemID_2: ice_cream
@@ -4314,7 +4745,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cherry_ice_crepe
-    - ItemID: 172
+      recipi_count: 0
+    - ItemID: 182
       cmpitemName: pear_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: pear
@@ -4339,7 +4771,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: pear_crepe
-    - ItemID: 173
+      recipi_count: 1
+    - ItemID: 183
       cmpitemName: icecream_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: ice_cream
@@ -4364,7 +4797,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: icecream_crepe
-    - ItemID: 174
+      recipi_count: 1
+    - ItemID: 184
       cmpitemName: nuts_icecream_crepe
       cmpitemID_1: icecream_crepe
       cmpitemID_2: nuts
@@ -4380,7 +4814,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -4389,7 +4823,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: nuts_icecream_crepe
-    - ItemID: 175
+      recipi_count: 0
+    - ItemID: 185
       cmpitemName: choconuts_icecream_crepe
       cmpitemID_1: nuts_icecream_crepe
       cmpitemID_2: chocolate
@@ -4405,7 +4840,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 0
+      cmp_flag: 9999
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -4414,7 +4849,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: choconuts_icecream_crepe
-    - ItemID: 176
+      recipi_count: 0
+    - ItemID: 186
       cmpitemName: maple_crepe
       cmpitemID_1: crepe
       cmpitemID_2: maple
@@ -4439,7 +4875,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: maple_crepe
-    - ItemID: 177
+      recipi_count: 1
+    - ItemID: 187
       cmpitemName: maple_creamcrepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: maple
@@ -4464,7 +4901,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: maple_creamcrepe
-    - ItemID: 178
+      recipi_count: 1
+    - ItemID: 188
       cmpitemName: honey_crepe
       cmpitemID_1: crepe
       cmpitemID_2: honey
@@ -4489,7 +4927,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: honey_crepe
-    - ItemID: 179
+      recipi_count: 1
+    - ItemID: 189
       cmpitemName: honey_creamcrepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: honey
@@ -4514,7 +4953,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: honey_creamcrepe
-    - ItemID: 180
+      recipi_count: 1
+    - ItemID: 190
       cmpitemName: shishamo_crepe
       cmpitemID_1: crepe
       cmpitemID_2: shishamo
@@ -4539,7 +4979,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: shishamo_crepe
-    - ItemID: 181
+      recipi_count: 1
+    - ItemID: 191
       cmpitemName: shishamo_ice_crepe
       cmpitemID_1: shishamo_crepe
       cmpitemID_2: ice_cream
@@ -4564,7 +5005,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: shishamo_ice_crepe
-    - ItemID: 182
+      recipi_count: 1
+    - ItemID: 192
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4589,7 +5031,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 183
+      recipi_count: 0
+    - ItemID: 193
       cmpitemName: cannoli
       cmpitemID_1: crepe
       cmpitemID_2: cream_row_ricotta
@@ -4614,7 +5057,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: cannoli
-    - ItemID: 184
+      recipi_count: 1
+    - ItemID: 194
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4639,7 +5083,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 185
+      recipi_count: 0
+    - ItemID: 195
       cmpitemName: chocolate_base
       cmpitemID_1: cacao_beans
       cmpitemID_2: suger
@@ -4664,7 +5109,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: chocolate_base
-    - ItemID: 186
+      recipi_count: 0
+    - ItemID: 196
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4689,11 +5135,38 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 187
+      recipi_count: 0
+    - ItemID: 197
+      cmpitemName: parfe_base
+      cmpitemID_1: glass_bowl
+      cmpitemID_2: corn_frake
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: parfe_base
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 6
+      success_rate: 80
+      renkin_Bexp: 3
+      Comment: "\u30D1\u30D5\u30A7\u7CFB"
+      Comment2: "\u30D1\u30D5\u30A7\u5BB9\u5668\xD7\u30B3\u30FC\u30F3\u30D5\u30EC\u30FC\u30AF\uFF12\xD7\u30A2\u30A4\u30B9\uFF11"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: parfe_base
+      recipi_count: 1
+    - ItemID: 198
       cmpitemName: vanilla_parfe
       cmpitemID_1: parfe_base
       cmpitemID_2: ice_cream
-      cmpitemID_3: corn_frake
+      cmpitemID_3: castella
       cmp_subtype_1: empty
       cmp_subtype_2: empty
       cmp_subtype_3: empty
@@ -4703,18 +5176,45 @@ MonoBehaviour:
       cmpitem_kosu2: 1
       cmpitem_kosu3: 1
       best_kosu1: 1
-      best_kosu2: 1
-      best_kosu3: 1
+      best_kosu2: 3.7
+      best_kosu3: 6
       cmp_flag: 0
       cost_time: 36
       success_rate: 50
       renkin_Bexp: 32
-      Comment: "\u30D1\u30D5\u30A7\u7CFB"
+      Comment: 
       Comment2: "\u30D1\u30D5\u30A7\u5BB9\u5668\xD7\u30B3\u30FC\u30F3\u30D5\u30EC\u30FC\u30AF\uFF12\xD7\u30A2\u30A4\u30B9\uFF11"
-      KeisanMethod: Non
+      KeisanMethod: Use
       comp_count: 0
       release_recipi: vanilla_parfe
-    - ItemID: 188
+      recipi_count: 1
+    - ItemID: 199
+      cmpitemName: strawberry_parfe
+      cmpitemID_1: vanilla_parfe
+      cmpitemID_2: strawberry
+      cmpitemID_3: whipped cream
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: strawberry_parfe
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 6.5
+      best_kosu3: 6.3
+      cmp_flag: 0
+      cost_time: 36
+      success_rate: 50
+      renkin_Bexp: 32
+      Comment: 
+      Comment2: "\u30D1\u30D5\u30A7\u5BB9\u5668\xD7\u30B3\u30FC\u30F3\u30D5\u30EC\u30FC\u30AF\uFF12\xD7\u30A2\u30A4\u30B9\uFF11"
+      KeisanMethod: Use
+      comp_count: 0
+      release_recipi: strawberry_parfe
+      recipi_count: 1
+    - ItemID: 200
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4739,7 +5239,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 189
+      recipi_count: 0
+    - ItemID: 201
       cmpitemName: ice_cream
       cmpitemID_1: appaleil_icecream
       cmpitemID_2: ice_box
@@ -4748,7 +5249,7 @@ MonoBehaviour:
       cmp_subtype_2: empty
       cmp_subtype_3: empty
       result_itemID: ice_cream
-      result_kosu: 1
+      result_kosu: 2
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
       cmpitem_kosu3: 9999
@@ -4764,7 +5265,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: ice_cream
-    - ItemID: 190
+      recipi_count: 1
+    - ItemID: 202
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4789,7 +5291,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 191
+      recipi_count: 0
+    - ItemID: 203
       cmpitemName: dragon_candy
       cmpitemID_1: suger
       cmpitemID_2: water
@@ -4814,7 +5317,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: dragon_candy
-    - ItemID: 192
+      recipi_count: 1
+    - ItemID: 204
       cmpitemName: dragon_candy_Free
       cmpitemID_1: water
       cmpitemID_2: mint
@@ -4839,7 +5343,8 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: dragon_candy
-    - ItemID: 193
+      recipi_count: 0
+    - ItemID: 205
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4864,7 +5369,112 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 194
+      recipi_count: 0
+    - ItemID: 0
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
+      comp_count: 0
+      release_recipi: 
+      recipi_count: 0
+    - ItemID: 207
+      cmpitemName: jelly_water
+      cmpitemID_1: gelatin
+      cmpitemID_2: water
+      cmpitemID_3: suger
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: jelly_water
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 0.6
+      best_kosu2: 5
+      best_kosu3: 3.3
+      cmp_flag: 0
+      cost_time: 36
+      success_rate: 50
+      renkin_Bexp: 20
+      Comment: "\u30BC\u30EA\u30FC\u7CFB"
+      Comment2: "\u30BC\u30E9\u30C1\u30F3\xD7\u30BD\u30FC\u30C0\u6C34\xD7\u7802\u7CD6"
+      KeisanMethod: Use
+      comp_count: 0
+      release_recipi: jelly_water
+      recipi_count: 1
+    - ItemID: 208
+      cmpitemName: slimejelly
+      cmpitemID_1: jelly_water
+      cmpitemID_2: ice_box
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: slimejelly
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 36
+      success_rate: 50
+      renkin_Bexp: 20
+      Comment: 
+      Comment2: "\u30BC\u30E9\u30C1\u30F3\xD7\u30BD\u30FC\u30C0\u6C34\xD7\u7802\u7CD6"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: slimejelly
+      recipi_count: 1
+    - ItemID: 0
+      cmpitemName: 
+      cmpitemID_1: 
+      cmpitemID_2: 
+      cmpitemID_3: 
+      cmp_subtype_1: 
+      cmp_subtype_2: 
+      cmp_subtype_3: 
+      result_itemID: 
+      result_kosu: 0
+      cmpitem_kosu1: 0
+      cmpitem_kosu2: 0
+      cmpitem_kosu3: 0
+      best_kosu1: 0
+      best_kosu2: 0
+      best_kosu3: 0
+      cmp_flag: 0
+      cost_time: 0
+      success_rate: 0
+      renkin_Bexp: 0
+      Comment: 
+      Comment2: 
+      KeisanMethod: 
+      comp_count: 0
+      release_recipi: 
+      recipi_count: 0
+    - ItemID: 210
       cmpitemName: lavender_tea
       cmpitemID_1: lavender_flower
       cmpitemID_2: water
@@ -4889,7 +5499,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: lavender_tea
-    - ItemID: 195
+      recipi_count: 1
+    - ItemID: 211
       cmpitemName: strange_tea
       cmpitemID_1: strange_grass
       cmpitemID_2: water
@@ -4914,7 +5525,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: strange_tea
-    - ItemID: 196
+      recipi_count: 1
+    - ItemID: 212
       cmpitemName: earlgrey_tea
       cmpitemID_1: earlgrey_leaf
       cmpitemID_2: water
@@ -4939,7 +5551,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: earlgrey_tea
-    - ItemID: 197
+      recipi_count: 1
+    - ItemID: 213
       cmpitemName: apple_tea
       cmpitemID_1: apple
       cmpitemID_2: milkpan
@@ -4964,7 +5577,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: apple_tea
-    - ItemID: 198
+      recipi_count: 1
+    - ItemID: 214
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4989,7 +5603,8 @@ MonoBehaviour:
       KeisanMethod: 
       comp_count: 0
       release_recipi: 
-    - ItemID: 199
+      recipi_count: 0
+    - ItemID: 215
       cmpitemName: orange_juice
       cmpitemID_1: orange
       cmpitemID_2: juice_mixer
@@ -5014,57 +5629,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: orange_juice
-    - ItemID: 200
-      cmpitemName: orange_juice_suger
-      cmpitemID_1: orange
-      cmpitemID_2: suger
-      cmpitemID_3: juice_mixer
-      cmp_subtype_1: empty
-      cmp_subtype_2: empty
-      cmp_subtype_3: empty
-      result_itemID: orange_juice
-      result_kosu: 1
-      cmpitem_kosu1: 3
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 1
-      best_kosu1: 5
-      best_kosu2: 2
-      best_kosu3: 1
-      cmp_flag: 0
-      cost_time: 6
-      success_rate: 95
-      renkin_Bexp: 12
-      Comment: 
-      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u30DF\u30AD\u30B5\u30FC\xD7\u7802\u7CD6"
-      KeisanMethod: Use
-      comp_count: 0
-      release_recipi: orange_juice_suger
-    - ItemID: 201
-      cmpitemName: orange_juice_Free
-      cmpitemID_1: orange
-      cmpitemID_2: juice_mixer
-      cmpitemID_3: empty
-      cmp_subtype_1: empty
-      cmp_subtype_2: empty
-      cmp_subtype_3: Suger
-      result_itemID: orange_juice
-      result_kosu: 1
-      cmpitem_kosu1: 3
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 1
-      best_kosu1: 5
-      best_kosu2: 1
-      best_kosu3: 2
-      cmp_flag: 0
-      cost_time: 6
-      success_rate: 95
-      renkin_Bexp: 12
-      Comment: 
-      Comment2: "\u30AA\u30EC\u30F3\u30B8\xD7\u30DF\u30AD\u30B5\u30FC\xD7\u7802\u7CD6"
-      KeisanMethod: Use
-      comp_count: 0
-      release_recipi: orange_juice
-    - ItemID: 202
+      recipi_count: 1
+    - ItemID: 216
       cmpitemName: grape_juice
       cmpitemID_1: grape
       cmpitemID_2: juice_mixer
@@ -5089,57 +5655,8 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: grape_juice
-    - ItemID: 203
-      cmpitemName: grape_juice_suger
-      cmpitemID_1: grape
-      cmpitemID_2: suger
-      cmpitemID_3: juice_mixer
-      cmp_subtype_1: empty
-      cmp_subtype_2: empty
-      cmp_subtype_3: empty
-      result_itemID: grape_juice
-      result_kosu: 1
-      cmpitem_kosu1: 3
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 1
-      best_kosu1: 5
-      best_kosu2: 2
-      best_kosu3: 1
-      cmp_flag: 0
-      cost_time: 6
-      success_rate: 95
-      renkin_Bexp: 12
-      Comment: 
-      Comment2: "\u3076\u3069\u3046\xD7\u30DF\u30AD\u30B5\u30FC"
-      KeisanMethod: Use
-      comp_count: 0
-      release_recipi: grape_juice_suger
-    - ItemID: 204
-      cmpitemName: grape_juice_Free
-      cmpitemID_1: grape
-      cmpitemID_2: juice_mixer
-      cmpitemID_3: empty
-      cmp_subtype_1: empty
-      cmp_subtype_2: empty
-      cmp_subtype_3: Suger
-      result_itemID: grape_juice
-      result_kosu: 1
-      cmpitem_kosu1: 3
-      cmpitem_kosu2: 1
-      cmpitem_kosu3: 1
-      best_kosu1: 5
-      best_kosu2: 1
-      best_kosu3: 2
-      cmp_flag: 0
-      cost_time: 6
-      success_rate: 95
-      renkin_Bexp: 12
-      Comment: 
-      Comment2: "\u3076\u3069\u3046\xD7\u30DF\u30AD\u30B5\u30FC"
-      KeisanMethod: Use
-      comp_count: 0
-      release_recipi: grape_juice
-    - ItemID: 205
+      recipi_count: 1
+    - ItemID: 217
       cmpitemName: haloween_juice
       cmpitemID_1: orange
       cmpitemID_2: grape
@@ -5164,8 +5681,35 @@ MonoBehaviour:
       KeisanMethod: Use
       comp_count: 0
       release_recipi: haloween_juice
-    - ItemID: 206
+      recipi_count: 1
+    - ItemID: 218
       cmpitemName: mix_fruits_juice
+      cmpitemID_1: juice_mixer
+      cmpitemID_2: orange
+      cmpitemID_3: grape
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: mix_fruits_juice
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 6
+      success_rate: 85
+      renkin_Bexp: 12
+      Comment: 
+      Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: mix_fruits_juice
+      recipi_count: 1
+    - ItemID: 219
+      cmpitemName: mix_fruits_juice_Free
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
       cmpitemID_3: empty
@@ -5189,8 +5733,9 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: mix_fruits_juice
-    - ItemID: 207
-      cmpitemName: mix_fruits_juice_2
+      recipi_count: 0
+    - ItemID: 220
+      cmpitemName: mix_fruits_juice_Free2
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
       cmpitemID_3: empty
@@ -5214,8 +5759,35 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: mix_fruits_juice
-    - ItemID: 208
+      recipi_count: 0
+    - ItemID: 221
       cmpitemName: mix_berry_juice
+      cmpitemID_1: juice_mixer
+      cmpitemID_2: blueberry
+      cmpitemID_3: strawberry
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: mix_berry_juice
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 1
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 6
+      success_rate: 85
+      renkin_Bexp: 12
+      Comment: 
+      Comment2: "\u30D9\u30EA\u30FC\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: mix_berry_juice
+      recipi_count: 1
+    - ItemID: 222
+      cmpitemName: mix_berry_juice_Free
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
       cmpitemID_3: empty
@@ -5235,12 +5807,13 @@ MonoBehaviour:
       success_rate: 85
       renkin_Bexp: 12
       Comment: 
-      Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
+      Comment2: "\u30D9\u30EA\u30FC\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
       KeisanMethod: Non
       comp_count: 0
       release_recipi: mix_berry_juice
-    - ItemID: 209
-      cmpitemName: mix_berry_juice_2
+      recipi_count: 0
+    - ItemID: 223
+      cmpitemName: mix_berry_juice_Free2
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
       cmpitemID_3: empty
@@ -5260,12 +5833,39 @@ MonoBehaviour:
       success_rate: 85
       renkin_Bexp: 12
       Comment: 
-      Comment2: "\u30D5\u30EB\u30FC\u30C4\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
+      Comment2: "\u30D9\u30EA\u30FC\uFF12\u3064\u306E\u7D44\u307F\u5408\u308F\u305B\u3068\u7D5E\u308A\u6A5F"
       KeisanMethod: Non
       comp_count: 0
       release_recipi: mix_berry_juice
-    - ItemID: 210
+      recipi_count: 0
+    - ItemID: 224
       cmpitemName: juice_float
+      cmpitemID_1: ice_cream
+      cmpitemID_2: orange_juice
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: juice_float
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 6
+      success_rate: 85
+      renkin_Bexp: 12
+      Comment: 
+      Comment2: "\u30B8\u30E5\u30FC\u30B9\xD7\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: juice_float
+      recipi_count: 1
+    - ItemID: 225
+      cmpitemName: juice_float_Free
       cmpitemID_1: ice_cream
       cmpitemID_2: empty
       cmpitemID_3: empty
@@ -5289,3 +5889,4 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: juice_float
+      recipi_count: 0

@@ -42,6 +42,7 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public string KeisanMethod;
 		public int comp_count;
 		public string release_recipi;
+		public int recipi_count;
 	}
 }
 

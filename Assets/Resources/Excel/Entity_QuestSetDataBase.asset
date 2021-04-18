@@ -285,7 +285,7 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 1
-      buy_price: 200
+      buy_price: 400
       rich: 0
       sweat: 0
       bitter: 0
@@ -372,7 +372,7 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 1
-      buy_price: 500
+      buy_price: 1000
       rich: 0
       sweat: 40
       bitter: 0
@@ -452,7 +452,7 @@ MonoBehaviour:
     - ID: 15
       QuestID: 150
       QuestType: 1
-      QuestHyouji: 40
+      QuestHyouji: 9999
       file_name: himawari_seeds
       quest_itemName: himawari_seed
       quest_itemsubtype: Non

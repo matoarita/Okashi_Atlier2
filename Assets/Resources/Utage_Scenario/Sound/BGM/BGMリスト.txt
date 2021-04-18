@@ -46,3 +46,4 @@
 ・BGM_44		hometown.mp3				優しく、悲しいBGM2（猫ししゃもクッキーのイベント）
 ・BGM_45		kaerimiti.mp3				ほっと安心BGM（猫ししゃもクッキーのイベント）
 ・BGM_46		gymnopedies1.mp3			43と同じ。ジムノペディ第一番。
+・BGM_47		09[town]海の見えるお店.mp3		酒場のBGM

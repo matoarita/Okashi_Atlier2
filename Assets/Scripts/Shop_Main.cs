@@ -551,7 +551,7 @@ public class Shop_Main : MonoBehaviour {
                 GameMgr.ShopLVEvent_stage[0] = true;
                 GameMgr.scenario_ON = true;
 
-                GameMgr.shop_lvevent_num = 0;
+                GameMgr.shop_lvevent_num = 1;
                 GameMgr.shop_lvevent_flag = true;
 
                 lvevent_loading = true;

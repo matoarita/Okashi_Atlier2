@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class TasteHintPanel : MonoBehaviour {
 
     private Compound_Main compound_Main;
+    private Girl1_status girl1_status;
+    private PlayerItemList pitemlist;
 
     private ItemDataBase database;
 
@@ -21,9 +23,16 @@ public class TasteHintPanel : MonoBehaviour {
     private Sprite Okashi_Img;
     private Image Okashi_Icon;
     private GameObject HikariIcon_Angry;
+    private Text OneComment_text;
+    private List<string> _one_comment_lib = new List<string>();
+    private string _one_comment;
+
+    private int random;
+    private bool ev_yusen;
 
     // Use this for initialization
     void Start () {
+
         
     }
 	
@@ -39,6 +48,12 @@ public class TasteHintPanel : MonoBehaviour {
 
     private void SetInit()
     {
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
@@ -72,6 +87,10 @@ public class TasteHintPanel : MonoBehaviour {
         Okashi_Icon = this.transform.Find("HintPanel/OkashiImage").GetComponent<Image>(); //画像アイコン
         Okashi_Icon.sprite = Okashi_Img;
 
+        OneComment_text = this.transform.Find("HintPanel/OneCommentText").GetComponent<Text>();
+        OneComment_text.text = "";
+        RandomOneComment();
+
         HikariIcon_Angry = this.transform.Find("HintPanel/CharaIcon/HikariIcon2").gameObject;
         if(GameMgr.Okashi_totalscore <= 30)
         {
@@ -89,5 +108,98 @@ public class TasteHintPanel : MonoBehaviour {
         compound_Main.compound_status = 0;
         this.gameObject.SetActive(false);
 
+    }
+
+    void RandomOneComment()
+    {
+        _one_comment_lib.Clear();
+        ev_yusen = false;
+
+        switch (GameMgr.OkashiQuest_Num)
+        {
+            case 0: //オリジナルクッキーを食べたい
+
+                CheckFirstZairyoNo();
+                if (!ev_yusen)
+                {
+                    _one_comment_lib.Add("にいちゃん。" + GameMgr.ColorPink + "さくさく感" + "</color>" + "の出し方は、ショップのおねえちゃんが知ってたかも？");
+                }
+                break;
+
+            case 1: //ぶどうクッキー
+
+                CheckFirstZairyoNo();
+                if (!ev_yusen)
+                {
+                    _one_comment_lib.Add("にいちゃん。森で果物が取れたかも。" + GameMgr.ColorPink + "「外へ出る」" + "</color>" + "からお外へ出れるよ～！");
+                }
+                break;
+
+            case 2: //かわいいクッキー
+
+                CheckFirstZairyoNo();
+
+                _one_comment_lib.Add("にいちゃん。きらきらの材料は、ショップのおねえちゃんが売ってたかも？");
+
+                break;
+
+            case 10: //ラスク食べたい
+
+
+                break;
+
+            case 11: //すっぱいラスク食べたい
+
+
+                break;
+
+            case 20: //クレープ食べたい
+
+
+                break;
+
+            case 21: //豪華なクレープ食べたい
+
+
+                break;
+
+            case 22: //アイスクリームを食べたい
+
+
+                break;
+
+            case 30: //シュークリーム食べたい
+
+
+                break;
+
+            case 40: //ドーナツ食べたい
+
+
+                break;
+
+            case 50: //ステージ１ラスト　コンテスト開始
+
+
+                break;
+
+            default:
+                break;
+        }
+
+        random = Random.Range(0, _one_comment_lib.Count);
+        _one_comment = _one_comment_lib[random];
+
+        OneComment_text.text = _one_comment;
+    }
+
+    void CheckFirstZairyoNo()
+    {
+        //はじめて材料がなくなった時は、材料を買いにいけることを教えてくれる。
+        if (pitemlist.KosuCount("komugiko") <= 1 || pitemlist.KosuCount("butter") <= 1 || pitemlist.KosuCount("suger") <= 1)
+        {
+            _one_comment_lib.Add("にいちゃん、材料が足りなくなってきたから、ショップへ、材料買いにいこ～よ～。");
+            ev_yusen = true;
+        }
     }
 }

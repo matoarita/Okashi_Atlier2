@@ -1662,6 +1662,42 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     girl1_hungrytoppingNumberSet.Add(5);
                 }
             }
+            if (slotnamedatabase.slotname_lists[i].slotName == girlLikeSet_database.girllikeset[setID].girlLike_topping[5])
+            {
+                if (girlLikeSet_database.girllikeset[setID].girlLike_topping[5] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[5]);
+                    girl1_hungrytoppingNumberSet.Add(6);
+                }
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == girlLikeSet_database.girllikeset[setID].girlLike_topping[6])
+            {
+                if (girlLikeSet_database.girllikeset[setID].girlLike_topping[6] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[6]);
+                    girl1_hungrytoppingNumberSet.Add(7);
+                }
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == girlLikeSet_database.girllikeset[setID].girlLike_topping[7])
+            {
+                if (girlLikeSet_database.girllikeset[setID].girlLike_topping[7] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[7]);
+                    girl1_hungrytoppingNumberSet.Add(8);
+                }
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == girlLikeSet_database.girllikeset[setID].girlLike_topping[8])
+            {
+                if (girlLikeSet_database.girllikeset[setID].girlLike_topping[8] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(girlLikeSet_database.girllikeset[setID].girlLike_topping_score[8]);
+                    girl1_hungrytoppingNumberSet.Add(9);
+                }
+            }
         }
 
 
@@ -2495,15 +2531,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
 
         }
-        else if (_temp_status == 1) //お菓子出来たてのあと、おいしそ～状態
+        else if (_temp_status == 1) //お菓子出来たてのあと、おいしそ～状態 50%の確率で、出来たてのモーションを再生
         {
-            DoTSequence_Kill();
+            trans_facemotion = 500; //くんくんモーション
+            IdleMotionHukidashiSetting(trans_facemotion);
+            IdleChangeTemp = true;
+
+            /*DoTSequence_Kill();
             MoveXMethod(-1.18f);
-            timeOutMoveX = 12.0f;
-            trans_facemotion = 500; //歩いている間のモーション　その後、くんくん
+            timeOutMoveX = 12.0f;           
             Walk_Start = false; //一時的に歩きをOFF
 
-            StartCoroutine(ChangeFaceMotion(9999)); 
+            StartCoroutine(ChangeFaceMotion(9999)); */
         }
     }
 
@@ -2643,9 +2682,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchface_comment_lib.Add("ちょっと元気。");
                 _touchface_comment_lib.Add("材料の比率は、兄ちゃんの好みに変えられるんだよ～。");
-                _touchface_comment_lib.Add("..。");
+                _touchface_comment_lib.Add("腹へた～..。");
                 _touchface_comment_lib.Add("うまうま・・。");
-                _touchface_comment_lib.Add("兄ちゃんのおかし.. たべたい。");
+                _touchface_comment_lib.Add("兄ちゃんのおかし、たべたいなぁ。");
                 break;
 
             case 3:
@@ -2672,7 +2711,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchface_comment_lib.Add("キラキラ♪");
                 _touchface_comment_lib.Add("兄ちゃん！大好き！！");
-                _touchface_comment_lib.Add("兄ちゃんのお菓子、こころがぽかぽかするんだ～");
+                _touchface_comment_lib.Add("兄ちゃんのお菓子、こころがぽかぽかするんじゃ～");
                 _touchface_comment_lib.Add("兄ちゃんのおてて、あたたか～い");
                 _touchface_comment_lib.Add("お兄ちゃん。あたたかい～。");
                 _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");

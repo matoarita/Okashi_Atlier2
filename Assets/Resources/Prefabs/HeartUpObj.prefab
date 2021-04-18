@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222157167216097144}
   - component: {fileID: 114439590888660916}
   - component: {fileID: 114382544682162378}
+  - component: {fileID: 223906923209188074}
   m_Layer: 0
   m_Name: HeartUpObj
   m_TagString: Untagged
@@ -74,6 +75,26 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037334707543278}
+--- !u!223 &223906923209188074
+Canvas:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037334707543278}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 2000
+  m_TargetDisplay: 0
 --- !u!224 &224655960219637732
 RectTransform:
   m_ObjectHideFlags: 1

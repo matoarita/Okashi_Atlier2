@@ -97,7 +97,7 @@ public class RecipiMemoController : MonoBehaviour
                 _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
                 _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
 
-                _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipimemoSelectToggle>();
+                _toggle_itemID = _recipi_listitem[list_count].transform.Find("recipiMemoSelectToggle_content").GetComponent<recipimemoSelectToggle>();
                 _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
                 _toggle_itemID.recipi_toggleitemType = 0; //イベントアイテムタイプなので、0
 

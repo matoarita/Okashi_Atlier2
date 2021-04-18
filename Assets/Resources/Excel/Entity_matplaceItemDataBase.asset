@@ -235,7 +235,7 @@ MonoBehaviour:
       drop_rare_prob2: 5
       drop_rare_prob3: 0
       center_bg: 2_ido_a_600_300
-      back_bg: nexfan_01_800_600
+      back_bg: Ido_BG
     - ItemID: 6
       file_name: forest_mini_icon
       place_Name: Forest
@@ -272,7 +272,7 @@ MonoBehaviour:
       drop_rare_prob2: 10
       drop_rare_prob3: 20
       center_bg: 1_forest_a_600_300
-      back_bg: 110618_
+      back_bg: Forest_BG
     - ItemID: 7
       file_name: waterfall_mini_icon
       place_Name: BirdSanctuali
@@ -353,7 +353,7 @@ MonoBehaviour:
       place_Name_Hyouji: "\u30D9\u30EA\u30FC\u30D5\u30A1\u30FC\u30E0"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A"
       place_day: 6
-      place_cost: 10
+      place_cost: 50
       place_flag: 0
       place_type: 1
       drop_item1: "\u306A\u3057"
@@ -427,7 +427,7 @@ MonoBehaviour:
       place_Name_Hyouji: "\u30A2\u30E1\u30B8\u30B9\u30C8\u306E\u6E56"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3068\u3001\u5927\u304D\u306A\u6E56"
       place_day: 6
-      place_cost: 10
+      place_cost: 100
       place_flag: 0
       place_type: 1
       drop_item1: "\u306A\u3057"
@@ -457,14 +457,14 @@ MonoBehaviour:
       drop_rare_prob2: 5
       drop_rare_prob3: 0
       center_bg: 5_lavender_field_600_300
-      back_bg: 450-20170710225117319536
+      back_bg: Lavender_BG
     - ItemID: 12
       file_name: strawberrygarden_icon_mini
       place_Name: StrawberryGarden
       place_Name_Hyouji: "\u30B9\u30C8\u30ED\u30D9\u30EA\u30FC\u30AC\u30FC\u30C7\u30F3"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3002"
       place_day: 6
-      place_cost: 30
+      place_cost: 200
       place_flag: 0
       place_type: 1
       drop_item1: "\u306A\u3057"
@@ -494,14 +494,14 @@ MonoBehaviour:
       drop_rare_prob2: 5
       drop_rare_prob3: 0
       center_bg: 3_strawberrygarden_600_300
-      back_bg: 03l
+      back_bg: Strawberry_BG
     - ItemID: 13
       file_name: himawari_mini_icon
       place_Name: HimawariHill
       place_Name_Hyouji: "\u3072\u307E\u308F\u308A\u306E\u4E18"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u5BCC\u826F\u91CE\u30E9\u30D9\u30F3\u30C0\u30FC\u7551\u3000\u4E00\u9762\u306B\u7D2B\u4E00\u8272\u306E\u5E83\u5927\u306A\u7551\u3002"
       place_day: 6
-      place_cost: 30
+      place_cost: 150
       place_flag: 0
       place_type: 1
       drop_item1: "\u306A\u3057"
@@ -531,7 +531,7 @@ MonoBehaviour:
       drop_rare_prob2: 5
       drop_rare_prob3: 0
       center_bg: 4_himawarihill_600_300
-      back_bg: himawari_sample
+      back_bg: HimawariHill_BG
     - ItemID: 14
       file_name: legendtree_mini_icon
       place_Name: Forget_Island

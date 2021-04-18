@@ -278,7 +278,7 @@ public class GetMaterial : MonoBehaviour
                 {
 
                     //お金の消費
-                    moneyStatus_Controller.UseMoney(mat_cost);
+                    //moneyStatus_Controller.UseMoney(mat_cost);
 
                     //日数の経過
                     PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分

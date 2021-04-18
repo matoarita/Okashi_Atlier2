@@ -506,34 +506,12 @@ public class GirlEat_Judge : MonoBehaviour {
                 
                 stage_levelTable.Clear();
 
-                //バーの最大値の設定。テーブルの初期設定はGirl1_statusで行っている。ここではそれをもとにコピーしてるだけ。
-                switch (GameMgr.stage_number)
+                //GirlExpバーの最大値の設定。テーブルの初期設定はGirl1_statusで行っている。ここではそれをもとにコピーしてるだけ。
+                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
                 {
-                    case 1:
-
-                        for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                        {
-                            stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                        }
-
-                        break;
-
-                    case 2:
-
-                        for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                        {
-                            stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                        }
-                        break;
-
-                    case 3:
-
-                        for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                        {
-                            stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                        }
-                        break;
+                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
                 }
+
 
                 //スライダのMAXを設定。現在の好感度レベルで変わる。
                 Love_Slider_Setting();
@@ -2499,12 +2477,16 @@ public class GirlEat_Judge : MonoBehaviour {
         _listEffect.Clear();
     }
 
-    void loveGetPlusAnimeON()
+    public void loveGetPlusAnimeON(int _Getlove_param, bool _mstatus) //通常は、お菓子食べたあとに発生。サブイベント終了後などからも、呼ばれる可能性あり。
     {
         _listHeart.Clear();
         _listHeartAtkeffect.Clear();
-        heart_count = Getlove_exp;
-        _sumlove = PlayerStatus.girl1_Love_exp + Getlove_exp;
+
+        //音を鳴らす
+        sc.PlaySe(5);
+
+        heart_count = _Getlove_param;
+        _sumlove = PlayerStatus.girl1_Love_exp + _Getlove_param;
         //Debug.Log("heart_count: " + heart_count);
 
         //ハートのインスタンスを、獲得好感度分だけ生成する。
@@ -2517,15 +2499,19 @@ public class GirlEat_Judge : MonoBehaviour {
         _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
         girl_param.text = _tempGirllove.ToString();
 
-        GetLoveEnd();
-          
+        //Debug.Log("好感度　内部を更新");
+        StartCoroutine(HeartKoushin(_Getlove_param));
+
+        if (_mstatus)
+        {
+            GetLoveEnd();
+        }
+        else { }
     }
 
     void GetLoveEnd()
     {
-        //Debug.Log("好感度　内部を更新");
-        StartCoroutine("HeartKoushin");
-
+        
         //一時的に触れなくする。
         if (emerarudonguri_get)
         {
@@ -2633,25 +2619,28 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 //エメラルどんぐり一個もらえる。
                 pitemlist.addPlayerItemString("emeralDongri", 1);
+                //ついでに妹の体力が上がる。
+                PlayerStatus.player_girl_maxlifepoint++;
                 break;
 
             case 1:
 
                 //サファイアどんぐり一個もらえる。
                 pitemlist.addPlayerItemString("sapphireDongri", 1);
+                //ついでに妹の体力が上がる。
+                PlayerStatus.player_girl_maxlifepoint += 3;
                 break;
 
             default:
 
                 //エメラルどんぐり一個もらえる。
                 pitemlist.addPlayerItemString("emeralDongri", 1);
+                //ついでに妹の体力が上がる。
+                PlayerStatus.player_girl_maxlifepoint++;
                 break;
 
         }
 
-        //ついでに妹の体力が上がる。
-        PlayerStatus.player_girl_maxlifepoint++;
-        
 
         //はじめてエメラルどんぐりをゲットしたら、怪しげな館登場
         matplace_database.matPlaceKaikin("Emerald_Shop"); //怪しげな館解禁
@@ -2662,7 +2651,7 @@ public class GirlEat_Judge : MonoBehaviour {
     }
 
     //発生したハートが全てなくなったら、実際の好感度の変動と、表示も更新
-    IEnumerator HeartKoushin()
+    IEnumerator HeartKoushin(int _getloveparam)
     {
         while (heart_count > 0)
         {
@@ -2670,9 +2659,9 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         //好感度　取得分増加
-        PlayerStatus.girl1_Love_exp += Getlove_exp;
+        PlayerStatus.girl1_Love_exp += _getloveparam;
 
-        //念のため、テキストも更新
+        //テキストも更新
         girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
 
         //リセット
@@ -2680,7 +2669,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //好感度によって発生するサブイベントがないかチェック
         compound_Main.check_GirlLoveSubEvent_flag = false;
-        compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
+        //compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
     }
 
     //ハートがゲージに衝突した時に、このメソッドが呼び出される。
@@ -2802,26 +2791,15 @@ public class GirlEat_Judge : MonoBehaviour {
     void Slider_Koushin(int cullent_value)
     {
         
-        /*i = 0;
-        while (cullent_value >= stage_levelTable[i])
-        {
-            cullent_value -= stage_levelTable[i];
-            i++;
-        }*/
         _slider.value = cullent_value;
     }
 
     //スライダマックスバリューを更新
     public void Love_Slider_Setting()
     {
-        if (PlayerStatus.girl1_Love_lv <= 5)
-        {
-            _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
-        }
-        else //5以上は、現状、同じ数値
-        {
-            _slider.maxValue = stage_levelTable[stage_levelTable.Count - 1];
-        }
+
+        _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+
     }
 
 
@@ -2971,7 +2949,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                         else
                         {
-                            GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + topping_flag_point; //クエストID+topping_flag(1~5)で指定する。ねこクッキーで、アイザン入りなら、1000+1で、1001。
+                            GameMgr.OkashiComment_ID = girl1_status.OkashiQuest_ID + topping_flag_point; //クエストID+topping_flag(1~9)で指定する。ねこクッキーで、アイザン入りなら、1000+1で、1001。
                         }
                     }
                 }
@@ -3111,17 +3089,14 @@ public class GirlEat_Judge : MonoBehaviour {
         else
         {
             //アニメーションをON。好感度パラメータの反映もここ。
-            loveGetPlusAnimeON();
+            loveGetPlusAnimeON(Getlove_exp, true);
 
             //エフェクト生成＋アニメ開始
             _listEffect.Add(Instantiate(effect_Prefab));
             StartCoroutine("Love_effect");
 
             //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
-            GirlHeartEffect.LoveRateChange();
-
-            //音を鳴らす
-            sc.PlaySe(5);
+            GirlHeartEffect.LoveRateChange();            
 
             //テキストウィンドウの更新
             exp_Controller.GirlLikeText(Getlove_exp, total_score);
@@ -3196,7 +3171,8 @@ public class GirlEat_Judge : MonoBehaviour {
         canvas.SetActive(false);
         touch_controller.Touch_OnAllOFF();
 
-        //GameMgr.scenario_ON = true;
+        /*
+        //にいちゃんおいしかったよ！のメッセージ。現在は無くして、テンポをよくした。
         GameMgr.QuestClearButtonMessage_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         while (!GameMgr.recipi_read_endflag) //にいちゃん、おいしかったよ、ありがと～！のメッセージ
@@ -3204,7 +3180,7 @@ public class GirlEat_Judge : MonoBehaviour {
             yield return null;
         }
         
-        GameMgr.recipi_read_endflag = false;
+        GameMgr.recipi_read_endflag = false;*/
 
         //表情も喜びの表情に。
         girl1_status.face_girl_Yorokobi();
@@ -3218,6 +3194,17 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else //クエストクリアの場合、下からハートと光がでる演出。数秒待って次のSPクエスト開始
         {
+            canvas.SetActive(true);
+
+            //お菓子の判定処理を終了
+            Extremepanel_obj.SetActive(true);
+            compound_Main.girlEat_ON = false;
+            compound_Main.compound_status = 0;
+
+            GameMgr.QuestClearflag = true;
+            QuestClearMethod();
+
+            //以下、光の演出ありの場合
             /*
             canvas.SetActive(false);
 
@@ -3275,6 +3262,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //stageclear_Button.SetActive(true);
         GameMgr.QuestClearflag = true;
+
+        //はじめてクリアしたあと、もし会話イベントがあれば、会話をはさむ。「にいちゃん。ぶどうクッキーってこれか！ありがとう！」みたいな。
 
         //お菓子の判定処理を終了
         compound_Main.girlEat_ON = false;

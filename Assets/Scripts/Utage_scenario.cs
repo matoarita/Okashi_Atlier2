@@ -207,18 +207,24 @@ public class Utage_scenario : MonoBehaviour
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
                 }
 
+
                 switch (GameMgr.scenario_flag)
                 {
 
                     case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。また、何を作ればよいかを指示してくれる。
 
-                        scenarioLabel = "Tutorial";
-                        StartCoroutine(Tutorial_Start());
+                        if (!GameMgr.Beginner_flag[3]) //チュートリアルを読んだかどうか
+                        {
+                            GameMgr.Beginner_flag[3] = true;
+                            scenarioLabel = "Tutorial";
+                            StartCoroutine(Tutorial_Start());
+                        }
                         break;
 
                     default:
                         break;
                 }
+                
 
                 if(GameMgr.CompoundEvent_storyflag)
                 {
@@ -715,6 +721,8 @@ public class Utage_scenario : MonoBehaviour
         }
         GameMgr.tutorial_Progress = false;
 
+        GameMgr.tutorial_Num = 15;
+
         //続きから再度読み込み
         engine.ResumeScenario();
 
@@ -726,7 +734,7 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //ゲームの再開処理を書く
-        GameMgr.tutorial_Num = 15;
+        GameMgr.tutorial_Num = 16;
 
         while (!GameMgr.tutorial_Progress) //オリジナル調合を押し待ち
         {

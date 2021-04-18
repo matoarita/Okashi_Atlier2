@@ -129,7 +129,7 @@ public class recipimemoSelectToggle : MonoBehaviour
 
         while (count < recipimemoController._recipi_listitem.Count)
         {
-            selectToggle = recipimemoController._recipi_listitem[count].GetComponent<Toggle>().isOn;
+            selectToggle = recipimemoController._recipi_listitem[count].transform.Find("recipiMemoSelectToggle_content").GetComponent<Toggle>().isOn;
             if (selectToggle == true) break;
             ++count;
         }
@@ -138,9 +138,9 @@ public class recipimemoSelectToggle : MonoBehaviour
 
 
         //おすと、イベントIDに応じて、レシピのメモを表示する。
-        if (recipimemoController._recipi_listitem[count].GetComponent<recipimemoSelectToggle>().recipi_toggleitemType == 0)
+        if (recipimemoController._recipi_listitem[count].transform.Find("recipiMemoSelectToggle_content").GetComponent<recipimemoSelectToggle>().recipi_toggleitemType == 0)
         {
-            event_itemID = recipimemoController._recipi_listitem[count].GetComponent<recipimemoSelectToggle>().recipi_toggleEventitem_ID;
+            event_itemID = recipimemoController._recipi_listitem[count].transform.Find("recipiMemoSelectToggle_content").GetComponent<recipimemoSelectToggle>().recipi_toggleEventitem_ID;
 
             memoResult.SeteventID(event_itemID);
             memoResult_obj.SetActive(true);

@@ -605,7 +605,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         girl1_status.special_animatFirst = true;
         girl1_status.Girl_Hungry();
 
-        special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1);
+        special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1); //クエスト番号を再設定ここで。
         special_quest.RedrawQeustName();       
 
         debug_panel.GirlLove_Koushin(PlayerStatus.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
