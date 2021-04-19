@@ -968,7 +968,7 @@ MonoBehaviour:
       rich: 0
       sweat: 5
       bitter: 2
-      sour: 15
+      sour: 10
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
       rich: 0
       sweat: 5
       bitter: 0
-      sour: 11
+      sour: 15
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -1250,7 +1250,7 @@ MonoBehaviour:
       rich: 0
       sweat: 7
       bitter: 5
-      sour: 8
+      sour: 12
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -1297,7 +1297,7 @@ MonoBehaviour:
       rich: 0
       sweat: 7
       bitter: 5
-      sour: 17
+      sour: 22
       crispy: 0
       fluffy: 0
       smooth: 0
@@ -3778,7 +3778,7 @@ MonoBehaviour:
       file_name: apareiyu
       name: custard_cream
       nameHyouji: "\u30AB\u30B9\u30BF\u30FC\u30C9\u30AF\u30EA\u30FC\u30E0"
-      desc: "\u5375\u9EC4\u30FB\u7802\u7CD6\u30FB\u5C0F\u9EA6\u7C89\u30FB\u6E29\u3081\u305F\u30DF\u30EB\u30AF\u3092\u6DF7\u305C\u3066\u4F5C\u308B\u30AF\u30EA\u30FC\u30E0\u751F\u5730\u3002"
+      desc: "\u5375\u9EC4\u30FB\u7802\u7CD6\u30FB\u5C0F\u9EA6\u7C89\u30FB\u6E29\u3081\u305F\u30DF\u30EB\u30AF\u3092\u6DF7\u305C\u3066\u4F5C\u308B\u30AF\u30EA\u30FC\u30E0\u751F\u5730\u3002\u3068\u3066\u3082\u6FC3\u539A\u3067\u3001\u30D1\u30C6\u30A3\u30B7\u30A8\u305D\u308C\u305E\u308C\u306E\u72EC\u81EA\u306E\u4F5C\u308A\u65B9\u304C\u3042\u308B\u3002"
       comp_hosei: 0
       hp: 0
       day: 0
@@ -3824,8 +3824,8 @@ MonoBehaviour:
     - ItemID: 81
       file_name: apareiyu
       name: appaleil_yellow
-      nameHyouji: "\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u30A4\u30A8\u30ED\u30FC\uFF1E"
-      desc: "\u5375\u9EC4\u30FB\u7802\u7CD6\u3092\u6DF7\u305C\u3066\u4F5C\u308B\u30AF\u30EA\u30FC\u30E0\u751F\u5730\u3002"
+      nameHyouji: "\u30A2\u30D1\u30EC\u30A4\u30E6\uFF1C\u9EC4\u8EAB\u30E1\u30A4\u30F3\uFF1E"
+      desc: "\u5375\u9EC4\u30FB\u7802\u7CD6\u3092\u6DF7\u305C\u3066\u4F5C\u308B\u30AF\u30EA\u30FC\u30E0\u751F\u5730\u3002\u30AB\u30B9\u30BF\u30FC\u30C9\u30AF\u30EA\u30FC\u30E0\u306E\u6750\u6599\u306B\u306A\u308B\u3002"
       comp_hosei: 0
       hp: 0
       day: 0
@@ -3872,7 +3872,7 @@ MonoBehaviour:
       file_name: apareiyu
       name: meringue
       nameHyouji: "\u30E1\u30EC\u30F3\u30B2"
-      desc: "\u5375\u767D\u30FB\u7802\u7CD6\u3092\u6DF7\u305C\u3066\u4F5C\u308B\u30AF\u30EA\u30FC\u30E0\u751F\u5730\u3002"
+      desc: "\u5375\u767D\u30FB\u7802\u7CD6\u3092\u6DF7\u305C\u3066\u4F5C\u308B\u30AF\u30EA\u30FC\u30E0\u751F\u5730\u3002\u3075\u308F\u3075\u308F\u3067\u771F\u3063\u767D\u304F\u6CE1\u7ACB\u3063\u3066\u3044\u308B\u3002"
       comp_hosei: 0
       hp: 0
       day: 0
@@ -10924,7 +10924,7 @@ MonoBehaviour:
       file_name: orange_juice
       name: mix_fruits_juice
       nameHyouji: "\u30DF\u30C3\u30AF\u30B9\u30D5\u30EB\u30FC\u30C4\u30B8\u30E5\u30FC\u30B9"
-      desc: "\u679C\u7269\u306E\u679C\u6C41\u3092\u305F\u3063\u3077\u308A\u6DF7\u305C\u305F\u30B8\u30E5\u30FC\u30B9"
+      desc: "\u679C\u7269\u306E\u679C\u6C41\u3092\u305F\u3063\u3077\u308A\u6DF7\u305C\u305F\u30B8\u30E5\u30FC\u30B9\u30022\u7A2E\u985E\u306E\u679C\u7269\u3092\u6DF7\u305C\u308B\u3053\u3068\u3067\u51FA\u6765\u3042\u304C\u308B\u3002"
       comp_hosei: 0
       hp: 300
       day: 0
@@ -10971,7 +10971,7 @@ MonoBehaviour:
       file_name: juice_grape
       name: mix_berry_juice
       nameHyouji: "\u30DF\u30C3\u30AF\u30B9\u30D9\u30EA\u30FC\u30B8\u30E5\u30FC\u30B9"
-      desc: "\u30D9\u30EA\u30FC\u7CFB\u306E\u679C\u5B9F\u306E\u307F\u3067\u4F5C\u3063\u305F\u30DF\u30C3\u30AF\u30B9\u30B8\u30E5\u30FC\u30B9\u3002\u5065\u5EB7\u306B\u3044\u3044\u3002"
+      desc: "2\u7A2E\u985E\u4EE5\u4E0A\u306E\u30D9\u30EA\u30FC\u7CFB\u306E\u679C\u5B9F\u306E\u307F\u3067\u4F5C\u3063\u305F\u30DF\u30C3\u30AF\u30B9\u30B8\u30E5\u30FC\u30B9\u3002\u5065\u5EB7\u306B\u3044\u3044\u3002"
       comp_hosei: 0
       hp: 300
       day: 0

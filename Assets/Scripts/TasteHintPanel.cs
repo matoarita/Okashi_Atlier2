@@ -132,6 +132,7 @@ public class TasteHintPanel : MonoBehaviour {
                 if (!ev_yusen)
                 {
                     _one_comment_lib.Add("にいちゃん。森で果物が取れたかも。" + GameMgr.ColorPink + "「外へ出る」" + "</color>" + "からお外へ出れるよ～！");
+                    _one_comment_lib.Add("にいちゃん。　ヒカリのお口にタッチしたら、ヒントを教えてあげる！");
                 }
                 break;
 
@@ -150,7 +151,8 @@ public class TasteHintPanel : MonoBehaviour {
 
             case 11: //すっぱいラスク食べたい
 
-
+                _one_comment_lib.Add("すっぱいくだもの..。近くの森か、ベリーファームで、見かけたかも。");
+                _one_comment_lib.Add("ベリーのくだものは、すっぱいのが多いんだよ～。にいちゃん！");
                 break;
 
             case 20: //クレープ食べたい

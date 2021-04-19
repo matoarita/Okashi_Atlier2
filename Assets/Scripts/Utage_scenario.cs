@@ -219,6 +219,12 @@ public class Utage_scenario : MonoBehaviour
                             scenarioLabel = "Tutorial";
                             StartCoroutine(Tutorial_Start());
                         }
+                        else
+                        {
+                            GameMgr.scenario_ON = false;
+                            GameMgr.tutorial_ON = false;
+                            GameMgr.scenario_flag = 120;
+                        }
                         break;
 
                     default:

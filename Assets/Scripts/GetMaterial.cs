@@ -11,6 +11,7 @@ public class GetMaterial : MonoBehaviour
 
     private GameObject text_area;
     private Text _text;
+    private GameObject text_kaigyo_button;
 
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -78,8 +79,11 @@ public class GetMaterial : MonoBehaviour
     private string[] _b = new string[3];
     private string[] _b_final = new string[3];
 
-    private int[] kettei_item = new int[3];
-    private int[] kettei_kosu = new int[3];
+    private int tansaku_count = 3;
+    private int tansaku_gyou = 3; //テキストエリアに表示する行数
+    private List<string> _tansaku_result_temp = new List<string>();
+    private int[] kettei_item;
+    private int[] kettei_kosu;
 
     private int mat_cost;
     private string mat_place;
@@ -96,7 +100,7 @@ public class GetMaterial : MonoBehaviour
     private GameObject TreasureImage_obj;
     private GameObject CharacterSDImage;
 
-    public int Treasure_Status; //宝箱なのか、怪しい場所を散策なのかを判別する
+    public int Treasure_Status; //宝箱か、怪しい場所を散策か、といったタイプを判別する
     private Image _TreasureImg;
     private Sprite treasure1;
     private Sprite treasure1Open;
@@ -106,6 +110,9 @@ public class GetMaterial : MonoBehaviour
 
     private GameObject HeroineLifePanel;
     private Text HeroineLifeText;
+
+    private int page_count, lastpage_count;
+    private int hyouji_max;
 
     // Use this for initialization
     void Start()
@@ -129,6 +136,7 @@ public class GetMaterial : MonoBehaviour
         //テキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
 
         //時間管理オブジェクトの取得
         time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
@@ -160,6 +168,9 @@ public class GetMaterial : MonoBehaviour
         mat_anim_end = false;
 
         cullent_total_mat = 0;
+
+        kettei_item = new int[tansaku_count];
+        kettei_kosu = new int[tansaku_count];
 
         TansakuLoding_Panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/TansakuLodingPanel").gameObject;
 
@@ -196,6 +207,7 @@ public class GetMaterial : MonoBehaviour
                     NextButton_obj.SetActive(false);
                     OpenTreasureButton_obj.SetActive(false);
                     TreasureGetitem_obj.SetActive(false);
+                    text_kaigyo_button.SetActive(false);
 
                     timeOut = 1.0f;
                     mat_anim_status = 1;
@@ -324,13 +336,12 @@ public class GetMaterial : MonoBehaviour
         {
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
-
-        tansaku_panel.SetActive(true);
+       
         TansakuLoding_Panel.GetComponent<CanvasGroup>().DOFade(0, 0.2f); //背景黒フェード
 
 
         //イベント発生orアイテム取得　の抽選
-        InitializeEventDicts();
+        InitializeEventDicts(); //採集、イベント、レアイベント、宝箱の4種類から一つ
         event_num = ChooseEvent(); //eventDictから算出
 
         switch (event_num)
@@ -343,6 +354,7 @@ public class GetMaterial : MonoBehaviour
 
             case 1: //イベント発生
 
+                tansaku_panel.SetActive(true);
                 switch (mat_place)
                 {
                     case "Forest":
@@ -380,14 +392,15 @@ public class GetMaterial : MonoBehaviour
 
                 break;
 
-            case 2: //発見力があがると、見つけやすくなるレアイベント
+            case 2: //レアイベント　発見力があがると、見つけやすくなる
 
+                tansaku_panel.SetActive(true);
                 switch (mat_place)
                 {
                     case "Forest":
 
                         //レアイベント
-                        rare_event_Forest();
+                        rare_event_Forest(); //バードサンクチュアリ発見など
                         break;
 
 
@@ -402,6 +415,7 @@ public class GetMaterial : MonoBehaviour
 
             case 3: //お宝を発見
 
+                tansaku_panel.SetActive(true);
                 switch (mat_place)
                 {
                     case "Forest":
@@ -431,6 +445,7 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
+                tansaku_panel.SetActive(true);
                 //アイテムの取得
                 mat_result();
                 break;
@@ -440,7 +455,9 @@ public class GetMaterial : MonoBehaviour
 
     void mat_result()
     {
-        for (count = 0; count < 3; count++) //3回繰り返す
+        _tansaku_result_temp.Clear();
+
+        for (count = 0; count < tansaku_count; count++) //3回繰り返す
         {
             // ドロップアイテムの抽選
             itemId = Choose();
@@ -450,10 +467,11 @@ public class GetMaterial : MonoBehaviour
             itemKosu = ChooseKosu();
             kettei_kosu[count] = itemKosu;
 
+            
 
             if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
             {
-                _a[count] = "";
+                //_a[count] = "";
                 kettei_kosu[count] = 0;
             }
             else
@@ -474,7 +492,8 @@ public class GetMaterial : MonoBehaviour
 
                 cullent_total_mat += kettei_kosu[count]; //現在拾った材料の数
 
-                _a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
+                _tansaku_result_temp.Add(GameMgr.ColorYellow + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！");
+                //_a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
@@ -499,7 +518,7 @@ public class GetMaterial : MonoBehaviour
 
             if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
             {
-                _b[count] = "";
+                //_b[count] = "";
                 kettei_kosu[count] = 0;
             }
             else
@@ -520,7 +539,8 @@ public class GetMaterial : MonoBehaviour
 
                 cullent_total_mat += kettei_kosu[count]; //現在拾った材料の数
 
-                _b[count] = "\n" + "<color=#E37BB5>" + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！";
+                _tansaku_result_temp.Add("<color=#E37BB5>" + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！");
+                //_b[count] = "\n" + "<color=#E37BB5>" + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！";
 
                 //アイテムの取得処理
                 pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
@@ -539,6 +559,7 @@ public class GetMaterial : MonoBehaviour
         count = 0;
         empty = 0;
 
+        /*
         for (i = 0; i < _a_final.Length; i++)
         {
             _a_final[i] = "";
@@ -564,8 +585,61 @@ public class GetMaterial : MonoBehaviour
                 }
                 count++;
             }
+        }*/
+
+        _text.text = "";
+        page_count = 0;
+        if (_tansaku_result_temp.Count > tansaku_gyou)
+        {
+            text_kaigyo_button.SetActive(true);
+        }
+        else
+        {
+            text_kaigyo_button.SetActive(false);
+            tansaku_panel.SetActive(true);
         }
 
+        //ラストページにきたら、探索パネルを表示する。を検出するメソッド
+        lastpage_count = 0;
+        while (i < 99)
+        {
+
+            if (_tansaku_result_temp.Count - (i * tansaku_gyou) < tansaku_gyou)
+            {
+                break;
+            }
+            lastpage_count++;
+            i++;
+        }
+        Debug.Log("最後のページ: " + lastpage_count);
+        Debug.Log("現在のページ: " + page_count);
+
+        if (_tansaku_result_temp.Count == 0)
+        {
+            _text.text = "特に何も見つからなかった。";
+            //音を鳴らす
+            sc.PlaySe(6);
+        }
+        else //何か一つでもアイテムを見つけた
+        {
+            if (PlayerStatus.player_zairyobox >= cullent_total_mat)
+            {
+                //_a_zairyomax = "";
+            }
+            else
+            {
+                //_a_zairyomax = "もうカゴがいっぱい。";
+                _tansaku_result_temp.Add("もうカゴがいっぱい。");
+                getmatplace_panel.SisterOn1();
+            }
+
+            textArea_Koushin();           
+
+            //音を鳴らす
+            sc.PlaySe(9);
+        }
+
+        /*
         if (_a_final.Length == empty && _b[0] == "") //何もなかったとき
         {
             _text.text = "特に何も見つからなかった。";
@@ -598,8 +672,49 @@ public class GetMaterial : MonoBehaviour
 
             //音を鳴らす
             sc.PlaySe(9);
+        }*/
+
+    }
+
+    //採集アイテムが4個以上のとき、3行ずつ表示する。ボタンを押すと、次のページへ送り出す。
+    public void KaigyoButton()
+    {
+        page_count++;
+        if (_tansaku_result_temp.Count - (page_count * tansaku_gyou) < 0)
+        {
+            page_count = 0;
+        }
+        textArea_Koushin();
+
+        //現在のページが、ラストページならば、探索パネル表示
+        if (page_count >= lastpage_count)
+        {
+            tansaku_panel.SetActive(true);
+        }
+    }
+
+    void textArea_Koushin()
+    {
+        _text.text = "";
+
+        hyouji_max = tansaku_gyou;
+
+        if(_tansaku_result_temp.Count - (page_count* tansaku_gyou) < tansaku_gyou)
+        {
+            hyouji_max = _tansaku_result_temp.Count - (page_count * tansaku_gyou);
         }
 
+        for (i = 0; i < hyouji_max; i++)
+        {
+            if (i == 0)
+            {
+                _text.text += _tansaku_result_temp[i+ (page_count * tansaku_gyou)];
+            }
+            else
+            {
+                _text.text += "\n" + _tansaku_result_temp[i+ (page_count * tansaku_gyou)];
+            }
+        }
     }
 
 

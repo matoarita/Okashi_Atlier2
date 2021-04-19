@@ -67,8 +67,8 @@ MonoBehaviour:
       slot_Name: Blackberry
       slot_Hyouki_1: "\u30D6\u30E9\u30C3\u30AF\u30D9\u30EA\u30FC"
       slot_Hyouki_2: "\u30D6\u30E9\u30C3\u30AF\u30D9\u30EA\u30FC"
-      slot_totalscore: 3
-      slot_getgirllove: 30
+      slot_totalscore: 30
+      slot_getgirllove: 200
       slot_money: 15
     - ItemID: 8
       slot_Name: Blackcurrant

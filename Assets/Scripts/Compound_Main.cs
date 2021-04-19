@@ -1309,6 +1309,13 @@ public class Compound_Main : MonoBehaviour
                 yes.SetActive(false);
                 stageclear_panel.SetActive(false);
 
+                if (GameMgr.tutorial_ON != true)
+                {  }
+                else
+                {
+                    no.SetActive(false);
+                }
+
                 text_area.SetActive(true);
                 WindowOff();
                 mainUIFrame_panel.SetActive(true);
@@ -3168,6 +3175,23 @@ public class Compound_Main : MonoBehaviour
                         }
                         break;
 
+                    case 11: //ラスク2
+
+                        if (!GameMgr.GirlLoveSubEvent_stage1[10])
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[10] = true;
+                            GameMgr.GirlLoveSubEvent_num = 10;
+
+                            check_GirlLoveSubEvent_flag = false;
+                            mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
+
+                            //ベリーファームへ行けるようになる。
+                            matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
+
+                        }
+
+                        break;
+
                     case 20: //クレープ1
 
                         if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
@@ -3178,7 +3202,7 @@ public class Compound_Main : MonoBehaviour
                                 GameMgr.GirlLoveSubEvent_num = 20;
                                 check_GirlLoveSubEvent_flag = false;
 
-                                mute_on = true;
+                                mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
                             }
                         }
                         break;
@@ -3251,6 +3275,7 @@ public class Compound_Main : MonoBehaviour
                         GameMgr.Beginner_flag[2] = true;
                         GameMgr.GirlLoveSubEvent_stage1[81] = true;
                         GameMgr.GirlLoveSubEvent_num = 81;
+                        check_GirlLoveSubEvent_flag = false;
                     }
                 }
             }
@@ -3268,6 +3293,27 @@ public class Compound_Main : MonoBehaviour
                         GameMgr.Beginner_flag[4] = true;
                         GameMgr.GirlLoveSubEvent_stage1[82] = true;
                         GameMgr.GirlLoveSubEvent_num = 82;
+                        check_GirlLoveSubEvent_flag = false;
+                    }
+                }
+            }
+
+            //はじめてお金が半分を下回った
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                if (!GameMgr.Beginner_flag[5])
+                {
+
+                    if (PlayerStatus.player_money <= 1000)
+                    {
+                        GameMgr.Beginner_flag[5] = true;
+                        GameMgr.GirlLoveSubEvent_stage1[83] = true;
+                        GameMgr.GirlLoveSubEvent_num = 83;
+
+                        mute_on = true;
+                        check_GirlLoveSubEvent_flag = false;
                     }
                 }
             }
@@ -3395,14 +3441,7 @@ public class Compound_Main : MonoBehaviour
         else
         {
             HintTasteButton.SetActive(false);
-        }
-
-        //ベリーファームへ行けるようになる。
-        if (PlayerStatus.player_renkin_lv >= 2) //
-        {
-
-            matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
-        }
+        }        
     }
 
     public void HeartGuageTextKoushin()
@@ -3421,43 +3460,82 @@ public class Compound_Main : MonoBehaviour
         _todayfood_lib.Clear();
         _todayfoodexpence_lib.Clear();
 
-        _todayfood_lib.Add("じゃがいもとベーコンのバター焼き");
-        _todayfoodexpence_lib.Add(75);
-        _todayfood_lib.Add("黄金じゃがバター");
-        _todayfoodexpence_lib.Add(50);
-        _todayfood_lib.Add("ビールとえだまめの炊き込みご飯");
-        _todayfoodexpence_lib.Add(120);
-        _todayfood_lib.Add("ゴールデンカレーライス");
-        _todayfoodexpence_lib.Add(80);
-        _todayfood_lib.Add("じゃがいもガレット");
-        _todayfoodexpence_lib.Add(50);
-        _todayfood_lib.Add("きのことお豆のスープ");
-        _todayfoodexpence_lib.Add(60);
-        _todayfood_lib.Add("とうもろこしのパン");
-        _todayfoodexpence_lib.Add(50);
-        _todayfood_lib.Add("じゃがいもコーンシチュー");
-        _todayfoodexpence_lib.Add(80);
-        _todayfood_lib.Add("お豆だんご");
-        _todayfoodexpence_lib.Add(50);
-        _todayfood_lib.Add("ほしにく");
-        _todayfoodexpence_lib.Add(100);
-        _todayfood_lib.Add("トマトコンソメリゾット");
-        _todayfoodexpence_lib.Add(60);
-        _todayfood_lib.Add("ボンゴレ・ヴィアンゴ");
-        _todayfoodexpence_lib.Add(100);
-        _todayfood_lib.Add("ペスカトーレ");
-        _todayfoodexpence_lib.Add(100);
-        _todayfood_lib.Add("子牛のオレンジソースかけステーキ");
-        _todayfoodexpence_lib.Add(120);
-        _todayfood_lib.Add("ハンバーグもどき");
-        _todayfoodexpence_lib.Add(70);
-        _todayfood_lib.Add("バリバリ貝のブイヤ・ベース");
-        _todayfoodexpence_lib.Add(110);
-        _todayfood_lib.Add("チキン串焼き");
-        _todayfoodexpence_lib.Add(90);
-        _todayfood_lib.Add("さかなの地中海風蒸し焼き");
-        _todayfoodexpence_lib.Add(120);
-        _todayfood_lib.Add("落雷スープ");
-        _todayfoodexpence_lib.Add(100);
+        for (i = 1; i <= PlayerStatus.girl1_Love_lv; i++)
+        {
+            switch (PlayerStatus.girl1_Love_lv)
+            {
+                case 1:
+                    
+                    _todayfood_lib.Add("じゃがバター");
+                    _todayfoodexpence_lib.Add(30);                    
+                    _todayfood_lib.Add("お豆のスープ");
+                    _todayfoodexpence_lib.Add(60);
+                    _todayfood_lib.Add("とうもろこしのパン");
+                    _todayfoodexpence_lib.Add(50);
+                    _todayfood_lib.Add("じゃがいものシチュー");
+                    _todayfoodexpence_lib.Add(70);
+                    _todayfood_lib.Add("お豆だんご");
+                    _todayfoodexpence_lib.Add(50);
+                    _todayfood_lib.Add("ほしにくのせバゲットの切れ端");
+                    _todayfoodexpence_lib.Add(100);
+                    break;
+
+                case 2:
+
+                    _todayfood_lib.Add("じゃがいもとベーコンの炒めやき");
+                    _todayfoodexpence_lib.Add(75);
+                    _todayfood_lib.Add("きのこコンソメスープ");
+                    _todayfoodexpence_lib.Add(60);
+                    _todayfood_lib.Add("ビールとえだまめの炊き込みご飯");
+                    _todayfoodexpence_lib.Add(120);                    
+                    _todayfood_lib.Add("ポテト・ガレット");
+                    _todayfoodexpence_lib.Add(50);                  
+                    _todayfood_lib.Add("ハンバーグもどき");
+                    _todayfoodexpence_lib.Add(70);
+                    
+                    break;
+
+                case 3:
+
+                    _todayfood_lib.Add("特製ペペロンチーノ");
+                    _todayfoodexpence_lib.Add(100);
+                    _todayfood_lib.Add("バリバリ貝のブイヤ・ベース");
+                    _todayfoodexpence_lib.Add(110);
+                    _todayfood_lib.Add("チキンソテー");
+                    _todayfoodexpence_lib.Add(90);
+                    _todayfood_lib.Add("おさかなの地中海蒸し焼き");
+                    _todayfoodexpence_lib.Add(120);
+                    _todayfood_lib.Add("手ごねハンバーグ");
+                    _todayfoodexpence_lib.Add(120);
+                    break;
+
+                case 4:
+
+                    _todayfood_lib.Add("ゴールデンカレーライス");
+                    _todayfoodexpence_lib.Add(160);
+                    _todayfood_lib.Add("トマトリゾット");
+                    _todayfoodexpence_lib.Add(120);
+                    _todayfood_lib.Add("ボンゴレ・パスタ");
+                    _todayfoodexpence_lib.Add(200);
+                    _todayfood_lib.Add("おしゃれ風味ペスカトーレ");
+                    _todayfoodexpence_lib.Add(200);
+                    _todayfood_lib.Add("うまうまステーキ");
+                    _todayfoodexpence_lib.Add(250);
+                    break;
+
+                case 5:
+
+                    _todayfood_lib.Add("落雷スープ");
+                    _todayfoodexpence_lib.Add(200);
+                    _todayfood_lib.Add("ブルゴーニュステーキ");
+                    _todayfoodexpence_lib.Add(300);
+                    break;
+
+                default:
+
+                    break;
+            }
+        }     
+        
     }
 }

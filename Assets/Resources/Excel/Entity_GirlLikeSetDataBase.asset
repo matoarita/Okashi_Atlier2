@@ -284,22 +284,22 @@ MonoBehaviour:
       topping01: Orange
       topping02: Lemon
       topping03: Grape
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
+      topping04: Blueberry
+      topping05: Raspberry
+      topping06: Blackcurrant
+      topping07: Blackberry
+      topping08: Cranberry
       topping09: Non
       tp_score01: 5
       tp_score02: 25
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
-      tp_score06: 0
-      tp_score07: 0
+      tp_score06: -50
+      tp_score07: 50
       tp_score08: 0
       tp_score09: 0
-      Non_tpscore: -15
+      Non_tpscore: -35
       desc: "\u3059\u3063\u3071\u3044\u30E9\u30B9\u30AF"
       commet_flag: 0
     - setID: 8
@@ -384,7 +384,7 @@ MonoBehaviour:
       bitter: 0
       sour: 30
       crispy: 0
-      fluffy: 70
+      fluffy: 85
       smooth: 0
       hardness: 0
       jiggly: 0

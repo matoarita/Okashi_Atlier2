@@ -4853,7 +4853,7 @@ MonoBehaviour:
     - ItemID: 186
       cmpitemName: maple_crepe
       cmpitemID_1: crepe
-      cmpitemID_2: maple
+      cmpitemID_2: maple_syrup
       cmpitemID_3: empty
       cmp_subtype_1: empty
       cmp_subtype_2: empty
@@ -4879,7 +4879,7 @@ MonoBehaviour:
     - ItemID: 187
       cmpitemName: maple_creamcrepe
       cmpitemID_1: cream_crepe
-      cmpitemID_2: maple
+      cmpitemID_2: maple_syrup
       cmpitemID_3: empty
       cmp_subtype_1: empty
       cmp_subtype_2: empty
@@ -5200,7 +5200,7 @@ MonoBehaviour:
       result_kosu: 1
       cmpitem_kosu1: 1
       cmpitem_kosu2: 1
-      cmpitem_kosu3: 9999
+      cmpitem_kosu3: 1
       best_kosu1: 1
       best_kosu2: 6.5
       best_kosu3: 6.3

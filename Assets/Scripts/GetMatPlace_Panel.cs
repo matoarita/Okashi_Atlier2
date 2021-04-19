@@ -54,7 +54,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject text_area;
     private Text _text;
+    private GameObject text_kaigyo_button;
     private string _temp_tx;
+    private bool text_kaigyo_active;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -152,6 +154,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
 
         //Yes no パネルの取得
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
@@ -1001,6 +1004,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 _text.text = "";
 
+                if (text_kaigyo_active)
+                {
+                    text_kaigyo_button.SetActive(true);
+                }
+
                 yes_selectitem_kettei.onclick = false;
                 break;
         }
@@ -1306,13 +1314,17 @@ public class GetMatPlace_Panel : MonoBehaviour {
     }
 
 
-    //リザルト画面を表示
+    //リザルト画面をOFF
     public void GetMatResultPanelOff()
     {
         sc.PlaySe(30);
         result_off = true;
+
+        compound_Main.check_GirlLoveEvent_flag = false; //再度イベントチェック
+        Debug.Log("イベントチェックON");
     }
 
+    //リザルト画面を表示
     IEnumerator ResultOn()
     {
 
@@ -1356,6 +1368,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
         slot_view_status = 2;
 
         _text.text = "家に戻る？";
+
+        if(text_kaigyo_button.activeSelf)
+        {
+            text_kaigyo_active = true; //改行ボタンはtrueになっていた場合。一時的にオフにするが、あとでオンに直す用のフラグ。
+            text_kaigyo_button.SetActive(false);
+        }
+        else
+        {
+            text_kaigyo_active = false;
+        }
 
         foreach (Transform child in slot_tansaku_button.transform) // 
         {

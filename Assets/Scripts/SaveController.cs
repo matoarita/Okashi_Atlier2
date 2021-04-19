@@ -655,6 +655,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         matplace_database.ResetDefaultMapExcel();
 
         //各ショップのイベントアイテムの在庫の初期化
+        shop_database.ShopZaiko_Reset();
     }
 
     //セーブデータがあるかどうかだけをチェック

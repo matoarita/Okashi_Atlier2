@@ -246,36 +246,42 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
                 PlayerStatus.player_extreme_kaisu_Max++;
+                PlayerStatus.player_extreme_kaisu++;
                 break;
 
             case 6:
 
                 _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
                 PlayerStatus.player_extreme_kaisu_Max++;
+                PlayerStatus.player_extreme_kaisu++;
                 break;
 
             case 10:
 
                 _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
                 PlayerStatus.player_extreme_kaisu_Max++;
+                PlayerStatus.player_extreme_kaisu++;
                 break;
 
             case 15:
 
                 _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
                 PlayerStatus.player_extreme_kaisu_Max++;
+                PlayerStatus.player_extreme_kaisu++;
                 break;
 
             case 30:
 
                 _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
                 PlayerStatus.player_extreme_kaisu_Max++;
+                PlayerStatus.player_extreme_kaisu++;
                 break;
 
             case 50:
 
                 _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
                 PlayerStatus.player_extreme_kaisu_Max++;
+                PlayerStatus.player_extreme_kaisu++;
                 break;
         }
     }

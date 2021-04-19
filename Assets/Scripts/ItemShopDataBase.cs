@@ -208,4 +208,70 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     {
         
     }
+
+    //ショップの在庫をリセットし、初期状態に戻す。
+    public void ShopZaiko_Reset()
+    {
+        //ショップのデータの読み込み
+        sheet_no = 0;
+        sheet_count = 0;
+
+        while (sheet_count < 1)
+        {
+            count = 0;
+
+            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
+            {
+                _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
+
+                //ここでリストに追加している
+                shopitems[count].shop_itemzaiko = _zaiko;
+
+                ++count;
+            }
+            ++sheet_count;
+        }
+
+        //ファームのデータの読み込み
+        sheet_no = 1;
+        sheet_count = 0;
+
+        while (sheet_count < 1)
+        {
+            count = 0;
+
+            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
+            {
+
+                _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
+
+                //ここでリストに追加している
+                farmitems[count].shop_itemzaiko = _zaiko;
+
+                ++count;
+            }
+            ++sheet_count;
+        }
+
+        //エメラルドショップデータの読み込み
+        sheet_no = 2;
+        sheet_count = 0;
+
+        while (sheet_count < 1)
+        {
+            count = 0;
+
+            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
+            {
+
+                _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
+
+                //ここでリストに追加している
+                emeraldshop_items[count].shop_itemzaiko = _zaiko;
+
+                ++count;
+            }
+            ++sheet_count;
+        }
+    }
 }

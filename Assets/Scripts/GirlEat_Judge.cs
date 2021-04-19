@@ -2287,6 +2287,11 @@ public class GirlEat_Judge : MonoBehaviour {
                         quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
+                    else if (topping_all_non && !topping_flag) //食べたいトッピングがあるが、該当するトッピングはのっていなかった。現状、それでもクリア可能。
+                    {
+                        quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
                     else if (!topping_all_non) //そもそも食べたいトッピングない場合
                     {
                         quest_clear = true;
@@ -3253,6 +3258,8 @@ public class GirlEat_Judge : MonoBehaviour {
         stageclear_panel.SetActive(true);
         playableDirector.enabled = true;
         playableDirector.Play();
+
+        //sc.PlaySe(88);
 
         yield return new WaitForSeconds(4.0f);
 

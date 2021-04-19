@@ -122,7 +122,7 @@ public class Debug_Panel : MonoBehaviour {
 
         if( GameMgr.tutorial_ON == true )
         {
-            StoryNumber_text.text = "TutorialNumber: " + GameMgr.tutorial_Num;
+            StoryNumber_text.text = "TN: " + GameMgr.tutorial_Num;
         } else
         {
             StoryNumber_text.text = "ScN: " + GameMgr.scenario_flag;
@@ -382,9 +382,15 @@ public class Debug_Panel : MonoBehaviour {
         {
             switch (i)
             {
+                case 11:
+
+                    matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム
+                    break;
+
                 case 20:
 
                     matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑
+                    matplace_database.matPlaceKaikin("Farm"); //モタリケ牧場解禁
                     break;
 
                 case 40:
