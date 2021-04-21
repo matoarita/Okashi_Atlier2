@@ -382,18 +382,50 @@ public class Debug_Panel : MonoBehaviour {
         {
             switch (i)
             {
+                case 10: //ラスク
+
+                    //レシピの追加
+                    pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加
+                    break;
+
                 case 11:
 
+                    pitemlist.addPlayerItemString("pan_knife", 1);
                     matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム
                     break;
 
-                case 20:
+                case 20: //クレープ
+
+                    //レシピの追加
+                    pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加  
 
                     matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑
                     matplace_database.matPlaceKaikin("Farm"); //モタリケ牧場解禁
                     break;
 
-                case 40:
+                case 21:
+
+                    pitemlist.addPlayerItemString("siboribukuro", 1);
+                    pitemlist.addPlayerItemString("whisk", 1);
+                    pitemlist.addPlayerItemString("egg", 5);
+                    pitemlist.addPlayerItemString("milk", 5);
+                    pitemlist.addPlayerItemString("row_cream", 5);
+
+                    //レシピの追加
+                    pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1); //ホイップクリームのレシピを追加  
+                    break;
+
+                case 30: //シュークリーム             
+
+                    pitemlist.addPlayerItemString("ice_box", 1);
+                    pitemlist.add_eventPlayerItemString("ice_cream_recipi", 1);//アイスクリームのレシピを追加
+
+                    break;
+
+                case 40: //ドーナツ                    
+
+                    //レシピの追加
+                    pitemlist.add_eventPlayerItemString("creampuff_recipi", 1);//シュークリームのレシピを追加
 
                     GameMgr.hiroba_event_end[0] = true; //アマクサ会話終了　広場「お花屋さん」「図書館」「道端奥さん」ON
                     GameMgr.hiroba_event_end[1] = true; //パン工房ON
@@ -421,6 +453,12 @@ public class Debug_Panel : MonoBehaviour {
                 case 50:
 
                     GameMgr.hiroba_event_end[8] = true; //ドーナツイベントの終了
+
+                    pitemlist.addPlayerItemString("oil_extracter", 1);
+                    pitemlist.addPlayerItemString("flyer", 1);
+
+                    //レシピの追加
+                    pitemlist.add_eventPlayerItemString("donuts_recipi", 1);//ラスクのレシピを追加
 
                     matplace_database.matPlaceKaikin("Hiroba"); //
                     matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。

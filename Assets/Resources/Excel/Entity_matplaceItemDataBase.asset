@@ -435,20 +435,20 @@ MonoBehaviour:
       drop_item3: peach
       drop_item4: water
       drop_item5: elder_flower
-      drop_item6: Non
+      drop_item6: violette
       drop_item7: Non
       drop_item8: Non
       drop_item9: Non
       drop_item10: Non
       drop_rare1: Non
-      drop_rare2: Non
+      drop_rare2: hydrangea
       drop_rare3: Non
       drop_prob1: 48
       drop_prob2: 25
       drop_prob3: 2
-      drop_prob4: 20
-      drop_prob5: 5
-      drop_prob6: 0
+      drop_prob4: 12
+      drop_prob5: 8
+      drop_prob6: 5
       drop_prob7: 0
       drop_prob8: 0
       drop_prob9: 0
@@ -507,7 +507,7 @@ MonoBehaviour:
       drop_item1: "\u306A\u3057"
       drop_item2: himawari_seed
       drop_item3: banana
-      drop_item4: Non
+      drop_item4: green_apple
       drop_item5: Non
       drop_item6: Non
       drop_item7: Non
@@ -515,12 +515,12 @@ MonoBehaviour:
       drop_item9: Non
       drop_item10: Non
       drop_rare1: Non
-      drop_rare2: lemon
+      drop_rare2: pear
       drop_rare3: Non
       drop_prob1: 40
       drop_prob2: 40
-      drop_prob3: 20
-      drop_prob4: 0
+      drop_prob3: 15
+      drop_prob4: 5
       drop_prob5: 0
       drop_prob6: 0
       drop_prob7: 0

@@ -296,7 +296,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      juice: 50
+      juice: 35
       topping01: Non
       topping02: Non
       topping03: Non
@@ -337,13 +337,13 @@ MonoBehaviour:
       QuestID: 110
       QuestType: 0
       QuestHyouji: 20
-      file_name: rich_tea
+      file_name: tea_lavender
       quest_itemName: lavender_tea
       quest_itemsubtype: Non
       kosu_default: 0
       kosu_min: 1
       kosu_max: 1
-      buy_price: 300
+      buy_price: 550
       rich: 0
       sweat: 0
       bitter: 0
@@ -424,7 +424,7 @@ MonoBehaviour:
       QuestID: 140
       QuestType: 0
       QuestHyouji: 30
-      file_name: neko_cookie
+      file_name: sugerbutter_cookie
       quest_itemName: sugerbutter_cookie
       quest_itemsubtype: Non
       kosu_default: 0
@@ -488,7 +488,7 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 2
-      buy_price: 200
+      buy_price: 330
       rich: 0
       sweat: 0
       bitter: 0

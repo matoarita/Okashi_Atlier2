@@ -399,7 +399,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       tp_score01: 0
-      tp_score02: 25
+      tp_score02: 65
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
@@ -435,7 +435,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       tp_score01: 0
-      tp_score02: 25
+      tp_score02: 65
       tp_score03: 10
       tp_score04: 0
       tp_score05: 0
@@ -471,7 +471,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       tp_score01: 0
-      tp_score02: 25
+      tp_score02: 65
       tp_score03: 20
       tp_score04: 0
       tp_score05: 0
@@ -579,7 +579,7 @@ MonoBehaviour:
       topping08: Non
       topping09: Non
       tp_score01: 10
-      tp_score02: 30
+      tp_score02: 90
       tp_score03: -20
       tp_score04: 0
       tp_score05: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       topping01: Mint
-      topping02: Non
+      topping02: Lemon
       topping03: Non
       topping04: Non
       topping05: Non
@@ -614,8 +614,8 @@ MonoBehaviour:
       topping07: Non
       topping08: Non
       topping09: Non
-      tp_score01: 30
-      tp_score02: 0
+      tp_score01: 70
+      tp_score02: 20
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0
@@ -1433,8 +1433,8 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      topping01: Non
-      topping02: Non
+      topping01: StrangeGlass
+      topping02: Mint
       topping03: Non
       topping04: Non
       topping05: Non
@@ -1442,8 +1442,8 @@ MonoBehaviour:
       topping07: Non
       topping08: Non
       topping09: Non
-      tp_score01: 0
-      tp_score02: 0
+      tp_score01: 50
+      tp_score02: 60
       tp_score03: 0
       tp_score04: 0
       tp_score05: 0

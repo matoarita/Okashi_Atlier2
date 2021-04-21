@@ -1052,8 +1052,8 @@ public class SetImage : MonoBehaviour
 
     void Smooth_Text()
     {
-        item_Shokukan_Type.text = "くちどけ感";
-        item_lastShokukan_Type.text = "くちどけ感";
+        item_Shokukan_Type.text = "なめらか感";
+        item_lastShokukan_Type.text = "なめらか感";
         item_Shokukan.text = _smooth_score.ToString();
         _shokukan_score = _smooth_score;
         _lastshokukan_score = _lastsmooth_score;

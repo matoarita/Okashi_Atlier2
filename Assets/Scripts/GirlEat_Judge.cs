@@ -154,6 +154,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private string _basename;
     private string _basenameHyouji;
     private string _basenameFull;
+    private string _basenameSlot;
     private int _basequality;
     private int _basesweat;
     private int _basebitter;
@@ -266,9 +267,10 @@ public class GirlEat_Judge : MonoBehaviour {
     public bool topping_flag;
     public bool topping_all_non;
     private bool tpcheck;
+    private bool no_hint;
     private string tpcheck_slot;
-    private bool nontp_utageON;
-    private int nontp_utagebunki;
+    private bool tpcheck_utageON;
+    private int tpcheck_utagebunki;
 
     public int total_score;
 
@@ -751,6 +753,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basename = database.items[kettei_item1].itemName;
                 _basenameHyouji = database.items[kettei_item1].itemNameHyouji;
                 _basenameFull = database.items[kettei_item1].item_FullName;
+                _basenameSlot = database.items[kettei_item1].item_SlotName;
                 _basequality = database.items[kettei_item1].Quality;
                 _basesweat = database.items[kettei_item1].Sweat;
                 _basebitter = database.items[kettei_item1].Bitter;
@@ -790,6 +793,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basename = pitemlist.player_originalitemlist[kettei_item1].itemName;
                 _basenameHyouji = pitemlist.player_originalitemlist[kettei_item1].itemNameHyouji;
                 _basenameFull = pitemlist.player_originalitemlist[kettei_item1].item_FullName;
+                _basenameSlot = pitemlist.player_originalitemlist[kettei_item1].item_SlotName;
                 _basequality = pitemlist.player_originalitemlist[kettei_item1].Quality;
                 _basesweat = pitemlist.player_originalitemlist[kettei_item1].Sweat;
                 _basebitter = pitemlist.player_originalitemlist[kettei_item1].Bitter;
@@ -1855,8 +1859,8 @@ public class GirlEat_Judge : MonoBehaviour {
         //smooth_score = _basesmooth;
         shokukan_baseparam = _basesmooth;
         shokukan_score = smooth_score;
-        shokukan_mes = "くちどけ感";
-        Debug.Log("くちどけの点: " + smooth_score);
+        shokukan_mes = "なめらか感";
+        Debug.Log("なめらかの点: " + smooth_score);
     }
 
     void Hardness_Score()
@@ -2004,9 +2008,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //好感度とお金を計算
             LoveScoreCal();
-
-            //お金の取得
-            //moneyStatus_Controller.GetMoney(GetMoney);
 
             //アイテムの削除
             delete_Item();
@@ -2383,6 +2384,9 @@ public class GirlEat_Judge : MonoBehaviour {
         slot_girlscore = 0;
         slot_money = 0;
 
+        Getlove_exp = 0;
+        GetMoney = 0;
+
         //前に計算したトータルスコアを元に計算。
 
 
@@ -2394,7 +2398,24 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else
         {
-            //①好感度取得  
+            //①トッピングの値で、好感度を加算する。ただし、60点以上でないと、加算されない。固有スロットもみている。
+            if (total_score >= GameMgr.low_score)
+            {
+                for (i = 0; i < itemslotScore.Count; i++)
+                {
+                    //0はNonなので、無視
+                    if (i != 0)
+                    {
+                        if (itemslotScore[i] > 0)
+                        {
+                            Getlove_exp += slotnamedatabase.slotname_lists[i].slot_getgirllove;
+                            GetMoney += slotnamedatabase.slotname_lists[i].slot_Money;
+                        }
+                    }
+                }
+            }
+
+            //②好感度取得  
 
             //点数計算。トータルスコアの10桁の位が基準の好感度。そこに女の子の好みの補正値(_basegirl1_like)と、スコアごとの補正をかける。
             //_basegirl1_likeは、女の子の好みで補正値。ねこクッキーで１が基準。オレンジクッキーだと２とか。
@@ -2407,36 +2428,27 @@ public class GirlEat_Judge : MonoBehaviour {
             }
             else if (total_score >= 30 && total_score < GameMgr.low_score) //60点以下のときは、好感度ほぼあがらず。
             {
-                Getlove_exp = (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                GetMoney += (int)(_basecost * 0.5f);
             }
             else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //ベース×2
             {
-                Getlove_exp = (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                GetMoney += (int)(_basecost * 1.0f);
             }
             else if (total_score >= GameMgr.high_score && total_score < 100) //ベース×3
             {
-                Getlove_exp = (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                GetMoney += (int)(_basecost * 1.5f);
             }
             else if (total_score >= 100) //100点を超えた場合、ベース×5
             {
-                Getlove_exp = (int)((total_score * 0.1f) * (_basegirl1_like * 1.5f));
+                Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.5f));
+                GetMoney += (int)(_basecost * 2.0f);
+                GetMoney *= (int)(total_score * 0.01f);
             }
 
-            //②トッピングの値で、好感度を加算する。ただし、60点以上でないと、加算されない。固有スロットもみている。
-            if (total_score >= GameMgr.low_score)
-            {
-                for (i = 0; i < itemslotScore.Count; i++)
-                {
-                    //0はNonなので、無視
-                    if (i != 0)
-                    {
-                        if (itemslotScore[i] > 0)
-                        {
-                            Getlove_exp += slotnamedatabase.slotname_lists[i].slot_getgirllove;
-                        }
-                    }
-                }
-            }
+            
 
             if (last_score_kousin) //前回の最高得点より高い点数の場合のみ、好感度があがる。
             {
@@ -3096,6 +3108,9 @@ public class GirlEat_Judge : MonoBehaviour {
             //アニメーションをON。好感度パラメータの反映もここ。
             loveGetPlusAnimeON(Getlove_exp, true);
 
+            //お金の取得
+            //moneyStatus_Controller.GetMoney(GetMoney);
+
             //エフェクト生成＋アニメ開始
             _listEffect.Add(Instantiate(effect_Prefab));
             StartCoroutine("Love_effect");
@@ -3259,7 +3274,7 @@ public class GirlEat_Judge : MonoBehaviour {
         playableDirector.enabled = true;
         playableDirector.Play();
 
-        //sc.PlaySe(88);
+        sc.PlaySe(88); //キラキラ音　タイムラインだと音割れするのでスクリプトから
 
         yield return new WaitForSeconds(4.0f);
 
@@ -3502,6 +3517,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     }
 
+    //食べたあとのヒント関係の処理
     void SetHintText(int _hintstatus)
     {
         
@@ -3524,14 +3540,17 @@ public class GirlEat_Judge : MonoBehaviour {
         //そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
         _temp_spkansou = "";
         _special_kansou = "";
-        nontp_utageON = false;
+        tpcheck_utageON = false;
+        tpcheck = false;
+        no_hint = true; //デフォルトでは、ヒントを出さない。
+        tpcheck_utagebunki = 0;
 
         if (!non_spquest_flag)
         {
 
             if (total_score < GameMgr.low_score)
             {
-                //トッピングがのってないときのヒント
+                //トッピングがのってないときのヒント Excelにデフォルトのヒントがある。このスクリプトで直接入力してもOK。
                 for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
                 {
                     if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
@@ -3539,10 +3558,9 @@ public class GirlEat_Judge : MonoBehaviour {
                         _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
                     }
                 }
+                _special_kansou = _temp_spkansou;
 
-                tpcheck = false;
-                nontp_utagebunki = 0;
-
+                
                 //条件判定
                 switch (girl1_status.OkashiQuest_ID)
                 {
@@ -3550,11 +3568,11 @@ public class GirlEat_Judge : MonoBehaviour {
 
                         if (topping_all_non && !topping_flag) //好みのトッピングはある(toppingu_all_non=true)が、一つものってなかった場合(topping_flag=false)だった
                         {
-                            nontp_utageON = false;
+                            no_hint = false;
                         }
                         else
                         {
-                            tpcheck = true;
+                            //ヒントはなし
                         }
                         break;
 
@@ -3562,11 +3580,11 @@ public class GirlEat_Judge : MonoBehaviour {
 
                         if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
                         {
-                            nontp_utageON = false;
+                            no_hint = false;
                         }
                         else
                         {
-                            tpcheck = true;
+                            //ヒントはなし
                         }
                         break;
 
@@ -3576,7 +3594,44 @@ public class GirlEat_Judge : MonoBehaviour {
                         tpcheck_slot = "WhipeedCream";
                         ToppingCheck();
 
-                        nontp_utageON = true;
+                        if (tpcheck) //ホイップがちゃんとのっていた。
+                        {
+                            //ヒントはなし
+                        }
+                        else
+                        {
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                        }
+                                                    
+                        break;
+
+                    case 1210: //豪華なクレープ　ホイップクリームがのってなかった時　tp_check=false
+
+                        //30点以下の場合、ヒントがでる。
+                        //特定のトッピングスロットをみる
+                        tpcheck_slot = "Blackcurrant";
+                        ToppingCheck();
+                        if(tpcheck) //カシスは外れ
+                        {
+                            no_hint = false;
+                            _special_kansou = "この黒い粒、すっぱすぎるよ・・。にいちゃん。";
+                        }
+                        else
+                        {
+                            if (total_score <= 30)
+                            {
+                                no_hint = false;
+                            }
+                            else
+                            {
+                                if (total_score <= GameMgr.low_score) //30~60以下
+                                {
+                                    no_hint = false;
+                                    _special_kansou = "もう少し、トッピングがほしいかも？";
+                                }
+                            }
+                        }                       
 
                         break;
 
@@ -3589,7 +3644,14 @@ public class GirlEat_Judge : MonoBehaviour {
                         tpcheck_slot = "WhipeedCreamStrawberry";
                         ToppingCheck();
 
-                        nontp_utageON = false;
+                        if (tpcheck) //ホイップがのっていた
+                        {
+                            
+                        }
+                        else
+                        {
+                            no_hint = false;
+                        }
 
                         break;
 
@@ -3601,39 +3663,37 @@ public class GirlEat_Judge : MonoBehaviour {
 
                         if (!tpcheck) //ストロベリークリームはのっていなかった。
                         {
-                            tpcheck_slot = "Strawberry";
+                            tpcheck_slot = "Strawberry"; //次にすとろべりーを調べる
                             ToppingCheck();
 
-                            if (tpcheck) //ストロベリークリームはのってなかったけど、いちごはのってた場合。惜しい。
+                            if (tpcheck) //いちごはのってた場合。惜しい。
                             {
-                                tpcheck = false;
-                                nontp_utagebunki = 1;
+                                no_hint = false;
+                                tpcheck_utageON = true;
+                                tpcheck_utagebunki = 1;
+                                _special_kansou = "にいちゃん。クリームも、ピンク色だったかも？";
                             }
                             else //ストロベリークリームも、いちごものってなかった
                             {
-                                tpcheck = false;
+                                no_hint = false;
+                                tpcheck_utageON = true;
                             }
                         }
-
-                        nontp_utageON = false;
 
                         break;
 
                     default:
 
-                        nontp_utageON = false;
                         break;
                 }
 
                 //
-                if (!tpcheck) //falseのときは、ヒントだす。
-                {
-                    _special_kansou = _temp_spkansou;
-
-                    if (nontp_utageON) //宴でもヒント表示するか否か。
+                if (!no_hint) //falseのときは、ヒントだす。
+                {                    
+                    if (tpcheck_utageON) //宴でもヒント表示するか否か。
                     {
                         GameMgr.okashinontphint_flag = true;
-                        GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + nontp_utagebunki;
+                        GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + tpcheck_utagebunki;
                     }
                 }
                 else
@@ -3682,7 +3742,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         database.items[_baseID].last_hinttext = temp_hint_text;
         GameMgr.Okashi_lasthint = temp_hint_text;
-        GameMgr.Okashi_lastname = _basenameFull;
+        GameMgr.Okashi_lastname = _basenameHyouji;
+        GameMgr.Okashi_lastslot = _basenameSlot;
         GameMgr.Okashi_lastID = _baseID;
         GameMgr.Okashi_lastshokukan_param = shokukan_baseparam;
         GameMgr.Okashi_lastshokukan_mes = shokukan_mes;

@@ -104,6 +104,7 @@ public class PlayerData
     //さっき食べたお菓子の情報
     public string save_Okashi_lasthint; //さっき食べたお菓子のヒント。
     public string save_Okashi_lastname; //さっき食べたお菓子の名前。
+    public string save_Okashi_lastslot; //さっき食べたお菓子のスロット。
     public int save_Okashi_lastID; //さっき食べたお菓子のアイテムID
     public int save_Okashi_totalscore; //さっき食べたお菓子の点数
     public int save_Okashi_lastshokukan_param; //さっき食べたお菓子のパラメータ

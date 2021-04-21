@@ -2690,7 +2690,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 3:
 
                 _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？兄ちゃん。");
-                _touchface_comment_lib.Add("うきうき。いっぱい手伝うよ～！");
+                _touchface_comment_lib.Add("うきうき！");
                 _touchface_comment_lib.Add("味見..。味見..。");
                 _touchface_comment_lib.Add("ねぇねぇ兄ちゃん。材料を採りにいこうよ～。");
                 _touchface_comment_lib.Add("いい朝だねぇ～。お兄ちゃん～。");

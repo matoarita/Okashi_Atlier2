@@ -611,8 +611,8 @@ public class GetMaterial : MonoBehaviour
             lastpage_count++;
             i++;
         }
-        Debug.Log("最後のページ: " + lastpage_count);
-        Debug.Log("現在のページ: " + page_count);
+        //Debug.Log("最後のページ: " + lastpage_count);
+        //Debug.Log("現在のページ: " + page_count);
 
         if (_tansaku_result_temp.Count == 0)
         {

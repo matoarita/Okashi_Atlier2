@@ -222,6 +222,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //さっき食べたお菓子の情報
             save_Okashi_lasthint = GameMgr.Okashi_lasthint, //さっき食べたお菓子のヒント。
             save_Okashi_lastname = GameMgr.Okashi_lastname, //さっき食べたお菓子の名前。
+            save_Okashi_lastslot = GameMgr.Okashi_lastslot, //さっき食べたお菓子のスロット。
             save_Okashi_lastID = GameMgr.Okashi_lastID, //さっき食べたお菓子のアイテムID
             save_Okashi_totalscore = GameMgr.Okashi_totalscore, //さっき食べたお菓子の点数
             save_Okashi_lastshokukan_param = GameMgr.Okashi_lastshokukan_param, //さっき食べたお菓子のパラメータ
@@ -421,6 +422,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //さっき食べたお菓子の情報
         GameMgr.Okashi_lasthint = playerData.save_Okashi_lasthint; //さっき食べたお菓子のヒント。
         GameMgr.Okashi_lastname = playerData.save_Okashi_lastname; //さっき食べたお菓子の名前。
+        GameMgr.Okashi_lastslot = playerData.save_Okashi_lastslot; //さっき食べたお菓子のスロット。
         GameMgr.Okashi_lastID = playerData.save_Okashi_lastID; //さっき食べたお菓子のアイテムID
         GameMgr.Okashi_totalscore = playerData.save_Okashi_totalscore; //さっき食べたお菓子の点数
         GameMgr.Okashi_lastshokukan_param = playerData.save_Okashi_lastshokukan_param; //さっき食べたお菓子のパラメータ

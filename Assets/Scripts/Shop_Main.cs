@@ -220,9 +220,9 @@ public class Shop_Main : MonoBehaviour {
 
                 case 2: //かわいい材料を探しに来た。
 
-                    if (!GameMgr.ShopEvent_stage[5])
+                    if (!GameMgr.ShopEvent_stage[6])
                     {
-                        GameMgr.ShopEvent_stage[5] = true;
+                        GameMgr.ShopEvent_stage[6] = true;
                         GameMgr.scenario_ON = true;
 
                         GameMgr.shop_event_num = 2;
@@ -256,6 +256,21 @@ public class Shop_Main : MonoBehaviour {
                         GameMgr.scenario_ON = true;
 
                         GameMgr.shop_event_num = 20;
+                        GameMgr.shop_event_flag = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+
+                    break;
+
+                case 22: //アイスイベント
+
+                    if (!GameMgr.ShopEvent_stage[7])
+                    {
+                        GameMgr.ShopEvent_stage[7] = true;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 22;
                         GameMgr.shop_event_flag = true;
 
                         StartCoroutine("Scenario_loading");

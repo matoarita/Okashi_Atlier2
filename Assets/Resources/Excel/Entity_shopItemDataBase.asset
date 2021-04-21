@@ -81,8 +81,8 @@ MonoBehaviour:
       name: marsala_wine
       zaiko: 50
       itemType: 0
-      shop_sell_price: 2400
-      shop_buy_price: 1200
+      shop_sell_price: 1200
+      shop_buy_price: 600
       item_hyouji: 3
     - ItemID: 10
       name: water
@@ -361,8 +361,8 @@ MonoBehaviour:
       name: ice_cream_recipi
       zaiko: 1
       itemType: 1
-      shop_sell_price: 800
-      shop_buy_price: 400
+      shop_sell_price: 500
+      shop_buy_price: 250
       item_hyouji: 1
     - ItemID: 50
       name: strawberry_parfe_recipi

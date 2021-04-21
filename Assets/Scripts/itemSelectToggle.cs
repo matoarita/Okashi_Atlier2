@@ -1010,16 +1010,25 @@ public class itemSelectToggle : MonoBehaviour
                 //yes.SetActive(false);
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);
-
+                
                 //pitemlistController.final_kettei_item1 = itemID_1;
                 pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu;
 
-                compound_Check.final_select_flag = true; //ここにfinalをいれることで、一個だけしかトッピングできないようにする。
-                //itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
-                
+                if (GameMgr.topping_Set_Count == 1) //トッピングが一度に一個のとき
+                {
+                    compound_Check.final_select_flag = true; //ここにfinalをいれることで、一個だけしかトッピングできないようにする。
+                }
+                else 
+                {
+                    itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
+                    _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: "
+                    + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択するか、決定を押してね。";
+                }
+
+
                 //yes_text.text = "調合する";
 
-                //_text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
+
                 //Debug.Log("二個目選択完了！");
                 break;
 
@@ -1067,11 +1076,22 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.final_kettei_kosu2 = updown_counter.updown_kosu;
 
-                itemselect_cancel.kettei_on_waiting = false;                
+                if (GameMgr.topping_Set_Count == 2) //トッピングが一度に２個のとき
+                {
+                    compound_Check.final_select_flag = true; //ここにfinalをいれることで、二個のトッピングになる。
+                }
+                else
+                {
+                    itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
+                    _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" +
+                    "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" +
+                    "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+                }
+                
 
-                yes_text.text = "調合する";
+                //yes_text.text = "調合する";
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+                
                 //Debug.Log("三個目選択完了！");
                 break;
 
@@ -1120,7 +1140,14 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.final_kettei_kosu3 = updown_counter.updown_kosu;
 
-                compound_Check.final_select_flag = true;
+                if (GameMgr.topping_Set_Count == 3) //トッピングが一度に３個のとき
+                {
+                    compound_Check.final_select_flag = true; //3個まで
+                }
+                else
+                {
+                    compound_Check.final_select_flag = true; //3個まで
+                }
 
                 yes_text.text = "トッピング開始！";
                 

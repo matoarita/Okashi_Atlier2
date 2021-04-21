@@ -136,6 +136,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //さっき食べたお菓子情報
     public static string Okashi_lasthint; //さっき食べたお菓子のヒント。
     public static string Okashi_lastname; //さっき食べたお菓子の名前。
+    public static string Okashi_lastslot; //さっき食べたお菓子のスロット部分名。
     public static int Okashi_lastID; //さっき食べたお菓子のアイテムID
     public static int Okashi_makeID; //さっき作ったお菓子のアイテムID。セーブ不要。
     public static int Okashi_lastshokukan_param; //さっき食べたお菓子のパラメータ
@@ -148,6 +149,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
     public static int contest_TotalScore;
+
+    //お菓子の一度にトッピングできる回数
+    public static int topping_Set_Count;
 
     /* セーブ　ここまで */
 
@@ -554,6 +558,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         QuestClearflag = false;
         QuestClearButton_anim = false;
         QuestClearAnim_Flag = false;
+        Okashi_lastname = "";
+        Okashi_lastslot = "";
         Okashi_lasthint = "";
         Okashi_lastshokukan_param = 0;
         Okashi_lastsweat_param = 0;
@@ -601,7 +607,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             DecoItems[system_i] = false;
         }
-        
+
+        topping_Set_Count = 2;
     }
     
     public static void InitCollectionItemsLibrary()

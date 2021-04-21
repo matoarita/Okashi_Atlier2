@@ -101,6 +101,7 @@ public class QuestTitlePanel : MonoBehaviour {
     {
         GameMgr.KeyInputOff_flag = true; //キー入力受付開始
         compound_Main.StartMessage();
+        compound_Main.check_GirlLoveSubEvent_flag = false; //パネル閉じたあとに、サブイベントだけチェックする 
         this.gameObject.SetActive(false);
     }
 }

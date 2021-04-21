@@ -145,8 +145,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1200;
                 GameMgr.stageclear_love = 100; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
-                girl1_status.OkashiQuest_Number = "3-1";
-                girl1_status.OkashiQuest_AllCount = 3;
+                girl1_status.OkashiQuest_Number = "2-1";
+                girl1_status.OkashiQuest_AllCount = 2;
                 girl1_status.OkashiQuest_Count = 1;
                 girl1_status.ResetHukidashi();
 
@@ -157,14 +157,15 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1210;
                 GameMgr.stageclear_love = 100; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
-                girl1_status.OkashiQuest_Number = "3-2";
-                girl1_status.OkashiQuest_AllCount = 3;
+                girl1_status.OkashiQuest_Number = "2-2";
+                girl1_status.OkashiQuest_AllCount = 2;
                 girl1_status.OkashiQuest_Count = 2;
                 girl1_status.ResetHukidashi();
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
-            case 22: //アイスクリームを食べたい
+            /*case 22: //アイスクリームを食べたい
 
                 girl1_status.OkashiQuest_ID = 1220;
                 GameMgr.stageclear_love = 100; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
@@ -175,7 +176,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
-                break;
+                break;*/
 
             case 30: //シュークリーム食べたい
 

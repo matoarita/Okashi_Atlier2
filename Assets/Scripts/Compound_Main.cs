@@ -2664,7 +2664,6 @@ public class Compound_Main : MonoBehaviour
                             //レシピの追加
                             pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                            
 
-
                             //クエスト発生
                             Debug.Log("好感度イベント２をON: ラスクが食べたい　開始");
 
@@ -2869,7 +2868,7 @@ public class Compound_Main : MonoBehaviour
             {
                 case 60:
 
-                    _textmain.text = "ハートが30あがった！" + "\n" + "またひとつ、ヒカリはこころが成長してきたようだ。";
+                    _textmain.text = "ハートが30あがった！" + "\n" + "またひとつ、成長してきたようだ。";
                     girlEat_judge.loveGetPlusAnimeON(30, false);                    
 
                     break;
@@ -3177,17 +3176,20 @@ public class Compound_Main : MonoBehaviour
 
                     case 11: //ラスク2
 
-                        if (!GameMgr.GirlLoveSubEvent_stage1[10])
+                        if (girl1_status.special_animatFirst) //ステージ2-2 はじまってから、ベリーファーム開始
                         {
-                            GameMgr.GirlLoveSubEvent_stage1[10] = true;
-                            GameMgr.GirlLoveSubEvent_num = 10;
+                            if (!GameMgr.GirlLoveSubEvent_stage1[10])
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[10] = true;
+                                GameMgr.GirlLoveSubEvent_num = 10;
 
-                            check_GirlLoveSubEvent_flag = false;
-                            mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
+                                check_GirlLoveSubEvent_flag = false;
+                                mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
 
-                            //ベリーファームへ行けるようになる。
-                            matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
+                                //ベリーファームへ行けるようになる。
+                                matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
 
+                            }
                         }
 
                         break;
@@ -3293,6 +3295,8 @@ public class Compound_Main : MonoBehaviour
                         GameMgr.Beginner_flag[4] = true;
                         GameMgr.GirlLoveSubEvent_stage1[82] = true;
                         GameMgr.GirlLoveSubEvent_num = 82;
+
+                        mute_on = true;
                         check_GirlLoveSubEvent_flag = false;
                     }
                 }
@@ -3502,6 +3506,8 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("バリバリ貝のブイヤ・ベース");
                     _todayfoodexpence_lib.Add(110);
                     _todayfood_lib.Add("チキンソテー");
+                    _todayfoodexpence_lib.Add(90);
+                    _todayfood_lib.Add("チキンステーキ");
                     _todayfoodexpence_lib.Add(90);
                     _todayfood_lib.Add("おさかなの地中海蒸し焼き");
                     _todayfoodexpence_lib.Add(120);

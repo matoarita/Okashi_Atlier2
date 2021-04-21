@@ -63,7 +63,7 @@ public class TasteHintPanel : MonoBehaviour {
         Okashi_lasthint_text.text = GameMgr.Okashi_lasthint;
 
         Okashi_lastname_text = this.transform.Find("HintPanel/OkashiName").GetComponent<Text>();
-        Okashi_lastname_text.text = GameMgr.Okashi_lastname;
+        Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.Okashi_lastslot + "</color>" + GameMgr.Okashi_lastname;
 
         Okashi_lastscore_text = this.transform.Find("HintPanel/OkashiScore").GetComponent<Text>();
         Okashi_lastscore_text.text = GameMgr.Okashi_totalscore.ToString();
@@ -157,17 +157,37 @@ public class TasteHintPanel : MonoBehaviour {
 
             case 20: //クレープ食べたい
 
+                if (!GameMgr.ShopEvent_stage[2])
+                {
+                    _one_comment_lib.Add("にいちゃん。クレープのことは、ショップのおねえちゃんが知ってたかも？");
+                }
+                else
+                {
+                    if (!GameMgr.FarmEvent_stage[0]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
+                    {
+                        _one_comment_lib.Add("にいちゃん！　たまごを取りに、牧場へいこう！");
+                    }
+                    else
+                    {
 
+                    }
+                }
                 break;
 
             case 21: //豪華なクレープ食べたい
 
-
+                if(GameMgr.Okashi_totalscore <= GameMgr.low_score)
+                {
+                    _one_comment_lib.Add("にいちゃん！　豪華さのひけつは、ショップにヒントがあったかも？");
+                }
                 break;
 
-            case 22: //アイスクリームを食べたい
+            case 22: //アイス食べたい
 
-
+                if (!GameMgr.ShopEvent_stage[7])
+                {
+                    _one_comment_lib.Add("にいちゃん！　アイスクリームについて、ショップのおねえちゃんに聞こう！");
+                }
                 break;
 
             case 30: //シュークリーム食べたい
