@@ -14,6 +14,14 @@ public class OptionPanel : MonoBehaviour {
     private Text mastervolume_paramtext;
     private int mastervolume_param;
 
+    private Slider BGMvolume_Slider;
+    private Text BGMvolume_paramtext;
+    private int BGMvolume_param;
+
+    private Slider SEvolume_Slider;
+    private Text SEvolume_paramtext;
+    private int SEvolume_param;
+
     private GameObject system_panel;
 
     private GameObject StageClearButton_panel;
@@ -67,7 +75,12 @@ public class OptionPanel : MonoBehaviour {
 
         mastervolume_Slider = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider").GetComponent<Slider>();
         mastervolume_paramtext = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider/Param").GetComponent<Text>();
-       
+
+        BGMvolume_Slider = this.transform.Find("OptionList/Viewport/Content/BGMVolumeSliderPanel/BGMVolumeSlider").GetComponent<Slider>();
+        BGMvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/BGMVolumeSliderPanel/BGMVolumeSlider/Param").GetComponent<Text>();
+
+        SEvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider").GetComponent<Slider>();
+        SEvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider/Param").GetComponent<Text>();
     }
 
     private void OnEnable()
@@ -76,8 +89,15 @@ public class OptionPanel : MonoBehaviour {
 
         mastervolume_param = (int)(GameMgr.MasterVolumeParam * 100) / 2;
         mastervolume_Slider.value = (int)(GameMgr.MasterVolumeParam * 100);
-
         mastervolume_paramtext.text = mastervolume_param.ToString();
+
+        BGMvolume_param = (int)(GameMgr.BGMVolumeParam * 100) / 2;
+        BGMvolume_Slider.value = (int)(GameMgr.BGMVolumeParam * 100);
+        BGMvolume_paramtext.text = BGMvolume_param.ToString();
+
+        SEvolume_param = (int)(GameMgr.SeVolumeParam * 100) / 2;
+        SEvolume_Slider.value = (int)(GameMgr.SeVolumeParam * 100);
+        SEvolume_paramtext.text = SEvolume_param.ToString();
     }
 
     public void OnMasterVolume()
@@ -90,15 +110,42 @@ public class OptionPanel : MonoBehaviour {
         GameMgr.MasterVolumeParam = mastervolume_Slider.value / 100;
         sc.VolumeSetting();
 
+        Set_VolumeEtc();
+    }
+
+    public void OnBGMVolume()
+    {
+        //初期値 0~200 100
+        BGMvolume_param = (int)(BGMvolume_Slider.value / 2);
+        BGMvolume_paramtext.text = BGMvolume_param.ToString();
+
+        //反映
+        GameMgr.BGMVolumeParam = BGMvolume_Slider.value / 100;        
+    }
+
+    public void OnSEVolume()
+    {
+        //初期値 0~200 100
+        SEvolume_param = (int)(SEvolume_Slider.value / 2);
+        SEvolume_paramtext.text = SEvolume_param.ToString();
+
+        //反映
+        GameMgr.SeVolumeParam = SEvolume_Slider.value / 100;
+        sc.VolumeSetting();
+
+        Set_VolumeEtc();
+    }
+
+    void Set_VolumeEtc()
+    {
         //ステージクリアボタンの音量
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
 
-                StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam;
+                StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
                 break;
         }
-        
     }
 
     public void BackOption()

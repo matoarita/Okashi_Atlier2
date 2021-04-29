@@ -298,8 +298,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //キー入力受付開始のフラグ
     public static bool KeyInputOff_flag;
 
+    //メインメッセージを更新するタイミング用のフラグ
+    public static bool MesaggeKoushinON;
+
     //オプションの設定　マスター音量など
     public static float MasterVolumeParam;
+    public static float BGMVolumeParam;
+    public static float SeVolumeParam;
 
     public static bool Scene_back_home; //シーンから、メイン画面にもどるときの、ドア開閉時の音を鳴らす用のフラグ。
 
@@ -349,6 +354,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //音量設定などの初期値
         MasterVolumeParam = 1.0f;
+        BGMVolumeParam = 1.0f;
+        SeVolumeParam = 1.0f;
 
         //各色の設定
         ColorYellow = "<color=#FDFF80>"; // ゴールドに近いくすんだ黄色 #BA9535  かなり薄い黄色 #FDFF80
@@ -417,6 +424,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         map_event_flag = false;
 
         gamestart_recipi_get = false;
+        MesaggeKoushinON = false;
 
         shop_event_flag = false;
         shop_lvevent_flag = false;
@@ -608,7 +616,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             DecoItems[system_i] = false;
         }
 
-        topping_Set_Count = 2;
+        //一度に仕上げできる回数
+        topping_Set_Count = 1;
     }
     
     public static void InitCollectionItemsLibrary()

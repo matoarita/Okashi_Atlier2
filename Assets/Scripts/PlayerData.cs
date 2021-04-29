@@ -172,6 +172,9 @@ public class PlayerData
     public int save_extreme_itemid;
     public int save_extreme_itemtype;
 
+    //お菓子の一度にトッピングできる回数
+    public int save_topping_Set_Count;
+
     public override string ToString()
     {
         return $"{ base.ToString() } { JsonUtility.ToJson(this) }";

@@ -34,7 +34,7 @@ public class Compound_Main : MonoBehaviour
     private BGM sceneBGM;
     public bool bgm_change_flag;
     public bool bgm_change_flag2;
-    private bool bgm_changeuse_ON = true; //調合シーンで、BGMを切り替えるかどうか。
+    private bool bgm_changeuse_ON = false; //調合シーンで、BGMを切り替えるかどうか。
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -1216,17 +1216,20 @@ public class Compound_Main : MonoBehaviour
                 }
 
                 //音関係
-                if (bgm_change_flag == true)
+                if (!GameMgr.tutorial_ON)
                 {
-                    bgm_change_flag = false;
-                    sceneBGM.OnMainBGM();
-                }
-                if (bgm_changeuse_ON)
-                {
-                    if (bgm_change_flag2 == true)
+                    if (bgm_change_flag == true)
                     {
-                        bgm_change_flag2 = false;
-                        sceneBGM.OnMainBGMFade();
+                        bgm_change_flag = false;
+                        sceneBGM.OnMainBGM();
+                    }
+                    if (bgm_changeuse_ON)
+                    {
+                        if (bgm_change_flag2 == true)
+                        {
+                            bgm_change_flag2 = false;
+                            sceneBGM.OnMainBGMFade();
+                        }
                     }
                 }
                 sceneBGM.MuteOFFBGM();
@@ -1334,12 +1337,15 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.Walk_Start = false;
 
                 //BGMを変更
-                if (bgm_changeuse_ON)
+                if (!GameMgr.tutorial_ON)
                 {
-                    if (bgm_change_flag2 != true)
+                    if (bgm_changeuse_ON)
                     {
-                        sceneBGM.OnCompoundBGM();
-                        bgm_change_flag2 = true;
+                        if (bgm_change_flag2 != true)
+                        {
+                            sceneBGM.OnCompoundBGM();
+                            bgm_change_flag2 = true;
+                        }
                     }
                 }
 
@@ -1392,12 +1398,15 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.Walk_Start = false;
 
                 //BGMを変更
-                if (bgm_changeuse_ON)
+                if (!GameMgr.tutorial_ON)
                 {
-                    if (bgm_change_flag2 != true)
+                    if (bgm_changeuse_ON)
                     {
-                        sceneBGM.OnCompoundBGM();
-                        bgm_change_flag2 = true;
+                        if (bgm_change_flag2 != true)
+                        {
+                            sceneBGM.OnCompoundBGM();
+                            bgm_change_flag2 = true;
+                        }
                     }
                 }
 
@@ -1458,12 +1467,15 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.Walk_Start = false;
 
                 //BGMを変更
-                if (bgm_changeuse_ON)
+                if (!GameMgr.tutorial_ON)
                 {
-                    if (bgm_change_flag2 != true)
+                    if (bgm_changeuse_ON)
                     {
-                        sceneBGM.OnCompoundBGM();
-                        bgm_change_flag2 = true;
+                        if (bgm_change_flag2 != true)
+                        {
+                            sceneBGM.OnCompoundBGM();
+                            bgm_change_flag2 = true;
+                        }
                     }
                 }
 
@@ -1509,12 +1521,15 @@ public class Compound_Main : MonoBehaviour
             case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
 
                 //BGMを変更
-                if (bgm_changeuse_ON)
+                if (!GameMgr.tutorial_ON)
                 {
-                    if (bgm_change_flag2 != true)
+                    if (bgm_changeuse_ON)
                     {
-                        sceneBGM.OnCompoundBGM();
-                        bgm_change_flag2 = true;
+                        if (bgm_change_flag2 != true)
+                        {
+                            sceneBGM.OnCompoundBGM();
+                            bgm_change_flag2 = true;
+                        }
                     }
                 }
 
@@ -3040,32 +3055,39 @@ public class Compound_Main : MonoBehaviour
     //メッセージを更新・表示する. QuestTitlePanel.csからも読んでいる。
     public void StartMessage()
     {
-        _textmain.text = "どうしようかなぁ？"; //デフォルトメッセージ
-
-        switch(GameMgr.OkashiQuest_Num)
+        if (!GameMgr.MesaggeKoushinON)
         {
-            case 0: //クッキー
+            _textmain.text = "";
+        }
+        else
+        {
+            _textmain.text = "どうしようかなぁ？"; //デフォルトメッセージ
 
-                if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
-                {
-                    _textmain.text = "まずは、クッキーを作ってみよう。";
-                }
-                else
-                {
-                    if (!GameMgr.Beginner_flag[0]) //クッキーをまだあげていない
+            switch (GameMgr.OkashiQuest_Num)
+            {
+                case 0: //クッキー
+
+                    if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
                     {
-                        _textmain.text = "クッキーをあげてみよう！";
+                        _textmain.text = "「メニュー」を開いて、「お菓子を作る」から、" + "\n" + "クッキーを作ってみよう。";
                     }
-                }
-                break;
+                    else
+                    {
+                        if (!GameMgr.Beginner_flag[0]) //クッキーをまだあげていない
+                        {
+                            _textmain.text = "「あげる」ボタンを押して、クッキーをあげてみよう！";
+                        }
+                    }
+                    break;
 
-            case 10: //ラスクのとき
+                case 10: //ラスクのとき
 
-                if (!GameMgr.Beginner_flag[1]) //ラスクのレシピをまだ読んだことが無い
-                {
-                    _textmain.text = "ラスクのレシピを読んでみよう。";
-                }
-                break;
+                    if (!GameMgr.Beginner_flag[1]) //ラスクのレシピをまだ読んだことが無い
+                    {
+                        _textmain.text = "ラスクのレシピを読んでみよう。";
+                    }
+                    break;
+            }
         }
         
     }
@@ -3513,6 +3535,8 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add(120);
                     _todayfood_lib.Add("手ごねハンバーグ");
                     _todayfoodexpence_lib.Add(120);
+                    _todayfood_lib.Add("パンピザ");
+                    _todayfoodexpence_lib.Add(150);
                     break;
 
                 case 4:

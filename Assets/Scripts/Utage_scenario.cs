@@ -660,6 +660,12 @@ public class Utage_scenario : MonoBehaviour
         scenarioLabel = "Tutorial_Content";
         Engine.JumpScenario(scenarioLabel);
 
+        //音切り替え
+        sceneBGM.OnTutorialBGM();
+
+        //キャラクタ切り替え
+        CharacterLive2DImageOFF();
+
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
         {
@@ -687,6 +693,12 @@ public class Utage_scenario : MonoBehaviour
                 default:
                     break;
             }
+
+            //BGMを再開
+            sceneBGM.OnMainBGM();
+
+            //キャラクタイメージON
+            CharacterLive2DImageON();
 
             scenario_loading = false;
         }
@@ -1036,6 +1048,9 @@ public class Utage_scenario : MonoBehaviour
             default:
                 break;
         }
+
+        //BGMを再開
+        sceneBGM.OnMainBGM();
 
         scenario_loading = false;
     }

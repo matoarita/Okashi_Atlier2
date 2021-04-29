@@ -3342,6 +3342,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //次のクエスト（+10）があるかどうかをみる。
         i = 0;
         quest_bunki_flag = false;
+        GameMgr.MesaggeKoushinON = false;
 
         while (i < girlLikeCompo_database.girllike_composet.Count)
         {

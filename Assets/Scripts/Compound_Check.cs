@@ -1068,10 +1068,10 @@ public class Compound_Check : MonoBehaviour {
         }
     }
 
-    //確率計算式
+    //確率計算式 ここの計算の値が、そのまま実際の計算時のサイコロを振るときにも反映される。
     public int Kakuritsu_Keisan(int _compID)
     {
-        _rate = databaseCompo.compoitems[_compID].success_Rate + (PlayerStatus.player_renkin_lv);
+        _rate = databaseCompo.compoitems[_compID].success_Rate + (PlayerStatus.player_renkin_lv * 2); //LV1上がるごとに2%ずつ上昇
 
         if (_rate >= 100)
         {

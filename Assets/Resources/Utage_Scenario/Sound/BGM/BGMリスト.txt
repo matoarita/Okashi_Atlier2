@@ -34,7 +34,7 @@
 ・BGM_32		audiostock_824733			月夜の曲３
 ・BGM_33		audiostock_158582			バードサンクチュアリイメージの静かなピアノ曲
 ・BGM_34		audiostock_371284_sample		【未使用】じいさんのテーマ曲　ファンキー
-・BGM_35		audiostock_134515			調合テーマ２　ピアノ系の不思議なクッキングBGM
+・BGM_35		audiostock_134515			クッキングの曲　ピアノ系の不思議なクッキングBGM
 ・BGM_36		audiostock_120586			エメラルショップの曲
 ・BGM_37		audiostock_78487			調合テーマ２　アトリエメインテーマ２　楽しい音楽
 ・BGM_38		audiostock_61835			調合テーマ３　アトリエメインテーマ３　おフランス
@@ -47,3 +47,5 @@
 ・BGM_45		kaerimiti.mp3				ほっと安心BGM（猫ししゃもクッキーのイベント）
 ・BGM_46		gymnopedies1.mp3			43と同じ。ジムノペディ第一番。
 ・BGM_47		09[town]海の見えるお店.mp3		酒場のBGM
+・BGM_48		ecossaise				チュートリアルのBGM
+・BGM_49		04[theme]大好きな場所			ベリーファームのBGM

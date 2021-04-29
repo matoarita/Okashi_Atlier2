@@ -743,8 +743,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     case "BerryFarm":
 
-                        //森のBGM
-                        sceneBGM.OnGetMat_ForestBGM();
+                        //ベリーファームのBGM
+                        sceneBGM.OnGetMat_BerryFarmBGM();
                         compound_Main.bgm_change_flag = true;
 
                         //背景エフェクト

@@ -24,6 +24,8 @@ public class BGM : MonoBehaviour {
     public AudioClip sound13;  //お好みBGM_01
     public AudioClip sound14;  //メインクリア後アイキャッチのBGM
     public AudioClip sound15;  //「ねこのお墓」BGM
+    public AudioClip sound16;  //チュートリアルBGM
+    public AudioClip sound17;  //「ベリーファーム」BGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -79,13 +81,13 @@ public class BGM : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam;
+        _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
 
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
 
-                _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam;
+                _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
                 break;
         }
 
@@ -281,10 +283,28 @@ public class BGM : MonoBehaviour {
         _mixRate = 1;
     }
 
+    public void OnGetMat_BerryFarmBGM()
+    {
+        _bgm[1].Stop();
+        _bgm[1].clip = sound17;
+        _bgm[1].Play();
+
+        _mixRate = 1;
+    }
+
+    public void OnTutorialBGM()
+    {
+        _bgm[1].Stop();
+        _bgm[1].clip = sound16;
+        _bgm[1].Play();
+
+        _mixRate = 1;
+    }
+
     public void OnMainClearResultBGM()
     {
         _bgm[2].clip = sound14;
-        _bgm[2].volume = 0.4f * GameMgr.MasterVolumeParam;
+        _bgm[2].volume = 0.4f * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
         _bgm[2].Play();
     }
 

@@ -221,7 +221,7 @@ public class Result_Panel : MonoBehaviour
         if(_poncount >= star_count)
         {
             HintTextAnim();
-            //GetLoveBarAnim();
+            GetLoveBarAnim();
             StartCoroutine("AnimEndWait");
             yield break;
         }
@@ -254,7 +254,7 @@ public class Result_Panel : MonoBehaviour
             //合格演出
             if(Total_score < 30) //まずい
             {
-                sc.PlaySe(20);
+                //sc.PlaySe(20);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "マズい..。";
             }
             if (Total_score >= 30 && Total_score < GameMgr.low_score)

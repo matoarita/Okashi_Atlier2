@@ -100,6 +100,7 @@ public class QuestTitlePanel : MonoBehaviour {
     void EndAnim()
     {
         GameMgr.KeyInputOff_flag = true; //キー入力受付開始
+        GameMgr.MesaggeKoushinON = true; //メイン下枠のメッセージを更新するフラグ
         compound_Main.StartMessage();
         compound_Main.check_GirlLoveSubEvent_flag = false; //パネル閉じたあとに、サブイベントだけチェックする 
         this.gameObject.SetActive(false);

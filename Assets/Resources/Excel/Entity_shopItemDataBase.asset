@@ -195,7 +195,7 @@ MonoBehaviour:
       itemType: 0
       shop_sell_price: 10
       shop_buy_price: 5
-      item_hyouji: 3
+      item_hyouji: 0
     - ItemID: 26
       name: ice_cream
       zaiko: 50

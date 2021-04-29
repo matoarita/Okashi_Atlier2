@@ -195,14 +195,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         SkillCheck(PlayerStatus.player_renkin_lv);
 
         //最後にテキスト表示
-        if (_temp_skill.Count > 0)
-        {
-            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！" + "\n" + _temp_skill[0];
-        }
-        else
-        {
-            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！";
-        }
+        TextHyouji();
 
         Check_LevelUp(); //もう一回繰り返し
     }
@@ -227,13 +220,18 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
 
         //最後にテキスト表示
+        TextHyouji();
+    }
+
+    void TextHyouji()
+    {
         if (_temp_skill.Count > 0)
         {
-            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！" + "\n" + _temp_skill[0];
+            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + GameMgr.ColorYellow + PlayerStatus.player_renkin_lv + "</color>" + "になった！" + "\n" + _temp_skill[0];
         }
         else
         {
-            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + PlayerStatus.player_renkin_lv + "になった！";
+            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + GameMgr.ColorYellow + PlayerStatus.player_renkin_lv + "</color>" + "になった！";
         }
     }
 
@@ -249,12 +247,19 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 PlayerStatus.player_extreme_kaisu++;
                 break;
 
+            case 5:
+
+                _temp_skill.Add("一度に　2個　トッピングできるようになった！");
+                GameMgr.topping_Set_Count = 2;
+                break;
+
             case 6:
 
                 _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
                 PlayerStatus.player_extreme_kaisu_Max++;
                 PlayerStatus.player_extreme_kaisu++;
                 break;
+            
 
             case 10:
 

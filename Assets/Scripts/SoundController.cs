@@ -114,7 +114,7 @@ public class SoundController : SingletonMonoBehaviour<SoundController>
     {
         foreach (var source in seSources)
         {
-            source.volume = 1.0f * GameMgr.MasterVolumeParam;
+            source.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
         }
         //audioSource.volume = 1.0f * GameMgr.MasterVolumeParam;
     }

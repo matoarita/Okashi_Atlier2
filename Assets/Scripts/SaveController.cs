@@ -177,7 +177,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //飾っているアイテムのリスト
             save_DecoItems = GameMgr.DecoItems,
 
-             //コレクションに登録したアイテムのリスト
+            //コレクションに登録したアイテムのリスト
             save_CollectionItems = GameMgr.CollectionItems,
 
             //エンディングカウント
@@ -300,6 +300,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //エクストリームパネルのアイテムIDも保存
             save_extreme_itemid = GameMgr.sys_extreme_itemID,
             save_extreme_itemtype = GameMgr.sys_extreme_itemType,
+
+            //お菓子の一度にトッピングできる回数
+            save_topping_Set_Count = GameMgr.topping_Set_Count,
         };
        
 
@@ -542,6 +545,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //エクストリームパネルのアイテムを読み込み
         GameMgr.sys_extreme_itemID = playerData.save_extreme_itemid;
         GameMgr.sys_extreme_itemType = playerData.save_extreme_itemtype;
+
+        //お菓子の一度にトッピングできる回数
+        GameMgr.topping_Set_Count = playerData.save_topping_Set_Count;
 
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
