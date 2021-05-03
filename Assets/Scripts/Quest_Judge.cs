@@ -20,6 +20,9 @@ public class Quest_Judge : MonoBehaviour {
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
+    private GameObject NinkiStatus_Panel_obj;
+    private NinkiStatus_Controller ninkiStatus_Controller;
+
     private GameObject shopquestlistController_obj;
     private ShopQuestListController shopquestlistController;
     private GameObject back_ShopFirst_obj;
@@ -74,6 +77,7 @@ public class Quest_Judge : MonoBehaviour {
     private int nouhinOK_status;
 
     private int _getMoney;
+    private int _getNinki;
     private string _kanso;
 
     private int _id;
@@ -113,6 +117,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _chewy;
 
     private int _juice;
+    private int _beauty;
 
     private string[] _tp;
 
@@ -142,6 +147,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
+    private int _basebeauty;
     private int _basescore;
     private float _basegirl1_like;
     private int _basecost;
@@ -197,6 +203,10 @@ public class Quest_Judge : MonoBehaviour {
             case "Bar":
 
                 barMain = shopMain_obj.GetComponent<Bar_Main>();
+
+                //名声パネルの取得
+                NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
+                ninkiStatus_Controller = NinkiStatus_Panel_obj.GetComponent<NinkiStatus_Controller>();
                 break;
 
             case "Shop":
@@ -249,6 +259,8 @@ public class Quest_Judge : MonoBehaviour {
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
+        
 
         //黒半透明パネルの取得
         black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
@@ -946,9 +958,16 @@ public class Quest_Judge : MonoBehaviour {
                     //トッピングごとに、得点を加算する。妹の採点のtotal_scoreの加算値と共有。
                     if (itemslot_PitemScore[i] > 0)
                     {
-                        okashi_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslot_PitemScore[i];                       
+                        okashi_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslot_PitemScore[i];
+                        _basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslot_PitemScore[i]; //見た目に対するボーナス得点
                     }
                 }
+            }
+
+            //見た目点数の計算
+            if (_beauty > 0)
+            {
+                okashi_score += _basebeauty - _beauty;
             }
 
             //⑤油っこいなどのマイナスの値がついてた場合、マイナス補正
@@ -1050,57 +1069,68 @@ public class Quest_Judge : MonoBehaviour {
                 if (okashi_totalscore < 30) //粗悪なお菓子だと、マイナス評価
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.2f);
+                    _getNinki = -5;
                     _kanso = "う～ん..。お客さん不満だったみたい。次からは気をつけてね。" + "\n" + "報酬額を少し減らされてしまった！";
                     
                 }
                 else if (okashi_totalscore >= 30 && okashi_totalscore < 45) //30~45
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.4f);
+                    _getNinki = -1;
                     _kanso = "ありがとう。　..少しお客さん不満だったみたい。" + "\n" + "次はもっと期待してるわね！";
                 }
                 else if (okashi_totalscore >= 45 && okashi_totalscore < GameMgr.low_score) //45~60
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.8f);
+                    _getNinki = 1;
                     _kanso = "ありがとう！　お客さん喜んでたわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 75) //60~75
                 {
                     _getMoney = _buy_price * _kosu_default;
+                    _getNinki = 2;
                     _kanso = "ありがとう！　お客さん、気に入ってたみたい！";
                 }
                 else if (okashi_totalscore >= 75 && okashi_totalscore < GameMgr.high_score) //75~85
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.2f);
+                    _getNinki = 2;
                     _kanso = "ありがとう！　お客さん、大喜びだったわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 100) //85~100
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 1.5f);
+                    _getNinki = 3;
                     _kanso = "ありがとう！とても良い出来みたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 100 && okashi_totalscore < 120) //100~120
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 1.75f);
+                    _getNinki = 3;
                     _kanso = "グレイトだわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 120 && okashi_totalscore < 150) //120~150
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 2.0f);
+                    _getNinki = 5;
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 175) //150~175
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 3.5f);
+                    _getNinki = 6;
                     _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 175 && okashi_totalscore < 200) //175~200
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 6.0f);
+                    _getNinki = 6;
                     _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 200) //200~
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 10.0f);
+                    _getNinki = 10;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
 
@@ -1141,6 +1171,9 @@ public class Quest_Judge : MonoBehaviour {
 
                 //所持金をプラス
                 moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
+
+                //名声値は減る
+                ninkiStatus_Controller.DegNinki(3); //アニメつき
 
                 ResetQuestStatus();
                 break;
@@ -1190,7 +1223,19 @@ public class Quest_Judge : MonoBehaviour {
         endresultbutton = false;        
 
         //所持金をプラス
-        moneyStatus_Controller.GetMoney(_getMoney); //アニメつき        
+        moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
+        
+        //名声をプラスかマイナス。0は変化なし
+        if(_getNinki < 0)
+        {
+            //名声値は減る
+            ninkiStatus_Controller.DegNinki(Mathf.Abs(_getNinki)); //アニメつき
+        }
+        else if(_getNinki > 0)
+        {
+            //名声値は増える
+            ninkiStatus_Controller.GetNinki(_getNinki); //アニメつき
+        }
 
         ResetQuestStatus();
     }
@@ -1256,6 +1301,7 @@ public class Quest_Judge : MonoBehaviour {
         _chewy = quest_database.questTakeset[_count].Quest_chewy;
 
         _juice = quest_database.questTakeset[_count].Quest_juice;
+        _beauty = quest_database.questTakeset[_count].Quest_beauty;
 
         for (i = 0; i < _tp.Length; i++)
         {
@@ -1319,6 +1365,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basepowdery = database.items[_id].Powdery;
                 _baseoily = database.items[_id].Oily;
                 _basewatery = database.items[_id].Watery;
+                _basebeauty = database.items[_id].Beauty;
                 _basescore = database.items[_id].Base_Score;
                 _basegirl1_like = database.items[_id].girl1_itemLike;
                 _basecost = database.items[_id].cost_price;
@@ -1367,6 +1414,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basepowdery = pitemlist.player_originalitemlist[_id].Powdery;
                 _baseoily = pitemlist.player_originalitemlist[_id].Oily;
                 _basewatery = pitemlist.player_originalitemlist[_id].Watery;
+                _basebeauty = pitemlist.player_originalitemlist[_id].Beauty;
                 _basescore = pitemlist.player_originalitemlist[_id].Base_Score;
                 _basegirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
                 _basecost = pitemlist.player_originalitemlist[_id].cost_price;

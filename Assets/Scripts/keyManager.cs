@@ -84,6 +84,9 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
     private bool OnDownKey, OnUpKey, OnRightKey, OnLeftKey;
 
+    private int debug_command_status;
+    private int command_count;
+
     // Use this for initialization
     void Start () {
 
@@ -105,6 +108,9 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         OnRightKey = false;
         OnLeftKey = false;
 
+        debug_command_status = 0;
+        command_count = 0;
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
@@ -116,31 +122,121 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         //debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {       
+
+    // Update is called once per frame
+    void Update()
+    {
         //デバッグ用
-        if (Input.GetKeyDown(KeyCode.Alpha1)) //１キーでMain デバッグ用
+        if (GameMgr.DEBUG_MODE)
         {
-            //SceneManager.LoadScene("Main");
-            FadeManager.Instance.LoadScene("001_Title", 0.3f);
+            if (Input.GetKeyDown(KeyCode.Alpha1)) //１キーでMain デバッグ用
+            {
+                //SceneManager.LoadScene("Main");
+                FadeManager.Instance.LoadScene("001_Title", 0.3f);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift)) //左シフトキーでデバッグ入力受付のON/OFF
+            {
+                debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
+
+                //SceneManager.LoadScene("Main");
+                if (debug_panel.Debug_INPUT_ON)
+                {
+                    debug_panel.Debug_INPUT_ON = false;
+                }
+                else
+                {
+                    debug_panel.Debug_INPUT_ON = true;
+                }
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift)) //左シフトキーでデバッグ入力受付のON/OFF
+        //デバッグを実機でも実行できるコマンド
+        if (Input.GetKeyUp(KeyCode.F12))
         {
-            debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
+            debug_command_status = 0;
+            command_count = 0;
+        }
 
-            //SceneManager.LoadScene("Main");
-            if (debug_panel.Debug_INPUT_ON)
+        if (Input.GetKey(KeyCode.F12)) //F12を押し続ける
+        {
+            switch (debug_command_status)
             {
-                debug_panel.Debug_INPUT_ON = false;
-            }
-            else
-            {
-                debug_panel.Debug_INPUT_ON = true;
+                case 0: //左を2回
+
+                    if (Input.GetKeyDown(KeyCode.LeftArrow)) //左キー
+                    {
+                        if(command_count == 0)
+                        {
+                            command_count++;
+                        }
+                        else if (command_count == 1) {
+
+                            debug_command_status = 1;
+                            command_count = 0;
+                        }                      
+                    }
+
+                    break;
+
+                case 1: //上を2回
+
+                    if (Input.GetKeyDown(KeyCode.UpArrow)) //上キー
+                    {
+                        if (command_count == 0)
+                        {
+                            command_count++;
+                        }
+                        else if (command_count == 1)
+                        {
+
+                            debug_command_status = 2;
+                            command_count = 0;
+                        }
+                    }
+                    break;
+
+                case 2: //右を2回
+
+                    if (Input.GetKeyDown(KeyCode.RightArrow)) //右キー
+                    {
+                        if (command_count == 0)
+                        {
+                            command_count++;
+                        }
+                        else if (command_count == 1)
+                        {
+
+                            debug_command_status = 3;
+                            command_count = 0;
+                        }
+                    }
+                    break;
+
+                case 3: //下を2回
+
+                    if (Input.GetKeyDown(KeyCode.DownArrow)) //下キー
+                    {
+                        if (command_count == 0)
+                        {
+                            command_count++;
+                        }
+                        else if (command_count == 1)
+                        {
+
+                            debug_command_status = 4;
+                            command_count = 0;
+                            GameMgr.DEBUG_MODE = !GameMgr.DEBUG_MODE;
+                        }
+                    }
+                    break;
+
+                default:
+
+                    break;
             }
         }
+        
         // *** ここまで ***//
 
         //本編でも使用

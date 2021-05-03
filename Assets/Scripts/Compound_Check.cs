@@ -28,6 +28,9 @@ public class Compound_Check : MonoBehaviour {
 
     private Exp_Controller exp_Controller;
 
+    private Buf_Power_Keisan bufpower_keisan;
+    private int _buf_kakuritsu;
+
     private GameObject card_view_obj;
     private CardView card_view;
 
@@ -60,6 +63,8 @@ public class Compound_Check : MonoBehaviour {
     private Text FinalCheck_Text;
     private Text FinalCheck_itemText;
 
+    private GameObject BlackImage;
+
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
     private List<string> _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
     private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
@@ -78,6 +83,7 @@ public class Compound_Check : MonoBehaviour {
     private int itemID_3;
 
     public bool final_select_flag;
+
 
     private int i;
     private int _rate;
@@ -124,7 +130,10 @@ public class Compound_Check : MonoBehaviour {
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         //調合用メソッドの取得
-        Combinationmain = CombinationMain.Instance.GetComponent<CombinationMain>();        
+        Combinationmain = CombinationMain.Instance.GetComponent<CombinationMain>();
+
+        //バフ効果計算メソッドの取得
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -139,6 +148,9 @@ public class Compound_Check : MonoBehaviour {
 
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
+
+        //黒半透明パネルの取得
+        BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject;
 
         //スクロールビュー内の、コンテンツ要素を取得
         content = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Scroll View/Viewport/Content").gameObject;
@@ -614,6 +626,8 @@ public class Compound_Check : MonoBehaviour {
         _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "が" +
             databaseCompo.compoitems[recipilistController.result_recipicompID].cmpitem_result_kosu * recipilistController.final_select_kosu + "個　出来ます。" + "\n" + "作る？";
 
+        CompoundRecipiKyorikeisan(); //食材の距離計算も行う。
+
         while (yes_selectitem_kettei.onclick != true)
         {
 
@@ -670,6 +684,7 @@ public class Compound_Check : MonoBehaviour {
                     recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
 
+                BlackImage.GetComponent<CanvasGroup>().alpha = 0;
                 compound_Main.compound_status = 100;
                 itemselect_cancel.All_cancel();
 
@@ -695,6 +710,7 @@ public class Compound_Check : MonoBehaviour {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
         _itemSubtype_temp_result.Clear();
+
 
         //オリジナル調合の場合はこっち
         if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
@@ -749,6 +765,7 @@ public class Compound_Check : MonoBehaviour {
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
             }
         }
+
 
         i = 0;
 
@@ -806,20 +823,20 @@ public class Compound_Check : MonoBehaviour {
 
         if (compoDB_select_judge == false)
         {
-                Combinationmain.Combination3(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 0);
+            Combinationmain.Combination3(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 0);
 
-                compoDB_select_judge = Combinationmain.compFlag;
-                if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
+            compoDB_select_judge = Combinationmain.compFlag;
+            if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
+            {
+                resultitemID = Combinationmain.resultitemName;
+                result_compoID = Combinationmain.result_compID;
+
+                result_kosuset.Clear();
+                for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
                 {
-                    resultitemID = Combinationmain.resultitemName;
-                    result_compoID = Combinationmain.result_compID;
-
-                    result_kosuset.Clear();
-                    for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
-                    {
-                        result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
-                    }
-                }            
+                    result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
+                }
+            }
         }
 
 
@@ -843,12 +860,11 @@ public class Compound_Check : MonoBehaviour {
 
         //調合判定
 
+        //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
+        _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
+
         if (compoDB_select_judge == true)
         {
-
-            //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
-            _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
-
 
             if (_success_rate >= 0.0 && _success_rate < 20.0)
             {
@@ -901,8 +917,8 @@ public class Compound_Check : MonoBehaviour {
 
             //新しいレシピかどうか。
             _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
-            if(databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
-            {                
+            if (databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
+            {
                 success_text = "新しいお菓子を思いつきそう..？";
                 newrecipi_flag = true;
                 exp_Controller.NewRecipiFlag = true;
@@ -933,10 +949,49 @@ public class Compound_Check : MonoBehaviour {
                 success_text = "これは.. ダメかもしれぬ。";
                 kakuritsuPanel.KakuritsuYosoku_Img(0);
             }
-                            
+
         }
 
         //判定予測処理　ここまで//
+    }
+
+    void CompoundRecipiKyorikeisan()
+    {
+        _itemIDtemp_result.Clear();
+        _itemKosutemp_result.Clear();
+        _itemSubtype_temp_result.Clear();
+
+        _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemName);
+        _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem2].itemName);
+
+        _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemType_sub.ToString());
+        _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem2].itemType_sub.ToString());
+
+        _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu1);
+        _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu2);
+
+        if (recipilistController.kettei_recipiitem3 == 9999) //二個しか選択していないときは、9999が入っている。
+        {
+            _itemIDtemp_result.Add("empty");
+            _itemSubtype_temp_result.Add("empty");
+            recipilistController.final_kettei_recipikosu3 = 9999; //個数にも9999=emptyを入れる。
+            _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu3);
+        }
+        else
+        {
+            _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemName);
+            _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemType_sub.ToString());
+            _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu3);
+        }
+
+        //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     距離も計算される。
+        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 0); //決めた３つのアイテム＋それぞれの個数、の配列
+
+        //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
+        _success_rate = Kakuritsu_Keisan(recipilistController.result_recipicompID);
+
+        exp_Controller._success_judge_flag = 1; //判定処理を行う。
+        exp_Controller._success_rate = _success_rate;
     }
 
     void SelectPaused()
@@ -1071,17 +1126,27 @@ public class Compound_Check : MonoBehaviour {
     //確率計算式 ここの計算の値が、そのまま実際の計算時のサイコロを振るときにも反映される。
     public int Kakuritsu_Keisan(int _compID)
     {
-        _rate = databaseCompo.compoitems[_compID].success_Rate + (PlayerStatus.player_renkin_lv * 2); //LV1上がるごとに2%ずつ上昇
+        _buf_kakuritsu = 0;
+        _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan();
+        _rate = databaseCompo.compoitems[_compID].success_Rate + ((PlayerStatus.player_renkin_lv-1) * 2) + _buf_kakuritsu; //LV1上がるごとに2%ずつ上昇 + 装備品による確率上昇
 
-        if (_rate >= 100)
+        if(databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない
         {
             _rate = 100;
         }
-
-        if (_rate < 0)
+        else
         {
-            _rate = 0;
+            if (_rate >= 98) //99~は、全て98で上限
+            {
+                _rate = 98; //上限は98％　ミスする可能性は０ではない
+            }
+
+            if (_rate < 0)
+            {
+                _rate = 0;
+            }
         }
+        
 
         return _rate;
     }

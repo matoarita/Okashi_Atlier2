@@ -661,9 +661,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //調合処理
             Compo_1();
-
             
-
             //チュートリアルのときは、一時的にOFF
             if (GameMgr.tutorial_ON == true)
             {
@@ -1029,6 +1027,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else if (toggle_type1 == 2 || toggle_type1 == 6) //2は機材。shop_itemType = 6 は、装備品や飾りなどの特殊アイテム。買うことでパラメータを上昇させたり、フラグをたてる。
         {
+            //かごの大きさ計算やバフの計算は「Buf_Power_keisan.cs」
             //プレイヤーアイテムリストに追加。
             pitemlist.addPlayerItem(kettei_item1, result_kosu);
             

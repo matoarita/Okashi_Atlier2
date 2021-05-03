@@ -194,6 +194,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _kettei_item1;
         _cardImage.SetInit();
         _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
+        //_cardImage_obj[0].GetComponent<SetImage>().SlotChangeButtonON();
 
         //位置とスケール
         _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
@@ -252,6 +253,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _kettei_item2;
         _cardImage.SetInit();
         _cardImage_obj[1].GetComponent<SetImage>().CardParamOFF_2();
+        //_cardImage_obj[1].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -323,6 +325,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _kettei_item3;
         _cardImage.SetInit();
         _cardImage_obj[2].GetComponent<SetImage>().CardParamOFF_2();
+        //_cardImage_obj[2].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -402,6 +405,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _kettei_item4;
         _cardImage.SetInit();
         _cardImage_obj[3].GetComponent<SetImage>().CardParamOFF_2();
+        //_cardImage_obj[3].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
         if (compound_Main.compound_select == 3)
@@ -570,6 +574,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        //_cardImage.SlotChangeButtonON();
 
         //店売りかオリジナルか、アイテムID
         _cardImage.Pitem_or_Origin = _toggleType;
@@ -630,6 +635,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        //_cardImage.SlotChangeButtonON();
 
         //_cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
 

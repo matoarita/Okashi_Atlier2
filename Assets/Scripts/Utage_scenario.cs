@@ -2057,7 +2057,7 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_comment_num", 3);
         }
 
-        if (GameMgr.contest_TotalScore > 92) //アマクサよりも高得点なら、優勝
+        if (GameMgr.contest_TotalScore > 90) //アマクサよりも高得点なら、優勝
         {
             yusho_flag = true;
             engine.Param.TrySetParameter("contest_ranking_num", 1);
@@ -2068,27 +2068,40 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_ranking_num", 0);
         }
 
-        //好感度LVによって、EDが分岐する。
-        if (PlayerStatus.girl1_Love_lv <= 3) //LV3以下 badED ED:D
+        //コンテストの点によって、EDが分岐する。ベストEDとバッドEDのみ、好感度も影響する。
+        if (PlayerStatus.girl1_Love_exp < 500) //LV3以下 badED ED:D
         {
             engine.Param.TrySetParameter("ED_num", 1);
             GameMgr.ending_number = 1;
         }
-        else if (PlayerStatus.girl1_Love_lv > 3 && PlayerStatus.girl1_Love_lv <= 4) // LV4 ノーマルED ED:C
-        {           
-            engine.Param.TrySetParameter("ED_num", 2);
-            GameMgr.ending_number = 2;
+        else {
+
+            if (GameMgr.contest_TotalScore < 60) // LV4 ノーマルED ED:C
+            {
+                engine.Param.TrySetParameter("ED_num", 2);
+                GameMgr.ending_number = 2;
+            }
+            else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == false) // LV5~ ベストED ED:B ケーキED
+            {
+                engine.Param.TrySetParameter("ED_num", 3);
+                GameMgr.ending_number = 3;
+            }
+            else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == true) // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
+            {
+                if (PlayerStatus.girl1_Love_exp > 800)
+                {
+                    engine.Param.TrySetParameter("ED_num", 4);
+                    GameMgr.ending_number = 4;
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("ED_num", 3);
+                    GameMgr.ending_number = 3;
+                }
+            }
+
         }
-        else if (PlayerStatus.girl1_Love_lv > 4 && yusho_flag == false) // LV5~ ベストED ED:B ケーキED
-        {
-            engine.Param.TrySetParameter("ED_num", 3);
-            GameMgr.ending_number = 3;
-        }
-        else if (PlayerStatus.girl1_Love_lv > 4 && yusho_flag == true) // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
-        {
-            engine.Param.TrySetParameter("ED_num", 4);
-            GameMgr.ending_number = 4;
-        }
+        
 
         //続きから再度読み込み
         engine.ResumeScenario();

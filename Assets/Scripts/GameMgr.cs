@@ -36,6 +36,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様
     public static int stageclear_cullentlove; //クエストをクリアするのに、必要なハートの蓄積量。
 
+    public static bool DEBUG_MODE = true; //デバッグモード　falseだと、デバッグパネルの表示をオフにする。
+
 
 
     /* セーブする */
@@ -317,6 +319,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string ColorLemon;
     public static string ColorPink;
     public static string ColorRed;
+    public static string ColorRedDeep;
     public static string ColorBlue;
     public static string ColorCyan;
     public static string ColorOrange;
@@ -324,6 +327,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //ゲームの通貨名
     public static string MoneyCurrency;
+    public static string MoneyCurrencyEn;
 
     //時間の概念を使用するかどうかのフラグ
     public static bool TimeUSE_FLAG = true; //使用するならtrue
@@ -363,6 +367,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ColorLemon = "<color=#FDFF80>"; // かなり薄い黄色FDFF80
         ColorPink = "<color=#FF5CA1>";
         ColorRed = "<color=#FF0000>";
+        ColorRedDeep = "<color=#FF4D4D>";
         ColorBlue = "<color=#0000FF>";
         ColorCyan = "<color=#44A2FF>";
         ColorOrange = "<color=#FF8400>";
@@ -370,6 +375,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //通貨の名前
         MoneyCurrency = "ルピア";
+        MoneyCurrencyEn = "Lp";
     }
 	
 	// Update is called once per frame
@@ -623,7 +629,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void InitCollectionItemsLibrary()
     {
         CollectionItemsName.Clear();
-        CollectionItemsName.Add("amabie_pendant");
+        CollectionItemsName.Add("amabie_statue");
         CollectionItemsName.Add("green_pendant");
         CollectionItemsName.Add("star_pendant");
         CollectionItemsName.Add("aquamarine_pendant");

@@ -379,8 +379,8 @@ MonoBehaviour:
       drop_prob8: 0
       drop_prob9: 0
       drop_prob10: 0
-      drop_rare_prob1: 94
-      drop_rare_prob2: 5
+      drop_rare_prob1: 89
+      drop_rare_prob2: 10
       drop_rare_prob3: 1
       center_bg: 1_forest_a_600_300
       back_bg: 110618_

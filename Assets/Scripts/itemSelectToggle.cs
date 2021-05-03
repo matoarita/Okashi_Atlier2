@@ -1277,7 +1277,7 @@ public class itemSelectToggle : MonoBehaviour
         pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
 
         _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" + 
-            GameMgr.ColorYellow + database.items[itemID_1].sell_price + "G</color>"
+            GameMgr.ColorYellow + database.items[itemID_1].sell_price + GameMgr.MoneyCurrencyEn + "</color>"
             + "\n" + "個数を選択してください";
 
         //Debug.Log(count + "番が押されたよ");
@@ -1350,7 +1350,8 @@ public class itemSelectToggle : MonoBehaviour
     {
 
         _text.text = database.items[pitemlistController.final_kettei_item1].itemNameHyouji + "を　" + pitemlistController.final_kettei_kosu1 + "個 売りますか？" + "\n" +
-            "全部で　" + GameMgr.ColorYellow + database.items[pitemlistController.final_kettei_item1].sell_price * pitemlistController.final_kettei_kosu1 + "G</color>" + "で買い取ります。";
+            "全部で　" + GameMgr.ColorYellow + database.items[pitemlistController.final_kettei_item1].sell_price * pitemlistController.final_kettei_kosu1 + 
+            GameMgr.MoneyCurrencyEn + "</color>" + "で買い取ります。";
 
         updown_button[0].interactable = false;
         updown_button[1].interactable = false;

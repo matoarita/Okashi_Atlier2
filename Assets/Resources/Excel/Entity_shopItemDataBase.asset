@@ -232,153 +232,188 @@ MonoBehaviour:
       shop_buy_price: 100
       item_hyouji: 1
     - ItemID: 31
+      name: oil_extracter
+      zaiko: 1
+      itemType: 2
+      shop_sell_price: 500
+      shop_buy_price: 100
+      item_hyouji: 4
+    - ItemID: 32
       name: ice_box
       zaiko: 1
       itemType: 2
       shop_sell_price: 500
       shop_buy_price: 250
       item_hyouji: 1
-    - ItemID: 32
+    - ItemID: 33
+      name: wind_mixer
+      zaiko: 1
+      itemType: 2
+      shop_sell_price: 500
+      shop_buy_price: 100
+      item_hyouji: 3
+    - ItemID: 34
       name: itembox_1
       zaiko: 1
       itemType: 6
       shop_sell_price: 200
       shop_buy_price: 100
       item_hyouji: 1
-    - ItemID: 33
+    - ItemID: 35
       name: himmeli
       zaiko: 1
       itemType: 6
       shop_sell_price: 1000
       shop_buy_price: 500
       item_hyouji: 1
-    - ItemID: 34
+    - ItemID: 36
       name: kuma_nuigurumi
       zaiko: 1
       itemType: 6
       shop_sell_price: 800
       shop_buy_price: 400
       item_hyouji: 1
-    - ItemID: 35
+    - ItemID: 37
       name: amabie_statue
       zaiko: 1
       itemType: 6
       shop_sell_price: 600
       shop_buy_price: 300
       item_hyouji: 1
-    - ItemID: 36
+    - ItemID: 38
       name: star_pendant
       zaiko: 1
       itemType: 6
       shop_sell_price: 3000
       shop_buy_price: 1500
       item_hyouji: 1
-    - ItemID: 37
+    - ItemID: 39
+      name: compass
+      zaiko: 1
+      itemType: 6
+      shop_sell_price: 1500
+      shop_buy_price: 750
+      item_hyouji: 1
+    - ItemID: 40
+      name: copper_coin
+      zaiko: 1
+      itemType: 6
+      shop_sell_price: 1500
+      shop_buy_price: 750
+      item_hyouji: 1
+    - ItemID: 41
+      name: diamond_1
+      zaiko: 1
+      itemType: 6
+      shop_sell_price: 2500
+      shop_buy_price: 1250
+      item_hyouji: 1
+    - ItemID: 42
       name: cookie_base_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 38
+    - ItemID: 43
       name: recipibook_9
       zaiko: 1
       itemType: 1
       shop_sell_price: 150
       shop_buy_price: 75
       item_hyouji: 1
-    - ItemID: 39
+    - ItemID: 44
       name: recipibook_2
       zaiko: 1
       itemType: 1
       shop_sell_price: 200
       shop_buy_price: 100
       item_hyouji: 1
-    - ItemID: 40
+    - ItemID: 45
       name: recipibook_7
       zaiko: 1
       itemType: 1
       shop_sell_price: 250
       shop_buy_price: 125
       item_hyouji: 1
-    - ItemID: 41
+    - ItemID: 46
       name: recipibook_3
       zaiko: 1
       itemType: 1
       shop_sell_price: 120
       shop_buy_price: 60
       item_hyouji: 1
-    - ItemID: 42
+    - ItemID: 47
       name: recipibook_6
       zaiko: 1
       itemType: 1
       shop_sell_price: 80
       shop_buy_price: 40
       item_hyouji: 1
-    - ItemID: 43
+    - ItemID: 48
       name: recipibook_8
       zaiko: 1
       itemType: 1
       shop_sell_price: 120
       shop_buy_price: 60
       item_hyouji: 1
-    - ItemID: 44
+    - ItemID: 49
       name: maffin_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 45
+    - ItemID: 50
       name: bisucouti_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 46
+    - ItemID: 51
       name: crepe_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 800
       shop_buy_price: 400
       item_hyouji: 0
-    - ItemID: 47
+    - ItemID: 52
       name: financier_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 500
       shop_buy_price: 250
       item_hyouji: 1
-    - ItemID: 48
+    - ItemID: 53
       name: creampuff_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 49
+    - ItemID: 54
       name: ice_cream_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 500
       shop_buy_price: 250
       item_hyouji: 1
-    - ItemID: 50
+    - ItemID: 55
       name: strawberry_parfe_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 1300
       shop_buy_price: 650
       item_hyouji: 3
-    - ItemID: 51
+    - ItemID: 56
       name: slimejelly_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 3000
       shop_buy_price: 1500
       item_hyouji: 1
-    - ItemID: 52
+    - ItemID: 57
       name: princesstota_recipi
       zaiko: 1
       itemType: 1

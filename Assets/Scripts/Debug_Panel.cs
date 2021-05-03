@@ -65,6 +65,7 @@ public class Debug_Panel : MonoBehaviour {
     private Particle_Heart_Character GirlHeartEffect;
 
     private GameObject TastePanel;
+    private GameObject DebugHyouji_panel;
 
     //好感度レベルテーブルの取得
     private List<int> stage_levelTable = new List<int>();
@@ -78,6 +79,8 @@ public class Debug_Panel : MonoBehaviour {
 
     void InitDebug()
     {
+        DebugHyouji_panel = this.transform.Find("Hyouji").gameObject;
+
         StoryNumber = this.transform.Find("Hyouji/StoryNumber").gameObject;
         StoryNumber_text = StoryNumber.GetComponent<Text>();
 
@@ -115,6 +118,15 @@ public class Debug_Panel : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if(GameMgr.DEBUG_MODE)
+        {
+            DebugHyouji_panel.SetActive(true);
+        }
+        else
+        {
+            DebugHyouji_panel.SetActive(false);
+        }
+
         if(StoryNumber == null)
         {
             InitDebug();

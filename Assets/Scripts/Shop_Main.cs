@@ -587,6 +587,20 @@ public class Shop_Main : MonoBehaviour {
             StartCoroutine("Scenario_loading");
         }
 
+        //品物追加　ドーナツイベント以降
+        if (GameMgr.GirlLoveEvent_num >= 40 && !GameMgr.ShopLVEvent_stage[2])
+        {
+            GameMgr.ShopLVEvent_stage[2] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_lvevent_num = 1;
+            GameMgr.shop_lvevent_flag = true;
+
+            lvevent_loading = true;
+            StartCoroutine("Scenario_loading");
+        }
+
+
         //「依頼」コマンド追加　パティシエレベル３以上で追加
         /*if (PlayerStatus.player_renkin_lv >= 3 && !GameMgr.ShopLVEvent_stage[10]) //シュークリームイベント以降
         {

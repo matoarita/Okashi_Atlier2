@@ -24,6 +24,8 @@ public class SetImage : MonoBehaviour
     private GameObject Card_param_obj2;
     private GameObject TasteSubWindow;
     private GameObject Slot_SubWindow;
+    public bool taste_slot_flag;
+    private GameObject SlotChangeButton;
 
     private GameObject NewRecipi_Prefab1;
     private GameObject NewRecipi;
@@ -278,6 +280,7 @@ public class SetImage : MonoBehaviour
         Card_param_obj2 = this.transform.Find("Card_Param_window2").gameObject;
         Slot_SubWindow = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot").gameObject;
         TasteSubWindow = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow").gameObject;
+        SlotChangeButton = this.transform.Find("Card_Param_window/Card_Parameter/SlotHyoujiButton").gameObject;
         //TasteSubWindow.SetActive(false);
 
         for (i = 0; i < _slotHyouji1.Length; i++)
@@ -958,7 +961,8 @@ public class SetImage : MonoBehaviour
         Card_param_obj.SetActive(false);
         Card_param_obj2.SetActive(false);
         TasteSubWindow.SetActive(false);
-        Slot_SubWindow.SetActive(false);
+        Slot_SubWindow.SetActive(true);
+        taste_slot_flag = false; //デフォルトでは、スロットを表示
 
         if (item_type == "Mat" || item_type == "Etc")
         {
@@ -968,18 +972,26 @@ public class SetImage : MonoBehaviour
                     Card_param_obj.SetActive(true);
                     Card_param_obj2.SetActive(false);
                     TasteSubWindow.SetActive(true);
+                    Slot_SubWindow.SetActive(false);
+                    SlotChangeButtonON();
+                    taste_slot_flag = true; //現在テイストサブウィンドウを表示
                     item_Shokukan.text = "-";
 
                     item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
                     break;
+
                 case "Cream":
                     Card_param_obj.SetActive(true);
                     Card_param_obj2.SetActive(false);
                     TasteSubWindow.SetActive(true);
+                    Slot_SubWindow.SetActive(false);
+                    SlotChangeButtonON();
+                    taste_slot_flag = true; //現在テイストサブウィンドウを表示
                     item_Shokukan.text = "-";
 
                     item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
                     break;
+
                 case "Fruits":
                     Card_param_obj.SetActive(true);
                     Card_param_obj2.SetActive(false);
@@ -1256,6 +1268,32 @@ public class SetImage : MonoBehaviour
         kosu_panel.SetActive(false);
     }
 
+    public void OnSlotHyoujiChangeButton()
+    {
+        if(taste_slot_flag) //テイストサブウィンドウがオンの場合は、スロット表示に切り替え
+        {
+            taste_slot_flag = false;
+            TasteSubWindow.SetActive(false);
+            Slot_SubWindow.SetActive(true);
+        }
+        else
+        {
+            taste_slot_flag = true;
+            TasteSubWindow.SetActive(true);
+            Slot_SubWindow.SetActive(false);
+        }
+    }
+
+    public void SlotChangeButtonON()
+    {
+        SlotChangeButton.SetActive(true);
+    }
+
+    public void SlotChangeButtonOFF()
+    {
+        SlotChangeButton.SetActive(false);
+    }
+
     void Slotname_Hyouji()
     {
         for (i = 0; i < _slot.Length; i++)
@@ -1293,57 +1331,5 @@ public class SetImage : MonoBehaviour
     }
 
 
-    /*public void SetYosokuInit() //生成するカードのパラメータを、あらかじめ予測して表示する
-    {
-        //合成計算オブジェクトの取得
-        compound_keisan = GameObject.FindWithTag("Compound_Keisan").GetComponent<Compound_Keisan>();
-
-        Card_YosokuDraw();
-    }
-
-    void Card_YosokuDraw()
-    {
-        check_counter = compound_keisan._baseID;
-
-        //アイテムタイプを代入//
-        item_type = compound_keisan._base_itemType;
-
-        //サブカテゴリーの代入
-        item_type_sub = compound_keisan._base_itemType_sub;
-
-        // アイテム解説の表示
-        item_RankDesc.text = compound_keisan._base_itemdesc;
-
-        // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
-        texture2d = database.items[check_counter].itemIcon;
-
-        //カードのアイテム名
-        item_Name.text = database.items[check_counter].itemNameHyouji;
-
-        //アイテムの品質値
-        _quality = compound_keisan._basequality.ToString();
-
-        //甘さなどのパラメータを代入
-        _quality_score = compound_keisan._basequality;
-        _rich_score = compound_keisan._baserich;
-        _sweat_score = compound_keisan._basesweat;
-        _bitter_score = compound_keisan._basebitter;
-        _sour_score = compound_keisan._basesour;
-
-        _crispy_score = compound_keisan._basecrispy;
-        _fluffy_score = compound_keisan._basefluffy;
-        _smooth_score = compound_keisan._basesmooth;
-        _hardness_score = compound_keisan._basehardness;
-
-        _powdery_score = compound_keisan._basepowdery;
-        _oily_score = compound_keisan._baseoily;
-        _watery_score = compound_keisan._basewatery;
-
-        _eat_kaisu = database.items[check_counter].Eat_kaisu;
-        _highscore_flag = database.items[check_counter].HighScore_flag;
-        _lasttotal_score = database.items[check_counter].last_total_score;
-        _lasthint_text = database.items[check_counter].last_hinttext;
-
-        DrawCard();
-    }*/
+    
 }

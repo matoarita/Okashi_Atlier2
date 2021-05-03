@@ -72,13 +72,14 @@ public class Entity_QuestSetDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(19); p.jiggly = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(20); p.chewy = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(21); p.juice = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(22); p.topping01 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(23); p.topping02 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(24); p.topping03 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(25); p.topping04 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(26); p.topping05 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(27); p.quest_Title = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(28); p.desc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(22); p.beauty = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(23); p.topping01 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(24); p.topping02 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(25); p.topping03 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(26); p.topping04 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(27); p.topping05 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(28); p.quest_Title = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(29); p.desc = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

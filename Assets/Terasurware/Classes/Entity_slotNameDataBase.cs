@@ -24,6 +24,7 @@ public class Entity_slotNameDataBase : ScriptableObject
 		public int slot_totalscore;
 		public int slot_getgirllove;
 		public int slot_money;
+		public int slot_beauty;
 	}
 }
 

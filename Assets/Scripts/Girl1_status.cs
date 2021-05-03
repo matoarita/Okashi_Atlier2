@@ -106,6 +106,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int[] girl1_Chewy;
     public int[] girl1_Jiggly;
 
+    public int[] girl1_Beauty;
+
     //マイナスとなる要素。これは、お菓子の種類は関係なく、この数値を超えると、嫌がられる。
     public int girl1_Powdery;
     public int girl1_Oily;
@@ -363,6 +365,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Hardness = new int[youso_count];
         girl1_Chewy = new int[youso_count];
         girl1_Jiggly = new int[youso_count];
+
+        girl1_Beauty = new int[youso_count];
 
         girl1_like_set_score = new int[youso_count];
         girl1_NonToppingScoreSet = new int[youso_count];
@@ -1774,7 +1778,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //欲しいトッピングがなかったときに、マイナスに働くパラメータ
         girl1_NonToppingScoreSet[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_Non_topping_score;
 
-        //②味のパラメータ。現状は未実装。これに足りてないと、「甘さが足りない」といったコメントをもらえる。
+        //②味のパラメータ。これに足りてないと、「甘さが足りない」といったコメントをもらえる。
         girl1_Rich[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_rich;
         girl1_Sweat[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sweat;
         girl1_Sour[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sour;
@@ -1786,6 +1790,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Hardness[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_hardness;
         girl1_Chewy[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_chewy;
         girl1_Jiggly[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_jiggly;
+
+        girl1_Beauty[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_beauty;
 
         //③お菓子の種類：　空＝お菓子はなんでもよい　か　クッキー
         girl1_likeSubtype[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_itemSubtype;

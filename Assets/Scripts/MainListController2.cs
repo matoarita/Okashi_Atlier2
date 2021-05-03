@@ -286,7 +286,8 @@ public class MainListController2 : MonoBehaviour
                     {
                         if (!GameMgr.hiroba_event_end[1])
                         {
-                            
+                            sceneBGM.FadeOutBGM();
+                            Hiroba_main2.bgm_change_flag = true;
                             GameMgr.hiroba_event_ID = 2045;
                         }
                         else

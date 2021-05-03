@@ -169,6 +169,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
+    private int _basebeauty;
     private int _basescore;
     private float _basegirl1_like;
     private int _baseSetjudge_num;
@@ -197,6 +198,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int[] _girlhardness;
     private int[] _girljiggly;
     private int[] _girlchewy;
+    private int[] _girlbeauty;
 
     private int _girlpowdery;
     private int _girloily;
@@ -256,6 +258,7 @@ public class GirlEat_Judge : MonoBehaviour {
     public int jiggly_score;
     public int chewy_score;
     private int shokukan_score;
+    private int beauty_score;
 
     public int subtype1_score;
     public int subtype2_score;
@@ -576,6 +579,8 @@ public class GirlEat_Judge : MonoBehaviour {
         _girljiggly = new int[girl1_status.youso_count];
         _girlchewy = new int[girl1_status.youso_count];
 
+        _girlbeauty = new int[girl1_status.youso_count];
+
         _girl_subtype = new string[girl1_status.youso_count];
         _girl_likeokashi = new string[girl1_status.youso_count];
 
@@ -768,6 +773,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basepowdery = database.items[kettei_item1].Powdery;
                 _baseoily = database.items[kettei_item1].Oily;
                 _basewatery = database.items[kettei_item1].Watery;
+                _basebeauty = database.items[kettei_item1].Beauty;
                 _basescore = database.items[kettei_item1].Base_Score;
                 _basegirl1_like = database.items[kettei_item1].girl1_itemLike;
                 _baseitemtype = database.items[kettei_item1].itemType.ToString();
@@ -808,6 +814,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _basepowdery = pitemlist.player_originalitemlist[kettei_item1].Powdery;
                 _baseoily = pitemlist.player_originalitemlist[kettei_item1].Oily;
                 _basewatery = pitemlist.player_originalitemlist[kettei_item1].Watery;
+                _basebeauty = pitemlist.player_originalitemlist[kettei_item1].Beauty;
                 _basescore = pitemlist.player_originalitemlist[kettei_item1].Base_Score;
                 _basegirl1_like = pitemlist.player_originalitemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_originalitemlist[kettei_item1].itemType.ToString();
@@ -984,6 +991,7 @@ public class GirlEat_Judge : MonoBehaviour {
             + "\n" + "\n" + "噛み応え度: " + "-"
             + "\n" + "\n" + "判定セットごとの基本得点: " + set_score
             + "\n" + "\n" + "トッピングスコア: " + topping_score
+            + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目スコア: " + beauty_score
             + "\n" + "\n" + "総合得点: " + total_score;
     }
 
@@ -1003,6 +1011,8 @@ public class GirlEat_Judge : MonoBehaviour {
             _girlhardness[i] = girl1_status.girl1_Hardness[i];
             _girljiggly[i] = girl1_status.girl1_Jiggly[i];
             _girlchewy[i] = girl1_status.girl1_Chewy[i];
+
+            _girlbeauty[i] = girl1_status.girl1_Beauty[i];
 
             _girl_subtype[i] = girl1_status.girl1_likeSubtype[i];
             _girl_likeokashi[i] = girl1_status.girl1_likeOkashi[i];
@@ -1283,6 +1293,7 @@ public class GirlEat_Judge : MonoBehaviour {
         fluffy_score = 0;
         smooth_score = 0;
         hardness_score = 0;
+        beauty_score = 0;
         topping_score = 0;
         topping_flag_point = 0;
         topping_flag = false;
@@ -1497,10 +1508,11 @@ public class GirlEat_Judge : MonoBehaviour {
             //0はNonなので、無視
             if (i != 0)
             {
-                //トッピングされているものに応じて、得点
+                //トッピングされているものに応じて、得点+見た目点数。２つは、意味は違うが、実質の計算上一緒なので、topping_scoreは基本0でもいいかも。
                 if (itemslotScore[i] > 0)
                 {
-                    topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslotScore[i];
+                    topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslotScore[i]; //味に対するボーナス得点
+                    _basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslotScore[i]; //見た目に対するボーナス得点
                 }
 
             }
@@ -1599,18 +1611,23 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
         }
 
+
         //クエストによっては、トッピングの豪華さで、採点に影響するのもあるので、それの特殊計算。
-        if (!non_spquest_flag)
+        /*if (!non_spquest_flag)
         {
-            if (girl1_status.OkashiQuest_ID == 1210) //豪華なクレープクエストのとき
+            switch (girl1_status.OkashiQuest_ID) //豪華なクレープクエストのとき
             {
-                if (topping_score <= 20)
-                {
-                    _temp_ratio = SujiMap(Mathf.Abs(20 - topping_score), 0, 20, 0.0f, 1.0f);
-                    topping_score += (int)(-60 * _temp_ratio);
-                }
+                case 1210:
+
+                    if (topping_score <= 20)
+                    {
+                        _temp_ratio = SujiMap(Mathf.Abs(20 - topping_score), 0, 20, 0.0f, 1.0f);
+                        topping_score += (int)(-60 * _temp_ratio);
+                    }
+                    break;
             }
-        }
+        }*/
+
 
         //女の子の食べたいトッピングがあるにも関わらず、そのトッピングが一つものっていなかった。
         if (topping_all_non && !topping_flag)
@@ -1620,9 +1637,13 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         Debug.Log("トッピングスコア: " + topping_score);
 
+        //見た目点数の計算
+        beauty_score = _basebeauty - _girlbeauty[countNum];
+
         //以上、全ての点数を合計。
         total_score = set_score + sweat_score + bitter_score + sour_score
-            + shokukan_score + topping_score;
+            + shokukan_score + topping_score + beauty_score;
+
         GameMgr.Okashi_totalscore = total_score;
 
         Debug.Log("###  ###");
@@ -1681,6 +1702,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     database.items[_baseID].last_hardness_score = _basehardness;
                     database.items[_baseID].last_jiggly_score = _basejiggly;
                     database.items[_baseID].last_chewy_score = _basechewy;
+                    database.items[_baseID].last_beauty_score = _basebeauty;
 
                     last_score_kousin = true;
 
@@ -1793,16 +1815,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
             crispy_score = (int)(_basescore * _temp_ratio);
         }
-
-        /*if (_basecrispy >= _girlcrispy[countNum])
-        {
-            
-            crispy_score = _basecrispy - _girlcrispy[countNum]; //お菓子のサクサク度-好み値が点数に。
-        }
-        else
-        {
-            crispy_score = 0;
-        }*/
 
         //crispy_score = _basecrispy;
         shokukan_baseparam = _basecrispy;
@@ -2429,6 +2441,7 @@ public class GirlEat_Judge : MonoBehaviour {
             else if (total_score >= 30 && total_score < GameMgr.low_score) //60点以下のときは、好感度ほぼあがらず。
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                //Getlove_exp -= (int)(((GameMgr.low_score - total_score) * 0.1f) * (_basegirl1_like * 1.0f));
                 GetMoney += (int)(_basecost * 0.5f);
             }
             else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //ベース×2
@@ -3102,6 +3115,8 @@ public class GirlEat_Judge : MonoBehaviour {
             compound_Main.girlEat_ON = false;
             compound_Main.compound_status = 0;
 
+            compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
+            compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
         }
         else
         {
@@ -3620,16 +3635,33 @@ public class GirlEat_Judge : MonoBehaviour {
                         }
                         else
                         {
-                            if (total_score <= 30)
+                            if (beauty_score <= -30)
                             {
                                 no_hint = false;
+                                _special_kansou = GameMgr.ColorRedDeep + "ぜんぜん豪華じゃない。" + "</color>";
+                            }
+                            else if (beauty_score > -30 && beauty_score <= -10)
+                            {
+                                if (total_score <= GameMgr.low_score) //30~60以下
+                                {
+                                    no_hint = false;
+                                    _special_kansou = "もう少し、トッピングがほしいかも？";
+                                }
+                            }
+                            else if (beauty_score >= -10 && beauty_score <= 20)
+                            {
+                                if (total_score <= GameMgr.low_score) //30~60以下
+                                {
+                                    no_hint = false;
+                                    _special_kansou = "華やかでおいしそう！";
+                                }
                             }
                             else
                             {
                                 if (total_score <= GameMgr.low_score) //30~60以下
                                 {
                                     no_hint = false;
-                                    _special_kansou = "もう少し、トッピングがほしいかも？";
+                                    _special_kansou = "神の華やかさ！";
                                 }
                             }
                         }                       
@@ -3729,12 +3761,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
             case 1:
 
-                temp_hint_text = _shokukan_kansou + "\n" + "兄ちゃん！" + "\n" + "この" + _basenameHyouji + "うますぎィ！" + "最高！！";
+                temp_hint_text = _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + "\n" + "この" + _basenameHyouji + "うますぎィ！" + "最高！！";
                 break;
 
             case 2:
 
-                temp_hint_text = "マズすぎるぅ..。" + _sweat_kansou + _bitter_kansou + _sour_kansou;
+                temp_hint_text = "マズすぎるぅ..。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
                 break;
 
             default:
@@ -3778,11 +3810,11 @@ public class GirlEat_Judge : MonoBehaviour {
         //甘さがどの程度好みにあっていたかを、感想でいう。８はピッタリパーフェクト。
         if (sweat_level == 8)
         {
-            _sweat_kansou = "神の甘さ！";
+            _sweat_kansou = "神の甘さ！ 100点だよ～！";
         }
         else if (sweat_level == 7)
         {
-            _sweat_kansou = "甘さ、絶妙な塩梅！";
+            _sweat_kansou = "甘さ、かなり近い塩梅！";
         }
         else if (sweat_level == 6)
         {
@@ -3818,11 +3850,11 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (sweat_result < 0)
             {
-                _sweat_kansou = "甘さが全然足りない";
+                _sweat_kansou = GameMgr.ColorRedDeep + "甘さが全然足りない" + "</color>";
             }
             else
             {
-                _sweat_kansou = "甘すぎ";
+                _sweat_kansou = GameMgr.ColorRedDeep + "甘すぎ" + "</color>";
             }
         }
         else
@@ -3845,11 +3877,11 @@ public class GirlEat_Judge : MonoBehaviour {
         //苦さがどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
         if (bitter_level == 8)
         {
-            _bitter_kansou = "神の苦さ！";
+            _bitter_kansou = "神の苦さ！　100点だよ～！";
         }
         else if (bitter_level == 7)
         {
-            _bitter_kansou = "苦さ、絶妙な塩梅！";
+            _bitter_kansou = "苦さ、かなり近い塩梅！";
         }
         else if (bitter_level == 6)
         {
@@ -3887,11 +3919,11 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = "苦さが全然足りない";
+                _bitter_kansou = GameMgr.ColorRedDeep + "苦さが全然足りない" + "</color>";
             }
             else
             {
-                _bitter_kansou = "苦すぎ..。";
+                _bitter_kansou = GameMgr.ColorRedDeep + "苦すぎ..。" + "</color>";
             }
 
         }
@@ -3915,11 +3947,11 @@ public class GirlEat_Judge : MonoBehaviour {
         //酸味がどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
         if (sour_level == 8)
         {
-            _sour_kansou = "神のすっぱさ！";
+            _sour_kansou = "神のすっぱさ！　100点だよ～！";
         }
         else if (sour_level == 7)
         {
-            _sour_kansou = "すっぱさ、絶妙な塩梅！";
+            _sour_kansou = "すっぱさ、かなり近い塩梅！";
         }
         else if (sour_level == 6)
         {
@@ -3957,11 +3989,11 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (sour_result < 0)
             {
-                _sour_kansou = "全然すっぱさがない";
+                _sour_kansou = GameMgr.ColorRedDeep + "全然すっぱさがない" + "</color>";
             }
             else
             {
-                _sour_kansou = "すっぺぇ..。";
+                _sour_kansou = GameMgr.ColorRedDeep + "すっぺぇ..。" + "</color>";
             }
 
         }
@@ -3983,7 +4015,11 @@ public class GirlEat_Judge : MonoBehaviour {
     void ShokukanHintHyouji()
     {
         //食感に関するヒント
-        if (shokukan_score >= 0 && shokukan_score < 40) //
+        if (shokukan_score >= 0 && shokukan_score < 20) //
+        {
+            _shokukan_kansou = GameMgr.ColorRedDeep + shokukan_mes + "が全然足りない..。" + "</color>";
+        }
+        else if (shokukan_score >= 20 && shokukan_score < 40) //
         {
             _shokukan_kansou = shokukan_mes + "がもっとほしい";
         }

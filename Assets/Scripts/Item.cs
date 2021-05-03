@@ -44,6 +44,8 @@ public class Item
     public int Oily;                //油っぽさ　マイナス要因   バターを入れすぎると、油っこくなり、気持ち悪くなる。
     public int Watery;              //水っぽさ　マイナス要因   水・ミルクなどを入れすぎると、水っぽくなり、固まらない。
 
+    public int Beauty;              //見た目の数値　大きいほど、かわいいとかキラキラしてるということ。
+
     public ItemType itemType;               //アイテムの種類メインカテゴリー
     public ItemType_sub itemType_sub;       //アイテムの種類サブカテゴリー（クッキー系とかパイ系など）
 
@@ -72,6 +74,7 @@ public class Item
     public int last_hardness_score;
     public int last_jiggly_score;
     public int last_chewy_score;
+    public int last_beauty_score; //表示はしない
     public string last_hinttext;
     public string item_SlotName; //スロット名部分のみの名称。色変更用に。
     public string item_FullName; //スロット名も含めた最終の名称。オリジナルアイテムリスト用で使う。
@@ -154,7 +157,7 @@ public class Item
 
     //ここでリスト化時に渡す引数をあてがいます   
     public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, 
-        int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, 
+        int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, int beauty,
         string type, string subtype, int _base_score, float _girl1_like, int cost, int sell, 
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
@@ -197,6 +200,7 @@ public class Item
         Oily = oily;
         Watery = watery;
 
+        Beauty = beauty;
         
         itemType = (ItemType)Enum.Parse(typeof(ItemType), type);      
         itemType_sub = (ItemType_sub)Enum.Parse(typeof(ItemType_sub), subtype);
@@ -245,6 +249,7 @@ public class Item
         last_hardness_score = 0;
         last_jiggly_score = 0;
         last_chewy_score = 0;
+        last_beauty_score = 50;
         last_hinttext = _hinttext;
         item_SlotName = "";
         item_FullName = item_SlotName + itemNameHyouji; //何もしなければ、アイテム名が入っている。

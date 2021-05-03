@@ -39,6 +39,7 @@ public class StatusPanel : MonoBehaviour {
     private Text girlLifepoint_param;
     private Text playerLV_param;
     private Text girlExtremeKaisu_param;
+    private Text BoxLv_param;
 
     private Text girlFind_power_param_buf;
 
@@ -135,6 +136,7 @@ public class StatusPanel : MonoBehaviour {
         playerLV_param = paramview1.transform.Find("ParamD_param/Text").GetComponent<Text>();
         girlLifepoint_param = paramview1.transform.Find("ParamE_param/Text").GetComponent<Text>();
         girlExtremeKaisu_param = paramview1.transform.Find("ParamH_param/Text").GetComponent<Text>();
+        BoxLv_param = paramview1.transform.Find("ParamI_param/Text").GetComponent<Text>();
         renkinnextLV_param = paramview1.transform.Find("ParamG_param/Text").GetComponent<Text>();
         zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
 
@@ -155,6 +157,7 @@ public class StatusPanel : MonoBehaviour {
         girlHeart_param.text = PlayerStatus.girl1_Love_exp.ToString();
         girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
         girlExtremeKaisu_param.text = PlayerStatus.player_extreme_kaisu_Max.ToString();
+        BoxLv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
         renkinnextLV_param.text = (exp_table.exp_table[PlayerStatus.player_renkin_lv + 1] - PlayerStatus.player_renkin_exp).ToString(); //次レベルに必要な経験値がでる。
 
         if (PlayerStatus.player_girl_lifepoint <= 3)
@@ -166,7 +169,7 @@ public class StatusPanel : MonoBehaviour {
             girlLifepoint_param.text = PlayerStatus.player_girl_lifepoint.ToString() + " / " + PlayerStatus.player_girl_maxlifepoint.ToString();
         }
         playerLV_param.text = PlayerStatus.player_renkin_lv.ToString();
-        zairyobox_lv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
+        //zairyobox_lv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
 
         //装備品があった場合、バフ効果も表示        
         girlFind_power_param_buf = paramview1.transform.Find("ParamC_param/Buf_Text").GetComponent<Text>();

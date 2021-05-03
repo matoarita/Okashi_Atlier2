@@ -2247,7 +2247,7 @@ public class Compound_Main : MonoBehaviour
             {
                 if (GameMgr.QuestClearflag)
                 {
-                    _text.text = "新たなお菓子作りに挑戦する？おにいちゃん。";
+                    _text.text = "次のステージにすすむ？おにいちゃん。";
 
                     compound_status = 42;
                     yes_no_clear_okashi_panel.SetActive(true);
@@ -2883,7 +2883,7 @@ public class Compound_Main : MonoBehaviour
             {
                 case 60:
 
-                    _textmain.text = "ハートが30あがった！" + "\n" + "またひとつ、成長してきたようだ。";
+                    _textmain.text = "ぽんぽんの力で、より元気になってきた。";
                     girlEat_judge.loveGetPlusAnimeON(30, false);                    
 
                     break;
@@ -3374,9 +3374,17 @@ public class Compound_Main : MonoBehaviour
     {
         //今日の食事がランダムで決まる
         InitTodayFoodLibrary();
-        random = Random.Range(0, _todayfood_lib.Count);
-        _todayfood = _todayfood_lib[random];
-        _todayfoodexpence = _todayfoodexpence_lib[random];
+        if(_todayfood_lib.Count <= 0)
+        {
+            _todayfood = "じゃがバター";
+            _todayfoodexpence = 30;
+        } else
+        {
+            random = Random.Range(0, _todayfood_lib.Count);
+            _todayfood = _todayfood_lib[random];
+            _todayfoodexpence = _todayfoodexpence_lib[random];
+        }
+        
 
         random = Random.Range(0, 10);
         _todayfoodexpence += (random-5);
@@ -3488,7 +3496,7 @@ public class Compound_Main : MonoBehaviour
 
         for (i = 1; i <= PlayerStatus.girl1_Love_lv; i++)
         {
-            switch (PlayerStatus.girl1_Love_lv)
+            switch (i)
             {
                 case 1:
                     
@@ -3498,22 +3506,22 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add(60);
                     _todayfood_lib.Add("とうもろこしのパン");
                     _todayfoodexpence_lib.Add(50);
-                    _todayfood_lib.Add("じゃがいものシチュー");
+                    _todayfood_lib.Add("ゆでじゃがいも");
                     _todayfoodexpence_lib.Add(70);
-                    _todayfood_lib.Add("お豆だんご");
+                    _todayfood_lib.Add("野菜の端っこ");
                     _todayfoodexpence_lib.Add(50);
                     _todayfood_lib.Add("ほしにくのせバゲットの切れ端");
                     _todayfoodexpence_lib.Add(100);
+                    _todayfood_lib.Add("おねぎとにんじんピザ");
+                    _todayfoodexpence_lib.Add(30);
                     break;
 
-                case 2:
+                case 3:
 
-                    _todayfood_lib.Add("じゃがいもとベーコンの炒めやき");
+                    _todayfood_lib.Add("じゃがいもとベーコンの炒め");
                     _todayfoodexpence_lib.Add(75);
-                    _todayfood_lib.Add("きのこコンソメスープ");
-                    _todayfoodexpence_lib.Add(60);
-                    _todayfood_lib.Add("ビールとえだまめの炊き込みご飯");
-                    _todayfoodexpence_lib.Add(120);                    
+                    _todayfood_lib.Add("きのこスープ");
+                    _todayfoodexpence_lib.Add(60);                                     
                     _todayfood_lib.Add("ポテト・ガレット");
                     _todayfoodexpence_lib.Add(50);                  
                     _todayfood_lib.Add("ハンバーグもどき");
@@ -3521,13 +3529,13 @@ public class Compound_Main : MonoBehaviour
                     
                     break;
 
-                case 3:
+                case 5:
 
                     _todayfood_lib.Add("特製ペペロンチーノ");
                     _todayfoodexpence_lib.Add(100);
                     _todayfood_lib.Add("バリバリ貝のブイヤ・ベース");
                     _todayfoodexpence_lib.Add(110);
-                    _todayfood_lib.Add("チキンソテー");
+                    _todayfood_lib.Add("チキンのトマト煮込み");
                     _todayfoodexpence_lib.Add(90);
                     _todayfood_lib.Add("チキンステーキ");
                     _todayfoodexpence_lib.Add(90);
@@ -3537,28 +3545,31 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add(120);
                     _todayfood_lib.Add("パンピザ");
                     _todayfoodexpence_lib.Add(150);
+                    _todayfood_lib.Add("ビールとえだまめのたきこみご飯");
+                    _todayfoodexpence_lib.Add(120);
                     break;
 
-                case 4:
+                case 7:
 
                     _todayfood_lib.Add("ゴールデンカレーライス");
                     _todayfoodexpence_lib.Add(160);
                     _todayfood_lib.Add("トマトリゾット");
                     _todayfoodexpence_lib.Add(120);
-                    _todayfood_lib.Add("ボンゴレ・パスタ");
+                    _todayfood_lib.Add("イカスミスパゲティ");
                     _todayfoodexpence_lib.Add(200);
-                    _todayfood_lib.Add("おしゃれ風味ペスカトーレ");
-                    _todayfoodexpence_lib.Add(200);
-                    _todayfood_lib.Add("うまうまステーキ");
-                    _todayfoodexpence_lib.Add(250);
+                    
                     break;
 
-                case 5:
+                case 9:
 
                     _todayfood_lib.Add("落雷スープ");
                     _todayfoodexpence_lib.Add(200);
                     _todayfood_lib.Add("ブルゴーニュステーキ");
                     _todayfoodexpence_lib.Add(300);
+                    _todayfood_lib.Add("魚介もりだくさんのペスカトーレ");
+                    _todayfoodexpence_lib.Add(200);
+                    _todayfood_lib.Add("うまうまステーキ");
+                    _todayfoodexpence_lib.Add(250);
                     break;
 
                 default:

@@ -104,7 +104,8 @@ public class AAA_Ending_Main : MonoBehaviour {
     {
         yield return new WaitForSeconds(2.0f);
 
-        FadeManager.Instance.LoadScene("110_TotalResult", 0.3f);
+        //FadeManager.Instance.LoadScene("110_TotalResult", 0.3f); //プレイヤーの腕前ランク総評　いらないきがしてきた。
+        FadeManager.Instance.LoadScene("120_AutoSave", 0.3f);
     }
 
     public void OnSkipButton()

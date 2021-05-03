@@ -104,6 +104,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     public int _basepowdery;
     public int _baseoily;
     public int _basewatery;
+    public int _basebeauty;
     public float _basegirl1_like;
     public int _basecost;
     public int _basesell;
@@ -132,6 +133,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _addpowdery;
     private int _addoily;
     private int _addwatery;
+    private int _addbeauty;
     private int _addbase_score;
     private float _addgirl1_like;
     private int _addcost;
@@ -160,6 +162,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _temppowdery;
     private int _tempoily;
     private int _tempwatery;
+    private int _tempbeauty;
     private float _tempgirl1_like;
     private int _tempcost;
     private int _tempsell;
@@ -627,7 +630,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _id = result_item;
 
-            if (_mstatus == 99)
+            if (_mstatus == 99) //ゲーム開始時のみ使用。
             {
                 if (database.items[_id].itemComp_Hosei == 0) //アイテム自体が持っている値を加算しない場合
                 {
@@ -652,6 +655,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basepowdery = 0;
                     _baseoily = 0;
                     _basewatery = 0;
+                    _basebeauty = database.items[_id].Beauty;
                     _basegirl1_like = database.items[_id].girl1_itemLike;
                     _basecost = database.items[_id].cost_price;
                     _basesell = database.items[_id].sell_price;
@@ -684,6 +688,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basepowdery = database.items[_id].Powdery;
                     _baseoily = database.items[_id].Oily;
                     _basewatery = database.items[_id].Watery;
+                    _basebeauty = database.items[_id].Beauty;
                     _basegirl1_like = database.items[_id].girl1_itemLike;
                     _basecost = database.items[_id].cost_price;
                     _basesell = database.items[_id].sell_price;
@@ -719,6 +724,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basepowdery = 0;
                     _baseoily = 0;
                     _basewatery = 0;
+                    _basebeauty = database.items[_id].Beauty;
                     _basegirl1_like = database.items[_id].girl1_itemLike;
                     _basecost = database.items[_id].cost_price;
                     _basesell = database.items[_id].sell_price;
@@ -751,6 +757,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basepowdery = database.items_gamedefault[_id].Powdery;
                     _baseoily = database.items_gamedefault[_id].Oily;
                     _basewatery = database.items_gamedefault[_id].Watery;
+                    _basebeauty = database.items_gamedefault[_id].Beauty;
                     _basegirl1_like = database.items_gamedefault[_id].girl1_itemLike;
                     _basecost = database.items_gamedefault[_id].cost_price;
                     _basesell = database.items_gamedefault[_id].sell_price;
@@ -801,6 +808,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basepowdery = database.items[_id].Powdery;
                     _baseoily = database.items[_id].Oily;
                     _basewatery = database.items[_id].Watery;
+                    _basebeauty = database.items[_id].Beauty;
                     _basegirl1_like = database.items[_id].girl1_itemLike;
                     _basecost = database.items[_id].cost_price;
                     _basesell = database.items[_id].sell_price;
@@ -849,6 +857,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basepowdery = pitemlist.player_originalitemlist[_id].Powdery;
                     _baseoily = pitemlist.player_originalitemlist[_id].Oily;
                     _basewatery = pitemlist.player_originalitemlist[_id].Watery;
+                    _basebeauty = pitemlist.player_originalitemlist[_id].Beauty;
                     _basegirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
                     _basecost = pitemlist.player_originalitemlist[_id].cost_price;
                     _basesell = pitemlist.player_originalitemlist[_id].sell_price;
@@ -930,7 +939,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             //新しく作ったアイテムをオリジナルアイテムリストに追加。
             pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
-                _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery,
+                _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basebeauty,
                 _basegirl1_like, _basecost, _basesell,
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
                 result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
@@ -972,6 +981,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             database.items[itemNum].Powdery = _basepowdery;
             database.items[itemNum].Oily = _baseoily;
             database.items[itemNum].Watery = _basewatery;
+            database.items[itemNum].Beauty = _basebeauty;
             database.items[itemNum].Juice = _basesweat + _basebitter + _basesour;
         }
     }   
@@ -1003,6 +1013,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _temppowdery = 0;
         _tempoily = 0;
         _tempwatery = 0;
+        //_tempbeauty = 0;
         _tempgirl1_like = 0;
         _tempcost = 0;
         _tempsell = 0;
@@ -1236,6 +1247,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basepowdery += _temppowdery;
             _baseoily += _tempoily;
             _basewatery += _tempwatery;
+            //_basebeauty += _tempbeauty;
 
 
             if (keisan_method_flag == 1) //1=ベスト配合との距離の補正をかける。
@@ -1311,19 +1323,20 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 /*if (_additemlist[i]._Add_itemType_sub == "Fruits" || _additemlist[i]._Add_itemType_sub == "Potion" || _additemlist[i]._Add_itemType_sub == "Source" ||
                      _additemlist[i]._Add_itemType_sub == "Chocolate" || _additemlist[i]._Add_itemType_sub == "Chocolate_Mat" || _additemlist[i]._Add_itemType_sub == "IceCream")
                 {*/
-                    _baserich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
-                    _basesweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
-                    _basebitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
-                    _basesour += _additemlist[i]._Addsour * _additemlist[i]._Addkosu;
-                    _basecrispy += _additemlist[i]._Addcrispy * _additemlist[i]._Addkosu;
-                    _basefluffy += _additemlist[i]._Addfluffy * _additemlist[i]._Addkosu;
-                    _basesmooth += _additemlist[i]._Addsmooth * _additemlist[i]._Addkosu;
-                    _basehardness += _additemlist[i]._Addhardness * _additemlist[i]._Addkosu;
-                    _basejiggly += _additemlist[i]._Addjiggly * _additemlist[i]._Addkosu;
-                    _basechewy += _additemlist[i]._Addchewy * _additemlist[i]._Addkosu;
-                    _basepowdery += _additemlist[i]._Addpowdery * _additemlist[i]._Addkosu;
-                    _baseoily += _additemlist[i]._Addoily * _additemlist[i]._Addkosu;
-                    _basewatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
+                _baserich += _additemlist[i]._Addrich * _additemlist[i]._Addkosu;
+                _basesweat += _additemlist[i]._Addsweat * _additemlist[i]._Addkosu;
+                _basebitter += _additemlist[i]._Addbitter * _additemlist[i]._Addkosu;
+                _basesour += _additemlist[i]._Addsour * _additemlist[i]._Addkosu;
+                _basecrispy += _additemlist[i]._Addcrispy * _additemlist[i]._Addkosu;
+                _basefluffy += _additemlist[i]._Addfluffy * _additemlist[i]._Addkosu;
+                _basesmooth += _additemlist[i]._Addsmooth * _additemlist[i]._Addkosu;
+                _basehardness += _additemlist[i]._Addhardness * _additemlist[i]._Addkosu;
+                _basejiggly += _additemlist[i]._Addjiggly * _additemlist[i]._Addkosu;
+                _basechewy += _additemlist[i]._Addchewy * _additemlist[i]._Addkosu;
+                _basepowdery += _additemlist[i]._Addpowdery * _additemlist[i]._Addkosu;
+                _baseoily += _additemlist[i]._Addoily * _additemlist[i]._Addkosu;
+                _basewatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
+                _basebeauty += _additemlist[i]._Addbeauty * _additemlist[i]._Addkosu;
                 //}
             }
         }
@@ -1413,6 +1426,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addpowdery = database.items[_id].Powdery;
         _addoily = database.items[_id].Oily;
         _addwatery = database.items[_id].Watery;
+        _addbeauty = database.items[_id].Beauty;
         _addbase_score = database.items[_id].Base_Score;
         _addgirl1_like = database.items[_id].girl1_itemLike;
         _addcost = database.items[_id].cost_price;
@@ -1449,7 +1463,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //Debug.Log("_addkosu: " + _addkosu);
         _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour,
-            _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub,
+            _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _addbeauty, _add_itemType, _add_itemType_sub,
             _addbase_score, _addgirl1_like, _addcost, _addsell, 
             _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
@@ -1474,6 +1488,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addpowdery = pitemlist.player_originalitemlist[_id].Powdery;
         _addoily = pitemlist.player_originalitemlist[_id].Oily;
         _addwatery = pitemlist.player_originalitemlist[_id].Watery;
+        _addbeauty = pitemlist.player_originalitemlist[_id].Beauty;
         _addbase_score = pitemlist.player_originalitemlist[_id].Base_Score;
         _addgirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
         _addcost = pitemlist.player_originalitemlist[_id].cost_price;
@@ -1513,7 +1528,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //Debug.Log("_addkosu: " + _addkosu);
         _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour, 
-            _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _add_itemType, _add_itemType_sub,
+            _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _addbeauty, _add_itemType, _add_itemType_sub,
             _addbase_score, _addgirl1_like, _addcost, _addsell, 
             _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
@@ -1565,6 +1580,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _temppowdery += _additemlist[i]._Addpowdery * _additemlist[i]._Addkosu;
         _tempoily += _additemlist[i]._Addoily * _additemlist[i]._Addkosu;
         _tempwatery += _additemlist[i]._Addwatery * _additemlist[i]._Addkosu;
+        //_tempbeauty += _additemlist[i]._Addbeauty * _additemlist[i]._Addkosu;
 
         //Debug.Log("_additemlist[i]._Addkosu: " + _additemlist[i]._Addkosu);
     }
@@ -1586,6 +1602,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _temppowdery /= total_kosu;
         _tempoily /= total_kosu;
         _tempwatery /= total_kosu;
+        //_tempbeauty /= total_kosu;
     }   
 
 
@@ -1983,6 +2000,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         Debug.Log("ジュースののどごし: " + _basejuice);
         Debug.Log("_basejiggly: " + _basejiggly + " _basechewy: " + _basechewy);
         Debug.Log("粉っぽさ: " + _basepowdery + " 油っぽさ: " + _baseoily + " 水っぽさ: " + _basewatery);
+        Debug.Log("見た目: " + _basebeauty);
         Debug.Log("_basegirl1_like:" + _basegirl1_like + " _basecost:" + _basecost + " _basesell:" + _basesell);
         Debug.Log("_base_itemType:" + _base_itemType + " _base_itemType_sub:" + _base_itemType_sub);
 

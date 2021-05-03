@@ -729,5 +729,13 @@ public class ShopItemListController : MonoBehaviour
         {
             shop_hyouji_flag = 3;
         }
+        if (GameMgr.ShopLVEvent_stage[2])
+        {
+            shop_hyouji_flag = 4;
+        }
+        /*if (GameMgr.ShopLVEvent_stage[3])
+        {
+            shop_hyouji_flag = 5;
+        }*/
     }
 }

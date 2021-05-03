@@ -7,6 +7,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private PlayerItemList pitemlist;
 
     private int _buf_findpower;
+    private int _buf_kakuritsuup;
+
+    private int i;
 
     // Use this for initialization
     void Start () {
@@ -24,12 +27,41 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         _buf_findpower = 0;
 
+        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
+        {
+            if (GameMgr.CollectionItemsName[i] == "aquamarine_pendant" && GameMgr.CollectionItems[i] == true) //コレクションが登録されていれば、確率アップ効果発動
+            {
+                _buf_findpower += 10;
+            }
+        }
+
+        /*
         if (pitemlist.KosuCount("aquamarine_pendant") >= 1)
         {
             _buf_findpower += 10;
-        }
+        }*/
 
         return _buf_findpower;
+    }
+
+    public int Buf_CompKakuritsu_Keisan()
+    {
+        _buf_kakuritsuup = 0;
+
+        for(i=0; i < GameMgr.CollectionItemsName.Count; i++)
+        {
+            if (GameMgr.CollectionItemsName[i] == "green_pendant" && GameMgr.CollectionItems[i] == true) //コレクションが登録されていれば、確率アップ効果発動
+            {
+                _buf_kakuritsuup += 30;
+            }
+
+            if (GameMgr.CollectionItemsName[i] == "star_pendant" && GameMgr.CollectionItems[i] == true) //コレクションが登録されていれば、確率アップ効果発動
+            {
+                _buf_kakuritsuup += 10;
+            }
+        }       
+
+        return _buf_kakuritsuup;
     }
 
     //メイン調合シーンで確認する

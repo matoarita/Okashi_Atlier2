@@ -105,7 +105,7 @@ public class MoneyStatus_Controller : MonoBehaviour {
         _getmoney_text = _getmoney_obj[list_size - 1].GetComponent<Text>();
 
 
-        _getmoney_text.text = "+" + _getmoney.ToString() + "G";
+        _getmoney_text.text = "+" + _getmoney.ToString();
 
 
         //お金の増減
@@ -127,7 +127,7 @@ public class MoneyStatus_Controller : MonoBehaviour {
         _getmoney_text = _getmoney_obj[list_size - 1].GetComponent<Text>();
 
 
-        _getmoney_text.text = "-" + _usemoney.ToString() + "G";
+        _getmoney_text.text = "-" + _usemoney.ToString();
 
 
         //お金の増減

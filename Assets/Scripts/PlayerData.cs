@@ -165,6 +165,9 @@ public class PlayerData
     //調合のフラグ＋調合回数を記録する
     public List<ItemCompound> save_itemCompodatabase = new List<ItemCompound>();
 
+    //今うけてるクエストを保存する。
+    public List<QuestSet> save_questTakeset = new List<QuestSet>();
+
     //マップのフラグリスト
     public List<int> save_mapflaglist = new List<int>();
 
@@ -174,6 +177,11 @@ public class PlayerData
 
     //お菓子の一度にトッピングできる回数
     public int save_topping_Set_Count;
+
+    //音設定データ
+    public float save_masterVolumeparam;
+    public float save_BGMVolumeParam;
+    public float save_SeVolumeParam;
 
     public override string ToString()
     {

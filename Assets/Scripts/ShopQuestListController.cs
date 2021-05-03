@@ -146,8 +146,8 @@ public class ShopQuestListController : MonoBehaviour
     {
         selectquestDB.Clear();
 
-        story_num = GameMgr.GirlLoveEvent_num; //ステージ1なら　クエストごとに0~5
-
+        //シナリオの進行度に応じて、クエストが変化する。
+        story_num = GameMgr.GirlLoveEvent_num; //GirlLoveEvent_numは、0~50まで。10の単位。
         for (j = 0; j < quest_database.questset.Count; j++)
         {
             if (quest_database.questset[j].QuestHyouji <= story_num)

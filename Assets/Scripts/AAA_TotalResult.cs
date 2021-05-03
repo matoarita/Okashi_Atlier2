@@ -18,6 +18,8 @@ public class AAA_TotalResult : MonoBehaviour {
     private Text total_recipi_count_text;
     private Text total_collection_count_text;
     private Text total_costume_count_text;
+    private Text player_rank_text;
+    private Text player_rank_name_text;
 
     private Sprite texture2d;
     private Image _Img;
@@ -25,6 +27,7 @@ public class AAA_TotalResult : MonoBehaviour {
     private Girl1_status girl1_status;
 
     private List<GameObject> ed_view_list = new List<GameObject>();
+    private Dictionary<int, int> EDList;
 
     private int _collection_count;
     private int i;
@@ -47,7 +50,7 @@ public class AAA_TotalResult : MonoBehaviour {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
-        foreach (Transform child in canvas.transform.Find("ResultGroup/ResultPanel_1/ED_View/Viewport/Content").transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        foreach (Transform child in canvas.transform.Find("ResultGroup/ResultPanel_1/ED_View/Viewport/Content").transform) //
         {
             ed_view_list.Add(child.gameObject);
         }
@@ -57,6 +60,8 @@ public class AAA_TotalResult : MonoBehaviour {
         total_recipi_count_text = canvas.transform.Find("ResultGroup/ResultPanel_1/TotalRecipiCount").GetComponent<Text>();
         total_collection_count_text = canvas.transform.Find("ResultGroup/ResultPanel_1/TotalCollection").GetComponent<Text>();
         total_costume_count_text = canvas.transform.Find("ResultGroup/ResultPanel_1/TotalCostume").GetComponent<Text>();
+        player_rank_text = canvas.transform.Find("ResultGroup/ResultPanel_1/PlayerRank").GetComponent<Text>();
+        player_rank_name_text = canvas.transform.Find("ResultGroup/ResultPanel_1/PlayerRankName").GetComponent<Text>();
 
         //_Img = canvas.transform.Find("ResultPanel_1/ClearItemIcon").GetComponent<Image>(); //アイテムの画像データ
 
@@ -101,12 +106,29 @@ public class AAA_TotalResult : MonoBehaviour {
         total_costume_count_text.text = pitemlist.emeralditemlist_CostumeCount().ToString() + " / " + pitemlist.emeralditemlist_CostumeAllCount().ToString();
 
         //EDタイプ
-        ed_view_list[GameMgr.ending_number - 1].transform.Find("Text1_on").gameObject.SetActive(true);
+        ChangeEDNumArray();
+        ed_view_list[EDList[GameMgr.ending_number - 1]].transform.Find("Text1_on").gameObject.SetActive(true);
+
+        //パティシエランク計算　S　A　B+ B C+ C D+ D 8段階
+        player_rank_name_text.text = "";
+        if (PlayerStatus.girl1_Love_exp <= 300)
+        {
+            player_rank_text.text = "D";
+        }
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
     float SujiMap(float value, float start1, float stop1, float start2, float stop2)
     {
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+    }
+
+    void ChangeEDNumArray() //EDnumが3~0の順なので、順番を逆に入れ替える
+    {
+        EDList = new Dictionary<int, int>();
+        EDList.Add(3, 0);
+        EDList.Add(2, 1);
+        EDList.Add(1, 2);
+        EDList.Add(0, 3);
     }
 }

@@ -153,6 +153,7 @@ public class TasteHintPanel : MonoBehaviour {
 
                 _one_comment_lib.Add("すっぱいくだもの..。近くの森か、ベリーファームで、見かけたかも。");
                 _one_comment_lib.Add("ベリーのくだものは、すっぱいのが多いんだよ～。にいちゃん！");
+                _one_comment_lib.Add("普通のラスクに「バター」を入れても、さくさくになっておいしいかも？");
                 break;
 
             case 20: //クレープ食べたい
@@ -176,10 +177,10 @@ public class TasteHintPanel : MonoBehaviour {
 
             case 21: //豪華なクレープ食べたい
 
-                if(GameMgr.Okashi_totalscore <= GameMgr.low_score)
+                /*if(GameMgr.Okashi_totalscore <= GameMgr.low_score)
                 {
                     _one_comment_lib.Add("にいちゃん！　豪華さのひけつは、ショップにヒントがあったかも？");
-                }
+                }*/
                 break;
 
             case 22: //アイス食べたい
@@ -209,8 +210,15 @@ public class TasteHintPanel : MonoBehaviour {
                 break;
         }
 
-        random = Random.Range(0, _one_comment_lib.Count);
-        _one_comment = _one_comment_lib[random];
+        if(_one_comment_lib.Count <= 0)
+        {
+            _one_comment = "";
+        } else
+        {
+            random = Random.Range(0, _one_comment_lib.Count);
+            _one_comment = _one_comment_lib[random];
+        }
+        
 
         OneComment_text.text = _one_comment;
     }

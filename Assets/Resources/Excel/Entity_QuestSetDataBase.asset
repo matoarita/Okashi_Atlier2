@@ -36,6 +36,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -65,6 +66,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -94,6 +96,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -123,6 +126,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -152,6 +156,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -181,6 +186,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -210,6 +216,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -239,6 +246,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -268,6 +276,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -297,6 +306,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 35
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -326,6 +336,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 0
       topping01: Non
       topping02: Non
       topping03: Non
@@ -355,6 +366,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -384,13 +396,14 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Strawberry
       topping02: Blueberry
       topping03: Raspberry
       topping04: Blackcurrant
       topping05: Blackberry
       quest_Title: "\u7518\u9178\u3063\u3071\u3044\u30AF\u30EC\u30FC\u30D7\u304C\u98DF\u3079\u305F\u3044"
-      desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u30E1\u30A4\u30C9\u5B66\u6821\u306E\u30E1\u30A4\u30C9\u5148\u751F</color>\u306E\u65B9\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D9\u30EA\u30FC\u304C\u306E\u3063\u305F\u30AF\u30EC\u30FC\u30D7\u3092\u98DF\u3079\u3066\u5143\u6C17\u3092\u51FA\u3057\u305F\u3044\u305D\u3046\u3088\u3002"
+      desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u30E1\u30A4\u30C9\u5B66\u6821\u306E\u5148\u751F</color>\u306E\u65B9\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D9\u30EA\u30FC\u304C\u306E\u3063\u305F\u30AF\u30EC\u30FC\u30D7\u3092\u98DF\u3079\u3066\u5143\u6C17\u3092\u51FA\u3057\u305F\u3044\u305D\u3046\u3088\u3002"
     - ID: 13
       QuestID: 130
       QuestType: 0
@@ -413,6 +426,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -442,6 +456,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -471,6 +486,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -500,6 +516,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -529,6 +546,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non
@@ -559,6 +577,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Grape
       topping02: Blueberry
       topping03: Honey
@@ -589,6 +608,7 @@ MonoBehaviour:
       jiggly: 0
       chewy: 0
       juice: 0
+      beauty: 50
       topping01: Non
       topping02: Non
       topping03: Non

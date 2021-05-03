@@ -32,6 +32,7 @@ public class Entity_GirlLikeSetDataBase : ScriptableObject
 		public int hardness;
 		public int jiggly;
 		public int chewy;
+		public int beauty;
 		public string topping01;
 		public string topping02;
 		public string topping03;

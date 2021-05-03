@@ -61,8 +61,20 @@ public class Back_ShopFirst : MonoBehaviour {
 
                 emeraldshop_Main.shop_status = 0;
                 break;
+
+            case "Hiroba2":
+
+                BackScene();
+                break;
         }
                 
     }
 
+    void BackScene()
+    {
+        GameMgr.Scene_back_home = true;
+
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Compound", 0.3f);
+    }
 }

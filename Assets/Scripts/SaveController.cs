@@ -17,6 +17,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private ItemMatPlaceDataBase matplace_database; //マップのオンフラグ
     private ExtremePanel extreme_panel; //エクストリームパネルに登録したものがあった場合は、そのアイテムも表示されるように。
     private ItemShopDataBase shop_database;
+    private QuestSetDataBase quest_setdatabase;
 
     //保存するものリスト　ここまで
 
@@ -25,6 +26,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private BGAcceTrigger BGAccetrigger;
     private Debug_Panel debug_panel; //画面更新用のメソッドを借りる。
     private BGM sceneBGM;
+    private SoundController sc;
     private Special_Quest special_quest;
     private MoneyStatus_Controller money_status;
 
@@ -41,6 +43,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
 
     private GameObject _model_obj;
+    private GameObject StageClearButton_panel;
+    private AudioSource StageClearbutton_audio;
 
     private int i;
     private int _itemID;
@@ -72,6 +76,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //味パラメータ初期化
         compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
 
+        quest_setdatabase = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
     }
 	
 	// Update is called once per frame
@@ -294,6 +299,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //調合のフラグ＋調合回数を記録する
             save_itemCompodatabase = databaseCompo.compoitems,
 
+            //今うけてるクエストを保存する。
+            save_questTakeset = quest_setdatabase.questTakeset,
+
             //マップフラグリスト
             save_mapflaglist = _tempmap_placeflaglist,
 
@@ -303,6 +311,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //お菓子の一度にトッピングできる回数
             save_topping_Set_Count = GameMgr.topping_Set_Count,
+
+            //音設定データ
+            save_masterVolumeparam = GameMgr.MasterVolumeParam,
+            save_BGMVolumeParam = GameMgr.BGMVolumeParam,
+            save_SeVolumeParam = GameMgr.SeVolumeParam,
         };
        
 
@@ -522,6 +535,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         databaseCompo.compoitems.Clear();
         databaseCompo.compoitems = playerData.save_itemCompodatabase;
 
+        //今うけてるクエストを保存する。
+        quest_setdatabase.questTakeset.Clear();
+        quest_setdatabase.questTakeset = playerData.save_questTakeset;
+
         //マップフラグの読み込み
         for (i = 0; i < matplace_database.matplace_lists.Count; i++)
         {
@@ -548,6 +565,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //お菓子の一度にトッピングできる回数
         GameMgr.topping_Set_Count = playerData.save_topping_Set_Count;
+
+        //音設定データ
+        GameMgr.MasterVolumeParam = playerData.save_masterVolumeparam;
+        GameMgr.BGMVolumeParam = playerData.save_BGMVolumeParam;
+        GameMgr.SeVolumeParam = playerData.save_SeVolumeParam;
 
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
@@ -591,6 +613,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 //BGMの取得
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
+                //サウンドコントローラーの取得
+                sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+                sc.VolumeSetting();
+
+                StageClearButton_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
+                StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
+                StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
 
                 //飾りアイテムのセット
                 BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();

@@ -991,6 +991,27 @@ public class GetMaterial : MonoBehaviour
     //ひまわりの丘
     void event_HimawariHill()
     {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん。ひまわり、すっごくきれい～！";
+                break;
+
+            case 1:
+
+                event_itemGet01();
+                break;
+
+            default:
+
+                _text.text = "にいちゃん。昔ままと、ここにきたことあるのかなぁ？";
+                break;
+        }
+
+        /*
         if (!GameMgr.MapEvent_04[1])
         {
             GameMgr.MapEvent_04[1] = true;
@@ -1010,7 +1031,7 @@ public class GetMaterial : MonoBehaviour
         else
         {
             _text.text = "廃屋がある。";
-        }
+        }*/
     }
 
 
@@ -1073,6 +1094,13 @@ public class GetMaterial : MonoBehaviour
 
             case "HimawariHill":
 
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 80.0f); //採集
+                eventDict.Add(1, 10.0f); //10%でイベント
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
+
+                /*
                 if (!GameMgr.MapEvent_04[1])
                 {
                     eventDict = new Dictionary<int, float>();
@@ -1087,7 +1115,7 @@ public class GetMaterial : MonoBehaviour
                     eventDict.Add(1, 10.0f); //10%でイベント
                     eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
                     eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
-                }
+                }*/
                 break;
 
             default:
@@ -1171,12 +1199,12 @@ public class GetMaterial : MonoBehaviour
 
             case "HimawariHill":
 
-                Treasure_Forest();
+                Treasure_Himawari();
                 break;
 
             case "BirdSanctuali":
 
-                Treasure_Forest();
+                Treasure_BirdSanctuali();
                 break;
 
             default:
@@ -1188,6 +1216,44 @@ public class GetMaterial : MonoBehaviour
     void Treasure_Forest()
     {
         InitializeTreasureDicts(0); //中の番号で、どの宝箱かを指定する
+
+        //何が当たるかな？
+        // 宝箱アイテムの抽選。
+        itemId = TreasureChoose();
+        itemName = treasureInfo[itemId];
+
+        if (itemName == "Non") //はずれ
+        {
+            _text.text = "にいちゃん..。なにもなかった～..。";
+        }
+        else
+        {
+            Treasure_GetItem();
+        }
+    }
+
+    void Treasure_BirdSanctuali()
+    {
+        InitializeTreasureDicts(2); //中の番号で、どの宝箱かを指定する
+
+        //何が当たるかな？
+        // 宝箱アイテムの抽選。
+        itemId = TreasureChoose();
+        itemName = treasureInfo[itemId];
+
+        if (itemName == "Non") //はずれ
+        {
+            _text.text = "にいちゃん..。なにもなかった～..。";
+        }
+        else
+        {
+            Treasure_GetItem();
+        }
+    }
+
+    void Treasure_Himawari()
+    {
+        InitializeTreasureDicts(1); //中の番号で、どの宝箱かを指定する
 
         //何が当たるかな？
         // 宝箱アイテムの抽選。
@@ -1258,18 +1324,40 @@ public class GetMaterial : MonoBehaviour
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
                 treasureInfo.Add(1, "doro_dango");
                 treasureInfo.Add(2, "kirakira_stone1");
-                treasureInfo.Add(3, "compass");
-                treasureInfo.Add(4, "copper_coin");
-                treasureInfo.Add(5, "star_bottle");
-                treasureInfo.Add(6, "diamond_1");
+                treasureInfo.Add(3, "emerald_suger");
+                treasureInfo.Add(4, "earlgrey_leaf");
                
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 30.0f);
                 treasureDropDict.Add(2, 20.0f);
-                treasureDropDict.Add(3, 8.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(4, 8.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(5, 8.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(6, 6.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 20.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
+                break;
+
+            case 1: //お宝セットテーブル２
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "doro_dango");
+                treasureInfo.Add(2, "kirakira_stone1");
+                treasureInfo.Add(3, "rich_komugiko");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 30.0f);
+                treasureDropDict.Add(2, 20.0f);
+                treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
+                break;
+
+            case 2: //お宝セットテーブル３
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "doro_dango");
+                treasureInfo.Add(2, "kirakira_stone1");
+                treasureInfo.Add(3, "egg_premiaum");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 30.0f);
+                treasureDropDict.Add(2, 20.0f);
+                treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
                 break;
 
             default:

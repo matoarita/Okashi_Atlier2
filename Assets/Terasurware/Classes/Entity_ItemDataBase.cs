@@ -41,6 +41,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int powdery;
 		public int oily;
 		public int watery;
+		public int beauty;
 		public string type;
 		public string subtype;
 		public int base_score;

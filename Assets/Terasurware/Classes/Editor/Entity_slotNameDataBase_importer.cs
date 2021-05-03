@@ -57,6 +57,7 @@ public class Entity_slotNameDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(4); p.slot_totalscore = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(5); p.slot_getgirllove = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(6); p.slot_money = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(7); p.slot_beauty = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

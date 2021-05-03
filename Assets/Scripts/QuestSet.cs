@@ -37,6 +37,8 @@ public class QuestSet
     public int Quest_chewy;
     public int Quest_juice;
 
+    public int Quest_beauty;
+
     public string[] Quest_topping = new string[5];
 
     public string Quest_Title;
@@ -46,7 +48,7 @@ public class QuestSet
     //ここでリスト化時に渡す引数をあてがいます   
     public QuestSet(int id, int _questID, int _questType, int _questHyouji, string fileName, string _itemname, string _itemsubtype, 
         int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, 
-        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice,
+        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
         string tp01, string tp02, string tp03, string tp04, string tp05, string _title, string _setkansou)
     {
         _ID = id;
@@ -77,6 +79,7 @@ public class QuestSet
         Quest_chewy = _chewy;
 
         Quest_juice = _juice;
+        Quest_beauty = _beauty;
 
         Quest_topping[0] = tp01;
         Quest_topping[1] = tp02;

@@ -84,10 +84,12 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
+            sc.PlaySe(11); //触ったときの音
+
             if (!touch_interval_flag)
             {
                 //Debug.Log("Touch_Hair");            
-
+                
                 if (!girl1_status.Girl1_touchhair_start)
                 {
                     girl1_status.Touchhair_Start();
@@ -172,9 +174,12 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
+            sc.PlaySe(11); //触ったときの音
+
             if (!touch_interval_flag)
             {
                 //Debug.Log("Touch_LongHair");
+                
 
                 if (!girl1_status.Girl1_touchtwintail_start)
                 {
@@ -255,10 +260,12 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
+            sc.PlaySe(11); //触ったときの音
+
             if (!touch_interval_flag)
             {
                 //Debug.Log("Touch_Ribbon");
-
+                
                 girl1_status.TouchSisterRibbon();
                 girl1_status.touchGirl_status = 2;
 
@@ -279,10 +286,12 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
+            //sc.PlaySe(11); //触ったときの音
+
             if (!touch_interval_flag)
             {
                 //Debug.Log("Touch_Face");
-
+                
                 girl1_status.TouchSisterFace();
                 girl1_status.touchGirl_status = 0;
 
@@ -304,10 +313,12 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
+            sc.PlaySe(11); //触ったときの音
+
             if (!touch_interval_flag)
             {
                 //Debug.Log("Touch_Hand");
-
+                
                 girl1_status.TouchSisterHand();
                 girl1_status.touchGirl_status = 4;
 
@@ -337,10 +348,12 @@ public class Touch_Controll : MonoBehaviour
     {
         if (ALL_touch_flag)
         {
+            sc.PlaySe(11); //触ったときの音
+
             if (!touch_interval_flag)
             {
                 //Debug.Log("Touch_Chest");
-
+                
                 if (!girl1_status.Girl1_touchchest_start)
                 {
                     girl1_status.TouchChest_Start();

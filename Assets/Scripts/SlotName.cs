@@ -15,11 +15,11 @@ public class SlotName
     public int slot_totalScore;
     public int slot_getgirllove;
     public int slot_Money;
-
+    public int slot_Beauty;
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public SlotName(int id, string slotname, string slot_H1, string slot_H2, int slot_totalscore, int slot_gscore, int slot_money)
+    public SlotName(int id, string slotname, string slot_H1, string slot_H2, int slot_totalscore, int slot_gscore, int slot_money, int slot_beauty)
     {
         roastID = id;
 
@@ -39,6 +39,7 @@ public class SlotName
         slot_totalScore = slot_totalscore;
         slot_getgirllove = slot_gscore;
         slot_Money = slot_money;
+        slot_Beauty = slot_beauty;
     }
 
 }

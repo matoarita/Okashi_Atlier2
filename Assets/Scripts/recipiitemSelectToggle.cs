@@ -60,6 +60,8 @@ public class recipiitemSelectToggle : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
+    private GameObject BlackImage;
+
     public int recipi_toggleEventType; //選んだアイテムが、イベントアイテムか、コンポ調合DBのアイテムかを判別する。0=イベントアイテム, 1=コンポ調合用DBアイテム
     public int recipi_toggleType; //選んだアイテムが、店売りかオリジナルかを判定する。
     public int recipi_toggleCompoitem_ID; //リストの要素自体に、コンポアイテムIDを保持する。
@@ -130,7 +132,10 @@ public class recipiitemSelectToggle : MonoBehaviour
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-        
+
+        //黒半透明パネルの取得
+        BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject;
+
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
         
@@ -244,6 +249,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             no.SetActive(true);
             updown_counter_obj.SetActive(true);
             updown_counter.updown_keisan_Method();
+            BlackImage.GetComponent<CanvasGroup>().alpha = 1;
 
             //調合判定を行うかどうか
             exp_Controller._success_judge_flag = 1; //判定処理を行う。
@@ -276,7 +282,7 @@ public class recipiitemSelectToggle : MonoBehaviour
 
                 recipilistController._recipi_listitem[count].GetComponent<Toggle>().interactable = false;
 
-                compound_Check.final_select_flag = true;
+                compound_Check.final_select_flag = true;               
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
@@ -292,6 +298,8 @@ public class recipiitemSelectToggle : MonoBehaviour
                     recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = true;
                     recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
+
+                BlackImage.GetComponent<CanvasGroup>().alpha = 0;
 
                 //Debug.Log("キャンセルをおした");
                 itemselect_cancel.All_cancel();

@@ -39,6 +39,7 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int jiggly;
 		public int chewy;
 		public int juice;
+		public int beauty;
 		public string topping01;
 		public string topping02;
 		public string topping03;
