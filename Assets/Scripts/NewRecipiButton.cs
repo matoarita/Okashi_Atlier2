@@ -12,6 +12,8 @@ public class NewRecipiButton : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private GameObject CompleteImage;
+
     private GameObject extremePanel_obj;
     private ExtremePanel extremePanel;
 
@@ -42,6 +44,8 @@ public class NewRecipiButton : MonoBehaviour {
         extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
+        //完成時パネルの取得
+        CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
     }
 	
 	// Update is called once per frame
@@ -104,11 +108,13 @@ public class NewRecipiButton : MonoBehaviour {
 
         }
 
+        CompleteImage.SetActive(false);
+
         exp_Controller.EffectListClear();
         extremePanel.LifeAnimeOnTrue();
 
         card_view.DeleteCard_DrawView();
-        Destroy(transform.parent.parent.gameObject);
+        Destroy(this.gameObject);
         
     }
 }

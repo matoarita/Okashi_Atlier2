@@ -448,13 +448,13 @@ MonoBehaviour:
       topping09: Strawberry
       tp_score01: 0
       tp_score02: 10
-      tp_score03: 10
-      tp_score04: 10
-      tp_score05: 10
-      tp_score06: 10
+      tp_score03: 5
+      tp_score04: 5
+      tp_score05: 5
+      tp_score06: 5
       tp_score07: 20
-      tp_score08: 10
-      tp_score09: 10
+      tp_score08: 5
+      tp_score09: 5
       Non_tpscore: -30
       desc: "<color=#FF78B4>\u3061\u3087\u3063\u3068\u8C6A\u83EF\u306A\u30AF\u30EC\u30FC\u30D7</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       commet_flag: 0
@@ -649,10 +649,10 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 30
       bitter: 0
       sour: 0
-      crispy: 70
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -686,10 +686,10 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 30
       bitter: 0
       sour: 50
-      crispy: 70
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -723,10 +723,10 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 55
+      sweat: 30
       bitter: 0
       sour: 0
-      crispy: 70
+      crispy: 60
       fluffy: 20
       smooth: 0
       hardness: 0
@@ -760,10 +760,10 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 55
+      sweat: 30
       bitter: 20
       sour: 0
-      crispy: 70
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -834,7 +834,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 20
       rich: 0
-      sweat: 55
+      sweat: 30
       bitter: 0
       sour: 30
       crispy: 60
@@ -871,7 +871,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 30
       bitter: 100
       sour: 0
       crispy: 60
@@ -908,10 +908,10 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 30
       bitter: 0
       sour: 20
-      crispy: 70
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0

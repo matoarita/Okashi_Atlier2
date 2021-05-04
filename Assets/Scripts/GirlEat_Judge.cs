@@ -3628,7 +3628,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         //特定のトッピングスロットをみる
                         tpcheck_slot = "Blackcurrant";
                         ToppingCheck();
-                        if(tpcheck) //カシスは外れ
+                        if (tpcheck) //カシスは外れ
                         {
                             no_hint = false;
                             _special_kansou = "この黒い粒、すっぱすぎるよ・・。にいちゃん。";
@@ -3642,29 +3642,26 @@ public class GirlEat_Judge : MonoBehaviour {
                             }
                             else if (beauty_score > -30 && beauty_score <= -10)
                             {
-                                if (total_score <= GameMgr.low_score) //30~60以下
-                                {
-                                    no_hint = false;
-                                    _special_kansou = "もう少し、トッピングがほしいかも？";
-                                }
+
+                                no_hint = false;
+                                _special_kansou = "もう少し、トッピングがほしいかも？";
+
                             }
                             else if (beauty_score >= -10 && beauty_score <= 20)
                             {
-                                if (total_score <= GameMgr.low_score) //30~60以下
-                                {
-                                    no_hint = false;
-                                    _special_kansou = "華やかでおいしそう！";
-                                }
+
+                                no_hint = false;
+                                _special_kansou = "よい豪華さ！";
+
                             }
                             else
                             {
-                                if (total_score <= GameMgr.low_score) //30~60以下
-                                {
-                                    no_hint = false;
-                                    _special_kansou = "神の華やかさ！";
-                                }
+
+                                no_hint = false;
+                                _special_kansou = "神の華やかさ！";
+
                             }
-                        }                       
+                        }                      
 
                         break;
 

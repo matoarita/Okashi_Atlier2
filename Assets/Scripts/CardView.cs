@@ -759,7 +759,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         cardcompo_anim_on = true;
     }
 
-
+    //ボインとはじくようなアニメ
     void Result_animOn()
     {
         resulttransform = _cardImage_obj[0].transform;

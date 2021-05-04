@@ -98,24 +98,56 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
         //頭からみていって、1以上のものを表示用リストに追加していく。Nonは省く。
         for (i = 0; i < slotScore.Count; i++)
         {
-            if (slotScore[i] > 0)
+            if (i != 0) //先頭は、Nonが入っているので除外
             {
-                switch (slotScore[i])
+                if (slotScore[i] > 0)
                 {
-                    case 1:
-                        slot_HyoujiList.Add(slotInfo_Hyouji[i]);
-                        break;
+                    switch (slotScore[i])
+                    {
+                        case 1:
+                            slot_HyoujiList.Add(slotInfo_Hyouji[i]);
+                            break;
 
-                    case 2:
-                        slot_HyoujiList.Add("ダブル" + slotInfo_Hyouji[i]);
-                        break;
+                        case 2:
+                            slot_HyoujiList.Add("ダブル" + slotInfo_Hyouji[i]);
+                            break;
 
-                    case 3:
-                        slot_HyoujiList.Add("トリプル" + slotInfo_Hyouji[i]);
-                        break;
+                        case 3:
+                            slot_HyoujiList.Add("トリプル" + slotInfo_Hyouji[i]);
+                            break;
 
-                    default:
-                        break;
+                        case 4:
+                            slot_HyoujiList.Add("クアドラ" + slotInfo_Hyouji[i]);
+                            break;
+
+                        case 5:
+                            slot_HyoujiList.Add("クインティ" + slotInfo_Hyouji[i]);
+                            break;
+
+                        case 6:
+                            slot_HyoujiList.Add("セクスタ" + slotInfo_Hyouji[i]);
+                            break;
+
+                        case 7:
+                            slot_HyoujiList.Add("セプタプル" + slotInfo_Hyouji[i]);
+                            break;
+
+                        case 8:
+                            slot_HyoujiList.Add("オクタプル" + slotInfo_Hyouji[i]);
+                            break;
+
+                        case 9:
+                            slot_HyoujiList.Add("ノナプル" + slotInfo_Hyouji[i]);
+                            break;
+
+                        case 10:
+                            slot_HyoujiList.Add("デュカプル" + slotInfo_Hyouji[i]);
+                            break;
+
+                        default:
+                            slot_HyoujiList.Add("アンフィニ" + slotInfo_Hyouji[i]);
+                            break;
+                    }
                 }
             }
         }

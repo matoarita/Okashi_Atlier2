@@ -49,3 +49,4 @@
 ・BGM_47		09[town]海の見えるお店.mp3		酒場のBGM
 ・BGM_48		ecossaise				チュートリアルのBGM
 ・BGM_49		04[theme]大好きな場所			ベリーファームのBGM
+・BGM_50		audiostock_944577			調合テーマ４　アトリエメインテーマ３　楽しい音楽

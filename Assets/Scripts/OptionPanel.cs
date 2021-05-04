@@ -24,9 +24,6 @@ public class OptionPanel : MonoBehaviour {
 
     private GameObject system_panel;
 
-    private GameObject StageClearButton_panel;
-    private AudioSource StageClearbutton_audio;
-
     private Compound_Main compound_Main;
 
     private int i;
@@ -61,8 +58,6 @@ public class OptionPanel : MonoBehaviour {
                 system_panel = canvas.transform.Find("SystemPanel").gameObject;
                 system_panel.SetActive(false);
 
-                StageClearButton_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
-                StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
                 break;
 
             case "001_Title":
@@ -109,8 +104,6 @@ public class OptionPanel : MonoBehaviour {
         //反映
         GameMgr.MasterVolumeParam = mastervolume_Slider.value / 100;
         sc.VolumeSetting();
-
-        Set_VolumeEtc();
     }
 
     public void OnBGMVolume()
@@ -133,19 +126,7 @@ public class OptionPanel : MonoBehaviour {
         GameMgr.SeVolumeParam = SEvolume_Slider.value / 100;
         sc.VolumeSetting();
 
-        Set_VolumeEtc();
-    }
-
-    void Set_VolumeEtc()
-    {
-        //ステージクリアボタンの音量
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
-                break;
-        }
+        //ステージクリアボタンの音量は、「StageClear_Button」スクリプトで直接調整
     }
 
     public void BackOption()

@@ -794,7 +794,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Potion" || 
                                     database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Berry" ||
                                     database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate_Mat" ||
-                                    database.items[i].itemType_sub.ToString() == "IceCream" || database.items[i].itemType_sub.ToString() == "Candy")
+                                    database.items[i].itemType_sub.ToString() == "IceCream" || database.items[i].itemType_sub.ToString() == "Candy" ||
+                                    database.items[i].itemType_sub.ToString() == "Tea_Potion")
                                 {
                                     itemlist_hyouji();
                                 }
@@ -819,7 +820,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Potion" ||
                         pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Berry" ||
                         pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Nuts" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" ||
-                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Candy")
+                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Candy" ||
+                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Potion")
                     {
                         original_itemlist_hyouji();
                     }

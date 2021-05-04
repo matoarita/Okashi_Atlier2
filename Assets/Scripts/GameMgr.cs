@@ -635,7 +635,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("aquamarine_pendant");
         CollectionItemsName.Add("white_lily");
         CollectionItemsName.Add("himmeli");
-        CollectionItemsName.Add("maneki_cat");
+        CollectionItemsName.Add("kuma_nuigurumi");
         CollectionItemsName.Add("copper_coin");
         CollectionItemsName.Add("compass");
         CollectionItemsName.Add("star_bottle");

@@ -8,7 +8,7 @@ public class StageClear_Button : MonoBehaviour {
 	void Start ()
     {
         //ステージクリアボタンの音量
-        this.GetComponent<AudioSource>().volume = 1.0f * GameMgr.MasterVolumeParam;
+        this.GetComponent<AudioSource>().volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
     }
 	
 	// Update is called once per frame
@@ -19,6 +19,6 @@ public class StageClear_Button : MonoBehaviour {
     private void OnEnable()
     {
         //ステージクリアボタンの音量
-        this.GetComponent<AudioSource>().volume = 1.0f * GameMgr.MasterVolumeParam;
+        this.GetComponent<AudioSource>().volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
     }
 }

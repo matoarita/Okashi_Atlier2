@@ -158,6 +158,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject ResultBGimage;
     private GameObject BlackImage;
 
+    private GameObject CompleteImage;
+
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
     public int _temp_extreme_id;
     public int _temp_extreme_itemtype;
@@ -293,6 +295,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //黒半透明パネルの取得
         BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
+
+        //完成時パネルの取得
+        CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
 
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
@@ -484,6 +489,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_OK();
+            CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
@@ -704,6 +710,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_OK();
+            CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
@@ -916,6 +923,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //完成エフェクト
             ResultEffect_OK();
+            CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
@@ -1296,7 +1304,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         GameMgr.tutorial_Progress = true;
                         GameMgr.tutorial_Num = 250;
                     }
-                }
+                }                
 
                 //Debug.Log("アニメ終了");
                 compo_anim_end = true;
@@ -1309,6 +1317,25 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間減少
         timeOut -= Time.deltaTime;
+    }
+
+    void CompleteAnim()
+    {
+        //完成～出来たー！という変化をつけるために、背景を変え、ヒカリちゃんを登場させる。
+        CompleteImage.SetActive(true);
+
+        //アニメーション
+        //まず、初期値。
+        Sequence sequence2 = DOTween.Sequence();
+        CompleteImage.transform.Find("Image").GetComponent<CanvasGroup>().alpha = 0;
+        sequence2.Append(CompleteImage.transform.Find("Image").DOScale(new Vector3(0.3f, 0.3f, 1.0f), 0.0f)
+            ); //
+
+        //移動のアニメ
+        sequence2.Append(CompleteImage.transform.Find("Image").DOScale(new Vector3(0.5f, 0.5f, 1.0f), 0.75f)
+        //.SetEase(Ease.OutElastic)); //はねる動き
+        .SetEase(Ease.OutExpo)); //スケール小からフェードイン
+        sequence2.Join(CompleteImage.transform.Find("Image").GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
     public void EffectListClear()

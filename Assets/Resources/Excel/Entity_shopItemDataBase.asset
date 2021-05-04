@@ -808,7 +808,7 @@ MonoBehaviour:
       itemType: 6
       shop_sell_price: 3
       shop_buy_price: 2
-      item_hyouji: 1
+      item_hyouji: 0
     - ItemID: 214
       name: aquamarine_pendant
       zaiko: 1

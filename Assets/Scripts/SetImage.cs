@@ -55,6 +55,8 @@ public class SetImage : MonoBehaviour
     private GameObject extremePanel_obj;
     private ExtremePanel extremePanel;
 
+    private GameObject CompleteImage;
+
     public int itemID; //CardViewなどから呼び出すこともあり。
     private Image item_Icon;
     private Text item_Name;
@@ -222,6 +224,7 @@ public class SetImage : MonoBehaviour
         {
             case 0:
 
+                //フェードインでスっと表示されるアニメ。
                 Sequence sequence = DOTween.Sequence();
 
                 //まず、初期値。
@@ -720,7 +723,7 @@ public class SetImage : MonoBehaviour
             case "Fruits":
                 subcategory = "フルーツ";
                 Etc_Text_Non();
-                break;
+                break;            
             case "Nuts":
                 subcategory = "ナッツ";
                 Etc_Text_Non();
@@ -768,7 +771,11 @@ public class SetImage : MonoBehaviour
                 break;
             case "Egg":
                 subcategory = "たまご";
-                break;            
+                break;
+            case "Milk":
+                subcategory = "ミルク";
+                Etc_Text_Non();
+                break;
             case "Machine":
                 subcategory = "器具";
                 break;
@@ -1147,14 +1154,28 @@ public class SetImage : MonoBehaviour
 
                 //取得
                 NewRecipi = Instantiate(NewRecipi_Prefab1, canvas.transform);
-                newrecipi_text = NewRecipi.transform.Find("Image/Text").gameObject.GetComponent<Text>();
-                newrecipi_Img_hyouji = NewRecipi.transform.Find("Image/ItemImage").gameObject.GetComponent<Image>();
+                newrecipi_text = NewRecipi.transform.Find("Panel/RecipiTextPanel/Text").gameObject.GetComponent<Text>();
+                newrecipi_Img_hyouji = NewRecipi.transform.Find("Panel/ItemPanel/ItemImage").gameObject.GetComponent<Image>();
 
                 //表示
                 newrecipi_text.text = GameMgr.ColorLemon + newrecipi_name + "</color>" + "\n" + "を閃いた！";
 
                 // texture2dを使い、Spriteを作って、反映させる
                 newrecipi_Img_hyouji.sprite = newrecipi_Img;
+
+                //アニメーション
+                //まず、初期値。
+                Sequence sequence = DOTween.Sequence();
+                NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().alpha = 0;
+                sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(0.65f, 0.65f, 1.0f), 0.0f)
+                    ); //
+
+                //移動のアニメ
+                sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f)
+                    .SetEase(Ease.OutElastic)); //はねる動き
+                //.SetEase(Ease.OutExpo)); //スケール小からフェードイン
+                sequence.Join(NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+                
 
                 //音を鳴らす 新しいレシピ閃いたときの音 scのほうに音を送ると、途中で音が途切れない。
                 //audioSource.PlayOneShot(sound1);
@@ -1169,8 +1190,12 @@ public class SetImage : MonoBehaviour
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
+                //完成時パネルの取得
+                CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
+                CompleteImage.SetActive(false);
+
                 //調合完了後、また調合画面に戻るか、メイン画面に戻るか
-                switch(compound_Main.compound_select)
+                switch (compound_Main.compound_select)
                 {
                     case 1: //レシピ調合
 
