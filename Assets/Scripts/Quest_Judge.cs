@@ -1229,12 +1229,14 @@ public class Quest_Judge : MonoBehaviour {
         if(_getNinki < 0)
         {
             //名声値は減る
-            ninkiStatus_Controller.DegNinki(Mathf.Abs(_getNinki)); //アニメつき
+            PlayerStatus.player_ninki_param -= (Mathf.Abs(_getNinki));
+            //ninkiStatus_Controller.DegNinki(Mathf.Abs(_getNinki)); //アニメつき
         }
         else if(_getNinki > 0)
         {
             //名声値は増える
-            ninkiStatus_Controller.GetNinki(_getNinki); //アニメつき
+            PlayerStatus.player_ninki_param += (Mathf.Abs(_getNinki));
+            //ninkiStatus_Controller.GetNinki(_getNinki); //アニメつき
         }
 
         ResetQuestStatus();

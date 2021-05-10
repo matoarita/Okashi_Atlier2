@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_QuestSetDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Excel_Data/Entity_QuestSetDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Excel_Data/Entity_QuestSetDataBase.asset";
-	private static readonly string[] sheetNames = { "01_QuestSetData", };
+	private static readonly string[] sheetNames = { "01_QuestSetData","02_QuestSetData2", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{

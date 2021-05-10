@@ -709,7 +709,7 @@ public class Compound_Main : MonoBehaviour
                         recipiMemoButton.GetComponent<Button>().interactable = true;
 
                         text_area.SetActive(true);
-                        _text.text = "右上の「レシピをみる」ボタンを押してみよう！";
+                        _text.text = "右上の「レシピをみる」ボタンを押して、レシピを選択しよう！";
                         break;
 
                     case 40: //メモ画面を開いた。
@@ -780,6 +780,14 @@ public class Compound_Main : MonoBehaviour
                         compoundselect_onoff_obj.SetActive(true);
 
                         _textmain.text = "お菓子をあげてみよう！";
+
+                        //このタイミングで、アイテムのどれかが0になっていたら、また、全てのアイテムを5ずつにリセットしなおす。
+                        if (pitemlist.KosuCount("komugiko") <= 1 || pitemlist.KosuCount("butter") <= 1 || pitemlist.KosuCount("suger") <= 1)
+                        {
+                            pitemlist.addPlayerItemString("komugiko", 5- pitemlist.KosuCount("komugiko"));
+                            pitemlist.addPlayerItemString("butter", 5 - pitemlist.KosuCount("butter"));
+                            pitemlist.addPlayerItemString("suger", 5 - pitemlist.KosuCount("suger"));
+                        }
 
                         GameMgr.tutorial_Num = 105; //退避
                         break;
@@ -3510,7 +3518,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add(70);
                     _todayfood_lib.Add("野菜の端っこ");
                     _todayfoodexpence_lib.Add(50);
-                    _todayfood_lib.Add("ほしにくのせバゲットの切れ端");
+                    _todayfood_lib.Add("ほしにくのせパン");
                     _todayfoodexpence_lib.Add(100);
                     _todayfood_lib.Add("おねぎとにんじんピザ");
                     _todayfoodexpence_lib.Add(30);

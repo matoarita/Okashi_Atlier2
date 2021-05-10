@@ -259,18 +259,18 @@ MonoBehaviour:
       drop_rare2: emerald_suger
       drop_rare3: lemon
       drop_prob1: 20
-      drop_prob2: 15
+      drop_prob2: 25
       drop_prob3: 20
-      drop_prob4: 15
-      drop_prob5: 20
+      drop_prob4: 10
+      drop_prob5: 15
       drop_prob6: 10
       drop_prob7: 0
       drop_prob8: 0
       drop_prob9: 0
       drop_prob10: 0
-      drop_rare_prob1: 70
+      drop_rare_prob1: 83
       drop_rare_prob2: 10
-      drop_rare_prob3: 20
+      drop_rare_prob3: 7
       center_bg: 1_forest_a_600_300
       back_bg: Forest_BG
     - ItemID: 7
@@ -342,9 +342,9 @@ MonoBehaviour:
       drop_prob8: 0
       drop_prob9: 0
       drop_prob10: 0
-      drop_rare_prob1: 70
+      drop_rare_prob1: 83
       drop_rare_prob2: 10
-      drop_rare_prob3: 20
+      drop_rare_prob3: 7
       center_bg: 1_forest_a_600_300
       back_bg: belg_harerubos
     - ItemID: 9

@@ -279,12 +279,12 @@ public class GetMaterial : MonoBehaviour
         else
         {
             //お金のチェック       
-            if (PlayerStatus.player_money < mat_cost)
+            /*if (PlayerStatus.player_money < mat_cost)
             {
                 _text.text = "にいちゃん。お金が足りないよ～・・。";
             }
             else
-            {
+            {*/
                 //カゴの大きさのチェック。取った数の総量がMAXを超えると、これ以上取れない。
                 if (PlayerStatus.player_zairyobox >= cullent_total_mat)
                 {
@@ -326,7 +326,7 @@ public class GetMaterial : MonoBehaviour
                     _text.text = "もうカゴがいっぱいだよ～。";
                 }
 
-            }
+            //}
         }
     }
 

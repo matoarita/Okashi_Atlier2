@@ -2687,7 +2687,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 2:
 
                 _touchface_comment_lib.Add("ちょっと元気。");
-                _touchface_comment_lib.Add("材料の比率は、兄ちゃんの好みに変えられるんだよ～。");
+                _touchface_comment_lib.Add("材料の数は、兄ちゃんの好みに変えられるんだよ～。");
                 _touchface_comment_lib.Add("腹へた～..。");
                 _touchface_comment_lib.Add("うまうま・・。");
                 _touchface_comment_lib.Add("兄ちゃんのおかし、たべたいなぁ。");

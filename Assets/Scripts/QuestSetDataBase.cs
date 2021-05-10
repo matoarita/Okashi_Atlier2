@@ -52,6 +52,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
 
     public List<QuestSet> questset = new List<QuestSet>();
+    public List<QuestSet> questset2 = new List<QuestSet>(); //ぱてぃしえレベルに応じて選択されるクエスト
 
     //依頼するときに、ランダムで３つほど選んで表示する用。パラメータもいくつかはランダムでセットされる。
     public List<QuestSet> questRandomset = new List<QuestSet>();
@@ -78,44 +79,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
             while (count < excel_questset_database.sheets[sheet_no].list.Count)
             {
-                // 一旦代入
-                _id = excel_questset_database.sheets[sheet_no].list[count].ID;
-                _questID = excel_questset_database.sheets[sheet_no].list[count].QuestID;
-                _questType = excel_questset_database.sheets[sheet_no].list[count].QuestType;
-                _questHyouji = excel_questset_database.sheets[sheet_no].list[count].QuestHyouji;
-
-                _filename = excel_questset_database.sheets[sheet_no].list[count].file_name;
-                _itemname = excel_questset_database.sheets[sheet_no].list[count].quest_itemName;
-                _itemsubtype = excel_questset_database.sheets[sheet_no].list[count].quest_itemsubtype;
-
-                _kosu_default = excel_questset_database.sheets[sheet_no].list[count].kosu_default;
-                _kosu_min = excel_questset_database.sheets[sheet_no].list[count].kosu_min;
-                _kosu_max = excel_questset_database.sheets[sheet_no].list[count].kosu_max;
-                _buy_price = excel_questset_database.sheets[sheet_no].list[count].buy_price;
-
-                _rich = excel_questset_database.sheets[sheet_no].list[count].rich;
-                _sweat = excel_questset_database.sheets[sheet_no].list[count].sweat;
-                _bitter = excel_questset_database.sheets[sheet_no].list[count].bitter;
-                _sour = excel_questset_database.sheets[sheet_no].list[count].sour;
-
-                _crispy = excel_questset_database.sheets[sheet_no].list[count].crispy;
-                _fluffy = excel_questset_database.sheets[sheet_no].list[count].fluffy;
-                _smooth = excel_questset_database.sheets[sheet_no].list[count].smooth;
-                _hardness = excel_questset_database.sheets[sheet_no].list[count].hardness;
-                _jiggly = excel_questset_database.sheets[sheet_no].list[count].jiggly;
-                _chewy = excel_questset_database.sheets[sheet_no].list[count].chewy;
-
-                _juice = excel_questset_database.sheets[sheet_no].list[count].juice;
-                _beauty = excel_questset_database.sheets[sheet_no].list[count].beauty;
-
-                _tp01 = excel_questset_database.sheets[sheet_no].list[count].topping01;
-                _tp02 = excel_questset_database.sheets[sheet_no].list[count].topping02;
-                _tp03 = excel_questset_database.sheets[sheet_no].list[count].topping03;
-                _tp04 = excel_questset_database.sheets[sheet_no].list[count].topping04;
-                _tp05 = excel_questset_database.sheets[sheet_no].list[count].topping05;
-
-                _title = excel_questset_database.sheets[sheet_no].list[count].quest_Title;
-                _desc = excel_questset_database.sheets[sheet_no].list[count].desc;
+                SetParam();
 
                 //ここでリストに追加している
                 questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
@@ -132,7 +96,70 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
             sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
 
             sheet_no++;
+
+            count = 0;
+
+            while (count < excel_questset_database.sheets[sheet_no].list.Count)
+            {
+                SetParam();
+
+                //ここでリストに追加している
+                questset2.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
+                    _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
+
+                //Debug.Log("QuestID: " + questset[count].Quest_ID);
+
+                ++count;
+
+            }
+
+            sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
+
+            sheet_no++;
         }
+    }
+
+    void SetParam()
+    {
+        // 一旦代入
+        _id = excel_questset_database.sheets[sheet_no].list[count].ID;
+        _questID = excel_questset_database.sheets[sheet_no].list[count].QuestID;
+        _questType = excel_questset_database.sheets[sheet_no].list[count].QuestType;
+        _questHyouji = excel_questset_database.sheets[sheet_no].list[count].QuestHyouji;
+
+        _filename = excel_questset_database.sheets[sheet_no].list[count].file_name;
+        _itemname = excel_questset_database.sheets[sheet_no].list[count].quest_itemName;
+        _itemsubtype = excel_questset_database.sheets[sheet_no].list[count].quest_itemsubtype;
+
+        _kosu_default = excel_questset_database.sheets[sheet_no].list[count].kosu_default;
+        _kosu_min = excel_questset_database.sheets[sheet_no].list[count].kosu_min;
+        _kosu_max = excel_questset_database.sheets[sheet_no].list[count].kosu_max;
+        _buy_price = excel_questset_database.sheets[sheet_no].list[count].buy_price;
+
+        _rich = excel_questset_database.sheets[sheet_no].list[count].rich;
+        _sweat = excel_questset_database.sheets[sheet_no].list[count].sweat;
+        _bitter = excel_questset_database.sheets[sheet_no].list[count].bitter;
+        _sour = excel_questset_database.sheets[sheet_no].list[count].sour;
+
+        _crispy = excel_questset_database.sheets[sheet_no].list[count].crispy;
+        _fluffy = excel_questset_database.sheets[sheet_no].list[count].fluffy;
+        _smooth = excel_questset_database.sheets[sheet_no].list[count].smooth;
+        _hardness = excel_questset_database.sheets[sheet_no].list[count].hardness;
+        _jiggly = excel_questset_database.sheets[sheet_no].list[count].jiggly;
+        _chewy = excel_questset_database.sheets[sheet_no].list[count].chewy;
+
+        _juice = excel_questset_database.sheets[sheet_no].list[count].juice;
+        _beauty = excel_questset_database.sheets[sheet_no].list[count].beauty;
+
+        _tp01 = excel_questset_database.sheets[sheet_no].list[count].topping01;
+        _tp02 = excel_questset_database.sheets[sheet_no].list[count].topping02;
+        _tp03 = excel_questset_database.sheets[sheet_no].list[count].topping03;
+        _tp04 = excel_questset_database.sheets[sheet_no].list[count].topping04;
+        _tp05 = excel_questset_database.sheets[sheet_no].list[count].topping05;
+
+        _title = excel_questset_database.sheets[sheet_no].list[count].quest_Title;
+        _desc = excel_questset_database.sheets[sheet_no].list[count].desc;
     }
 
     public void RandomNewSetInit(int count)
@@ -175,6 +202,53 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         _title = questset[count].Quest_Title;
         _desc = questset[count].Quest_desc;
+
+        //ここでリストに追加している
+        questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
+            _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
+    }
+
+    public void RandomNewSetInit2(int count)
+    {
+        // 一旦代入
+        _id = questset2[count]._ID;
+        _questID = questset2[count].Quest_ID;
+        _questType = questset2[count].QuestType;
+        _questHyouji = questset2[count].QuestHyouji;
+
+        _filename = questset2[count].Quest_FileName;
+        _itemname = questset2[count].Quest_itemName;
+        _itemsubtype = questset2[count].Quest_itemSubtype;
+
+        _kosu_min = questset2[count].Quest_kosu_min;
+        _kosu_max = questset2[count].Quest_kosu_max;
+
+        _kosu_default = Random.Range(_kosu_min, _kosu_max);
+        _buy_price = questset2[count].Quest_buy_price + Random.Range(0, 20);
+
+        _rich = questset2[count].Quest_rich;
+        _sweat = questset2[count].Quest_sweat;
+        _bitter = questset2[count].Quest_bitter;
+        _sour = questset2[count].Quest_sour;
+
+        _crispy = questset2[count].Quest_crispy;
+        _fluffy = questset2[count].Quest_fluffy;
+        _smooth = questset2[count].Quest_smooth;
+        _hardness = questset2[count].Quest_hardness;
+        _jiggly = questset2[count].Quest_jiggly;
+        _chewy = questset2[count].Quest_chewy;
+
+        _juice = questset2[count].Quest_juice;
+
+        _tp01 = questset2[count].Quest_topping[0];
+        _tp02 = questset2[count].Quest_topping[1];
+        _tp03 = questset2[count].Quest_topping[2];
+        _tp04 = questset2[count].Quest_topping[3];
+        _tp05 = questset2[count].Quest_topping[4];
+
+        _title = questset2[count].Quest_Title;
+        _desc = questset2[count].Quest_desc;
 
         //ここでリストに追加している
         questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,

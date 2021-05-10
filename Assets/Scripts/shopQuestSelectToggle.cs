@@ -222,7 +222,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         shopquestlistController.questID = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_quest_ID; //クエスト固有IDを入れる
 
 
-        _text.text = quest_database.questset[shopquestlistController._ID].Quest_desc + "\n" + "この依頼を受ける？";
+        _text.text = quest_database.questRandomset[count].Quest_desc + "\n" + "この依頼を受ける？";
 
         Debug.Log(count + "番が押されたよ");
         Debug.Log("クエスト:" + "が選択されました。");

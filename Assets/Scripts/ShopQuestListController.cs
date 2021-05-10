@@ -56,8 +56,11 @@ public class ShopQuestListController : MonoBehaviour
     public bool final_select_flag;
 
     private int rand;
-    private int[] sel_questID = new int[3];
+    private int sel_quest_count = 3;
+    private int sel_quest_count2 = 1;
+    private int quest2_count_add;
     private List<int> selectquestDB = new List<int>();
+    private List<int> selectquestDB2 = new List<int>();
 
     private int story_num;
 
@@ -133,18 +136,32 @@ public class ShopQuestListController : MonoBehaviour
         quest_database.questRandomset.Clear();
 
         //ランダムでセット３つを選ぶ。
-        for (i = 0; i < sel_questID.Length; i++)
+        for (i = 0; i < sel_quest_count; i++)
         {
             rand = Random.Range(0, selectquestDB.Count);
 
             quest_database.RandomNewSetInit(selectquestDB[rand]);
 
         }
+
+        //パティシエレベルに応じて、追加するクエスト（レベル3～から追加されていく）
+        if(PlayerStatus.player_renkin_lv >= 3)
+        {
+            quest2_count_add = (Mathf.FloorToInt(PlayerStatus.player_renkin_lv / 3) - 1); //LV3ごとに一個ずつ表示されるクエストが増えていく。
+            for (i = 0; i < sel_quest_count2 + quest2_count_add; i++)
+            {
+                rand = Random.Range(0, selectquestDB2.Count);
+
+                quest_database.RandomNewSetInit2(selectquestDB2[rand]);
+
+            }
+        }
     }
 
     void InitiallizeRandomQuestDatabase()
     {
         selectquestDB.Clear();
+        selectquestDB2.Clear();
 
         //シナリオの進行度に応じて、クエストが変化する。
         story_num = GameMgr.GirlLoveEvent_num; //GirlLoveEvent_numは、0~50まで。10の単位。
@@ -153,6 +170,14 @@ public class ShopQuestListController : MonoBehaviour
             if (quest_database.questset[j].QuestHyouji <= story_num)
             {
                 selectquestDB.Add(j);
+            }
+        }
+       
+        for (j = 0; j < quest_database.questset2.Count; j++)
+        {
+            if (quest_database.questset2[j].QuestHyouji <= PlayerStatus.player_renkin_lv)
+            {
+                selectquestDB2.Add(j);
             }
         }
     }
