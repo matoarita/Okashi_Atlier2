@@ -235,10 +235,9 @@ public class Utage_scenario : MonoBehaviour
                 if(GameMgr.CompoundEvent_storyflag)
                 {
                     GameMgr.CompoundEvent_storyflag = false;
-
-                    scenarioLabel = "Chapter1_Story";
+                    
                     story_num = GameMgr.CompoundEvent_storynum;
-                    StartCoroutine(Scenario_Start());
+                    StartCoroutine(backHome());
                 }
                 
                 if (GameMgr.girlloveevent_flag)
@@ -572,6 +571,9 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("FoodExpenses", GameMgr.Foodexpenses);
         engine.Param.TrySetParameter("TodayFood", GameMgr.MgrTodayFood);
 
+        //ゲーム上のキャラクタOFF
+        CharacterLive2DImageOFF();
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -581,6 +583,7 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+       
 
         //音を止めて、宿屋のジングル
         sceneBGM.MuteBGM();
@@ -593,6 +596,9 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
 
         //BGMを再開
         sceneBGM.MuteOFFBGM();
@@ -1087,6 +1093,39 @@ public class Utage_scenario : MonoBehaviour
 
     }*/
 
+    //
+    //家に帰った直後の会話イベント
+    //
+    IEnumerator backHome()
+    {
+        scenario_loading = true;
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Chapter1_Story";
+
+        engine.Param.TrySetParameter("Story_num", story_num);
+
+        //ゲーム上のキャラクタOFF
+        CharacterLive2DImageOFF();
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
+
+        scenario_loading = false;
+
+        GameMgr.scenario_ON = false;
+        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+    }
 
     //
     // 女の子の感想・コメント

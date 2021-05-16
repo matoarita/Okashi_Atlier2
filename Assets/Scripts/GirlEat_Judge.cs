@@ -1974,7 +1974,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //共通
                     if (hukidashiitem == null)
                     {
-                        girl1_status.hukidasiInit();
+                        girl1_status.hukidasiInit(10.0f);
                     }
 
                     hukidashiitem = GameObject.FindWithTag("Hukidashi");
@@ -2037,7 +2037,7 @@ public class GirlEat_Judge : MonoBehaviour {
             }
             else
             {
-                girl1_status.hukidasiInit();
+                girl1_status.hukidasiInit(10.0f);
 
                 hukidashiitem = GameObject.FindWithTag("Hukidashi");
                 _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();

@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 27,
-		"TotalSegmentCount": 28,
-		"TotalPointCount": 59,
+		"CurveCount": 33,
+		"TotalSegmentCount": 34,
+		"TotalPointCount": 71,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -25,6 +25,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeLSmile",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamEyeROpen",
 			"Segments": [
 				0,
@@ -32,6 +43,17 @@
 				0,
 				1,
 				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeRSmile",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
 			]
 		},
 		{
@@ -109,6 +131,50 @@
 				0,
 				1,
 				0.3
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowLX",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowRX",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowLAngle",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowRAngle",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
 			]
 		},
 		{

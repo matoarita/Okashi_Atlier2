@@ -26,6 +26,9 @@ public class OptionPanel : MonoBehaviour {
 
     private Compound_Main compound_Main;
 
+    private BGM sceneBGM;
+    private List<Toggle> bgm_toggle = new List<Toggle>(); 
+
     private int i;
 
     // Use this for initialization
@@ -58,6 +61,9 @@ public class OptionPanel : MonoBehaviour {
                 system_panel = canvas.transform.Find("SystemPanel").gameObject;
                 system_panel.SetActive(false);
 
+                //BGMの取得
+                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
                 break;
 
             case "001_Title":
@@ -76,6 +82,12 @@ public class OptionPanel : MonoBehaviour {
 
         SEvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider").GetComponent<Slider>();
         SEvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider/Param").GetComponent<Text>();
+
+        bgm_toggle.Clear();
+        foreach (Transform child in this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Scroll_View/Viewport/Content").transform) //
+        {
+            bgm_toggle.Add(child.gameObject.GetComponent<Toggle>());
+        }        
     }
 
     private void OnEnable()
@@ -127,6 +139,28 @@ public class OptionPanel : MonoBehaviour {
         sc.VolumeSetting();
 
         //ステージクリアボタンの音量は、「StageClear_Button」スクリプトで直接調整
+    }
+
+    public void SelectBGM()
+    {
+
+        if (bgm_toggle[0].isOn)
+        {
+            GameMgr.mainBGM_Num = 0;
+        }
+        else if (bgm_toggle[1].isOn)
+        {
+            GameMgr.mainBGM_Num = 1;
+        }
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                sceneBGM.PlayMain();
+                break;
+        }
+
     }
 
     public void BackOption()

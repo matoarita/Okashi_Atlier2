@@ -61,6 +61,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private GameObject canvas;
 
     public GameObject hukidashiitem;
+    private bool hukidashion;
     private Text _text;
 
     private int _temp_status;
@@ -249,6 +250,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public List<int> stage1_lvTable = new List<int>();
 
     private int _sum;
+    private int _noweat_count;
 
     private Text girl_param;
     private Slider _slider; //好感度バーを取得
@@ -518,6 +520,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     gireleat_start_flag = false;
 
                     GirlOishiso_Status = 0; //シーン移動でも、おいしそ～状態はリセット
+                    _noweat_count = 0;
+                    hukidashion = false;
 
                     break;
 
@@ -558,7 +562,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         }
 
-        if(WaitHint_on) //吹き出しヒントを表示中
+        if(WaitHint_on) //吹き出しを表示中
         {
             timeOutHint -= Time.deltaTime;
 
@@ -573,7 +577,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 WaitHint_on = false;
                 GirlEat_Judge_on = true;
                 Girl1_touchtwintail_count = 0;
-            }
+
+                if (GirlOishiso_Status == 1)
+                {
+                    GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
+                    DefaultFace();
+                }
+            }             
         }
 
         
@@ -652,16 +662,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             timeOut2 = 5.0f;
                             timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
-                            Girl_Hungry();
+                            Girl_Hungry();                          
 
                             random = Random.Range(0, 100);
                             if (random < 50)
                             {
-                                Girl1_Hint();
+                                Girl1_Hint(10.0f);
                                 IdleMotionStart = false;
                             }
                             else
                             {
+                                //Girl1_Hint(20.0f);
                                 IdleMotionStart = true;
                             }
 
@@ -1358,15 +1369,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         DeleteHukidashi();
     }
 
-    //お菓子出来たて直後の吹き出しリセット設定
+    //お菓子出来たて直後の吹き出しリセット設定。Live2DAnimationTrigger.csから読み出し
     public void ResetHukidashiYodare()
     {
         //一度吹き出しを削除し、クエスト吹き出しなどを表示する。
         timeOut = 30.0f;
-        timeOut2 = 10.0f;
+        timeOut2 = 5.0f;
         timeGirl_hungry_status = 1;
 
-        DeleteHukidashi();
     }
 
     //デフォルト・共通の腹減り初期化設定
@@ -1388,11 +1398,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //
     // らんだむで表示される女の子のセリフ。ヒントか、好感度によって変わる反応
     //
-    public void Girl1_Hint()
+    public void Girl1_Hint(float _temptimehint)
     {
         if (hukidashiitem == null)
         {
-            hukidasiInit();
+            hukidasiInit(_temptimehint);
         }
 
         //まだ一度も調合していない
@@ -1403,18 +1413,44 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else
         {
-            Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
+            //ランダムで吹き出しの内容を出す。 or 今食べたいものをしゃべる。
+            NowEatText();
+        }
 
-            //ランダムで、吹き出しの内容を決定。口を触った時のコメントと一緒。
-            Init_touchFaceComment();
-            
-            random = Random.Range(0, _touchface_comment_lib.Count);
-            _hintrandom = _touchface_comment_lib[random];
+        //Idleにリセット
+        trans_motion = 1000;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+        
 
-            //ヒントをだすか、今食べたいもののどちらかを表示する。
+        //15秒ほど表示したら、また食べたいお菓子を表示か削除
+        //WaitHint_on = true;
+        //timeOutHint = _timehint;
+        //GirlEat_Judge_on = false;
+    }
+
+    void NowEatText()
+    {
+        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
+
+        //ランダムで、吹き出しの内容を決定。口を触った時のコメントと一緒。
+        Init_touchFaceComment();
+
+        random = Random.Range(0, _touchface_comment_lib.Count);
+        _hintrandom = _touchface_comment_lib[random];
+
+        //ヒントをだすか、今食べたいもののどちらかを表示する。3連続で食べたいものが表示されていないなら、4つめは次は必ず食べたいものを表示する。
+        if (_noweat_count >= 3)
+        {
+            _noweat_count = 0;
+            hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
+        }
+        else { 
+
             random = Random.Range(0, 100);
-            if(random < 50)
+            if (random < 50)
             {
+                _noweat_count++;
                 hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
             }
             else
@@ -1430,22 +1466,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 else
                 {
-                    hukidashiitem.GetComponent<TextController>().SetText(_desc);
+                    _noweat_count = 0;
+                    hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
                 }
             }
-            
         }
-
-        //Idleにリセット
-        trans_motion = 1000;
-        live2d_animator.SetInteger("trans_motion", trans_motion);
-        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-        
-
-        //15秒ほど表示したら、また食べたいお菓子を表示か削除
-        WaitHint_on = true;
-        timeOutHint = 10.0f;
-        GirlEat_Judge_on = false;
     }
 
     IEnumerator FaceModosu()
@@ -1479,13 +1504,24 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void hukidashiReturnHome()
     {
-        hukidasiInit();
+        hukidasiInit(10.0f);
 
         hukidashiitem.GetComponent<TextController>().SetText("おいしそ～♪");
+
+
+    }
+
+    public void hukidashiOkashiFailedReturnHome()
+    {
+        hukidasiInit(10.0f);
+
+        hukidashiitem.GetComponent<TextController>().SetText("失敗しちゃった・・。");
+
+
     }
 
     //吹き出しの生成メソッド
-    public void hukidasiInit()
+    public void hukidasiInit(float _timehint)
     {
         //Live2Dモデルの取得
         _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
@@ -1496,14 +1532,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
         hukidashiitem = Instantiate(hukidashiPrefab, _model_obj.transform);
+        hukidashion = true; //今吹き出しがゲームに表示されている状態
 
-        hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(true);
-        hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(false);
+        //hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(true);
+        //hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(false);
 
         //音を鳴らす
         sc.PlaySe(7);
 
         _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+
+        //15秒ほど表示したら、また食べたいお菓子を表示か削除
+        WaitHint_on = true;
+        timeOutHint = _timehint;
+        GirlEat_Judge_on = false;
     }
 
     //吹き出しを一時オフ
@@ -1512,6 +1554,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (hukidashiitem != null)
         {
             hukidashiitem.SetActive(false);
+            hukidashion = false;
         }
     }
 
@@ -1521,6 +1564,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (hukidashiitem != null)
         {
             hukidashiitem.SetActive(true);
+            hukidashion = true;
         }
     }
 
@@ -1530,25 +1574,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (hukidashiitem != null)
         {
             Destroy(hukidashiitem);
+            hukidashion = false; //吹き出しが削除されて、見えない状態
 
             //音を鳴らす
             sc.PlaySe(8);
-        }
-        
-        /*
-        //判定用の全ての値を0に初期化
-        for (i = 0; i < girl1_hungryScoreSet1.Count; i++)
-        {
-            girl1_hungryScoreSet1[i] = 0;
-            girl1_hungryScoreSet2[i] = 0;
-            girl1_hungryScoreSet3[i] = 0;
-            girl1_hungryToppingScoreSet1[i] = 0;
-            girl1_hungryToppingScoreSet2[i] = 0;
-            girl1_hungryToppingScoreSet3[i] = 0;
-            girl1_hungryToppingNumberSet1[i] = 0;
-            girl1_hungryToppingNumberSet2[i] = 0;
-            girl1_hungryToppingNumberSet3[i] = 0;
-        } */       
+        }     
 
     }
 
@@ -1558,6 +1588,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (hukidashiitem != null)
         {
             Destroy(hukidashiitem);
+            hukidashion = false;
         }
     }
     
@@ -1863,7 +1894,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
 
                 //キャラクタ表情変更
-                face_girl_Surprise();
+                //face_girl_Surprise();
 
                 break;
 
@@ -2100,35 +2131,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     //口のあたりをクリックすると、ヒントを表示する。
     public void TouchSisterFace()
-    {
-        
-        DeleteHukidashiOnly(); //必ず吹き出しを一度削除する
-        touch_startreset();
-
-        //ランダムで、吹き出しの内容を決定
-        Init_touchFaceComment();
-
-        random = Random.Range(0, _touchface_comment_lib.Count);
-        _hintrandom = _touchface_comment_lib[random];
-        
-
-        //ヒントをだすか、今食べたいもののどちらかを表示する。
-        random = Random.Range(0, 100);
-        if (random < 75)
+    {        
+        if (hukidashion)
         {
-            hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
+            DeleteHukidashiOnly(); //必ず吹き出しを一度削除する
         }
         else
         {
-            if (GameMgr.QuestClearflag) //クリアした場合は、吹き出しのセリフ変わる。
-            {
-                hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
-            }
-            else
-            {
-                hukidashiitem.GetComponent<TextController>().SetText(_desc);
-            }
+            touch_startreset();
+            //ランダムで吹き出しの内容を出す。 or 今食べたいものをしゃべる。
+            NowEatText();
         }
+        
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
         comment_statusreset();
@@ -2249,7 +2263,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         if (hukidashiitem == null)
         {
-            hukidasiInit();
+            hukidasiInit(10.0f);
         }
 
         weightTween.Kill(); //フェードアウト中なら中断する
@@ -2550,6 +2564,45 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             StartCoroutine(ChangeFaceMotion(9999)); */
         }
+    }   
+
+    void IdleMotionHukidashiSetting(int _motion_num)
+    {
+        if (hukidashiitem == null)
+        {
+            hukidasiInit(10.0f);
+        }
+
+        switch (_motion_num)
+        {
+
+            case 3: //悲しみモーションのときのセリフ
+
+                
+                _touchface_comment_lib.Clear();
+                _touchface_comment_lib.Add("..ママ。");
+                _touchface_comment_lib.Add("ぐすん..。");
+                _touchface_comment_lib.Add("（..ママ。）");
+                _touchface_comment_lib.Add("..ママ。会いたいなぁ..。");               
+
+                break;
+
+            case 2: //怒るモーション
+
+                _touchface_comment_lib.Clear();
+                _touchface_comment_lib.Add("..にいちゃん。お菓子まだ～？");
+                break;
+
+            default:
+
+                _touchface_comment_lib.Clear();
+                _touchface_comment_lib.Add("..辛抱たまらん！");
+                break;
+        }
+
+        random = Random.Range(0, _touchface_comment_lib.Count);
+        _hintrandom = _touchface_comment_lib[random];
+        hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
     }
 
     IEnumerator ChangeFaceMotion(int _num) //番号を指定すると、0.1秒後に、facemotionの値だけを自動で切り替え。主に、モーションの重複の回避用に9999を入れなおしている。
@@ -2558,31 +2611,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         trans_facemotion = _num;
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion);
-    }
-
-    void IdleMotionHukidashiSetting(int _motion_num)
-    {
-        switch (_motion_num)
-        {
-
-            case 3:
-
-                if (hukidashiitem == null)
-                {
-                    hukidasiInit();
-                }
-                _touchface_comment_lib.Clear();
-                _touchface_comment_lib.Add("..ママ。");
-                _touchface_comment_lib.Add("ぐすん..。");
-                _touchface_comment_lib.Add("（..ママ。）");
-                _touchface_comment_lib.Add("..ママ。会いたいなぁ..。");
-
-                random = Random.Range(0, _touchface_comment_lib.Count);
-                _hintrandom = _touchface_comment_lib[random];
-                hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
-
-                break;
-        }
     }
 
     void Init_touchHeadComment()

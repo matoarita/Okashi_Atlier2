@@ -34,7 +34,7 @@ public class Compound_Main : MonoBehaviour
     private BGM sceneBGM;
     public bool bgm_change_flag;
     public bool bgm_change_flag2;
-    private bool bgm_changeuse_ON = false; //調合シーンで、BGMを切り替えるかどうか。
+    private bool bgm_changeuse_ON = true; //調合シーンで、BGMを切り替えるかどうか。
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -443,8 +443,8 @@ public class Compound_Main : MonoBehaviour
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
-        //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
-        girleat_toggle = Extremepanel_obj.transform.Find("Comp/GirlEat_Toggle").gameObject;
+        girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
+        //girleat_toggle = Extremepanel_obj.transform.Find("Comp/GirlEat_Toggle").gameObject;
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
@@ -1172,8 +1172,6 @@ public class Compound_Main : MonoBehaviour
                     if (ResultComplete_flag != 0) //厨房から帰ってくるときの動き
                     {
                         Debug.Log("厨房から戻ってくる。");
-                        //吹き出しの時間はリセット
-                        girl1_status.ResetHukidashiYodare();
 
                         //腹減りカウント一時停止
                         girl1_status.GirlEat_Judge_on = false;
@@ -1188,7 +1186,7 @@ public class Compound_Main : MonoBehaviour
                     }
                     else
                     {
-                        if (live2d_posmove_flag)
+                        if (live2d_posmove_flag) //調合シーンに入った時に、位置を変更するので、変更したという合図
                         {
                             trans_motion = 11; //位置をもとに戻す。
                             live2d_animator.SetInteger("trans_motion", trans_motion);

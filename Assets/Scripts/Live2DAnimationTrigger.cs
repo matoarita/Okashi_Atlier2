@@ -79,11 +79,17 @@ public class Live2DAnimationTrigger : MonoBehaviour {
             }
             else //失敗した場合
             {
+                //「失敗しちゃった..」って吹き出しもだしていいかも。
+                if (girl1_status.HukidashiFlag)
+                {
+                    girl1_status.hukidashiOkashiFailedReturnHome();
+                }
                 girl1_status.DefaultFace(); //現在の機嫌に合わせた表情に戻す
             }
 
-            //腹減りカウント再開
-            girl1_status.GirlEat_Judge_on = true;
+            //腹減りカウント再開は、吹き出しが消えたあと。
+            //girl1_status.GirlEat_Judge_on = true;
+            girl1_status.ResetHukidashiYodare();
         }
     }
 

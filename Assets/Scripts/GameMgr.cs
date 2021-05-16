@@ -155,6 +155,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
 
+    //現在のメインBGMの番号
+    public static int mainBGM_Num;
+
     /* セーブ　ここまで */
 
 
@@ -624,6 +627,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //一度に仕上げできる回数
         topping_Set_Count = 1;
+
+        //メインBGMの番号
+        mainBGM_Num = 0;
     }
     
     public static void InitCollectionItemsLibrary()

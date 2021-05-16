@@ -26,6 +26,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound15;  //「ねこのお墓」BGM
     public AudioClip sound16;  //チュートリアルBGM
     public AudioClip sound17;  //「ベリーファーム」BGM
+    public AudioClip sound18;  //Stage1MainのBGM2
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -149,7 +150,14 @@ public class BGM : MonoBehaviour {
             {
                 case 1:
 
-                    _bgm[0].clip = sound1;
+                    if (GameMgr.mainBGM_Num == 0)
+                    {
+                        _bgm[0].clip = sound1;
+                    }
+                    else if (GameMgr.mainBGM_Num == 1)
+                    {
+                        _bgm[0].clip = sound18;
+                    }
                     break;
 
                 case 2:

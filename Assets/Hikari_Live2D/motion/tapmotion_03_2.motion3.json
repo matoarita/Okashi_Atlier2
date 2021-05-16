@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 60,
-		"TotalSegmentCount": 138,
-		"TotalPointCount": 412,
+		"CurveCount": 65,
+		"TotalSegmentCount": 143,
+		"TotalPointCount": 422,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -581,6 +581,61 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamEyeClose",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCheek",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamSad",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCry",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamTojime",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamYodare",
 			"Segments": [
 				0,
 				0,

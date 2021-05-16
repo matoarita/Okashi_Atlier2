@@ -101,6 +101,25 @@ public class TextController : MonoBehaviour
         currentLine = 0;
         currentText = string.Empty;
         uiText.text = "";
+        uiText.color = new Color(75f / 255f, 52f / 255f, 34f / 255f);
+        textend_flag = false;
+        hint_on = false;
+
+        //Debug.Log("_contents: " + _contents);
+        scenarios.Add(_contents);
+
+        SetNextLine();
+        OnReadFlag = true; //読み込み開始
+    }
+
+    public void SetTextColorPink(string _contents)
+    {
+        //初期化
+        scenarios.Clear();
+        currentLine = 0;
+        currentText = string.Empty;
+        uiText.text = "";
+        uiText.color = new Color(255f / 255f, 92f / 255f, 161f / 255f);
         textend_flag = false;
         hint_on = false;
 

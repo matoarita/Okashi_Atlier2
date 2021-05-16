@@ -443,7 +443,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     }
                                     else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
                                         database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
-                                        database.items[i].itemType_sub.ToString() == "Crepe_Mat" || database.items[i].itemType_sub.ToString() == "Castella")
+                                        database.items[i].itemType_sub.ToString() == "Crepe_Mat" || database.items[i].itemType_sub.ToString() == "Castella" ||
+                                        database.items[i].itemType_sub.ToString() == "Source")
                                     {
                                         itemlist_hyouji();
                                     }
@@ -584,7 +585,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 }
                                 else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
                                     pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Castella")
+                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Castella" ||
+                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source")
                                 {
                                     original_itemlist_hyouji();
                                 }
