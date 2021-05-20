@@ -61,7 +61,7 @@ public class Compound_Check : MonoBehaviour {
 
     private GameObject FinalCheckPanel;
     private Text FinalCheck_Text;
-    private Text FinalCheck_itemText;
+    private string final_itemmes;
 
     private GameObject BlackImage;
 
@@ -114,8 +114,7 @@ public class Compound_Check : MonoBehaviour {
         resultitemName_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/TextPanel/Image/Result_item/NameText").gameObject;
 
         FinalCheckPanel = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel").gameObject;
-        FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/KakuritsuMessage/Text").GetComponent<Text>();
-        FinalCheck_itemText = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/ItemText").GetComponent<Text>();
+        FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/KakuritsuMessage/Image/Text").GetComponent<Text>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -270,12 +269,10 @@ public class Compound_Check : MonoBehaviour {
 
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
                 FinalCheck_ItemIconHyouji(0); //2個表示のとき
-                /*FinalCheck_itemText.text = database.items[itemID_1].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu1 + "\n"
-                    + database.items[itemID_2].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu2;*/
-               
 
-                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
-                    + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個";
+                _text.text = final_itemmes + "\n" + "作る？";
+                /*_text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
+                    + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個";*/
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
@@ -346,14 +343,12 @@ public class Compound_Check : MonoBehaviour {
                 FinalCheck_Text.text = success_text;
 
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
-                /*FinalCheck_itemText.text = database.items[itemID_1].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu1 + "\n"
-                    + database.items[itemID_2].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu2 + "\n"
-                    + database.items[itemID_3].itemNameHyouji + " × " + pitemlistController.final_kettei_kosu3;*/
                 FinalCheck_ItemIconHyouji(1); //3個表示のとき
 
-                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
+                _text.text = final_itemmes + "\n" + "作る？";
+                /*_text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
                     + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
-                    + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個";
+                    + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個";*/
 
                 //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
 
@@ -923,7 +918,6 @@ public class Compound_Check : MonoBehaviour {
                 newrecipi_flag = true;
                 exp_Controller.NewRecipiFlag = true;
                 //kakuritsuPanel.KakuritsuYosoku_NewImg(); //??にする。
-                resultitemName_obj.SetActive(false);
             }
             else
             {
@@ -1071,53 +1065,61 @@ public class Compound_Check : MonoBehaviour {
         _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_1].itemNameHyouji; //アイテム名
         texture2d = database.items[itemID_1].itemIcon_sprite;
         _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
-        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = "× " + pitemlistController.final_kettei_kosu1.ToString(); //個数
+        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = pitemlistController.final_kettei_kosu1.ToString(); //個数
 
         //×をいれる
-        _listitem.Add(Instantiate(finalcheck_Prefab2, content.transform));
-        list_count += 2; //一個飛ばし
+        //_listitem.Add(Instantiate(finalcheck_Prefab2, content.transform));
+        //list_count += 2; //一個飛ばし
+
+        list_count++;
 
         //二個目
         _listitem.Add(Instantiate(finalcheck_Prefab, content.transform));
         _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_2].itemNameHyouji; //アイテム名
         texture2d = database.items[itemID_2].itemIcon_sprite;
         _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
-        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = "× " + pitemlistController.final_kettei_kosu2.ToString(); //個数
+        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = pitemlistController.final_kettei_kosu2.ToString(); //個数
 
         if(_status == 1) //3個表示のとき
         {
             //×をいれる
-            _listitem.Add(Instantiate(finalcheck_Prefab2, content.transform));
-            list_count += 2;
+            //_listitem.Add(Instantiate(finalcheck_Prefab2, content.transform));
+            //list_count += 2;
+
+            list_count++;
 
             //三個目
             _listitem.Add(Instantiate(finalcheck_Prefab, content.transform));
             _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_3].itemNameHyouji; //アイテム名
             texture2d = database.items[itemID_3].itemIcon_sprite;
             _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
-            _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = "× " + pitemlistController.final_kettei_kosu3.ToString(); //個数
+            _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = pitemlistController.final_kettei_kosu3.ToString(); //個数
 
         }
 
         //リザルトアイテムの表示
         if (!newrecipi_flag)
         {
-            resultitem_Hyouji.transform.Find("NameText").GetComponent<Text>().text = database.items[pitemlistController.result_item].itemNameHyouji; //アイテム名
+            resultitemName_obj.GetComponent<Text>().text = database.items[pitemlistController.result_item].itemNameHyouji; //アイテム名
+            final_itemmes = database.items[pitemlistController.result_item].itemNameHyouji + "が出来そう！";
             texture2d = database.items[pitemlistController.result_item].itemIcon_sprite;
             resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
             resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(true);
             resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
-                "× " + databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
+                databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(false);
             resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(true);
         }
         else //新しいお菓子を思いつきそうな場合。アイコンは「？」とかになる。
         {
-            resultitem_Hyouji.transform.Find("NameText").GetComponent<Text>().text = "???"; //アイテム名
+            resultitemName_obj.GetComponent<Text>().text = "???"; //アイテム名
+            final_itemmes = "今までに作ったことのないお菓子が出来そう！";
             texture2d = Resources.Load<Sprite>("Sprites/Icon/question");
             resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
+            resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(true);
+            resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
+                databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
             //resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().color = new Color(256,256,256);
-            resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(false); //個数
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(true);
             resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(false);
         }

@@ -12,6 +12,8 @@ public class TimeController : MonoBehaviour
     private GameObject canvas;
     private Compound_Main compound_main;
 
+    private GirlEat_Judge girleat_judge;
+
     private GameObject _month_obj1;
     private GameObject _monthday_obj1;
     private GameObject _month_obj2;
@@ -45,7 +47,7 @@ public class TimeController : MonoBehaviour
     private int hour, minute;
 
     private int limit_month, limit_day;
-
+    private int timeIttei;
 
     public int max_time;
     private int count;
@@ -76,6 +78,8 @@ public class TimeController : MonoBehaviour
             case "Compound":
 
                 compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+
+                girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
                 break;
         }
 
@@ -136,6 +140,8 @@ public class TimeController : MonoBehaviour
         count_switch = true;
 
         money_counter = false;
+
+        timeIttei = 0;
     }
 
     private void OnEnable()
@@ -154,6 +160,15 @@ public class TimeController : MonoBehaviour
         {
             timeLeft = 1.0f;
             count_switch = !count_switch;
+            timeIttei++;
+        }
+
+        //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
+        if(timeIttei >= 20 )
+        {
+            timeIttei = 0;
+
+            girleat_judge.DegHeart(-1);
         }
 
         if (count_switch)
@@ -175,7 +190,7 @@ public class TimeController : MonoBehaviour
 
     public void TimeKoushin()
     {
-        //時間、ひとまず未使用のため、OFFに。
+        
         if (GameMgr.TimeUSE_FLAG) //TRUEのときは使用。オフにするときは、TimePanelのゲームオブジェクトもオフにする。
         {
             InitParam();

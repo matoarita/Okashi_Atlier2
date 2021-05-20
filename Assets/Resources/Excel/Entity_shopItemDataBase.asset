@@ -430,118 +430,132 @@ MonoBehaviour:
       shop_buy_price: 5
       item_hyouji: 1
     - ItemID: 101
+      name: egg_white
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 5
+      shop_buy_price: 5
+      item_hyouji: 3
+    - ItemID: 102
+      name: egg_yellow
+      zaiko: 50
+      itemType: 0
+      shop_sell_price: 5
+      shop_buy_price: 5
+      item_hyouji: 3
+    - ItemID: 103
       name: milk
       zaiko: 50
       itemType: 0
       shop_sell_price: 10
       shop_buy_price: 10
       item_hyouji: 1
-    - ItemID: 102
+    - ItemID: 104
       name: row_cream
       zaiko: 50
       itemType: 0
       shop_sell_price: 15
       shop_buy_price: 10
       item_hyouji: 1
-    - ItemID: 103
+    - ItemID: 105
       name: yogurt
       zaiko: 50
       itemType: 0
       shop_sell_price: 15
       shop_buy_price: 10
       item_hyouji: 3
-    - ItemID: 104
+    - ItemID: 106
       name: cream_cheese
       zaiko: 50
       itemType: 0
       shop_sell_price: 80
       shop_buy_price: 40
       item_hyouji: 1
-    - ItemID: 105
+    - ItemID: 107
       name: ricotta_cheese
       zaiko: 50
       itemType: 0
       shop_sell_price: 150
       shop_buy_price: 75
       item_hyouji: 3
-    - ItemID: 106
+    - ItemID: 108
       name: zarame
       zaiko: 50
       itemType: 0
       shop_sell_price: 40
       shop_buy_price: 20
       item_hyouji: 1
-    - ItemID: 107
+    - ItemID: 109
       name: suger
       zaiko: 50
       itemType: 0
       shop_sell_price: 10
       shop_buy_price: 5
       item_hyouji: 0
-    - ItemID: 108
+    - ItemID: 110
       name: salt
       zaiko: 50
       itemType: 0
       shop_sell_price: 8
       shop_buy_price: 4
       item_hyouji: 0
-    - ItemID: 109
+    - ItemID: 111
       name: honey
       zaiko: 50
       itemType: 3
       shop_sell_price: 20
       shop_buy_price: 7
       item_hyouji: 1
-    - ItemID: 110
+    - ItemID: 112
       name: siboribukuro
       zaiko: 1
       itemType: 2
       shop_sell_price: 70
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 111
+    - ItemID: 113
       name: whisk
       zaiko: 1
       itemType: 2
       shop_sell_price: 150
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 112
+    - ItemID: 114
       name: itembox_2
       zaiko: 1
       itemType: 6
       shop_sell_price: 2000
       shop_buy_price: 1000
       item_hyouji: 1
-    - ItemID: 113
+    - ItemID: 115
       name: white_lily
       zaiko: 1
       itemType: 6
       shop_sell_price: 600
       shop_buy_price: 300
       item_hyouji: 1
-    - ItemID: 114
+    - ItemID: 116
       name: green_pendant
       zaiko: 1
       itemType: 6
       shop_sell_price: 3000
       shop_buy_price: 1500
       item_hyouji: 1
-    - ItemID: 115
+    - ItemID: 117
       name: recipibook_4
       zaiko: 1
       itemType: 1
       shop_sell_price: 100
       shop_buy_price: 50
       item_hyouji: 1
-    - ItemID: 116
+    - ItemID: 118
       name: recipibook_5
       zaiko: 1
       itemType: 1
       shop_sell_price: 300
       shop_buy_price: 150
       item_hyouji: 1
-    - ItemID: 117
+    - ItemID: 119
       name: castella_recipi
       zaiko: 1
       itemType: 1

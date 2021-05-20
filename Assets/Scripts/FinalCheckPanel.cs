@@ -46,7 +46,7 @@ public class FinalCheckPanel : MonoBehaviour {
         updown_counter.GetComponent<CanvasGroup>().alpha = 0;
 
         //sequence.Append(transform.DOScale(new Vector3(0.65f, 0.65f, 0.65f), 0.0f));
-        sequence.Append(_comp.transform.DOLocalMove(new Vector3(0f, 50f, 0), 0.0f)
+        sequence.Append(_comp.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
             .SetRelative()); //元の位置から30px上に置いておく。
         sequence.Join(updown_counter.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
             .SetRelative()); //元の位置から30px上に置いておく。
@@ -55,7 +55,7 @@ public class FinalCheckPanel : MonoBehaviour {
         //移動のアニメ
         /*sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
             .SetEase(Ease.OutExpo));*/
-        sequence.Append(_comp.transform.DOLocalMove(new Vector3(0f, -50f, 0), 1.0f)
+        sequence.Append(_comp.transform.DOLocalMove(new Vector3(50f, 0f, 0), 1.0f)
             .SetRelative()
             .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
         sequence.Join(updown_counter.transform.DOLocalMove(new Vector3(50f, 0f, 0), 1.0f)

@@ -34,7 +34,7 @@ public class Compound_Main : MonoBehaviour
     private BGM sceneBGM;
     public bool bgm_change_flag;
     public bool bgm_change_flag2;
-    private bool bgm_changeuse_ON = true; //調合シーンで、BGMを切り替えるかどうか。
+    private bool bgm_changeuse_ON = false; //調合シーンで、BGMを切り替えるかどうか。
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -3075,13 +3075,13 @@ public class Compound_Main : MonoBehaviour
 
                     if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
                     {
-                        _textmain.text = "「メニュー」を開いて、「お菓子を作る」から、" + "\n" + "クッキーを作ってみよう。";
+                        _textmain.text = "「メニュー」を開いて、" + GameMgr.ColorLemon + "「お菓子パネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみよう。";
                     }
                     else
                     {
                         if (!GameMgr.Beginner_flag[0]) //クッキーをまだあげていない
                         {
-                            _textmain.text = "「あげる」ボタンを押して、クッキーをあげてみよう！";
+                            _textmain.text = GameMgr.ColorLemon + "「あげる」" + "</color>" + "ボタンを押して、クッキーをあげてみよう！";
                         }
                     }
                     break;
@@ -3514,11 +3514,13 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add(50);
                     _todayfood_lib.Add("ゆでじゃがいも");
                     _todayfoodexpence_lib.Add(70);
-                    _todayfood_lib.Add("野菜の端っこ");
+                    _todayfood_lib.Add("野菜の端っこゆで");
                     _todayfoodexpence_lib.Add(50);
                     _todayfood_lib.Add("ほしにくのせパン");
                     _todayfoodexpence_lib.Add(100);
                     _todayfood_lib.Add("おねぎとにんじんピザ");
+                    _todayfoodexpence_lib.Add(30);
+                    _todayfood_lib.Add("きのことにんじんピザ");
                     _todayfoodexpence_lib.Add(30);
                     break;
 
