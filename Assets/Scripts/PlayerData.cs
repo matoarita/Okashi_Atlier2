@@ -183,6 +183,8 @@ public class PlayerData
     public float save_BGMVolumeParam;
     public float save_SeVolumeParam;
 
+    public int save_mainBGM_Num;
+
     public override string ToString()
     {
         return $"{ base.ToString() } { JsonUtility.ToJson(this) }";

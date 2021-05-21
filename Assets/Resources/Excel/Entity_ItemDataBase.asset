@@ -6954,7 +6954,7 @@ MonoBehaviour:
       watery: 0
       beauty: 30
       type: Okashi
-      subtype: Crepe
+      subtype: Crepe_Mat
       base_score: 60
       girl1_like: 1
       cost_price: 300

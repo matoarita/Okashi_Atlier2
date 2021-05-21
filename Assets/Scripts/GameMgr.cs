@@ -155,6 +155,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
 
+    //オプションの設定　マスター音量など
+    public static float MasterVolumeParam;
+    public static float BGMVolumeParam;
+    public static float SeVolumeParam;
+
     //現在のメインBGMの番号
     public static int mainBGM_Num;
 
@@ -304,12 +309,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool KeyInputOff_flag;
 
     //メインメッセージを更新するタイミング用のフラグ
-    public static bool MesaggeKoushinON;
-
-    //オプションの設定　マスター音量など
-    public static float MasterVolumeParam;
-    public static float BGMVolumeParam;
-    public static float SeVolumeParam;
+    public static bool MesaggeKoushinON;    
 
     public static bool Scene_back_home; //シーンから、メイン画面にもどるときの、ドア開閉時の音を鳴らす用のフラグ。
 

@@ -458,7 +458,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     if (GameMgr.TimeUSE_FLAG)
                     {
                         _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[_place_num].placeDay); //行きの時間だけ計算
-                        if (_yosokutime >= time_controller.max_time * 6)
+                        if (_yosokutime >= time_controller.max_time * 12)
                         {
                             //20時を超えるので、妹に止められる。
                             _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
@@ -570,6 +570,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     //日数の経過。場所ごとに、移動までの日数が変わる。
                     PlayerStatus.player_time += select_place_day;
                     time_controller.TimeKoushin();
+
+                    //時間の項目リセット
+                    time_controller.ResetTimeFlag();
 
                     //お金の消費
                     moneyStatus_Controller.UseMoney(mat_cost);

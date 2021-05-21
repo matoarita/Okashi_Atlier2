@@ -47,7 +47,9 @@ public class TimeController : MonoBehaviour
     private int hour, minute;
 
     private int limit_month, limit_day;
-    private int timeIttei;
+
+    public int timeIttei; //表示用にpublicにしてるだけ。
+    public bool timeDegHeart_flag; //表示用にpublicにしてるだけ。
 
     public int max_time;
     private int count;
@@ -65,6 +67,8 @@ public class TimeController : MonoBehaviour
     {
         InitParam();
 
+        timeIttei = 0;
+        timeDegHeart_flag = false;
         TimeCheck_flag = false;
     }
 
@@ -139,9 +143,7 @@ public class TimeController : MonoBehaviour
         timeLeft = 1.0f;
         count_switch = true;
 
-        money_counter = false;
-
-        timeIttei = 0;
+        money_counter = false;        
     }
 
     private void OnEnable()
@@ -160,15 +162,59 @@ public class TimeController : MonoBehaviour
         {
             timeLeft = 1.0f;
             count_switch = !count_switch;
-            timeIttei++;
+
+            if (!GameMgr.scenario_ON)
+            {
+                if (compound_main.compound_status == 22 || compound_main.compound_status == 12) //採集中は減らない
+                {
+
+                }
+                else
+                {
+                    timeIttei++;
+                }
+            }
         }
 
         //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
-        if(timeIttei >= 20 )
+        if (!GameMgr.scenario_ON)
         {
-            timeIttei = 0;
+            if (compound_main.compound_status == 22 || compound_main.compound_status == 12) //採集中かお菓子あげ途中は減らない
+            {
 
-            girleat_judge.DegHeart(-1);
+            }
+            else
+            {
+                switch (timeDegHeart_flag)
+                {
+                    case false:
+
+                        if (timeIttei >= 30) //放置して30秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
+                        {
+                            timeIttei = 0;
+                            timeDegHeart_flag = true;
+
+                            girleat_judge.DegHeart(-1);
+
+                            PlayerStatus.player_time++;
+                            TimeKoushin();
+                        }
+                        break;
+
+                    case true:
+
+                        if (timeIttei >= 20)
+                        {
+                            timeIttei = 0;
+
+                            girleat_judge.DegHeart(-1);
+
+                            PlayerStatus.player_time++;
+                            TimeKoushin();
+                        }
+                        break;
+                }
+            }
         }
 
         if (count_switch)
@@ -271,14 +317,14 @@ public class TimeController : MonoBehaviour
         hour = 8; //8時始まり
         minute = 0;
 
-        //10分刻みなので、6ごとに時間を+1
+        //10分刻みなので、6ごとに時間を+1 5分刻みなら12ごとに時間を+1
         count = 0;
         while (_cullent_time > 0)
         {
-            if (_cullent_time >= 6)
+            if (_cullent_time >= 12)
             {
                 hour++;
-                _cullent_time -= 6;
+                _cullent_time -= 12;
                 ++count;
 
                 if (hour > 24 )
@@ -289,7 +335,7 @@ public class TimeController : MonoBehaviour
             }
             else //その月の日付
             {
-                minute = _cullent_time * 10; //残り時間 * 10分
+                minute = _cullent_time * 5; //残り時間 * 10分
                 _cullent_time = 0;
                 break;
             }
@@ -350,5 +396,11 @@ public class TimeController : MonoBehaviour
 
         PlayerStatus.player_cullent_Deadmonth = limit_month;
         PlayerStatus.player_cullent_Deadday = limit_day;
+    }
+
+    public void ResetTimeFlag() //compound_mainなどから読む。compound_status=0のときにリセットする
+    {
+        timeDegHeart_flag = false;
+        timeIttei = 0;
     }
 }

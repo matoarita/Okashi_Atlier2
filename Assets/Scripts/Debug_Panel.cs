@@ -283,7 +283,7 @@ public class Debug_Panel : MonoBehaviour {
                         //Debug.Log("GameMgr.GirlLoveEvent_stage1[i]: " + GameMgr.GirlLoveEvent_stage1[i]);
 
                         //点数は、60点でクリアしたことにする。
-                        special_quest.special_score_record[i, 0] = 60;
+                        special_quest.special_score_record[i] = 60;
                                             
                     }
                     break;
@@ -294,7 +294,6 @@ public class Debug_Panel : MonoBehaviour {
             //**              
             
             girl1_status.OkashiNew_Status = 1; //クエストクリアで、1に戻す。0にすると、次のクエストが開始する。（スペシャル吹き出し登場する）
-            special_quest.special_kaisu = 0;
             girl1_status.special_animatFirst = false;
 
             GameMgr.QuestClearflag = false; //クエストクリアフラグ系をオフに。
@@ -553,6 +552,14 @@ public class Debug_Panel : MonoBehaviour {
             }
 
             //スライダマックスバリューも更新
+            if (PlayerStatus.girl1_Love_lv <= 1)
+            {
+                _slider.minValue = 0;
+            }
+            else
+            {
+                _slider.minValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 2];
+            }
             _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
 
             _slider.value = _girllove_param;

@@ -25,6 +25,15 @@ public class Result_Panel : MonoBehaviour
     private Color text_default_color;
     private List<GameObject> _liststar = new List<GameObject>();
 
+    private GameObject kiraEffect_1;
+    private GameObject kiraEffect_2;
+    private GameObject score_backIcon;
+    private Sprite scoreIcon_sprite_1;
+    private Sprite scoreIcon_sprite_2;
+    private Sprite scoreIcon_sprite_3;
+    private bool anim_on1;
+    private bool anim_on2;
+
     private int getlove_exp;
     private int Total_score;
     private int star_count;
@@ -101,6 +110,19 @@ public class Result_Panel : MonoBehaviour
         GoukakuPanel = this.transform.Find("Image/GoukakuPanel").gameObject;
         GoukakuPanel.GetComponent<CanvasGroup>().alpha = 0;
         text_default_color = GoukakuPanel.transform.Find("Text").GetComponent<Text>().color;
+
+        //キラエフェクト系
+        kiraEffect_1 = this.transform.Find("Particle_KiraExplodeScore").gameObject;
+        kiraEffect_1.SetActive(false);
+        kiraEffect_2 = this.transform.Find("Particle_StarBG").gameObject;
+        kiraEffect_2.SetActive(false);
+        score_backIcon = this.transform.Find("Image/ScoreBackIcon").gameObject;
+        scoreIcon_sprite_1 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_blue_50");
+        scoreIcon_sprite_2 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_orange_50");
+        scoreIcon_sprite_3 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_pink_50");
+        score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_1;
+        anim_on1 = false;
+        anim_on2 = false;
 
         currentDispCoin = 0;
         coinTween = null;
@@ -186,15 +208,41 @@ public class Result_Panel : MonoBehaviour
 
             if (currentDispCoin < GameMgr.low_score) //文字色をかえる。
             {
-                okashi_score_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //茶色　(129f / 255f, 87f / 255f, 60f / 255f) 青文字(105f / 255f, 168f / 255f, 255f / 255f)      
+                okashi_score_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //白　(129f / 255f, 87f / 255f, 60f / 255f) 青文字(105f / 255f, 168f / 255f, 255f / 255f)      
             }
             else if (currentDispCoin >= GameMgr.low_score && currentDispCoin < GameMgr.high_score)
             {
-                okashi_score_text.color = new Color(255f / 255f, 252f / 255f, 158f / 255f); //ピンク
+                okashi_score_text.color = new Color(255f / 255f, 252f / 255f, 158f / 255f); //うす黄色
+                
             }
             else
             {
-                okashi_score_text.color = new Color(255f / 255f, 105f / 255f, 139f / 255f); //みどり　(118f / 255f, 255f / 255f, 142f / 255f) 黄色(255f / 255f, 252f / 255f, 158f / 255f)
+                okashi_score_text.color = new Color(255f / 255f, 252f / 255f, 158f / 255f); //うす黄色　ピンク(255f / 255f, 105f / 255f, 139f / 255f)
+            }
+
+            //60点以上で背景アイコンが黄色に変わる演出
+
+            if (currentDispCoin == GameMgr.low_score)
+            {
+                if (!anim_on1)
+                {
+                    anim_on1 = true;
+                    score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
+                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_2;
+                }
+            }
+            
+
+            //85点以上で背景アイコンが赤に変わる演出
+            if (currentDispCoin == GameMgr.high_score)
+            {
+                if (!anim_on2)
+                {
+                    anim_on2 = true;
+                    score_backIcon.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0);
+                    score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
+                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_3;
+                }
             }
 
             okashi_score_text.text = string.Format("{0:#,0}", val);
@@ -336,6 +384,8 @@ public class Result_Panel : MonoBehaviour
             _listEffect[0].transform.Find("Pos").transform.localPosition = Getlove_panel.transform.localPosition;
             _listEffect[0].transform.Find("Pos").transform.DOLocalMove(new Vector3(0f, -20f, 0), 0.0f).SetRelative();
 
+            kiraEffect_1.SetActive(true);
+            //kiraEffect_2.SetActive(true);
         }
         else //さがったときの音
         {

@@ -630,7 +630,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                     rnd = Random.Range(1.0f, 2.0f);
                                     timeOut = Default_hungry_cooltime + rnd;
-                                    Girl_Full();
+                                    DeleteHukidashiOnly();
 
                                     //キャラクタ表情変更
                                     DefFaceChange();
@@ -641,7 +641,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
 
                                     timeOut = Default_hungry_cooltime;
-                                    Girl_Full();
+                                    DeleteHukidashiOnly();
 
                                     //キャラクタ表情変更
                                     DefFaceChange();
@@ -947,7 +947,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void CheckGokigen()
     {
         //女の子の今のご機嫌
-        if (PlayerStatus.girl1_Love_exp >= 0 && PlayerStatus.girl1_Love_lv < 2) //1
+        if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 2) //1
         {
             //ご機嫌ななめ
             GirlGokigenStatus = 0;
@@ -1333,13 +1333,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
     }
 
-    public void Girl_Full()
+    /*public void Girl_Full() //compound_mainから読み込んでいる。
     {
         if (hukidashiitem != null)
         {
             DeleteHukidashi();
         }
-    }
+
+        timeOut = 5.0f;
+    }*/
 
     public void Girl_hukidashi_Off()
     {
@@ -1382,7 +1384,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //デフォルト・共通の腹減り初期化設定
     public void Girl1_Status_Init()
     {
-        timeOut = 5.0f;
+        //timeOut = 5.0f;
 
         timeGirl_hungry_status = 0;
     }
@@ -2115,8 +2117,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidashiitem.GetComponent<TextController>().SetText("..。");
         }
         Girl1_touchtwintail_count++;
-
-        comment_statusreset();
     }
 
     IEnumerator WaitTwintailSeconds()
@@ -2145,7 +2145,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
-        comment_statusreset();
         timeOutHint = 10.0f;
 
     }
@@ -2162,8 +2161,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         hukidashiitem.GetComponent<TextController>().SetText("お母さんが誕生日にくれたリボンだよ～。うひひ。");
 
-        comment_statusreset();
-
     }
 
     //手
@@ -2178,8 +2175,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _touchhand_comment = _touchhand_comment_lib[random];
 
         hukidashiitem.GetComponent<TextController>().SetText(_touchhand_comment);
-
-        comment_statusreset();
 
     }
 
@@ -2211,8 +2206,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         hukidashiitem.GetComponent<TextController>().SetText(_touchchest_comment);
 
-        comment_statusreset();
-
     }
 
     //花
@@ -2221,8 +2214,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         touch_startreset();
 
         hukidashiitem.GetComponent<TextController>().SetText("お兄ちゃん。それは花だよ。しおれてたら、お水をあげてね。");
-
-        comment_statusreset();
     }
 
 
@@ -2263,19 +2254,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         if (hukidashiitem == null)
         {
-            hukidasiInit(10.0f);
+            hukidasiInit(999.0f);
         }
 
         weightTween.Kill(); //フェードアウト中なら中断する
         tween_start = false;
-    }
-
-    void comment_statusreset()
-    {
-        //5秒ほど表示したら、また食べたいお菓子を表示か削除
-        WaitHint_on = true;
-        timeOutHint = 5.0f;
-        GirlEat_Judge_on = false;
     }
 
     //髪なでなで時のモーションセット1
@@ -3116,20 +3099,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
 
-
+    //ハートレベルアップテーブル
     void Init_Stage1_LVTable()
     {
         stage1_lvTable.Clear();
         stage1_lvTable.Add(20); //LV2。LV1で、次のレベルが上がるまでの好感度値
         stage1_lvTable.Add(70);　//LV3 LV1の分は含めない。
-        stage1_lvTable.Add(200); //LV4
-        stage1_lvTable.Add(450); //LV5
-        stage1_lvTable.Add(600); //LV6
+        stage1_lvTable.Add(130); //LV4
+        stage1_lvTable.Add(200); //LV5
+        stage1_lvTable.Add(350); //LV6
+        stage1_lvTable.Add(550); //LV7
 
-        //LV7以上～99まで　200ごとに上がるように設定
+        //LV8以上～99まで　200ごとに上がるように設定
         for (i=1; i < ( 99 - stage1_lvTable.Count); i++)
         {
-            stage1_lvTable.Add(600+(i*200));
+            stage1_lvTable.Add(stage1_lvTable[stage1_lvTable.Count-1] + (i*200));
         }
     }
 

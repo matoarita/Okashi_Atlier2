@@ -623,7 +623,8 @@ public class Compound_Main : MonoBehaviour
 
                         //一時的に腹減りを止める。+腹減りステータスをリセット
                         girl1_status.GirlEat_Judge_on = false;
-                        girl1_status.Girl_Full();
+                        girl1_status.DeleteHukidashiOnly();
+                        //girl1_status.Girl_Full();
                         girl1_status.Girl1_Status_Init();
                         girl1_status.OkashiNew_Status = 1;
                         GameMgr.tutorial_Num = 1; //退避
@@ -1017,7 +1018,8 @@ public class Compound_Main : MonoBehaviour
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEat_Judge_on = false;
-                girl1_status.Girl_Full();
+                //girl1_status.Girl_Full();
+                girl1_status.DeleteHukidashiOnly();
                 girl1_status.Girl1_Status_Init();
 
                 touch_controller.Touch_OnAllOFF();
@@ -1158,7 +1160,7 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.facemotion_start = false;
                 girl1_status.facemotion_init = false;
                 girl1_status.tween_start = false;
-
+                
                 //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
                 if (getmatplace.slot_view_status == 0)
                 {
@@ -2392,6 +2394,7 @@ public class Compound_Main : MonoBehaviour
         text_area_Main.SetActive(false);
         UIOpenButton_obj.SetActive(false);
 
+        GameMgr.scenario_ON = true;
         GameMgr.recipi_read_ID = pitemlist.eventitemlist[recipi_num].ev_ItemID;
         GameMgr.recipi_read_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
                                          //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
@@ -2402,6 +2405,7 @@ public class Compound_Main : MonoBehaviour
         }
 
         GameMgr.recipi_read_endflag = false;
+        GameMgr.scenario_ON = false;
         Recipi_loading = false;
 
         /* レシピを読む処理 */
@@ -2437,6 +2441,9 @@ public class Compound_Main : MonoBehaviour
 
                 yes_no_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
                 break;
 
             case false:
@@ -2838,7 +2845,8 @@ public class Compound_Main : MonoBehaviour
 
         //腹減りカウント一時停止
         girl1_status.GirlEat_Judge_on = false;
-        girl1_status.Girl_Full();
+        //girl1_status.Girl_Full();
+        girl1_status.DeleteHukidashiOnly();
         girl1_status.Girl1_Status_Init();
 
         //厨房から帰ってくる場合の、モーションもリセット
@@ -2862,7 +2870,8 @@ public class Compound_Main : MonoBehaviour
         {
             sceneBGM.MuteBGM();
         }
-        
+
+        GameMgr.scenario_ON = true;
         GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         while (!GameMgr.girlloveevent_endflag)
@@ -2871,6 +2880,7 @@ public class Compound_Main : MonoBehaviour
         }
 
         GameMgr.girlloveevent_endflag = false;
+        GameMgr.scenario_ON = false;
         sceneBGM.MuteOFFBGM();
         mute_on = false;
 
@@ -3249,7 +3259,7 @@ public class Compound_Main : MonoBehaviour
             { }
             else
             {
-                if (PlayerStatus.girl1_Love_lv >= 4 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
+                if (PlayerStatus.girl1_Love_lv >= 6 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
                 {
                     GameMgr.GirlLoveSubEvent_num = 60;
                     GameMgr.GirlLoveSubEvent_stage1[60] = true;

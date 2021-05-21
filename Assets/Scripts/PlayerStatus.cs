@@ -67,8 +67,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_extreme_kaisu = player_extreme_kaisu_Max;
 
         //妹のステータス初期設定
-        girl1_Love_exp = 0;
-        girl1_Love_lv = 1;
+        girl1_Love_exp = 100;
+        girl1_Love_lv = 3;
         player_girl_findpower_def = 100;
         player_girl_findpower = player_girl_findpower_def; //探索力
         player_girl_maxlifepoint = 10;

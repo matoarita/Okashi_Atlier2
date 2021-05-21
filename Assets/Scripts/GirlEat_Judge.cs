@@ -517,18 +517,11 @@ public class GirlEat_Judge : MonoBehaviour {
                     stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
                 }
 
+                //スライダ表示を更新
 
                 //スライダのMAXを設定。現在の好感度レベルで変わる。
-                Love_Slider_Setting();
-
-                //スライダ表示を更新
-                //i = 0;
+                Love_Slider_Setting();              
                 girllove_param = PlayerStatus.girl1_Love_exp;
-                /*while (i < PlayerStatus.girl1_Love_lv - 1)
-                {
-                    girllove_param -= stage_levelTable[i];
-                    i++;
-                }*/
                 _slider.value = girllove_param;
 
                 //レベルを表示
@@ -1179,7 +1172,6 @@ public class GirlEat_Judge : MonoBehaviour {
                     //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
                     if (dislike_flag)
                     {
-                        //quest_clear = true;
                         break;
                     }
 
@@ -1633,7 +1625,6 @@ public class GirlEat_Judge : MonoBehaviour {
         if (topping_all_non && !topping_flag)
         {
             topping_score += girl1_status.girl1_NonToppingScoreSet[countNum]; //点数がマイナスに働く。
-            //quest_clear = false;
         }
         Debug.Log("トッピングスコア: " + topping_score);
 
@@ -2277,9 +2268,9 @@ public class GirlEat_Judge : MonoBehaviour {
         StartCoroutine("OkashiAfterFaceChange");//2秒ぐらいしたら、表情だけすぐに戻す。
 
         //そのクエストでの最高得点を保持。（マズイときは、失敗フラグ＝0点）
-        if (special_quest.special_score_record[special_quest.spquest_set_num, 0] <= total_score)
+        if (special_quest.special_score_record[special_quest.spquest_set_num] <= total_score)
         {
-            special_quest.special_score_record[special_quest.spquest_set_num, 0] = total_score;
+            special_quest.special_score_record[special_quest.spquest_set_num] = total_score;
         }
 
         if (!GameMgr.tutorial_ON)
@@ -2289,8 +2280,6 @@ public class GirlEat_Judge : MonoBehaviour {
             if (!non_spquest_flag) //メインのSPお菓子クエストの場合。クエスト以外のお菓子を揚げた場合、クエストクリアボタンなどの処理を除外する。
             {
                 Debug.Log("クリア分岐１");
-                //クエスト挑戦回数を増やす。
-                special_quest.special_kaisu++;
 
                 //食べたいお菓子で、60点以上かつトッピングもちゃんとのってる場合は、クエストクリアボタンでるように。
                 if (total_score >= GameMgr.low_score)
@@ -2321,22 +2310,23 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
             }
 
-
             //クリア分岐2　クエストお菓子・クエスト以外のお菓子、両方でチェック。ステージクリアに必要なハート量がたまったかどうか。
-            /*
-            if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
-            {
-            }
-            else
-            { 
-                if (GameMgr.stageclear_cullentlove >= GameMgr.stageclear_love)
+            if (!quest_clear)
+            {                          
+                if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
                 {
-                    Debug.Log("クリア分岐２");
-                    quest_clear = true;
-                    _windowtext.text = "満足しているようだ。";
+                }
+                else
+                {
+                    if (GameMgr.stageclear_cullentlove >= GameMgr.stageclear_love)
+                    {
+                        Debug.Log("クリア分岐２");
+                        quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
                 }
             }
-            */
+            
 
         }
     }
@@ -2723,13 +2713,10 @@ public class GirlEat_Judge : MonoBehaviour {
         if (_slider.value >= _slider.maxValue)
         {
             PlayerStatus.girl1_Love_lv++;
-            girl1_status.LvUpStatus();           
+            girl1_status.LvUpStatus();
 
             //Maxバリューを再設定
-            Love_Slider_Setting();
-            //_slider.value = 0;
-
-            girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
+            Love_Slider_Setting();            
 
             //分かりやすくするように、レベルアップ時のパネルも表示
             _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, canvas.transform));
@@ -2815,20 +2802,45 @@ public class GirlEat_Judge : MonoBehaviour {
         girl_param.color = origin_color;
 
         Slider_Koushin(_tempresultGirllove);
+
+        //もし、ハートが０になっていたら、ゲームオーバーをだす？
     }
 
     //スライダバリューを正確に更新。現在の好感度数値をいれればOK
     void Slider_Koushin(int cullent_value)
-    {
-        
+    {        
         _slider.value = cullent_value;
+
+        if(_slider.minValue > cullent_value)
+        {
+            if (cullent_value <= 0) //0より下回る場合は、何もしない。
+            {
+
+            }
+            else
+            {
+                //ゲージの最小を下回った場合は、レベルが下がる。
+                PlayerStatus.girl1_Love_lv--;
+                Love_Slider_Setting();
+            }
+        }
     }
 
     //スライダマックスバリューを更新
     public void Love_Slider_Setting()
     {
-
+        if(PlayerStatus.girl1_Love_lv <= 1)
+        {
+            _slider.minValue = 0;
+        }
+        else
+        {
+            _slider.minValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 2];
+        }
+        
         _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+
+        girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
 
     }
 
@@ -3227,7 +3239,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //ボタンが登場する演出
             StartCoroutine("ClearButtonAnim");
         }
-        else //クエストクリアの場合、下からハートと光がでる演出。数秒待って次のSPクエスト開始
+        else //クエストクリアで、ボタン登場演出がない場合。
         {
             canvas.SetActive(true);
 
@@ -3345,7 +3357,6 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         //初期化 
-        special_quest.special_kaisu = 0;
         girl1_status.special_animatFirst = false;
 
         //次のお菓子クエストがあるかどうかをチェック。

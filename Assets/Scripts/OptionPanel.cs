@@ -86,8 +86,14 @@ public class OptionPanel : MonoBehaviour {
         bgm_toggle.Clear();
         foreach (Transform child in this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Scroll_View/Viewport/Content").transform) //
         {
-            bgm_toggle.Add(child.gameObject.GetComponent<Toggle>());
-        }        
+            bgm_toggle.Add(child.gameObject.GetComponent<Toggle>());           
+        }
+
+        for(i=0; i < bgm_toggle.Count; i++)
+        {
+            bgm_toggle[i].SetIsOnWithoutCallback(false);
+        }
+        bgm_toggle[GameMgr.mainBGM_Num].SetIsOnWithoutCallback(true);
     }
 
     private void OnEnable()
@@ -151,6 +157,10 @@ public class OptionPanel : MonoBehaviour {
         else if (bgm_toggle[1].isOn)
         {
             GameMgr.mainBGM_Num = 1;
+        }
+        else if (bgm_toggle[2].isOn)
+        {
+            GameMgr.mainBGM_Num = 2;
         }
 
         switch (SceneManager.GetActiveScene().name)

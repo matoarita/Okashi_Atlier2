@@ -316,6 +316,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_masterVolumeparam = GameMgr.MasterVolumeParam,
             save_BGMVolumeParam = GameMgr.BGMVolumeParam,
             save_SeVolumeParam = GameMgr.SeVolumeParam,
+
+            save_mainBGM_Num = GameMgr.mainBGM_Num,
         };
        
 
@@ -570,6 +572,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.MasterVolumeParam = playerData.save_masterVolumeparam;
         GameMgr.BGMVolumeParam = playerData.save_BGMVolumeParam;
         GameMgr.SeVolumeParam = playerData.save_SeVolumeParam;
+
+        GameMgr.mainBGM_Num = playerData.save_mainBGM_Num;
 
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);

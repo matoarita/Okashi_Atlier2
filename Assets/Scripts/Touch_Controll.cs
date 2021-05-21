@@ -8,11 +8,14 @@ using Live2D.Cubism.Rendering;
 
 public class Touch_Controll : MonoBehaviour
 {
+    private GameObject canvas;
 
     private SoundController sc;
 
     private Girl1_status girl1_status;
     private GirlEat_Judge girleat_judge;
+
+    private TimeController time_controller;
 
     private bool ALL_touch_flag;
 
@@ -37,6 +40,9 @@ public class Touch_Controll : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();     
 
@@ -44,6 +50,9 @@ public class Touch_Controll : MonoBehaviour
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
         girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+
+        //時間管理オブジェクトの取得
+        time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
 
         //Live2Dモデルの取得
         _model = GameObject.FindWithTag("CharacterLive2D").gameObject;
@@ -108,6 +117,9 @@ public class Touch_Controll : MonoBehaviour
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
                 timeOut = time_inter_default;
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
             }
         }
     }
@@ -127,6 +139,9 @@ public class Touch_Controll : MonoBehaviour
                     draghair_count = 0;
                     girl1_status.TouchSisterHair();
                 }
+
+            //時間の項目リセット
+            time_controller.ResetTimeFlag();
             //}
         }
     }
@@ -200,6 +215,9 @@ public class Touch_Controll : MonoBehaviour
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
                 timeOut = time_inter_default;
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
             }
         }
 
@@ -220,6 +238,9 @@ public class Touch_Controll : MonoBehaviour
                     dragtwintail_count = 0;
                     girl1_status.TouchSisterTwinTail(); ;
                 }
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
             }
         }
     }
@@ -277,6 +298,9 @@ public class Touch_Controll : MonoBehaviour
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
                 timeOut = time_inter_default;
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
             }
         }
     }
@@ -303,6 +327,9 @@ public class Touch_Controll : MonoBehaviour
                 //一回触ったら連続で触れないように、少し時間をおく。
                 //touch_interval_flag = true;
                 //timeOut = time_inter_default;
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
             }
         }
 
@@ -331,6 +358,9 @@ public class Touch_Controll : MonoBehaviour
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
                 timeOut = time_inter_default;
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
             }
         }
     }
@@ -373,6 +403,9 @@ public class Touch_Controll : MonoBehaviour
                 //一回触ったら連続で触れないように、少し時間をおく。
                 touch_interval_flag = true;
                 timeOut = time_inter_default;
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
             }
         }
     }
@@ -438,7 +471,10 @@ public class Touch_Controll : MonoBehaviour
 
             himmeli_animator = this.transform.Find("himmeli_live2d").GetComponent<Animator>();
             himmeli_animator.Play("himmeli_Touch", 0, 0); //第２引数は、レイヤーの番号、第３が再生時間で、0を指定している。
-            //isHimmeli = true;
+                                                          //isHimmeli = true;
+
+            //時間の項目リセット
+            time_controller.ResetTimeFlag();
         }
     }
 

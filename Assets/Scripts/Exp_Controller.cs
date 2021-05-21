@@ -19,6 +19,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private TimeController time_controller;
+
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
@@ -271,6 +273,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        //時間管理オブジェクトの取得
+        time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
 
         extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
@@ -554,6 +559,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         exp_table.Check_LevelUp();
+
+        //時間の項目リセット
+        time_controller.ResetTimeFlag();
     }
 
     void Compo_1()
@@ -772,6 +780,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         exp_table.Check_LevelUp();
+
+        //時間の項目リセット
+        time_controller.ResetTimeFlag();
     }
 
 
@@ -982,6 +993,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         exp_table.Check_LevelUp();
+
+        //時間の項目リセット
+        time_controller.ResetTimeFlag();
     }   
 
 
@@ -1453,8 +1467,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text = text_area.GetComponentInChildren<Text>();
 
         //_text.text = "";
-        _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！　" 
-            + "\n" + "少し元気になってきたようだ！";
+        _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！";
     }
 
     public void GirlDisLikeText(int _getlove_exp)

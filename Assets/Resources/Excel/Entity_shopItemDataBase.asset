@@ -249,8 +249,8 @@ MonoBehaviour:
       name: wind_mixer
       zaiko: 1
       itemType: 2
-      shop_sell_price: 500
-      shop_buy_price: 100
+      shop_sell_price: 3000
+      shop_buy_price: 1500
       item_hyouji: 3
     - ItemID: 34
       name: itembox_1
@@ -420,6 +420,41 @@ MonoBehaviour:
       shop_sell_price: 10000
       shop_buy_price: 5000
       item_hyouji: 1
+    - ItemID: 58
+      name: sponge_cake_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 1500
+      shop_buy_price: 750
+      item_hyouji: 3
+    - ItemID: 59
+      name: custard_cream_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 500
+      shop_buy_price: 250
+      item_hyouji: 3
+    - ItemID: 60
+      name: marzipan_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 1000
+      shop_buy_price: 500
+      item_hyouji: 1
+    - ItemID: 61
+      name: cream_row_ricotta_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 500
+      shop_buy_price: 250
+      item_hyouji: 3
+    - ItemID: 62
+      name: cannoli_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 5000
+      shop_buy_price: 2500
+      item_hyouji: 3
   - name: FarmItemDB_1
     list:
     - ItemID: 100
