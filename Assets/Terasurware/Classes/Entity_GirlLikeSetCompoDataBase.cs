@@ -31,6 +31,7 @@ public class Entity_GirlLikeSetCompoDataBase : ScriptableObject
 		public int set_score;
 		public string hint_text;
 		public bool clear;
+		public string file_name;
 	}
 }
 

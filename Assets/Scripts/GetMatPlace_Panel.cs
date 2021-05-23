@@ -408,7 +408,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             //音量フェードイン
             sceneBGM.FadeInBGM();
-            
+
 
             //ガチャン ドア開く音鳴らす。
             sc.PlaySe(38);
@@ -1323,8 +1323,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         sc.PlaySe(30);
         result_off = true;
 
+        compound_Main.check_GetMat_flag = true; //採取地帰ってきたよのフラグ
         compound_Main.check_GirlLoveEvent_flag = false; //再度イベントチェック
-        Debug.Log("イベントチェックON");
+        //Debug.Log("イベントチェックON");
     }
 
     //リザルト画面を表示

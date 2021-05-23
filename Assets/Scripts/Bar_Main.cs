@@ -195,24 +195,25 @@ public class Bar_Main : MonoBehaviour
         if (event_loading) { }
         else
         {
-            /*
-            if (!GameMgr.ShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+            
+            if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
             {
-                GameMgr.ShopEvent_stage[0] = true;
-                GameMgr.scenario_ON = true;
+                GameMgr.BarEvent_stage[0] = true;
 
-                GameMgr.shop_event_num = 0;
-                GameMgr.shop_event_flag = true;
+                //GameMgr.scenario_ON = true;
+
+                //GameMgr.shop_event_num = 0;
+                //GameMgr.shop_event_flag = true;
 
                 //メイン画面にもどったときに、イベントを発生させるフラグをON
-                GameMgr.CompoundEvent_num = 0;
+                GameMgr.CompoundEvent_num = 5;
                 GameMgr.CompoundEvent_flag = true;
 
-                check_event = true;
-                event_loading = true;
+                //check_event = true;
+                //event_loading = true;
 
-                StartCoroutine("Scenario_loading");
-            }*/
+                //StartCoroutine("Scenario_loading");
+            }
         }
 
         if (!check_event)
@@ -348,7 +349,7 @@ public class Bar_Main : MonoBehaviour
             if (!check_lvevent) //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
             {
                 Debug.Log("チェック　パティシエレベルor好感度レベルイベント");
-                CheckShopLvEvent();
+                CheckBarLvEvent();
 
                 if (lvevent_loading) { }
                 else
@@ -537,40 +538,9 @@ public class Bar_Main : MonoBehaviour
 
 
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
-    void CheckShopLvEvent()
+    void CheckBarLvEvent()
     {
-        /*
-        //品物追加　いくつかの器具解禁
-        if (PlayerStatus.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 10) //好感度レベル２以上 or ラスクイベント開始
-        {
-            if (!GameMgr.ShopLVEvent_stage[0])
-            {
-                //Debug.Log("ショップレベルイベント１　開始");
-                GameMgr.ShopLVEvent_stage[0] = true;
-                GameMgr.scenario_ON = true;
 
-                GameMgr.shop_lvevent_num = 0;
-                GameMgr.shop_lvevent_flag = true;
-
-                lvevent_loading = true;
-                StartCoroutine("Scenario_loading");
-            }
-        }
-
-        //品物追加　シュークリームイベント以降
-        if (GameMgr.GirlLoveEvent_num >= 30 && !GameMgr.ShopLVEvent_stage[1])
-        {
-            GameMgr.ShopLVEvent_stage[1] = true;
-            GameMgr.scenario_ON = true;
-
-            GameMgr.shop_lvevent_num = 1;
-            GameMgr.shop_lvevent_flag = true;
-
-            lvevent_loading = true;
-            StartCoroutine("Scenario_loading");
-        }
-
-        */
     }
 
     IEnumerator UtageEndWait()

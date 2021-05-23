@@ -3116,7 +3116,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         }
 
-        if (Getlove_exp < 0)
+        if (Getlove_exp < 0) //ハートが下がる
         {
             DegHeart(Getlove_exp);
 
@@ -3130,7 +3130,7 @@ public class GirlEat_Judge : MonoBehaviour {
             compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
             compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
         }
-        else
+        else //ハートが上昇
         {
             //アニメーションをON。好感度パラメータの反映もここ。
             loveGetPlusAnimeON(Getlove_exp, true);
@@ -3250,41 +3250,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
             GameMgr.QuestClearflag = true;
             QuestClearMethod();
-
-            //以下、光の演出ありの場合
-            /*
-            canvas.SetActive(false);
-
-            //クリア音
-            sc.PlaySe(88);
-
-            //クリア演出 クエストクリア！とかだす
-            Extremepanel_obj.SetActive(false);
-            _questClearEffect.Clear();
-            _questClearEffect.Add(Instantiate(questclear_effect_Prefab));
-
-            //表情をお菓子食べたあとの喜びの表情。
-            girl1_status.face_girl_Fine();
-
-            StartCoroutine("WaitSPOkashiClearAfter"); //5秒ほど待ってから次へ。その間は、まだ前のセットの情報が残っている。
-            */
         }              
     }
 
-    IEnumerator WaitSPOkashiClearAfter()
-    {
-        yield return new WaitForSeconds(3.0f);
 
-        canvas.SetActive(true);
-
-        //お菓子の判定処理を終了
-        Extremepanel_obj.SetActive(true);
-        compound_Main.girlEat_ON = false;
-        compound_Main.compound_status = 0;
-
-        GameMgr.QuestClearflag = true;
-        QuestClearMethod();
-    }
 
 
     IEnumerator ClearButtonAnim()

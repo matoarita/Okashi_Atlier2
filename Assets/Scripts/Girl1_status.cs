@@ -33,8 +33,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private Text questname;
     private GameObject questtitle_panel;
-    private Text questpanel_text;
-    private Text questpanel_num;
 
     private Sequence sequence_girlmove;
     private Sequence sequence_girlmove2;
@@ -54,9 +52,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private GameObject text_area;
 
-    private GameObject questprogress_Prefab1;
-    private List<GameObject> questview_obj = new List<GameObject>();
-    private Sprite questprogress_nowImg;
     private GameObject hukidashiPrefab;
     private GameObject canvas;
 
@@ -271,8 +266,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //Prefab内の、コンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
         hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
-        questprogress_Prefab1 = (GameObject)Resources.Load("Prefabs/QProgressButton");
-        questprogress_nowImg = Resources.Load<Sprite>("Sprites/Window/pageguideD_pink_50");
 
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
@@ -343,8 +336,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //メイン画面に表示する、現在のクエスト
                 questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
                 questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
-                questpanel_text = questtitle_panel.transform.Find("QuestPanel/QuestName").GetComponent<Text>();
-                questpanel_num = questtitle_panel.transform.Find("QuestPanel/TitleImage/Questnum").GetComponent<Text>();
                 questtitle_panel.SetActive(false);
 
                 break;
@@ -503,8 +494,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //メイン画面に表示する、現在のクエスト
                     questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
                     questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
-                    questpanel_text = questtitle_panel.transform.Find("QuestPanel/QuestName").GetComponent<Text>();
-                    questpanel_num = questtitle_panel.transform.Find("QuestPanel/TitleImage/Questnum").GetComponent<Text>();
                     questtitle_panel.SetActive(false);
 
                     //初期表情の設定
@@ -1206,22 +1195,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //現在のクエストネーム更新。Special_Quest.csで、OkashiQuest_Nameは更新している。パネル表示後にネーム更新されるように、ここで描画更新している。
         questname.text = OkashiQuest_Name;
 
-        //クエストタイトルパネルを表示
-        questpanel_text.text = OkashiQuest_Name;
-        questpanel_num.text = OkashiQuest_Number;
-
-        questview_obj.Clear();
-        foreach (Transform child in questtitle_panel.transform.Find("QuestPanel/QuestProgressView/Viewport/Content").gameObject.transform) //
-        {
-            Destroy(child.gameObject);
-        }
-
-        for(i=0; i< OkashiQuest_AllCount; i++)
-        {
-            questview_obj.Add(Instantiate(questprogress_Prefab1, questtitle_panel.transform.Find("QuestPanel/QuestProgressView/Viewport/Content").gameObject.transform));
-        }
-        questview_obj[OkashiQuest_Count - 1].GetComponent<Image>().sprite = questprogress_nowImg;
-
         questtitle_panel.SetActive(true);
 
         special_animatFirst = true;
@@ -1248,7 +1221,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (_rndset == true)
         {
             //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-            _desc = girlLikeCompo_database.girllike_compoRandomset[_ID].desc;
+            _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_compoRandomset[_ID].desc + "が食べたい！";
+            GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_compoRandomset[_ID].desc;
         }
         else
         {
@@ -1265,7 +1239,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
 
             //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-            _desc = girlLikeCompo_database.girllike_composet[_compID].desc;
+            _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
+            GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_composet[_compID].desc;
         }
     }
     
@@ -1279,7 +1254,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             set3_ID = girlLikeCompo_database.girllike_compoRandomset[_ID].set3;
 
             //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-            _desc = girlLikeCompo_database.girllike_compoRandomset[_ID].desc;
+            _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_compoRandomset[_ID].desc + "が食べたい！";
+            GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_compoRandomset[_ID].desc;
         }
         else
         {
@@ -1300,7 +1276,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             set3_ID = girlLikeCompo_database.girllike_composet[_compID].set3;
 
             //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-            _desc = girlLikeCompo_database.girllike_composet[_compID].desc;
+            _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
+            GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_composet[_compID].desc;
         }
 
         set_ID.Clear();
@@ -1424,11 +1401,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator.SetInteger("trans_motion", trans_motion);
         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
         
-
-        //15秒ほど表示したら、また食べたいお菓子を表示か削除
-        //WaitHint_on = true;
-        //timeOutHint = _timehint;
-        //GirlEat_Judge_on = false;
     }
 
     void NowEatText()

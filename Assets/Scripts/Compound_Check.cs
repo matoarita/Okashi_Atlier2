@@ -76,6 +76,7 @@ public class Compound_Check : MonoBehaviour {
 
     private string success_text;
     private float _success_rate;
+    private float _ex_probabilty_temp;
     private int dice;
 
     private int itemID_1;
@@ -297,7 +298,14 @@ public class Compound_Check : MonoBehaviour {
 
                         exp_Controller.extreme_on = false;
 
-                        exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+                        if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                        {
+                            exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+                        }
+                        else
+                        {
+                            exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                        }
 
                         exp_Controller.result_kosuset.Clear();
                         for (i = 0; i < result_kosuset.Count; i++)
@@ -705,7 +713,7 @@ public class Compound_Check : MonoBehaviour {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
         _itemSubtype_temp_result.Clear();
-
+        _ex_probabilty_temp = 1.0f;
 
         //オリジナル調合の場合はこっち
         if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
@@ -725,12 +733,21 @@ public class Compound_Check : MonoBehaviour {
                 _itemSubtype_temp_result.Add("empty");
                 pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
+
+                //アイテムごとの確率補正値を、先にここで計算
+                _ex_probabilty_temp = database.items[pitemlistController.final_kettei_item1].Ex_Probability *
+                database.items[pitemlistController.final_kettei_item2].Ex_Probability;
             }
             else
             {
                 _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item3].itemName);
                 _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item3].itemType_sub.ToString());
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
+
+                //アイテムごとの確率補正値を、先にここで計算
+                _ex_probabilty_temp = database.items[pitemlistController.final_kettei_item1].Ex_Probability *
+                database.items[pitemlistController.final_kettei_item2].Ex_Probability *
+                database.items[pitemlistController.final_kettei_item3].Ex_Probability;
             }
         }
 
@@ -752,12 +769,21 @@ public class Compound_Check : MonoBehaviour {
                 _itemSubtype_temp_result.Add("empty");
                 pitemlistController.final_kettei_kosu2 = 9999; //個数にも9999=emptyを入れる。
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
+
+                //アイテムごとの確率補正値を、先にここで計算
+                _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
+                database.items[pitemlistController.final_kettei_item1].Ex_Probability;
             }
             else
             {
                 _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item2].itemName);
                 _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item2].itemType_sub.ToString());
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
+
+                //アイテムごとの確率補正値を、先にここで計算
+                _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
+                database.items[pitemlistController.final_kettei_item1].Ex_Probability *
+                database.items[pitemlistController.final_kettei_item2].Ex_Probability;
             }
         }
 
@@ -925,7 +951,6 @@ public class Compound_Check : MonoBehaviour {
                 newrecipi_flag = false;
             }
         }
-
         //どの調合リストにも当てはまらなかった場合
         else
         {
@@ -1101,7 +1126,14 @@ public class Compound_Check : MonoBehaviour {
         if (!newrecipi_flag)
         {
             resultitemName_obj.GetComponent<Text>().text = database.items[pitemlistController.result_item].itemNameHyouji; //アイテム名
-            final_itemmes = database.items[pitemlistController.result_item].itemNameHyouji + "が出来そう！";
+            if (compoDB_select_judge == true)
+            {
+                final_itemmes = database.items[pitemlistController.result_item].itemNameHyouji + "が出来そう！";
+            }
+            else
+            {
+                final_itemmes = "これは.. ダメかもしれぬ。";
+            }
             texture2d = database.items[pitemlistController.result_item].itemIcon_sprite;
             resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
             resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(true);
@@ -1130,7 +1162,8 @@ public class Compound_Check : MonoBehaviour {
     {
         _buf_kakuritsu = 0;
         _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan();
-        _rate = databaseCompo.compoitems[_compID].success_Rate + ((PlayerStatus.player_renkin_lv-1) * 2) + _buf_kakuritsu; //LV1上がるごとに2%ずつ上昇 + 装備品による確率上昇
+              
+        _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + ((PlayerStatus.player_renkin_lv-1) * 2) + _buf_kakuritsu; //LV1上がるごとに2%ずつ上昇 + 装備品による確率上昇
 
         if(databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない
         {

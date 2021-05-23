@@ -155,7 +155,7 @@ public class SystemSelectPanel : MonoBehaviour {
                 //Debug.Log("ok");
                 //解除
 
-                save_controller.OnLoadMethod();
+                save_controller.OnLoadMethod();                
 
                 if (GameMgr.saveOK)
                 {

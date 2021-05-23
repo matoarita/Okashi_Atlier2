@@ -131,6 +131,9 @@ public class PlayerData
     public List<int> save_farmzaiko = new List<int>();
     public List<int> save_emeraldshop_zaiko = new List<int>();
 
+    //酒場のイベントリスト
+    public bool[] save_BarEvent_stage = new bool[GameMgr.BarEvent_stage.Length];
+
     //ショップのうわさ話リスト
     public bool[] save_ShopUwasa_stage1 = new bool[GameMgr.ShopUwasa_stage1.Length];
 

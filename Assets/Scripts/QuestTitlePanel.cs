@@ -8,16 +8,23 @@ public class QuestTitlePanel : MonoBehaviour {
 
     private SoundController sc;
     private Compound_Main compound_Main;
+    private Special_Quest special_quest;
 
     private float qtitlepanel_pos_y;
 
+    private Image okashiImage;
+    private Text questpanel_text;
+    private Text questpanel_num;
+
+    private GameObject questprogress_Prefab1;
+    private List<GameObject> questview_obj = new List<GameObject>();
+    private Sprite questprogress_nowImg;
+
+    private int i;
+
     // Use this for initialization
     void Start () {
-
-        //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+        
     }
 	
 	// Update is called once per frame
@@ -25,17 +32,52 @@ public class QuestTitlePanel : MonoBehaviour {
 		
 	}
 
-    private void OnEnable()
+    void SetInit()
     {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+
+        //スペシャルお菓子クエストの取得
+        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+
+        //メイン画面に表示する、現在のクエスト
+        questpanel_text = this.transform.Find("QuestPanel/QuestName").GetComponent<Text>();
+        questpanel_num = this.transform.Find("QuestPanel/TitleImage/Questnum").GetComponent<Text>();
+
+        questprogress_Prefab1 = (GameObject)Resources.Load("Prefabs/QProgressButton");
+        questprogress_nowImg = Resources.Load<Sprite>("Sprites/Window/pageguideD_pink_50");
+
+        okashiImage = this.transform.Find("OkashiImage/Image").GetComponent<Image>();
+
+        questpanel_text.text = special_quest.OkashiQuest_Name;
+        questpanel_num.text = special_quest.OkashiQuest_Number;
+
+        questview_obj.Clear();
+        foreach (Transform child in this.transform.Find("QuestPanel/QuestProgressView/Viewport/Content").gameObject.transform) //
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (i = 0; i < special_quest.OkashiQuest_AllCount; i++)
+        {
+            questview_obj.Add(Instantiate(questprogress_Prefab1, this.transform.Find("QuestPanel/QuestProgressView/Viewport/Content").gameObject.transform));
+        }
+        questview_obj[special_quest.OkashiQuest_Count - 1].GetComponent<Image>().sprite = questprogress_nowImg;
+
+        okashiImage.sprite = special_quest.OkashiQuest_sprite;
+    }
+
+    private void OnEnable()
+    {
+        SetInit();
 
         //音ならす
         sc.PlaySe(25); //25 鐘の音:50 キラリン:17
         //sc.PlaySe(27);
 
         qtitlepanel_pos_y = 65f; //パネルの初期値
-        //Debug.Log("qtitlepanel_pos_y: " + qtitlepanel_pos_y);
 
         //アニメーションスタート
         OnStartAnim();

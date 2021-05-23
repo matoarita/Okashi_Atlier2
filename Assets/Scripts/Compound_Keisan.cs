@@ -373,8 +373,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
             Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
 
-            //セット数　実際にできる個数は、exp_controllerで決定
-            final_select_kaisu = exp_Controller.set_kaisu;
+            //セット数　updowncounterの値をもとに設定してる。現在は、セット数は選択できないようにしているので、1に固定
+            //final_select_kaisu = exp_Controller.set_kaisu;
+            final_select_kaisu = 1;
 
             //パラメータを取得
             result_item = pitemlistController.result_item;

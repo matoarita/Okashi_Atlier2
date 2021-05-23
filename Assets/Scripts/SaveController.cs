@@ -265,6 +265,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_farmzaiko = _temp_farmzaiko,
             save_emeraldshop_zaiko = _temp_emeraldshop_zaiko,
 
+            //酒場のイベントリスト
+            save_BarEvent_stage = GameMgr.BarEvent_stage,
+
             //ショップのうわさ話リスト
             save_ShopUwasa_stage1 = GameMgr.ShopUwasa_stage1,
 
@@ -473,6 +476,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.ShopEvent_stage = playerData.save_ShopEvent_stage;
         GameMgr.ShopLVEvent_stage = playerData.save_ShopLvEvent_stage;
 
+        //酒場のイベントリスト
+        GameMgr.BarEvent_stage = playerData.save_BarEvent_stage;
+
         //ショップのうわさ話リスト
         GameMgr.ShopUwasa_stage1 = playerData.save_ShopUwasa_stage1;
 
@@ -640,28 +646,34 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     extreme_panel.SetInitParamExtreme();
 
                 }
+
+                //衣装チェンジ
+                _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
+                _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeAcce();
+
+                //飾りアイテムのセット
+                BGAccetrigger.DrawBGAcce();
+
+                compound_Main.compound_status = 0;
+
+                //ロード直後のサブイベントを発生させる
+                compound_Main.Load_eventflag = true; //ロード直後に、おかえりなさい～のようなサブイベントを発生
+                compound_Main.check_GirlLoveEvent_flag = false; //compound_Mainからロードしても、おかえりなさい～が発生               
                 break;
         }
 
+        //まずクエストを再設定
+        special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1); //クエスト番号を再設定ここで。
+        special_quest.RedrawQeustName();
+
+        //そのあと、クエストに応じて、各要素の再設定
         girl1_status.OkashiNew_Status = 0;
         girl1_status.special_animatFirst = true;
-        girl1_status.Girl_Hungry();
-
-        special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1); //クエスト番号を再設定ここで。
-        special_quest.RedrawQeustName();       
+        girl1_status.Girl_Hungry();         
 
         debug_panel.GirlLove_Koushin(PlayerStatus.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
         GameMgr.KeyInputOff_flag = true;
-
-        //衣装チェンジ
-        _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
-        _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeAcce();
-
-        //飾りアイテムのセット
-        BGAccetrigger.DrawBGAcce();
-
-        compound_Main.compound_status = 0;
-
+        
     }
 
     //ゲーム「はじめから」で、リセットされる項目

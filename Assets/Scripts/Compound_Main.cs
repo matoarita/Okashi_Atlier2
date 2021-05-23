@@ -178,6 +178,7 @@ public class Compound_Main : MonoBehaviour
     public bool check_GirlLoveSubEvent_flag;
     public bool check_OkashiAfter_flag;
     public bool check_CompoAfter_flag; //Exp_Controllerから読み出し
+    public bool check_GetMat_flag; //採取地から帰ってきたあとのサブイベントのチェック用
     private int not_read_total;
     private int _checkexp;
 
@@ -221,6 +222,8 @@ public class Compound_Main : MonoBehaviour
 
     public int event_itemID; //イベントレシピ使用時のイベントのID
 
+    public bool Load_eventflag; //ロード直後のイベント発生フラグ
+
     public string originai_text;
     public string extreme_text;
     public string recipi_text;
@@ -228,6 +231,7 @@ public class Compound_Main : MonoBehaviour
     private bool gameover_loading;
     private bool Sleep_on;
     private bool mute_on;
+    
 
     // Use this for initialization
     void Start()
@@ -475,12 +479,14 @@ public class Compound_Main : MonoBehaviour
         check_GirlLoveSubEvent_flag = false;
         check_OkashiAfter_flag = false;
         check_CompoAfter_flag = false;
+        check_GetMat_flag = false;
         read_girlevent = false;
         gameover_loading = false;
         mute_on = false;
         SubEvAfterHeartGet = false;
         subevent_after_end = false;
         GetFirstCollectionItem = false;
+        Load_eventflag = false;
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
@@ -535,7 +541,26 @@ public class Compound_Main : MonoBehaviour
         BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();
         BGAccetrigger.DrawBGAcce();
 
+        ReturnBackHome();
 
+        //ロード画面から読み込んだ際の処理
+        if (GameMgr.GameLoadOn)
+        {
+            GameMgr.GameLoadOn = false;
+            save_controller.DrawGameScreen();
+            keymanager.InitCompoundMainScene();
+
+            //ロード直後のサブイベントを発生させる
+            //Load_eventflag = true; //ロード直後に、おかえりなさい～のようなサブイベントを発生
+            //compound_Main.check_GirlLoveEvent_flag = false; //compound_Mainからロードしても、おかえりなさい～が発生
+        }
+
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
+    }
+
+    //家に帰ってきたときの処理
+    void ReturnBackHome()
+    {
         if (GameMgr.Scene_back_home)
         {
             GameMgr.Scene_back_home = false;
@@ -547,16 +572,6 @@ public class Compound_Main : MonoBehaviour
             //パネルを閉じる
             mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
         }
-
-        //ロード画面から読み込んだ際の処理
-        if (GameMgr.GameLoadOn)
-        {
-            GameMgr.GameLoadOn = false;
-            save_controller.DrawGameScreen();
-            keymanager.InitCompoundMainScene();
-        }
-
-        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
     }
 
     // Update is called once per frame
@@ -1039,6 +1054,7 @@ public class Compound_Main : MonoBehaviour
                 //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
                 if (check_GirlLoveEvent_flag == false)
                 {
+                    Debug.Log("イベントチェックON");
                     //腹減りカウント一時停止
                     girl1_status.GirlEat_Judge_on = false;
 
@@ -1049,7 +1065,7 @@ public class Compound_Main : MonoBehaviour
                     //サブイベントの発生をチェック。
                     if (check_GirlLoveSubEvent_flag == false)
                     {
-                        //Debug.Log("サブイベントの発生チェック");
+                        Debug.Log("サブイベントチェックON");
                         //腹減りカウント一時停止
                         girl1_status.GirlEat_Judge_on = false;
 
@@ -3120,135 +3136,148 @@ public class Compound_Main : MonoBehaviour
         else
         {
             check_GirlLoveSubEvent_flag = true;
- 
+
             //クエストで発生するサブイベント
-            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
+            switch (GameMgr.OkashiQuest_Num)
             {
-                switch (GameMgr.OkashiQuest_Num)
-                {
-                    case 0: //クッキー
+                case 0: //クッキー
 
-                        //はじめてのお菓子。食べた直後に発生する。
-                        if (GameMgr.GirlLoveSubEvent_stage1[0] == false)
+                    //はじめてのお菓子。食べた直後に発生する。
+                    if (GameMgr.GirlLoveSubEvent_stage1[0] == false)
+                    {
+                        if (check_OkashiAfter_flag) //お菓子をあげたあとのフラグ
                         {
-                            if (check_OkashiAfter_flag) //お菓子をあげたあとのフラグ
+
+                            GameMgr.GirlLoveSubEvent_stage1[0] = true;
+
+                            if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
+                            {
+                                if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできないときのヒントをだす。＋クッキーを食べたいなぁ～。
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[3] = true;
+                                    GameMgr.GirlLoveSubEvent_num = 3;
+                                    GameMgr.Okashi_OnepointHint_num = 0;
+                                }
+                                else //クリアできたら、そのままOK!　＋　でもクッキーが食べたいから、にいちゃん、クッキーを作って！！
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[4] = true;
+                                    GameMgr.GirlLoveSubEvent_num = 4;
+                                }
+                            }
+                            else
+                            {
+                                if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合、ヒントをだす。
+                                {
+                                    GameMgr.GirlLoveSubEvent_num = 0;
+                                    GameMgr.Okashi_OnepointHint_num = 0;
+                                }
+                                else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[1] = true;
+                                    GameMgr.GirlLoveSubEvent_num = 1;
+                                }
+                                else //クリアできた。85~
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[2] = true;
+                                    GameMgr.GirlLoveSubEvent_num = 2;
+                                }
+                            }
+
+                            check_GirlLoveSubEvent_flag = false;
+                        }
+                    }
+
+                    //一度お菓子を作って失敗し、次に作って成功した。または、クッキー以外のお菓子を作り、その後、クッキーを作って成功した。
+                    if (GameMgr.GirlLoveSubEvent_stage1[0] == true && GameMgr.GirlLoveSubEvent_stage1[1] == false && GameMgr.GirlLoveSubEvent_stage1[2] == false)
+                    {
+                        if (check_OkashiAfter_flag)
+                        {
+
+                            if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
                             {
 
-                                GameMgr.GirlLoveSubEvent_stage1[0] = true;
+                            }
+                            else
+                            {
+                                if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合。フラグはたたず、やり直し
+                                {
 
-                                if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
-                                {
-                                    if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできないときのヒントをだす。＋クッキーを食べたいなぁ～。
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[3] = true;
-                                        GameMgr.GirlLoveSubEvent_num = 3;
-                                        GameMgr.Okashi_OnepointHint_num = 0;
-                                    }
-                                    else //クリアできたら、そのままOK!　＋　でもクッキーが食べたいから、にいちゃん、クッキーを作って！！
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[4] = true;
-                                        GameMgr.GirlLoveSubEvent_num = 4;
-                                    }
                                 }
-                                else
+                                else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
                                 {
-                                    if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合、ヒントをだす。
-                                    {
-                                        GameMgr.GirlLoveSubEvent_num = 0;
-                                        GameMgr.Okashi_OnepointHint_num = 0;
-                                    }
-                                    else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[1] = true;
-                                        GameMgr.GirlLoveSubEvent_num = 1;
-                                    }
-                                    else //クリアできた。85~
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[2] = true;
-                                        GameMgr.GirlLoveSubEvent_num = 2;
-                                    }
+                                    GameMgr.GirlLoveSubEvent_stage1[5] = true;
+                                    GameMgr.GirlLoveSubEvent_num = 5;
+                                    GameMgr.Okashi_OnepointHint_num = 9999;
+
+                                    check_GirlLoveSubEvent_flag = false;
                                 }
+                                else //クリアできた。85~
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[6] = true;
+                                    GameMgr.GirlLoveSubEvent_num = 6;
+                                    GameMgr.Okashi_OnepointHint_num = 9999;
+
+                                    check_GirlLoveSubEvent_flag = false;
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                case 1: //ぶどうクッキー
+
+                    if (GameMgr.GirlLoveSubEvent_stage1[7] == false) //はじめてぶどうをとってきた
+                    {
+                        if (check_GetMat_flag)
+                        {
+                            if (pitemlist.KosuCount("grape") >= 1)
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[7] = true;
+                                GameMgr.GirlLoveSubEvent_num = 7;
 
                                 check_GirlLoveSubEvent_flag = false;
                             }
                         }
+                    }
+                    break;
 
-                        //一度お菓子を作って失敗し、次に作って成功した。または、クッキー以外のお菓子を作り、その後、クッキーを作って成功した。
-                        if (GameMgr.GirlLoveSubEvent_stage1[0] == true && GameMgr.GirlLoveSubEvent_stage1[1] == false && GameMgr.GirlLoveSubEvent_stage1[2] == false)
+                case 11: //ラスク2
+
+                    if (girl1_status.special_animatFirst) //ステージ2-2 はじまってから、ベリーファーム開始
+                    {
+                        if (!GameMgr.GirlLoveSubEvent_stage1[10])
                         {
-                            if (check_OkashiAfter_flag)
-                            {
+                            GameMgr.GirlLoveSubEvent_stage1[10] = true;
+                            GameMgr.GirlLoveSubEvent_num = 10;
 
-                                if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
-                                {
+                            check_GirlLoveSubEvent_flag = false;
+                            mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
 
-                                }
-                                else
-                                {
-                                    if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合。フラグはたたず、やり直し
-                                    {
+                            //ベリーファームへ行けるようになる。
+                            matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
 
-                                    }
-                                    else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[5] = true;
-                                        GameMgr.GirlLoveSubEvent_num = 5;
-                                        GameMgr.Okashi_OnepointHint_num = 9999;
-
-                                        check_GirlLoveSubEvent_flag = false;
-                                    }
-                                    else //クリアできた。85~
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[6] = true;
-                                        GameMgr.GirlLoveSubEvent_num = 6;
-                                        GameMgr.Okashi_OnepointHint_num = 9999;
-
-                                        check_GirlLoveSubEvent_flag = false;
-                                    }
-                                }
-                            }
                         }
-                        break;
+                    }
 
-                    case 11: //ラスク2
+                    break;
 
-                        if (girl1_status.special_animatFirst) //ステージ2-2 はじまってから、ベリーファーム開始
+                case 20: //クレープ1
+
+                    if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
+                    {
+                        if (GameMgr.GirlLoveSubEvent_stage1[20] == false && database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "Crepe")
                         {
-                            if (!GameMgr.GirlLoveSubEvent_stage1[10])
-                            {
-                                GameMgr.GirlLoveSubEvent_stage1[10] = true;
-                                GameMgr.GirlLoveSubEvent_num = 10;
+                            GameMgr.GirlLoveSubEvent_stage1[20] = true;
+                            GameMgr.GirlLoveSubEvent_num = 20;
+                            check_GirlLoveSubEvent_flag = false;
 
-                                check_GirlLoveSubEvent_flag = false;
-                                mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
-
-                                //ベリーファームへ行けるようになる。
-                                matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
-
-                            }
+                            mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
                         }
+                    }
+                    break;
 
-                        break;
-
-                    case 20: //クレープ1
-
-                        if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
-                        {
-                            if (GameMgr.GirlLoveSubEvent_stage1[20] == false && database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "Crepe")
-                            {
-                                GameMgr.GirlLoveSubEvent_stage1[20] = true;
-                                GameMgr.GirlLoveSubEvent_num = 20;
-                                check_GirlLoveSubEvent_flag = false;
-
-                                mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
-                            }
-                        }
-                        break;
-
-                }
             }
+            
 
             //
             //メインクエストに関係しないサブイベント関係は、60番台～
@@ -3360,9 +3389,27 @@ public class Compound_Main : MonoBehaviour
                 }
             }
 
+            //その他イベント、ロード後イベントなど。90番台～
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                if (Load_eventflag)
+                {
+                    if (GameMgr.GirlLoveSubEvent_stage1[90] == false)
+                    {
+                        Load_eventflag = false;
+                        //GameMgr.GirlLoveSubEvent_stage1[90] = true;
+                        GameMgr.GirlLoveSubEvent_num = 90;
+                        check_GirlLoveSubEvent_flag = false;
+                    }
+                }
+            }
+
             //フラグは必ずリセット
             check_CompoAfter_flag = false;
             check_OkashiAfter_flag = false;
+            check_GetMat_flag = false;
 
             //最後のタイミングで、決定したサブイベントの宴を再生
             if (!check_GirlLoveSubEvent_flag) //サブイベント発生した

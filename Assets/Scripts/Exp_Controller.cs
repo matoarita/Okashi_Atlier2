@@ -1111,7 +1111,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case "Glass_Acce":
 
                 //メイン画面にもどったときに、イベントを発生させるフラグをON
-                GameMgr.CompoundEvent_num = 30;
+                GameMgr.CompoundEvent_num = 100;
                 GameMgr.CompoundEvent_flag = true;
                 break;
 

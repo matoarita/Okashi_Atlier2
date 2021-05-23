@@ -111,7 +111,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] ShopEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
     public static bool[] ShopLVEvent_stage = new bool[Event_num]; //パティシエレベルなどに応じたイベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
 
-    //ショップのうわさ話リスト
+    //酒場のイベントリスト
+    public static bool[] BarEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+
+    //酒場のうわさ話リスト
     public static bool[] ShopUwasa_stage1 = new bool[Event_num]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
 
     //エメラルドショップのイベントリスト
@@ -220,6 +223,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num; //セーブはしなくてもGirlLoveEvent_numからロード時に自動で設定し直すので大丈夫。
+    public static string NowEatOkashi; //今食べたいお菓子　girlCompoDBのテキストが入っている。
 
     //お菓子の点数基準値
     public static int low_score;
@@ -515,6 +519,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             ShopEvent_stage[system_i] = false;
             ShopLVEvent_stage[system_i] = false;
             FarmEvent_stage[system_i] = false;
+            BarEvent_stage[system_i] = false;
         }
 
         //エメラルドショップイベントフラグの初期化
