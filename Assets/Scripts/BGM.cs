@@ -220,7 +220,7 @@ public class BGM : MonoBehaviour {
         _bgm[1].clip = sound2;
         _bgm[1].Play();
 
-        fade_status = 3;
+        fade_status = 3; //フェードで切り替える
         //_mixRate = 1;
     }
 
@@ -230,6 +230,7 @@ public class BGM : MonoBehaviour {
         _bgm[1].clip = sound3;
         _bgm[1].Play();
 
+        //fade_status = 3;
         _mixRate = 1;
     }
 

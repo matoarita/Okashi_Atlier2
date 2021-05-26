@@ -2542,11 +2542,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
 
-            case 2: //怒るモーション
+            /*case 2: //怒るモーション
 
                 _touchface_comment_lib.Clear();
-                _touchface_comment_lib.Add("..にいちゃん。お菓子まだ～？");
-                break;
+                _touchface_comment_lib.Add("..にいちゃん。頑張ってね☆");
+                break;*/
 
             default:
 

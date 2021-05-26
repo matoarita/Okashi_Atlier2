@@ -1253,6 +1253,7 @@ public class Compound_Main : MonoBehaviour
                         {
                             bgm_change_flag2 = false;
                             sceneBGM.OnMainBGMFade();
+                            //sceneBGM.OnMainBGM();
                         }
                     }
                 }
@@ -2179,8 +2180,8 @@ public class Compound_Main : MonoBehaviour
             StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
             //BGMを変更
-            //sceneBGM.OnGetMatStartBGM();
-            //bgm_change_flag = true;
+            sceneBGM.OnGetMatStartBGM();
+            bgm_change_flag = true;
 
             //音ならす
             sc.PlaySe(36);
