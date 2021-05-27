@@ -287,6 +287,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //最初は、採取地選択画面をonに。
         getmatplace_view.SetActive(true);
 
+        //画面のアニメ
+        OpenAnim();
+
         moveanim_panel.SetActive(false);
 
         move_anim_on = false;
@@ -309,6 +312,22 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //妹の体力（HP)を表示
         HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
         //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+    }
+
+    void OpenAnim()
+    {
+        //まず、初期値。
+        getmatplace_view.GetComponent<CanvasGroup>().alpha = 0;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(getmatplace_view.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
+            .SetRelative()); //元の位置から30px上に置いておく。
+
+        sequence.Append(getmatplace_view.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.3f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
+        sequence.Join(getmatplace_view.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
     // Update is called once per frame

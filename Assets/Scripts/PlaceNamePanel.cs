@@ -29,7 +29,13 @@ public class PlaceNamePanel : MonoBehaviour {
 
             case "Bar":
 
-                _text = "酒場";
+                for (i = 0; i < matplace_database.matplace_lists.Count; i++)
+                {
+                    if (matplace_database.matplace_lists[i].placeName == "Bar")
+                    {
+                        _text = matplace_database.matplace_lists[i].placeNameHyouji;
+                    }
+                }
                 break;
 
             case "Farm":

@@ -532,6 +532,40 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case "Compound":
                 //女の子の今のご機嫌チェック
                 CheckGokigen();
+
+                //trueだと腹減りカウントが進む。
+                if (GirlEat_Judge_on == true)
+                {
+                    timeOut -= Time.deltaTime;
+                    timeOut2 -= Time.deltaTime;
+                    timeOutHeartDeg -= Time.deltaTime;
+                    timeOutMoveX -= Time.deltaTime;
+
+                }
+
+                if (WaitHint_on) //吹き出しを表示中
+                {
+                    timeOutHint -= Time.deltaTime;
+
+                    if (timeOutHint <= 0.0f)
+                    {
+                        //吹き出しが残っていたら、削除。
+                        if (hukidashiitem != null)
+                        {
+                            DeleteHukidashi();
+                        }
+
+                        WaitHint_on = false;
+                        GirlEat_Judge_on = true;
+                        Girl1_touchtwintail_count = 0;
+
+                        if (GirlOishiso_Status == 1)
+                        {
+                            GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
+                            DefaultFace();
+                        }
+                    }
+                }
                 break;
         }
 
@@ -540,42 +574,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //Prefab内の、コンテンツ要素を取得       
             hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
         }
-
-        //trueだと腹減りカウントが進む。
-        if (GirlEat_Judge_on == true)
-        {
-            timeOut -= Time.deltaTime;
-            timeOut2 -= Time.deltaTime;            
-            timeOutHeartDeg -= Time.deltaTime;
-            timeOutMoveX -= Time.deltaTime;
-
-        }
-
-        if(WaitHint_on) //吹き出しを表示中
-        {
-            timeOutHint -= Time.deltaTime;
-
-            if (timeOutHint <= 0.0f)
-            {
-                //吹き出しが残っていたら、削除。
-                if (hukidashiitem != null)
-                {
-                    DeleteHukidashi();
-                }
-
-                WaitHint_on = false;
-                GirlEat_Judge_on = true;
-                Girl1_touchtwintail_count = 0;
-
-                if (GirlOishiso_Status == 1)
-                {
-                    GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
-                    DefaultFace();
-                }
-            }             
-        }
-
-        
 
 
         if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしない。
@@ -1239,8 +1237,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
 
             //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-            _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
-            GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_composet[_compID].desc;
+            if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
+            {
+                _desc = "にいちゃん！　コンテストは、好きなお菓子を持っていくんだよ～！";
+                GameMgr.NowEatOkashi = "コンテスト";
+            }
+            else
+            {
+                _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
+                GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_composet[_compID].desc;
+            }
         }
     }
     
@@ -1254,8 +1260,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             set3_ID = girlLikeCompo_database.girllike_compoRandomset[_ID].set3;
 
             //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-            _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_compoRandomset[_ID].desc + "が食べたい！";
-            GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_compoRandomset[_ID].desc;
+            if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
+            {
+                _desc = "にいちゃん！　コンテストは、好きなお菓子を持っていくんだよ～！";
+                GameMgr.NowEatOkashi = "コンテスト";
+            }
+            else
+            {
+                _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_ID].desc + "が食べたい！";
+                GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_composet[_ID].desc;
+            }
         }
         else
         {
@@ -1276,8 +1290,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             set3_ID = girlLikeCompo_database.girllike_composet[_compID].set3;
 
             //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-            _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
-            GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_composet[_compID].desc;
+            if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
+            {
+                _desc = "にいちゃん！　コンテストは、好きなお菓子を持っていくんだよ～！";
+                GameMgr.NowEatOkashi = "コンテスト";
+            }
+            else
+            {
+                _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
+                GameMgr.NowEatOkashi = girlLikeCompo_database.girllike_composet[_compID].desc;
+            }
         }
 
         set_ID.Clear();
@@ -2464,9 +2486,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     break;
 
-                case 2:
+                case 2: //HLv3 ノーマル
 
-                    random = Random.Range(0, 4); //0~3
+                    random = Random.Range(0, 5); //0~3
                     trans_facemotion = random + 1; //1はじまり
 
                     IdleMotionHukidashiSetting(trans_facemotion);
@@ -2475,7 +2497,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 3:
 
-                    random = Random.Range(0, 4); //0~3
+                    random = Random.Range(0, 5); //0~3
                     trans_facemotion = random + 1; //1はじまり
 
                     IdleMotionHukidashiSetting(trans_facemotion);
@@ -2484,7 +2506,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 4:
 
-                    random = Random.Range(0, 4); //0~3
+                    random = Random.Range(0, 5); //0~3
                     trans_facemotion = random + 1; //1はじまり
 
                     IdleMotionHukidashiSetting(trans_facemotion);
@@ -2493,7 +2515,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 5:
 
-                    random = Random.Range(0, 4); //0~3
+                    random = Random.Range(0, 5); //0~3
                     trans_facemotion = random + 1; //1はじまり
 
                     IdleMotionHukidashiSetting(trans_facemotion);
@@ -2501,6 +2523,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     break;
 
                 default:
+
+                    random = Random.Range(0, 5); //0~3
+                    trans_facemotion = random + 1; //1はじまり
+
+                    IdleMotionHukidashiSetting(trans_facemotion);
+                    IdleChangeTemp = true;
 
                     break;
             }

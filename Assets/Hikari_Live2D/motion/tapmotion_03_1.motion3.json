@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 54,
-		"TotalSegmentCount": 141,
-		"TotalPointCount": 439,
+		"CurveCount": 59,
+		"TotalSegmentCount": 146,
+		"TotalPointCount": 449,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -131,12 +131,12 @@
 				0.056,
 				1,
 				0.111,
-				0.9,
+				0.8,
 				0.167,
-				0.9,
+				0.8,
 				1,
 				0.2,
-				0.9,
+				0.8,
 				0.233,
 				1,
 				0.267,
@@ -174,12 +174,12 @@
 				0.056,
 				1,
 				0.111,
-				0.9,
+				0.8,
 				0.167,
-				0.9,
+				0.8,
 				1,
 				0.2,
-				0.9,
+				0.8,
 				0.233,
 				1,
 				0.267,
@@ -507,6 +507,61 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamCheek",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamSad",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCry",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamTojime",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamYodare",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamKirakiraEye",
 			"Segments": [
 				0,
@@ -659,7 +714,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param",
+			"Id": "ParamMainX",
 			"Segments": [
 				0,
 				0,
@@ -674,7 +729,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param2",
+			"Id": "ParamMainY",
 			"Segments": [
 				0,
 				0,
@@ -828,7 +883,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param3",
+			"Id": "R_upperPosX",
 			"Segments": [
 				0,
 				0,

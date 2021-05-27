@@ -14622,7 +14622,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -14670,7 +14670,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -14718,7 +14718,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -14766,7 +14766,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -14814,7 +14814,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -14862,7 +14862,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -14910,7 +14910,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -14958,7 +14958,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -15006,7 +15006,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -15054,7 +15054,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -15102,7 +15102,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0
@@ -15150,7 +15150,7 @@ MonoBehaviour:
       day: 0
       quality: 0
       exp: 0
-      ex_probability: 0
+      ex_probability: 1
       rich: 0
       sweat: 0
       bitter: 0

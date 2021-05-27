@@ -549,6 +549,10 @@ public class Contest_Judge : MonoBehaviour {
                             total_score[i] = (int)_temp_score;
                         }
 
+                        Debug.Log("審査員１　正規化点数：" + total_score[0] + "点");
+                        Debug.Log("審査員２　正規化点数：" + total_score[1] + "点");
+                        Debug.Log("審査員３　正規化点数：" + total_score[2] + "点");
+
                         sum = 0;
                         for (i=0; i< GameMgr.contest_Score.Length; i++)
                         {

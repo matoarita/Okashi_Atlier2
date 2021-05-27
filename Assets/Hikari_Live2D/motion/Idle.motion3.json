@@ -275,7 +275,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param",
+			"Id": "ParamMainX",
 			"Segments": [
 				0,
 				0,
@@ -286,7 +286,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param2",
+			"Id": "ParamMainY",
 			"Segments": [
 				0,
 				0,
@@ -429,7 +429,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param3",
+			"Id": "R_upperPosX",
 			"Segments": [
 				0,
 				0,

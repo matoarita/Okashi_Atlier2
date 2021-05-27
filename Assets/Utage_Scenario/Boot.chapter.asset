@@ -707,12 +707,12 @@ MonoBehaviour:
       - <param=npcO_name>
       - "\u901A\u5E38"
       - 
-      - -50
+      - -233
       - 
       - 
-      - .6
+      - 1
       - 
-      - Savant/tao_sample.png
+      - Savant/DK3.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -764,9 +764,9 @@ MonoBehaviour:
       - 0
       - 
       - 
-      - .6
+      - 1
       - 
-      - Takano/takano.png
+      - Takano/wgA_c004.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -777,18 +777,18 @@ MonoBehaviour:
       - <param=npcS_name>
       - "\u901A\u5E38"
       - 
-      - -50
+      - 0
       - 
       - 
-      - .5
+      - 1
       - 
-      - Antoinette/Antoinette.png
+      - Antoinette/flE_a001.png
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Character
     type: 1
-    textLength: 1862
+    textLength: 1851
     headerRow: 0
   - rows:
     - rowIndex: 0

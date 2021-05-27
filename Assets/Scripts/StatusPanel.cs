@@ -27,6 +27,7 @@ public class StatusPanel : MonoBehaviour {
     private GameObject paramview3;
 
     private GameObject StatusList_obj;
+    private GameObject StatusList_SelectView_obj;
     private GameObject Costume_Panel_obj;
     private GameObject Collection_Panel_obj;
 
@@ -113,6 +114,7 @@ public class StatusPanel : MonoBehaviour {
         paramview3 = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
 
         StatusList_obj = this.transform.Find("StatusList").gameObject;
+        StatusList_SelectView_obj = this.transform.Find("StatusPanelSelect_ScrollView").gameObject;
         Costume_Panel_obj = this.transform.Find("CostumePanel").gameObject;
         Collection_Panel_obj = this.transform.Find("CollectionPanel").gameObject;
         collectionitem_toggle_obj = (GameObject)Resources.Load("Prefabs/CollectionIcon");
@@ -145,6 +147,33 @@ public class StatusPanel : MonoBehaviour {
         this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Costume_Toggle").GetComponent<Toggle>().isOn = false;
         this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Collection_Toggle").GetComponent<Toggle>().isOn = false;
         OnStatusMainPanel();
+
+        //画面のアニメ
+        OpenAnim();
+    }
+
+    void OpenAnim()
+    {
+        //まず、初期値。
+        StatusList_obj.GetComponent<CanvasGroup>().alpha = 0;
+        StatusList_SelectView_obj.GetComponent<CanvasGroup>().alpha = 0;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(StatusList_obj.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
+            .SetRelative()); //元の位置から30px上に置いておく。
+        sequence.Join(StatusList_SelectView_obj.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
+            .SetRelative());
+
+
+        sequence.Append(StatusList_obj.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.3f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
+        sequence.Join(StatusList_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+        sequence.Join(StatusList_SelectView_obj.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.3f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
+        sequence.Join(StatusList_SelectView_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
     public void OnStatusMainPanel()

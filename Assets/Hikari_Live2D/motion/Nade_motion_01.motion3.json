@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 58,
-		"TotalSegmentCount": 90,
-		"TotalPointCount": 296,
+		"CurveCount": 59,
+		"TotalSegmentCount": 91,
+		"TotalPointCount": 300,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -432,6 +432,21 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamTojime",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamYodare",
 			"Segments": [
 				0,
@@ -514,7 +529,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param",
+			"Id": "ParamMainX",
 			"Segments": [
 				0,
 				0,
@@ -525,7 +540,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param2",
+			"Id": "ParamMainY",
 			"Segments": [
 				0,
 				0,
@@ -668,7 +683,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Param3",
+			"Id": "R_upperPosX",
 			"Segments": [
 				0,
 				0,

@@ -50,15 +50,15 @@ MonoBehaviour:
   - ParamKirakira_yure
   - ParamHiLightOn
   - ParamBreath
-  - Param
-  - Param2
+  - ParamMainX
+  - ParamMainY
   - waistPosX
   - waistPosY
   - waistR
   - upperbodyPosX
   - upperbodyPosY
   - upperboddyR
-  - Param3
+  - R_upperPosX
   - R_upperPosY
   - R_upperR
   - R_armR

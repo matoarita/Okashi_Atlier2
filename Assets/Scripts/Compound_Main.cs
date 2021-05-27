@@ -3400,9 +3400,19 @@ public class Compound_Main : MonoBehaviour
                     if (GameMgr.GirlLoveSubEvent_stage1[90] == false)
                     {
                         Load_eventflag = false;
-                        //GameMgr.GirlLoveSubEvent_stage1[90] = true;
-                        GameMgr.GirlLoveSubEvent_num = 90;
-                        check_GirlLoveSubEvent_flag = false;
+                        if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
+                        {
+                            
+                            //GameMgr.GirlLoveSubEvent_stage1[90] = true;
+                            GameMgr.GirlLoveSubEvent_num = 91;
+                            check_GirlLoveSubEvent_flag = false;
+                        }
+                        else
+                        {
+                            //GameMgr.GirlLoveSubEvent_stage1[90] = true;
+                            GameMgr.GirlLoveSubEvent_num = 90;
+                            check_GirlLoveSubEvent_flag = false;
+                        }
                     }
                 }
             }
