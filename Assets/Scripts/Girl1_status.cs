@@ -318,7 +318,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
 
                 //お金の増減用パネルの取得
-                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
+                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
 
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -330,7 +330,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
+                girl_param = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
                 _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
 
                 //メイン画面に表示する、現在のクエスト
@@ -474,7 +474,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
 
                     //お金の増減用パネルの取得
-                    MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
+                    MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
 
                     //BGMの取得
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -559,7 +559,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         GirlEat_Judge_on = true;
                         Girl1_touchtwintail_count = 0;
 
-                        if (GirlOishiso_Status == 1)
+                        if (GirlOishiso_Status != 0) //成功　もしくはしっぱい
                         {
                             GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
                             DefaultFace();
@@ -2431,6 +2431,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _model.GetComponent<CubismEyeBlinkController>().enabled = false;
         _model.GetComponent<GazeController>().enabled = false;
 
+        /*
         if (GirlOishiso_Status == 0) //デフォルトの状態
         { }
         else if (GirlOishiso_Status == 1) //お菓子出来たてのあと、おいしそ～状態
@@ -2446,7 +2447,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 _temp_status = 1;
             }
-        }
+        }*/
 
         if (_temp_status == 0) //デフォルトの状態
         {
@@ -2534,19 +2535,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
 
         }
-        else if (_temp_status == 1) //お菓子出来たてのあと、おいしそ～状態 50%の確率で、出来たてのモーションを再生
+        /*else if (_temp_status == 1) //お菓子出来たてのあと、おいしそ～状態 50%の確率で、出来たてのモーションを再生
         {
             trans_facemotion = 500; //くんくんモーション
             IdleMotionHukidashiSetting(trans_facemotion);
             IdleChangeTemp = true;
-
-            /*DoTSequence_Kill();
-            MoveXMethod(-1.18f);
-            timeOutMoveX = 12.0f;           
-            Walk_Start = false; //一時的に歩きをOFF
-
-            StartCoroutine(ChangeFaceMotion(9999)); */
-        }
+        }*/
     }   
 
     void IdleMotionHukidashiSetting(int _motion_num)
@@ -3086,6 +3080,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //intパラメーターの値を設定する.  
         trans_expression = 15; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Cry2()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 16; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
 
     }

@@ -613,7 +613,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
-                money_status = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+                money_status = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
                 //Live2Dモデルの取得
                 _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
@@ -628,7 +628,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
                 sc.VolumeSetting();
 
-                StageClearButton_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
+                StageClearButton_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
                 StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
                 StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
 
@@ -641,7 +641,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 if (GameMgr.sys_extreme_itemID != 9999)
                 {
-                    extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponentInChildren<ExtremePanel>();
+                    extreme_panel = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").GetComponentInChildren<ExtremePanel>();
                     extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
                     extreme_panel.SetInitParamExtreme();
 

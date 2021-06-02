@@ -15,6 +15,7 @@ public class Quest_Judge : MonoBehaviour {
 
     private GameObject shopMain_obj;
     private Shop_Main shopMain;
+    private GameObject barMain_obj;
     private Bar_Main barMain;
 
     private GameObject MoneyStatus_Panel_obj;
@@ -194,15 +195,14 @@ public class Quest_Judge : MonoBehaviour {
         //カメラの取得
         main_cam = Camera.main;
         maincam_animator = main_cam.GetComponent<Animator>();
-        trans = maincam_animator.GetInteger("trans");
-
-        shopMain_obj = GameObject.FindWithTag("Shop_Main");
+        trans = maincam_animator.GetInteger("trans"); 
 
         switch (SceneManager.GetActiveScene().name)
         {
             case "Bar":
 
-                barMain = shopMain_obj.GetComponent<Bar_Main>();
+                barMain_obj = GameObject.FindWithTag("Bar_Main");
+                barMain = barMain_obj.GetComponent<Bar_Main>();
 
                 //名声パネルの取得
                 NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
@@ -211,6 +211,7 @@ public class Quest_Judge : MonoBehaviour {
 
             case "Shop":
 
+                shopMain_obj = GameObject.FindWithTag("Shop_Main");
                 shopMain = shopMain_obj.GetComponent<Shop_Main>();
                 break;
         }

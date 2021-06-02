@@ -139,10 +139,10 @@ public class GetMaterial : MonoBehaviour
         text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
 
         //時間管理オブジェクトの取得
-        time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
+        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
         //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
+        MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         //材料採取地パネルの取得
@@ -150,7 +150,7 @@ public class GetMaterial : MonoBehaviour
         getmatplace_panel = getmatplace_panel_obj.GetComponent<GetMatPlace_Panel>();
 
         //ヒロインライフパネル
-        HeroineLifePanel = canvas.transform.Find("MainUIPanel/GetMatStatusPanel/HeroineLife").gameObject;
+        HeroineLifePanel = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel/HeroineLife").gameObject;
         HeroineLifeText = HeroineLifePanel.transform.Find("HPguage/HPparam").GetComponent<Text>();
 
         //材料採取のための、消費コスト

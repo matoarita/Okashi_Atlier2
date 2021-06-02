@@ -706,7 +706,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             if (emeralditemlist[i].event_itemName == _itemname)
             {
                 _itemcount = emeralditemlist[i].ev_itemKosu;
-                Debug.Log("アイテム名: " + emeralditemlist[i].event_itemName + "　所持数: " + emeralditemlist[i].ev_itemKosu);
+                //Debug.Log("アイテム名: " + emeralditemlist[i].event_itemName + "　所持数: " + emeralditemlist[i].ev_itemKosu);
                 break;
             }
             i++;

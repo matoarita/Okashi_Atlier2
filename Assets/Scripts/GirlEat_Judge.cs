@@ -433,7 +433,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 character = GameObject.FindWithTag("Character");
 
                 //お金の増減用パネルの取得
-                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
+                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
                 //エメラルドングリパネルの取得
@@ -444,8 +444,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
 
                 //女の子のレベル表示取得
-                girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
-                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();               
+                girl_lv = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+                girl_param = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();               
 
 
                 //エフェクトプレファブの取得
@@ -455,7 +455,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Emo_effect_daimanzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
                 Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
                 Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
-                playableDirector = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").GetComponent<PlayableDirector>();
+                playableDirector = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").GetComponent<PlayableDirector>();
                 playableDirector.enabled = false;               
 
                 //ハートプレファブの取得
@@ -492,9 +492,9 @@ public class GirlEat_Judge : MonoBehaviour {
                 MainQuestOKPanel.SetActive(false);
 
                 //クエストクリアボタンの取得
-                stageclear_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
-                stageclear_toggle = canvas.transform.Find("MainUIPanel/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
-                stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
+                stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
+                stageclear_toggle = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
+                stageclear_Button = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel/StageClear_Button").gameObject;
                 stageclear_button_on = false;                
 
                 Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
@@ -2311,7 +2311,7 @@ public class GirlEat_Judge : MonoBehaviour {
             }
 
             //クリア分岐2　クエストお菓子・クエスト以外のお菓子、両方でチェック。ステージクリアに必要なハート量がたまったかどうか。
-            if (!quest_clear)
+            /*if (!quest_clear)
             {                          
                 if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
                 {
@@ -2325,7 +2325,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         _windowtext.text = "満足しているようだ。";
                     }
                 }
-            }
+            }*/
             
 
         }

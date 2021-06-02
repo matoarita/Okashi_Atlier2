@@ -1303,7 +1303,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
+        engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);       
 
         //今食べたいお菓子を設定
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashi);
@@ -1318,6 +1318,7 @@ public class Utage_scenario : MonoBehaviour
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 
+        Debug.Log("GirlLoveEvent_num: " + GirlLoveEvent_num);
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 

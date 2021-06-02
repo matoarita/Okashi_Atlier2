@@ -51,7 +51,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
             .SetEase(Ease.OutExpo));*/
 
         //まず画面をフェードイン
-        sequence.Append(this.GetComponent<CanvasGroup>().DOFade(1, 0.3f)
+        sequence.Append(this.GetComponent<CanvasGroup>().DOFade(1, 0.0f)
             .SetEase(Ease.OutQuart));
 
         //次にクエストタイトルを登場させる

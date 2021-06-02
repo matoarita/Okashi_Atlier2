@@ -601,10 +601,10 @@ public class Bar_Main : MonoBehaviour
         //ラスク
         if (GameMgr.GirlLoveEvent_stage1[10])
         {
-            /*for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
                 shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i+5]);
-            }*/
+            }
         }
 
         //
@@ -617,7 +617,7 @@ public class Bar_Main : MonoBehaviour
         }
         else //もしきける話を全て聞いていた場合
         {
-            //きける話を全てリセット
+            //きける話を全てリセットして、もっかい抽選
             for (i = 0; i < shopuwasa_List.Count; i++)
             {
                 shopuwasa_List[i] = false; //すべてのうわさの聞いたフラグをリセット

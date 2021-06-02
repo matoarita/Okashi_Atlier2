@@ -3577,7 +3577,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Oishiso_motion_01_1
+  m_Name: Oishiso_motion_01_1_NOUSE
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4734,10 +4734,10 @@ AnimatorStateMachine:
     m_Position: {x: 456, y: 336, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102620032232569854}
-    m_Position: {x: 144, y: 264, z: 0}
+    m_Position: {x: 96, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102638511224184966}
-    m_Position: {x: 144, y: 336, z: 0}
+    m_Position: {x: 96, y: 372, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102079590007757982}
     m_Position: {x: 1512, y: 264, z: 0}

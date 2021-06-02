@@ -7,6 +7,11 @@ using Live2D.Cubism.Framework;
 
 public class MainUIPanel : MonoBehaviour {
 
+    //カメラ関連
+    private Camera main_cam;
+    private Animator maincam_animator;
+    private int trans; //トランジション用のパラメータ
+
     private GameObject canvas;
     private GameObject UIOpenButton_obj;
     private GameObject GetMatStatusButton_obj;
@@ -21,18 +26,26 @@ public class MainUIPanel : MonoBehaviour {
     private Touch_Controller touch_controller;
     private CubismModel _model;
 
+    private GameObject text_area_Main;
+    private Text _textmain;
+
     // Use this for initialization
     void Start () {
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
+
         //Live2Dモデル取得
         _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
 
         UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
-        TimePanel_obj = this.transform.Find("TimePanel").gameObject;
-        GetMatStatusButton_obj = this.transform.Find("GetMatStatusPanel").gameObject;
+        TimePanel_obj = this.transform.Find("Comp/TimePanel").gameObject;
+        GetMatStatusButton_obj = this.transform.Find("Comp/GetMatStatusPanel").gameObject;
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -41,6 +54,9 @@ public class MainUIPanel : MonoBehaviour {
         touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
         compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+
+        text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
+        _textmain = text_area_Main.GetComponentInChildren<Text>();
 
         total_obj_count = 0;
         foreach (Transform child in this.transform)
@@ -57,13 +73,11 @@ public class MainUIPanel : MonoBehaviour {
     public void OnOpenButton()
     {
 
-        foreach (Transform child in this.transform) 
-        {
-            child.gameObject.SetActive(true);
-            //child.GetComponent<CanvasGroup>().alpha = 1;
-        }
+        this.transform.Find("Comp/").gameObject.SetActive(true);
+
         UIOpenButton_obj.SetActive(false);
-        
+        text_area_Main.SetActive(true);
+
 
         if (GameMgr.TimeUSE_FLAG == false)
         {
@@ -76,16 +90,25 @@ public class MainUIPanel : MonoBehaviour {
         compound_Main.CheckButtonFlag();
         compound_Main.QuestClearCheck();
 
+        //カメラ左へ。キャラが左へいく。
+        trans = 10; //transが1を超えたときに、ズームするように設定されている。
+
+        //intパラメーターの値を設定する.
+        maincam_animator.SetInteger("trans", trans);
     }
 
     public void OnCloseButton()
     {
-        foreach (Transform child in this.transform) 
-        {
-            child.gameObject.SetActive(false);
-            //child.GetComponent<CanvasGroup>().alpha = 0;
-        }
+        this.transform.Find("Comp/").gameObject.SetActive(false);
+
         UIOpenButton_obj.SetActive(true);
+        text_area_Main.SetActive(false);
+
+        //カメラ正面に戻る。
+        trans = 11; //transが1を超えたときに、ズームするように設定されている。
+
+        //intパラメーターの値を設定する.
+        maincam_animator.SetInteger("trans", trans);
     }
 
     void OsawariON()

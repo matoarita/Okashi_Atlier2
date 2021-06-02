@@ -16,6 +16,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 {
     private GameObject canvas;
 
+    //カメラ関連
+    private Camera main_cam;
+    private Animator maincam_animator;
+    private int trans; //トランジション用のパラメータ
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -214,7 +219,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
-       
 
         //エフェクトプレファブの取得
         Compo_Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
@@ -271,13 +275,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
+
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         //時間管理オブジェクトの取得
-        time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
+        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
+        extremePanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
         text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
@@ -336,8 +345,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //調合中ウェイト+アニメ
             if (compo_anim_on == true)
             {
+                compound_Main.compo_ON = true;
+                compound_Main.check_GirlLoveSubEvent_flag = false;
 
-                //ウェイト
+                //アニメスタート
                 Compo_Magic_Animation();
             }
 
@@ -1042,9 +1053,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
             pitemlist.add_EmeraldPlayerItem(kettei_item1, result_kosu);
             pitemlist.emeralditemlist_Sansho(); //デバッグ用。コメントアウトしても大丈夫。
-
-            //買ったものに応じて、家へかえるとイベント発生
-            emeralditem_event(pitemlist.NameFindEmerald(kettei_item1));
             
         }
         else if (toggle_type1 == 2 || toggle_type1 == 6) //2は機材。shop_itemType = 6 は、装備品や飾りなどの特殊アイテム。買うことでパラメータを上昇させたり、フラグをたてる。
@@ -1102,23 +1110,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         shopitemlistController.ReDraw(); //リスト描画の更新
 
-    }
-
-    void emeralditem_event(string _itemname)
-    {
-        switch (_itemname)
-        {
-            case "Glass_Acce":
-
-                //メイン画面にもどったときに、イベントを発生させるフラグをON
-                GameMgr.CompoundEvent_num = 100;
-                GameMgr.CompoundEvent_flag = true;
-                break;
-
-            default:
-
-                break;
-        }
     }
 
     //
@@ -1183,11 +1174,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //
     void Compo_Magic_Animation()
     {
-        
+
         switch (compo_anim_status)
         {
             case 0: //初期化 状態１
-              
+
                 //メモは全てオフに
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -1241,7 +1232,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 if (timeOut <= 0.0)
                 {
                     //新しいアイテムができるときは、さらに追加のキラキラ演出
-                    if(NewRecipiFlag)
+                    if (NewRecipiFlag)
                     {
                         timeOut = 1.0f;
                         compo_anim_status = 3;
@@ -1265,7 +1256,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         timeOut = 0.5f;
                         compo_anim_status = 5;
                     }
-                    
+
 
                 }
                 break;
@@ -1292,7 +1283,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 5: //アニメ終了。判定する
 
-                
+
                 //カードビューのカードアニメもストップ
                 card_view.cardcompo_anim_on = false;
                 card_view.DeleteCard_DrawView();
@@ -1318,16 +1309,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         GameMgr.tutorial_Progress = true;
                         GameMgr.tutorial_Num = 250;
                     }
-                }                
+                }
 
                 //Debug.Log("アニメ終了");
                 compo_anim_end = true;
-
+               
                 break;
 
             default:
                 break;
-        }
+        }        
 
         //時間減少
         timeOut -= Time.deltaTime;

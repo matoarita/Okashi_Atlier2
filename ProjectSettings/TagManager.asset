@@ -72,6 +72,7 @@ TagManager:
   - EmeraldShop_Main
   - CharacterRoot
   - BGAccessory
+  - Bar_Main
   layers:
   - Default
   - TransparentFX

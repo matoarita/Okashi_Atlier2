@@ -11,6 +11,10 @@ using DG.Tweening;
 
 public class Compound_Main : MonoBehaviour
 {
+    //カメラ関連
+    private Camera main_cam;
+    private Animator maincam_animator;
+    private int trans; //トランジション用のパラメータ
 
     private GameObject text_area;
     private Text _text;
@@ -98,7 +102,8 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
-    public bool girlEat_ON;
+    public bool girlEat_ON; //食べ中のフラグ
+    public bool compo_ON; //調合を開始したフラグ
 
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
@@ -159,9 +164,10 @@ public class Compound_Main : MonoBehaviour
     private GameObject sleep_toggle;
     private GameObject system_toggle;
     private GameObject status_toggle;
+    private GameObject hinttaste_toggle;
 
     private GameObject MainUICloseButton;
-    private GameObject HintTasteButton;
+    //private GameObject HintTasteButton;
     private Button extreme_Button;
     private Button recipi_Button;
     private GameObject sell_Button;
@@ -171,6 +177,7 @@ public class Compound_Main : MonoBehaviour
     private Toggle stageclear_button_toggle;
     private Text stageclear_button_text;
 
+    private bool status_zero_readOK;
     private bool Recipi_loading;
     private bool GirlLove_loading;
     public bool check_recipi_flag;
@@ -211,6 +218,8 @@ public class Compound_Main : MonoBehaviour
     private int SubEvAfterHeartGet_num;
     private bool subevent_after_end;
     private bool GetFirstCollectionItem;
+    private bool GetEmeraldItem;
+    private string GetEmeraldItemName;
 
     private string _todayfood;
     private List<string> _todayfood_lib = new List<string>();
@@ -276,24 +285,11 @@ public class Compound_Main : MonoBehaviour
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
-        
-        //時間表示パネルの取得
-        TimePanel_obj1 = canvas.transform.Find("MainUIPanel/TimePanel/TimeHyouji_1").gameObject;
-        TimePanel_obj2 = canvas.transform.Find("MainUIPanel/TimePanel/TimeHyouji_2").gameObject;
-        TimePanel_obj2.SetActive(false);
-       
-        //好感度バーの取得
-        girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").gameObject;
-        girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
 
-        //お金ステータスパネルの取得
-        moneystatus_panel = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
-        moneypanel_startPos = moneystatus_panel.transform.localPosition;
-
-        mainUIFrame_panel = canvas.transform.Find("MainUIPanel/MainUIPanelTopFrame").gameObject;
-
-        //えめらるどんぐりパネルの取得
-        kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -415,13 +411,13 @@ public class Compound_Main : MonoBehaviour
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel/Comp").gameObject;
         getmatplace = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
         getmatplace_panel.SetActive(false);
-        GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/GetMatStatusPanel").gameObject;
+        GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel").gameObject;
 
         //タッチ判定オブジェクトの取得
         touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
         //時間管理オブジェクトの取得
-        time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
+        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
         //キー入力受付コントローラーの取得
         keymanager = keyManager.Instance.GetComponent<keyManager>();
@@ -438,7 +434,11 @@ public class Compound_Main : MonoBehaviour
         character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
         character_move = character_root.transform.Find("CharacterMove").gameObject;
 
-        compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/CompoundSelect_ScrollView").gameObject;
+        compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").gameObject;
+
+        //
+        //トグル・UI関係
+        //
 
         //original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
         //recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
@@ -447,31 +447,60 @@ public class Compound_Main : MonoBehaviour
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
-        girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
-        //girleat_toggle = Extremepanel_obj.transform.Find("Comp/GirlEat_Toggle").gameObject;
+        //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
+        girleat_toggle = canvas.transform.Find("MainUIPanel/Comp/GirlEat_Toggle").gameObject;
+        girleat_toggle.SetActive(false);
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
         status_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Status_Toggle").gameObject;
+        //hinttaste_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/HintTaste_Toggle").gameObject;
+        hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
+        hinttaste_toggle.SetActive(false);
 
-        stageclear_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
-        stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
+
+        //時間表示パネルの取得
+        TimePanel_obj1 = canvas.transform.Find("MainUIPanel/Comp/TimePanel/TimeHyouji_1").gameObject;
+        TimePanel_obj2 = canvas.transform.Find("MainUIPanel/Comp/TimePanel/TimeHyouji_2").gameObject;
+        TimePanel_obj2.SetActive(false);
+
+        //好感度バーの取得
+        girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").gameObject;
+        girl_param = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
+
+        //お金ステータスパネルの取得
+        moneystatus_panel = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
+        moneypanel_startPos = moneystatus_panel.transform.localPosition;
+
+        mainUIFrame_panel = canvas.transform.Find("MainUIPanel/Comp/MainUIPanelTopFrame").gameObject;
+
+        //えめらるどんぐりパネルの取得
+        kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
+
+        stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
+        stageclear_Button = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel/StageClear_Button").gameObject;
         stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
-        stageclear_button_text = stageclear_Button.transform.Find("Text").GetComponent<Text>();
+        stageclear_button_text = stageclear_Button.transform.Find("TextPlate/Text").GetComponent<Text>();
         stageclear_button_toggle.isOn = false;
         stageclear_Button.SetActive(false);
 
-        MainUICloseButton = canvas.transform.Find("MainUIPanel/MainUICloseButton").gameObject;
-        HintTasteButton = canvas.transform.Find("MainUIPanel/HintTasteButton").gameObject;
-        HintTasteButton.SetActive(false);
+        MainUICloseButton = canvas.transform.Find("MainUIPanel/Comp/MainUICloseButton").gameObject;
+
+        //メモボタン
+        //HintTasteButton = canvas.transform.Find("MainUIPanel/HintTasteButton").gameObject;
+        //HintTasteButton.SetActive(false);
+
+        /* --- */
 
         compound_status = 0;
         compound_select = 0;
         Sleep_on = false;
 
+        status_zero_readOK = false;
         girlEat_ON = false;
+        compo_ON = false;
         Recipi_loading = false;
         GirlLove_loading = false;
         check_recipi_flag = false;
@@ -486,6 +515,7 @@ public class Compound_Main : MonoBehaviour
         SubEvAfterHeartGet = false;
         subevent_after_end = false;
         GetFirstCollectionItem = false;
+        GetEmeraldItem = false;
         Load_eventflag = false;
 
         //女の子　お菓子ハングリー状態のリセット
@@ -521,7 +551,7 @@ public class Compound_Main : MonoBehaviour
 
         //初期メッセージ
         StartMessage();        
-        text_area_Main.SetActive(true);
+        text_area_Main.SetActive(false);
 
         //初期アイテムの取得。一度きり。
         DefaultStartPitem();
@@ -1051,46 +1081,53 @@ public class Compound_Main : MonoBehaviour
             }
             else
             {
-                //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
-                if (check_GirlLoveEvent_flag == false)
+                if (compo_ON) //お菓子調合中もメインの処理は無視。おわったら、サブイベントチェックしてから、メインへ。
                 {
-                    Debug.Log("イベントチェックON");
-                    //腹減りカウント一時停止
-                    girl1_status.GirlEat_Judge_on = false;
 
-                    Check_GirlLoveEvent();
                 }
                 else
                 {
-                    //サブイベントの発生をチェック。
-                    if (check_GirlLoveSubEvent_flag == false)
+                    //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
+                    if (check_GirlLoveEvent_flag == false)
                     {
-                        Debug.Log("サブイベントチェックON");
+                        Debug.Log("イベントチェックON");
                         //腹減りカウント一時停止
                         girl1_status.GirlEat_Judge_on = false;
 
-                        //好感度に応じて発生するサブイベント
-                        GirlLove_EventMethod();
+                        Check_GirlLoveEvent();
                     }
                     else
                     {
-                        //読んでいないレシピがあれば、読む処理。優先順位二番目。
-                        if (check_recipi_flag != true)
+                        //サブイベントの発生をチェック。
+                        if (check_GirlLoveSubEvent_flag == false)
                         {
+                            Debug.Log("サブイベントチェックON");
                             //腹減りカウント一時停止
                             girl1_status.GirlEat_Judge_on = false;
 
-                            //Debug.Log("チェックレシピ中");
-                            Check_RecipiFlag();                            
+                            //好感度に応じて発生するサブイベント
+                            GirlLove_EventMethod();
                         }
                         else
                         {
+                            //読んでいないレシピがあれば、読む処理。優先順位二番目。
+                            if (check_recipi_flag != true)
+                            {
+                                //腹減りカウント一時停止
+                                girl1_status.GirlEat_Judge_on = false;
 
-                            //Debug.Log("compound_status: " + compound_status);
-                            //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-                            MainCompoundMethod();
+                                //Debug.Log("チェックレシピ中");
+                                Check_RecipiFlag();
+                            }
+                            else
+                            {
+
+                                //Debug.Log("compound_status: " + compound_status);
+                                //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
+                                MainCompoundMethod();
 
 
+                            }
                         }
                     }
                 }
@@ -1106,7 +1143,7 @@ public class Compound_Main : MonoBehaviour
         {
             case 0:
 
-                //Debug.Log("メインの調合シーン　スタート");               
+                Debug.Log("メインの調合シーン　compound_status:0 スタート");               
 
                 //ボタンなどの状態の初期設定
                 if (GameMgr.tutorial_ON != true)
@@ -1140,27 +1177,16 @@ public class Compound_Main : MonoBehaviour
                 system_panel.SetActive(false);
                 status_panel.SetActive(false);
                 okashihint_panel.SetActive(false);
+                recipiMemoButton.SetActive(false);
 
-                TimePanel_obj1.SetActive(true);
-                TimePanel_obj2.SetActive(false);
-
-                compoundselect_onoff_obj.SetActive(true);
-                girl_love_exp_bar.SetActive(true);
-                moneystatus_panel.SetActive(true);
-                mainUIFrame_panel.SetActive(true);
-                //kaerucoin_panel.SetActive(true);
+                WindowOn();                
                 select_original_button.interactable = true;
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
-                MainUICloseButton.SetActive(true);               
+                               
                 OnCompoundSelect();
                 touch_controller.Touch_OnAllON();                
-
-                recipiMemoButton.SetActive(false);
-
-                //ゲーム進行度に応じて、ヒントボタンなどは表示する。
-                CheckButtonFlag();
-
+                              
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
 
@@ -1185,60 +1211,6 @@ public class Compound_Main : MonoBehaviour
                     time_controller.TimeKoushin(); //時間の更新
                 }
 
-                if (!Sleep_on)
-                {                  
-                    if (ResultComplete_flag != 0) //厨房から帰ってくるときの動き
-                    {
-                        Debug.Log("厨房から戻ってくる。");
-
-                        //腹減りカウント一時停止
-                        girl1_status.GirlEat_Judge_on = false;
-
-                        ResultComplete_flag = 0;
-                        //intパラメーターの値を設定する.  
-
-                        trans_motion = 100; //戻るアニメに遷移
-                        live2d_animator.SetInteger("trans_motion", trans_motion);
-                        trans_expression = 2;
-                        live2d_animator.SetInteger("trans_expression", trans_expression);
-                    }
-                    else
-                    {
-                        if (live2d_posmove_flag) //調合シーンに入った時に、位置を変更するので、変更したという合図
-                        {
-                            trans_motion = 11; //位置をもとに戻す。
-                            live2d_animator.SetInteger("trans_motion", trans_motion);
-                            live2d_posmove_flag = false;
-                        }
-
-                        if (GameMgr.QuestClearflag)
-                        {
-                            girl1_status.AfterOkashiDefaultFace();
-                        }
-                        else
-                        {
-                            girl1_status.DefaultFace();
-                        }
-
-                    }
-                }
-                else
-                {
-                    ResultComplete_flag = 0;
-
-                    trans_motion = 11; //位置をもとに戻す。
-                    live2d_animator.SetInteger("trans_motion", trans_motion);
-
-                    if (GameMgr.QuestClearflag)
-                    {
-                        girl1_status.AfterOkashiDefaultFace();
-                    }
-                    else
-                    {
-                        girl1_status.DefaultFace();
-                    }
-                }
-
                 //音関係
                 if (!GameMgr.tutorial_ON)
                 {
@@ -1257,29 +1229,16 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
                 }
-                sceneBGM.MuteOFFBGM();
-
-
-                //クエストをクリアしたら、クリアボタンがでる。
-                QuestClearCheck();
+                sceneBGM.MuteOFFBGM();                
 
                 //イベントに応じてコマンドを増やす関係
                 FlagEvent();
 
-                Extremepanel_obj.SetActive(true);
-                extreme_panel.extremeButtonInteractOn();
-                extreme_panel.LifeAnimeOnTrue();
+                
                 if(!exp_Controller._temp_extremeSetting) //もしfalseだったら、このタイミングでも、パネルのアイテムを削除する。
                 {
                     extreme_panel.deleteExtreme_Item();
-                }
-
-                text_area.SetActive(false);
-                text_area_Main.SetActive(true);
-            
-                               
-                compound_select = 0;
-                compound_status = 110; //退避
+                }                                                                        
 
                 if (!subevent_after_end)
                 {
@@ -1292,11 +1251,11 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    if (read_girlevent) 
+                    /*if (read_girlevent) 
                     {
                         read_girlevent = false;
                         mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
-                    }
+                    }*/
                 }
 
                 if (!SceneStart_flag)
@@ -1311,13 +1270,12 @@ public class Compound_Main : MonoBehaviour
                     check_GirlLoveSubEvent_flag = false; //イベントチェック
 
                 }
-                
+
+                status_zero_readOK = true;
 
                 break;
 
             case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
-
-                compoundselect_onoff_obj.SetActive(false);
 
                 compound_status = 4; //調合シーンに入っています、というフラグ
                 compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
@@ -1346,7 +1304,6 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(true);
                 WindowOff();
-                mainUIFrame_panel.SetActive(true);
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
@@ -1387,8 +1344,6 @@ public class Compound_Main : MonoBehaviour
 
             case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
 
-                compoundselect_onoff_obj.SetActive(false);
-
                 compound_status = 4; //調合シーンに入っています、というフラグ
                 compound_select = 2; //トッピング調合を選択
 
@@ -1407,7 +1362,6 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(true);
                 WindowOff();
-                mainUIFrame_panel.SetActive(true);
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
@@ -1452,8 +1406,6 @@ public class Compound_Main : MonoBehaviour
 
             case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
 
-                compoundselect_onoff_obj.SetActive(false);
-
                 compound_status = 4; //調合シーンに入っています、というフラグ
                 compound_select = 3; //オリジナル調合を選択
 
@@ -1476,7 +1428,6 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(true);
                 WindowOff();
-                mainUIFrame_panel.SetActive(true);
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
@@ -1560,8 +1511,6 @@ public class Compound_Main : MonoBehaviour
 
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
-                compoundselect_onoff_obj.SetActive(false);
-
                 compound_status = 4; //調合シーンに入っています、というフラグ
                 compound_select = 6;
 
@@ -1584,6 +1533,13 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(false);
                 WindowOff();
+
+                //カメラリセット
+                //アイドルに戻るときに0に戻す。
+                trans = 0;
+
+                //intパラメーターの値を設定する.
+                maincam_animator.SetInteger("trans", trans);
 
                 //ヒカリちゃんを表示しない。デフォルト描画順
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
@@ -1627,8 +1583,6 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case 10: //「あげる」を選択
-
-                compoundselect_onoff_obj.SetActive(false);
 
                 compound_status = 13; //あげるシーンに入っています、というフラグ
                 compound_select = 10; //あげるを選択
@@ -1677,8 +1631,6 @@ public class Compound_Main : MonoBehaviour
                 compound_status = 21; //
                 compound_select = 20; //
 
-                compoundselect_onoff_obj.SetActive(false);
-
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 touch_controller.Touch_OnAllOFF();
                 time_controller.TimeCheck_flag = false;
@@ -1694,7 +1646,6 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(true);
                 moneystatus_panel.SetActive(true);
-                mainUIFrame_panel.SetActive(true);
                 GetMatStatusButton_obj.SetActive(true);
 
                 //一時的に腹減りを止める。
@@ -1747,8 +1698,6 @@ public class Compound_Main : MonoBehaviour
 
             case 40: //コンテストを選択
 
-                compoundselect_onoff_obj.SetActive(false);
-
                 compound_status = 41; //コンテスト進むかシーンに入っています、というフラグ
                 compound_select = 40;             
 
@@ -1768,8 +1717,6 @@ public class Compound_Main : MonoBehaviour
 
             case 42: //次のお菓子へ進むかを選択
 
-                compoundselect_onoff_obj.SetActive(false);
-
                 compound_status = 43; //次のお菓子へ進むかシーンに入っています、というフラグ
                 compound_select = 40;
 
@@ -1788,8 +1735,6 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case 50: //寝るを選択
-
-                compoundselect_onoff_obj.SetActive(false);
 
                 compound_status = 51; //売るシーンに入っています、というフラグ
                 compound_select = 50; //売るを選択
@@ -1811,8 +1756,7 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case 99: //アイテム画面を開いたとき
-
-                compoundselect_onoff_obj.SetActive(false);
+                
                 black_panel_A.SetActive(true);
                 compound_status = 99;
                 compound_select = 99;
@@ -1843,7 +1787,6 @@ public class Compound_Main : MonoBehaviour
 
             case 200: //システム画面を開いたとき
 
-                compoundselect_onoff_obj.SetActive(false);
                 compound_status = 201;
                 compound_select = 200;
 
@@ -1864,7 +1807,6 @@ public class Compound_Main : MonoBehaviour
 
             case 250: //お菓子ヒント画面を開いたとき
 
-                compoundselect_onoff_obj.SetActive(false);
                 compound_status = 251;
                 compound_select = 250;
 
@@ -1885,7 +1827,6 @@ public class Compound_Main : MonoBehaviour
 
             case 300: //ステータス画面を開いたとき
 
-                compoundselect_onoff_obj.SetActive(false);
                 compound_status = 301;
                 compound_select = 300;
 
@@ -1913,8 +1854,97 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (status_zero_readOK)
+        {
+            status_zero_readOK = false;
+
+            switch (compound_status)
+            {
+                case 0:
+
+                    if (!Sleep_on)
+                    {
+                        if (ResultComplete_flag != 0) //厨房から帰ってくるときの動き
+                        {
+                            Debug.Log("厨房から戻ってくる動き。");
+
+                            //腹減りカウント一時停止
+                            girl1_status.GirlEat_Judge_on = false;
+
+                            ResultComplete_flag = 0;
+                            //intパラメーターの値を設定する.  
+
+                            trans_motion = 100; //戻るアニメに遷移
+                            live2d_animator.SetInteger("trans_motion", trans_motion);
+                            trans_expression = 2;
+                            live2d_animator.SetInteger("trans_expression", trans_expression);
+
+                            // カメラも、menuオープン時の位置に。
+                            trans = 10;
+
+                            //intパラメーターの値を設定する.
+                            maincam_animator.SetInteger("trans", trans);
+
+                        }
+                        else
+                        {
+                            ResetLive2DPos_Face();
+                        }
+                    }
+                    else
+                    {
+                        ResultComplete_flag = 0;
+
+                        trans_motion = 11; //位置をもとに戻す。
+                        live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                        if (GameMgr.QuestClearflag)
+                        {
+                            girl1_status.AfterOkashiDefaultFace();
+                        }
+                        else
+                        {
+                            girl1_status.DefaultFace();
+                        }
+                    }
+
+                    compound_select = 0;
+                    compound_status = 110; //退避
+                    break;
+
+                case 110: //退避用
+
+                    break;
+            }
+        }
+    }
+
+    void ResetLive2DPos_Face()
+    {
+        Debug.Log("Live2D位置のリセット");
+
+        if (live2d_posmove_flag) //調合シーンに入った時に、位置を変更するので、変更したという合図
+        {
+            trans_motion = 11; //位置をもとに戻す。
+            live2d_animator.SetInteger("trans_motion", trans_motion);
+            live2d_posmove_flag = false;
+        }
+
+        if (GameMgr.QuestClearflag)
+        {
+            girl1_status.AfterOkashiDefaultFace();
+        }
+        else
+        {
+            girl1_status.DefaultFace();
+        }
+    }
+
     void WindowOff()
     {
+        compoundselect_onoff_obj.SetActive(false);
         Extremepanel_obj.SetActive(false);
         text_area_Main.SetActive(false);
         girl_love_exp_bar.SetActive(false);
@@ -1922,9 +1952,39 @@ public class Compound_Main : MonoBehaviour
         moneystatus_panel.SetActive(false);
         mainUIFrame_panel.SetActive(false);
         //kaerucoin_panel.SetActive(false);
-        stageclear_panel.SetActive(false);
+
         MainUICloseButton.SetActive(false);
-        HintTasteButton.SetActive(false);
+
+        stageclear_panel.SetActive(false);        
+        hinttaste_toggle.SetActive(false);
+        girleat_toggle.SetActive(false);
+    }
+
+    void WindowOn()
+    {
+        compoundselect_onoff_obj.SetActive(true);
+        Extremepanel_obj.SetActive(true);
+        text_area.SetActive(false);
+        text_area_Main.SetActive(true);
+        girl_love_exp_bar.SetActive(true);
+        TimePanel_obj1.SetActive(true);
+        TimePanel_obj2.SetActive(false);
+        moneystatus_panel.SetActive(true);
+        mainUIFrame_panel.SetActive(true);
+        //kaerucoin_panel.SetActive(true);
+
+        MainUICloseButton.SetActive(true);
+
+        //クエストをクリアしたら、クリアボタンがでる。
+        QuestClearCheck();
+
+        //ゲーム進行度に応じて、ヒントボタンなどは表示する。
+        CheckButtonFlag();
+
+        girleat_toggle.SetActive(true);
+
+        extreme_panel.extremeButtonInteractOn();
+        extreme_panel.LifeAnimeOnTrue();
     }
 
     public void QuestClearCheck() //SaveControllerからも読み込んでいる。
@@ -2088,6 +2148,18 @@ public class Compound_Main : MonoBehaviour
         compound_status = 0;
     }
 
+    public void OnCancelCompound_Select()
+    {
+        //カメラをメニューオープンの状態で戻す
+        compound_status = 0;
+
+        //カメラ
+        trans = 10;
+
+        //intパラメーターの値を設定する.
+        maincam_animator.SetInteger("trans", trans);
+    }
+
 
     public void OnMenu_toggle() //メニューをON
     {
@@ -2127,13 +2199,18 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    public void OnTasteHint_Button() //お菓子ヒントボタンを押した
+    public void OnTasteHint_Toggle() //お菓子ヒントボタンを押した
     {
-        card_view.DeleteCard_DrawView();
+        if (hinttaste_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            hinttaste_toggle.GetComponent<Toggle>().isOn = false;
 
-        compound_status = 250;
+            card_view.DeleteCard_DrawView();
 
-        StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+            compound_status = 250;
+
+            StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+        }
     }
 
     public void OnStatus_toggle() //ステータスボタンを押した
@@ -2332,12 +2409,6 @@ public class Compound_Main : MonoBehaviour
         text_area_Main.SetActive(true);
         yes_no_panel.SetActive(true);
         compound_status = 1;
-    }
-
-
-    void text_scenario()
-    {
-
     }
 
 
@@ -2857,18 +2928,15 @@ public class Compound_Main : MonoBehaviour
     {
         OffCompoundSelect();
         compoundselect_onoff_obj.SetActive(false);
-        //Extremepanel_obj.SetActive(false);
+        Extremepanel_obj.SetActive(false);
+        compoBG_A.SetActive(false);
         GirlLove_loading = true;
 
         //腹減りカウント一時停止
         girl1_status.GirlEat_Judge_on = false;
         //girl1_status.Girl_Full();
         girl1_status.DeleteHukidashiOnly();
-        girl1_status.Girl1_Status_Init();
-
-        //厨房から帰ってくる場合の、モーションもリセット
-        //trans_motion = 0; //リセット
-        //live2d_animator.SetInteger("trans_motion", trans_motion);
+        girl1_status.Girl1_Status_Init();        
 
         while (girlEat_ON)
         {
@@ -2887,6 +2955,9 @@ public class Compound_Main : MonoBehaviour
         {
             sceneBGM.MuteBGM();
         }
+
+        //サブイベントを読み始めたら、元のキャラクタの位置は元に戻しておく。
+        ResetLive2DPos_Face();
 
         GameMgr.scenario_ON = true;
         GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -2946,7 +3017,7 @@ public class Compound_Main : MonoBehaviour
        
         check_recipi_flag = false;
        
-    }
+    }   
 
     IEnumerator ReadGirlLoveEventAfter()
     {
@@ -3102,7 +3173,7 @@ public class Compound_Main : MonoBehaviour
 
                     if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
                     {
-                        _textmain.text = "「メニュー」を開いて、" + GameMgr.ColorLemon + "「お菓子パネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみよう。";
+                        _textmain.text = GameMgr.ColorLemon + "「お菓子パネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみよう。";
                     }
                     else
                     {
@@ -3390,6 +3461,60 @@ public class Compound_Main : MonoBehaviour
                 }
             }
 
+            //はじめて衣装装備を買った 70番台～
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                //所持数チェック
+                GetEmeraldItem = false;
+                i = 0;
+                while(i < pitemlist.emeralditemlist.Count)
+                {
+                    if (pitemlist.KosuCountEmerald(pitemlist.emeralditemlist[i].event_itemName) >= 1)
+                    {
+                        GetEmeraldItemName = pitemlist.emeralditemlist[i].event_itemName;
+                       
+                        switch (GetEmeraldItemName)
+                        {
+                            case "Glass_Acce":
+
+                                if (!GameMgr.GirlLoveSubEvent_stage1[70])
+                                {
+                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                    GameMgr.GirlLoveSubEvent_num = 70;
+                                    GameMgr.GirlLoveSubEvent_stage1[70] = true;
+                                    check_GirlLoveSubEvent_flag = false;
+                                    GetEmeraldItem = true;
+                                }
+                                break;
+
+                            case "Sukumizu_Costume":
+
+                                if (!GameMgr.GirlLoveSubEvent_stage1[71])
+                                {
+                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                    GameMgr.GirlLoveSubEvent_num = 71;
+                                    GameMgr.GirlLoveSubEvent_stage1[71] = true;
+                                    check_GirlLoveSubEvent_flag = false;
+                                    GetEmeraldItem = true;
+                                }
+                                break;
+
+                            default:
+
+                                break;
+                        }
+
+                        if (GetEmeraldItem)
+                        {
+                            break;
+                        }                       
+                    }
+                    i++;
+                }    
+            }
+
             //その他イベント、ロード後イベントなど。90番台～
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
@@ -3403,20 +3528,20 @@ public class Compound_Main : MonoBehaviour
                         if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
                         {
                             
-                            //GameMgr.GirlLoveSubEvent_stage1[90] = true;
+                            //GameMgr.GirlLoveSubEvent_stage1[180] = true;
                             GameMgr.GirlLoveSubEvent_num = 91;
                             check_GirlLoveSubEvent_flag = false;
                         }
                         else
                         {
-                            //GameMgr.GirlLoveSubEvent_stage1[90] = true;
+                            //GameMgr.GirlLoveSubEvent_stage1[181] = true;
                             GameMgr.GirlLoveSubEvent_num = 90;
                             check_GirlLoveSubEvent_flag = false;
                         }
                     }
                 }
             }
-
+           
             //フラグは必ずリセット
             check_CompoAfter_flag = false;
             check_OkashiAfter_flag = false;
@@ -3426,6 +3551,7 @@ public class Compound_Main : MonoBehaviour
             if (!check_GirlLoveSubEvent_flag) //サブイベント発生した
             {
                 girl1_status.HukidashiFlag = false;
+                ResultComplete_flag = 0; //イベント読み始めたら、調合終了の合図をたてておく。
 
                 //クエスト発生
                 Debug.Log("サブ好感度イベントの発生");
@@ -3502,7 +3628,7 @@ public class Compound_Main : MonoBehaviour
         system_toggle.GetComponent<Toggle>().interactable = false;
         status_toggle.GetComponent<Toggle>().interactable = false;
         MainUICloseButton.GetComponent<Button>().interactable = false;
-        HintTasteButton.GetComponent<Button>().interactable = false;
+        hinttaste_toggle.GetComponent<Toggle>().interactable = false;
     }
 
     public void OffCompoundSelect()
@@ -3516,7 +3642,7 @@ public class Compound_Main : MonoBehaviour
         system_toggle.GetComponent<Toggle>().interactable = false;
         status_toggle.GetComponent<Toggle>().interactable = false;
         MainUICloseButton.GetComponent<Button>().interactable = false;
-        HintTasteButton.GetComponent<Button>().interactable = false;
+        hinttaste_toggle.GetComponent<Toggle>().interactable = false;
         extreme_Button.interactable = false;
     }
 
@@ -3530,7 +3656,7 @@ public class Compound_Main : MonoBehaviour
         system_toggle.GetComponent<Toggle>().interactable = true;
         status_toggle.GetComponent<Toggle>().interactable = true;
         MainUICloseButton.GetComponent<Button>().interactable = true;
-        HintTasteButton.GetComponent<Button>().interactable = true;
+        hinttaste_toggle.GetComponent<Toggle>().interactable = true;
         extreme_Button.interactable = true;
     }
 
@@ -3544,11 +3670,11 @@ public class Compound_Main : MonoBehaviour
     {
         if (GameMgr.GirlLoveSubEvent_stage1[0] || GameMgr.OkashiQuest_Num >= 1)
         {
-            HintTasteButton.SetActive(true);
+            hinttaste_toggle.SetActive(true);
         }
         else
         {
-            HintTasteButton.SetActive(false);
+            hinttaste_toggle.SetActive(false);
         }        
     }
 

@@ -12,7 +12,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //イベント数をセッティング
     //
     public static int GirlLoveEvent_stage_num = 100;
-    public static int GirlLoveSubEvent_stage_num = 100;
+    public static int GirlLoveSubEvent_stage_num = 200;
     public static int Event_num = 30;
 
     //** --ここまで-- **//

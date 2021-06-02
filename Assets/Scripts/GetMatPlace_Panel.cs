@@ -163,16 +163,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //時間管理オブジェクトの取得
-        TimePanel_obj1 = canvas.transform.Find("MainUIPanel/TimePanel").gameObject;
-        time_controller = canvas.transform.Find("MainUIPanel/TimePanel").GetComponent<TimeController>();
+        TimePanel_obj1 = canvas.transform.Find("MainUIPanel/Comp/TimePanel").gameObject;
+        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
         
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子  
 
         //ヒロインライフパネル
-        HeroineLifePanel = canvas.transform.Find("MainUIPanel/GetMatStatusPanel/HeroineLife").gameObject;
+        HeroineLifePanel = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel/HeroineLife").gameObject;
         HeroineLifeText = HeroineLifePanel.transform.Find("HPguage/HPparam").GetComponent<Text>();
-        GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/GetMatStatusPanel").gameObject;
+        GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel").gameObject;
 
         TreasureGetitem_obj = this.transform.Find("Comp/Slot_View/Image/TreasureGetImage").gameObject;
 
@@ -194,7 +194,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         get_material = get_material_obj.GetComponent<GetMaterial>();
 
         //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
+        MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         //材料採取地パネルの取得
@@ -203,7 +203,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
         getmatResult_panel = canvas.transform.Find("GetMatResult_Panel").GetComponent<GetMatResult_Panel>();
 
-        mainUIFrame_panel = canvas.transform.Find("MainUIPanel/MainUIPanelTopFrame").gameObject;
+        mainUIFrame_panel = canvas.transform.Find("MainUIPanel/Comp/MainUIPanelTopFrame").gameObject;
 
         //マップ背景エフェクト
         map_bg_effect = GameObject.FindWithTag("MapBG_Effect");

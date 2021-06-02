@@ -125,7 +125,7 @@ public class ExtremePanel : MonoBehaviour {
         compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
 
         //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
+        MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         //エフェクト取得

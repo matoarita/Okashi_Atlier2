@@ -21,9 +21,6 @@ public class shopQuestSelectToggle : MonoBehaviour
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
-    private GameObject shopMain_obj;
-    private Shop_Main shopMain;
-
     private GameObject questjudge_obj;
     private Quest_Judge questjudge;
 
@@ -112,10 +109,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
         updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
        
-        NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;        
-
-        shopMain_obj = GameObject.FindWithTag("Shop_Main");
-        shopMain = shopMain_obj.GetComponent<Shop_Main>();
+        NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
         questjudge_obj = GameObject.FindWithTag("Quest_Judge");
         questjudge = questjudge_obj.GetComponent<Quest_Judge>();

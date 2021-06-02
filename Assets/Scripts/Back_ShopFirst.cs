@@ -7,6 +7,7 @@ public class Back_ShopFirst : MonoBehaviour {
 
     private GameObject shop_Main_obj;
     private Shop_Main shop_Main;
+    private GameObject bar_Main_obj;
     private Bar_Main bar_Main;
 
     private GameObject farm_Main_obj;
@@ -32,8 +33,8 @@ public class Back_ShopFirst : MonoBehaviour {
         {
             case "Bar":
 
-                shop_Main_obj = GameObject.FindWithTag("Shop_Main");
-                bar_Main = shop_Main_obj.GetComponent<Bar_Main>();
+                bar_Main_obj = GameObject.FindWithTag("Bar_Main");
+                bar_Main = bar_Main_obj.GetComponent<Bar_Main>();
 
                 bar_Main.shop_status = 0;
                 break;

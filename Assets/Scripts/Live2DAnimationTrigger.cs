@@ -8,6 +8,11 @@ using Live2D.Cubism.Rendering;
 
 public class Live2DAnimationTrigger : MonoBehaviour {
 
+    //カメラ関連
+    private Camera main_cam;
+    private Animator maincam_animator;
+    private int trans; //トランジション用のパラメータ
+
     private Girl1_status girl1_status;
     private Animator live2d_animator;
     private int trans_expression;
@@ -33,6 +38,11 @@ public class Live2DAnimationTrigger : MonoBehaviour {
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -61,7 +71,7 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         else
         { 
             trans_motion = 101; //念の為、100を繰り返すのを止めておく。
-            live2d_animator.SetInteger("trans_motion", trans_motion);
+            live2d_animator.SetInteger("trans_motion", trans_motion);           
 
             //うまく調合できた場合は、「おいしそ～」って感じで、ワクワクした表情に。
             if (exp_Controller.ResultSuccess) //成功した場合
@@ -79,12 +89,15 @@ public class Live2DAnimationTrigger : MonoBehaviour {
             }
             else //失敗した場合
             {
+                girl1_status.face_girl_Mazui(); //失敗した表情
+
                 //「失敗しちゃった..」って吹き出しもだしていいかも。
                 if (girl1_status.HukidashiFlag)
                 {
                     girl1_status.hukidashiOkashiFailedReturnHome();
                 }
-                girl1_status.DefaultFace(); //現在の機嫌に合わせた表情に戻す
+
+                girl1_status.GirlOishiso_Status = 2;
             }
 
             //腹減りカウント再開は、吹き出しが消えたあと。

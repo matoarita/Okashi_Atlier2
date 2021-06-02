@@ -165,7 +165,7 @@ public class itemSelectToggle : MonoBehaviour
 
             case "Bar":
 
-                bar_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Bar_Main>();
+                bar_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
 
                 back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
                 back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();

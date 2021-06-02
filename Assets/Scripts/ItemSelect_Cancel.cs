@@ -332,7 +332,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
                     yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
-                    shopMain_obj = GameObject.FindWithTag("Shop_Main");
+                    shopMain_obj = GameObject.FindWithTag("Bar_Main");
                     shopMain = shopMain_obj.GetComponent<Shop_Main>();
 
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
@@ -424,15 +424,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                 card_view.DeleteCard_DrawView();
 
-                                if (PlayerStatus.First_recipi_on == true)
-                                {
-                                    compound_Main.compound_status = 6;
-                                }
-                                else
-                                {
-                                    compound_Main.compound_status = 0; //何も選択していない状態にもどる。
-                                }
-
+                                compound_Main.compound_status = 6; //何も選択していない状態にもどる。
                                 compound_Main.compound_select = 0;
                                 pitemlistController.extremepanel_on = false;
 

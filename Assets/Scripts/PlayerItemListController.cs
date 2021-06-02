@@ -220,7 +220,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                     updown_counter_obj.SetActive(false);
                 }
-
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+                
                 ResetKettei_item();
 
                 if (GameMgr.tutorial_ON == true)
@@ -239,10 +241,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 else
                 {
                     kettei1_bunki = 0;
-                }
-
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+                }               
 
                 // トッピング調合を選択した場合の処理
                 if (compound_Main.compound_select == 2)
@@ -261,6 +260,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     reset_and_DrawView();
                 }
 
+                //アニメーション
+                if (compound_Main.compound_select == 99) //持ち物ひらいたときのデフォ位置
+                {
+                    this.transform.localPosition = new Vector3(224f, 57f, 0);
+                    OpenAnim2();
+                }
+                else
+                {
+                    this.transform.localPosition = new Vector3(-224f, 57f, 0);
+                    OpenAnim();
+                }
 
                 break;
 
@@ -287,11 +297,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         break;
 
                 }
+
+                OpenAnim();
                 break;
 
             case "Bar":
 
-                bar_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Bar_Main>();
+                bar_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
 
                 switch (bar_Main.shop_scene)
                 {
@@ -304,15 +316,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         break;
 
                 }
+
+                OpenAnim();
                 break;
 
             default:
 
                 reset_and_DrawView();
-                break;
-        }
 
-        OpenAnim();
+                OpenAnim();
+                break;
+        }       
 
         //開いたときは、必ず、全てのアイテムは未選択の状態にする。
         ResetAllItemSelected();
@@ -329,6 +343,22 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             .SetRelative()); //元の位置から30px上に置いておく。
 
         sequence.Append(this.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.3f)
+            .SetRelative()
+            .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
+        sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+    }
+
+    void OpenAnim2()
+    {
+        //まず、初期値。
+        this.GetComponent<CanvasGroup>().alpha = 0;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(this.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.0f)
+            .SetRelative()); //元の位置から30px上に置いておく。
+
+        sequence.Append(this.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.3f)
             .SetRelative()
             .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
         sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));

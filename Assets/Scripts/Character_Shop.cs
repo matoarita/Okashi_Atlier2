@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Character_Shop : MonoBehaviour {
 
@@ -24,11 +25,25 @@ public class Character_Shop : MonoBehaviour {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
-        //ショップオブジェクトの取得
-        shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
+        
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Bar":
+
+                //ショップオブジェクトの取得
+                //shop_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
+                break;
+
+            case "Shop":
+
+                //ショップオブジェクトの取得
+                shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
+                break;
+        }
     }
 	
 	// Update is called once per frame
