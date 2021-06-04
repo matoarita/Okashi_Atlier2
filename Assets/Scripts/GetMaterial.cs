@@ -272,9 +272,9 @@ public class GetMaterial : MonoBehaviour
         mat_place = matplace_database.matplace_lists[index].placeName;
 
         //妹のハートがある程度ないと、先へ進めない。
-        if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[index].placeType != 0)
+        if (PlayerStatus.player_girl_lifepoint <= matplace_database.matplace_lists[index].placeHP && matplace_database.matplace_lists[index].placeType != 0)
         {
-            _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（体力が０になったので、動けないようだ。）";
+            _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（これ以上は、動けないようだ。）";
         }
         else
         {
@@ -296,10 +296,15 @@ public class GetMaterial : MonoBehaviour
                     PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
                     time_controller.TimeKoushin();
                    
-                    //妹の体力消費 一回の行動でマップに応じた量減る。井戸などでは、減らない。
+                    //妹の体力消費 一回の行動でマップに応じた量減る。
                     if (matplace_database.matplace_lists[index].placeType != 0)
                     {
                     PlayerStatus.player_girl_lifepoint -= matplace_database.matplace_lists[index].placeHP;
+
+                    if(PlayerStatus.player_girl_lifepoint <= 0) //体力の下限0
+                    {
+                        PlayerStatus.player_girl_lifepoint = 0;
+                    }
                     HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
 
                     //PlayerStatus.girl1_Love_exp -= matplace_database.matplace_lists[index].placeHP;

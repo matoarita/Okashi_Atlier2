@@ -1967,7 +1967,7 @@ public class Compound_Main : MonoBehaviour
         girl_love_exp_bar.SetActive(true);
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
-        moneystatus_panel.SetActive(false);
+        moneystatus_panel.SetActive(true);
         mainUIFrame_panel.SetActive(true);
         //kaerucoin_panel.SetActive(true);
 
