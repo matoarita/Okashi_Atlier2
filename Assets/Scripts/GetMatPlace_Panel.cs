@@ -465,7 +465,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 select_num = i;
 
                 //妹の体力が足りてるかチェック
-                if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
+                if (PlayerStatus.girl1_Love_exp <= 10 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
                 {
                     _text.text = "にいちゃん。からだがグタグタでもう動けねぇ～・・。" + "\n" + "（寝て、" + GameMgr.ColorYellow  + "体力を回復" + "</color>" + "しよう。）";
 
@@ -510,7 +510,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         else
         {
             _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "移動費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
-                + "  " + "体力消費：" + GameMgr.ColorPink + "1" + "</color>";
+                + "  " + "体力消費：" + GameMgr.ColorPink + matplace_database.matplace_lists[_place_num].placeHP + "</color>";
         }
 
         
@@ -1419,7 +1419,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public void OnOpenTreasure() //「あける」ボタンをおした
     {
         //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
-        if (PlayerStatus.player_girl_lifepoint < 3)
+        if (PlayerStatus.player_girl_lifepoint < 3)　//PlayerStatus.player_girl_lifepoint
         {
             _text.text = "にいちゃん。やっぱりこわいよう..。" + "\n" + "（体力が足りないようだ。）";
         }

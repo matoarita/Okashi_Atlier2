@@ -20,7 +20,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 0
       crispy: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 0
       crispy: 30
@@ -94,7 +94,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 0
       crispy: 60
@@ -131,7 +131,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 30
       crispy: 60
@@ -168,7 +168,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 0
       crispy: 70
@@ -205,7 +205,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 30
       crispy: 70
@@ -242,7 +242,7 @@ MonoBehaviour:
       girllike_itemsubtype: Rusk
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 0
       crispy: 50
@@ -279,16 +279,16 @@ MonoBehaviour:
       girllike_itemsubtype: Rusk
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
-      sour: 55
-      crispy: 50
+      sour: 40
+      crispy: 80
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 50
+      beauty: 60
       topping01: Orange
       topping02: Lemon
       topping03: Grape
@@ -316,7 +316,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 20
+      sweat: 21
       bitter: 0
       sour: 0
       crispy: 30
@@ -353,7 +353,7 @@ MonoBehaviour:
       girllike_itemsubtype: Biscotti
       set_score: 0
       rich: 0
-      sweat: 20
+      sweat: 15
       bitter: 0
       sour: 0
       crispy: 0
@@ -390,7 +390,7 @@ MonoBehaviour:
       girllike_itemsubtype: Crepe
       set_score: 0
       rich: 0
-      sweat: 85
+      sweat: 88
       bitter: 0
       sour: 30
       crispy: 0
@@ -427,7 +427,7 @@ MonoBehaviour:
       girllike_itemsubtype: Crepe
       set_score: 0
       rich: 0
-      sweat: 85
+      sweat: 88
       bitter: 0
       sour: 0
       crispy: 0
@@ -436,7 +436,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 120
+      beauty: 110
       topping01: WhipeedCream
       topping02: Mint
       topping03: WhipeedCreamStrawberry
@@ -464,7 +464,7 @@ MonoBehaviour:
       girllike_itemsubtype: Crepe
       set_score: 0
       rich: 0
-      sweat: 85
+      sweat: 88
       bitter: 0
       sour: 40
       crispy: 0
@@ -501,7 +501,7 @@ MonoBehaviour:
       girllike_itemsubtype: Creampuff
       set_score: 0
       rich: 0
-      sweat: 85
+      sweat: 88
       bitter: 0
       sour: 0
       crispy: 0
@@ -510,7 +510,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 50
+      beauty: 80
       topping01: WhipeedCream
       topping02: WhipeedCreamStrawberry
       topping03: Non
@@ -538,7 +538,7 @@ MonoBehaviour:
       girllike_itemsubtype: Donuts
       set_score: 0
       rich: 0
-      sweat: 80
+      sweat: 88
       bitter: 0
       sour: 0
       crispy: 0
@@ -547,7 +547,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 50
+      beauty: 100
       topping01: Strawberry
       topping02: Nuts
       topping03: WhipeedCreamStrawberry
@@ -575,7 +575,7 @@ MonoBehaviour:
       girllike_itemsubtype: PanCake
       set_score: 0
       rich: 0
-      sweat: 40
+      sweat: 46
       bitter: 0
       sour: 0
       crispy: 0
@@ -612,7 +612,7 @@ MonoBehaviour:
       girllike_itemsubtype: IceCream
       set_score: 0
       rich: 0
-      sweat: 80
+      sweat: 88
       bitter: 0
       sour: 0
       crispy: 0
@@ -649,7 +649,7 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 0
       crispy: 60
@@ -686,7 +686,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 50
       crispy: 60
@@ -723,7 +723,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 0
       crispy: 60
@@ -760,7 +760,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 20
       sour: 0
       crispy: 60
@@ -797,7 +797,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 30
       crispy: 70
@@ -834,7 +834,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 20
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 30
       crispy: 60
@@ -871,7 +871,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 100
       sour: 0
       crispy: 60
@@ -908,7 +908,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 0
       sour: 20
       crispy: 60
@@ -1167,7 +1167,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 0
       crispy: 40
@@ -1204,7 +1204,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 30
       crispy: 60
@@ -1241,7 +1241,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 20
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 30
       crispy: 50
@@ -1278,7 +1278,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 80
+      sweat: 88
       bitter: 0
       sour: 0
       crispy: 0
@@ -1315,7 +1315,7 @@ MonoBehaviour:
       girllike_itemsubtype: Maffin
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 0
       crispy: 0
@@ -1352,7 +1352,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 30
       crispy: 100
@@ -1389,7 +1389,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 75
+      sweat: 77
       bitter: 0
       sour: 0
       crispy: 0
@@ -1426,7 +1426,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 75
+      sweat: 77
       bitter: 0
       sour: 10
       crispy: 0
@@ -1463,7 +1463,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 30
+      sweat: 32
       bitter: 60
       sour: 0
       crispy: 60
@@ -1500,7 +1500,7 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 50
+      sweat: 54
       bitter: 0
       sour: 0
       crispy: 40
@@ -1798,16 +1798,16 @@ MonoBehaviour:
       girllike_itemsubtype: Cookie
       set_score: 0
       rich: 0
-      sweat: 60
+      sweat: 32
       bitter: 0
       sour: 0
-      crispy: 100
+      crispy: 70
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 50
+      beauty: 60
       topping01: Maple
       topping02: Grape
       topping03: Non
@@ -1835,30 +1835,30 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 80
+      sweat: 32
       bitter: 0
-      sour: 30
-      crispy: 120
+      sour: 0
+      crispy: 80
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 50
+      beauty: 80
       topping01: Peach
       topping02: Cherry
       topping03: Blueberry
       topping04: Grape
-      topping05: Nuts
+      topping05: Strawberry
       topping06: Non
       topping07: Non
       topping08: Non
       topping09: Non
       tp_score01: 20
       tp_score02: 20
-      tp_score03: -30
-      tp_score04: -30
-      tp_score05: -30
+      tp_score03: 10
+      tp_score04: 10
+      tp_score05: 30
       tp_score06: 0
       tp_score07: 0
       tp_score08: 0
@@ -1872,16 +1872,16 @@ MonoBehaviour:
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 60
-      bitter: 30
+      sweat: 32
+      bitter: 0
       sour: 0
-      crispy: 100
+      crispy: 90
       fluffy: 0
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 50
+      beauty: 60
       topping01: Shishamo
       topping02: StrangeGlass
       topping03: Lavender
@@ -1893,7 +1893,7 @@ MonoBehaviour:
       topping09: Non
       tp_score01: 100
       tp_score02: 70
-      tp_score03: 70
+      tp_score03: 20
       tp_score04: 0
       tp_score05: 0
       tp_score06: 0
@@ -1955,7 +1955,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 50
+      beauty: 70
       topping01: Lemon
       topping02: Nuts
       topping03: Non

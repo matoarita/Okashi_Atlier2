@@ -13,6 +13,7 @@ public class ItemMatPlace
     public string placeNameHyouji;
     public int placeDay;
     public int placeCost;
+    public int placeHP;
     public int placeFlag;
     public int placeType;   //街=0か、ダンジョンタイプ=1か。
     public string dropItem1;
@@ -48,7 +49,7 @@ public class ItemMatPlace
     public Sprite mapIcon_sprite;
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemMatPlace(int id, string fileName, string place_name, string place_name_Hyouji, int place_day, int place_cost, int place_flag, int place_type,
+    public ItemMatPlace(int id, string fileName, string place_name, string place_name_Hyouji, int place_day, int place_cost, int place_hp, int place_flag, int place_type,
         string drop_item1, string drop_item2, string drop_item3, string drop_item4, string drop_item5,
         string drop_item6, string drop_item7, string drop_item8, string drop_item9, string drop_item10,
         string drop_rare1, string drop_rare2, string drop_rare3, 
@@ -63,6 +64,7 @@ public class ItemMatPlace
 
         placeDay = place_day;
         placeCost = place_cost;
+        placeHP = place_hp;
         placeFlag = place_flag;
         placeType = place_type;
 

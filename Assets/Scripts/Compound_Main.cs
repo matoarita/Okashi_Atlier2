@@ -63,7 +63,6 @@ public class Compound_Main : MonoBehaviour
     private GameObject girl_love_exp_bar;
     private Text girl_param;
     private GameObject moneystatus_panel;
-    private Vector3 moneypanel_startPos;
     private GameObject kaerucoin_panel;
     private GameObject GetMatStatusButton_obj;
     private GameObject mainUIFrame_panel;
@@ -472,7 +471,6 @@ public class Compound_Main : MonoBehaviour
 
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
-        moneypanel_startPos = moneystatus_panel.transform.localPosition;
 
         mainUIFrame_panel = canvas.transform.Find("MainUIPanel/Comp/MainUIPanelTopFrame").gameObject;
 
@@ -1969,7 +1967,7 @@ public class Compound_Main : MonoBehaviour
         girl_love_exp_bar.SetActive(true);
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
-        moneystatus_panel.SetActive(true);
+        moneystatus_panel.SetActive(false);
         mainUIFrame_panel.SetActive(true);
         //kaerucoin_panel.SetActive(true);
 

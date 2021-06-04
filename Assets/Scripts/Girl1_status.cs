@@ -1409,7 +1409,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //まだ一度も調合していない
         if (PlayerStatus.First_recipi_on != true)
         {
-            _hint1 = "..まずは左のメニューから、お菓子を作ろうね。おにいちゃん。";            
+            _hint1 = "..まずは左のお菓子パネルから、お菓子を作ろうね。おにいちゃん。";            
             hukidashiitem.GetComponent<TextController>().SetText(_hint1);
         }
         else
@@ -2507,7 +2507,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 4:
 
-                    random = Random.Range(0, 5); //0~3
+                    random = Random.Range(0, 6); //0~3
                     trans_facemotion = random + 1; //1はじまり
 
                     IdleMotionHukidashiSetting(trans_facemotion);
@@ -2516,7 +2516,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 5:
 
-                    random = Random.Range(0, 5); //0~3
+                    random = Random.Range(0, 6); //0~3
                     trans_facemotion = random + 1; //1はじまり
 
                     IdleMotionHukidashiSetting(trans_facemotion);
@@ -2525,7 +2525,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 default:
 
-                    random = Random.Range(0, 5); //0~3
+                    random = Random.Range(0, 6); //0~3
                     trans_facemotion = random + 1; //1はじまり
 
                     IdleMotionHukidashiSetting(trans_facemotion);

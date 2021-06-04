@@ -5958,7 +5958,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 9999
+      cmp_flag: 0
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -5967,7 +5967,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: maple_crepe
-      recipi_count: 0
+      recipi_count: 1
     - ItemID: 229
       cmpitemName: maple_creamcrepe
       cmpitemID_1: cream_crepe
@@ -5984,7 +5984,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 9999
+      cmp_flag: 0
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -5993,7 +5993,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: maple_creamcrepe
-      recipi_count: 0
+      recipi_count: 1
     - ItemID: 230
       cmpitemName: honey_crepe
       cmpitemID_1: crepe
@@ -6010,7 +6010,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 9999
+      cmp_flag: 0
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -6019,7 +6019,7 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: honey_crepe
-      recipi_count: 0
+      recipi_count: 1
     - ItemID: 231
       cmpitemName: honey_creamcrepe
       cmpitemID_1: cream_crepe
@@ -6036,7 +6036,7 @@ MonoBehaviour:
       best_kosu1: 1
       best_kosu2: 1
       best_kosu3: 1
-      cmp_flag: 9999
+      cmp_flag: 0
       cost_time: 6
       success_rate: 95
       renkin_Bexp: 20
@@ -6045,10 +6045,10 @@ MonoBehaviour:
       KeisanMethod: Non
       comp_count: 0
       release_recipi: honey_creamcrepe
-      recipi_count: 0
+      recipi_count: 1
     - ItemID: 232
       cmpitemName: shishamo_crepe
-      cmpitemID_1: crepe
+      cmpitemID_1: cream_crepe
       cmpitemID_2: shishamo
       cmpitemID_3: empty
       cmp_subtype_1: empty

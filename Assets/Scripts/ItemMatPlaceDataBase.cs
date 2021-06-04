@@ -12,6 +12,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     private string placeName_Hyouji;
     private int place_day;
     private int place_cost;
+    private int place_hp;
     private int place_flag;
     private int place_type;
     private string drop_item1;
@@ -78,6 +79,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
             placeName_Hyouji = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_Name_Hyouji;
             place_day = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_day;
             place_cost = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_cost;
+            place_hp = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_hp;
             place_flag = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_flag;
             place_type = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_type;
             drop_item1 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_item1;
@@ -111,7 +113,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
 
 
             //ここでリストに追加している
-            matplace_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_day, place_cost, place_flag, place_type,
+            matplace_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_day, place_cost, place_hp, place_flag, place_type,
                 drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_item6, drop_item7, drop_item8, drop_item9, drop_item10,
                 drop_rare1, drop_rare2, drop_rare3,
                 drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_prob6, drop_prob7, drop_prob8, drop_prob9, drop_prob10,

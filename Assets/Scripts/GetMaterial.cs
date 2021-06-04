@@ -271,7 +271,7 @@ public class GetMaterial : MonoBehaviour
         mat_cost = matplace_database.matplace_lists[index].placeCost;
         mat_place = matplace_database.matplace_lists[index].placeName;
 
-        //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
+        //妹のハートがある程度ないと、先へ進めない。
         if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[index].placeType != 0)
         {
             _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（体力が０になったので、動けないようだ。）";
@@ -296,12 +296,15 @@ public class GetMaterial : MonoBehaviour
                     PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
                     time_controller.TimeKoushin();
                    
-                    //妹の体力消費 一回の行動で1減る。0で倒れる。井戸などでは、減らない。
+                    //妹の体力消費 一回の行動でマップに応じた量減る。井戸などでは、減らない。
                     if (matplace_database.matplace_lists[index].placeType != 0)
                     {
-                        PlayerStatus.player_girl_lifepoint -= 1;
-                        HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
-                    }
+                    PlayerStatus.player_girl_lifepoint -= matplace_database.matplace_lists[index].placeHP;
+                    HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
+
+                    //PlayerStatus.girl1_Love_exp -= matplace_database.matplace_lists[index].placeHP;
+                    //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+                }
 
                     //プレイヤーのアイテム発見力をバフつきで計算
                     _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算

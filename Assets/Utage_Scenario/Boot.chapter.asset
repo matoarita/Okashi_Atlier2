@@ -2180,7 +2180,7 @@ MonoBehaviour:
       strings:
       - tsuka_name
       - String
-      - "\u30EB\u30D4\u30A2"
+      - "\u30B4\u30FC\u30EB\u30C9"
       isEmpty: 0
       isCommentOut: 0
       debugInfo: 
@@ -2651,7 +2651,7 @@ MonoBehaviour:
       debugInfo: 
     name: Assets/Utage_Scenario/Utage_Scenario.xls:Param
     type: 1
-    textLength: 1820
+    textLength: 1821
     headerRow: 0
   - rows:
     - rowIndex: 0

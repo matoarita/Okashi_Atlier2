@@ -1270,7 +1270,7 @@ public class Updown_counter : MonoBehaviour {
     void SellYosokuText()
     {
         _text.text = database.items[pitemlistController.final_kettei_item1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + database.items[pitemlistController.final_kettei_item1].sell_price * updown_kosu + "G</color>"
+            GameMgr.ColorYellow + database.items[pitemlistController.final_kettei_item1].sell_price * updown_kosu + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
     }
 

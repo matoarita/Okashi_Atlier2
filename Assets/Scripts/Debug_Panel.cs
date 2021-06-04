@@ -365,6 +365,8 @@ public class Debug_Panel : MonoBehaviour {
                 }
             }
         }
+
+        InputMainFlagOn2();
     }
 
     public void InputGirlLoveParam()
@@ -391,95 +393,114 @@ public class Debug_Panel : MonoBehaviour {
         //ストーリーの最初から、現在までの最低限必要なフラグをONにする。シナリオチェックの際、やりやすいようにフラグのON/OFFの数を調節してOK
         for (i = 0; i <= GameMgr.GirlLoveEvent_num; i++)
         {
-            switch (i)
-            {
-                case 10: //ラスク
+            EVFlag();
+        }
+    }
 
-                    //レシピの追加
-                    pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加
-                    break;
+    public void InputMainFlagOn2()
+    {
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-                case 11:
+        sc.PlaySe(30);
 
-                    pitemlist.addPlayerItemString("pan_knife", 1);
-                    matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム
-                    break;
+        //ストーリーの最初から、現在までの最低限必要なフラグをONにする。シナリオチェックの際、やりやすいようにフラグのON/OFFの数を調節してOK
+        for (i = 0; i <= event_num; i++)
+        {
+            EVFlag();
+        }
+    }
 
-                case 20: //クレープ
+    void EVFlag()
+    {
+        switch (i)
+        {
+            case 10: //ラスク
 
-                    //レシピの追加
-                    pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加  
+                //レシピの追加
+                pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加
+                break;
 
-                    matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑
-                    matplace_database.matPlaceKaikin("Farm"); //モタリケ牧場解禁
-                    break;
+            case 11:
 
-                case 21:
+                pitemlist.addPlayerItemString("pan_knife", 1);
+                matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム
+                break;
 
-                    pitemlist.addPlayerItemString("siboribukuro", 1);
-                    pitemlist.addPlayerItemString("whisk", 1);
-                    pitemlist.addPlayerItemString("egg", 5);
-                    pitemlist.addPlayerItemString("milk", 5);
-                    pitemlist.addPlayerItemString("row_cream", 5);
+            case 20: //クレープ
 
-                    //レシピの追加
-                    pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1); //ホイップクリームのレシピを追加  
-                    break;
+                //レシピの追加
+                pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加  
 
-                case 30: //シュークリーム             
+                matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑
+                matplace_database.matPlaceKaikin("Farm"); //モタリケ牧場解禁
+                break;
 
-                    pitemlist.addPlayerItemString("ice_box", 1);
-                    pitemlist.add_eventPlayerItemString("ice_cream_recipi", 1);//アイスクリームのレシピを追加
+            case 21:
 
-                    break;
+                pitemlist.addPlayerItemString("siboribukuro", 1);
+                pitemlist.addPlayerItemString("whisk", 1);
+                pitemlist.addPlayerItemString("egg", 5);
+                pitemlist.addPlayerItemString("milk", 5);
+                pitemlist.addPlayerItemString("row_cream", 5);
 
-                case 40: //ドーナツ                    
+                //レシピの追加
+                pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1); //ホイップクリームのレシピを追加  
+                break;
 
-                    //レシピの追加
-                    pitemlist.add_eventPlayerItemString("creampuff_recipi", 1);//シュークリームのレシピを追加
+            case 30: //シュークリーム             
 
-                    GameMgr.hiroba_event_end[0] = true; //アマクサ会話終了　広場「お花屋さん」「図書館」「道端奥さん」ON
-                    GameMgr.hiroba_event_end[1] = true; //パン工房ON
-                    GameMgr.hiroba_event_end[2] = true; //ストロベリーガーデンON
+                pitemlist.addPlayerItemString("ice_box", 1);
+                pitemlist.add_eventPlayerItemString("ice_cream_recipi", 1);//アイスクリームのレシピを追加
 
-                    //
-                    GameMgr.hiroba_event_end[3] = true; //お花屋さんと会話した
-                    GameMgr.hiroba_event_end[4] = true; //図書館　ドーナツのことを聞かずに帰った
-                    GameMgr.hiroba_event_end[5] = true; //図書館　図書館　ドーナツのことを聞いた
-                    GameMgr.hiroba_event_end[6] = true; //パン工房でベニエと会う。油を探すことになった。
-                    GameMgr.hiroba_event_end[7] = true; //お花屋さんから油の話をきいた。「ひまわり畑」ON
+                break;
 
-                    if (SceneManager.GetActiveScene().name == "Hiroba2") // 
-                    {
-                        //キャンバスの読み込み
-                        canvas = GameObject.FindWithTag("Canvas");
-                        mainlist_controller2_obj = canvas.transform.Find("MainList_ScrollView").gameObject;
-                        mainlist_controller2 = mainlist_controller2_obj.GetComponent<MainListController2>();
+            case 40: //ドーナツ                    
 
-                        mainlist_controller2.ToggleFlagCheck();
-                        mainlist_controller2.MenuWindowExpand();
-                    }
-                    break;
+                //レシピの追加
+                pitemlist.add_eventPlayerItemString("creampuff_recipi", 1);//シュークリームのレシピを追加
 
-                case 50:
+                GameMgr.hiroba_event_end[0] = true; //アマクサ会話終了　広場「お花屋さん」「図書館」「道端奥さん」ON
+                GameMgr.hiroba_event_end[1] = true; //パン工房ON
+                GameMgr.hiroba_event_end[2] = true; //ストロベリーガーデンON
 
-                    GameMgr.hiroba_event_end[8] = true; //ドーナツイベントの終了
+                //
+                GameMgr.hiroba_event_end[3] = true; //お花屋さんと会話した
+                GameMgr.hiroba_event_end[4] = true; //図書館　ドーナツのことを聞かずに帰った
+                GameMgr.hiroba_event_end[5] = true; //図書館　図書館　ドーナツのことを聞いた
+                GameMgr.hiroba_event_end[6] = true; //パン工房でベニエと会う。油を探すことになった。
+                GameMgr.hiroba_event_end[7] = true; //お花屋さんから油の話をきいた。「ひまわり畑」ON
 
-                    pitemlist.addPlayerItemString("oil_extracter", 1);
-                    pitemlist.addPlayerItemString("flyer", 1);
+                if (SceneManager.GetActiveScene().name == "Hiroba2") // 
+                {
+                    //キャンバスの読み込み
+                    canvas = GameObject.FindWithTag("Canvas");
+                    mainlist_controller2_obj = canvas.transform.Find("MainList_ScrollView").gameObject;
+                    mainlist_controller2 = mainlist_controller2_obj.GetComponent<MainListController2>();
 
-                    //レシピの追加
-                    pitemlist.add_eventPlayerItemString("donuts_recipi", 1);//ラスクのレシピを追加
+                    mainlist_controller2.ToggleFlagCheck();
+                    mainlist_controller2.MenuWindowExpand();
+                }
+                break;
 
-                    matplace_database.matPlaceKaikin("Hiroba"); //
-                    matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。
-                    matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁　ひまわりの種がとれるようになる。
+            case 50:
 
-                    break;
+                GameMgr.hiroba_event_end[8] = true; //ドーナツイベントの終了
 
-                default:
-                    break;
-            }
+                pitemlist.addPlayerItemString("oil_extracter", 1);
+                pitemlist.addPlayerItemString("flyer", 1);
+
+                //レシピの追加
+                pitemlist.add_eventPlayerItemString("donuts_recipi", 1);//ラスクのレシピを追加
+
+                matplace_database.matPlaceKaikin("Hiroba"); //
+                matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。
+                matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁　ひまわりの種がとれるようになる。
+
+                break;
+
+            default:
+                break;
         }
     }
 

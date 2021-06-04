@@ -227,11 +227,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     {
         if (_temp_skill.Count > 0)
         {
-            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + GameMgr.ColorYellow + PlayerStatus.player_renkin_lv + "</color>" + "になった！" + "\n" + _temp_skill[0];
+            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが " + GameMgr.ColorYellow + PlayerStatus.player_renkin_lv + "</color>" + " になった！" + "\n" + _temp_skill[0];
         }
         else
         {
-            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが" + GameMgr.ColorYellow + PlayerStatus.player_renkin_lv + "</color>" + "になった！";
+            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが " + GameMgr.ColorYellow + PlayerStatus.player_renkin_lv + "</color>" + " になった！";
         }
     }
 
@@ -240,7 +240,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         switch(_nowlevel)
         {
-            case 3:
+            case 2:
 
                 _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
                 PlayerStatus.player_extreme_kaisu_Max++;

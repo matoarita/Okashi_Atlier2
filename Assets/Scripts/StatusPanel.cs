@@ -30,6 +30,7 @@ public class StatusPanel : MonoBehaviour {
     private GameObject StatusList_SelectView_obj;
     private GameObject Costume_Panel_obj;
     private GameObject Collection_Panel_obj;
+    private GameObject moneystatus_panel;
 
     private List<GameObject> costume_list = new List<GameObject>();
 
@@ -106,6 +107,9 @@ public class StatusPanel : MonoBehaviour {
 
         //アクセサリーのスタート　配列番号
         Acce_Startnum = 6;
+
+        //お金ステータスパネルの取得
+        moneystatus_panel = this.transform.Find("MoneyStatus_panel").gameObject;       
 
         //各ステータスパネルの値を取得。
         statusList = this.transform.Find("StatusList").gameObject;

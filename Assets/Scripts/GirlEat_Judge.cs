@@ -1312,6 +1312,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //あまみ・にがみ・さんみに対して、それぞれの評価。差の値により、7段階で評価する。
         //元のセットの値が0のときは、計算せずスコアに加点しない。
+        Debug.Log("### ###");
+        Debug.Log("判定番号: " + _girl_judgenum[countNum]);
 
         if (_girlsweat[countNum] == 0)
         {
@@ -1729,13 +1731,13 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             Debug.Log(taste_type + "Perfect!!");　//完璧な具合
             taste_level = 8;
-            taste_score = 100;
+            taste_score = 55;
         }
         else if (Mathf.Abs(taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(taste_type + "Great!!");
             taste_level = 7;
-            taste_score = 50;
+            taste_score = 40;
         }
         else if (Mathf.Abs(taste_result) < 10) //+-5~9  ほどよく良い塩梅
         {
@@ -3787,51 +3789,51 @@ public class GirlEat_Judge : MonoBehaviour {
         //甘さがどの程度好みにあっていたかを、感想でいう。８はピッタリパーフェクト。
         if (sweat_level == 8)
         {
-            _sweat_kansou = "神の甘さ！ 100点だよ～！";
+            _sweat_kansou = "甘さ S: 神の甘さ！ パーフェクト！！";
         }
         else if (sweat_level == 7)
         {
-            _sweat_kansou = "甘さ、かなり近い塩梅！";
+            _sweat_kansou = "甘さ A: 絶妙な甘さ！";
         }
         else if (sweat_level == 6)
         {
-            _sweat_kansou = "甘さ、ほどよくよい具合！";
+            _sweat_kansou = "甘さ B: ほどよくよい具合！";
         }
         else if (sweat_level == 5)
         {
-            _sweat_kansou = "甘さ、かなり近い。";
+            _sweat_kansou = "甘さ C: まあまあの甘さ";
         }
         else if (sweat_level == 4)
         {
             if (sweat_result < 0)
             {
-                _sweat_kansou = "甘さがちょっと足りない";
+                _sweat_kansou = "甘さ D: 甘さがちょっと足りない";
             }
             else
             {
-                _sweat_kansou = "少し甘いかも？";
+                _sweat_kansou = "甘さ D: 少し甘いかも？";
             }
         }
         else if (sweat_level == 3)
         {
             if (sweat_result < 0)
             {
-                _sweat_kansou = "甘さが足りない";
+                _sweat_kansou = "甘さ E: 甘さが足りない";
             }
             else
             {
-                _sweat_kansou = "甘さがちょっと強すぎ";
+                _sweat_kansou = "甘さ E: 甘さがちょっと強すぎ";
             }
         }
         else if (sweat_level >= 1 && sweat_level <= 2)
         {
             if (sweat_result < 0)
             {
-                _sweat_kansou = GameMgr.ColorRedDeep + "甘さが全然足りない" + "</color>";
+                _sweat_kansou = GameMgr.ColorRedDeep + "甘さ F: 甘さが全然足りない" + "</color>";
             }
             else
             {
-                _sweat_kansou = GameMgr.ColorRedDeep + "甘すぎ" + "</color>";
+                _sweat_kansou = GameMgr.ColorRedDeep + "甘さ F: 甘すぎ" + "</color>";
             }
         }
         else
@@ -3854,29 +3856,29 @@ public class GirlEat_Judge : MonoBehaviour {
         //苦さがどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
         if (bitter_level == 8)
         {
-            _bitter_kansou = "神の苦さ！　100点だよ～！";
+            _bitter_kansou = "苦さ S: 神の苦さ！ パーフェクト！！";
         }
         else if (bitter_level == 7)
         {
-            _bitter_kansou = "苦さ、かなり近い塩梅！";
+            _bitter_kansou = "苦さ A: 絶妙な苦さ！";
         }
         else if (bitter_level == 6)
         {
-            _bitter_kansou = "苦さ、ほどよくいい具合！";
+            _bitter_kansou = "苦さ B: ほどよくいい具合！";
         }
         else if (bitter_level == 5)
         {
-            _bitter_kansou = "苦さ、かなり近い。";
+            _bitter_kansou = "苦さ C: まあまあの苦さ";
         }
         else if (bitter_level == 4)
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = "苦さがちょっと足りない";
+                _bitter_kansou = "苦さ D: 苦さがちょっと足りない";
             }
             else
             {
-                _bitter_kansou = "少し苦いかも？";
+                _bitter_kansou = "苦さ D: 少し苦いかも？";
             }
 
         }
@@ -3884,11 +3886,11 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = "苦さが足りない";
+                _bitter_kansou = "苦さ E:苦さが足りない";
             }
             else
             {
-                _bitter_kansou = "苦みが少し強すぎかも。";
+                _bitter_kansou = "苦さ E: 苦みが少し強すぎかも。";
             }
 
         }
@@ -3896,11 +3898,11 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = GameMgr.ColorRedDeep + "苦さが全然足りない" + "</color>";
+                _bitter_kansou = GameMgr.ColorRedDeep + "苦さ F: 苦さが全然足りない" + "</color>";
             }
             else
             {
-                _bitter_kansou = GameMgr.ColorRedDeep + "苦すぎ..。" + "</color>";
+                _bitter_kansou = GameMgr.ColorRedDeep + "苦さ F: 苦すぎ..。" + "</color>";
             }
 
         }
@@ -4008,9 +4010,13 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             _shokukan_kansou = "ほどよい" + shokukan_mes;
         }
+        else if (shokukan_score >= GameMgr.high_score && shokukan_score < 120) //
+        {
+            _shokukan_kansou = "絶妙な" + shokukan_mes;
+        }
         else if (shokukan_score >= GameMgr.high_score) //
         {
-            _shokukan_kansou = "神の" + shokukan_mes;
+            _shokukan_kansou = "神の" + shokukan_mes + "！！";
         }
     }
 
