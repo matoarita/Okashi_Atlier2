@@ -984,7 +984,7 @@ public class GirlEat_Judge : MonoBehaviour {
             + "\n" + "\n" + "噛み応え度: " + "-"
             + "\n" + "\n" + "判定セットごとの基本得点: " + set_score
             + "\n" + "\n" + "トッピングスコア: " + topping_score
-            + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目スコア: " + beauty_score
+            + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目閾値: " + _girlbeauty[countNum] + "\n" + "見た目スコア: " + beauty_score
             + "\n" + "\n" + "総合得点: " + total_score;
     }
 

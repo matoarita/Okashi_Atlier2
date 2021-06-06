@@ -48,6 +48,8 @@ public class Quest_Judge : MonoBehaviour {
 
     private GameObject black_effect;
 
+    private Text debug_taste_resultText;
+
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
@@ -94,6 +96,7 @@ public class Quest_Judge : MonoBehaviour {
     private int okashi_totalkosu;
     private int okashi_score;
     private int shokukan_score;
+    private int topping_score;
 
     private string _filename;
     private string _itemname;
@@ -163,6 +166,23 @@ public class Quest_Judge : MonoBehaviour {
     private bool judge_anim_on;
     private int judge_anim_status;
     private bool judge_end;
+
+    private int rich_score;
+    private int sweat_score;
+    private int bitter_score;
+    private int sour_score;
+
+    private int crispy_score;
+    private int fluffy_score;
+    private int smooth_score;
+    private int hardness_score;
+    private int jiggly_score;
+    private int chewy_score;
+    private int juice_score;
+    private int beauty_score;
+    private int Hosei_score;
+
+    private string debug_money_text;
 
     //カメラ関連
     private Camera main_cam;
@@ -635,20 +655,36 @@ public class Quest_Judge : MonoBehaviour {
             okashi_score = 0;            
             check_slot_nouhinscore = 0;
 
+            shokukan_score = 0;
+            crispy_score = 0;
+            fluffy_score = 0;
+            smooth_score = 0;
+            hardness_score = 0;
+            juice_score = 0;
+            beauty_score = 0;
+            topping_score = 0;
+
+            //未使用。
+            rich_score = 0;
+            jiggly_score = 0;
+            chewy_score = 0;
+
             //①指定のトッピングがあるかをチェック。一つでも指定のものがあれば、OK
 
             nouhinOK_status = 2; //先にNGはたてておく。
-            slot_ok = false;
+            slot_ok = true;
 
             //納品用スコアがすべて０の場合、トッピングを計算しないので、無視する。
             for (i=0; i < itemslot_NouhinScore.Count; i++)
             {
+                //Debug.Log("納品スコア" + itemslotInfo[i] + " " + itemslot_NouhinScore[i]);
                 //0はNonなので、無視
                 if (i != 0)
                 {
                     check_slot_nouhinscore += itemslot_NouhinScore[i];
                 }
             }
+            //Debug.Log("check_slot_nouhinscore: " + check_slot_nouhinscore);
 
             if (check_slot_nouhinscore == 0)
             {
@@ -690,7 +726,7 @@ public class Quest_Judge : MonoBehaviour {
             else
             {
                 //ほしいトッピングのっていないので、マイナス
-                okashi_score -= 30;
+                okashi_score -= 50;
             }
 
             //②味パラメータの計算
@@ -698,12 +734,13 @@ public class Quest_Judge : MonoBehaviour {
             {
                 if (_baserich >= _rich)
                 {
-                    
+                    rich_score = (_baserich - _rich);
                     okashi_score += (_baserich - _rich);
 
                 }
                 else
                 {
+                    rich_score = (_baserich - _rich);
                     okashi_score += (_baserich - _rich); //マイナスになる。
                     //nouhinOK_status = 2;
                     _a = "コクがちょっと足りないみたい。";
@@ -714,12 +751,13 @@ public class Quest_Judge : MonoBehaviour {
             {
                 if (_basesweat >= _sweat)
                 {
-
+                    sweat_score = (_basesweat - _sweat);
                     okashi_score += (_basesweat - _sweat);
 
                 }
                 else
                 {
+                    sweat_score = (_basesweat - _sweat);
                     okashi_score += (_basesweat - _sweat);
                     //nouhinOK_status = 2;
                     _a = "甘さがちょっと足りないみたい。";
@@ -730,12 +768,13 @@ public class Quest_Judge : MonoBehaviour {
             {
                 if (_basebitter >= _bitter)
                 {
-
+                    bitter_score = (_basebitter - _bitter);
                     okashi_score += (_basebitter - _bitter);
 
                 }
                 else
                 {
+                    bitter_score = (_basebitter - _bitter);
                     okashi_score += (_basebitter - _bitter);
                     //nouhinOK_status = 2;
                     _a = "苦味がちょっと足りないみたい。";
@@ -746,12 +785,13 @@ public class Quest_Judge : MonoBehaviour {
             {
                 if (_basesour >= _sour)
                 {
-
+                    sour_score = (_basesour - _sour);
                     okashi_score += (_basesour - _sour);
 
                 }
                 else
                 {
+                    sour_score = (_basesour - _sour);
                     okashi_score += (_basesour - _sour);
                     //nouhinOK_status = 2;
                     _a = "酸味がちょっと足りないみたい。";
@@ -769,18 +809,20 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    crispy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    //shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio);
+                    crispy_score = (int)(_basescore * _temp_ratio);
+                    //shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "さくさくした感じがちょっと足りないみたい。";
                 }
 
-                okashi_score += shokukan_score;
+                //okashi_score += shokukan_score;
             }
 
             if (_fluffy > 0)
@@ -792,18 +834,20 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    fluffy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    //shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio);
+                    fluffy_score = (int)(_basescore * _temp_ratio);
+                    //shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "ふんわり感がちょっと足りないみたい。";
                 }
 
-                okashi_score += shokukan_score;
+                //okashi_score += shokukan_score;
             }
 
             if (_smooth > 0)
@@ -815,18 +859,20 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    smooth_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    //shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio);
+                    smooth_score = (int)(_basescore * _temp_ratio);
+                    //shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "なめらかな感じがちょっと足りないみたい。";
                 }
 
-                okashi_score += shokukan_score;
+                //okashi_score += shokukan_score;
             }
 
             if (_hardness > 0)
@@ -838,18 +884,20 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    hardness_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    //shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio);
+                    hardness_score = (int)(_basescore * _temp_ratio);
+                    //shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "歯ごたえがちょっと足りないみたい。";
                 }
 
-                okashi_score += shokukan_score;
+                //okashi_score += shokukan_score;
             }
 
             if (_jiggly > 0)
@@ -861,18 +909,20 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    jiggly_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    //shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio);
+                    jiggly_score = (int)(_basescore * _temp_ratio);
+                    //shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "ぷにぷに感がちょっと足りないみたい。";
                 }
 
-                okashi_score += shokukan_score;
+                //okashi_score += shokukan_score;
             }
 
             if (_chewy > 0)
@@ -884,18 +934,20 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    chewy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    //shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio);
+                    chewy_score = (int)(_basescore * _temp_ratio);
+                    //shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "噛みごたえがちょっと足りないみたい。";
                 }
 
-                okashi_score += shokukan_score;
+                //okashi_score += shokukan_score;
             }
 
             if (_juice > 0)
@@ -907,18 +959,20 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    juice_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    //shokukan_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
                 }
                 else
                 {
                     _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    shokukan_score = (int)(_basescore * _temp_ratio);
+                    juice_score = (int)(_basescore * _temp_ratio);
+                    //shokukan_score = (int)(_basescore * _temp_ratio);
                     _a = "のどごしがちょっと足りないみたい。";
                 }
 
-                okashi_score += shokukan_score;
+                //okashi_score += shokukan_score;
             }
 
             //特定のお菓子の判定。一致していない場合は、③は計算するまでもなく不正解となる。
@@ -959,18 +1013,13 @@ public class Quest_Judge : MonoBehaviour {
                     //トッピングごとに、得点を加算する。妹の採点のtotal_scoreの加算値と共有。
                     if (itemslot_PitemScore[i] > 0)
                     {
-                        okashi_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslot_PitemScore[i];
+                        topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslot_PitemScore[i];
                         _basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslot_PitemScore[i]; //見た目に対するボーナス得点
                     }
                 }
             }
 
-            //見た目点数の計算
-            if (_beauty > 0)
-            {
-                okashi_score += _basebeauty - _beauty;
-            }
-
+            
             //⑤油っこいなどのマイナスの値がついてた場合、マイナス補正
             if (_basepowdery > 50)
             {
@@ -984,6 +1033,21 @@ public class Quest_Judge : MonoBehaviour {
             {
                 okashi_score -= 30;
             }
+
+            //見た目点数の計算
+            if (_beauty > 0)
+            {
+                beauty_score = (_basebeauty - _beauty);
+                //okashi_score += _basebeauty - _beauty;
+            }
+
+            //最終補正　妹の基準より、やや厳しめにするために、点数を下げる。
+            Hosei_score = -15;
+
+            //総合点数を計算
+            okashi_score += sweat_score + bitter_score + sour_score +
+                crispy_score + fluffy_score + smooth_score + hardness_score + jiggly_score + chewy_score +
+                juice_score + beauty_score + topping_score + Hosei_score;
 
             //採点はここまで
 
@@ -1070,6 +1134,7 @@ public class Quest_Judge : MonoBehaviour {
                 if (okashi_totalscore < 30) //粗悪なお菓子だと、マイナス評価
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.2f);
+                    debug_money_text = "(基準値 * 0.2f)";
                     _getNinki = -5;
                     _kanso = "う～ん..。お客さん不満だったみたい。次からは気をつけてね。" + "\n" + "報酬額を少し減らされてしまった！";
                     
@@ -1077,60 +1142,70 @@ public class Quest_Judge : MonoBehaviour {
                 else if (okashi_totalscore >= 30 && okashi_totalscore < 45) //30~45
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.4f);
+                    debug_money_text = "(基準値 * 0.4f)";
                     _getNinki = -1;
                     _kanso = "ありがとう。　..少しお客さん不満だったみたい。" + "\n" + "次はもっと期待してるわね！";
                 }
                 else if (okashi_totalscore >= 45 && okashi_totalscore < GameMgr.low_score) //45~60
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.8f);
+                    debug_money_text = "(基準値 * 0.8f)";
                     _getNinki = 1;
                     _kanso = "ありがとう！　お客さん喜んでたわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 75) //60~75
                 {
                     _getMoney = _buy_price * _kosu_default;
+                    debug_money_text = "(基準値 * 1.0f)";
                     _getNinki = 2;
                     _kanso = "ありがとう！　お客さん、気に入ってたみたい！";
                 }
                 else if (okashi_totalscore >= 75 && okashi_totalscore < GameMgr.high_score) //75~85
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.2f);
+                    debug_money_text = "(基準値 * 1.2f)";
                     _getNinki = 2;
                     _kanso = "ありがとう！　お客さん、大喜びだったわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 100) //85~100
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 1.5f);
+                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 1.5f)";
                     _getNinki = 3;
                     _kanso = "ありがとう！とても良い出来みたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 100 && okashi_totalscore < 120) //100~120
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 1.75f);
+                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 1.75f)";
                     _getNinki = 3;
                     _kanso = "グレイトだわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 120 && okashi_totalscore < 150) //120~150
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 2.0f);
+                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 2.0f)";
                     _getNinki = 5;
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 175) //150~175
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 3.5f);
+                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 3.5f)";
                     _getNinki = 6;
                     _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 175 && okashi_totalscore < 200) //175~200
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 6.0f);
+                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 6.0f)";
                     _getNinki = 6;
                     _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 200) //200~
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 10.0f);
+                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 10.0f)";
                     _getNinki = 10;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
@@ -1155,6 +1230,9 @@ public class Quest_Judge : MonoBehaviour {
                 questResultPanel_tsukatext_pos.DOLocalMove(new Vector3(20f* (keta-1), 0f, 0), 0.0f).SetRelative();
 
                 StartCoroutine("EndQuestResultButton");
+
+                //デバッグ用味採点テキスト
+                DebugTasteText();
                 break;
 
             case 1: //そもそも違うお菓子を納品
@@ -1174,7 +1252,7 @@ public class Quest_Judge : MonoBehaviour {
                 moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
 
                 //名声値は減る
-                ninkiStatus_Controller.DegNinki(3); //アニメつき
+                //ninkiStatus_Controller.DegNinki(3); //アニメつき
 
                 ResetQuestStatus();
                 break;
@@ -1202,6 +1280,8 @@ public class Quest_Judge : MonoBehaviour {
         }
         
     }
+
+    
 
     public void OnEndResultButton() //クエストリザルトボタンおすと、フラグがONに。
     {
@@ -1272,6 +1352,43 @@ public class Quest_Judge : MonoBehaviour {
         
     }
 
+    void DebugTasteText()
+    {
+        debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
+
+        debug_taste_resultText.text =
+            "###  好みの比較　結果　###"
+            + "\n" + "\n" + "判定用お菓子セットの番号: " + _questID
+            + "\n" + "\n" + "アイテム名: " + _itemname
+            + "\n" + "\n" + "あまさ: " + _basesweat
+            + "\n" + " お客さんの好みの甘さ: " + _sweat
+            + "\n" + "お菓子のあまさ: " + _basesweat
+            + "\n" + " 点数: " + sweat_score
+            + "\n" + "\n" + "苦さ: " + _basebitter
+            + "\n" + " お客さんの好みの苦さ: " + _bitter
+            + "\n" + "お菓子のにがさ: " + _basebitter
+            + "\n" + " 点数: " + bitter_score
+            + "\n" + "\n" + "酸味: " + _basesour
+            + "\n" + " お客さんの好みの酸味: " + _sour
+            + "\n" + "お菓子の酸味: " + _basesour
+            + "\n" + " 点数: " + sour_score
+            + "\n" + "\n" + "さくさく度: " + _basecrispy + "\n" + "さくさく閾値: " + _crispy + "\n" + " 点数: " + crispy_score
+            + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _fluffy + "\n" + " 点数: " + fluffy_score
+            + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _smooth + "\n" + " 点数: " + smooth_score
+            + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _hardness + "\n" + " 点数: " + hardness_score
+            + "\n" + "\n" + "ぷるぷる度: " + "-"
+            + "\n" + "\n" + "噛み応え度: " + "-"
+            + "\n" + "\n" + "トッピングスコア: " + topping_score
+            + "\n" + "\n" + "指定のトッピングあったかどうか falseで-50点: " + slot_ok
+            + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目閾値: " + _beauty + "\n" + "見た目スコア: " + beauty_score
+            + "\n" + "\n" + "補正値　無条件で点数を下げる: " + Hosei_score
+            + "\n" + "\n" + "総合得点: " + okashi_score
+            + "\n" + "\n" + "### ###"
+            + "\n" + "\n" + "お金の取得式: " + "\n" + debug_money_text
+            + "\n" + "\n" + "基準値: " + _buy_price * _kosu_default
+            + "\n" + "\n" + "okashi_totalscore / GameMgr.high_score 計算: " + (float)(okashi_totalscore / GameMgr.high_score)
+            + "\n" + "\n" + "お金の取得合計: " + _getMoney;
+    }
 
     //
     //パラメータのセットアップ
@@ -1464,7 +1581,7 @@ public class Quest_Judge : MonoBehaviour {
         }
 
         //固有トッピングスロットも見る。一致する効果があれば、所持数+1。現在未使用。
-        /*for (i = 0; i < _koyutp.Length; i++)
+        for (i = 0; i < _koyutp.Length; i++)
         {
             count = 0;
             //itemslotInfoディクショナリのキーを全て取得
@@ -1478,7 +1595,7 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 count++;
             }
-        }*/
+        }
     }
 
     void InitializeItemSlotDicts()

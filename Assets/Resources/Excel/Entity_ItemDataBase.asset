@@ -5967,7 +5967,7 @@ MonoBehaviour:
       koyu_topping4: Non
       koyu_topping5: Non
       item_hyouji: 1
-      Set_JudgeNum: 500
+      Set_JudgeNum: 512
     - ItemID: 212
       file_name: neko_cookie
       name: cookie_himawari_oil

@@ -2083,15 +2083,15 @@ public class Utage_scenario : MonoBehaviour
                                 
 
         //採点によって、感想が変わる。
-        if (GameMgr.contest_TotalScore > GameMgr.low_score && GameMgr.contest_TotalScore <= GameMgr.high_score)
+        if (GameMgr.contest_TotalScore > GameMgr.low_score && GameMgr.contest_TotalScore <= GameMgr.high_score) //60~85
         {
             engine.Param.TrySetParameter("contest_comment_num", 0);
         }
-        else if (GameMgr.contest_TotalScore > GameMgr.high_score)
+        else if (GameMgr.contest_TotalScore > GameMgr.high_score) //85~
         {
             engine.Param.TrySetParameter("contest_comment_num", 1);
         }
-        else if (GameMgr.contest_TotalScore > 30 && GameMgr.contest_TotalScore <= GameMgr.low_score)
+        else if (GameMgr.contest_TotalScore > 30 && GameMgr.contest_TotalScore <= GameMgr.low_score) //30~60
         {
             engine.Param.TrySetParameter("contest_comment_num", 2);
         }

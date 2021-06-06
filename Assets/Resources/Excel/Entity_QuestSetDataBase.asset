@@ -26,10 +26,10 @@ MonoBehaviour:
       kosu_max: 1
       buy_price: 250
       rich: 0
-      sweat: 20
+      sweat: 32
       bitter: 0
       sour: 0
-      crispy: 30
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -56,10 +56,10 @@ MonoBehaviour:
       kosu_max: 1
       buy_price: 400
       rich: 0
-      sweat: 20
+      sweat: 32
       bitter: 0
-      sour: 0
-      crispy: 30
+      sour: 1
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
       sweat: 0
       bitter: 30
       sour: 0
-      crispy: 30
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
       sweat: 0
       bitter: 0
       sour: 0
-      crispy: 1
+      crispy: 20
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -386,21 +386,21 @@ MonoBehaviour:
       kosu_max: 1
       buy_price: 1000
       rich: 0
-      sweat: 40
+      sweat: 88
       bitter: 0
       sour: 1
       crispy: 0
-      fluffy: 50
+      fluffy: 85
       smooth: 0
       hardness: 0
       jiggly: 0
       chewy: 0
       juice: 0
-      beauty: 50
+      beauty: 70
       topping01: Strawberry
       topping02: Blueberry
       topping03: Raspberry
-      topping04: Blackcurrant
+      topping04: Cranberry
       topping05: Blackberry
       quest_Title: "\u7518\u9178\u3063\u3071\u3044\u30AF\u30EC\u30FC\u30D7\u304C\u98DF\u3079\u305F\u3044"
       desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u30E1\u30A4\u30C9\u5B66\u6821\u306E\u5148\u751F</color>\u306E\u65B9\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30D9\u30EA\u30FC\u304C\u306E\u3063\u305F\u30AF\u30EC\u30FC\u30D7\u3092\u98DF\u3079\u3066\u5143\u6C17\u3092\u51FA\u3057\u305F\u3044\u305D\u3046\u3088\u3002"
@@ -416,13 +416,13 @@ MonoBehaviour:
       kosu_max: 1
       buy_price: 700
       rich: 0
-      sweat: 20
+      sweat: 15
       bitter: 0
       sour: 1
       crispy: 0
       fluffy: 0
       smooth: 0
-      hardness: 30
+      hardness: 40
       jiggly: 0
       chewy: 0
       juice: 0
@@ -446,10 +446,10 @@ MonoBehaviour:
       kosu_max: 1
       buy_price: 550
       rich: 0
-      sweat: 20
+      sweat: 32
       bitter: 0
       sour: 1
-      crispy: 30
+      crispy: 60
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -534,12 +534,12 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 1
-      buy_price: 300
+      buy_price: 350
       rich: 0
-      sweat: 20
+      sweat: 32
       bitter: 0
       sour: 0
-      crispy: 50
+      crispy: 90
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -553,7 +553,7 @@ MonoBehaviour:
       topping04: Non
       topping05: Non
       quest_Title: "\u3055\u304F\u3055\u304F\u3057\u305F\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1<\u9AD8\u54C1\u8CEA>"
-      desc: "\u3042\u308B\u8CB4\u65CF\u306E\u65B9\u306E\u304A\u8336\u4F1A\u306B\u3001<color=#FF78B4>\u30AF\u30C3\u30AD\u30FC</color>\u304C\u307B\u3057\u3044\u305D\u3046\u3088\u3002\n\u5473\u306B\u3046\u308B\u3055\u3044\u304A\u5BA2\u69D8\u3060\u3051\u3069..
+      desc: "\u3042\u308B\u8CB4\u65CF\u306E\u65B9\u306E\u304A\u8336\u4F1A\u306B\u3001<color=#FF78B4>\u30AF\u30C3\u30AD\u30FC</color>\u304C\u307B\u3057\u3044\u305D\u3046\u3088\u3002\n\u3055\u304F\u3055\u304F\u611F\u306B\u3046\u308B\u3055\u3044\u304A\u5BA2\u69D8\u3060\u3051\u3069..
         \u5831\u916C\u306F\u9AD8\u3044\u307F\u305F\u3044\u3002"
     - ID: 18
       QuestID: 1010
@@ -565,12 +565,12 @@ MonoBehaviour:
       kosu_default: 0
       kosu_min: 1
       kosu_max: 1
-      buy_price: 400
+      buy_price: 600
       rich: 0
-      sweat: 20
+      sweat: 54
       bitter: 0
       sour: 1
-      crispy: 50
+      crispy: 70
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -598,10 +598,10 @@ MonoBehaviour:
       kosu_max: 1
       buy_price: 300
       rich: 0
-      sweat: 20
+      sweat: 54
       bitter: 0
       sour: 0
-      crispy: 50
+      crispy: 80
       fluffy: 0
       smooth: 0
       hardness: 0
@@ -680,6 +680,36 @@ MonoBehaviour:
       desc: "<color=#FF78B4>\u30DF\u30F3\u30C8</color>\u3092\u6301\u3063\u3066\u306A\u3044\uFF1F\n\u304A\u83D3\u5B50\u306E\u30A2\u30AF\u30BB\u30F3\u30C8\u306B\u6B20\u304B\u305B\u306A\u3044\u306E\u3088\uFF5E\u3002"
     - ID: 2
       QuestID: 2020
+      QuestType: 1
+      QuestHyouji: 2
+      file_name: neko_cookie_drop
+      quest_itemName: cookie_nonsuger
+      quest_itemsubtype: Non
+      kosu_default: 0
+      kosu_min: 1
+      kosu_max: 1
+      buy_price: 450
+      rich: 0
+      sweat: 0
+      bitter: 0
+      sour: 0
+      crispy: 80
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      quest_Title: "\u30CE\u30F3\u30B7\u30E5\u30AC\u30FC\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044"
+      desc: "\u3053\u308C\u306F\u3001\u3068\u3042\u308B<color=#FF78B4>\u7537\u6027\u8CBF\u6613\u5546</color>\u306E\u65B9\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u671D\u304A\u8179\u304C\u7A7A\u304F\u304B\u3089\u3001\u8179\u6301\u3061\u306E\u3088\u3044\u304A\u83D3\u5B50\u304C\u98DF\u3079\u305F\u3044\u305D\u3046\u3088\u3002"
+    - ID: 3
+      QuestID: 2030
       QuestType: 0
       QuestHyouji: 4
       file_name: crepe_orange
@@ -708,8 +738,8 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u30AA\u30EC\u30F3\u30B8\u30AF\u30EC\u30FC\u30D7\u304C\u98DF\u3079\u305F\u3044\uFF01"
       desc: "\u3053\u308C\u306F\u3001\u3068\u3042\u308B<color=#FF78B4>\u3054\u5A66\u4EBA</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u30AA\u30EC\u30F3\u30B8\u304C\u5927\u597D\u304D\u3067\u3001\u30AA\u30EC\u30F3\u30B8\u5165\u308A\u306E\u30AF\u30EC\u30FC\u30D7\u304C\u98DF\u3079\u305F\u3044\u305D\u3046\u3088\u3002"
-    - ID: 3
-      QuestID: 2030
+    - ID: 4
+      QuestID: 2040
       QuestType: 0
       QuestHyouji: 4
       file_name: castella
@@ -738,8 +768,8 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u30AB\u30B9\u30C6\u30E9\u304C\u98DF\u3079\u305F\u3044\uFF01"
       desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u304A\u3058\u3044\u3055\u3093</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u6B6F\u304C\u5F31\u3063\u3066\u308B\u304B\u3089\u3001\u67D4\u3089\u304B\u3044\u30AB\u30B9\u30C6\u30E9\u304C\u98DF\u3079\u305F\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
-    - ID: 4
-      QuestID: 2040
+    - ID: 5
+      QuestID: 2050
       QuestType: 1
       QuestHyouji: 5
       file_name: blackberry
@@ -768,8 +798,8 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u30D6\u30E9\u30C3\u30AF\u30D9\u30EA\u30FC\u306E\u5165\u624B"
       desc: "\u738B\u69D8\u306E\u30D9\u30EA\u30FC\u3068\u547C\u3070\u308C\u308B<color=#FF78B4>\u30D6\u30E9\u30C3\u30AF\u30D9\u30EA\u30FC</color>\u3092\u6301\u3063\u3066\u306A\u3044\uFF1F\n\u7687\u5BA4\u5411\u3051\u306E\u304A\u83D3\u5B50\u4F5C\u308A\u306B\u306F\u6B20\u304B\u305B\u306A\u3044\u306E\u3088\u3002"
-    - ID: 5
-      QuestID: 2050
+    - ID: 6
+      QuestID: 2060
       QuestType: 0
       QuestHyouji: 6
       file_name: icecream
@@ -798,8 +828,8 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0\u304C\u98DF\u3079\u305F\u3044\uFF01"
       desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u5927\u5BCC\u8C6A</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u6700\u8FD1\u6D41\u884C\u306E\u30A2\u30A4\u30B9\u30AF\u30EA\u30FC\u30E0\u304C\u6B32\u3057\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
-    - ID: 6
-      QuestID: 2060
+    - ID: 7
+      QuestID: 2070
       QuestType: 0
       QuestHyouji: 6
       file_name: maffin_pink
@@ -828,8 +858,8 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u3055\u304F\u3089\u3093\u307C\u306E\u30D4\u30F3\u30AF\u30DE\u30D5\u30A3\u30F3\u304C\u98DF\u3079\u305F\u3044\uFF01"
       desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u30AF\u30E9\u30E9\u304A\u3070\u3055\u3093</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u82E5\u3055\u6EA2\u308C\u308B\u3001\u304B\u308F\u3044\u3044\u30DE\u30D5\u30A3\u30F3\u304C\u98DF\u3079\u305F\u3044\u3068\u306E\u3053\u3068\u3060\u308F\u3002"
-    - ID: 7
-      QuestID: 2070
+    - ID: 8
+      QuestID: 2080
       QuestType: 0
       QuestHyouji: 9999
       file_name: bugget
@@ -858,7 +888,7 @@ MonoBehaviour:
       topping05: Non
       quest_Title: "\u30D0\u30B2\u30C3\u30C8\u304C\u98DF\u3079\u305F\u3044\uFF01"
       desc: "\u3053\u308C\u306F\u3001<color=#FF78B4>\u308F\u305F\u3057</color>\u304B\u3089\u306E\u3054\u4F9D\u983C\u306D\u3002\n\u304A\u5E97\u3067\u3060\u3059\u30D1\u30F3\u4F5C\u308A\u3092\u624B\u4F1D\u3063\u3066\u307B\u3057\u3044\u306E\uFF01\u3082\u3061\u308D\u3093\u3001\u304A\u793C\u306F\u51FA\u3059\u308F\u3088\uFF5E\u3002"
-    - ID: 8
+    - ID: 9
       QuestID: 3000
       QuestType: 0
       QuestHyouji: 9999
@@ -889,7 +919,7 @@ MonoBehaviour:
       quest_Title: "\u3055\u304F\u3055\u304F\u3057\u305F\u30AF\u30C3\u30AD\u30FC\u306E\u7D0D\u54C1<\u9AD8\u54C1\u8CEA>"
       desc: "\u3042\u308B\u8CB4\u65CF\u306E\u65B9\u306E\u304A\u8336\u4F1A\u306B\u3001<color=#FF78B4>\u30AF\u30C3\u30AD\u30FC</color>\u304C\u307B\u3057\u3044\u305D\u3046\u3088\u3002\n\u5473\u306B\u3046\u308B\u3055\u3044\u304A\u5BA2\u69D8\u3060\u3051\u3069..
         \u5831\u916C\u306F\u9AD8\u3044\u307F\u305F\u3044\u3002"
-    - ID: 9
+    - ID: 10
       QuestID: 3010
       QuestType: 0
       QuestHyouji: 9999
@@ -920,7 +950,7 @@ MonoBehaviour:
       quest_Title: "\u82B3\u9187\u306A\u5473\u306E\u30AF\u30C3\u30AD\u30FC\u304C\u98DF\u3079\u305F\u3044<\u9AD8\u54C1\u8CEA>"
       desc: "<color=#FF78B4>\u82B3\u9187\u306A\u5473\u306E\u30AF\u30C3\u30AD\u30FC</color>\u304C\u307B\u3057\u3044\u306A\u3041..\u3000\n\u3068\u3044\u3046\u304A\u5BA2\u3055\u3093\u304C\u3044\u308B\u308F\u3002\u82B3\u9187..
         \u30D5\u30EB\u30FC\u30C4\u304B\u3057\u3089\uFF1F"
-    - ID: 10
+    - ID: 11
       QuestID: 3020
       QuestType: 0
       QuestHyouji: 9999
