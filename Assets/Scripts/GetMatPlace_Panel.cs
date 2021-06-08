@@ -654,7 +654,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 sceneBGM.FadeInBGM();
 
                 Debug.Log(select_place_name + "へ移動");
-                //slot_view.transform.Find("DebugText").GetComponent<Text>().text = select_place_name;
+                for(i=0; i< matplace_database.matplace_lists.Count; i++) //強制移動などの際に、select_place_numが更新されないので、ここでも更新
+                {
+                    if(matplace_database.matplace_lists[i].placeName == select_place_name)
+                    {
+                        select_place_num = i;
+                    }
+                }
+                
 
                 //背景のセッティング
                 SetMapBG(select_place_name);
@@ -702,25 +709,23 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             {
                                 event_end_flag = true;
 
-                                //アイテム発見力が120以上のとき
-                                if (PlayerStatus.player_girl_findpower >= 120)
+
+                                if (!GameMgr.MapEvent_01[1] && pitemlist.ReturnItemKosu("shishamo_cookie") != 9999) //ししゃもクッキーをもっている
                                 {
-                                    if (!GameMgr.MapEvent_01[1] && pitemlist.ReturnItemKosu("shishamo_cookie") != 9999) //ししゃもクッキーをもっている
-                                    {
-                                        GameMgr.map_ev_ID = 11;
-                                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                    GameMgr.map_ev_ID = 11;
+                                    GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-                                        pitemlist.SearchDeleteItem("shishamo_cookie"); //ししゃもクッキーを一個消費
-                                       
-                                        subevent_on = true;
-                                        sceneBGM.MuteBGM();
-                                        this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
-                                        getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
-                                        Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
+                                    pitemlist.SearchDeleteItem("shishamo_cookie"); //ししゃもクッキーを一個消費
 
-                                        StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
-                                    }
+                                    subevent_on = true;
+                                    sceneBGM.MuteBGM();
+                                    this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
+                                    getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
+                                    Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
+
+                                    StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
                                 }
+
                             }
                         }
 

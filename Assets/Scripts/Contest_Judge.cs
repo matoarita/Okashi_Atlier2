@@ -53,6 +53,7 @@ public class Contest_Judge : MonoBehaviour {
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private ContestCommentDataBase databaseContestComment;
 
     public bool subQuestClear_check;
     private bool HighScore_flag;
@@ -266,6 +267,9 @@ public class Contest_Judge : MonoBehaviour {
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //コンテスト感想データベースの取得
+        databaseContestComment = ContestCommentDataBase.Instance.GetComponent<ContestCommentDataBase>();
 
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
@@ -516,7 +520,7 @@ public class Contest_Judge : MonoBehaviour {
 
         //お菓子の味判定処理
         judge_result_contest(); //判定し、トータルのスコアが算出される。
-
+       
         switch (dislike_status)
         {
             case 0:
@@ -540,6 +544,9 @@ public class Contest_Judge : MonoBehaviour {
                         Debug.Log("審査員２　正規化点数：" + total_score[1] + "点");
                         Debug.Log("審査員３　正規化点数：" + total_score[2] + "点");
 
+                        Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
+                        Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
+
                         sum = 0;
                         for (i=0; i< GameMgr.contest_Score.Length; i++)
                         {
@@ -549,6 +556,7 @@ public class Contest_Judge : MonoBehaviour {
 
                         GameMgr.contest_TotalScore = sum / GameMgr.contest_Score.Length;
                         Debug.Log("総合得点：" + GameMgr.contest_TotalScore + "点");
+
                         break;
 
                     case 1:
@@ -645,7 +653,9 @@ public class Contest_Judge : MonoBehaviour {
 
             Debug.Log("#####  審査員: " + set_id + "#####");
             total_score[count] = girlEat_judge.Judge_Score_Return(kettei_item1, _toggle_type1, 1, count); //点数の判定。3番目の0~1の数字は、女の子のお菓子の判定か、コンテストでの判定かのタイプ分け
-            
+
+            GameMgr.contest_Taste_Score[count] = girlEat_judge.shokukan_score;
+            GameMgr.contest_Beauty_Score[count] = girlEat_judge.beauty_score;
 
             count++;
 

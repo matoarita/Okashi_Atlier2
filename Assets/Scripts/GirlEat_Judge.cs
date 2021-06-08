@@ -257,8 +257,8 @@ public class GirlEat_Judge : MonoBehaviour {
     public int hardness_score;
     public int jiggly_score;
     public int chewy_score;
-    private int shokukan_score;
-    private int beauty_score;
+    public int shokukan_score;
+    public int beauty_score;
 
     public int subtype1_score;
     public int subtype2_score;
@@ -1937,6 +1937,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         judge_score(SetType, _Setcount); //SetTypeは、0=女の子か1=コンテスト用かの判定。_Setcountは、GirlLikeCompoの1,2,3番目のどれを判定に使うかの数値
 
+        //他に、食感スコアと見た目スコアも、反映させている。 returnは使ってないけど。
         return total_score;
     } 
 

@@ -154,6 +154,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
     public static int contest_TotalScore;
+    public static int[] contest_Taste_Score = new int[3];
+    public static int[] contest_Beauty_Score = new int[3];
 
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
@@ -270,8 +272,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //コンテストに提出したお菓子
     public static string contest_okashiName;
-    public static string contest_okashiSlotName;
-    
+    public static string contest_okashiNameHyouji;
+    public static string contest_okashiSlotName;  
+
+    //コンテスト感想
+    public static string[] contest_judge1_comment = new string[4];
+    public static string[] contest_judge2_comment = new string[4];
+    public static string[] contest_judge3_comment = new string[4];
 
     //エンディングのフラッグ
     public static bool ending_on;       //コンテストメインで、エンディングシーンへ移動するためのフラグ
@@ -541,9 +548,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < contest_Score.Length; system_i++)
         {
             contest_Score[system_i] = 0;
+            contest_Taste_Score[system_i] = 0;
+            contest_Beauty_Score[system_i] = 0;
         }
         contest_okashiName = "";
+        contest_okashiNameHyouji = "";
         contest_TotalScore = 0;
+
+        //コンテスト感想初期化
+        for (system_i = 0; system_i < contest_judge1_comment.Length; system_i++)
+        {
+            contest_judge1_comment[system_i] = "";
+            contest_judge2_comment[system_i] = "";
+            contest_judge3_comment[system_i] = "";
+        }
 
         //マップイベントの初期化
         for (system_i = 0; system_i < MapEvent_01.Length; system_i++)

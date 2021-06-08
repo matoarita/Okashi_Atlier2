@@ -218,32 +218,7 @@ public class Result_Panel : MonoBehaviour
             else
             {
                 okashi_score_text.color = new Color(255f / 255f, 252f / 255f, 158f / 255f); //うす黄色　ピンク(255f / 255f, 105f / 255f, 139f / 255f)
-            }
-
-            //60点以上で背景アイコンが黄色に変わる演出
-
-            if (currentDispCoin == GameMgr.low_score)
-            {
-                if (!anim_on1)
-                {
-                    anim_on1 = true;
-                    score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
-                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_2;
-                }
-            }
-            
-
-            //85点以上で背景アイコンが赤に変わる演出
-            if (currentDispCoin == GameMgr.high_score)
-            {
-                if (!anim_on2)
-                {
-                    anim_on2 = true;
-                    score_backIcon.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0);
-                    score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
-                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_3;
-                }
-            }
+            }            
 
             okashi_score_text.text = string.Format("{0:#,0}", val);
 
@@ -309,25 +284,52 @@ public class Result_Panel : MonoBehaviour
             {
                 //sc.PlaySe(17);
                 StartCoroutine(DelaySound(17));
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "あとひといき..！";                
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "あとひといき..！";
             }
             else if (Total_score >= GameMgr.low_score && Total_score < GameMgr.high_score) //60点以上で、パンパカファンファーレ♪
             {
                 StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "うみゃあ！！　合格！";
+
+                //60点以上で背景アイコンが黄色に変わる演出
+                if (!anim_on1)
+                {
+                    anim_on1 = true;
+                    score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
+                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_2;
+                }
             }
             else if (Total_score >= GameMgr.high_score && Total_score < 100)
             {
                 StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "大好きぃ！！";
+
+                //85点以上で背景アイコンが赤に変わる演出
+                if (!anim_on2)
+                {
+                    anim_on2 = true;
+                    score_backIcon.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0);
+                    score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
+                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_3;
+                }
+
             }
             else if (Total_score >= 100)
             {
                 StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "このお菓子は最高だ！！";
+
+                //85点以上で背景アイコンが赤に変わる演出
+                if (!anim_on2)
+                {
+                    anim_on2 = true;
+                    score_backIcon.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0);
+                    score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
+                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_3;
+                }
             }
 
             GoukakuPanelOn();

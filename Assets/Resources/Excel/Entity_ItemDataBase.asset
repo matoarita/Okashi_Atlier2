@@ -5774,7 +5774,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 501
     - ItemID: 208
       file_name: orange_neko_cookie
@@ -6014,7 +6014,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 500
     - ItemID: 213
       file_name: cheese_cookie
@@ -6782,7 +6782,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 500
     - ItemID: 229
       file_name: rusk
@@ -7790,7 +7790,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 61
     - ItemID: 250
       file_name: crepe
@@ -7886,7 +7886,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 61
     - ItemID: 252
       file_name: crepe
@@ -8174,7 +8174,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 60
     - ItemID: 258
       file_name: crepe
@@ -9710,7 +9710,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 290
       file_name: huwakoro
@@ -10382,7 +10382,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 304
       file_name: baumcoohen
@@ -10430,7 +10430,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 305
       file_name: baumcoohen
@@ -10478,7 +10478,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 306
       file_name: stairway_to_Heaven
@@ -11390,7 +11390,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 521
     - ItemID: 325
       file_name: bugget
@@ -11438,7 +11438,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 522
     - ItemID: 326
       file_name: bugget_sliced
@@ -11534,7 +11534,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 526
     - ItemID: 328
       file_name: bugget_sliced
@@ -11582,7 +11582,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 527
     - ItemID: 329
       file_name: bugget_sliced
@@ -11918,7 +11918,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 100
     - ItemID: 336
       file_name: icecream
@@ -11966,7 +11966,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 100
     - ItemID: 337
       file_name: icecream
@@ -12350,7 +12350,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 345
       file_name: rich_tea
@@ -12782,7 +12782,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 354
       file_name: rich_tea
@@ -13118,7 +13118,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
     - ItemID: 361
       file_name: strawberry_parfe
@@ -13262,7 +13262,7 @@ MonoBehaviour:
       koyu_topping3: Non
       koyu_topping4: Non
       koyu_topping5: Non
-      item_hyouji: 1
+      item_hyouji: 0
       Set_JudgeNum: 0
   - name: 03_ItemDB_Potion
     list:

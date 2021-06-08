@@ -51,3 +51,4 @@
 ・BGM_49		04[theme]大好きな場所			ベリーファームのBGM
 ・BGM_50		audiostock_944577			調合テーマ４　アトリエメインテーマ３　楽しい音楽
 ・BGM_51		audiostock_236508			採集選択画面
+・BGM_52		ecossaise				チュートリアルのBGM　宴用

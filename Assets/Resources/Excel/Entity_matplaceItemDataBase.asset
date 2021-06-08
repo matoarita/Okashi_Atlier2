@@ -317,7 +317,7 @@ MonoBehaviour:
       drop_rare_prob2: 10
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
-      back_bg: mnkuhi471565673986
+      back_bg: BirdSanctuali_BG
     - ItemID: 8
       file_name: catgrave_mini_icon
       place_Name: CatGrave
@@ -329,9 +329,9 @@ MonoBehaviour:
       place_flag: 0
       place_type: 1
       drop_item1: "\u306A\u3057"
-      drop_item2: orange
-      drop_item3: grape
-      drop_item4: nuts
+      drop_item2: banana
+      drop_item3: apple
+      drop_item4: violette
       drop_item5: strange_grass
       drop_item6: mint
       drop_item7: Non
@@ -339,23 +339,23 @@ MonoBehaviour:
       drop_item9: Non
       drop_item10: Non
       drop_rare1: Non
-      drop_rare2: emerald_suger
-      drop_rare3: lemon
+      drop_rare2: star_powder
+      drop_rare3: Non
       drop_prob1: 20
       drop_prob2: 15
       drop_prob3: 20
-      drop_prob4: 15
-      drop_prob5: 20
+      drop_prob4: 10
+      drop_prob5: 25
       drop_prob6: 10
       drop_prob7: 0
       drop_prob8: 0
       drop_prob9: 0
       drop_prob10: 0
-      drop_rare_prob1: 83
-      drop_rare_prob2: 10
-      drop_rare_prob3: 7
+      drop_rare_prob1: 95
+      drop_rare_prob2: 5
+      drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
-      back_bg: belg_harerubos
+      back_bg: CatGrave_BG
     - ItemID: 9
       file_name: berryfarm_mini_icon
       place_Name: BerryFarm
@@ -520,7 +520,7 @@ MonoBehaviour:
       place_type: 1
       drop_item1: "\u306A\u3057"
       drop_item2: himawari_seed
-      drop_item3: banana
+      drop_item3: honey
       drop_item4: green_apple
       drop_item5: Non
       drop_item6: Non
@@ -529,7 +529,7 @@ MonoBehaviour:
       drop_item9: Non
       drop_item10: Non
       drop_rare1: Non
-      drop_rare2: pear
+      drop_rare2: rich_komugiko
       drop_rare3: Non
       drop_prob1: 40
       drop_prob2: 40
@@ -541,8 +541,8 @@ MonoBehaviour:
       drop_prob8: 0
       drop_prob9: 0
       drop_prob10: 0
-      drop_rare_prob1: 95
-      drop_rare_prob2: 5
+      drop_rare_prob1: 97
+      drop_rare_prob2: 3
       drop_rare_prob3: 0
       center_bg: 4_himawarihill_600_300
       back_bg: HimawariHill_BG
