@@ -249,11 +249,11 @@ public class Contest_Main : MonoBehaviour {
 
         if (judge_Type == 0) //1000～が審査員3人個別に判定セット。1500～が審査員まとめて一つバージョンの評価セット
         {
-            DB_list_Type = 1000;
+            DB_list_Type = 10000;
         }
         else if (judge_Type == 1)
         {
-            DB_list_Type = 1500; //現在は使用していない。
+            DB_list_Type = 20000; //現在は使用していない。
         }
 
         i = 0;

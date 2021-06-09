@@ -342,17 +342,17 @@ MonoBehaviour:
       drop_rare2: star_powder
       drop_rare3: Non
       drop_prob1: 20
-      drop_prob2: 15
-      drop_prob3: 20
-      drop_prob4: 10
-      drop_prob5: 25
-      drop_prob6: 10
+      drop_prob2: 12
+      drop_prob3: 10
+      drop_prob4: 5
+      drop_prob5: 40
+      drop_prob6: 13
       drop_prob7: 0
       drop_prob8: 0
       drop_prob9: 0
       drop_prob10: 0
-      drop_rare_prob1: 95
-      drop_rare_prob2: 5
+      drop_rare_prob1: 97
+      drop_rare_prob2: 3
       drop_rare_prob3: 0
       center_bg: 1_forest_a_600_300
       back_bg: CatGrave_BG

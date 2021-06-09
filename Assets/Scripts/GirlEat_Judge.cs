@@ -1373,117 +1373,80 @@ public class GirlEat_Judge : MonoBehaviour {
         //またジャンルごとに、どのスコアの比重が大きくなるか、補正がかかる。アイスなら甘味が大事、とか。
         switch (_baseitemtype_sub)
         {
-            case "Cookie":
-
-                Crispy_Score();                
-
-                break;
-
-            case "Bread":
-
-                Crispy_Score();
-
-                break;
-
-            case "Rusk":
-
-                Crispy_Score();
-
-                break;
-
-            case "Cake":
-
-                Fluffy_Score();                
-
-                break;
-
-            case "Crepe":
-
-                Fluffy_Score();
-
-                break;
-
-            case "Crepe_Mat":
-
-                Fluffy_Score();
-
-                break;
-
-            case "Creampuff":
-
-                Fluffy_Score();
-
-                break;
-
-            case "Donuts":
-
-                Fluffy_Score();
-
-                break;
-
-            case "PanCake":
-
-                Fluffy_Score();
-
-                break;
-
-            case "Financier":
-
-                Fluffy_Score();
-
-                break;
-
-            case "Cannoli":
-
-                Crispy_Score();
-
-                break;
-
-            case "Maffin":
-
-                Fluffy_Score();
-
-                break;            
-
-            case "Chocolate":
-
-                Smooth_Score();
-
-                break;
-
-            case "Chocolate_Mat":
-
-                Smooth_Score();
-
-                break;          
-
             case "Biscotti":
-
-                Hardness_Score();               
-
+                Hardness_Score();
                 break;
-           
-            case "IceCream":
-
+            case "Bread":
+                Crispy_Score();
+                break;
+            case "Cookie":
+                Crispy_Score();                
+                break;
+            case "Chocolate":
                 Smooth_Score();
-
                 break;
-
+            case "Chocolate_Mat":
+                Smooth_Score();
+                break;
+            case "Cake":
+                Fluffy_Score();
+                break;
+            case "Castella":
+                Fluffy_Score();
+                break;
+            case "Cannoli":
+                Crispy_Score();
+                break;
+            case "Candy":
+                Hardness_Score();
+                break;
+            case "Crepe":
+                Fluffy_Score();
+                break;
+            case "Crepe_Mat":
+                Fluffy_Score();
+                break;
+            case "Creampuff":
+                Fluffy_Score();
+                break;
+            case "Donuts":
+                Fluffy_Score();
+                break;
+            case "Financier":
+                Fluffy_Score();
+                break;
+            case "IceCream":
+                Smooth_Score();
+                break;
             case "Juice":
-
                 Juice_Score();
                 break;
-
-            case "Tea":
-
-                Tea_Score();                
-
+            case "Jelly":
+                Smooth_Score();
                 break;
-
-            case "Tea_Mat":
-
+            case "Maffin":
+                Fluffy_Score();
+                break;
+            case "PanCake":
+                Fluffy_Score();
+                break;
+            case "Parfe":
+                Smooth_Score();
+                break;
+            case "Pie":
+                Crispy_Score();
+                break;
+            case "Rusk":
+                Crispy_Score();
+                break;
+            case "Tea":
                 Tea_Score();
-
+                break;
+            case "Tea_Mat":
+                Tea_Score();
+                break;
+            case "Tea_Potion":
+                Tea_Score();
                 break;
 
             default:

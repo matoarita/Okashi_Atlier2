@@ -632,20 +632,18 @@ public class SetImage : MonoBehaviour
             case "Non":
                 subcategory = "";
                 break;
-            case "Cookie":
-                subcategory = "クッキー";
-                Crispy_Text();
+
+            //お菓子
+            case "Biscotti":
+                subcategory = "ビスコッティ";
+                Hardness_Text();
                 break;
             case "Bread":
                 subcategory = "パン";
                 Crispy_Text();
                 break;
-            case "Rusk":
-                subcategory = "ラスク";
-                Crispy_Text();
-                break;
-            case "Pie":
-                subcategory = "パイ";
+            case "Cookie":
+                subcategory = "クッキー";
                 Crispy_Text();
                 break;
             case "Chocolate":
@@ -655,26 +653,22 @@ public class SetImage : MonoBehaviour
             case "Chocolate_Mat":
                 subcategory = "チョコレート";
                 Smooth_Text();
-                break;           
+                break;
             case "Cake":
                 subcategory = "ケーキ";
-                Fluffy_Text();               
-                break;
-            case "PanCake":
-                subcategory = "パンケーキ";
                 Fluffy_Text();
                 break;
-            case "Financier":
-                subcategory = "フィナンシェ";
-                Fluffy_Text();
-                break;
-            case "Maffin":
-                subcategory = "マフィン";
+            case "Castella":
+                subcategory = "カステラ";
                 Fluffy_Text();
                 break;
             case "Cannoli":
                 subcategory = "カンノーリ";
                 Crispy_Text();
+                break;
+            case "Candy":
+                subcategory = "キャンディ";
+                Hardness_Text();
                 break;
             case "Crepe":
                 subcategory = "クレープ";
@@ -688,26 +682,46 @@ public class SetImage : MonoBehaviour
                 subcategory = "シュークリーム";
                 Fluffy_Text();
                 break;
-            case "Biscotti":
-                subcategory = "ビスコッティ";
-                Hardness_Text();                
-                break;
             case "Donuts":
                 subcategory = "ドーナツ";
+                Fluffy_Text();
+                break;
+            case "Financier":
+                subcategory = "フィナンシェ";
                 Fluffy_Text();
                 break;
             case "IceCream":
                 subcategory = "アイスクリーム";
                 Smooth_Text();
                 break;
-            case "Parfe":
-                subcategory = "パフェ";
-                Smooth_Text();
-                break;
             case "Juice":
                 subcategory = "ジュース";
                 Juice_Text();
                 break;
+            case "Jelly":
+                subcategory = "ゼリー";
+                Smooth_Text();
+                break;
+            case "Maffin":
+                subcategory = "マフィン";
+                Fluffy_Text();
+                break;            
+            case "PanCake":
+                subcategory = "パンケーキ";
+                Fluffy_Text();
+                break;
+            case "Parfe":
+                subcategory = "パフェ";
+                Smooth_Text();
+                break;
+            case "Pie":
+                subcategory = "パイ";
+                Crispy_Text();
+                break;
+            case "Rusk":
+                subcategory = "ラスク";
+                Crispy_Text();
+                break;         
             case "Tea":
                 subcategory = "お茶";
                 Crispy_Text();
@@ -720,6 +734,14 @@ public class SetImage : MonoBehaviour
                 item_Shokukan_Type.text = "香り";
                 item_lastShokukan_Type.text = "香り";
                 break;
+            case "Tea_Potion":
+                subcategory = "お茶";
+                Crispy_Text();
+                item_Shokukan_Type.text = "香り";
+                item_lastShokukan_Type.text = "香り";
+                break;
+
+            //材料など
             case "Fruits":
                 subcategory = "フルーツ";
                 Etc_Text_Non();

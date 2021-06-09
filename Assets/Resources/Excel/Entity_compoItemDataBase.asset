@@ -4227,6 +4227,58 @@ MonoBehaviour:
       release_recipi: pan_cake
       recipi_count: 0
     - ItemID: 162
+      cmpitemName: pan_cake_maple
+      cmpitemID_1: pan_cake
+      cmpitemID_2: maple_syrup
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: pan_cake_maple
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 20
+      Comment: 
+      Comment2: "\u30D1\u30F3\u30B1\u30FC\u30AD*\u30C1\u30E7\u30B3*\u30D0\u30CA\u30CA*\u30DB\u30A4\u30C3\u30D7"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: pan_cake_maple
+      recipi_count: 1
+    - ItemID: 163
+      cmpitemName: pan_cake_honey
+      cmpitemID_1: pan_cake
+      cmpitemID_2: honey
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: pan_cake_honey
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 20
+      Comment: 
+      Comment2: "\u30D1\u30F3\u30B1\u30FC\u30AD*\u30C1\u30E7\u30B3*\u30D0\u30CA\u30CA*\u30DB\u30A4\u30C3\u30D7"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: pan_cake_honey
+      recipi_count: 1
+    - ItemID: 164
       cmpitemName: choco_banana_pan_cake
       cmpitemID_1: pan_cake
       cmpitemID_2: chocolate
@@ -4252,7 +4304,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: choco_banana_pan_cake
       recipi_count: 0
-    - ItemID: 163
+    - ItemID: 165
       cmpitemName: blueberry_pan_cake
       cmpitemID_1: pan_cake
       cmpitemID_2: blueberry
@@ -4278,7 +4330,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: blueberry_pan_cake
       recipi_count: 1
-    - ItemID: 164
+    - ItemID: 166
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4304,7 +4356,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 165
+    - ItemID: 167
       cmpitemName: puff
       cmpitemID_1: appaleil_creampuff2
       cmpitemID_2: siboribukuro
@@ -4330,7 +4382,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: puff
       recipi_count: 1
-    - ItemID: 166
+    - ItemID: 168
       cmpitemName: creampuff
       cmpitemID_1: puff
       cmpitemID_2: whipped cream
@@ -4356,7 +4408,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: creampuff
       recipi_count: 1
-    - ItemID: 167
+    - ItemID: 169
       cmpitemName: strawberry_creampuff
       cmpitemID_1: puff
       cmpitemID_2: whipped cream_strawberry
@@ -4382,7 +4434,33 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberry_creampuff
       recipi_count: 1
-    - ItemID: 168
+    - ItemID: 170
+      cmpitemName: banana_creampuff
+      cmpitemID_1: puff
+      cmpitemID_2: whipped cream_banana
+      cmpitemID_3: empty
+      cmp_subtype_1: empty
+      cmp_subtype_2: empty
+      cmp_subtype_3: empty
+      result_itemID: banana_creampuff
+      result_kosu: 1
+      cmpitem_kosu1: 1
+      cmpitem_kosu2: 1
+      cmpitem_kosu3: 9999
+      best_kosu1: 1
+      best_kosu2: 1
+      best_kosu3: 1
+      cmp_flag: 0
+      cost_time: 18
+      success_rate: 95
+      renkin_Bexp: 20
+      Comment: 
+      Comment2: "\u30B7\u30E5\u30FC\xD7\u3044\u3061\u3054\u30DB\u30A4\u30C3\u30D7\u30AF\u30EA\u30FC\u30E0"
+      KeisanMethod: Non
+      comp_count: 0
+      release_recipi: banana_creampuff
+      recipi_count: 1
+    - ItemID: 171
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4408,7 +4486,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 169
+    - ItemID: 172
       cmpitemName: donuts
       cmpitemID_1: appaleil_donuts
       cmpitemID_2: flyer
@@ -4434,7 +4512,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: donuts
       recipi_count: 1
-    - ItemID: 170
+    - ItemID: 173
       cmpitemName: pink_charlotte_donuts
       cmpitemID_1: donuts
       cmpitemID_2: whipped cream_strawberry
@@ -4460,7 +4538,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: pink_charlotte_donuts
       recipi_count: 1
-    - ItemID: 171
+    - ItemID: 174
       cmpitemName: pink_charlotte_donuts_raspberry
       cmpitemID_1: donuts
       cmpitemID_2: whipped cream_raspberry
@@ -4486,7 +4564,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: pink_charlotte_donuts
       recipi_count: 0
-    - ItemID: 172
+    - ItemID: 175
       cmpitemName: pink_charlotte_donuts_cranberry
       cmpitemID_1: donuts
       cmpitemID_2: whipped cream_cranberry
@@ -4512,7 +4590,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: pink_charlotte_donuts
       recipi_count: 0
-    - ItemID: 173
+    - ItemID: 176
       cmpitemName: izet_color_donuts
       cmpitemID_1: pink_charlotte_donuts
       cmpitemID_2: blueberry
@@ -4538,7 +4616,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: izet_color_donuts2
       recipi_count: 0
-    - ItemID: 174
+    - ItemID: 177
       cmpitemName: izet_color_donuts2
       cmpitemID_1: donuts
       cmpitemID_2: blueberry
@@ -4564,7 +4642,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: izet_color_donuts
       recipi_count: 1
-    - ItemID: 175
+    - ItemID: 178
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4590,7 +4668,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 176
+    - ItemID: 179
       cmpitemName: sponge_cake
       cmpitemID_1: komugiko
       cmpitemID_2: appaleil_mixer
@@ -4616,7 +4694,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: sponge_cake
       recipi_count: 1
-    - ItemID: 177
+    - ItemID: 180
       cmpitemName: sponge_cake_Free
       cmpitemID_1: appaleil_mixer
       cmpitemID_2: empty
@@ -4642,7 +4720,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: sponge_cake
       recipi_count: 0
-    - ItemID: 178
+    - ItemID: 181
       cmpitemName: princess_tota_base
       cmpitemID_1: sponge_cake
       cmpitemID_2: custard_cream
@@ -4668,7 +4746,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: princess_tota_base
       recipi_count: 1
-    - ItemID: 179
+    - ItemID: 182
       cmpitemName: princess_tota
       cmpitemID_1: princess_tota_base
       cmpitemID_2: marzipan_green
@@ -4694,7 +4772,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: princess_tota
       recipi_count: 1
-    - ItemID: 180
+    - ItemID: 183
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4720,7 +4798,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 181
+    - ItemID: 184
       cmpitemName: marzipan
       cmpitemID_1: armond_powder
       cmpitemID_2: suger
@@ -4746,7 +4824,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: marzipan
       recipi_count: 1
-    - ItemID: 182
+    - ItemID: 185
       cmpitemName: marzipan_Free
       cmpitemID_1: armond_powder
       cmpitemID_2: egg_white
@@ -4772,7 +4850,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: marzipan
       recipi_count: 0
-    - ItemID: 183
+    - ItemID: 186
       cmpitemName: marzipan_green
       cmpitemID_1: marzipan
       cmpitemID_2: mint
@@ -4798,7 +4876,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: marzipan_green
       recipi_count: 1
-    - ItemID: 184
+    - ItemID: 187
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -4824,7 +4902,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 185
+    - ItemID: 188
       cmpitemName: crepe
       cmpitemID_1: komugiko
       cmpitemID_2: appaleil_milk
@@ -4850,7 +4928,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: crepe
       recipi_count: 1
-    - ItemID: 186
+    - ItemID: 189
       cmpitemName: crepe_Free
       cmpitemID_1: appaleil_milk
       cmpitemID_2: empty
@@ -4876,7 +4954,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: crepe
       recipi_count: 0
-    - ItemID: 187
+    - ItemID: 190
       cmpitemName: cream_crepe
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream
@@ -4902,7 +4980,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cream_crepe
       recipi_count: 1
-    - ItemID: 188
+    - ItemID: 191
       cmpitemName: cream_crepe_orange
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_orange
@@ -4928,7 +5006,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cream_crepe_orange
       recipi_count: 0
-    - ItemID: 189
+    - ItemID: 192
       cmpitemName: cream_crepe_grape
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_grape
@@ -4954,7 +5032,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cream_crepe_grape
       recipi_count: 0
-    - ItemID: 190
+    - ItemID: 193
       cmpitemName: cream_crepe_blueberry
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_blurberry
@@ -4980,7 +5058,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cream_crepe_blueberry
       recipi_count: 0
-    - ItemID: 191
+    - ItemID: 194
       cmpitemName: cream_crepe_strawberry
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_strawberry
@@ -5006,7 +5084,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberry_crepe
       recipi_count: 0
-    - ItemID: 192
+    - ItemID: 195
       cmpitemName: cream_crepe_banana
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_banana
@@ -5032,7 +5110,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cream_crepe_banana
       recipi_count: 0
-    - ItemID: 193
+    - ItemID: 196
       cmpitemName: cream_crepe_peach
       cmpitemID_1: crepe
       cmpitemID_2: whipped cream_peach
@@ -5058,7 +5136,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cream_crepe_peach
       recipi_count: 0
-    - ItemID: 194
+    - ItemID: 197
       cmpitemName: orange_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: orange
@@ -5084,7 +5162,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: orange_crepe
       recipi_count: 1
-    - ItemID: 195
+    - ItemID: 198
       cmpitemName: grape_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: grape
@@ -5110,7 +5188,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: grape_crepe
       recipi_count: 1
-    - ItemID: 196
+    - ItemID: 199
       cmpitemName: blueberry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: blueberry
@@ -5136,7 +5214,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: blueberry_crepe
       recipi_count: 1
-    - ItemID: 197
+    - ItemID: 200
       cmpitemName: strawberry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: strawberry
@@ -5162,7 +5240,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberry_crepe
       recipi_count: 1
-    - ItemID: 198
+    - ItemID: 201
       cmpitemName: strawberryblueberry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: strawberry
@@ -5188,7 +5266,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberryblueberry_crepe
       recipi_count: 1
-    - ItemID: 199
+    - ItemID: 202
       cmpitemName: strawberryblueberry_crepe2
       cmpitemID_1: blueberry_crepe
       cmpitemID_2: strawberry
@@ -5214,7 +5292,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberryblueberry_crepe
       recipi_count: 0
-    - ItemID: 200
+    - ItemID: 203
       cmpitemName: strawberryblueberry_crepe3
       cmpitemID_1: strawberry_crepe
       cmpitemID_2: blueberry
@@ -5240,7 +5318,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberryblueberry_crepe
       recipi_count: 0
-    - ItemID: 201
+    - ItemID: 204
       cmpitemName: berry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: raspberry
@@ -5266,7 +5344,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: berry_crepe
       recipi_count: 1
-    - ItemID: 202
+    - ItemID: 205
       cmpitemName: berry_crepe_Free
       cmpitemID_1: cream_crepe
       cmpitemID_2: empty
@@ -5292,7 +5370,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: berry_crepe
       recipi_count: 0
-    - ItemID: 203
+    - ItemID: 206
       cmpitemName: doubleberry_crepe
       cmpitemID_1: berry_crepe
       cmpitemID_2: strawberry
@@ -5318,7 +5396,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: doubleberry_crepe
       recipi_count: 1
-    - ItemID: 204
+    - ItemID: 207
       cmpitemName: doubleberry_crepe2
       cmpitemID_1: blueberry_crepe
       cmpitemID_2: empty
@@ -5344,7 +5422,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: doubleberry_crepe
       recipi_count: 0
-    - ItemID: 205
+    - ItemID: 208
       cmpitemName: doubleberry_crepe3
       cmpitemID_1: strawberry_crepe
       cmpitemID_2: empty
@@ -5370,7 +5448,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: doubleberry_crepe
       recipi_count: 0
-    - ItemID: 206
+    - ItemID: 209
       cmpitemName: doubleberry_crepe4
       cmpitemID_1: berry_crepe
       cmpitemID_2: empty
@@ -5396,7 +5474,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: doubleberry_crepe
       recipi_count: 0
-    - ItemID: 207
+    - ItemID: 210
       cmpitemName: doubleberry_crepe5
       cmpitemID_1: cream_crepe
       cmpitemID_2: empty
@@ -5422,7 +5500,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: doubleberry_crepe
       recipi_count: 0
-    - ItemID: 208
+    - ItemID: 211
       cmpitemName: doubleberry_icecream_crepe
       cmpitemID_1: doubleberry_crepe
       cmpitemID_2: ice_cream
@@ -5448,7 +5526,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: doubleberry_icecream_crepe
       recipi_count: 0
-    - ItemID: 209
+    - ItemID: 212
       cmpitemName: cheese_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: cream_cheese
@@ -5474,7 +5552,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cheese_crepe
       recipi_count: 1
-    - ItemID: 210
+    - ItemID: 213
       cmpitemName: strawberry_cheese_crepe
       cmpitemID_1: cheese_crepe
       cmpitemID_2: strawberry
@@ -5500,7 +5578,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberry_cheese_crepe
       recipi_count: 0
-    - ItemID: 211
+    - ItemID: 214
       cmpitemName: strawberry_cheese_ice_crepe
       cmpitemID_1: strawberry_cheese_crepe
       cmpitemID_2: ice_cream
@@ -5526,7 +5604,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberry_cheese_ice_crepe
       recipi_count: 0
-    - ItemID: 212
+    - ItemID: 215
       cmpitemName: strawberry_cheese_ice_crepe2
       cmpitemID_1: cheese_crepe
       cmpitemID_2: strawberry
@@ -5552,7 +5630,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberry_cheese_ice_crepe2
       recipi_count: 0
-    - ItemID: 213
+    - ItemID: 216
       cmpitemName: blueberry_cheese_crepe
       cmpitemID_1: cheese_crepe
       cmpitemID_2: blueberry
@@ -5578,7 +5656,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: blueberry_cheese_crepe
       recipi_count: 0
-    - ItemID: 214
+    - ItemID: 217
       cmpitemName: blueberry_cheese_ice_crepe
       cmpitemID_1: blueberry_cheese_crepe
       cmpitemID_2: ice_cream
@@ -5604,7 +5682,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: blueberry_cheese_ice_crepe
       recipi_count: 0
-    - ItemID: 215
+    - ItemID: 218
       cmpitemName: blueberry_cheese_ice_crepe2
       cmpitemID_1: blueberry_cheese_crepe
       cmpitemID_2: blueberry
@@ -5630,7 +5708,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: blueberry_cheese_ice_crepe2
       recipi_count: 0
-    - ItemID: 216
+    - ItemID: 219
       cmpitemName: peach_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: peach
@@ -5656,7 +5734,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: peach_crepe
       recipi_count: 1
-    - ItemID: 217
+    - ItemID: 220
       cmpitemName: peach_icecream_crepe
       cmpitemID_1: peach_crepe
       cmpitemID_2: ice_cream
@@ -5682,7 +5760,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: peach_icecream_crepe
       recipi_count: 0
-    - ItemID: 218
+    - ItemID: 221
       cmpitemName: banana_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: banana
@@ -5708,7 +5786,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: banana_crepe
       recipi_count: 1
-    - ItemID: 219
+    - ItemID: 222
       cmpitemName: banana_icecream_crepe
       cmpitemID_1: banana_crepe
       cmpitemID_2: ice_cream
@@ -5734,7 +5812,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: banana_icecream_crepe
       recipi_count: 0
-    - ItemID: 220
+    - ItemID: 223
       cmpitemName: choco_banana_crepe
       cmpitemID_1: banana_crepe
       cmpitemID_2: chocolate
@@ -5760,7 +5838,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: choco_banana_crepe
       recipi_count: 0
-    - ItemID: 221
+    - ItemID: 224
       cmpitemName: choco_banana_ice_crepe
       cmpitemID_1: choco_banana_crepe
       cmpitemID_2: ice_cream
@@ -5786,7 +5864,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: choco_banana_ice_crepe
       recipi_count: 0
-    - ItemID: 222
+    - ItemID: 225
       cmpitemName: cherry_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: cherry
@@ -5812,7 +5890,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cherry_crepe
       recipi_count: 1
-    - ItemID: 223
+    - ItemID: 226
       cmpitemName: cherry_ice_crepe
       cmpitemID_1: cherry_crepe
       cmpitemID_2: ice_cream
@@ -5838,7 +5916,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cherry_ice_crepe
       recipi_count: 0
-    - ItemID: 224
+    - ItemID: 227
       cmpitemName: pear_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: pear
@@ -5864,7 +5942,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: pear_crepe
       recipi_count: 0
-    - ItemID: 225
+    - ItemID: 228
       cmpitemName: icecream_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: ice_cream
@@ -5890,7 +5968,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: icecream_crepe
       recipi_count: 1
-    - ItemID: 226
+    - ItemID: 229
       cmpitemName: nuts_icecream_crepe
       cmpitemID_1: icecream_crepe
       cmpitemID_2: nuts
@@ -5916,7 +5994,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: nuts_icecream_crepe
       recipi_count: 0
-    - ItemID: 227
+    - ItemID: 230
       cmpitemName: choconuts_icecream_crepe
       cmpitemID_1: nuts_icecream_crepe
       cmpitemID_2: chocolate
@@ -5942,7 +6020,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: choconuts_icecream_crepe
       recipi_count: 0
-    - ItemID: 228
+    - ItemID: 231
       cmpitemName: maple_crepe
       cmpitemID_1: crepe
       cmpitemID_2: maple_syrup
@@ -5968,7 +6046,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: maple_crepe
       recipi_count: 1
-    - ItemID: 229
+    - ItemID: 232
       cmpitemName: maple_creamcrepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: maple_syrup
@@ -5994,7 +6072,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: maple_creamcrepe
       recipi_count: 1
-    - ItemID: 230
+    - ItemID: 233
       cmpitemName: honey_crepe
       cmpitemID_1: crepe
       cmpitemID_2: honey
@@ -6020,7 +6098,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: honey_crepe
       recipi_count: 1
-    - ItemID: 231
+    - ItemID: 234
       cmpitemName: honey_creamcrepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: honey
@@ -6046,7 +6124,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: honey_creamcrepe
       recipi_count: 1
-    - ItemID: 232
+    - ItemID: 235
       cmpitemName: shishamo_crepe
       cmpitemID_1: cream_crepe
       cmpitemID_2: shishamo
@@ -6072,7 +6150,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: shishamo_crepe
       recipi_count: 1
-    - ItemID: 233
+    - ItemID: 236
       cmpitemName: shishamo_ice_crepe
       cmpitemID_1: shishamo_crepe
       cmpitemID_2: ice_cream
@@ -6098,7 +6176,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: shishamo_ice_crepe
       recipi_count: 0
-    - ItemID: 234
+    - ItemID: 237
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -6124,7 +6202,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 235
+    - ItemID: 238
       cmpitemName: crepe_flyed
       cmpitemID_1: komugiko
       cmpitemID_2: appaleil_milk
@@ -6150,7 +6228,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: crepe_flyed
       recipi_count: 1
-    - ItemID: 236
+    - ItemID: 239
       cmpitemName: crepe_flyed_Free
       cmpitemID_1: appaleil_milk
       cmpitemID_2: flyer
@@ -6176,7 +6254,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: crepe_flyed
       recipi_count: 0
-    - ItemID: 237
+    - ItemID: 240
       cmpitemName: crepe_flyed_Free2
       cmpitemID_1: crepe
       cmpitemID_2: flyer
@@ -6202,7 +6280,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: crepe_flyed
       recipi_count: 0
-    - ItemID: 238
+    - ItemID: 241
       cmpitemName: cannoli
       cmpitemID_1: crepe_flyed
       cmpitemID_2: cream_row_ricotta
@@ -6228,7 +6306,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: cannoli
       recipi_count: 1
-    - ItemID: 239
+    - ItemID: 242
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -6254,7 +6332,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 240
+    - ItemID: 243
       cmpitemName: chocolate_base
       cmpitemID_1: cacao_beans
       cmpitemID_2: suger
@@ -6280,7 +6358,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: chocolate_base
       recipi_count: 0
-    - ItemID: 241
+    - ItemID: 244
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -6306,7 +6384,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 242
+    - ItemID: 245
       cmpitemName: parfe_base
       cmpitemID_1: corn_frake
       cmpitemID_2: yogurt
@@ -6332,7 +6410,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: parfe_base
       recipi_count: 1
-    - ItemID: 243
+    - ItemID: 246
       cmpitemName: vanilla_parfe
       cmpitemID_1: parfe_base
       cmpitemID_2: ice_cream
@@ -6358,7 +6436,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: vanilla_parfe
       recipi_count: 1
-    - ItemID: 244
+    - ItemID: 247
       cmpitemName: parfe_base_strawberry
       cmpitemID_1: strawberry
       cmpitemID_2: yogurt
@@ -6384,7 +6462,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: parfe_base_strawberry
       recipi_count: 1
-    - ItemID: 245
+    - ItemID: 248
       cmpitemName: strawberry_parfe
       cmpitemID_1: parfe_base_strawberry
       cmpitemID_2: strawberry
@@ -6410,7 +6488,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberry_parfe
       recipi_count: 1
-    - ItemID: 246
+    - ItemID: 249
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -6436,7 +6514,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 247
+    - ItemID: 250
       cmpitemName: ice_cream
       cmpitemID_1: appaleil_icecream
       cmpitemID_2: ice_box
@@ -6462,7 +6540,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: ice_cream
       recipi_count: 1
-    - ItemID: 248
+    - ItemID: 251
       cmpitemName: strawberry_ice_cream
       cmpitemID_1: ice_cream
       cmpitemID_2: strawberry
@@ -6488,7 +6566,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strawberry_ice_cream
       recipi_count: 1
-    - ItemID: 249
+    - ItemID: 252
       cmpitemName: lemon_ice_cream
       cmpitemID_1: ice_cream
       cmpitemID_2: lemon
@@ -6514,7 +6592,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: lemon_ice_cream
       recipi_count: 1
-    - ItemID: 250
+    - ItemID: 253
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -6540,7 +6618,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 251
+    - ItemID: 254
       cmpitemName: jewery_candy
       cmpitemID_1: emerald_suger
       cmpitemID_2: water
@@ -6566,7 +6644,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: jewery_candy
       recipi_count: 1
-    - ItemID: 252
+    - ItemID: 255
       cmpitemName: dragon_candy
       cmpitemID_1: suger
       cmpitemID_2: water
@@ -6592,7 +6670,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: dragon_candy
       recipi_count: 1
-    - ItemID: 253
+    - ItemID: 256
       cmpitemName: dragon_candy_Free
       cmpitemID_1: water
       cmpitemID_2: mint
@@ -6618,7 +6696,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: dragon_candy
       recipi_count: 0
-    - ItemID: 254
+    - ItemID: 257
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -6644,7 +6722,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 255
+    - ItemID: 258
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -6670,7 +6748,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 256
+    - ItemID: 259
       cmpitemName: jelly_water
       cmpitemID_1: gelatin
       cmpitemID_2: water
@@ -6696,7 +6774,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: jelly_water
       recipi_count: 1
-    - ItemID: 257
+    - ItemID: 260
       cmpitemName: jelly_water_orange
       cmpitemID_1: gelatin
       cmpitemID_2: orange_juice
@@ -6722,7 +6800,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: jelly_water_orange
       recipi_count: 1
-    - ItemID: 258
+    - ItemID: 261
       cmpitemName: slimejelly
       cmpitemID_1: jelly_water
       cmpitemID_2: ice_box
@@ -6748,7 +6826,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: slimejelly
       recipi_count: 1
-    - ItemID: 259
+    - ItemID: 262
       cmpitemName: jellygirl
       cmpitemID_1: jelly_water_orange
       cmpitemID_2: ice_box
@@ -6774,7 +6852,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: jellygirl
       recipi_count: 1
-    - ItemID: 260
+    - ItemID: 263
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -6800,7 +6878,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 261
+    - ItemID: 264
       cmpitemName: lavender_tea
       cmpitemID_1: lavender_flower
       cmpitemID_2: water
@@ -6826,7 +6904,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: lavender_tea
       recipi_count: 1
-    - ItemID: 262
+    - ItemID: 265
       cmpitemName: strange_tea
       cmpitemID_1: strange_grass
       cmpitemID_2: water
@@ -6852,7 +6930,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: strange_tea
       recipi_count: 1
-    - ItemID: 263
+    - ItemID: 266
       cmpitemName: earlgrey_tea
       cmpitemID_1: earlgrey_leaf
       cmpitemID_2: water
@@ -6878,7 +6956,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: earlgrey_tea
       recipi_count: 1
-    - ItemID: 264
+    - ItemID: 267
       cmpitemName: elderflower_tea
       cmpitemID_1: elder_flower
       cmpitemID_2: water
@@ -6904,7 +6982,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: elderflower_tea
       recipi_count: 1
-    - ItemID: 265
+    - ItemID: 268
       cmpitemName: hydrangea_tea
       cmpitemID_1: hydrangea
       cmpitemID_2: water
@@ -6930,7 +7008,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: hydrangea_tea
       recipi_count: 1
-    - ItemID: 266
+    - ItemID: 269
       cmpitemName: violatte_tea
       cmpitemID_1: violette
       cmpitemID_2: water
@@ -6956,7 +7034,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: violatte_tea
       recipi_count: 1
-    - ItemID: 267
+    - ItemID: 270
       cmpitemName: apple_tea
       cmpitemID_1: earlgrey_tea
       cmpitemID_2: apple
@@ -6982,7 +7060,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: apple_tea
       recipi_count: 1
-    - ItemID: 268
+    - ItemID: 271
       cmpitemName: apple_tea_Free
       cmpitemID_1: apple
       cmpitemID_2: empty
@@ -7008,7 +7086,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: apple_tea
       recipi_count: 0
-    - ItemID: 269
+    - ItemID: 272
       cmpitemName: apple_tea_Free2
       cmpitemID_1: green_apple
       cmpitemID_2: empty
@@ -7034,7 +7112,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: apple_tea
       recipi_count: 0
-    - ItemID: 270
+    - ItemID: 273
       cmpitemName: 
       cmpitemID_1: 
       cmpitemID_2: 
@@ -7060,7 +7138,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: 
       recipi_count: 0
-    - ItemID: 271
+    - ItemID: 274
       cmpitemName: orange_juice
       cmpitemID_1: orange
       cmpitemID_2: juice_mixer
@@ -7086,7 +7164,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: orange_juice
       recipi_count: 1
-    - ItemID: 272
+    - ItemID: 275
       cmpitemName: grape_juice
       cmpitemID_1: grape
       cmpitemID_2: juice_mixer
@@ -7112,7 +7190,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: grape_juice
       recipi_count: 1
-    - ItemID: 273
+    - ItemID: 276
       cmpitemName: haloween_juice
       cmpitemID_1: orange
       cmpitemID_2: grape
@@ -7138,7 +7216,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: haloween_juice
       recipi_count: 1
-    - ItemID: 274
+    - ItemID: 277
       cmpitemName: mix_fruits_juice
       cmpitemID_1: juice_mixer
       cmpitemID_2: orange
@@ -7164,7 +7242,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: mix_fruits_juice
       recipi_count: 1
-    - ItemID: 275
+    - ItemID: 278
       cmpitemName: mix_fruits_juice_Free
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
@@ -7190,7 +7268,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: mix_fruits_juice
       recipi_count: 0
-    - ItemID: 276
+    - ItemID: 279
       cmpitemName: mix_fruits_juice_Free2
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
@@ -7216,7 +7294,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: mix_fruits_juice
       recipi_count: 0
-    - ItemID: 277
+    - ItemID: 280
       cmpitemName: mix_berry_juice
       cmpitemID_1: juice_mixer
       cmpitemID_2: blueberry
@@ -7242,7 +7320,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: mix_berry_juice
       recipi_count: 1
-    - ItemID: 278
+    - ItemID: 281
       cmpitemName: mix_berry_juice_Free
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
@@ -7268,7 +7346,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: mix_berry_juice
       recipi_count: 0
-    - ItemID: 279
+    - ItemID: 282
       cmpitemName: mix_berry_juice_Free2
       cmpitemID_1: juice_mixer
       cmpitemID_2: empty
@@ -7294,7 +7372,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: mix_berry_juice
       recipi_count: 0
-    - ItemID: 280
+    - ItemID: 283
       cmpitemName: juice_float
       cmpitemID_1: ice_cream
       cmpitemID_2: orange_juice
@@ -7320,7 +7398,7 @@ MonoBehaviour:
       comp_count: 0
       release_recipi: juice_float
       recipi_count: 1
-    - ItemID: 281
+    - ItemID: 284
       cmpitemName: juice_float_Free
       cmpitemID_1: ice_cream
       cmpitemID_2: empty
