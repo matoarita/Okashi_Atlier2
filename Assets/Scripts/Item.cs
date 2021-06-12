@@ -74,6 +74,7 @@ public class Item
     public int last_hardness_score;
     public int last_jiggly_score;
     public int last_chewy_score;
+    public int last_juice_score;
     public int last_beauty_score; //表示はしない
     public string last_hinttext;
     public string item_SlotName; //スロット名部分のみの名称。色変更用に。
@@ -252,6 +253,7 @@ public class Item
         last_hardness_score = 0;
         last_jiggly_score = 0;
         last_chewy_score = 0;
+        last_juice_score = 0;
         last_beauty_score = 50;
         last_hinttext = _hinttext;
         item_SlotName = "";

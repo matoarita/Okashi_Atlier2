@@ -475,7 +475,7 @@ public class SetImage : MonoBehaviour
                 _lastfluffy_score = database.items[check_counter].last_fluffy_score;
                 _lastsmooth_score = database.items[check_counter].last_smooth_score;
                 _lasthardness_score = database.items[check_counter].last_hardness_score;
-                _lastjuice_score = _lastsweat_score + _lastbitter_score + _lastsour_score;
+                _lastjuice_score = database.items[check_counter].last_juice_score;
 
                 _eat_kaisu = database.items[check_counter].Eat_kaisu;
                 _highscore_flag = database.items[check_counter].HighScore_flag;
@@ -546,7 +546,7 @@ public class SetImage : MonoBehaviour
                 _lastfluffy_score = pitemlist.player_originalitemlist[check_counter].last_fluffy_score;
                 _lastsmooth_score = pitemlist.player_originalitemlist[check_counter].last_smooth_score;
                 _lasthardness_score = pitemlist.player_originalitemlist[check_counter].last_hardness_score;
-                _lastjuice_score = _lastsweat_score + _lastbitter_score + _lastsour_score;
+                _lastjuice_score = pitemlist.player_originalitemlist[check_counter].last_juice_score;
 
                 _eat_kaisu = pitemlist.player_originalitemlist[check_counter].Eat_kaisu;
                 _highscore_flag = pitemlist.player_originalitemlist[check_counter].HighScore_flag;
@@ -1115,7 +1115,7 @@ public class SetImage : MonoBehaviour
         item_lastShokukan_Type.text = "のどごし";
         item_Shokukan.text = _juice_score.ToString();
         _shokukan_score = _juice_score;
-        _lastshokukan_score = _lastsweat_score + _lastbitter_score + _lastsour_score;
+        _lastshokukan_score = _lastjuice_score;
     }
 
     void Etc_Text()

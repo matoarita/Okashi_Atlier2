@@ -166,6 +166,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int _basehardness;
     private int _basejiggly;
     private int _basechewy;
+    private int _basejuice;
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
@@ -198,6 +199,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int[] _girlhardness;
     private int[] _girljiggly;
     private int[] _girlchewy;
+    private int[] _girljuice;
     private int[] _girlbeauty;
 
     private int _girlpowdery;
@@ -257,6 +259,7 @@ public class GirlEat_Judge : MonoBehaviour {
     public int hardness_score;
     public int jiggly_score;
     public int chewy_score;
+    public int juice_score;
     public int shokukan_score;
     public int beauty_score;
 
@@ -571,6 +574,7 @@ public class GirlEat_Judge : MonoBehaviour {
         _girlhardness = new int[girl1_status.youso_count];
         _girljiggly = new int[girl1_status.youso_count];
         _girlchewy = new int[girl1_status.youso_count];
+        _girljuice = new int[girl1_status.youso_count];
 
         _girlbeauty = new int[girl1_status.youso_count];
 
@@ -773,6 +777,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _baseitemtype_sub = database.items[kettei_item1].itemType_sub.ToString();
                 _basecost = database.items[kettei_item1].cost_price;
                 _baseSetjudge_num = database.items[kettei_item1].SetJudge_Num;
+                _basejuice = database.items[kettei_item1].Juice;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -814,6 +819,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _baseitemtype_sub = pitemlist.player_originalitemlist[kettei_item1].itemType_sub.ToString();
                 _basecost = pitemlist.player_originalitemlist[kettei_item1].cost_price;
                 _baseSetjudge_num = pitemlist.player_originalitemlist[kettei_item1].SetJudge_Num;
+                _basejuice = pitemlist.player_originalitemlist[kettei_item1].Juice;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -980,8 +986,9 @@ public class GirlEat_Judge : MonoBehaviour {
             + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _girlfluffy[countNum] + "\n" + " 点数: " + fluffy_score
             + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _girlsmooth[countNum] + "\n" + " 点数: " + smooth_score
             + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness[countNum] + "\n" + " 点数: " + hardness_score
+            + "\n" + "\n" + "飲みごたえ度: " + _basejuice + "\n" + "飲みごたえ閾値: " + _girljuice[countNum] + "\n" + " 点数: " + juice_score
             + "\n" + "\n" + "ぷるぷる度: " + "-"
-            + "\n" + "\n" + "噛み応え度: " + "-"
+            + "\n" + "\n" + "噛み応え度: " + "-" 
             + "\n" + "\n" + "判定セットごとの基本得点: " + set_score
             + "\n" + "\n" + "トッピングスコア: " + topping_score
             + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目閾値: " + _girlbeauty[countNum] + "\n" + "見た目スコア: " + beauty_score
@@ -1004,6 +1011,7 @@ public class GirlEat_Judge : MonoBehaviour {
             _girlhardness[i] = girl1_status.girl1_Hardness[i];
             _girljiggly[i] = girl1_status.girl1_Jiggly[i];
             _girlchewy[i] = girl1_status.girl1_Chewy[i];
+            _girljuice[i] = girl1_status.girl1_Juice[i];
 
             _girlbeauty[i] = girl1_status.girl1_Beauty[i];
 
@@ -1285,6 +1293,7 @@ public class GirlEat_Judge : MonoBehaviour {
         fluffy_score = 0;
         smooth_score = 0;
         hardness_score = 0;
+        juice_score = 0;
         beauty_score = 0;
         topping_score = 0;
         topping_flag_point = 0;
@@ -1658,6 +1667,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     database.items[_baseID].last_hardness_score = _basehardness;
                     database.items[_baseID].last_jiggly_score = _basejiggly;
                     database.items[_baseID].last_chewy_score = _basechewy;
+                    database.items[_baseID].last_juice_score = _basejuice;
                     database.items[_baseID].last_beauty_score = _basebeauty;
 
                     last_score_kousin = true;
@@ -1858,11 +1868,29 @@ public class GirlEat_Judge : MonoBehaviour {
     }
 
     void Juice_Score()
-    {       
-        shokukan_score = _basescore + _basesweat + _basebitter + _basesour;
-        shokukan_baseparam = shokukan_score;
+    {
+        _temp_kyori = _basejuice - _girljuice[countNum];
+
+        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        {
+            _temp_ratio = 1.0f;
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            juice_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+        }
+        else
+        {
+            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+            Debug.Log("_temp_ratio: " + _temp_ratio);
+
+            juice_score = (int)(_basescore * _temp_ratio);
+        }
+
+        
+        shokukan_baseparam = _basejuice;
+        shokukan_score = juice_score;
         shokukan_mes = "のどごし";
-        Debug.Log("のどごしの点: " + shokukan_score);
+        Debug.Log("のどごしの点: " + juice_score);
     }
 
     void Tea_Score()

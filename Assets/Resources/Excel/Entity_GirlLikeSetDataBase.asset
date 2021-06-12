@@ -29,6 +29,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -66,6 +67,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -103,6 +105,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -140,6 +143,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Orange
       topping02: Non
@@ -177,6 +181,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: SilverChip
       topping02: SakuraChip
@@ -214,6 +219,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Grape
       topping02: Blueberry
@@ -251,6 +257,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -288,6 +295,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 60
       topping01: Orange
       topping02: Lemon
@@ -325,6 +333,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -362,6 +371,7 @@ MonoBehaviour:
       hardness: 120
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Earlgrey
       topping02: Non
@@ -399,6 +409,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 70
       topping01: WhipeedCream
       topping02: Mint
@@ -436,6 +447,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -473,6 +485,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Mint
@@ -510,6 +523,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 80
       topping01: WhipeedCream
       topping02: WhipeedCreamStrawberry
@@ -547,6 +561,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 100
       topping01: Strawberry
       topping02: Nuts
@@ -584,6 +599,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Mint
@@ -621,6 +637,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Mint
       topping02: Lemon
@@ -658,6 +675,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -695,6 +713,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -732,6 +751,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: SilverChip
       topping02: SakuraChip
@@ -769,6 +789,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -806,6 +827,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -843,6 +865,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -880,6 +903,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -917,6 +941,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Banana
       topping02: Non
@@ -954,6 +979,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -991,6 +1017,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1028,6 +1055,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Grape
       topping02: Non
@@ -1065,6 +1093,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Strawberry
       topping02: Banana
@@ -1102,6 +1131,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Shishamo
       topping02: Non
@@ -1139,6 +1169,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1176,6 +1207,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Nuts
       topping02: Non
@@ -1213,6 +1245,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 80
       topping01: Peach
       topping02: Non
@@ -1250,6 +1283,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1287,6 +1321,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1324,6 +1359,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1361,6 +1397,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1398,6 +1435,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1435,6 +1473,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 20
       topping01: Non
       topping02: Non
@@ -1472,6 +1511,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 20
       topping01: Non
       topping02: Non
@@ -1509,6 +1549,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 20
       topping01: Non
       topping02: Non
@@ -1546,6 +1587,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 20
       topping01: Non
       topping02: Non
@@ -1583,6 +1625,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 20
       topping01: Non
       topping02: Non
@@ -1620,6 +1663,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 20
       topping01: Non
       topping02: Non
@@ -1657,6 +1701,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1694,6 +1739,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Orange
       topping02: Non
@@ -1731,6 +1777,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Lemon
       topping02: Non
@@ -1768,6 +1815,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1805,6 +1853,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1842,6 +1891,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1879,6 +1929,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1916,6 +1967,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -1953,6 +2005,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -1990,6 +2043,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2027,6 +2081,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2064,6 +2119,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2101,6 +2157,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2138,6 +2195,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2175,6 +2233,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2212,6 +2271,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2249,6 +2309,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2286,6 +2347,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2323,6 +2385,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2360,6 +2423,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Mint
@@ -2397,6 +2461,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2434,6 +2499,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Mint
@@ -2471,6 +2537,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2508,6 +2575,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2545,6 +2613,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Mint
@@ -2582,6 +2651,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: StrangeGlass
       topping02: Mint
@@ -2606,11 +2676,11 @@ MonoBehaviour:
       commet_flag: 0
     - setID: 70
       compNum: 601
-      girllike_itemname: lavender_tea
+      girllike_itemname: earlgrey_tea
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
-      sweat: 54
+      sweat: 32
       bitter: 0
       sour: 0
       crispy: 40
@@ -2619,6 +2689,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -2642,6 +2713,234 @@ MonoBehaviour:
       desc: "\u30E9\u30D9\u30F3\u30C0\u30C6\u30A3\u30FC"
       commet_flag: 0
     - setID: 71
+      compNum: 602
+      girllike_itemname: mato_tea
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 60
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30E9\u30D9\u30F3\u30C0\u30C6\u30A3\u30FC"
+      commet_flag: 0
+    - setID: 72
+      compNum: 603
+      girllike_itemname: lavender_tea
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 40
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30E9\u30D9\u30F3\u30C0\u30C6\u30A3\u30FC"
+      commet_flag: 0
+    - setID: 73
+      compNum: 604
+      girllike_itemname: elderflower_tea
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 60
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30E9\u30D9\u30F3\u30C0\u30C6\u30A3\u30FC"
+      commet_flag: 0
+    - setID: 74
+      compNum: 605
+      girllike_itemname: hydrangea_tea
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 60
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30E9\u30D9\u30F3\u30C0\u30C6\u30A3\u30FC"
+      commet_flag: 0
+    - setID: 75
+      compNum: 606
+      girllike_itemname: violatte_tea
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 60
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30E9\u30D9\u30F3\u30C0\u30C6\u30A3\u30FC"
+      commet_flag: 0
+    - setID: 76
+      compNum: 607
+      girllike_itemname: apple_tea
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 54
+      bitter: 0
+      sour: 0
+      crispy: 40
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30E9\u30D9\u30F3\u30C0\u30C6\u30A3\u30FC"
+      commet_flag: 0
+    - setID: 77
       compNum: 650
       girllike_itemname: maffin_pink
       girllike_itemsubtype: Non
@@ -2656,6 +2955,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 70
       topping01: Non
       topping02: Non
@@ -2678,7 +2978,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30DE\u30D5\u30A3\u30F3"
       commet_flag: 0
-    - setID: 72
+    - setID: 78
       compNum: 651
       girllike_itemname: maffin_jewery
       girllike_itemsubtype: Non
@@ -2693,6 +2993,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 130
       topping01: CrystalSuger
       topping02: JewerySuger
@@ -2715,7 +3016,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30DE\u30D5\u30A3\u30F3"
       commet_flag: 0
-    - setID: 73
+    - setID: 79
       compNum: 652
       girllike_itemname: maffin_starcup
       girllike_itemsubtype: Non
@@ -2730,6 +3031,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 130
       topping01: Non
       topping02: Non
@@ -2752,7 +3054,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30DE\u30D5\u30A3\u30F3"
       commet_flag: 0
-    - setID: 74
+    - setID: 80
       compNum: 653
       girllike_itemname: maffin_banana
       girllike_itemsubtype: Non
@@ -2767,6 +3069,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Banana
       topping02: Non
@@ -2789,7 +3092,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30DE\u30D5\u30A3\u30F3"
       commet_flag: 0
-    - setID: 75
+    - setID: 81
       compNum: 680
       girllike_itemname: strawberry_milfiyu
       girllike_itemsubtype: Non
@@ -2804,6 +3107,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -2826,7 +3130,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u3044\u3061\u3054\u30DF\u30EB\u30D5\u30A3\u30FC\u30E6"
       commet_flag: 0
-    - setID: 76
+    - setID: 82
       compNum: 700
       girllike_itemname: financier
       girllike_itemsubtype: Non
@@ -2841,228 +3145,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
-      beauty: 50
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      tp_score01: 0
-      tp_score02: 0
-      tp_score03: 0
-      tp_score04: 0
-      tp_score05: 0
-      tp_score06: 0
-      tp_score07: 0
-      tp_score08: 0
-      tp_score09: 0
-      Non_tpscore: 0
-      desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
-      commet_flag: 0
-    - setID: 77
-      compNum: 701
-      girllike_itemname: financier_Orange
-      girllike_itemsubtype: Non
-      set_score: 0
-      rich: 0
-      sweat: 77
-      bitter: 0
-      sour: 10
-      crispy: 0
-      fluffy: 60
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      beauty: 50
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      tp_score01: 0
-      tp_score02: 0
-      tp_score03: 0
-      tp_score04: 0
-      tp_score05: 0
-      tp_score06: 0
-      tp_score07: 0
-      tp_score08: 0
-      tp_score09: 0
-      Non_tpscore: 0
-      desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\uFF1C\u30AA\u30EC\u30F3\u30B8\uFF1E"
-      commet_flag: 0
-    - setID: 78
-      compNum: 720
-      girllike_itemname: jewery_candy
-      girllike_itemsubtype: Non
-      set_score: 0
-      rich: 0
-      sweat: 88
-      bitter: 0
-      sour: 0
-      crispy: 0
-      fluffy: 0
-      smooth: 0
-      hardness: 60
-      jiggly: 0
-      chewy: 0
-      beauty: 50
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      tp_score01: 0
-      tp_score02: 0
-      tp_score03: 0
-      tp_score04: 0
-      tp_score05: 0
-      tp_score06: 0
-      tp_score07: 0
-      tp_score08: 0
-      tp_score09: 0
-      Non_tpscore: 0
-      desc: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
-      commet_flag: 0
-    - setID: 79
-      compNum: 721
-      girllike_itemname: dragon_candy
-      girllike_itemsubtype: Non
-      set_score: 0
-      rich: 0
-      sweat: 40
-      bitter: 80
-      sour: 0
-      crispy: 0
-      fluffy: 0
-      smooth: 0
-      hardness: 60
-      jiggly: 0
-      chewy: 0
-      beauty: 50
-      topping01: Mint
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      tp_score01: 7
-      tp_score02: 0
-      tp_score03: 0
-      tp_score04: 0
-      tp_score05: 0
-      tp_score06: 0
-      tp_score07: 0
-      tp_score08: 0
-      tp_score09: 0
-      Non_tpscore: 0
-      desc: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
-      commet_flag: 0
-    - setID: 80
-      compNum: 740
-      girllike_itemname: castella
-      girllike_itemsubtype: Non
-      set_score: 0
-      rich: 0
-      sweat: 130
-      bitter: 0
-      sour: 0
-      crispy: 0
-      fluffy: 100
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      beauty: 50
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      tp_score01: 0
-      tp_score02: 0
-      tp_score03: 0
-      tp_score04: 0
-      tp_score05: 0
-      tp_score06: 0
-      tp_score07: 0
-      tp_score08: 0
-      tp_score09: 0
-      Non_tpscore: 0
-      desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
-      commet_flag: 0
-    - setID: 81
-      compNum: 745
-      girllike_itemname: cheese_cake
-      girllike_itemsubtype: Non
-      set_score: 0
-      rich: 0
-      sweat: 60
-      bitter: 30
-      sour: 0
-      crispy: 0
-      fluffy: 130
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
-      beauty: 80
-      topping01: Non
-      topping02: Non
-      topping03: Non
-      topping04: Non
-      topping05: Non
-      topping06: Non
-      topping07: Non
-      topping08: Non
-      topping09: Non
-      tp_score01: 0
-      tp_score02: 0
-      tp_score03: 0
-      tp_score04: 0
-      tp_score05: 0
-      tp_score06: 0
-      tp_score07: 0
-      tp_score08: 0
-      tp_score09: 0
-      Non_tpscore: 0
-      desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
-      commet_flag: 0
-    - setID: 82
-      compNum: 750
-      girllike_itemname: sponge_cake
-      girllike_itemsubtype: Non
-      set_score: 0
-      rich: 0
-      sweat: 40
-      bitter: 0
-      sour: 0
-      crispy: 0
-      fluffy: 100
-      smooth: 0
-      hardness: 0
-      jiggly: 0
-      chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -3086,12 +3169,126 @@ MonoBehaviour:
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
     - setID: 83
-      compNum: 751
-      girllike_itemname: princess_tota_base
+      compNum: 701
+      girllike_itemname: financier_Orange
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 77
+      bitter: 0
+      sour: 10
+      crispy: 0
+      fluffy: 60
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7\uFF1C\u30AA\u30EC\u30F3\u30B8\uFF1E"
+      commet_flag: 0
+    - setID: 84
+      compNum: 720
+      girllike_itemname: jewery_candy
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 60
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
+      commet_flag: 0
+    - setID: 85
+      compNum: 721
+      girllike_itemname: dragon_candy
       girllike_itemsubtype: Non
       set_score: 0
       rich: 0
       sweat: 40
+      bitter: 80
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 60
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Mint
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 7
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30AA\u30EC\u30F3\u30B8\u306D\u3053\u30AF\u30C3\u30AD\u30FC"
+      commet_flag: 0
+    - setID: 86
+      compNum: 740
+      girllike_itemname: castella
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 130
       bitter: 0
       sour: 0
       crispy: 0
@@ -3100,6 +3297,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -3122,7 +3320,121 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 84
+    - setID: 87
+      compNum: 745
+      girllike_itemname: cheese_cake
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 60
+      bitter: 30
+      sour: 0
+      crispy: 0
+      fluffy: 130
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 80
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
+      commet_flag: 0
+    - setID: 88
+      compNum: 750
+      girllike_itemname: sponge_cake
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 40
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 100
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
+      commet_flag: 0
+    - setID: 89
+      compNum: 751
+      girllike_itemname: princess_tota_base
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 40
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 100
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
+      commet_flag: 0
+    - setID: 90
       compNum: 752
       girllike_itemname: princess_tota
       girllike_itemsubtype: Non
@@ -3137,6 +3449,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 130
       topping01: MarzipanGreen
       topping02: Non
@@ -3159,7 +3472,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 85
+    - setID: 91
       compNum: 780
       girllike_itemname: blueberry_pan_cake
       girllike_itemsubtype: Non
@@ -3174,6 +3487,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 100
       topping01: WhipeedCream
       topping02: Non
@@ -3196,7 +3510,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 86
+    - setID: 92
       compNum: 781
       girllike_itemname: threeberry_banana_pan_cake
       girllike_itemsubtype: Non
@@ -3211,6 +3525,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Non
@@ -3233,7 +3548,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 87
+    - setID: 93
       compNum: 782
       girllike_itemname: pan_cake_maple
       girllike_itemsubtype: Non
@@ -3248,6 +3563,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Non
@@ -3270,7 +3586,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 88
+    - setID: 94
       compNum: 783
       girllike_itemname: pan_cake_honey
       girllike_itemsubtype: Non
@@ -3285,6 +3601,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Non
@@ -3307,7 +3624,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 89
+    - setID: 95
       compNum: 800
       girllike_itemname: pink_charlotte_donuts
       girllike_itemsubtype: Non
@@ -3322,6 +3639,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: Strawberry
       topping02: Nuts
@@ -3344,7 +3662,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 90
+    - setID: 96
       compNum: 801
       girllike_itemname: izet_color_donuts
       girllike_itemsubtype: Non
@@ -3359,6 +3677,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: Strawberry
       topping02: Nuts
@@ -3381,7 +3700,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "\u30D5\u30A3\u30CA\u30F3\u30B7\u30A7"
       commet_flag: 0
-    - setID: 91
+    - setID: 97
       compNum: 830
       girllike_itemname: creampuff
       girllike_itemsubtype: Non
@@ -3396,6 +3715,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCream
       topping02: Non
@@ -3418,7 +3738,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       commet_flag: 0
-    - setID: 92
+    - setID: 98
       compNum: 831
       girllike_itemname: strawberry_creampuff
       girllike_itemsubtype: Non
@@ -3433,6 +3753,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCreamStrawberry
       topping02: Strawberry
@@ -3455,7 +3776,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       commet_flag: 0
-    - setID: 93
+    - setID: 99
       compNum: 832
       girllike_itemname: banana_creampuff
       girllike_itemsubtype: Non
@@ -3470,6 +3791,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: WhipeedCreamBanana
       topping02: Banana
@@ -3492,7 +3814,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       commet_flag: 0
-    - setID: 94
+    - setID: 100
       compNum: 850
       girllike_itemname: slimejelly
       girllike_itemsubtype: Non
@@ -3507,6 +3829,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -3529,7 +3852,7 @@ MonoBehaviour:
       Non_tpscore: 0
       desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
       commet_flag: 0
-    - setID: 95
+    - setID: 101
       compNum: 851
       girllike_itemname: jellygirl
       girllike_itemsubtype: Non
@@ -3544,6 +3867,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -3565,6 +3889,690 @@ MonoBehaviour:
       tp_score09: 0
       Non_tpscore: 0
       desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
+    - setID: 102
+      compNum: 870
+      girllike_itemname: orange_ice_cream
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Mint
+      topping02: Orange
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 10
+      tp_score02: 20
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
+    - setID: 103
+      compNum: 871
+      girllike_itemname: strawberry_ice_cream
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Mint
+      topping02: Strawberry
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 10
+      tp_score02: 20
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
+    - setID: 104
+      compNum: 872
+      girllike_itemname: lemon_ice_cream
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Mint
+      topping02: Lemon
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 10
+      tp_score02: 20
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
+    - setID: 105
+      compNum: 873
+      girllike_itemname: maccha_ice_cream
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Mint
+      topping02: MachaPowder
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 10
+      tp_score02: 20
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
+    - setID: 106
+      compNum: 874
+      girllike_itemname: blueberry_ice_cream
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Mint
+      topping02: Blueberry
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 10
+      tp_score02: 20
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
+    - setID: 107
+      compNum: 875
+      girllike_itemname: raspberry_ice_cream
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Mint
+      topping02: Raspberry
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 10
+      tp_score02: 20
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
+    - setID: 108
+      compNum: 876
+      girllike_itemname: bluehawai_ice_cream
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 50
+      topping01: Mint
+      topping02: Lemon
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 20
+      tp_score02: 20
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "<color=#FF78B4>\u30B7\u30E5\u30FC\u30AF\u30EA\u30FC\u30E0</color>\u304C\u98DF\u3079\u305F\u3044\u306A\u3041\u3002"
+      commet_flag: 0
+    - setID: 109
+      compNum: 900
+      girllike_itemname: orange_juice
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 110
+      compNum: 901
+      girllike_itemname: grape_juice
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 111
+      compNum: 902
+      girllike_itemname: haloween_juice
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 112
+      compNum: 903
+      girllike_itemname: mix_fruits_juice
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 113
+      compNum: 904
+      girllike_itemname: mix_berry_juice
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 114
+      compNum: 905
+      girllike_itemname: juice_float
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 115
+      compNum: 906
+      girllike_itemname: strawberry_juice
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 116
+      compNum: 907
+      girllike_itemname: blueberry_juice
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 117
+      compNum: 908
+      girllike_itemname: cranberry_juice
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 32
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 0
+      smooth: 0
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 80
+      beauty: 50
+      topping01: Non
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 0
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 118
+      compNum: 950
+      girllike_itemname: vanilla_parfe
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 60
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 110
+      topping01: IceCream
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 10
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
+      commet_flag: 0
+    - setID: 119
+      compNum: 951
+      girllike_itemname: strawberry_parfe
+      girllike_itemsubtype: Non
+      set_score: 0
+      rich: 0
+      sweat: 88
+      bitter: 0
+      sour: 0
+      crispy: 0
+      fluffy: 60
+      smooth: 60
+      hardness: 0
+      jiggly: 0
+      chewy: 0
+      juice: 0
+      beauty: 110
+      topping01: StrawberryIceCream
+      topping02: Non
+      topping03: Non
+      topping04: Non
+      topping05: Non
+      topping06: Non
+      topping07: Non
+      topping08: Non
+      topping09: Non
+      tp_score01: 10
+      tp_score02: 0
+      tp_score03: 0
+      tp_score04: 0
+      tp_score05: 0
+      tp_score06: 0
+      tp_score07: 0
+      tp_score08: 0
+      tp_score09: 0
+      Non_tpscore: 0
+      desc: "\u30B8\u30E5\u30FC\u30B9"
       commet_flag: 0
   - name: 02_ContestSetData1
     list:
@@ -3583,6 +4591,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -3620,6 +4629,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Banana
       topping02: Non
@@ -3657,6 +4667,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Banana
       topping02: Non
@@ -3694,6 +4705,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Banana
       topping02: Non
@@ -3731,6 +4743,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 60
       topping01: Peach
       topping02: Non
@@ -3768,6 +4781,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 90
       topping01: Peach
       topping02: Non
@@ -3805,6 +4819,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 60
       topping01: Peach
       topping02: Non
@@ -3842,6 +4857,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 80
       topping01: Non
       topping02: Non
@@ -3879,6 +4895,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 90
       topping01: Non
       topping02: Non
@@ -3916,6 +4933,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 80
       topping01: Non
       topping02: Non
@@ -3953,6 +4971,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 60
       topping01: Maple
       topping02: Grape
@@ -3990,6 +5009,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 80
       topping01: Peach
       topping02: Cherry
@@ -4027,6 +5047,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 60
       topping01: Shishamo
       topping02: StrangeGlass
@@ -4064,6 +5085,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Lemon
       topping02: Nuts
@@ -4101,6 +5123,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 70
       topping01: Lemon
       topping02: Nuts
@@ -4138,6 +5161,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Shishamo
       topping02: Nuts
@@ -4175,6 +5199,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 70
       topping01: Non
       topping02: Orange
@@ -4212,6 +5237,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: Non
       topping02: Blueberry
@@ -4249,6 +5275,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 70
       topping01: Non
       topping02: Non
@@ -4286,6 +5313,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 80
       topping01: Non
       topping02: WhipeedCreamStrawberry
@@ -4323,6 +5351,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 90
       topping01: Non
       topping02: WhipeedCreamStrawberry
@@ -4360,6 +5389,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 80
       topping01: Non
       topping02: WhipeedCreamStrawberry
@@ -4397,6 +5427,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 100
       topping01: Non
       topping02: WhipeedCreamStrawberry
@@ -4434,6 +5465,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 110
       topping01: Non
       topping02: WhipeedCreamStrawberry
@@ -4471,6 +5503,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 100
       topping01: Non
       topping02: WhipeedCreamStrawberry
@@ -4508,6 +5541,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4545,6 +5579,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4582,6 +5617,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4619,6 +5655,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4656,6 +5693,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4693,6 +5731,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4730,6 +5769,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4767,6 +5807,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4804,6 +5845,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4841,6 +5883,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4878,6 +5921,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4915,6 +5959,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -4952,6 +5997,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Non
@@ -4989,6 +6035,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Non
@@ -5026,6 +6073,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: WhipeedCream
       topping02: Non
@@ -5063,6 +6111,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5100,6 +6149,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5137,6 +6187,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: StrangeGlass
       topping02: Non
@@ -5174,6 +6225,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5211,6 +6263,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5248,6 +6301,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5285,6 +6339,7 @@ MonoBehaviour:
       hardness: 30
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5322,6 +6377,7 @@ MonoBehaviour:
       hardness: 40
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5359,6 +6415,7 @@ MonoBehaviour:
       hardness: 80
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5396,6 +6453,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5433,6 +6491,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5470,6 +6529,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5507,6 +6567,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Mint
       topping02: Non
@@ -5544,6 +6605,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Mint
       topping02: Non
@@ -5581,6 +6643,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Mint
       topping02: Non
@@ -5620,6 +6683,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5657,6 +6721,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5694,6 +6759,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5731,6 +6797,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5768,6 +6835,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: SakuraChip
       topping02: Non
@@ -5805,6 +6873,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 50
       topping01: Non
       topping02: Non
@@ -5842,6 +6911,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -5879,6 +6949,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -5916,6 +6987,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -5953,6 +7025,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -5990,6 +7063,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -6027,6 +7101,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -6064,6 +7139,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -6101,6 +7177,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -6138,6 +7215,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 
@@ -6175,6 +7253,7 @@ MonoBehaviour:
       hardness: 0
       jiggly: 0
       chewy: 0
+      juice: 0
       beauty: 0
       topping01: 
       topping02: 

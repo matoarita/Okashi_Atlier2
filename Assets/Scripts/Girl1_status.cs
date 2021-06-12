@@ -101,6 +101,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int[] girl1_Hardness;
     public int[] girl1_Chewy;
     public int[] girl1_Jiggly;
+    public int[] girl1_Juice;
 
     public int[] girl1_Beauty;
 
@@ -358,6 +359,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Hardness = new int[youso_count];
         girl1_Chewy = new int[youso_count];
         girl1_Jiggly = new int[youso_count];
+        girl1_Juice = new int[youso_count];
 
         girl1_Beauty = new int[youso_count];
 
@@ -1817,6 +1819,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Hardness[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_hardness;
         girl1_Chewy[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_chewy;
         girl1_Jiggly[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_jiggly;
+        girl1_Juice[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_juice;
 
         girl1_Beauty[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_beauty;
 

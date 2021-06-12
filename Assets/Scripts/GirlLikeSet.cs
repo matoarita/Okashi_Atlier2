@@ -27,6 +27,7 @@ public class GirlLikeSet
     public int girlLike_hardness;
     public int girlLike_jiggly;
     public int girlLike_chewy;
+    public int girlLike_juice;
 
     public int girlLike_beauty;
 
@@ -41,7 +42,7 @@ public class GirlLikeSet
 
     //ここでリスト化時に渡す引数をあてがいます   
     public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _set_score, int _rich, int _sweat, int _bitter, int _sour, 
-        int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _beauty,
+        int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, 
         int tp_score01, int tp_score02, int tp_score03, int tp_score04, int tp_score05, int tp_score06, int tp_score07, int tp_score08, int tp_score09,
         int non_tp_score, string _setkansou, int _comment_flag)
@@ -65,6 +66,7 @@ public class GirlLikeSet
         girlLike_hardness = _hardness;
         girlLike_jiggly = _jiggly;
         girlLike_chewy = _chewy;
+        girlLike_juice = _juice;
 
         girlLike_beauty = _beauty;
 
