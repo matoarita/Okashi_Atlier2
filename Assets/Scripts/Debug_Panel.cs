@@ -523,11 +523,11 @@ public class Debug_Panel : MonoBehaviour {
             GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
 
             //好感度バーの取得
-            _slider = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").GetComponent<Slider>();
+            _slider = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").GetComponent<Slider>();
 
             //女の子のレベル取得
-            girl_lv = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
-            girl_param = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
+            girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+            girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
 
             stage_levelTable.Clear();
 

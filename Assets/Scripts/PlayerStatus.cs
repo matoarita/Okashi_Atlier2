@@ -27,6 +27,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_findpower_def;    //デフォルト初期値。変動しない。
     public static int player_girl_lifepoint;        //妹の体力。探索のときに消費する。大きくなるほど、より遠くまで探索できる、ということ。
     public static int player_girl_maxlifepoint;     //妹の体力のMAX
+    public static int player_girl_eatCount;         //妹が食べたお菓子の回数
 
 
     //日付・フラグ関係
@@ -73,6 +74,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_findpower = player_girl_findpower_def; //探索力
         player_girl_maxlifepoint = 10;
         player_girl_lifepoint = player_girl_maxlifepoint;
+        player_girl_eatCount = 0;
 
         First_recipi_on = false;
         First_extreme_on = false;

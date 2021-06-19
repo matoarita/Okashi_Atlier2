@@ -73,6 +73,7 @@ TagManager:
   - CharacterRoot
   - BGAccessory
   - Bar_Main
+  - BGImageTemaePanel
   layers:
   - Default
   - TransparentFX

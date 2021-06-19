@@ -296,6 +296,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //その他、一時的なフラグ
     public static int MapSubEvent_Flag;
+    public static bool MenuOpenFlag; //メニューを現在開いているか閉じているか
 
     private PlayerItemList pitemlist;
 
@@ -499,6 +500,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         sys_extreme_itemID = 9999;
         sys_extreme_itemType = 0;
+
+        MenuOpenFlag = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

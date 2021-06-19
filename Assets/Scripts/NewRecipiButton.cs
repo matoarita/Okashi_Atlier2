@@ -41,7 +41,7 @@ public class NewRecipiButton : MonoBehaviour {
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         //エクストリームパネルオブジェクトの取得
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
+        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
         //完成時パネルの取得

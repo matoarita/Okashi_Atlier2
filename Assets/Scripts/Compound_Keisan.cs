@@ -1779,7 +1779,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
                 {
-                    extreme_panel = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").GetComponent<ExtremePanel>();
+                    extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponent<ExtremePanel>();
                     extreme_panel.deleteExtreme_Item();
                 }
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
@@ -1982,7 +1982,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
                 {
-                    extreme_panel = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").GetComponent<ExtremePanel>();
+                    extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponent<ExtremePanel>();
                     extreme_panel.deleteExtreme_Item();
                 }
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);

@@ -8,6 +8,9 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
     private SoundController sc;
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     // Use this for initialization
     void Start () {
 
@@ -25,11 +28,21 @@ public class Compound_BGPanel_A : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
         //音ならす
         //sc.PlaySe(25); //25 鐘の音:50 キラリン:17
 
-        //アニメーションスタート
-        OnStartAnim();
+        if (compound_Main.compound_select == 6)
+        {
+            //アニメーションスタート
+            OnStartAnim();
+        }
+        else
+        {
+            this.transform.Find("SelectPanel_1").gameObject.SetActive(false);
+        }
 
     }
 

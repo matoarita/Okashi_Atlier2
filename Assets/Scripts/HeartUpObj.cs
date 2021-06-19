@@ -67,8 +67,8 @@ public class HeartUpObj : MonoBehaviour {
         GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
         girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
 
-        Girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").gameObject;
-        heartPanel = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar/Panel").gameObject;
+        Girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").gameObject;
+        heartPanel = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar/Panel").gameObject;
         target_pos = heartPanel.transform.localPosition;
 
         //エフェクトプレファブの取得

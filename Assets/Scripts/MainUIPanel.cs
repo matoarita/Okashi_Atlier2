@@ -29,6 +29,8 @@ public class MainUIPanel : MonoBehaviour {
     private GameObject text_area_Main;
     private Text _textmain;
 
+    private GameObject girl_love_exp_bar;
+
     // Use this for initialization
     void Start () {
 
@@ -58,6 +60,9 @@ public class MainUIPanel : MonoBehaviour {
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.GetComponentInChildren<Text>();
 
+        //好感度バーの取得
+        girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").gameObject;
+
         total_obj_count = 0;
         foreach (Transform child in this.transform)
         {
@@ -74,6 +79,7 @@ public class MainUIPanel : MonoBehaviour {
     {
 
         this.transform.Find("Comp/").gameObject.SetActive(true);
+        girl_love_exp_bar.SetActive(true);
 
         UIOpenButton_obj.SetActive(false);
         text_area_Main.SetActive(false);
@@ -95,11 +101,14 @@ public class MainUIPanel : MonoBehaviour {
 
         //intパラメーターの値を設定する.
         maincam_animator.SetInteger("trans", trans);
+
+        GameMgr.MenuOpenFlag = true; //現在メニューを開いている状態
     }
 
     public void OnCloseButton()
     {
         this.transform.Find("Comp/").gameObject.SetActive(false);
+        girl_love_exp_bar.SetActive(false);
 
         UIOpenButton_obj.SetActive(true);
         text_area_Main.SetActive(false);
@@ -109,6 +118,8 @@ public class MainUIPanel : MonoBehaviour {
 
         //intパラメーターの値を設定する.
         maincam_animator.SetInteger("trans", trans);
+
+        GameMgr.MenuOpenFlag = false; //現在メニューを閉じている状態
     }
 
     void OsawariON()

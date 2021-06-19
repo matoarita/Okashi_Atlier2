@@ -72,6 +72,10 @@ public class Compound_Main : MonoBehaviour
     private GameObject TimePanel_obj1;
     private GameObject TimePanel_obj2;
 
+    private GameObject BGImageTemaePanel_obj;
+    private GameObject BGImageTemaePanel_kiji;
+    private GameObject BGImageTemaePanel_plate;
+
     private Text questname;
 
     private GameObject getmatplace_panel;
@@ -239,7 +243,9 @@ public class Compound_Main : MonoBehaviour
     private bool gameover_loading;
     private bool Sleep_on;
     private bool mute_on;
-    
+
+    private GameObject ClickPanel_1;
+    private GameObject ClickPanel_2;
 
     // Use this for initialization
     void Start()
@@ -386,6 +392,11 @@ public class Compound_Main : MonoBehaviour
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
+        //テーブル手前のオブジェクトを取得
+        BGImageTemaePanel_obj = GameObject.FindWithTag("BGImageTemaePanel");
+        BGImageTemaePanel_kiji = BGImageTemaePanel_obj.transform.Find("BG_sprite_kiji").gameObject;
+        BGImageTemaePanel_plate = BGImageTemaePanel_obj.transform.Find("BG_sprite_plate").gameObject;
+
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
         black_panel_A.SetActive(false);
@@ -435,20 +446,27 @@ public class Compound_Main : MonoBehaviour
 
         compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").gameObject;
 
+        //ヒントボタンの取得
+        ClickPanel_1 = canvas.transform.Find("MainUIPanel/ClickPanel1").gameObject;
+        ClickPanel_1.SetActive(false);
+        ClickPanel_2 = canvas.transform.Find("MainUIPanel/ClickPanel2").gameObject;
+        ClickPanel_2.SetActive(false);
+
         //
         //トグル・UI関係
         //
 
         //original_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Original_Toggle").gameObject;
-        //recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
         //extreme_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Extreme_Toggle").gameObject;
         //roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
+        recipi_toggle = canvas.transform.Find("MainUIPanel/Recipi_Toggle").gameObject;
 
-        menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
         //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
-        girleat_toggle = canvas.transform.Find("MainUIPanel/Comp/GirlEat_Toggle").gameObject;
+        girleat_toggle = canvas.transform.Find("MainUIPanel/GirlEat_Toggle").gameObject;
         girleat_toggle.SetActive(false);
+
+        menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;       
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
@@ -456,7 +474,7 @@ public class Compound_Main : MonoBehaviour
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
         status_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Status_Toggle").gameObject;
         //hinttaste_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/HintTaste_Toggle").gameObject;
-        hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
+        hinttaste_toggle = canvas.transform.Find("MainUIPanel/HintTaste_Toggle").gameObject;
         hinttaste_toggle.SetActive(false);
 
 
@@ -466,8 +484,8 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj2.SetActive(false);
 
         //好感度バーの取得
-        girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").gameObject;
-        girl_param = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
+        girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").gameObject;
+        girl_param = girl_love_exp_bar.transform.Find("Girllove_param").GetComponent<Text>();
 
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
@@ -1952,6 +1970,7 @@ public class Compound_Main : MonoBehaviour
         //kaerucoin_panel.SetActive(false);
 
         MainUICloseButton.SetActive(false);
+        UIOpenButton_obj.SetActive(false);
 
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
@@ -1963,8 +1982,7 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(true);
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
-        text_area_Main.SetActive(false); //テキストエリアメインは、MainUIPanel.csのほうも、trueとfalseを設定する。
-        girl_love_exp_bar.SetActive(true);
+        text_area_Main.SetActive(false); //テキストエリアメインは、MainUIPanel.csのほうも、trueとfalseを設定する。        
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
@@ -1972,6 +1990,21 @@ public class Compound_Main : MonoBehaviour
         //kaerucoin_panel.SetActive(true);
 
         MainUICloseButton.SetActive(true);
+        UIOpenButton_obj.SetActive(true);
+
+        //パネルを閉じる
+        mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
+
+        //ただし、ハートを取得しまだ残ってる場合は、ゲージはONのままにしておく。
+        if (girlEat_judge.heart_count > 0)
+        {
+            StartCoroutine("HeartZeroWait");
+            girl_love_exp_bar.SetActive(true);
+        }
+        else
+        {
+            girl_love_exp_bar.SetActive(false);
+        }
 
         //クエストをクリアしたら、クリアボタンがでる。
         QuestClearCheck();
@@ -1979,10 +2012,39 @@ public class Compound_Main : MonoBehaviour
         //ゲーム進行度に応じて、ヒントボタンなどは表示する。
         CheckButtonFlag();
 
-        girleat_toggle.SetActive(true);
+        if (extreme_panel.extreme_itemID != 9999)
+        {
+            girleat_toggle.SetActive(true);
+            BGImageTemaePanel_kiji.SetActive(false);
+            BGImageTemaePanel_plate.SetActive(true);
+        }
+        else
+        {
+            girleat_toggle.SetActive(false);
+            BGImageTemaePanel_kiji.SetActive(true);
+            BGImageTemaePanel_plate.SetActive(false);
+        }
 
         extreme_panel.extremeButtonInteractOn();
         extreme_panel.LifeAnimeOnTrue();
+    }
+
+    IEnumerator HeartZeroWait()
+    {
+        while (girlEat_judge.heart_count > 0)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2.0f);
+
+        if(GameMgr.MenuOpenFlag)
+        {
+            
+        } else
+        {
+            girl_love_exp_bar.SetActive(false);
+        }
     }
 
     public void QuestClearCheck() //SaveControllerからも読み込んでいる。
@@ -2530,6 +2592,12 @@ public class Compound_Main : MonoBehaviour
 
                 //時間の項目リセット
                 time_controller.ResetTimeFlag();
+
+                //お菓子をあげた回数をカウント
+                PlayerStatus.player_girl_eatCount++;
+
+                ClickPanel_1.SetActive(false);
+                ClickPanel_2.SetActive(false);
                 break;
 
             case false:
@@ -2928,6 +2996,7 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(false);
         Extremepanel_obj.SetActive(false);
         compoBG_A.SetActive(false);
+        girl_love_exp_bar.SetActive(true);
         GirlLove_loading = true;
 
         //腹減りカウント一時停止
@@ -3673,7 +3742,27 @@ public class Compound_Main : MonoBehaviour
         else
         {
             hinttaste_toggle.SetActive(false);
-        }        
+        }
+
+        //まだお菓子を作ったことがなかったら、生地をクリックボタンが登場
+        if (!PlayerStatus.First_recipi_on)
+        {
+            ClickPanel_1.SetActive(true);
+        }
+        else
+        {
+            ClickPanel_1.SetActive(false);
+        }
+
+        //お菓子が完成したが、一度もまだあげたことがない時。
+        if(PlayerStatus.player_girl_eatCount <= 0 && extreme_panel.extreme_itemID != 9999)
+        {
+            ClickPanel_2.SetActive(true);
+        }
+        else
+        {
+            ClickPanel_2.SetActive(false);
+        }
     }
 
     public void HeartGuageTextKoushin()

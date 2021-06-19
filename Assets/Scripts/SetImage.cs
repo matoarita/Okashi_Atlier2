@@ -1141,7 +1141,7 @@ public class SetImage : MonoBehaviour
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //エクストリームパネルオブジェクトの取得
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
+        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
         //ブラックエフェクトを取得

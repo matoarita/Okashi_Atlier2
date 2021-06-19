@@ -331,7 +331,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                girl_param = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
+                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
                 _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
 
                 //メイン画面に表示する、現在のクエスト

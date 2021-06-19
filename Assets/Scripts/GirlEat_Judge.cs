@@ -447,8 +447,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
 
                 //女の子のレベル表示取得
-                girl_lv = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
-                girl_param = canvas.transform.Find("MainUIPanel/Comp/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();               
+                girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();               
 
 
                 //エフェクトプレファブの取得
