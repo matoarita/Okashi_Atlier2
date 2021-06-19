@@ -76,7 +76,7 @@ public class MainUIPanel : MonoBehaviour {
         this.transform.Find("Comp/").gameObject.SetActive(true);
 
         UIOpenButton_obj.SetActive(false);
-        text_area_Main.SetActive(true);
+        text_area_Main.SetActive(false);
 
 
         if (GameMgr.TimeUSE_FLAG == false)

@@ -374,7 +374,7 @@ public class Compound_Main : MonoBehaviour
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
-        _textmain = text_area_Main.GetComponentInChildren<Text>();
+        _textmain = text_area_Main.transform.Find("Text").GetComponent<Text>();
 
         //エクストリームパネルの取得+初期化
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
@@ -1963,7 +1963,7 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(true);
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
-        text_area_Main.SetActive(true);
+        text_area_Main.SetActive(false); //テキストエリアメインは、MainUIPanel.csのほうも、trueとfalseを設定する。
         girl_love_exp_bar.SetActive(true);
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
@@ -3171,7 +3171,7 @@ public class Compound_Main : MonoBehaviour
 
                     if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
                     {
-                        _textmain.text = GameMgr.ColorLemon + "「お菓子パネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみよう。";
+                        _textmain.text = GameMgr.ColorLemon + "右の「おかし台」" + "</color>" + "から、" + "\n" + "クッキーを作ってみよう。";
                     }
                     else
                     {

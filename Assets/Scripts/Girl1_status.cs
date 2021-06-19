@@ -1411,7 +1411,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //まだ一度も調合していない
         if (PlayerStatus.First_recipi_on != true)
         {
-            _hint1 = "..まずは左のお菓子パネルから、お菓子を作ろうね。おにいちゃん。";            
+            _hint1 = "..まずは下のおかし台から、お菓子を作ろうね。おにいちゃん。";            
             hukidashiitem.GetComponent<TextController>().SetText(_hint1);
         }
         else
