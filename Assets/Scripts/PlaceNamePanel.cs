@@ -24,7 +24,7 @@ public class PlaceNamePanel : MonoBehaviour {
         {
             case "Shop":
 
-                _text = "ショパンの夢";
+                _text = "ショパン";
                 break;
 
             case "Bar":

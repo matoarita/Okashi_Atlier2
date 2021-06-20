@@ -586,6 +586,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         //アイテムによっては、使用するかどうかのビューも表示する。
         UseToggleSetInit(); //まず初期化
+
+        //飾れるアイテムは、「飾る」を表示
         switch (database.items[_cardImage.itemID].itemName)
         {
             case "himmeli":
@@ -601,6 +603,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
                 break;
         }
 
+        //コレクションアイテムは、「コレクション」ボタンを表示する。
+        /*
         for( i=0; i< GameMgr.CollectionItemsName.Count; i++)
         {
             if(database.items[_cardImage.itemID].itemName == GameMgr.CollectionItemsName[i])
@@ -609,6 +613,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
                 _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardCollect_Toggle").gameObject.SetActive(true);
             }
         }
+        */
     }
 
     void UseToggleSetInit()

@@ -27,19 +27,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         _buf_findpower = 0;
 
-        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
+        /*for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
         {
             if (GameMgr.CollectionItemsName[i] == "aquamarine_pendant" && GameMgr.CollectionItems[i] == true) //コレクションが登録されていれば、アイテム発見力発動
             {
                 _buf_findpower += 10;
             }
-        }
-
-        /*
-        if (pitemlist.KosuCount("aquamarine_pendant") >= 1)
+        }*/
+      
+        if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
         {
             _buf_findpower += 10;
-        }*/
+        }
 
         return _buf_findpower;
     }
@@ -48,7 +47,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         _buf_kakuritsuup = 0;
 
-        for(i=0; i < GameMgr.CollectionItemsName.Count; i++)
+        /*for(i=0; i < GameMgr.CollectionItemsName.Count; i++)
         {
             if (GameMgr.CollectionItemsName[i] == "green_pendant" && GameMgr.CollectionItems[i] == true) //コレクションが登録されていれば、確率アップ効果発動
             {
@@ -59,7 +58,21 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             {
                 _buf_kakuritsuup += 10;
             }
-        }       
+        }*/
+
+        if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_kakuritsuup += 30;
+        }
+        if (pitemlist.KosuCount("star_pendant") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_kakuritsuup += 10;
+        }
+        if (pitemlist.KosuCount("maneki_cat") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_kakuritsuup += 5;
+        }
+
 
         return _buf_kakuritsuup;
     }

@@ -17,7 +17,7 @@ MonoBehaviour:
     - ItemID: 0
       file_name: oldhouse_orange_mini_icon
       place_Name: Shop
-      place_Name_Hyouji: "\u30B7\u30E7\u30C3\u30D7\u300C\u30B7\u30E7\u30D1\u30F3\u306E\u5922\u300D"
+      place_Name_Hyouji: "\u30B7\u30E7\u30C3\u30D7\u300C\u30B7\u30E7\u30D1\u30F3\u300D"
       comment: "\u30A4\u30E1\u30FC\u30B8\uFF1A\u30B7\u30E7\u30C3\u30D7\u3002\u304B\u308F\u3044\u3044\u611F\u3058\u3002"
       place_day: 0
       place_cost: 0

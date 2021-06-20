@@ -29,7 +29,7 @@ public class PlayerData
     public int save_girl_love_lv; //妹の好感度レベル
     public int save_player_girl_lifepoint; //妹の体力
     public int save_player_girl_maxlifepoint; //妹のMAX体力
-
+    public int save_player_girl_eatCount; //妹が食べたお菓子の回数
 
     //日付・フラグ関係
     public int save_player_day; //現在の日付

@@ -1070,6 +1070,7 @@ public class Compound_Main : MonoBehaviour
             else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
             {
                 mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
+                Extremepanel_obj.SetActive(false);
                 UIOpenButton_obj.SetActive(false);
                 text_area.SetActive(false);
                 text_area_Main.SetActive(false);
@@ -1897,12 +1898,6 @@ public class Compound_Main : MonoBehaviour
                             trans_expression = 2;
                             live2d_animator.SetInteger("trans_expression", trans_expression);
 
-                            // カメラも、menuオープン時の位置に。
-                            trans = 10;
-
-                            //intパラメーターの値を設定する.
-                            maincam_animator.SetInteger("trans", trans);
-
                         }
                         else
                         {
@@ -2208,16 +2203,10 @@ public class Compound_Main : MonoBehaviour
         compound_status = 0;
     }
 
-    public void OnCancelCompound_Select()
+    public void OnCancelCompound_Select() //使っていない？
     {
-        //カメラをメニューオープンの状態で戻す
+        //カメラをメニューオープンの状態で戻す。メイン画面でカメラ位置を指定してたときの名残。
         compound_status = 0;
-
-        //カメラ
-        trans = 10;
-
-        //intパラメーターの値を設定する.
-        maincam_animator.SetInteger("trans", trans);
     }
 
 
