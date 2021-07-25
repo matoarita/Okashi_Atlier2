@@ -448,8 +448,13 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 //女の子のレベル表示取得
                 girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
-                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();               
+                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
 
+                //クエストクリアボタンの取得
+                stageclear_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
+                stageclear_toggle = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
+                stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
+                stageclear_button_on = false;
 
                 //エフェクトプレファブの取得
                 effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
@@ -458,7 +463,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Emo_effect_daimanzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
                 Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
                 Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
-                playableDirector = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").GetComponent<PlayableDirector>();
+                playableDirector = stageclear_panel.GetComponent<PlayableDirector>();
                 playableDirector.enabled = false;               
 
                 //ハートプレファブの取得
@@ -492,13 +497,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
                 Result_Text = ScoreHyoujiPanel.transform.Find("GetLovePanelBG/Result_GetLoveText/Result_Text").GetComponent<Text>();
                 ScoreHyoujiPanel.SetActive(false);
-                MainQuestOKPanel.SetActive(false);
-
-                //クエストクリアボタンの取得
-                stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
-                stageclear_toggle = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
-                stageclear_Button = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel/StageClear_Button").gameObject;
-                stageclear_button_on = false;                
+                MainQuestOKPanel.SetActive(false);                              
 
                 Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
                 Delicious_Text = ScoreHyoujiPanel.transform.Find("Image/DeliciousPanel/Text").GetComponent<Text>();

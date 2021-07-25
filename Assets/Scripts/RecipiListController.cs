@@ -33,6 +33,9 @@ public class RecipiListController : MonoBehaviour {
     private string item_name;
     private int item_kosu;
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     private Girl1_status girl1_status;
 
     private GameObject comp_text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
@@ -111,14 +114,44 @@ public class RecipiListController : MonoBehaviour {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");  
 
+        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        yes_button = this.transform.Find("Yes").gameObject;
+        no_button = this.transform.Find("No").gameObject;
+        yes_button.SetActive(false);
+        no_button.SetActive(false);
+
         final_recipiselect_flag = false;
         for (i = 0; i < category_toggle.Count; i++)
         {
             category_toggle[i].GetComponent<Toggle>().isOn = false;
+            category_toggle[i].SetActive(true);
         }
-        category_toggle[0].GetComponent<Toggle>().isOn = true;
+        
 
-        reset_and_DrawView();
+        switch(compound_Main.compound_select)
+        {
+            case 1:
+
+                category_toggle[0].SetActive(false);
+                category_toggle[1].GetComponent<Toggle>().isOn = true;
+                
+                reset_and_DrawView_Okashi();
+                break;
+
+            case 60:
+
+                no_button.SetActive(true);
+
+                category_toggle[1].SetActive(false);
+                category_toggle[0].GetComponent<Toggle>().isOn = true;
+                
+                reset_and_DrawView();
+                break;
+        }
+
+        
 
         OpenAnim();
     }

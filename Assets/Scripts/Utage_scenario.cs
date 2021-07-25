@@ -2125,7 +2125,7 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //コンテストの点によって、EDが分岐する。ベストEDとバッドEDのみ、好感度も影響する。
-        if (PlayerStatus.girl1_Love_exp < 500) //LV3以下 badED ED:D
+        if (PlayerStatus.girl1_Love_exp < 200) //LV3以下 badED ED:D
         {
             engine.Param.TrySetParameter("ED_num", 1);
             GameMgr.ending_number = 1;
@@ -2137,21 +2137,21 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("ED_num", 2);
                 GameMgr.ending_number = 2;
             }
-            else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == false) // LV5~ ベストED ED:B ケーキED
+            else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == false) // LV5~ 
             {
-                engine.Param.TrySetParameter("ED_num", 3);
+                engine.Param.TrySetParameter("ED_num", 2);
                 GameMgr.ending_number = 3;
             }
-            else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == true) // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
+            else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == true) 
             {
-                if (PlayerStatus.girl1_Love_exp > 800)
+                if (PlayerStatus.girl1_Love_exp > 500)
                 {
-                    engine.Param.TrySetParameter("ED_num", 4);
+                    engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
                     GameMgr.ending_number = 4;
                 }
                 else
                 {
-                    engine.Param.TrySetParameter("ED_num", 3);
+                    engine.Param.TrySetParameter("ED_num", 3); //ベストED ED:B ケーキED
                     GameMgr.ending_number = 3;
                 }
             }

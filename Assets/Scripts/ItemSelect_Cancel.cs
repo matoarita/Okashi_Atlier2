@@ -111,60 +111,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 break;
 
-            /*case "Shop":
-
-                
-                NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
-
-                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
-                shopMain_obj = GameObject.FindWithTag("Shop_Main");
-                shopMain = shopMain_obj.GetComponent<Shop_Main>();
-
-                shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-                shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
-                shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-
-                yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
-                yes_text = yes.GetComponentInChildren<Text>();
-                no = shopitemlistController_obj.transform.Find("No").gameObject;
-                no_text = no.GetComponentInChildren<Text>();
-
-                text_area = canvas.transform.Find("MessageWindow").gameObject;
-                _text = text_area.GetComponentInChildren<Text>();              
-
-                break;
-
-            case "Bar":
-
-
-                NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
-
-                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
-                shopMain_obj = GameObject.FindWithTag("Shop_Main");
-                shopMain = shopMain_obj.GetComponent<Shop_Main>();
-
-                shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-                shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
-                shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-
-                yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
-                yes_text = yes.GetComponentInChildren<Text>();
-                no = shopitemlistController_obj.transform.Find("No").gameObject;
-                no_text = no.GetComponentInChildren<Text>();
-
-                text_area = canvas.transform.Find("MessageWindow").gameObject;
-                _text = text_area.GetComponentInChildren<Text>();
-
-                break;*/
-
             case "GirlEat":
                 GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
                 girlEat_scene = GirlEat_scene_obj.GetComponent<GirlEat_Main>();
@@ -457,7 +403,20 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                     break;
 
-                
+
+                case 61: //compound_status = 61。レシピ本を選択中。
+
+                    if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
+                    {
+                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                        {
+                            All_cancel();
+
+                            compound_Main.compound_status = 0; //何も選択していない状態にもどる。
+                        }
+                    }
+                    break;
+
                 case 99: //compound_status = 99。アイテム画面開き中。
 
                     if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された

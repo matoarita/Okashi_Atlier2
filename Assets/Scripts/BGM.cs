@@ -153,7 +153,7 @@ public class BGM : MonoBehaviour {
 
                     if (GameMgr.mainBGM_Num == 0)
                     {
-                        _bgm[0].clip = sound1;
+                        _bgm[0].clip = sound19;
                     }
                     else if (GameMgr.mainBGM_Num == 1)
                     {
@@ -161,7 +161,7 @@ public class BGM : MonoBehaviour {
                     }
                     else if (GameMgr.mainBGM_Num == 2)
                     {
-                        _bgm[0].clip = sound19;
+                        _bgm[0].clip = sound1;
                     }
                     break;
 

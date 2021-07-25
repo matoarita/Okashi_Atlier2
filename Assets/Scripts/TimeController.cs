@@ -195,6 +195,7 @@ public class TimeController : MonoBehaviour
                             timeDegHeart_flag = true;
 
                             girleat_judge.DegHeart(-1);
+                            //PlayerStatus.girl1_Love_exp--;
 
                             PlayerStatus.player_time++;
                             TimeKoushin();
@@ -208,6 +209,7 @@ public class TimeController : MonoBehaviour
                             timeIttei = 0;
 
                             girleat_judge.DegHeart(-1);
+                            //PlayerStatus.girl1_Love_exp--;
 
                             PlayerStatus.player_time++;
                             TimeKoushin();

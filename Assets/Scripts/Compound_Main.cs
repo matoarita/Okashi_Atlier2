@@ -460,7 +460,9 @@ public class Compound_Main : MonoBehaviour
         //extreme_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Extreme_Toggle").gameObject;
         //roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
-        recipi_toggle = canvas.transform.Find("MainUIPanel/Recipi_Toggle").gameObject;
+
+        //recipi_toggle = canvas.transform.Find("MainUIPanel/Recipi_Toggle").gameObject;
+        recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
 
         //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
         girleat_toggle = canvas.transform.Find("MainUIPanel/GirlEat_Toggle").gameObject;
@@ -495,8 +497,8 @@ public class Compound_Main : MonoBehaviour
         //えめらるどんぐりパネルの取得
         kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
 
-        stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
-        stageclear_Button = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel/StageClear_Button").gameObject;
+        stageclear_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
+        stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
         stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
         stageclear_button_text = stageclear_Button.transform.Find("TextPlate/Text").GetComponent<Text>();
         stageclear_button_toggle.isOn = false;
@@ -1202,7 +1204,7 @@ public class Compound_Main : MonoBehaviour
                 select_no_button.interactable = true;
                                
                 OnCompoundSelect();
-                touch_controller.Touch_OnAllON();                
+                               
                               
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
@@ -1772,6 +1774,20 @@ public class Compound_Main : MonoBehaviour
             case 51: //寝るかどうか選択中
                 break;
 
+            case 60: //レシピ本の選択画面を開いたとき
+
+                black_panel_A.SetActive(true);
+                compound_status = 61;
+                compound_select = 60;
+                recipilist_onoff.SetActive(true);
+
+                WindowOff();
+                break;
+
+            case 61: //レシピ本選択中
+
+                break;
+
             case 99: //アイテム画面を開いたとき
                 
                 black_panel_A.SetActive(true);
@@ -1970,6 +1986,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
         girleat_toggle.SetActive(false);
+        //recipi_toggle.SetActive(false);
     }
 
     void WindowOn()
@@ -1982,6 +1999,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
         mainUIFrame_panel.SetActive(true);
+        //recipi_toggle.SetActive(true);
         //kaerucoin_panel.SetActive(true);
 
         MainUICloseButton.SetActive(true);
@@ -2083,7 +2101,7 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
 
             _text.text = recipi_text;
-            compound_status = 1;
+            compound_status = 60;
         }
     }
 
@@ -2420,8 +2438,8 @@ public class Compound_Main : MonoBehaviour
         kakuritsuPanel_obj.SetActive(false);
         text_area.SetActive(false);
         text_area_Main.SetActive(false);
-        black_panel_A.SetActive(false);
-        yes_no_panel.SetActive(false);
+        black_panel_A.GetComponent<Image>().raycastTarget = false;
+        //yes_no_panel.SetActive(false);
 
         //一時的に腹減りを止める。
         girl1_status.GirlEat_Judge_on = false;
@@ -2429,7 +2447,8 @@ public class Compound_Main : MonoBehaviour
         compoBGA_image.GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
         compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
         compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
-        Extremepanel_obj.SetActive(false);
+        //Extremepanel_obj.SetActive(false);
+        OffCompoundSelect();
 
 
         GameMgr.recipi_read_ID = event_itemID;
@@ -2453,11 +2472,13 @@ public class Compound_Main : MonoBehaviour
         compoBGA_image.GetComponent<Image>().raycastTarget = true;
         compoBGA_imageOri.GetComponent<Image>().raycastTarget = true;
         compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = true;
-        Extremepanel_obj.SetActive(true);
+        //Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
         text_area_Main.SetActive(true);
-        yes_no_panel.SetActive(true);
-        compound_status = 1;
+        black_panel_A.GetComponent<Image>().raycastTarget = true;
+        OnCompoundSelect();
+        //yes_no_panel.SetActive(true);
+        compound_status = 60;
     }
 
 
@@ -3451,7 +3472,7 @@ public class Compound_Main : MonoBehaviour
             }
 
             //はじめてコレクションアイテムを手に入れたら発生
-            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            /*if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             {}
             else
             {
@@ -3475,7 +3496,7 @@ public class Compound_Main : MonoBehaviour
                         check_GirlLoveSubEvent_flag = false;
                     }
                 }
-            }
+            }*/
 
             //はじめて体力が0
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -3675,39 +3696,38 @@ public class Compound_Main : MonoBehaviour
 
     public void OffCompoundSelectnoExtreme()
     {
-        touch_controller.Touch_OnAllOFF();
-        menu_toggle.GetComponent<Toggle>().interactable = false;
-        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-        shop_toggle.GetComponent<Toggle>().interactable = false;
-        girleat_toggle.GetComponent<Toggle>().interactable = false;
-        sleep_toggle.GetComponent<Toggle>().interactable = false;
-        system_toggle.GetComponent<Toggle>().interactable = false;
-        status_toggle.GetComponent<Toggle>().interactable = false;
-        MainUICloseButton.GetComponent<Button>().interactable = false;
-        hinttaste_toggle.GetComponent<Toggle>().interactable = false;
+        OffInteract();
     }
 
-    public void OffCompoundSelect()
+    public void OffCompoundSelect() //GirlEatJudgeからも読み出し
     {
-        touch_controller.Touch_OnAllOFF();
-        menu_toggle.GetComponent<Toggle>().interactable = false;
-        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
-        shop_toggle.GetComponent<Toggle>().interactable = false;
-        girleat_toggle.GetComponent<Toggle>().interactable = false;
-        sleep_toggle.GetComponent<Toggle>().interactable = false;
-        system_toggle.GetComponent<Toggle>().interactable = false;
-        status_toggle.GetComponent<Toggle>().interactable = false;
-        MainUICloseButton.GetComponent<Button>().interactable = false;
-        hinttaste_toggle.GetComponent<Toggle>().interactable = false;
+        OffInteract();
         extreme_Button.interactable = false;
     }
 
-    public void OnCompoundSelect()
+    void OffInteract()
     {
+        touch_controller.Touch_OnAllOFF();
+        menu_toggle.GetComponent<Toggle>().interactable = false;
+        getmaterial_toggle.GetComponent<Toggle>().interactable = false;
+        shop_toggle.GetComponent<Toggle>().interactable = false;
+        girleat_toggle.GetComponent<Toggle>().interactable = false;
+        recipi_toggle.GetComponent<Toggle>().interactable = false;
+        sleep_toggle.GetComponent<Toggle>().interactable = false;
+        system_toggle.GetComponent<Toggle>().interactable = false;
+        status_toggle.GetComponent<Toggle>().interactable = false;
+        MainUICloseButton.GetComponent<Button>().interactable = false;
+        hinttaste_toggle.GetComponent<Toggle>().interactable = false;
+    }
+
+    void OnCompoundSelect()
+    {
+        touch_controller.Touch_OnAllON();
         menu_toggle.GetComponent<Toggle>().interactable = true;
         getmaterial_toggle.GetComponent<Toggle>().interactable = true;
         shop_toggle.GetComponent<Toggle>().interactable = true;
         girleat_toggle.GetComponent<Toggle>().interactable = true;
+        recipi_toggle.GetComponent<Toggle>().interactable = true;
         sleep_toggle.GetComponent<Toggle>().interactable = true;
         system_toggle.GetComponent<Toggle>().interactable = true;
         status_toggle.GetComponent<Toggle>().interactable = true;
@@ -3716,7 +3736,7 @@ public class Compound_Main : MonoBehaviour
         extreme_Button.interactable = true;
     }
 
-    public void OnCompoundSelectObj()
+    public void OnCompoundSelectObj() //GirlEatJudgeから読み出し
     {
         compoundselect_onoff_obj.SetActive(true);
     }

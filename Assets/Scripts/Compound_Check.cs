@@ -1008,6 +1008,7 @@ public class Compound_Check : MonoBehaviour {
 
         //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
         _success_rate = Kakuritsu_Keisan(recipilistController.result_recipicompID);
+        Debug.Log("レシピ調合　成功確率: " + _success_rate);
 
         exp_Controller._success_judge_flag = 1; //判定処理を行う。
         exp_Controller._success_rate = _success_rate;
@@ -1164,6 +1165,9 @@ public class Compound_Check : MonoBehaviour {
         _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan();
               
         _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + ((PlayerStatus.player_renkin_lv-1) * 2) + _buf_kakuritsu; //LV1上がるごとに2%ずつ上昇 + 装備品による確率上昇
+
+        Debug.Log("成功基本確率: " + databaseCompo.compoitems[_compID].success_Rate);
+        Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);
 
         if(databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない
         {

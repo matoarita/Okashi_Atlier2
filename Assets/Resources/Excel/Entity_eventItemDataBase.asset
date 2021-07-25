@@ -359,7 +359,7 @@ MonoBehaviour:
       Re_flag_num: 140
       Ev_flag_num: 140
     - ev_ItemID: 26
-      fileName: Items/pan_cake
+      fileName: Items/princess_tota
       name: princesstota_recipi
       nameHyouji: "\u30D7\u30EA\u30F3\u30BB\u30B9\u30C8\u30FC\u30BF\u306E\u30EC\u30B7\u30D4"
       cost_price: 500
@@ -398,7 +398,7 @@ MonoBehaviour:
       Re_flag_num: 220
       Ev_flag_num: 220
     - ev_ItemID: 29
-      fileName: Items/apareiyu
+      fileName: Items/marzipan
       name: marzipan_recipi
       nameHyouji: "\u30DE\u30B8\u30D1\u30F3\u306E\u30EC\u30B7\u30D4"
       cost_price: 500

@@ -136,7 +136,7 @@ public class recipiitemSelectToggle : MonoBehaviour
         //黒半透明パネルの取得
         BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject;
 
-        text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
         
         //プレイヤー所持アイテムリストの取得

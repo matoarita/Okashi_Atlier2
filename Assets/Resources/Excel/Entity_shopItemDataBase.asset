@@ -400,47 +400,47 @@ MonoBehaviour:
       shop_buy_price: 250
       item_hyouji: 1
     - ItemID: 55
-      name: strawberry_parfe_recipi
-      zaiko: 1
-      itemType: 1
-      shop_sell_price: 1300
-      shop_buy_price: 650
-      item_hyouji: 3
-    - ItemID: 56
-      name: slimejelly_recipi
-      zaiko: 1
-      itemType: 1
-      shop_sell_price: 3000
-      shop_buy_price: 1500
-      item_hyouji: 1
-    - ItemID: 57
-      name: princesstota_recipi
-      zaiko: 1
-      itemType: 1
-      shop_sell_price: 10000
-      shop_buy_price: 5000
-      item_hyouji: 1
-    - ItemID: 58
-      name: sponge_cake_recipi
-      zaiko: 1
-      itemType: 1
-      shop_sell_price: 1500
-      shop_buy_price: 750
-      item_hyouji: 3
-    - ItemID: 59
-      name: custard_cream_recipi
-      zaiko: 1
-      itemType: 1
-      shop_sell_price: 500
-      shop_buy_price: 250
-      item_hyouji: 3
-    - ItemID: 60
       name: marzipan_recipi
       zaiko: 1
       itemType: 1
       shop_sell_price: 1000
       shop_buy_price: 500
       item_hyouji: 1
+    - ItemID: 56
+      name: strawberry_parfe_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 1300
+      shop_buy_price: 650
+      item_hyouji: 3
+    - ItemID: 57
+      name: slimejelly_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 3000
+      shop_buy_price: 1500
+      item_hyouji: 1
+    - ItemID: 58
+      name: princesstota_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 10000
+      shop_buy_price: 5000
+      item_hyouji: 1
+    - ItemID: 59
+      name: sponge_cake_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 1500
+      shop_buy_price: 750
+      item_hyouji: 3
+    - ItemID: 60
+      name: custard_cream_recipi
+      zaiko: 1
+      itemType: 1
+      shop_sell_price: 500
+      shop_buy_price: 250
+      item_hyouji: 3
     - ItemID: 61
       name: cream_row_ricotta_recipi
       zaiko: 1
