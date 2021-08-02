@@ -1,16 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 8
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d9053a75362054598d72e1d8988bc8, type: 3}
-  m_Name: Utage_Scenario.scenarios
-  m_EditorClassIdentifier: 
-  importVersion: 3
-  chapters:
-  - {fileID: 11400000, guid: 50d775babe186c64f8bee8ca9bdf4ec0, type: 2}
+version https://git-lfs.github.com/spec/v1
+oid sha256:3d5e4368fff5d04d9ac882dbd5b88289fc8f3fe8de7946b36eb6af8a8e04ba90
+size 480
