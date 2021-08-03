@@ -1994,7 +1994,7 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(true);
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
-        text_area_Main.SetActive(false); //テキストエリアメインは、MainUIPanel.csのほうも、trueとfalseを設定する。        
+        text_area_Main.SetActive(true); //テキストエリアメインは、MainUIPanel.csのほうも、trueとfalseを設定する。        
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
@@ -2004,6 +2004,7 @@ public class Compound_Main : MonoBehaviour
 
         MainUICloseButton.SetActive(true);
         UIOpenButton_obj.SetActive(true);
+        girleat_toggle.SetActive(true);
 
         //パネルを閉じる
         mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
@@ -2027,15 +2028,17 @@ public class Compound_Main : MonoBehaviour
 
         if (extreme_panel.extreme_itemID != 9999)
         {
-            girleat_toggle.SetActive(true);
-            BGImageTemaePanel_kiji.SetActive(false);
-            BGImageTemaePanel_plate.SetActive(true);
+            girleat_toggle.GetComponent<Toggle>().interactable = true;
+            //girleat_toggle.SetActive(true);
+            //BGImageTemaePanel_kiji.SetActive(false);
+            //BGImageTemaePanel_plate.SetActive(true);
         }
         else
         {
-            girleat_toggle.SetActive(false);
-            BGImageTemaePanel_kiji.SetActive(true);
-            BGImageTemaePanel_plate.SetActive(false);
+            girleat_toggle.GetComponent<Toggle>().interactable = false;
+            //girleat_toggle.SetActive(false);
+            //BGImageTemaePanel_kiji.SetActive(true);
+            //BGImageTemaePanel_plate.SetActive(false);
         }
 
         extreme_panel.extremeButtonInteractOn();
@@ -3250,7 +3253,7 @@ public class Compound_Main : MonoBehaviour
 
                     if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
                     {
-                        _textmain.text = GameMgr.ColorLemon + "右の「おかし台」" + "</color>" + "から、" + "\n" + "クッキーを作ってみよう。";
+                        _textmain.text = GameMgr.ColorLemon + "左の「おかしパネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみよう。";
                     }
                     else
                     {

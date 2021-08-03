@@ -1411,7 +1411,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //まだ一度も調合していない
         if (PlayerStatus.First_recipi_on != true)
         {
-            _hint1 = "..まずは下のおかし台から、お菓子を作ろうね。おにいちゃん。";            
+            _hint1 = "..まずは左の「おかしパネル」から、お菓子を作ろうね。おにいちゃん。";            
             hukidashiitem.GetComponent<TextController>().SetText(_hint1);
         }
         else
@@ -2563,7 +2563,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("..ママ。");
                 _touchface_comment_lib.Add("ぐすん..。");
                 _touchface_comment_lib.Add("（..ママ。）");
-                _touchface_comment_lib.Add("..ママ。会いたいなぁ..。");               
+                _touchface_comment_lib.Add("..ママ。会いたいなぁ..。");
+                _touchface_comment_lib.Add("..にいちゃん。お菓子..。食べたい。");
+                _touchface_comment_lib.Add("..。にいちゃん。..。なんでもない。");
 
                 break;
 
@@ -2678,9 +2680,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 0:
 
                 _touchface_comment_lib.Add("..");               
-                _touchface_comment_lib.Add("..おかし、食べたい。");
+                _touchface_comment_lib.Add("..おかし、食べたいな。おにいちゃん..。");
                 _touchface_comment_lib.Add("..まずはクッキーを作ってみようね。");                
-                _touchface_comment_lib.Add("兄ちゃん..。");
+                _touchface_comment_lib.Add("にいちゃん..。");
                 _touchface_comment_lib.Add("..おなか、すいた。");
                 break;
 
@@ -2698,7 +2700,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("材料の数は、兄ちゃんの好みに変えられるんだよ～。");
                 _touchface_comment_lib.Add("腹へた～..。");
                 _touchface_comment_lib.Add("うまうま・・。");
-                _touchface_comment_lib.Add("兄ちゃんのおかし、たべたいなぁ。");
+                _touchface_comment_lib.Add("にいちゃんのおかし、おいしい。もぐもぐ..。");
                 break;
 
             case 3:

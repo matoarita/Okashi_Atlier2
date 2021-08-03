@@ -247,17 +247,28 @@ public class StatusPanel : MonoBehaviour {
 
         for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "Sukumizu_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //スク水
+            if (pitemlist.emeralditemlist[i].event_itemName == "Meid_Black_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //黒エプロン
             {
                 costume_list[1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
                 CostumeIconDraw(i, 1);
             }
 
-            if (pitemlist.emeralditemlist[i].event_itemName == "PinkGoth_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ピンクゴスロリ
+            if (pitemlist.emeralditemlist[i].event_itemName == "Sukumizu_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //スク水
             {
                 costume_list[2].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
                 CostumeIconDraw(i, 2);
+            }
+
+            if (pitemlist.emeralditemlist[i].event_itemName == "PinkGoth_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ピンクの白い服
+            {
+                costume_list[3].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, 3);
+            }
+
+            if (pitemlist.emeralditemlist[i].event_itemName == "RedDress_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //赤い服
+            {
+                costume_list[4].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, 4);
             }
 
             if (pitemlist.emeralditemlist[i].event_itemName == "Glass_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メガネ
@@ -266,7 +277,7 @@ public class StatusPanel : MonoBehaviour {
                 CostumeIconDraw(i, Acce_Startnum);
             }
 
-            if (pitemlist.emeralditemlist[i].event_itemName == "Bafomet_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //バフォメットの角
+            if (pitemlist.emeralditemlist[i].event_itemName == "BalloonHat_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //バルーンハット
             {
                 costume_list[Acce_Startnum+1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
                 CostumeIconDraw(i, Acce_Startnum + 1);

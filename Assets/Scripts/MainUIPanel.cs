@@ -82,7 +82,7 @@ public class MainUIPanel : MonoBehaviour {
         girl_love_exp_bar.SetActive(true);
 
         UIOpenButton_obj.SetActive(false);
-        text_area_Main.SetActive(false);
+        text_area_Main.SetActive(true); //テキストエリアメインは、こっちもON/OFFが必要
 
 
         if (GameMgr.TimeUSE_FLAG == false)
@@ -111,7 +111,7 @@ public class MainUIPanel : MonoBehaviour {
         girl_love_exp_bar.SetActive(false);
 
         UIOpenButton_obj.SetActive(true);
-        text_area_Main.SetActive(false);
+        text_area_Main.SetActive(true);
 
         //カメラ正面に戻る。
         trans = 11; //transが1を超えたときに、ズームするように設定されている。

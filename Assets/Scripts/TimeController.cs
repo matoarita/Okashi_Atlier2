@@ -177,7 +177,7 @@ public class TimeController : MonoBehaviour
         }
 
         //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
-        if (!GameMgr.scenario_ON)
+        /*if (!GameMgr.scenario_ON)
         {
             if (compound_main.compound_status == 22 || compound_main.compound_status == 12) //採集中かお菓子あげ途中は減らない
             {
@@ -217,7 +217,7 @@ public class TimeController : MonoBehaviour
                         break;
                 }
             }
-        }
+        }*/
 
         if (count_switch)
         {

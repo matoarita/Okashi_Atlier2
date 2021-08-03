@@ -65,7 +65,7 @@ public class Live2DCostumeTrigger : MonoBehaviour {
                     }
                     break;
 
-                case 1: //バフォメットの角
+                case 1: //バルーンハット
 
                     if (GameMgr.Accesory_Num[i] == 0) //OFF
                     {

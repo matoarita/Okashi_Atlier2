@@ -741,10 +741,6 @@
 	],
 	"Parts": [
 		{
-			"Id": "Part7",
-			"Name": "メガネ"
-		},
-		{
 			"Id": "Part",
 			"Name": "きらきら"
 		},
@@ -757,6 +753,10 @@
 			"Name": "猫耳"
 		},
 		{
+			"Id": "Part7",
+			"Name": "メガネ"
+		},
+		{
 			"Id": "Part4",
 			"Name": "ヘアピン"
 		},
@@ -765,12 +765,12 @@
 			"Name": "服"
 		},
 		{
-			"Id": "Part01Neck",
-			"Name": "首"
+			"Id": "Part01Brow001",
+			"Name": "まゆ毛"
 		},
 		{
-			"Id": "Part01HairBack001",
-			"Name": "後ろ髪"
+			"Id": "Part01Eye001",
+			"Name": "目"
 		},
 		{
 			"Id": "Part01HairSide001",
@@ -781,28 +781,24 @@
 			"Name": "前髪"
 		},
 		{
-			"Id": "Part01Brow001",
-			"Name": "まゆ毛"
-		},
-		{
-			"Id": "Part01EyeBall001",
-			"Name": "目玉"
-		},
-		{
-			"Id": "Part01Eye001",
-			"Name": "目"
-		},
-		{
 			"Id": "Part01Face001",
 			"Name": "顔"
 		},
 		{
-			"Id": "Part101",
-			"Name": "猫尻尾"
+			"Id": "Part01Neck",
+			"Name": "首"
+		},
+		{
+			"Id": "Part01HairBack001",
+			"Name": "後ろ髪"
 		},
 		{
 			"Id": "Part102",
 			"Name": "羽"
+		},
+		{
+			"Id": "Part101",
+			"Name": "猫尻尾"
 		},
 		{
 			"Id": "Part30",
@@ -823,6 +819,10 @@
 		{
 			"Id": "Part6",
 			"Name": "スク水"
+		},
+		{
+			"Id": "Part01EyeBall001",
+			"Name": "目玉"
 		},
 		{
 			"Id": "ArtMesh421_Skinning",
