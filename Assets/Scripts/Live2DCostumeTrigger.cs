@@ -97,6 +97,54 @@ public class Live2DCostumeTrigger : MonoBehaviour {
                     }
                     break;
 
+                case 3: //ねこみみ
+
+                    if (GameMgr.Accesory_Num[i] == 0) //OFF
+                    {
+                        trans_acce = 0;
+                        live2d_animator.SetInteger("trans_acce04", trans_acce);
+                        //Debug.Log("trans_acce OFF: " + trans_acce);
+                    }
+                    else //ON
+                    {
+                        trans_acce = 1;
+                        live2d_animator.SetInteger("trans_acce04", trans_acce);
+                        //Debug.Log("trans_acce ON: " + trans_acce);
+                    }
+                    break;
+
+                case 4: //お花のヘアピン
+
+                    if (GameMgr.Accesory_Num[i] == 0) //OFF
+                    {
+                        trans_acce = 0;
+                        live2d_animator.SetInteger("trans_acce05", trans_acce);
+                        //Debug.Log("trans_acce OFF: " + trans_acce);
+                    }
+                    else //ON
+                    {
+                        trans_acce = 1;
+                        live2d_animator.SetInteger("trans_acce05", trans_acce);
+                        //Debug.Log("trans_acce ON: " + trans_acce);
+                    }
+                    break;
+
+                case 5: //ティンクルスターダスト
+
+                    if (GameMgr.Accesory_Num[i] == 0) //OFF
+                    {
+                        trans_acce = 0;
+                        live2d_animator.SetInteger("trans_acce06", trans_acce);
+                        //Debug.Log("trans_acce OFF: " + trans_acce);
+                    }
+                    else //ON
+                    {
+                        trans_acce = 1;
+                        live2d_animator.SetInteger("trans_acce06", trans_acce);
+                        //Debug.Log("trans_acce ON: " + trans_acce);
+                    }
+                    break;
+
                 default:
 
                     break;

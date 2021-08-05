@@ -93,7 +93,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1010;
-                GameMgr.stageclear_love = 30; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "1-2";
                 OkashiQuest_AllCount = 3;
@@ -106,7 +106,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1020;
-                GameMgr.stageclear_love = 40; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "1-3";
                 OkashiQuest_AllCount = 3;

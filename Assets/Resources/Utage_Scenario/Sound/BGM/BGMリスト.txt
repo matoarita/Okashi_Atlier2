@@ -52,3 +52,4 @@
 ・BGM_50		audiostock_944577			調合テーマ４　アトリエメインテーマ３　楽しい音楽
 ・BGM_51		audiostock_236508			採集選択画面
 ・BGM_52		ecossaise				チュートリアルのBGM　宴用
+・BGM_53		PerituneMaterial_Memories6_Piano_loop	調合テーマ５　悲しい音楽

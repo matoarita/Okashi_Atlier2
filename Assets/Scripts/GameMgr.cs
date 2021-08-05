@@ -221,8 +221,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //お菓子クエストクリアフラグの発生関係
     //public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。現在未使用。
     public static bool QuestClearAnim_Flag;   //クリアしたときに、ボタンを登場させるか否かのフラグ。そのクエストの最後のときだけ演出をだす時に使う。
+    public static bool QuestClearCommentflag; //一回SPクリアしたあと、感想をだしたかどうか。
 
-    
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num; //セーブはしなくてもGirlLoveEvent_numからロード時に自動で設定し直すので大丈夫。
     public static string NowEatOkashi; //今食べたいお菓子　girlCompoDBのテキストが入っている。
@@ -601,6 +601,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         QuestClearflag = false;
         QuestClearButton_anim = false;
         QuestClearAnim_Flag = false;
+        QuestClearCommentflag = false;
         Okashi_lastname = "";
         Okashi_lastslot = "";
         Okashi_lasthint = "";

@@ -1646,15 +1646,18 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // クエストクリアボタン登場時の一言
+    // SPクエストクリア時の感想
     //
     IEnumerator QuestClearButton_Hyouji()
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "QuestClearButton"; //イベントレシピタグのシナリオを再生。
-
         scenario_loading = true;
+
+        scenarioLabel = "QuestClearMessage"; //イベントレシピタグのシナリオを再生。
+
+        //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("QuestClearMessage_num", GameMgr.OkashiQuest_Num);     
 
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();

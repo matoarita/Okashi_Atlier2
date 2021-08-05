@@ -247,6 +247,7 @@ public class StatusPanel : MonoBehaviour {
 
         for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
+            /* コスチューム */
             if (pitemlist.emeralditemlist[i].event_itemName == "Meid_Black_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //黒エプロン
             {
                 costume_list[1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
@@ -271,6 +272,7 @@ public class StatusPanel : MonoBehaviour {
                 CostumeIconDraw(i, 4);
             }
 
+            /* アクセサリー */
             if (pitemlist.emeralditemlist[i].event_itemName == "Glass_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メガネ
             {
                 costume_list[Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
@@ -279,7 +281,7 @@ public class StatusPanel : MonoBehaviour {
 
             if (pitemlist.emeralditemlist[i].event_itemName == "BalloonHat_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //バルーンハット
             {
-                costume_list[Acce_Startnum+1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                costume_list[Acce_Startnum + 1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
                 CostumeIconDraw(i, Acce_Startnum + 1);
             }
 
@@ -287,6 +289,24 @@ public class StatusPanel : MonoBehaviour {
             {
                 costume_list[Acce_Startnum + 2].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
                 CostumeIconDraw(i, Acce_Startnum + 2);
+            }
+
+            if (pitemlist.emeralditemlist[i].event_itemName == "Nekomimi_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ねこみみ
+            {
+                costume_list[Acce_Startnum + 3].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, Acce_Startnum + 3);
+            }
+
+            if (pitemlist.emeralditemlist[i].event_itemName == "FlowerHairpin_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //お花のヘアピン
+            {
+                costume_list[Acce_Startnum + 4].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, Acce_Startnum + 4);
+            }
+
+            if (pitemlist.emeralditemlist[i].event_itemName == "TwincleStarDust_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ティンクルスターダスト
+            {
+                costume_list[Acce_Startnum + 5].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                CostumeIconDraw(i, Acce_Startnum + 5);
             }
         }
 

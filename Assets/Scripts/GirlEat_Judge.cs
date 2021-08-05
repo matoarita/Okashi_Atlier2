@@ -57,6 +57,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private bool non_spquest_flag;
     public int clear_spokashi_status;
     private bool quest_clear;
+    private bool sp_quest_clear;
 
     private Text Okashi_Score;
     private Text Manzoku_Score;
@@ -293,6 +294,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private int shokukan_baseparam;
 
     private bool emerarudonguri_end;
+    private bool questclear_end;
 
     // スロットのデータを保持するリスト。点数とセット。
     List<string> itemslotInfo = new List<string>();
@@ -551,6 +553,7 @@ public class GirlEat_Judge : MonoBehaviour {
         dislike_flag = true;
         emerarudonguri_get = false;
         emerarudonguri_end = false;
+        questclear_end = false;
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
@@ -590,6 +593,7 @@ public class GirlEat_Judge : MonoBehaviour {
         Gameover_flag = false;
         kansou_on = false;
         quest_clear = false;
+        sp_quest_clear = false;
 
         //テキストのセッティング
         CommentTextInit();
@@ -2270,7 +2274,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //クリア分岐1
 
-            if (!non_spquest_flag) //メインのSPお菓子クエストの場合。クエスト以外のお菓子を揚げた場合、クエストクリアボタンなどの処理を除外する。
+            if (!non_spquest_flag) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
             {
                 Debug.Log("クリア分岐１");
 
@@ -2303,8 +2307,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
             }
 
-            //クリア分岐2　クエストお菓子・クエスト以外のお菓子、両方でチェック。ステージクリアに必要なハート量がたまったかどうか。
-            /*if (!quest_clear)
+            //クリア分岐2　ステージクリアに必要なハート量がたまったかどうか。たまっていれば、SPクエストをクリアしたことになり、次のSPクエストが始まる。
+            if (!sp_quest_clear)
             {                          
                 if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
                 {
@@ -2314,11 +2318,11 @@ public class GirlEat_Judge : MonoBehaviour {
                     if (GameMgr.stageclear_cullentlove >= GameMgr.stageclear_love)
                     {
                         Debug.Log("クリア分岐２");
-                        quest_clear = true;
+                        sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
                 }
-            }*/
+            }
             
 
         }
@@ -2524,24 +2528,31 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void GetLoveEnd()
     {
-        
+
         //一時的に触れなくする。
-        if (emerarudonguri_get)
+        if (quest_clear)
         {
             Touch_WindowInteractOFF();
         }
         else
         {
-            if (quest_clear && !GameMgr.QuestClearButton_anim) //クエストクリアした際は、一連の演出をみせる。
+            if (emerarudonguri_get)
             {
                 Touch_WindowInteractOFF();
-                
             }
             else
             {
-                compound_Main.compound_status = 0;
-            }
+                if (sp_quest_clear && !GameMgr.QuestClearButton_anim) //クエストクリアした際は、一連の演出をみせる。
+                {
+                    Touch_WindowInteractOFF();
 
+                }
+                else
+                {
+                    compound_Main.compound_status = 0;
+                }
+
+            }
         }
 
         //エメラルどんぐり入るかチェック
@@ -2555,10 +2566,28 @@ public class GirlEat_Judge : MonoBehaviour {
             emerarudonguri_end = true;          
         }
 
-        //クリアした場合、ボタンが登場する演出
-        if (quest_clear)
+        //SPクエストクリアしてた場合、感想をだす。
+        if (!GameMgr.QuestClearCommentflag)
         {
+            if (quest_clear)
+            {
+                quest_clear = false;
+                StartCoroutine("QuestClearCommentEvent");
+            }
+            else
+            {
+                questclear_end = true;
+            }
+        }
+        else {
             quest_clear = false;
+            questclear_end = true;
+        }
+
+        //ハート量がたまっていた場合
+        if (sp_quest_clear)
+        {
+            sp_quest_clear = false;
 
             if (!GameMgr.QuestClearButton_anim)
             {
@@ -3077,6 +3106,7 @@ public class GirlEat_Judge : MonoBehaviour {
             }
         }
 
+        Debug.Log("お菓子アフター感想スタート");
         GameMgr.okashiafter_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
                                          //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
 
@@ -3182,12 +3212,10 @@ public class GirlEat_Judge : MonoBehaviour {
     }
 
 
-    
-
     //
-    //クエストボタン登場の演出
+    //SPクエストクリアした際の感想
     //
-    IEnumerator QuestClearButtonStart()
+    IEnumerator QuestClearCommentEvent()
     {
         //エメラルどんぐりイベントが発生した場合は、どんぐりが終了するまで待つ。
         while (!emerarudonguri_end)
@@ -3196,6 +3224,43 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
         emerarudonguri_end = false;
+
+        yield return new WaitForSeconds(1.0f);
+
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.WaitHint_on = false;
+        girl1_status.hukidasiOff();
+        canvas.SetActive(false);
+        touch_controller.Touch_OnAllOFF();
+
+        GameMgr.QuestClearButtonMessage_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = false;
+
+        canvas.SetActive(true);
+        questclear_end = true;
+        GameMgr.QuestClearCommentflag = true;
+
+    }
+
+
+    //
+    //クエストボタン登場の演出
+    //
+    IEnumerator QuestClearButtonStart()
+    {
+        //クエストクリア感想・エメラルどんぐりが終了するまで待つ
+        while (!questclear_end)
+        {
+            yield return null;
+        }
+
+        questclear_end = false;
 
         //全てのハートがなくなるまで待つ。
         while (heart_count > 0)
@@ -3211,21 +3276,11 @@ public class GirlEat_Judge : MonoBehaviour {
         canvas.SetActive(false);
         touch_controller.Touch_OnAllOFF();
 
-        /*
-        //にいちゃんおいしかったよ！のメッセージ。現在は無くして、テンポをよくした。
-        GameMgr.QuestClearButtonMessage_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-        while (!GameMgr.recipi_read_endflag) //にいちゃん、おいしかったよ、ありがと～！のメッセージ
-        {
-            yield return null;
-        }
-        
-        GameMgr.recipi_read_endflag = false;*/
-
         //表情も喜びの表情に。
         girl1_status.face_girl_Yorokobi();
 
 
+        sp_quest_clear = false;
 
         if (GameMgr.QuestClearAnim_Flag) //ステージクリアの場合、クリアボタンも登場する演出
         {
@@ -3242,8 +3297,9 @@ public class GirlEat_Judge : MonoBehaviour {
             compound_Main.compound_status = 0;
 
             GameMgr.QuestClearflag = true;
-            QuestClearMethod();
-        }              
+            QuestClearMethod(); //次のSPクエストを開始
+        }
+
     }
 
 
@@ -3352,6 +3408,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
                 GameMgr.QuestClearButton_anim = false;
+                GameMgr.QuestClearCommentflag = false;
                 GameMgr.stageclear_cullentlove = 0;
 
                 GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
@@ -3742,6 +3799,8 @@ public class GirlEat_Judge : MonoBehaviour {
             default:
                 break;
         }
+
+        temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
 
         database.items[_baseID].last_hinttext = temp_hint_text;
         GameMgr.Okashi_lasthint = temp_hint_text;

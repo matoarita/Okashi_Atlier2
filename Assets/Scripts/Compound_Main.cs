@@ -3309,11 +3309,15 @@ public class Compound_Main : MonoBehaviour
                                     GameMgr.GirlLoveSubEvent_stage1[3] = true;
                                     GameMgr.GirlLoveSubEvent_num = 3;
                                     GameMgr.Okashi_OnepointHint_num = 0;
+
+                                    check_GirlLoveSubEvent_flag = false;
                                 }
                                 else //クリアできたら、そのままOK!　＋　でもクッキーが食べたいから、にいちゃん、クッキーを作って！！
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[4] = true;
                                     GameMgr.GirlLoveSubEvent_num = 4;
+
+                                    check_GirlLoveSubEvent_flag = false;
                                 }
                             }
                             else
@@ -3322,20 +3326,24 @@ public class Compound_Main : MonoBehaviour
                                 {
                                     GameMgr.GirlLoveSubEvent_num = 0;
                                     GameMgr.Okashi_OnepointHint_num = 0;
+
+                                    check_GirlLoveSubEvent_flag = false;
                                 }
-                                else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
+                                else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85。現在未使用。
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[1] = true;
                                     GameMgr.GirlLoveSubEvent_num = 1;
+
+                                    check_GirlLoveSubEvent_flag = true; //trueにすると、そのイベントを無視できる。
                                 }
                                 else //クリアできた。85~
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[2] = true;
                                     GameMgr.GirlLoveSubEvent_num = 2;
-                                }
-                            }
 
-                            check_GirlLoveSubEvent_flag = false;
+                                    check_GirlLoveSubEvent_flag = true;
+                                }
+                            }                            
                         }
                     }
 
