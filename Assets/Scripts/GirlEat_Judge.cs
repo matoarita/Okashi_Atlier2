@@ -2276,9 +2276,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
             if (!non_spquest_flag) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
             {
-                Debug.Log("クリア分岐１");
+                Debug.Log("SPクエストのお菓子は満足し、クリア");
 
-                //食べたいお菓子で、60点以上かつトッピングもちゃんとのってる場合は、クエストクリアボタンでるように。
                 if (total_score >= GameMgr.low_score)
                 {
                     if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
@@ -2308,7 +2307,7 @@ public class GirlEat_Judge : MonoBehaviour {
             }
 
             //クリア分岐2　ステージクリアに必要なハート量がたまったかどうか。たまっていれば、SPクエストをクリアしたことになり、次のSPクエストが始まる。
-            if (!sp_quest_clear)
+            /*if (!sp_quest_clear)
             {                          
                 if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
                 {
@@ -2322,7 +2321,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         _windowtext.text = "満足しているようだ。";
                     }
                 }
-            }
+            }*/
             
 
         }
@@ -2515,6 +2514,30 @@ public class GirlEat_Judge : MonoBehaviour {
 
         _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
         girl_param.text = _tempGirllove.ToString();
+
+        //**
+        //クリア判定
+        //ステージクリアに必要なハート量がたまったかどうか。たまっていれば、SPクエストをクリアしたことになり、次のSPクエストが始まる。
+        //仮にレベルがあがるか先に予測し、上がる場合は、sp_quest_clearのフラグをたてる。
+        //**
+
+        if (_slider.value + _Getlove_param >= _slider.maxValue)
+        {
+            if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、判定処理をなくしておく。
+            {
+            }
+            else
+            {
+                Debug.Log("ハートレベル上がったので、クエストクリア");
+                sp_quest_clear = true;
+            }
+        }
+        else
+        {
+            sp_quest_clear = false;
+        }
+
+        //**
 
         //Debug.Log("好感度　内部を更新");
         StartCoroutine(HeartKoushin(_Getlove_param));
@@ -2814,11 +2837,16 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         //実際の好感度に値を反映
         PlayerStatus.girl1_Love_exp += Getlove_exp;
+        GameMgr.stageclear_cullentlove += Getlove_exp;
 
         //0以下になったら、下限は0
-        if(PlayerStatus.girl1_Love_exp <= 0)
+        if (PlayerStatus.girl1_Love_exp <= 0)
         {
             PlayerStatus.girl1_Love_exp = 0;
+        }
+        if (GameMgr.stageclear_cullentlove <= 0)
+        {
+            GameMgr.stageclear_cullentlove = 0;
         }
         girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
         girl_param.color = origin_color;

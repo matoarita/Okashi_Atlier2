@@ -21,10 +21,11 @@ public class ItemShop
     public int shop_itemzaiko; //在庫数
 
     public int shop_item_hyouji;
+    public bool shop_item_hyouji_on;
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemShop(int id, int _itemID, Sprite _icon, string name, string nameHyouji, int cost, int sell, int zaiko, int _itemType, int item_hyouji)
+    public ItemShop(int id, int _itemID, Sprite _icon, string name, string nameHyouji, int cost, int sell, int zaiko, int _itemType, int item_hyouji, bool item_hyouji_on)
     {
         shop_ID = id;
         shop_itemID = _itemID;
@@ -42,6 +43,7 @@ public class ItemShop
         shop_itemzaiko = zaiko;
 
         shop_item_hyouji = item_hyouji;
+        shop_item_hyouji_on = item_hyouji_on;
     }
 
 }

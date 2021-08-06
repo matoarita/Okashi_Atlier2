@@ -110,6 +110,10 @@ public class ShopItemListController : MonoBehaviour
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
+
+        //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
+        Check_ShopListFlag();
+
         for (i = 0; i < category_toggle.Count; i++)
         {
             category_toggle[i].GetComponent<Toggle>().isOn = false;
@@ -201,7 +205,7 @@ public class ShopItemListController : MonoBehaviour
     void reset_and_DrawView()
     {
         //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        Check_ShopListFlag();
+        //Check_ShopListFlag();
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -219,7 +223,7 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
                     //1～だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemType=0は基本の材料系
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji_on
                         && shop_database.shopitems[i].shop_itemType == 0)
                     {
                         if (shop_database.shopitems[i].shop_itemzaiko > 0)
@@ -237,7 +241,7 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
                     //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemType=0は基本の材料系
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji_on
                         && shop_database.farmitems[i].shop_itemType == 0)
                     {
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
@@ -255,7 +259,7 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
                 {
                     //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
-                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag)
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji_on)
                     {
                         if (shop_database.emeraldshop_items[i].shop_itemType == 0 || shop_database.emeraldshop_items[i].shop_itemType == 5)
                         {
@@ -279,7 +283,7 @@ public class ShopItemListController : MonoBehaviour
     void reset_and_DrawView_Topping()
     {
         //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        Check_ShopListFlag();
+        //Check_ShopListFlag();
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -296,7 +300,7 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji_on
                         && shop_database.shopitems[i].shop_itemType == 3)
                     {
                         if (shop_database.shopitems[i].shop_itemzaiko > 0)
@@ -313,7 +317,7 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji_on
                         && shop_database.farmitems[i].shop_itemType == 3)
                     {
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
@@ -331,7 +335,7 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
                 {
                     //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
-                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji_on
                         && shop_database.emeraldshop_items[i].shop_itemType == 3)
                     {
                         if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
@@ -353,7 +357,7 @@ public class ShopItemListController : MonoBehaviour
     void reset_and_DrawView_Machine()
     {
         //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        Check_ShopListFlag();
+        //Check_ShopListFlag();
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -370,7 +374,7 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag )
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji_on)
                     {
                         if (shop_database.shopitems[i].shop_itemType == 2)
                         {
@@ -389,7 +393,7 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag )
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji_on)
                     {
                         if (shop_database.farmitems[i].shop_itemType == 2)
                         {
@@ -409,7 +413,7 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
                 {
                     //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
-                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji_on
                         && shop_database.emeraldshop_items[i].shop_itemType == 2)
                     {
                         if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
@@ -431,7 +435,7 @@ public class ShopItemListController : MonoBehaviour
     void reset_and_DrawView_Recipi()
     {
         //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        Check_ShopListFlag();
+        //Check_ShopListFlag();
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -448,7 +452,7 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji_on
                         && shop_database.shopitems[i].shop_itemType == 1)
                     {
                         if (shop_database.shopitems[i].shop_itemzaiko > 0)
@@ -465,7 +469,7 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji_on
                         && shop_database.farmitems[i].shop_itemType == 1)
                     {
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
@@ -483,7 +487,7 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
                 {
                     //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
-                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji_on
                         && shop_database.emeraldshop_items[i].shop_itemType == 1)
                     {
                         if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
@@ -506,7 +510,7 @@ public class ShopItemListController : MonoBehaviour
     void reset_and_DrawView_Etc()
     {
         //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        Check_ShopListFlag();
+        //Check_ShopListFlag();
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -523,7 +527,7 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.shopitems.Count; i++)
                 {
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji_on
                         && shop_database.shopitems[i].shop_itemType == 6)
                     {
                         if (shop_database.shopitems[i].shop_itemzaiko > 0)
@@ -540,7 +544,7 @@ public class ShopItemListController : MonoBehaviour
 
                 for (i = 0; i < shop_database.farmitems.Count; i++)
                 {
-                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji <= shop_hyouji_flag 
+                    if (shop_database.farmitems[i].shop_item_hyouji > 0 && shop_database.farmitems[i].shop_item_hyouji_on
                         && shop_database.farmitems[i].shop_itemType == 6)
                     {
                         if (shop_database.farmitems[i].shop_itemzaiko > 0)
@@ -558,7 +562,7 @@ public class ShopItemListController : MonoBehaviour
                 for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
                 {
                     //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemTypeは、エメラルショップの場合、ひとまずなし。
-                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji <= shop_hyouji_flag
+                    if (shop_database.emeraldshop_items[i].shop_item_hyouji > 0 && shop_database.emeraldshop_items[i].shop_item_hyouji_on
                         && shop_database.emeraldshop_items[i].shop_itemType == 6)
                     {
                         if (shop_database.emeraldshop_items[i].shop_itemzaiko > 0)
@@ -720,22 +724,53 @@ public class ShopItemListController : MonoBehaviour
     void Check_ShopListFlag()
     {
         shop_hyouji_flag = 1; //最小は1
-
+        Check_ONShopListFlag(shop_hyouji_flag);
+        
         if(GameMgr.ShopLVEvent_stage[0])
         {
             shop_hyouji_flag = 2;
+            Check_ONShopListFlag(shop_hyouji_flag);
         }
         if (GameMgr.ShopLVEvent_stage[1])
         {
             shop_hyouji_flag = 3;
+            Check_ONShopListFlag(shop_hyouji_flag);
         }
         if (GameMgr.ShopLVEvent_stage[2])
         {
             shop_hyouji_flag = 4;
+            Check_ONShopListFlag(shop_hyouji_flag);
         }
-        /*if (GameMgr.ShopLVEvent_stage[3])
+        if (GameMgr.ShopLVEvent_stage[3]) //かわいいトッピング追加
         {
             shop_hyouji_flag = 5;
-        }*/
+        }
+    }
+
+    void Check_ONShopListFlag(int flag_num)
+    {
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+            if (shop_database.shopitems[i].shop_item_hyouji == flag_num)
+            {
+                shop_database.shopitems[i].shop_item_hyouji_on = true;
+            }
+        }
+
+        for (i = 0; i < shop_database.farmitems.Count; i++)
+        {
+            if (shop_database.farmitems[i].shop_item_hyouji == flag_num)
+            {
+                shop_database.farmitems[i].shop_item_hyouji_on = true;
+            }
+        }
+
+        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+        {
+            if (shop_database.emeraldshop_items[i].shop_item_hyouji == flag_num)
+            {
+                shop_database.emeraldshop_items[i].shop_item_hyouji_on = true;
+            }
+        }
     }
 }

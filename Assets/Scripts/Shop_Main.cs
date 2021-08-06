@@ -26,6 +26,7 @@ public class Shop_Main : MonoBehaviour {
     private GameObject placename_panel;
 
     private GameObject shopitemlist_onoff;
+    private ShopItemListController shoplistController;
     private GameObject shopquestlist_obj;
 
     private GameObject money_status_obj;
@@ -58,6 +59,8 @@ public class Shop_Main : MonoBehaviour {
 
     private GameObject updown_counter_obj;
     private GameObject updown_counter_Prefab;
+
+    private int shop_hyouji_flag;
 
     public int shop_status;
     public int shop_scene; //どのシーンを選択しているかを判別
@@ -144,6 +147,7 @@ public class Shop_Main : MonoBehaviour {
 
         //ショップリスト画面。初期設定で最初はOFF。
         shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+        shoplistController = shopitemlist_onoff.GetComponent<ShopItemListController>();
         shopitemlist_onoff.SetActive(false);
 
         //クエストリスト画面。初期設定で最初はOFF。
@@ -358,7 +362,7 @@ public class Shop_Main : MonoBehaviour {
             if (!check_lvevent) //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
             {
                 Debug.Log("チェック　パティシエレベルor好感度レベルイベント");
-                CheckShopLvEvent();
+                CheckShopLvEvent();                
 
                 if (lvevent_loading) { }
                 else
@@ -387,12 +391,6 @@ public class Shop_Main : MonoBehaviour {
                         black_effect.SetActive(false);
 
                         //_text.text = shopdefault_text;
-
-                        //依頼コマンド追加
-                        /*if (GameMgr.ShopLVEvent_stage[10])
-                        {
-                            shopon_toggle_quest.SetActive(true);
-                        }*/
 
                         shop_scene = 0;
                         shop_status = 100;
@@ -557,7 +555,26 @@ public class Shop_Main : MonoBehaviour {
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
     void CheckShopLvEvent()
     {
-        //品物追加　いくつかの器具解禁
+        //品物追加　いくつかの器具解禁 ShopItemListController.csで、品の追加処理をかいている。
+
+        //品物追加　かわいいトッピング追加
+        if (GameMgr.GirlLoveEvent_num >= 2) //かわいいクッキーイベント開始
+        {
+            if (!GameMgr.ShopLVEvent_stage[3])
+            {
+                //Debug.Log("ショップレベルイベント１　開始");
+                GameMgr.ShopLVEvent_stage[3] = true;
+                GameMgr.scenario_ON = true;
+
+                GameMgr.shop_lvevent_num = 1;
+                GameMgr.shop_lvevent_flag = true;
+
+                lvevent_loading = true;
+                StartCoroutine("Scenario_loading");
+            }
+        }
+
+        //品物追加　ラスク　パンナイフ追加
         if (PlayerStatus.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 10) //好感度レベル２以上 or ラスクイベント開始
         {
             if (!GameMgr.ShopLVEvent_stage[0])
@@ -600,19 +617,6 @@ public class Shop_Main : MonoBehaviour {
             StartCoroutine("Scenario_loading");
         }
 
-
-        //「依頼」コマンド追加　パティシエレベル３以上で追加
-        /*if (PlayerStatus.player_renkin_lv >= 3 && !GameMgr.ShopLVEvent_stage[10]) //シュークリームイベント以降
-        {
-            GameMgr.ShopLVEvent_stage[10] = true;
-            GameMgr.scenario_ON = true;
-
-            GameMgr.shop_lvevent_num = 10;
-            GameMgr.shop_lvevent_flag = true;
-
-            lvevent_loading = true;
-            StartCoroutine("Scenario_loading");
-        }*/
     }
 
     IEnumerator UtageEndWait()

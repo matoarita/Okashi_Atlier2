@@ -1283,6 +1283,15 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.Beginner_flag[1] = true;
         }
 
+        switch(recipi_Name)
+        {
+            case "recipibook_6": //お茶のすすめ
+
+                //いける場所を追加
+                matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
+                break;
+        }
+
         GameMgr.recipi_read_endflag = true; //レシピを読み終えたフラグ
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。

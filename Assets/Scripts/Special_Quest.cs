@@ -80,7 +80,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1000;
-                GameMgr.stageclear_love = 20; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 20; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "1-1";
                 OkashiQuest_AllCount = 3;
@@ -93,7 +93,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1010;
-                GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "1-2";
                 OkashiQuest_AllCount = 3;
@@ -106,7 +106,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 1020;
-                GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "1-3";
                 OkashiQuest_AllCount = 3;
@@ -119,7 +119,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 10: //ラスク食べたい
 
                 girl1_status.OkashiQuest_ID = 1100;
-                GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "2-1";
                 OkashiQuest_AllCount = 2;
@@ -131,7 +131,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 11: //すっぱいラスク食べたい
 
                 girl1_status.OkashiQuest_ID = 1110;
-                GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "2-2";
                 OkashiQuest_AllCount = 2;
@@ -144,7 +144,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 20: //クレープ食べたい
 
                 girl1_status.OkashiQuest_ID = 1200;
-                GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "2-1";
                 OkashiQuest_AllCount = 2;
@@ -156,7 +156,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 21: //豪華なクレープ食べたい
 
                 girl1_status.OkashiQuest_ID = 1210;
-                GameMgr.stageclear_love = 100; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 100; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "2-2";
                 OkashiQuest_AllCount = 2;
@@ -182,7 +182,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 30: //シュークリーム食べたい
 
                 girl1_status.OkashiQuest_ID = 1300;
-                GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "4-1";
                 OkashiQuest_AllCount = 1;
@@ -195,7 +195,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 40: //ドーナツ食べたい
 
                 girl1_status.OkashiQuest_ID = 1400;
-                GameMgr.stageclear_love = 80; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 80; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "5-1";
                 OkashiQuest_AllCount = 1;
@@ -208,7 +208,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 50: //ステージ１ラスト　コンテスト開始
 
                 girl1_status.OkashiQuest_ID = 1500;
-                GameMgr.stageclear_love = 1000; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                //GameMgr.stageclear_love = 1000; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
                 OkashiQuest_Number = "Contest";
                 OkashiQuest_AllCount = 1;

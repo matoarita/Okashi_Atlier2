@@ -24,6 +24,7 @@ public class Entity_shopItemDataBase : ScriptableObject
 		public int shop_sell_price;
 		public int shop_buy_price;
 		public int item_hyouji;
+		public bool item_hyouji_on;
 	}
 }
 

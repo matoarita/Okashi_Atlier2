@@ -22,6 +22,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private int _zaiko;
     private int _itemType;
     private int _itemhyouji;
+    private bool _itemhyouji_on;
 
     private int i;
     private int count;
@@ -60,7 +61,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 InitShopDB_Common();
 
                 //ここでリストに追加している
-                shopitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji));
+                shopitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji, _itemhyouji_on));
 
                 ++count;
             }
@@ -81,7 +82,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 InitShopDB_Common();
 
                 //ここでリストに追加している
-                farmitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji));
+                farmitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji, _itemhyouji_on));
 
                 ++count;
             }
@@ -102,7 +103,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 InitShopDB_Common();
 
                 //ここでリストに追加している
-                emeraldshop_items.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji));
+                emeraldshop_items.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji, _itemhyouji_on));
 
                 ++count;
             }
@@ -125,10 +126,11 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
         _cost = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_sell_price;
         _sell = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_buy_price;
         _itemhyouji = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji;
+        _itemhyouji_on = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji_on;
 
         //Debug.Log("ショップ_itemType: " + _itemType);
 
-        
+
         if (_itemType == 1) //レシピ
         {
 

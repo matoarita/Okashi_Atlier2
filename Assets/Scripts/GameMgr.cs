@@ -501,6 +501,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sys_extreme_itemID = 9999;
         sys_extreme_itemType = 0;
 
+        stageclear_cullentlove = 0;
+
         MenuOpenFlag = false;
 
         //好感度イベントフラグの初期化
