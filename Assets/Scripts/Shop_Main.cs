@@ -575,7 +575,7 @@ public class Shop_Main : MonoBehaviour {
         }
 
         //品物追加　ラスク　パンナイフ追加
-        if (PlayerStatus.girl1_Love_lv >= 2 || GameMgr.GirlLoveEvent_num >= 10) //好感度レベル２以上 or ラスクイベント開始
+        if (GameMgr.GirlLoveEvent_num >= 10) //ラスクイベント開始
         {
             if (!GameMgr.ShopLVEvent_stage[0])
             {

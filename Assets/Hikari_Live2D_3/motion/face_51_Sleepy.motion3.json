@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 39,
-		"TotalSegmentCount": 39,
-		"TotalPointCount": 78,
+		"CurveCount": 28,
+		"TotalSegmentCount": 28,
+		"TotalPointCount": 56,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -28,10 +28,10 @@
 			"Id": "ParamAngleY",
 			"Segments": [
 				0,
-				0,
+				-4,
 				0,
 				1,
-				0
+				-4
 			]
 		},
 		{
@@ -39,10 +39,10 @@
 			"Id": "ParamAngleZ",
 			"Segments": [
 				0,
-				0,
+				-2,
 				0,
 				1,
-				0
+				-2
 			]
 		},
 		{
@@ -50,21 +50,10 @@
 			"Id": "ParamEyeLOpen",
 			"Segments": [
 				0,
-				0.7,
+				0.25,
 				0,
 				1,
-				0.7
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeLSmile",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
+				0.25
 			]
 		},
 		{
@@ -72,43 +61,21 @@
 			"Id": "ParamEyeROpen",
 			"Segments": [
 				0,
-				0.7,
+				0.25,
 				0,
 				1,
-				0.7
+				0.25
 			]
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeRSmile",
+			"Id": "ParamEyeLSmile",
 			"Segments": [
 				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeL_CloseChousei",
-			"Segments": [
+				0.5,
 				0,
 				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeR_CloseChousei",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
+				0.5
 			]
 		},
 		{
@@ -116,10 +83,10 @@
 			"Id": "ParamEyeBallX",
 			"Segments": [
 				0,
-				-0.1,
+				-0.4,
 				0,
 				1,
-				-0.1
+				-0.4
 			]
 		},
 		{
@@ -127,10 +94,10 @@
 			"Id": "ParamEyeBallY",
 			"Segments": [
 				0,
-				0.4,
+				0.5,
 				0,
 				1,
-				0.4
+				0.5
 			]
 		},
 		{
@@ -215,10 +182,10 @@
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
-				0.4,
+				0.3,
 				0,
 				1,
-				0.4
+				0.3
 			]
 		},
 		{
@@ -226,10 +193,10 @@
 			"Id": "ParamBrowRForm",
 			"Segments": [
 				0,
-				0.4,
+				0.3,
 				0,
 				1,
-				0.4
+				0.3
 			]
 		},
 		{
@@ -237,10 +204,10 @@
 			"Id": "ParamMouthForm",
 			"Segments": [
 				0,
-				1,
+				-1,
 				0,
 				1,
-				1
+				-1
 			]
 		},
 		{
@@ -248,81 +215,15 @@
 			"Id": "ParamMouthOpenY",
 			"Segments": [
 				0,
-				1,
+				0.7,
 				0,
 				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMouth1_OnOff",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMouth2_OnOff",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamNormal",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamAngry",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamYorokobi",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
+				0.7
 			]
 		},
 		{
 			"Target": "Parameter",
 			"Id": "ParamGokigen",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeClose",
 			"Segments": [
 				0,
 				0,
@@ -366,24 +267,13 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamTojime",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamYodare",
 			"Segments": [
 				0,
-				0,
+				1,
 				0,
 				1,
-				0
+				1
 			]
 		},
 		{
@@ -399,46 +289,35 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "R_upperPosY",
+			"Id": "ParamBodyAngleX",
 			"Segments": [
 				0,
-				-22,
+				-5,
 				0,
 				1,
-				-22
+				-5
 			]
 		},
 		{
 			"Target": "Parameter",
-			"Id": "R_upperR",
+			"Id": "ParamBodyAngleY",
 			"Segments": [
 				0,
-				-4,
+				-5,
 				0,
 				1,
-				-4
+				-5
 			]
 		},
 		{
 			"Target": "Parameter",
-			"Id": "L_upperPosY",
+			"Id": "ParamBodyAngleZ",
 			"Segments": [
 				0,
-				-19,
+				-3,
 				0,
 				1,
-				-19
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "L_upperR",
-			"Segments": [
-				0,
-				3,
-				0,
-				1,
-				3
+				-3
 			]
 		}
 	]

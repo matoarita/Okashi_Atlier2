@@ -36,6 +36,7 @@ public class Compound_Main : MonoBehaviour
     private Exp_Controller exp_Controller;
 
     private BGM sceneBGM;
+    private Map_Ambience map_ambience;
     public bool bgm_change_flag;
     public bool bgm_change_flag2;
     private bool bgm_changeuse_ON = false; //調合シーンで、BGMを切り替えるかどうか。
@@ -131,6 +132,15 @@ public class Compound_Main : MonoBehaviour
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
+    private GameObject BG_Imagepanel;
+    private List<GameObject> bgwall_sprite = new List<GameObject>();
+
+    private GameObject BG_effectpanel;
+    private List<GameObject> bgeffect_obj = new List<GameObject>();
+
+    private GameObject bgweather_image_panel;
+    private List<GameObject> bg_weather_image = new List<GameObject>();
+
     //Live2Dモデルの取得
     private GameObject _model_obj;
     private CubismRenderController cubism_rendercontroller;
@@ -145,7 +155,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject character_root;
     private GameObject character_move;
 
-    private GameObject compoundselect_onoff_obj;
+    private GameObject compoundselect_onoff_obj;    
 
     private GameObject compoBGA_image;
     private GameObject compoBGA_imageOri;
@@ -298,6 +308,7 @@ public class Compound_Main : MonoBehaviour
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
         bgm_change_flag = false;
         bgm_change_flag2 = false;
 
@@ -390,12 +401,7 @@ public class Compound_Main : MonoBehaviour
         extreme_Button = Extremepanel_obj.transform.Find("Comp/ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
-        //テーブル手前のオブジェクトを取得
-        BGImageTemaePanel_obj = GameObject.FindWithTag("BGImageTemaePanel");
-        BGImageTemaePanel_kiji = BGImageTemaePanel_obj.transform.Find("BG_sprite_kiji").gameObject;
-        BGImageTemaePanel_plate = BGImageTemaePanel_obj.transform.Find("BG_sprite_plate").gameObject;
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();        
 
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
@@ -506,6 +512,35 @@ public class Compound_Main : MonoBehaviour
 
         MainUICloseButton = canvas.transform.Find("MainUIPanel/Comp/MainUICloseButton").gameObject;
 
+        //テーブル手前のオブジェクトを取得
+        BGImageTemaePanel_obj = GameObject.FindWithTag("BGImageTemaePanel");
+        BGImageTemaePanel_kiji = BGImageTemaePanel_obj.transform.Find("BG_sprite_kiji").gameObject;
+        BGImageTemaePanel_plate = BGImageTemaePanel_obj.transform.Find("BG_sprite_plate").gameObject;
+
+        //背景天気オブジェクトの取得
+        bgweather_image_panel = GameObject.FindWithTag("BGImageWindowOutPanel");
+        BG_Imagepanel = GameObject.FindWithTag("BG");
+        BG_effectpanel = GameObject.FindWithTag("BG_Effect");
+
+        bg_weather_image.Clear();
+        foreach (Transform child in bgweather_image_panel.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            bg_weather_image.Add(child.gameObject);
+        }
+
+        bgwall_sprite.Clear();
+        foreach (Transform child in BG_Imagepanel.transform)
+        {
+            bgwall_sprite.Add(child.gameObject);
+        }
+
+        bgeffect_obj.Clear();
+        foreach (Transform child in BG_effectpanel.transform)
+        {
+            bgeffect_obj.Add(child.gameObject);
+        }
+
+        Change_BGimage();
         //メモボタン
         //HintTasteButton = canvas.transform.Find("MainUIPanel/HintTasteButton").gameObject;
         //HintTasteButton.SetActive(false);
@@ -1233,9 +1268,13 @@ public class Compound_Main : MonoBehaviour
                 //音関係
                 if (!GameMgr.tutorial_ON)
                 {
+                    //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
+                    bgm_change_story();
+
                     if (bgm_change_flag == true)
                     {
                         bgm_change_flag = false;
+                       
                         sceneBGM.OnMainBGM();
                     }
                     if (bgm_changeuse_ON)
@@ -1248,7 +1287,11 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
                 }
-                sceneBGM.MuteOFFBGM();                
+                sceneBGM.MuteOFFBGM();
+                map_ambience.MuteOFF();
+
+                //背景の変化
+                Change_BGimage();
 
                 //イベントに応じてコマンドを増やす関係
                 FlagEvent();
@@ -1349,6 +1392,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
                 }
+                map_ambience.Mute();
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1397,8 +1441,8 @@ public class Compound_Main : MonoBehaviour
 
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
-                {
-                    if (bgm_changeuse_ON)
+                {                                     
+                    if (bgm_changeuse_ON) //調合時にBGMを切り替えるかどうか。
                     {
                         if (bgm_change_flag2 != true)
                         {
@@ -1407,6 +1451,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
                 }
+                map_ambience.Mute();
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1473,6 +1518,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
                 }
+                map_ambience.Mute();
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1552,6 +1598,8 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(false);
                 WindowOff();
+
+                map_ambience.Mute();
 
                 //カメラリセット
                 //アイドルに戻るときに0に戻す。
@@ -3034,6 +3082,7 @@ public class Compound_Main : MonoBehaviour
         if (mute_on)
         {
             sceneBGM.MuteBGM();
+            map_ambience.Mute();
         }
 
         //サブイベントを読み始めたら、元のキャラクタの位置は元に戻しておく。
@@ -3050,6 +3099,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.girlloveevent_endflag = false;
         GameMgr.scenario_ON = false;
         sceneBGM.MuteOFFBGM();
+        map_ambience.MuteOFF();
         mute_on = false;
 
         canvas.SetActive(true);
@@ -3783,6 +3833,75 @@ public class Compound_Main : MonoBehaviour
         {
             ClickPanel_2.SetActive(false);
         }
+    }
+
+    //ストーリー進行度に応じてBGMが変わる。
+    void bgm_change_story()
+    {      
+
+        if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　
+        {
+            GameMgr.mainBGM_Num = 0; //雨はじまり
+            map_ambience.OnRainyDay(); //背景のSEを鳴らす。
+        }
+        if (GameMgr.GirlLoveEvent_num >= 1) //デフォルト　
+        {
+            GameMgr.mainBGM_Num = 0;
+            map_ambience.Stop();
+        }
+        if (GameMgr.GirlLoveEvent_num >= 10)
+        {
+            GameMgr.mainBGM_Num = 1; //少し明るい　ラスクのBGM
+            map_ambience.Stop();
+        }
+        if (GameMgr.GirlLoveEvent_num >= 20)
+        {
+            GameMgr.mainBGM_Num = 2; //少し明るい　クレープのBGM
+            map_ambience.Stop();
+        }
+                        
+    }
+
+    //ストーリー進行に応じて、背景の天気+エフェクトも変わる。
+    void Change_BGimage()
+    {        
+        if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　
+        {
+            DrawALLOFFBG();
+            bgweather_image_panel.transform.Find("BG_windowout2").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_01").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Rain").gameObject.SetActive(true);
+        }
+        if (GameMgr.GirlLoveEvent_num >= 1) //くもり
+        {
+            DrawALLOFFBG();
+            bgweather_image_panel.transform.Find("BG_windowout2").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_02").gameObject.SetActive(true);
+        }
+        if (GameMgr.GirlLoveEvent_num >= 10)
+        {
+            DrawALLOFFBG();
+            bgweather_image_panel.transform.Find("BG_windowout3").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_03").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+        }
+    }
+
+    void DrawALLOFFBG()
+    {
+        for (i = 0; i < bg_weather_image.Count; i++)
+        {
+            bg_weather_image[i].SetActive(false);
+            bgwall_sprite[i].SetActive(false);
+        }
+
+        for (i = 0; i < bgeffect_obj.Count; i++)
+        {
+            bgeffect_obj[i].SetActive(false);
+        }
+        
     }
 
     public void HeartGuageTextKoushin()

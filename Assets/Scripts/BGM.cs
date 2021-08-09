@@ -29,6 +29,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound18;  //Stage1MainのBGM2
     public AudioClip sound19;  //Stage1MainのBGM3
     public AudioClip sound20;  //Stage1MainのBGM4
+    public AudioClip sound21;  //Stage1MainのBGM5
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -152,18 +153,7 @@ public class BGM : MonoBehaviour {
             {
                 case 1:
 
-                    if (GameMgr.mainBGM_Num == 0)
-                    {
-                        _bgm[0].clip = sound20;
-                    }
-                    else if (GameMgr.mainBGM_Num == 1)
-                    {
-                        _bgm[0].clip = sound18;
-                    }
-                    else if (GameMgr.mainBGM_Num == 2)
-                    {
-                        _bgm[0].clip = sound1;
-                    }
+                    Story_BGMSelect();
                     break;
 
                 case 2:
@@ -203,8 +193,25 @@ public class BGM : MonoBehaviour {
         _bgm[0].Play();
     }
 
+    void Story_BGMSelect()
+    {
+        if (GameMgr.mainBGM_Num == 0)
+        {
+            _bgm[0].clip = sound20;
+        }
+        else if (GameMgr.mainBGM_Num == 1)
+        {
+            _bgm[0].clip = sound21;
+        }
+        else if (GameMgr.mainBGM_Num == 2)
+        {
+            _bgm[0].clip = sound1;
+        }
+    }
+
     public void OnMainBGM()
     {
+        Story_BGMSelect();
         _bgm[0].Play();
 
         _mixRate = 0;
@@ -333,6 +340,7 @@ public class BGM : MonoBehaviour {
 
     public void MuteBGM()
     {
+        Debug.Log("Mute BGM");
         _bgm[0].mute = true;
         _bgm[1].mute = true;
     }

@@ -198,6 +198,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool mainClear_flag;      //クエストクリア時のイベント    
     public static bool QuestClearButtonMessage_flag;  //クエストクリア時のボタン出現時、一言しゃべる
 
+    //現在のクエストが、クエスト全体の何番目か。デバッグでハートレベル更新の際、使う。
+    public static int OkashiQuest_cullentcount;
+
     //好感度イベント発生フラグ
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
     public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
@@ -591,6 +594,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mainClear_flag = false;
         emeralDonguri_flag = false;
         QuestClearButtonMessage_flag = false;
+        OkashiQuest_cullentcount = 1;
 
         //お菓子フラグの初期化
         for (system_i = 0; system_i < OkashiQuest_flag_stage1.Length; system_i++)

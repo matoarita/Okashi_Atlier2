@@ -744,6 +744,7 @@ public class ShopItemListController : MonoBehaviour
         if (GameMgr.ShopLVEvent_stage[3]) //かわいいトッピング追加
         {
             shop_hyouji_flag = 5;
+            Check_ONShopListFlag(shop_hyouji_flag);
         }
     }
 

@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 55,
-		"TotalSegmentCount": 60,
-		"TotalPointCount": 125,
+		"CurveCount": 33,
+		"TotalSegmentCount": 38,
+		"TotalPointCount": 81,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -17,10 +17,10 @@
 			"Id": "ParamAngleX",
 			"Segments": [
 				0,
-				5,
+				-6,
 				0,
 				2,
-				5
+				-6
 			]
 		},
 		{
@@ -28,45 +28,45 @@
 			"Id": "ParamAngleY",
 			"Segments": [
 				0,
-				29,
+				21,
 				1,
 				0.1,
-				29,
+				21,
 				0.2,
-				25,
+				17,
 				0.3,
-				25,
+				17,
 				1,
 				0.411,
-				25,
+				17,
 				0.522,
-				29,
+				21,
 				0.633,
-				29,
+				21,
 				1,
 				0.767,
-				29,
+				21,
 				0.9,
-				29,
+				21,
 				1.033,
-				29,
+				21,
 				1,
 				1.133,
-				29,
+				21,
 				1.233,
-				25,
+				17,
 				1.333,
-				25,
+				17,
 				1,
 				1.444,
-				25,
+				17,
 				1.556,
-				29,
+				21,
 				1.667,
-				29,
+				21,
 				0,
 				2,
-				29
+				21
 			]
 		},
 		{
@@ -104,17 +104,6 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeLSmile",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamEyeROpen",
 			"Segments": [
 				0,
@@ -126,35 +115,13 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeRSmile",
+			"Id": "ParamEyeLSmile",
 			"Segments": [
 				0,
 				0,
 				0,
 				2,
 				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeL_CloseChousei",
-			"Segments": [
-				0,
-				1,
-				0,
-				2,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeR_CloseChousei",
-			"Segments": [
-				0,
-				1,
-				0,
-				2,
-				1
 			]
 		},
 		{
@@ -302,73 +269,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamMouth1_OnOff",
-			"Segments": [
-				0,
-				1,
-				0,
-				2,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMouth2_OnOff",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamNormal",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamAngry",
-			"Segments": [
-				0,
-				1,
-				0,
-				2,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamYorokobi",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamGokigen",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeClose",
 			"Segments": [
 				0,
 				0,
@@ -402,17 +303,6 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamCry",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamTojime",
 			"Segments": [
 				0,
 				0,
@@ -467,7 +357,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "upperbodyPosX",
+			"Id": "ParamBodyAngleZ",
 			"Segments": [
 				0,
 				0,
@@ -478,7 +368,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "upperbodyPosY",
+			"Id": "ParamUpperbodyRot",
 			"Segments": [
 				0,
 				0,
@@ -489,90 +379,13 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "R_upperPosX",
+			"Id": "LR_upperarm_Rot",
 			"Segments": [
 				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "R_upperPosY",
-			"Segments": [
-				0,
-				8,
+				-30,
 				0,
 				2,
-				8
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "R_upperR",
-			"Segments": [
-				0,
-				11,
-				0,
-				2,
-				11
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "R_armR",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "R_handR",
-			"Segments": [
-				0,
-				6,
-				0,
-				2,
-				6
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "L_upperPosX",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "L_upperPosY",
-			"Segments": [
-				0,
-				8,
-				0,
-				2,
-				8
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "L_upperR",
-			"Segments": [
-				0,
-				-11,
-				0,
-				2,
-				-11
+				-30
 			]
 		},
 		{
@@ -595,61 +408,6 @@
 				0,
 				2,
 				-8
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "WaistDownPosX",
-			"Segments": [
-				0,
-				6,
-				0,
-				2,
-				6
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "WaistDownPosY",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "WaistDownR",
-			"Segments": [
-				0,
-				0,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "R_upperleg_R",
-			"Segments": [
-				0,
-				5,
-				0,
-				2,
-				5
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "L_upperleg_R",
-			"Segments": [
-				0,
-				-7,
-				0,
-				2,
-				-7
 			]
 		}
 	]

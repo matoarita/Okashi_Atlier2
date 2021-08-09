@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 41,
-		"TotalSegmentCount": 41,
-		"TotalPointCount": 82,
+		"CurveCount": 31,
+		"TotalSegmentCount": 31,
+		"TotalPointCount": 62,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -17,10 +17,10 @@
 			"Id": "ParamAngleX",
 			"Segments": [
 				0,
-				29.781,
+				4,
 				0,
 				1,
-				29.781
+				4
 			]
 		},
 		{
@@ -39,10 +39,10 @@
 			"Id": "ParamAngleZ",
 			"Segments": [
 				0,
-				-27.698,
+				-8,
 				0,
 				1,
-				-27.698
+				-8
 			]
 		},
 		{
@@ -61,10 +61,21 @@
 			"Id": "ParamEyeLOpen",
 			"Segments": [
 				0,
-				1,
+				0.7,
 				0,
 				1,
-				1
+				0.7
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeROpen",
+			"Segments": [
+				0,
+				0.7,
+				0,
+				1,
+				0.7
 			]
 		},
 		{
@@ -80,57 +91,13 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeROpen",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeRSmile",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeL_CloseChousei",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeR_CloseChousei",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamEyeBallX",
 			"Segments": [
 				0,
-				0,
+				-0.1,
 				0,
 				1,
-				0
+				-0.1
 			]
 		},
 		{
@@ -138,10 +105,10 @@
 			"Id": "ParamEyeBallY",
 			"Segments": [
 				0,
-				0,
+				0.5,
 				0,
 				1,
-				0
+				0.5
 			]
 		},
 		{
@@ -267,73 +234,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamMouth1_OnOff",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMouth2_OnOff",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamNormal",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamAngry",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamYorokobi",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamGokigen",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeClose",
 			"Segments": [
 				0,
 				0,
@@ -377,17 +278,6 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamTojime",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamYodare",
 			"Segments": [
 				0,
@@ -400,17 +290,6 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamKirakiraEye",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamKirakira_yure",
 			"Segments": [
 				0,
 				0,
@@ -455,6 +334,17 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamBodyAngleZ",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamUpperbodyRot",
 			"Segments": [
 				0,
 				0,

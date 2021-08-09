@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 21,
-		"TotalSegmentCount": 21,
-		"TotalPointCount": 42,
+		"CurveCount": 14,
+		"TotalSegmentCount": 14,
+		"TotalPointCount": 28,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -17,10 +17,10 @@
 			"Id": "ParamEyeLOpen",
 			"Segments": [
 				0,
-				0.8,
+				0.6,
 				0,
 				1,
-				0.8
+				0.6
 			]
 		},
 		{
@@ -28,26 +28,26 @@
 			"Id": "ParamEyeROpen",
 			"Segments": [
 				0,
-				0.8,
+				0.6,
 				0,
 				1,
-				0.8
+				0.6
 			]
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeL_CloseChousei",
+			"Id": "ParamEyeBallX",
 			"Segments": [
 				0,
-				1,
+				-0.6,
 				0,
 				1,
-				1
+				-0.6
 			]
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeR_CloseChousei",
+			"Id": "ParamEyeBallY",
 			"Segments": [
 				0,
 				1,
@@ -61,10 +61,10 @@
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
-				1,
+				-1,
 				0,
 				1,
-				1
+				-1
 			]
 		},
 		{
@@ -72,10 +72,10 @@
 			"Id": "ParamBrowRForm",
 			"Segments": [
 				0,
-				1,
+				-1,
 				0,
 				1,
-				1
+				-1
 			]
 		},
 		{
@@ -83,10 +83,10 @@
 			"Id": "ParamMouthForm",
 			"Segments": [
 				0,
-				0,
+				4,
 				0,
 				1,
-				0
+				4
 			]
 		},
 		{
@@ -94,81 +94,15 @@
 			"Id": "ParamMouthOpenY",
 			"Segments": [
 				0,
-				0.2,
-				0,
-				1,
-				0.2
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMouth1_OnOff",
-			"Segments": [
-				0,
 				1,
 				0,
 				1,
 				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMouth2_OnOff",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamNormal",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamAngry",
-			"Segments": [
-				0,
-				1,
-				0,
-				1,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamYorokobi",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
 			]
 		},
 		{
 			"Target": "Parameter",
 			"Id": "ParamGokigen",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeClose",
 			"Segments": [
 				0,
 				0,
@@ -212,24 +146,13 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamTojime",
-			"Segments": [
-				0,
-				0,
-				0,
-				1,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamYodare",
 			"Segments": [
 				0,
-				0,
+				1,
 				0,
 				1,
-				0
+				1
 			]
 		},
 		{

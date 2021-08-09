@@ -86,6 +86,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private List<string> _hintrandomDict = new List<string>();
 
     private BGM sceneBGM;
+    private Map_Ambience map_ambience;
 
     //女の子の好み値。この値と、選択したアイテムの数値を比較し、近いほど得点があがる。
     public int girl1_Quality;
@@ -327,6 +328,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //BGMの取得
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
 
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -1166,6 +1168,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             canvas.SetActive(false);
             sceneBGM.MuteBGM();
+            map_ambience.Mute();
             touch_controller.Touch_OnAllOFF();
 
             while (!GameMgr.camerazoom_endflag)
@@ -1189,6 +1192,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //touch_controller.Touch_OnAllON();
             canvas.SetActive(true);
             sceneBGM.MuteOFFBGM();
+            map_ambience.MuteOFF();
             sceneBGM.PlayMain();
         }    
 

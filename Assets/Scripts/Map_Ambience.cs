@@ -8,6 +8,7 @@ public class Map_Ambience : MonoBehaviour {
     private AudioSource[] _bgm = new AudioSource[1];
 
     public AudioClip sound1;  //水のせせらぎ１
+    public AudioClip sound2;  //雨の音
 
     private GameObject canvas;
     private GetMatPlace_Panel getmatplace_panel;
@@ -28,7 +29,7 @@ public class Map_Ambience : MonoBehaviour {
 
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
 
-        //使用するAudioSource取得。２つを取得。
+        //使用するAudioSource取得。
         _bgm = GetComponents<AudioSource>();
 
         fade_status = 1; //0=fade_out 1=OFF 2=fade_in
@@ -81,6 +82,15 @@ public class Map_Ambience : MonoBehaviour {
         _bgm[0].Play();
     }
 
+    public void OnRainyDay()
+    {
+
+        FadeIn();
+        sound_hosei = 0.8f;
+        _bgm[0].clip = sound2;
+        _bgm[0].Play();
+    }
+
     public void Play()
     {
         _bgm[0].clip = sound1;
@@ -96,6 +106,7 @@ public class Map_Ambience : MonoBehaviour {
 
     public void Mute()
     {
+        Debug.Log("Mute Ambience");
         _bgm[0].mute = true;
     }
 

@@ -607,11 +607,6 @@
 			"Name": "髪揺れ_Rtwintail_3"
 		},
 		{
-			"Id": "Rtwintail_4",
-			"GroupId": "ParamGroup",
-			"Name": "髪揺れ_Rtwintail_4"
-		},
-		{
 			"Id": "Ltwintail_1",
 			"GroupId": "ParamGroup",
 			"Name": "髪揺れ_Ltwintail_1"
@@ -625,11 +620,6 @@
 			"Id": "Ltwintail_3",
 			"GroupId": "ParamGroup",
 			"Name": "髪揺れ_Ltwintail_3"
-		},
-		{
-			"Id": "Ltwintail_4",
-			"GroupId": "ParamGroup",
-			"Name": "髪揺れ_Ltwintail_4"
 		},
 		{
 			"Id": "ParamCattail_rootRot",

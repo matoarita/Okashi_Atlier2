@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 27,
-		"TotalSegmentCount": 54,
-		"TotalPointCount": 175,
+		"CurveCount": 30,
+		"TotalSegmentCount": 57,
+		"TotalPointCount": 181,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -554,6 +554,39 @@
 				-14.848,
 				2.967,
 				-9.063
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamHandTachi",
+			"Segments": [
+				0,
+				0,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamHandGoo",
+			"Segments": [
+				0,
+				0,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamHandMazeMaze",
+			"Segments": [
+				0,
+				0,
+				0,
+				2.967,
+				0
 			]
 		},
 		{

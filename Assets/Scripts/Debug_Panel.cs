@@ -242,7 +242,9 @@ public class Debug_Panel : MonoBehaviour {
         if (Debug_INPUT_ON)
         {
             input_text3 = input_event.text;
-            Int32.TryParse(input_text3, out event_num);           
+            Int32.TryParse(input_text3, out event_num);
+
+            canvas = GameObject.FindWithTag("Canvas");
 
             switch (GameMgr.stage_number)
             {
@@ -324,6 +326,9 @@ public class Debug_Panel : MonoBehaviour {
                         girlEat_judge.Gameover_flag = false;
                         girlEat_judge.clear_spokashi_status = 1; //SPお菓子でクリアしたことにする。
                         girlEat_judge.ResultPanel_On();
+
+                        //現在のクエストの順番を、再度指定。（前クエストから始まるようにしているため）Special_Quest.csに揃える。
+                        special_quest.GetQuestCullentCount(event_num);
                     }
                     else //11、22など、途中のクエストからはじめるときは、そこからはじまる。
                     {
@@ -366,7 +371,24 @@ public class Debug_Panel : MonoBehaviour {
             }
         }
 
+        //入力したイベント番号に応じて、ハートレベルも更新
+        EventChangeGirllove();
+
         InputMainFlagOn2();
+    }
+
+    void EventChangeGirllove()
+    {
+        girllove_param = 0;
+
+        if (GameMgr.OkashiQuest_cullentcount >= 2)
+        {
+
+            girllove_param = girl1_status.stage1_lvTable[GameMgr.OkashiQuest_cullentcount - 2]; //OkashiQuest_cullentcountは、1はじまり。
+
+        }
+
+        GirlLove_Koushin(girllove_param);
     }
 
     public void InputGirlLoveParam()
@@ -375,6 +397,8 @@ public class Debug_Panel : MonoBehaviour {
         {
             input_text2 = input_girllove.text;
             Int32.TryParse(input_text2, out girllove_param);
+
+            canvas = GameObject.FindWithTag("Canvas");
 
             GirlLove_Koushin(girllove_param);
 
@@ -513,7 +537,7 @@ public class Debug_Panel : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
-            canvas = GameObject.FindWithTag("Canvas");
+            //canvas = GameObject.FindWithTag("Canvas");
 
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();

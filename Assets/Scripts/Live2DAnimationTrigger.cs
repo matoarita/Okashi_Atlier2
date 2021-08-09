@@ -39,14 +39,16 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        //カメラの取得
-        main_cam = Camera.main;
-        maincam_animator = main_cam.GetComponent<Animator>();
-        trans = maincam_animator.GetInteger("trans");
+       
 
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
+
+                //カメラの取得
+                main_cam = Camera.main;
+                maincam_animator = main_cam.GetComponent<Animator>();
+                trans = maincam_animator.GetInteger("trans");
 
                 this.GetComponent<CubismRenderController>().SortingOrder = -500;
                 break;

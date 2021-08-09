@@ -296,7 +296,7 @@ public class Utage_scenario : MonoBehaviour
                     GameMgr.sp_okashi_hintflag = false;
                     sp_Okashi_ID = GameMgr.sp_okashi_ID;
 
-                    //SPお菓子食べたあとの感想テキストを表示
+                    //SPお菓子食べる前のふきだし
                     StartCoroutine(SpOkashiComment_HintHyouji());
                 }
 
