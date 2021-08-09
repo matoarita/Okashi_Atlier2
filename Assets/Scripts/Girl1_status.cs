@@ -482,6 +482,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //BGMの取得
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                    map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
 
                     //Live2Dモデルの取得
                     _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;

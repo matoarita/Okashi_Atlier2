@@ -467,12 +467,17 @@ public class Compound_Main : MonoBehaviour
         //roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
-        //recipi_toggle = canvas.transform.Find("MainUIPanel/Recipi_Toggle").gameObject;
-        recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
+        //recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
+        recipi_toggle = canvas.transform.Find("MainUIPanel/Recipi_Toggle").gameObject;
+        recipi_toggle.SetActive(false);
 
         //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
         girleat_toggle = canvas.transform.Find("MainUIPanel/GirlEat_Toggle").gameObject;
         girleat_toggle.SetActive(false);
+
+        //hinttaste_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/HintTaste_Toggle").gameObject;
+        hinttaste_toggle = canvas.transform.Find("MainUIPanel/HintTaste_Toggle").gameObject;
+        hinttaste_toggle.SetActive(false);
 
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;       
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
@@ -481,9 +486,7 @@ public class Compound_Main : MonoBehaviour
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
         status_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Status_Toggle").gameObject;
-        //hinttaste_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/HintTaste_Toggle").gameObject;
-        hinttaste_toggle = canvas.transform.Find("MainUIPanel/HintTaste_Toggle").gameObject;
-        hinttaste_toggle.SetActive(false);
+        
 
 
         //時間表示パネルの取得
@@ -613,7 +616,7 @@ public class Compound_Main : MonoBehaviour
         originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + 
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
-        recipi_text = "レシピから作るよ。何を作る？";
+        recipi_text = "おぼえたレシピから作るよ。何を作る？";
 
         //メインUIパネルの取得
         mainUI_panel_obj = canvas.transform.Find("MainUIPanel").gameObject;        
@@ -2034,7 +2037,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
         girleat_toggle.SetActive(false);
-        //recipi_toggle.SetActive(false);
+        recipi_toggle.SetActive(false);
     }
 
     void WindowOn()
@@ -2047,7 +2050,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
         mainUIFrame_panel.SetActive(true);
-        //recipi_toggle.SetActive(true);
+        recipi_toggle.SetActive(true);
         //kaerucoin_panel.SetActive(true);
 
         MainUICloseButton.SetActive(true);
@@ -2286,6 +2289,7 @@ public class Compound_Main : MonoBehaviour
             menu_toggle.GetComponent<Toggle>().isOn = false;
 
             card_view.DeleteCard_DrawView();
+            HintButtonOFF();
 
             compound_status = 99;
 
@@ -2376,6 +2380,7 @@ public class Compound_Main : MonoBehaviour
 
             //BGMを変更
             sceneBGM.OnGetMatStartBGM();
+            map_ambience.Mute();
             bgm_change_flag = true;
 
             //音ならす
@@ -2402,6 +2407,7 @@ public class Compound_Main : MonoBehaviour
             if ( extreme_panel.extreme_itemID != 9999 )
             {
                 _text.text = "今、作ったお菓子をあげますか？"; // + "\n" + "あと " + GameMgr.ColorLemon + nokori_kaisu + "</color>" + "回　あげられるよ。"
+                HintButtonOFF();
                 compound_status = 10;
 
             }
@@ -2425,6 +2431,8 @@ public class Compound_Main : MonoBehaviour
 
             text_area.SetActive(true);
             _text.text = "今日はもう寝る？"; //
+            HintButtonOFF();
+
             compound_status = 50;
 
             StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
@@ -2650,6 +2658,7 @@ public class Compound_Main : MonoBehaviour
 
                 yes_no_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
+                map_ambience.Mute();
 
                 //時間の項目リセット
                 time_controller.ResetTimeFlag();
@@ -3833,6 +3842,12 @@ public class Compound_Main : MonoBehaviour
         {
             ClickPanel_2.SetActive(false);
         }
+    }
+
+    void HintButtonOFF() //ヒントボタンを非表示
+    {
+        ClickPanel_1.SetActive(false);
+        ClickPanel_2.SetActive(false);
     }
 
     //ストーリー進行度に応じてBGMが変わる。

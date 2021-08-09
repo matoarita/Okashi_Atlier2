@@ -272,7 +272,7 @@ public class GetMaterial : MonoBehaviour
         mat_place = matplace_database.matplace_lists[index].placeName;
 
         //妹のハートがある程度ないと、先へ進めない。
-        if (PlayerStatus.player_girl_lifepoint <= matplace_database.matplace_lists[index].placeHP && matplace_database.matplace_lists[index].placeType != 0)
+        if (PlayerStatus.player_girl_lifepoint < matplace_database.matplace_lists[index].placeHP && matplace_database.matplace_lists[index].placeType != 0)
         {
             _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（これ以上は、動けないようだ。）";
         }

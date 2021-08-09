@@ -388,7 +388,7 @@ public class Debug_Panel : MonoBehaviour {
 
         }
 
-        GirlLove_Koushin(girllove_param);
+        GirlLove_Koushin_nocanvas(girllove_param);
     }
 
     public void InputGirlLoveParam()
@@ -537,92 +537,110 @@ public class Debug_Panel : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
-            //canvas = GameObject.FindWithTag("Canvas");
+            canvas = GameObject.FindWithTag("Canvas");
 
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-            //女の子の反映用ハートエフェクト取得
-            GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
-            GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
-
-            //好感度バーの取得
-            _slider = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").GetComponent<Slider>();
-
-            //女の子のレベル取得
-            girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
-            girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
-
-            stage_levelTable.Clear();
-
-            //好感度レベルテーブルを取得
-            switch (GameMgr.stage_number)
-            {
-                case 1:
-
-                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                    {
-                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                        //Debug.Log("stage1_levelTable: " + stage_levelTable[i]);
-                    }
-
-                    break;
-
-                case 2:
-
-                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                    {
-                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                    }
-                    break;
-
-                case 3:
-
-                    for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                    {
-                        stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                    }
-                    break;
-            }
-
-            PlayerStatus.girl1_Love_exp = _girllove_param;
-
-            i = 0;
-            PlayerStatus.girl1_Love_lv = 1;
-            while (_girllove_param >= stage_levelTable[i])
-            {
-                //_girllove_param -= stage_levelTable[i];
-                PlayerStatus.girl1_Love_lv++;
-                i++;
-            }
-
-            //スライダマックスバリューも更新
-            if (PlayerStatus.girl1_Love_lv <= 1)
-            {
-                _slider.minValue = 0;
-            }
-            else
-            {
-                _slider.minValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 2];
-            }
-            _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
-
-            _slider.value = _girllove_param;
-            girl1_status.LvUpStatus();
-           
-
-            //レベル表示も更新
-            girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
-            girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
-
-
-            //表情も即時変更
-            girl1_status.CheckGokigen();
-            girl1_status.DefaultFace();
-
-            //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
-            GirlHeartEffect.LoveRateChange();            
+            GirlloveParamKoushinMethod(_girllove_param);                      
         }
+    }
+
+    void GirlLove_Koushin_nocanvas(int _girllove_param)
+    {
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
+
+        PlayerStatus.girl1_Love_exp = 0;
+
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        {
+            GirlloveParamKoushinMethod(_girllove_param);
+        }
+    }
+
+    void GirlloveParamKoushinMethod(int _girllove_param)
+    {
+        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        //女の子の反映用ハートエフェクト取得
+        GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
+        GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
+
+        //好感度バーの取得
+        _slider = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").GetComponent<Slider>();
+
+        //女の子のレベル取得
+        girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
+        girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
+
+        stage_levelTable.Clear();
+
+        //好感度レベルテーブルを取得
+        switch (GameMgr.stage_number)
+        {
+            case 1:
+
+                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                {
+                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                    //Debug.Log("stage1_levelTable: " + stage_levelTable[i]);
+                }
+
+                break;
+
+            case 2:
+
+                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                {
+                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                }
+                break;
+
+            case 3:
+
+                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+                {
+                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                }
+                break;
+        }
+
+        PlayerStatus.girl1_Love_exp = _girllove_param;
+
+        i = 0;
+        PlayerStatus.girl1_Love_lv = 1;
+        while (_girllove_param >= stage_levelTable[i])
+        {
+            //_girllove_param -= stage_levelTable[i];
+            PlayerStatus.girl1_Love_lv++;
+            i++;
+        }
+
+        //スライダマックスバリューも更新
+        if (PlayerStatus.girl1_Love_lv <= 1)
+        {
+            _slider.minValue = 0;
+        }
+        else
+        {
+            _slider.minValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 2];
+        }
+        _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+
+        _slider.value = _girllove_param;
+        girl1_status.LvUpStatus();
+
+
+        //レベル表示も更新
+        girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
+        girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
+
+
+        //表情も即時変更
+        girl1_status.CheckGokigen();
+        girl1_status.DefaultFace();
+
+        //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
+        GirlHeartEffect.LoveRateChange();
     }
 
     public void OnTasteButton()

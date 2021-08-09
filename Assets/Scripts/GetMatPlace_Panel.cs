@@ -738,6 +738,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         compound_Main.bgm_change_flag = true;
 
                         //背景のSEを鳴らす。
+                        map_ambience.MuteOFF();
                         map_ambience.OnLavenderField();
 
                         //背景エフェクト

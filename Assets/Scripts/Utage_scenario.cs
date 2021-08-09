@@ -73,6 +73,7 @@ public class Utage_scenario : MonoBehaviour
 
     //BGMの取得
     private BGM sceneBGM;
+    private Map_Ambience map_ambience;
 
     //宴のマスター音量の取得
     private GameObject utagesoundmanager_obj;
@@ -212,6 +213,7 @@ public class Utage_scenario : MonoBehaviour
                 {
                     //BGMの取得
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                    map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
                 }
 
 
@@ -578,6 +580,9 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("FoodExpenses", GameMgr.Foodexpenses);
         engine.Param.TrySetParameter("TodayFood", GameMgr.MgrTodayFood);
 
+        //環境音は先にとめる。
+        map_ambience.Mute();
+
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 
@@ -609,6 +614,7 @@ public class Utage_scenario : MonoBehaviour
 
         //BGMを再開
         sceneBGM.MuteOFFBGM();
+        map_ambience.MuteOFF();
 
         scenario_loading = false;
 
