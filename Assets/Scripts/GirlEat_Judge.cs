@@ -3186,6 +3186,9 @@ public class GirlEat_Judge : MonoBehaviour {
             //アニメーションをON。好感度パラメータの反映もここ。
             loveGetPlusAnimeON(Getlove_exp, true);
 
+            //表情も一瞬喜びに。
+            GirlHeartUpYorokobiFace();
+
             //お金の取得
             //moneyStatus_Controller.GetMoney(GetMoney);
 
@@ -3204,6 +3207,17 @@ public class GirlEat_Judge : MonoBehaviour {
         canvas.SetActive(true);
 
         ResultOFF();
+    }
+
+    IEnumerator GirlHeartUpYorokobiFace()
+    {
+
+        girl1_status.face_girl_Yorokobi();
+        girl1_status.heartUP_facechange = true;
+
+        yield return new WaitForSeconds(1.0f);
+
+        girl1_status.DefaultFace();
     }
 
     void NormalCommentEatBunki()

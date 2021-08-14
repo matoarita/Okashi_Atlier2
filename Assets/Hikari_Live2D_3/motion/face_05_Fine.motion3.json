@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 20,
-		"TotalSegmentCount": 20,
-		"TotalPointCount": 40,
+		"CurveCount": 22,
+		"TotalSegmentCount": 22,
+		"TotalPointCount": 44,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -61,10 +61,10 @@
 			"Id": "ParamBrowLY",
 			"Segments": [
 				0,
-				0,
+				0.4,
 				0,
 				1,
-				0
+				0.4
 			]
 		},
 		{
@@ -72,10 +72,10 @@
 			"Id": "ParamBrowRY",
 			"Segments": [
 				0,
-				0,
+				0.4,
 				0,
 				1,
-				0
+				0.4
 			]
 		},
 		{
@@ -105,10 +105,10 @@
 			"Id": "ParamBrowLAngle",
 			"Segments": [
 				0,
-				0,
+				-0.2,
 				0,
 				1,
-				0
+				-0.2
 			]
 		},
 		{
@@ -116,10 +116,10 @@
 			"Id": "ParamBrowRAngle",
 			"Segments": [
 				0,
-				0,
+				-0.2,
 				0,
 				1,
-				0
+				-0.2
 			]
 		},
 		{
@@ -127,10 +127,10 @@
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
-				0,
+				-0.1,
 				0,
 				1,
-				0
+				-0.1
 			]
 		},
 		{
@@ -138,10 +138,10 @@
 			"Id": "ParamBrowRForm",
 			"Segments": [
 				0,
-				0,
+				-0.1,
 				0,
 				1,
-				0
+				-0.1
 			]
 		},
 		{
@@ -149,10 +149,10 @@
 			"Id": "ParamMouthForm",
 			"Segments": [
 				0,
-				0,
+				2,
 				0,
 				1,
-				0
+				2
 			]
 		},
 		{
@@ -169,6 +169,28 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamGokigen",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAngryGyagu",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param",
 			"Segments": [
 				0,
 				0,

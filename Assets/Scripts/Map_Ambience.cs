@@ -86,9 +86,18 @@ public class Map_Ambience : MonoBehaviour {
     {
 
         FadeIn();
-        sound_hosei = 0.8f;
+        sound_hosei = 1.0f;
         _bgm[0].clip = sound2;
         _bgm[0].Play();
+    }
+
+    public void OnSunnyDayBird()
+    {
+        /*
+        FadeIn();
+        sound_hosei = 1.0f;
+        _bgm[0].clip = sound2;
+        _bgm[0].Play();*/
     }
 
     public void Play()

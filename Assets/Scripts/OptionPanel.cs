@@ -83,7 +83,9 @@ public class OptionPanel : MonoBehaviour {
         SEvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider").GetComponent<Slider>();
         SEvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider/Param").GetComponent<Text>();
 
-        bgm_toggle.Clear();
+        //BGMセレクトをONにするときは、以下の命令もONにする。
+
+        /*bgm_toggle.Clear();
         foreach (Transform child in this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Scroll_View/Viewport/Content").transform) //
         {
             bgm_toggle.Add(child.gameObject.GetComponent<Toggle>());           
@@ -93,7 +95,7 @@ public class OptionPanel : MonoBehaviour {
         {
             bgm_toggle[i].SetIsOnWithoutCallback(false);
         }
-        bgm_toggle[GameMgr.mainBGM_Num].SetIsOnWithoutCallback(true);
+        bgm_toggle[GameMgr.mainBGM_Num].SetIsOnWithoutCallback(true);*/
     }
 
     private void OnEnable()

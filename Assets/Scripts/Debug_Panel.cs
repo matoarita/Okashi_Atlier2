@@ -402,6 +402,10 @@ public class Debug_Panel : MonoBehaviour {
 
             GirlLove_Koushin(girllove_param);
 
+            compound_Main.bgm_change_story();
+            compound_Main.ChangeBGM();
+            compound_Main.Change_BGimage();
+
             compound_Main.check_GirlLoveEvent_flag = false;
         }
     }

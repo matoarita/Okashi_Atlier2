@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 19,
-		"TotalSegmentCount": 19,
-		"TotalPointCount": 38,
+		"CurveCount": 22,
+		"TotalSegmentCount": 22,
+		"TotalPointCount": 44,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -157,6 +157,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMouthOpenY",
+			"Segments": [
+				0,
+				1,
+				0,
+				1,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamGokigen",
 			"Segments": [
 				0,
@@ -164,6 +175,28 @@
 				0,
 				1,
 				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAngryGyagu",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
 			]
 		},
 		{

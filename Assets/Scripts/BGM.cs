@@ -195,18 +195,44 @@ public class BGM : MonoBehaviour {
 
     void Story_BGMSelect()
     {
-        if (GameMgr.mainBGM_Num == 0)
+        switch (GameMgr.mainBGM_Num)
         {
-            _bgm[0].clip = sound20;
+            case 0:
+
+                _bgm[0].clip = sound20;
+                break;
+
+            case 1:
+
+                _bgm[0].clip = sound11;
+                break;
+
+            case 2:
+
+                _bgm[0].clip = sound21;
+                break;
+
+            case 3:
+
+                _bgm[0].clip = sound1;
+                break;
+
+            case 4:
+
+                _bgm[0].clip = sound1;
+                break;
+
+            case 5:
+
+                _bgm[0].clip = sound19;
+                break;
+
+            default:
+
+                _bgm[0].clip = sound19;
+                break;
         }
-        else if (GameMgr.mainBGM_Num == 1)
-        {
-            _bgm[0].clip = sound21;
-        }
-        else if (GameMgr.mainBGM_Num == 2)
-        {
-            _bgm[0].clip = sound1;
-        }
+
     }
 
     public void OnMainBGM()

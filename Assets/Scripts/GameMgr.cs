@@ -392,8 +392,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ColorGreen = "<color=48EE72FF>";
 
         //通貨の名前
-        MoneyCurrency = "ゴールド";
-        MoneyCurrencyEn = "G";
+        MoneyCurrency = "ルピア";
+        MoneyCurrencyEn = "L";
     }
 	
 	// Update is called once per frame

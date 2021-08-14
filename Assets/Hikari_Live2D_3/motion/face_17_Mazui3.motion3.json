@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 14,
-		"TotalSegmentCount": 14,
-		"TotalPointCount": 28,
+		"CurveCount": 23,
+		"TotalSegmentCount": 23,
+		"TotalPointCount": 46,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -58,6 +58,83 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeSmall",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowLY",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowRY",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowLX",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowRX",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowLAngle",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBrowRAngle",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
@@ -103,6 +180,28 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamGokigen",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAngryGyagu",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param",
 			"Segments": [
 				0,
 				0,

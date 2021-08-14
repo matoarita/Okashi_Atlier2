@@ -1956,6 +1956,7 @@ public class Compound_Main : MonoBehaviour
 
                             //腹減りカウント一時停止
                             girl1_status.GirlEat_Judge_on = false;
+                            girl1_status.ResetHukidashi();
 
                             ResultComplete_flag = 0;
                             //intパラメーターの値を設定する.  
@@ -1968,7 +1969,14 @@ public class Compound_Main : MonoBehaviour
                         }
                         else
                         {
-                            ResetLive2DPos_Face();
+                            if (girl1_status.heartUP_facechange) //ハートがアップした直後の状態。喜び表情を、GirlEat_Judgeで変更する。が、なぜか現在バグで変わらない。
+                            {
+                                girl1_status.heartUP_facechange = false;
+                            }
+                            else
+                            {
+                                ResetLive2DPos_Face(); //表情をデフォルトに戻す。
+                            }
                         }
                     }
                     else
@@ -3411,32 +3419,34 @@ public class Compound_Main : MonoBehaviour
                     {
                         if (check_OkashiAfter_flag)
                         {
-
-                            if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
+                            if (!GameMgr.GirlLoveSubEvent_stage1[5] || !GameMgr.GirlLoveSubEvent_stage1[6])
                             {
-
-                            }
-                            else
-                            {
-                                if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合。フラグはたたず、やり直し
+                                if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
                                 {
 
                                 }
-                                else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
+                                else
                                 {
-                                    GameMgr.GirlLoveSubEvent_stage1[5] = true;
-                                    GameMgr.GirlLoveSubEvent_num = 5;
-                                    GameMgr.Okashi_OnepointHint_num = 9999;
+                                    if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできなかった場合。フラグはたたず、やり直し
+                                    {
 
-                                    check_GirlLoveSubEvent_flag = false;
-                                }
-                                else //クリアできた。85~
-                                {
-                                    GameMgr.GirlLoveSubEvent_stage1[6] = true;
-                                    GameMgr.GirlLoveSubEvent_num = 6;
-                                    GameMgr.Okashi_OnepointHint_num = 9999;
+                                    }
+                                    else if (GameMgr.Okashi_totalscore < GameMgr.high_score)//クリアできた。60~85
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[5] = true;
+                                        GameMgr.GirlLoveSubEvent_num = 5;
+                                        GameMgr.Okashi_OnepointHint_num = 9999;
 
-                                    check_GirlLoveSubEvent_flag = false;
+                                        check_GirlLoveSubEvent_flag = false;
+                                    }
+                                    else //クリアできた。85~
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[6] = true;
+                                        GameMgr.GirlLoveSubEvent_num = 6;
+                                        GameMgr.Okashi_OnepointHint_num = 9999;
+
+                                        check_GirlLoveSubEvent_flag = false;
+                                    }
                                 }
                             }
                         }
@@ -3850,58 +3860,124 @@ public class Compound_Main : MonoBehaviour
         ClickPanel_2.SetActive(false);
     }
 
-    //ストーリー進行度に応じてBGMが変わる。
-    void bgm_change_story()
+    //ストーリー進行度に応じてBGMが変わる。デバッグパネルからもアクセス
+    public void bgm_change_story()
     {      
 
-        if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　
+        if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　雨
         {
             GameMgr.mainBGM_Num = 0; //雨はじまり
             map_ambience.OnRainyDay(); //背景のSEを鳴らす。
         }
-        if (GameMgr.GirlLoveEvent_num >= 1) //デフォルト　
+        if (GameMgr.GirlLoveEvent_num >= 1) //くもり　どんより HLv2~
         {
             GameMgr.mainBGM_Num = 0;
             map_ambience.Stop();
         }
-        if (GameMgr.GirlLoveEvent_num >= 10)
+        if (GameMgr.GirlLoveEvent_num >= 10) //うすぐもり HLv4~
         {
-            GameMgr.mainBGM_Num = 1; //少し明るい　ラスクのBGM
+            GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
             map_ambience.Stop();
         }
-        if (GameMgr.GirlLoveEvent_num >= 20)
+        if (GameMgr.GirlLoveEvent_num >= 20) //はれ　風が強い HLv6~
         {
             GameMgr.mainBGM_Num = 2; //少し明るい　クレープのBGM
             map_ambience.Stop();
         }
-                        
+        if (GameMgr.GirlLoveEvent_num >= 30) //はれ HLv8~
+        {
+            GameMgr.mainBGM_Num = 2; //少し明るい　シュークリームのBGM
+            map_ambience.Stop();
+        }
+        if (GameMgr.GirlLoveEvent_num >= 40) //はれ HLv9~
+        {
+            GameMgr.mainBGM_Num = 3; //明るい　ドーナツのBGM
+            map_ambience.Stop();
+        }
+        if (GameMgr.GirlLoveEvent_num >= 50) //のどかなはれ HLv10~
+        {
+            GameMgr.mainBGM_Num = 4; //コンテスト　鳥の鳴き声が外でなく
+            map_ambience.OnSunnyDayBird();
+        }
+        if (PlayerStatus.girl1_Love_lv >= 15) //快晴　夕方
+        {
+            GameMgr.mainBGM_Num = 5; //少し明るい　クレープのBGM
+            map_ambience.Stop();
+        }
     }
 
     //ストーリー進行に応じて、背景の天気+エフェクトも変わる。
-    void Change_BGimage()
+    public void Change_BGimage()
     {        
-        if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　
+        if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　雨
         {
             DrawALLOFFBG();
             bgweather_image_panel.transform.Find("BG_windowout2").gameObject.SetActive(true);
             BG_Imagepanel.transform.Find("BG_sprite_01").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Rain").gameObject.SetActive(true);
         }
-        if (GameMgr.GirlLoveEvent_num >= 1) //くもり
+        if (GameMgr.GirlLoveEvent_num >= 1) //くもり　どんより HLv2~
         {
             DrawALLOFFBG();
             bgweather_image_panel.transform.Find("BG_windowout2").gameObject.SetActive(true);
             BG_Imagepanel.transform.Find("BG_sprite_02").gameObject.SetActive(true);
         }
-        if (GameMgr.GirlLoveEvent_num >= 10)
+        if (GameMgr.GirlLoveEvent_num >= 10) //うすぐもり HLv4~
         {
             DrawALLOFFBG();
             bgweather_image_panel.transform.Find("BG_windowout3").gameObject.SetActive(true);
             BG_Imagepanel.transform.Find("BG_sprite_03").gameObject.SetActive(true);
+        }
+        if (GameMgr.GirlLoveEvent_num >= 20) //やや霧がかったはれ　風が強い HLv6~
+        {
+            DrawALLOFFBG();
+            bgweather_image_panel.transform.Find("BG_windowout4").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_04").gameObject.SetActive(true);
+            //BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+            //BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+        }
+        if (GameMgr.GirlLoveEvent_num >= 30) //はれ HLv8~
+        {
+            DrawALLOFFBG();
+            bgweather_image_panel.transform.Find("BG_windowout5").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_04").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
         }
+        if (GameMgr.GirlLoveEvent_num >= 50) //のどかなはれ HLv10~
+        {
+            DrawALLOFFBG();
+            bgweather_image_panel.transform.Find("BG_windowout5").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_05").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+        }
+        if (PlayerStatus.girl1_Love_lv >= 15) //快晴　夕方
+        {
+            DrawALLOFFBG();
+            bgweather_image_panel.transform.Find("BG_windowout6").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_06").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+        }
+        if (PlayerStatus.girl1_Love_lv >= 20) //快晴　夕方　ぽんぽ日和
+        {
+            DrawALLOFFBG();
+            bgweather_image_panel.transform.Find("BG_windowout6").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_06").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+        }
+    }
+
+    public void ChangeBGM() //デバッグパネルからアクセス用
+    {
+        sceneBGM.OnMainBGM();
     }
 
     void DrawALLOFFBG()

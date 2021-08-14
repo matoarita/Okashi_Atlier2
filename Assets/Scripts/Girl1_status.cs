@@ -160,6 +160,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int random;
     private bool IdleMotionStart;
 
+    public bool heartUP_facechange;
+
     //ランダムで変化する、女の子が今食べたいお菓子のテーブル
     public List<string> girl1_hungryInfo = new List<string>();
 
@@ -411,6 +413,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         facemotion_weight = 0f;
         IdleChangeTemp = false;
         IdleMotionStart = false;
+        heartUP_facechange = false;
 
         GirlEat_Judge_on = true;
         WaitHint_on = false;
@@ -2009,7 +2012,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 Girl1_touchhair_count++;
 
-                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
+                if (Girl1_touchhair_count >= 30) //〇回以上触ると、ステータスが1段階上がる。
                 {
                     Girl1_touchhair_status = 10;
                 }
@@ -2074,7 +2077,147 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }             
         
     }
-    
+
+    //髪なでなで時のモーションセット1
+    void HairTouch_Motion()
+    {
+        weightTween.Kill(); //フェードアウト中なら中断する
+        tween_start = false;
+        facemotion_start = false;
+
+        switch (GirlGokigenStatus)
+        {
+            case 0: //HLv 1
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("Nade_motion_01", 2, 0.0f);
+                break;
+
+            case 1: //HLv 2
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("Nade_motion_01", 2, 0.0f);
+                break;
+
+            case 2: //HLv 3
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
+                break;
+
+            case 3: //HLv 4
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
+                break;
+
+            case 4: //HLv 5
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
+                break;
+
+            case 5: //HLv 6
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
+                break;
+
+            default:
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
+                break;
+        }
+        facemotion_weight = 1.0f;
+    }
+
+    //髪なでなで時のモーションセット2
+    void HairTouch_Motion2()
+    {
+
+        switch (GirlGokigenStatus)
+        {
+            case 0: //HLv 1
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 1: //HLv 2
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 2: //HLv 3
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 3: //HLv 4
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 4: //HLv 5
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 5: //HLv 6
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            default:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+        }
+    }
+
+    //髪なでなで時のモーションセット3
+    void HairTouch_Motion3()
+    {
+
+        switch (GirlGokigenStatus)
+        {
+            case 0: //HLv 1
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 1: //HLv 2
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 2: //HLv 3
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 3: //HLv 4
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 4: //HLv 5
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 5: //HLv 6
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            default:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+        }
+    }
+
 
     //ツインテール　一回さわった
     public void Touchtwintail_Start()
@@ -2261,139 +2404,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         weightTween.Kill(); //フェードアウト中なら中断する
         tween_start = false;
-    }
-
-    //髪なでなで時のモーションセット1
-    void HairTouch_Motion()
-    {
-        weightTween.Kill(); //フェードアウト中なら中断する
-        tween_start = false;
-        facemotion_start = false;
-
-        switch (GirlGokigenStatus)
-        {
-            case 0: //HLv 1
-
-                live2d_animator.SetLayerWeight(2, 1);
-                live2d_animator.Play("Nade_motion_01", 2, 0.0f);
-                break;
-
-            case 1: //HLv 2
-
-                live2d_animator.SetLayerWeight(2, 1);
-                live2d_animator.Play("Nade_motion_01", 2, 0.0f);
-                break;
-
-            case 2: //HLv 3
-
-                live2d_animator.SetLayerWeight(2, 1);
-                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
-                break;
-
-            case 3: //HLv 4
-
-                live2d_animator.SetLayerWeight(2, 1);
-                live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
-                break;
-
-            case 4: //HLv 5
-
-
-                break;
-
-            case 5: //HLv 6
-
-
-                break;
-
-            default:
-
-                break;
-        }
-        facemotion_weight = 1.0f;
-    }
-
-    //髪なでなで時のモーションセット2
-    void HairTouch_Motion2()
-    {
-
-        switch (GirlGokigenStatus)
-        {
-            case 0: //HLv 1
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            case 1: //HLv 2
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            case 2: //HLv 3
-
-
-                break;
-
-            case 3: //HLv 4
-
-                break;
-
-            case 4: //HLv 5
-
-
-                break;
-
-            case 5: //HLv 6
-
-
-                break;
-
-            default:
-
-                break;
-        }
-    }
-
-    //髪なでなで時のモーションセット3
-    void HairTouch_Motion3()
-    {
-
-        switch (GirlGokigenStatus)
-        {
-            case 0: //HLv 1
-
-                //live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            case 1: //HLv 2
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            case 2: //HLv 3
-
-
-                break;
-
-            case 3: //HLv 4
-
-                break;
-
-            case 4: //HLv 5
-
-
-                break;
-
-            case 5: //HLv 6
-
-
-                break;
-
-            default:
-
-                break;
-        }
-    }
+    }   
 
     //ランダムで左右に動く
     void IdleMoveX()
@@ -3123,11 +3134,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         stage1_lvTable.Add(200); //LV5
         stage1_lvTable.Add(350); //LV6
         stage1_lvTable.Add(550); //LV7
+        stage1_lvTable.Add(800); //LV8
+        stage1_lvTable.Add(1070); //LV9
+        stage1_lvTable.Add(1370); //LV10
+        stage1_lvTable.Add(1700); //LV11
+        stage1_lvTable.Add(2000); //LV12
+        stage1_lvTable.Add(2400); //LV13
+        stage1_lvTable.Add(2850); //LV14
+        stage1_lvTable.Add(3350); //LV15
 
-        //LV8以上～99まで　200ごとに上がるように設定
+        //LV16以上～99まで　200ごとに上がるように設定
         for (i=1; i < ( 99 - stage1_lvTable.Count); i++)
         {
-            stage1_lvTable.Add(stage1_lvTable[stage1_lvTable.Count-1] + (i*200));
+            stage1_lvTable.Add(stage1_lvTable[stage1_lvTable.Count-1] + 200);
         }
     }
 
