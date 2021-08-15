@@ -14,8 +14,11 @@ public class ShopItemListController : MonoBehaviour
 
     private Text[] _text = new Text[3];
     private Sprite texture2d;
+    private Sprite texture_emeraldIcon;
+    private Sprite texture_sapphireIcon;
     private Sprite touchon, touchoff;
     private Image _Img;
+    private Image _ImgDongriIcon;
     private Image _togglebg;
     private shopitemSelectToggle _toggle_itemID;
 
@@ -45,6 +48,7 @@ public class ShopItemListController : MonoBehaviour
     public int shop_kettei_ID; //ショップデータベースIDが入る。
     public int shop_kettei_item1; //選択したアイテムのアイテムIDが入る。通常アイテムなら、アイテムID、イベントアイテムならイベントリストのアイテムID。
     public int shop_itemType;
+    public int shop_dongriType;
     public int shop_costprice; //金額
     public string shop_itemName_Hyouji; //最終的に買うアイテム名がはいる。
 
@@ -82,6 +86,10 @@ public class ShopItemListController : MonoBehaviour
         //アイコン背景画像データの取得
         touchon = Resources.Load<Sprite>("Sprites/Window/sabwindowB");
         touchoff = Resources.Load<Sprite>("Sprites/Window/checkbox");
+
+        //どんぐりアイコンの取得
+        texture_emeraldIcon = Resources.Load<Sprite>("Sprites/Icon/emeralDonguri_icon");
+        texture_sapphireIcon = Resources.Load<Sprite>("Sprites/Icon/sapphireDonguri_icon");
 
         foreach (Transform child in this.transform.Find("CategoryView/Viewport/Content/").transform)
         {
@@ -678,6 +686,7 @@ public class ShopItemListController : MonoBehaviour
         _shop_listitem.Add(Instantiate(shopitem_Prefab2, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
         _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _ImgDongriIcon = _shop_listitem[list_count].transform.Find("Background/Item_price_emerald").GetComponent<Image>(); //どんぐりアイコンデータ
         _togglebg = _shop_listitem[list_count].transform.Find("Background").GetComponent<Image>(); //アイコン背景データ
 
         _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
@@ -686,6 +695,7 @@ public class ShopItemListController : MonoBehaviour
         _toggle_itemID.toggle_shopitem_type = shop_database.emeraldshop_items[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
         _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.emeraldshop_items[i].shop_itemNameHyouji; //表示用の名前
         _toggle_itemID.toggle_shopitem_costprice = shop_database.emeraldshop_items[i].shop_costprice; //単価
+        _toggle_itemID.toggle_shopitem_dongri_type = shop_database.emeraldshop_items[i].shop_dongriType; //どんぐりタイプ
 
 
         item_name = shop_database.emeraldshop_items[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
@@ -704,17 +714,41 @@ public class ShopItemListController : MonoBehaviour
         _Img.sprite = texture2d;
 
         //エメラルどんぐりが足りない場合は、選択できないようにする。
-        emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
-        if (pitemlist.playeritemlist[emeraldonguriID] < shop_database.emeraldshop_items[i].shop_costprice)
+        switch(shop_database.emeraldshop_items[i].shop_dongriType)
         {
-            _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
-            //_togglebg.sprite = touchoff;
+            case 0: //エメラルどんぐり
+
+                _ImgDongriIcon.sprite = texture_emeraldIcon;                
+                emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+                if (pitemlist.playeritemlist[emeraldonguriID] < shop_database.emeraldshop_items[i].shop_costprice)
+                {
+                    _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                    //_togglebg.sprite = touchoff;
+                }
+                else
+                {
+                    _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
+                    //_togglebg.sprite = touchon;
+                }
+                break;
+
+            case 1: //サファイアどんぐり
+
+                _ImgDongriIcon.sprite = texture_sapphireIcon;
+                emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
+                if (pitemlist.playeritemlist[emeraldonguriID] < shop_database.emeraldshop_items[i].shop_costprice)
+                {
+                    _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                    //_togglebg.sprite = touchoff;
+                }
+                else
+                {
+                    _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
+                    //_togglebg.sprite = touchon;
+                }
+                break;
         }
-        else
-        {
-            _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
-            //_togglebg.sprite = touchon;
-        }
+        
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 
         ++list_count;

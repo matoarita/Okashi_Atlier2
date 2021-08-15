@@ -283,6 +283,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
     private bool dislike_flag;
     private int dislike_status;
+    private int dislike_num; //あぶらっこいか、水っぽいか、粉っぽいを判別
 
     public int girllike_point;
 
@@ -1259,16 +1260,19 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             dislike_flag = false;
             dislike_status = 3;
+            dislike_num = 0;
         }
         if (_baseoily > 50)
         {
             dislike_flag = false;
             dislike_status = 3;
+            dislike_num = 1;
         }
         if (_basewatery > 50)
         {
             dislike_flag = false;
             dislike_status = 3;
+            dislike_num = 2;
         }
 
         if (_basegirl1_like <= 0) //女の子の好みが-のものも、嫌われる。お菓子それ自体が嫌い、ということ。
@@ -2227,7 +2231,16 @@ public class GirlEat_Judge : MonoBehaviour {
             //Delicious_Text.text = "Death..";
 
             star_Count = 0;
-            SetHintText(2); //マズイとき時
+
+            if(dislike_status == 3)
+            {
+                SetHintText(3); //粉っぽいなどのマイナスの時
+            }
+            else
+            {
+                SetHintText(2); //マズイとき時
+            }
+            
             Hint_Text.text = temp_hint_text;
         }
 
@@ -2322,8 +2335,27 @@ public class GirlEat_Judge : MonoBehaviour {
                     }
                 }
             }*/
-            
 
+            //クエストのときに、特定のお菓子をあげると、次クエストが分岐する。
+            SPQuest_BunkiCheck();
+        }
+    }
+
+    void SPQuest_BunkiCheck()
+    {
+        switch(GameMgr.OkashiQuest_Num)
+        {
+            case 10: //ラスク　条件分岐
+
+                if (total_score >= GameMgr.low_score) //６０点以上で、ラスクレモンかラスクオレンジをあげる
+                {
+                    if(_basename == "rusk_lemon" || _basename == "rusk_orange")
+                    {
+                        //すっぱいラスクを食べたので、次のクエストは別のおかしに。
+                        GameMgr.Okashi_quest_bunki_on = 1;
+                    }
+                }
+                break;
         }
     }
 
@@ -3419,8 +3451,15 @@ public class GirlEat_Judge : MonoBehaviour {
         //初期化 
         girl1_status.special_animatFirst = false;
 
-        //次のお菓子クエストがあるかどうかをチェック。
-        QuestBunki();
+        //次のお菓子クエストがあるかどうかをチェック。特定の条件を満たしていれば、ルートが分岐する。
+        if (GameMgr.Okashi_quest_bunki_on == 0)
+        {
+            QuestBunki();
+        }
+        else //1~の数字のときは、分岐開始
+        {
+            QuestBunki2();
+        } 
     }
 
     void QuestBunki()
@@ -3473,6 +3512,40 @@ public class GirlEat_Judge : MonoBehaviour {
             GameMgr.stageclear_cullentlove = 0;
         }
 
+    }
+
+    void QuestBunki2()
+    {
+        GameMgr.MesaggeKoushinON = false;
+
+        switch (GameMgr.OkashiQuest_Num)
+        {
+            case 10: //ラスク　条件分岐
+
+                GameMgr.GirlLoveEvent_num = 12;
+                break;
+        }
+
+        subQuestClear_check = false;
+        special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 0);
+
+        ResultOFF();
+
+        //お菓子の判定処理を終了
+        compound_Main.girlEat_ON = false;
+        compound_Main.compound_status = 0;
+
+        girl1_status.timeGirl_hungry_status = 0;
+        girl1_status.timeOut = 1.0f; //次クエストをすぐ開始
+
+        GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
+        GameMgr.QuestClearButton_anim = false;
+        GameMgr.QuestClearCommentflag = false;
+        GameMgr.stageclear_cullentlove = 0;
+
+        GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
+
+        GameMgr.Okashi_quest_bunki_on = 0;
     }
 
     //そのクエストをクリアしたフラグをONにする。
@@ -3838,6 +3911,27 @@ public class GirlEat_Judge : MonoBehaviour {
                 temp_hint_text = "マズすぎるぅ..。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
                 break;
 
+            case 3: //粉っぽいなどのとき
+
+                switch(dislike_num)
+                {
+                    case 0: //粉っぽい
+
+                        temp_hint_text = "粉っぽいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
+                        break;
+
+                    case 1: //油っぽい
+
+                        temp_hint_text = "あぶらっこいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
+                        break;
+
+                    case 2: //水っぽい　粉＜油＜水の順
+
+                        temp_hint_text = "水っぽいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
+                        break;
+                }
+                break;
+
             default:
                 break;
         }
@@ -4122,37 +4216,44 @@ public class GirlEat_Judge : MonoBehaviour {
             case 0:
 
                 _commentDict.Add("..。");
-                _commentDict.Add("さくさく・・。");
                 break;
 
             case 1:
 
-                _commentDict.Add(".. ..。");
+                _commentDict.Add("..。");
+                _commentDict.Add("さくさく・・。");
                 _commentDict.Add("..おいしい。");
                 break;
 
             case 2:
+
+                _commentDict.Add(".. ..。");
+                _commentDict.Add("..おいしい。");
+                _commentDict.Add("..むむ。いいお味。");
+                break;
+
+            case 3:
 
                 _commentDict.Add("兄ちゃん、おじょうず..。");
                 _commentDict.Add("あま～。兄ちゃん、これおいしい。");
                 _commentDict.Add("さくさく・・。うまうま・・。");
                 break;
 
-            case 3:
+            case 4:
 
                 _commentDict.Add("兄ちゃん、このおかしうめぇ。");
                 _commentDict.Add("うみゃ～♪");
                 _commentDict.Add("さくさく。うまうま。");
                 break;
 
-            case 4:
+            case 5:
 
                 _commentDict.Add("腕をあげたねぇ、お兄ちゃん。");
                 _commentDict.Add("うまいな！");
                 _commentDict.Add("さくさく。うまうま。かりかり。");
                 break;
 
-            case 5:
+            case 6:
 
                 _commentDict.Add("お兄ちゃん！これ最高！");
                 _commentDict.Add("安定のおあじ..");

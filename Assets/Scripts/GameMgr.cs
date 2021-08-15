@@ -150,6 +150,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
     public static int Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
     public static int Okashi_totalscore; //女の子にあげたときの点数
+    public static int Okashi_quest_bunki_on; //特定お菓子のときの条件分岐
 
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
@@ -225,6 +226,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //public static bool clear_spokashi_flag; //SPお菓子でクリアしたか、好感度あげてクリアしたかどうか。現在未使用。
     public static bool QuestClearAnim_Flag;   //クリアしたときに、ボタンを登場させるか否かのフラグ。そのクエストの最後のときだけ演出をだす時に使う。
     public static bool QuestClearCommentflag; //一回SPクリアしたあと、感想をだしたかどうか。
+    public static int Okashi_quest_bunki_num; //条件分岐した場合の、クエスト番号
 
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num; //セーブはしなくてもGirlLoveEvent_numからロード時に自動で設定し直すので大丈夫。
@@ -500,6 +502,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_totalscore = 0;
         Okashi_dislike_status = 0;
         Okashi_OnepointHint_num = 0;
+        Okashi_quest_bunki_on = 0;
 
         sys_extreme_itemID = 9999;
         sys_extreme_itemType = 0;

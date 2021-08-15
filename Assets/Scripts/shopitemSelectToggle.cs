@@ -56,6 +56,7 @@ public class shopitemSelectToggle : MonoBehaviour
     public string toggle_shopitem_nameHyouji; //表示用名前
     public int toggle_shopitem_costprice; //金額も保持
     public int toggle_shopitem_type; //リストの要素に、通常アイテムか、イベントアイテム判定用のタイプを保持する。
+    public int toggle_shopitem_dongri_type; //どんぐりタイプも保持
 
     private int i;
 
@@ -194,6 +195,7 @@ public class shopitemSelectToggle : MonoBehaviour
         shopitemlistController.shop_kettei_ID = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shop_ID; //ショップIDを入れる。
         shopitemlistController.shop_kettei_item1 = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_ID; //アイテムIDを入れる。
         shopitemlistController.shop_itemType = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_type; //判定用アイテムタイプを入れる。
+        shopitemlistController.shop_dongriType = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_dongri_type;
         _item_Namehyouji = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_nameHyouji; //表示用ネームを入れる。
         shopitemlistController.shop_itemName_Hyouji = _item_Namehyouji;
         shopitemlistController.shop_costprice = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_costprice;
@@ -297,8 +299,21 @@ public class shopitemSelectToggle : MonoBehaviour
         {
             case "Emerald_Shop":
 
-                _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
+                switch(shopitemlistController.shop_dongriType)
+                {
+                    case 0: //エメラルどんぐり
+
+                        _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
             "エメラルどんぐり　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + "個</color>" + "いただくよ。";
+                        break;
+
+                    case 1: //サファイアどんぐり
+
+                        _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
+            "サファイアどんぐり　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + "個</color>" + "いただくよ。";
+                        break;
+                }
+                
                 break;
 
             default:
@@ -411,10 +426,25 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 case "Emerald_Shop":
 
-                    emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+                    switch (shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_dongriType)
+                    {
+                        case 0: //エメラルどんぐり
 
-                    player_money = pitemlist.playeritemlist[emeraldonguriID];
-                    _cost = shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                            emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+
+                            player_money = pitemlist.playeritemlist[emeraldonguriID];
+                            _cost = shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                            break;
+
+                        case 1: //サファイアどんぐり
+
+                            emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
+
+                            player_money = pitemlist.playeritemlist[emeraldonguriID];
+                            _cost = shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                            break;
+                    }
+                            
 
                     break;
             }

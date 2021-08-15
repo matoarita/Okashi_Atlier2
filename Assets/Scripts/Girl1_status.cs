@@ -942,40 +942,46 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void CheckGokigen()
     {
         //女の子の今のご機嫌
-        if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 2) //1
+        if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 2) // HLv 1
         {
-            //ご機嫌ななめ
+            //テンションが低すぎて暗い
             GirlGokigenStatus = 0;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 3) //2
+        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 4) //2~3
+        {
+            //ご機嫌ななめ
+            GirlGokigenStatus = 1;
+
+        }
+        else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 6) //4~5
         {
             //少し機嫌が悪い
-            GirlGokigenStatus = 1;
+            GirlGokigenStatus = 2;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 4) //3
+        else if (PlayerStatus.girl1_Love_lv >= 6 && PlayerStatus.girl1_Love_lv < 8) //6~7
         {
             //ちょっと元気でてきた
-            GirlGokigenStatus = 2;
-            
-        }
-        else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 5) //4
-        {
-            //だいぶ元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 6) //5
+        else if (PlayerStatus.girl1_Love_lv >= 8 && PlayerStatus.girl1_Love_lv < 10) //8~9
         {
-            //元気
+            //だいぶ元気でてきた
             GirlGokigenStatus = 4;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 6) //6~
+        else if (PlayerStatus.girl1_Love_lv >= 10 && PlayerStatus.girl1_Love_lv < 13) //10~12
+        {
+            //元気
+            GirlGokigenStatus = 5;
+            
+        }
+        else if (PlayerStatus.girl1_Love_lv >= 13) //13~
         {
             //最高に上機嫌
-            GirlGokigenStatus = 5;
+            GirlGokigenStatus = 6;
             
         }
     }
@@ -995,22 +1001,26 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 1:
-                face_girl_Little_Fine();
+                face_girl_Bad();
                 break;
 
             case 2:
-                face_girl_Fine();
+                face_girl_Little_Fine();
                 break;
 
             case 3:
-                face_girl_Normal();
+                face_girl_Fine();
                 break;
 
             case 4:
-                face_girl_Joukigen();
+                face_girl_Normal();
                 break;
 
             case 5:
+                face_girl_Joukigen();
+                break;
+
+            case 6:
                 face_girl_Joukigen();
                 break;
 
@@ -1043,14 +1053,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 3:
-                face_girl_Normal();
+                face_girl_Fine();
                 break;
 
             case 4:
-                face_girl_Joukigen();
+                face_girl_Normal();
                 break;
 
             case 5:
+                face_girl_Joukigen();
+                break;
+
+            case 6:
                 face_girl_Joukigen();
                 break;
 
@@ -2087,37 +2101,43 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         switch (GirlGokigenStatus)
         {
-            case 0: //HLv 1
+            case 0: 
 
                 live2d_animator.SetLayerWeight(2, 1);
                 live2d_animator.Play("Nade_motion_01", 2, 0.0f);
                 break;
 
-            case 1: //HLv 2
+            case 1:
 
                 live2d_animator.SetLayerWeight(2, 1);
                 live2d_animator.Play("Nade_motion_01", 2, 0.0f);
                 break;
 
-            case 2: //HLv 3
+            case 2: 
+
+                live2d_animator.SetLayerWeight(2, 1);
+                live2d_animator.Play("Nade_motion_01", 2, 0.0f);
+                break;
+
+            case 3: 
 
                 live2d_animator.SetLayerWeight(2, 1);
                 live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
                 break;
 
-            case 3: //HLv 4
+            case 4: 
 
                 live2d_animator.SetLayerWeight(2, 1);
                 live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
                 break;
 
-            case 4: //HLv 5
+            case 5: 
 
                 live2d_animator.SetLayerWeight(2, 1);
                 live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
                 break;
 
-            case 5: //HLv 6
+            case 6: 
 
                 live2d_animator.SetLayerWeight(2, 1);
                 live2d_animator.Play("tapmotion_01_2", 2, 0.0f);
@@ -2138,32 +2158,37 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         switch (GirlGokigenStatus)
         {
-            case 0: //HLv 1
+            case 0: 
 
                 live2d_animator.SetInteger("trans_nade", 10);
                 break;
 
-            case 1: //HLv 2
+            case 1: 
 
                 live2d_animator.SetInteger("trans_nade", 10);
                 break;
 
-            case 2: //HLv 3
+            case 2: 
 
                 live2d_animator.SetInteger("trans_nade", 10);
                 break;
 
-            case 3: //HLv 4
+            case 3: 
 
                 live2d_animator.SetInteger("trans_nade", 10);
                 break;
 
-            case 4: //HLv 5
+            case 4: 
 
                 live2d_animator.SetInteger("trans_nade", 10);
                 break;
 
-            case 5: //HLv 6
+            case 5: 
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 6:
 
                 live2d_animator.SetInteger("trans_nade", 10);
                 break;
@@ -2181,32 +2206,37 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         switch (GirlGokigenStatus)
         {
-            case 0: //HLv 1
+            case 0: 
 
                 live2d_animator.SetInteger("trans_nade", 11);
                 break;
 
-            case 1: //HLv 2
+            case 1: 
 
                 live2d_animator.SetInteger("trans_nade", 11);
                 break;
 
-            case 2: //HLv 3
+            case 2: 
 
                 live2d_animator.SetInteger("trans_nade", 11);
                 break;
 
-            case 3: //HLv 4
+            case 3: 
 
                 live2d_animator.SetInteger("trans_nade", 11);
                 break;
 
-            case 4: //HLv 5
+            case 4: 
 
                 live2d_animator.SetInteger("trans_nade", 11);
                 break;
 
-            case 5: //HLv 6
+            case 5:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 6:
 
                 live2d_animator.SetInteger("trans_nade", 11);
                 break;
@@ -2482,7 +2512,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     else
                     {
-                        trans_facemotion = 3; //ママのいない悲しみモーション
+                        trans_facemotion = 1; //ママのいない悲しみモーション
                         
                         IdleMotionHukidashiSetting(trans_facemotion); //吹き出しも一緒に生成
                         IdleChangeTemp = true;
@@ -2499,17 +2529,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     else
                     {
-                        trans_facemotion = 3; //ママのいない悲しみモーション
+                        trans_facemotion = 1; //ママのいない悲しみモーション
 
                         IdleMotionHukidashiSetting(trans_facemotion);
                         IdleChangeTemp = true;
                     }
                     break;
 
-                case 2: //HLv3 ノーマル
+                case 2:
 
-                    random = Random.Range(0, 5); //0~3
-                    trans_facemotion = random + 1; //1はじまり
+                    random = Random.Range(0, 4); //0~3
+                    trans_facemotion = random + 10; //10はじまりが、ちょっと動くモーション
 
                     IdleMotionHukidashiSetting(trans_facemotion);
                     IdleChangeTemp = true;
@@ -2517,8 +2547,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 3:
 
-                    random = Random.Range(0, 5); //0~3
-                    trans_facemotion = random + 1; //1はじまり
+                    random = Random.Range(0, 4); //0~3
+                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
 
                     IdleMotionHukidashiSetting(trans_facemotion);
                     IdleChangeTemp = true;
@@ -2526,8 +2556,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 4:
 
-                    random = Random.Range(0, 6); //0~3
-                    trans_facemotion = random + 1; //1はじまり
+                    random = Random.Range(0, 4); //0~3
+                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
 
                     IdleMotionHukidashiSetting(trans_facemotion);
                     IdleChangeTemp = true;
@@ -2535,8 +2565,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 5:
 
-                    random = Random.Range(0, 6); //0~3
-                    trans_facemotion = random + 1; //1はじまり
+                    random = Random.Range(0, 4); //0~3
+                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
+
+                    IdleMotionHukidashiSetting(trans_facemotion);
+                    IdleChangeTemp = true;
+                    break;
+
+                case 6:
+
+                    random = Random.Range(0, 4); //0~3
+                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
 
                     IdleMotionHukidashiSetting(trans_facemotion);
                     IdleChangeTemp = true;
@@ -2544,8 +2583,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 default:
 
-                    random = Random.Range(0, 6); //0~3
-                    trans_facemotion = random + 1; //1はじまり
+                    random = Random.Range(0, 4); //0~3
+                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
 
                     IdleMotionHukidashiSetting(trans_facemotion);
                     IdleChangeTemp = true;
@@ -2572,7 +2611,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         switch (_motion_num)
         {
 
-            case 3: //悲しみモーションのときのセリフ
+            case 1: //悲しみモーションのときのセリフ
 
                 
                 _touchface_comment_lib.Clear();
@@ -2584,12 +2623,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("..。にいちゃん。..。なんでもない。");
 
                 break;
-
-            /*case 2: //怒るモーション
-
-                _touchface_comment_lib.Clear();
-                _touchface_comment_lib.Add("..にいちゃん。頑張ってね☆");
-                break;*/
 
             default:
 
@@ -2683,6 +2716,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment_lib.Add(".. ..。");
                 _touchhead_comment_lib.Add("グガーーー！！！！");
                 break;
+
+            case 6:
+
+                _touchhead_comment_lib.Add("おにいちゃん..。");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add("うひひ..。");
+                _touchhead_comment_lib.Add("クッキーのにおい..。うまそ..。");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add(".. ..。");
+                _touchhead_comment_lib.Add("グガーーー！！！！");
+                break;
         }
 
     }
@@ -2748,6 +2792,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("お兄ちゃん。あたたかい～。");
                 _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
                 break;
+
+            case 6:
+
+                _touchface_comment_lib.Add("キラキラ♪");
+                _touchface_comment_lib.Add("兄ちゃん！大好き！！");
+                _touchface_comment_lib.Add("兄ちゃんのお菓子、こころがぽかぽかするんじゃ～");
+                _touchface_comment_lib.Add("兄ちゃんのおてて、あたたか～い");
+                _touchface_comment_lib.Add("お兄ちゃん。あたたかい～。");
+                _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
+                break;
         }
 
         //パティシエレベルに応じて、ヒントをだす。
@@ -2777,8 +2831,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             case 0:
 
-                _touchtwintail_comment_lib.Add("..");
-                _touchtwintail_comment_lib.Add("（髪の毛さらさら）");
+                _touchtwintail_comment_lib.Add("うわ");
+                _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
@@ -2789,7 +2843,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 1:
 
                 _touchtwintail_comment_lib.Add("..!");
-                _touchtwintail_comment_lib.Add("（髪の毛さらさら）");
+                _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..気持ちいい。");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
@@ -2799,7 +2853,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 2:
 
-                _touchtwintail_comment_lib.Add("にいちゃん、髪の毛さわる？");
+                _touchtwintail_comment_lib.Add("わっ");
                 _touchtwintail_comment_lib.Add("お母さんゆずりで、さらさらなんだよ～。");
                 _touchtwintail_comment_lib.Add("お母さん、元気かなぁ～..。");
                 _touchtwintail_comment_lib.Add("..。");
@@ -2832,7 +2886,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 5:
 
-                _touchtwintail_comment_lib.Add("わ～い♪");
+                _touchtwintail_comment_lib.Add("うわ～い♪");
+                _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
+                _touchtwintail_comment_lib.Add("しゃらら～ん");
+                _touchtwintail_comment_lib.Add("あ～..♪");
+                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（さらさら..。）");
+                break;
+
+            case 6:
+
+                _touchtwintail_comment_lib.Add("うわ～い♪");
                 _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
                 _touchtwintail_comment_lib.Add("しゃらら～ん");
                 _touchtwintail_comment_lib.Add("あ～..♪");
@@ -2860,13 +2925,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1:
 
+                _touchchest_comment_lib.Add("..。");
+                _touchchest_comment_lib.Add("こら！胸を触るな、にいちゃん！");
+
+                break;
+
+            case 2:
+
                 _touchchest_comment_lib.Add("..？");
                 _touchchest_comment_lib.Add("..。");
                 _touchchest_comment_lib.Add("変なとこ触っちゃだめ！");
 
                 break;
 
-            case 2:
+            case 3:
 
                 _touchchest_comment_lib.Add(".。");
                 _touchchest_comment_lib.Add("胸をさわられると、はずかしいよ～。");
@@ -2875,7 +2947,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
 
-            case 3:
+            case 4:
 
                 _touchchest_comment_lib.Add("..！");
                 _touchchest_comment_lib.Add("兄ちゃんのえっちー！");
@@ -2884,7 +2956,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
 
-            case 4:
+            case 5:
 
                 _touchchest_comment_lib.Add("！！");
                 _touchchest_comment_lib.Add("えっち！ばか！！");
@@ -2895,7 +2967,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
 
-            case 5:
+            case 6:
 
                 _touchchest_comment_lib.Add("！");
                 _touchchest_comment_lib.Add("ばか..！！");
@@ -2926,27 +2998,43 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhand_comment_lib.Add("あったか～い..。");
 
                 break;
-/*
+
             case 1:
 
+                _touchhand_comment_lib.Add("にいちゃん。おてて？");
+                _touchhand_comment_lib.Add("あったか～い..。");
                 break;
 
             case 2:
 
+                _touchhand_comment_lib.Add("にいちゃん。おてて？");
+                _touchhand_comment_lib.Add("あったか～い..。");
                 break;
 
             case 3:
 
+                _touchhand_comment_lib.Add("にいちゃん。おてて？");
+                _touchhand_comment_lib.Add("あったか～い..。");
                 break;
 
             case 4:
 
+                _touchhand_comment_lib.Add("にいちゃん。おてて？");
+                _touchhand_comment_lib.Add("あったか～い..。");
                 break;
 
             case 5:
 
+                _touchhand_comment_lib.Add("にいちゃん。おてて？");
+                _touchhand_comment_lib.Add("あったか～い..。");
                 break;
-                */
+
+            case 6:
+
+                _touchhand_comment_lib.Add("にいちゃん。おてて？");
+                _touchhand_comment_lib.Add("あったか～い..。");
+                break;
+
             default:
 
                 _touchhand_comment_lib.Add("にいちゃん。おてて？");
@@ -3019,8 +3107,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //intパラメーターの値を設定する.  
         trans_expression = 7; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
-
-        //s.sprite = Girl1_img_smile;
     }
 
     public void face_girl_Angry()
@@ -3030,8 +3116,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //intパラメーターの値を設定する.  
         trans_expression = 8; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
-
-        //s.sprite = Girl1_img_angry;
     }
 
     public void face_girl_Hirameki()
@@ -3041,8 +3125,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //intパラメーターの値を設定する.  
         trans_expression = 9; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
-
-        //s.sprite = Girl1_img_hirameki;
     }
 
     public void face_girl_Mazui()
@@ -3111,6 +3193,106 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //intパラメーターの値を設定する.  
         trans_expression = 16; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Mazui3()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 17; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Surprise2()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 18; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Surprise3()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 19; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Angry2()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 20; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_KomariGyagu()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 21; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Mogumogu()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 22; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Mogumogu2()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 23; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Mogumogu3()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 24; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Yorokobi2()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 25; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_KomariGyagu2()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 26; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
 
     }

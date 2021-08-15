@@ -14,7 +14,7 @@ public class Touch_Controller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        BG = GameObject.FindWithTag("BGImageTouchObj");
+        BG = GameObject.FindWithTag("BGAccessory");
         Character = GameObject.FindWithTag("Character");
 
         //touch_obj.Add(BG.transform.Find("TouchBell").gameObject);

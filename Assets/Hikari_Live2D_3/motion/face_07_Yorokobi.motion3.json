@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 22,
-		"TotalSegmentCount": 22,
-		"TotalPointCount": 44,
+		"CurveCount": 25,
+		"TotalSegmentCount": 25,
+		"TotalPointCount": 50,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -43,6 +43,28 @@
 				0,
 				1,
 				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeBallX",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeBallY",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
 			]
 		},
 		{
@@ -246,6 +268,17 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamKirakiraEye",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamHiLightOn",
 			"Segments": [
 				0,
 				0,

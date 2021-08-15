@@ -15,6 +15,7 @@ public class ItemShop
     public string shop_itemNameHyouji;  //名前　ゲーム中での表示用。日本語。
     public Sprite shop_itemIcon;     //アイコン
     public int shop_itemType;       //アイテムのカテゴリータイプ　レシピなのか、機材系なのか、など。
+    public int shop_dongriType;     //エメラルショップで使用するどんぐりの種類
 
     public int shop_costprice; //アイテムの値段。アイテムDBから引っ張ってくる。
     public int shop_sellprice; //アイテムの売却時の値段。アイテムDBから引っ張ってくる。
@@ -25,7 +26,7 @@ public class ItemShop
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemShop(int id, int _itemID, Sprite _icon, string name, string nameHyouji, int cost, int sell, int zaiko, int _itemType, int item_hyouji, bool item_hyouji_on)
+    public ItemShop(int id, int _itemID, Sprite _icon, string name, string nameHyouji, int cost, int sell, int zaiko, int _itemType, int _dongriType, int item_hyouji, bool item_hyouji_on)
     {
         shop_ID = id;
         shop_itemID = _itemID;
@@ -37,6 +38,7 @@ public class ItemShop
         shop_itemIcon = _icon;
 
         shop_itemType = _itemType;
+        shop_dongriType = _dongriType;
 
         shop_costprice = cost;
         shop_sellprice = sell;

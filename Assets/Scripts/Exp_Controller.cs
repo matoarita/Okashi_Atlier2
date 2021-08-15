@@ -95,6 +95,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private Text _hukidashitext;
   
     private int toggle_type1;
+    private int dongri_type;
     private int kettei_item1;
 
     private int result_item;
@@ -1032,6 +1033,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //Debug.Log("決定したアイテムID: " + kettei_item1 + " リスト番号: " + shopitemlistController.shop_count);
 
         toggle_type1 = shopitemlistController.shop_itemType;
+        dongri_type = shopitemlistController.shop_dongriType;
 
         result_kosu = shopitemlistController.shop_final_itemkosu_1; //買った個数
 
@@ -1092,9 +1094,21 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 kaeruCoin_Controller = canvas.transform.Find("KaeruCoin_Panel").GetComponent<KaeruCoin_Controller>();
 
-                //エメラルどんぐり数をへらす
-                kaeruCoin_Controller.UseCoin(shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
+                switch(dongri_type)
+                {
+                    case 0:
 
+                        //エメラルどんぐり数をへらす
+                        kaeruCoin_Controller.UseCoin(shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
+                        break;
+
+                    case 1:
+
+                        //サファイアどんぐり数をへらす
+                        kaeruCoin_Controller.UseCoin2(shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
+                        break;
+                }
+                
                 //ショップの在庫をへらす。
                 shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
                 break;

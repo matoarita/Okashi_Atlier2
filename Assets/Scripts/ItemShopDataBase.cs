@@ -21,6 +21,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private int _sell;
     private int _zaiko;
     private int _itemType;
+    private int _dongriType;
     private int _itemhyouji;
     private bool _itemhyouji_on;
 
@@ -61,7 +62,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 InitShopDB_Common();
 
                 //ここでリストに追加している
-                shopitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji, _itemhyouji_on));
+                shopitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _dongriType, _itemhyouji, _itemhyouji_on));
 
                 ++count;
             }
@@ -82,7 +83,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 InitShopDB_Common();
 
                 //ここでリストに追加している
-                farmitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji, _itemhyouji_on));
+                farmitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _dongriType, _itemhyouji, _itemhyouji_on));
 
                 ++count;
             }
@@ -103,7 +104,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 InitShopDB_Common();
 
                 //ここでリストに追加している
-                emeraldshop_items.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _itemhyouji, _itemhyouji_on));
+                emeraldshop_items.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _dongriType, _itemhyouji, _itemhyouji_on));
 
                 ++count;
             }
@@ -123,6 +124,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
         _name = excel_shopitemdatabase.sheets[sheet_no].list[count].name;
         _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
         _itemType = excel_shopitemdatabase.sheets[sheet_no].list[count].itemType;
+        _dongriType = excel_shopitemdatabase.sheets[sheet_no].list[count].dongriType;
         _cost = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_sell_price;
         _sell = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_buy_price;
         _itemhyouji = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji;

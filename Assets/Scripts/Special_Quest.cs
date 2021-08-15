@@ -146,6 +146,20 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
+            case 12: //○○食べたい＜10ラスクからの分岐１＞
+
+                girl1_status.OkashiQuest_ID = 1120;
+                //GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                QuestNameFind();
+                OkashiQuest_Number = "2-2";
+                OkashiQuest_AllCount = 2;
+                OkashiQuest_Count = 2;
+                GameMgr.OkashiQuest_cullentcount = 5;
+                girl1_status.ResetHukidashi();
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
             case 20: //クレープ食べたい
 
                 girl1_status.OkashiQuest_ID = 1200;

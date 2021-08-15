@@ -3135,7 +3135,7 @@ public class Compound_Main : MonoBehaviour
                 case 60:
 
                     _textmain.text = "ぽんぽんの力で、より元気になってきた。";
-                    girlEat_judge.loveGetPlusAnimeON(30, false);                    
+                    //girlEat_judge.loveGetPlusAnimeON(30, false);                    
 
                     break;
             }
@@ -3912,7 +3912,7 @@ public class Compound_Main : MonoBehaviour
         if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　雨
         {
             DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout2").gameObject.SetActive(true);
+            bgweather_image_panel.transform.Find("BG_windowout1").gameObject.SetActive(true);
             BG_Imagepanel.transform.Find("BG_sprite_01").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Rain").gameObject.SetActive(true);
         }
@@ -3926,13 +3926,13 @@ public class Compound_Main : MonoBehaviour
         {
             DrawALLOFFBG();
             bgweather_image_panel.transform.Find("BG_windowout3").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_03").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_02").gameObject.SetActive(true);
         }
         if (GameMgr.GirlLoveEvent_num >= 20) //やや霧がかったはれ　風が強い HLv6~
         {
             DrawALLOFFBG();
             bgweather_image_panel.transform.Find("BG_windowout4").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_04").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_03").gameObject.SetActive(true);
             //BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
             //BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
@@ -3967,8 +3967,8 @@ public class Compound_Main : MonoBehaviour
         if (PlayerStatus.girl1_Love_lv >= 20) //快晴　夕方　ぽんぽ日和
         {
             DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout6").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_06").gameObject.SetActive(true);
+            bgweather_image_panel.transform.Find("BG_windowout7").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_07").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);

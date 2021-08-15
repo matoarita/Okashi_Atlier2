@@ -21,6 +21,7 @@ public class Entity_shopItemDataBase : ScriptableObject
 		public string name;
 		public int zaiko;
 		public int itemType;
+		public int dongriType;
 		public int shop_sell_price;
 		public int shop_buy_price;
 		public int item_hyouji;
