@@ -112,6 +112,11 @@
 			"Name": "怒りギャグ目"
 		},
 		{
+			"Id": "Param",
+			"GroupId": "ParamGroup7",
+			"Name": "困り目専用"
+		},
+		{
 			"Id": "ParamCheek",
 			"GroupId": "ParamGroup7",
 			"Name": "照れ"
@@ -520,6 +525,46 @@
 			"Id": "WL_ribbon_A_4",
 			"GroupId": "ParamGroup2",
 			"Name": "リボン揺れ_腰L_A4"
+		},
+		{
+			"Id": "Bhat_ribbon_A_1",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_バルンハットA1"
+		},
+		{
+			"Id": "Bhat_ribbon_A_2",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_バルンハットA2"
+		},
+		{
+			"Id": "Bhat_ribbon_A_3",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_バルンハットA3"
+		},
+		{
+			"Id": "Bhat_ribbon_A_4",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_バルンハットA4"
+		},
+		{
+			"Id": "Nekotail_ribbon_A_1",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_猫しっぽA1"
+		},
+		{
+			"Id": "Nekotail_ribbon_A_2",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_猫しっぽA2"
+		},
+		{
+			"Id": "Nekotail_ribbon_A_3",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_猫しっぽA3"
+		},
+		{
+			"Id": "Nekotail_ribbon_A_4",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_猫しっぽA4"
 		},
 		{
 			"Id": "F_hair_1",
