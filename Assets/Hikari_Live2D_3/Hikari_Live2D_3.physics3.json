@@ -281,9 +281,9 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.92,
 					"Delay": 1,
-					"Acceleration": 1,
+					"Acceleration": 0.9,
 					"Radius": 0
 				},
 				{
@@ -291,7 +291,7 @@
 						"X": 0,
 						"Y": 13
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.92,
 					"Delay": 0.9,
 					"Acceleration": 1,
 					"Radius": 13
@@ -301,7 +301,7 @@
 						"X": 0,
 						"Y": 23
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.92,
 					"Delay": 0.9,
 					"Acceleration": 1,
 					"Radius": 10
@@ -311,7 +311,7 @@
 						"X": 0,
 						"Y": 31
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.92,
 					"Delay": 0.9,
 					"Acceleration": 0.8,
 					"Radius": 8
@@ -458,7 +458,7 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 1,
 					"Acceleration": 0.95,
 					"Radius": 8
@@ -468,9 +468,9 @@
 						"X": 0,
 						"Y": 10
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.9,
-					"Acceleration": 0.95,
+					"Acceleration": 1,
 					"Radius": 10
 				},
 				{
@@ -478,9 +478,9 @@
 						"X": 0,
 						"Y": 18
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.9,
-					"Acceleration": 0.95,
+					"Acceleration": 1,
 					"Radius": 8
 				},
 				{
@@ -488,7 +488,7 @@
 						"X": 0,
 						"Y": 26
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.9,
 					"Acceleration": 0.8,
 					"Radius": 8
@@ -635,7 +635,7 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 1,
 					"Acceleration": 0.95,
 					"Radius": 0
@@ -645,9 +645,9 @@
 						"X": 0,
 						"Y": 10
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.9,
-					"Acceleration": 0.95,
+					"Acceleration": 1,
 					"Radius": 10
 				},
 				{
@@ -655,9 +655,9 @@
 						"X": 0,
 						"Y": 18
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.9,
-					"Acceleration": 0.95,
+					"Acceleration": 1,
 					"Radius": 8
 				},
 				{
@@ -665,7 +665,7 @@
 						"X": 0,
 						"Y": 26
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.9,
 					"Acceleration": 0.8,
 					"Radius": 8
@@ -801,7 +801,7 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
 					"Acceleration": 0.9,
 					"Radius": 12
@@ -811,9 +811,9 @@
 						"X": 0,
 						"Y": 12
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
-					"Acceleration": 0.9,
+					"Acceleration": 1,
 					"Radius": 12
 				},
 				{
@@ -821,9 +821,9 @@
 						"X": 0,
 						"Y": 24
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
-					"Acceleration": 0.9,
+					"Acceleration": 1,
 					"Radius": 12
 				},
 				{
@@ -831,7 +831,7 @@
 						"X": 0,
 						"Y": 36
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
 					"Acceleration": 0.9,
 					"Radius": 12
@@ -841,9 +841,9 @@
 						"X": 0,
 						"Y": 48
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
-					"Acceleration": 0.9,
+					"Acceleration": 0.8,
 					"Radius": 12
 				}
 			],
@@ -977,7 +977,7 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
 					"Acceleration": 0.9,
 					"Radius": 12
@@ -987,9 +987,9 @@
 						"X": 0,
 						"Y": 12
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
-					"Acceleration": 0.9,
+					"Acceleration": 1,
 					"Radius": 12
 				},
 				{
@@ -997,9 +997,9 @@
 						"X": 0,
 						"Y": 24
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
-					"Acceleration": 0.9,
+					"Acceleration": 1,
 					"Radius": 12
 				},
 				{
@@ -1007,7 +1007,7 @@
 						"X": 0,
 						"Y": 36
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
 					"Acceleration": 0.9,
 					"Radius": 12
@@ -1017,9 +1017,9 @@
 						"X": 0,
 						"Y": 48
 					},
-					"Mobility": 0.95,
+					"Mobility": 0.93,
 					"Delay": 0.95,
-					"Acceleration": 0.9,
+					"Acceleration": 0.8,
 					"Radius": 12
 				}
 			],
@@ -2356,9 +2356,9 @@
 						"Y": 0
 					},
 					"Mobility": 0.8,
-					"Delay": 1.2,
+					"Delay": 0.9,
 					"Acceleration": 0.5,
-					"Radius": 15
+					"Radius": 20
 				},
 				{
 					"Position": {
@@ -2366,29 +2366,29 @@
 						"Y": 15
 					},
 					"Mobility": 0.8,
-					"Delay": 1.2,
-					"Acceleration": 0.5,
-					"Radius": 15
+					"Delay": 0.9,
+					"Acceleration": 0.75,
+					"Radius": 20
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 30
+						"Y": 28
 					},
 					"Mobility": 0.8,
-					"Delay": 1.2,
-					"Acceleration": 0.5,
-					"Radius": 15
+					"Delay": 0.9,
+					"Acceleration": 0.75,
+					"Radius": 20
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 45
+						"Y": 38
 					},
 					"Mobility": 0.8,
-					"Delay": 1.2,
+					"Delay": 0.9,
 					"Acceleration": 0.5,
-					"Radius": 15
+					"Radius": 20
 				}
 			],
 			"Normalization": {
@@ -2484,39 +2484,39 @@
 						"Y": 0
 					},
 					"Mobility": 0.8,
-					"Delay": 1.2,
+					"Delay": 0.9,
 					"Acceleration": 0.5,
 					"Radius": 15
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 8
+						"Y": 15
 					},
 					"Mobility": 0.8,
-					"Delay": 1.2,
-					"Acceleration": 0.5,
+					"Delay": 0.9,
+					"Acceleration": 0.75,
 					"Radius": 15
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 16
+						"Y": 28
 					},
 					"Mobility": 0.8,
-					"Delay": 1.2,
-					"Acceleration": 0.5,
-					"Radius": 15
+					"Delay": 0.9,
+					"Acceleration": 0.75,
+					"Radius": 13
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 24
+						"Y": 38
 					},
 					"Mobility": 0.8,
-					"Delay": 1.2,
+					"Delay": 0.9,
 					"Acceleration": 0.5,
-					"Radius": 15
+					"Radius": 10
 				}
 			],
 			"Normalization": {
@@ -2907,8 +2907,8 @@
 						"Target": "Parameter",
 						"Id": "MSuso_OpenA1"
 					},
-					"VertexIndex": 1,
-					"Scale": 2,
+					"VertexIndex": 2,
+					"Scale": 3.8,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -2918,8 +2918,8 @@
 						"Target": "Parameter",
 						"Id": "MSuso_OpenA2"
 					},
-					"VertexIndex": 2,
-					"Scale": 1.5,
+					"VertexIndex": 3,
+					"Scale": 3,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -2931,9 +2931,9 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.7,
 					"Radius": 12
 				},
 				{
@@ -2941,9 +2941,9 @@
 						"X": 0,
 						"Y": 12
 					},
-					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.7,
 					"Radius": 12
 				},
 				{
@@ -2951,9 +2951,9 @@
 						"X": 0,
 						"Y": 24
 					},
-					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.7,
 					"Radius": 12
 				},
 				{
@@ -2961,9 +2961,9 @@
 						"X": 0,
 						"Y": 36
 					},
-					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.6,
 					"Radius": 12
 				}
 			],
@@ -3035,8 +3035,8 @@
 						"Target": "Parameter",
 						"Id": "MSuso_OpenB1"
 					},
-					"VertexIndex": 1,
-					"Scale": 2,
+					"VertexIndex": 2,
+					"Scale": 3.8,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -3046,8 +3046,8 @@
 						"Target": "Parameter",
 						"Id": "MSuso_OpenB2"
 					},
-					"VertexIndex": 2,
-					"Scale": 1.5,
+					"VertexIndex": 3,
+					"Scale": 3,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -3059,9 +3059,9 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.7,
 					"Radius": 12
 				},
 				{
@@ -3069,9 +3069,9 @@
 						"X": 0,
 						"Y": 12
 					},
-					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.7,
 					"Radius": 12
 				},
 				{
@@ -3079,9 +3079,9 @@
 						"X": 0,
 						"Y": 24
 					},
-					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.7,
 					"Radius": 12
 				},
 				{
@@ -3089,9 +3089,9 @@
 						"X": 0,
 						"Y": 36
 					},
-					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.6,
 					"Radius": 12
 				}
 			],
@@ -3163,8 +3163,8 @@
 						"Target": "Parameter",
 						"Id": "MSuso_OpenC1"
 					},
-					"VertexIndex": 1,
-					"Scale": 2,
+					"VertexIndex": 2,
+					"Scale": 3.8,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -3174,8 +3174,8 @@
 						"Target": "Parameter",
 						"Id": "MSuso_OpenC2"
 					},
-					"VertexIndex": 2,
-					"Scale": 1.5,
+					"VertexIndex": 3,
+					"Scale": 3,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -3188,39 +3188,39 @@
 						"Y": 0
 					},
 					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
-					"Radius": 12
+					"Delay": 0.95,
+					"Acceleration": 0.75,
+					"Radius": 20
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 12
+						"Y": 20
 					},
 					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
-					"Radius": 12
+					"Delay": 0.95,
+					"Acceleration": 0.75,
+					"Radius": 20
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 24
+						"Y": 40
 					},
 					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
-					"Radius": 12
+					"Delay": 0.95,
+					"Acceleration": 0.75,
+					"Radius": 20
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 36
+						"Y": 60
 					},
 					"Mobility": 0.85,
-					"Delay": 1,
-					"Acceleration": 0.5,
-					"Radius": 12
+					"Delay": 0.95,
+					"Acceleration": 0.75,
+					"Radius": 20
 				}
 			],
 			"Normalization": {

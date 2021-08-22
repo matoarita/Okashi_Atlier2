@@ -381,7 +381,7 @@ public class Debug_Panel : MonoBehaviour {
         //入力したイベント番号に応じて、ハートレベルも更新
         EventChangeGirllove();
 
-        InputMainFlagOn2();
+        //InputMainFlagOn2();
     }
 
     void EventChangeGirllove()
