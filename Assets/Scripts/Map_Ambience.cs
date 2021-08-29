@@ -115,7 +115,7 @@ public class Map_Ambience : MonoBehaviour {
 
     public void Mute()
     {
-        Debug.Log("Mute Ambience");
+        //Debug.Log("Mute Ambience");
         _bgm[0].mute = true;
     }
 

@@ -136,7 +136,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] OkashiQuest_flag_stage3 = new bool[Event_num];
 
     public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
-    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。
+    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。    
 
     //さっき食べたお菓子情報
     public static string Okashi_lasthint; //さっき食べたお菓子のヒント。
@@ -201,6 +201,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //現在のクエストが、クエスト全体の何番目か。デバッグでハートレベル更新の際、使う。
     public static int OkashiQuest_cullentcount;
+    public static int NextQuestID; //次クエストのgirlLikeCompoSetの_compIDを指定。GirlEatJudgeで使用する。
 
     //好感度イベント発生フラグ
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ

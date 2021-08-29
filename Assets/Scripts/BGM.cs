@@ -366,7 +366,7 @@ public class BGM : MonoBehaviour {
 
     public void MuteBGM()
     {
-        Debug.Log("Mute BGM");
+        //Debug.Log("Mute BGM");
         _bgm[0].mute = true;
         _bgm[1].mute = true;
     }

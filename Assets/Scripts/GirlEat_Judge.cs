@@ -34,6 +34,7 @@ public class GirlEat_Judge : MonoBehaviour {
     private ExtremePanel extreme_panel;
 
     private GameObject MainUIPanel_obj;
+    private GameObject UIOpenButton_obj;
 
     private GameObject Girlloveexp_bar;
 
@@ -287,8 +288,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
     public int girllike_point;
 
-    private bool quest_bunki_flag;
-
     private bool emerarudonguri_get;
     private bool last_score_kousin;
     private string shokukan_mes;
@@ -458,6 +457,8 @@ public class GirlEat_Judge : MonoBehaviour {
                 stageclear_toggle = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
                 stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
                 stageclear_button_on = false;
+
+                UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
 
                 //エフェクトプレファブの取得
                 effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
@@ -645,7 +646,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     maincam_animator.SetInteger("trans", trans);
 
                     //Live2D「うわぁ～～」のアニメーション
-                    live2d_animator.SetLayerWeight(2, 0); //強制的にAddMotionLayerは0にする。
+                    girl1_status.AddMotionAnimReset(); //現在再生していたAddMotionアニメを、強制的にオフにする。
                     trans_motion = 2;
                     live2d_animator.SetInteger("trans_motion", trans_motion);
 
@@ -3464,15 +3465,12 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void QuestBunki()
     {
-        //次のクエスト（+10）があるかどうかをみる。
-        i = 0;
-        quest_bunki_flag = false;
+        //次のクエストを指定。
         GameMgr.MesaggeKoushinON = false;
+        GameMgr.stageclear_cullentlove = 0;
 
-        while (i < girlLikeCompo_database.girllike_composet.Count)
-        {
-            if (girlLikeCompo_database.girllike_composet[i].set_ID == (girl1_status.OkashiQuest_ID + 10)) //+10のクエストあった場合はそのクエスト
-            {
+        if (GameMgr.NextQuestID % 100 != 0) //次クエが100番台以外
+        { 
                 GameMgr.GirlLoveEvent_num += 1;
 
                 subQuestClear_check = false;
@@ -3486,30 +3484,21 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 girl1_status.timeGirl_hungry_status = 0;
                 girl1_status.timeOut = 1.0f; //次クエストをすぐ開始
+                //UIOpenButton_obj.SetActive(false);
 
                 GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
                 GameMgr.QuestClearButton_anim = false;
                 GameMgr.QuestClearCommentflag = false;
-                GameMgr.stageclear_cullentlove = 0;
-
+                
                 GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
-                quest_bunki_flag = true;
-                break;
-            }
-            else
-            {
-
-            }
-            i++;
         }
 
-        if (!quest_bunki_flag) //ない場合は、次のSpお菓子へ
+        else //次クエが100で割り切れる。次のSpお菓子へ
         {
             subQuestClear_check = true;
             GameMgr.QuestClearAnim_Flag = false; //次のメインクエストへ行くまえに、また演出はOFFに。
             ResultPanel_On();
 
-            GameMgr.stageclear_cullentlove = 0;
         }
 
     }
@@ -3522,7 +3511,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             case 10: //ラスク　条件分岐
 
-                GameMgr.GirlLoveEvent_num = 12;
+                GameMgr.GirlLoveEvent_num = 12; //分岐の場合、直接次クエストをここで指定する。
                 break;
         }
 

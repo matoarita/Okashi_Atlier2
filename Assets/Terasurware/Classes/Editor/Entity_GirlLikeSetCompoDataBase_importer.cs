@@ -52,19 +52,20 @@ public class Entity_GirlLikeSetCompoDataBase_importer : AssetPostprocessor {
 						
 					cell = row.GetCell(0); p.ID = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(1); p.set_compID = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(2); p.set1 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(3); p.set2 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(4); p.set3 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(5); p.spquest_name1 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(6); p.spquest_name2 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(7); p.spquest_name3 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(8); p.desc = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(9); p.comment = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(10); p.set_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(11); p.set_score = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(12); p.hint_text = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(13); p.clear = (cell == null ? false : cell.BooleanCellValue);
-					cell = row.GetCell(14); p.file_name = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(2); p.next_questID = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(3); p.set1 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(4); p.set2 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(5); p.set3 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(6); p.spquest_name1 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(7); p.spquest_name2 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(8); p.spquest_name3 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(9); p.desc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(10); p.comment = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(11); p.set_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(12); p.set_score = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(13); p.hint_text = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(14); p.clear = (cell == null ? false : cell.BooleanCellValue);
+					cell = row.GetCell(15); p.file_name = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

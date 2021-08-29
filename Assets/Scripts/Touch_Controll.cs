@@ -286,9 +286,17 @@ public class Touch_Controll : MonoBehaviour
             if (!touch_interval_flag)
             {
                 //Debug.Log("Touch_Ribbon");
-                
-                girl1_status.TouchSisterRibbon();
-                girl1_status.touchGirl_status = 2;
+
+                if (!girl1_status.Girl1_touchribbon_start)
+                {
+                    girl1_status.TouchRibbon_Start();
+                    girl1_status.TouchSisterRibbon();
+                    girl1_status.touchGirl_status = 2;
+                }
+                else
+                {
+                    girl1_status.TouchSisterRibbon();
+                }
 
                 //リボン以外のタッチステータスをリセット
                 girl1_status.Girl1_touchhair_start = false;
@@ -345,9 +353,17 @@ public class Touch_Controll : MonoBehaviour
             if (!touch_interval_flag)
             {
                 //Debug.Log("Touch_Hand");
-                
-                girl1_status.TouchSisterHand();
-                girl1_status.touchGirl_status = 4;
+
+                if (!girl1_status.Girl1_touchhand_start)
+                {
+                    girl1_status.TouchHand_Start();
+                    girl1_status.TouchSisterHand();
+                    girl1_status.touchGirl_status = 4;
+                }
+                else
+                {
+                    girl1_status.TouchSisterHand();
+                }
 
                 //手以外のタッチステータスをリセット
                 girl1_status.Girl1_touchhair_start = false;

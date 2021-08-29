@@ -19,6 +19,7 @@ public class Entity_GirlLikeSetCompoDataBase : ScriptableObject
 		
 		public int ID;
 		public int set_compID;
+		public int next_questID;
 		public int set1;
 		public int set2;
 		public int set3;

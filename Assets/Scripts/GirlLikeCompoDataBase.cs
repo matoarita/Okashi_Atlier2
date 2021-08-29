@@ -8,6 +8,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
 
     private int _id;
     private int _setid;
+    private int _nextid;
 
     private int _set1;
     private int _set2;
@@ -61,6 +62,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
                 // 一旦代入
                 _id = excel_girlLikecompo_database.sheets[sheet_no].list[count].ID;
                 _setid = excel_girlLikecompo_database.sheets[sheet_no].list[count].set_compID;
+                _nextid = excel_girlLikecompo_database.sheets[sheet_no].list[count].next_questID;
 
                 _set1 = excel_girlLikecompo_database.sheets[sheet_no].list[count].set1;
                 _set2 = excel_girlLikecompo_database.sheets[sheet_no].list[count].set2;
@@ -81,7 +83,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
                 _fileName = excel_girlLikecompo_database.sheets[sheet_no].list[count].file_name;
 
                 //ここでリストに追加している
-                girllike_composet.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _spquest_name1, _spquest_name2, _spquest_name3, _desc, _comment, _set_flag, _set_score, _hint_text, _clear_flag, _fileName));
+                girllike_composet.Add(new GirlLikeCompo(_id, _setid, _nextid, _set1, _set2, _set3, _spquest_name1, _spquest_name2, _spquest_name3, _desc, _comment, _set_flag, _set_score, _hint_text, _clear_flag, _fileName));
 
                 //Debug.Log("GirlLike_tp01: " + girllikeset[count].girlLike_topping[0]);
 
@@ -109,6 +111,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
                 // 一旦代入
                 _id = girllike_composet[count].ID;
                 _setid = girllike_composet[count].set_ID;
+                _nextid = girllike_composet[count].next_ID;
 
                 _set1 = girllike_composet[count].set1;
                 _set2 = girllike_composet[count].set2;
@@ -131,7 +134,7 @@ public class GirlLikeCompoDataBase : SingletonMonoBehaviour<GirlLikeCompoDataBas
                 _fileName = girllike_composet[count].fileName;
 
                 //ここでリストに追加している
-                girllike_compoRandomset.Add(new GirlLikeCompo(_id, _setid, _set1, _set2, _set3, _spquest_name1, _spquest_name2, _spquest_name3, _desc, _comment, _set_flag, _set_score, _hint_text, _clear_flag, _fileName));
+                girllike_compoRandomset.Add(new GirlLikeCompo(_id, _setid, _nextid, _set1, _set2, _set3, _spquest_name1, _spquest_name2, _spquest_name3, _desc, _comment, _set_flag, _set_score, _hint_text, _clear_flag, _fileName));
 
             }
 

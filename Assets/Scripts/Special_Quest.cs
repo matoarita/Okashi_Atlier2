@@ -274,6 +274,11 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.OkashiQuest_cullentcount = 5;
                 break;
 
+            case 12:
+
+                GameMgr.OkashiQuest_cullentcount = 5;
+                break;
+
             case 20:
 
                 GameMgr.OkashiQuest_cullentcount = 6;
@@ -312,6 +317,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
                 OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
+                GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
             }
         }
     }

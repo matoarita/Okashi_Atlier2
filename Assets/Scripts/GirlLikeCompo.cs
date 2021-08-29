@@ -11,7 +11,8 @@ public class GirlLikeCompo
 {
     public int ID;
     public int set_ID;    //DB固有の番号。
-    
+    public int next_ID;   //次に発動するクエストIDを指定しておく。
+
     public int set1;
     public int set2;
     public int set3;
@@ -35,10 +36,11 @@ public class GirlLikeCompo
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public GirlLikeCompo(int id, int _set_id, int set1_id, int set2_id, int set3_id, string _quest_name1, string _quest_name2, string _quest_name3, string _desc, string _comment, int _set_flag, int _set_score, string _hint, bool clear_flag, string _fileName)
+    public GirlLikeCompo(int id, int _set_id, int _next_id, int set1_id, int set2_id, int set3_id, string _quest_name1, string _quest_name2, string _quest_name3, string _desc, string _comment, int _set_flag, int _set_score, string _hint, bool clear_flag, string _fileName)
     {
         ID = id;
         set_ID = _set_id;
+        next_ID = _next_id;
 
         set1 = set1_id;
         set2 = set2_id;

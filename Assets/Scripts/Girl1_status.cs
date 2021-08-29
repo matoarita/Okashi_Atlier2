@@ -212,6 +212,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private bool Girl1_touchtwintail_flag; //全ての会話を表示したら、しばらく触れなくなる
 
     public bool Girl1_touchchest_start;
+    public bool Girl1_touchhand_start;
+    public bool Girl1_touchribbon_start;
 
     public bool touchanim_start; //タッチしはじめたら、その他のモーションなどを一時的に止める。
 
@@ -439,6 +441,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchtwintail_flag = false;
 
         Girl1_touchchest_start = false;
+        Girl1_touchhand_start = false;
+        Girl1_touchribbon_start = false;
 
         touchanim_start = false;
 
@@ -703,8 +707,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                 //フェードで終了する。
                                 _model.GetComponent<GazeController>().enabled = false;
-                                facemotion_start = true;
-                                facemotion_init = false;
+                                //facemotion_start = true;
+                                //facemotion_init = false;
 
                                 //吹き出し・ハングリーステータスをリセット
                                 ResetHukidashi();
@@ -843,13 +847,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 1.0f      // アニメーション時間
                             ).OnComplete(() =>
                             {
-                                tween_start = false;
-                                facemotion_init = false;
-                                facemotion_start = false;
-                                live2d_animator.SetLayerWeight(2, 0f);
-                                live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotionは、表情も含めた体全体の動き
-                        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-                        //_model.GetComponent<GazeController>().enabled = false;
+                                AddMotionAnimReset();
+                                
                     });
                         }
                     }
@@ -872,13 +871,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     else
                     {
+                        /*
                         //ベースレイヤーのアイドルのタイムが0のときに、モーション切り替えをスタートする。
-                        Idle_duration = live2d_animator.GetCurrentAnimatorStateInfo(0).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
-                        Idle_duration = Idle_duration - Mathf.Floor(Idle_duration);
+                        //Idle_duration = live2d_animator.GetCurrentAnimatorStateInfo(0).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
+                        //Idle_duration = Idle_duration - Mathf.Floor(Idle_duration);
                         //Debug.Log("Idle_duration: " + Idle_duration);
 
-                        if (Idle_duration <= 0.01)
-                        {
+                        //if (Idle_duration <= 0.01)
+                        //{
                             IdleChangeTemp = false;
 
                             //全身モーション再生スタートの合図をだす。
@@ -892,6 +892,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
                             StartCoroutine(ChangeFaceMotion(9999)); //trans_facemotionの連続防止用
 
+                            //AddMotionLayerのウェイトを徐々にフェードアウト
                             if (!tween_start)
                             {
                                 tween_start = true;
@@ -909,9 +910,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                                         {
                                                             tween_start = false;
                                                         });
-                            }
+                            }*/
 
-                        }
+                        //}
                     }
                 }
 
@@ -919,12 +920,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
-    //Facemotionを強制的にOFF
+    //Facemotionを強制的にOFF　GirlEatJudgeなどからも読まれる。
     public void AddMotionAnimReset()
     {
+        weightTween.Kill();
+        tween_start = false;
+        facemotion_init = false;
+        facemotion_start = false;
+        IdleChangeTemp = false;
+
         live2d_animator.Play("None_facemotion"); //一度アニメーションをリセット
-        live2d_animator.Update(2);
+        //live2d_animator.Update(2);
         live2d_animator.SetLayerWeight(2, 0); //強制的にAddMotionLayerを0にする。
+       
+        live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotionは、表情も含めた体全体の動き
+        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+        //_model.GetComponent<GazeController>().enabled = false;
     }
 
     void DefFaceChange()
@@ -1888,8 +1899,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Random_TapMotion();
         facemotion_start = true;
         facemotion_init = false;
-       
-        //_model_obj.GetComponent<GazeController>().enabled = true;
+      
     }
 
     //頭　ドラッグで触り続けた場合
@@ -2254,6 +2264,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         Girl1_touchtwintail_start = true;
         touchanim_start = true;
+        facemotion_start = true;
 
         //タップモーション
         live2d_animator.SetLayerWeight(2, 1);
@@ -2261,8 +2272,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         facemotion_weight = 1.0f;
 
         trans_facemotion = 9999; //その他のモーションに遷移しないように回避
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-        facemotion_start = false;
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き       
+        
 
         _model_obj.GetComponent<GazeController>().enabled = true;
     }
@@ -2326,6 +2337,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
 
     //リボン
+    public void TouchRibbon_Start()
+    {
+        Girl1_touchchest_start = true;
+        touchanim_start = true;
+        facemotion_start = true;
+
+        //タップモーション
+        live2d_animator.SetLayerWeight(2, 1);
+        live2d_animator.Play("tapmotion_03_1", 2, 0.0f);
+        facemotion_weight = 1.0f;
+
+        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+
+    }
+
     public void TouchSisterRibbon()
     {
         touch_startreset();
@@ -2336,9 +2363,32 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         hukidashiitem.GetComponent<TextController>().SetText("お母さんが誕生日にくれたリボンだよ～。うひひ。");
 
+        //タップモーション
+        live2d_animator.SetLayerWeight(2, 1);
+        live2d_animator.Play("tapmotion_03_1", 2, 0.0f);
+        facemotion_weight = 1.0f;
+
+        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+
     }
 
     //手
+    public void TouchHand_Start()
+    {
+        Girl1_touchchest_start = true;
+        touchanim_start = true;
+        facemotion_start = true;
+
+        //タップモーション
+        live2d_animator.SetLayerWeight(2, 1);
+        live2d_animator.Play("tapmotion_03_1", 2, 0.0f);
+        facemotion_weight = 1.0f;
+
+        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
+    }
+
     public void TouchSisterHand()
     {
         touch_startreset();
@@ -2350,7 +2400,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _touchhand_comment = _touchhand_comment_lib[random];
 
         hukidashiitem.GetComponent<TextController>().SetText(_touchhand_comment);
-
     }
 
     //胸
@@ -2358,6 +2407,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         Girl1_touchchest_start = true;
         touchanim_start = true;
+        facemotion_start = true;
 
         //タップモーション　最初触った一回だけ発動        
         live2d_animator.SetLayerWeight(2, 1);
@@ -2366,7 +2416,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         trans_facemotion = 9999; //その他のモーションに遷移しないように回避
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-        facemotion_start = true;
+        
     }
 
     public void TouchSisterChest()
@@ -2911,26 +2961,28 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     void Init_touchChestComment()
     {
-        //髪の毛触るときは、上から順番に表示されていく。回数に注意。
+        //胸さわるとき
         _touchchest_comment_lib.Clear();
 
         switch (GirlGokigenStatus)
         {
-            case 0:
+            case 0: //不快な感じ
 
+                _touchchest_comment_lib.Add("..！");
                 _touchchest_comment_lib.Add("..。");
-                _touchchest_comment_lib.Add("こら！胸を触るな、にいちゃん！");
+                _touchchest_comment_lib.Add("..やめて。");
 
                 break;
 
-            case 1:
+            case 1: //不快な感じ
 
+                _touchchest_comment_lib.Add("..！");
                 _touchchest_comment_lib.Add("..。");
-                _touchchest_comment_lib.Add("こら！胸を触るな、にいちゃん！");
+                _touchchest_comment_lib.Add("..やめて。");
 
                 break;
 
-            case 2:
+            case 2: //不快だけど、そこまで嫌がらない。
 
                 _touchchest_comment_lib.Add("..？");
                 _touchchest_comment_lib.Add("..。");
@@ -2940,9 +2992,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 3:
 
-                _touchchest_comment_lib.Add(".。");
-                _touchchest_comment_lib.Add("胸をさわられると、はずかしいよ～。");
-                _touchchest_comment_lib.Add("こりゃ！胸をさわるのはやめて、にいちゃん！");
+                _touchchest_comment_lib.Add("..！");
+                _touchchest_comment_lib.Add("..はずかしいよ～。");
+                _touchchest_comment_lib.Add("胸をさわるのはやめて、にいちゃん！");
                 _touchchest_comment_lib.Add("えっち！にいちゃんのばか！");
 
                 break;
@@ -2969,7 +3021,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 6:
 
-                _touchchest_comment_lib.Add("！");
+                _touchchest_comment_lib.Add("！！");
                 _touchchest_comment_lib.Add("ばか..！！");
                 _touchchest_comment_lib.Add("にいちゃんのおてて、あったか～い♪");
                 _touchchest_comment_lib.Add("そんなとこさわられると、くすぐったいよ。にいちゃん～！");
@@ -2992,53 +3044,72 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         switch (GirlGokigenStatus)
         {
-            case 0:
+            case 0: //反応があまりない
 
-                _touchhand_comment_lib.Add("にいちゃん。おてて？");
-                _touchhand_comment_lib.Add("あったか～い..。");
+                _touchhand_comment_lib.Add("..。");
+                _touchhand_comment_lib.Add("..。");
 
                 break;
 
             case 1:
 
-                _touchhand_comment_lib.Add("にいちゃん。おてて？");
-                _touchhand_comment_lib.Add("あったか～い..。");
+                _touchhand_comment_lib.Add("..おてて。");
+                _touchhand_comment_lib.Add("..。");
                 break;
 
             case 2:
 
-                _touchhand_comment_lib.Add("にいちゃん。おてて？");
-                _touchhand_comment_lib.Add("あったか～い..。");
+                _touchhand_comment_lib.Add("..！");
+                _touchhand_comment_lib.Add("..うわ。");
+                _touchhand_comment_lib.Add("おてて？");
                 break;
 
             case 3:
 
-                _touchhand_comment_lib.Add("にいちゃん。おてて？");
-                _touchhand_comment_lib.Add("あったか～い..。");
+                _touchhand_comment_lib.Add("..むむ。");
+                _touchhand_comment_lib.Add("..うわ。");
+                _touchhand_comment_lib.Add("おてて？");
+                _touchhand_comment_lib.Add("あったかい～。");
                 break;
 
             case 4:
 
-                _touchhand_comment_lib.Add("にいちゃん。おてて？");
-                _touchhand_comment_lib.Add("あったか～い..。");
+                _touchhand_comment_lib.Add("むむ..。");
+                _touchhand_comment_lib.Add("おてて、もみもみ。");
+                _touchhand_comment_lib.Add("お菓子のにおいする～。");
                 break;
 
             case 5:
 
-                _touchhand_comment_lib.Add("にいちゃん。おてて？");
-                _touchhand_comment_lib.Add("あったか～い..。");
+                _touchhand_comment_lib.Add("あて！");
+                _touchhand_comment_lib.Add("にいちゃん、おててあったか～い。");
+                _touchhand_comment_lib.Add("お菓子のにおい。くんくん..。");
+                _touchhand_comment_lib.Add("気持ちいい～。");
                 break;
 
             case 6:
 
-                _touchhand_comment_lib.Add("にいちゃん。おてて？");
-                _touchhand_comment_lib.Add("あったか～い..。");
+                _touchhand_comment_lib.Add("おわ！");
+                _touchhand_comment_lib.Add("さわさわ・・。");
+                _touchhand_comment_lib.Add("にいちゃん、おててあったか～い。");
+                _touchhand_comment_lib.Add("お菓子のにおい。くんくん..。");
+                _touchhand_comment_lib.Add("気持ちいい～。");
+                _touchhand_comment_lib.Add("にいちゃんのおてて、マッサージ..。もみもみ。");
+                _touchhand_comment_lib.Add("くすぐったいよ～");
                 break;
 
             default:
 
-                _touchhand_comment_lib.Add("にいちゃん。おてて？");
-                _touchhand_comment_lib.Add("あったか～い..。");
+                _touchhand_comment_lib.Add("おわ！");
+                _touchhand_comment_lib.Add("さわさわ・・。");
+                _touchhand_comment_lib.Add("にいちゃん、おててあったか～い。");
+                _touchhand_comment_lib.Add("お菓子のにおい。くんくん..。");
+                _touchhand_comment_lib.Add("気持ちいい～。");
+                _touchhand_comment_lib.Add("にいちゃんのおてて、マッサージ..。もみもみ。");
+                _touchhand_comment_lib.Add("くすぐったいよ～");
+                _touchhand_comment_lib.Add("はずかしいよ～、にいちゃん。");
+                _touchhand_comment_lib.Add("えへへ。ちょっとパパのにおいする。");
+                _touchhand_comment_lib.Add("がぶぅ！！（噛みつかれた！）");
                 break;
         }
 

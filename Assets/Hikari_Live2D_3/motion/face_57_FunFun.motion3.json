@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 29,
-		"TotalSegmentCount": 45,
-		"TotalPointCount": 128,
+		"CurveCount": 39,
+		"TotalSegmentCount": 55,
+		"TotalPointCount": 150,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -44,16 +44,16 @@
 				0.489,
 				0,
 				0.744,
-				-5,
+				-2,
 				1,
-				-5,
+				-2,
 				1,
 				1.156,
-				-5,
+				-2,
 				1.311,
-				-1.775,
+				-1.388,
 				1.467,
-				-1.345
+				-1.306
 			]
 		},
 		{
@@ -263,6 +263,105 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamKiba",
+			"Segments": [
+				0,
+				1,
+				0,
+				1.467,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamGokigen",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAngryGyagu",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCheek",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamSad",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCry",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamYodare",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamKirakiraEye",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamHiLightOn",
 			"Segments": [
 				0,
@@ -282,16 +381,16 @@
 				0.244,
 				0,
 				0.489,
-				-3,
+				-5,
 				0.733,
-				-3,
+				-5,
 				1,
 				0.978,
-				-3,
+				-5,
 				1.222,
-				-0.255,
+				-0.425,
 				1.467,
-				-0.017
+				-0.028
 			]
 		},
 		{
@@ -304,12 +403,12 @@
 				0.111,
 				0,
 				0.222,
-				-2,
+				-3,
 				0.333,
-				-2,
+				-3,
 				1,
 				0.467,
-				-2,
+				-3,
 				0.6,
 				0,
 				0.733,
@@ -318,16 +417,31 @@
 				0.844,
 				0,
 				0.956,
-				-2,
+				-3,
 				1.067,
-				-2,
+				-3,
 				1,
 				1.2,
-				-2,
+				-3,
 				1.333,
-				-0.296,
+				-0.444,
 				1.467,
-				-0.034
+				-0.051
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamUpperbodyRot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.489,
+				0,
+				0.978,
+				0,
+				1.467,
+				0
 			]
 		},
 		{

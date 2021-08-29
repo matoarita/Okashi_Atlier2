@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 25,
-		"TotalSegmentCount": 26,
-		"TotalPointCount": 55,
+		"CurveCount": 26,
+		"TotalSegmentCount": 27,
+		"TotalPointCount": 57,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -180,6 +180,17 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamMouthOpenY",
+			"Segments": [
+				0,
+				1,
+				0,
+				1,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamKiba",
 			"Segments": [
 				0,
 				1,
