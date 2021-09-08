@@ -179,7 +179,7 @@ public class Touch_Controll : MonoBehaviour
     {        
         girl1_status.Girl1_touch_end = true;
         girl1_status.timeOut3 = 5.0f;        
-        girl1_status.touchanim_start = false;
+        //girl1_status.touchanim_start = false;
     }
 
 

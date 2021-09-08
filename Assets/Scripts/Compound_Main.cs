@@ -254,6 +254,7 @@ public class Compound_Main : MonoBehaviour
     private bool Sleep_on;
     private bool mute_on;
 
+    private GameObject HintObjectGroup;
     private GameObject ClickPanel_1;
     private GameObject ClickPanel_2;
 
@@ -453,9 +454,10 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").gameObject;
 
         //ヒントボタンの取得
-        ClickPanel_1 = canvas.transform.Find("MainUIPanel/ClickPanel1").gameObject;
+        HintObjectGroup = canvas.transform.Find("MainUIPanel/HintObject/").gameObject;
+        ClickPanel_1 = canvas.transform.Find("MainUIPanel/HintObject/ClickPanel1").gameObject;
         ClickPanel_1.SetActive(false);
-        ClickPanel_2 = canvas.transform.Find("MainUIPanel/ClickPanel2").gameObject;
+        ClickPanel_2 = canvas.transform.Find("MainUIPanel/HintObject/ClickPanel2").gameObject;
         ClickPanel_2.SetActive(false);
 
         //
@@ -1294,7 +1296,7 @@ public class Compound_Main : MonoBehaviour
                 map_ambience.MuteOFF();
 
                 //背景の変化
-                Change_BGimage();
+                //Change_BGimage();
 
                 //イベントに応じてコマンドを増やす関係
                 FlagEvent();
@@ -1376,7 +1378,6 @@ public class Compound_Main : MonoBehaviour
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
-                _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
                 girl1_status.DoTSequence_Kill();
@@ -1435,7 +1436,6 @@ public class Compound_Main : MonoBehaviour
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
-                _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
                 girl1_status.DoTSequence_Kill();
@@ -1502,7 +1502,6 @@ public class Compound_Main : MonoBehaviour
                 trans_motion = 10; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 live2d_posmove_flag = true; //位置を変更したフラグ
-                _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
                 girl1_status.DoTSequence_Kill();
@@ -1615,7 +1614,6 @@ public class Compound_Main : MonoBehaviour
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
                 trans_motion = 1000; //調合シーン用のヒカリちゃんの位置
                 live2d_animator.SetInteger("trans_motion", trans_motion);
-                _model_obj.GetComponent<GazeController>().enabled = false;
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
                 girl1_status.DoTSequence_Kill();
@@ -2046,6 +2044,7 @@ public class Compound_Main : MonoBehaviour
         hinttaste_toggle.SetActive(false);
         girleat_toggle.SetActive(false);
         recipi_toggle.SetActive(false);
+        HintObjectGroup.SetActive(false);
     }
 
     void WindowOn()
@@ -2064,6 +2063,7 @@ public class Compound_Main : MonoBehaviour
         MainUICloseButton.SetActive(true);
         UIOpenButton_obj.SetActive(true);
         girleat_toggle.SetActive(true);
+        HintObjectGroup.SetActive(true);
 
         //パネルを閉じる
         mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ

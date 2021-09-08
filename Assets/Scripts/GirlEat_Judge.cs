@@ -655,7 +655,6 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     _model.GetComponent<CubismAutoEyeBlinkInput>().enabled = false;
                     _model.GetComponent<CubismEyeBlinkController>().enabled = false;
-                    _model.GetComponent<GazeController>().enabled = false;
 
                     touch_controller.Touch_OnAllOFF();
 
@@ -1586,22 +1585,6 @@ public class GirlEat_Judge : MonoBehaviour {
         }
 
 
-        //クエストによっては、トッピングの豪華さで、採点に影響するのもあるので、それの特殊計算。
-        /*if (!non_spquest_flag)
-        {
-            switch (girl1_status.OkashiQuest_ID) //豪華なクレープクエストのとき
-            {
-                case 1210:
-
-                    if (topping_score <= 20)
-                    {
-                        _temp_ratio = SujiMap(Mathf.Abs(20 - topping_score), 0, 20, 0.0f, 1.0f);
-                        topping_score += (int)(-60 * _temp_ratio);
-                    }
-                    break;
-            }
-        }*/
-
 
         //女の子の食べたいトッピングがあるにも関わらず、そのトッピングが一つものっていなかった。
         if (topping_all_non && !topping_flag)
@@ -2288,7 +2271,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             //クリア分岐1
 
-            if (!non_spquest_flag) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
+            if (non_spquest_flag == false) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
             {
                 Debug.Log("SPクエストのお菓子は満足し、クリア");
 
@@ -3318,6 +3301,8 @@ public class GirlEat_Judge : MonoBehaviour {
         GameMgr.recipi_read_endflag = false;
 
         canvas.SetActive(true);
+        ResetResult();
+        touch_controller.Touch_OnAllON();
         questclear_end = true;
         GameMgr.QuestClearCommentflag = true;
 
@@ -3468,6 +3453,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //次のクエストを指定。
         GameMgr.MesaggeKoushinON = false;
         GameMgr.stageclear_cullentlove = 0;
+        GameMgr.QuestClearCommentflag = false;
 
         if (GameMgr.NextQuestID % 100 != 0) //次クエが100番台以外
         { 
@@ -3478,19 +3464,17 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 ResultOFF();
 
-                //お菓子の判定処理を終了
-                compound_Main.girlEat_ON = false;
-                compound_Main.compound_status = 0;
-
                 girl1_status.timeGirl_hungry_status = 0;
                 girl1_status.timeOut = 1.0f; //次クエストをすぐ開始
-                //UIOpenButton_obj.SetActive(false);
 
                 GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
-                GameMgr.QuestClearButton_anim = false;
-                GameMgr.QuestClearCommentflag = false;
+                GameMgr.QuestClearButton_anim = false;               
                 
                 GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
+
+            //お菓子の判定処理を終了
+            compound_Main.girlEat_ON = false;
+            compound_Main.compound_status = 0;
         }
 
         else //次クエが100で割り切れる。次のSpお菓子へ
@@ -3629,6 +3613,7 @@ public class GirlEat_Judge : MonoBehaviour {
         //黒で一度フェードアウト
         sceneBGM.MuteBGM();
         Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeIn();
+        //Debug.Log("## 一度ブラックアウト　演出 ##");
         StartCoroutine("Black_FadeOut");
     }
 
@@ -3637,11 +3622,11 @@ public class GirlEat_Judge : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
 
         BlackPanel_event.SetActive(false);
-        canvas.SetActive(false);
+        canvas.SetActive(false);      
         Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut();
 
         yield return new WaitForSeconds(1.0f);
-
+       
         compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
         GameMgr.questclear_After = true;
         ResetResult();

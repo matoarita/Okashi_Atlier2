@@ -136,7 +136,7 @@ public class Live2DAnimationTrigger : MonoBehaviour {
 
         girl1_status.Girl1_touchtwintail_start = false;
         girl1_status.Girl1_touchchest_start = false;
-        girl1_status.touchanim_start = false;
+        //girl1_status.touchanim_start = false;
     }
 
     public void OishisoEndSignal() //アニメーションをフェードで終了し切り替えるためのフラグ

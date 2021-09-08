@@ -658,6 +658,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 //飾りアイテムのセット
                 BGAccetrigger.DrawBGAcce();
 
+                //背景を変更
+                compound_Main.Change_BGimage();
+
                 compound_Main.compound_status = 0;
 
                 //ロード直後のサブイベントを発生させる

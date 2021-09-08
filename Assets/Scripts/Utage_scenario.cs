@@ -38,6 +38,9 @@ public class Utage_scenario : MonoBehaviour
     private int re_flag;
     private int ev_flag;
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     private GameObject canvas;
 
     private PlayerItemList pitemlist;
@@ -215,6 +218,9 @@ public class Utage_scenario : MonoBehaviour
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
                     map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
                 }
+
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
 
                 switch (GameMgr.scenario_flag)
@@ -1461,11 +1467,28 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
+        if(sp_Okashi_ID == 1010) //雨が止むので、グラフィックを差し替える。
+        {
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            //背景の変更
+            compound_Main.Change_BGimage();
+
+            //元のシナリオにもどる。
+            engine.ResumeScenario();
+        }
+
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
         {
             yield return null;
         }
+
+        //背景の変更
+        compound_Main.Change_BGimage();
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();

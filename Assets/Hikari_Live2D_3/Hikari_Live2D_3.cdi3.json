@@ -97,6 +97,11 @@
 			"Name": "口　開閉"
 		},
 		{
+			"Id": "ParamKiba",
+			"GroupId": "ParamGroup7",
+			"Name": "きば"
+		},
+		{
 			"Id": "ParamMouthMogumogu",
 			"GroupId": "ParamGroup7",
 			"Name": "口をもぐもぐ"
@@ -317,16 +322,6 @@
 			"Name": "メイド服_スカート横揺れ_D2"
 		},
 		{
-			"Id": "MSkirt_OpenB1",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_スカート広がり_B1"
-		},
-		{
-			"Id": "MSkirt_OpenB2",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_スカート広がり_B2"
-		},
-		{
 			"Id": "MSuso_Yure_A1",
 			"GroupId": "ParamGroup3",
 			"Name": "メイド服_すそ横揺れ_A1"
@@ -387,6 +382,86 @@
 			"Name": "メイド服_すそ広がり_C2"
 		},
 		{
+			"Id": "LarmSuso_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "メイド服_左手すそ揺れ_1"
+		},
+		{
+			"Id": "LarmSuso_Yure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "メイド服_左手すそ揺れ_2"
+		},
+		{
+			"Id": "RarmSuso_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "メイド服_右手すそ揺れ_1"
+		},
+		{
+			"Id": "RarmSuso_Yure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "メイド服_右手すそ揺れ_2"
+		},
+		{
+			"Id": "RedSkirt_Yure_A1",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカート横揺れA1"
+		},
+		{
+			"Id": "RedSkirt_Yure_A2",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカート横揺れA2"
+		},
+		{
+			"Id": "RedSkirt_Open_1",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカート広がり1"
+		},
+		{
+			"Id": "RedSkirt_Open_2",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_スカート広がり2"
+		},
+		{
+			"Id": "RedNeckTie_Yure1",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_ネクタイの横揺れ1"
+		},
+		{
+			"Id": "RedNeckTie_Yure2",
+			"GroupId": "ParamGroup3",
+			"Name": "赤い服_ネクタイの横揺れ2"
+		},
+		{
+			"Id": "WhiteSkirt_Yure_A1",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカート横揺れA1"
+		},
+		{
+			"Id": "WhiteSkirt_Yure_A2",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカート横揺れA2"
+		},
+		{
+			"Id": "WhiteSkirt_Yure_A3",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカート横揺れA3"
+		},
+		{
+			"Id": "WhitePinkFrill_Yure_A1",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカートピンク横揺れA1"
+		},
+		{
+			"Id": "WhitePinkFrill_Yure_A2",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカートピンク横揺れA2"
+		},
+		{
+			"Id": "WhitePinkFrill_Yure_A3",
+			"GroupId": "ParamGroup3",
+			"Name": "白い服_スカートピンク横揺れA3"
+		},
+		{
 			"Id": "Ltwintail_ribbon_A_1",
 			"GroupId": "ParamGroup2",
 			"Name": "リボン揺れ_LツインA_1"
@@ -422,6 +497,21 @@
 			"Name": "リボン揺れ_胸R_A_1"
 		},
 		{
+			"Id": "CR_ribbon_A_2",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_胸R_A_2"
+		},
+		{
+			"Id": "CL_ribbon_A_1",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_胸L_A_1"
+		},
+		{
+			"Id": "CL_ribbon_A_2",
+			"GroupId": "ParamGroup2",
+			"Name": "リボン揺れ_胸L_A_2"
+		},
+		{
 			"Id": "CR_ribbon_B_1",
 			"GroupId": "ParamGroup2",
 			"Name": "リボン揺れ_胸R_B_1"
@@ -430,21 +520,6 @@
 			"Id": "CR_ribbon_B_2",
 			"GroupId": "ParamGroup2",
 			"Name": "リボン揺れ_胸R_B_2"
-		},
-		{
-			"Id": "CL_ribbon_A_1",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_胸L_A_1"
-		},
-		{
-			"Id": "CL_ribbon_B_1",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_胸L_B_1"
-		},
-		{
-			"Id": "CL_ribbon_B_2",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_胸L_B_2"
 		},
 		{
 			"Id": "Larm_ribbon_A1",
@@ -457,14 +532,14 @@
 			"Name": "リボン揺れ_左手_A2"
 		},
 		{
-			"Id": "Larm_ribbon_A3",
+			"Id": "Larm_ribbon_B1",
 			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_左手_A3"
+			"Name": "リボン揺れ_左手_B1"
 		},
 		{
-			"Id": "Larm_ribbon_A4",
+			"Id": "Larm_ribbon_B2",
 			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_左手_A4"
+			"Name": "リボン揺れ_左手_B2"
 		},
 		{
 			"Id": "Rarm_ribbon_A1",
@@ -477,14 +552,14 @@
 			"Name": "リボン揺れ_右手_A2"
 		},
 		{
-			"Id": "Rarm_ribbon_A3",
+			"Id": "Rarm_ribbon_B1",
 			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_右手_A3"
+			"Name": "リボン揺れ_右手_B1"
 		},
 		{
-			"Id": "Rarm_ribbon_A4",
+			"Id": "Rarm_ribbon_B2",
 			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_右手_A4"
+			"Name": "リボン揺れ_右手_B2"
 		},
 		{
 			"Id": "WR_ribbon_A_1",
@@ -497,16 +572,6 @@
 			"Name": "リボン揺れ_腰R_A2"
 		},
 		{
-			"Id": "WR_ribbon_A_3",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_腰R_A3"
-		},
-		{
-			"Id": "WR_ribbon_A_4",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_腰R_A4"
-		},
-		{
 			"Id": "WL_ribbon_A_1",
 			"GroupId": "ParamGroup2",
 			"Name": "リボン揺れ_腰L_A1"
@@ -515,16 +580,6 @@
 			"Id": "WL_ribbon_A_2",
 			"GroupId": "ParamGroup2",
 			"Name": "リボン揺れ_腰L_A2"
-		},
-		{
-			"Id": "WL_ribbon_A_3",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_腰L_A3"
-		},
-		{
-			"Id": "WL_ribbon_A_4",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_腰L_A4"
 		},
 		{
 			"Id": "Bhat_ribbon_A_1",

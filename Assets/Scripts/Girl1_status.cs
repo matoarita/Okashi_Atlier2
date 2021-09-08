@@ -59,8 +59,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private bool hukidashion;
     private Text _text;
 
-    private int _temp_status;
-
     private GameObject MoneyStatus_Panel_obj;
     private GameObject Extremepanel_obj;
 
@@ -206,6 +204,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int Girl1_touchhair_status; //髪の毛をなでてあげることで、一時的に機嫌がよくなる。
     private int Girl1_touchhair_count; //一定時間内に触った回数
     public bool Girl1_touch_end; //タッチ終了時に送る信号
+    public bool CubismLookFlag; //マウス押したときに、目線が追従するかどうかのON/OFF
 
     public bool Girl1_touchtwintail_start;
     private int Girl1_touchtwintail_count;
@@ -215,7 +214,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public bool Girl1_touchhand_start;
     public bool Girl1_touchribbon_start;
 
-    public bool touchanim_start; //タッチしはじめたら、その他のモーションなどを一時的に止める。
+    //public bool touchanim_start; //タッチしはじめたら、その他のモーションなどを一時的に止める。
 
     //歩きスタート
     public bool Walk_Start;
@@ -431,6 +430,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         touchGirl_status = 0;
         Girl1_touch_end = false;
+        CubismLookFlag = false;
 
         Girl1_touchhair_start = false;      
         Girl1_touchhair_count = 0;
@@ -444,7 +444,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchhand_start = false;
         Girl1_touchribbon_start = false;
 
-        touchanim_start = false;
+        //touchanim_start = false;
 
         Walk_Start = true; //歩きフラグをON
 
@@ -692,6 +692,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 _model.GetComponent<CubismEyeBlinkController>().enabled = true;                               
                                 live2d_animator.SetInteger("trans_facemotion", 0);
                                 Girl1_touch_end = false;
+                                CubismLookFlag = false;
 
                                 //表情をリセット
                                 switch (compound_Main.compound_status)
@@ -704,11 +705,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                         DefaultFace();
                                         break;
                                 }
-
-                                //フェードで終了する。
-                                _model.GetComponent<GazeController>().enabled = false;
-                                //facemotion_start = true;
-                                //facemotion_init = false;
 
                                 //吹き出し・ハングリーステータスをリセット
                                 ResetHukidashi();
@@ -820,11 +816,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                         if (facemotion_length != 1) //Resetモーションで出る、再生秒数1を捨てる。アニメのほうでは、1以上で設定する。
                         {
-                            Debug.Log("ステート全体長さ" + facemotion_length);
+                            //Debug.Log("ステート全体長さ" + facemotion_length);
 
                             facemotion_time = SujiMap(facemotion_length, 3f, 20f, 0.7f, 0.95f); //facemotion_lengthの値が、３～２０秒を、0.75~0.9に変換する 
                             facemotion_init = true;
-                            Debug.Log("何秒からフェードアウト" + facemotion_time);
+                            //Debug.Log("何秒からフェードアウト" + facemotion_time);
                         }
                     }
 
@@ -861,7 +857,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     {
 
                         //アイドルモーションをランダムで決定。10秒ほど放置していると、勝手に動く。好感度が高くなると、表現も豊かに。
-
                         if (IdleMotionStart)
                         {
                             IdleMotionStart = false;
@@ -871,48 +866,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     else
                     {
-                        /*
-                        //ベースレイヤーのアイドルのタイムが0のときに、モーション切り替えをスタートする。
-                        //Idle_duration = live2d_animator.GetCurrentAnimatorStateInfo(0).normalizedTime; //ステートインフォの中の数字は、Animatorのレイヤー番号
-                        //Idle_duration = Idle_duration - Mathf.Floor(Idle_duration);
-                        //Debug.Log("Idle_duration: " + Idle_duration);
-
-                        //if (Idle_duration <= 0.01)
-                        //{
-                            IdleChangeTemp = false;
-
-                            //全身モーション再生スタートの合図をだす。
-                            facemotion_start = true;
-
-                            //再生開始
-                            //一度再生をリセットして、ヘッドを0に戻す。
-                            live2d_animator.Play("None_facemotion");
-                            live2d_animator.Update(2);
-
-                            live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-                            StartCoroutine(ChangeFaceMotion(9999)); //trans_facemotionの連続防止用
-
-                            //AddMotionLayerのウェイトを徐々にフェードアウト
-                            if (!tween_start)
-                            {
-                                tween_start = true;
-                                facemotion_weight = 0f;
-                                weightTween = DOTween.To(
-                                                            () => facemotion_weight,          // 何を対象にするのか
-                                                            num =>
-                                                            {
-                                                                facemotion_weight = num;
-                                                                live2d_animator.SetLayerWeight(2, facemotion_weight);
-                                                            },   // 値の更新
-                                                            1f,                  // 最終的な値
-                                                            0.5f      // アニメーション時間
-                                                        ).OnComplete(() =>
-                                                        {
-                                                            tween_start = false;
-                                                        });
-                            }*/
-
-                        //}
+                        
                     }
                 }
 
@@ -929,13 +883,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         facemotion_start = false;
         IdleChangeTemp = false;
 
-        live2d_animator.Play("None_facemotion"); //一度アニメーションをリセット
-        //live2d_animator.Update(2);
-        live2d_animator.SetLayerWeight(2, 0); //強制的にAddMotionLayerを0にする。
-       
-        live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotionは、表情も含めた体全体の動き
+        live2d_animator.SetLayerWeight(2, 0); //強制的にAddMotionLayerを0にする。       
+        live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotion 0はリセットし、何もアニメがない状態。
         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-        //_model.GetComponent<GazeController>().enabled = false;
     }
 
     void DefFaceChange()
@@ -1889,7 +1839,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         Girl1_touchhair_count = 0;
         Girl1_touchhair_start = true;
         Girl1_touch_end = false;
-        touchanim_start = true;
+        CubismLookFlag = true; //目線追従する。
+        //touchanim_start = true;
         GirlEat_Judge_on = false;
 
         //一回タッチするだけだと、「いてっ」って感じの反応
@@ -1898,7 +1849,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //タップモーション　ランダムで決定
         Random_TapMotion();
         facemotion_start = true;
-        facemotion_init = false;
       
     }
 
@@ -1953,8 +1903,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //キャラクタ表情・モーション変更
                 HairTouch_Motion();
-
-                _model_obj.GetComponent<GazeController>().enabled = true;
 
                 break;
 
@@ -2262,27 +2210,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //ツインテール　一回さわった
     public void Touchtwintail_Start()
     {
+        touch_startreset();
+
         Girl1_touchtwintail_start = true;
-        touchanim_start = true;
+        //touchanim_start = true;
         facemotion_start = true;
+        CubismLookFlag = true; //目線追従する。
 
         //タップモーション
         live2d_animator.SetLayerWeight(2, 1);
         live2d_animator.Play("tapmotion_01", 2, 0.0f); //tapmotion_01は、頭なでなで・ツインテール共通のモーション
-        facemotion_weight = 1.0f;
-
-        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き       
-        
-
-        _model_obj.GetComponent<GazeController>().enabled = true;
+        facemotion_weight = 1.0f;     
     }
 
     //ツインテール　ドラッグで触り続けた場合
     public void TouchSisterTwinTail()
-    {
-        touch_startreset();
-
+    {        
         //コメント順番に表示
         Init_touchTwintailComment();
 
@@ -2324,7 +2267,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else
         {
-            touch_startreset();
+            //touch_startreset();
+            if (hukidashiitem == null)
+            {
+                hukidasiInit(999.0f);
+            }
             //ランダムで吹き出しの内容を出す。 or 今食べたいものをしゃべる。
             NowEatText();
         }
@@ -2339,24 +2286,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //リボン
     public void TouchRibbon_Start()
     {
+        touch_startreset();
+
         Girl1_touchchest_start = true;
-        touchanim_start = true;
+        //touchanim_start = true;
         facemotion_start = true;
+        CubismLookFlag = true; //目線追従する。
 
         //タップモーション
         live2d_animator.SetLayerWeight(2, 1);
         live2d_animator.Play("tapmotion_03_1", 2, 0.0f);
         facemotion_weight = 1.0f;
 
-        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-
     }
 
     public void TouchSisterRibbon()
-    {
-        touch_startreset();
-
+    {        
         //コメントランダム
         //random = Random.Range(0, _touchface_comment_lib.Count);
         //_touchface_comment = _touchface_comment_lib[random];
@@ -2368,30 +2313,26 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator.Play("tapmotion_03_1", 2, 0.0f);
         facemotion_weight = 1.0f;
 
-        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
-
     }
 
     //手
     public void TouchHand_Start()
     {
+        touch_startreset();
+
         Girl1_touchchest_start = true;
-        touchanim_start = true;
+        //touchanim_start = true;
         facemotion_start = true;
+        CubismLookFlag = true; //目線追従する。
 
         //タップモーション
         live2d_animator.SetLayerWeight(2, 1);
         live2d_animator.Play("tapmotion_03_1", 2, 0.0f);
         facemotion_weight = 1.0f;
-
-        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
     }
 
     public void TouchSisterHand()
     {
-        touch_startreset();
 
         //吹き出し内容の決定
         Init_touchHandComment();
@@ -2405,24 +2346,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //胸
     public void TouchChest_Start()
     {
+        touch_startreset();
+
         Girl1_touchchest_start = true;
-        touchanim_start = true;
+        //touchanim_start = true;
         facemotion_start = true;
+        CubismLookFlag = true; //目線追従する。
 
         //タップモーション　最初触った一回だけ発動        
         live2d_animator.SetLayerWeight(2, 1);
         live2d_animator.Play("tapmotion_02", 2, 0.0f);
         facemotion_weight = 1.0f;
-
-        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
-        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
         
     }
 
     public void TouchSisterChest()
-    {
-        touch_startreset();
-
+    {       
         //吹き出し内容の決定
         Init_touchChestComment();
 
@@ -2445,7 +2384,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //タップモーション　ランダムで決定
     void Random_TapMotion()
     {
-        _model_obj.GetComponent<GazeController>().enabled = false;
 
         random = Random.Range(0, 3);
 
@@ -2484,6 +2422,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         weightTween.Kill(); //フェードアウト中なら中断する
         tween_start = false;
+        facemotion_init = false;
+
+        trans_facemotion = 9999; //その他のモーションに遷移しないように回避
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion); //trans_facemotionは、表情も含めた体全体の動き
     }   
 
     //ランダムで左右に動く
@@ -2528,127 +2470,105 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void IdleChange()
     {
         _model.GetComponent<CubismEyeBlinkController>().enabled = false;
-        _model.GetComponent<GazeController>().enabled = false;
 
-        /*
-        if (GirlOishiso_Status == 0) //デフォルトの状態
-        { }
-        else if (GirlOishiso_Status == 1) //お菓子出来たてのあと、おいしそ～状態
+
+        switch (GirlGokigenStatus)
         {
-            //_temp_status = 1; //デバッグ用
-            
-            random = Random.Range(0, 100); //抽選 2分の1で、おいしそ～状態特有のアイドルモーションに変化
-            if (random >= 50)
-            {
-                _temp_status = 0;
-            }
-            else
-            {
-                _temp_status = 1;
-            }
-        }*/
+            case 0:
 
-        if (_temp_status == 0) //デフォルトの状態
-        {
-            
-            switch (GirlGokigenStatus)
-            {               
-                case 0:
+                random = Random.Range(0, 100); //抽選
+                if (random >= 80)
+                {
+                    trans_facemotion = 0; //0は、何も動かない状態。
+                }
+                else
+                {
+                    trans_facemotion = 1; //ママのいない悲しみモーション
 
-                    random = Random.Range(0, 100); //抽選
-                    if (random >= 80)
-                    {
-                        trans_facemotion = 0; //0は、何も動かない状態。
-                    }
-                    else
-                    {
-                        trans_facemotion = 1; //ママのいない悲しみモーション
-                        
-                        IdleMotionHukidashiSetting(trans_facemotion); //吹き出しも一緒に生成
-                        IdleChangeTemp = true;
-                    }
+                    IdleMotionHukidashiSetting(trans_facemotion); //吹き出しも一緒に生成
+                    IdleChangeTemp = true;
+                }
 
-                    break;
+                break;
 
-                case 1:
+            case 1:
 
-                    random = Random.Range(0, 100); //抽選
-                    if (random >= 80)
-                    {
-                        trans_facemotion = 0; //0は、何も動かない状態。
-                    }
-                    else
-                    {
-                        trans_facemotion = 1; //ママのいない悲しみモーション
-
-                        IdleMotionHukidashiSetting(trans_facemotion);
-                        IdleChangeTemp = true;
-                    }
-                    break;
-
-                case 2:
-
-                    random = Random.Range(0, 4); //0~3
-                    trans_facemotion = random + 10; //10はじまりが、ちょっと動くモーション
+                random = Random.Range(0, 100); //抽選
+                if (random >= 80)
+                {
+                    trans_facemotion = 0; //0は、何も動かない状態。
+                }
+                else
+                {
+                    trans_facemotion = 1; //ママのいない悲しみモーション
 
                     IdleMotionHukidashiSetting(trans_facemotion);
                     IdleChangeTemp = true;
-                    break;
+                }
+                break;
 
-                case 3:
+            case 2:
 
-                    random = Random.Range(0, 4); //0~3
-                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
+                random = Random.Range(0, 4); //0~3
+                trans_facemotion = random + 10; //10はじまりが、ちょっと動くモーション
 
-                    IdleMotionHukidashiSetting(trans_facemotion);
-                    IdleChangeTemp = true;
-                    break;
+                IdleMotionHukidashiSetting(trans_facemotion);
+                IdleChangeTemp = true;
+                break;
 
-                case 4:
+            case 3:
 
-                    random = Random.Range(0, 4); //0~3
-                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
+                random = Random.Range(0, 4); //0~3
+                trans_facemotion = random + 10; //10はじまりが、ちょっと動くモーション
 
-                    IdleMotionHukidashiSetting(trans_facemotion);
-                    IdleChangeTemp = true;
-                    break;
+                IdleMotionHukidashiSetting(trans_facemotion);
+                IdleChangeTemp = true;
+                break;
 
-                case 5:
+            case 4:
 
-                    random = Random.Range(0, 4); //0~3
-                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
+                random = Random.Range(0, 4); //0~3
+                trans_facemotion = random + 10; //10はじまりが、ちょっと動くモーション
 
-                    IdleMotionHukidashiSetting(trans_facemotion);
-                    IdleChangeTemp = true;
-                    break;
+                IdleMotionHukidashiSetting(trans_facemotion);
+                IdleChangeTemp = true;
+                break;
 
-                case 6:
+            case 5:
 
-                    random = Random.Range(0, 4); //0~3
-                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
+                random = Random.Range(0, 4); //0~3
+                trans_facemotion = random + 10; //10はじまりが、ちょっと動くモーション
 
-                    IdleMotionHukidashiSetting(trans_facemotion);
-                    IdleChangeTemp = true;
-                    break;
+                IdleMotionHukidashiSetting(trans_facemotion);
+                IdleChangeTemp = true;
+                break;
 
-                default:
+            case 6:
 
-                    random = Random.Range(0, 4); //0~3
-                    trans_facemotion = random + 1; //10はじまりが、ちょっと動くモーション
+                random = Random.Range(0, 4); //0~3
+                trans_facemotion = random + 10; //10はじまりが、ちょっと動くモーション
 
-                    IdleMotionHukidashiSetting(trans_facemotion);
-                    IdleChangeTemp = true;
+                IdleMotionHukidashiSetting(trans_facemotion);
+                IdleChangeTemp = true;
+                break;
 
-                    break;
-            }
+            default:
+
+                random = Random.Range(0, 4); //0~3
+                trans_facemotion = random + 10; //10はじまりが、ちょっと動くモーション
+
+                IdleMotionHukidashiSetting(trans_facemotion);
+                IdleChangeTemp = true;
+
+                break;
+
 
         }
-        /*else if (_temp_status == 1) //お菓子出来たてのあと、おいしそ～状態 50%の確率で、出来たてのモーションを再生
-        {
-            trans_facemotion = 500; //くんくんモーション
-            IdleMotionHukidashiSetting(trans_facemotion);
-            IdleChangeTemp = true;
-        }*/
+
+        facemotion_start = true;
+        facemotion_init = false;
+        live2d_animator.SetInteger("trans_facemotion", trans_facemotion);
+        live2d_animator.SetLayerWeight(2, 1); //強制的にAddMotionLayerを0にする。
     }   
 
     void IdleMotionHukidashiSetting(int _motion_num)
