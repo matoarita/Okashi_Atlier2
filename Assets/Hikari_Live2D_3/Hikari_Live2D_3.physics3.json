@@ -1,10 +1,10 @@
 {
 	"Version": 3,
 	"Meta": {
-		"PhysicsSettingCount": 33,
-		"TotalInputCount": 215,
-		"TotalOutputCount": 101,
-		"VertexCount": 160,
+		"PhysicsSettingCount": 35,
+		"TotalInputCount": 225,
+		"TotalOutputCount": 127,
+		"VertexCount": 190,
 		"EffectiveForces": {
 			"Gravity": {
 				"X": 0,
@@ -34,118 +34,126 @@
 			},
 			{
 				"Id": "PhysicsSetting5",
-				"Name": "左ツインテール"
+				"Name": "右ツインテール裏"
 			},
 			{
 				"Id": "PhysicsSetting6",
-				"Name": "左リボン"
+				"Name": "左ツインテール"
 			},
 			{
 				"Id": "PhysicsSetting7",
-				"Name": "右リボン"
+				"Name": "左ツインテール裏"
 			},
 			{
 				"Id": "PhysicsSetting8",
-				"Name": "胸リボンA"
+				"Name": "左リボン"
 			},
 			{
 				"Id": "PhysicsSetting9",
-				"Name": "胸リボンB"
+				"Name": "右リボン"
 			},
 			{
 				"Id": "PhysicsSetting10",
-				"Name": "左手リボン"
+				"Name": "胸リボンA"
 			},
 			{
 				"Id": "PhysicsSetting11",
-				"Name": "右手リボン"
+				"Name": "胸リボンB"
 			},
 			{
 				"Id": "PhysicsSetting12",
-				"Name": "両手すそ"
+				"Name": "左手リボン"
 			},
 			{
 				"Id": "PhysicsSetting13",
-				"Name": "腰リボンR"
+				"Name": "右手リボン"
 			},
 			{
 				"Id": "PhysicsSetting14",
-				"Name": "腰リボンL"
+				"Name": "両手すそ"
 			},
 			{
 				"Id": "PhysicsSetting15",
-				"Name": "スカート広がり"
+				"Name": "腰リボンR"
 			},
 			{
 				"Id": "PhysicsSetting16",
-				"Name": "スカート横揺れ"
+				"Name": "腰リボンL"
 			},
 			{
 				"Id": "PhysicsSetting17",
-				"Name": "スカート横揺れ2"
+				"Name": "スカート広がり"
 			},
 			{
 				"Id": "PhysicsSetting18",
-				"Name": "すそ広がり"
+				"Name": "スカート横揺れ"
 			},
 			{
 				"Id": "PhysicsSetting19",
-				"Name": "すそ広がり2"
+				"Name": "スカート横揺れ2"
 			},
 			{
 				"Id": "PhysicsSetting20",
-				"Name": "すそ広がり3"
+				"Name": "すそ広がり"
 			},
 			{
 				"Id": "PhysicsSetting21",
-				"Name": "すそ横揺れ"
+				"Name": "すそ広がり2"
 			},
 			{
 				"Id": "PhysicsSetting22",
-				"Name": "すそ横揺れ2"
+				"Name": "すそ広がり3"
 			},
 			{
 				"Id": "PhysicsSetting23",
-				"Name": "すそ横揺れ3"
+				"Name": "すそ横揺れ"
 			},
 			{
 				"Id": "PhysicsSetting24",
-				"Name": "赤い服スカート横揺れ"
+				"Name": "すそ横揺れ2"
 			},
 			{
 				"Id": "PhysicsSetting25",
-				"Name": "赤い服スカート広がり"
+				"Name": "すそ横揺れ3"
 			},
 			{
 				"Id": "PhysicsSetting26",
-				"Name": "赤い服ネクタイ揺れ"
+				"Name": "赤い服スカート横揺れ"
 			},
 			{
 				"Id": "PhysicsSetting27",
-				"Name": "白い服スカート横揺れ"
+				"Name": "赤い服スカート広がり"
 			},
 			{
 				"Id": "PhysicsSetting28",
-				"Name": "白い服ピンクフリル横揺れ"
+				"Name": "赤い服ネクタイ揺れ"
 			},
 			{
 				"Id": "PhysicsSetting29",
-				"Name": "上半身揺れ"
+				"Name": "白い服スカート横揺れ"
 			},
 			{
 				"Id": "PhysicsSetting30",
-				"Name": "猫しっぽ"
+				"Name": "白い服ピンクフリル横揺れ"
 			},
 			{
 				"Id": "PhysicsSetting31",
-				"Name": "猫しっぽ2"
+				"Name": "上半身揺れ"
 			},
 			{
 				"Id": "PhysicsSetting32",
-				"Name": "バルーンハットリボン揺れ"
+				"Name": "猫しっぽ"
 			},
 			{
 				"Id": "PhysicsSetting33",
+				"Name": "猫しっぽ2"
+			},
+			{
+				"Id": "PhysicsSetting34",
+				"Name": "バルーンハットリボン揺れ"
+			},
+			{
+				"Id": "PhysicsSetting35",
 				"Name": "猫しっぽリボン揺れ"
 			}
 		]
@@ -739,16 +747,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 25,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamAngleY"
-					},
-					"Weight": 15,
+					"Weight": 50,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -766,16 +765,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 10,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleY"
-					},
-					"Weight": 10,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -811,7 +801,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -820,10 +810,21 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Rtwintail_1"
+						"Id": "Param_Angle_Rotation_1_ArtMesh179"
+					},
+					"VertexIndex": 1,
+					"Scale": 10,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_2_ArtMesh179"
 					},
 					"VertexIndex": 2,
-					"Scale": 1.5,
+					"Scale": 15,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -831,10 +832,10 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Rtwintail_2"
+						"Id": "Param_Angle_Rotation_3_ArtMesh179"
 					},
 					"VertexIndex": 3,
-					"Scale": 1.2,
+					"Scale": 15,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -842,10 +843,65 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Rtwintail_3"
+						"Id": "Param_Angle_Rotation_4_ArtMesh179"
 					},
 					"VertexIndex": 4,
-					"Scale": 1,
+					"Scale": 20,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_5_ArtMesh179"
+					},
+					"VertexIndex": 5,
+					"Scale": 20,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_6_ArtMesh179"
+					},
+					"VertexIndex": 6,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_7_ArtMesh179"
+					},
+					"VertexIndex": 7,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_8_ArtMesh179"
+					},
+					"VertexIndex": 8,
+					"Scale": 32,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_9_ArtMesh179"
+					},
+					"VertexIndex": 9,
+					"Scale": 40,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -857,50 +913,100 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.93,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
 					"Radius": 10
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 10
-					},
-					"Mobility": 0.96,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 20
-					},
-					"Mobility": 0.93,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 33
-					},
-					"Mobility": 0.9,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 13
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 49
+						"Y": 8
 					},
 					"Mobility": 0.85,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 16
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 16
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 24
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 32
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 40
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 48
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 56
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 64
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 72
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
 				}
 			],
 			"Normalization": {
@@ -924,16 +1030,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 25,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamAngleY"
-					},
-					"Weight": 15,
+					"Weight": 50,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -951,16 +1048,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 10,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleY"
-					},
-					"Weight": 10,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -996,7 +1084,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -1005,21 +1093,10 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Ltwintail_1"
-					},
-					"VertexIndex": 2,
-					"Scale": 1.5,
-					"Weight": 100,
-					"Type": "Angle",
-					"Reflect": false
-				},
-				{
-					"Destination": {
-						"Target": "Parameter",
-						"Id": "Ltwintail_2"
+						"Id": "Param_Angle_Rotation_1_ArtMesh195"
 					},
 					"VertexIndex": 3,
-					"Scale": 1.2,
+					"Scale": 15,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -1027,10 +1104,65 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "Ltwintail_3"
+						"Id": "Param_Angle_Rotation_2_ArtMesh195"
 					},
 					"VertexIndex": 4,
-					"Scale": 1,
+					"Scale": 20,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_3_ArtMesh195"
+					},
+					"VertexIndex": 5,
+					"Scale": 20,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_4_ArtMesh195"
+					},
+					"VertexIndex": 6,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_5_ArtMesh195"
+					},
+					"VertexIndex": 7,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_6_ArtMesh195"
+					},
+					"VertexIndex": 8,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_7_ArtMesh195"
+					},
+					"VertexIndex": 9,
+					"Scale": 30,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -1042,50 +1174,100 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.93,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 10
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 10
+						"Y": 11
 					},
-					"Mobility": 0.96,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 10
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 20
+						"Y": 22
 					},
-					"Mobility": 0.93,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 10
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
 				},
 				{
 					"Position": {
 						"X": 0,
 						"Y": 33
 					},
-					"Mobility": 0.9,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 13
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 49
+						"Y": 44
 					},
 					"Mobility": 0.85,
-					"Delay": 0.95,
-					"Acceleration": 0.8,
-					"Radius": 16
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 55
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 66
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 77
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 88
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 99
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
 				}
 			],
 			"Normalization": {
@@ -1103,6 +1285,550 @@
 		},
 		{
 			"Id": "PhysicsSetting6",
+			"Input": [
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamAngleX"
+					},
+					"Weight": 50,
+					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamAngleZ"
+					},
+					"Weight": 30,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamBodyAngleX"
+					},
+					"Weight": 20,
+					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamBodyAngleZ"
+					},
+					"Weight": 20,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "Hair_All_z_rotate"
+					},
+					"Weight": 50,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "Hair_All_z_Pos"
+					},
+					"Weight": 30,
+					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamBreath"
+					},
+					"Weight": 0,
+					"Type": "X",
+					"Reflect": false
+				}
+			],
+			"Output": [
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_1_ArtMesh175"
+					},
+					"VertexIndex": 1,
+					"Scale": 10,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_2_ArtMesh175"
+					},
+					"VertexIndex": 2,
+					"Scale": 15,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_3_ArtMesh175"
+					},
+					"VertexIndex": 3,
+					"Scale": 15,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_4_ArtMesh175"
+					},
+					"VertexIndex": 4,
+					"Scale": 20,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_5_ArtMesh175"
+					},
+					"VertexIndex": 5,
+					"Scale": 20,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_6_ArtMesh175"
+					},
+					"VertexIndex": 6,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_7_ArtMesh175"
+					},
+					"VertexIndex": 7,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_8_ArtMesh175"
+					},
+					"VertexIndex": 8,
+					"Scale": 32,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_9_ArtMesh175"
+					},
+					"VertexIndex": 9,
+					"Scale": 40,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				}
+			],
+			"Vertices": [
+				{
+					"Position": {
+						"X": 0,
+						"Y": 0
+					},
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.5,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 9
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 18
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 27
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 36
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 45
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 54
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 63
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 72
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 81
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				}
+			],
+			"Normalization": {
+				"Position": {
+					"Minimum": -10,
+					"Default": 0,
+					"Maximum": 10
+				},
+				"Angle": {
+					"Minimum": -45,
+					"Default": 0,
+					"Maximum": 45
+				}
+			}
+		},
+		{
+			"Id": "PhysicsSetting7",
+			"Input": [
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamAngleX"
+					},
+					"Weight": 50,
+					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamAngleZ"
+					},
+					"Weight": 30,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamBodyAngleX"
+					},
+					"Weight": 20,
+					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamBodyAngleZ"
+					},
+					"Weight": 20,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "Hair_All_z_rotate"
+					},
+					"Weight": 50,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "Hair_All_z_Pos"
+					},
+					"Weight": 30,
+					"Type": "X",
+					"Reflect": false
+				},
+				{
+					"Source": {
+						"Target": "Parameter",
+						"Id": "ParamBreath"
+					},
+					"Weight": 0,
+					"Type": "X",
+					"Reflect": false
+				}
+			],
+			"Output": [
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_1_ArtMesh194"
+					},
+					"VertexIndex": 3,
+					"Scale": 15,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_2_ArtMesh194"
+					},
+					"VertexIndex": 4,
+					"Scale": 20,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_3_ArtMesh194"
+					},
+					"VertexIndex": 5,
+					"Scale": 20,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_4_ArtMesh194"
+					},
+					"VertexIndex": 6,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_5_ArtMesh194"
+					},
+					"VertexIndex": 7,
+					"Scale": 25,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_6_ArtMesh194"
+					},
+					"VertexIndex": 8,
+					"Scale": 32,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				},
+				{
+					"Destination": {
+						"Target": "Parameter",
+						"Id": "Param_Angle_Rotation_7_ArtMesh194"
+					},
+					"VertexIndex": 9,
+					"Scale": 40,
+					"Weight": 100,
+					"Type": "Angle",
+					"Reflect": false
+				}
+			],
+			"Vertices": [
+				{
+					"Position": {
+						"X": 0,
+						"Y": 0
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 12
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 24
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 36
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 48
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 60
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 72
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 84
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 96
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 108
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 11
+				}
+			],
+			"Normalization": {
+				"Position": {
+					"Minimum": -10,
+					"Default": 0,
+					"Maximum": 10
+				},
+				"Angle": {
+					"Minimum": -45,
+					"Default": 0,
+					"Maximum": 45
+				}
+			}
+		},
+		{
+			"Id": "PhysicsSetting8",
 			"Input": [
 				{
 					"Source": {
@@ -1288,7 +2014,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting7",
+			"Id": "PhysicsSetting9",
 			"Input": [
 				{
 					"Source": {
@@ -1452,7 +2178,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting8",
+			"Id": "PhysicsSetting10",
 			"Input": [
 				{
 					"Source": {
@@ -1621,7 +2347,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting9",
+			"Id": "PhysicsSetting11",
 			"Input": [
 				{
 					"Source": {
@@ -1768,7 +2494,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting10",
+			"Id": "PhysicsSetting12",
 			"Input": [
 				{
 					"Source": {
@@ -1927,7 +2653,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting11",
+			"Id": "PhysicsSetting13",
 			"Input": [
 				{
 					"Source": {
@@ -2086,7 +2812,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting12",
+			"Id": "PhysicsSetting14",
 			"Input": [
 				{
 					"Source": {
@@ -2255,7 +2981,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting13",
+			"Id": "PhysicsSetting15",
 			"Input": [
 				{
 					"Source": {
@@ -2392,7 +3118,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting14",
+			"Id": "PhysicsSetting16",
 			"Input": [
 				{
 					"Source": {
@@ -2529,7 +3255,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting15",
+			"Id": "PhysicsSetting17",
 			"Input": [
 				{
 					"Source": {
@@ -2554,7 +3280,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -2616,40 +3342,40 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.95,
-					"Delay": 0.95,
-					"Acceleration": 0.6,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 10
-					},
-					"Mobility": 0.94,
-					"Delay": 0.95,
-					"Acceleration": 0.6,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 22
-					},
-					"Mobility": 0.94,
-					"Delay": 0.95,
-					"Acceleration": 0.6,
-					"Radius": 12
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 37
-					},
-					"Mobility": 0.82,
+					"Mobility": 0.9,
 					"Delay": 0.95,
 					"Acceleration": 0.6,
 					"Radius": 15
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 15
+					},
+					"Mobility": 0.9,
+					"Delay": 0.95,
+					"Acceleration": 0.6,
+					"Radius": 15
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 32
+					},
+					"Mobility": 0.9,
+					"Delay": 0.95,
+					"Acceleration": 0.6,
+					"Radius": 17
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 53
+					},
+					"Mobility": 0.9,
+					"Delay": 0.95,
+					"Acceleration": 0.6,
+					"Radius": 21
 				}
 			],
 			"Normalization": {
@@ -2666,7 +3392,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting16",
+			"Id": "PhysicsSetting18",
 			"Input": [
 				{
 					"Source": {
@@ -2691,7 +3417,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -2718,7 +3444,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -2775,50 +3501,50 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.94,
-					"Delay": 0.97,
+					"Mobility": 0.9,
+					"Delay": 0.9,
+					"Acceleration": 0.6,
+					"Radius": 15
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 10
+					},
+					"Mobility": 0.9,
+					"Delay": 0.9,
 					"Acceleration": 0.6,
 					"Radius": 10
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 12
+						"Y": 22
 					},
-					"Mobility": 0.94,
-					"Delay": 0.97,
+					"Mobility": 0.9,
+					"Delay": 0.9,
 					"Acceleration": 0.6,
-					"Radius": 10
+					"Radius": 12
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 24
+						"Y": 37
 					},
-					"Mobility": 0.94,
-					"Delay": 0.97,
+					"Mobility": 0.85,
+					"Delay": 0.9,
 					"Acceleration": 0.6,
-					"Radius": 10
+					"Radius": 15
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 36
+						"Y": 52
 					},
-					"Mobility": 0.94,
-					"Delay": 0.97,
+					"Mobility": 0.8,
+					"Delay": 0.9,
 					"Acceleration": 0.6,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 48
-					},
-					"Mobility": 0.94,
-					"Delay": 0.97,
-					"Acceleration": 0.6,
-					"Radius": 10
+					"Radius": 15
 				}
 			],
 			"Normalization": {
@@ -2835,7 +3561,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting17",
+			"Id": "PhysicsSetting19",
 			"Input": [
 				{
 					"Source": {
@@ -2860,7 +3586,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -2887,7 +3613,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -2944,7 +3670,7 @@
 						"X": 0,
 						"Y": 0
 					},
-					"Mobility": 0.94,
+					"Mobility": 0.9,
 					"Delay": 0.97,
 					"Acceleration": 0.6,
 					"Radius": 10
@@ -2954,7 +3680,7 @@
 						"X": 0,
 						"Y": 10
 					},
-					"Mobility": 0.94,
+					"Mobility": 0.9,
 					"Delay": 0.97,
 					"Acceleration": 0.6,
 					"Radius": 10
@@ -2962,9 +3688,9 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 22
+						"Y": 20
 					},
-					"Mobility": 0.92,
+					"Mobility": 0.9,
 					"Delay": 0.97,
 					"Acceleration": 0.6,
 					"Radius": 10
@@ -2972,22 +3698,22 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 37
+						"Y": 33
 					},
-					"Mobility": 0.85,
+					"Mobility": 0.9,
 					"Delay": 0.97,
 					"Acceleration": 0.6,
-					"Radius": 10
+					"Radius": 13
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 57
+						"Y": 49
 					},
-					"Mobility": 0.82,
+					"Mobility": 0.9,
 					"Delay": 0.97,
 					"Acceleration": 0.6,
-					"Radius": 10
+					"Radius": 16
 				}
 			],
 			"Normalization": {
@@ -3004,7 +3730,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting18",
+			"Id": "PhysicsSetting20",
 			"Input": [
 				{
 					"Source": {
@@ -3141,7 +3867,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting19",
+			"Id": "PhysicsSetting21",
 			"Input": [
 				{
 					"Source": {
@@ -3278,7 +4004,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting20",
+			"Id": "PhysicsSetting22",
 			"Input": [
 				{
 					"Source": {
@@ -3415,7 +4141,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting21",
+			"Id": "PhysicsSetting23",
 			"Input": [
 				{
 					"Source": {
@@ -3562,7 +4288,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting22",
+			"Id": "PhysicsSetting24",
 			"Input": [
 				{
 					"Source": {
@@ -3709,7 +4435,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting23",
+			"Id": "PhysicsSetting25",
 			"Input": [
 				{
 					"Source": {
@@ -3856,7 +4582,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting24",
+			"Id": "PhysicsSetting26",
 			"Input": [
 				{
 					"Source": {
@@ -4003,7 +4729,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting25",
+			"Id": "PhysicsSetting27",
 			"Input": [
 				{
 					"Source": {
@@ -4150,7 +4876,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting26",
+			"Id": "PhysicsSetting28",
 			"Input": [
 				{
 					"Source": {
@@ -4287,7 +5013,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting27",
+			"Id": "PhysicsSetting29",
 			"Input": [
 				{
 					"Source": {
@@ -4445,7 +5171,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting28",
+			"Id": "PhysicsSetting30",
 			"Input": [
 				{
 					"Source": {
@@ -4603,7 +5329,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting29",
+			"Id": "PhysicsSetting31",
 			"Input": [
 				{
 					"Source": {
@@ -4637,7 +5363,7 @@
 				{
 					"Destination": {
 						"Target": "Parameter",
-						"Id": "ParamUpperbodyRot"
+						"Id": "ParamUpperbodyYure"
 					},
 					"VertexIndex": 1,
 					"Scale": 7,
@@ -4702,7 +5428,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting30",
+			"Id": "PhysicsSetting32",
 			"Input": [
 				{
 					"Source": {
@@ -4977,7 +5703,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting31",
+			"Id": "PhysicsSetting33",
 			"Input": [
 				{
 					"Source": {
@@ -5094,7 +5820,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting32",
+			"Id": "PhysicsSetting34",
 			"Input": [
 				{
 					"Source": {
@@ -5271,7 +5997,7 @@
 			}
 		},
 		{
-			"Id": "PhysicsSetting33",
+			"Id": "PhysicsSetting35",
 			"Input": [
 				{
 					"Source": {
