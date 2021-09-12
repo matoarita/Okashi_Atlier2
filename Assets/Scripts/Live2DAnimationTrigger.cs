@@ -127,12 +127,11 @@ public class Live2DAnimationTrigger : MonoBehaviour {
 
     public void FaceMotionEndSignal() //アニメーションをフェードで終了し切り替えるためのフラグ
     {
-        girl1_status.facemotion_start = true;
+
     }
 
     public void TapMotionEndSignal() //タップアニメーションをフェードで終了し切り替えるためのフラグ。タッチフラグもオフにする。
     {
-        girl1_status.facemotion_start = true;
 
         girl1_status.Girl1_touchtwintail_start = false;
         girl1_status.Girl1_touchchest_start = false;
@@ -141,7 +140,6 @@ public class Live2DAnimationTrigger : MonoBehaviour {
 
     public void OishisoEndSignal() //アニメーションをフェードで終了し切り替えるためのフラグ
     {
-        girl1_status.facemotion_start = true;
         girl1_status.GirlOishiso_Status = 0; //０に戻す。
         girl1_status.Walk_Start = true;
     }
@@ -150,6 +148,5 @@ public class Live2DAnimationTrigger : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.1f);
 
-        girl1_status.facemotion_start = true;
     }
 }

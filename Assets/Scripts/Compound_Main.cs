@@ -578,6 +578,7 @@ public class Compound_Main : MonoBehaviour
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
+        girl1_status.DefaultFace();
 
         //ステージクリア用の好感度数値
         switch (GameMgr.stage_number)
@@ -1254,12 +1255,7 @@ public class Compound_Main : MonoBehaviour
                 //
                 //Live2Dデフォルト
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
-                girl1_status.Walk_Start = true;
-                girl1_status.timeOutMoveX = 7.0f;
                 girl1_status.HukidashiFlag = true;
-                girl1_status.IdleChangeTemp = false;
-                girl1_status.facemotion_start = false;
-                girl1_status.facemotion_init = false;
                 girl1_status.tween_start = false;
                 
                 //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新

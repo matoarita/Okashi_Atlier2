@@ -1935,11 +1935,14 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     if (girl1_status.hukidashiitem != null)
                     {
-                        hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                        _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-                        _hukidashitext.text = "む！今まで食べたことがないお菓子だ！！";
+                        girl1_status.hukidasiInit(10.0f);
+                        /*hukidashiitem = GameObject.FindWithTag("Hukidashi");
+                        _hukidashitext = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
+                        _hukidashitext.text = "む！今まで食べたことがないお菓子だ！！";*/
                     }
-                    
+
+                    girl1_status.hukidashiMessage("む！今まで食べたことがないお菓子だ！！");
+
                     //3秒ほど表示したら、お菓子の感想を言ったり、なんか褒めてくれたりする。
                     StartCoroutine("WaitCommentNewOkashiDesc");
 
@@ -1948,14 +1951,15 @@ public class GirlEat_Judge : MonoBehaviour {
                 default:
 
                     //共通
-                    if (hukidashiitem == null)
+                    if (girl1_status.hukidashiitem == null)
                     {
                         girl1_status.hukidasiInit(10.0f);
                     }
 
-                    hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                    _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-                    _hukidashitext.text = "お兄ちゃん！ありがとー！！";
+                    /*hukidashiitem = GameObject.FindWithTag("Hukidashi");
+                    _hukidashitext = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
+                    _hukidashitext.text = "お兄ちゃん！ありがとー！！";*/
+                    girl1_status.hukidashiMessage("お兄ちゃん！ありがとー！！");
 
                     //そのお菓子セットをどれだけ食べたか。回数を増やす。
                     if (girl1_status.OkashiNew_Status == 0)　//スペシャルクエストの場合
@@ -2005,10 +2009,15 @@ public class GirlEat_Judge : MonoBehaviour {
         }
         else //失敗の場合
         {
-            if (girl1_status.hukidashiitem != null)
+            if (girl1_status.hukidashiitem == null)
+            {
+                girl1_status.hukidasiInit(10.0f);
+            }
+
+            /*if (girl1_status.hukidashiitem != null)
             {
                 hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+                _hukidashitext = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
 
             }
             else
@@ -2016,15 +2025,16 @@ public class GirlEat_Judge : MonoBehaviour {
                 girl1_status.hukidasiInit(10.0f);
 
                 hukidashiitem = GameObject.FindWithTag("Hukidashi");
-                _hukidashitext = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
-            }
+                _hukidashitext = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
+            }*/
 
             switch (dislike_status)
             {
 
                 case 3: //粉っぽいなど、マイナスの値が超えた。
 
-                    hukidashiitem.GetComponent<TextController>().SetText("げろげろ..。ま、まずいよ..。兄ちゃん。");
+                    girl1_status.hukidashiMessage("げろげろ..。ま、まずいよ..。兄ちゃん。");
+                    //hukidashiitem.GetComponent<TextController>().SetText("げろげろ..。ま、まずいよ..。兄ちゃん。");
 
                     //まずいときは、スコアは0点。
                     //total_score = 0;
@@ -2050,7 +2060,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 case 4: //嫌いな材料が使われていた
 
-                    hukidashiitem.GetComponent<TextController>().SetText("ぐええ..。コレ嫌いー！..。");
+                    girl1_status.hukidashiMessage("ぐええ..。コレ嫌いー！..。");
+                    //hukidashiitem.GetComponent<TextController>().SetText("ぐええ..。コレ嫌いー！..。");
 
                     //まずいときは、スコアは0点。
                     //total_score = 0;
@@ -2076,7 +2087,8 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 case 5: //吹き出しでない場合
 
-                    hukidashiitem.GetComponent<TextController>().SetText("今はこれの気分じゃない！");
+                    girl1_status.hukidashiMessage("今はこれの気分じゃない！");
+                    //hukidashiitem.GetComponent<TextController>().SetText("今はこれの気分じゃない！");
 
                     //キャラクタ表情変更
                     //s.sprite = girl1_status.Girl1_img_verysad_close;
@@ -2121,14 +2133,15 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         yield return new WaitForSeconds(3.0f);
 
-        if (hukidashiitem != null)
+        if (girl1_status.hukidashiitem != null)
         {
             //ランダムで、吹き出しの内容を決定
             CommentTextInit();
             random = Random.Range(0, _commentDict.Count);
             _commentrandom = _commentDict[random];
 
-            hukidashiitem.GetComponent<TextController>().SetText(_commentrandom);
+            //hukidashiitem.GetComponent<TextController>().SetText(_commentrandom);
+            girl1_status.hukidashiMessage(_commentrandom);
         }
 
         girl1_status.timeOut += 3.0f; //少し表示時間をのばす
@@ -2138,9 +2151,10 @@ public class GirlEat_Judge : MonoBehaviour {
     {
         yield return new WaitForSeconds(3.0f);
 
-        if (hukidashiitem != null)
+        if (girl1_status.hukidashiitem != null)
         {
-            hukidashiitem.GetComponent<TextController>().SetText(database.items[_baseID].itemNameHyouji + "うまいぞ！");
+            //hukidashiitem.GetComponent<TextController>().SetText(database.items[_baseID].itemNameHyouji + "うまいぞ！");
+            girl1_status.hukidashiMessage(database.items[_baseID].itemNameHyouji + "うまいぞ！");
         }
 
         girl1_status.timeOut += 3.0f; //少し表示時間をのばす

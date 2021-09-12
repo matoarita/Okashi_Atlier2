@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 31,
-		"TotalSegmentCount": 59,
-		"TotalPointCount": 186,
+		"CurveCount": 20,
+		"TotalSegmentCount": 43,
+		"TotalPointCount": 139,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -101,50 +101,6 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamEyeLOpen",
-			"Segments": [
-				0,
-				0.8,
-				1,
-				0.5,
-				0.8,
-				1,
-				0.7,
-				1.5,
-				0.7,
-				1,
-				2,
-				0.7,
-				2.5,
-				0.8,
-				3,
-				0.8
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeROpen",
-			"Segments": [
-				0,
-				0.8,
-				1,
-				0.5,
-				0.8,
-				1,
-				0.7,
-				1.5,
-				0.7,
-				1,
-				2,
-				0.7,
-				2.5,
-				0.8,
-				3,
-				0.8
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamEyeBallX",
 			"Segments": [
 				0,
@@ -185,138 +141,6 @@
 				0,
 				3,
 				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamBrowLY",
-			"Segments": [
-				0,
-				0,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamBrowRY",
-			"Segments": [
-				0,
-				0,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamBrowLX",
-			"Segments": [
-				0,
-				0,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamBrowRX",
-			"Segments": [
-				0,
-				0,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamBrowLAngle",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.5,
-				0,
-				1,
-				0.5,
-				1.5,
-				0.5,
-				1,
-				2,
-				0.5,
-				2.5,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamBrowRAngle",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.5,
-				0,
-				1,
-				0.5,
-				1.5,
-				0.5,
-				1,
-				2,
-				0.5,
-				2.5,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamBrowLForm",
-			"Segments": [
-				0,
-				0,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamBrowRForm",
-			"Segments": [
-				0,
-				0,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMouthOpenY",
-			"Segments": [
-				0,
-				0.8,
-				1,
-				0.5,
-				0.8,
-				1,
-				1,
-				1.5,
-				1,
-				1,
-				2,
-				1,
-				2.5,
-				0.8,
-				3,
-				0.8
 			]
 		},
 		{
