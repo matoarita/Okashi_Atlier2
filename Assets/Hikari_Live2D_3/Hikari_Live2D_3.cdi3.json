@@ -182,19 +182,14 @@
 			"Name": "呼吸"
 		},
 		{
-			"Id": "ParamMainX",
+			"Id": "ParamCharaPosX",
 			"GroupId": "ParamGroup4",
 			"Name": "MainX"
 		},
 		{
-			"Id": "ParamMainY",
+			"Id": "ParamCharaPosY",
 			"GroupId": "ParamGroup4",
 			"Name": "MainY"
-		},
-		{
-			"Id": "ParamMainScale",
-			"GroupId": "ParamGroup4",
-			"Name": "MainCameraZ"
 		},
 		{
 			"Id": "LR_upperarm_Rot",
@@ -210,6 +205,21 @@
 			"Id": "L_handR",
 			"GroupId": "ParamGroup4",
 			"Name": "両手回転"
+		},
+		{
+			"Id": "ParamMainCamX",
+			"GroupId": "ParamGroup15",
+			"Name": "MainCameraX"
+		},
+		{
+			"Id": "ParamMainCamY",
+			"GroupId": "ParamGroup15",
+			"Name": "MainCameraY"
+		},
+		{
+			"Id": "ParamMainScale",
+			"GroupId": "ParamGroup15",
+			"Name": "MainCameraZ"
 		},
 		{
 			"Id": "ParamHandTachi",
@@ -757,6 +767,61 @@
 			"Name": "風揺れ回転"
 		},
 		{
+			"Id": "ParamStarRot_1",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星回転1"
+		},
+		{
+			"Id": "ParamStarRot_2",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星回転2"
+		},
+		{
+			"Id": "ParamStarRot_3",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星回転3"
+		},
+		{
+			"Id": "ParamStarRot_4",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星回転4"
+		},
+		{
+			"Id": "ParamStarScale_1",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星スケール1"
+		},
+		{
+			"Id": "ParamStarScale_2",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星スケール2"
+		},
+		{
+			"Id": "ParamStarScale_3",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星スケール3"
+		},
+		{
+			"Id": "ParamStarMove_1",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ムーブ1"
+		},
+		{
+			"Id": "ParamStarMove_2",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ムーブ2"
+		},
+		{
+			"Id": "ParamStarMove_3",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ムーブ3"
+		},
+		{
+			"Id": "ParamStarMove_4",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ムーブ4"
+		},
+		{
 			"Id": "Param_Angle_Rotation_1_ArtMesh179",
 			"GroupId": "ParamGroup10",
 			"Name": "[0]右ツインテール"
@@ -929,6 +994,11 @@
 			"Name": "体"
 		},
 		{
+			"Id": "ParamGroup15",
+			"GroupId": "",
+			"Name": "カメラ"
+		},
+		{
 			"Id": "ParamGroup8",
 			"GroupId": "",
 			"Name": "ポーズ差分（重複禁止）"
@@ -962,6 +1032,11 @@
 			"Id": "ParamGroup9",
 			"GroupId": "",
 			"Name": "猫しっぽ"
+		},
+		{
+			"Id": "ParamGroup14",
+			"GroupId": "",
+			"Name": "きら星回転"
 		},
 		{
 			"Id": "ParamGroup10",

@@ -823,29 +823,30 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             //Debug.Log("何秒からフェードアウト" + facemotion_time);
                         }
                     }
-
-
-                    if (facemotion_duration >= facemotion_time) //再生終了前から徐々にウェイトを戻し、ふぇーどでアニメを戻す
+                    else
                     {
-                        //facemotion_weight = 1.0f;
-
-                        if (!tween_start)
+                        if (facemotion_duration >= facemotion_time) //再生終了前から徐々にウェイトを戻し、ふぇーどでアニメを戻す
                         {
-                            tween_start = true;
-                            weightTween = DOTween.To(
-                                () => facemotion_weight,          // 何を対象にするのか
-                                num =>
-                                {
-                                    facemotion_weight = num;
-                                    live2d_animator.SetLayerWeight(2, facemotion_weight);
-                                },   // 値の更新
-                                0f,                  // 最終的な値
-                                1.0f      // アニメーション時間
-                            ).OnComplete(() =>
+                            //facemotion_weight = 1.0f;
+
+                            if (!tween_start)
                             {
-                                AddMotionAnimReset();
-                                
-                    });
+                                tween_start = true;
+                                weightTween = DOTween.To(
+                                    () => facemotion_weight,          // 何を対象にするのか
+                                    num =>
+                                    {
+                                        facemotion_weight = num;
+                                        live2d_animator.SetLayerWeight(2, facemotion_weight);
+                                    },   // 値の更新
+                                    0f,                  // 最終的な値
+                                    1.0f      // アニメーション時間
+                                ).OnComplete(() =>
+                                {
+                                    AddMotionAnimReset();
+
+                                });
+                            }
                         }
                     }
 
@@ -884,7 +885,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         IdleChangeTemp = false;
 
         live2d_animator.SetLayerWeight(2, 0); //強制的にAddMotionLayerを0にする。       
-        live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotion 0はリセットし、何もアニメがない状態。
+        live2d_animator.SetInteger("trans_facemotion", 0); //trans_facemotion 0はリセットし、何もアニメがない状態。「None_motion」に遷移する。
         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
     }
 
@@ -1399,7 +1400,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else
         {
-            //ランダムで吹き出しの内容を出す。 or 今食べたいものをしゃべる。
+            //ランダムで吹き出しの内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
             NowEatText();
         }
 
@@ -1412,7 +1413,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     void NowEatText()
     {
-        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
+        //Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
 
         //ランダムで、吹き出しの内容を決定。口を触った時のコメントと一緒。
         Init_touchFaceComment();
@@ -1521,7 +1522,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //音を鳴らす
         sc.PlaySe(7);
 
-        _text = hukidashiitem.transform.Find("hukidashi_Text").GetComponent<Text>();
+        _text = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
         WaitHint_on = true;
@@ -2272,7 +2273,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 hukidasiInit(999.0f);
             }
-            //ランダムで吹き出しの内容を出す。 or 今食べたいものをしゃべる。
+            //ランダムで吹き出しの内容を出し、モーション。
             NowEatText();
         }
         
@@ -2466,11 +2467,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         character_move.transform.DOMoveX(0, 0.0f);
     }
 
-    //ランダムで仕草　ここではどのモーションを再生するか決定するだけ。
+    //ランダムで仕草　ランダムモーションor口をタップしたときの共通　どのモーションを再生するか＋セリフを決定
     public void IdleChange()
     {
         _model.GetComponent<CubismEyeBlinkController>().enabled = false;
-
+        Debug.Log("ランダムモーション　再生");
 
         switch (GirlGokigenStatus)
         {
@@ -2568,7 +2569,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         facemotion_start = true;
         facemotion_init = false;
         live2d_animator.SetInteger("trans_facemotion", trans_facemotion);
-        live2d_animator.SetLayerWeight(2, 1); //強制的にAddMotionLayerを0にする。
+        live2d_animator.SetLayerWeight(2, 1); //強制的にAddMotionLayerを1にする。
     }   
 
     void IdleMotionHukidashiSetting(int _motion_num)

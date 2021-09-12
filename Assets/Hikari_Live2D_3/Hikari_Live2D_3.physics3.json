@@ -2,7 +2,7 @@
 	"Version": 3,
 	"Meta": {
 		"PhysicsSettingCount": 35,
-		"TotalInputCount": 225,
+		"TotalInputCount": 215,
 		"TotalOutputCount": 127,
 		"VertexCount": 190,
 		"EffectiveForces": {
@@ -167,16 +167,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 25,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamAngleY"
-					},
-					"Weight": 15,
+					"Weight": 50,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -194,16 +185,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 10,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleY"
-					},
-					"Weight": 10,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -239,7 +221,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -375,16 +357,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 25,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamAngleY"
-					},
-					"Weight": 15,
+					"Weight": 50,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -402,16 +375,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 10,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleY"
-					},
-					"Weight": 10,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -447,7 +411,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -561,16 +525,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 25,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamAngleY"
-					},
-					"Weight": 15,
+					"Weight": 50,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -588,16 +543,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 10,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleY"
-					},
-					"Weight": 10,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -633,7 +579,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -846,7 +792,7 @@
 						"Id": "Param_Angle_Rotation_4_ArtMesh179"
 					},
 					"VertexIndex": 4,
-					"Scale": 20,
+					"Scale": 30,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -857,7 +803,7 @@
 						"Id": "Param_Angle_Rotation_5_ArtMesh179"
 					},
 					"VertexIndex": 5,
-					"Scale": 20,
+					"Scale": 30,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -868,7 +814,7 @@
 						"Id": "Param_Angle_Rotation_6_ArtMesh179"
 					},
 					"VertexIndex": 6,
-					"Scale": 25,
+					"Scale": 45,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -879,7 +825,7 @@
 						"Id": "Param_Angle_Rotation_7_ArtMesh179"
 					},
 					"VertexIndex": 7,
-					"Scale": 25,
+					"Scale": 55,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -890,7 +836,7 @@
 						"Id": "Param_Angle_Rotation_8_ArtMesh179"
 					},
 					"VertexIndex": 8,
-					"Scale": 32,
+					"Scale": 65,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -901,7 +847,7 @@
 						"Id": "Param_Angle_Rotation_9_ArtMesh179"
 					},
 					"VertexIndex": 9,
-					"Scale": 40,
+					"Scale": 80,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -921,7 +867,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 8
+						"Y": 10
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -931,7 +877,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 16
+						"Y": 20
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -941,17 +887,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 24
-					},
-					"Mobility": 0.85,
-					"Delay": 0.9,
-					"Acceleration": 1.2,
-					"Radius": 10
-				},
-				{
-					"Position": {
-						"X": 0,
-						"Y": 32
+						"Y": 30
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -971,7 +907,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 48
+						"Y": 50
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -981,7 +917,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 56
+						"Y": 60
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -991,7 +927,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 64
+						"Y": 70
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1001,7 +937,17 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 72
+						"Y": 80
+					},
+					"Mobility": 0.85,
+					"Delay": 0.9,
+					"Acceleration": 1.2,
+					"Radius": 10
+				},
+				{
+					"Position": {
+						"X": 0,
+						"Y": 90
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1390,7 +1336,7 @@
 						"Id": "Param_Angle_Rotation_4_ArtMesh175"
 					},
 					"VertexIndex": 4,
-					"Scale": 20,
+					"Scale": 30,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -1401,7 +1347,7 @@
 						"Id": "Param_Angle_Rotation_5_ArtMesh175"
 					},
 					"VertexIndex": 5,
-					"Scale": 20,
+					"Scale": 30,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -1412,7 +1358,7 @@
 						"Id": "Param_Angle_Rotation_6_ArtMesh175"
 					},
 					"VertexIndex": 6,
-					"Scale": 25,
+					"Scale": 45,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -1423,7 +1369,7 @@
 						"Id": "Param_Angle_Rotation_7_ArtMesh175"
 					},
 					"VertexIndex": 7,
-					"Scale": 25,
+					"Scale": 55,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -1434,7 +1380,7 @@
 						"Id": "Param_Angle_Rotation_8_ArtMesh175"
 					},
 					"VertexIndex": 8,
-					"Scale": 32,
+					"Scale": 65,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -1445,7 +1391,7 @@
 						"Id": "Param_Angle_Rotation_9_ArtMesh175"
 					},
 					"VertexIndex": 9,
-					"Scale": 40,
+					"Scale": 80,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -1465,7 +1411,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 9
+						"Y": 10
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1475,7 +1421,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 18
+						"Y": 20
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1485,7 +1431,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 27
+						"Y": 30
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1495,7 +1441,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 36
+						"Y": 40
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1505,7 +1451,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 45
+						"Y": 50
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1515,7 +1461,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 54
+						"Y": 60
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1525,7 +1471,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 63
+						"Y": 70
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1535,7 +1481,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 72
+						"Y": 80
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1545,7 +1491,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 81
+						"Y": 90
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1726,7 +1672,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 12
+						"Y": 11
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1736,7 +1682,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 24
+						"Y": 22
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1746,7 +1692,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 36
+						"Y": 33
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1756,7 +1702,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 48
+						"Y": 44
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1766,7 +1712,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 60
+						"Y": 55
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1776,7 +1722,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 72
+						"Y": 66
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1786,7 +1732,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 84
+						"Y": 77
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1796,7 +1742,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 96
+						"Y": 88
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1806,7 +1752,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 108
+						"Y": 99
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1835,16 +1781,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 25,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamAngleY"
-					},
-					"Weight": 15,
+					"Weight": 50,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -1862,16 +1799,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 10,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleY"
-					},
-					"Weight": 10,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -1907,7 +1835,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -2021,16 +1949,7 @@
 						"Target": "Parameter",
 						"Id": "ParamAngleX"
 					},
-					"Weight": 25,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamAngleY"
-					},
-					"Weight": 15,
+					"Weight": 50,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -2048,16 +1967,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 10,
-					"Type": "X",
-					"Reflect": false
-				},
-				{
-					"Source": {
-						"Target": "Parameter",
-						"Id": "ParamBodyAngleY"
-					},
-					"Weight": 10,
+					"Weight": 20,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -2093,7 +2003,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -5367,7 +5277,7 @@
 					},
 					"VertexIndex": 1,
 					"Scale": 7,
-					"Weight": 100,
+					"Weight": 0,
 					"Type": "Angle",
 					"Reflect": false
 				}
