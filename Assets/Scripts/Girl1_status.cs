@@ -1480,8 +1480,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         GirlEat_Judge_on = false;
     }
 
+    //吹きだし生成　こっちは、メッセージも外から入れる。
     public void hukidashiMessage(string _msg)
     {
+        hukidasiInit(10.0f);
         _text.text = _msg;
     }
 
@@ -2012,46 +2014,47 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         switch (GirlGokigenStatus)
         {
-            case 0: 
+            case 0:
 
-                live2d_animator.Play("Nade_motion_01", motion_layer_num, 0.0f);
+                live2d_animator.SetInteger("trans_nade", 5);
                 break;
 
             case 1:
 
-                live2d_animator.Play("Nade_motion_01", motion_layer_num, 0.0f);
+                live2d_animator.SetInteger("trans_nade", 5);
                 break;
 
-            case 2: 
+            case 2:
 
-                live2d_animator.Play("Nade_motion_01", motion_layer_num, 0.0f);
+                live2d_animator.SetInteger("trans_nade", 5);
                 break;
 
-            case 3: 
+            case 3:
 
-                live2d_animator.Play("tapmotion_01_2", motion_layer_num, 0.0f);
+                live2d_animator.SetInteger("trans_nade", 5);
                 break;
 
-            case 4: 
+            case 4:
 
-                live2d_animator.Play("tapmotion_01_2", motion_layer_num, 0.0f);
+                live2d_animator.SetInteger("trans_nade", 5);
                 break;
 
-            case 5: 
+            case 5:
 
-                live2d_animator.Play("tapmotion_01_2", motion_layer_num, 0.0f);
+                live2d_animator.SetInteger("trans_nade", 5);
                 break;
 
-            case 6: 
+            case 6:
 
-                live2d_animator.Play("tapmotion_01_2", motion_layer_num, 0.0f);
+                live2d_animator.SetInteger("trans_nade", 5);
                 break;
 
             default:
 
-                live2d_animator.Play("tapmotion_01_2", motion_layer_num, 0.0f);
+                live2d_animator.SetInteger("trans_nade", 5);
                 break;
         }
+        
     }
 
     //髪なでなで時のモーションセット2

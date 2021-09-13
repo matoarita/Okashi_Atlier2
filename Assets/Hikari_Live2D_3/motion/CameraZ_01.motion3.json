@@ -14,7 +14,7 @@
 	"Curves": [
 		{
 			"Target": "Parameter",
-			"Id": "ParamMainX",
+			"Id": "ParamMainCamX",
 			"Segments": [
 				0,
 				0,
@@ -25,13 +25,13 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamMainY",
+			"Id": "ParamMainCamY",
 			"Segments": [
 				0,
-				-20,
+				-12,
 				0,
 				1,
-				-20
+				-12
 			]
 		},
 		{
@@ -39,10 +39,10 @@
 			"Id": "ParamMainScale",
 			"Segments": [
 				0,
-				21,
+				14,
 				0,
 				1,
-				21
+				14
 			]
 		}
 	]

@@ -3172,7 +3172,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3181,7 +3181,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -3217,7 +3217,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -3309,7 +3309,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3318,7 +3318,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -3478,7 +3478,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3487,7 +3487,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -3647,7 +3647,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3656,7 +3656,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -3665,7 +3665,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3692,7 +3692,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -3784,7 +3784,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3793,7 +3793,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -3802,7 +3802,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3829,7 +3829,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -3921,7 +3921,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3930,7 +3930,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -3939,7 +3939,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -3966,7 +3966,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -4058,7 +4058,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4067,7 +4067,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -4076,7 +4076,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4103,7 +4103,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -4205,7 +4205,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4214,7 +4214,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -4223,7 +4223,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4250,7 +4250,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -4352,7 +4352,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4361,7 +4361,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -4370,7 +4370,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4397,7 +4397,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -4499,7 +4499,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4508,7 +4508,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -4517,7 +4517,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4544,7 +4544,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -4646,7 +4646,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4655,7 +4655,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -4664,7 +4664,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4691,7 +4691,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -4793,7 +4793,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4802,7 +4802,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -4811,7 +4811,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4838,7 +4838,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -4930,7 +4930,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4939,7 +4939,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -4948,7 +4948,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -4975,7 +4975,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -4987,7 +4987,7 @@
 						"Id": "WhiteSkirt_Yure_A1"
 					},
 					"VertexIndex": 1,
-					"Scale": 2,
+					"Scale": 1.7,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -4998,7 +4998,7 @@
 						"Id": "WhiteSkirt_Yure_A2"
 					},
 					"VertexIndex": 2,
-					"Scale": 1.6,
+					"Scale": 1.5,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -5088,7 +5088,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 35,
+					"Weight": 70,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -5097,7 +5097,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 50,
+					"Weight": 20,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -5106,7 +5106,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 35,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -5133,7 +5133,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBreath"
 					},
-					"Weight": 10,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}
@@ -5145,7 +5145,7 @@
 						"Id": "WhitePinkFrill_Yure_A1"
 					},
 					"VertexIndex": 2,
-					"Scale": 2,
+					"Scale": 1.7,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -5156,7 +5156,7 @@
 						"Id": "WhitePinkFrill_Yure_A2"
 					},
 					"VertexIndex": 3,
-					"Scale": 1.6,
+					"Scale": 1.5,
 					"Weight": 100,
 					"Type": "Angle",
 					"Reflect": false
@@ -5197,17 +5197,17 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 20
+						"Y": 22
 					},
 					"Mobility": 0.94,
 					"Delay": 0.97,
 					"Acceleration": 0.5,
-					"Radius": 10
+					"Radius": 12
 				},
 				{
 					"Position": {
 						"X": 0,
-						"Y": 35
+						"Y": 37
 					},
 					"Mobility": 0.94,
 					"Delay": 0.97,
@@ -5217,7 +5217,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 57
+						"Y": 59
 					},
 					"Mobility": 0.94,
 					"Delay": 0.97,

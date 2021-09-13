@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 37,
-		"TotalSegmentCount": 54,
-		"TotalPointCount": 197,
+		"CurveCount": 42,
+		"TotalSegmentCount": 65,
+		"TotalPointCount": 233,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -395,6 +395,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
+			"Segments": [
+				0,
+				0,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamGokigen",
 			"Segments": [
 				0,
@@ -515,14 +526,36 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamHiLightOn",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.667,
+				0,
+				1.333,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBodyAngleX",
 			"Segments": [
 				0,
 				-5,
 				1,
-				0.667,
+				0.333,
 				-5,
+				0.667,
+				-6,
+				1,
+				-6,
+				1,
 				1.333,
+				-6,
+				1.667,
 				-5,
 				2,
 				-5
@@ -564,9 +597,23 @@
 				0,
 				-3,
 				1,
-				0.667,
+				0.333,
 				-3,
-				1.333,
+				0.667,
+				-3.685,
+				1,
+				-5,
+				1,
+				1.089,
+				-5.351,
+				1.178,
+				-5.5,
+				1.267,
+				-5.5,
+				1,
+				1.511,
+				-5.5,
+				1.756,
 				-3,
 				2,
 				-3
@@ -574,7 +621,29 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamUpperbodyRot",
+			"Id": "ParamWaistRot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.4,
+				0,
+				0.8,
+				0,
+				1.2,
+				0,
+				1,
+				1.467,
+				0,
+				1.733,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamUpperbodyYure",
 			"Segments": [
 				0,
 				0,
@@ -618,6 +687,50 @@
 				1.333,
 				1,
 				1.667,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosX",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.667,
+				0,
+				1.333,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosY",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.333,
+				0,
+				0.667,
+				0,
+				1,
+				0,
+				1,
+				1.067,
+				0,
+				1.133,
+				-1,
+				1.2,
+				-1,
+				1,
+				1.467,
+				-1,
+				1.733,
 				0,
 				2,
 				0
