@@ -150,6 +150,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Tween weightTween;
     private float facemotion_weight;
     private float Idle_duration;
+    private bool facemotion_start;
 
     private float rnd;
     private int random;
@@ -403,6 +404,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         tween_start = false;
         facemotion_time = 0.3f;
         facemotion_weight = 0f;
+        facemotion_start = false;
         heartUP_facechange = false;
 
         GirlEat_Judge_on = true;
@@ -830,9 +832,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
         }
+
+        if(facemotion_start)
+        {
+            facemotion_start = false;
+            //モーションが繰り返されるのを防止
+            trans_motion = 9999;
+            live2d_animator.SetInteger("trans_motion", trans_motion);
+        }
     }
 
-    //Facemotionを強制的にOFF　GirlEatJudgeなどからも読まれる。いらないかも？
+    //Facemotionを強制的にOFF　Compound_Main,GirlEatJudgeなどからも読まれる。
     public void AddMotionAnimReset()
     {
         weightTween.Kill();
@@ -1350,7 +1360,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidashiitem.GetComponent<TextController>().SetText(_hint1);
 
             timeOutHint = 20.0f; //セリフ＋モーション表示時間
-            live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+            //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+            FaceMotionPlay(1002);
         }
         else
         {
@@ -1360,7 +1371,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 _noweat_count = 0;
                 hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
-                live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+                //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+                FaceMotionPlay(1002);
             }
             else
             {
@@ -1387,7 +1399,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     {
                         _noweat_count = 0;
                         hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
-                        live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+                        //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+                        FaceMotionPlay(1002);
                     }
                 }
             }
@@ -1398,7 +1411,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     }
 
-    void IdleMotionReset()
+    //アニメーションをアイドル状態に戻す。Compound_Mainからも読まれる。
+    public void IdleMotionReset()
     {
         //Idleにリセット
         live2d_animator.Play("Idle", motion_layer_num, 0.0f);
@@ -2163,7 +2177,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         CubismLookFlag = true; //目線追従する。
 
         //タップモーション
-        live2d_animator.Play("tapmotion_01", motion_layer_num, 0.0f); //tapmotion_01は、頭なでなで・ツインテール共通のモーション     
+        live2d_animator.Play("tapmotion_01", motion_layer_num, 0.0f); //tapmotion_01は、頭なでなで・ツインテール共通のモーション タップ系は、.Playですぐに再生で問題ない
     }
 
     //ツインテール　ドラッグで触り続けた場合
@@ -2379,6 +2393,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         character_move.transform.DOMoveX(0, 0.0f);
     }
 
+    //FaceMotionの数字を入れると、それを再生。かつ再生フラグもたてる。.Playを使うよりも、アニメの遷移をなめらかにする処理。
+    void FaceMotionPlay(int _trans_motion)
+    {
+        trans_motion = _trans_motion;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        facemotion_start = true;
+    }
+
     //ランダムで仕草　ランダムモーションor口をタップしたときの共通　どのモーションを再生するか＋セリフを決定　モーションがなくても、セリフだけは表示される。
     public void IdleChange()
     {
@@ -2390,7 +2412,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 0:
 
                 //モーション1種類
-                live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+                //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+                FaceMotionPlay(1002);
+                
                 IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
 
                 break;
@@ -2398,7 +2422,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 1:
 
                 //モーション1種類
-                live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+                //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
+                FaceMotionPlay(1002);
+
                 IdleMotionHukidashiSetting(2); //吹き出しも一緒に生成
                 break;
 
@@ -2425,14 +2451,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     case 0:
 
                         //きらきらほわわ
-                        live2d_animator.Play("facemotion_01", motion_layer_num, 0.0f);
+                        //live2d_animator.Play("facemotion_01", motion_layer_num, 0.0f);
+                        FaceMotionPlay(1000);
                         IdleMotionHukidashiSetting(31); 
                         break;
 
                     case 1:
 
                         //るんるんモーション
-                        live2d_animator.Play("facemotion_06", motion_layer_num, 0.0f);
+                        //live2d_animator.Play("facemotion_06", motion_layer_num, 0.0f);
+                        FaceMotionPlay(1005);
                         IdleMotionHukidashiSetting(32);
                         break;
 

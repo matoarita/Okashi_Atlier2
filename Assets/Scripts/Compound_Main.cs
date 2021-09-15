@@ -1370,15 +1370,7 @@ public class Compound_Main : MonoBehaviour
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
-                cubism_rendercontroller.SortingOrder = 0;
-                trans_motion = 10; //調合シーン用のヒカリちゃんの位置
-                live2d_animator.SetInteger("trans_motion", trans_motion);
-                live2d_posmove_flag = true; //位置を変更したフラグ
-                girl1_status.face_girl_Normal();
-                girl1_status.AddMotionAnimReset();
-                girl1_status.DoTSequence_Kill();
-                character_move.transform.position = new Vector3(0, 0, 0);
-                girl1_status.Walk_Start = false;
+                SetLive2DPos_Compound();
 
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
@@ -1428,15 +1420,7 @@ public class Compound_Main : MonoBehaviour
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
-                cubism_rendercontroller.SortingOrder = 0;
-                trans_motion = 10; //調合シーン用のヒカリちゃんの位置
-                live2d_animator.SetInteger("trans_motion", trans_motion);
-                live2d_posmove_flag = true; //位置を変更したフラグ
-                girl1_status.face_girl_Normal();
-                girl1_status.AddMotionAnimReset();
-                girl1_status.DoTSequence_Kill();
-                character_move.transform.position = new Vector3(0, 0, 0);
-                girl1_status.Walk_Start = false;
+                SetLive2DPos_Compound();
 
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
@@ -1494,15 +1478,7 @@ public class Compound_Main : MonoBehaviour
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
-                cubism_rendercontroller.SortingOrder = 0;
-                trans_motion = 10; //調合シーン用のヒカリちゃんの位置
-                live2d_animator.SetInteger("trans_motion", trans_motion);
-                live2d_posmove_flag = true; //位置を変更したフラグ
-                girl1_status.face_girl_Normal();
-                girl1_status.AddMotionAnimReset();
-                girl1_status.DoTSequence_Kill();
-                character_move.transform.position = new Vector3(0, 0, 0);
-                girl1_status.Walk_Start = false;
+                SetLive2DPos_Compound();
 
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
@@ -1607,14 +1583,8 @@ public class Compound_Main : MonoBehaviour
                 maincam_animator.SetInteger("trans", trans);
 
                 //ヒカリちゃんを表示しない。デフォルト描画順
-                cubism_rendercontroller.SortingOrder = default_live2d_draworder;
-                trans_motion = 1000; //調合シーン用のヒカリちゃんの位置
-                live2d_animator.SetInteger("trans_motion", trans_motion);
-                girl1_status.face_girl_Normal();
-                girl1_status.AddMotionAnimReset();
-                girl1_status.DoTSequence_Kill();
-                character_move.transform.position = new Vector3(0,0,0);
-                girl1_status.Walk_Start = false;
+                SetLive2DPos_Compound();
+                cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順         
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -1999,6 +1969,23 @@ public class Compound_Main : MonoBehaviour
                     break;
             }
         }
+    }
+
+    //調合シーンに入った時の、キャラクタ位置や状態など更新
+    void SetLive2DPos_Compound()
+    {
+        cubism_rendercontroller.SortingOrder = 0;
+        trans_motion = 10; //調合シーン用のヒカリちゃんの位置
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        live2d_posmove_flag = true; //位置を変更したフラグ
+        live2d_animator.SetInteger("trans_nade", 0);
+
+        girl1_status.face_girl_Normal();
+        girl1_status.AddMotionAnimReset();
+        girl1_status.IdleMotionReset();
+        girl1_status.DoTSequence_Kill();
+        character_move.transform.position = new Vector3(0, 0, 0);
+        girl1_status.Walk_Start = false;
     }
 
     void ResetLive2DPos_Face()
