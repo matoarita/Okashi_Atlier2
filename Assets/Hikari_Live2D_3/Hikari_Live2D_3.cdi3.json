@@ -767,6 +767,21 @@
 			"Name": "風揺れ回転"
 		},
 		{
+			"Id": "ParamWingOpen",
+			"GroupId": "ParamGroup16",
+			"Name": "つばさの開閉"
+		},
+		{
+			"Id": "ParamWingOpen2",
+			"GroupId": "ParamGroup16",
+			"Name": "つばさの開閉2"
+		},
+		{
+			"Id": "ParamWingScale",
+			"GroupId": "ParamGroup16",
+			"Name": "つばさの拡縮"
+		},
+		{
 			"Id": "ParamStarRot_1",
 			"GroupId": "ParamGroup14",
 			"Name": "きら星回転1"
@@ -1032,6 +1047,11 @@
 			"Id": "ParamGroup9",
 			"GroupId": "",
 			"Name": "猫しっぽ"
+		},
+		{
+			"Id": "ParamGroup16",
+			"GroupId": "",
+			"Name": "つばさ"
 		},
 		{
 			"Id": "ParamGroup14",
