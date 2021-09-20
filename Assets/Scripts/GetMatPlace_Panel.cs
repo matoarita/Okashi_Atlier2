@@ -691,8 +691,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
-                            event_Frame.SetActive(true);
+                            //event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
+                            //event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 10;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」

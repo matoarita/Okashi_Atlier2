@@ -1361,7 +1361,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             timeOutHint = 20.0f; //セリフ＋モーション表示時間
             //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
-            FaceMotionPlay(1002);
+            FaceMotionPlay(1006);
         }
         else
         {
