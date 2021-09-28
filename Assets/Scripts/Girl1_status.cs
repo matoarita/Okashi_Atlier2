@@ -2756,8 +2756,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 2:
 
                 _touchtwintail_comment_lib.Add("わっ");
-                _touchtwintail_comment_lib.Add("お母さんゆずりで、さらさらなんだよ～。");
-                _touchtwintail_comment_lib.Add("お母さん、元気かなぁ～..。");
+                _touchtwintail_comment_lib.Add("ママゆずりで、さらさらなんだよ～。");
+                _touchtwintail_comment_lib.Add("まま、元気かなぁ～..。");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");

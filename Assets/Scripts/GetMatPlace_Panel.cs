@@ -256,7 +256,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         map_imageBG.SetActive(false);
 
         //妹立ち絵の取得
-        sister_stand_img1 = this.transform.Find("Comp/Slot_View/SisterPanel/Girl_Tachie").gameObject;
+        sister_stand_img1 = this.transform.Find("Comp/Slot_View/SisterPanel/GirlTachie_Panel").gameObject;
         sister_stand_img1.SetActive(false);
 
         select_place_num = 0;
@@ -754,8 +754,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
-                            event_Frame.SetActive(true);
+                            //event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
+                            //event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 60;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -764,7 +764,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、ちょっとゴロゴロしよ～！";
+                            _text.text = "にいちゃん！　お花のいい香り～.. ゴロゴロ。";
                         }
 
                         break;
@@ -801,8 +801,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstStrawberry").gameObject.SetActive(true);
-                            event_Frame.SetActive(true);
+                            //event_panel.transform.Find("MapEv_FirstStrawberry").gameObject.SetActive(true);
+                            //event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 40;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -869,8 +869,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
-                            event_Frame.SetActive(true);
+                            //event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
+                            //event_Frame.SetActive(true);
 
                             GameMgr.map_ev_ID = 20;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -944,8 +944,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             slot_view_status = 3; //イベント読み込み中用に退避                           
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
-                            event_Frame.SetActive(true);
+                            //event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
+                            //event_Frame.SetActive(true);
 
 
                             GameMgr.map_ev_ID = 30;

@@ -984,6 +984,11 @@ public class GetMaterial : MonoBehaviour
                 _text.text = "お花がつぶれちゃうから、草の上に寝ようね。　にいちゃん！" + "\n" + "妹は、気持ちよさそうにしている。";
                 break;
 
+            case 5:
+
+                _text.text = "にいちゃん。ここ、色んなお花がいっぱ～い！";
+                break;
+
             default:
 
                 _text.text = "ギャーー！どろんこにはまっちゃった..！　どろどろ～。";

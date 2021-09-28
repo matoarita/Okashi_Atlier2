@@ -396,7 +396,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //通貨の名前
         MoneyCurrency = "ルピア";
-        MoneyCurrencyEn = "L";
+        MoneyCurrencyEn = "Lp";
     }
 	
 	// Update is called once per frame
