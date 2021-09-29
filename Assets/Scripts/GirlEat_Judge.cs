@@ -2261,21 +2261,25 @@ public class GirlEat_Judge : MonoBehaviour {
             {
                 Debug.Log("SPクエストのお菓子は満足し、クリア");
 
+                //60点以上だった。
                 if (total_score >= GameMgr.low_score)
                 {
                     if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
                     {
-                        quest_clear = true;
+                        quest_clear = true; //quest_clearは感想出す用。sp_quest_clearはSPクエストをクリアしたよ、というフラグ。
+                        sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
                     else if (topping_all_non && !topping_flag) //食べたいトッピングがあるが、該当するトッピングはのっていなかった。現状、それでもクリア可能。
                     {
                         quest_clear = true;
+                        sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
                     else if (!topping_all_non) //そもそも食べたいトッピングない場合
                     {
                         quest_clear = true;
+                        sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
 
@@ -2521,8 +2525,10 @@ public class GirlEat_Judge : MonoBehaviour {
         //クリア判定
         //ステージクリアに必要なハート量がたまったかどうか。たまっていれば、SPクエストをクリアしたことになり、次のSPクエストが始まる。
         //仮にレベルがあがるか先に予測し、上がる場合は、sp_quest_clearのフラグをたてる。
+        //☆ハートレベルが上がったらクリアするかは、ちょっと検証中。
         //**
 
+        /*
         if (_slider.value + _Getlove_param >= _slider.maxValue)
         {
             if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、判定処理をなくしておく。
@@ -2538,6 +2544,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             sp_quest_clear = false;
         }
+        */
 
         //**
 
@@ -2609,7 +2616,7 @@ public class GirlEat_Judge : MonoBehaviour {
             questclear_end = true;
         }
 
-        //ハート量がたまっていた場合
+        //sp_quest_clearがたっていた場合、そのクエストはクリア。
         if (sp_quest_clear)
         {
             sp_quest_clear = false;

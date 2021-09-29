@@ -3655,6 +3655,25 @@ public class Compound_Main : MonoBehaviour
                 }    
             }
 
+            //置物や土産を買った 100番台～
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                if (!GameMgr.GirlLoveSubEvent_stage1[100])
+                {
+                    if (pitemlist.KosuCount("kuma_nuigurumi") >= 1)
+                    {
+                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                        GameMgr.GirlLoveSubEvent_num = 100;
+                        GameMgr.GirlLoveSubEvent_stage1[100] = true;
+
+                        mute_on = true;
+                        check_GirlLoveSubEvent_flag = false;
+                    }
+                }
+            }
+
             //その他イベント、ロード後イベントなど。90番台～
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
@@ -3909,14 +3928,15 @@ public class Compound_Main : MonoBehaviour
         {
             DrawALLOFFBG();
             bgweather_image_panel.transform.Find("BG_windowout3").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_02").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_03").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
         }
         if (GameMgr.GirlLoveEvent_num >= 20) //やや霧がかったはれ　風が強い HLv6~
         {
             DrawALLOFFBG();
             bgweather_image_panel.transform.Find("BG_windowout4").gameObject.SetActive(true);
             BG_Imagepanel.transform.Find("BG_sprite_03").gameObject.SetActive(true);
-            //BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
             //BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
         }

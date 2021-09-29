@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BGAcceTrigger : MonoBehaviour {
 
-    //飾りデータを保持する辞書
-    Dictionary<int, string> BGAcceInfo;
-
     private SoundController sc;
 
     private int i;
@@ -16,8 +13,6 @@ public class BGAcceTrigger : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-        InitDictBGAcce();
 
     }
 	
@@ -31,7 +26,7 @@ public class BGAcceTrigger : MonoBehaviour {
         for (i = 0; i < GameMgr.DecoItems.Length; i++)
         {
 
-            switch (BGAcceInfo[i])
+            switch (GameMgr.BGAcceItemsName[i])
             {
                 case "himmeli":
 
@@ -45,15 +40,27 @@ public class BGAcceTrigger : MonoBehaviour {
                     }
                     break;
 
+                case "kuma_nuigurumi":
+
+                    if (GameMgr.DecoItems[i])
+                    {
+                        this.transform.Find("KumaNuigurumi").gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        this.transform.Find("KumaNuigurumi").gameObject.SetActive(false);
+                    }
+                    break;
+
             }
         }
     }
 
     public void BGAcceOn(string _accenum)
     {
-        for(i=0; i < BGAcceInfo.Count; i++)
+        for(i=0; i < GameMgr.BGAcceItemsName.Count; i++)
         {
-            if(BGAcceInfo[i] == _accenum)
+            if(GameMgr.BGAcceItemsName[i] == _accenum)
             {
                 GameMgr.DecoItems[i] = !GameMgr.DecoItems[i]; //OnとOffを切り替え
                 if(GameMgr.DecoItems[i])
@@ -73,19 +80,4 @@ public class BGAcceTrigger : MonoBehaviour {
         DrawBGAcce();
     }
 
-    void InitDictBGAcce()
-    {
-        //まずは初期化。10個まで現在は登録可能。GameMgrのDecoItemsと連動。
-        BGAcceInfo = new Dictionary<int, string>();
-        BGAcceInfo.Add(0, "himmeli");
-        BGAcceInfo.Add(1, "Non");
-        BGAcceInfo.Add(2, "Non");
-        BGAcceInfo.Add(3, "Non");
-        BGAcceInfo.Add(4, "Non");
-        BGAcceInfo.Add(5, "Non");
-        BGAcceInfo.Add(6, "Non");
-        BGAcceInfo.Add(7, "Non");
-        BGAcceInfo.Add(8, "Non");
-        BGAcceInfo.Add(9, "Non");
-    }
 }

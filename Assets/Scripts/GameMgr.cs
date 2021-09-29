@@ -62,6 +62,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //コレクションに登録したアイテムのリスト
     public static List<bool> CollectionItems = new List<bool>(); //登録済みか否か。こっちはセーブ必要。
     public static List<string> CollectionItemsName = new List<string>(); //登録済みか否か。こっちはセーブ不要。
+    public static List<string> BGAcceItemsName = new List<string>(); //背景の置物のリスト。こっちはセーブ不要。
 
     //現在覚えているレシピの数と達成率
     public static int game_Cullent_recipi_count;
@@ -648,7 +649,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stage3_limit_day = 211;
 
         //コレクションアイテムリストDBと、登録リスト初期化
-        InitCollectionItemsLibrary();        
+        InitCollectionItemsLibrary();
+        InitBGAcceItemsLibrary();
 
         CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
@@ -682,5 +684,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("copper_coin");
         CollectionItemsName.Add("compass");
         CollectionItemsName.Add("star_bottle");
+    }
+
+    public static void InitBGAcceItemsLibrary()
+    {
+        BGAcceItemsName.Clear();
+        BGAcceItemsName.Add("himmeli");
+        BGAcceItemsName.Add("kuma_nuigurumi");
+        BGAcceItemsName.Add("Non");
+        BGAcceItemsName.Add("Non");
+        BGAcceItemsName.Add("Non");
+        BGAcceItemsName.Add("Non");
+        BGAcceItemsName.Add("Non");
+        BGAcceItemsName.Add("Non");
+        BGAcceItemsName.Add("Non");
+        BGAcceItemsName.Add("Non");
     }
 }

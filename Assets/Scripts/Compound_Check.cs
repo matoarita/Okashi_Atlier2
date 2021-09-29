@@ -883,6 +883,7 @@ public class Compound_Check : MonoBehaviour {
 
         //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
         _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
+        newrecipi_flag = false;
 
         if (compoDB_select_judge == true)
         {

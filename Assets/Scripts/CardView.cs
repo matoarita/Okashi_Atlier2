@@ -588,19 +588,15 @@ public class CardView : SingletonMonoBehaviour<CardView>
         UseToggleSetInit(); //まず初期化
 
         //飾れるアイテムは、「飾る」を表示
-        switch (database.items[_cardImage.itemID].itemName)
+        _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(false);
+
+        for (i = 0; i < GameMgr.BGAcceItemsName.Count; i++)
         {
-            case "himmeli":
-                
+            if (GameMgr.BGAcceItemsName[i] == database.items[_cardImage.itemID].itemName)
+            {
+                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
                 _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardDeco_Toggle").gameObject.SetActive(true);
-
-                break;
-
-
-            default:
-
-                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(false);
-                break;
+            }
         }
 
         //コレクションアイテムは、「コレクション」ボタンを表示する。
