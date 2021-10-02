@@ -2174,6 +2174,7 @@ public class GirlEat_Judge : MonoBehaviour {
             star_Count = 4;
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
+            GameMgr.high_score_flag = true; //ハイスコアでクリアしたので、高得点ゲットのフラグがたつ。
             if (database.items[_baseID].HighScore_flag < 1)
             {
                 database.items[_baseID].HighScore_flag = 1;
@@ -2188,6 +2189,7 @@ public class GirlEat_Judge : MonoBehaviour {
             star_Count = 5;
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
+            GameMgr.high_score_flag = true; //ハイスコアでクリアしたので、高得点ゲットのフラグがたつ。
             if (database.items[_baseID].HighScore_flag < 2)
             {
                 database.items[_baseID].HighScore_flag = 2;
@@ -2264,6 +2266,11 @@ public class GirlEat_Judge : MonoBehaviour {
                 //60点以上だった。
                 if (total_score >= GameMgr.low_score)
                 {
+                    quest_clear = true; //quest_clearは感想出す用。sp_quest_clearはSPクエストをクリアしたよ、というフラグ。
+                    sp_quest_clear = true;
+                    _windowtext.text = "満足しているようだ。";
+
+                    /*
                     if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
                     {
                         quest_clear = true; //quest_clearは感想出す用。sp_quest_clearはSPクエストをクリアしたよ、というフラグ。
@@ -2281,7 +2288,7 @@ public class GirlEat_Judge : MonoBehaviour {
                         quest_clear = true;
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
-                    }
+                    }*/
 
                     //それ以外で、食べたいトッピングの登録があるけど、それに該当するトッピングがない場合は、クリアはできない仕様。
 
@@ -2289,6 +2296,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 else
                 {
                     quest_clear = false;
+                    sp_quest_clear = false;
                     _windowtext.text = "";
                 }
             }
@@ -2965,7 +2973,7 @@ public class GirlEat_Judge : MonoBehaviour {
             ClearQuestName();
             MainQuestText.text = _mainquest_name;
 
-            if (!HighScore_flag) //通常クリア
+            if (!GameMgr.high_score_flag) //通常クリア
             {
                 _set_MainQuestID = _temp_count;
             }
@@ -2974,7 +2982,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 _set_MainQuestID = _temp_count + 1;
             }
 
-            StartCoroutine("SubQuestClearEvent");
+            StartCoroutine("MainQuestClearEvent");
 
         }
         else
@@ -3419,13 +3427,7 @@ public class GirlEat_Judge : MonoBehaviour {
     void SelectNewOkashiSet()
     {
         //判定
-        HighScore_flag = false;
         Gameover_flag = false;
-
-        if (total_score >= GameMgr.high_score) //85点以上で、ハイスコア判定
-        {
-            HighScore_flag = true;
-        }
 
         //初期化 
         girl1_status.special_animatFirst = false;
@@ -3532,7 +3534,7 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             if (girlLikeCompo_database.girllike_composet[i].set_ID == _temp_count)
             {
-                if (!HighScore_flag) //通常クリア
+                if (!GameMgr.high_score_flag) //通常クリア
                 {
                     _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name2;
                 }
@@ -3547,7 +3549,7 @@ public class GirlEat_Judge : MonoBehaviour {
     //
     //クエストクリア時の感想を表示する。
     //
-    IEnumerator SubQuestClearEvent()
+    IEnumerator MainQuestClearEvent()
     {
 
         girl1_status.GirlEat_Judge_on = false;
@@ -3575,6 +3577,7 @@ public class GirlEat_Judge : MonoBehaviour {
         canvas.SetActive(true);
         stageclear_Button.SetActive(false);
 
+        GameMgr.high_score_flag = false;
         GameMgr.QuestClearButton_anim = false;
 
         //表示の音を鳴らす。

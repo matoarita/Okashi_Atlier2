@@ -237,6 +237,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_Okashi_lastsour_param = GameMgr.Okashi_lastsour_param, //さっき食べたお菓子のパラメータ
             save_Okashi_lastbitter_param = GameMgr.Okashi_lastbitter_param, //さっき食べたお菓子のパラメータ
             save_Okashi_quest_bunki_on = GameMgr.Okashi_quest_bunki_on, //条件分岐しているか否かのフラグ
+            save_high_score_flag = GameMgr.high_score_flag, //高得点でクリアしたというフラグ。
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -455,6 +456,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Okashi_lastsour_param = playerData.save_Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
         GameMgr.Okashi_lastbitter_param = playerData.save_Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
         GameMgr.Okashi_quest_bunki_on = playerData.save_Okashi_quest_bunki_on; //条件分岐しているか否かのフラグ
+        GameMgr.high_score_flag = playerData.save_high_score_flag; //高得点でクリアしたというフラグ。
 
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。

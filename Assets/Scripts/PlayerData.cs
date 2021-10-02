@@ -113,6 +113,7 @@ public class PlayerData
     public int save_Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
     public int save_Okashi_lastbitter_param;
     public int save_Okashi_quest_bunki_on; //条件分岐しているか否かのフラグ
+    public bool save_high_score_flag; //高得点でクリアしたというフラグ。
 
     //ステージ１クリア時の好感度を保存
     public int save_stage1_girl1_loveexp;

@@ -152,6 +152,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
     public static int Okashi_totalscore; //女の子にあげたときの点数
     public static int Okashi_quest_bunki_on; //特定お菓子のときの条件分岐
+    public static bool high_score_flag; //高得点でクリアしたというフラグ。セーブされる。
 
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
@@ -237,7 +238,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //お菓子の点数基準値
     public static int low_score;
     public static int high_score;
-    public static int high_score_2;
+    public static int high_score_2;    
 
     //お菓子の点数    
     public static int Okashi_dislike_status; //状態。2で、新しいお菓子をあげた場合
@@ -505,6 +506,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_dislike_status = 0;
         Okashi_OnepointHint_num = 0;
         Okashi_quest_bunki_on = 0;
+        high_score_flag = false;
 
         sys_extreme_itemID = 9999;
         sys_extreme_itemType = 0;

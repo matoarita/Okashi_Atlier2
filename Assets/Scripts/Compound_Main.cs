@@ -39,7 +39,7 @@ public class Compound_Main : MonoBehaviour
     private Map_Ambience map_ambience;
     public bool bgm_change_flag;
     public bool bgm_change_flag2;
-    private bool bgm_changeuse_ON = false; //調合シーンで、BGMを切り替えるかどうか。
+    private bool bgm_changeuse_ON = true; //調合シーンで、BGMを切り替えるかどうか。
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;

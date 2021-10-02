@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 39,
-		"TotalSegmentCount": 55,
-		"TotalPointCount": 150,
+		"CurveCount": 43,
+		"TotalSegmentCount": 59,
+		"TotalPointCount": 158,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -32,28 +32,28 @@
 			"Id": "ParamAngleY",
 			"Segments": [
 				0,
-				-1.297,
+				5.1,
 				1,
 				0.078,
-				-1.297,
+				5.1,
 				0.156,
-				0,
+				6.397,
 				0.233,
-				0,
+				6.397,
 				1,
 				0.489,
-				0,
+				6.397,
 				0.744,
-				-2,
+				4.397,
 				1,
-				-2,
+				4.397,
 				1,
 				1.156,
-				-2,
+				4.397,
 				1.311,
-				-1.388,
+				5.009,
 				1.467,
-				-1.306
+				5.091
 			]
 		},
 		{
@@ -189,10 +189,10 @@
 			"Id": "ParamBrowLAngle",
 			"Segments": [
 				0,
-				0,
+				-0.3,
 				0,
 				1.467,
-				0
+				-0.3
 			]
 		},
 		{
@@ -200,10 +200,10 @@
 			"Id": "ParamBrowRAngle",
 			"Segments": [
 				0,
-				0,
+				-0.3,
 				0,
 				1.467,
-				0
+				-0.3
 			]
 		},
 		{
@@ -211,10 +211,10 @@
 			"Id": "ParamBrowLForm",
 			"Segments": [
 				0,
-				0,
+				-0.6,
 				0,
 				1.467,
-				0
+				-0.6
 			]
 		},
 		{
@@ -222,10 +222,10 @@
 			"Id": "ParamBrowRForm",
 			"Segments": [
 				0,
-				0,
+				-0.6,
 				0,
 				1.467,
-				0
+				-0.6
 			]
 		},
 		{
@@ -431,7 +431,29 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamUpperbodyRot",
+			"Id": "ParamBodyAngleZ",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamWaistRot",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamUpperbodyYure",
 			"Segments": [
 				0,
 				0,
@@ -464,6 +486,28 @@
 				0.085,
 				1.467,
 				0.006
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosX",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosY",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				0
 			]
 		},
 		{

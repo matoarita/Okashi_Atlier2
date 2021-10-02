@@ -121,31 +121,31 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
                             break;
 
                         case 5:
-                            slot_HyoujiList.Add("クインティ" + slotInfo_Hyouji[i]);
+                            slot_HyoujiList.Add("クインテッド" + slotInfo_Hyouji[i]);
                             break;
 
                         case 6:
-                            slot_HyoujiList.Add("セクスタ" + slotInfo_Hyouji[i]);
+                            slot_HyoujiList.Add("濃縮" + slotInfo_Hyouji[i]);
                             break;
 
                         case 7:
-                            slot_HyoujiList.Add("セプタプル" + slotInfo_Hyouji[i]);
+                            slot_HyoujiList.Add("セブンス" + slotInfo_Hyouji[i]);
                             break;
 
                         case 8:
-                            slot_HyoujiList.Add("オクタプル" + slotInfo_Hyouji[i]);
+                            slot_HyoujiList.Add("XエイツX" + slotInfo_Hyouji[i]);
                             break;
 
                         case 9:
-                            slot_HyoujiList.Add("ノナプル" + slotInfo_Hyouji[i]);
+                            slot_HyoujiList.Add("XナインスX" + slotInfo_Hyouji[i]);
                             break;
 
                         case 10:
-                            slot_HyoujiList.Add("デュカプル" + slotInfo_Hyouji[i]);
+                            slot_HyoujiList.Add("XデュカX" + slotInfo_Hyouji[i]);
                             break;
 
                         default:
-                            slot_HyoujiList.Add("アンフィニ" + slotInfo_Hyouji[i]);
+                            slot_HyoujiList.Add("∞アンフィ" + slotInfo_Hyouji[i]);
                             break;
                     }
                 }
