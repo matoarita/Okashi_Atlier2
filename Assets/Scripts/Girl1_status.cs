@@ -410,6 +410,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         GirlEat_Judge_on = true;
         WaitHint_on = false;
         timeOutHint = 5.0f;
+        _noweat_count = 0;
 
         special_animstart_flag = false;
         special_animstart_endflag = false;
@@ -868,28 +869,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 2) // HLv 1
         {
             //テンションが低すぎて暗い
-            GirlGokigenStatus = 0;
+            GirlGokigenStatus = 0; //1と一緒
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 4) //2~3
-        {
-            //ご機嫌ななめ
-            GirlGokigenStatus = 1;
-
-        }
-        else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 6) //4~5
+        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 3) //2
         {
             //少し機嫌が悪い
             GirlGokigenStatus = 2;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 6 && PlayerStatus.girl1_Love_lv < 8) //6~7
+        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 6) //3~6
         {
             //ちょっと元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 8 && PlayerStatus.girl1_Love_lv < 10) //8~9
+        else if (PlayerStatus.girl1_Love_lv >= 6 && PlayerStatus.girl1_Love_lv < 10) //6~9
         {
             //だいぶ元気でてきた
             GirlGokigenStatus = 4;
@@ -1360,7 +1355,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidashiitem.GetComponent<TextController>().SetText(_hint1);
 
             timeOutHint = 20.0f; //セリフ＋モーション表示時間
-            //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
             FaceMotionPlay(1006);
         }
         else
@@ -1371,7 +1365,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 _noweat_count = 0;
                 hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
-                //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
                 FaceMotionPlay(1002);
             }
             else
@@ -1381,7 +1374,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (random < 50)
                 {
                     _noweat_count++;
-                    //hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
                     IdleChange(); //ランダムモーション＋ヒントを決定
                 }
                 else
@@ -1397,17 +1389,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     else
                     {
-                        _noweat_count = 0;
+                        _noweat_count++;
+                        IdleChange(); //ランダムモーション＋ヒントを決定
+
+                        /*_noweat_count = 0;
                         hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
                         //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
-                        FaceMotionPlay(1002);
+                        FaceMotionPlay(1002);*/
                     }
                 }
             }
         }
-
-        //Idleにリセット
-        //IdleMotionReset();
 
     }
 
@@ -2409,12 +2401,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         switch (GirlGokigenStatus)
         {
-            case 0:
+            case 0: //沈んでいる.. 0と1は一緒なので、0を設定する。
 
                 //モーション1種類
-                //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
-                FaceMotionPlay(1002);
-                
+                FaceMotionPlay(1002);              
                 IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
 
                 break;
@@ -2422,24 +2412,56 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 1:
 
                 //モーション1種類
-                //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
                 FaceMotionPlay(1002);
-
-                IdleMotionHukidashiSetting(2); //吹き出しも一緒に生成
+                IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
                 break;
 
-            case 2:
+            case 2: //少し機嫌がよくなってきた？けど、まだ暗い。
 
                 random = Random.Range(0, 4); //0~3
 
                 IdleMotionHukidashiSetting(10);
                 break;
 
-            case 3:
+            case 3: //ちょっと元気
 
                 random = Random.Range(0, 4); //0~3
 
-                IdleMotionHukidashiSetting(20);
+                switch (random) //モーション4種類＋セリフがそれらにつく
+                {
+                    case 0:
+
+                        //モーションなし
+                        Debug.Log("0 モーションなし");
+                        IdleMotionHukidashiSetting(20);
+                        break;
+
+                    case 1:
+
+                        //るんるんモーション
+                        Debug.Log("1 るんるん");
+                        FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(32);
+                        break;
+
+                    case 2:
+
+                        //左右にふりふり
+                        Debug.Log("2 左右にふりふり");
+                        FaceMotionPlay(1004);
+                        IdleMotionHukidashiSetting(21);
+                        break;
+
+                    case 3:
+
+                        //るんるんモーション
+                        Debug.Log("3 るんるん");
+                        FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(22);
+                        break;
+
+                }
+
                 break;
 
             case 4:
@@ -2451,7 +2473,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     case 0:
 
                         //きらきらほわわ
-                        //live2d_animator.Play("facemotion_01", motion_layer_num, 0.0f);
+                        Debug.Log("0 きらきらほわわ");
                         FaceMotionPlay(1000);
                         IdleMotionHukidashiSetting(31); 
                         break;
@@ -2459,18 +2481,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     case 1:
 
                         //るんるんモーション
-                        //live2d_animator.Play("facemotion_06", motion_layer_num, 0.0f);
+                        Debug.Log("1 るんるん");
                         FaceMotionPlay(1005);
                         IdleMotionHukidashiSetting(32);
                         break;
 
                     case 2:
 
-                        IdleMotionHukidashiSetting(30);
+                        //クッキーのつまみぐい
+                        Debug.Log("2 つまみぐい");
+                        FaceMotionPlay(1008);
+                        IdleMotionHukidashiSetting(33);
                         break;
 
                     case 3:
 
+                        //ボウルをガシャガシャ
+                        Debug.Log("3 ボウルをガシャガシャ");
                         IdleMotionHukidashiSetting(30);
                         break;
                 }
@@ -2552,13 +2579,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 20:
 
-                _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？兄ちゃん。");
-                _touchface_comment_lib.Add("うきうき！");
-                _touchface_comment_lib.Add("味見..。味見..。");
-                _touchface_comment_lib.Add("ねぇねぇ兄ちゃん。材料を採りにいこうよ～。");
+                _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？兄ちゃん。");                
+                _touchface_comment_lib.Add("味見..。味見..。");              
                 _touchface_comment_lib.Add("いい朝だねぇ～。お兄ちゃん～。");
+                
+                break;
+
+            case 21:
+
+                _touchface_comment_lib.Add("ねぇねぇ兄ちゃん。材料を採りにいこうよ～。");
+                break;
+
+            case 22:
+
+                _touchface_comment_lib.Add("うきうき！");
                 _touchface_comment_lib.Add("いっぱい手伝うね！お兄ちゃん。");
-                break;            
+                break;
 
             case 30:
 
@@ -2579,6 +2615,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("るんるん♪");
                 _touchface_comment_lib.Add("♪");
                 _touchface_comment_lib.Add("エメラルどんぐり、拾いにいこうよ～。お兄ちゃん。");
+                break;
+
+            case 33:
+
+                _touchface_comment_lib.Add("こっそり.. 味見～♪");
                 break;
 
             case 40:
@@ -2650,6 +2691,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment_lib.Add("..");
                 _touchhead_comment_lib.Add("..。");
                 _touchhead_comment_lib.Add("（少し嬉しいようだ..。）");
+                _touchhead_comment_lib.Add("にいちゃん、おててに粉ついてるよ～..。");
                 _touchhead_comment_lib.Add("..。");
                 _touchhead_comment_lib.Add(".. ..。");
                 _touchhead_comment_lib.Add("..ガウゥ！！！！");

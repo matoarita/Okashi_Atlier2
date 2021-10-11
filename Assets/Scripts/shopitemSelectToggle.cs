@@ -21,6 +21,8 @@ public class shopitemSelectToggle : MonoBehaviour
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
+    private Text _coin_cullency; //通貨　GameMgrで決めたものを自動で入力する
+
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
     private Exp_Controller exp_Controller;
@@ -138,8 +140,10 @@ public class shopitemSelectToggle : MonoBehaviour
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
-        i = 0;
+        _coin_cullency = this.transform.Find("Background/Item_price").GetComponent<Text>();
+        _coin_cullency.text = GameMgr.MoneyCurrencyEn;
 
+        i = 0;
         count = 0;
 
     }

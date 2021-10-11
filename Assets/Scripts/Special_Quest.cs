@@ -28,6 +28,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     public int OkashiQuest_Count;
     public Sprite OkashiQuest_sprite;
 
+    private Dictionary<int, int> QuestDict;
+    private int _questnum;
+
     private int i;
 
     // Use this for initialization
@@ -48,6 +51,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         {
             special_score_record[i] = 0;
         }
+
+        //クエストナンバーの紐づけ
+        InitQuestNumDict();
     }
 	
 	// Update is called once per frame
@@ -72,7 +78,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
 
         GameMgr.QuestClearAnim_Flag = false; //クエスト前に一度falseでリセット
-        //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
         switch (_num)
         {
@@ -85,7 +90,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "1-1";
                 OkashiQuest_AllCount = 3;
                 OkashiQuest_Count = 1;
-                GameMgr.OkashiQuest_cullentcount = 1; //現在のクエストが、全体の中で何番目かを決定。デバッグでハートレベル更新する用。
+                //GameMgr.OkashiQuest_cullentcount = 1; //現在のクエストが、全体の中で何番目かを決定。デバッグでハートレベル更新する用。
                 girl1_status.ResetHukidashi();
 
                 break;
@@ -99,7 +104,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "1-2";
                 OkashiQuest_AllCount = 3;
                 OkashiQuest_Count = 2;
-                GameMgr.OkashiQuest_cullentcount = 2;
+                //GameMgr.OkashiQuest_cullentcount = 2;
                 girl1_status.ResetHukidashi();
 
                 break;
@@ -113,7 +118,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "1-3";
                 OkashiQuest_AllCount = 3;
                 OkashiQuest_Count = 3;
-                GameMgr.OkashiQuest_cullentcount = 3;
+                //GameMgr.OkashiQuest_cullentcount = 3;
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
@@ -127,7 +132,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "2-1";
                 OkashiQuest_AllCount = 2;
                 OkashiQuest_Count = 1;
-                GameMgr.OkashiQuest_cullentcount = 4;
+                //GameMgr.OkashiQuest_cullentcount = 4;
                 girl1_status.ResetHukidashi();
 
                 break;
@@ -140,13 +145,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "2-2";
                 OkashiQuest_AllCount = 2;
                 OkashiQuest_Count = 2;
-                GameMgr.OkashiQuest_cullentcount = 5;
+                //GameMgr.OkashiQuest_cullentcount = 5;
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
-            case 12: //○○食べたい＜10ラスクからの分岐１＞
+            case 12: //○○食べたい＜10ラスクからの分岐２＞
 
                 girl1_status.OkashiQuest_ID = 1120;
                 //GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
@@ -154,9 +159,23 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "2-2";
                 OkashiQuest_AllCount = 2;
                 OkashiQuest_Count = 2;
-                GameMgr.OkashiQuest_cullentcount = 5;
+                //GameMgr.OkashiQuest_cullentcount = 5;
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 13: //○○食べたい＜10ラスクからの分岐１＞
+
+                girl1_status.OkashiQuest_ID = 1130;
+                //GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                QuestNameFind();
+                OkashiQuest_Number = "2-2";
+                OkashiQuest_AllCount = 2;
+                OkashiQuest_Count = 2;
+                //GameMgr.OkashiQuest_cullentcount = 5;
+                girl1_status.ResetHukidashi();
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -168,7 +187,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "3-1";
                 OkashiQuest_AllCount = 2;
                 OkashiQuest_Count = 1;
-                GameMgr.OkashiQuest_cullentcount = 6;
+                //GameMgr.OkashiQuest_cullentcount = 6;
                 girl1_status.ResetHukidashi();
 
                 break;
@@ -181,9 +200,22 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "3-2";
                 OkashiQuest_AllCount = 2;
                 OkashiQuest_Count = 2;
-                GameMgr.OkashiQuest_cullentcount = 7;
+                //GameMgr.OkashiQuest_cullentcount = 7;
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 22: //クレープ＜20クレープからの分岐１＞
+
+                girl1_status.OkashiQuest_ID = 1220;
+                //GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
+                QuestNameFind();
+                OkashiQuest_Number = "Secret";
+                OkashiQuest_AllCount = 2;
+                OkashiQuest_Count = 2;
+                //GameMgr.OkashiQuest_cullentcount = 6;
+                girl1_status.ResetHukidashi();
 
                 break;
 
@@ -208,7 +240,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "4-1";
                 OkashiQuest_AllCount = 1;
                 OkashiQuest_Count = 1;
-                GameMgr.OkashiQuest_cullentcount = 8;
+                //GameMgr.OkashiQuest_cullentcount = 8;
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
@@ -222,7 +254,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "5-1";
                 OkashiQuest_AllCount = 1;
                 OkashiQuest_Count = 1;
-                GameMgr.OkashiQuest_cullentcount = 9;
+                //GameMgr.OkashiQuest_cullentcount = 9;
                 girl1_status.ResetHukidashi();
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
@@ -236,7 +268,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Number = "Contest";
                 OkashiQuest_AllCount = 1;
                 OkashiQuest_Count = 1;
-                GameMgr.OkashiQuest_cullentcount = 10;
+                //GameMgr.OkashiQuest_cullentcount = 10;
                 girl1_status.ResetHukidashi();
                 break;
 
@@ -245,6 +277,35 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         } 
     }
 
+    //GirlLikeCompoのクエストのIDを入れると、GirlloveEventNumに変換して、SPクエストを指定する。
+    public void SetSpecialOkashiDict(int _questID, int _status)
+    {
+        _questnum = QuestDict[_questID];
+        GameMgr.GirlLoveEvent_num = _questnum;
+
+        SetSpecialOkashi(_questnum, _status);
+    }
+
+    //エクセルDBのset_compID（クエスト番号）と、GirlLoveEvent_numの紐づけ。ゲーム中クエストの総数でもある。
+    void InitQuestNumDict()
+    {
+        QuestDict = new Dictionary<int, int>();
+
+        QuestDict.Add(1000, 0);
+        QuestDict.Add(1010, 1);
+        QuestDict.Add(1020, 2);
+        QuestDict.Add(1100, 10);
+        QuestDict.Add(1110, 11);
+        QuestDict.Add(1120, 12);
+        QuestDict.Add(1130, 13);
+        QuestDict.Add(1200, 20);
+        QuestDict.Add(1210, 21);
+        QuestDict.Add(1300, 30);
+        QuestDict.Add(1400, 40);
+        QuestDict.Add(1500, 50);
+    }
+
+    /*
     public void GetQuestCullentCount(int _ev_num) //デバッグパネルから読み出し。
     {
         switch(_ev_num)
@@ -305,7 +366,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 break;
         }
         
-    }
+    }*/
 
     void QuestNameFind()
     {
@@ -318,6 +379,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
                 OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
                 GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
+                girl1_status.OkashiQuest_Name = OkashiQuest_Name;
             }
         }
     }
@@ -333,4 +395,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         //現在のクエストネーム更新。
         questname.text = OkashiQuest_Name;
     }
+
+    
 }

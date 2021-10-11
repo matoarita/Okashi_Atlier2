@@ -207,6 +207,81 @@
 			"Name": "両手回転"
 		},
 		{
+			"Id": "RupperarmRot",
+			"GroupId": "ParamGroup4",
+			"Name": "右肩回転"
+		},
+		{
+			"Id": "LupperarmRot",
+			"GroupId": "ParamGroup4",
+			"Name": "左肩回転"
+		},
+		{
+			"Id": "R_arm_Rot",
+			"GroupId": "ParamGroup4",
+			"Name": "右腕回転"
+		},
+		{
+			"Id": "L_arm_Rot",
+			"GroupId": "ParamGroup4",
+			"Name": "左腕回転"
+		},
+		{
+			"Id": "R_arm_Updown",
+			"GroupId": "ParamGroup4",
+			"Name": "右腕上下"
+		},
+		{
+			"Id": "L_arm_Updown",
+			"GroupId": "ParamGroup4",
+			"Name": "左腕上下"
+		},
+		{
+			"Id": "R_hand_Rot",
+			"GroupId": "ParamGroup4",
+			"Name": "右手回転"
+		},
+		{
+			"Id": "L_hand_Rot",
+			"GroupId": "ParamGroup4",
+			"Name": "左手回転"
+		},
+		{
+			"Id": "R_finger_Rot",
+			"GroupId": "ParamGroup4",
+			"Name": "右指回転"
+		},
+		{
+			"Id": "L_finger_Rot",
+			"GroupId": "ParamGroup4",
+			"Name": "左指回転"
+		},
+		{
+			"Id": "ParamNekoCookieAlpha",
+			"GroupId": "ParamGroup4",
+			"Name": "ねこクッキー"
+		},
+		{
+			"Id": "ParamCookieMove",
+			"GroupId": "ParamGroup4",
+			"Name": "ねこクッキー移動"
+		},
+		{
+			"Id": "ParamCookieMouthAlpha",
+			"GroupId": "ParamGroup4",
+			"Name": "ねこクッキー口中"
+		},
+		{
+			"Id": "ParamCookieMouthMove",
+			"GroupId": "ParamGroup4",
+			"Name": "ねこクッキー口中移動"
+		},
+		{
+			"Id": "ParamMouthUeMaskAlpha",
+			"GroupId": "ParamGroup4",
+			"Name": "ねこクッキー上唇マスク"
+		},
+		{
 			"Id": "ParamMainCamX",
 			"GroupId": "ParamGroup15",
 			"Name": "MainCameraX"
@@ -1159,6 +1234,10 @@
 		{
 			"Id": "Part6",
 			"Name": "スク水"
+		},
+		{
+			"Id": "Part13",
+			"Name": "デフォーマ類"
 		},
 		{
 			"Id": "Part01EyeBall001",

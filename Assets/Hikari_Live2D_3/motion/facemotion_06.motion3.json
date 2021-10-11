@@ -6,8 +6,8 @@
 		"Loop": true,
 		"AreBeziersRestricted": true,
 		"CurveCount": 40,
-		"TotalSegmentCount": 50,
-		"TotalPointCount": 188,
+		"TotalSegmentCount": 48,
+		"TotalPointCount": 182,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -17,21 +17,14 @@
 			"Id": "ParamAngleX",
 			"Segments": [
 				0,
-				-18,
+				0,
 				1,
-				0.333,
-				-18,
-				0.667,
-				-21,
-				1,
-				-21,
-				1,
-				1.322,
-				-21,
-				1.644,
-				-18,
+				0.656,
+				0,
+				1.311,
+				0,
 				1.967,
-				-18
+				0
 			]
 		},
 		{
@@ -44,12 +37,12 @@
 				0.333,
 				-8,
 				0.667,
-				-20,
+				-2,
 				1,
-				-20,
+				-2,
 				1,
 				1.322,
-				-20,
+				-2,
 				1.644,
 				-8,
 				1.967,
@@ -63,16 +56,9 @@
 				0,
 				0,
 				1,
-				0.333,
+				0.656,
 				0,
-				0.667,
-				-8,
-				1,
-				-8,
-				1,
-				1.322,
-				-8,
-				1.644,
+				1.311,
 				0,
 				1.967,
 				0
@@ -113,14 +99,14 @@
 			"Id": "ParamEyeLSmile",
 			"Segments": [
 				0,
-				0,
+				0.5,
 				1,
 				0.656,
-				0,
+				0.5,
 				1.311,
-				0,
+				0.5,
 				1.967,
-				0
+				0.5
 			]
 		},
 		{
@@ -336,14 +322,14 @@
 			"Id": "ParamMouthOpenY",
 			"Segments": [
 				0,
-				1,
+				0,
 				1,
 				0.656,
-				1,
+				0,
 				1.311,
-				1,
+				0,
 				1.967,
-				1
+				0
 			]
 		},
 		{
@@ -546,7 +532,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamUpperbodyRot",
+			"Id": "ParamUpperbodyYure",
 			"Segments": [
 				0,
 				0,
@@ -562,51 +548,6 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamBreath",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.656,
-				0,
-				1.311,
-				0,
-				1.967,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMainX",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.656,
-				0,
-				1.311,
-				0,
-				1.967,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMainY",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.656,
-				0,
-				1.311,
-				0,
-				1.967,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMainScale",
 			"Segments": [
 				0,
 				0,
@@ -676,6 +617,51 @@
 				-0.71,
 				1.967,
 				-0.71
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMainCamX",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.656,
+				0,
+				1.311,
+				0,
+				1.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMainCamY",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.656,
+				0,
+				1.311,
+				0,
+				1.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMainScale",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.656,
+				0,
+				1.311,
+				0,
+				1.967,
+				0
 			]
 		}
 	]

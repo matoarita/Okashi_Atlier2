@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 40,
-		"TotalSegmentCount": 184,
-		"TotalPointCount": 590,
+		"CurveCount": 42,
+		"TotalSegmentCount": 186,
+		"TotalPointCount": 598,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -170,7 +170,7 @@
 				12,
 				-30,
 				12.333,
-				-30.316,
+				-30,
 				12.667,
 				-28,
 				1,
@@ -331,7 +331,7 @@
 				0.9,
 				1,
 				14.044,
-				1.004,
+				1,
 				14.522,
 				1,
 				15,
@@ -423,7 +423,7 @@
 				0.9,
 				1,
 				14.044,
-				1.004,
+				1,
 				14.522,
 				1,
 				15,
@@ -1393,7 +1393,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamUpperbodyRot",
+			"Id": "ParamUpperbodyYure",
 			"Segments": [
 				0,
 				0,
@@ -1507,7 +1507,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamMainX",
+			"Id": "ParamCharaPosX",
 			"Segments": [
 				0,
 				0,
@@ -1522,22 +1522,7 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamMainY",
-			"Segments": [
-				0,
-				0,
-				1,
-				5,
-				0,
-				10,
-				0,
-				15,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMainScale",
+			"Id": "ParamCharaPosY",
 			"Segments": [
 				0,
 				0,
@@ -1611,6 +1596,51 @@
 				14.333,
 				-2,
 				14.667,
+				0,
+				15,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMainCamX",
+			"Segments": [
+				0,
+				0,
+				1,
+				5,
+				0,
+				10,
+				0,
+				15,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMainCamY",
+			"Segments": [
+				0,
+				0,
+				1,
+				5,
+				0,
+				10,
+				0,
+				15,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMainScale",
+			"Segments": [
+				0,
+				0,
+				1,
+				5,
+				0,
+				10,
 				0,
 				15,
 				0

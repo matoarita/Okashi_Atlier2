@@ -10,6 +10,8 @@ public class MoneyStatus_Controller : MonoBehaviour {
     private GameObject _money_param;
     private Text _money_text;
 
+    private Text _coin_cullency;
+
     private Transform moneyicon_transfrom;
     Vector3 moneypanel_localPos;
 
@@ -44,6 +46,9 @@ public class MoneyStatus_Controller : MonoBehaviour {
         //Debug.Log("moneypanel_localPos: " + moneypanel_localPos);
 
         _money_text.text = PlayerStatus.player_money.ToString();
+
+        _coin_cullency = this.transform.Find("Money_text").GetComponent<Text>();
+        _coin_cullency.text = GameMgr.MoneyCurrencyEn;
 
         _deg = 1;
         moneyanim_on = false;

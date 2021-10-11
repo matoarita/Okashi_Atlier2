@@ -56,6 +56,8 @@ public class GetMaterial : MonoBehaviour
     private float randomPoint;
     private float rare_event_kakuritsu;
 
+    private int rare_eventitem_max;
+
     private int itemId, itemKosu;
     private string itemName;
 
@@ -840,6 +842,11 @@ public class GetMaterial : MonoBehaviour
                 event_itemGet02();
                 break;
 
+            case 1:
+
+                event_itemGet02();
+                break;
+
             case 3:
 
                 event_itemGet01();
@@ -882,12 +889,17 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "にいちゃん。お花畑きもちいい・・。" + "\n" + "妹は寝ている。";
+                _text.text = "にいちゃん。お花畑きもちいいね。すやぁ～。" + "\n" + "妹は寝ている。";
                 break;
 
             case 3:
 
                 event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "お花たちが、踊るように風で揺れている。";
                 break;
 
             default:
@@ -940,6 +952,11 @@ public class GetMaterial : MonoBehaviour
                 _text.text = "赤と黒。くろいやつはすっぱいんだよね..。" + "\n" + "妹は、熱中している。";
                 break;
 
+            case 5:
+
+                event_itemGet02();
+                break;
+
             default:
 
                 _text.text = "ギャッ！　草のとげがささった！！　いだいよ～・・。";
@@ -989,6 +1006,11 @@ public class GetMaterial : MonoBehaviour
                 _text.text = "にいちゃん。ここ、色んなお花がいっぱ～い！";
                 break;
 
+            case 6:
+
+                event_itemGet02();
+                break;
+
             default:
 
                 _text.text = "ギャーー！どろんこにはまっちゃった..！　どろどろ～。";
@@ -1016,6 +1038,11 @@ public class GetMaterial : MonoBehaviour
             case 1:
 
                 event_itemGet01();
+                break;
+
+            case 2:
+
+                _text.text = "なつかしい匂いがする。" + "ゆっくりと畑を歩いた。";
                 break;
 
             default:
@@ -1163,7 +1190,7 @@ public class GetMaterial : MonoBehaviour
         TreasureImage_obj.SetActive(false);
         CharacterSDImage.SetActive(false);
 
-        //Treasure_Status = 0; //0=宝箱
+        //Treasure_Status = 0; //0=宝箱 音と画像が変わるだけ。
         Treasure_Status = 1;
     }
 
@@ -1330,64 +1357,84 @@ public class GetMaterial : MonoBehaviour
         treasureInfo = new Dictionary<int, string>();
         treasureDropDict = new Dictionary<int, float>();
 
-        switch (_treasure_num)
+        //通常アイテムか、レシピなどのイベントアイテムかでるかを決める。これもくじ引き。
+        random = Random.Range(0, 100);
+
+        rare_eventitem_max = (int)(10 + rare_event_kakuritsu);
+        if(rare_eventitem_max >= 30)
         {
-            case 0: //お宝セットテーブル１
-
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "doro_dango");
-                treasureInfo.Add(2, "kirakira_stone1");
-                treasureInfo.Add(3, "emerald_suger");
-                treasureInfo.Add(4, "earlgrey_leaf");
-               
-                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 30.0f);
-                treasureDropDict.Add(2, 20.0f);
-                treasureDropDict.Add(3, 20.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
-                break;
-
-            case 1: //お宝セットテーブル２
-
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "doro_dango");
-                treasureInfo.Add(2, "kirakira_stone1");
-                treasureInfo.Add(3, "rich_komugiko");
-
-                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 30.0f);
-                treasureDropDict.Add(2, 20.0f);
-                treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
-                break;
-
-            case 2: //お宝セットテーブル３
-
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "doro_dango");
-                treasureInfo.Add(2, "kirakira_stone1");
-                treasureInfo.Add(3, "egg_premiaum");
-
-                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 30.0f);
-                treasureDropDict.Add(2, 20.0f);
-                treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
-                break;
-
-            default:
-
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名
-                treasureInfo.Add(1, "kirakira_stone1");
-                treasureInfo.Add(2, "kirakira_stone1");
-                treasureInfo.Add(3, "kirakira_stone1");
-                treasureInfo.Add(4, "kirakira_stone1");
-
-                treasureDropDict.Add(0, 50.0f); //こっちは確率テーブル
-                treasureDropDict.Add(1, 20.0f);
-                treasureDropDict.Add(2, 10.0f);
-                treasureDropDict.Add(3, 10.0f);
-                treasureDropDict.Add(4, 10.0f);
-                break;
+            rare_eventitem_max = 30;
         }
+
+        /*if (random < rare_eventitem_max) //10%の確率+発見力でレアイベントアイテム　上限が30%
+        {
+
+        }
+        else //通常のお宝テーブル
+        {*/
+            switch (_treasure_num)
+            {
+                case 0: //お宝セットテーブル１　森
+
+                    treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                    treasureInfo.Add(1, "doro_dango");
+                    treasureInfo.Add(2, "kirakira_stone1");
+                    treasureInfo.Add(3, "emerald_suger");
+                    treasureInfo.Add(4, "earlgrey_leaf");
+                    treasureInfo.Add(5, "copper_coin");
+
+                    treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                    treasureDropDict.Add(1, 20.0f);
+                    treasureDropDict.Add(2, 20.0f);
+                    treasureDropDict.Add(3, 20.0f + rare_event_kakuritsu);
+                    treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
+                    treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
+                    break;
+
+                case 1: //お宝セットテーブル２　ひまわりの丘
+
+                    treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                    treasureInfo.Add(1, "doro_dango");
+                    treasureInfo.Add(2, "kirakira_stone1");
+                    treasureInfo.Add(3, "rich_komugiko");
+
+                    treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                    treasureDropDict.Add(1, 30.0f);
+                    treasureDropDict.Add(2, 20.0f);
+                    treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
+                    break;
+
+                case 2: //お宝セットテーブル３　バードサンクチュアリ
+
+                    treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                    treasureInfo.Add(1, "doro_dango");
+                    treasureInfo.Add(2, "kirakira_stone1");
+                    treasureInfo.Add(3, "egg_premiaum");
+                    treasureInfo.Add(4, "diamond_1");
+
+                    treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                    treasureDropDict.Add(1, 20.0f);
+                    treasureDropDict.Add(2, 20.0f);
+                    treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
+                    treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
+                    break;
+
+                default:
+
+                    treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名
+                    treasureInfo.Add(1, "kirakira_stone1");
+                    treasureInfo.Add(2, "kirakira_stone1");
+                    treasureInfo.Add(3, "kirakira_stone1");
+                    treasureInfo.Add(4, "kirakira_stone1");
+
+                    treasureDropDict.Add(0, 50.0f); //こっちは確率テーブル
+                    treasureDropDict.Add(1, 20.0f);
+                    treasureDropDict.Add(2, 10.0f);
+                    treasureDropDict.Add(3, 10.0f);
+                    treasureDropDict.Add(4, 10.0f);
+                    break;
+            }
+        //}
         
     }
 

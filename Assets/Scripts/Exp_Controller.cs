@@ -511,9 +511,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
             ResultSuccess = true;
-
-            //作った直後のサブイベントをチェック
-            compound_Main.check_CompoAfter_flag = true;
+            
         }
         else //調合失敗
         {
@@ -574,6 +572,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
+
+        //作った直後のサブイベントをチェック
+        compound_Main.check_CompoAfter_flag = true;
     }
 
     void Compo_1()
@@ -735,9 +736,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
             ResultSuccess = true;
-
-            //作った直後のサブイベントをチェック
-            compound_Main.check_CompoAfter_flag = true;
+            
         }
         else //失敗した
         {
@@ -795,6 +794,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
+
+        //作った直後のサブイベントをチェック
+        compound_Main.check_CompoAfter_flag = true;
     }
 
 
@@ -951,6 +953,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //調合完了＋成功
             compound_Main.ResultComplete_flag = 1;
             ResultSuccess = true;
+            
         }
         else //失敗の場合
         {
@@ -1008,6 +1011,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
+
+        //作った直後のサブイベントをチェック
+        compound_Main.check_CompoAfter_flag = true;
     }   
 
 

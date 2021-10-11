@@ -2257,49 +2257,62 @@ public class GirlEat_Judge : MonoBehaviour {
 
         if (!GameMgr.tutorial_ON)
         {
-            //クリア分岐1
+            //クリア分岐1  点数関係のクリア条件
 
-            if (non_spquest_flag == false) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
+            switch (GameMgr.OkashiQuest_Num)
             {
-                Debug.Log("SPクエストのお菓子は満足し、クリア");
+                case 22: //200点以上のスーパークレープ　条件分岐
 
-                //60点以上だった。
-                if (total_score >= GameMgr.low_score)
-                {
-                    quest_clear = true; //quest_clearは感想出す用。sp_quest_clearはSPクエストをクリアしたよ、というフラグ。
-                    sp_quest_clear = true;
-                    _windowtext.text = "満足しているようだ。";
-
-                    /*
-                    if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
+                    if (total_score >= 200)
                     {
                         quest_clear = true; //quest_clearは感想出す用。sp_quest_clearはSPクエストをクリアしたよ、というフラグ。
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
-                    else if (topping_all_non && !topping_flag) //食べたいトッピングがあるが、該当するトッピングはのっていなかった。現状、それでもクリア可能。
+                    break;
+
+                default: //特殊なものがない限りは、デフォルト。60点以上でクリア
+
+                    if (non_spquest_flag == false) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
                     {
-                        quest_clear = true;
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
+                        Debug.Log("SPクエストのお菓子は満足し、クリア");
+
+                        //60点以上だった。
+                        if (total_score >= GameMgr.low_score)
+                        {
+
+                            if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
+                            {
+                                quest_clear = true; //quest_clearは感想出す用。sp_quest_clearはSPクエストをクリアしたよ、というフラグ。
+                                sp_quest_clear = true;
+                                _windowtext.text = "満足しているようだ。";
+                            }
+                            else if (topping_all_non && !topping_flag) //食べたいトッピングがあるが、該当するトッピングはのっていなかった。現状、それでもクリア可能。
+                            {
+                                quest_clear = true;
+                                sp_quest_clear = true;
+                                _windowtext.text = "満足しているようだ。";
+                            }
+                            else if (!topping_all_non) //そもそも食べたいトッピングない場合
+                            {
+                                quest_clear = true;
+                                sp_quest_clear = true;
+                                _windowtext.text = "満足しているようだ。";
+                            }
+
+                            //それ以外で、食べたいトッピングの登録があるけど、それに該当するトッピングがない場合は、クリアはできない仕様。
+
+                        }
+                        else //そもそも60点以下
+                        {
+                            quest_clear = false;
+                            sp_quest_clear = false;
+                            _windowtext.text = "";
+                        }
                     }
-                    else if (!topping_all_non) //そもそも食べたいトッピングない場合
-                    {
-                        quest_clear = true;
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
-                    }*/
-
-                    //それ以外で、食べたいトッピングの登録があるけど、それに該当するトッピングがない場合は、クリアはできない仕様。
-
-                }
-                else
-                {
-                    quest_clear = false;
-                    sp_quest_clear = false;
-                    _windowtext.text = "";
-                }
+                    break;
             }
+                    
 
             //クリア分岐2　ステージクリアに必要なハート量がたまったかどうか。たまっていれば、SPクエストをクリアしたことになり、次のSPクエストが始まる。
             /*if (!sp_quest_clear)
@@ -2318,7 +2331,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
             }*/
 
-            //クエストのときに、特定のお菓子をあげると、次クエストが分岐する。
+            //クエストのときに、特定の条件を満たすと、次クエストが分岐する。
             SPQuest_BunkiCheck();
         }
     }
@@ -2336,6 +2349,15 @@ public class GirlEat_Judge : MonoBehaviour {
                         //すっぱいラスクを食べたので、次のクエストは別のおかしに。
                         GameMgr.Okashi_quest_bunki_on = 1;
                     }
+                }
+                break;
+
+            case 20: //クレープ　条件分岐
+
+                if (total_score >= 150) //クレープが150点以上
+                {
+                        //次のクエストは別のおかしに。
+                        GameMgr.Okashi_quest_bunki_on = 1;                    
                 }
                 break;
         }
@@ -3452,10 +3474,10 @@ public class GirlEat_Judge : MonoBehaviour {
 
         if (GameMgr.NextQuestID % 100 != 0) //次クエが100番台以外
         { 
-                GameMgr.GirlLoveEvent_num += 1;
+                //GameMgr.GirlLoveEvent_num += 1;
 
                 subQuestClear_check = false;
-                special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 0);
+                special_quest.SetSpecialOkashiDict(GameMgr.NextQuestID, 0);
 
                 ResultOFF();
 
@@ -3490,7 +3512,12 @@ public class GirlEat_Judge : MonoBehaviour {
         {
             case 10: //ラスク　条件分岐
 
-                GameMgr.GirlLoveEvent_num = 12; //分岐の場合、直接次クエストをここで指定する。
+                GameMgr.GirlLoveEvent_num = 13; //分岐の場合、直接次クエスト(specialquest.cs)をここで指定する。
+                break;
+
+            case 20:
+
+                GameMgr.GirlLoveEvent_num = 22;
                 break;
         }
 

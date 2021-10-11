@@ -177,47 +177,8 @@ public class TimeController : MonoBehaviour
         }
 
         //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
-        /*if (!GameMgr.scenario_ON)
-        {
-            if (compound_main.compound_status == 22 || compound_main.compound_status == 12) //採集中かお菓子あげ途中は減らない
-            {
-
-            }
-            else
-            {
-                switch (timeDegHeart_flag)
-                {
-                    case false:
-
-                        if (timeIttei >= 30) //放置して30秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
-                        {
-                            timeIttei = 0;
-                            timeDegHeart_flag = true;
-
-                            girleat_judge.DegHeart(-1);
-                            //PlayerStatus.girl1_Love_exp--;
-
-                            PlayerStatus.player_time++;
-                            TimeKoushin();
-                        }
-                        break;
-
-                    case true:
-
-                        if (timeIttei >= 20)
-                        {
-                            timeIttei = 0;
-
-                            girleat_judge.DegHeart(-1);
-                            //PlayerStatus.girl1_Love_exp--;
-
-                            PlayerStatus.player_time++;
-                            TimeKoushin();
-                        }
-                        break;
-                }
-            }
-        }*/
+        //RealTimeControll();
+       
 
         if (count_switch)
         {
@@ -344,6 +305,10 @@ public class TimeController : MonoBehaviour
             
         }
 
+        PlayerStatus.player_cullent_hour = hour;
+        PlayerStatus.player_cullent_minute = minute;
+        Debug.Log("現在時刻: " + PlayerStatus.player_cullent_hour + ": " + PlayerStatus.player_cullent_minute);
+
         if (count >= max_time)
         {
             //一日が経った。
@@ -404,5 +369,50 @@ public class TimeController : MonoBehaviour
     {
         timeDegHeart_flag = false;
         timeIttei = 0;
+    }
+
+    void RealTimeControll()
+    {
+        if (!GameMgr.scenario_ON)
+        {
+            if (compound_main.compound_status == 22 || compound_main.compound_status == 12) //採集中かお菓子あげ途中は減らない
+            {
+
+            }
+            else
+            {
+                switch (timeDegHeart_flag)
+                {
+                    case false:
+
+                        if (timeIttei >= 30) //放置して30秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
+                        {
+                            timeIttei = 0;
+                            timeDegHeart_flag = true;
+
+                            girleat_judge.DegHeart(-1);
+                            //PlayerStatus.girl1_Love_exp--;
+
+                            PlayerStatus.player_time++;
+                            TimeKoushin();
+                        }
+                        break;
+
+                    case true:
+
+                        if (timeIttei >= 20)
+                        {
+                            timeIttei = 0;
+
+                            girleat_judge.DegHeart(-1);
+                            //PlayerStatus.girl1_Love_exp--;
+
+                            PlayerStatus.player_time++;
+                            TimeKoushin();
+                        }
+                        break;
+                }
+            }
+        }
     }
 }

@@ -36,6 +36,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static int player_cullent_month; //現在の月（上記プレイヤーデイを基に、time_controllerで計算する。）
     public static int player_cullent_day; //現在の日（上記プレイヤーデイを基に、time_controllerで計算する。）
+    public static int player_cullent_hour; //現在の時間　何時か
+    public static int player_cullent_minute; //現在の時間　何分か
 
     public static int player_cullent_Deadmonth; //締め切りの月（上記プレイヤーデイを基に、time_controllerで計算する。）
     public static int player_cullent_Deadday; //締め切りの月（上記プレイヤーデイを基に、time_controllerで計算する。）

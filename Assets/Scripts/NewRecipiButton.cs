@@ -79,7 +79,7 @@ public class NewRecipiButton : MonoBehaviour {
         {
             case 1: //レシピ調合
 
-                if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                if (extremePanel.extreme_itemID != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。現状は、新しいお菓子がセットされてない場合。
                 {
                     compound_Main.compound_status = 0;
                 }
@@ -91,13 +91,13 @@ public class NewRecipiButton : MonoBehaviour {
 
             case 3: //オリジナル調合
 
-                if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                if (extremePanel.extreme_itemID != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。
                 {
                     compound_Main.compound_status = 0;
                 }
                 else
                 {
-                    compound_Main.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
+                    compound_Main.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。W
                 }
                 break;
 

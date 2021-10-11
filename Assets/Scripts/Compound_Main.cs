@@ -154,6 +154,7 @@ public class Compound_Main : MonoBehaviour
     private bool live2d_posmove_flag; //位置を変更したフラグ
     private GameObject character_root;
     private GameObject character_move;
+    private GameObject Anchor_Pos;
 
     private GameObject compoundselect_onoff_obj;    
 
@@ -450,6 +451,7 @@ public class Compound_Main : MonoBehaviour
         live2d_posmove_flag = false;
         character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
         character_move = character_root.transform.Find("CharacterMove").gameObject;
+        Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
 
         compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").gameObject;
 
@@ -605,8 +607,7 @@ public class Compound_Main : MonoBehaviour
         }
 
         //メイン画面に表示する、現在のクエスト
-        questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();        
-        questname.text = girl1_status.OkashiQuest_Name; //現在のクエストネーム更新
+        questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
 
         //初期メッセージ
         StartMessage();        
@@ -638,6 +639,8 @@ public class Compound_Main : MonoBehaviour
             GameMgr.GameLoadOn = false;
             save_controller.DrawGameScreen();
             keymanager.InitCompoundMainScene();
+            GameMgr.MesaggeKoushinON = true;
+            StartMessage();
 
             //ロード直後のサブイベントを発生させる
             //Load_eventflag = true; //ロード直後に、おかえりなさい～のようなサブイベントを発生
@@ -1245,8 +1248,7 @@ public class Compound_Main : MonoBehaviour
                 select_no_button.interactable = true;
                                
                 OnCompoundSelect();
-                               
-                              
+
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
 
@@ -1255,6 +1257,7 @@ public class Compound_Main : MonoBehaviour
                 //
                 //Live2Dデフォルト
                 cubism_rendercontroller.SortingOrder = default_live2d_draworder;
+                Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f);
                 girl1_status.HukidashiFlag = true;
                 girl1_status.tween_start = false;
                 
@@ -1327,11 +1330,12 @@ public class Compound_Main : MonoBehaviour
                     SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
                 }
 
-                //はじめて、アイテムを制作した場合は、イベント発生。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
+                //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
                 if (check_CompoAfter_flag)
                 {
+                    Debug.Log("調合後に、サブイベントチェック入る");
+                    check_CompoAfter_flag = false;
                     check_GirlLoveSubEvent_flag = false; //イベントチェック
-
                 }
 
                 status_zero_readOK = true;
@@ -1974,11 +1978,12 @@ public class Compound_Main : MonoBehaviour
     //調合シーンに入った時の、キャラクタ位置や状態など更新
     void SetLive2DPos_Compound()
     {
-        cubism_rendercontroller.SortingOrder = 0;
+        cubism_rendercontroller.SortingOrder = 100;
         trans_motion = 10; //調合シーン用のヒカリちゃんの位置
         live2d_animator.SetInteger("trans_motion", trans_motion);
         live2d_posmove_flag = true; //位置を変更したフラグ
         live2d_animator.SetInteger("trans_nade", 0);
+        Anchor_Pos.transform.localPosition = new Vector3(-0.36f, 0.134f, -5f);
 
         girl1_status.face_girl_Normal();
         girl1_status.AddMotionAnimReset();
@@ -2869,6 +2874,7 @@ public class Compound_Main : MonoBehaviour
         else
         {
             GameMgr.girlloveevent_bunki = 0; //サブイベントが発生しない限り、メインの好感度イベントを発生するようにする。
+            compound_select = 1000; //シナリオイベント読み中の状態
 
             switch (GameMgr.stage_number)
             {
@@ -3121,6 +3127,13 @@ public class Compound_Main : MonoBehaviour
                     //girlEat_judge.loveGetPlusAnimeON(30, false);                    
 
                     break;
+
+                case 61:
+
+                    _textmain.text = "たくさん元気になった！！ ハート＋６０上がった！！";
+                    girlEat_judge.loveGetPlusAnimeON(60, false);                    
+
+                    break;
             }
 
             StartCoroutine("ReadGirlLoveEventAfter");
@@ -3226,11 +3239,24 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
+            case "recipibook_4": //アイスの実の森　ゲットすると、アイスクリームレシピも自動で追加される。
+
+                ev_id = pitemlist.Find_eventitemdatabase("ice_cream_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
+
+                break;
+
             case "recipibook_5": //はじめてのパンケーキ
 
                 databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
                 databaseCompo.CompoON_compoitemdatabase("pan_cake");
 
+                break;
+
+            case "recipibook_6": //お茶のすすめ
+
+                //いける場所を追加
+                matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
                 break;
 
             default:
@@ -3286,7 +3312,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    //メッセージを更新・表示する. QuestTitlePanel.csからも読んでいる。
+    //メッセージを更新・表示する. QuestTitlePanel.csからも読んでいる。クエストタイトルパネルを閉じたタイミングで更新。
     public void StartMessage()
     {
         if (!GameMgr.MesaggeKoushinON)
@@ -3314,6 +3340,18 @@ public class Compound_Main : MonoBehaviour
                     }
                     break;
 
+                case 1: //ぶどうクッキー
+
+                    if (!GameMgr.MapEvent_01[0]) //まだ森にいったことがない場合
+                    {
+                        _textmain.text = "どうしようかなぁ？" + "\n" + "（外へでて、むらさきのくだものを探してみよう。）";
+                    }
+                    else
+                    {
+
+                    }
+                    break;
+
                 case 10: //ラスクのとき
 
                     if (!GameMgr.Beginner_flag[1]) //ラスクのレシピをまだ読んだことが無い
@@ -3323,7 +3361,9 @@ public class Compound_Main : MonoBehaviour
                     break;
             }
         }
-        
+
+        //メイン画面に表示する、現在のクエスト
+        questname.text = girl1_status.OkashiQuest_Name; //現在のクエストネーム更新
     }
 
     //SPお菓子とは別で、パティシエレベルor好感度が一定に達すると発生するサブイベント
@@ -3338,6 +3378,7 @@ public class Compound_Main : MonoBehaviour
         else
         {
             check_GirlLoveSubEvent_flag = true;
+            compound_select = 1000; //シナリオイベント読み中の状態
 
             //クエストで発生するサブイベント
             switch (GameMgr.OkashiQuest_Num)
@@ -3500,7 +3541,7 @@ public class Compound_Main : MonoBehaviour
             { }
             else
             {
-                if (PlayerStatus.girl1_Love_lv >= 6 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
+                if (PlayerStatus.girl1_Love_lv >= 10 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
                 {
                     GameMgr.GirlLoveSubEvent_num = 60;
                     GameMgr.GirlLoveSubEvent_stage1[60] = true;
@@ -3511,6 +3552,38 @@ public class Compound_Main : MonoBehaviour
 
                     SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
                     SubEvAfterHeartGet_num = 60;
+                }
+            }
+
+            //ピクニック
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                if (!GameMgr.GirlLoveSubEvent_stage1[61])
+                {
+                    //クレープ以降　かつ　発見力120以上               
+                    if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 13
+                        && GameMgr.GirlLoveEvent_num >= 20 && PlayerStatus.player_girl_findpower >= 120) //12時から2時の間に、サイコロふる
+                    {
+                        random = Random.Range(0, 100);
+                        Debug.Log("ピクニックイベント　抽選スタート　80以下で成功: " + random);
+
+                        if (random <= 80) //80%の確率で発生。
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 61;
+                            GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
+
+                            check_GirlLoveSubEvent_flag = false;
+
+                            mute_on = true;
+
+                            SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                            SubEvAfterHeartGet_num = 61;
+                        }
+
+
+                    }
                 }
             }
 
@@ -3701,8 +3774,7 @@ public class Compound_Main : MonoBehaviour
                 }
             }
            
-            //フラグは必ずリセット
-            check_CompoAfter_flag = false;
+            //フラグは必ずリセット           
             check_OkashiAfter_flag = false;
             check_GetMat_flag = false;
 
@@ -4022,9 +4094,9 @@ public class Compound_Main : MonoBehaviour
                     
                     _todayfood_lib.Add("じゃがバター");
                     _todayfoodexpence_lib.Add(30);                    
-                    _todayfood_lib.Add("お豆のスープ");
+                    _todayfood_lib.Add("じゃがいもとお豆のスープ");
                     _todayfoodexpence_lib.Add(60);
-                    _todayfood_lib.Add("とうもろこしのパン");
+                    _todayfood_lib.Add("じゃがいもパン");
                     _todayfoodexpence_lib.Add(50);
                     _todayfood_lib.Add("ゆでじゃがいも");
                     _todayfoodexpence_lib.Add(70);
@@ -4032,9 +4104,9 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add(50);
                     _todayfood_lib.Add("ほしにくのせパン");
                     _todayfoodexpence_lib.Add(100);
-                    _todayfood_lib.Add("おねぎとにんじんピザ");
+                    _todayfood_lib.Add("じゃがいもとねぎピザ");
                     _todayfoodexpence_lib.Add(30);
-                    _todayfood_lib.Add("きのことにんじんピザ");
+                    _todayfood_lib.Add("きのこじゃがピザ");
                     _todayfoodexpence_lib.Add(30);
                     break;
 
@@ -4042,7 +4114,7 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("じゃがいもとベーコンの炒め");
                     _todayfoodexpence_lib.Add(75);
-                    _todayfood_lib.Add("きのこスープ");
+                    _todayfood_lib.Add("じゃがいもスープ");
                     _todayfoodexpence_lib.Add(60);                                     
                     _todayfood_lib.Add("ポテト・ガレット");
                     _todayfoodexpence_lib.Add(50);                  
@@ -4053,19 +4125,19 @@ public class Compound_Main : MonoBehaviour
 
                 case 5:
 
-                    _todayfood_lib.Add("特製ペペロンチーノ");
+                    _todayfood_lib.Add("特製ポテトペペロンチーノ");
                     _todayfoodexpence_lib.Add(100);
                     _todayfood_lib.Add("バリバリ貝のブイヤ・ベース");
                     _todayfoodexpence_lib.Add(110);
-                    _todayfood_lib.Add("チキンのトマト煮込み");
+                    _todayfood_lib.Add("じゃがいものトマト煮込み");
                     _todayfoodexpence_lib.Add(90);
-                    _todayfood_lib.Add("チキンステーキ");
+                    _todayfood_lib.Add("じゃがいもステーキ");
                     _todayfoodexpence_lib.Add(90);
-                    _todayfood_lib.Add("おさかなの地中海蒸し焼き");
+                    _todayfood_lib.Add("じゃがいも地中海蒸し焼き");
                     _todayfoodexpence_lib.Add(120);
-                    _todayfood_lib.Add("手ごねハンバーグ");
+                    _todayfood_lib.Add("手ごねじゃがバーグ");
                     _todayfoodexpence_lib.Add(120);
-                    _todayfood_lib.Add("パンピザ");
+                    _todayfood_lib.Add("じゃがピザ");
                     _todayfoodexpence_lib.Add(150);
                     _todayfood_lib.Add("ビールとえだまめのたきこみご飯");
                     _todayfoodexpence_lib.Add(120);
@@ -4075,22 +4147,22 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("ゴールデンカレーライス");
                     _todayfoodexpence_lib.Add(160);
-                    _todayfood_lib.Add("トマトリゾット");
+                    _todayfood_lib.Add("じゃがいもリゾット");
                     _todayfoodexpence_lib.Add(120);
-                    _todayfood_lib.Add("イカスミスパゲティ");
+                    _todayfood_lib.Add("イカスミじゃがスパゲティ");
                     _todayfoodexpence_lib.Add(200);
                     
                     break;
 
                 case 9:
 
-                    _todayfood_lib.Add("落雷スープ");
+                    _todayfood_lib.Add("落雷じゃがいもスープ");
                     _todayfoodexpence_lib.Add(200);
-                    _todayfood_lib.Add("ブルゴーニュステーキ");
+                    _todayfood_lib.Add("ブルゴーニュ風じゃがステーキ");
                     _todayfoodexpence_lib.Add(300);
-                    _todayfood_lib.Add("魚介もりだくさんのペスカトーレ");
+                    _todayfood_lib.Add("じゃがいもりだくさんのペスカトーレ");
                     _todayfoodexpence_lib.Add(200);
-                    _todayfood_lib.Add("うまうまステーキ");
+                    _todayfood_lib.Add("うまうまじゃがいもステーキ");
                     _todayfoodexpence_lib.Add(250);
                     break;
 

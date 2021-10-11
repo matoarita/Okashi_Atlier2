@@ -85,6 +85,9 @@ public class Compound_Check : MonoBehaviour {
 
     public bool final_select_flag;
 
+    private GameObject memo_result_obj;
+    private GameObject recipiMemoButton_obj;
+    private GameObject recipiMemoScrollView_obj;
 
     private int i;
     private int _rate;
@@ -157,6 +160,10 @@ public class Compound_Check : MonoBehaviour {
         finalcheck_Prefab = (GameObject)Resources.Load("Prefabs/finalcheck_item");
         finalcheck_Prefab2 = (GameObject)Resources.Load("Prefabs/finalcheck_kakeru");
         resultitem_Hyouji = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Result_item").gameObject;
+
+        memo_result_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
+        recipiMemoButton_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
+        recipiMemoScrollView_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
 
         final_select_flag = false;
     }
@@ -265,6 +272,9 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
+                recipiMemoScrollView_obj.SetActive(false);
+                memo_result_obj.SetActive(false);
+
                 //確率に応じて、テキストが変わる。
                 FinalCheck_Text.text = success_text;
 
@@ -329,6 +339,7 @@ public class Compound_Check : MonoBehaviour {
 
                         //Debug.Log("1個目を選択した状態に戻る");
 
+                        recipiMemoButton_obj.SetActive(true);
                         compound_Main.compound_status = 100;
                         itemselect_cancel.Two_cancel();
 
@@ -346,8 +357,10 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
+                recipiMemoScrollView_obj.SetActive(false);
+                memo_result_obj.SetActive(false);
+
                 //確率に応じて、テキストが変わる。
-                
                 FinalCheck_Text.text = success_text;
 
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
@@ -405,6 +418,8 @@ public class Compound_Check : MonoBehaviour {
                     case false:
 
                         //Debug.Log("三個目はcancel");
+
+                        recipiMemoButton_obj.SetActive(true);
 
                         compound_Main.compound_status = 100;
                         itemselect_cancel.Three_cancel();

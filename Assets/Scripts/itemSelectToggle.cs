@@ -253,7 +253,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
                 compound_Main.compound_status = 100; //トグルを押して、調合中の状態。All_cancelで、status=4に戻る。status=4でキャンセルすると、最初の調合選択シーンに戻る。
-
+                
                 // オリジナル調合を選択した場合の処理
                 if (compound_Main.compound_select == 3)
                 {
@@ -289,6 +289,12 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     Player_ItemList_Open();
                 }
+
+                // シナリオやサブイベントなどを読み中の処理
+                if (compound_Main.compound_select == 1000)
+                {
+
+                }
             }
 
             else if (SceneManager.GetActiveScene().name == "Shop") // ショップでやりたい処理
@@ -300,7 +306,7 @@ public class itemSelectToggle : MonoBehaviour
                 switch (shop_Main.shop_scene)
                 {
 
-                    case 3: //納品時の画面開いた時
+                    /*case 3: //納品時の画面開いた時。酒場に移行したので、こっちは未使用。
                         
                         NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
@@ -314,7 +320,7 @@ public class itemSelectToggle : MonoBehaviour
                         black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
 
                         nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
-                        break;
+                        break;*/
 
                     case 5: //売るとき
 
@@ -323,7 +329,7 @@ public class itemSelectToggle : MonoBehaviour
                 }
             }
 
-            else if (SceneManager.GetActiveScene().name == "Bar") // ショップでやりたい処理
+            else if (SceneManager.GetActiveScene().name == "Bar") // 酒場でやりたい処理
             {
                 itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
@@ -1277,7 +1283,7 @@ public class itemSelectToggle : MonoBehaviour
         pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
 
         _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" + 
-            GameMgr.ColorYellow + database.items[itemID_1].sell_price + GameMgr.MoneyCurrencyEn + "</color>"
+            GameMgr.ColorYellow + database.items[itemID_1].sell_price + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
 
         //Debug.Log(count + "番が押されたよ");
@@ -1351,7 +1357,7 @@ public class itemSelectToggle : MonoBehaviour
 
         _text.text = database.items[pitemlistController.final_kettei_item1].itemNameHyouji + "を　" + pitemlistController.final_kettei_kosu1 + "個 売りますか？" + "\n" +
             "全部で　" + GameMgr.ColorYellow + database.items[pitemlistController.final_kettei_item1].sell_price * pitemlistController.final_kettei_kosu1 + 
-            GameMgr.MoneyCurrencyEn + "</color>" + "で買い取ります。";
+            " " + GameMgr.MoneyCurrency + "</color>" + "で買い取ります。";
 
         updown_button[0].interactable = false;
         updown_button[1].interactable = false;
@@ -1422,8 +1428,128 @@ public class itemSelectToggle : MonoBehaviour
 
     }
 
+    /* ここまで */
 
 
+
+    /* ### アイテムを所持品から渡すときの処理 ### */
+    /* 色んなイベントで使いまわす */
+
+    public void itempresent_active()
+    {
+
+        //アイテムを選択したときの処理（トグルの処理）
+
+        count = 0;
+
+        while (count < pitemlistController._listitem.Count)
+        {
+            selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
+            if (selectToggle == true) break;
+            ++count;
+        }
+
+        //リスト中の選択された番号を格納。
+        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+
+
+        //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
+        pitemlistController._count1 = count;
+
+        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+        pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
+
+        _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" +
+            GameMgr.ColorYellow + database.items[itemID_1].sell_price + " " + GameMgr.MoneyCurrency + "</color>"
+            + "\n" + "個数を選択してください";
+
+        //Debug.Log(count + "番が押されたよ");
+        //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
+        //Debug.Log("これでいいですか？");
+
+        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+
+        SelectPaused();
+
+        yes.SetActive(true);
+        no.SetActive(true);
+        /*updown_counter_obj.SetActive(true);
+        updown_button[0].interactable = false;
+        updown_button[1].interactable = false;
+        updown_button[2].interactable = false;
+        updown_button[3].interactable = false;*/
+
+        StartCoroutine("itempresent_Finalkakunin");
+
+    }
+
+    IEnumerator itempresent_Finalkakunin()
+    {
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された　＝　あげる処理へ。プレイヤーリストコントローラー側で処理してる。
+
+                //Debug.Log("ok");
+
+                pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu; //最終個数を入れる。
+
+                for (i = 0; i < pitemlistController._listitem.Count; i++)
+                {
+                    pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                yes.SetActive(false);
+                no.SetActive(false);                
+
+                /*updown_button[0].interactable = true;
+                updown_button[1].interactable = true;
+                updown_button[2].interactable = true;
+                updown_button[3].interactable = true;
+                updown_counter_obj.SetActive(false);*/
+
+                card_view.DeleteCard_DrawView();
+
+                exp_Controller.Shop_SellOK();
+
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("一個目はcancel");
+
+                _text.text = "渡すアイテムを選択してね。";
+
+                for (i = 0; i < pitemlistController._listitem.Count; i++)
+                {
+                    pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                yes.SetActive(false);
+                no.SetActive(false);
+                //updown_counter_obj.SetActive(false);
+
+                card_view.DeleteCard_DrawView();
+
+                break;
+        }
+    }
+
+    /* ここまで */
 
 
 
@@ -1611,6 +1737,10 @@ public class itemSelectToggle : MonoBehaviour
                 break;
         }
     }
+
+    /* ここまで */
+
+
 
 
     void SelectPaused()

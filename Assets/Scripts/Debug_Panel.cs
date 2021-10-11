@@ -335,7 +335,7 @@ public class Debug_Panel : MonoBehaviour {
                         girlEat_judge.ResultPanel_On();
 
                         //現在のクエストの順番を、再度指定。（前クエストから始まるようにしているため）Special_Quest.csに揃える。
-                        special_quest.GetQuestCullentCount(event_num);
+                        //special_quest.GetQuestCullentCount(event_num);
                     }
                     else //11、22など、途中のクエストからはじめるときは、そこからはじまる。
                     {
