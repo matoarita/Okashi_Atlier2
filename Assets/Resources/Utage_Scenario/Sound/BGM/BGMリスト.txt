@@ -39,7 +39,7 @@
 ・BGM_37		audiostock_78487			調合テーマ２　アトリエメインテーマ２　楽しい音楽
 ・BGM_38		audiostock_61835			調合テーマ３　アトリエメインテーマ３　おフランス
 ・BGM_39		audiostock_227194_sample		ショップBGMテーマ２　イタリアとかヨーロッパのカフェ風
-・BGM_40		audiostock_894571			楽しげなBGM　宴用
+・BGM_40		audiostock_894571			【宴用】楽しげなBGM
 ・BGM_41		audiostock_152403			井戸BGM
 ・BGM_42		audiostock_227319.mp3			【宴用】近くの森のBGM　03と同じ
 ・BGM_43		gymnopedies1.mp3			【宴用】優しく、悲しいBGM（猫ししゃもクッキーのイベント）
@@ -51,6 +51,7 @@
 ・BGM_49		04[theme]大好きな場所			ベリーファームのBGM
 ・BGM_50		audiostock_944577			調合テーマ４　アトリエメインテーマ３　楽しい音楽
 ・BGM_51		audiostock_236508			採集選択画面
-・BGM_52		ecossaise				チュートリアルのBGM　宴用
+・BGM_52		ecossaise				【宴用】チュートリアルのBGM
 ・BGM_53		PerituneMaterial_Memories6_Piano_loop	調合テーマ５　悲しい音楽
 ・BGM_54		PerituneMaterial_Laid_Back_loop		調合テーマ６　ちょっと明るい音楽
+・BGM_55		audiostock_259681			【宴用】広場のBGM　11と同じ

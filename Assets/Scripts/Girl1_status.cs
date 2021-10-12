@@ -2508,21 +2508,119 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 random = Random.Range(0, 4); //0~3
 
-                IdleMotionHukidashiSetting(30);
+                switch (random) //モーション4種類＋セリフがそれらにつく
+                {
+                    case 0:
+
+                        //きらきらほわわ
+                        Debug.Log("0 きらきらほわわ");
+                        FaceMotionPlay(1000);
+                        IdleMotionHukidashiSetting(31);
+                        break;
+
+                    case 1:
+
+                        //るんるんモーション
+                        Debug.Log("1 るんるん");
+                        FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(32);
+                        break;
+
+                    case 2:
+
+                        //クッキーのつまみぐい
+                        Debug.Log("2 つまみぐい");
+                        FaceMotionPlay(1008);
+                        IdleMotionHukidashiSetting(33);
+                        break;
+
+                    case 3:
+
+                        //ボウルをガシャガシャ
+                        Debug.Log("3 ボウルをガシャガシャ");
+                        IdleMotionHukidashiSetting(30);
+                        break;
+                }
+
                 break;
 
             case 6:
 
                 random = Random.Range(0, 4); //0~3
 
-                IdleMotionHukidashiSetting(40);
+                switch (random) //モーション4種類＋セリフがそれらにつく
+                {
+                    case 0:
+
+                        //きらきらほわわ
+                        Debug.Log("0 きらきらほわわ");
+                        FaceMotionPlay(1000);
+                        IdleMotionHukidashiSetting(31);
+                        break;
+
+                    case 1:
+
+                        //るんるんモーション
+                        Debug.Log("1 るんるん");
+                        FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(32);
+                        break;
+
+                    case 2:
+
+                        //クッキーのつまみぐい
+                        Debug.Log("2 つまみぐい");
+                        FaceMotionPlay(1008);
+                        IdleMotionHukidashiSetting(33);
+                        break;
+
+                    case 3:
+
+                        //ボウルをガシャガシャ
+                        Debug.Log("3 ボウルをガシャガシャ");
+                        IdleMotionHukidashiSetting(40);
+                        break;
+                }
+
                 break;
 
-            default:
+            default: //それ以上
 
                 random = Random.Range(0, 4); //0~3
 
-                IdleMotionHukidashiSetting(50);
+                switch (random) //モーション4種類＋セリフがそれらにつく
+                {
+                    case 0:
+
+                        //きらきらほわわ
+                        Debug.Log("0 きらきらほわわ");
+                        FaceMotionPlay(1000);
+                        IdleMotionHukidashiSetting(31);
+                        break;
+
+                    case 1:
+
+                        //るんるんモーション
+                        Debug.Log("1 るんるん");
+                        FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(32);
+                        break;
+
+                    case 2:
+
+                        //クッキーのつまみぐい
+                        Debug.Log("2 つまみぐい");
+                        FaceMotionPlay(1008);
+                        IdleMotionHukidashiSetting(33);
+                        break;
+
+                    case 3:
+
+                        //ボウルをガシャガシャ
+                        Debug.Log("3 ボウルをガシャガシャ");
+                        IdleMotionHukidashiSetting(50);
+                        break;
+                }
 
                 break;
 

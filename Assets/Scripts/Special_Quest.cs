@@ -151,7 +151,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 12: //○○食べたい＜10ラスクからの分岐２＞
+            case 12: //幻の青色紅茶食べたい＜10ラスクからの分岐２＞
 
                 girl1_status.OkashiQuest_ID = 1120;
                 //GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
@@ -165,7 +165,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 13: //○○食べたい＜10ラスクからの分岐１＞
+            case 13: //キラキララスク食べたい＜10ラスクからの分岐１＞
 
                 girl1_status.OkashiQuest_ID = 1130;
                 //GameMgr.stageclear_love = 50; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
@@ -303,70 +303,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(1300, 30);
         QuestDict.Add(1400, 40);
         QuestDict.Add(1500, 50);
-    }
-
-    /*
-    public void GetQuestCullentCount(int _ev_num) //デバッグパネルから読み出し。
-    {
-        switch(_ev_num)
-        {
-            case 0:
-
-                GameMgr.OkashiQuest_cullentcount = 1; //現在のクエストが、全体の中で何番目かを決定。デバッグでハートレベル更新する用。
-                break;
-
-            case 1:
-
-                GameMgr.OkashiQuest_cullentcount = 2; //現在のクエストが、全体の中で何番目かを決定。デバッグでハートレベル更新する用。
-                break;
-
-            case 2:
-
-                GameMgr.OkashiQuest_cullentcount = 3;
-                break;
-
-            case 10:
-
-                GameMgr.OkashiQuest_cullentcount = 4;
-                break;
-
-            case 11:
-
-                GameMgr.OkashiQuest_cullentcount = 5;
-                break;
-
-            case 12:
-
-                GameMgr.OkashiQuest_cullentcount = 5;
-                break;
-
-            case 20:
-
-                GameMgr.OkashiQuest_cullentcount = 6;
-                break;
-
-            case 21:
-
-                GameMgr.OkashiQuest_cullentcount = 7;
-                break;
-
-            case 30:
-
-                GameMgr.OkashiQuest_cullentcount = 8;
-                break;
-
-            case 40:
-
-                GameMgr.OkashiQuest_cullentcount = 9;
-                break;
-
-            case 50:
-
-                GameMgr.OkashiQuest_cullentcount = 10;
-                break;
-        }
-        
-    }*/
+    }   
 
     void QuestNameFind()
     {

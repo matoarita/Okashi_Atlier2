@@ -209,7 +209,6 @@ public class MainListController2 : MonoBehaviour
                     break;
             }
             
-            GameMgr.hiroba_event_flag = true;
             Hiroba_main2.EventReadingStart();
 
             CanvasOff();
@@ -256,7 +255,6 @@ public class MainListController2 : MonoBehaviour
                     break;
             }
            
-            GameMgr.hiroba_event_flag = true;
             Hiroba_main2.EventReadingStart();
 
             CanvasOff();
@@ -309,7 +307,6 @@ public class MainListController2 : MonoBehaviour
                     break;
             }
 
-            GameMgr.hiroba_event_flag = true;
             Hiroba_main2.EventReadingStart();
 
             CanvasOff();
@@ -383,7 +380,6 @@ public class MainListController2 : MonoBehaviour
                     break;
             }
 
-            GameMgr.hiroba_event_flag = true;
             Hiroba_main2.EventReadingStart();
 
             CanvasOff();
@@ -448,7 +444,6 @@ public class MainListController2 : MonoBehaviour
                     break;
             }
 
-            GameMgr.hiroba_event_flag = true;
             Hiroba_main2.EventReadingStart();
 
             CanvasOff();
@@ -503,7 +498,6 @@ public class MainListController2 : MonoBehaviour
                     break;
             }
 
-            GameMgr.hiroba_event_flag = true;
             Hiroba_main2.EventReadingStart();
 
             CanvasOff();
@@ -542,8 +536,7 @@ public class MainListController2 : MonoBehaviour
                     GameMgr.hiroba_event_ID = 6000;
                     break;
             }
-
-            GameMgr.hiroba_event_flag = true;
+           
             Hiroba_main2.EventReadingStart();
 
             CanvasOff();

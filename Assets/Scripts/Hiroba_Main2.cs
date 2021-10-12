@@ -130,6 +130,8 @@ public class Hiroba_Main2 : MonoBehaviour
 
     IEnumerator EventReading()
     {
+        GameMgr.hiroba_event_flag = true;
+
         while (!GameMgr.scenario_read_endflag)
         {
             yield return null;

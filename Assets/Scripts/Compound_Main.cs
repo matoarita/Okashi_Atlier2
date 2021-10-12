@@ -3514,6 +3514,26 @@ public class Compound_Main : MonoBehaviour
 
                     break;
 
+                case 13: //キラキララスク 10から分岐１
+
+                    if (girl1_status.special_animatFirst) //ステージ2-2 はじまってから、ベリーファーム開始
+                    {
+                        if (!GameMgr.GirlLoveSubEvent_stage1[10])
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[10] = true;
+                            GameMgr.GirlLoveSubEvent_num = 10;
+
+                            check_GirlLoveSubEvent_flag = false;
+                            mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
+
+                            //ベリーファームへ行けるようになる。
+                            matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
+
+                        }
+                    }
+
+                    break;
+
                 case 20: //クレープ1
 
                     if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
@@ -3522,6 +3542,37 @@ public class Compound_Main : MonoBehaviour
                         {
                             GameMgr.GirlLoveSubEvent_stage1[20] = true;
                             GameMgr.GirlLoveSubEvent_num = 20;
+                            check_GirlLoveSubEvent_flag = false;
+
+                            mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
+                        }
+                    }
+                    break;
+
+                case 40: //ドーナツ　ひまわりのたね
+
+                    if (GameMgr.GirlLoveSubEvent_stage1[40] == false) //ひまわりのたねをとってきた
+                    {
+                        if (check_GetMat_flag)
+                        {
+                            if (pitemlist.KosuCount("himawari_seed") >= 1)
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[40] = true;
+                                GameMgr.GirlLoveSubEvent_num = 40;
+
+                                check_GirlLoveSubEvent_flag = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case 41: //ひまわり油
+
+                    if (GameMgr.GirlLoveSubEvent_stage1[41] == false && database.items[GameMgr.Okashi_makeID].itemName == "himawari_Oil")
+                    {
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[41] = true;
+                            GameMgr.GirlLoveSubEvent_num = 41;
                             check_GirlLoveSubEvent_flag = false;
 
                             mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。

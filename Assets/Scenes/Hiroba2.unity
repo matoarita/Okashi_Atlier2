@@ -2150,7 +2150,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -637635819
+  randomSeed: -1087061075
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6688,7 +6688,7 @@ SpriteRenderer:
   m_Size: {x: 3, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!224 &1994659008
 RectTransform:
@@ -6847,6 +6847,10 @@ MonoBehaviour:
   sound15: {fileID: 0}
   sound16: {fileID: 0}
   sound17: {fileID: 0}
+  sound18: {fileID: 0}
+  sound19: {fileID: 0}
+  sound20: {fileID: 0}
+  sound21: {fileID: 0}
   _mixRate: 0
 --- !u!82 &1997532072
 AudioSource:
