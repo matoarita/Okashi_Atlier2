@@ -260,6 +260,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     reset_and_DrawView();
                 }
 
+
+
+
                 //アニメーション
                 if (compound_Main.compound_select == 99) //持ち物ひらいたときのデフォ位置
                 {
@@ -507,8 +510,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 itemlist_hyouji();
                                 break;
 
-                            default:
+                            case 1000: //イベント時
 
+                                if (database.items[i].itemType.ToString() == "Okashi")
+                                {
+                                    itemlist_hyouji();
+                                }
+                                break;
+
+                            default: //その他
+
+                                itemlist_hyouji();
                                 break;
                         }
                     }
@@ -536,6 +548,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 }
                                 
                                 break;
+
+                            default:
+
+                                itemlist_hyouji();
+                                break;
                         }
                     }
 
@@ -561,6 +578,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     itemlist_hyouji();
                                 }
 
+                                break;
+
+                            default:
+
+                                itemlist_hyouji();
                                 break;
                         }
                     }
@@ -649,7 +671,18 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             original_itemlist_hyouji();
                             break;
 
+                        case 1000: //イベント
+
+
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                            {
+                                original_itemlist_hyouji();
+                            }
+                            break;
+
                         default:
+
+                            original_itemlist_hyouji();
                             break;
                     }
                 }
@@ -675,7 +708,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                                 original_itemlist_hyouji();
                             }
-                                break;
+                            break;
+
+                        default:
+
+                            original_itemlist_hyouji();
+                            break;
                     }                   
                 }
                 else if (SceneManager.GetActiveScene().name == "Bar") //納品時にリストを開くとき
@@ -699,6 +737,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                                 original_itemlist_hyouji();
                             }
+                            break;
+
+                        default:
+
+                            original_itemlist_hyouji();
                             break;
                     }
                 }

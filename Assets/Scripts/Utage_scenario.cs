@@ -43,7 +43,9 @@ public class Utage_scenario : MonoBehaviour
 
     private GameObject canvas;
 
+    private GameObject playeritemlist_onoff;
     private PlayerItemList pitemlist;
+    private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private ItemMatPlaceDataBase matplace_database;
     private ContestCommentDataBase databaseContestComment;
@@ -51,12 +53,17 @@ public class Utage_scenario : MonoBehaviour
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
     private MoneyStatus_Controller moneyStatus_Controller;
     private EmeraldShop_Main emeraldshop_main;
+    private Exp_Controller exp_Controller;
+
+    private GameObject GirlEat_judge_obj;
+    private GirlEat_Judge girlEat_judge;
 
     private int i, j;
     private string recipi_Name;
     private int CommentID;
     private int judge_num; //審査員の番号
     private bool SpecialItemFlag;
+    private int total_score;
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -91,6 +98,9 @@ public class Utage_scenario : MonoBehaviour
 
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
@@ -100,10 +110,12 @@ public class Utage_scenario : MonoBehaviour
         //コンテスト感想データベースの取得
         databaseContestComment = ContestCommentDataBase.Instance.GetComponent<ContestCommentDataBase>();
 
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
         utagesoundmanager_obj = GameObject.FindWithTag("UtageManageres").gameObject;
 
-        scenario_loading = false; //「Utage」シーンを最初に読み込むときに、falseに初期化。宴のシナリオを読み中はtrue。コルーチンのリセットを回避する。
-        
+        scenario_loading = false; //「Utage」シーンを最初に読み込むときに、falseに初期化。宴のシナリオを読み中はtrue。コルーチンのリセットを回避する。       
     }
 
     void Update()
@@ -1340,6 +1352,76 @@ public class Utage_scenario : MonoBehaviour
         Debug.Log("GirlLoveEvent_num: " + GirlLoveEvent_num);
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
+        {
+            GameMgr.event_pitem_use_select = false;
+
+            //キャンバスの読み込み
+            canvas = GameObject.FindWithTag("Canvas");
+
+            //アイテムリストオブジェクト取得
+            playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+
+            //女の子、お菓子の判定処理オブジェクトの取得
+            GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
+            girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
+
+            //
+            //「宴」のポーズ終了待ち
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+
+            while (!GameMgr.event_pitem_use_OK) //アイテム選択待ち
+            {
+                yield return null;
+            }
+
+            GameMgr.event_pitem_use_OK = false;
+
+
+            //ピクニックイベントの場合、アイテムの判定処理がここで入る。
+            total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1); //３番目はコンテストタイプ　1ならコンテストやイベントなど
+            Debug.Log("点数: （通常の固有お菓子判定と一緒のはず）" + total_score);
+
+            //選択したアイテム
+            if (GameMgr.event_kettei_item_Type == 0) //通常
+            {
+                Debug.Log("選択したアイテム: " + database.items[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
+                GameMgr.contest_okashiSlotName = "";
+                GameMgr.contest_okashiNameHyouji = database.items[GameMgr.event_kettei_itemID].itemNameHyouji;
+
+                //削除
+                pitemlist.deletePlayerItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+            }
+            else //自分が制作したオリジナルアイテム
+            {
+                Debug.Log("選択したアイテム: " + pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
+                GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].item_SlotName;
+                GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
+
+                if((pitemlist.player_originalitemlist.Count-1 ) == GameMgr.event_kettei_itemID) //エクストリームパネルに設定されているお菓子を選んだ
+                {
+                    exp_Controller._temp_extreme_id = 9999;
+                }
+
+                //削除
+                pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+            }
+
+            //提出したお菓子の名前をセット
+            engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
+            engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);           
+
+            playeritemlist_onoff.SetActive(false);
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
+        }
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)

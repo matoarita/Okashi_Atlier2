@@ -336,6 +336,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //カメラズームアウトの終わりを検出する
     public static bool camerazoom_endflag;
 
+    //イベント中、アイテムリストを開き、選択画面がある場合のフラグ
+    public static bool event_pitem_use_select;
+    public static bool event_pitem_use_OK;
+    public static int event_kettei_itemID;
+    public static int event_kettei_item_Type;
+    public static int event_kettei_item_Kosu;
+
     //ゲーム共通の固有の色
     public static string ColorYellow;
     public static string ColorGold;
@@ -496,6 +503,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sleep_status = 0;
         scenario_read_endflag = false;
         KeyInputOff_flag = false;
+        event_pitem_use_select = false;
+        event_pitem_use_OK = false;
 
         CompoundEvent_flag = false;
         CompoundEvent_num = 0;

@@ -293,7 +293,7 @@ public class itemSelectToggle : MonoBehaviour
                 // シナリオやサブイベントなどを読み中の処理
                 if (compound_Main.compound_select == 1000)
                 {
-
+                    itempresent_active();
                 }
             }
 
@@ -1504,8 +1504,6 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
 
-                pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu; //最終個数を入れる。
-
                 for (i = 0; i < pitemlistController._listitem.Count; i++)
                 {
                     pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
@@ -1523,7 +1521,12 @@ public class itemSelectToggle : MonoBehaviour
 
                 card_view.DeleteCard_DrawView();
 
-                exp_Controller.Shop_SellOK();
+                GameMgr.event_pitem_use_OK = true;
+
+                //決定したアイテムの番号と個数
+                GameMgr.event_kettei_itemID = pitemlistController.kettei_item1;
+                GameMgr.event_kettei_item_Type = pitemlistController._toggle_type1;
+                GameMgr.event_kettei_item_Kosu = updown_counter.updown_kosu; //最終個数を入れる。
 
                 break;
 

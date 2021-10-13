@@ -28,8 +28,6 @@ public class GirlEat_Judge : MonoBehaviour {
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
-    private KaeruCoin_Controller kaerucoin_Controller;
-
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
@@ -440,9 +438,6 @@ public class GirlEat_Judge : MonoBehaviour {
                 //お金の増減用パネルの取得
                 MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
-
-                //エメラルドングリパネルの取得
-                kaerucoin_Controller = canvas.transform.Find("KaeruCoin_Panel").GetComponent<KaeruCoin_Controller>();
 
                 //女の子の反映用ハートエフェクト取得
                 GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
@@ -1908,21 +1903,6 @@ public class GirlEat_Judge : MonoBehaviour {
         shokukan_mes = "香り";
         Debug.Log("香り（サクサク度）の点: " + crispy_score);
     }
-
-
-    public int Judge_Score_Return(int value1, int value2, int SetType, int _Setcount)
-    {
-        SetGirlTasteInit();
-
-        //コンテスト用に、渡すアイテムのパラメータ設定
-        Girleat_Judge_method(value1, value2, SetType);
-
-        judge_score(SetType, _Setcount); //SetTypeは、0=女の子か1=コンテスト用かの判定。_Setcountは、GirlLikeCompoの1,2,3番目のどれを判定に使うかの数値
-
-        //他に、食感スコアと見た目スコアも、反映させている。 returnは使ってないけど。
-        return total_score;
-    } 
-
 
     void Girl_reaction()
     {
@@ -4259,6 +4239,50 @@ public class GirlEat_Judge : MonoBehaviour {
                 break;
         }
         
+    }
+
+
+    //** **//
+    //コンテスト判定に使いまわし
+    //** **//
+    public int Judge_Score_Return(int value1, int value2, int SetType, int _Setcount)
+    {
+        SetGirlTasteInit();
+
+        //コンテスト用に、渡すアイテムのパラメータ設定
+        Girleat_Judge_method(value1, value2, SetType); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。
+
+        judge_score(SetType, _Setcount); //SetTypeは、0=女の子か1=コンテスト用かの判定。_Setcountは、GirlLikeCompoの1,2,3番目のどれを判定に使うかの数値
+
+        //他に、食感スコアと見た目スコアも、反映させている。 returnは使ってないけど。
+        return total_score;
+    }
+
+    //** **//
+    //イベント（ピクニックなど）に使いまわし
+    //** **//
+    public int Judge_Score_ReturnEvent(int value1, int value2, int SetType)
+    {
+        //コンテスト用に、渡すアイテムのパラメータ設定
+        Girleat_Judge_method(value1, value2, SetType); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。
+
+        //お菓子の判定値をセッティング
+        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
+        SetGirlTasteInit();
+
+        dislike_flag = true;
+        dislike_status = 2;
+
+        //
+        //粉っぽさ判定処理　パターンCのみ
+        //
+        Dislike_Okashi_Judge();
+      
+        //判定
+        judge_score(SetType, 0); //SetTypeは、0=女の子か1=コンテスト用かの判定。_Setcountは、GirlLikeCompoの1,2,3番目のどれを判定に使うかの数値
+
+        //他に、食感スコアと見た目スコアも、反映させている。 returnは使ってないけど。
+        return total_score;
     }
 
     //エフェクトをすぐに全て削除

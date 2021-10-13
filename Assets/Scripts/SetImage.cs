@@ -1237,6 +1237,7 @@ public class SetImage : MonoBehaviour
                         else
                         {
                             compound_Main.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
+                            compound_Main.ReSetLive2DPos_Compound();
                         }
                         break;
 
@@ -1259,6 +1260,7 @@ public class SetImage : MonoBehaviour
                         else
                         {
                             compound_Main.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
+                            compound_Main.ReSetLive2DPos_Compound();
                         }
                         break;
 

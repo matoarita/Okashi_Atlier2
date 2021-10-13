@@ -1374,7 +1374,7 @@ public class Compound_Main : MonoBehaviour
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
-                SetLive2DPos_Compound();
+                ReDrawLive2DPos_Compound();
 
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
@@ -1424,7 +1424,7 @@ public class Compound_Main : MonoBehaviour
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
-                SetLive2DPos_Compound();
+                ReDrawLive2DPos_Compound();
 
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
@@ -1482,7 +1482,7 @@ public class Compound_Main : MonoBehaviour
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
                 //ヒカリちゃんを表示する
-                SetLive2DPos_Compound();
+                ReDrawLive2DPos_Compound();
 
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
@@ -1991,6 +1991,21 @@ public class Compound_Main : MonoBehaviour
         girl1_status.DoTSequence_Kill();
         character_move.transform.position = new Vector3(0, 0, 0);
         girl1_status.Walk_Start = false;
+    }
+
+    //さらに、表示するときのコマンド
+    void ReDrawLive2DPos_Compound()
+    {
+        cubism_rendercontroller.SortingOrder = 100;
+             
+    }
+
+    //さらに調合位置に戻すコマンド　SetImage, NewRecipiButton.csから呼び出し
+    public void ReSetLive2DPos_Compound()
+    {
+        trans_motion = 10; //調合シーン用のヒカリちゃんの位置
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        live2d_posmove_flag = true; //位置を変更したフラグ   
     }
 
     void ResetLive2DPos_Face()
@@ -3081,8 +3096,8 @@ public class Compound_Main : MonoBehaviour
         {
             yield return null;
         }
-       
-        canvas.SetActive(false);
+
+        mainUI_panel_obj.SetActive(false);
         GirlHeartEffect_obj.SetActive(false);       
 
         if (mute_on)
@@ -3108,7 +3123,7 @@ public class Compound_Main : MonoBehaviour
         map_ambience.MuteOFF();
         mute_on = false;
 
-        canvas.SetActive(true);
+        mainUI_panel_obj.SetActive(true);
         OnCompoundSelect();
         Extremepanel_obj.SetActive(true);
         GirlHeartEffect_obj.SetActive(true);
@@ -3620,7 +3635,7 @@ public class Compound_Main : MonoBehaviour
                         random = Random.Range(0, 100);
                         Debug.Log("ピクニックイベント　抽選スタート　80以下で成功: " + random);
 
-                        if (random <= 80) //80%の確率で発生。
+                        if (random <= 100) //80%の確率で発生。
                         {
                             GameMgr.GirlLoveSubEvent_num = 61;
                             GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
@@ -3628,6 +3643,7 @@ public class Compound_Main : MonoBehaviour
                             check_GirlLoveSubEvent_flag = false;
 
                             mute_on = true;
+                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
 
                             SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
                             SubEvAfterHeartGet_num = 61;
