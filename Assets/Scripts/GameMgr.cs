@@ -342,6 +342,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int event_kettei_itemID;
     public static int event_kettei_item_Type;
     public static int event_kettei_item_Kosu;
+    public static bool event_pitem_cancel;
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
@@ -505,6 +506,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         KeyInputOff_flag = false;
         event_pitem_use_select = false;
         event_pitem_use_OK = false;
+        event_pitem_cancel = false;
 
         CompoundEvent_flag = false;
         CompoundEvent_num = 0;

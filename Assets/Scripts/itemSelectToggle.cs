@@ -1543,10 +1543,12 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
                 yes.SetActive(false);
-                no.SetActive(false);
+                no.SetActive(true);
                 //updown_counter_obj.SetActive(false);
 
                 card_view.DeleteCard_DrawView();
+
+                compound_Main.compound_status = 1000;
 
                 break;
         }

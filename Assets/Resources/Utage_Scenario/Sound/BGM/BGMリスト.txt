@@ -56,3 +56,4 @@
 ・BGM_54		PerituneMaterial_Laid_Back_loop		調合テーマ６　ちょっと明るい音楽
 ・BGM_55		audiostock_259681			【宴用】広場のBGM　11と同じ
 ・BGM_56		audiostock_199704			タイトルBGM
+・BGM_57		audiostock_12893			【宴用】ピクニックのBGM

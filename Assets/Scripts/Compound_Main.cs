@@ -228,7 +228,7 @@ public class Compound_Main : MonoBehaviour
     private int clear_love;
     private int recipi_id;
     private bool read_girlevent;
-    private bool SubEvAfterHeartGet;
+    public bool SubEvAfterHeartGet; //Utage_scenarioからも読まれる
     private int SubEvAfterHeartGet_num;
     private bool subevent_after_end;
     private bool GetFirstCollectionItem;
@@ -690,6 +690,9 @@ public class Compound_Main : MonoBehaviour
                 case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
 
                     GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+                    compound_select = 1000; //シナリオイベント読み中の状態
+                    compound_status = 1000;
+
                     break;
 
                 default:
@@ -708,13 +711,21 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.CompoundEvent_storyflag = true;
                 GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
 
+                compound_select = 1000; //シナリオイベント読み中の状態
+                compound_status = 1000;
             }
+        }
+
+        //スペシャルアニメスタート時まではオフ
+        if (!girl1_status.special_animatFirst)
+        {
+            WindowOff();
         }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
         if (GameMgr.scenario_ON == true)
         {
-            //Debug.Log("ゲームマネジャー　シナリオON");
+            //Debug.Log("ゲームマネジャー　シナリオON");           
 
             //チュートリアルモードがONになったら、この中の処理が始まる。
             if (GameMgr.tutorial_ON == true)
@@ -1294,9 +1305,6 @@ public class Compound_Main : MonoBehaviour
                 sceneBGM.MuteOFFBGM();
                 map_ambience.MuteOFF();
 
-                //背景の変化
-                //Change_BGimage();
-
                 //イベントに応じてコマンドを増やす関係
                 FlagEvent();
 
@@ -1536,6 +1544,16 @@ public class Compound_Main : MonoBehaviour
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
 
                 break;
+
+            /*case 5: //ブレンド調合の処理（未使用）
+
+            compoundselect_onoff_obj.SetActive(false);
+            compound_status = 4; //調合シーンに入っています、というフラグ
+            compound_select = 5; //ブレンド調合を選択
+            recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+            no.SetActive(true);
+
+            break;*/
 
             case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
 
@@ -1823,15 +1841,7 @@ public class Compound_Main : MonoBehaviour
                 break;
 
 
-            /*case 5: //ブレンド調合の処理（未使用）
-
-                compoundselect_onoff_obj.SetActive(false);
-                compound_status = 4; //調合シーンに入っています、というフラグ
-                compound_select = 5; //ブレンド調合を選択
-                recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
-                no.SetActive(true);
-
-                break;*/
+            
 
             case 110: //調合、最後これでよいか選択中のステータス
 
@@ -1898,6 +1908,24 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case 999: //その他、なんらかの選択確認などで一時退避として使う。
+
+                break;
+
+            case 1000: //サブイベントなどを読み中
+
+                break;
+
+            case 1001: //サブイベント中、アイテムを渡すのをキャンセルするかどうか、確認する。                
+
+                /*pitemlistController.Offinteract();
+
+                text_area.SetActive(true);
+                _text.text = "やっぱりやめる？";
+
+                yes_no_panel.SetActive(true);
+                yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+
+                StartCoroutine("EventPresent_Final_select");*/
 
                 break;
 
@@ -2029,7 +2057,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    void WindowOff()
+    public void WindowOff() //Girl1_Statusなどからもよむ
     {
         compoundselect_onoff_obj.SetActive(false);
         Extremepanel_obj.SetActive(false);
@@ -2050,7 +2078,7 @@ public class Compound_Main : MonoBehaviour
         HintObjectGroup.SetActive(false);
     }
 
-    void WindowOn()
+    public void WindowOn()
     {
         compoundselect_onoff_obj.SetActive(true);
         Extremepanel_obj.SetActive(true);
@@ -2567,6 +2595,10 @@ public class Compound_Main : MonoBehaviour
             not_read_total = 0;
             Recipi_loading = false;
 
+            //レシピチェック中の状態
+            compound_select = 1100;
+            compound_status = 1100;
+
             while (i < pitemlist.eventitemlist.Count)
             {
                 //所持はしているのに、リードフラグは０のまま（＝読んでいないもの）のレシピの個数をカウントする。
@@ -2583,7 +2615,7 @@ public class Compound_Main : MonoBehaviour
             {
                 //最後にチェック。全てのリードフラグが1になったら、全て読み終了。その場合は、レシピチェックをオフにする。
                 check_recipi_flag = true;
-                compound_status = 0;
+                compound_status = 0; //ここまでで、チェックの処理が全て完了したので、status=0にする。
 
                 //Debug.Log("レシピ全て読み完了");
             }
@@ -2889,7 +2921,6 @@ public class Compound_Main : MonoBehaviour
         else
         {
             GameMgr.girlloveevent_bunki = 0; //サブイベントが発生しない限り、メインの好感度イベントを発生するようにする。
-            compound_select = 1000; //シナリオイベント読み中の状態
 
             switch (GameMgr.stage_number)
             {
@@ -3056,7 +3087,7 @@ public class Compound_Main : MonoBehaviour
                 check_GirlLoveEvent_flag = true;
                 check_GirlLoveSubEvent_flag = false; //好感度イベントのチェック後に、サブイベントの発生チェック
             }
-            compound_status = 0;
+            
         }
     }
 
@@ -3085,7 +3116,10 @@ public class Compound_Main : MonoBehaviour
         girl1_status.GirlEat_Judge_on = false;
         //girl1_status.Girl_Full();
         girl1_status.DeleteHukidashiOnly();
-        girl1_status.Girl1_Status_Init();        
+        girl1_status.Girl1_Status_Init();
+
+        compound_select = 1000; //シナリオイベント読み中の状態
+        compound_status = 1000;
 
         while (girlEat_ON)
         {
@@ -3392,8 +3426,7 @@ public class Compound_Main : MonoBehaviour
         }
         else
         {
-            check_GirlLoveSubEvent_flag = true;
-            compound_select = 1000; //シナリオイベント読み中の状態
+            check_GirlLoveSubEvent_flag = true;           
 
             //クエストで発生するサブイベント
             switch (GameMgr.OkashiQuest_Num)

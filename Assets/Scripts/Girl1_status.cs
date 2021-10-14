@@ -1087,6 +1087,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlEat_Judge_on = false;
             special_animstart_status = 0;
             touch_controller.Touch_OnAllOFF();
+
+            compound_Main.compound_select = 1000; //シナリオイベント読み中の状態
+            compound_Main.compound_status = 1000;
         }
         else
         {

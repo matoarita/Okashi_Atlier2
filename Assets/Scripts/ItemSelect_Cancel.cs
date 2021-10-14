@@ -383,7 +383,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     break;
 
                 
-                case 21: //status=21。材料採取地選択
+                case 21: //status=21。材料採取地選択中
 
                     if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
                     {
@@ -575,6 +575,20 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                 compound_Main.compound_status = 0; //何も選択していない状態にもどる。
                             }
+                        }
+                    }
+                    break;
+
+                case 1000: //サブイベントで、アイテムを何も選択していない状態
+
+                    if (yes_selectitem_kettei.onclick == true) //Yes, No ボタンが押された
+                    {
+                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                        {
+                            //All_cancel();
+
+                            GameMgr.event_pitem_cancel = true; //やめたフラグON
+                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                         }
                     }
                     break;

@@ -64,6 +64,7 @@ public class Utage_scenario : MonoBehaviour
     private int judge_num; //審査員の番号
     private bool SpecialItemFlag;
     private int total_score;
+    private bool eventend_flag;
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -1368,59 +1369,111 @@ public class Utage_scenario : MonoBehaviour
             girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
 
             //
-            //「宴」のポーズ終了待ち
+            //「宴」のポーズ終了待ち アイテム選択画面に入る。
             while (!engine.IsPausingScenario)
             {
                 yield return null;
             }
 
-            playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+            //強制終了フラグがたってないかを検出。ピクニックいく、いかないの判定などで使用。たっていたら、終了する。
+            eventend_flag = (bool)engine.Param.GetParameter("EventEnd_Flag");
 
-            while (!GameMgr.event_pitem_use_OK) //アイテム選択待ち
+            if(eventend_flag)
             {
-                yield return null;
+                //アイテムを開いたりする処理は無視して、endにいく。
+
+                //ここで、宴のパラメータ設定。リセットしておく。
+                engine.Param.TrySetParameter("EventEnd_Flag", false);
+
+                //いかないを選択したので、ハート獲得演出はキャンセル
+                compound_Main.SubEvAfterHeartGet = false;
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
             }
-
-            GameMgr.event_pitem_use_OK = false;
-
-
-            //ピクニックイベントの場合、アイテムの判定処理がここで入る。
-            total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1); //３番目はコンテストタイプ　1ならコンテストやイベントなど
-            Debug.Log("点数: （通常の固有お菓子判定と一緒のはず）" + total_score);
-
-            //選択したアイテム
-            if (GameMgr.event_kettei_item_Type == 0) //通常
+            else
             {
-                Debug.Log("選択したアイテム: " + database.items[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
-                GameMgr.contest_okashiSlotName = "";
-                GameMgr.contest_okashiNameHyouji = database.items[GameMgr.event_kettei_itemID].itemNameHyouji;
+                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
 
-                //削除
-                pitemlist.deletePlayerItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
-            }
-            else //自分が制作したオリジナルアイテム
-            {
-                Debug.Log("選択したアイテム: " + pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
-                GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].item_SlotName;
-                GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
-
-                if((pitemlist.player_originalitemlist.Count-1 ) == GameMgr.event_kettei_itemID) //エクストリームパネルに設定されているお菓子を選んだ
+                
+                while (!GameMgr.event_pitem_use_OK && !GameMgr.event_pitem_cancel) //アイテム選択待ち
                 {
-                    exp_Controller._temp_extreme_id = 9999;
+                    yield return null;
                 }
 
-                //削除
-                pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+                if(GameMgr.event_pitem_use_OK) //アイテム渡す場合の処理
+                {
+                    GameMgr.event_pitem_use_OK = false;
+
+
+                    //ピクニックイベントの場合、アイテムの判定処理がここで入る。
+                    total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1); //３番目はコンテストタイプ　1ならコンテストやイベントなど
+                    Debug.Log("点数: （通常の固有お菓子判定と一緒のはず）" + total_score);
+
+                    //選択したアイテム
+                    if (GameMgr.event_kettei_item_Type == 0) //通常
+                    {
+                        Debug.Log("選択したアイテム: " + database.items[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
+                        GameMgr.contest_okashiSlotName = "";
+                        GameMgr.contest_okashiNameHyouji = database.items[GameMgr.event_kettei_itemID].itemNameHyouji;
+
+                        //削除
+                        pitemlist.deletePlayerItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+                    }
+                    else //自分が制作したオリジナルアイテム
+                    {
+                        Debug.Log("選択したアイテム: " + pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
+                        GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].item_SlotName;
+                        GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
+
+                        if ((pitemlist.player_originalitemlist.Count - 1) == GameMgr.event_kettei_itemID) //エクストリームパネルに設定されているお菓子を選んだ
+                        {
+                            exp_Controller._temp_extreme_id = 9999;
+                        }
+
+                        //削除
+                        pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+                    }
+
+                    //提出したお菓子の名前をセット
+                    engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
+                    engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);
+
+                    playeritemlist_onoff.SetActive(false);
+
+                    //続きから再度読み込み
+                    engine.ResumeScenario();
+                }
+
+                if (GameMgr.event_pitem_cancel)//やっぱりやめた場合の処理
+                {
+                    GameMgr.event_pitem_cancel = false;
+
+                    playeritemlist_onoff.SetActive(false);
+
+                    //ここで、宴のパラメータ設定。リセットしておく。
+                    engine.Param.TrySetParameter("EventEnd_Flag", true);
+
+                    //続きから再度読み込み
+                    engine.ResumeScenario();
+
+                    //
+                    //「宴」のポーズ終了待ち
+                    while (!engine.IsPausingScenario)
+                    {
+                        yield return null;
+                    }
+
+                    //いかないを選択したので、ハート獲得演出はキャンセル
+                    compound_Main.SubEvAfterHeartGet = false;
+                    //ここで、宴のパラメータ設定。リセットしておく。
+                    engine.Param.TrySetParameter("EventEnd_Flag", false);
+
+                    //続きから再度読み込み
+                    engine.ResumeScenario();
+                }
             }
-
-            //提出したお菓子の名前をセット
-            engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
-            engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);           
-
-            playeritemlist_onoff.SetActive(false);
-
-            //続きから再度読み込み
-            engine.ResumeScenario();
+            
         }
 
         //「宴」のシナリオ終了待ち
