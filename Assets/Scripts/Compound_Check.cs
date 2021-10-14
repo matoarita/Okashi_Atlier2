@@ -196,10 +196,10 @@ public class Compound_Check : MonoBehaviour {
 
         if (final_select_flag == true) //最後、これで調合するかどうかを待つフラグ
         {
-            if (compound_Main.compound_select == 1) //レシピ調合のときの処理
+            if (GameMgr.compound_select == 1) //レシピ調合のときの処理
             {
 
-                compound_Main.compound_status = 110;
+                GameMgr.compound_status = 110;
 
                 SelectPaused();
 
@@ -210,10 +210,10 @@ public class Compound_Check : MonoBehaviour {
 
             }
 
-            if (compound_Main.compound_select == 2) //トッピング調合のときの処理
+            if (GameMgr.compound_select == 2) //トッピング調合のときの処理
             {
 
-                compound_Main.compound_status = 110;
+                GameMgr.compound_status = 110;
 
                 SelectPaused();
 
@@ -224,10 +224,10 @@ public class Compound_Check : MonoBehaviour {
 
             }
 
-            if (compound_Main.compound_select == 3) //オリジナル調合のときの処理
+            if (GameMgr.compound_select == 3) //オリジナル調合のときの処理
             {
 
-                compound_Main.compound_status = 110;
+                GameMgr.compound_status = 110;
 
                 SelectPaused();
 
@@ -323,7 +323,7 @@ public class Compound_Check : MonoBehaviour {
                             exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
                         }
 
-                        compound_Main.compound_status = 4;
+                        GameMgr.compound_status = 4;
 
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
@@ -340,7 +340,7 @@ public class Compound_Check : MonoBehaviour {
                         //Debug.Log("1個目を選択した状態に戻る");
 
                         recipiMemoButton_obj.SetActive(true);
-                        compound_Main.compound_status = 100;
+                        GameMgr.compound_status = 100;
                         itemselect_cancel.Two_cancel();
 
                         break;
@@ -402,7 +402,7 @@ public class Compound_Check : MonoBehaviour {
                             exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
                         }
 
-                        compound_Main.compound_status = 4;
+                        GameMgr.compound_status = 4;
 
                         //card_view.DeleteCard_DrawView();
                         card_view.CardCompo_Anim();
@@ -421,7 +421,7 @@ public class Compound_Check : MonoBehaviour {
 
                         recipiMemoButton_obj.SetActive(true);
 
-                        compound_Main.compound_status = 100;
+                        GameMgr.compound_status = 100;
                         itemselect_cancel.Three_cancel();
 
                         yes.SetActive(true);
@@ -469,7 +469,7 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
 
-                        compound_Main.compound_status = 4;
+                        GameMgr.compound_status = 4;
 
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
@@ -500,7 +500,7 @@ public class Compound_Check : MonoBehaviour {
                     case false:
 
                         //Debug.Log("ベースアイテムを選択した状態に戻る");
-                        compound_Main.compound_status = 100;
+                        GameMgr.compound_status = 100;
 
                         exp_Controller._success_rate = 100;
                         kakuritsuPanel.KakuritsuYosoku_Reset();
@@ -539,7 +539,7 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
 
-                        compound_Main.compound_status = 4;
+                        GameMgr.compound_status = 4;
 
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
@@ -571,7 +571,7 @@ public class Compound_Check : MonoBehaviour {
                     case false:
 
                         //Debug.Log("1個目を選択した状態に戻る");
-                        compound_Main.compound_status = 100;
+                        GameMgr.compound_status = 100;
 
                         exp_Controller._success_rate = exp_Controller._temp_srate_1;
                         kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_1);
@@ -612,7 +612,7 @@ public class Compound_Check : MonoBehaviour {
                         //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
 
-                        compound_Main.compound_status = 4;
+                        GameMgr.compound_status = 4;
 
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
@@ -627,7 +627,7 @@ public class Compound_Check : MonoBehaviour {
                     case false:
 
                         //Debug.Log("2個目を選択した状態に戻る");
-                        compound_Main.compound_status = 100;
+                        GameMgr.compound_status = 100;
 
                         exp_Controller._success_rate = exp_Controller._temp_srate_2;
                         kakuritsuPanel.KakuritsuYosoku_Img(exp_Controller._temp_srate_2);
@@ -678,7 +678,7 @@ public class Compound_Check : MonoBehaviour {
                 //card_view.DeleteCard_DrawView();
                 card_view.CardCompo_Anim();
 
-                compound_Main.compound_status = 4;
+                GameMgr.compound_status = 4;
 
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
@@ -703,7 +703,7 @@ public class Compound_Check : MonoBehaviour {
                 }
 
                 BlackImage.GetComponent<CanvasGroup>().alpha = 0;
-                compound_Main.compound_status = 100;
+                GameMgr.compound_status = 100;
                 itemselect_cancel.All_cancel();
 
                 break;
@@ -1032,7 +1032,7 @@ public class Compound_Check : MonoBehaviour {
 
     void SelectPaused()
     {
-        if (compound_Main.compound_select == 1) //レシピ調合のときの処理
+        if (GameMgr.compound_select == 1) //レシピ調合のときの処理
         {
             for (i = 0; i < recipilistController._recipi_listitem.Count; i++)
             {
@@ -1061,12 +1061,12 @@ public class Compound_Check : MonoBehaviour {
                 YesSetDesign2();
             }
 
-            if (compound_Main.compound_select == 5)
+            if (GameMgr.compound_select == 5)
             {
                 yes_text.text = "生地を焼く！";
             }
 
-            if (compound_Main.compound_select == 10)
+            if (GameMgr.compound_select == 10)
             {
                 yes_text.text = "あげる";
             }

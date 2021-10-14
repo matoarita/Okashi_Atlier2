@@ -305,12 +305,12 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
                         if (GameMgr.KeyInputOff_flag)
                         {
-                            if (compound_Main.compound_select == 6 || compound_Main.compound_select == 200)
+                            if (GameMgr.compound_select == 6 || GameMgr.compound_select == 200)
                             {
                                 compound_Main.OnCancel_Select();
                                 sc.PlaySe(18);
                             }
-                            else if (compound_Main.compound_select == 205)
+                            else if (GameMgr.compound_select == 205)
                             {
                                 option_panel.BackOption();
                                 sc.PlaySe(18);
@@ -349,7 +349,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
                         if (GameMgr.KeyInputOff_flag)
                         {
-                            switch (compound_Main.compound_select)
+                            switch (GameMgr.compound_select)
                             {
 
                                 case 0:
@@ -358,7 +358,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                     {
                                         if (!Cursor_On)
                                         {
-                                            if (compound_Main.compound_status == 110)
+                                            if (GameMgr.compound_status == 110)
                                             {
                                                 sc.PlaySe(2);
                                                 cursor_cullent_num = 0;
@@ -394,7 +394,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                     {
                                         if (!Cursor_On)
                                         {
-                                            if (compound_Main.compound_status == 110)
+                                            if (GameMgr.compound_status == 110)
                                             {
                                                 sc.PlaySe(2);
                                                 cursor_cullent_num = 0;
@@ -716,7 +716,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
                         if (GameMgr.KeyInputOff_flag)
                         {
-                            switch (compound_Main.compound_select)
+                            switch (GameMgr.compound_select)
                             {
 
                                 case 0:
@@ -724,7 +724,7 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
                                     if (Cursor_On)
                                     {
 
-                                        if (compound_Main.compound_status == 110)
+                                        if (GameMgr.compound_status == 110)
                                         {
                                             switch (cursor_cullent_num)
                                             {

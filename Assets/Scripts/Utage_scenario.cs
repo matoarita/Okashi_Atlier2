@@ -1356,6 +1356,28 @@ public class Utage_scenario : MonoBehaviour
 
         if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
         {
+            StartCoroutine("PitemPresent");
+        }
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        //ゲーム上のキャラクタON
+        CharacterLive2DImageON();
+
+        GameMgr.girlloveevent_endflag = true; //レシピを読み終えたフラグ
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+    }
+
+    IEnumerator PitemPresent()
+    {
+        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
+        {
             GameMgr.event_pitem_use_select = false;
 
             //キャンバスの読み込み
@@ -1378,15 +1400,18 @@ public class Utage_scenario : MonoBehaviour
             //強制終了フラグがたってないかを検出。ピクニックいく、いかないの判定などで使用。たっていたら、終了する。
             eventend_flag = (bool)engine.Param.GetParameter("EventEnd_Flag");
 
-            if(eventend_flag)
+            if (eventend_flag)
             {
                 //アイテムを開いたりする処理は無視して、endにいく。
 
                 //ここで、宴のパラメータ設定。リセットしておく。
                 engine.Param.TrySetParameter("EventEnd_Flag", false);
 
-                //いかないを選択したので、ハート獲得演出はキャンセル
-                compound_Main.SubEvAfterHeartGet = false;
+                if (SceneManager.GetActiveScene().name == "Compound")
+                {
+                    //いかないを選択したので、ハート獲得演出はキャンセル
+                    compound_Main.SubEvAfterHeartGet = false;
+                }
 
                 //続きから再度読み込み
                 engine.ResumeScenario();
@@ -1395,19 +1420,20 @@ public class Utage_scenario : MonoBehaviour
             {
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
 
-                
+
                 while (!GameMgr.event_pitem_use_OK && !GameMgr.event_pitem_cancel) //アイテム選択待ち
                 {
                     yield return null;
                 }
 
-                if(GameMgr.event_pitem_use_OK) //アイテム渡す場合の処理
+                if (GameMgr.event_pitem_use_OK) //アイテム渡す場合の処理
                 {
                     GameMgr.event_pitem_use_OK = false;
 
 
-                    //ピクニックイベントの場合、アイテムの判定処理がここで入る。
+                    //アイテムの判定処理がここで入る。判定値は、妹の判定。
                     total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1); //３番目はコンテストタイプ　1ならコンテストやイベントなど
+                    GameMgr.event_okashi_score = total_score;
                     Debug.Log("点数: （通常の固有お菓子判定と一緒のはず）" + total_score);
 
                     //選択したアイテム
@@ -1426,9 +1452,11 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].item_SlotName;
                         GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
 
+                        //Debug.Log("GameMgr.event_kettei_itemID: " + GameMgr.event_kettei_itemID + " pitemlist.player_originalitemlist.Count: " + pitemlist.player_originalitemlist.Count);
                         if ((pitemlist.player_originalitemlist.Count - 1) == GameMgr.event_kettei_itemID) //エクストリームパネルに設定されているお菓子を選んだ
                         {
                             exp_Controller._temp_extreme_id = 9999;
+                            exp_Controller._temp_extremeSetting = false;
                         }
 
                         //削除
@@ -1440,6 +1468,34 @@ public class Utage_scenario : MonoBehaviour
                     engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);
 
                     playeritemlist_onoff.SetActive(false);
+
+                    //ピクニックイベントの場合
+                    //採点
+                    if (total_score < 30)
+                    {
+                        engine.Param.TrySetParameter("Picnic_num", 0);
+                        GameMgr.event_judge_status = 0;
+                    }
+                    else if (total_score >= 30 && total_score < 60)
+                    {
+                        engine.Param.TrySetParameter("Picnic_num", 1);
+                        GameMgr.event_judge_status = 1;
+                    }
+                    else if (total_score >= 60 && total_score < 100)
+                    {
+                        engine.Param.TrySetParameter("Picnic_num", 2);
+                        GameMgr.event_judge_status = 2;
+                    }
+                    else if (total_score >= 100 && total_score < 150)
+                    {
+                        engine.Param.TrySetParameter("Picnic_num", 3);
+                        GameMgr.event_judge_status = 3;
+                    }
+                    else if (total_score >= 150)
+                    {
+                        engine.Param.TrySetParameter("Picnic_num", 4);
+                        GameMgr.event_judge_status = 4;
+                    }
 
                     //続きから再度読み込み
                     engine.ResumeScenario();
@@ -1464,8 +1520,12 @@ public class Utage_scenario : MonoBehaviour
                         yield return null;
                     }
 
-                    //いかないを選択したので、ハート獲得演出はキャンセル
-                    compound_Main.SubEvAfterHeartGet = false;
+                    if (SceneManager.GetActiveScene().name == "Compound")
+                    {
+                        //いかないを選択したので、ハート獲得演出はキャンセル
+                        compound_Main.SubEvAfterHeartGet = false;
+                    }
+
                     //ここで、宴のパラメータ設定。リセットしておく。
                     engine.Param.TrySetParameter("EventEnd_Flag", false);
 
@@ -1473,22 +1533,7 @@ public class Utage_scenario : MonoBehaviour
                     engine.ResumeScenario();
                 }
             }
-            
         }
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-
-        //ゲーム上のキャラクタON
-        CharacterLive2DImageON();
-
-        GameMgr.girlloveevent_endflag = true; //レシピを読み終えたフラグ
-
-        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
-
     }
 
     //
@@ -2187,6 +2232,11 @@ public class Utage_scenario : MonoBehaviour
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
+        {
+            StartCoroutine("PitemPresent");
+        }
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)

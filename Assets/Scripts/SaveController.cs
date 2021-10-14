@@ -324,6 +324,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_SeVolumeParam = GameMgr.SeVolumeParam,
 
             save_mainBGM_Num = GameMgr.mainBGM_Num,
+
+            save_picnic_End = GameMgr.picnic_End,
+            save_picnic_count = GameMgr.picnic_count,
+            save_picnic_event_ON = GameMgr.picnic_event_ON,
         };
        
 
@@ -587,6 +591,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         GameMgr.mainBGM_Num = playerData.save_mainBGM_Num;
 
+        GameMgr.picnic_End = playerData.save_picnic_End;
+        GameMgr.picnic_count = playerData.save_picnic_count;
+        GameMgr.picnic_event_ON = playerData.save_picnic_event_ON;
+
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
         /*for (i= 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
@@ -663,7 +671,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 //背景を変更
                 compound_Main.Change_BGimage();
 
-                compound_Main.compound_status = 0;
+                GameMgr.compound_status = 0;
 
                 //ロード直後のサブイベントを発生させる
                 compound_Main.Load_eventflag = true; //ロード直後に、おかえりなさい～のようなサブイベントを発生

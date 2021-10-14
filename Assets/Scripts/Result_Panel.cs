@@ -464,4 +464,9 @@ public class Result_Panel : MonoBehaviour
 
         sc.PlaySe(_num);
     }
+
+    public void ResultButtonOn()
+    {
+        girlEat_judge.ResultPanel_On();
+    }
 }

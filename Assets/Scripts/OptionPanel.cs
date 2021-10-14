@@ -181,7 +181,7 @@ public class OptionPanel : MonoBehaviour {
         {
             case "Compound":
 
-                compound_Main.compound_select = 200;
+                GameMgr.compound_select = 200;
                 system_panel.SetActive(true);
                 this.gameObject.SetActive(false);
                 break;

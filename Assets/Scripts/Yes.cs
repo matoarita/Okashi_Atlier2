@@ -46,4 +46,10 @@ public class Yes : MonoBehaviour {
         selectitem_kettei.kettei1 = true;
     }
 
+    public void OnClick_Yes2() //Yesが選択された時 納品パネル
+    { // 必ず public にする
+        //Debug.Log("clicked");
+        selectitem_kettei.NouhinOnClick();
+    }
+
 }

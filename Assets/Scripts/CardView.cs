@@ -225,7 +225,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
-        if (compound_Main.compound_select == 3)
+        if (GameMgr.compound_select == 3)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -234,7 +234,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
 
         // トッピング調合を選択した場合の処理
-        if (compound_Main.compound_select == 2)
+        if (GameMgr.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
@@ -256,7 +256,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //_cardImage_obj[1].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
-        if (compound_Main.compound_select == 3)
+        if (GameMgr.compound_select == 3)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -266,7 +266,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
 
         // トッピング調合を選択した場合の処理
-        if (compound_Main.compound_select == 2)
+        if (GameMgr.compound_select == 2)
         {
 
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
@@ -290,7 +290,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
-        if (compound_Main.compound_select == 3)
+        if (GameMgr.compound_select == 3)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -302,7 +302,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
 
         // トッピング調合を選択した場合の処理
-        if (compound_Main.compound_select == 2)
+        if (GameMgr.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
@@ -328,7 +328,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //_cardImage_obj[2].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
-        if (compound_Main.compound_select == 3)
+        if (GameMgr.compound_select == 3)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -341,7 +341,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
 
         // トッピング調合を選択した場合の処理
-        if (compound_Main.compound_select == 2)
+        if (GameMgr.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
@@ -366,7 +366,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
-        if (compound_Main.compound_select == 3)
+        if (GameMgr.compound_select == 3)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -381,7 +381,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
 
         // トッピング調合を選択した場合の処理
-        if (compound_Main.compound_select == 2)
+        if (GameMgr.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
@@ -408,13 +408,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //_cardImage_obj[3].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
-        if (compound_Main.compound_select == 3)
+        if (GameMgr.compound_select == 3)
         {
             //オリジナル調合では使わない。
         }
 
         // トッピング調合を選択した場合の処理
-        if (compound_Main.compound_select == 2)
+        if (GameMgr.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);
@@ -442,13 +442,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
-        if (compound_Main.compound_select == 3)
+        if (GameMgr.compound_select == 3)
         {
             //オリジナル調合では使わない
         }
 
         // トッピング調合を選択した場合の処理
-        if (compound_Main.compound_select == 2)
+        if (GameMgr.compound_select == 2)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(75, 180, 0);

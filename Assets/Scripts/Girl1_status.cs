@@ -590,7 +590,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 case "Compound":
 
-                    if (compound_Main.compound_status == 110) //トップ画面のときだけ発動
+                    if (GameMgr.compound_status == 110) //トップ画面のときだけ発動
                     {
                         //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
                         if (timeOut <= 0.0)
@@ -674,7 +674,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 CubismLookFlag = false;
 
                                 //表情をリセット
-                                switch (compound_Main.compound_status)
+                                switch (GameMgr.compound_status)
                                 {
                                     case 4: //調合中のシーン
                                         face_girl_Normal();
@@ -1088,8 +1088,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             special_animstart_status = 0;
             touch_controller.Touch_OnAllOFF();
 
-            compound_Main.compound_select = 1000; //シナリオイベント読み中の状態
-            compound_Main.compound_status = 1000;
+            GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+            GameMgr.compound_status = 1000;
         }
         else
         {

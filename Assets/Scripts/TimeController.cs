@@ -165,7 +165,7 @@ public class TimeController : MonoBehaviour
 
             if (!GameMgr.scenario_ON)
             {
-                if (compound_main.compound_status == 22 || compound_main.compound_status == 12) //採集中は減らない
+                if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中は減らない
                 {
 
                 }
@@ -294,6 +294,12 @@ public class TimeController : MonoBehaviour
                 {
                     PlayerStatus.player_day++;
                     hour = 0; //0時にリセット
+
+                    //日をまたぐと、ピクニックイベントのカウンタが進む。
+                    if(GameMgr.picnic_End)
+                    {
+                        GameMgr.picnic_count--;
+                    }
                 }
             }
             else //その月の日付
@@ -375,7 +381,7 @@ public class TimeController : MonoBehaviour
     {
         if (!GameMgr.scenario_ON)
         {
-            if (compound_main.compound_status == 22 || compound_main.compound_status == 12) //採集中かお菓子あげ途中は減らない
+            if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中かお菓子あげ途中は減らない
             {
 
             }

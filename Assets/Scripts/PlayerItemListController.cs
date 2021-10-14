@@ -202,6 +202,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         keymanager.cursor_cullent_num = 0;
         keymanager.itemCursor_On = false;
 
+        no_button.SetActive(true);
+
         switch (SceneManager.GetActiveScene().name) 
         {
             case "Compound":　// 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
@@ -244,7 +246,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }               
 
                 // トッピング調合を選択した場合の処理
-                if (compound_Main.compound_select == 2)
+                if (GameMgr.compound_select == 2)
                 {
                     if (kettei1_bunki == 0)
                     {
@@ -264,7 +266,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
 
                 //アニメーション
-                if (compound_Main.compound_select == 99) //持ち物ひらいたときのデフォ位置
+                if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
                 {
                     this.transform.localPosition = new Vector3(224f, 57f, 0);
                     OpenAnim2();
@@ -444,7 +446,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                     if (SceneManager.GetActiveScene().name == "Compound")
                     {
-                        switch (compound_Main.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
+                        switch (GameMgr.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
                         {
                             case 1: //レシピ調合のとき。「レシピリストコントローラー」で処理を行うため、このスクリプト上では無視される。
 
@@ -587,9 +589,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         }
                     }
 
-                    else //調合以外のシーンでは、所持アイテム全て表示
+                    else //調合以外のシーンでは、お菓子アイテム全て表示
                     {
-                        itemlist_hyouji();
+                        if (database.items[i].itemType.ToString() == "Okashi")
+                        {
+                            itemlist_hyouji();
+                        }
                     }
                     //}
                 }
@@ -604,7 +609,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 //Debug.Log("ID: " + i + " 所持アイテム: " + pitemlist.player_originalitemlist[i].itemName);
                 if (SceneManager.GetActiveScene().name == "Compound")
                 {
-                    switch (compound_Main.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
+                    switch (GameMgr.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
                     {
                         case 1: //レシピ調合のとき。「レシピリストコントローラー」で処理を行うため、このスクリプト上では無視される。
 
@@ -747,7 +752,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 else
                 {
-                    original_itemlist_hyouji();
+                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                    {
+                        original_itemlist_hyouji();
+                    }
                 }
             }
         }
@@ -1016,7 +1024,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
             // トッピング調合を選択した場合の処理
-            if (compound_Main.compound_select == 2)
+            if (GameMgr.compound_select == 2)
             {
                 if (kettei1_bunki == 0)
                 {

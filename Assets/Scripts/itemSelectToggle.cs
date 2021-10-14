@@ -252,10 +252,10 @@ public class itemSelectToggle : MonoBehaviour
 
                 itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
-                compound_Main.compound_status = 100; //トグルを押して、調合中の状態。All_cancelで、status=4に戻る。status=4でキャンセルすると、最初の調合選択シーンに戻る。
+                GameMgr.compound_status = 100; //トグルを押して、調合中の状態。All_cancelで、status=4に戻る。status=4でキャンセルすると、最初の調合選択シーンに戻る。
                 
                 // オリジナル調合を選択した場合の処理
-                if (compound_Main.compound_select == 3)
+                if (GameMgr.compound_select == 3)
                 {
                     yes.SetActive(true);
 
@@ -263,7 +263,7 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
                 // トッピング調合を選択した場合の処理
-                if (compound_Main.compound_select == 2)
+                if (GameMgr.compound_select == 2)
                 {
                     yes.SetActive(true);
 
@@ -271,7 +271,7 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
                 // 「焼く」を選択した場合の処理
-                if (compound_Main.compound_select == 5)
+                if (GameMgr.compound_select == 5)
                 {
                     yes.SetActive(true);
 
@@ -279,19 +279,19 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
                 // お菓子を「あげる」を選択した場合の処理
-                if (compound_Main.compound_select == 10)
+                if (GameMgr.compound_select == 10)
                 {
 
                 }
 
                 // 単にメニューを開いたとき
-                if (compound_Main.compound_select == 99)
+                if (GameMgr.compound_select == 99)
                 {
                     Player_ItemList_Open();
                 }
 
                 // シナリオやサブイベントなどを読み中の処理
-                if (compound_Main.compound_select == 1000)
+                if (GameMgr.compound_select == 1000)
                 {
                     itempresent_active();
                 }
@@ -359,9 +359,17 @@ public class itemSelectToggle : MonoBehaviour
 
             else // その他シーンでやりたい処理
             {
-                //アイテム画面を表示した時などで使用
-
-                Player_ItemList_Open();
+                // シナリオやサブイベントなどを読み中の処理
+                if (GameMgr.compound_select == 1000)
+                {
+                    GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
+                    itempresent_active();
+                }
+                else
+                {
+                    //アイテム画面を表示した時などで使用
+                    Player_ItemList_Open();
+                }
 
             }
         }
@@ -1234,7 +1242,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 pitemlistController.final_kettei_kosu1 = updown_counter.updown_kosu;
 
-                compound_Main.compound_status = 4;
+                GameMgr.compound_status = 4;
 
                 //exp_Controller.Roast_ResultOK();
 
@@ -1526,7 +1534,8 @@ public class itemSelectToggle : MonoBehaviour
                 //決定したアイテムの番号と個数
                 GameMgr.event_kettei_itemID = pitemlistController.kettei_item1;
                 GameMgr.event_kettei_item_Type = pitemlistController._toggle_type1;
-                GameMgr.event_kettei_item_Kosu = updown_counter.updown_kosu; //最終個数を入れる。
+                //GameMgr.event_kettei_item_Kosu = updown_counter.updown_kosu; //最終個数を入れる。
+                GameMgr.event_kettei_item_Kosu = 1;
 
                 break;
 
@@ -1548,7 +1557,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 card_view.DeleteCard_DrawView();
 
-                compound_Main.compound_status = 1000;
+                GameMgr.compound_status = 1000;
 
                 break;
         }

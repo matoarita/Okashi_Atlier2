@@ -171,6 +171,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //現在のメインBGMの番号
     public static int mainBGM_Num;
 
+    //ピクニックイベントのカウンター
+    public static bool picnic_End;
+    public static int picnic_count;
+    public static bool picnic_event_ON;
+
     /* セーブ　ここまで */
 
 
@@ -314,6 +319,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     private float timeLeft;
     public static int Game_timeCount; //ゲーム内共通の時間
 
+    //ゲームの現在の状態を表すステータス
+    public static int compound_status;
+    public static int compound_select;
+
     //チュートリアル用の管理フラグ
     public static bool tutorial_ON;         //これがONになったら、ゲーム全体がチュートリアルモードになる。 
     public static bool tutorial_Progress;   //進行したときにフラグをたてる。すると、次のテキストが流れる。
@@ -343,6 +352,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int event_kettei_item_Type;
     public static int event_kettei_item_Kosu;
     public static bool event_pitem_cancel;
+    public static int event_judge_status;
+    public static int event_okashi_score;
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
@@ -432,6 +443,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GameLoadOn = false;
         saveOK = false;
 
+        compound_status = 0;
+        compound_select = 0;
+
         //食費
         Foodexpenses_default = 100;
         Foodexpenses = Foodexpenses_default;
@@ -478,6 +492,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         emeraldshop_event_flag = false;
         emeraldshop_event_num = 0;
+
+        picnic_End = false;
+        picnic_count = 3;
+        picnic_event_ON = true;
 
         hiroba_event_flag = false;
         //広場イベント読み終えたフラグの初期化

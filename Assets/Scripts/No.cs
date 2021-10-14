@@ -41,4 +41,10 @@ public class No : MonoBehaviour {
         selectitem_kettei.kettei1 = false;
         selectitem_kettei.kettei3 = false;
     }
+
+    public void OnClick_No2() //Noが選択された時 納品パネル
+    { // 必ず public にする
+        //Debug.Log("clicked");
+        selectitem_kettei.NouhinOnClick2();
+    }
 }

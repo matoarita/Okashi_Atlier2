@@ -325,7 +325,7 @@ public class ExtremePanel : MonoBehaviour {
 
         if (extreme_itemID != 9999)
         {
-            compound_Main.compound_status = 6; //調合選択画面に移動 元々4にしてた
+            GameMgr.compound_status = 6; //調合選択画面に移動 元々4にしてた
 
             //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
             if (GameMgr.tutorial_ON == true)
@@ -353,7 +353,7 @@ public class ExtremePanel : MonoBehaviour {
             else
             {*/
                 _text.text = "何の調合をする？";
-                compound_Main.compound_status = 6;
+            GameMgr.compound_status = 6;
 
                 pitemlistController.extremepanel_on = false;
             //}
@@ -413,7 +413,7 @@ public class ExtremePanel : MonoBehaviour {
         card_view.DeleteCard_DrawView();
 
         _text.text = "レシピから作るよ。何を作る？";
-        compound_Main.compound_status = 1;
+        GameMgr.compound_status = 1;
     }
 
     public void OnClick_PresentButton()
@@ -425,7 +425,7 @@ public class ExtremePanel : MonoBehaviour {
         if (extreme_itemID != 9999)
         {
             _text.text = "今、作ったお菓子をあげますか？";
-            compound_Main.compound_status = 10;
+            GameMgr.compound_status = 10;
         }
         else //まだ作ってないときは
         {
@@ -443,7 +443,7 @@ public class ExtremePanel : MonoBehaviour {
         {
             Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
             _text.text = "作ったお菓子をショップへ卸しますか？" + "\n" + "現在の価格: " + Okashi_moneypram_int.ToString() + "G です。";
-            compound_Main.compound_status = 30;
+            GameMgr.compound_status = 30;
         }
         else //まだ作ってないときは
         {
@@ -476,8 +476,8 @@ public class ExtremePanel : MonoBehaviour {
         //エクストリームパネルからも削除
         deleteExtreme_Item();
 
-        compound_Main.compound_status = 0;
-        compound_Main.compound_select = 0;
+        GameMgr.compound_status = 0;
+        GameMgr.compound_select = 0;
     }
 
 

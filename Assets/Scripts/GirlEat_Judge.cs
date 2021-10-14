@@ -10,7 +10,7 @@ using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 using Live2D.Cubism.Rendering;
 
-public class GirlEat_Judge : MonoBehaviour {
+public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> { 
 
     private GameObject canvas;
 
@@ -363,12 +363,13 @@ public class GirlEat_Judge : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        canvas = GameObject.FindWithTag("Canvas");
+        SceneInitSetting();
+        
+    }
 
-        //カメラの取得
-        main_cam = Camera.main;
-        maincam_animator = main_cam.GetComponent<Animator>();
-        trans = maincam_animator.GetInteger("trans");
+    void SceneInitSetting()
+    {
+        canvas = GameObject.FindWithTag("Canvas");
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -404,17 +405,22 @@ public class GirlEat_Judge : MonoBehaviour {
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //スペシャルお菓子クエストの取得
-        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
-
-        //BGMの取得
-        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();        
+        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();        
 
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
 
+                //カメラの取得
+                main_cam = Camera.main;
+                maincam_animator = main_cam.GetComponent<Animator>();
+                trans = maincam_animator.GetInteger("trans");
+
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                //BGMの取得
+                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
                 //エクストリームパネルの取得
                 Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
@@ -463,7 +469,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
                 Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
                 playableDirector = stageclear_panel.GetComponent<PlayableDirector>();
-                playableDirector.enabled = false;               
+                playableDirector.enabled = false;
 
                 //ハートプレファブの取得
                 heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
@@ -496,7 +502,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
                 Result_Text = ScoreHyoujiPanel.transform.Find("GetLovePanelBG/Result_GetLoveText/Result_Text").GetComponent<Text>();
                 ScoreHyoujiPanel.SetActive(false);
-                MainQuestOKPanel.SetActive(false);                              
+                MainQuestOKPanel.SetActive(false);
 
                 Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
                 Delicious_Text = ScoreHyoujiPanel.transform.Find("Image/DeliciousPanel/Text").GetComponent<Text>();
@@ -509,7 +515,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Getlove_exp = 0;
                 GetMoney = 0;
 
-                
+
                 stage_levelTable.Clear();
 
                 //GirlExpバーの最大値の設定。テーブルの初期設定はGirl1_statusで行っている。ここではそれをもとにコピーしてるだけ。
@@ -521,7 +527,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 //スライダ表示を更新
 
                 //スライダのMAXを設定。現在の好感度レベルで変わる。
-                Love_Slider_Setting();              
+                Love_Slider_Setting();
                 girllove_param = PlayerStatus.girl1_Love_exp;
                 _slider.value = girllove_param;
 
@@ -541,7 +547,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 text_area = canvas.transform.Find("MessageWindow").gameObject;
                 _windowtext = text_area.GetComponentInChildren<Text>();
                 break;
-                
+
         }
 
         kettei_item1 = 0;
@@ -554,13 +560,13 @@ public class GirlEat_Judge : MonoBehaviour {
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
-      
+
         //アニメーション用時間
         timeOut = 5.0f;
 
         judge_anim_on = false;
         judge_end = false;
-        judge_anim_status = 0;        
+        judge_anim_status = 0;
 
         //要素数の初期化
         _girlsweat = new int[girl1_status.youso_count];
@@ -602,7 +608,12 @@ public class GirlEat_Judge : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
+        //シーン移動の際、破壊されてしまうオブジェクトは、毎回初期化
+        if (canvas == null)
+        {
+            SceneInitSetting();
+        }
+
         if (judge_anim_on == true)
         {
             switch(judge_anim_status)
@@ -911,7 +922,7 @@ public class GirlEat_Judge : MonoBehaviour {
             count++;
         }*/
 
-        if (contest_type == 0) //コンテストでは使用しない
+        if (contest_type == 0) //コンテストや、その他イベントシーンでは使用しない compoundMainオンリー。
         {
             switch (girl1_status.timeGirl_hungry_status)
             {
@@ -921,7 +932,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     _windowtext.text = "今はあまりお腹が減ってないらしい";
 
-                    compound_Main.compound_status = 0;
+                    GameMgr.compound_status = 0;
                     //お菓子の判定処理を終了
                     compound_Main.girlEat_ON = false;
 
@@ -944,7 +955,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                     _windowtext.text = "お菓子をあげたばかりだ。";
 
-                    compound_Main.compound_status = 0;
+                    GameMgr.compound_status = 0;
                     //お菓子の判定処理を終了
                     compound_Main.girlEat_ON = false;
 
@@ -2070,7 +2081,7 @@ public class GirlEat_Judge : MonoBehaviour {
                     //お菓子判定終了
                     compound_Main.girlEat_ON = false;
 
-                    compound_Main.compound_status = 0;
+                    GameMgr.compound_status = 0;
 
                     break;
 
@@ -2353,9 +2364,11 @@ public class GirlEat_Judge : MonoBehaviour {
 
     void InitializeItemSlotDicts()
     {
+        itemslotInfo.Clear();
+        itemslotScore.Clear();
 
         //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
-        for( i = 0; i < slotnamedatabase.slotname_lists.Count; i++ )
+        for ( i = 0; i < slotnamedatabase.slotname_lists.Count; i++ )
         {
             itemslotInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
             itemslotScore.Add(0);
@@ -2591,7 +2604,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 }
                 else
                 {
-                    compound_Main.compound_status = 0;
+                    GameMgr.compound_status = 0;
                 }
 
             }
@@ -2642,7 +2655,7 @@ public class GirlEat_Judge : MonoBehaviour {
                 Debug.Log("クエストクリア　クリアボタンはすでに登場　お菓子判定終了");
                 compound_Main.girlEat_ON = false;
 
-                compound_Main.compound_status = 0;
+                GameMgr.compound_status = 0;
                 GameMgr.QuestClearflag = true;
                 canvas.SetActive(true);
             }
@@ -2657,7 +2670,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             compound_Main.girlEat_ON = false;
 
-            compound_Main.compound_status = 0;           
+            GameMgr.compound_status = 0;           
             canvas.SetActive(true);
         }
     }
@@ -3001,7 +3014,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
                 //お菓子の判定処理を終了
                 compound_Main.girlEat_ON = false;
-                compound_Main.compound_status = 0;
+                GameMgr.compound_status = 0;
             }
         }      
     }
@@ -3195,7 +3208,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //お菓子の判定処理を終了
             compound_Main.girlEat_ON = false;
-            compound_Main.compound_status = 0;
+            GameMgr.compound_status = 0;
 
             compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
             compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
@@ -3357,7 +3370,7 @@ public class GirlEat_Judge : MonoBehaviour {
             //お菓子の判定処理を終了
             Extremepanel_obj.SetActive(true);
             compound_Main.girlEat_ON = false;
-            compound_Main.compound_status = 0;
+            GameMgr.compound_status = 0;
 
             GameMgr.QuestClearflag = true;
             QuestClearMethod(); //次のSPクエストを開始
@@ -3397,7 +3410,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //お菓子の判定処理を終了
         compound_Main.girlEat_ON = false;
-        compound_Main.compound_status = 0;
+        GameMgr.compound_status = 0;
 
         //表情をお菓子食べたあとの喜びの表情。
         girl1_status.face_girl_Fine();
@@ -3415,7 +3428,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
 
     //
-    //クエストクリアトグルをおした場合に処理されるメソッド。
+    //クエストクリアトグルをおした場合に処理されるメソッド。このスクリプト自身と、CompoundMainから読まれる。
     //
     public void QuestClearMethod()
     {
@@ -3471,7 +3484,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
             //お菓子の判定処理を終了
             compound_Main.girlEat_ON = false;
-            compound_Main.compound_status = 0;
+            GameMgr.compound_status = 0;
         }
 
         else //次クエが100で割り切れる。次のSpお菓子へ
@@ -3508,7 +3521,7 @@ public class GirlEat_Judge : MonoBehaviour {
 
         //お菓子の判定処理を終了
         compound_Main.girlEat_ON = false;
-        compound_Main.compound_status = 0;
+        GameMgr.compound_status = 0;
 
         girl1_status.timeGirl_hungry_status = 0;
         girl1_status.timeOut = 1.0f; //次クエストをすぐ開始
@@ -3594,7 +3607,7 @@ public class GirlEat_Judge : MonoBehaviour {
         MainQuestOKPanel.SetActive(true);        
     }
 
-    public void ResultOFF()
+    public void ResultOFF() //Debug_Panelからも読み出し。フェードアウトなどの処理がない。
     {
         
         MainQuestOKPanel.SetActive(false);

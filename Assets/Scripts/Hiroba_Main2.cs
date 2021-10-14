@@ -16,6 +16,9 @@ public class Hiroba_Main2 : MonoBehaviour
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
 
+    private GameObject updown_counter_obj;
+    private GameObject updown_counter_Prefab;
+
     private GameObject mainlist_controller2_obj;
     private MainListController2 mainlist_controller2;
 
@@ -58,6 +61,10 @@ public class Hiroba_Main2 : MonoBehaviour
         pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
+
+        //シーン最初にカウンターも生成する。
+        updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
+        updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         mainlist_controller2_obj = canvas.transform.Find("MainList_ScrollView").gameObject;
         mainlist_controller2 = mainlist_controller2_obj.GetComponent<MainListController2>();
@@ -131,6 +138,8 @@ public class Hiroba_Main2 : MonoBehaviour
     IEnumerator EventReading()
     {
         GameMgr.hiroba_event_flag = true;
+        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+        GameMgr.compound_status = 1000;
 
         while (!GameMgr.scenario_read_endflag)
         {
@@ -138,6 +147,8 @@ public class Hiroba_Main2 : MonoBehaviour
         }
 
         GameMgr.scenario_read_endflag = false;
+        GameMgr.compound_select = 0; //何もしていない状態
+        GameMgr.compound_status = 0;
 
         //読み終わったら、またウィンドウなどを元に戻す。
         text_area.SetActive(true);

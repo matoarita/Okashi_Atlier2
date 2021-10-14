@@ -109,7 +109,7 @@ public class TasteHintPanel : MonoBehaviour {
     public void BackOption()
     {
 
-        compound_Main.compound_status = 0;
+        GameMgr.compound_status = 0;
         this.gameObject.SetActive(false);
 
     }

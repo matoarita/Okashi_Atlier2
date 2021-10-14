@@ -405,7 +405,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             //帰還できたらリセット
             modoru_anim_end = false;
-            compound_Main.compound_status = 0;
+            GameMgr.compound_status = 0;
 
             foreach (Transform child in slot_tansaku_button.transform) // 
             {
@@ -647,7 +647,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 } 
 
                 slot_view_status = 1;
-                compound_Main.compound_status = 22;
+                GameMgr.compound_status = 22;
 
                 //音量フェードイン
                 sceneBGM.MuteOFFBGM();

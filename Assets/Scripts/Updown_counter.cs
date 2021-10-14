@@ -125,7 +125,7 @@ public class Updown_counter : MonoBehaviour {
         {
             case "Compound":
 
-                if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
+                if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 { }
                 else
                 {
@@ -313,7 +313,7 @@ public class Updown_counter : MonoBehaviour {
                     _p_or_recipi_flag = 0;
                 }
 
-                if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
+                if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 {
                     //this.transform.localPosition = new Vector3(115, -106, 0);
                     //this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
@@ -325,7 +325,7 @@ public class Updown_counter : MonoBehaviour {
                     this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
                     this.transform.Find("counter_img1").gameObject.SetActive(true);
 
-                    switch (compound_Main.compound_select)
+                    switch (GameMgr.compound_select)
                     {
                         case 1: //レシピ調合の場合
 
@@ -371,9 +371,9 @@ public class Updown_counter : MonoBehaviour {
 
             if (_p_or_recipi_flag == 0) //プレイヤーアイテムリストのときの処理
             {
-                if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
+                if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    if (compound_Main.compound_select == 3) //オリジナル調合のとき
+                    if (GameMgr.compound_select == 3) //オリジナル調合のとき
                     {
                         //カウントをとりあえず１足す
                         ++updown_kosu;
@@ -470,7 +470,7 @@ public class Updown_counter : MonoBehaviour {
                 }
                 else
                 {
-                    if (compound_Main.compound_select == 2 || compound_Main.compound_select == 3)
+                    if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3)
                     {
                         switch (pitemlistController.kettei1_bunki)
                         {
@@ -620,7 +620,7 @@ public class Updown_counter : MonoBehaviour {
                         }
                     }
 
-                    else if (compound_Main.compound_select == 5)
+                    else if (GameMgr.compound_select == 5)
                     {
                         switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
                         {
@@ -887,7 +887,7 @@ public class Updown_counter : MonoBehaviour {
             {
                 DegMethod1();
 
-                if (compound_Main.compound_status == 110) //最後、何セット作るかを確認中
+                if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 {
                     player_itemkosu1 = pitemlistController.final_kettei_kosu1 * updown_kosu;
                     player_itemkosu2 = pitemlistController.final_kettei_kosu2 * updown_kosu;

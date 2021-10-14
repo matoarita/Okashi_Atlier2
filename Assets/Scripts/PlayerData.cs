@@ -190,6 +190,10 @@ public class PlayerData
 
     public int save_mainBGM_Num;
 
+    public bool save_picnic_End;
+    public int save_picnic_count;
+    public bool save_picnic_event_ON;
+
     public override string ToString()
     {
         return $"{ base.ToString() } { JsonUtility.ToJson(this) }";

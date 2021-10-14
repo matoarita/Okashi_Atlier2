@@ -31,6 +31,9 @@ public class Debug_Panel : MonoBehaviour {
     private GameObject StageNumber;
     private Text StageNumber_text;
 
+    private Text CStatus_text;
+    private Text CSelect_text;
+
     private KaeruCoin_Controller kaeruCoin_Controller;
     private MoneyStatus_Controller moneyStatus_Controller;
 
@@ -109,6 +112,9 @@ public class Debug_Panel : MonoBehaviour {
 
         DebugLogCatchButton = this.transform.Find("Hyouji/DebugCatchStopButton").GetComponent<Toggle>();
 
+        CStatus_text = this.transform.Find("Hyouji/CompoundStatusText").GetComponent<Text>();
+        CSelect_text = this.transform.Find("Hyouji/CompoundSelectText").GetComponent<Text>();
+
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
@@ -157,8 +163,10 @@ public class Debug_Panel : MonoBehaviour {
         }
 
         EventNumber_text.text = "Event: " + GameMgr.OkashiQuest_Num;
-
         StageNumber_text.text = "Stage: " + GameMgr.stage_number;
+
+        CStatus_text.text = "compound_Status: " + GameMgr.compound_status.ToString();
+        CSelect_text.text = "_Select: " + GameMgr.compound_select.ToString();
 
         //ここに処理。時間カウント。デバッグ用。
         Counter = this.transform.Find("Hyouji/TimeCount").gameObject.GetComponentInChildren<Text>(); //デバッグ用
@@ -349,7 +357,7 @@ public class Debug_Panel : MonoBehaviour {
 
                         //お菓子の判定処理を終了
                         compound_Main.girlEat_ON = false;
-                        compound_Main.compound_status = 0;
+                        GameMgr.compound_status = 0;
 
                         girl1_status.timeGirl_hungry_status = 0;
                         girl1_status.timeOut = 1.0f; //次クエストをすぐ開始

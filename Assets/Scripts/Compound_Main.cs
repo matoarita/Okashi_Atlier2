@@ -240,8 +240,8 @@ public class Compound_Main : MonoBehaviour
     private int _todayfoodexpence;
     private List<int> _todayfoodexpence_lib = new List<int>();
 
-    public int compound_status;
-    public int compound_select;
+    //public int compound_status;
+    //public int compound_select;
 
     public int event_itemID; //イベントレシピ使用時のイベントのID
 
@@ -254,6 +254,8 @@ public class Compound_Main : MonoBehaviour
     private bool gameover_loading;
     private bool Sleep_on;
     private bool mute_on;
+
+    private int picnic_exprob;
 
     private GameObject HintObjectGroup;
     private GameObject ClickPanel_1;
@@ -554,8 +556,6 @@ public class Compound_Main : MonoBehaviour
 
         /* --- */
 
-        compound_status = 0;
-        compound_select = 0;
         Sleep_on = false;
 
         status_zero_readOK = false;
@@ -690,8 +690,8 @@ public class Compound_Main : MonoBehaviour
                 case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
 
                     GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
-                    compound_select = 1000; //シナリオイベント読み中の状態
-                    compound_status = 1000;
+                    GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+                    GameMgr.compound_status = 1000;
 
                     break;
 
@@ -711,8 +711,8 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.CompoundEvent_storyflag = true;
                 GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
 
-                compound_select = 1000; //シナリオイベント読み中の状態
-                compound_status = 1000;
+                GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+                GameMgr.compound_status = 1000;
             }
         }
 
@@ -1213,11 +1213,11 @@ public class Compound_Main : MonoBehaviour
     //メインの調合シーンの処理
     void MainCompoundMethod()
     {
-        switch (compound_status)
+        switch (GameMgr.compound_status)
         {
             case 0:
 
-                Debug.Log("メインの調合シーン　compound_status:0 スタート");               
+                Debug.Log("メインの調合シーン　GameMgr.compound_status:0 スタート");               
 
                 //ボタンなどの状態の初期設定
                 if (GameMgr.tutorial_ON != true)
@@ -1352,8 +1352,8 @@ public class Compound_Main : MonoBehaviour
 
             case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
 
-                compound_status = 4; //調合シーンに入っています、というフラグ
-                compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
+                GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                GameMgr.compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
 
                 recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
                 kakuritsuPanel_obj.SetActive(true);
@@ -1411,8 +1411,8 @@ public class Compound_Main : MonoBehaviour
 
             case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
 
-                compound_status = 4; //調合シーンに入っています、というフラグ
-                compound_select = 2; //トッピング調合を選択
+                GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                GameMgr.compound_select = 2; //トッピング調合を選択
 
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 kakuritsuPanel_obj.SetActive(false);
@@ -1465,8 +1465,8 @@ public class Compound_Main : MonoBehaviour
 
             case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
 
-                compound_status = 4; //調合シーンに入っています、というフラグ
-                compound_select = 3; //オリジナル調合を選択
+                GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                GameMgr.compound_select = 3; //オリジナル調合を選択
 
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 kakuritsuPanel_obj.SetActive(true);
@@ -1537,8 +1537,8 @@ public class Compound_Main : MonoBehaviour
 
                 compoundselect_onoff_obj.SetActive(false);
 
-                compound_status = 4; //調合シーンに入っています、というフラグ
-                compound_select = 5; //焼くを選択
+                GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                GameMgr.compound_select = 5; //焼くを選択
 
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
@@ -1572,8 +1572,8 @@ public class Compound_Main : MonoBehaviour
 
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
-                compound_status = 4; //調合シーンに入っています、というフラグ
-                compound_select = 6;
+                GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                GameMgr.compound_select = 6;
 
                 playeritemlist_onoff.SetActive(false);
                 recipilist_onoff.SetActive(false);
@@ -1640,8 +1640,8 @@ public class Compound_Main : MonoBehaviour
 
             case 10: //「あげる」を選択
 
-                compound_status = 13; //あげるシーンに入っています、というフラグ
-                compound_select = 10; //あげるを選択
+                GameMgr.compound_status = 13; //あげるシーンに入っています、というフラグ
+                GameMgr.compound_select = 10; //あげるを選択
 
                 yes_no_panel.SetActive(true);
                 yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);                
@@ -1664,7 +1664,7 @@ public class Compound_Main : MonoBehaviour
 
             case 11: //お菓子をあげたあとの処理。女の子が、お菓子を判定
 
-                compound_status = 12;
+                GameMgr.compound_status = 12;
                 text_area.SetActive(false);
                 girlEat_ON = true; //お菓子判定中フラグ
                 character_move.transform.position = new Vector3(0, 0, 0);
@@ -1684,8 +1684,8 @@ public class Compound_Main : MonoBehaviour
 
             case 20: //材料採取地を選択中
 
-                compound_status = 21; //
-                compound_select = 20; //
+                GameMgr.compound_status = 21; //
+                GameMgr.compound_select = 20; //
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 touch_controller.Touch_OnAllOFF();
@@ -1725,8 +1725,8 @@ public class Compound_Main : MonoBehaviour
 
                 compoundselect_onoff_obj.SetActive(false);
 
-                compound_status = 31; //売るシーンに入っています、というフラグ
-                compound_select = 30; //売るを選択
+                GameMgr.compound_status = 31; //売るシーンに入っています、というフラグ
+                GameMgr.compound_select = 30; //売るを選択
 
                 yes_no_panel.SetActive(true);
                 yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
@@ -1747,15 +1747,15 @@ public class Compound_Main : MonoBehaviour
 
             case 32: //売る処理の実行
 
-                compound_status = 32;
+                GameMgr.compound_status = 32;
 
                 extreme_panel.Sell_Okashi();
                 break;
 
             case 40: //コンテストを選択
 
-                compound_status = 41; //コンテスト進むかシーンに入っています、というフラグ
-                compound_select = 40;             
+                GameMgr.compound_status = 41; //コンテスト進むかシーンに入っています、というフラグ
+                GameMgr.compound_select = 40;             
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1773,8 +1773,8 @@ public class Compound_Main : MonoBehaviour
 
             case 42: //次のお菓子へ進むかを選択
 
-                compound_status = 43; //次のお菓子へ進むかシーンに入っています、というフラグ
-                compound_select = 40;
+                GameMgr.compound_status = 43; //次のお菓子へ進むかシーンに入っています、というフラグ
+                GameMgr.compound_select = 40;
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1792,8 +1792,8 @@ public class Compound_Main : MonoBehaviour
 
             case 50: //寝るを選択
 
-                compound_status = 51; //売るシーンに入っています、というフラグ
-                compound_select = 50; //売るを選択
+                GameMgr.compound_status = 51; //売るシーンに入っています、というフラグ
+                GameMgr.compound_select = 50; //売るを選択
 
                 yes_no_sleep_panel.SetActive(true);
 
@@ -1814,8 +1814,8 @@ public class Compound_Main : MonoBehaviour
             case 60: //レシピ本の選択画面を開いたとき
 
                 black_panel_A.SetActive(true);
-                compound_status = 61;
-                compound_select = 60;
+                GameMgr.compound_status = 61;
+                GameMgr.compound_select = 60;
                 recipilist_onoff.SetActive(true);
 
                 WindowOff();
@@ -1828,8 +1828,8 @@ public class Compound_Main : MonoBehaviour
             case 99: //アイテム画面を開いたとき
                 
                 black_panel_A.SetActive(true);
-                compound_status = 99;
-                compound_select = 99;
+                GameMgr.compound_status = 99;
+                GameMgr.compound_select = 99;
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
 
                 WindowOff();
@@ -1849,8 +1849,8 @@ public class Compound_Main : MonoBehaviour
 
             case 200: //システム画面を開いたとき
 
-                compound_status = 201;
-                compound_select = 200;
+                GameMgr.compound_status = 201;
+                GameMgr.compound_select = 200;
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1869,8 +1869,8 @@ public class Compound_Main : MonoBehaviour
 
             case 250: //お菓子ヒント画面を開いたとき
 
-                compound_status = 251;
-                compound_select = 250;
+                GameMgr.compound_status = 251;
+                GameMgr.compound_select = 250;
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1889,8 +1889,8 @@ public class Compound_Main : MonoBehaviour
 
             case 300: //ステータス画面を開いたとき
 
-                compound_status = 301;
-                compound_select = 300;
+                GameMgr.compound_status = 301;
+                GameMgr.compound_select = 300;
 
                 //一時的に腹減りを止める。
                 girl1_status.GirlEat_Judge_on = false;
@@ -1940,7 +1940,7 @@ public class Compound_Main : MonoBehaviour
         {
             status_zero_readOK = false;
 
-            switch (compound_status)
+            switch (GameMgr.compound_status)
             {
                 case 0:
 
@@ -1992,8 +1992,8 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                    compound_select = 0;
-                    compound_status = 110; //退避
+                    GameMgr.compound_select = 0;
+                    GameMgr.compound_status = 110; //退避
                     break;
 
                 case 110: //退避用
@@ -2194,7 +2194,7 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
 
             _text.text = recipi_text;
-            compound_status = 60;
+            GameMgr.compound_status = 60;
         }
     }
 
@@ -2204,7 +2204,7 @@ public class Compound_Main : MonoBehaviour
         SelectCompo_panel_1.SetActive(false);
 
         _text.text = recipi_text;
-        compound_status = 1;
+        GameMgr.compound_status = 1;
     }
 
     public void OnCheck_2() //トッピング調合をON
@@ -2217,7 +2217,7 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
 
             _text.text = extreme_text;
-            compound_status = 2;
+            GameMgr.compound_status = 2;
         }
     }
 
@@ -2237,7 +2237,7 @@ public class Compound_Main : MonoBehaviour
                 SelectCompo_panel_1.SetActive(false);
 
                 _text.text = extreme_text;
-                compound_status = 2;
+                GameMgr.compound_status = 2;
 
                 if (GameMgr.tutorial_ON == true)
                 {
@@ -2257,7 +2257,7 @@ public class Compound_Main : MonoBehaviour
             SelectCompo_panel_1.SetActive(false);
 
             _text.text = extreme_text;
-            compound_status = 2;
+            GameMgr.compound_status = 2;
 
         }
         
@@ -2272,7 +2272,7 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
 
             _text.text = originai_text;
-            compound_status = 3;
+            GameMgr.compound_status = 3;
         }
     }
 
@@ -2282,7 +2282,7 @@ public class Compound_Main : MonoBehaviour
         SelectCompo_panel_1.SetActive(false);
 
         _text.text = originai_text;
-        compound_status = 3;
+        GameMgr.compound_status = 3;
     }
 
     /*public void OnCheck_4() //ブレンド調合をON
@@ -2305,19 +2305,19 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
 
             _text.text = "作った生地を焼きます。焼きたい生地を選んでください。";
-            compound_status = 5;
+            GameMgr.compound_status = 5;
         }
     }
 
     public void OnCancel_Select()
     {
-        compound_status = 0;
+        GameMgr.compound_status = 0;
     }
 
     public void OnCancelCompound_Select() //使っていない？
     {
         //カメラをメニューオープンの状態で戻す。メイン画面でカメラ位置を指定してたときの名残。
-        compound_status = 0;
+        GameMgr.compound_status = 0;
     }
 
 
@@ -2330,7 +2330,7 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
             HintButtonOFF();
 
-            compound_status = 99;
+            GameMgr.compound_status = 99;
 
             StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
         }
@@ -2340,7 +2340,7 @@ public class Compound_Main : MonoBehaviour
     {
         card_view.DeleteCard_DrawView();
 
-        compound_status = 99;
+        GameMgr.compound_status = 99;
 
         StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
     }
@@ -2352,9 +2352,9 @@ public class Compound_Main : MonoBehaviour
         {
             system_toggle.GetComponent<Toggle>().isOn = false;
 
-            card_view.DeleteCard_DrawView();            
+            card_view.DeleteCard_DrawView();
 
-            compound_status = 200;
+            GameMgr.compound_status = 200;
 
             StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
         }
@@ -2368,7 +2368,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            compound_status = 250;
+            GameMgr.compound_status = 250;
 
             StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
         }
@@ -2382,7 +2382,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            compound_status = 300;
+            GameMgr.compound_status = 300;
 
             StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
         }
@@ -2413,7 +2413,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
             _text.text = "妹と一緒に材料を取りにいくよ！行き先を選んでね。";
-            compound_status = 20;
+            GameMgr.compound_status = 20;
 
             StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
@@ -2447,13 +2447,13 @@ public class Compound_Main : MonoBehaviour
             {
                 _text.text = "今、作ったお菓子をあげますか？"; // + "\n" + "あと " + GameMgr.ColorLemon + nokori_kaisu + "</color>" + "回　あげられるよ。"
                 HintButtonOFF();
-                compound_status = 10;
+                GameMgr.compound_status = 10;
 
             }
             else //まだ作ってないときは
             {
                 _textmain.text = "まだお菓子を作っていない。";
-                compound_status = 0;
+                GameMgr.compound_status = 0;
             }
             
 
@@ -2472,7 +2472,7 @@ public class Compound_Main : MonoBehaviour
             _text.text = "今日はもう寝る？"; //
             HintButtonOFF();
 
-            compound_status = 50;
+            GameMgr.compound_status = 50;
 
             StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
@@ -2496,7 +2496,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     //お菓子を作ってないと、コンテストへ進めない。
                     _text.text = "お兄ちゃん..。まだお菓子を作ってないよ～。";
-                    compound_status = 40;
+                    GameMgr.compound_status = 40;
                     yes_no_clear_panel.SetActive(true);
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = false;
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = false;
@@ -2504,7 +2504,7 @@ public class Compound_Main : MonoBehaviour
                 else
                 {
                     _text.text = "コンテストに出るの？";
-                    compound_status = 40;
+                    GameMgr.compound_status = 40;
                     yes_no_clear_panel.SetActive(true);
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
@@ -2516,7 +2516,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     _text.text = "次のステージにすすむ？おにいちゃん。";
 
-                    compound_status = 42;
+                    GameMgr.compound_status = 42;
                     yes_no_clear_okashi_panel.SetActive(true);
 
                 }
@@ -2576,7 +2576,7 @@ public class Compound_Main : MonoBehaviour
         black_panel_A.GetComponent<Image>().raycastTarget = true;
         OnCompoundSelect();
         //yes_no_panel.SetActive(true);
-        compound_status = 60;
+        GameMgr.compound_status = 60;
     }
 
 
@@ -2596,8 +2596,8 @@ public class Compound_Main : MonoBehaviour
             Recipi_loading = false;
 
             //レシピチェック中の状態
-            compound_select = 1100;
-            compound_status = 1100;
+            GameMgr.compound_select = 1100;
+            GameMgr.compound_status = 1100;
 
             while (i < pitemlist.eventitemlist.Count)
             {
@@ -2615,7 +2615,7 @@ public class Compound_Main : MonoBehaviour
             {
                 //最後にチェック。全てのリードフラグが1になったら、全て読み終了。その場合は、レシピチェックをオフにする。
                 check_recipi_flag = true;
-                compound_status = 0; //ここまでで、チェックの処理が全て完了したので、status=0にする。
+                GameMgr.compound_status = 0; //ここまでで、チェックの処理が全て完了したので、status=0にする。
 
                 //Debug.Log("レシピ全て読み完了");
             }
@@ -2697,7 +2697,7 @@ public class Compound_Main : MonoBehaviour
             case true:
 
                 //女の子にアイテムをあげる処理
-                compound_status = 11; //status=11で処理。
+                GameMgr.compound_status = 11; //status=11で処理。
 
                 yes_no_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
@@ -2719,7 +2719,7 @@ public class Compound_Main : MonoBehaviour
 
                 //_textmain.text = "";
                 StartMessage();
-                compound_status = 0;
+                GameMgr.compound_status = 0;
 
                 //extreme_panel.LifeAnimeOnTrue();
                 yes_selectitem_kettei.onclick = false;
@@ -2750,7 +2750,7 @@ public class Compound_Main : MonoBehaviour
             case true:
 
                 //売る処理
-                compound_status = 32; //status=32で処理。
+                GameMgr.compound_status = 32; //status=32で処理。
 
                 yes_no_panel.SetActive(false);
                 yes_selectitem_kettei.onclick = false;
@@ -2761,7 +2761,7 @@ public class Compound_Main : MonoBehaviour
                 //Debug.Log("cancel");
 
                 _text.text = "";
-                compound_status = 0;
+                GameMgr.compound_status = 0;
 
                 //extreme_panel.LifeAnimeOnTrue();
                 yes_selectitem_kettei.onclick = false;
@@ -2803,7 +2803,7 @@ public class Compound_Main : MonoBehaviour
 
                 //_textmain.text = "";
                 StartMessage();
-                compound_status = 0;
+                GameMgr.compound_status = 0;
 
                 yes_selectitem_kettei.onclick = false;
                 break;
@@ -2865,7 +2865,7 @@ public class Compound_Main : MonoBehaviour
 
                 //_textmain.text = "";
                 StartMessage();
-                compound_status = 0;
+                GameMgr.compound_status = 0;
 
                 yes_selectitem_kettei.onclick = false;
                 break;
@@ -2903,7 +2903,7 @@ public class Compound_Main : MonoBehaviour
 
                 //_textmain.text = "";
                 StartMessage();
-                compound_status = 0;
+                GameMgr.compound_status = 0;
 
                 yes_selectitem_kettei.onclick = false;
                 break;
@@ -3118,8 +3118,8 @@ public class Compound_Main : MonoBehaviour
         girl1_status.DeleteHukidashiOnly();
         girl1_status.Girl1_Status_Init();
 
-        compound_select = 1000; //シナリオイベント読み中の状態
-        compound_status = 1000;
+        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+        GameMgr.compound_status = 1000;
 
         while (girlEat_ON)
         {
@@ -3179,8 +3179,39 @@ public class Compound_Main : MonoBehaviour
 
                 case 61:
 
-                    _textmain.text = "たくさん元気になった！！ ハート＋６０上がった！！";
-                    girlEat_judge.loveGetPlusAnimeON(60, false);                    
+                    switch(GameMgr.event_judge_status)
+                    {
+                        case 0:
+
+                            _textmain.text = "あまりピクニックは喜ばなかったようだ..。";
+                            //girlEat_judge.loveGetPlusAnimeON(60, false);
+                            break;
+
+                        case 1:
+
+                            _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
+                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
+                            break;
+
+                        case 2:
+
+                            _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
+                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
+                            break;
+
+                        case 3:
+
+                            _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
+                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
+                            break;
+
+                        case 4:
+
+                            _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
+                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
+                            break;
+                    }
+                                       
 
                     break;
             }
@@ -3662,24 +3693,46 @@ public class Compound_Main : MonoBehaviour
                 if (!GameMgr.GirlLoveSubEvent_stage1[61])
                 {
                     //クレープ以降　かつ　発見力120以上               
-                    if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 13
-                        && GameMgr.GirlLoveEvent_num >= 20 && PlayerStatus.player_girl_findpower >= 120) //12時から2時の間に、サイコロふる
+                    if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
+                        && GameMgr.GirlLoveEvent_num >= 20 && PlayerStatus.player_girl_findpower >= 120) //12時から15時の間に、サイコロふる
                     {
-                        random = Random.Range(0, 100);
-                        Debug.Log("ピクニックイベント　抽選スタート　80以下で成功: " + random);
-
-                        if (random <= 100) //80%の確率で発生。
+                        
+                        if(GameMgr.picnic_End && GameMgr.picnic_count <= 0)
                         {
-                            GameMgr.GirlLoveSubEvent_num = 61;
-                            GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
+                            GameMgr.picnic_End = false;
+                            GameMgr.picnic_count = 3;
+                            GameMgr.picnic_event_ON = true;
+                        }
 
-                            check_GirlLoveSubEvent_flag = false;
+                        if (GameMgr.picnic_event_ON)
+                        {
+                            random = Random.Range(0, 100);
+                            Debug.Log("ピクニックイベント　抽選スタート　80以下で成功: " + random);
 
-                            mute_on = true;
-                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                            if(GameMgr.GirlLoveSubEvent_stage1[61])
+                            {
+                                picnic_exprob = 60; //60%の確率で発生。
+                            }
+                            else
+                            {
+                                picnic_exprob = 100; //初回は100%
+                            }
 
-                            SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                            SubEvAfterHeartGet_num = 61;
+                            if (random <= picnic_exprob) 
+                            {
+                                GameMgr.GirlLoveSubEvent_num = 61;
+                                GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
+                                GameMgr.picnic_End = true;//さらにカウンターを置く。カウンターが０になったら、またランダムで発生するようになる。
+                                GameMgr.picnic_event_ON = false;
+
+                                check_GirlLoveSubEvent_flag = false;
+
+                                mute_on = true;
+                                GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+
+                                SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                SubEvAfterHeartGet_num = 61;
+                            }
                         }
 
 

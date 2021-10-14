@@ -199,6 +199,7 @@ public class MainListController2 : MonoBehaviour
                     else
                     {
                         GameMgr.hiroba_event_ID = 51; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
                     }
 
                     break;

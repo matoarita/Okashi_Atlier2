@@ -68,7 +68,7 @@ public class CardUseMethod : MonoBehaviour
         yes_selectitem_kettei = GameObject.FindWithTag("SelectItem_kettei").GetComponent<SelectItem_kettei>();
 
         canvas.transform.Find("CollectionKakunin").gameObject.SetActive(true);
-        compound_Main.compound_status = 999;
+        GameMgr.compound_status = 999;
         StartCoroutine("collect_kakunin");
 
     }
@@ -114,13 +114,13 @@ public class CardUseMethod : MonoBehaviour
 
                 canvas.transform.Find("CollectionKakunin").gameObject.SetActive(false);
                 sc.PlaySe(5);
-                compound_Main.compound_status = 0;
+                GameMgr.compound_status = 0;
                 card_view.DeleteCard_DrawView();
                 break;
 
             case false:
 
-                compound_Main.compound_status = 99;
+                GameMgr.compound_status = 99;
                 canvas.transform.Find("CollectionKakunin").gameObject.SetActive(false);
                 break;
         }

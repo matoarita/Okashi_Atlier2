@@ -64,7 +64,14 @@ public class RuntimeInitializer : MonoBehaviour
         var girl1_status_init = new GameObject("Girl1_status", typeof(Girl1_status));
         girl1_status_init.AddComponent<AudioSource>();
         girl1_status_init.GetComponent<AudioSource>().volume = 0.5f;
-        GameObject.DontDestroyOnLoad(girl1_status_init);       
+        GameObject.DontDestroyOnLoad(girl1_status_init);
+
+        //女の子１の判定オブジェクト
+        var GirlEat_Judge_init = new GameObject("GirlEat_Judge", typeof(GirlEat_Judge));
+        GirlEat_Judge_init.AddComponent<AudioSource>();
+        //girl1_status_init.GetComponent<AudioSource>().volume = 0.5f;
+        GameObject.DontDestroyOnLoad(GirlEat_Judge_init);
+        GirlEat_Judge_init.tag = "GirlEat_Judge";
 
         //カード表示部分
         var cardview_init = new GameObject("CardView", typeof(CardView));
@@ -118,6 +125,11 @@ public class RuntimeInitializer : MonoBehaviour
         var itemSelect_cancel_init = new GameObject("ItemSelect_Cancel", typeof(ItemSelect_Cancel));
         GameObject.DontDestroyOnLoad(itemSelect_cancel_init);
         itemSelect_cancel_init.tag = "ItemSelect_Cancel";
+
+        //SelectItemKetteiオブジェクト イエス、ノーを監視する
+        var SelectItem_kettei_init = new GameObject("SelectItem_kettei", typeof(SelectItem_kettei));
+        GameObject.DontDestroyOnLoad(SelectItem_kettei_init);
+        SelectItem_kettei_init.tag = "SelectItem_kettei";
 
         //サウンド・SE関連を統括するオブジェクト
         var soundcontroller_init = new GameObject("SoundController", typeof(SoundController));

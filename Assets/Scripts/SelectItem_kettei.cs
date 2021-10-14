@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class SelectItem_kettei : MonoBehaviour {
+public class SelectItem_kettei : SingletonMonoBehaviour<SelectItem_kettei>
+{
 
     public bool kettei1;
     public bool onclick;

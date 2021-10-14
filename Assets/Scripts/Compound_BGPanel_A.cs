@@ -34,7 +34,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
         //音ならす
         //sc.PlaySe(25); //25 鐘の音:50 キラリン:17
 
-        if (compound_Main.compound_select == 6)
+        if (GameMgr.compound_select == 6)
         {
             //アニメーションスタート
             OnStartAnim();

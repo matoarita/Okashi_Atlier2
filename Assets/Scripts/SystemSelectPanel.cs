@@ -83,7 +83,7 @@ public class SystemSelectPanel : MonoBehaviour {
     public void OnOptionButton()
     {
         option_panel.SetActive(true);
-        compound_Main.compound_select = 205;
+        GameMgr.compound_select = 205;
     }
 
     //タイトル
@@ -119,7 +119,7 @@ public class SystemSelectPanel : MonoBehaviour {
                 //解除
                 save_controller.OnSaveMethod();
                 _textmain.text = "セーブしました。";
-                compound_Main.compound_status = 0;
+                GameMgr.compound_status = 0;
                 titleback_panel.SetActive(false);
                 this.transform.parent.gameObject.SetActive(false);
 
@@ -166,7 +166,7 @@ public class SystemSelectPanel : MonoBehaviour {
                     _textmain.text = "セーブデータがありません。";
                 }
 
-                compound_Main.compound_status = 0;
+                GameMgr.compound_status = 0;
                 titleback_panel.SetActive(false);
                 this.transform.parent.gameObject.SetActive(false);
 

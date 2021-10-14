@@ -130,7 +130,7 @@ public class RecipiListController : MonoBehaviour {
         }
         
 
-        switch(compound_Main.compound_select)
+        switch(GameMgr.compound_select)
         {
             case 1:
 
