@@ -78,7 +78,7 @@ public class Live2DAnimationTrigger : MonoBehaviour {
             //うまく調合できた場合は、「おいしそ～」って感じで、ワクワクした表情に。
             if (exp_Controller.ResultSuccess) //成功した場合
             {
-                girl1_status.face_girl_Yodare(); //おいしそ～ よだれの表情
+                girl1_status.face_girl_Yodare2(); //おいしそ～ よだれの表情
 
                 //「おいしそ～」って吹き出しもだしていいかも。
                 if (girl1_status.HukidashiFlag)

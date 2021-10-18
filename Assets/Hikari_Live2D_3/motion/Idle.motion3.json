@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 20,
-		"TotalSegmentCount": 43,
-		"TotalPointCount": 139,
+		"CurveCount": 18,
+		"TotalSegmentCount": 37,
+		"TotalPointCount": 121,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -46,28 +46,21 @@
 			"Id": "ParamAngleY",
 			"Segments": [
 				0,
-				-1.297,
-				1,
-				0.167,
-				-0.716,
-				0.333,
 				0,
+				1,
 				0.5,
 				0,
 				1,
-				1,
-				0,
+				-7,
 				1.5,
 				-7,
+				1,
 				2,
 				-7,
-				1,
-				2.333,
-				-7,
-				2.667,
-				-3.118,
+				2.5,
+				0,
 				3,
-				-1.297
+				0
 			]
 		},
 		{
@@ -97,50 +90,6 @@
 				-2.5,
 				3,
 				-1.038
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeBallX",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.5,
-				0,
-				1,
-				0.2,
-				1.5,
-				0.2,
-				1,
-				2,
-				0.2,
-				2.5,
-				0,
-				3,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamEyeBallY",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.5,
-				0,
-				1,
-				0.2,
-				1.5,
-				0.2,
-				1,
-				2,
-				0.2,
-				2.5,
-				0,
-				3,
-				0
 			]
 		},
 		{
@@ -285,12 +234,9 @@
 				1.5,
 				-3,
 				1,
-				1.989,
+				2,
 				-3,
-				2.478,
-				0,
-				2.967,
-				0,
+				2.5,
 				0,
 				3,
 				0

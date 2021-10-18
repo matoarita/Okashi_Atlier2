@@ -1099,7 +1099,8 @@ public class Quest_Judge : MonoBehaviour {
         if (okashi_totalkosu == 0) { okashi_totalkosu = 1; }
 
         //最終スコア
-        okashi_totalscore /= okashi_totalkosu;       
+        okashi_totalscore /= okashi_totalkosu;
+        Debug.Log("okashi_totalscore: " + okashi_totalscore);
 
         if(okashi_totalscore <= 0) //0点以下でも、無条件でダメ
         {
@@ -1263,14 +1264,17 @@ public class Quest_Judge : MonoBehaviour {
 
                 if (_a != "")
                 {
-                    _text.text = "う～ん。お客さん、あまり喜んでいないみたい..。" + "\n" + "次は頑張ってね。";
+                    _text.text = "う～ん。ちょっと味がイマイチだったかも..。" + "\n" + "次は頑張ってね。";
                 }
                 else
                 {
-                    _text.text = "う～ん。お客さん、あまり喜んでいないみたい.." + "\n" + "次は頑張ってね。";
+                    _text.text = "う～ん。ちょっと味がイマイチだったかも..。" + "\n" + "次は頑張ってね。";
                 }
 
                 Debug.Log("納品失敗..");
+
+                //デバッグ用味採点テキスト
+                DebugTasteText();
 
                 //該当のクエストを削除
                 quest_database.questTakeset.RemoveAt(_qitemID);
@@ -1359,7 +1363,8 @@ public class Quest_Judge : MonoBehaviour {
         debug_taste_resultText.text =
             "###  好みの比較　結果　###"
             + "\n" + "\n" + "判定用お菓子セットの番号: " + _questID
-            + "\n" + "\n" + "アイテム名: " + _itemname
+            + "\n" + "\n" + "判定アイテム名: " + _itemname
+            + "\n" + "判定サブタイプ: " + _itemsubtype
             + "\n" + "\n" + "あまさ: " + _basesweat
             + "\n" + " お客さんの好みの甘さ: " + _sweat
             + "\n" + "お菓子のあまさ: " + _basesweat

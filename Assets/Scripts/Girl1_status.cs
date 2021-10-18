@@ -3363,6 +3363,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     }
 
+    public void face_girl_Yodare2()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 36; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
     //表情パラメータを一旦リセット
     public void face_girl_Reset()
     {

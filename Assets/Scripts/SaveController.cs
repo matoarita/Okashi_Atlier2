@@ -328,6 +328,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_picnic_End = GameMgr.picnic_End,
             save_picnic_count = GameMgr.picnic_count,
             save_picnic_event_ON = GameMgr.picnic_event_ON,
+
+            save_hiroba_ichigo_first = GameMgr.hiroba_ichigo_first,
         };
        
 
@@ -594,6 +596,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.picnic_End = playerData.save_picnic_End;
         GameMgr.picnic_count = playerData.save_picnic_count;
         GameMgr.picnic_event_ON = playerData.save_picnic_event_ON;
+
+        GameMgr.hiroba_ichigo_first = playerData.save_hiroba_ichigo_first;
 
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);

@@ -194,6 +194,8 @@ public class PlayerData
     public int save_picnic_count;
     public bool save_picnic_event_ON;
 
+    public bool save_hiroba_ichigo_first;
+
     public override string ToString()
     {
         return $"{ base.ToString() } { JsonUtility.ToJson(this) }";

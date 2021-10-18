@@ -198,8 +198,17 @@ public class MainListController2 : MonoBehaviour
                     }
                     else
                     {
-                        GameMgr.hiroba_event_ID = 51; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        if (!GameMgr.hiroba_ichigo_first)
+                        {
+                            GameMgr.hiroba_event_ID = 51; //いちごお菓子もってきた。初回
+                        }
+                        else
+                        {
+                            GameMgr.hiroba_event_ID = 52; //いちごお菓子もってきた。二回目以降
+                        }
+
                         GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
                     }
 
                     break;

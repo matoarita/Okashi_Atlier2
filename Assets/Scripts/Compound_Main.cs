@@ -3643,15 +3643,28 @@ public class Compound_Main : MonoBehaviour
                             }
                         }
                     }
-                    break;
 
-                case 41: //ひまわり油
-
-                    if (GameMgr.GirlLoveSubEvent_stage1[41] == false && database.items[GameMgr.Okashi_makeID].itemName == "himawari_Oil")
+                    //ひまわり油
+                    if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
                     {
+                        if (GameMgr.GirlLoveSubEvent_stage1[41] == false && database.items[GameMgr.Okashi_makeID].itemName == "himawari_Oil")
                         {
-                            GameMgr.GirlLoveSubEvent_stage1[41] = true;
-                            GameMgr.GirlLoveSubEvent_num = 41;
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[41] = true;
+                                GameMgr.GirlLoveSubEvent_num = 41;
+                                check_GirlLoveSubEvent_flag = false;
+
+                                mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
+                            }
+                        }
+                    }
+
+                    if (check_CompoAfter_flag) //ドーナツをはじめて作った。
+                    {
+                        if (GameMgr.GirlLoveSubEvent_stage1[42] == false && database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "Donuts")
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[42] = true;
+                            GameMgr.GirlLoveSubEvent_num = 42;
                             check_GirlLoveSubEvent_flag = false;
 
                             mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。

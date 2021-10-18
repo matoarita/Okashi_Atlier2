@@ -290,8 +290,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //画面のアニメ
         OpenAnim();
 
-        moveanim_panel.SetActive(false);
-
         move_anim_on = false;
         modoru_anim_on = false;
         treasure_anim_on = false;
@@ -421,6 +419,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             slot_view.SetActive(false);
 
             StatusPanelON();
+            moveanim_panel.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //背景黒フェード
             this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.0f); //背景黒フェードをOFF
 
             //girl1_status.hukidasiOn();
@@ -620,10 +619,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             case 0: //初期化
 
-                moveanim_panel.GetComponent<FadeImage>().FadeImageOff();
-                moveanim_panel_image.SetActive(false);
-                moveanim_panel_image_text.SetActive(false);
-                moveanim_panel_image.GetComponent<CanvasGroup>().DOFade(1, 0.0f);               
+                moveanim_panel.GetComponent<CanvasGroup>().DOFade(0, 0.5f); //背景黒フェード           
 
                 if (next_on) //先へ進む場合、背景も黒フェードを消す
                 {                    
@@ -1075,13 +1071,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 yes_no_panel.SetActive(false);                
 
-                moveanim_panel.SetActive(true);
-                moveanim_panel.GetComponent<FadeImage>().SetOn();
-                moveanim_panel_image.SetActive(true);
-                moveanim_panel_image_text.SetActive(true);
+                moveanim_panel.GetComponent<CanvasGroup>().DOFade(1, 0.3f); //背景黒フェード
 
                 StatusPanelOFF();
-                this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
 
                 if (next_on) //先へ進む場合
                 {
@@ -1133,8 +1125,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             case 3:
 
-                
-                moveanim_panel_image.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
                 text_area.GetComponent<CanvasGroup>().DOFade(0, 0.5f);
 
                 if (timeOut <= 0.0)
@@ -1173,14 +1163,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 yes_no_panel.SetActive(false);
 
-                Slot_view_on = false;                
+                Slot_view_on = false;
 
-                moveanim_panel.GetComponent<FadeImage>().FadeImageOn();
-                moveanim_panel_image.SetActive(true);
-                moveanim_panel_image_text.SetActive(true);
+                moveanim_panel.GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
 
                 StatusPanelOFF();
-                this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
 
                 //背景のSEを止める。
                 map_ambience.FadeOut();
@@ -1216,10 +1203,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 modoru_anim_on = false;
                 modoru_anim_end = true;
-
-                moveanim_panel.SetActive(false);
-                moveanim_panel_image.SetActive(false);
-                moveanim_panel_image_text.SetActive(false);                
+             
                 modoru_anim_status = 0;
 
                 break;

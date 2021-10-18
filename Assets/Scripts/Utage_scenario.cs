@@ -1413,6 +1413,11 @@ public class Utage_scenario : MonoBehaviour
                     compound_Main.SubEvAfterHeartGet = false;
                 }
 
+                if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
+                {
+                    GameMgr.hiroba_event_ON = false;
+                }
+
                 //続きから再度読み込み
                 engine.ResumeScenario();
             }
@@ -1497,6 +1502,15 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.event_judge_status = 4;
                     }
 
+                    if(GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
+                    {
+                        GameMgr.hiroba_event_ON = false;
+                        if (!GameMgr.hiroba_ichigo_first)
+                        {
+                            GameMgr.hiroba_ichigo_first = true; //一回でもお菓子をわたしたフラグON
+                        }
+                    }
+
                     //続きから再度読み込み
                     engine.ResumeScenario();
                 }
@@ -1524,6 +1538,11 @@ public class Utage_scenario : MonoBehaviour
                     {
                         //いかないを選択したので、ハート獲得演出はキャンセル
                         compound_Main.SubEvAfterHeartGet = false;
+                    }
+
+                    if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
+                    {
+                        GameMgr.hiroba_event_ON = false;
                     }
 
                     //ここで、宴のパラメータ設定。リセットしておく。

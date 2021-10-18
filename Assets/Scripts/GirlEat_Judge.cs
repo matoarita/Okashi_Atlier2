@@ -369,6 +369,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void SceneInitSetting()
     {
+        Debug.Log("GirlEatJudge初期化");
+
         canvas = GameObject.FindWithTag("Canvas");
 
         //プレイヤー所持アイテムリストの取得
@@ -393,10 +395,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
 
         //女の子データの取得
-        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
-
-        //好感度ゲージの取得
-        Girlloveexp_bar = GameObject.FindWithTag("Girl_love_exp_bar");
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -417,7 +416,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 trans = maincam_animator.GetInteger("trans");
 
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();                
 
                 //BGMの取得
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -508,9 +507,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Delicious_Text = ScoreHyoujiPanel.transform.Find("Image/DeliciousPanel/Text").GetComponent<Text>();
                 ScoreHyoujiPanel.SetActive(false);
 
+                //好感度ゲージの取得
+                Girlloveexp_bar = MainUIPanel_obj.transform.Find("Girl_love_exp_bar").gameObject;
+
                 //好感度バーの取得
-                _slider_obj = GameObject.FindWithTag("Girl_love_exp_bar").gameObject;
-                _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
+                _slider_obj = MainUIPanel_obj.transform.Find("Girl_love_exp_bar").gameObject;
+                _slider = _slider_obj.GetComponent<Slider>();
 
                 Getlove_exp = 0;
                 GetMoney = 0;
@@ -610,7 +612,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //シーン移動の際、破壊されてしまうオブジェクトは、毎回初期化
         if (canvas == null)
-        {
+        {            
             SceneInitSetting();
         }
 

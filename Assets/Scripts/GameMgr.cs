@@ -176,6 +176,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int picnic_count;
     public static bool picnic_event_ON;
 
+    //いちごイベントのフラグ
+    public static bool hiroba_ichigo_first; //一回でもいちごお菓子をわたした。
+
+
     /* セーブ　ここまで */
 
 
@@ -354,6 +358,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool event_pitem_cancel;
     public static int event_judge_status;
     public static int event_okashi_score;
+    public static bool hiroba_event_ON;
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
@@ -486,6 +491,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         uwasa_number = 0;
         shop_hint = false;
         shop_hint_num = 0;
+        hiroba_event_ON = false;
 
         farm_event_flag = false;
         farm_event_num = 0;
@@ -496,6 +502,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         picnic_End = false;
         picnic_count = 3;
         picnic_event_ON = true;
+
+        hiroba_ichigo_first = false;
 
         hiroba_event_flag = false;
         //広場イベント読み終えたフラグの初期化
