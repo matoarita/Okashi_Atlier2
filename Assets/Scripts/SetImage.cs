@@ -41,6 +41,9 @@ public class SetImage : MonoBehaviour
     private ExpTable exp_table;
     private Exp_Controller exp_Controller;
 
+    private GameObject card_view_obj;
+    private CardView card_view;
+
     private Compound_Keisan compound_keisan;
 
     private SlotNameDataBase slotnamedatabase;
@@ -1147,6 +1150,10 @@ public class SetImage : MonoBehaviour
         //ブラックエフェクトを取得
         BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
 
+        //カード表示用オブジェクトの取得
+        card_view_obj = GameObject.FindWithTag("CardView");
+        card_view = card_view_obj.GetComponent<CardView>();
+
         if (exp_table.check_on == true)
         {
             //レベルチェック中は、カードを消せないようにする。
@@ -1205,7 +1212,7 @@ public class SetImage : MonoBehaviour
 
                 exp_Controller.NewRecipiFlag = false; //オフにしておく。
 
-                Destroy(this.gameObject);
+                card_view.DeleteCard_DrawView();
             }
             else
             {
@@ -1284,7 +1291,7 @@ public class SetImage : MonoBehaviour
                 }
 
                 exp_Controller.EffectListClear();
-                Destroy(this.gameObject);
+                card_view.DeleteCard_DrawView();
 
             }
         }

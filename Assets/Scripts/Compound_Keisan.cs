@@ -938,29 +938,39 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             // アイテムリストの削除処理 //
             Delete_playerItemList();
 
-            //新しく作ったアイテムをオリジナルアイテムリストに追加。
-            pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
+            if (exp_Controller.DoubleItemCreated == 0)
+            {
+                //新しく作ったアイテムをオリジナルアイテムリストに追加。
+                pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
                 _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basebeauty,
                 _basegirl1_like, _basecost, _basesell,
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
                 result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
 
-            new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
+                new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
+                //カード正式名称（ついてるスロット名も含めた名前）
+                slotchangename.slotChangeName(1, new_item, "yellow");
 
-            //カード正式名称（ついてるスロット名も含めた名前）
-            slotchangename.slotChangeName(1, new_item, "yellow");
+                itemslotname = "";
+                for (i = 0; i < _slotHyouji1.Length; i++)
+                {
+                    _slotHyouji1[i] = slotchangename._slotHyouji[i];
+                    itemslotname += _slotHyouji1[i];
+                }
 
-            itemslotname = "";
-            for (i = 0; i < _slotHyouji1.Length; i++)
-            {
-                _slotHyouji1[i] = slotchangename._slotHyouji[i];
-                itemslotname += _slotHyouji1[i];
+                pitemlist.player_originalitemlist[new_item].item_SlotName = itemslotname;
+                itemfullname = itemslotname + pitemlist.player_originalitemlist[new_item].itemNameHyouji;
+                pitemlist.player_originalitemlist[new_item].item_FullName = itemfullname;
             }
-
-            pitemlist.player_originalitemlist[new_item].item_SlotName = itemslotname;
-            itemfullname = itemslotname + pitemlist.player_originalitemlist[new_item].itemNameHyouji;
-            pitemlist.player_originalitemlist[new_item].item_FullName = itemfullname;
+            else //例外処理。卵白と卵黄が同時にできる場合など。
+            {
+                if (databaseCompo.compoitems[result_ID].cmpitem_Name == "egg_split")
+                {
+                    pitemlist.addPlayerItemString("egg_white", result_kosu);
+                    pitemlist.addPlayerItemString("egg_yellow", result_kosu);
+                }
+            }
         }
         else if (_mstatus == 1) //予測の場合、アイテムの追加処理はいらない。
         {

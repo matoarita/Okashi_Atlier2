@@ -15,6 +15,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject ResultCardView_content_obj;
+
     private List<GameObject> _cardImage_obj = new List<GameObject>(); //カード表示用のゲームオブジェクト
 
     private SetImage _cardImage; //カードの描画処理は、SetImageスクリプト
@@ -71,6 +73,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
             case "Compound":
 
                 zero_point = canvas.transform.Find("ZeroPoint").gameObject;
+                ResultCardView_content_obj = canvas.transform.Find("ResultCardView/Viewport/Content").gameObject;
                 break;
 
             default://シナリオ系のシーンでは読み込まない。
@@ -95,6 +98,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
                 case "Compound":
 
                     zero_point = canvas.transform.Find("ZeroPoint").gameObject;
+                    ResultCardView_content_obj = canvas.transform.Find("ResultCardView/Viewport/Content").gameObject;
                     break;
 
                 default://シナリオ系のシーンでは読み込まない。
@@ -209,11 +213,12 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     }
 
+    //全てのカードを削除する。
     public void DeleteCard_DrawView()
     {
-        for (i = 0; i < _cardImage_obj.Count; i++)
+        for (i = 0; i < _cardImage_obj.Count; i++) //最後から削除していく。
         {
-            Destroy(_cardImage_obj[i]);
+            Destroy(_cardImage_obj[(_cardImage_obj.Count-1) - i]);
         }
 
         _cardImage_obj.Clear();
@@ -474,7 +479,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Clear();
 
-        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
         _cardImage.anim_status = 99;
 
@@ -485,14 +490,58 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.SetInit();
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+        //_cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
 
         _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
 
-        Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
+        Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
     }
 
+    public void ResultCard_DrawView2(int _toggleType, int _result_item1, int _result_item2) //リザルト　２つ同時にできる場合の表示
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
 
+        _cardImage_obj.Clear();
+
+        //1枚目
+        _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        _cardImage.anim_status = 99;
+
+        _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+
+        _cardImage.Pitem_or_Origin = _toggleType;
+        _cardImage.check_counter = _result_item1;
+        _cardImage.SetInit();
+
+        _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
+        //_cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+
+        _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
+
+        Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
+
+        //2枚目
+        _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
+        _cardImage = _cardImage_obj[1].GetComponent<SetImage>();
+        _cardImage.anim_status = 99;
+
+        _cardImage_obj[1].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+
+        _cardImage.Pitem_or_Origin = _toggleType;
+        _cardImage.check_counter = _result_item2;
+        _cardImage.SetInit();
+
+        _cardImage_obj[1].transform.localScale = new Vector3(0.0f, 0.0f, 1);
+        //_cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+
+        _cardImage_obj[1].GetComponent<SetImage>().CardParamOFF_2();
+
+        Result_animOn(1); //スケールが小さいから大きくなるアニメーションをON
+    }
 
 
     //レシピリストで、開いたときのカード表示処理
@@ -555,7 +604,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
 
-        Result_animOn(); //スケールが小さいから大きくなるアニメーションをON
+        Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
     }
    
 
@@ -761,11 +810,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
     }
 
     //ボインとはじくようなアニメ
-    void Result_animOn()
+    void Result_animOn(int _card_num)
     {
-        resulttransform = _cardImage_obj[0].transform;
-        resultPos = resulttransform.localPosition;
-        resultScale = resulttransform.localScale;
+        resulttransform = _cardImage_obj[_card_num].transform;
+        //resultPos = resulttransform.localPosition;
+        //resultScale = resulttransform.localScale;
 
         {
             Sequence sequence = DOTween.Sequence();
@@ -773,16 +822,16 @@ public class CardView : SingletonMonoBehaviour<CardView>
             //まず、初期値。
             _cardImage_obj[0].GetComponent<CanvasGroup>().alpha = 0;
             sequence.Append(resulttransform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 0.0f));
-            sequence.Join(resulttransform.DOLocalMove(new Vector3(0, 0, 0), 0.0f)
-                ); //
+            //sequence.Join(resulttransform.DOLocalMove(new Vector3(0, 0, 0), 0.0f)
+                //); //
                                    //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
 
             //移動のアニメ
             sequence.Append(resulttransform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.75f)
                 .SetEase(Ease.OutElastic));
-            sequence.Join(resulttransform.DOLocalMove(new Vector3(0f, 80f, 0), 0.75f)
+            /*sequence.Join(resulttransform.DOLocalMove(new Vector3(0f, 80f, 0), 0.75f)
                 .SetRelative()
-                .SetEase(Ease.OutExpo)); //元の位置に戻る。
+                .SetEase(Ease.OutExpo)); //元の位置に戻る。*/
             sequence.Join(_cardImage_obj[0].GetComponent<CanvasGroup>().DOFade(1, 0.2f));
         }
 

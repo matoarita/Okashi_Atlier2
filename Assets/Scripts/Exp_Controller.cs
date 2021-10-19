@@ -133,6 +133,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool NewRecipiFlag;  //新しいレシピをひらめいたフラグをON
     public int NewRecipi_compoID;   //そのときの、調合DBのID
     private int _releaseID;
+    public int DoubleItemCreated; //一つの調合から、2つ以上のアイテムが生まれる場合のフラグ
 
     public bool NewRecipiflag_check;
     public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
@@ -178,6 +179,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public float _temp_Starthp;
 
     private string renkin_hyouji;
+
+    private int _id1, _id2;
+
 
 
     // Use this for initialization
@@ -262,6 +266,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         new_item = 0;
 
         Comp_method_bunki = 0;
+        DoubleItemCreated = 0;
 
         compo_anim_status = 0;
         compo_anim_on = false;
@@ -462,7 +467,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 NewRecipi_compoID = result_ID;
 
                 _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
-
             }
             //すでに作っていたことがある場合
             else if (databaseCompo.compoitems[result_ID].comp_count > 0)
@@ -494,15 +498,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 }
             }
 
-
-            //オリジナルの個数をCompoDBにセットしなおす。セットしなおすかどうかを聞く。
-            /*databaseCompo.compoitems[result_ID].cmpitem_kosu1 = result_kosuset[0];
-            databaseCompo.compoitems[result_ID].cmpitem_kosu2 = result_kosuset[1];
-            databaseCompo.compoitems[result_ID].cmpitem_kosu3 = result_kosuset[2];*/
-            //compound_keisan.ResetDefaultTasteParam();
-
             //テキストの表示
-            renkin_exp_up();
+            if (DoubleItemCreated == 0)
+            {
+                renkin_exp_up();
+            }
+            else //2つ同時にできたとき
+            {
+                renkin_exp_up2();
+            }
 
             //完成エフェクト
             ResultEffect_OK();
@@ -586,21 +590,33 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.Okashi_makeID = pitemlist.player_originalitemlist[result_item].itemID;
 
         renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
-
-        //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
-        if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
+        
+        if (DoubleItemCreated == 0)
         {
+            //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
+            if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
+            {
+            }
+            else
+            {
+                //パネルに、作ったやつを表示する。
+                extremePanel.SetExtremeItem(result_item, 1);
+
+            }
+
+            new_item = result_item;
+
+            card_view.ResultCard_DrawView(1, new_item);
         }
-        else
+        else //例外処理。卵白と卵黄が同時にできる場合など。
         {
-            //パネルに、作ったやつを表示する。
-            extremePanel.SetExtremeItem(result_item, 1);
-
+            if (databaseCompo.compoitems[result_ID].cmpitem_Name == "egg_split")
+            {
+                _id1 = database.SearchItemIDString("egg_white");
+                _id2 = database.SearchItemIDString("egg_yellow");
+                card_view.ResultCard_DrawView2(0, _id1, _id2);
+            }
         }
-
-        new_item = result_item;
-
-        card_view.ResultCard_DrawView(1, new_item);
     }
 
     //使ってない
@@ -627,6 +643,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         card_view.RecipiResultCard_DrawView(0, result_item);
     }
+
+
 
     //
     //レシピ調合完了の場合、ここでアイテムリストの更新行う。
@@ -1456,6 +1474,28 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + 
             pitemlist.player_originalitemlist[new_item].itemNameHyouji +
+            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+            "パティシエ経験値は上がらなかった。"; ;
+        }
+
+        Debug.Log(pitemlist.player_originalitemlist[new_item].itemNameHyouji + "が出来ました！");
+
+    }
+
+    void renkin_exp_up2()
+    {
+
+        if (_getexp != 0)
+        {
+            _text.text = "やったね！ " +
+            database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
+            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+            "パティシエ経験値 " + _getexp + "上がった！";
+        }
+        else
+        {
+            _text.text = "やったね！ " +
+            database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
             " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
             "パティシエ経験値は上がらなかった。"; ;
         }

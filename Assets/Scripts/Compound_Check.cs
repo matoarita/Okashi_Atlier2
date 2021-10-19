@@ -876,6 +876,14 @@ public class Compound_Check : MonoBehaviour {
         }
 
 
+        exp_Controller.DoubleItemCreated = 0; //2個以上のアイテムが同時に作られない場合、デフォルトは0。
+
+        //特定のアイテム（卵白と卵黄など生成アイテムが2種類の場合）のcompIDを判定。例外処理。
+        if (databaseCompo.compoitems[result_compoID].cmpitem_Name == "egg_split")
+        {
+            exp_Controller.DoubleItemCreated = 1;
+        }
+
         //stringのリザルドアイテムを、アイテムIDに変換。
         i = 0;
 

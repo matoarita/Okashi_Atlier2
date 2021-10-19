@@ -217,7 +217,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
     //女の子の採点用パラメータ
-    private int taste_result;
+    //private int taste_result;
 
     private int quality_result;
     private int rich_result;
@@ -1339,55 +1339,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("### ###");
         Debug.Log("判定番号: " + _girl_judgenum[countNum]);
 
-        if (_girlsweat[countNum] == 0)
-        {
-            Debug.Log("甘み: 判定なし");
-            taste_level = 0;
-            taste_score = 0;            
-        }
-        else
-        {
-            //甘味
-            taste_result = sweat_result;
-            taste_type = "甘味: ";
-            TasteScore_keisan();            
-        }
-        sweat_level = taste_level;
-        sweat_score = taste_score;
+        //甘味
+        sweat_score = TasteKeisanBase(_girlsweat[countNum], sweat_result, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
+        sweat_level = TasteLevel_Keisan(_girlsweat[countNum], sweat_score);
         Debug.Log("甘み点: " + sweat_score);
 
-        if (_girlbitter[countNum] == 0)
-        {
-            Debug.Log("苦み: 判定なし");
-            taste_level = 0;
-            taste_score = 0;
-        }
-        else
-        {
-            //苦味
-            taste_result = bitter_result;
-            taste_type = "苦み: ";
-            TasteScore_keisan();           
-        }
-        bitter_level = taste_level;
-        bitter_score = taste_score;
+        //苦み
+        bitter_score = TasteKeisanBase(_girlbitter[countNum], bitter_result, "苦み: ");
+        bitter_level = TasteLevel_Keisan(_girlbitter[countNum], bitter_score);
         Debug.Log("苦味点: " + bitter_score);
 
-        if (_girlsour[countNum] == 0)
-        {
-            Debug.Log("酸味: 判定なし");
-            taste_level = 0;
-            taste_score = 0;
-        }
-        else
-        {
-            taste_result = sour_result;
-            taste_type = "酸味: ";
-            TasteScore_keisan();
-            
-        }
-        sour_level = taste_level;
-        sour_score = taste_score;
+        //酸味
+        sour_score = TasteKeisanBase(_girlsour[countNum], sour_result, "酸味: ");
+        sour_level = TasteLevel_Keisan(_girlsour[countNum], sour_score);
         Debug.Log("酸味点: " + sour_score);
 
 
@@ -1395,90 +1359,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //ただし、女の子の好み値を超えてないと加点されない。
         //サブジャンルごとに、比較の対象が限定される。例えば、クッキーなら、さくさく度だけを見る。
         //またジャンルごとに、どのスコアの比重が大きくなるか、補正がかかる。アイスなら甘味が大事、とか。
-        switch (_baseitemtype_sub)
-        {
-            case "Biscotti":
-                Hardness_Score();
-                break;
-            case "Bread":
-                Crispy_Score();
-                break;
-            case "Cookie":
-                Crispy_Score();                
-                break;
-            case "Chocolate":
-                Smooth_Score();
-                break;
-            case "Chocolate_Mat":
-                Smooth_Score();
-                break;
-            case "Cake":
-                Fluffy_Score();
-                break;
-            case "Castella":
-                Fluffy_Score();
-                break;
-            case "Cannoli":
-                Crispy_Score();
-                break;
-            case "Candy":
-                Hardness_Score();
-                break;
-            case "Crepe":
-                Fluffy_Score();
-                break;
-            case "Crepe_Mat":
-                Fluffy_Score();
-                break;
-            case "Creampuff":
-                Fluffy_Score();
-                break;
-            case "Donuts":
-                Fluffy_Score();
-                break;
-            case "Financier":
-                Fluffy_Score();
-                break;
-            case "IceCream":
-                Smooth_Score();
-                break;
-            case "Juice":
-                Juice_Score();
-                break;
-            case "Jelly":
-                Smooth_Score();
-                break;
-            case "Maffin":
-                Fluffy_Score();
-                break;
-            case "PanCake":
-                Fluffy_Score();
-                break;
-            case "Parfe":
-                Smooth_Score();
-                break;
-            case "Pie":
-                Crispy_Score();
-                break;
-            case "Rusk":
-                Crispy_Score();
-                break;
-            case "Tea":
-                Tea_Score();
-                break;
-            case "Tea_Mat":
-                Tea_Score();
-                break;
-            case "Tea_Potion":
-                Tea_Score();
-                break;
-
-            default:
-
-                Crispy_Score();
-
-                break;
-        }
+        ShokukanScore_keisan(_baseitemtype_sub);
+        
 
         //トッピングの値も計算する。①基本的に上がるやつ　+　②クエスト固有でさらに上がるやつ　の2点
 
@@ -1697,67 +1579,208 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     }
 
-    void TasteScore_keisan()
+    //酒場クエスト(Quest_Judge.cs)などからも読み込み
+    public int TasteKeisanBase(int _girltaste, int _taste_result, string _taste_Type)
     {
-        if (Mathf.Abs(taste_result) == 0)
+        if (_girltaste == 0) //クエスト判定の値が0なら、そもそも判定しない。
         {
-            Debug.Log(taste_type + "Perfect!!");　//完璧な具合
-            taste_level = 8;
-            taste_score = 55;
-        }
-        else if (Mathf.Abs(taste_result) < 5) //+-1~4　絶妙な塩梅
-        {
-            Debug.Log(taste_type + "Great!!");
-            taste_level = 7;
-            taste_score = 40;
-        }
-        else if (Mathf.Abs(taste_result) < 10) //+-5~9  ほどよく良い塩梅
-        {
-            Debug.Log(taste_type + "Well done!");
-            taste_level = 6;
-            taste_score = 35;
-        }
-        else if (Mathf.Abs(taste_result) < 15) //+-10~14　いい感じ
-        {
-            Debug.Log(taste_type + "Well!");
-            taste_level = 5;
-            taste_score = 23;
-        }
-        else if (Mathf.Abs(taste_result) < 20) //+-15~19　いい感じ
-        {
-            Debug.Log(taste_type + "A little Well!");
-            taste_level = 5;
-            taste_score = 15;
-        }
-        else if (Mathf.Abs(taste_result) < 30) //+-20~29  ちょっと足りないかな
-        {
-            Debug.Log(taste_type + "Good!");
-            taste_level = 4;
-            taste_score = 10;
-        }
-        else if (Mathf.Abs(taste_result) < 50) //+-30~49　全然足りない
-        {
-            Debug.Log(taste_type + "Normal");
-            taste_level = 3;
+            Debug.Log(_taste_Type + "判定なし");
             taste_score = 0;
         }
-        else if (Mathf.Abs(taste_result) < 80) //+-50~79
+        else
         {
-            Debug.Log(taste_type + "poor");
-            taste_level = 2;
+            TasteScore_keisan(_taste_result, _taste_Type);     //差をいれると、点数計算       
+        }
+        
+        return taste_score;       
+    }
+
+    void TasteScore_keisan(int _taste_result, string _taste_type)
+    {
+        if (Mathf.Abs(_taste_result) == 0)
+        {
+            Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
+            taste_score = 55;
+        }
+        else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
+        {
+            Debug.Log(_taste_type + "Great!!");
+            taste_score = 40;
+        }
+        else if (Mathf.Abs(_taste_result) < 10) //+-5~9  ほどよく良い塩梅
+        {
+            Debug.Log(_taste_type + "Well done!");
+            taste_score = 35;
+        }
+        else if (Mathf.Abs(_taste_result) < 15) //+-10~14　いい感じ
+        {
+            Debug.Log(_taste_type + "Well!");
+            taste_score = 23;
+        }
+        else if (Mathf.Abs(_taste_result) < 20) //+-15~19　いい感じ
+        {
+            Debug.Log(_taste_type + "A little Well!");
+            taste_score = 15;
+        }
+        else if (Mathf.Abs(_taste_result) < 30) //+-20~29  ちょっと足りないかな
+        {
+            Debug.Log(_taste_type + "Good!");
+            taste_score = 10;
+        }
+        else if (Mathf.Abs(_taste_result) < 50) //+-30~49　全然足りない
+        {
+            Debug.Log(_taste_type + "Normal");
+            taste_score = 0;
+        }
+        else if (Mathf.Abs(_taste_result) < 80) //+-50~79
+        {
+            Debug.Log(_taste_type + "poor");
             taste_score = -35;
         }
-        else if (Mathf.Abs(taste_result) <= 100) //+-80~99
+        else if (Mathf.Abs(_taste_result) <= 100) //+-80~99
         {
-            Debug.Log(taste_type + "death..");
-            taste_level = 1;
+            Debug.Log(_taste_type + "death..");
             taste_score = -80;
         }
-        else if (Mathf.Abs(taste_result) > 100) //+-100
+        else if (Mathf.Abs(_taste_result) > 100) //+-100
         {
-            Debug.Log(taste_type + "death..");
-            taste_level = 1;
+            Debug.Log(_taste_type + "death..");
             taste_score = -80;
+        }
+    }
+
+    int TasteLevel_Keisan(int _girltaste, int _tast_score)
+    {
+        if (_girltaste == 0)
+        {
+            return 0; //クエスト判定の値が0なら、そもそも判定しない。
+        }
+        else
+        {
+            if (_tast_score >= 55)
+            {
+                taste_level = 8;
+            }
+            else if ((_tast_score < 55) && _tast_score >= 40)
+            {
+                taste_level = 7;
+            }
+            else if ((_tast_score < 40) && _tast_score >= 35)
+            {
+                taste_level = 6;
+            }
+            else if ((_tast_score < 35) && _tast_score >= 23)
+            {
+                taste_level = 5;
+            }
+            else if ((_tast_score < 23) && _tast_score >= 15)
+            {
+                taste_level = 5;
+            }
+            else if ((_tast_score < 15) && _tast_score >= 10)
+            {
+                taste_level = 4;
+            }
+            else if ((_tast_score < 10) && _tast_score >= 0)
+            {
+                taste_level = 3;
+            }
+            else if ((_tast_score < 0) && _tast_score >= -35)
+            {
+                taste_level = 2;
+            }
+            else if (_tast_score < -35)
+            {
+                taste_level = 1;
+            }
+
+            return taste_level;
+        }
+    }
+
+    void ShokukanScore_keisan(string _temp_baseitemtype_sub)
+    {
+        switch (_temp_baseitemtype_sub)
+        {
+            case "Biscotti":
+                Hardness_Score();
+                break;
+            case "Bread":
+                Crispy_Score();
+                break;
+            case "Cookie":
+                Crispy_Score();
+                break;
+            case "Chocolate":
+                Smooth_Score();
+                break;
+            case "Chocolate_Mat":
+                Smooth_Score();
+                break;
+            case "Cake":
+                Fluffy_Score();
+                break;
+            case "Castella":
+                Fluffy_Score();
+                break;
+            case "Cannoli":
+                Crispy_Score();
+                break;
+            case "Candy":
+                Hardness_Score();
+                break;
+            case "Crepe":
+                Fluffy_Score();
+                break;
+            case "Crepe_Mat":
+                Fluffy_Score();
+                break;
+            case "Creampuff":
+                Fluffy_Score();
+                break;
+            case "Donuts":
+                Fluffy_Score();
+                break;
+            case "Financier":
+                Fluffy_Score();
+                break;
+            case "IceCream":
+                Smooth_Score();
+                break;
+            case "Juice":
+                Juice_Score();
+                break;
+            case "Jelly":
+                Smooth_Score();
+                break;
+            case "Maffin":
+                Fluffy_Score();
+                break;
+            case "PanCake":
+                Fluffy_Score();
+                break;
+            case "Parfe":
+                Smooth_Score();
+                break;
+            case "Pie":
+                Crispy_Score();
+                break;
+            case "Rusk":
+                Crispy_Score();
+                break;
+            case "Tea":
+                Tea_Score();
+                break;
+            case "Tea_Mat":
+                Tea_Score();
+                break;
+            case "Tea_Potion":
+                Tea_Score();
+                break;
+
+            default:
+                Crispy_Score();
+                break;
         }
     }
 

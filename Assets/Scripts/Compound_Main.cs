@@ -3645,7 +3645,7 @@ public class Compound_Main : MonoBehaviour
                     }
 
                     //ひまわり油
-                    if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
+                    /*if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
                     {
                         if (GameMgr.GirlLoveSubEvent_stage1[41] == false && database.items[GameMgr.Okashi_makeID].itemName == "himawari_Oil")
                         {
@@ -3657,7 +3657,7 @@ public class Compound_Main : MonoBehaviour
                                 mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
                             }
                         }
-                    }
+                    }*/
 
                     if (check_CompoAfter_flag) //ドーナツをはじめて作った。
                     {
