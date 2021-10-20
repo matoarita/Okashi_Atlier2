@@ -413,6 +413,15 @@ public class GetMaterial : MonoBehaviour
                         rare_event_Forest(); //バードサンクチュアリ発見など
                         break;
 
+                    case "Lavender_field":
+
+                        rare_event_LavenderField(); //アイスの実の森発見など。現在は未実装。
+                        break;
+
+                    case "HimawariHill":
+
+                        rare_event_HimawariHill(); //ただレアアイテムがたまにでる。
+                        break;
 
                     default:
 
@@ -854,7 +863,7 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                if (player_girl_findpower_final >= 120 && !GameMgr.MapEvent_06[0])                 
+                if (player_girl_findpower_final >= 120 && !GameMgr.MapEvent_06[0]) //バードサンクチュアリ見つけたらもう出ない。      
                 {
                     //バードサンクチュアリを発見
                     _text.text = "にいちゃん！！ なんか抜け道があるよ？";
@@ -969,7 +978,7 @@ public class GetMaterial : MonoBehaviour
         }
     }
 
-    //ラベンダー畑
+    //アメジストの庭
     void event_LavenderField()
     {
         random = Random.Range(0, 10);
@@ -1018,6 +1027,47 @@ public class GetMaterial : MonoBehaviour
                 //音を鳴らす
                 sc.PlaySe(6);
 
+
+                break;
+        }
+    }
+
+    void rare_event_LavenderField()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                event_itemGet02();
+                break;
+
+            case 1:
+
+                event_itemGet02();
+                break;
+
+            case 3:
+
+                event_itemGet03();
+                break;
+
+            default:
+
+                event_itemGet01();
+
+                /*if (player_girl_findpower_final >= 150 && !GameMgr.MapEvent_06[0]) 
+                {
+                    //アイスの実の森を発見
+                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                    getmatplace_panel.next_flag = 100;
+                    NextButton_obj.SetActive(true);
+                }
+                else
+                {
+                    event_itemGet01();
+                }*/
 
                 break;
         }
@@ -1074,7 +1124,50 @@ public class GetMaterial : MonoBehaviour
         }*/
     }
 
+    void rare_event_HimawariHill()
+    {
+        random = Random.Range(0, 10);
 
+        switch (random)
+        {
+            case 0:
+
+                event_itemGet02();
+                break;
+
+            case 1:
+
+                event_itemGet02();
+                break;
+
+            case 3:
+
+                event_itemGet04();
+                break;
+
+            default:
+
+                event_itemGet01();
+
+                /*if (player_girl_findpower_final >= 150 && !GameMgr.MapEvent_06[0]) 
+                {
+                    //アイスの実の森を発見
+                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                    getmatplace_panel.next_flag = 100;
+                    NextButton_obj.SetActive(true);
+                }
+                else
+                {
+                    event_itemGet01();
+                }*/
+
+                break;
+        }
+    }
+
+    //
+    //イベントリスト
+    //
     void event_itemGet01()
     {
         _text.text = "にいちゃん。みてみて！　キラキラな石！" +
@@ -1093,10 +1186,10 @@ public class GetMaterial : MonoBehaviour
 
     void event_itemGet02()
     {
-        _getMoney = Random.Range(0, 100);
+        _getMoney = Random.Range(0, 200);
 
         _text.text = "にいちゃん。お金ひろった！へへ。" +
-                        "\n" + _getMoney + "</color>" + "ルピアをみつけた！";
+                        "\n" + GameMgr.ColorYellow + _getMoney + "</color>" + "ルピアをみつけた！";
 
         //所持金をプラス
         moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
@@ -1105,7 +1198,37 @@ public class GetMaterial : MonoBehaviour
         sc.PlaySe(1);
     }
 
+    void event_itemGet03()
+    {
+        _text.text = "にいちゃん。みてみて！　テカテカしてる石！" +
+                        "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone2")].itemNameHyouji + "</color>" + "をみつけた！";
 
+        //アイテムの取得処理
+        pitemlist.addPlayerItemString("kirakira_stone2", 1);
+
+        //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+        _itemid = pitemlist.SearchItemString("kirakira_stone2");
+        getmatplace_panel.result_items[_itemid] += 1;
+
+        //音を鳴らす
+        sc.PlaySe(1);
+    }
+
+    void event_itemGet04()
+    {
+        _text.text = "にいちゃん。みてみて！　くるくる渦巻きの石！" +
+                        "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone3")].itemNameHyouji + "</color>" + "をみつけた！";
+
+        //アイテムの取得処理
+        pitemlist.addPlayerItemString("kirakira_stone3", 1);
+
+        //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+        _itemid = pitemlist.SearchItemString("kirakira_stone3");
+        getmatplace_panel.result_items[_itemid] += 1;
+
+        //音を鳴らす
+        sc.PlaySe(1);
+    }
 
 
     //イベントの発生確率をセット

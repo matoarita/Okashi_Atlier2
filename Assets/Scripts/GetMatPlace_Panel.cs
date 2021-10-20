@@ -892,32 +892,43 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
 
-                        //イベントチェック
-                        /*if (!GameMgr.MapEvent_06[0])
-                        {
-                            GameMgr.MapEvent_06[0] = true;
+                        _text.text = "ねこのお墓がある。";
 
-                            _text.text = "兄ちゃん。とりさんがいっぱいいるよ～！！";
+                        break;
+
+                    case "IceCreamForest":
+
+                        //アイスの実の森のBGM
+                        sceneBGM.OnGetMat_HimawariHillBGM();
+                        compound_Main.bgm_change_flag = true;
+
+                        //背景エフェクト
+                        map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
+
+                        _text.text = "にいちゃん！　アイスの実がいっぱいなってる..！";
+
+                        //イベントチェック
+                        /*if (!GameMgr.MapEvent_07[0])
+                        {
+                            GameMgr.MapEvent_07[0] = true;
+
+                            _text.text = "兄ちゃん。まっ黄色～～！すごいきれい～。";
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
                             //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
+                            //event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
+                            //event_Frame.SetActive(true);
 
-                            GameMgr.map_ev_ID = 20;
+                            GameMgr.map_ev_ID = 50;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                            //次回以降、バードサンクチュアリにいけるようになる。
-                            matplace_database.matPlaceKaikin("BirdSanctuali");
 
                             StartCoroutine(MapEventOn(0));
                         }
                         else
                         {
-                            _text.text = "兄ちゃん。とりさんとあそぼ！！";
+                            _text.text = "兄ちゃん、種とりは任せてね！";
                         }*/
-
-                        _text.text = "ねこのお墓がある。";
 
                         break;
 
