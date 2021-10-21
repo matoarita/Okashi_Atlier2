@@ -636,6 +636,8 @@ public class Compound_Main : MonoBehaviour
         //ロード画面から読み込んだ際の処理
         if (GameMgr.GameLoadOn)
         {
+            Debug.Log("ロード画面から読み込んだ");
+
             GameMgr.GameLoadOn = false;
             save_controller.DrawGameScreen();
             keymanager.InitCompoundMainScene();

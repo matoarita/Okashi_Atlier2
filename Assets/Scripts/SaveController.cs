@@ -358,6 +358,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     //ロード処理
     public void OnLoadMethod()
     {
+        //ロード前は一度初期化
+        ResetAllParam();
 
         //セーブデータがあるかどうかをチェック
         SaveCheck();

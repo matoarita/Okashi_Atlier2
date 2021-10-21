@@ -75,9 +75,11 @@ public class Title_Main : MonoBehaviour {
 
     public void OnLoadButton()
     {
-        save_controller.ResetAllParam();
-        GameMgr.GameLoadOn = true;
+        //save_controller.ResetAllParam();
+        
         save_controller.OnLoadMethod();
+        GameMgr.GameLoadOn = true; //順番が大事。ロードより後にこっちはtrueにしとく。
+
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene("Compound", 0.3f);
     }
