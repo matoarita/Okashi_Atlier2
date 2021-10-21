@@ -17,7 +17,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //** --ここまで-- **//
 
-   
+    // ゲーム開始前に呼び出す。デバッグログをオフにする。
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Init()
+    {
+        Debug.unityLogger.logEnabled = false; // ←ログを止める
+    }
+
+
     public static bool scenario_ON;     //全シーンで共通。宴・シナリオを優先するフラグ。これがONのときは、調合シーンなどでも、宴の表示をまず優先する。宴を読み終えたらOFFにする。
     public static int scenario_flag_input;     //デバッグ用。シナリオフラグをインスペクタから入力
     public static int scenario_flag_cullent;   //デバッグ用。現在のシナリオフラグを確認用
