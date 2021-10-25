@@ -13,6 +13,9 @@ public class Quest_Judge : MonoBehaviour {
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
+    private BGM sceneBGM;
+    private bool mute_on;
+
     private GameObject shopMain_obj;
     private Shop_Main shopMain;
     private GameObject barMain_obj;
@@ -60,7 +63,8 @@ public class Quest_Judge : MonoBehaviour {
     List<string> itemslotInfo = new List<string>();
 
     // スロットの点数
-    List<int> itemslot_NouhinScore = new List<int>();
+    List<int> itemslot_NouhinScore = new List<int>(); //こっちが所持数
+    List<int> itemslot_NouhinAddPoint = new List<int>(); //該当トッピングの固有追加点数
     List<int> itemslot_PitemScore = new List<int>();
     private int check_slot_nouhinscore;
 
@@ -127,6 +131,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _beauty;
 
     private string[] _tp;
+    private int[] _tp_score;
 
     private string _a;
     private int _temp_shokukan;
@@ -190,12 +195,22 @@ public class Quest_Judge : MonoBehaviour {
     private int bitter_result;
     private int sour_result;
 
+    private int sweat_level;
+    private int bitter_level;
+    private int sour_level;
+
+    private string _sweat_kansou;
+    private string _bitter_kansou;
+    private string _sour_kansou;
+
     private string debug_money_text;
 
     //カメラ関連
     private Camera main_cam;
     private Animator maincam_animator;
     private int trans; //トランジション用のパラメータ
+
+    private GameObject WhiteFadeCanvas;
 
     //時間
     private float timeOut;
@@ -207,9 +222,16 @@ public class Quest_Judge : MonoBehaviour {
     private GameObject character;
 
     private GameObject questResultPanel;
-    private bool endresultbutton;
+    private GameObject questResultPanel2;
+    
     private Transform questResultPanel_tsukatext_pos;
     private Vector3 questResultPanel_tsukatext_defpos;
+
+    private Transform questResultPanel_tsukatext_pos2;
+    private Vector3 questResultPanel_tsukatext_defpos2;
+    private Text HintText; //お客さんからの感想テキスト表示
+
+    private bool endresultbutton;
 
     private int keta;
     private bool slot_ok;
@@ -223,7 +245,10 @@ public class Quest_Judge : MonoBehaviour {
         //カメラの取得
         main_cam = Camera.main;
         maincam_animator = main_cam.GetComponent<Animator>();
-        trans = maincam_animator.GetInteger("trans"); 
+        trans = maincam_animator.GetInteger("trans");
+       
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -235,6 +260,14 @@ public class Quest_Judge : MonoBehaviour {
                 //名声パネルの取得
                 NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
                 ninkiStatus_Controller = NinkiStatus_Panel_obj.GetComponent<NinkiStatus_Controller>();
+
+                WhiteFadeCanvas = canvas.transform.Find("WhiteFadeCanvas").gameObject;
+
+                questResultPanel2 = canvas.transform.Find("QuestResultPanel2").gameObject;
+                questResultPanel2.SetActive(false);
+                HintText = questResultPanel2.transform.Find("QuestResultImage/HintText").GetComponent<Text>();
+                questResultPanel_tsukatext_pos2 = questResultPanel2.transform.Find("QuestResultImage/MoneyTsukaText").transform;
+                questResultPanel_tsukatext_defpos2 = questResultPanel_tsukatext_pos2.localPosition;
                 break;
 
             case "Shop":
@@ -306,6 +339,7 @@ public class Quest_Judge : MonoBehaviour {
         _basetp = new string[database.items[0].toppingtype.Length];
         _koyutp = new string[database.items[0].koyu_toppingtype.Length];
         _tp = new string[quest_database.questset[0].Quest_topping.Length];
+        _tp_score = new int[quest_database.questset[0].Quest_tp_score.Length];
 
         InitializeItemSlotDicts();
 
@@ -316,9 +350,14 @@ public class Quest_Judge : MonoBehaviour {
         //クエストリザルトパネル
         questResultPanel = canvas.transform.Find("QuestResultPanel").gameObject;
         questResultPanel.SetActive(false);
-        endresultbutton = false;
+        
+
         questResultPanel_tsukatext_pos = questResultPanel.transform.Find("QuestResultImage/MoneyTsukaText").transform;
         questResultPanel_tsukatext_defpos = questResultPanel_tsukatext_pos.localPosition;
+
+        
+        endresultbutton = false;
+        mute_on = false;
     }
 
     // Update is called once per frame
@@ -374,15 +413,39 @@ public class Quest_Judge : MonoBehaviour {
 
                     if (timeOut <= 0.0)
                     {
-                        timeOut = 1.0f;
-                        judge_anim_status = 3;
+                        timeOut = 1.5f;
+                        if (nouhinOK_status == 0)
+                        {
+                            judge_anim_status = 3;
+
+                            //白でフェード
+                            WhiteFadeCanvas.SetActive(true);
+                            WhiteFadeCanvas.GetComponent<CanvasGroup>().alpha = 0;
+                            WhiteFadeCanvas.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+
+                            sceneBGM.FadeOutBGM();
+                        }
+                        else
+                        {
+                            judge_anim_status = 4;
+                        }
 
                         //eat_hukidashitext.text = ". .";
 
                     }
                     break;
 
-                case 3: //アニメ終了。判定する
+                case 3:
+                   
+                    if (timeOut <= 0.0)
+                    {
+                        timeOut = 1.5f;
+                        judge_anim_status = 4;
+
+                    }
+                    break;
+
+                case 4: //アニメ終了。判定する
 
                     MoneyStatus_Panel_obj.SetActive(true);
                     //text_area.SetActive(true);
@@ -542,6 +605,7 @@ public class Quest_Judge : MonoBehaviour {
          
     }
 
+    /*
     IEnumerator Okashi_Judge_Anim1()
     {
         judge_anim_on = true;
@@ -560,7 +624,7 @@ public class Quest_Judge : MonoBehaviour {
         else
         {
         }
-    }
+    }*/
 
     void Result_Okashi_Judge1()
     {
@@ -679,6 +743,9 @@ public class Quest_Judge : MonoBehaviour {
             jiggly_score = 0;
             chewy_score = 0;
 
+            _a = "";
+            HintText.text = "";
+
             //①指定のトッピングがあるかをチェック。一つでも指定のものがあれば、OK
 
             nouhinOK_status = 2; //先にNGはたてておく。
@@ -715,6 +782,8 @@ public class Quest_Judge : MonoBehaviour {
                             {
                                 nouhinOK_status = 0;
                                 slot_ok = true;
+
+                                //クエストのトッピングスコアをここで追加
                                 break;
                             }
                         }
@@ -750,11 +819,13 @@ public class Quest_Judge : MonoBehaviour {
             //rich_score = girlEat_judge.TasteKeisanBase(_rich, rich_result, "味のコク: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
 
             sweat_score = girlEat_judge.TasteKeisanBase(_sweat, sweat_result, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
+            sweat_level = girlEat_judge.TasteLevel_Keisan(_sweat, sweat_score);
 
             bitter_score = girlEat_judge.TasteKeisanBase(_bitter, bitter_result, "苦み: ");
+            bitter_level = girlEat_judge.TasteLevel_Keisan(_bitter, bitter_score);
 
             sour_score = girlEat_judge.TasteKeisanBase(_sour, sour_result, "酸味: ");
-
+            sour_level = girlEat_judge.TasteLevel_Keisan(_sour, sour_score);
 
             //書き方が少し違うけど、GirlEat_Judgeでやってることとほぼ一緒
             if (_crispy > 0)
@@ -767,6 +838,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     crispy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    _a = "さくさく感がいい感じだわ";
                 }
                 else
                 {
@@ -774,7 +846,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     crispy_score = (int)(_basescore * _temp_ratio);
-                    _a = "さくさくした感じがちょっと足りないみたい。";
+                    _a = "さくさく感がちょっと足りない。";
                 }
             }
 
@@ -788,6 +860,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     fluffy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    _a = "ふんわり感がいい感じだわ";
                 }
                 else
                 {
@@ -795,7 +868,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     fluffy_score = (int)(_basescore * _temp_ratio);
-                    _a = "ふんわり感がちょっと足りないみたい。";
+                    _a = "ふんわり感がちょっと足りない。";
                 }
             }
 
@@ -809,6 +882,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     smooth_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    _a = "なめらかさはいい感じだわ";
                 }
                 else
                 {
@@ -816,7 +890,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     smooth_score = (int)(_basescore * _temp_ratio);
-                    _a = "なめらかな感じがちょっと足りないみたい。";
+                    _a = "なめらかな感じがちょっと足りない。";
                 }
 
             }
@@ -831,6 +905,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     hardness_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    _a = "歯ごたえがいい感じだわ";
                 }
                 else
                 {
@@ -838,7 +913,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     hardness_score = (int)(_basescore * _temp_ratio);
-                    _a = "歯ごたえがちょっと足りないみたい。";
+                    _a = "歯ごたえがちょっと足りない。";
                 }
             }
 
@@ -852,6 +927,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     jiggly_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    _a = "さくさく感がいい感じだわ";
                 }
                 else
                 {
@@ -859,7 +935,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     jiggly_score = (int)(_basescore * _temp_ratio);
-                    _a = "ぷにぷに感がちょっと足りないみたい。";
+                    _a = "ぷにぷに感がちょっと足りない。";
                 }
             }
 
@@ -873,6 +949,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     chewy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    _a = "さくさく感がいい感じだわ";
                 }
                 else
                 {
@@ -880,7 +957,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     chewy_score = (int)(_basescore * _temp_ratio);
-                    _a = "噛みごたえがちょっと足りないみたい。";
+                    _a = "噛みごたえがちょっと足りない。";
                 }
             }
 
@@ -901,7 +978,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     juice_score = (int)(_basescore * _temp_ratio);
-                    _a = "のどごしがちょっと足りないみたい。";
+                    _a = "のどごしがちょっと足りない。";
                 }
             }
 
@@ -934,7 +1011,7 @@ public class Quest_Judge : MonoBehaviour {
                 nouhinOK_status = 1;
             }
 
-            //④トッピングスロットをみて、スコアを加算する。
+            //④トッピングスロットをみて、スコアを加算する。アイテムについているスロットの点数を加算する。
             for (i = 0; i < itemslot_PitemScore.Count; i++)
             {
                 //0はNonなので、無視
@@ -949,7 +1026,20 @@ public class Quest_Judge : MonoBehaviour {
                 }
             }
 
-            
+            //クエストによっては、トッピングによって、さらに追加得点。
+            for (i = 0; i < itemslot_NouhinScore.Count;  i++)
+            {
+                //0はNonなので、無視
+                if (i != 0)
+                {
+                    //納品スコアより、生成したアイテムのスロットのスコアが大きい場合は、正解
+                    if (itemslot_PitemScore[i] >= itemslot_NouhinScore[i])
+                    {
+                        topping_score += itemslot_NouhinAddPoint[i] * itemslot_PitemScore[i];
+                    }
+                }
+            }
+
             //⑤油っこいなどのマイナスの値がついてた場合、マイナス補正
             if (_basepowdery > 50)
             {
@@ -1033,7 +1123,8 @@ public class Quest_Judge : MonoBehaviour {
 
         if(okashi_totalscore <= 0) //0点以下でも、無条件でダメ
         {
-            nouhinOK_status = 2;
+            okashi_totalscore = 0;
+            //nouhinOK_status = 2;
         }
 
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
@@ -1095,7 +1186,7 @@ public class Quest_Judge : MonoBehaviour {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.2f);
                     debug_money_text = "(基準値 * 1.2f)";
                     _getNinki = 2;
-                    _kanso = "ありがとう！　お客さん、大喜びだったわ！";
+                    _kanso = "ありがとう！　お客さん、大喜びだったわ！";                    
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 100) //85~100
                 {
@@ -1148,16 +1239,50 @@ public class Quest_Judge : MonoBehaviour {
                 //該当のクエストを削除
                 quest_database.questTakeset.RemoveAt(_qitemID);
 
-                //ジャキーンみたいな音を鳴らす。                
-                //sc.PlaySe(4);
-                sc.PlaySe(76);
-                sc.PlaySe(31);
+                
+
+                //75点以下は通常音
+                if (okashi_totalscore < 75)
+                {
+                    //ジャキーンみたいな音を鳴らす。                
+                    //sc.PlaySe(4);
+                    sc.PlaySe(76);
+                    sc.PlaySe(31);
+                    sceneBGM.FadeInBGM();
+                }
+                else if (okashi_totalscore >= 75 && okashi_totalscore < 100) //75点以上のときは、ファンファーレ
+                {
+                    sc.PlaySe(88);
+                    sc.PlaySe(43);
+                    sceneBGM.FadeInBGM();
+                }
+                else if (okashi_totalscore >= 100 && okashi_totalscore < 200)
+                {
+                    sc.PlaySe(78);
+                    sc.PlaySe(88);
+                    sc.PlaySe(43);
+                    sceneBGM.FadeInBGM();
+                }
+                else if (okashi_totalscore >= 200)
+                {
+                    sc.PlaySe(78);
+                    sceneBGM.PlayFanfare1();
+                    sceneBGM.NowFadeVolumeONBGM();
+                    mute_on = true;
+                }
+                else
+                {
+                    sceneBGM.FadeInBGM();
+                }
 
                 //クエストリザルト画面をだす。
-                questResultPanel.SetActive(true);
-                questResultPanel.transform.Find("QuestResultImage/GetMoneyParam").GetComponent<Text>().text = _getMoney.ToString();
+                questResultPanel2.SetActive(true);
+                questResultPanel2.transform.Find("QuestResultImage/GetMoneyParam").GetComponent<Text>().text = _getMoney.ToString();
                 keta = Digit(_getMoney);
-                questResultPanel_tsukatext_pos.DOLocalMove(new Vector3(20f* (keta-1), 0f, 0), 0.0f).SetRelative();
+                questResultPanel_tsukatext_pos2.DOLocalMove(new Vector3(20f* (keta-1), 0f, 0), 0.0f).SetRelative();
+
+                //感想もいれる。
+                SetHintText();
 
                 StartCoroutine("EndQuestResultButton");
 
@@ -1169,9 +1294,9 @@ public class Quest_Judge : MonoBehaviour {
 
                 sc.PlaySe(6);
 
-                _getMoney = (int)(_buy_price * _kosu_default * 0.1f);
+                _getMoney = (int)(_buy_price * _kosu_default * 0.03f);
                 _text.text = "ごめんなさい。ちょっとお菓子が違ってたみたい。" + "\n" + "次はちゃんと正しいものを持ってきてね。" + "\n" +
-                    "　報酬 " + GameMgr.ColorYellow + _getMoney + GameMgr.MoneyCurrency + "　</color>" + "を受け取った！";
+                    "お駄賃 " + GameMgr.ColorYellow + _getMoney + GameMgr.MoneyCurrency + "　</color>" + "を受け取った！";
 
                 Debug.Log("納品失敗..");
 
@@ -1184,10 +1309,13 @@ public class Quest_Judge : MonoBehaviour {
                 //名声値は減る
                 //ninkiStatus_Controller.DegNinki(3); //アニメつき
 
+                WhiteFadeCanvas.SetActive(false);
+                //sceneBGM.FadeInBGM();
+
                 ResetQuestStatus();
                 break;
 
-            case 2: //0点以下の場合
+            /*case 2: //0点以下の場合
 
                 sc.PlaySe(6);
 
@@ -1210,8 +1338,11 @@ public class Quest_Judge : MonoBehaviour {
                 //該当のクエストを削除
                 quest_database.questTakeset.RemoveAt(_qitemID);
 
+                WhiteFadeCanvas.SetActive(false);
+                sceneBGM.FadeInBGM();
+
                 ResetQuestStatus();
-                break;
+                break;*/
         }
         
     }
@@ -1224,9 +1355,11 @@ public class Quest_Judge : MonoBehaviour {
 
         endresultbutton = true;
         questResultPanel.SetActive(false);
+        questResultPanel2.SetActive(false);
 
         //通貨のテキスト位置を元に戻しておく
         questResultPanel_tsukatext_pos.localPosition = questResultPanel_tsukatext_defpos;
+        questResultPanel_tsukatext_pos2.localPosition = questResultPanel_tsukatext_defpos2;
     }
 
     IEnumerator EndQuestResultButton()
@@ -1271,6 +1404,14 @@ public class Quest_Judge : MonoBehaviour {
 
         back_ShopFirst_btn.interactable = true;
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        if(mute_on)
+        {
+            mute_on = false;
+            sceneBGM.StopFanfare();
+            sceneBGM.PlaySub();
+            sceneBGM.FadeInBGM();
+        }
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -1362,6 +1503,7 @@ public class Quest_Judge : MonoBehaviour {
         for (i = 0; i < _tp.Length; i++)
         {
             _tp[i] = quest_database.questTakeset[_count].Quest_topping[i];
+            _tp_score[i] = quest_database.questTakeset[_count].Quest_tp_score[i];
         }
 
 
@@ -1369,6 +1511,7 @@ public class Quest_Judge : MonoBehaviour {
         for (i = 0; i < itemslot_NouhinScore.Count; i++)
         {
             itemslot_NouhinScore[i] = 0;
+            itemslot_NouhinAddPoint[i] = 0;
         }
 
         //トッピングスロットをみて、一致する効果があれば、所持数+1
@@ -1383,6 +1526,7 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     //Debug.Log(key);
                     itemslot_NouhinScore[count]++;
+                    itemslot_NouhinAddPoint[count] = _tp_score[i];
                 }
                 count++;
             }
@@ -1540,8 +1684,238 @@ public class Quest_Judge : MonoBehaviour {
         for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
         {
             itemslotInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
-            itemslot_NouhinScore.Add(0); //納品アイテムの必要スロットパラメータ
-            itemslot_PitemScore.Add(0); //選択したアイテムのスロットパラメータ
+            itemslot_NouhinScore.Add(0); //納品アイテムの必要スロット所持数
+            itemslot_NouhinAddPoint.Add(0); //スロット追加点
+            itemslot_PitemScore.Add(0); //選択したアイテムのスロット所持数
+        }
+    }
+
+    void SetHintText()
+    {
+
+        //ヒントを表示する。０のものは、判定なしなので、表示もしない。
+
+        if (sweat_level != 0)
+        {
+            SweatHintHyouji();
+        }
+
+        if (bitter_level != 0)
+        {
+            BitterHintHyouji();
+        }
+        if (sour_level != 0)
+        {
+            SourHintHyouji();
+        }
+
+        HintText.text = _a + _sweat_kansou + _bitter_kansou + _sour_kansou;
+    }
+
+    void SweatHintHyouji()
+    {
+        //甘さがどの程度好みにあっていたかを、感想でいう。８はピッタリパーフェクト。
+        if (sweat_level == 8)
+        {
+            _sweat_kansou = "甘さ S: 神の甘さ！ パーフェクト！！";
+        }
+        else if (sweat_level == 7)
+        {
+            _sweat_kansou = "甘さ A+: 絶妙な甘さ！";
+        }
+        else if (sweat_level == 6)
+        {
+            _sweat_kansou = "甘さ A: 甘さ、ほどよくよい具合！";
+        }
+        else if (sweat_level == 5)
+        {
+            _sweat_kansou = "甘さ B: まあまあの甘さ";
+        }
+        else if (sweat_level == 4)
+        {
+            if (sweat_result < 0)
+            {
+                _sweat_kansou = "甘さ C: 甘さがちょっと足りない";
+            }
+            else
+            {
+                _sweat_kansou = "甘さ C: 少し甘いかも？";
+            }
+        }
+        else if (sweat_level == 3)
+        {
+            if (sweat_result < 0)
+            {
+                _sweat_kansou = "甘さ D: 甘さが足りない";
+            }
+            else
+            {
+                _sweat_kansou = "甘さ D: 甘さがちょっと強すぎ";
+            }
+        }
+        else if (sweat_level >= 1 && sweat_level <= 2)
+        {
+            if (sweat_result < 0)
+            {
+                _sweat_kansou = GameMgr.ColorRedDeep + "甘さ F: 甘さが全然足りない" + "</color>";
+            }
+            else
+            {
+                _sweat_kansou = GameMgr.ColorRedDeep + "甘さ F: 甘すぎ" + "</color>";
+            }
+        }
+        else
+        {
+            _sweat_kansou = "";
+        }
+
+        if (sweat_level != 0)
+        {
+            _sweat_kansou = "\n" + _sweat_kansou;
+        }
+        else
+        {
+
+        }
+    }
+
+    void BitterHintHyouji()
+    {
+        //苦さがどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
+        if (bitter_level == 8)
+        {
+            _bitter_kansou = "苦さ S: 神の苦さ！ パーフェクト！！";
+        }
+        else if (bitter_level == 7)
+        {
+            _bitter_kansou = "苦さ A+: 絶妙な苦さ！";
+        }
+        else if (bitter_level == 6)
+        {
+            _bitter_kansou = "苦さ A: 苦さ、ほどよくいい具合！";
+        }
+        else if (bitter_level == 5)
+        {
+            _bitter_kansou = "苦さ B: まあまあの苦さ";
+        }
+        else if (bitter_level == 4)
+        {
+            if (bitter_result < 0)
+            {
+                _bitter_kansou = "苦さ C: 苦さがちょっと足りない";
+            }
+            else
+            {
+                _bitter_kansou = "苦さ C: 少し苦いかも？";
+            }
+
+        }
+        else if (bitter_level == 3)
+        {
+            if (bitter_result < 0)
+            {
+                _bitter_kansou = "苦さ D:苦さが足りない";
+            }
+            else
+            {
+                _bitter_kansou = "苦さ D: 苦みが少し強すぎかも。";
+            }
+
+        }
+        else if (bitter_level >= 1 && bitter_level <= 2)
+        {
+            if (bitter_result < 0)
+            {
+                _bitter_kansou = GameMgr.ColorRedDeep + "苦さ F: 苦さが全然足りない" + "</color>";
+            }
+            else
+            {
+                _bitter_kansou = GameMgr.ColorRedDeep + "苦さ F: 苦すぎ..。" + "</color>";
+            }
+
+        }
+        else
+        {
+            _bitter_kansou = "";
+        }
+
+        if (bitter_level != 0)
+        {
+            _bitter_kansou = "\n" + _bitter_kansou;
+        }
+        else
+        {
+
+        }
+    }
+
+    void SourHintHyouji()
+    {
+        //酸味がどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
+        if (sour_level == 8)
+        {
+            _sour_kansou = "酸味 S: 神のすっぱさ！ パーフェクト！！";
+        }
+        else if (sour_level == 7)
+        {
+            _sour_kansou = "酸味 A+: 絶妙なすっぱさ！";
+        }
+        else if (sour_level == 6)
+        {
+            _sour_kansou = "酸味 A: すっぱさ、ほどよくいい具合！";
+        }
+        else if (sour_level == 5)
+        {
+            _sour_kansou = "酸味 B: まあまあのすっぱさ";
+        }
+        else if (sour_level == 4)
+        {
+            if (sour_result < 0)
+            {
+                _sour_kansou = "酸味 C: すっぱさちょっと足りない";
+            }
+            else
+            {
+                _sour_kansou = "酸味 C: 少しすっぱいかも？";
+            }
+
+        }
+        else if (sour_level == 3)
+        {
+            if (sour_result < 0)
+            {
+                _sour_kansou = "酸味 D: すっぱさが足りない";
+            }
+            else
+            {
+                _sour_kansou = "酸味 D: 少しすっぱ過ぎる？";
+            }
+
+        }
+        else if (sour_level >= 1 && sour_level <= 2)
+        {
+            if (sour_result < 0)
+            {
+                _sour_kansou = GameMgr.ColorRedDeep + "酸味 F: 全然すっぱさがない" + "</color>";
+            }
+            else
+            {
+                _sour_kansou = GameMgr.ColorRedDeep + "酸味 F: すっぺぇ..。" + "</color>";
+            }
+
+        }
+        else
+        {
+            _sour_kansou = "";
+        }
+
+        if (sour_level != 0)
+        {
+            _sour_kansou = "\n" + _sour_kansou;
+        }
+        else
+        {
+
         }
     }
 

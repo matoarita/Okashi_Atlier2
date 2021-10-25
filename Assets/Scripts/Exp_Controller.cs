@@ -616,6 +616,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _id2 = database.SearchItemIDString("egg_yellow");
                 card_view.ResultCard_DrawView2(0, _id1, _id2);
             }
+            if (databaseCompo.compoitems[result_ID].cmpitem_Name == "egg_split_premiaum")
+            {
+                _id1 = database.SearchItemIDString("egg_premiaum_white");
+                _id2 = database.SearchItemIDString("egg_premiaum_yellow");
+                card_view.ResultCard_DrawView2(0, _id1, _id2);
+            }
         }
     }
 
@@ -1251,7 +1257,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 timeOut = 2.0f;
                 compo_anim_status = 1;
 
-                _text.text = "調合中 .";
+                _text.text = "ガシャ .";
                 break;
 
             case 1: // 状態2
@@ -1261,7 +1267,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     timeOut = 1.0f;
                     compo_anim_status = 2;
 
-                    _text.text = "調合中 . .";
+                    _text.text = "ガシャ　ガシャ . .";
                 }
                 break;
 
@@ -1287,7 +1293,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         //音を鳴らす
                         sc.PlaySe(89);
 
-                        _text.text = "調合中 . . . ";
+                        _text.text = "ガシャ　ガシャ . . . ";
                     }
                     else
                     {
@@ -1306,7 +1312,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     timeOut = 2.0f;
                     compo_anim_status = 4;
 
-                    _text.text = "調合中 . . . . ";
+                    _text.text = "ガシャ　ガシャ　ガシャ . . . . ";
                 }
                 break;
 
@@ -1443,14 +1449,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
-                " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+                " が" + result_kosu + "個 できたよ！" + "\n" + _ex_text +
                 "パティシエ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
-                " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+                " が" + result_kosu + "個 できたよ！" + "\n" + _ex_text +
                 "パティシエ経験値は上がらなかった。";
         }
 
@@ -1466,7 +1472,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
             pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
-            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+            " が" + result_kosu + "個 できたよ！" + "\n" + _ex_text +
             "パティシエ経験値 " + _getexp + "上がった！";
         }
         else
@@ -1474,7 +1480,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + 
             pitemlist.player_originalitemlist[new_item].itemNameHyouji +
-            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
+            " が" + result_kosu + "個 できたよ！" + "\n" + _ex_text +
             "パティシエ経験値は上がらなかった。"; ;
         }
 

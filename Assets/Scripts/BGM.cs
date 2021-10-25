@@ -364,6 +364,19 @@ public class BGM : MonoBehaviour {
         });
     }
 
+    //バーで使う用
+    public void PlayFanfare1()
+    {
+        _bgm[0].Stop();
+        _bgm[1].clip = sound2;
+        _bgm[1].Play();
+    }
+
+    public void StopFanfare()
+    {
+        _bgm[1].Stop();
+    }
+
     public void MuteBGM()
     {
         //Debug.Log("Mute BGM");

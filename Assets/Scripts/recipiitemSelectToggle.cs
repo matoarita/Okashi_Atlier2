@@ -253,10 +253,10 @@ public class recipiitemSelectToggle : MonoBehaviour
 
             //調合判定を行うかどうか
             exp_Controller._success_judge_flag = 1; //判定処理を行う。
-            _success_rate = compound_Check.Kakuritsu_Keisan(compo_itemID);                
+            //_success_rate = compound_Check.Kakuritsu_Keisan(compo_itemID);                
 
-            exp_Controller._success_rate = _success_rate;
-            kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+            //exp_Controller._success_rate = _success_rate;
+            //kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
 
             StartCoroutine("recipiitemselect_kakunin"); //選択後、個数も選ぶ
         }    

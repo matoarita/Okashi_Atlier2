@@ -315,4 +315,30 @@ public class ShopQuestListController : MonoBehaviour
         NouhinList_DrawView();
         
     }
+
+    //デバッグ用　全てのクエストを表示する。
+    public void DebugQuestAllRequest()
+    {
+        for (i = 0; i < quest_database.questset.Count; i++)
+        {
+            if (quest_database.questset[i].QuestHyouji != 9999)
+            {
+                quest_database.RandomNewSetInit(i);
+            }
+
+        }
+
+        for (i = 0; i < quest_database.questset2.Count; i++) //こっちはパティシエレベルに応じて追加されるクエスト
+        {
+            if (quest_database.questset2[i].QuestHyouji != 9999)
+            {
+                quest_database.RandomNewSetInit2(i);
+            }
+        }
+
+        if (qlist_status == 0)
+        {
+            reset_and_DrawView();
+        }
+    }
 }

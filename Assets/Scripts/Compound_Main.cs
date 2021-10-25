@@ -617,10 +617,10 @@ public class Compound_Main : MonoBehaviour
         DefaultStartPitem();
 
         //各調合時のシステムメッセージ集
-        originai_text = "新しくお菓子を作るよ！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + 
+        originai_text = "新しくお菓子を作ろう！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + 
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
-        extreme_text = "仕上げをするよ！ 一個目の材料を選んでね。";
-        recipi_text = "おぼえたレシピから作るよ。何を作る？";
+        extreme_text = "仕上げをしよう！にいちゃん！ 一個目の材料を選んでね。";
+        recipi_text = "おぼえたレシピから作るよ。何作る？";
 
         //メインUIパネルの取得
         mainUI_panel_obj = canvas.transform.Find("MainUIPanel").gameObject;        
@@ -1254,6 +1254,7 @@ public class Compound_Main : MonoBehaviour
                 status_panel.SetActive(false);
                 okashihint_panel.SetActive(false);
                 recipiMemoButton.SetActive(false);
+                extreme_panel.SetInitParamExtreme(); //compo=0のタイミングで、毎回エクストリームパネルのアイテム削除を判定する。
 
                 WindowOn();                
                 select_original_button.interactable = true;
@@ -3411,13 +3412,13 @@ public class Compound_Main : MonoBehaviour
 
                     if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
                     {
-                        _textmain.text = GameMgr.ColorLemon + "左の「おかしパネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみよう。";
+                        _textmain.text = GameMgr.ColorLemon + "左の「おかしパネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみようね！　にいちゃん！";
                     }
                     else
                     {
                         if (!GameMgr.Beginner_flag[0]) //クッキーをまだあげていない
                         {
-                            _textmain.text = GameMgr.ColorLemon + "「あげる」" + "</color>" + "ボタンを押して、クッキーをあげてみよう！";
+                            _textmain.text = GameMgr.ColorLemon + "「あげる」" + "</color>" + "ボタンを押して、クッキーをちょうだい！";
                         }
                     }
                     break;
@@ -3426,7 +3427,7 @@ public class Compound_Main : MonoBehaviour
 
                     if (!GameMgr.MapEvent_01[0]) //まだ森にいったことがない場合
                     {
-                        _textmain.text = "どうしようかなぁ？" + "\n" + "（外へでて、むらさきのくだものを探してみよう。）";
+                        _textmain.text = "どうしようかなぁ？" + "\n" + "（外へでて、むらさきのくだものを探すんだっけ。）";
                     }
                     else
                     {
@@ -3438,7 +3439,7 @@ public class Compound_Main : MonoBehaviour
 
                     if (!GameMgr.Beginner_flag[1]) //ラスクのレシピをまだ読んだことが無い
                     {
-                        _textmain.text = "ラスクのレシピを読んでみよう。";
+                        _textmain.text = "ラスクのレシピを読もう！　にいちゃん！";
                     }
                     break;
             }
@@ -3647,7 +3648,7 @@ public class Compound_Main : MonoBehaviour
                     }
 
                     //ひまわり油
-                    /*if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
+                    if (check_CompoAfter_flag) //お菓子を作ったあとのフラグ. Exp_Controllerから読み出し。
                     {
                         if (GameMgr.GirlLoveSubEvent_stage1[41] == false && database.items[GameMgr.Okashi_makeID].itemName == "himawari_Oil")
                         {
@@ -3659,7 +3660,7 @@ public class Compound_Main : MonoBehaviour
                                 mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
                             }
                         }
-                    }*/
+                    }
 
                     if (check_CompoAfter_flag) //ドーナツをはじめて作った。
                     {
@@ -3686,7 +3687,7 @@ public class Compound_Main : MonoBehaviour
             { }
             else
             {
-                if (PlayerStatus.girl1_Love_lv >= 10 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
+                if (PlayerStatus.girl1_Love_lv >= 8 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
                 {
                     GameMgr.GirlLoveSubEvent_num = 60;
                     GameMgr.GirlLoveSubEvent_stage1[60] = true;

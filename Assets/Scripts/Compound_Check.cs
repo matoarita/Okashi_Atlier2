@@ -641,10 +641,12 @@ public class Compound_Check : MonoBehaviour {
 
     IEnumerator recipiFinal_select()
     {
-        _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "が" +
-            databaseCompo.compoitems[recipilistController.result_recipicompID].cmpitem_result_kosu * recipilistController.final_select_kosu + "個　出来ます。" + "\n" + "作る？";
-
         CompoundRecipiKyorikeisan(); //食材の距離計算も行う。
+
+        _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "が" +
+            databaseCompo.compoitems[recipilistController.result_recipicompID].cmpitem_result_kosu * recipilistController.final_select_kosu + 
+            "個　出来ます。" + "\n" + "作る？" + "\n" + "成功確率: " + _success_rate + "％";
+       
 
         while (yes_selectitem_kettei.onclick != true)
         {
@@ -883,6 +885,10 @@ public class Compound_Check : MonoBehaviour {
         {
             exp_Controller.DoubleItemCreated = 1;
         }
+        if (databaseCompo.compoitems[result_compoID].cmpitem_Name == "egg_split_premiaum")
+        {
+            exp_Controller.DoubleItemCreated = 1;
+        }
 
         //stringのリザルドアイテムを、アイテムIDに変換。
         i = 0;
@@ -1003,6 +1009,7 @@ public class Compound_Check : MonoBehaviour {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
         _itemSubtype_temp_result.Clear();
+        _ex_probabilty_temp = 1.0f;
 
         _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemName);
         _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem2].itemName);
@@ -1019,12 +1026,21 @@ public class Compound_Check : MonoBehaviour {
             _itemSubtype_temp_result.Add("empty");
             recipilistController.final_kettei_recipikosu3 = 9999; //個数にも9999=emptyを入れる。
             _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu3);
+
+            //アイテムごとの確率補正値を、先にここで計算
+            _ex_probabilty_temp = database.items[recipilistController.kettei_recipiitem1].Ex_Probability *
+            database.items[recipilistController.kettei_recipiitem2].Ex_Probability;
         }
         else
         {
             _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemName);
             _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemType_sub.ToString());
             _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu3);
+
+            //アイテムごとの確率補正値を、先にここで計算
+            _ex_probabilty_temp = database.items[recipilistController.kettei_recipiitem1].Ex_Probability *
+            database.items[recipilistController.kettei_recipiitem2].Ex_Probability *
+            database.items[recipilistController.kettei_recipiitem3].Ex_Probability;
         }
 
         //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     距離も計算される。

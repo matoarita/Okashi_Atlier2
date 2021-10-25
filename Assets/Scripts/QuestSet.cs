@@ -40,6 +40,7 @@ public class QuestSet
     public int Quest_beauty;
 
     public string[] Quest_topping = new string[5];
+    public int[] Quest_tp_score = new int[5];
 
     public string Quest_Title;
     public string Quest_desc;
@@ -49,7 +50,8 @@ public class QuestSet
     public QuestSet(int id, int _questID, int _questType, int _questHyouji, string fileName, string _itemname, string _itemsubtype, 
         int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, 
         int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
-        string tp01, string tp02, string tp03, string tp04, string tp05, string _title, string _setkansou)
+        string tp01, string tp02, string tp03, string tp04, string tp05, int tp_score_01, int tp_score_02, int tp_score_03, int tp_score_04, int tp_score_05,
+        string _title, string _setkansou)
     {
         _ID = id;
         Quest_ID = _questID;
@@ -86,6 +88,12 @@ public class QuestSet
         Quest_topping[2] = tp03;
         Quest_topping[3] = tp04;
         Quest_topping[4] = tp05;
+
+        Quest_tp_score[0] = tp_score_01;
+        Quest_tp_score[1] = tp_score_02;
+        Quest_tp_score[2] = tp_score_03;
+        Quest_tp_score[3] = tp_score_04;
+        Quest_tp_score[4] = tp_score_05;
 
         Quest_Title = _title;
         Quest_desc = _setkansou;

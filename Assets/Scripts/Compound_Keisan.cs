@@ -970,6 +970,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     pitemlist.addPlayerItemString("egg_white", result_kosu);
                     pitemlist.addPlayerItemString("egg_yellow", result_kosu);
                 }
+                if (databaseCompo.compoitems[result_ID].cmpitem_Name == "egg_split_premiaum")
+                {
+                    pitemlist.addPlayerItemString("egg_premiaum_white", result_kosu);
+                    pitemlist.addPlayerItemString("egg_premiaum_yellow", result_kosu);
+                }
             }
         }
         else if (_mstatus == 1) //予測の場合、アイテムの追加処理はいらない。

@@ -41,6 +41,12 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private string _tp04;
     private string _tp05;
 
+    private int _tp_score01;
+    private int _tp_score02;
+    private int _tp_score03;
+    private int _tp_score04;
+    private int _tp_score05;
+
     private string _title;
     private string _desc;
 
@@ -84,7 +90,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                 //ここでリストに追加している
                 questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-                    _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
+                    _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc));
 
                 //Debug.Log("QuestID: " + questset[count].Quest_ID);
 
@@ -106,7 +112,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                 //ここでリストに追加している
                 questset2.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-                    _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
+                    _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc));
 
                 //Debug.Log("QuestID: " + questset[count].Quest_ID);
 
@@ -158,6 +164,12 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp04 = excel_questset_database.sheets[sheet_no].list[count].topping04;
         _tp05 = excel_questset_database.sheets[sheet_no].list[count].topping05;
 
+        _tp_score01 = excel_questset_database.sheets[sheet_no].list[count].tp_score1;
+        _tp_score02 = excel_questset_database.sheets[sheet_no].list[count].tp_score2;
+        _tp_score03 = excel_questset_database.sheets[sheet_no].list[count].tp_score3;
+        _tp_score04 = excel_questset_database.sheets[sheet_no].list[count].tp_score4;
+        _tp_score05 = excel_questset_database.sheets[sheet_no].list[count].tp_score5;
+
         _title = excel_questset_database.sheets[sheet_no].list[count].quest_Title;
         _desc = excel_questset_database.sheets[sheet_no].list[count].desc;
     }
@@ -193,6 +205,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _chewy = questset[count].Quest_chewy;
 
         _juice = questset[count].Quest_juice;
+        _beauty = questset[count].Quest_beauty;
 
         _tp01 = questset[count].Quest_topping[0];
         _tp02 = questset[count].Quest_topping[1];
@@ -200,13 +213,19 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp04 = questset[count].Quest_topping[3];
         _tp05 = questset[count].Quest_topping[4];
 
+        _tp_score01 = questset[count].Quest_tp_score[0];
+        _tp_score02 = questset[count].Quest_tp_score[1];
+        _tp_score03 = questset[count].Quest_tp_score[2];
+        _tp_score04 = questset[count].Quest_tp_score[3];
+        _tp_score05 = questset[count].Quest_tp_score[4];
+
         _title = questset[count].Quest_Title;
         _desc = questset[count].Quest_desc;
 
         //ここでリストに追加している
         questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-            _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc));
     }
 
     public void RandomNewSetInit2(int count)
@@ -240,6 +259,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _chewy = questset2[count].Quest_chewy;
 
         _juice = questset2[count].Quest_juice;
+        _beauty = questset2[count].Quest_beauty;
 
         _tp01 = questset2[count].Quest_topping[0];
         _tp02 = questset2[count].Quest_topping[1];
@@ -247,13 +267,19 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp04 = questset2[count].Quest_topping[3];
         _tp05 = questset2[count].Quest_topping[4];
 
+        _tp_score01 = questset2[count].Quest_tp_score[0];
+        _tp_score02 = questset2[count].Quest_tp_score[1];
+        _tp_score03 = questset2[count].Quest_tp_score[2];
+        _tp_score04 = questset2[count].Quest_tp_score[3];
+        _tp_score05 = questset2[count].Quest_tp_score[4];
+
         _title = questset2[count].Quest_Title;
         _desc = questset2[count].Quest_desc;
 
         //ここでリストに追加している
         questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-            _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc));
     }
 
     public void QuestTakeSetInit(int count)
@@ -287,6 +313,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _chewy = questRandomset[count].Quest_chewy;
 
         _juice = questRandomset[count].Quest_juice;
+        _beauty = questRandomset[count].Quest_beauty;
 
         _tp01 = questRandomset[count].Quest_topping[0];
         _tp02 = questRandomset[count].Quest_topping[1];
@@ -294,12 +321,18 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp04 = questRandomset[count].Quest_topping[3];
         _tp05 = questRandomset[count].Quest_topping[4];
 
+        _tp_score01 = questRandomset[count].Quest_tp_score[0];
+        _tp_score02 = questRandomset[count].Quest_tp_score[1];
+        _tp_score03 = questRandomset[count].Quest_tp_score[2];
+        _tp_score04 = questRandomset[count].Quest_tp_score[3];
+        _tp_score05 = questRandomset[count].Quest_tp_score[4];
+
         _title = questRandomset[count].Quest_Title;
         _desc = questRandomset[count].Quest_desc;
 
         //ここでリストに追加している
         questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-            _tp01, _tp02, _tp03, _tp04, _tp05, _title, _desc));
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc));
     }
 }

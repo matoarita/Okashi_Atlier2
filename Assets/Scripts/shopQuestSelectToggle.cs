@@ -21,6 +21,8 @@ public class shopQuestSelectToggle : MonoBehaviour
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
+    private Text _coin_cullency; //通貨　GameMgrで決めたものを自動で入力する
+
     private GameObject questjudge_obj;
     private Quest_Judge questjudge;
 
@@ -160,6 +162,9 @@ public class shopQuestSelectToggle : MonoBehaviour
 
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
+
+        _coin_cullency = this.transform.Find("Background/Quest_money").GetComponent<Text>();
+        _coin_cullency.text = GameMgr.MoneyCurrencyEn;
 
         i = 0;
 

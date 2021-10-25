@@ -17,6 +17,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject selectitem_kettei_obj;
+    private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
+
     private Shop_Main shop_Main;
     private Bar_Main bar_Main;
 
@@ -195,6 +198,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");      
+
+        selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+        yes_selectitem_kettei.onclick = false;
 
         yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;
@@ -479,7 +486,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
                                         database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
                                         database.items[i].itemType_sub.ToString() == "Crepe_Mat" || database.items[i].itemType_sub.ToString() == "Castella" ||
-                                        database.items[i].itemType_sub.ToString() == "Source")
+                                        database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Juice" ||
+                                        database.items[i].itemType_sub.ToString() == "Cake_Mat")
                                     {
                                         itemlist_hyouji();
                                     }
@@ -643,7 +651,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
                                     pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
                                     pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Castella" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source")
+                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Juice" ||
+                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cake_Mat")
                                 {
                                     original_itemlist_hyouji();
                                 }

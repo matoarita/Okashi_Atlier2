@@ -333,7 +333,6 @@ public class Utage_scenario : MonoBehaviour
                 if (GameMgr.okashiafter_flag == true)
                 {
                     GameMgr.okashiafter_flag = false;
-                    sp_Okashi_ID = GameMgr.okashiafter_ID;
 
                     //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
                     StartCoroutine(OkashiAfterComment_Hyouji());
@@ -1737,7 +1736,7 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("SpOkashiAfter_num", sp_Okashi_ID);
+        engine.Param.TrySetParameter("SpOkashiAfter_num", GameMgr.okashiafter_ID);
 
         //Debug.Log("GameMgr.Okashi_totalscore: " + GameMgr.Okashi_totalscore);
 

@@ -21,7 +21,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init()
     {
-        Debug.unityLogger.logEnabled = false; // ←ログを止める
+        Debug.unityLogger.logEnabled = true; // ←falseでログを止める
     }
 
 

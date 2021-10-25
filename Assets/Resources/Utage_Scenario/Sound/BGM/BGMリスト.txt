@@ -58,3 +58,5 @@
 ・BGM_56		audiostock_199704			タイトルBGM
 ・BGM_57		audiostock_12893			【宴用】ピクニックのBGM
 ・BGM_58		PerituneMaterial_Music-box_Gentle2	ゲームオーバーのBGM
+・BGM_59		audiostock_3614_sample			クエストファンファーレのジングル
+・BGM_60		fjordnosundakaze			図書室のBGM

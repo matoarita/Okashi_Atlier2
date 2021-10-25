@@ -78,8 +78,13 @@ public class Entity_QuestSetDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(25); p.topping03 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(26); p.topping04 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(27); p.topping05 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(28); p.quest_Title = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(29); p.desc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(28); p.tp_score1 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(29); p.tp_score2 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(30); p.tp_score3 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(31); p.tp_score4 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(32); p.tp_score5 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(33); p.quest_Title = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(34); p.desc = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

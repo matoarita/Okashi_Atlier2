@@ -252,6 +252,10 @@ public class ExtremePanel : MonoBehaviour {
 
             Extreme_Hyouji();
         }
+        else
+        {
+            deleteExtreme_Item();
+        }
     }
 
     public void SetExtremeItem( int item_id, int itemtype )

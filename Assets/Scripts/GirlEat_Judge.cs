@@ -492,6 +492,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 //好感度レベルアップ時の演出パネル取得
                 lvuppanel_Prefab = (GameObject)Resources.Load("Prefabs/GirlLoveLevelUpPanel");
+                _listlvup_obj.Clear();
 
                 //お菓子採点結果表示用パネルの取得
                 ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
@@ -516,8 +517,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 Getlove_exp = 0;
                 GetMoney = 0;
-
-
+               
                 stage_levelTable.Clear();
 
                 //GirlExpバーの最大値の設定。テーブルの初期設定はGirl1_statusで行っている。ここではそれをもとにコピーしてるだけ。
@@ -1649,7 +1649,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
-    int TasteLevel_Keisan(int _girltaste, int _tast_score)
+    public int TasteLevel_Keisan(int _girltaste, int _tast_score)
     {
         if (_girltaste == 0)
         {
@@ -3712,7 +3712,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         ShokukanHintHyouji();
 
-        //60点以下かつクエストクリアの条件を満たしていない場合、
+        //クエストクリアの条件を満たしていない場合、
         //そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
         _temp_spkansou = "";
         _special_kansou = "";
@@ -3721,180 +3721,213 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         no_hint = true; //デフォルトでは、ヒントを出さない。
         tpcheck_utagebunki = 0;
 
+        //トッピングがのってないときのヒント Excelにデフォルトのヒントがある。このスクリプトで直接入力してもOK。ヒント必要ない場合は、後述のスクリプトで空になる。
+        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+        {
+            if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+            {
+                _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
+            }
+        }
+        _special_kansou = _temp_spkansou;
+
         if (!non_spquest_flag)
         {
-
-            if (total_score < GameMgr.low_score)
+            //条件判定
+            switch (girl1_status.OkashiQuest_ID)
             {
-                //トッピングがのってないときのヒント Excelにデフォルトのヒントがある。このスクリプトで直接入力してもOK。
-                for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
-                {
-                    if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+                case 1020: //クッキー１　クッキーまでは合っているが、かわいいトッピングがのってないとき
+
+                    if (total_score < GameMgr.low_score) //60点以下だった
                     {
-                        _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
-                    }
-                }
-                _special_kansou = _temp_spkansou;
-
-                
-                //条件判定
-                switch (girl1_status.OkashiQuest_ID)
-                {
-                    case 1020: //クッキー１　かわいいトッピングがのってないとき
-
                         if (topping_all_non && !topping_flag) //好みのトッピングはある(toppingu_all_non=true)が、一つものってなかった場合(topping_flag=false)だった
-                        {
-                            no_hint = false;
-                        }
-                        else
-                        {
-                            //ヒントはなし
-                        }
-                        break;
-
-                    case 1110: //ラスク２　すっぱいトッピングがのってないとき
-
-                        if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
-                        {
-                            no_hint = false;
-                        }
-                        else
-                        {
-                            //ヒントはなし
-                        }
-                        break;
-
-                    case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
-
-                        //特定のトッピングスロットをみる
-                        tpcheck_slot = "WhipeedCream";
-                        ToppingCheck();
-
-                        if (tpcheck) //ホイップがちゃんとのっていた。
-                        {
-                            //ヒントはなし
-                        }
-                        else
                         {
                             no_hint = false;
                             tpcheck_utageON = true;
                         }
-                                                    
-                        break;
-
-                    case 1210: //豪華なクレープ　ホイップクリームがのってなかった時　tp_check=false
-
-                        //30点以下の場合、ヒントがでる。
-                        //特定のトッピングスロットをみる
-                        tpcheck_slot = "Blackcurrant";
-                        ToppingCheck();
-                        if (tpcheck) //カシスは外れ
-                        {
-                            no_hint = false;
-                            _special_kansou = "この黒い粒、すっぱすぎるよ・・。にいちゃん。";
-                        }
                         else
                         {
-                            if (beauty_score <= -30)
-                            {
-                                no_hint = false;
-                                _special_kansou = GameMgr.ColorRedDeep + "ぜんぜん豪華じゃない。" + "</color>";
-                            }
-                            else if (beauty_score > -30 && beauty_score <= -10)
-                            {
-
-                                no_hint = false;
-                                _special_kansou = "もう少し、トッピングがほしいかも？";
-
-                            }
-                            else if (beauty_score >= -10 && beauty_score <= 20)
-                            {
-
-                                no_hint = false;
-                                _special_kansou = "よい豪華さ！";
-
-                            }
-                            else
-                            {
-
-                                no_hint = false;
-                                _special_kansou = "神の華やかさ！";
-
-                            }
-                        }                      
-
-                        break;
-
-                    case 1300: //シュークリーム１　ホイップクリームがのってなかった時　tp_check=false
-
-                        //トッピングスロットをみる
-                        tpcheck_slot = "WhipeedCream";
-                        ToppingCheck();
-
-                        tpcheck_slot = "WhipeedCreamStrawberry";
-                        ToppingCheck();
-
-                        if (tpcheck) //ホイップがのっていた
-                        {
-                            
+                            //ヒントはなし
                         }
-                        else
-                        {
-                            no_hint = false;
-                        }
-
-                        break;
-
-                    case 1400: //ドーナツ１　ストロベリーホイップクリームがのってなかった時　tp_check=false
-
-                        //トッピングスロットをみる
-                        tpcheck_slot = "WhipeedCreamStrawberry";
-                        ToppingCheck();
-
-                        if (!tpcheck) //ストロベリークリームはのっていなかった。
-                        {
-                            tpcheck_slot = "Strawberry"; //次にすとろべりーを調べる
-                            ToppingCheck();
-
-                            if (tpcheck) //いちごはのってた場合。惜しい。
-                            {
-                                no_hint = false;
-                                tpcheck_utageON = true;
-                                tpcheck_utagebunki = 1;
-                                _special_kansou = "にいちゃん。クリームも、ピンク色だったかも？";
-                            }
-                            else //ストロベリークリームも、いちごものってなかった
-                            {
-                                no_hint = false;
-                                tpcheck_utageON = true;
-                            }
-                        }
-
-                        break;
-
-                    default:
-
-                        break;
-                }
-
-                //
-                if (!no_hint) //falseのときは、ヒントだす。
-                {                    
-                    if (tpcheck_utageON) //宴でもヒント表示するか否か。
-                    {
-                        GameMgr.okashinontphint_flag = true;
-                        GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + tpcheck_utagebunki;
                     }
-                }
-                else
-                {
-                    _special_kansou = "";
-                }
+                    break;
+
+                case 1110: //ラスク２　すっぱいトッピングがのってないとき
+
+                    if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                    }
+                    else
+                    {
+                        //ヒントはなし
+                    }
+                    break;
+
+                case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
+
+                    //特定のトッピングスロットをみる
+                    tpcheck_slot = "WhipeedCream";
+                    ToppingCheck();
+
+                    if (tpcheck) //ホイップがちゃんとのっていた。
+                    {
+                        //ヒントはなし
+                    }
+                    else
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                    }
+
+                    break;
+
+                case 1210: //豪華なクレープ
+
+                    //30点以下の場合、ヒントがでる。
+                    //特定のトッピングスロットをみる
+                    tpcheck_slot = "Blackcurrant";
+                    ToppingCheck();
+                    if (tpcheck) //カシスは外れ
+                    {
+                        no_hint = false;
+                        _special_kansou = "この黒い粒、すっぱすぎるよ・・。にいちゃん。";
+                    }
+                    else
+                    {
+                        if (beauty_score <= -30)
+                        {
+                            no_hint = false;
+                            _special_kansou = GameMgr.ColorRedDeep + "ぜんぜん豪華じゃない。" + "</color>";
+                        }
+                        else if (beauty_score > -30 && beauty_score <= -10)
+                        {
+
+                            no_hint = false;
+                            _special_kansou = "もう少し、トッピングがほしいかも？";
+
+                        }
+                        else if (beauty_score >= -10 && beauty_score <= 20)
+                        {
+
+                            no_hint = false;
+                            _special_kansou = "よい豪華さ！";
+
+                        }
+                        else
+                        {
+
+                            no_hint = false;
+                            _special_kansou = "神の華やかさ！";
+
+                        }
+                    }
+
+                    break;
+
+                case 1300: //シュークリーム１　ホイップクリームがのってなかった時　tp_check=false
+
+                    //マフィンと間違えたとき
+                    if (_baseitemtype_sub == "Maffin")
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 1;
+                    }
+
+                    //トッピングスロットをみる
+                    tpcheck_slot = "WhipeedCream";
+                    ToppingCheck();
+
+                    tpcheck_slot = "WhipeedCreamStrawberry";
+                    ToppingCheck();
+
+                    if (tpcheck) //ホイップがのっていた
+                    {
+
+                    }
+                    else
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 0;
+                    }
+
+                    break;
+
+                case 1400: //ドーナツ１　ストロベリーホイップクリームがのってなかった時　tp_check=false
+
+                    //トッピングスロットをみる
+                    tpcheck_slot = "WhipeedCreamStrawberry";
+                    ToppingCheck();
+
+                    if (!tpcheck) //ストロベリークリームはのっていなかった。
+                    {
+                        tpcheck_slot = "Strawberry"; //次にすとろべりーを調べる
+                        ToppingCheck();
+
+                        if (tpcheck) //いちごはのってた場合。惜しい。
+                        {
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                            tpcheck_utagebunki = 1;
+                            _special_kansou = "にいちゃん。クリームも、ピンク色だったかも？";
+                        }
+                        else //ストロベリークリームも、いちごものってなかった
+                        {
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                        }
+                    }
+
+                    break;
+
+                default:
+
+                    break;
             }
+
         }
-        else //クエスト以外のお菓子をあげたときの感想・ヒント
+        else //クエスト以外のお菓子をあげたときの感想・ヒント。そもそもお菓子を間違えている場合。
         {
 
+            //条件判定
+            switch (girl1_status.OkashiQuest_ID)
+            {
+                case 1300: //シュークリーム１
+
+                    //マフィンと間違えたとき
+                    if (_baseitemtype_sub == "Maffin")
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 1;
+                    }
+                    break;
+            }
+
+        }
+
+        //
+        if (!no_hint) //falseのときは、ヒントだす。
+        {
+            if (tpcheck_utageON) //宴でもヒント表示するか否か。宴で表示する場合、他の宴イベントのあとに表示される。
+            {
+                GameMgr.okashinontphint_flag = true;
+                GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + tpcheck_utagebunki;
+            }
+        }
+        else
+        {
+            _special_kansou = "";
+        }
+
+        //クエスト以外で新しいお菓子をあげたときの、感想（共通）
+        if (!non_spquest_flag)
+        { }
+        else
+        {
             if (dislike_status == 2)
             {
                 _special_kansou = "今まで食べたことないお菓子だ！";
@@ -3951,7 +3984,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
-        temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
+        //temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
 
         database.items[_baseID].last_hinttext = temp_hint_text;
         GameMgr.Okashi_lasthint = temp_hint_text;

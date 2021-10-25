@@ -111,6 +111,7 @@ public class Item
         Chocolate_Mat,
         Chocolate_base,
         Cake,
+        Cake_Mat,
         Cake_base,
         Castella,       
         Creampuff,

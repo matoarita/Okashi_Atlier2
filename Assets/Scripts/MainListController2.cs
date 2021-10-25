@@ -470,6 +470,10 @@ public class MainListController2 : MonoBehaviour
             //図書館押した　宴の処理へ
             GameMgr.hiroba_event_placeNum = 5; //
 
+            //図書室はBGMかえる
+            sceneBGM.FadeOutBGM();
+            Hiroba_main2.bgm_change_flag = true;
+
             //イベント発生フラグをチェック
             switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {

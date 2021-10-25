@@ -48,7 +48,7 @@ public class CatchLog : MonoBehaviour
 
         Application.logMessageReceived += HandleLog;
         builder = new StringBuilder();
-
+        text.text = "";
     }
 
     private void OnDisable()

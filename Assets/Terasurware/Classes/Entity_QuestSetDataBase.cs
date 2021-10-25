@@ -45,6 +45,11 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public string topping03;
 		public string topping04;
 		public string topping05;
+		public int tp_score1;
+		public int tp_score2;
+		public int tp_score3;
+		public int tp_score4;
+		public int tp_score5;
 		public string quest_Title;
 		public string desc;
 	}
