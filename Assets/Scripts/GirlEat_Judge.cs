@@ -3862,6 +3862,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     tpcheck_slot = "WhipeedCreamStrawberry";
                     ToppingCheck();
 
+                    tpcheck_slot = "WhipeedCreamRaspberry";
+                    ToppingCheck();
+
+                    tpcheck_slot = "WhipeedCreamCherry";
+                    ToppingCheck();
+
                     if (!tpcheck) //ストロベリークリームはのっていなかった。
                     {
                         tpcheck_slot = "Strawberry"; //次にすとろべりーを調べる
