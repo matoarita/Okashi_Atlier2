@@ -884,19 +884,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 6 && PlayerStatus.girl1_Love_lv < 10) //6~9
+        else if (PlayerStatus.girl1_Love_lv >= 6 && PlayerStatus.girl1_Love_lv < 7) //6~9
         {
             //だいぶ元気でてきた
             GirlGokigenStatus = 4;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 10 && PlayerStatus.girl1_Love_lv < 13) //10~12
+        else if (PlayerStatus.girl1_Love_lv >= 7 && PlayerStatus.girl1_Love_lv < 10) //10~12
         {
             //元気
             GirlGokigenStatus = 5;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 13) //13~
+        else if (PlayerStatus.girl1_Love_lv >= 10) //13~
         {
             //最高に上機嫌
             GirlGokigenStatus = 6;
@@ -2698,12 +2698,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 30:
-
                 
                 _touchface_comment_lib.Add("材料の比率は、兄ちゃんの好みに変えられるんだよ～。");
                 _touchface_comment_lib.Add("兄ちゃん、もうコンテストとか余裕？");
-                _touchface_comment_lib.Add("あ～～。今日はあたたかいね、兄ちゃん！");               
-                
+                _touchface_comment_lib.Add("今日はあたたかいね～、兄ちゃん！");
+                _touchface_comment_lib.Add("にいちゃん。あのね.. 鳥さんがお庭にきてたから、パンあげたら食べたよ！");
+
                 break;
 
             case 31:
@@ -2863,6 +2863,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchhead_comment_lib.Add(".. ..。");
                 _touchhead_comment_lib.Add("グガーーー！！！！");
                 break;
+
+            default:
+
+                _touchhead_comment_lib.Add("おにいちゃん..。");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add("うひひ..。");
+                _touchhead_comment_lib.Add("クッキーのにおい..。うまそ..。");
+                _touchhead_comment_lib.Add("..。");
+                _touchhead_comment_lib.Add(".. ..。");
+                _touchhead_comment_lib.Add("グガーーー！！！！");
+                break;
         }
 
     }
@@ -2950,6 +2961,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
                 break;
+
+            default:
+
+                _touchtwintail_comment_lib.Add("うわ～い♪");
+                _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
+                _touchtwintail_comment_lib.Add("しゃらら～ん");
+                _touchtwintail_comment_lib.Add("あ～..♪");
+                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（さらさら..。）");
+                break;
         }
         
     }
@@ -3015,6 +3037,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 6:
+
+                _touchchest_comment_lib.Add("！！");
+                _touchchest_comment_lib.Add("ばか..！！");
+                _touchchest_comment_lib.Add("にいちゃんのおてて、あったか～い♪");
+                _touchchest_comment_lib.Add("そんなとこさわられると、くすぐったいよ。にいちゃん～！");
+                _touchchest_comment_lib.Add("ぐひぃ～・・。");
+                _touchchest_comment_lib.Add("胸を触るのを、やめなさい！あにぃ～。");
+                _touchchest_comment_lib.Add("あひぃ～。");
+                _touchchest_comment_lib.Add("（ちょっときもちいい。）");
+                _touchchest_comment_lib.Add("胸をさわるのは、やめろ！ばか兄！！");
+                _touchchest_comment_lib.Add("は、はずかしいよ～。にいちゃん！");
+                _touchchest_comment_lib.Add("ぎぃや～～。（くすぐったいよ..。にいちゃん～。）");
+
+                break;
+
+            default:
 
                 _touchchest_comment_lib.Add("！！");
                 _touchchest_comment_lib.Add("ばか..！！");

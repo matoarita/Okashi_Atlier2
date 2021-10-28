@@ -1960,11 +1960,15 @@ public class Compound_Main : MonoBehaviour
                             ResultComplete_flag = 0;
                             //intパラメーターの値を設定する.  
 
-                            trans_motion = 100; //戻るアニメに遷移
+                            //戻るアニメに遷移
+                            trans_motion = 100; 
                             live2d_animator.SetInteger("trans_motion", trans_motion);
                             trans_expression = 2;
                             live2d_animator.SetInteger("trans_expression", trans_expression);
 
+                            character_move.transform.position = new Vector3(0f, 0, 0);
+                            live2d_posmove_flag = false;
+                            //
                         }
                         else
                         {
@@ -2010,17 +2014,18 @@ public class Compound_Main : MonoBehaviour
     void SetLive2DPos_Compound()
     {
         cubism_rendercontroller.SortingOrder = 100;
-        trans_motion = 10; //調合シーン用のヒカリちゃんの位置
-        live2d_animator.SetInteger("trans_motion", trans_motion);
+        //trans_motion = 10; //調合シーン用のヒカリちゃんの位置
+        //live2d_animator.SetInteger("trans_motion", trans_motion);
+        character_move.transform.position = new Vector3(2.18f, 0, 0);
         live2d_posmove_flag = true; //位置を変更したフラグ
         live2d_animator.SetInteger("trans_nade", 0);
-        Anchor_Pos.transform.localPosition = new Vector3(-0.36f, 0.134f, -5f);
+        Anchor_Pos.transform.localPosition = new Vector3(-0.42f, 0.134f, -5f);
 
         girl1_status.face_girl_Normal();
         girl1_status.AddMotionAnimReset();
         girl1_status.IdleMotionReset();
         girl1_status.DoTSequence_Kill();
-        character_move.transform.position = new Vector3(0, 0, 0);
+        
         girl1_status.Walk_Start = false;
     }
 
@@ -2034,8 +2039,9 @@ public class Compound_Main : MonoBehaviour
     //さらに調合位置に戻すコマンド　SetImage, NewRecipiButton.csから呼び出し
     public void ReSetLive2DPos_Compound()
     {
-        trans_motion = 10; //調合シーン用のヒカリちゃんの位置
-        live2d_animator.SetInteger("trans_motion", trans_motion);
+        //trans_motion = 10; //調合シーン用のヒカリちゃんの位置
+        //live2d_animator.SetInteger("trans_motion", trans_motion);
+        character_move.transform.position = new Vector3(2.18f, 0, 0);
         live2d_posmove_flag = true; //位置を変更したフラグ   
     }
 
@@ -2045,8 +2051,9 @@ public class Compound_Main : MonoBehaviour
 
         if (live2d_posmove_flag) //調合シーンに入った時に、位置を変更するので、変更したという合図
         {
-            trans_motion = 11; //位置をもとに戻す。
-            live2d_animator.SetInteger("trans_motion", trans_motion);
+            //trans_motion = 11; //位置をもとに戻す。
+            //live2d_animator.SetInteger("trans_motion", trans_motion);
+            character_move.transform.position = new Vector3(0f, 0, 0);
             live2d_posmove_flag = false;
         }
 
@@ -3706,54 +3713,54 @@ public class Compound_Main : MonoBehaviour
             { }
             else
             {
-                if (!GameMgr.GirlLoveSubEvent_stage1[61])
+
+                //クレープ以降　かつ　発見力120以上               
+                if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
+                    && GameMgr.GirlLoveEvent_num >= 20 && PlayerStatus.player_girl_findpower >= 120) //12時から15時の間に、サイコロふる
                 {
-                    //クレープ以降　かつ　発見力120以上               
-                    if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
-                        && GameMgr.GirlLoveEvent_num >= 20 && PlayerStatus.player_girl_findpower >= 120) //12時から15時の間に、サイコロふる
+
+                    if (GameMgr.picnic_End && GameMgr.picnic_count <= 0)
                     {
-                        
-                        if(GameMgr.picnic_End && GameMgr.picnic_count <= 0)
-                        {
-                            GameMgr.picnic_End = false;
-                            GameMgr.picnic_count = 3;
-                            GameMgr.picnic_event_ON = true;
-                        }
 
-                        if (GameMgr.picnic_event_ON)
-                        {
-                            random = Random.Range(0, 100);
-                            Debug.Log("ピクニックイベント　抽選スタート　80以下で成功: " + random);
-
-                            if(GameMgr.GirlLoveSubEvent_stage1[61])
-                            {
-                                picnic_exprob = 60; //60%の確率で発生。
-                            }
-                            else
-                            {
-                                picnic_exprob = 100; //初回は100%
-                            }
-
-                            if (random <= picnic_exprob) 
-                            {
-                                GameMgr.GirlLoveSubEvent_num = 61;
-                                GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
-                                GameMgr.picnic_End = true;//さらにカウンターを置く。カウンターが０になったら、またランダムで発生するようになる。
-                                GameMgr.picnic_event_ON = false;
-
-                                check_GirlLoveSubEvent_flag = false;
-
-                                mute_on = true;
-                                GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
-
-                                SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                SubEvAfterHeartGet_num = 61;
-                            }
-                        }
-
-
+                        GameMgr.picnic_End = false;
+                        GameMgr.picnic_event_ON = true;
                     }
+
+                    if (GameMgr.picnic_event_ON)
+                    {
+                        random = Random.Range(0, 100);
+                        Debug.Log("ピクニックイベント　抽選スタート　60以下で成功: " + random);
+
+                        if (GameMgr.GirlLoveSubEvent_stage1[61])
+                        {
+                            picnic_exprob = 60; //60%の確率で発生。
+                        }
+                        else
+                        {
+                            picnic_exprob = 100; //初回は100%
+                        }
+
+                        if (random <= picnic_exprob)
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 61;
+                            GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
+                            GameMgr.picnic_End = true;//さらにカウンターを置く。カウンターが０になったら、またランダムで発生するようになる。
+                            GameMgr.picnic_event_ON = false;
+                            GameMgr.picnic_count = 3;
+
+                            check_GirlLoveSubEvent_flag = false;
+
+                            mute_on = true;
+                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+
+                            SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                            SubEvAfterHeartGet_num = 61;
+                        }
+                    }
+
+
                 }
+
             }
 
             //
@@ -4009,6 +4016,10 @@ public class Compound_Main : MonoBehaviour
         PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint; //体力は全回復
         PlayerStatus.player_day++;
         PlayerStatus.player_time = 0;
+
+        //日をまたぐと、ピクニックイベントのカウンタが進む。
+        Debug.Log("ピクニックカウント: " + GameMgr.picnic_count);
+        GameMgr.picnic_count--;
 
         //一日経つと、食費を消費
         PlayerStatus.player_money -= GameMgr.Foodexpenses;

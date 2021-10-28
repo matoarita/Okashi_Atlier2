@@ -80,6 +80,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private Animator live2d_animator;
     private int trans_expression;
     private int trans_motion;
+    private GameObject character_move;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -333,6 +334,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //Live2Dモデルの取得
         _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
         live2d_animator = _model_obj.GetComponent<Animator>();
+
+        character_move = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove").gameObject;
     }
 
     // Update is called once per frame
@@ -1239,8 +1242,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 sequence.Append(BlackImage.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
 
                 //ヒカリちゃんを右にずらす
-                trans_motion = 20; //右に消えるアニメに遷移
-                live2d_animator.SetInteger("trans_motion", trans_motion);
+                //trans_motion = 20; //右に消えるアニメに遷移
+                //live2d_animator.SetInteger("trans_motion", trans_motion);
+                character_move.transform.DOMoveX(10f, 1f)
+                    .SetEase(Ease.OutQuad);
 
                 //エフェクト生成＋アニメ開始
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));

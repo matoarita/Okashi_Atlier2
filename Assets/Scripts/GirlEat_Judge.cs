@@ -4324,10 +4324,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //** **//
     public int Judge_Score_Return(int value1, int value2, int SetType, int _Setcount)
     {
-        SetGirlTasteInit();
-
+        SceneInitSetting();
+            
         //コンテスト用に、渡すアイテムのパラメータ設定
         Girleat_Judge_method(value1, value2, SetType); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。
+
+        SetGirlTasteInit();      
 
         judge_score(SetType, _Setcount); //SetTypeは、0=女の子か1=コンテスト用かの判定。_Setcountは、GirlLikeCompoの1,2,3番目のどれを判定に使うかの数値
 
@@ -4340,6 +4342,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //** **//
     public int Judge_Score_ReturnEvent(int value1, int value2, int SetType)
     {
+        SceneInitSetting();
+
         //コンテスト用に、渡すアイテムのパラメータ設定
         Girleat_Judge_method(value1, value2, SetType); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。
 

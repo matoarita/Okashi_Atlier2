@@ -294,12 +294,6 @@ public class TimeController : MonoBehaviour
                 {
                     PlayerStatus.player_day++;
                     hour = 0; //0時にリセット
-
-                    //日をまたぐと、ピクニックイベントのカウンタが進む。
-                    if(GameMgr.picnic_End)
-                    {
-                        GameMgr.picnic_count--;
-                    }
                 }
             }
             else //その月の日付

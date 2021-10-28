@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 39,
-		"TotalSegmentCount": 111,
-		"TotalPointCount": 362,
+		"CurveCount": 42,
+		"TotalSegmentCount": 114,
+		"TotalPointCount": 378,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -624,7 +624,11 @@
 				0.968,
 				4.7,
 				0.968,
-				0,
+				1,
+				4.8,
+				0.968,
+				4.9,
+				0.968,
 				5,
 				0.968
 			]
@@ -635,7 +639,11 @@
 			"Segments": [
 				0,
 				1,
-				0,
+				1,
+				1.667,
+				1,
+				3.333,
+				1,
 				5,
 				1
 			]
@@ -790,7 +798,7 @@
 				-8,
 				1,
 				0.322,
-				-10.074,
+				-10,
 				0.411,
 				-10,
 				0.5,
@@ -927,6 +935,21 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamUpperbodyYure",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBreath",
 			"Segments": [
 				0,
@@ -998,6 +1021,36 @@
 				4.6,
 				1,
 				4.8,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosX",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosY",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
 				0,
 				5,
 				0
