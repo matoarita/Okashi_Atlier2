@@ -114,16 +114,11 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         live2d_animator.SetInteger("trans_motion", trans_motion);
     }
 
-    //OriCompoPotionのメカニムが無ければ、このメソッドも不要
+    //DefaultPotionから読み出し。
     public void OnEndOriCompoPosition()
     {
         trans_motion = 0; //リセット
         live2d_animator.SetInteger("trans_motion", trans_motion);
-    }
-
-    public void ResetGazeAnimEnd()
-    {
-
     }
 
     public void FaceMotionEndSignal() //アニメーションをフェードで終了し切り替えるためのフラグ

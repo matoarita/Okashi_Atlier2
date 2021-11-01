@@ -1242,10 +1242,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 sequence.Append(BlackImage.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
 
                 //ヒカリちゃんを右にずらす
-                //trans_motion = 20; //右に消えるアニメに遷移
-                //live2d_animator.SetInteger("trans_motion", trans_motion);
-                character_move.transform.DOMoveX(10f, 1f)
-                    .SetEase(Ease.OutQuad);
+                character_move.transform.DOMoveX(8f, 1f)
+                    .SetEase(Ease.InOutSine);
 
                 //エフェクト生成＋アニメ開始
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));

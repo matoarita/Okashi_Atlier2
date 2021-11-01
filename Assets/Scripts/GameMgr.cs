@@ -216,6 +216,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int mainquest_ID;         //クエストクリア時のイベント
     public static bool mainClear_flag;      //クエストクリア時のイベント    
     public static bool QuestClearButtonMessage_flag;  //クエストクリア時のボタン出現時、一言しゃべる
+    public static int QuestClearButtonMessage_EvNum; //クエストクリア時のイベント番号
 
     //現在のクエストが、クエスト全体の何番目か。デバッグでハートレベル更新の際、使う。
     public static int OkashiQuest_cullentcount;

@@ -261,6 +261,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject ClickPanel_1;
     private GameObject ClickPanel_2;
 
+    private int motion_layer_num = 1;
+
     // Use this for initialization
     void Start()
     {
@@ -643,6 +645,8 @@ public class Compound_Main : MonoBehaviour
             keymanager.InitCompoundMainScene();
             GameMgr.MesaggeKoushinON = true;
             StartMessage();
+
+            character_move.transform.position = new Vector3(0f, 0, 0); //念のため、ゼロにリセット
 
             //ロード直後のサブイベントを発生させる
             //Load_eventflag = true; //ロード直後に、おかえりなさい～のようなサブイベントを発生
@@ -1274,7 +1278,8 @@ public class Compound_Main : MonoBehaviour
                 Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f);
                 girl1_status.HukidashiFlag = true;
                 girl1_status.tween_start = false;
-                
+                live2d_animator.Play("Idle", motion_layer_num, 0.0f);
+
                 //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
                 if (getmatplace.slot_view_status == 0)
                 {
@@ -1586,7 +1591,7 @@ public class Compound_Main : MonoBehaviour
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
                 compoBG_A_effect.SetActive(false);
-                compoBGA_image.SetActive(true);
+                //compoBGA_image.SetActive(true);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(false);
@@ -1966,7 +1971,7 @@ public class Compound_Main : MonoBehaviour
                             trans_expression = 2;
                             live2d_animator.SetInteger("trans_expression", trans_expression);
 
-                            character_move.transform.position = new Vector3(0f, 0, 0);
+                            character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.1f);
                             live2d_posmove_flag = false;
                             //
                         }
@@ -2014,12 +2019,19 @@ public class Compound_Main : MonoBehaviour
     void SetLive2DPos_Compound()
     {
         cubism_rendercontroller.SortingOrder = 100;
-        //trans_motion = 10; //調合シーン用のヒカリちゃんの位置
-        //live2d_animator.SetInteger("trans_motion", trans_motion);
-        character_move.transform.position = new Vector3(2.18f, 0, 0);
+
+        //位置変更
+        character_move.transform.position = new Vector3(2.8f, 0, 0);
         live2d_posmove_flag = true; //位置を変更したフラグ
+
+        //もし、リターンホーム中にすぐにシーン切り替えた場合用に、Live2D自体の位置もリセット。そして、すぐOriCompoMotionに遷移
+        trans_motion = 11;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f);
+
         live2d_animator.SetInteger("trans_nade", 0);
-        Anchor_Pos.transform.localPosition = new Vector3(-0.42f, 0.134f, -5f);
+        Anchor_Pos.transform.localPosition = new Vector3(-0.443f, 0.134f, -5f);
+        
 
         girl1_status.face_girl_Normal();
         girl1_status.AddMotionAnimReset();
@@ -2039,9 +2051,7 @@ public class Compound_Main : MonoBehaviour
     //さらに調合位置に戻すコマンド　SetImage, NewRecipiButton.csから呼び出し
     public void ReSetLive2DPos_Compound()
     {
-        //trans_motion = 10; //調合シーン用のヒカリちゃんの位置
-        //live2d_animator.SetInteger("trans_motion", trans_motion);
-        character_move.transform.position = new Vector3(2.18f, 0, 0);
+        character_move.transform.position = new Vector3(2.8f, 0, 0);
         live2d_posmove_flag = true; //位置を変更したフラグ   
     }
 
@@ -2051,8 +2061,6 @@ public class Compound_Main : MonoBehaviour
 
         if (live2d_posmove_flag) //調合シーンに入った時に、位置を変更するので、変更したという合図
         {
-            //trans_motion = 11; //位置をもとに戻す。
-            //live2d_animator.SetInteger("trans_motion", trans_motion);
             character_move.transform.position = new Vector3(0f, 0, 0);
             live2d_posmove_flag = false;
         }

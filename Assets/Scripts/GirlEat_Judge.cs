@@ -422,7 +422,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
                 //エクストリームパネルの取得
-                Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
+                Extremepanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
                 extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
 
                 MainUIPanel_obj = canvas.transform.Find("MainUIPanel").gameObject;
@@ -3332,8 +3332,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         canvas.SetActive(false);
         touch_controller.Touch_OnAllOFF();
 
-        GameMgr.QuestClearButtonMessage_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+        //高得点のときは、ここで特別スチルがでる。
+        if (total_score >= GameMgr.high_score)
+        {
+            GameMgr.QuestClearButtonMessage_EvNum = GameMgr.OkashiQuest_Num + 10000;
+            sceneBGM.MuteBGM();
+        }
+        else
+        {
+            GameMgr.QuestClearButtonMessage_EvNum = GameMgr.OkashiQuest_Num;
+        }
 
+        GameMgr.QuestClearButtonMessage_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+        
         while (!GameMgr.recipi_read_endflag)
         {
             yield return null;
@@ -3341,6 +3352,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         GameMgr.recipi_read_endflag = false;
 
+        sceneBGM.MuteOFFBGM();
         canvas.SetActive(true);
         ResetResult();
         touch_controller.Touch_OnAllON();
@@ -4342,7 +4354,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //** **//
     public int Judge_Score_ReturnEvent(int value1, int value2, int SetType)
     {
-        SceneInitSetting();
+        //SceneInitSetting();
 
         //コンテスト用に、渡すアイテムのパラメータ設定
         Girleat_Judge_method(value1, value2, SetType); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。

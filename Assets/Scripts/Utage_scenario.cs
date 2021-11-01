@@ -1883,8 +1883,9 @@ public class Utage_scenario : MonoBehaviour
 
         scenarioLabel = "QuestClearMessage"; //イベントレシピタグのシナリオを再生。
 
+
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("QuestClearMessage_num", GameMgr.OkashiQuest_Num);     
+        engine.Param.TrySetParameter("QuestClearMessage_num", GameMgr.QuestClearButtonMessage_EvNum);     
 
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();

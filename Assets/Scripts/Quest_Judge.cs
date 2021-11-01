@@ -1183,49 +1183,49 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 else if (okashi_totalscore >= 75 && okashi_totalscore < GameMgr.high_score) //75~85
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * 1.2f);
+                    _getMoney = (int)(_buy_price * _kosu_default * 1.5f);
                     debug_money_text = "(基準値 * 1.2f)";
                     _getNinki = 2;
                     _kanso = "ありがとう！　お客さん、大喜びだったわ！";                    
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 100) //85~100
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 1.5f);
+                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 2.5f);
                     debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 1.5f)";
                     _getNinki = 3;
                     _kanso = "ありがとう！とても良い出来みたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 100 && okashi_totalscore < 120) //100~120
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 1.75f);
+                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 3.75f);
                     debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 1.75f)";
                     _getNinki = 3;
                     _kanso = "グレイトだわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 120 && okashi_totalscore < 150) //120~150
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 2.0f);
+                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 5.0f);
                     debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 2.0f)";
                     _getNinki = 5;
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 175) //150~175
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 3.5f);
+                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 7.5f);
                     debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 3.5f)";
                     _getNinki = 6;
                     _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 175 && okashi_totalscore < 200) //175~200
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 6.0f);
+                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 10.0f);
                     debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 6.0f)";
                     _getNinki = 6;
                     _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 200) //200~
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 10.0f);
+                    _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / GameMgr.high_score) * 15.0f);
                     debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 10.0f)";
                     _getNinki = 10;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
