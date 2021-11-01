@@ -211,7 +211,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1220;
                 //GameMgr.stageclear_love = 60; //クエスト以外のお菓子で、ハートをこの量集めたら、クリアできる。
                 QuestNameFind();
-                OkashiQuest_Number = "Secret";
+                OkashiQuest_Number = "3-2";
                 OkashiQuest_AllCount = 2;
                 OkashiQuest_Count = 2;
                 //GameMgr.OkashiQuest_cullentcount = 6;

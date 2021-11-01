@@ -63,3 +63,4 @@
 ・BGM_61		PerituneMaterial_Cafe_Musette		調合テーマ７　ワルツの調合風音楽
 ・BGM_62		PerituneMaterial_Chinatown_loop		【宴用】中華BGM
 ・BGM_63		PerituneMaterial_Laid_Back3_loop	【宴用】クエストクリア高得点時のBGM
+・BGM_64		PerituneMaterial_Laid_Back3_loop	調合時のBGM2　BGM_63と同じ

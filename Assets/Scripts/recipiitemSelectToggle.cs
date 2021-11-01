@@ -68,6 +68,7 @@ public class recipiitemSelectToggle : MonoBehaviour
     public int recipi_toggleEventitem_ID; //リストの要素にイベントアイテムIDを保持する。
     public int recipi_itemID; //そのときのアイテムDB上のアイテムID。
     public string recipi_itemNameHyouji; //名前表示用
+    public bool _empty_flag; //レシピが閃き済みかどうか
 
     private int i, j;
 
@@ -295,8 +296,17 @@ public class recipiitemSelectToggle : MonoBehaviour
 
                 for (i = 0; i < recipilistController._recipi_listitem.Count; i++)
                 {
-                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = true;
-                    recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
+                    if (recipilistController._recipi_listitem[i].GetComponent<recipiitemSelectToggle>()._empty_flag)
+                    {
+                        recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = true;
+                        recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
+
+                    }
+                    else
+                    {
+
+                    }
+                    
                 }
 
                 BlackImage.GetComponent<CanvasGroup>().alpha = 0;

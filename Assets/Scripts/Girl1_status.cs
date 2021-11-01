@@ -2406,29 +2406,68 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             case 0: //沈んでいる.. 0と1は一緒なので、0を設定する。
 
-                //モーション1種類
-                FaceMotionPlay(1002);              
-                IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
+                random = Random.Range(0, 2); //0~1
+
+                switch (random) //モーション4種類＋セリフがそれらにつく
+                {
+                    case 0:
+
+                        //モーション1種類
+                        FaceMotionPlay(1002);
+                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
+                        break;
+
+                    case 1:
+
+                        IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
+                        break;
+                }                      
 
                 break;
 
             case 1:
 
-                //モーション1種類
-                FaceMotionPlay(1002);
-                IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
+                random = Random.Range(0, 2); //0~1
+
+                switch (random) //モーション4種類＋セリフがそれらにつく
+                {
+                    case 0:
+
+                        //モーション1種類
+                        FaceMotionPlay(1002);
+                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
+                        break;
+
+                    case 1:
+
+                        IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
+                        break;
+                }
                 break;
 
             case 2: //少し機嫌がよくなってきた？けど、まだ暗い。
 
-                random = Random.Range(0, 4); //0~3
+                random = Random.Range(0, 2); //0~1
 
-                IdleMotionHukidashiSetting(10);
+                switch (random) //モーション4種類＋セリフがそれらにつく
+                {
+                    case 0:
+
+                        //モーション1種類
+                        //FaceMotionPlay(1002);
+                        IdleMotionHukidashiSetting(10); //吹き出しも一緒に生成
+                        break;
+
+                    case 1:
+
+                        IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
+                        break;
+                }
                 break;
 
             case 3: //ちょっと元気
 
-                random = Random.Range(0, 4); //0~3
+                random = Random.Range(0, 5); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2463,13 +2502,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(22);
                         break;
 
+                    case 4:
+
+                        //るんるんモーション
+                        Debug.Log("ヒント");
+                        //FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(100);
+                        break;
                 }
 
                 break;
 
             case 4:
 
-                random = Random.Range(0, 4); //0~3
+                random = Random.Range(0, 5); //0~4
 
                 switch(random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2503,13 +2549,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         Debug.Log("3 ボウルをガシャガシャ");
                         IdleMotionHukidashiSetting(30);
                         break;
+
+                    case 4:
+
+                        //るんるんモーション
+                        Debug.Log("ヒント");
+                        //FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(100);
+                        break;
                 }
                 
                 break;
 
             case 5:
 
-                random = Random.Range(0, 4); //0~3
+                random = Random.Range(0, 5); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2543,13 +2597,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         Debug.Log("3 ボウルをガシャガシャ");
                         IdleMotionHukidashiSetting(30);
                         break;
+
+                    case 4:
+
+                        //るんるんモーション
+                        Debug.Log("ヒント");
+                        //FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(100);
+                        break;
                 }
 
                 break;
 
             case 6:
 
-                random = Random.Range(0, 4); //0~3
+                random = Random.Range(0, 5); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2583,13 +2645,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         Debug.Log("3 ボウルをガシャガシャ");
                         IdleMotionHukidashiSetting(40);
                         break;
+
+                    case 4:
+
+                        //るんるんモーション
+                        Debug.Log("ヒント");
+                        //FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(100);
+                        break;
                 }
 
                 break;
 
             default: //それ以上
 
-                random = Random.Range(0, 4); //0~3
+                random = Random.Range(0, 5); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2622,6 +2692,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         //ボウルをガシャガシャ
                         Debug.Log("3 ボウルをガシャガシャ");
                         IdleMotionHukidashiSetting(50);
+                        break;
+
+                    case 4:
+
+                        //るんるんモーション
+                        Debug.Log("ヒント");
+                        //FaceMotionPlay(1005);
+                        IdleMotionHukidashiSetting(100);
                         break;
                 }
 
@@ -2754,17 +2832,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _touchface_comment_lib.Add("にいちゃん、フルーツは外でしか採れないよ～。");
                     _touchface_comment_lib.Add("にいちゃん、たいりょくが０になったら、材料集めはムリぃ～・・。");
                 }
-                break;
 
-            case 101:
-
-                if (PlayerStatus.player_renkin_lv >= 3 && PlayerStatus.player_renkin_lv < 5) //LV 3~4 大体クレープきたぐらい
+                if (PlayerStatus.player_renkin_lv >= 3) //
                 {
                     _touchface_comment_lib.Add("にいちゃん。こまったときは、ショップのおねえちゃんにきこう。");
                     _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
                     _touchface_comment_lib.Add("にいちゃん。今日のご飯は、ビールと枝豆の炊き込みご飯だよ♪");
                     _touchface_comment_lib.Add("にいちゃん。伝説のお菓子のレシピが・・。どこかにあるらしいよ。");
                     _touchface_comment_lib.Add("にいちゃん。新しいおかしをいっぱい作れば、パティシエの腕前が上がるよ！");
+                    _touchface_comment_lib.Add("にいちゃん。同じ素材でも上位素材があるよ。採取地で、ごくまれに採れるらしいよ！");
                 }
                 break;
 

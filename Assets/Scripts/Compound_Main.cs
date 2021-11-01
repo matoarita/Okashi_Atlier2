@@ -92,7 +92,6 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject recipilist_onoff;
     private RecipiListController recipilistController;
-    private GameObject recipilist_scrollview_init_obj;
 
     private GameObject recipimemoController_obj;
     private GameObject recipiMemoButton;
@@ -622,7 +621,7 @@ public class Compound_Main : MonoBehaviour
         originai_text = "新しくお菓子を作ろう！" + "\n" + "好きな材料を" + GameMgr.ColorYellow + 
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをしよう！にいちゃん！ 一個目の材料を選んでね。";
-        recipi_text = "おぼえたレシピから作るよ。何作る？";
+        recipi_text = "ヒカリのお菓子手帳だよ！" + "\n" + "にいちゃんのレシピが増えたら、ここに書いてくね！";
 
         //メインUIパネルの取得
         mainUI_panel_obj = canvas.transform.Find("MainUIPanel").gameObject;        
@@ -3591,6 +3590,18 @@ public class Compound_Main : MonoBehaviour
                     }
                     break;
 
+                case 2: //かわいいクッキー
+
+                    if (GameMgr.GirlLoveSubEvent_stage1[8] == false)
+                    {
+                        GameMgr.GirlLoveSubEvent_stage1[8] = true;
+                        GameMgr.GirlLoveSubEvent_num = 8;
+                        check_GirlLoveSubEvent_flag = false;
+
+                        mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
+                    }
+                    break;
+
                 case 11: //ラスク2
 
                     if (girl1_status.special_animatFirst) //ステージ2-2 はじまってから、ベリーファーム開始
@@ -3643,6 +3654,15 @@ public class Compound_Main : MonoBehaviour
 
                             mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
                         }
+                    }
+
+                    if (GameMgr.GirlLoveSubEvent_stage1[21] == false)
+                    {
+                        GameMgr.GirlLoveSubEvent_stage1[21] = true;
+                        GameMgr.GirlLoveSubEvent_num = 21;
+                        check_GirlLoveSubEvent_flag = false;
+
+                        mute_on = true; //ゲームの音をOFFにし、宴のBGMを鳴らす。
                     }
                     break;
 

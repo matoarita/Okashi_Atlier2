@@ -41,6 +41,8 @@ public class RecipiListController : MonoBehaviour {
     private GameObject comp_text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _comp_text; //同じく、Scene「Compund」用。
 
+    private Text recipititle;
+
     private int max;
     private int count;
     private int i, j;
@@ -65,7 +67,7 @@ public class RecipiListController : MonoBehaviour {
     public int final_kettei_recipikosu3;
     public int final_select_kosu;
 
-    public bool final_recipiselect_flag;
+    public bool final_recipiselect_flag;    
 
     private GameObject yes_button;
     private GameObject no_button;
@@ -76,6 +78,16 @@ public class RecipiListController : MonoBehaviour {
     // Use this for initialization
     void Awake () {
 
+        InitSetting();
+    }
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    void InitSetting()
+    {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
@@ -102,12 +114,8 @@ public class RecipiListController : MonoBehaviour {
         }
         category_status = 0;
 
+        recipititle = this.transform.Find("Scroll_view_title/Scroll_view_title_text").GetComponent<Text>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void OnEnable()
     {
@@ -138,6 +146,7 @@ public class RecipiListController : MonoBehaviour {
                 category_toggle[1].GetComponent<Toggle>().isOn = true;
                 
                 reset_and_DrawView_Okashi();
+                recipititle.text = "お菓子手帳";
                 break;
 
             case 60:
@@ -148,6 +157,7 @@ public class RecipiListController : MonoBehaviour {
                 category_toggle[0].GetComponent<Toggle>().isOn = true;
                 
                 reset_and_DrawView();
+                recipititle.text = "レシピブック";
                 break;
         }
 
@@ -242,6 +252,7 @@ public class RecipiListController : MonoBehaviour {
         }
     }
 
+    //集めたお菓子のブック
     void reset_and_DrawView_Okashi()
     {
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -257,10 +268,16 @@ public class RecipiListController : MonoBehaviour {
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
             //調合DBのフラグが1（調合したことがある）かつ、ゲーム中に登場するフラグがONのやつを、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
-            if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)                
+            if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)
             {
                 //Debug.Log(i);
                 drawNormalRecipi();
+
+            }
+            else if (databaseCompo.compoitems[i].cmpitem_flag == 0 && databaseCompo.compoitems[i].recipi_count == 1)
+            {
+                //Debug.Log(i);
+                drawEmptyRecipi();
 
             }
         }
@@ -315,6 +332,9 @@ public class RecipiListController : MonoBehaviour {
         _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
         _toggle_itemID.recipi_toggleEventType = 1; //コンポ調合アイテムタイプなので、1
 
+        _toggle_itemID._empty_flag = true;
+        _recipi_listitem[list_count].GetComponent<Toggle>().interactable = true;
+        
 
         j = 0;
 
@@ -353,6 +373,70 @@ public class RecipiListController : MonoBehaviour {
 
         //画像を変更              
         _Img.sprite = texture2d;
+
+        ++list_count;
+    }
+
+    //空　？のやつ
+    void drawEmptyRecipi()
+    {
+        _recipi_listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _text = _recipi_listitem[list_count].GetComponentInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
+        _Img = _recipi_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _TextBGImg = _recipi_listitem[list_count].transform.Find("Background/TextBG").GetComponent<Image>();
+        _TextBGImg.color = new Color(255f / 255f, 250f / 255f, 184f / 255f);
+        _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
+        _HighStar_2 = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar_2").gameObject;
+
+        _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
+        _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
+        _toggle_itemID.recipi_toggleEventType = 1; //コンポ調合アイテムタイプなので、1
+
+        _toggle_itemID._empty_flag = false;
+        _recipi_listitem[list_count].GetComponent<Toggle>().interactable = false;
+
+
+        j = 0;
+
+        //調合DBの生成アイテムはローマ字表記なので、アイテムデータベースから、日本語表記をひっぱってくる。
+        while (j < database.items.Count)
+        {
+            if (database.items[j].itemName == databaseCompo.compoitems[i].cmpitemID_result)
+            {
+                item_name = database.items[j].itemNameHyouji;
+                texture2d = database.items[j].itemIcon_sprite;                
+
+                _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
+
+                if (database.items[j].HighScore_flag == 1)
+                {
+                    _HighStar.SetActive(true);
+                    _HighStar_2.SetActive(false);
+                }
+                else if (database.items[j].HighScore_flag == 2)
+                {
+                    _HighStar.SetActive(true);
+                    _HighStar_2.SetActive(true);
+                }
+                else
+                {
+                    _HighStar.SetActive(false);
+                    _HighStar_2.SetActive(false);
+                }
+
+                break;
+            }
+            ++j;
+        }
+
+        _toggle_itemID.recipi_itemNameHyouji = item_name;
+
+        _text.text = "???";
+
+        //画像を変更              
+        _Img.sprite = texture2d;
+        //空の場合は、真っ黒にする。
+        _Img.color = Color.black;
 
         ++list_count;
     }
