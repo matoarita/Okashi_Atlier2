@@ -16,6 +16,7 @@ public class MainUIPanel : MonoBehaviour {
     private GameObject UIOpenButton_obj;
     private GameObject GetMatStatusButton_obj;
     private GameObject TimePanel_obj;
+    private GameObject _CompObj;
 
     private SoundController sc;
 
@@ -60,6 +61,8 @@ public class MainUIPanel : MonoBehaviour {
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.GetComponentInChildren<Text>();
 
+        _CompObj = this.transform.Find("Comp/").gameObject;
+
         //好感度バーの取得
         girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").gameObject;
 
@@ -77,11 +80,10 @@ public class MainUIPanel : MonoBehaviour {
 
     public void OnOpenButton()
     {
+        //_CompObj.gameObject.SetActive(true);
+        //UIOpenButton_obj.SetActive(false);
 
-        this.transform.Find("Comp/").gameObject.SetActive(true);
-        girl_love_exp_bar.SetActive(true);
-
-        UIOpenButton_obj.SetActive(false);
+        //girl_love_exp_bar.SetActive(true);       
         text_area_Main.SetActive(true); //テキストエリアメインは、こっちもON/OFFが必要
 
 
@@ -107,10 +109,10 @@ public class MainUIPanel : MonoBehaviour {
 
     public void OnCloseButton()
     {
-        this.transform.Find("Comp/").gameObject.SetActive(false);
-        girl_love_exp_bar.SetActive(false);
+        //_CompObj.SetActive(false);
+        //UIOpenButton_obj.SetActive(true);
 
-        UIOpenButton_obj.SetActive(true);
+        //girl_love_exp_bar.SetActive(false);       
         text_area_Main.SetActive(true);
 
         //カメラ正面に戻る。

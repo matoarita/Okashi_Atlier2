@@ -203,7 +203,7 @@ public class Contest_Main : MonoBehaviour {
         if (exp_Controller._temp_extreme_id != 9999)
         {
             kettei_itemID = exp_Controller._temp_extreme_id;
-            kettei_itemType = exp_Controller._temp_extreme_itemtype;
+            kettei_itemType = exp_Controller._temp_extreme_itemtype;           
         }
         else //エクストリームパネルにお菓子が入っていない時。デバッグ用。
         {
@@ -222,6 +222,7 @@ public class Contest_Main : MonoBehaviour {
             GameMgr.contest_okashiSlotName = "";
             GameMgr.contest_okashiName = database.items[kettei_itemID].itemName;
             GameMgr.contest_okashiNameHyouji = database.items[kettei_itemID].itemNameHyouji;
+            GameMgr.contest_okashiID = database.items[kettei_itemID].itemID;
         }
         else if (kettei_itemType == 1)
         {
@@ -232,6 +233,7 @@ public class Contest_Main : MonoBehaviour {
             GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[kettei_itemID].item_SlotName;
             GameMgr.contest_okashiName = pitemlist.player_originalitemlist[kettei_itemID].itemName;
             GameMgr.contest_okashiNameHyouji =  pitemlist.player_originalitemlist[kettei_itemID].itemNameHyouji;
+            GameMgr.contest_okashiID = pitemlist.player_originalitemlist[kettei_itemID].itemID;
         }
 
         

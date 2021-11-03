@@ -298,7 +298,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //コンテストに提出したお菓子
     public static string contest_okashiName;
     public static string contest_okashiNameHyouji;
-    public static string contest_okashiSlotName;  
+    public static string contest_okashiSlotName;
+    public static int contest_okashiID;
 
     //コンテスト感想
     public static string[] contest_judge1_comment = new string[4];

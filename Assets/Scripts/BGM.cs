@@ -143,31 +143,8 @@ public class BGM : MonoBehaviour {
     public void PlayMain()
     {
 
-        if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
-        {
-            _bgm[0].clip = sound10;
-        }
-        else
-        {
-            switch (GameMgr.stage_number)
-            {
-                case 1:
+        BGMMainChange();
 
-                    Story_BGMSelect();
-                    break;
-
-                case 2:
-
-                    _bgm[0].clip = sound6;
-                    break;
-
-                case 3:
-
-                    _bgm[0].clip = sound7;
-                    break;
-            }
-        }
-        
         _bgm[0].Play();
 
         _bgm[1].clip = sound2;
@@ -193,8 +170,37 @@ public class BGM : MonoBehaviour {
         _bgm[0].Play();
     }
 
+    void BGMMainChange()
+    {
+        if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
+        {
+            _bgm[0].clip = sound10;
+        }
+        else
+        {
+            switch (GameMgr.stage_number)
+            {
+                case 1:
+
+                    Story_BGMSelect();
+                    break;
+
+                case 2:
+
+                    _bgm[0].clip = sound6;
+                    break;
+
+                case 3:
+
+                    _bgm[0].clip = sound7;
+                    break;
+            }
+        }
+    }
+
     void Story_BGMSelect()
     {
+
         switch (GameMgr.mainBGM_Num)
         {
             case 0:
@@ -237,7 +243,7 @@ public class BGM : MonoBehaviour {
 
     public void OnMainBGM()
     {
-        Story_BGMSelect();
+        BGMMainChange();
         _bgm[0].Play();
 
         _mixRate = 0;

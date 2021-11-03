@@ -172,6 +172,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject menu_toggle;
     private GameObject girleat_toggle;
     private GameObject shop_toggle;
+    private GameObject bar_toggle;
     private GameObject getmaterial_toggle;
     private GameObject stageclear_toggle;
     private GameObject sleep_toggle;
@@ -475,26 +476,32 @@ public class Compound_Main : MonoBehaviour
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
         //recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
-        recipi_toggle = canvas.transform.Find("MainUIPanel/Recipi_Toggle").gameObject;
+        recipi_toggle = canvas.transform.Find("MainUIPanel/Comp/Recipi_Toggle").gameObject;
         recipi_toggle.SetActive(false);
 
         //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
-        girleat_toggle = canvas.transform.Find("MainUIPanel/GirlEat_Toggle").gameObject;
+        girleat_toggle = canvas.transform.Find("MainUIPanel/Comp/GirlEat_Toggle").gameObject;
         girleat_toggle.SetActive(false);
 
         //hinttaste_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/HintTaste_Toggle").gameObject;
-        hinttaste_toggle = canvas.transform.Find("MainUIPanel/HintTaste_Toggle").gameObject;
+        hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
         hinttaste_toggle.SetActive(false);
 
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;       
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
+        bar_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Bar_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
         stageclear_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
         sleep_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Sleep_Toggle").gameObject;
         system_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/System_Toggle").gameObject;
         status_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Status_Toggle").gameObject;
-        
 
+        //メインUIパネルの取得
+        mainUI_panel_obj = canvas.transform.Find("MainUIPanel").gameObject;
+        UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
+        MainUICloseButton = canvas.transform.Find("MainUIPanel/Comp/MainUICloseButton").gameObject;
+        mainUIFrame_panel = canvas.transform.Find("MainUIPanel/Comp/MainUIPanelTopFrame").gameObject;
+        SceneStart_flag = false;
 
         //時間表示パネルの取得
         TimePanel_obj1 = canvas.transform.Find("MainUIPanel/Comp/TimePanel/TimeHyouji_1").gameObject;
@@ -508,8 +515,7 @@ public class Compound_Main : MonoBehaviour
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
 
-        mainUIFrame_panel = canvas.transform.Find("MainUIPanel/Comp/MainUIPanelTopFrame").gameObject;
-
+        
         //えめらるどんぐりパネルの取得
         kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
 
@@ -519,8 +525,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_button_text = stageclear_Button.transform.Find("TextPlate/Text").GetComponent<Text>();
         stageclear_button_toggle.isOn = false;
         stageclear_Button.SetActive(false);
-
-        MainUICloseButton = canvas.transform.Find("MainUIPanel/Comp/MainUICloseButton").gameObject;
+        
 
         //テーブル手前のオブジェクトを取得
         BGImageTemaePanel_obj = GameObject.FindWithTag("BGImageTemaePanel");
@@ -623,10 +628,7 @@ public class Compound_Main : MonoBehaviour
         extreme_text = "仕上げをしよう！にいちゃん！ 一個目の材料を選んでね。";
         recipi_text = "ヒカリのお菓子手帳だよ！" + "\n" + "にいちゃんのレシピが増えたら、ここに書いてくね！";
 
-        //メインUIパネルの取得
-        mainUI_panel_obj = canvas.transform.Find("MainUIPanel").gameObject;        
-        UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
-        SceneStart_flag = false;
+        
 
         //飾りアイテムのセット
         BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();
@@ -695,8 +697,8 @@ public class Compound_Main : MonoBehaviour
                 case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
 
                     GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
-                    GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-                    GameMgr.compound_status = 1000;
+                    //GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+                    //GameMgr.compound_status = 1000;
 
                     break;
 
@@ -722,9 +724,12 @@ public class Compound_Main : MonoBehaviour
         }
 
         //スペシャルアニメスタート時まではオフ
-        if (!girl1_status.special_animatFirst)
+        if (GameMgr.tutorial_ON != true)
         {
-            WindowOff();
+            if (!girl1_status.special_animatFirst)
+            {
+                WindowOff();
+            }
         }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
@@ -761,7 +766,7 @@ public class Compound_Main : MonoBehaviour
                         OffCompoundSelectnoExtreme();
                         //extreme_Button.interactable = true;
 
-                        _textmain.text = "メニューを押して、左の「お菓子パネル」を押してみよう！";
+                        _textmain.text = "左の「お菓子パネル」を押してみよう！";
                         break;
 
                     case 15: //はじめてパネルを開いた。オリジナル調合を押そう！
@@ -833,7 +838,7 @@ public class Compound_Main : MonoBehaviour
                         recipiMemoButton.GetComponent<Button>().interactable = true;
 
                         text_area.SetActive(true);
-                        _text.text = "右上の「レシピをみる」ボタンを押して、レシピを選択しよう！";
+                        _text.text = "右上の「レシピをみる」ボタンを押して" + "\n" + "クッキーを作ってみよう！";
                         break;
 
                     case 40: //メモ画面を開いた。
@@ -1132,13 +1137,9 @@ public class Compound_Main : MonoBehaviour
             else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
             {
                 mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
-                Extremepanel_obj.SetActive(false);
-                UIOpenButton_obj.SetActive(false);
+                WindowOff();
                 text_area.SetActive(false);
-                text_area_Main.SetActive(false);
                 check_recipi_flag = false;
-                TimePanel_obj1.SetActive(false);
-                stageclear_panel.SetActive(false);
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEat_Judge_on = false;
@@ -1304,8 +1305,7 @@ public class Compound_Main : MonoBehaviour
                         if (bgm_change_flag2 == true)
                         {
                             bgm_change_flag2 = false;
-                            sceneBGM.OnMainBGMFade();
-                            //sceneBGM.OnMainBGM();
+                            sceneBGM.OnMainBGMFade();                            
                         }
                     }
                 }
@@ -2085,13 +2085,13 @@ public class Compound_Main : MonoBehaviour
         mainUIFrame_panel.SetActive(false);
         //kaerucoin_panel.SetActive(false);
 
-        MainUICloseButton.SetActive(false);
-        UIOpenButton_obj.SetActive(false);
+        //MainUICloseButton.SetActive(false);
+        //UIOpenButton_obj.SetActive(false);
 
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
         girleat_toggle.SetActive(false);
-        recipi_toggle.SetActive(false);
+        //recipi_toggle.SetActive(false);
         HintObjectGroup.SetActive(false);
     }
 
@@ -2100,17 +2100,19 @@ public class Compound_Main : MonoBehaviour
         compoundselect_onoff_obj.SetActive(true);
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
-        text_area_Main.SetActive(true); //テキストエリアメインは、MainUIPanel.csのほうも、trueとfalseを設定する。        
+        text_area_Main.SetActive(true); //テキストエリアメインは、MainUIPanel.csのほうも、trueとfalseを設定する。 
+        girl_love_exp_bar.SetActive(true);
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
         mainUIFrame_panel.SetActive(true);
-        recipi_toggle.SetActive(true);
+        
         //kaerucoin_panel.SetActive(true);
 
-        MainUICloseButton.SetActive(true);
-        UIOpenButton_obj.SetActive(true);
+        //MainUICloseButton.SetActive(true);
+        //UIOpenButton_obj.SetActive(true);
         girleat_toggle.SetActive(true);
+        //recipi_toggle.SetActive(true);
         HintObjectGroup.SetActive(true);
 
         //パネルを閉じる
@@ -2124,7 +2126,7 @@ public class Compound_Main : MonoBehaviour
         }
         else
         {
-            girl_love_exp_bar.SetActive(false);
+            //girl_love_exp_bar.SetActive(false);
         }
 
         //クエストをクリアしたら、クリアボタンがでる。
@@ -2166,7 +2168,7 @@ public class Compound_Main : MonoBehaviour
             
         } else
         {
-            girl_love_exp_bar.SetActive(false);
+            //girl_love_exp_bar.SetActive(false);
         }
     }
 
@@ -2420,7 +2422,22 @@ public class Compound_Main : MonoBehaviour
             FadeManager.Instance.LoadScene("Shop", 0.3f);
         }
     }
-    
+
+    public void OnBar_toggle() //ショップへ移動
+    {
+        if (bar_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            bar_toggle.GetComponent<Toggle>().isOn = false;
+
+            card_view.DeleteCard_DrawView();
+
+            //連続で押せないようにする。
+            OffCompoundSelect();
+
+            FadeManager.Instance.LoadScene("Bar", 0.3f);
+        }
+    }
+
 
     public void OnGetMaterial_toggle() //材料採取地選択
     {
@@ -2470,7 +2487,7 @@ public class Compound_Main : MonoBehaviour
             else //まだ作ってないときは
             {
                 _textmain.text = "まだお菓子を作っていない。";
-                GameMgr.compound_status = 0;
+                //GameMgr.compound_status = 0;
             }
             
 
@@ -3127,6 +3144,7 @@ public class Compound_Main : MonoBehaviour
         Extremepanel_obj.SetActive(false);
         compoBG_A.SetActive(false);
         girl_love_exp_bar.SetActive(true);
+        mainUIFrame_panel.SetActive(true);
         GirlLove_loading = true;
 
         //腹減りカウント一時停止
@@ -4073,6 +4091,7 @@ public class Compound_Main : MonoBehaviour
         menu_toggle.GetComponent<Toggle>().interactable = false;
         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
         shop_toggle.GetComponent<Toggle>().interactable = false;
+        bar_toggle.GetComponent<Toggle>().interactable = false;
         girleat_toggle.GetComponent<Toggle>().interactable = false;
         recipi_toggle.GetComponent<Toggle>().interactable = false;
         sleep_toggle.GetComponent<Toggle>().interactable = false;
@@ -4088,6 +4107,7 @@ public class Compound_Main : MonoBehaviour
         menu_toggle.GetComponent<Toggle>().interactable = true;
         getmaterial_toggle.GetComponent<Toggle>().interactable = true;
         shop_toggle.GetComponent<Toggle>().interactable = true;
+        bar_toggle.GetComponent<Toggle>().interactable = true;
         girleat_toggle.GetComponent<Toggle>().interactable = true;
         recipi_toggle.GetComponent<Toggle>().interactable = true;
         sleep_toggle.GetComponent<Toggle>().interactable = true;

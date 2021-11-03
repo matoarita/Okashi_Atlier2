@@ -2360,39 +2360,36 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_ranking_num", 0);
         }
 
-        //コンテストの点によって、EDが分岐する。ベストEDとバッドEDのみ、好感度も影響する。
-        if (PlayerStatus.girl1_Love_exp < 200) //LV3以下 badED ED:D
-        {
-            engine.Param.TrySetParameter("ED_num", 1);
-            GameMgr.ending_number = 1;
-        }
-        else {
+        //
+        //コンテストの点によって、EDが分岐する。
+        //
 
-            if (GameMgr.contest_TotalScore < 60) // LV4 ノーマルED ED:C
+        if (GameMgr.contest_TotalScore < 60) // LV4 ノーマルED ED:C
+        {
+            
+            if (PlayerStatus.girl1_Love_exp < 200) //さらにハート数が足りていないとき badED ED:D
+            {
+                engine.Param.TrySetParameter("ED_num", 1);
+                GameMgr.ending_number = 1;
+            }
+            else
             {
                 engine.Param.TrySetParameter("ED_num", 2);
                 GameMgr.ending_number = 2;
             }
-            else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == false) // LV5~ 
-            {
-                engine.Param.TrySetParameter("ED_num", 2);
-                GameMgr.ending_number = 3;
-            }
-            else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == true) 
-            {
-                if (PlayerStatus.girl1_Love_exp > 500)
-                {
-                    engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
-                    GameMgr.ending_number = 4;
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("ED_num", 3); //ベストED ED:B ケーキED
-                    GameMgr.ending_number = 3;
-                }
-            }
-
         }
+        else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == false) // LV5~ 
+        {
+            engine.Param.TrySetParameter("ED_num", 3);
+            GameMgr.ending_number = 3;
+        }
+        else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == true)
+        {
+            engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
+            GameMgr.ending_number = 4;
+        }
+
+        
         
 
         //続きから再度読み込み

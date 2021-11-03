@@ -18,16 +18,22 @@ public class AAA_TotalResult : MonoBehaviour {
     private Text total_recipi_count_text;
     private Text total_collection_count_text;
     private Text total_costume_count_text;
+    private float total_costume_per;
     private Text player_rank_text;
-    private Text player_rank_name_text;
+    private Text player_shogo_text;
+    private string player_shogo;
 
     private Sprite texture2d;
-    private Image _Img;
+    private Image ClearImg;
+    private Text ClearItemName;
 
     private Girl1_status girl1_status;
 
     private List<GameObject> ed_view_list = new List<GameObject>();
     private Dictionary<int, int> EDList;
+
+    private int total_score;
+    private Text total_score_text;
 
     private int _collection_count;
     private int i;
@@ -61,9 +67,13 @@ public class AAA_TotalResult : MonoBehaviour {
         total_collection_count_text = canvas.transform.Find("ResultGroup/ResultPanel_1/TotalCollection").GetComponent<Text>();
         total_costume_count_text = canvas.transform.Find("ResultGroup/ResultPanel_1/TotalCostume").GetComponent<Text>();
         player_rank_text = canvas.transform.Find("ResultGroup/ResultPanel_1/PlayerRank").GetComponent<Text>();
-        player_rank_name_text = canvas.transform.Find("ResultGroup/ResultPanel_1/PlayerRankName").GetComponent<Text>();
+        player_shogo_text = canvas.transform.Find("ResultGroup/ResultPanel_1/PlayerShogo").GetComponent<Text>();
 
-        //_Img = canvas.transform.Find("ResultPanel_1/ClearItemIcon").GetComponent<Image>(); //アイテムの画像データ
+        ClearImg = canvas.transform.Find("ResultGroup/ResultPanel_1/ClearItemIcon").GetComponent<Image>(); //アイテムの画像データ
+        ClearItemName = canvas.transform.Find("ResultGroup/ResultPanel_1/ClearItemText").GetComponent<Text>();
+
+        total_score_text = canvas.transform.Find("ResultGroup/ResultPanel_1/TotalScore").GetComponent<Text>();
+        total_score = 0;
 
         DrawParam();
     }
@@ -81,8 +91,11 @@ public class AAA_TotalResult : MonoBehaviour {
 
     void DrawParam()
     {
-        
+        //コンテストクリア時のアイテムと名前
+        ClearItemName.text = GameMgr.contest_okashiSlotName + GameMgr.contest_okashiNameHyouji;
+        ClearImg.sprite = database.items[GameMgr.contest_okashiID].itemIcon_sprite;
 
+        //ハート総数とレベル
         girllv_param_text.text = PlayerStatus.girl1_Love_lv.ToString();
         girl_exp_param_text.text = PlayerStatus.girl1_Love_exp.ToString();
 
@@ -104,17 +117,65 @@ public class AAA_TotalResult : MonoBehaviour {
 
         //衣装総数を計算
         total_costume_count_text.text = pitemlist.emeralditemlist_CostumeCount().ToString() + " / " + pitemlist.emeralditemlist_CostumeAllCount().ToString();
+        total_costume_per = pitemlist.emeralditemlist_CostumeCount() / pitemlist.emeralditemlist_CostumeAllCount();
 
         //EDタイプ
         ChangeEDNumArray();
         ed_view_list[EDList[GameMgr.ending_number - 1]].transform.Find("Text1_on").gameObject.SetActive(true);
 
-        //パティシエランク計算　S　A　B+ B C+ C D+ D 8段階
-        player_rank_name_text.text = "";
-        if (PlayerStatus.girl1_Love_exp <= 300)
+        //上記のパラメータをもとに、ゲームトータルスコアを計算
+        //コンテストのスコア・ハート総数・コスチュームアイテム総数(％＊200点）・見つけたレシピの総数(％＊レシピ総数＊10倍点）・作ったレシピの最高得点の総数
+        total_score = GameMgr.contest_TotalScore + PlayerStatus.girl1_Love_exp + (int)(200 * total_costume_per) +
+            ((int)(GameMgr.game_Recipi_archivement_rate * 0.01) * GameMgr.game_All_recipi_count * 10);
+        total_score_text.text = total_score.ToString();
+
+        //パティシエランク計算　トータルスコアをもとに、SS S A B C D E F 8段階
+        player_rank_text.text = "";
+        player_shogo = "-";
+        if (total_score < 200)
+        {
+            player_rank_text.text = "F";
+            player_shogo = "パティシエ見習い";
+        }
+        else if (total_score >= 200 && total_score < 300)
+        {
+            player_rank_text.text = "E";
+            player_shogo = "パティシエたまご";
+        }
+        else if (total_score >= 300 && total_score < 400)
         {
             player_rank_text.text = "D";
+            player_shogo = "パティシエ半人前";
         }
+        else if (total_score >= 400 && total_score < 500)
+        {
+            player_rank_text.text = "C";
+            player_shogo = "パティシエ一人前";
+        }
+        else if (total_score >= 500 && total_score < 600)
+        {
+            player_rank_text.text = "B";
+            player_shogo = "シェフ・ド・パルティ";
+        }
+        else if (total_score >= 600 && total_score < 700)
+        {
+            player_rank_text.text = "A";
+            player_shogo = "スー・シェフ";
+        }
+        else if (total_score >= 700 && total_score < 800)
+        {
+            player_rank_text.text = "S";
+            player_shogo = "シェフ";
+        }
+        else if (total_score >= 800)
+        {
+            player_rank_text.text = "SS";
+            player_shogo = "ル・メイユール";
+        }
+
+        //称号計算　通常は、パティシエランクに合わせて決める。特別な条件をクリアすると、特殊な称号がもらえるようにする。
+        player_shogo_text.text = "";
+        player_shogo_text.text = player_shogo;
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 224356618049583068}
   - component: {fileID: 222388847424412608}
   - component: {fileID: 114549839723994482}
+  - component: {fileID: 225677232435413580}
   m_Layer: 0
   m_Name: TimeHyouji_1
   m_TagString: Untagged
@@ -938,6 +939,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849cf7f3790ff5c4b889512810228a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeIttei: 0
+  timeDegHeart_flag: 0
   max_time: 0
   TimeCheck_flag: 0
 --- !u!114 &114507375235994430
@@ -1957,3 +1960,14 @@ RectTransform:
   m_AnchoredPosition: {x: 52.500004, y: -5.999998}
   m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225677232435413580
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157954572656636}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
