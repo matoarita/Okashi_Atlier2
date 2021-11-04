@@ -677,7 +677,7 @@ public class Compound_Main : MonoBehaviour
     void Update()
     {
         //お金が0を下回ったらゲームオーバー
-        if(PlayerStatus.player_money <= 0)
+        /*if(PlayerStatus.player_money <= 0)
         {
             if (!gameover_loading)
             {
@@ -687,7 +687,7 @@ public class Compound_Main : MonoBehaviour
 
                 FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
             }
-        }
+        }*/
 
         if (GameMgr.scenario_ON != true)
         {
@@ -3459,7 +3459,7 @@ public class Compound_Main : MonoBehaviour
 
                     if (!GameMgr.MapEvent_01[0]) //まだ森にいったことがない場合
                     {
-                        _textmain.text = "どうしようかなぁ？" + "\n" + "（外へでて、むらさきのくだものを探すんだっけ。）";
+                        _textmain.text = "どうしようかなぁ？" + "\n" + "（むらさきのくだものは、「近くの森」で採れたっけ。）";
                     }
                     else
                     {
@@ -3610,7 +3610,7 @@ public class Compound_Main : MonoBehaviour
 
                 case 2: //かわいいクッキー
 
-                    if (GameMgr.GirlLoveSubEvent_stage1[8] == false)
+                    if (GameMgr.GirlLoveSubEvent_stage1[8] == false && girl1_status.special_animatFirst == true)
                     {
                         GameMgr.GirlLoveSubEvent_stage1[8] = true;
                         GameMgr.GirlLoveSubEvent_num = 8;

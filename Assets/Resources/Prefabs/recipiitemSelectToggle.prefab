@@ -231,7 +231,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 114224713871020296}
+  m_TargetGraphic: {fileID: 114597198463587638}
   toggleTransition: 1
   graphic: {fileID: 114015974737389510}
   m_Group: {fileID: 0}
@@ -426,7 +426,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.85
-  m_Text: "\u306D\u3053\u30AF\u30C3\u30AD\u30FCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  m_Text: "\u306D\u3053\u30AF\u30C3\u30AD\u30FCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 --- !u!114 &114687729755708266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -719,7 +719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -197}
+  m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 0, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224882935243459884
@@ -737,7 +737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56.599945, y: -76.90001}
+  m_AnchoredPosition: {x: 51, y: -71}
   m_SizeDelta: {x: 48, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224886512787405224
@@ -755,6 +755,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 78, y: -78}
+  m_AnchoredPosition: {x: 72.40004, y: -72.09999}
   m_SizeDelta: {x: 48, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}

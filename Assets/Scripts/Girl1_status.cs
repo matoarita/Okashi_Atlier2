@@ -2455,7 +2455,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                         //モーション1種類
                         //FaceMotionPlay(1002);
-                        IdleMotionHukidashiSetting(10); //吹き出しも一緒に生成
+                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
                         break;
 
                     case 1:
@@ -2750,7 +2750,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 10:
 
                 _touchface_comment_lib.Add("ちょっと元気。");
-                _touchface_comment_lib.Add("材料の数は、兄ちゃんの好みに変えられるんだよ～。");
                 _touchface_comment_lib.Add("腹へた～..。");
                 _touchface_comment_lib.Add("うまうま・・。");
                 _touchface_comment_lib.Add("にいちゃんのおかし、おいしい。もぐもぐ..。");
@@ -2758,8 +2757,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 20:
 
-                _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？兄ちゃん。");                
-                _touchface_comment_lib.Add("味見..。味見..。");              
+                _touchface_comment_lib.Add("ちょっと元気。");
+                _touchface_comment_lib.Add("お腹へった..。");
+                _touchface_comment_lib.Add("おいしい..。");
+                _touchface_comment_lib.Add("にいちゃんのおかし、もぐもぐ..。");            
                 _touchface_comment_lib.Add("いい朝だねぇ～。お兄ちゃん～。");
                 
                 break;
@@ -2775,11 +2776,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("いっぱい手伝うね！お兄ちゃん。");
                 break;
 
-            case 30:
-                
+            case 30: //ボウルをガシャガシャ
+
                 _touchface_comment_lib.Add("材料の比率は、兄ちゃんの好みに変えられるんだよ～。");
                 _touchface_comment_lib.Add("兄ちゃん、もうコンテストとか余裕？");
                 _touchface_comment_lib.Add("今日はあたたかいね～、兄ちゃん！");
+                _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？兄ちゃん。");
                 _touchface_comment_lib.Add("にいちゃん。あのね.. 鳥さんがお庭にきてたから、パンあげたら食べたよ！");
 
                 break;
@@ -2789,14 +2791,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("早く、にいちゃんのお菓子食べたいな～。");
                 break;
 
-            case 32:
+            case 32: //るんるんモーション
 
                 _touchface_comment_lib.Add("るんるん♪");
                 _touchface_comment_lib.Add("♪");
                 _touchface_comment_lib.Add("エメラルどんぐり、拾いにいこうよ～。お兄ちゃん。");
                 break;
 
-            case 33:
+            case 33: //クッキーつまみぐい
 
                 _touchface_comment_lib.Add("こっそり.. 味見～♪");
                 break;

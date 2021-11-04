@@ -54071,8 +54071,8 @@ MonoBehaviour:
   Opacity: 1
   _lastOpacity: 1
   _sortingLayerId: 0
-  _sortingMode: 0
-  _sortingOrder: 0
+  _sortingMode: 2
+  _sortingOrder: -500
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
   _opacityHandler: {fileID: 0}

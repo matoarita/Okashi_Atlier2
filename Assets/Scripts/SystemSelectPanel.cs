@@ -24,6 +24,8 @@ public class SystemSelectPanel : MonoBehaviour {
     private Text titleback_text;
     private Text yes_text;
 
+    private GameObject no_button;
+
     // Use this for initialization
     void Start () {
 
@@ -52,6 +54,8 @@ public class SystemSelectPanel : MonoBehaviour {
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+        no_button = canvas.transform.Find("SystemPanel/No").gameObject;
     }
 	
 	// Update is called once per frame
@@ -59,12 +63,21 @@ public class SystemSelectPanel : MonoBehaviour {
 		
 	}
 
+    private void OnEnable()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+        no_button = canvas.transform.Find("SystemPanel/No").gameObject;
+        no_button.SetActive(true);
+    }
+
     //セーブ
     public void OnSaveButton()
     {
         titleback_panel.SetActive(true);
         titleback_text.text = "セーブするの？";
         yes_text.text = "セーブする";
+        no_button.SetActive(false);
 
         StartCoroutine("Save_kakunin");       
     }
@@ -75,6 +88,7 @@ public class SystemSelectPanel : MonoBehaviour {
         titleback_panel.SetActive(true);
         titleback_text.text = "ロードするの？";
         yes_text.text = "ロードする";
+        no_button.SetActive(false);
 
         StartCoroutine("Load_kakunin");
     }
@@ -92,6 +106,7 @@ public class SystemSelectPanel : MonoBehaviour {
         titleback_panel.SetActive(true);
         titleback_text.text = "タイトルに戻る？" + "\n" + "（セーブしてないデータは失われます。）";
         yes_text.text = "タイトルに戻る";
+        no_button.SetActive(false);
 
         StartCoroutine("Title_kakunin");
         
@@ -129,6 +144,7 @@ public class SystemSelectPanel : MonoBehaviour {
 
                 //Debug.Log("cancel");
                 titleback_panel.SetActive(false);
+                no_button.SetActive(true);
 
                 break;
         }
@@ -176,6 +192,7 @@ public class SystemSelectPanel : MonoBehaviour {
 
                 //Debug.Log("cancel");
                 titleback_panel.SetActive(false);
+                no_button.SetActive(true);
 
                 break;
         }
@@ -209,6 +226,7 @@ public class SystemSelectPanel : MonoBehaviour {
 
                 //Debug.Log("cancel");
                 titleback_panel.SetActive(false);
+                no_button.SetActive(true);
 
                 break;
         }

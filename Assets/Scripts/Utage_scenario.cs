@@ -1457,13 +1457,13 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
 
                         //Debug.Log("GameMgr.event_kettei_itemID: " + GameMgr.event_kettei_itemID + " pitemlist.player_originalitemlist.Count: " + pitemlist.player_originalitemlist.Count);
-                        if ((pitemlist.player_originalitemlist.Count - 1) == GameMgr.event_kettei_itemID) //エクストリームパネルに設定されているお菓子を選んだ
+                        /*if ((pitemlist.player_originalitemlist.Count - 1) == GameMgr.event_kettei_itemID) //エクストリームパネルに設定されているお菓子を選んだ
                         {
                             exp_Controller._temp_extreme_id = 9999;
                             exp_Controller._temp_extremeSetting = false;
-                        }
+                        }*/
 
-                        //削除
+                        //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
                         pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
                     }
 

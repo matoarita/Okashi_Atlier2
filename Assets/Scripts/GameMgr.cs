@@ -358,6 +358,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //カメラズームアウトの終わりを検出する
     public static bool camerazoom_endflag;
 
+    //クエストクリアエフェクトの終わりを検出する。
+    public static bool qclear_effect_endflag;
+
     //イベント中、アイテムリストを開き、選択画面がある場合のフラグ
     public static bool event_pitem_use_select;
     public static bool event_pitem_use_OK;
@@ -470,6 +473,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         scenario_flag_cullent = scenario_flag;
 
         camerazoom_endflag = false;
+        qclear_effect_endflag = false;
 
         Costume_Num = 0; //初期コスチューム　メイド服がデフォルト
         for (system_i = 0; system_i < Accesory_Num.Length; system_i++)

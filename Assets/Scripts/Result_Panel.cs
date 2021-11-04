@@ -290,7 +290,7 @@ public class Result_Panel : MonoBehaviour
             {
                 StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
-                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "うみゃあ！！　合格！";
+                GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "うみゃあ！！";
 
                 //60点以上で背景アイコンが黄色に変わる演出
                 if (!anim_on1)
