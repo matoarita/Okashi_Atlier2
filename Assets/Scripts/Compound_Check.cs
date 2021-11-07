@@ -1204,7 +1204,8 @@ public class Compound_Check : MonoBehaviour {
         _buf_kakuritsu = 0;
         _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan();
               
-        _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + ((PlayerStatus.player_renkin_lv-1) * 2) + _buf_kakuritsu; //LV1上がるごとに2%ずつ上昇 + 装備品による確率上昇
+        _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + ((PlayerStatus.girl1_Love_lv) * 2) + _buf_kakuritsu; //LV1上がるごとに2%ずつ上昇 + 装備品による確率上昇
+        //PlayerStatus.player_renkin_lv-1
 
         Debug.Log("成功基本確率: " + databaseCompo.compoitems[_compID].success_Rate);
         Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);

@@ -38,11 +38,42 @@ public class Particle_Heart_Character : MonoBehaviour {
         particle = this.GetComponent<ParticleSystem>();
         particleEm = particle.emission;
 
-        _love = PlayerStatus.girl1_Love_exp;
-        _love = _love * 0.1f;
+        /*if (transform.name == "Particle_Heart_Character_yellow")
+        {
+            if(PlayerStatus.girl1_Love_lv >= 15)
+            {
+                _love = PlayerStatus.girl1_Love_exp - girl1_status.stage1_lvTable[14];
+                _love = _love * 0.05f;
 
-        _setlove = (int)_love;
+                _setlove = (int)_love;
 
-        particleEm.rate = new ParticleSystem.MinMaxCurve(_setlove);
+                if (_setlove >= 200) //MAX 200
+                {
+                    _setlove = 200;
+                }
+
+                particleEm.rate = new ParticleSystem.MinMaxCurve(_setlove);
+            }
+            else
+            {
+                _setlove = 0;
+                particleEm.rate = new ParticleSystem.MinMaxCurve(_setlove);
+            }
+        }
+        else
+        {*/
+
+            _love = PlayerStatus.girl1_Love_exp;
+            _love = _love * 0.05f;
+
+            _setlove = (int)_love;
+
+            if (_setlove >= 200) //MAX 200
+            {
+                _setlove = 200;
+            }
+
+            particleEm.rate = new ParticleSystem.MinMaxCurve(_setlove);
+        //}
     }
 }

@@ -220,6 +220,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
+
         //音声ファイルの取得。SCを使わずに鳴らす場合はこっち。
 
         //カード表示用オブジェクトの取得
@@ -309,10 +312,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
 
         //レシピ達成率を取得
-        recipi_archivement_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiCompoImage/Panel").gameObject;
-
-        //レベルアップチェック用オブジェクトの取得
-        exp_table = GameObject.FindWithTag("ExpTable").gameObject.GetComponent<ExpTable>();
+        recipi_archivement_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiCompoImage/Panel").gameObject;       
 
         //黒半透明パネルの取得
         BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
@@ -575,7 +575,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compound_Main.StartMessage();        
 
         //経験値の増減後、レベルアップしたかどうかをチェック
-        exp_table.Check_LevelUp();
+        //exp_table.Check_LevelUp();
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
@@ -817,7 +817,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
 
         //経験値の増減後、レベルアップしたかどうかをチェック
-        exp_table.Check_LevelUp();
+        //exp_table.Check_LevelUp();
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
@@ -1034,7 +1034,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compound_Main.StartMessage();
 
         //経験値の増減後、レベルアップしたかどうかをチェック
-        exp_table.Check_LevelUp();
+        //exp_table.Check_LevelUp();
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
@@ -1452,15 +1452,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
-                " が" + result_kosu + "個 できたよ！" + "\n" + _ex_text +
-                "パティシエ経験値 " + _getexp + "上がった！";
+                " が" + result_kosu + "個 できたよ！";
+                //+ "\n" + _ex_text +"パティシエ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
-                " が" + result_kosu + "個 できたよ！" + "\n" + _ex_text +
-                "パティシエ経験値は上がらなかった。";
+                " が" + result_kosu + "個 できたよ！";
+                //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。";
         }
 
         Debug.Log(renkin_hyouji + "が出来ました！");
@@ -1474,17 +1474,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
-            pitemlist.player_originalitemlist[new_item].itemNameHyouji + 
-            " が" + result_kosu + "個 できたよ！" + "\n" + _ex_text +
-            "パティシエ経験値 " + _getexp + "上がった！";
+            pitemlist.player_originalitemlist[new_item].itemNameHyouji +
+            " が" + result_kosu + "個 できたよ！";
+            //+ "\n" + _ex_text + "パティシエ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + 
             pitemlist.player_originalitemlist[new_item].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！" + "\n" + _ex_text +
-            "パティシエ経験値は上がらなかった。"; ;
+            " が" + result_kosu + "個 できたよ！";
+            //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。"; ;
         }
 
         Debug.Log(pitemlist.player_originalitemlist[new_item].itemNameHyouji + "が出来ました！");
@@ -1498,15 +1498,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
             database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
-            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-            "パティシエ経験値 " + _getexp + "上がった！";
+            " が" + result_kosu + "個 できたよ！";
+            //+ "\n" + _ex_text +"パティシエ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
             database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
-            " が" + result_kosu + "個 できました！" + "\n" + _ex_text +
-            "パティシエ経験値は上がらなかった。"; ;
+            " が" + result_kosu + "個 できたよ！";
+            //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。";
         }
 
         Debug.Log(pitemlist.player_originalitemlist[new_item].itemNameHyouji + "が出来ました！");

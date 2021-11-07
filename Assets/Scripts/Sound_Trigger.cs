@@ -160,6 +160,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(34);
                 break;
 
+            case "HintTaste_Toggle": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
             case "itemSelectToggle(Clone)": //アイテム欄で、アイテム選択するときの音
 
                 //ポインタが入ったときに鳴る音

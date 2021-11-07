@@ -36,10 +36,10 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
 
         _comp = this.transform.Find("Comp").gameObject;
 
-        glovelv_param = this.transform.Find("Comp/Image/LvParam").GetComponent<Text>();
+        glovelv_param = this.transform.Find("Comp/HeartLvupImage/LvParam").GetComponent<Text>();
         glovelv_param.text = PlayerStatus.girl1_Love_lv.ToString();
 
-        glovestatus_param = this.transform.Find("Comp/Image/GenkiMessage").GetComponent<Text>();
+        glovestatus_param = this.transform.Find("Comp/HeartLvupImage/GenkiMessage").GetComponent<Text>();
 
         switch(PlayerStatus.girl1_Love_lv)
         {
@@ -132,5 +132,27 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
     {
         OnPanelflag = false;
         this.gameObject.SetActive(false);
+    }
+
+    //どのパネルを表示するかを指定する。デフォルトは、HLV上がった！
+    public void SelectPanel_1()
+    {
+        this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(true);
+        this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(false);
+        this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(false);
+    }
+
+    public void SelectPanel_2(int _kaisu) //仕上げ回数あがった
+    {
+        this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(false);
+        this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(true);
+        this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(false);
+    }
+
+    public void SelectPanel_3() //同時に2個仕上げできるようになった
+    {
+        this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(false);
+        this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(false);
+        this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(true);
     }
 }

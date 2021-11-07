@@ -111,6 +111,11 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(expcontroller_init);
         expcontroller_init.tag = "Exp_Controller";
 
+        //Expテーブル
+        var exp_table__init = new GameObject("ExpTable", typeof(ExpTable));
+        GameObject.DontDestroyOnLoad(exp_table__init);
+        exp_table__init.tag = "ExpTable";
+
         //スロット名前変更
         var slotchangename_init = new GameObject("SlotChangeName", typeof(SlotChangeName));
         GameObject.DontDestroyOnLoad(slotchangename_init);

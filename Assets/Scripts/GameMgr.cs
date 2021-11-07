@@ -51,7 +51,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int scenario_flag;    //全シーンで共通。今、どのシナリオまできているか。クエストやステージではなく、ゲーム自体の進行度を表す。
     public static int ending_count;     //エンディングを迎えた回数
-    public static int stage_number;     //ステージ番号
+    public static int stage_number;     //ステージ番号　stage1 stage2のこと
+    public static int stage_quest_num; //メインのクエスト番号
+    public static int stage_quest_num_sub; //クエスト番号
 
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;
@@ -89,7 +91,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int stage1_clear_love;
     public static int stage2_clear_love;
-    public static int stage3_clear_love;
+    public static int stage3_clear_love;    
 
     //クッキーをはじめて作ったかどうか、などのゲーム序盤に○○の処理をしたかどうかを判定するイベントフラグ   
     public static bool[] Beginner_flag = new bool[Event_num];
@@ -219,13 +221,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int QuestClearButtonMessage_EvNum; //クエストクリア時のイベント番号
 
     //現在のクエストが、クエスト全体の何番目か。デバッグでハートレベル更新の際、使う。
-    public static int OkashiQuest_cullentcount;
     public static int NextQuestID; //次クエストのgirlLikeCompoSetの_compIDを指定。GirlEatJudgeで使用する。
 
     //好感度イベント発生フラグ
     public static bool girlloveevent_flag;          //女の子の好感度に応じて発生するイベントのフラグ
     public static bool girlloveevent_endflag;       //宴で読み終了したときのフラグ
-    public static bool questclear_After;            //クエストクリアボタンを押したよ、というフラグ。セーブの必要はなし。
+    public static bool questclear_After;            //クエストクリアボタンを押したよ、というフラグ。セーブの必要はなし。次のSPクエストへ進行するためのフラグ。
 
     public static int GirlLoveSubEvent_num;
     public static int girlloveevent_bunki; //メインイベントかサブイベントかを分岐する
@@ -526,6 +527,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
 
         stage_number = 1;
+        stage_quest_num = 1;
+        stage_quest_num_sub = 1;
 
         stage1_load_ok = false;
 
@@ -651,7 +654,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mainClear_flag = false;
         emeralDonguri_flag = false;
         QuestClearButtonMessage_flag = false;
-        OkashiQuest_cullentcount = 1;
 
         //お菓子フラグの初期化
         for (system_i = 0; system_i < OkashiQuest_flag_stage1.Length; system_i++)

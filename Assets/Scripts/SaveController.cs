@@ -191,6 +191,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ステージ番号
             save_stage_number = GameMgr.stage_number,
+            save_stage_quest_num = GameMgr.stage_quest_num,
+            save_stage_quest_num_sub = GameMgr.stage_quest_num_sub,
 
             //シナリオの進み具合
             save_scenario_flag = GameMgr.scenario_flag,
@@ -422,6 +424,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //ステージ番号
         GameMgr.stage_number = playerData.save_stage_number;
+        GameMgr.stage_quest_num = playerData.save_stage_quest_num;
+        GameMgr.stage_quest_num_sub = playerData.save_stage_quest_num_sub;
 
         //シナリオの進み具合
         GameMgr.scenario_flag = playerData.save_scenario_flag;

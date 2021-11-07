@@ -39,7 +39,7 @@ public class Compound_Main : MonoBehaviour
     private Map_Ambience map_ambience;
     public bool bgm_change_flag;
     public bool bgm_change_flag2;
-    private bool bgm_changeuse_ON = true; //調合シーンで、BGMを切り替えるかどうか。
+    private bool bgm_changeuse_ON = true; //お菓子手帳のシーンで、BGMを切り替えるかどうか。
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -72,10 +72,6 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject TimePanel_obj1;
     private GameObject TimePanel_obj2;
-
-    private GameObject BGImageTemaePanel_obj;
-    private GameObject BGImageTemaePanel_kiji;
-    private GameObject BGImageTemaePanel_plate;
 
     private Text questname;
 
@@ -190,6 +186,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject stageclear_Button;
     private Toggle stageclear_button_toggle;
     private Text stageclear_button_text;
+    private string stageclear_default_text;
 
     private bool status_zero_readOK;
     private bool Recipi_loading;
@@ -475,8 +472,8 @@ public class Compound_Main : MonoBehaviour
         //roast_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Roast_Toggle").gameObject;
         //blend_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Blend_Toggle").gameObject;
 
-        //recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
-        recipi_toggle = canvas.transform.Find("MainUIPanel/Comp/Recipi_Toggle").gameObject;
+        recipi_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Recipi_Toggle").gameObject;
+        //recipi_toggle = canvas.transform.Find("MainUIPanel/Comp/Recipi_Toggle").gameObject;
         recipi_toggle.SetActive(false);
 
         //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
@@ -523,14 +520,10 @@ public class Compound_Main : MonoBehaviour
         stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
         stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
         stageclear_button_text = stageclear_Button.transform.Find("TextPlate/Text").GetComponent<Text>();
+        stageclear_default_text = stageclear_button_text.text;
         stageclear_button_toggle.isOn = false;
         stageclear_Button.SetActive(false);
         
-
-        //テーブル手前のオブジェクトを取得
-        BGImageTemaePanel_obj = GameObject.FindWithTag("BGImageTemaePanel");
-        BGImageTemaePanel_kiji = BGImageTemaePanel_obj.transform.Find("BG_sprite_kiji").gameObject;
-        BGImageTemaePanel_plate = BGImageTemaePanel_obj.transform.Find("BG_sprite_plate").gameObject;
 
         //背景天気オブジェクトの取得
         bgweather_image_panel = GameObject.FindWithTag("BGImageWindowOutPanel");
@@ -1442,7 +1435,7 @@ public class Compound_Main : MonoBehaviour
                 ReDrawLive2DPos_Compound();
 
                 //BGMを変更
-                if (!GameMgr.tutorial_ON)
+                /*if (!GameMgr.tutorial_ON)
                 {                                     
                     if (bgm_changeuse_ON) //調合時にBGMを切り替えるかどうか。
                     {
@@ -1452,7 +1445,7 @@ public class Compound_Main : MonoBehaviour
                             bgm_change_flag2 = true;
                         }
                     }
-                }
+                }*/
                 map_ambience.Mute();
 
                 //一時的に腹減りを止める。
@@ -1500,7 +1493,7 @@ public class Compound_Main : MonoBehaviour
                 ReDrawLive2DPos_Compound();
 
                 //BGMを変更
-                if (!GameMgr.tutorial_ON)
+                /*if (!GameMgr.tutorial_ON)
                 {
                     if (bgm_changeuse_ON)
                     {
@@ -1510,7 +1503,7 @@ public class Compound_Main : MonoBehaviour
                             bgm_change_flag2 = true;
                         }
                     }
-                }
+                }*/
                 map_ambience.Mute();
 
                 //一時的に腹減りを止める。
@@ -1565,7 +1558,7 @@ public class Compound_Main : MonoBehaviour
             case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
 
                 //BGMを変更
-                if (!GameMgr.tutorial_ON)
+                /*if (!GameMgr.tutorial_ON)
                 {
                     if (bgm_changeuse_ON)
                     {
@@ -1573,6 +1566,18 @@ public class Compound_Main : MonoBehaviour
                         {
                             sceneBGM.OnCompoundBGM();
                             bgm_change_flag2 = true;
+                        }
+                    }
+                }*/
+
+                if (!GameMgr.tutorial_ON)
+                {
+                    if (bgm_changeuse_ON)
+                    {
+                        if (bgm_change_flag2 == true)
+                        {
+                            bgm_change_flag2 = false;
+                            sceneBGM.OnMainBGMFade();
                         }
                     }
                 }
@@ -2091,7 +2096,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
         girleat_toggle.SetActive(false);
-        //recipi_toggle.SetActive(false);
+        recipi_toggle.SetActive(false);
         HintObjectGroup.SetActive(false);
     }
 
@@ -2112,7 +2117,7 @@ public class Compound_Main : MonoBehaviour
         //MainUICloseButton.SetActive(true);
         //UIOpenButton_obj.SetActive(true);
         girleat_toggle.SetActive(true);
-        //recipi_toggle.SetActive(true);
+        recipi_toggle.SetActive(true);
         HintObjectGroup.SetActive(true);
 
         //パネルを閉じる
@@ -2139,15 +2144,11 @@ public class Compound_Main : MonoBehaviour
         {
             girleat_toggle.GetComponent<Toggle>().interactable = true;
             //girleat_toggle.SetActive(true);
-            //BGImageTemaePanel_kiji.SetActive(false);
-            //BGImageTemaePanel_plate.SetActive(true);
         }
         else
         {
             girleat_toggle.GetComponent<Toggle>().interactable = false;
             //girleat_toggle.SetActive(false);
-            //BGImageTemaePanel_kiji.SetActive(true);
-            //BGImageTemaePanel_plate.SetActive(false);
         }
 
         extreme_panel.extremeButtonInteractOn();
@@ -2197,7 +2198,7 @@ public class Compound_Main : MonoBehaviour
             {
                 stageclear_panel.SetActive(true);
                 stageclear_Button.SetActive(true);
-                stageclear_button_text.text = "ステージクリア";
+                stageclear_button_text.text = stageclear_default_text;
                 //stageclear_toggle.SetActive(true);
             }
         }
@@ -2548,7 +2549,7 @@ public class Compound_Main : MonoBehaviour
             {
                 if (GameMgr.QuestClearflag)
                 {
-                    _text.text = "次のステージにすすむ？おにいちゃん。";
+                    _text.text = "次のお話にすすむ？　おにいちゃん。";
 
                     GameMgr.compound_status = 42;
                     yes_no_clear_okashi_panel.SetActive(true);
@@ -2964,6 +2965,8 @@ public class Compound_Main : MonoBehaviour
                     if (!GameMgr.OkashiQuest_flag_stage1[0]) //レベル１のときのイベント。一番最初で起こるイベント。
                     {
                         event_num = 0;
+                        //GameMgr.stage_quest_num = 1;
+                        //GameMgr.stage_quest_num_sub = 1; //また１にリセット
 
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント０
                         {
@@ -2982,6 +2985,8 @@ public class Compound_Main : MonoBehaviour
                     {
 
                         event_num = 10;
+                        //GameMgr.stage_quest_num = 2;
+                        //GameMgr.stage_quest_num_sub = 1; //また１にリセット
 
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント１
                         {
@@ -3007,6 +3012,8 @@ public class Compound_Main : MonoBehaviour
                     if (GameMgr.OkashiQuest_flag_stage1[1] && GameMgr.questclear_After) //レベル３のときのイベント。
                     {
                         event_num = 20;
+                        //GameMgr.stage_quest_num = 3;
+                        //GameMgr.stage_quest_num_sub = 1; //また１にリセット
 
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント２
                         {
@@ -3032,6 +3039,8 @@ public class Compound_Main : MonoBehaviour
                     if (GameMgr.OkashiQuest_flag_stage1[2] && GameMgr.questclear_After) //レベル４のときのイベント。
                     {
                         event_num = 30;
+                        //GameMgr.stage_quest_num = 4;
+                        //GameMgr.stage_quest_num_sub = 1; //また１にリセット
 
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント３
                         {
@@ -3054,6 +3063,8 @@ public class Compound_Main : MonoBehaviour
                     if (GameMgr.OkashiQuest_flag_stage1[3] && GameMgr.questclear_After) //レベル５のときのイベント。
                     {
                         event_num = 40;
+                        //GameMgr.stage_quest_num = 5;
+                        //GameMgr.stage_quest_num_sub = 1; //また１にリセット
 
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント４
                         {
@@ -3076,6 +3087,8 @@ public class Compound_Main : MonoBehaviour
                     if (GameMgr.OkashiQuest_flag_stage1[4] && GameMgr.questclear_After) //ステージ１　５つクリアしたので、コンテストイベント
                     {
                         event_num = 50;
+                        //GameMgr.stage_quest_num = 6;
+                        //GameMgr.stage_quest_num_sub = 1; //また１にリセット
 
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　ラストイベント
                         {
@@ -3312,8 +3325,8 @@ public class Compound_Main : MonoBehaviour
 
             case "cookie_base_recipi": //お菓子の基本＜初級＞
 
-                databaseCompo.CompoON_compoitemdatabase("cookie_nonsuger");
-                databaseCompo.CompoON_compoitemdatabase("emerald_neko_cookie");
+                //databaseCompo.CompoON_compoitemdatabase("cookie_nonsuger");
+                //databaseCompo.CompoON_compoitemdatabase("emerald_neko_cookie");
                 break;
 
             case "ice_cream_recipi": //アイスクリームの書
@@ -3343,7 +3356,7 @@ public class Compound_Main : MonoBehaviour
 
             case "bisucouti_recipi": //ビスコッティ
 
-                databaseCompo.CompoON_compoitemdatabase("baking_mix");
+                //databaseCompo.CompoON_compoitemdatabase("baking_mix");
                 //databaseCompo.CompoON_compoitemdatabase("biscotti");
 
                 break;
@@ -3363,8 +3376,8 @@ public class Compound_Main : MonoBehaviour
 
             case "recipibook_5": //はじめてのパンケーキ
 
-                databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
-                databaseCompo.CompoON_compoitemdatabase("pan_cake");
+                //databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
+                //databaseCompo.CompoON_compoitemdatabase("pan_cake");
 
                 break;
 
@@ -3740,7 +3753,7 @@ public class Compound_Main : MonoBehaviour
             { }
             else
             {
-                if (PlayerStatus.girl1_Love_lv >= 8 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
+                if (PlayerStatus.girl1_Love_lv >= 12 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
                 {
                     GameMgr.GirlLoveSubEvent_num = 60;
                     GameMgr.GirlLoveSubEvent_stage1[60] = true;
@@ -3979,16 +3992,20 @@ public class Compound_Main : MonoBehaviour
                     if (GameMgr.GirlLoveSubEvent_stage1[90] == false)
                     {
                         Load_eventflag = false;
-                        if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
+                        if (GameMgr.GirlLoveEvent_num == 50) //コンテストのとき
                         {
                             
-                            //GameMgr.GirlLoveSubEvent_stage1[180] = true;
                             GameMgr.GirlLoveSubEvent_num = 91;
+                            check_GirlLoveSubEvent_flag = false;
+                        }
+                        else if (GameMgr.GirlLoveEvent_num >= 40 && GameMgr.GirlLoveEvent_num < 50) //ステージ４　コンテストが近い
+                        {
+
+                            GameMgr.GirlLoveSubEvent_num = 92;
                             check_GirlLoveSubEvent_flag = false;
                         }
                         else
                         {
-                            //GameMgr.GirlLoveSubEvent_stage1[181] = true;
                             GameMgr.GirlLoveSubEvent_num = 90;
                             check_GirlLoveSubEvent_flag = false;
                         }

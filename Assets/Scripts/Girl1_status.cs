@@ -878,25 +878,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 2;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 6) //3~6
+        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 4) //3~6
         {
             //ちょっと元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 6 && PlayerStatus.girl1_Love_lv < 7) //6~9
+        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 9) //6~9
         {
             //だいぶ元気でてきた
             GirlGokigenStatus = 4;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 7 && PlayerStatus.girl1_Love_lv < 10) //10~12
+        else if (PlayerStatus.girl1_Love_lv >= 10 && PlayerStatus.girl1_Love_lv < 12) //10~12
         {
             //元気
             GirlGokigenStatus = 5;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 10) //13~
+        else if (PlayerStatus.girl1_Love_lv >= 12) //13~
         {
             //最高に上機嫌
             GirlGokigenStatus = 6;
@@ -927,7 +927,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 3:
-                face_girl_Fine();
+                face_girl_Little_Fine();
                 break;
 
             case 4:
@@ -948,7 +948,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
-    //お菓子に満足したあとの表情。基本的に喜んでいる。好感度によって、少し差がある。
+    //お菓子に満足したあとの表情。基本的に喜んでいる。好感度によって、少し差があるにしてもいいかも？
     public void AfterOkashiDefaultFace()
     {
         //Live2Dモデルの取得
@@ -975,19 +975,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 4:
-                face_girl_Normal();
+                face_girl_Fine();
                 break;
 
             case 5:
-                face_girl_Joukigen();
+                face_girl_Fine();
                 break;
 
             case 6:
-                face_girl_Joukigen();
+                face_girl_Fine();
                 break;
 
             default:
-                face_girl_Joukigen();
+                face_girl_Fine();
                 break;
         }
     }
@@ -1019,7 +1019,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
 
                     //
-                    //①特定の課題お菓子。
+                    //①特定の課題お菓子。メインシナリオ。
                     //                   
 
                     //今選んだやつの、girllikeComposetのIDも保存しておく。（こっちは直接選んでいる。）
@@ -1313,6 +1313,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         timeGirl_hungry_status = 0;
 
         DeleteHukidashi();
+    }
+
+    public void ResetHukidashiNoSound()
+    {
+        //一度吹き出しを削除し、クエスト吹き出しなどを表示する。
+        timeOut = Default_hungry_cooltime;
+        timeOut2 = 10.0f;
+        timeGirl_hungry_status = 0;
+
+        DeleteHukidashiOnly();
     }
 
     //お菓子出来たて直後の吹き出しリセット設定。Live2DAnimationTrigger.csから読み出し
@@ -2178,9 +2188,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //ツインテール　ドラッグで触り続けた場合
     public void TouchSisterTwinTail()
     {        
-        //コメント順番に表示
+        
         Init_touchTwintailComment();
 
+        //コメント順番に表示
         if (Girl1_touchtwintail_count >= _touchtwintail_comment_lib.Count)
         {
             Girl1_touchtwintail_flag = true; //ツインテールに関する全てのコメントを表示した
@@ -2988,9 +2999,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 2:
 
                 _touchtwintail_comment_lib.Add("わっ");
-                _touchtwintail_comment_lib.Add("ママゆずりで、さらさらなんだよ～。");
-                _touchtwintail_comment_lib.Add("まま、元気かなぁ～..。");
                 _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("ふわぁ～..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -2998,10 +3009,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 3:
 
-                _touchtwintail_comment_lib.Add("へへ。兄ちゃんに髪触られた♪");
-                _touchtwintail_comment_lib.Add("さらさら。気持ちいい。");
-                _touchtwintail_comment_lib.Add("うひひ。");
-                _touchtwintail_comment_lib.Add("あ～..。");
+                _touchtwintail_comment_lib.Add("いた");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("うひひ。..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -3009,10 +3020,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 4:
 
-                _touchtwintail_comment_lib.Add("わ～い♪");
-                _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
-                _touchtwintail_comment_lib.Add("しゃらら～ん");
-                _touchtwintail_comment_lib.Add("あ～..♪");
+                _touchtwintail_comment_lib.Add("わっ");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("えへへ..♪");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -3020,9 +3031,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 5:
 
-                _touchtwintail_comment_lib.Add("うわ～い♪");
-                _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
-                _touchtwintail_comment_lib.Add("しゃらら～ん");
+                _touchtwintail_comment_lib.Add("うわ♪");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("あ～..♪");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
@@ -3031,10 +3042,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 6:
 
-                _touchtwintail_comment_lib.Add("うわ～い♪");
-                _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
-                _touchtwintail_comment_lib.Add("しゃらら～ん");
-                _touchtwintail_comment_lib.Add("あ～..♪");
+                _touchtwintail_comment_lib.Add("うわ♪");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("ふおぉ..♪");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -3042,11 +3053,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             default:
 
-                _touchtwintail_comment_lib.Add("うわ～い♪");
-                _touchtwintail_comment_lib.Add("髪の毛さらさら。気持ちいい。");
-                _touchtwintail_comment_lib.Add("しゃらら～ん");
-                _touchtwintail_comment_lib.Add("あ～..♪");
-                _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("うわ♪");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("ふおぉ..♪");
+                _touchtwintail_comment_lib.Add("（ままのクッキーのにおい..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
                 break;
@@ -3506,21 +3517,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         stage1_lvTable.Add(70);　//LV3 LV1の分は含めない。
         stage1_lvTable.Add(130); //LV4
         stage1_lvTable.Add(200); //LV5
-        stage1_lvTable.Add(350); //LV6
-        stage1_lvTable.Add(550); //LV7
-        stage1_lvTable.Add(800); //LV8
-        stage1_lvTable.Add(1070); //LV9
-        stage1_lvTable.Add(1370); //LV10
-        stage1_lvTable.Add(1700); //LV11
-        stage1_lvTable.Add(2000); //LV12
-        stage1_lvTable.Add(2400); //LV13
-        stage1_lvTable.Add(2850); //LV14
-        stage1_lvTable.Add(3350); //LV15
+        stage1_lvTable.Add(300); //LV6
+        stage1_lvTable.Add(410); //LV7
+        stage1_lvTable.Add(530); //LV8
+        stage1_lvTable.Add(650); //LV9
+        stage1_lvTable.Add(780); //LV10
+        stage1_lvTable.Add(920); //LV11
+        stage1_lvTable.Add(1050); //LV12
+        stage1_lvTable.Add(1200); //LV13
+        stage1_lvTable.Add(1350); //LV14
+        stage1_lvTable.Add(1500); //LV15
 
-        //LV16以上～99まで　200ごとに上がるように設定
+        //LV16以上～99まで　150ごとに上がるように設定
         for (i=1; i < ( 99 - stage1_lvTable.Count); i++)
         {
-            stage1_lvTable.Add(stage1_lvTable[stage1_lvTable.Count-1] + 200);
+            stage1_lvTable.Add(stage1_lvTable[stage1_lvTable.Count-1] + 150);
         }
     }
 
@@ -3535,18 +3546,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
         return _sum;
-    }
-
-    public void LvUpStatus() //好感度レベルがあがったときに、ステータス上昇などの処理.GirlEatJudgeから読み出し。
-    {
-        //レベルがあがるごとに、アイテム発見力があがる。
-        /*PlayerStatus.player_girl_findpower = 100 + ((girl1_Love_lv-1) * 10);
-
-        //上限処理
-        if(PlayerStatus.player_girl_findpower >= 999)
-        {
-            PlayerStatus.player_girl_findpower = 999;
-        }*/
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

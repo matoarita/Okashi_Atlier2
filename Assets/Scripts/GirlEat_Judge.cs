@@ -90,6 +90,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
 
+    private ExpTable exp_table;
+
     private string _commentrandom;
     private List<string> _commentDict = new List<string>();
 
@@ -339,6 +341,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //好感度レベルテーブルの取得
     private List<int> stage_levelTable = new List<int>();
     //レベルアップ用
+    private GameObject HeartLvUpPanel_obj;
     private GameObject lvuppanel_Prefab;
     private List<GameObject> _listlvup_obj = new List<GameObject>();
 
@@ -403,6 +406,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
 
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();        
@@ -492,6 +498,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
 
                 //好感度レベルアップ時の演出パネル取得
+                HeartLvUpPanel_obj = canvas.transform.Find("HeartLvUpPanel").gameObject;
+                foreach (Transform child in HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+                {
+                    Destroy(child.gameObject);
+                }
                 lvuppanel_Prefab = (GameObject)Resources.Load("Prefabs/GirlLoveLevelUpPanel");
                 _listlvup_obj.Clear();
 
@@ -2281,7 +2292,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             switch (GameMgr.OkashiQuest_Num)
             {
-                case 22: //200点以上のスーパークレープ　条件分岐
+                /*case 29: //200点以上のスーパークレープ　条件分岐
 
                     if (total_score >= 200)
                     {
@@ -2289,7 +2300,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
-                    break;
+                    break;*/
 
                 default: //特殊なものがない限りは、デフォルト。60点以上でクリア
 
@@ -2356,32 +2367,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
-    void SPQuest_BunkiCheck()
-    {
-        switch(GameMgr.OkashiQuest_Num)
-        {
-            case 10: //ラスク　条件分岐
-
-                if (total_score >= GameMgr.low_score) //６０点以上で、ラスクレモンかラスクオレンジをあげる
-                {
-                    if(_basename == "rusk_lemon" || _basename == "rusk_orange")
-                    {
-                        //すっぱいラスクを食べたので、次のクエストは別のおかしに。
-                        GameMgr.Okashi_quest_bunki_on = 1;
-                    }
-                }
-                break;
-
-            case 20: //クレープ　条件分岐
-
-                if (total_score >= 150) //クレープが150点以上
-                {
-                        //次のクエストは別のおかしに。
-                        GameMgr.Okashi_quest_bunki_on = 1;                    
-                }
-                break;
-        }
-    }
+    
 
     IEnumerator OkashiAfterFaceChange()
     {
@@ -2751,6 +2737,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 1:
 
+                //エメラルどんぐり一個もらえる。
+                pitemlist.addPlayerItemString("emeralDongri", 1);
                 //サファイアどんぐり一個もらえる。
                 pitemlist.addPlayerItemString("sapphireDongri", 1);
                 //ついでに妹の体力が上がる。
@@ -2818,20 +2806,35 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //現在のスライダ上限に好感度が達したら、次のレベルへ。
         if (_slider.value >= _slider.maxValue)
         {
-            PlayerStatus.girl1_Love_lv++;
-            girl1_status.LvUpStatus();
+            PlayerStatus.girl1_Love_lv++;           
 
             //Maxバリューを再設定
             Love_Slider_Setting();            
 
             //分かりやすくするように、レベルアップ時のパネルも表示
-            _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, canvas.transform));
+            _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+
+            //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
+            exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、GirlEatJudgeから読むフラグ
         }
 
         //エフェクト
         _listHeartHit.Add(Instantiate(hearthit_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
         _listHeartHit2.Add(Instantiate(hearthit2_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
 
+    }
+
+    //ExpTableから読み出し
+    public void LvUpPanel1(int _kaisu) //仕上げ回数あがった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_2(_kaisu);
+    }
+
+    public void LvUpPanel2() //同時に2個仕上げできるようになった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_3();
     }
 
 
@@ -2913,8 +2916,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl_param.color = origin_color;
 
         Slider_Koushin(_tempresultGirllove);
-
-        //もし、ハートが０になっていたら、ゲームオーバーをだす？
     }
 
     //スライダバリューを正確に更新。現在の好感度数値をいれればOK
@@ -3258,7 +3259,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             StartCoroutine("Love_effect");
 
             //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
-            GirlHeartEffect.LoveRateChange();            
+            GirlHeartEffect.LoveRateChange();
 
             //テキストウィンドウの更新
             exp_Controller.GirlLikeText(Getlove_exp, total_score);
@@ -3428,14 +3429,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //ボタンが登場する演出
             StartCoroutine("ClearButtonAnim");
         }
-        else //クエストクリアで、ボタン登場演出がない場合。
+        else //クエストクリアで、ボタン登場演出がない場合。暗転して、次へ。
         {
-            canvas.SetActive(true);
+            //canvas.SetActive(true);
 
             //お菓子の判定処理を終了
-            Extremepanel_obj.SetActive(true);
+            //Extremepanel_obj.SetActive(true);
             compound_Main.girlEat_ON = false;
-            GameMgr.compound_status = 0;
+            //GameMgr.compound_status = 0;
 
             sceneBGM.MuteOFFBGM(); //ここのタイミングでBGMをオンに。
 
@@ -3501,6 +3502,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         ClearFlagOn();
         SelectNewOkashiSet();
+
+        //黒で一度フェードアウト
+        /*sceneBGM.MuteBGM();
+        Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeIn();
+        //Debug.Log("## 一度ブラックアウト　演出 ##");
+        StartCoroutine("Black_FadeOut2");*/
+
     }
 
     //
@@ -3561,15 +3569,42 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 GameMgr.GirlLoveEvent_num = 13; //分岐の場合、直接次クエスト(specialquest.cs)をここで指定する。
                 break;
 
-            case 20:
+            /*case 20:
 
                 GameMgr.GirlLoveEvent_num = 22;
-                break;
+                break;*/
         }
         
         special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 0);
 
         EndCompoEvent();        
+    }
+
+    void SPQuest_BunkiCheck()
+    {
+        switch (GameMgr.OkashiQuest_Num)
+        {
+            case 10: //ラスク　条件分岐
+
+                if (total_score >= GameMgr.low_score) //６０点以上で、ラスクレモンかラスクオレンジをあげる
+                {
+                    if (_basename == "rusk_lemon" || _basename == "rusk_orange")
+                    {
+                        //すっぱいラスクを食べたので、次のクエストは別のおかしに。
+                        GameMgr.Okashi_quest_bunki_on = 1;
+                    }
+                }
+                break;
+
+                /*case 20: //クレープ　条件分岐
+
+                    if (total_score >= 150) //クレープが150点以上
+                    {
+                            //次のクエストは別のおかしに。
+                            GameMgr.Okashi_quest_bunki_on = 1;                    
+                    }
+                    break;*/
+        }
     }
 
     void EndCompoEvent()
@@ -3588,7 +3623,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //お菓子の判定処理を終了
         compound_Main.girlEat_ON = false;
-        GameMgr.compound_status = 0;
+        GameMgr.compound_status = 0; //0を通すと、一瞬画面がちらつくので回避。
 
         //ResultOFF()の後ろに設定しないと、hungry_statusがこんがらがる。
         girl1_status.timeGirl_hungry_status = 0;
@@ -3683,7 +3718,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         sc.PlaySe(18); //閉じる音
         sceneBGM.OnMainClearResultBGMOFF();
 
-        subQuestClear_check = false;
+        subQuestClear_check = false;        
 
         //黒で一度フェードアウト
         sceneBGM.MuteBGM();
@@ -3707,13 +3742,31 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         ResetResult();
     }
 
+    //一つのSPクエストを終わった直後のフェードアウト演出
+    IEnumerator Black_FadeOut2()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        BlackPanel_event.SetActive(false);
+        canvas.SetActive(false);
+        Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut();
+
+        yield return new WaitForSeconds(1.0f);
+
+        //compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
+        //ResetResult();
+
+        ClearFlagOn();
+        SelectNewOkashiSet();
+    }
+
     void ResetResult()
     {
         //お菓子をあげたあとの状態に移行する。
         girl1_status.timeGirl_hungry_status = 2;
         girl1_status.timeOut = 5.0f;
         girl1_status.GirlEat_Judge_on = true;//またカウントが進み始める
-        girl1_status.hukidasiOn();
+        //girl1_status.hukidasiOn();
         
         //初期化
         for (i = 0; i < _listScoreEffect.Count; i++)
@@ -3817,7 +3870,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     break;
 
-                case 1210: //豪華なクレープ
+                case 1230: //豪華なクレープ
 
                     //30点以下の場合、ヒントがでる。
                     //特定のトッピングスロットをみる
@@ -4092,11 +4145,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (sweat_result < 0)
             {
-                _sweat_kansou = "甘さ D: 甘さが足りない";
+                _sweat_kansou = GameMgr.ColorRedDeep + "甘さ D: 甘さがもっと欲しい" + "</color>";
             }
             else
             {
-                _sweat_kansou = "甘さ D: 甘さがちょっと強すぎ";
+                _sweat_kansou = GameMgr.ColorRedDeep + "甘さ D: 甘さがちょっと強すぎ" + "</color>";
             }
         }
         else if (sweat_level >= 1 && sweat_level <= 2)
@@ -4160,11 +4213,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = "苦さ D:苦さが足りない";
+                _bitter_kansou = GameMgr.ColorRedDeep + "苦さ D:苦さがもっと欲しい" + "</color>";
             }
             else
             {
-                _bitter_kansou = "苦さ D: 苦みが少し強すぎかも。";
+                _bitter_kansou = GameMgr.ColorRedDeep + "苦さ D: 苦みが少し強すぎかも。" + "</color>";
             }
 
         }
@@ -4230,11 +4283,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (sour_result < 0)
             {
-                _sour_kansou = "酸味 D: すっぱさが足りない";
+                _sour_kansou = GameMgr.ColorRedDeep + "酸味 D: すっぱさがもっと欲しい" + "</color>";
             }
             else
             {
-                _sour_kansou = "酸味 D: 少しすっぱ過ぎる？";
+                _sour_kansou = GameMgr.ColorRedDeep + "酸味 D: 少しすっぱ過ぎる？" + "</color>";
             }
 
         }
@@ -4274,7 +4327,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else if (shokukan_score >= 20 && shokukan_score < 40) //
         {
-            _shokukan_kansou = shokukan_mes + "がもっとほしい";
+            _shokukan_kansou = GameMgr.ColorRedDeep + shokukan_mes + "がもっとほしい" + "</color>";
         }
         else if (shokukan_score >= 40 && shokukan_score < GameMgr.low_score) //
         {

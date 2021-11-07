@@ -71,6 +71,7 @@ public class GetMaterial : MonoBehaviour
     private int index;
     private int _itemid;
     private int _getMoney;
+    private int _prob;
 
     private int cullent_total_mat;
 
@@ -1186,16 +1187,35 @@ public class GetMaterial : MonoBehaviour
 
     void event_itemGet02()
     {
-        _getMoney = Random.Range(0, 200);
+        //少額か、大金塊か
+        _prob = Random.Range(0, 100);
 
-        _text.text = "にいちゃん。お金ひろった！へへ。" +
-                        "\n" + GameMgr.ColorYellow + _getMoney + "</color>" + "ルピアをみつけた！";
+        if (_prob <= 5) //大金塊 5%
+        {
+            _getMoney = Random.Range(1000, 2000);
 
-        //所持金をプラス
-        moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
+            _text.text = "にいちゃん。すごい！　金塊を見つけたよ！！" +
+                            "\n" + GameMgr.ColorYellow + _getMoney + "</color>" + "ルピアをみつけた！";
 
-        //音を鳴らす
-        sc.PlaySe(1);
+            //所持金をプラス
+            moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
+
+            //音を鳴らす
+            sc.PlaySe(1);
+        }
+        else
+        {
+            _getMoney = Random.Range(0, 200);
+
+            _text.text = "にいちゃん。お金ひろった！へへ。" +
+                            "\n" + GameMgr.ColorYellow + _getMoney + "</color>" + "ルピアをみつけた！";
+
+            //所持金をプラス
+            moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
+
+            //音を鳴らす
+            sc.PlaySe(1);
+        }
     }
 
     void event_itemGet03()

@@ -42,6 +42,8 @@ public class PlayerData
 
     //ステージ番号
     public int save_stage_number;
+    public int save_stage_quest_num;
+    public int save_stage_quest_num_sub;
 
     //シナリオの進み具合
     public int save_scenario_flag;

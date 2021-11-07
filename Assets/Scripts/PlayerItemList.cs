@@ -607,14 +607,14 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         //expanel上のアイテムも消える。
         if (exp_Controller._temp_extremeSetting)
         {
-            if (_id == exp_Controller._temp_extreme_id && player_originalitemlist[exp_Controller._temp_extreme_id].ItemKosu <= 0)
+            //パネルのアイテムを直接削除した場合
+            if (_id == exp_Controller._temp_extreme_id && player_originalitemlist[_id].ItemKosu <= 0)
             {
                 exp_Controller._temp_extremeSetting = false;
                 exp_Controller._temp_extreme_id = 9999;
             }
-
             //エクストリームパネルにアイテムが設定されているかつ、オリジナルアイテムを削除した場合、列が一個ずれる
-            if (_id != exp_Controller._temp_extreme_id && player_originalitemlist[_id].ItemKosu <= 0)
+            else if (_id != exp_Controller._temp_extreme_id && player_originalitemlist[_id].ItemKosu <= 0)
             {
                 exp_Controller._temp_extreme_id--;
             }

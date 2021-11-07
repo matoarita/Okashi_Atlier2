@@ -175,7 +175,7 @@ public class ShopQuestListController : MonoBehaviour
        
         for (j = 0; j < quest_database.questset2.Count; j++)
         {
-            if (quest_database.questset2[j].QuestHyouji <= PlayerStatus.player_renkin_lv)
+            if (quest_database.questset2[j].QuestHyouji <= PlayerStatus.girl1_Love_lv) //PlayerStatus.player_renkin_lv
             {
                 selectquestDB2.Add(j);
             }

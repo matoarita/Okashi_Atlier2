@@ -17,7 +17,7 @@ public class Debug_Panel : MonoBehaviour {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
-    private GameObject exp_table;
+    private ExpTable exp_table;
 
     private GameObject mainlist_controller2_obj;
     private MainListController2 mainlist_controller2;
@@ -126,6 +126,9 @@ public class Debug_Panel : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
     }
 
     // Update is called once per frame
@@ -213,16 +216,15 @@ public class Debug_Panel : MonoBehaviour {
 
             canvas = GameObject.FindWithTag("Canvas");
 
-            exp_table = GameObject.FindWithTag("ExpTable");
-
             //経験値も補填
             PlayerStatus.player_renkin_exp = exp_table.GetComponent<ExpTable>().exp_table[plevel_num];
+            PlayerStatus.player_renkin_lv = plevel_num;
 
             //レベルで上がるスキルなどは初期値にしておく。
             PlayerStatus.player_extreme_kaisu_Max = 1;
+            GameMgr.topping_Set_Count = 1;
 
-            PlayerStatus.player_renkin_lv = plevel_num;
-            for (count = 0; count < (plevel_num); count++)
+            for (count = 0; count < plevel_num; count++)
             {
                 exp_table.GetComponent<ExpTable>().SkillCheck(count + 1);
             }
@@ -332,9 +334,10 @@ public class Debug_Panel : MonoBehaviour {
 
                     if (event_num % 10 == 0) //10番台の数字の場合、前クエストの終わりから、スタート。
                     {
-                        special_quest.SetSpecialOkashi(event_num - 10, 0);
+                        
                         GameMgr.GirlLoveEvent_stage1[event_num - 10] = true;
                         Debug.Log("event_num: " + event_num);
+                        special_quest.SetSpecialOkashi(event_num - 10, 0);
 
                         //** 初期化               
                         girlEat_judge.subQuestClear_check = true; //強制的に、そのクエストをクリアしたことにする。
@@ -347,10 +350,11 @@ public class Debug_Panel : MonoBehaviour {
                     }
                     else //11、22など、途中のクエストからはじめるときは、そこからはじまる。
                     {
-                        special_quest.SetSpecialOkashi(event_num, 0);
+                        
                         GameMgr.GirlLoveEvent_stage1[event_num] = true;
                         GameMgr.GirlLoveEvent_num = event_num;
                         Debug.Log("event_num: " + event_num);
+                        special_quest.SetSpecialOkashi(event_num, 0);
 
                         girlEat_judge.subQuestClear_check = false;
                         girlEat_judge.ResultOFF();
@@ -386,24 +390,7 @@ public class Debug_Panel : MonoBehaviour {
             }
         }
 
-        //入力したイベント番号に応じて、ハートレベルも更新
-        //EventChangeGirllove();
-
         //InputMainFlagOn2();
-    }
-
-    void EventChangeGirllove()
-    {
-        girllove_param = 0;
-
-        if (GameMgr.OkashiQuest_cullentcount >= 2)
-        {
-
-            girllove_param = girl1_status.stage1_lvTable[GameMgr.OkashiQuest_cullentcount - 2]; //OkashiQuest_cullentcountは、1はじまり。
-
-        }
-
-        GirlLove_Koushin_nocanvas(girllove_param);
     }
 
     public void InputGirlLoveParam()
@@ -547,10 +534,14 @@ public class Debug_Panel : MonoBehaviour {
         }
     }
 
+    //ロードしたときに、このメソッドは使う。なので、デバッグは、削除したらダメ。
     public void GirlLove_Koushin(int _girllove_param)
     {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>();
+
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
 
         PlayerStatus.girl1_Love_exp = 0;
 
@@ -646,7 +637,14 @@ public class Debug_Panel : MonoBehaviour {
         _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
 
         _slider.value = _girllove_param;
-        girl1_status.LvUpStatus();
+
+        //レベルで上がるスキルなどは初期値にしておく。
+        PlayerStatus.player_extreme_kaisu_Max = 1;
+        GameMgr.topping_Set_Count = 1;
+        for (count = 0; count < PlayerStatus.girl1_Love_lv; count++)
+        {
+            exp_table.SkillCheckHeartLV(count + 1, 0);
+        }
 
 
         //レベル表示も更新

@@ -7,6 +7,8 @@ public class MainQuestOKPanel : MonoBehaviour {
 
     private Button button;
 
+    private Text stagenum_text;
+
     private GirlEat_Judge girlEat_judge;
 
     // Use this for initialization
@@ -25,6 +27,9 @@ public class MainQuestOKPanel : MonoBehaviour {
 
         button = this.transform.Find("Button").GetComponent<Button>();
         button.interactable = false;
+
+        stagenum_text = this.transform.Find("QuestPanel/QuestClear/stageNumberText").GetComponent<Text>();
+        stagenum_text.text = GameMgr.stage_quest_num.ToString();
 
         StartCoroutine("WaitButton");
     }

@@ -33,10 +33,14 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     //SEを鳴らす
     private SoundController sc;
 
+    private GirlEat_Judge girlEat_judge;
+
     IEnumerator routine;
 
     public bool check_on;
     private bool check_Lclick;
+
+    private int _mstatus;
 
 
     // Use this for initialization
@@ -55,7 +59,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-        
+
+        girlEat_judge = GirlEat_Judge.Instance.GetComponent<GirlEat_Judge>();
+
         check_on = false;
         check_Lclick = false;
     }
@@ -77,17 +83,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
 	}
 
-    public void SetInit_ExpTable()
-    {
-        exp_table = new Dictionary<int, int>();
-
-        for ( i = 0; i < exp_table_setting.Length; i++)
-        {
-            exp_table.Add(i+1, exp_table_setting[i]);
-            //Debug.Log( i+1 + " " + exp_table[i+1]);
-        }        
-    }
-
+    
     public void Check_LevelUp()
     {
         //windowテキストエリアの取得
@@ -237,8 +233,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
     public void SkillCheck(int _nowlevel)
     {
+        _mstatus = 0;
 
-        switch(_nowlevel)
+        switch (_nowlevel)
         {
             case 2:
 
@@ -289,5 +286,120 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 PlayerStatus.player_extreme_kaisu++;
                 break;
         }
+    }
+
+    //ハートレベルに応じてスキルを覚えるパターン Girl_Eat_Judgeかデバッグパネルから読む。
+    public void SkillCheckHeartLV(int _nowlevel, int _status)
+    {
+        _mstatus = _status;
+        //レベルがあがるごとに、アイテム発見力があがる。
+        /*PlayerStatus.player_girl_findpower = 100 + ((girl1_Love_lv-1) * 10);
+
+        //上限処理
+        if(PlayerStatus.player_girl_findpower >= 999)
+        {
+            PlayerStatus.player_girl_findpower = 999;
+        }*/
+
+        switch (_nowlevel)
+        {
+            case 2:
+
+                ShiageUp();              
+                break;
+
+            case 3:
+
+                ShiageUp();
+                break;
+
+            case 5:
+
+                //_temp_skill.Add("一度に　2個　トッピングできるようになった！");
+                GameMgr.topping_Set_Count = 2;
+
+                if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
+                {
+                    girlEat_judge.LvUpPanel2();
+                }
+                break;
+
+            case 6:
+
+                ShiageUp();
+                break;
+
+            case 9:
+
+                ShiageUp();
+                break;
+
+            case 12:
+
+                ShiageUp();
+                break;
+
+            case 15:
+
+                ShiageUp();
+                break;
+
+            case 18:
+
+                ShiageUp();
+                break;
+        }
+    }
+
+    void ShiageUp()
+    {
+        //仕上げできる回数が１上がる。
+        PlayerStatus.player_extreme_kaisu_Max++;
+        PlayerStatus.player_extreme_kaisu++;
+
+        if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
+        {
+            girlEat_judge.LvUpPanel1(1);
+        }
+    }
+
+    public void SetInit_ExpTable()
+    {
+        exp_table = new Dictionary<int, int>();
+
+        exp_table.Add(1, 0);
+        exp_table.Add(2, 15);
+        exp_table.Add(3, 45);
+        exp_table.Add(4, 90);
+        exp_table.Add(5, 150);
+        exp_table.Add(6, 220);
+        exp_table.Add(7, 300);
+        exp_table.Add(8, 380);
+        exp_table.Add(9, 490);
+        exp_table.Add(10, 600);
+
+        exp_table.Add(11, 780);
+        exp_table.Add(12, 950);
+        exp_table.Add(13, 1080);
+        exp_table.Add(14, 1310);
+        exp_table.Add(15, 1560);
+        exp_table.Add(16, 1800);
+        exp_table.Add(17, 2100);
+        exp_table.Add(18, 2400);
+        exp_table.Add(19, 2700);
+        exp_table.Add(20, 3000);
+
+        exp_table.Add(21, 3300);
+        exp_table.Add(22, 3600);
+        exp_table.Add(23, 3900);
+        exp_table.Add(24, 4500);
+        exp_table.Add(25, 5100);
+        exp_table.Add(26, 5700);
+        exp_table.Add(27, 6300);
+        exp_table.Add(28, 6900);
+        exp_table.Add(29, 7800);
+        exp_table.Add(30, 9999);
+        //Debug.Log( i+1 + " " + exp_table[i+1]);
+
     }
 }
