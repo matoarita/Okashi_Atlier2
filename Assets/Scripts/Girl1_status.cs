@@ -878,13 +878,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 2;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 4) //3~6
+        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 5) //3~6
         {
             //ちょっと元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 9) //6~9
+        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 10) //6~9
         {
             //だいぶ元気でてきた
             GirlGokigenStatus = 4;
@@ -3099,8 +3099,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 3:
 
                 _touchchest_comment_lib.Add("..！");
-                _touchchest_comment_lib.Add("..はずかしいよ～。");
-                _touchchest_comment_lib.Add("胸をさわるのはやめて、にいちゃん！");
+                _touchchest_comment_lib.Add("..は、はずかしいよ～..。");
+                _touchchest_comment_lib.Add("なんでそんなとこさわるの..？　おにいちゃん。");
                 _touchchest_comment_lib.Add("えっち！にいちゃんのばか！");
 
                 break;
@@ -3108,8 +3108,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 4:
 
                 _touchchest_comment_lib.Add("..！");
-                _touchchest_comment_lib.Add("兄ちゃんのえっちー！");
-                _touchchest_comment_lib.Add("胸をさわるんじゃない！にいちゃん！");
+                _touchchest_comment_lib.Add("..は、はずかしいよ～..。");
+                _touchchest_comment_lib.Add("なんでそんなとこさわるの..？　おにいちゃん。");
                 _touchchest_comment_lib.Add("..あまり胸を触ると、おこるよ！");
 
                 break;
@@ -3117,11 +3117,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 5:
 
                 _touchchest_comment_lib.Add("！！");
-                _touchchest_comment_lib.Add("えっち！ばか！！");
-                _touchchest_comment_lib.Add("どこさわってんの？にいちゃんのばか！！");
-                _touchchest_comment_lib.Add("く、くすぐったい..。");
-                _touchchest_comment_lib.Add("ぎゃー！！");
-                _touchchest_comment_lib.Add("胸を触るなといっているよ！！にいちゃん！！");
+                _touchchest_comment_lib.Add("..は、はずかしい～..。");
+                _touchchest_comment_lib.Add("..ひ、ひどいよ～。にいちゃんのばか！！");
+                _touchchest_comment_lib.Add("くすぐったいよ～..。");
+                _touchchest_comment_lib.Add("..はひー！！");
+                _touchchest_comment_lib.Add("..そこは触っちゃだめ！！にいちゃん！！");
 
                 break;
 
@@ -3129,14 +3129,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchchest_comment_lib.Add("！！");
                 _touchchest_comment_lib.Add("ばか..！！");
-                _touchchest_comment_lib.Add("にいちゃんのおてて、あったか～い♪");
-                _touchchest_comment_lib.Add("そんなとこさわられると、くすぐったいよ。にいちゃん～！");
+                _touchchest_comment_lib.Add("..ひ、ひどいよ～。にいちゃんのばか！！");
+                _touchchest_comment_lib.Add("..は、はずかしい～..。");
                 _touchchest_comment_lib.Add("ぐひぃ～・・。");
-                _touchchest_comment_lib.Add("胸を触るのを、やめなさい！あにぃ～。");
-                _touchchest_comment_lib.Add("あひぃ～。");
-                _touchchest_comment_lib.Add("（ちょっときもちいい。）");
-                _touchchest_comment_lib.Add("胸をさわるのは、やめろ！ばか兄！！");
-                _touchchest_comment_lib.Add("は、はずかしいよ～。にいちゃん！");
+                _touchchest_comment_lib.Add("..やめなさい！あにぃ～。");
+                _touchchest_comment_lib.Add("..はひー！！");
+                _touchchest_comment_lib.Add("くすぐったいよ～..。");
                 _touchchest_comment_lib.Add("ぎぃや～～。（くすぐったいよ..。にいちゃん～。）");
 
                 break;
@@ -3145,14 +3143,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchchest_comment_lib.Add("！！");
                 _touchchest_comment_lib.Add("ばか..！！");
-                _touchchest_comment_lib.Add("にいちゃんのおてて、あったか～い♪");
-                _touchchest_comment_lib.Add("そんなとこさわられると、くすぐったいよ。にいちゃん～！");
+                _touchchest_comment_lib.Add("..ひ、ひどいよ～。にいちゃんのばか！！");
+                _touchchest_comment_lib.Add("..は、はずかしい～..。");
                 _touchchest_comment_lib.Add("ぐひぃ～・・。");
-                _touchchest_comment_lib.Add("胸を触るのを、やめなさい！あにぃ～。");
-                _touchchest_comment_lib.Add("あひぃ～。");
-                _touchchest_comment_lib.Add("（ちょっときもちいい。）");
-                _touchchest_comment_lib.Add("胸をさわるのは、やめろ！ばか兄！！");
-                _touchchest_comment_lib.Add("は、はずかしいよ～。にいちゃん！");
+                _touchchest_comment_lib.Add("..やめなさい！あにぃ～。");
+                _touchchest_comment_lib.Add("..はひー！！");
+                _touchchest_comment_lib.Add("くすぐったいよ～..。");
                 _touchchest_comment_lib.Add("ぎぃや～～。（くすぐったいよ..。にいちゃん～。）");
 
                 break;

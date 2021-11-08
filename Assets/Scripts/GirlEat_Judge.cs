@@ -282,6 +282,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int tpcheck_utagebunki;
 
     public int total_score;
+    private int _score_sabun;
 
     private bool dislike_flag;
     private int dislike_status;
@@ -1568,6 +1569,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     last_score_kousin = true;
 
+                    //さらに、前回の得点との差分をだして、超えた分がハートになる。
+                    _score_sabun = total_score - database.items[_baseID].last_total_score;
+
                     //85点以上で、さらに高得点を一度もとったことがなければ、えめらるどんぐり一個もらえる
                     if (database.items[_baseID].HighScore_flag == 0)
                     {
@@ -2167,7 +2171,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     //お菓子の採点結果を表示する。　シャキーーン！！　満足度　ドンドン　わーーーぱちぱちって感じ
     void OkashiSaitenhyouji()
-    {       
+    {
+        //まずはリセット
+        GameMgr.high_score_flag = false;
 
         //☆
         if (total_score > 0 && total_score < 30)
@@ -2471,7 +2477,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             else if (total_score >= 30 && total_score < GameMgr.low_score) //60点以下のときは、好感度ほぼあがらず。
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
-                //Getlove_exp -= (int)(((GameMgr.low_score - total_score) * 0.1f) * (_basegirl1_like * 1.0f));
                 GetMoney += (int)(_basecost * 0.5f);
             }
             else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //ベース×2
@@ -2479,12 +2484,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
                 GetMoney += (int)(_basecost * 1.0f);
             }
-            else if (total_score >= GameMgr.high_score && total_score < 100) //ベース×3
+            else if (total_score >= GameMgr.high_score && total_score < GameMgr.high_score_2) //ベース×3
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
                 GetMoney += (int)(_basecost * 1.5f);
             }
-            else if (total_score >= 100) //100点を超えた場合、ベース×5
+            else if (total_score >= GameMgr.high_score_2) //120点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.5f));
                 GetMoney += (int)(_basecost * 2.0f);
@@ -2495,9 +2500,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             if (last_score_kousin) //前回の最高得点より高い点数の場合のみ、好感度があがる。
             {
+                
             }
             else
             {
+                
                 //③そのお菓子を食べた回数で割り算。同じお菓子を何度あげても、だんだん好感度は上がらなくなってくる。
                 if (database.items[_baseID].Eat_kaisu == 0)
                 {
@@ -3690,8 +3697,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         canvas.SetActive(true);
         stageclear_Button.SetActive(false);
-
-        GameMgr.high_score_flag = false;
+       
         GameMgr.QuestClearButton_anim = false;
 
         //表示の音を鳴らす。

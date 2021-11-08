@@ -107,6 +107,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
 
+    private GameObject Stagepanel_obj;
+
     private GameObject black_panel_A;
     private GameObject compoBG_A;
     private GameObject ResultBGimage;
@@ -398,7 +400,7 @@ public class Compound_Main : MonoBehaviour
 
         //エクストリームパネルの取得+初期化
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
-        extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();        
+        extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();       
 
         //ボタンの取得
         extreme_Button = Extremepanel_obj.transform.Find("Comp/ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
@@ -499,6 +501,9 @@ public class Compound_Main : MonoBehaviour
         MainUICloseButton = canvas.transform.Find("MainUIPanel/Comp/MainUICloseButton").gameObject;
         mainUIFrame_panel = canvas.transform.Find("MainUIPanel/Comp/MainUIPanelTopFrame").gameObject;
         SceneStart_flag = false;
+
+        //ステージパネルの取得
+        Stagepanel_obj = canvas.transform.Find("MainUIPanel/Comp/StagePanel").gameObject;
 
         //時間表示パネルの取得
         TimePanel_obj1 = canvas.transform.Find("MainUIPanel/Comp/TimePanel/TimeHyouji_1").gameObject;
@@ -1259,6 +1264,9 @@ public class Compound_Main : MonoBehaviour
                 select_no_button.interactable = true;
                                
                 OnCompoundSelect();
+
+                //ステージ更新
+                mainUI_panel_obj.GetComponent<MainUIPanel>().StageNumKoushin();
 
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
@@ -2088,6 +2096,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj1.SetActive(false);
         moneystatus_panel.SetActive(false);
         mainUIFrame_panel.SetActive(false);
+        Stagepanel_obj.SetActive(false);
         //kaerucoin_panel.SetActive(false);
 
         //MainUICloseButton.SetActive(false);
@@ -2111,7 +2120,8 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
         mainUIFrame_panel.SetActive(true);
-        
+        Stagepanel_obj.SetActive(true);
+
         //kaerucoin_panel.SetActive(true);
 
         //MainUICloseButton.SetActive(true);
@@ -4341,17 +4351,17 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add(30);                    
                     _todayfood_lib.Add("じゃがいもとお豆のスープ");
                     _todayfoodexpence_lib.Add(60);
-                    _todayfood_lib.Add("じゃがいもパン");
+                    _todayfood_lib.Add("パン");
                     _todayfoodexpence_lib.Add(50);
-                    _todayfood_lib.Add("ゆでじゃがいも");
+                    _todayfood_lib.Add("ゆでじゃが");
                     _todayfoodexpence_lib.Add(70);
                     _todayfood_lib.Add("野菜の端っこゆで");
                     _todayfoodexpence_lib.Add(50);
                     _todayfood_lib.Add("ほしにくのせパン");
                     _todayfoodexpence_lib.Add(100);
-                    _todayfood_lib.Add("じゃがいもとねぎピザ");
+                    _todayfood_lib.Add("ねぎピザ");
                     _todayfoodexpence_lib.Add(30);
-                    _todayfood_lib.Add("きのこじゃがピザ");
+                    _todayfood_lib.Add("きのこピザ");
                     _todayfoodexpence_lib.Add(30);
                     break;
 
@@ -4376,13 +4386,13 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add(110);
                     _todayfood_lib.Add("じゃがいものトマト煮込み");
                     _todayfoodexpence_lib.Add(90);
-                    _todayfood_lib.Add("じゃがいもステーキ");
+                    _todayfood_lib.Add("ステーキ");
                     _todayfoodexpence_lib.Add(90);
-                    _todayfood_lib.Add("じゃがいも地中海蒸し焼き");
+                    _todayfood_lib.Add("おさかな地中海蒸し焼き");
                     _todayfoodexpence_lib.Add(120);
-                    _todayfood_lib.Add("手ごねじゃがバーグ");
+                    _todayfood_lib.Add("手ごねバーグ");
                     _todayfoodexpence_lib.Add(120);
-                    _todayfood_lib.Add("じゃがピザ");
+                    _todayfood_lib.Add("ほっくりじゃがピザ");
                     _todayfoodexpence_lib.Add(150);
                     _todayfood_lib.Add("ビールとえだまめのたきこみご飯");
                     _todayfoodexpence_lib.Add(120);
@@ -4392,9 +4402,9 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("ゴールデンカレーライス");
                     _todayfoodexpence_lib.Add(160);
-                    _todayfood_lib.Add("じゃがいもリゾット");
+                    _todayfood_lib.Add("アツアツリゾット");
                     _todayfoodexpence_lib.Add(120);
-                    _todayfood_lib.Add("イカスミじゃがスパゲティ");
+                    _todayfood_lib.Add("イカスミスパゲティ");
                     _todayfoodexpence_lib.Add(200);
                     
                     break;
@@ -4403,11 +4413,11 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("落雷じゃがいもスープ");
                     _todayfoodexpence_lib.Add(200);
-                    _todayfood_lib.Add("ブルゴーニュ風じゃがステーキ");
+                    _todayfood_lib.Add("ブルゴーニュ風ステーキ");
                     _todayfoodexpence_lib.Add(300);
                     _todayfood_lib.Add("じゃがいもりだくさんのペスカトーレ");
                     _todayfoodexpence_lib.Add(200);
-                    _todayfood_lib.Add("うまうまじゃがいもステーキ");
+                    _todayfood_lib.Add("うまうまステーキ");
                     _todayfoodexpence_lib.Add(250);
                     break;
 

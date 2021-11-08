@@ -32,6 +32,8 @@ public class MainUIPanel : MonoBehaviour {
 
     private GameObject girl_love_exp_bar;
 
+    private Text stage_text;
+
     // Use this for initialization
     void Start () {
 
@@ -60,6 +62,8 @@ public class MainUIPanel : MonoBehaviour {
 
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.GetComponentInChildren<Text>();
+
+        stage_text = this.transform.Find("Comp/StagePanel/Image/StageText").GetComponent<Text>();
 
         _CompObj = this.transform.Find("Comp/").gameObject;
 
@@ -124,6 +128,12 @@ public class MainUIPanel : MonoBehaviour {
         GameMgr.MenuOpenFlag = false; //現在メニューを閉じている状態
     }
 
+    //compoundmainから更新
+    public void StageNumKoushin()
+    {
+        stage_text.text = GameMgr.stage_quest_num.ToString() + "-" + GameMgr.stage_quest_num_sub.ToString();
+    }
+
     void OsawariON()
     {
         _model.GetComponent<GazeController>().enabled = true;
@@ -135,4 +145,6 @@ public class MainUIPanel : MonoBehaviour {
         _model.GetComponent<GazeController>().enabled = false;
         touch_controller.Touch_OnAllOFF();
     }
+
+    
 }

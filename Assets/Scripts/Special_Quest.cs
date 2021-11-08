@@ -179,17 +179,17 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 22: //琥珀糖 宝石のような見た目のお菓子を食べたい
+            case 22: //ジェム・ボンボン 宝石のような見た目のお菓子を食べたい
 
                 girl1_status.OkashiQuest_ID = 1220;
-                OkashiQuest_Count = 3;
+                OkashiQuest_Count = 4;
 
                 break;
 
             case 23: //豪華なベリークレープ食べたい
 
                 girl1_status.OkashiQuest_ID = 1230;
-                OkashiQuest_Count = 3;
+                OkashiQuest_Count = 5;
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
@@ -245,6 +245,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         //◆ボタン表示用
         OkashiQuest_AllCount = QuestCountDict[GameMgr.stage_quest_num];
+
+        GameMgr.stage_quest_num_sub = OkashiQuest_Count;
 
         if (GameMgr.OkashiQuest_Num != 50)
         {

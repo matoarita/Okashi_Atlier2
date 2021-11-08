@@ -677,8 +677,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //お菓子のクリア基準値
         low_score = 60;
-        high_score = 85;
-        high_score_2 = 120;
+        high_score = 100;
+        high_score_2 = 150;
 
         //チュートリアルフラグ
         tutorial_ON = false;
