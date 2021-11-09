@@ -1757,6 +1757,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case "Creampuff":
                 Fluffy_Score();
                 break;
+            case "Coffee_Mat":
+                Tea_Score();
+                break;
             case "Donuts":
                 Fluffy_Score();
                 break;

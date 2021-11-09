@@ -214,6 +214,38 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1300;
                 OkashiQuest_Count = 1;
+                
+
+                break;
+
+            case 31: //ラズベリーシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1310;
+                OkashiQuest_Count = 2;
+                
+
+                break;
+
+            case 32: //カフェオーレシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1320;
+                OkashiQuest_Count = 3;
+                
+
+                break;
+
+            case 33: //ティラミス食べたい
+
+                girl1_status.OkashiQuest_ID = 1330;
+                OkashiQuest_Count = 4;
+                
+
+                break;
+
+            case 34: //150点以上のシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1340;
+                OkashiQuest_Count = 5;
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
@@ -279,6 +311,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(1230, 23);
         QuestDict.Add(1240, 24);
         QuestDict.Add(1300, 30);
+        QuestDict.Add(1310, 31);
+        QuestDict.Add(1320, 32);
+        QuestDict.Add(1330, 33);
+        QuestDict.Add(1340, 34);
         QuestDict.Add(1400, 40);
         QuestDict.Add(1500, 50);
     }
@@ -290,7 +326,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestCountDict.Add(1, 3);
         QuestCountDict.Add(2, 2);
         QuestCountDict.Add(3, 5);
-        QuestCountDict.Add(4, 1);
+        QuestCountDict.Add(4, 5);
         QuestCountDict.Add(5, 1);
     }
 

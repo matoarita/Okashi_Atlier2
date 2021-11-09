@@ -387,7 +387,7 @@ public class Result_Panel : MonoBehaviour
             _listEffect[0].transform.Find("Pos").transform.DOLocalMove(new Vector3(0f, -20f, 0), 0.0f).SetRelative();
 
             kiraEffect_1.SetActive(true);
-            //kiraEffect_2.SetActive(true);
+            kiraEffect_2.SetActive(true);
         }
         else //さがったときの音
         {

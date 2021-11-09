@@ -1393,7 +1393,7 @@ public class Compound_Main : MonoBehaviour
                 ReDrawLive2DPos_Compound();
 
                 //BGMを変更
-                if (!GameMgr.tutorial_ON)
+                /*if (!GameMgr.tutorial_ON)
                 {
                     if (bgm_changeuse_ON)
                     {
@@ -1403,7 +1403,7 @@ public class Compound_Main : MonoBehaviour
                             bgm_change_flag2 = true;
                         }
                     }
-                }
+                }*/
                 map_ambience.Mute();
 
                 //一時的に腹減りを止める。
@@ -1566,7 +1566,7 @@ public class Compound_Main : MonoBehaviour
             case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
 
                 //BGMを変更
-                /*if (!GameMgr.tutorial_ON)
+                if (!GameMgr.tutorial_ON)
                 {
                     if (bgm_changeuse_ON)
                     {
@@ -1576,9 +1576,9 @@ public class Compound_Main : MonoBehaviour
                             bgm_change_flag2 = true;
                         }
                     }
-                }*/
+                }
 
-                if (!GameMgr.tutorial_ON)
+                /*if (!GameMgr.tutorial_ON)
                 {
                     if (bgm_changeuse_ON)
                     {
@@ -1588,7 +1588,7 @@ public class Compound_Main : MonoBehaviour
                             sceneBGM.OnMainBGMFade();
                         }
                     }
-                }
+                }*/
 
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 

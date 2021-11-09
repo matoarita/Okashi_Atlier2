@@ -52,6 +52,9 @@ public class SetImage : MonoBehaviour
     private Sprite texture2d;
     private Texture2D card_template_1;
     private Texture2D card_template_2;
+    private Texture2D card_template_3;
+    private Texture2D card_template_4;
+    private Texture2D card_template_10;
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
@@ -76,6 +79,8 @@ public class SetImage : MonoBehaviour
 
     private string _quality;
     private string _quality_bar;
+
+    private int _rare;
 
     private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
@@ -279,8 +284,12 @@ public class SetImage : MonoBehaviour
                                                                        // そのC#スクリプト（コンポーネント）を取得している一文。あらかじめ、publicでGame Objectを宣言し、先にヒエラルキー上で「ItemDataBaseオブジェクト」を紐づけする必要がある。
 
         item_screen = this.transform.Find("Item_card_template").GetComponent<Image>(); //カードテンプレートのデータ
-        card_template_1 = Resources.Load<Texture2D>("Sprites/Items/card_template_1");
-        card_template_2 = Resources.Load<Texture2D>("Sprites/Items/card_template_2");
+        card_template_1 = Resources.Load<Texture2D>("Sprites/Icon/card_template_1"); //コモン
+        card_template_2 = Resources.Load<Texture2D>("Sprites/Icon/card_template_2"); //アンコモン
+        card_template_3 = Resources.Load<Texture2D>("Sprites/Icon/card_template_3"); //レア
+        card_template_4 = Resources.Load<Texture2D>("Sprites/Icon/card_template_4"); //スーパーレア
+        card_template_10 = Resources.Load<Texture2D>("Sprites/Icon/card_template_10"); //器具のカードテンプレ画像
+        
 
         Card_param_obj = this.transform.Find("Card_Param_window").gameObject;
         Card_param_obj2 = this.transform.Find("Card_Param_window2").gameObject;
@@ -449,6 +458,9 @@ public class SetImage : MonoBehaviour
                 //アイテムの品質値
                 _quality = database.items[check_counter].Quality.ToString();
 
+                //レアリティ
+                _rare = database.items[check_counter].Rare;
+
                 //甘さなどのパラメータを代入
                 _quality_score = database.items[check_counter].Quality;
                 _rich_score = database.items[check_counter].Rich;
@@ -520,6 +532,9 @@ public class SetImage : MonoBehaviour
                 //アイテムの品質値
                 _quality = pitemlist.player_originalitemlist[check_counter].Quality.ToString();
 
+                //レアリティ
+                _rare = pitemlist.player_originalitemlist[check_counter].Rare;
+
                 //甘さなどのパラメータを代入
                 _quality_score = pitemlist.player_originalitemlist[check_counter].Quality;
                 _rich_score = pitemlist.player_originalitemlist[check_counter].Rich;
@@ -586,16 +601,45 @@ public class SetImage : MonoBehaviour
         {
             //器具系は、枠の色が違う。
             case "Machine":
-                item_screen.sprite = Sprite.Create(card_template_2,
-                                   new Rect(0, 0, card_template_2.width, card_template_2.height),
+                item_screen.sprite = Sprite.Create(card_template_10,
+                                   new Rect(0, 0, card_template_10.width, card_template_10.height),
                                    Vector2.zero);
                 break;
 
             default:
 
-                item_screen.sprite = Sprite.Create(card_template_1,
+                //レア度に応じて、カードの枠が変わる。
+                switch (_rare)
+                {
+                    case 1:
+
+                        item_screen.sprite = Sprite.Create(card_template_1,
                                    new Rect(0, 0, card_template_1.width, card_template_1.height),
                                    Vector2.zero);
+                        break;
+
+                    case 2:
+
+                        item_screen.sprite = Sprite.Create(card_template_2,
+                                   new Rect(0, 0, card_template_2.width, card_template_2.height),
+                                   Vector2.zero);
+                        break;
+
+                    case 3:
+
+                        item_screen.sprite = Sprite.Create(card_template_3,
+                                   new Rect(0, 0, card_template_3.width, card_template_3.height),
+                                   Vector2.zero);
+                        break;
+
+                    case 4:
+
+                        item_screen.sprite = Sprite.Create(card_template_4,
+                                   new Rect(0, 0, card_template_4.width, card_template_4.height),
+                                   Vector2.zero);
+                        break;
+                }
+                
                 break;
         }
 
@@ -684,6 +728,12 @@ public class SetImage : MonoBehaviour
             case "Creampuff":
                 subcategory = "シュークリーム";
                 Fluffy_Text();
+                break;
+            case "Coffee_Mat":
+                subcategory = "コーヒー";
+                Crispy_Text();
+                item_Shokukan_Type.text = "香り";
+                item_lastShokukan_Type.text = "香り";
                 break;
             case "Donuts":
                 subcategory = "ドーナツ";
