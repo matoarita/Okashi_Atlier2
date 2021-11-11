@@ -72,13 +72,15 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         { }
         else
         { 
-            trans_motion = 101; //念の為、100を繰り返すのを止めておく。
-            live2d_animator.SetInteger("trans_motion", trans_motion);           
+            
 
             //うまく調合できた場合は、「おいしそ～」って感じで、ワクワクした表情に。
             if (exp_Controller.ResultSuccess) //成功した場合
             {
-                girl1_status.face_girl_Yodare2(); //おいしそ～ よだれの表情
+                trans_motion = 101; //数字を使っていないけど、分岐をわかりやすくするため設定。なくても大丈夫。
+                live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                girl1_status.face_girl_Yodare(); //おいしそ～ よだれの表情
 
                 //「おいしそ～」って吹き出しもだしていいかも。
                 if (girl1_status.HukidashiFlag)
@@ -91,6 +93,11 @@ public class Live2DAnimationTrigger : MonoBehaviour {
             }
             else //失敗した場合
             {
+                trans_motion = 102; //数字を使っていないけど、分岐をわかりやすくするため設定。なくても大丈夫。
+                live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                live2d_animator.Play("Idle", girl1_status.motion_layer_num, 0.0f);
+
                 girl1_status.face_girl_Mazui(); //失敗した表情
 
                 //「失敗しちゃった..」って吹き出しもだしていいかも。

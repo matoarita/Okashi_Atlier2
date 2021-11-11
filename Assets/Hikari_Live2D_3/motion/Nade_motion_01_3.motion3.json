@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 33,
-		"TotalSegmentCount": 51,
-		"TotalPointCount": 186,
+		"CurveCount": 64,
+		"TotalSegmentCount": 86,
+		"TotalPointCount": 312,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -141,6 +141,21 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamEyeBallY",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeSmall",
 			"Segments": [
 				0,
 				0,
@@ -333,7 +348,63 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamKiba",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
+			"Segments": [
+				0,
+				0,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamGokigen",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAngryGyagu",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Param",
 			"Segments": [
 				0,
 				0,
@@ -438,6 +509,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBodyAngleX",
 			"Segments": [
 				0,
@@ -511,7 +593,22 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamUpperbodyRot",
+			"Id": "ParamWaistRot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamUpperbodyYure",
 			"Segments": [
 				0,
 				2.084,
@@ -558,6 +655,36 @@
 				0.044,
 				2.967,
 				0.001
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosX",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosY",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
 			]
 		},
 		{
@@ -631,6 +758,352 @@
 				-1.403,
 				2.967,
 				-1.026
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "RupperarmRot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "LupperarmRot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_arm_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_arm_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_arm_maze_Scale",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_hand_maze_Scale",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_arm_Updown",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_arm_Updown",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_hand_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_hand_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_finger_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_finger_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamNekoCookieAlpha",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCookieMove",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCookieMouthAlpha",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCookieMouthMove",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMouthUeMaskAlpha",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.989,
+				0,
+				1.978,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamHandTachi",
+			"Segments": [
+				0,
+				0,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamHandGoo",
+			"Segments": [
+				0,
+				0,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamHandMazeMaze",
+			"Segments": [
+				0,
+				0,
+				0,
+				2.967,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Hair_All_z_Pos",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.333,
+				-16.247,
+				0.667,
+				-30,
+				1,
+				-30,
+				1,
+				1.389,
+				-30,
+				1.778,
+				18,
+				2.167,
+				18,
+				1,
+				2.433,
+				18,
+				2.7,
+				10.482,
+				2.967,
+				1.173
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Hair_All_z_rotate",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.278,
+				0,
+				0.556,
+				-18,
+				0.833,
+				-18,
+				1,
+				1.167,
+				-18,
+				1.5,
+				15,
+				1.833,
+				15,
+				1,
+				2.211,
+				15,
+				2.589,
+				0.845,
+				2.967,
+				0.036
 			]
 		}
 	]

@@ -355,7 +355,6 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     {
         //仕上げできる回数が１上がる。
         PlayerStatus.player_extreme_kaisu_Max++;
-        PlayerStatus.player_extreme_kaisu++;
 
         if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
         {

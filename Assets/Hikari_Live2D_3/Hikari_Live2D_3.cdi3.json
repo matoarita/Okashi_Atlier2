@@ -152,6 +152,11 @@
 			"Name": "ハイライト揺らしあり"
 		},
 		{
+			"Id": "ParamEyeHiYure",
+			"GroupId": "ParamGroup7",
+			"Name": "ハイライト揺らし"
+		},
+		{
 			"Id": "ParamBodyAngleX",
 			"GroupId": "ParamGroup4",
 			"Name": "体の回転　X"
@@ -225,6 +230,16 @@
 			"Id": "L_arm_Rot",
 			"GroupId": "ParamGroup4",
 			"Name": "左腕回転"
+		},
+		{
+			"Id": "L_arm_maze_Scale",
+			"GroupId": "ParamGroup4",
+			"Name": "左腕混ぜ奥行き"
+		},
+		{
+			"Id": "L_hand_maze_Scale",
+			"GroupId": "ParamGroup4",
+			"Name": "左手混ぜ奥行き"
 		},
 		{
 			"Id": "R_arm_Updown",

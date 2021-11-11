@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 186,
-		"TotalSegmentCount": 1840,
-		"TotalPointCount": 5688,
+		"CurveCount": 190,
+		"TotalSegmentCount": 1850,
+		"TotalPointCount": 5726,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -481,6 +481,21 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamKiba",
+			"Segments": [
+				0,
+				0,
+				1,
+				2,
+				0,
+				4,
+				0,
+				6,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamMouthMogumogu",
 			"Segments": [
 				0,
@@ -635,6 +650,17 @@
 				1,
 				6,
 				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				0,
+				6,
+				0
 			]
 		},
 		{
@@ -1074,6 +1100,36 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "L_arm_maze_Scale",
+			"Segments": [
+				0,
+				0,
+				1,
+				2,
+				0,
+				4,
+				0,
+				6,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_hand_maze_Scale",
+			"Segments": [
+				0,
+				0,
+				1,
+				2,
+				0,
+				4,
+				0,
+				6,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "R_arm_Updown",
 			"Segments": [
 				0,
@@ -1407,9 +1463,20 @@
 				21,
 				1.033,
 				21,
+				1,
+				2.633,
+				21,
+				4.233,
+				0,
+				5.833,
+				0,
+				1,
+				5.889,
+				0,
+				5.944,
 				0,
 				6,
-				21
+				0
 			]
 		},
 		{
@@ -1445,6 +1512,13 @@
 				4.422,
 				0,
 				4.433,
+				0,
+				1,
+				4.844,
+				0,
+				5.256,
+				0,
+				5.667,
 				0,
 				0,
 				6,
@@ -1492,9 +1566,27 @@
 				30,
 				4.5,
 				30,
+				1,
+				4.889,
+				30,
+				5.278,
+				30,
+				5.667,
+				30,
+				1,
+				5.722,
+				30,
+				5.778,
+				0,
+				5.833,
+				0,
+				1,
+				5.889,
+				0,
+				5.944,
 				0,
 				6,
-				30
+				0
 			]
 		},
 		{
@@ -1510,9 +1602,27 @@
 				1,
 				0.333,
 				1,
+				1,
+				2.111,
+				1,
+				3.889,
+				1,
+				5.667,
+				1,
+				1,
+				5.722,
+				1,
+				5.778,
+				0,
+				5.833,
+				0,
+				1,
+				5.889,
+				0,
+				5.944,
 				0,
 				6,
-				1
+				0
 			]
 		},
 		{

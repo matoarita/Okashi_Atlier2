@@ -1304,8 +1304,8 @@ public class GetMaterial : MonoBehaviour
             default:
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 25.0f); //10%でイベント
+                eventDict.Add(0, 80.0f); //採集
+                eventDict.Add(1, 15.0f); //10%でイベント
                 eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
                 eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
                 break;

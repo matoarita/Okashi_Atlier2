@@ -253,7 +253,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public bool gireleat_start_flag; //食べ始めアニメ開始のスイッチ
 
-    private int motion_layer_num = 1;
+    public int motion_layer_num = 1; //モーションのレイヤー番号　Live2DAnimationTriggerからも読む。
 
     // Use this for initialization
     void Start()
@@ -935,11 +935,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 5:
-                face_girl_Joukigen();
+                //face_girl_Joukigen();
+                face_girl_Tereru4();
                 break;
 
             case 6:
-                face_girl_Joukigen();
+                //face_girl_Joukigen();
+                face_girl_Tereru4();
                 break;
 
             default:
@@ -2476,7 +2478,27 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 break;
 
-            case 3: //ちょっと元気
+            case 3: //少し機嫌がよくなってきた？けど、まだ暗い。～LV5
+
+                random = Random.Range(0, 2); //0~1
+
+                switch (random) //モーション4種類＋セリフがそれらにつく
+                {
+                    case 0:
+
+                        //モーション1種類
+                        //FaceMotionPlay(1002);
+                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
+                        break;
+
+                    case 1:
+
+                        IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
+                        break;
+                }
+                break;
+
+            case 4:
 
                 random = Random.Range(0, 5); //0~4
 
@@ -2524,61 +2546,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
 
-            case 4:
-
-                random = Random.Range(0, 5); //0~4
-
-                switch(random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
-
-                        //きらきらほわわ
-                        Debug.Log("0 きらきらほわわ");
-                        FaceMotionPlay(1000);
-                        IdleMotionHukidashiSetting(31); 
-                        break;
-
-                    case 1:
-
-                        //るんるんモーション
-                        Debug.Log("1 るんるん");
-                        FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(32);
-                        break;
-
-                    case 2:
-
-                        //クッキーのつまみぐい
-                        Debug.Log("2 つまみぐい");
-                        FaceMotionPlay(1008);
-                        IdleMotionHukidashiSetting(33);
-                        break;
-
-                    case 3:
-
-                        //ボウルをガシャガシャ
-                        Debug.Log("3 ボウルをガシャガシャ");
-                        IdleMotionHukidashiSetting(30);
-                        break;
-
-                    case 4:
-
-                        //るんるんモーション
-                        Debug.Log("ヒント");
-                        //FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(100);
-                        break;
-                }
-                
-                break;
-
             case 5:
 
-                random = Random.Range(0, 5); //0~4
+                random = Random.Range(0, 6); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
                     case 0:
+
+                        //モーションなし
+                        Debug.Log("0 モーションなし");
+                        IdleMotionHukidashiSetting(30);
+                        break;
+
+                    case 1:
 
                         //きらきらほわわ
                         Debug.Log("0 きらきらほわわ");
@@ -2586,7 +2567,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(31);
                         break;
 
-                    case 1:
+                    case 2:
 
                         //るんるんモーション
                         Debug.Log("1 るんるん");
@@ -2594,7 +2575,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(32);
                         break;
 
-                    case 2:
+                    case 3:
 
                         //クッキーのつまみぐい
                         Debug.Log("2 つまみぐい");
@@ -2602,16 +2583,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(33);
                         break;
 
-                    case 3:
+                    case 4:
 
                         //ボウルをガシャガシャ
                         Debug.Log("3 ボウルをガシャガシャ");
-                        IdleMotionHukidashiSetting(30);
+                        FaceMotionPlay(1012);
+                        IdleMotionHukidashiSetting(34);
                         break;
 
-                    case 4:
+                    case 5:
 
-                        //るんるんモーション
+                        //ヒントだす
                         Debug.Log("ヒント");
                         //FaceMotionPlay(1005);
                         IdleMotionHukidashiSetting(100);
@@ -2622,11 +2604,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 6:
 
-                random = Random.Range(0, 5); //0~4
+                random = Random.Range(0, 6); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
                     case 0:
+
+                        //モーションなし
+                        Debug.Log("0 モーションなし");
+                        IdleMotionHukidashiSetting(40);
+                        break;
+
+                    case 1:
 
                         //きらきらほわわ
                         Debug.Log("0 きらきらほわわ");
@@ -2634,7 +2623,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(31);
                         break;
 
-                    case 1:
+                    case 2:
 
                         //るんるんモーション
                         Debug.Log("1 るんるん");
@@ -2642,7 +2631,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(32);
                         break;
 
-                    case 2:
+                    case 3:
 
                         //クッキーのつまみぐい
                         Debug.Log("2 つまみぐい");
@@ -2650,16 +2639,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(33);
                         break;
 
-                    case 3:
+                    case 4:
 
                         //ボウルをガシャガシャ
                         Debug.Log("3 ボウルをガシャガシャ");
-                        IdleMotionHukidashiSetting(40);
+                        FaceMotionPlay(1012);
+                        IdleMotionHukidashiSetting(34);
                         break;
 
-                    case 4:
+                    case 5:
 
-                        //るんるんモーション
+                        //ヒントだす
                         Debug.Log("ヒント");
                         //FaceMotionPlay(1005);
                         IdleMotionHukidashiSetting(100);
@@ -2670,11 +2660,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             default: //それ以上
 
-                random = Random.Range(0, 5); //0~4
+                random = Random.Range(0, 6); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
                     case 0:
+
+                        //モーションなし
+                        Debug.Log("0 モーションなし");
+                        IdleMotionHukidashiSetting(50);
+                        break;
+
+                    case 1:
 
                         //きらきらほわわ
                         Debug.Log("0 きらきらほわわ");
@@ -2682,7 +2679,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(31);
                         break;
 
-                    case 1:
+                    case 2:
 
                         //るんるんモーション
                         Debug.Log("1 るんるん");
@@ -2690,7 +2687,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(32);
                         break;
 
-                    case 2:
+                    case 3:
 
                         //クッキーのつまみぐい
                         Debug.Log("2 つまみぐい");
@@ -2698,16 +2695,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(33);
                         break;
 
-                    case 3:
+                    case 4:
 
                         //ボウルをガシャガシャ
                         Debug.Log("3 ボウルをガシャガシャ");
-                        IdleMotionHukidashiSetting(50);
+                        FaceMotionPlay(1012);
+                        IdleMotionHukidashiSetting(34);
                         break;
 
-                    case 4:
+                    case 5:
 
-                        //るんるんモーション
+                        //ヒントだす
                         Debug.Log("ヒント");
                         //FaceMotionPlay(1005);
                         IdleMotionHukidashiSetting(100);
@@ -2715,8 +2713,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
 
                 break;
-
-
         }
     }   
 
@@ -2786,10 +2782,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("いっぱい手伝うね！お兄ちゃん。");
                 break;
 
-            case 30: //ボウルをガシャガシャ
-
-                _touchface_comment_lib.Add("材料の比率は、兄ちゃんの好みに変えられるんだよ～。");
-                _touchface_comment_lib.Add("兄ちゃん、もうコンテストとか余裕？");
+            case 30: 
+               
                 _touchface_comment_lib.Add("今日はあたたかいね～、兄ちゃん！");
                 _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？兄ちゃん。");
                 _touchface_comment_lib.Add("にいちゃん。あのね.. 鳥さんがお庭にきてたから、パンあげたら食べたよ！");
@@ -2813,6 +2807,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("こっそり.. 味見～♪");
                 break;
 
+            case 34: //ボウルをガシャガシャ
+
+                _touchface_comment_lib.Add("にいちゃんのクッキー、おいしくなぁれ♪");
+                break;
+
             case 40:
 
                 _touchface_comment_lib.Add("キラキラ♪");
@@ -2821,6 +2820,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("兄ちゃんのおてて、あたたか～い");
                 _touchface_comment_lib.Add("お兄ちゃん。あたたかい～。");
                 _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
+                _touchface_comment_lib.Add("兄ちゃん、もうコンテストとか余裕？");
                 break;
 
             case 50:
@@ -2837,7 +2837,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 100:
 
                 //パティシエレベルに応じて、ヒントをだす。
-                if (PlayerStatus.player_renkin_lv < 3) //LV 1~2
+                if (PlayerStatus.girl1_Love_lv < 3) //LV 1~2
                 {
                     _touchface_comment_lib.Add("さくさく感の出し方は、ショップのおねえちゃんが知ってたかも？");
                     _touchface_comment_lib.Add("さわられると、ビックリしちゃうよ～・・。おにいちゃん。");
@@ -2845,13 +2845,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _touchface_comment_lib.Add("にいちゃん、たいりょくが０になったら、材料集めはムリぃ～・・。");
                 }
 
-                if (PlayerStatus.player_renkin_lv >= 3) //
+                if (PlayerStatus.girl1_Love_lv >= 3) //
                 {
                     _touchface_comment_lib.Add("にいちゃん。こまったときは、ショップのおねえちゃんにきこう。");
                     _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
                     _touchface_comment_lib.Add("にいちゃん。今日のご飯は、ビールと枝豆の炊き込みご飯だよ♪");
                     _touchface_comment_lib.Add("にいちゃん。伝説のお菓子のレシピが・・。どこかにあるらしいよ。");
-                    _touchface_comment_lib.Add("にいちゃん。新しいおかしをいっぱい作れば、パティシエの腕前が上がるよ！");
                     _touchface_comment_lib.Add("にいちゃん。同じ素材でも上位素材があるよ。採取地で、ごくまれに採れるらしいよ！");
                 }
                 break;
@@ -2980,7 +2979,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
-                _touchtwintail_comment_lib.Add("..さらさら。");
                 _touchtwintail_comment_lib.Add("..。");
                 break;
 
@@ -2988,11 +2986,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchtwintail_comment_lib.Add("..!");
                 _touchtwintail_comment_lib.Add("..。");
-                _touchtwintail_comment_lib.Add("..気持ちいい。");
+                _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
-                _touchtwintail_comment_lib.Add("（ちょっと元気になってきたかな？）");
                 break;
 
             case 2:
@@ -3000,7 +2997,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchtwintail_comment_lib.Add("わっ");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
-                _touchtwintail_comment_lib.Add("ふわぁ～..。");
+                _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -3011,7 +3008,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchtwintail_comment_lib.Add("いた");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
-                _touchtwintail_comment_lib.Add("うひひ。..。");
+                _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -3022,7 +3019,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchtwintail_comment_lib.Add("わっ");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
-                _touchtwintail_comment_lib.Add("えへへ..♪");
+                _touchtwintail_comment_lib.Add("..♪");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -3033,7 +3030,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchtwintail_comment_lib.Add("うわ♪");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
-                _touchtwintail_comment_lib.Add("あ～..♪");
+                _touchtwintail_comment_lib.Add("..♪");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -3044,8 +3041,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchtwintail_comment_lib.Add("うわ♪");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
-                _touchtwintail_comment_lib.Add("ふおぉ..♪");
+                _touchtwintail_comment_lib.Add("..♪");
                 _touchtwintail_comment_lib.Add("（気持ちいいようだ..。）");
+                _touchtwintail_comment_lib.Add("..。");
+                _touchtwintail_comment_lib.Add("（ままのクッキーのにおい..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
                 break;
@@ -3055,7 +3054,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchtwintail_comment_lib.Add("うわ♪");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("..。");
-                _touchtwintail_comment_lib.Add("ふおぉ..♪");
+                _touchtwintail_comment_lib.Add("..♪");
                 _touchtwintail_comment_lib.Add("（ままのクッキーのにおい..。）");
                 _touchtwintail_comment_lib.Add("..。");
                 _touchtwintail_comment_lib.Add("（さらさら..。）");
@@ -3109,7 +3108,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchchest_comment_lib.Add("..！");
                 _touchchest_comment_lib.Add("..は、はずかしいよ～..。");
                 _touchchest_comment_lib.Add("なんでそんなとこさわるの..？　おにいちゃん。");
-                _touchchest_comment_lib.Add("..あまり胸を触ると、おこるよ！");
+                _touchchest_comment_lib.Add("..わ！！");
 
                 break;
 
@@ -3131,7 +3130,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchchest_comment_lib.Add("..ひ、ひどいよ～。にいちゃんのばか！！");
                 _touchchest_comment_lib.Add("..は、はずかしい～..。");
                 _touchchest_comment_lib.Add("ぐひぃ～・・。");
-                _touchchest_comment_lib.Add("..やめなさい！あにぃ～。");
+                _touchchest_comment_lib.Add("..あにぃ～。");
                 _touchchest_comment_lib.Add("..はひー！！");
                 _touchchest_comment_lib.Add("くすぐったいよ～..。");
                 _touchchest_comment_lib.Add("ぎぃや～～。（くすぐったいよ..。にいちゃん～。）");
@@ -3485,7 +3484,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     }
 
-    public void face_girl_Yodare2()
+    public void face_girl_Tereru4()
     {
         face_girl_Reset();
 

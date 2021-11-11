@@ -2043,7 +2043,7 @@ public class Compound_Main : MonoBehaviour
         //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f);
 
         live2d_animator.SetInteger("trans_nade", 0);
-        Anchor_Pos.transform.localPosition = new Vector3(-0.443f, 0.134f, -5f);
+        Anchor_Pos.transform.localPosition = new Vector3(-0.5f, 0.05f, -5f);
         
 
         girl1_status.face_girl_Normal();
@@ -3921,7 +3921,7 @@ public class Compound_Main : MonoBehaviour
             }
 
             //はじめてエメラルどんぐりをとったら発生　衣装交換アイテムの説明がある。
-            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            /*if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
             else
             {
@@ -3936,7 +3936,7 @@ public class Compound_Main : MonoBehaviour
                         check_GirlLoveSubEvent_flag = false;
                     }
                 }
-            }
+            }*/
 
             //はじめて衣装装備を買った 70番台～
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避

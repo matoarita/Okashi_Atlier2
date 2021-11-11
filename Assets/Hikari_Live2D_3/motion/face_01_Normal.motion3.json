@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 43,
-		"TotalSegmentCount": 59,
-		"TotalPointCount": 170,
+		"CurveCount": 63,
+		"TotalSegmentCount": 79,
+		"TotalPointCount": 292,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -136,6 +136,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -184,6 +188,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -195,6 +203,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -206,6 +218,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -217,6 +233,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -228,6 +248,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -239,6 +263,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -250,6 +278,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -261,6 +293,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -272,6 +308,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -283,6 +323,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -294,6 +338,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -302,6 +350,21 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamKiba",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
 			"Segments": [
 				0,
 				0,
@@ -316,6 +379,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -327,6 +394,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -338,6 +409,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -349,6 +424,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -360,6 +439,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -371,6 +454,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -382,6 +469,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -393,6 +484,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -403,10 +498,29 @@
 			"Id": "ParamHiLightOn",
 			"Segments": [
 				0,
+				0,
+				1,
 				1,
 				0,
+				2,
+				0,
 				3,
-				1
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
 			]
 		},
 		{
@@ -484,6 +598,21 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamWaistRot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamUpperbodyYure",
 			"Segments": [
 				0,
@@ -509,10 +638,10 @@
 			"Id": "ParamBreath",
 			"Segments": [
 				0,
-				1,
+				0,
 				1,
 				0.5,
-				1,
+				0,
 				1,
 				0,
 				1.5,
@@ -521,9 +650,9 @@
 				2,
 				0,
 				2.5,
-				1,
+				0,
 				3,
-				1
+				0
 			]
 		},
 		{
@@ -634,6 +763,261 @@
 				-14.41,
 				3,
 				-8.337
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "RupperarmRot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "LupperarmRot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_arm_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_arm_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_arm_maze_Scale",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_hand_maze_Scale",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_arm_Updown",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_arm_Updown",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_hand_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_hand_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "R_finger_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_finger_Rot",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamNekoCookieAlpha",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCookieMove",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCookieMouthAlpha",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCookieMouthMove",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMouthUeMaskAlpha",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
 			]
 		},
 		{
