@@ -1083,6 +1083,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 yes_no_panel.SetActive(false);                
 
                 moveanim_panel.GetComponent<CanvasGroup>().DOFade(1, 0.3f); //背景黒フェード
+                moveanim_panel.GetComponent<GraphicRaycaster>().enabled = true;
 
                 StatusPanelOFF();
 
@@ -1152,6 +1153,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 move_anim_end = true;                
                 move_anim_status = 0;
 
+                moveanim_panel.GetComponent<GraphicRaycaster>().enabled = false;
+
                 break;
 
             default:
@@ -1177,6 +1180,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 Slot_view_on = false;
 
                 moveanim_panel.GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
+                moveanim_panel.GetComponent<GraphicRaycaster>().enabled = true;
 
                 StatusPanelOFF();
 
@@ -1216,6 +1220,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 modoru_anim_end = true;
              
                 modoru_anim_status = 0;
+                moveanim_panel.GetComponent<GraphicRaycaster>().enabled = false;
 
                 break;
 

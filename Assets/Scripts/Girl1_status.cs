@@ -2742,7 +2742,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("..。にいちゃん。..。なんでもない。");
                 _touchface_comment_lib.Add("..");
                 _touchface_comment_lib.Add("..おかし、食べたいな。おにいちゃん..。");
-                _touchface_comment_lib.Add("..まずはクッキーを作ってみようね。");
                 _touchface_comment_lib.Add("にいちゃん..。");
                 _touchface_comment_lib.Add("..おなか、すいた。");
 

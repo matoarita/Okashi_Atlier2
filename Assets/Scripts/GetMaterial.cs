@@ -243,7 +243,7 @@ public class GetMaterial : MonoBehaviour
 
                     //黒で画面消えてる最中に表示を切り替え
                     TreasureImage_obj.SetActive(false);
-                    CharacterSDImage.SetActive(true);
+                    //CharacterSDImage.SetActive(true);
 
                     mat_anim_on = false;
                     mat_anim_end = true;
@@ -1331,7 +1331,7 @@ public class GetMaterial : MonoBehaviour
         OpenTreasureButton_obj.SetActive(true);
         treasure_text.text = "調べる";
         TreasureImage_obj.SetActive(false);
-        CharacterSDImage.SetActive(false);
+        //CharacterSDImage.SetActive(false);
 
         //Treasure_Status = 0; //0=宝箱 音と画像が変わるだけ。
         Treasure_Status = 1;
@@ -1347,7 +1347,7 @@ public class GetMaterial : MonoBehaviour
         OpenTreasureButton_obj.SetActive(true);
         treasure_text.text = "探検";
         TreasureImage_obj.SetActive(false);
-        CharacterSDImage.SetActive(false);
+        //CharacterSDImage.SetActive(false);
 
         Treasure_Status = 1;
     }
@@ -1460,6 +1460,19 @@ public class GetMaterial : MonoBehaviour
 
         TreasureGetitem_obj.SetActive(true);
         TreasureGetitem_img.sprite = database.items[database.SearchItemIDString(itemName)].itemIcon_sprite;
+
+        //ゲットアニメーション
+        //まず、初期値。
+        Sequence sequence = DOTween.Sequence();
+        TreasureGetitem_obj.GetComponent<CanvasGroup>().alpha = 0;
+        sequence.Append(TreasureGetitem_obj.transform.DOScale(new Vector3(0.65f, 0.65f, 1.0f), 0.0f)
+            ); //
+
+        //移動のアニメ
+        sequence.Append(TreasureGetitem_obj.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f)
+            .SetEase(Ease.OutElastic)); //はねる動き
+                                        //.SetEase(Ease.OutExpo)); //スケール小からフェードイン
+        sequence.Join(TreasureGetitem_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
 
         //アイテムの取得処理
         pitemlist.addPlayerItemString(itemName, 1);

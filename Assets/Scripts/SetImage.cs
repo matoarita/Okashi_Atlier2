@@ -289,7 +289,6 @@ public class SetImage : MonoBehaviour
         card_template_3 = Resources.Load<Texture2D>("Sprites/Icon/card_template_3"); //レア
         card_template_4 = Resources.Load<Texture2D>("Sprites/Icon/card_template_4"); //スーパーレア
         card_template_10 = Resources.Load<Texture2D>("Sprites/Icon/card_template_10"); //器具のカードテンプレ画像
-        
 
         Card_param_obj = this.transform.Find("Card_Param_window").gameObject;
         Card_param_obj2 = this.transform.Find("Card_Param_window2").gameObject;
@@ -424,6 +423,11 @@ public class SetImage : MonoBehaviour
 
         // texture2dを使い、Spriteを作って、反映させる
         item_Icon.sprite = texture2d;
+
+        //デフォルトカードテンプレとりあえず入力し初期化。　レシピなど。
+        item_screen.sprite = Sprite.Create(card_template_1,
+                                   new Rect(0, 0, card_template_1.width, card_template_1.height),
+                                   Vector2.zero);
     }
 
     //カード描画用のパラメータ読み込み
@@ -594,7 +598,7 @@ public class SetImage : MonoBehaviour
     {
     
         // texture2dを使い、Spriteを作って、反映させる
-        item_Icon.sprite = texture2d;
+        item_Icon.sprite = texture2d;        
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
         switch (item_type_sub)
@@ -637,6 +641,10 @@ public class SetImage : MonoBehaviour
                         item_screen.sprite = Sprite.Create(card_template_4,
                                    new Rect(0, 0, card_template_4.width, card_template_4.height),
                                    Vector2.zero);
+                        break;
+
+                    default: //レア度がないやつ。
+                        
                         break;
                 }
                 

@@ -3331,6 +3331,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //
     IEnumerator QuestClearCommentEvent()
     {
+
         //エメラルどんぐりイベントが発生した場合は、どんぐりが終了するまで待つ。emerarudonguri_end GameMgr.QuestClearflag
         while (!emerarudonguri_end)
         {
@@ -3354,6 +3355,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         touch_controller.Touch_OnAllOFF();
 
         //高得点のときは、ここで特別スチルがでる。
+        //Debug.Log("total_score check: " + total_score);
         if (total_score >= GameMgr.high_score)
         {
             GameMgr.QuestClearButtonMessage_EvNum = GameMgr.OkashiQuest_Num + 10000;
@@ -3374,6 +3376,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         GameMgr.QuestClearButtonMessage_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
         
+
         while (!GameMgr.recipi_read_endflag)
         {
             yield return null;
@@ -3413,7 +3416,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //このタイミングで、「クエストクリア～！」みたいな演出？
         QuestClearEffectPanel.SetActive(true);
-        sceneBGM.MuteBGM();
+        //sceneBGM.MuteBGM();
 
         while (!GameMgr.qclear_effect_endflag)
         {
@@ -3441,12 +3444,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else //クエストクリアで、ボタン登場演出がない場合。暗転して、次へ。
         {
-            //canvas.SetActive(true);
-
             //お菓子の判定処理を終了
-            //Extremepanel_obj.SetActive(true);
             compound_Main.girlEat_ON = false;
-            //GameMgr.compound_status = 0;
 
             sceneBGM.MuteOFFBGM(); //ここのタイミングでBGMをオンに。
 
@@ -3512,13 +3511,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         ClearFlagOn();
         SelectNewOkashiSet();
-
-        //黒で一度フェードアウト
-        /*sceneBGM.MuteBGM();
-        Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeIn();
-        //Debug.Log("## 一度ブラックアウト　演出 ##");
-        StartCoroutine("Black_FadeOut2");*/
-
     }
 
     //
@@ -3749,24 +3741,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
         GameMgr.questclear_After = true;
         ResetResult();
-    }
-
-    //一つのSPクエストを終わった直後のフェードアウト演出
-    IEnumerator Black_FadeOut2()
-    {
-        yield return new WaitForSeconds(1.0f);
-
-        BlackPanel_event.SetActive(false);
-        canvas.SetActive(false);
-        Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut();
-
-        yield return new WaitForSeconds(1.0f);
-
-        //compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
-        //ResetResult();
-
-        ClearFlagOn();
-        SelectNewOkashiSet();
     }
 
     void ResetResult()

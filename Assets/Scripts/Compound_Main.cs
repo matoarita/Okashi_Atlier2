@@ -478,9 +478,9 @@ public class Compound_Main : MonoBehaviour
         //recipi_toggle = canvas.transform.Find("MainUIPanel/Comp/Recipi_Toggle").gameObject;
         recipi_toggle.SetActive(false);
 
-        //girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
-        girleat_toggle = canvas.transform.Find("MainUIPanel/Comp/GirlEat_Toggle").gameObject;
-        girleat_toggle.SetActive(false);
+        girleat_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GirlEat_Toggle").gameObject;
+        //girleat_toggle = canvas.transform.Find("MainUIPanel/Comp/GirlEat_Toggle").gameObject;
+        //girleat_toggle.SetActive(false);
 
         //hinttaste_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/HintTaste_Toggle").gameObject;
         hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
@@ -1306,7 +1306,8 @@ public class Compound_Main : MonoBehaviour
                         if (bgm_change_flag2 == true)
                         {
                             bgm_change_flag2 = false;
-                            sceneBGM.OnMainBGMFade();                            
+                            sceneBGM.OnMainBGMFade();         
+                            //sceneBGM.OnMainBGM(); //即座に切り替え
                         }
                     }
                 }
@@ -2104,7 +2105,7 @@ public class Compound_Main : MonoBehaviour
 
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
-        girleat_toggle.SetActive(false);
+        //girleat_toggle.SetActive(false);
         recipi_toggle.SetActive(false);
         HintObjectGroup.SetActive(false);
     }
@@ -2126,7 +2127,7 @@ public class Compound_Main : MonoBehaviour
 
         //MainUICloseButton.SetActive(true);
         //UIOpenButton_obj.SetActive(true);
-        girleat_toggle.SetActive(true);
+        //girleat_toggle.SetActive(true);
         recipi_toggle.SetActive(true);
         HintObjectGroup.SetActive(true);
 
@@ -3919,6 +3920,24 @@ public class Compound_Main : MonoBehaviour
                 }
             }
 
+            //はじめてエメラルどんぐりをとったら発生　衣装交換アイテムの説明がある。
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                if (pitemlist.KosuCount("emeralDongri") >= 1 || pitemlist.KosuCount("sapphireDongri") >= 1)
+                {
+                    if (GameMgr.GirlLoveSubEvent_stage1[84] == false)
+                    {
+                        GameMgr.GirlLoveSubEvent_stage1[84] = true;
+                        GameMgr.GirlLoveSubEvent_num = 84;
+
+                        mute_on = true;
+                        check_GirlLoveSubEvent_flag = false;
+                    }
+                }
+            }
+
             //はじめて衣装装備を買った 70番台～
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
@@ -3942,6 +3961,8 @@ public class Compound_Main : MonoBehaviour
                                     //メイン画面にもどったときに、イベントを発生させるフラグをON
                                     GameMgr.GirlLoveSubEvent_num = 70;
                                     GameMgr.GirlLoveSubEvent_stage1[70] = true;
+
+                                    mute_on = true;
                                     check_GirlLoveSubEvent_flag = false;
                                     GetEmeraldItem = true;
                                 }
@@ -3954,6 +3975,8 @@ public class Compound_Main : MonoBehaviour
                                     //メイン画面にもどったときに、イベントを発生させるフラグをON
                                     GameMgr.GirlLoveSubEvent_num = 71;
                                     GameMgr.GirlLoveSubEvent_stage1[71] = true;
+
+                                    mute_on = true;
                                     check_GirlLoveSubEvent_flag = false;
                                     GetEmeraldItem = true;
                                 }

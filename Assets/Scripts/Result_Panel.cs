@@ -34,6 +34,12 @@ public class Result_Panel : MonoBehaviour
     private bool anim_on1;
     private bool anim_on2;
 
+    private GameObject chara_Icon;
+    private Sprite charaIcon_sprite_1;
+    private Sprite charaIcon_sprite_2;
+    private Sprite charaIcon_sprite_3;
+    private Sprite charaIcon_sprite_4;
+
     private int getlove_exp;
     private int Total_score;
     private int star_count;
@@ -110,6 +116,14 @@ public class Result_Panel : MonoBehaviour
         GoukakuPanel = this.transform.Find("Image/GoukakuPanel").gameObject;
         GoukakuPanel.GetComponent<CanvasGroup>().alpha = 0;
         text_default_color = GoukakuPanel.transform.Find("Text").GetComponent<Text>().color;
+
+        //キャラ系
+        charaIcon_sprite_1 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_01");
+        charaIcon_sprite_2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_02");
+        charaIcon_sprite_3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_03");
+        charaIcon_sprite_4 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_04");
+        chara_Icon = this.transform.Find("chara_Img").gameObject;
+        chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
 
         //キラエフェクト系
         kiraEffect_1 = this.transform.Find("Particle_KiraExplodeScore").gameObject;
@@ -285,12 +299,18 @@ public class Result_Panel : MonoBehaviour
                 //sc.PlaySe(17);
                 StartCoroutine(DelaySound(17));
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "あとひといき..！";
+
+                //キャラ画像変更
+                chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_2;
             }
             else if (Total_score >= GameMgr.low_score && Total_score < GameMgr.high_score) //60点以上で、パンパカファンファーレ♪
             {
                 StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "うみゃあ！！";
+
+                //キャラ画像変更
+                chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_2;
 
                 //60点以上で背景アイコンが黄色に変わる演出
                 if (!anim_on1)
@@ -300,11 +320,14 @@ public class Result_Panel : MonoBehaviour
                     score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_2;
                 }
             }
-            else if (Total_score >= GameMgr.high_score && Total_score < 100)
+            else if (Total_score >= GameMgr.high_score && Total_score < GameMgr.high_score_2)
             {
                 StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "大好きぃ！！";
+
+                //キャラ画像変更
+                chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_3;
 
                 //85点以上で背景アイコンが赤に変わる演出
                 if (!anim_on2)
@@ -316,11 +339,14 @@ public class Result_Panel : MonoBehaviour
                 }
 
             }
-            else if (Total_score >= 100)
+            else if (GameMgr.high_score_2 >= 100)
             {
                 StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "このお菓子は最高だ！！";
+
+                //キャラ画像変更
+                chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_4;
 
                 //85点以上で背景アイコンが赤に変わる演出
                 if (!anim_on2)
