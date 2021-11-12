@@ -443,6 +443,17 @@ public class Utage_scenario : MonoBehaviour
                     StartCoroutine(Scenario_Start());
 
                 }
+
+                if (GameMgr.bar_event_flag)
+                {
+                    GameMgr.bar_event_flag = false;
+                    story_num = GameMgr.bar_event_num;
+                    CharacterSpriteSetOFF();
+
+                    scenarioLabel = "Bar_Event";
+                    StartCoroutine(Scenario_Start());
+
+                }
             }
 
             //エメラルショップシーンでのイベント処理
@@ -2040,15 +2051,14 @@ public class Utage_scenario : MonoBehaviour
                 canvas = GameObject.FindWithTag("Canvas");
                 moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
-                GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true; //そのうわさを読んだフラグをON
-                engine.Param.TrySetParameter("MoneyCheck_Flag", true);
+                //GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true; //そのうわさを読んだフラグをON
+                //engine.Param.TrySetParameter("MoneyCheck_Flag", true);
 
                 //お金の消費
-                /*if (PlayerStatus.player_money >= 0)
+                if (PlayerStatus.player_money >= 30)
                 {
-                    //PlayerStatus.player_money -= 50;
                     GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true;
-                    //moneyStatus_Controller.UseMoney(100); //うわさ話をきくをONにしたので、-100G
+                    moneyStatus_Controller.UseMoney(30); //うわさ話をきくをONにしたので、-30G
 
                     //ここで、宴で呼び出したいイベント番号を設定する。
                     engine.Param.TrySetParameter("MoneyCheck_Flag", true);
@@ -2057,7 +2067,7 @@ public class Utage_scenario : MonoBehaviour
                 {
                     //ここで、宴で呼び出したいイベント番号を設定する。
                     engine.Param.TrySetParameter("MoneyCheck_Flag", false);
-                }*/
+                }
             }
             else //きける話がひとつもない場合は、無視。現在は、うわさ話無しは、削除。
             {

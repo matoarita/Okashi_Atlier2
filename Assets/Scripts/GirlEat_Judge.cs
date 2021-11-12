@@ -946,7 +946,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 case 0: //お腹が特に減ってない状態。
 
-                    Debug.Log("今はあまりお腹が減ってないらしい");
+                    //Debug.Log("今はあまりお腹が減ってないらしい");
 
                     _windowtext.text = "今はあまりお腹が減ってないらしい";
 
@@ -1974,7 +1974,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     //girl1_status.hukidashiMessage("む！今まで食べたことがないお菓子だ！！");
 
                     //3秒ほど表示したら、お菓子の感想を言ったり、なんか褒めてくれたりする。
-                    StartCoroutine("WaitCommentNewOkashiDesc");
+                    //StartCoroutine("WaitCommentNewOkashiDesc");
 
                     break;
 
@@ -2011,7 +2011,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     else { }
 
                     //3秒ほど表示したら、お菓子の感想を言ったり、なんか褒めてくれたりする。
-                    StartCoroutine("WaitCommentDesc");
+                    //StartCoroutine("WaitCommentDesc");
                     break;
             }
         
@@ -2125,10 +2125,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     girl1_status.GirlEat_Judge_on = true; //またカウントが進み始める
 
-                    //お菓子判定終了
-                    compound_Main.girlEat_ON = false;
-
-                    GameMgr.compound_status = 0;
+                    //お菓子の判定処理を終了
+                    EndCompJudge();
 
                     break;
 
@@ -2197,7 +2195,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             SetHintText(0); //通常得点時
             Hint_Text.text = temp_hint_text;
         }
-        else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
+        else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //60~100
         {
             //Delicious_Text.text = "Di molto Bene!";
             //Manzoku_Score.text = "★★★";
@@ -2206,7 +2204,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             SetHintText(0); //通常得点時
             Hint_Text.text = temp_hint_text;
         }
-        else if (total_score >= GameMgr.high_score && total_score < GameMgr.high_score_2)
+        else if (total_score >= GameMgr.high_score && total_score < GameMgr.high_score_2) //100~150
         {
             //Delicious_Text.text = "Benissimo!!";
             //Manzoku_Score.text = "★★★★";
@@ -2221,7 +2219,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 emeraldonguri_status = 0;
             }
         }
-        else if (total_score >= GameMgr.high_score_2) //100点以上
+        else if (total_score >= GameMgr.high_score_2) //150点以上
         {
             //Delicious_Text.text = "Vittoria!!";
             //Manzoku_Score.text = "★★★★★";
@@ -2254,6 +2252,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             
             Hint_Text.text = temp_hint_text;
+        }
+
+        //二回目以降も、高得点でたときは、お菓子後の感想を出すようにする。
+        if(GameMgr.high_score_flag)
+        {
+            GameMgr.QuestClearCommentflag = false;
         }
 
         if (Mazui_flag)
@@ -2315,7 +2319,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     if (non_spquest_flag == false) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
                     {
-                        Debug.Log("SPクエストのお菓子は満足し、クリア");
+                        Debug.Log("６０点以上がでた。満足。");
 
                         //60点以上だった。
                         if (total_score >= GameMgr.low_score)
@@ -2499,14 +2503,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 GetMoney *= (int)(total_score * 0.01f);
             }
 
-            
+
 
             if (last_score_kousin) //前回の最高得点より高い点数の場合のみ、好感度があがる。
             {
-                
+
             }
             else
-            {                
+            {
                 //③そのお菓子を食べた回数で割り算。同じお菓子を何度あげても、だんだん好感度は上がらなくなってくる。
                 if (database.items[_baseID].Eat_kaisu == 0)
                 {
@@ -2524,6 +2528,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 GameMgr.stageclear_cullentlove += Getlove_exp;
             }
+
         }
     }
 
@@ -2645,12 +2650,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             emerarudonguri_end = true;          
         }
 
-        //SPクエストクリアしてた場合、感想をだす。
+        //60点以上の場合、感想をだす。
         if (!GameMgr.QuestClearCommentflag)
         {
             if (quest_clear)
-            {
-                quest_clear = false;
+            {             
                 StartCoroutine("QuestClearCommentEvent");
             }
             else
@@ -2663,10 +2667,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             questclear_end = true;
         }
 
-        //sp_quest_clearがたっていた場合、そのクエストはクリア。
+        //sp_quest_clearがたっていた場合、そのクエストはクリア。quest_clearと並列処理なので、処理順には注意。
         if (sp_quest_clear)
-        {
-            sp_quest_clear = false;
+        {           
 
             if (!GameMgr.QuestClearButton_anim)
             {
@@ -2675,27 +2678,34 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else
             {
-                //お菓子の判定処理を終了
-                Debug.Log("クエストクリア　クリアボタンはすでに登場　お菓子判定終了");
-                compound_Main.girlEat_ON = false;
+                sp_quest_clear = false;
 
-                GameMgr.compound_status = 0;
-                GameMgr.QuestClearflag = true;
-                canvas.SetActive(true);
+                if (quest_clear)
+                { }
+                else
+                {
+                    Debug.Log("クエストクリア　クリアボタンはすでに登場　お菓子判定終了");
+
+                    //お菓子の判定処理を終了
+                    EndCompJudge();
+                    GameMgr.QuestClearflag = true;
+                    canvas.SetActive(true);
+                }
             }
         }
         else
         {
-            //お菓子の判定処理を終了
-            Debug.Log("クエスト未クリア　お菓子判定終了");
+            if (quest_clear)
+            {
+            }
+            else
+            {
+                Debug.Log("クエスト未クリア　お菓子判定終了");
 
-            compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
-            compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
-
-            compound_Main.girlEat_ON = false;
-
-            GameMgr.compound_status = 0;           
-            canvas.SetActive(true);
+                //お菓子の判定処理を終了
+                EndCompJudge();
+                canvas.SetActive(true);
+            }
         }
     }
 
@@ -2703,7 +2713,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
-        girl1_status.hukidasiOff();
+        //girl1_status.hukidasiOff();
         touch_controller.Touch_OnAllOFF();
         compound_Main.OffCompoundSelect();
         compound_Main.OnCompoundSelectObj();
@@ -3046,7 +3056,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //クエストまだクリアでなければ、お菓子の感想を表示する。
                 StartCoroutine("OkashiAfter_Comment");
             }
-            else
+            else //チュートリアル中の特殊処理
             {
                 GameMgr.tutorial_Progress = true; //チュートリアル時、パネルを押したよ～のフラグ
                 ResultOFF();
@@ -3069,8 +3079,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
 
         girl1_status.GirlEat_Judge_on = false;
-        girl1_status.WaitHint_on = false;
-        girl1_status.hukidasiOff();
+        girl1_status.WaitHint_on = false;        
         canvas.SetActive(false);
         touch_controller.Touch_OnAllOFF();
 
@@ -3118,6 +3127,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
             }
         }
+
+        girl1_status.hukidasiOff();
         GameMgr.OkashiComment_flag = true;
 
         while (!GameMgr.scenario_read_endflag)
@@ -3246,22 +3257,38 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             exp_Controller.GirlDisLikeText(Getlove_exp);
 
             //お菓子の判定処理を終了
-            compound_Main.girlEat_ON = false;
-            GameMgr.compound_status = 0;
+            EndCompJudge();
 
-            compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
-            compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
+            //compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
+            //compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
         }
         else //ハートが上昇
         {
+
+            //SPクエストクリア後は、ハートが上がらず、代わりにお金が入る。
+            /*if (GameMgr.QuestClearflag)
+            {
+                //お金の取得
+                moneyStatus_Controller.GetMoney(GetMoney);
+
+                //お菓子の判定処理を終了
+                EndCompJudge();
+            }
+            else
+            {
+                //アニメーションをON。好感度パラメータの反映もここ。
+                loveGetPlusAnimeON(Getlove_exp, true);
+
+                //エフェクト生成＋アニメ開始
+                _listEffect.Add(Instantiate(effect_Prefab));
+                StartCoroutine("Love_effect");
+
+                //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
+                GirlHeartEffect.LoveRateChange();
+            }*/
+
             //アニメーションをON。好感度パラメータの反映もここ。
             loveGetPlusAnimeON(Getlove_exp, true);
-
-            //表情も一瞬喜びに。
-            GirlHeartUpYorokobiFace();
-
-            //お金の取得
-            //moneyStatus_Controller.GetMoney(GetMoney);
 
             //エフェクト生成＋アニメ開始
             _listEffect.Add(Instantiate(effect_Prefab));
@@ -3270,10 +3297,41 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
             GirlHeartEffect.LoveRateChange();
 
+            //表情も一瞬喜びに。
+            StartCoroutine("GirlHeartUpYorokobiFace");
+            
             //テキストウィンドウの更新
             exp_Controller.GirlLikeText(Getlove_exp, total_score);
 
         }
+
+        //吹き出しをだす。
+        switch (dislike_status)
+        {
+            case 1: //デフォルトおいしい
+
+                //Debug.Log("吹き出しON");
+                //ランダムで、吹き出しの内容を決定
+                CommentTextInit();
+                random = Random.Range(0, _commentDict.Count);
+                _commentrandom = _commentDict[random];
+
+                girl1_status.hukidashiMessage(_commentrandom);
+
+                girl1_status.timeOut += 3.0f; //少し表示時間をのばす
+
+                break;
+
+            //新しいお菓子をあげた場合の処理
+            case 2:
+
+                girl1_status.hukidashiMessage(database.items[_baseID].itemNameHyouji + "うまいぞ！");
+
+                girl1_status.timeOut += 3.0f; //少し表示時間をのばす
+                break;
+               
+        }
+                
 
         canvas.SetActive(true);
 
@@ -3284,9 +3342,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
 
         girl1_status.face_girl_Yorokobi();
-        girl1_status.heartUP_facechange = true;
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(3.0f);
 
         girl1_status.DefaultFace();
     }
@@ -3384,12 +3441,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         GameMgr.recipi_read_endflag = false;
 
-        //sceneBGM.MuteOFFBGM();
+        sceneBGM.MuteOFFBGM();
         canvas.SetActive(true);
         ResetResult();
         touch_controller.Touch_OnAllON();
         questclear_end = true;
+        quest_clear = false;
         GameMgr.QuestClearCommentflag = true;
+
+        if (!sp_quest_clear) //SPクエストがなければ、メインの状態に戻る。
+        {
+            //お菓子の判定処理を終了
+            EndCompJudge();
+            GameMgr.QuestManzokuFace = true; //おいしかった～の表情
+            //compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
+            //compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
+        }
     }
 
 
@@ -3401,7 +3468,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //触れなくなる
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
-        girl1_status.hukidasiOff();
+        //girl1_status.hukidasiOff();
         touch_controller.Touch_OnAllOFF();
 
         //クエストクリア感想・エメラルどんぐりが終了するまで待つ
@@ -3435,7 +3502,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //表情も喜びの表情に。
         girl1_status.face_girl_Yorokobi();
 
-
         sp_quest_clear = false;
 
         if (GameMgr.QuestClearAnim_Flag) //ステージクリアの場合、クリアボタンも登場する演出
@@ -3443,10 +3509,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //ボタンが登場する演出
             StartCoroutine("ClearButtonAnim");
         }
-        else //クエストクリアで、ボタン登場演出がない場合。次へ。
+        else //SPクエストクリアで、ボタン登場演出がない場合。次へ。
         {
             //お菓子の判定処理を終了
-            compound_Main.girlEat_ON = false;
+            //compound_Main.girlEat_ON = false;
 
             sceneBGM.MuteOFFBGM(); //ここのタイミングでBGMをオンに。
 
@@ -3483,12 +3549,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         playableDirector.time = 0;
         stageclear_Button.GetComponent<Toggle>().interactable = true;
 
-        //stageclear_Button.SetActive(true);
         GameMgr.QuestClearflag = true;
 
         //お菓子の判定処理を終了
-        compound_Main.girlEat_ON = false;
-        GameMgr.compound_status = 0;
+        EndCompJudge();
         ResetResult();
 
         sceneBGM.MuteOFFBGM(); //ここのタイミングでBGMをオンに。
@@ -3544,7 +3608,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //次のクエストを指定。
         GameMgr.MesaggeKoushinON = false;
         GameMgr.stageclear_cullentlove = 0;
-        GameMgr.QuestClearCommentflag = false;
+        //GameMgr.QuestClearCommentflag = false;
 
         if (GameMgr.NextQuestID % 100 != 0) //次クエが100番台以外
         {
@@ -3622,14 +3686,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.QuestClearButton_anim = false;
         GameMgr.QuestClearCommentflag = false;
         GameMgr.stageclear_cullentlove = 0;
+        GameMgr.QuestManzokuFace = false;
 
         GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
 
         GameMgr.Okashi_quest_bunki_on = 0;
 
         //お菓子の判定処理を終了
-        compound_Main.girlEat_ON = false;
-        GameMgr.compound_status = 0; //0を通すと、一瞬画面がちらつくので回避。
+        EndCompJudge();
 
         //ResultOFF()の後ろに設定しないと、hungry_statusがこんがらがる。
         girl1_status.timeGirl_hungry_status = 0;
@@ -3707,8 +3771,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }
 
     public void ResultOFF() //Debug_Panelからも読み出し。フェードアウトなどの処理がない。
-    {
-        
+    {       
         MainQuestOKPanel.SetActive(false);
         subQuestClear_check = false;
 
@@ -3724,6 +3787,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         sceneBGM.OnMainClearResultBGMOFF();
 
         subQuestClear_check = false;
+        GameMgr.QuestManzokuFace = false;
         GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
         GameMgr.QuestClearButton_anim = false;
         GameMgr.QuestClearCommentflag = false;
@@ -3769,6 +3833,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //sceneBGM.MuteOFFBGM();       
         GameMgr.scenario_ON = false;
 
+    }
+
+    void EndCompJudge() //女の子の判定終了のフラグ系
+    {
+        //お菓子の判定処理を終了
+        compound_Main.girlEat_ON = false;
+        GameMgr.compound_status = 0;
+
+        compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
+        compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
     }
 
     //食べたあとのヒント関係の処理
@@ -4343,11 +4417,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         _commentDict.Clear();
 
-        switch (girl1_status.GirlGokigenStatus)
+        _commentDict.Add("おいしい～♪");
+
+        /*switch (girl1_status.GirlGokigenStatus)
         {
             case 0:
 
-                _commentDict.Add("..。");
+                _commentDict.Add("おいしい～♪");
                 break;
 
             case 1:
@@ -4392,8 +4468,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _commentDict.Add("こころがポカポカ。");
                 _commentDict.Add("あたたか～い");
                 break;
-        }
-        
+        }*/
+
     }
 
 

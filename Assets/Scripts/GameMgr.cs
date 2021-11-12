@@ -146,7 +146,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] OkashiQuest_flag_stage3 = new bool[Event_num];
 
     public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
-    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。    
+    public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。  
 
     //さっき食べたお菓子情報
     public static string Okashi_lasthint; //さっき食べたお菓子のヒント。
@@ -274,6 +274,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool shop_hint;
     public static int shop_hint_num;
 
+    //バーのコマンド
+    public static bool bar_event_flag;  //バーで発生するイベントのフラグ。
+    public static int bar_event_num;
+
     //マップイベント発生フラグ
     public static int map_ev_ID;           //その時のイベント番号
     public static bool map_event_flag;      //マップイベントの、宴を表示する用のフラグ
@@ -324,6 +328,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //その他、一時的なフラグ
     public static int MapSubEvent_Flag;
     public static bool MenuOpenFlag; //メニューを現在開いているか閉じているか
+    public static bool QuestManzokuFace; //60点以上取って、喜び表情に変えるフラグ
 
     private PlayerItemList pitemlist;
 
@@ -510,6 +515,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         farm_event_flag = false;
         farm_event_num = 0;
 
+        bar_event_flag = false;
+        bar_event_num = 0;
+
         emeraldshop_event_flag = false;
         emeraldshop_event_num = 0;
 
@@ -567,6 +575,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         stageclear_cullentlove = 0;
 
         MenuOpenFlag = false;
+        QuestManzokuFace = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

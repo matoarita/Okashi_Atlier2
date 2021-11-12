@@ -305,7 +305,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             case 2:
 
-                ShiageUp();              
+                //ShiageUp();              
                 break;
 
             case 3:
@@ -316,12 +316,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             case 5:
 
                 //_temp_skill.Add("一度に　2個　トッピングできるようになった！");
-                GameMgr.topping_Set_Count = 2;
+                /*GameMgr.topping_Set_Count = 2;
 
                 if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
                 {
                     girlEat_judge.LvUpPanel2();
-                }
+                }*/
                 break;
 
             case 6:
@@ -362,7 +362,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
     }
 
-    public void SetInit_ExpTable()
+    public void SetInit_ExpTable() //現在は未使用。
     {
         exp_table = new Dictionary<int, int>();
 

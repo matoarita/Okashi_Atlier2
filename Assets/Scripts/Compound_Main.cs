@@ -1627,7 +1627,8 @@ public class Compound_Main : MonoBehaviour
 
                 //ヒカリちゃんを表示しない。デフォルト描画順
                 SetLive2DPos_Compound();
-                cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順         
+                cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順
+                GameMgr.QuestManzokuFace = false; //おいしかった表情は、調合シーンに入るとリセットされる。
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -1990,14 +1991,7 @@ public class Compound_Main : MonoBehaviour
                         }
                         else
                         {
-                            if (girl1_status.heartUP_facechange) //ハートがアップした直後の状態。喜び表情を、GirlEat_Judgeで変更する。が、なぜか現在バグで変わらない。
-                            {
-                                girl1_status.heartUP_facechange = false;
-                            }
-                            else
-                            {
-                                ResetLive2DPos_Face(); //表情をデフォルトに戻す。
-                            }
+                                ResetLive2DPos_Face(); //表情をデフォルトに戻す。                            
                         }
                     }
                     else
@@ -2007,7 +2001,7 @@ public class Compound_Main : MonoBehaviour
                         trans_motion = 11; //位置をもとに戻す。
                         live2d_animator.SetInteger("trans_motion", trans_motion);
 
-                        if (GameMgr.QuestClearflag)
+                        if (GameMgr.QuestManzokuFace)
                         {
                             girl1_status.AfterOkashiDefaultFace();
                         }
@@ -2078,7 +2072,7 @@ public class Compound_Main : MonoBehaviour
             live2d_posmove_flag = false;
         }
 
-        if (GameMgr.QuestClearflag)
+        if (GameMgr.QuestManzokuFace)
         {
             girl1_status.AfterOkashiDefaultFace();
         }
@@ -3174,7 +3168,7 @@ public class Compound_Main : MonoBehaviour
         //腹減りカウント一時停止
         girl1_status.GirlEat_Judge_on = false;
         //girl1_status.Girl_Full();
-        girl1_status.DeleteHukidashiOnly();
+        
         girl1_status.Girl1_Status_Init();
 
         GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
@@ -3189,6 +3183,10 @@ public class Compound_Main : MonoBehaviour
         {
             yield return null;
         }
+
+        //吹き出しオフはこのタイミングで。
+        girl1_status.hukidasiOff();
+        //girl1_status.DeleteHukidashiOnly();
 
         mainUI_panel_obj.SetActive(false);
         GirlHeartEffect_obj.SetActive(false);       
@@ -3475,6 +3473,10 @@ public class Compound_Main : MonoBehaviour
                         if (!GameMgr.Beginner_flag[0]) //クッキーをまだあげていない
                         {
                             _textmain.text = GameMgr.ColorLemon + "「あげる」" + "</color>" + "ボタンを押して、クッキーをちょうだい！";
+                        }
+                        else
+                        {
+                            _textmain.text = "どうしようかなぁ？" + "\n" + "（ハートレベルが上がるまでお菓子をあげてみよう。）";
                         }
                     }
                     break;

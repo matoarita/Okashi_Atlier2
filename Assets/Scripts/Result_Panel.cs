@@ -39,6 +39,7 @@ public class Result_Panel : MonoBehaviour
     private Sprite charaIcon_sprite_2;
     private Sprite charaIcon_sprite_3;
     private Sprite charaIcon_sprite_4;
+    private Sprite charaIcon_sprite_5;
 
     private int getlove_exp;
     private int Total_score;
@@ -122,6 +123,7 @@ public class Result_Panel : MonoBehaviour
         charaIcon_sprite_2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_02");
         charaIcon_sprite_3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_03");
         charaIcon_sprite_4 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_04");
+        charaIcon_sprite_5 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_05");
         chara_Icon = this.transform.Find("chara_Img").gameObject;
         chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
 
@@ -292,16 +294,20 @@ public class Result_Panel : MonoBehaviour
             if(Total_score < 30) //まずい
             {
                 //sc.PlaySe(20);
+                StartCoroutine(DelaySound(20));
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "マズい..。";
+
+                //キャラ画像変更
+                chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_5;
             }
             if (Total_score >= 30 && Total_score < GameMgr.low_score)
             {
-                //sc.PlaySe(17);
                 StartCoroutine(DelaySound(17));
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "あとひといき..！";
 
                 //キャラ画像変更
                 chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_2;
+                CharaAnim();
             }
             else if (Total_score >= GameMgr.low_score && Total_score < GameMgr.high_score) //60点以上で、パンパカファンファーレ♪
             {
@@ -311,6 +317,7 @@ public class Result_Panel : MonoBehaviour
 
                 //キャラ画像変更
                 chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_2;
+                CharaAnim();
 
                 //60点以上で背景アイコンが黄色に変わる演出
                 if (!anim_on1)
@@ -328,6 +335,7 @@ public class Result_Panel : MonoBehaviour
 
                 //キャラ画像変更
                 chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_3;
+                CharaAnim();
 
                 //85点以上で背景アイコンが赤に変わる演出
                 if (!anim_on2)
@@ -347,6 +355,7 @@ public class Result_Panel : MonoBehaviour
 
                 //キャラ画像変更
                 chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_4;
+                CharaAnim();
 
                 //85点以上で背景アイコンが赤に変わる演出
                 if (!anim_on2)
@@ -358,7 +367,10 @@ public class Result_Panel : MonoBehaviour
                 }
             }
 
+            //音を鳴らす 吹き出しの音
+            sc.PlaySe(7);
             GoukakuPanelOn();
+            
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -460,6 +472,20 @@ public class Result_Panel : MonoBehaviour
             Getlove_panel.transform.Find("Result_GetLoveText/Result_ParamText").GetComponent<Text>().text = Mathf.Abs(getlove_exp).ToString();
             Getlove_panel.transform.Find("Result_GetLoveText/Result_Text_end").GetComponent<Text>().text = " 下がった..。";
         }
+    }
+
+    void CharaAnim()
+    {
+        //キャラアニメ
+        /*Sequence sequence2 = DOTween.Sequence();
+
+        sequence2.Append(chara_Icon.transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.3f)
+        .SetRelative()
+        .SetEase(Ease.OutQuart));
+
+        sequence2.Append(chara_Icon.transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.5f)
+        .SetRelative()
+        .SetEase(Ease.OutBounce));*/
     }
 
     void GoukakuPanelOn()

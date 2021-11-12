@@ -155,8 +155,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private float rnd;
     private int random;
 
-    public bool heartUP_facechange;
-
     //ランダムで変化する、女の子が今食べたいお菓子のテーブル
     public List<string> girl1_hungryInfo = new List<string>();
 
@@ -405,7 +403,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         facemotion_time = 0.3f;
         facemotion_weight = 0f;
         facemotion_start = false;
-        heartUP_facechange = false;
 
         GirlEat_Judge_on = true;
         WaitHint_on = false;
@@ -3507,9 +3504,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     void Init_Stage1_LVTable()
     {
         stage1_lvTable.Clear();
-        stage1_lvTable.Add(20); //LV2。LV1で、次のレベルが上がるまでの好感度値
-        stage1_lvTable.Add(70);　//LV3 LV1の分は含めない。
-        stage1_lvTable.Add(130); //LV4
+        stage1_lvTable.Add(15); //LV2。LV1で、次のレベルが上がるまでの好感度値
+        stage1_lvTable.Add(60);　//LV3 LV1の分は含めない。
+        stage1_lvTable.Add(120); //LV4
         stage1_lvTable.Add(200); //LV5
         stage1_lvTable.Add(300); //LV6
         stage1_lvTable.Add(410); //LV7

@@ -200,19 +200,19 @@ public class Bar_Main : MonoBehaviour
             {
                 GameMgr.BarEvent_stage[0] = true;
 
-                //GameMgr.scenario_ON = true;
+                GameMgr.scenario_ON = true;
 
-                //GameMgr.shop_event_num = 0;
-                //GameMgr.shop_event_flag = true;
+                GameMgr.bar_event_num = 0;
+                GameMgr.bar_event_flag = true;
+               
+                check_event = true;
+                event_loading = true;
+
+                StartCoroutine("Scenario_loading");
 
                 //メイン画面にもどったときに、イベントを発生させるフラグをON
                 GameMgr.CompoundEvent_num = 5;
                 GameMgr.CompoundEvent_flag = true;
-
-                //check_event = true;
-                //event_loading = true;
-
-                //StartCoroutine("Scenario_loading");
             }
         }
 
