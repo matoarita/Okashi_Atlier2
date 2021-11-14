@@ -2545,7 +2545,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 5:
 
-                random = Random.Range(0, 6); //0~4
+                random = Random.Range(0, 7); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2590,6 +2590,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     case 5:
 
+                        //左右にふりふり
+                        Debug.Log("2 左右にふりふり");
+                        FaceMotionPlay(1004);
+                        IdleMotionHukidashiSetting(21);
+                        break;
+
+                    case 6:
+
                         //ヒントだす
                         Debug.Log("ヒント");
                         //FaceMotionPlay(1005);
@@ -2601,7 +2609,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 6:
 
-                random = Random.Range(0, 6); //0~4
+                random = Random.Range(0, 7); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2646,6 +2654,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     case 5:
 
+                        //左右にふりふり
+                        Debug.Log("2 左右にふりふり");
+                        FaceMotionPlay(1004);
+                        IdleMotionHukidashiSetting(21);
+                        break;
+
+                    case 6:
+
                         //ヒントだす
                         Debug.Log("ヒント");
                         //FaceMotionPlay(1005);
@@ -2657,7 +2673,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             default: //それ以上
 
-                random = Random.Range(0, 6); //0~4
+                random = Random.Range(0, 7); //0~4
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2702,6 +2718,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     case 5:
 
+                        //左右にふりふり
+                        Debug.Log("2 左右にふりふり");
+                        FaceMotionPlay(1004);
+                        IdleMotionHukidashiSetting(21);
+                        break;
+
+                    case 6:
+
                         //ヒントだす
                         Debug.Log("ヒント");
                         //FaceMotionPlay(1005);
@@ -2721,6 +2745,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
         _touchface_comment_lib.Clear();
+        GameMgr.OsotoIkitaiFlag = false;
 
         switch (_motion_num)
         {
@@ -2770,6 +2795,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 21:
 
+                //材料とりにいきたいモード。このときに外へいくと、ハートがあがる。
+                GameMgr.OsotoIkitaiFlag = true;
                 _touchface_comment_lib.Add("ねぇねぇ兄ちゃん。材料を採りにいこうよ～。");
                 break;
 

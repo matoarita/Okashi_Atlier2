@@ -171,22 +171,21 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 24: //ミントアイスクレープ食べたい
+            case 22: //アイス食べたい
 
                 girl1_status.OkashiQuest_ID = 1240;
                 OkashiQuest_Count = 3;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
-            case 22: //ジェム・ボンボン 宝石のような見た目のお菓子を食べたい
+            case 23: //ジェム・ボンボン 宝石のような見た目のお菓子を食べたい
 
                 girl1_status.OkashiQuest_ID = 1220;
                 OkashiQuest_Count = 4;
 
                 break;
 
-            case 23: //豪華なベリークレープ食べたい
+            case 24: //豪華なベリークレープ食べたい
 
                 girl1_status.OkashiQuest_ID = 1230;
                 OkashiQuest_Count = 5;
@@ -202,13 +201,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;*/
 
-            /*case 22: //アイスクリームを食べたい
-
-                girl1_status.OkashiQuest_ID = 1220;
-                OkashiQuest_Count = 3;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;*/
 
             case 30: //シュークリーム食べたい
 
@@ -307,9 +299,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(1130, 13);
         QuestDict.Add(1200, 20);
         QuestDict.Add(1210, 21);
-        QuestDict.Add(1220, 22);
-        QuestDict.Add(1230, 23);
-        QuestDict.Add(1240, 24);
+        QuestDict.Add(1220, 23);
+        QuestDict.Add(1230, 24);
+        QuestDict.Add(1240, 22);
         QuestDict.Add(1300, 30);
         QuestDict.Add(1310, 31);
         QuestDict.Add(1320, 32);

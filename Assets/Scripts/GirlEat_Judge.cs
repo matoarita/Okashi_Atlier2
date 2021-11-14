@@ -2593,9 +2593,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
         }
         else
-        {
-            //sp_quest_clear = false;
-        }
+        {       }
         
 
         //**

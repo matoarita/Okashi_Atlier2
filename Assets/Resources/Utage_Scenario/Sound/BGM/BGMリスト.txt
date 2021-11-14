@@ -58,7 +58,7 @@
 ・BGM_56		audiostock_199704			タイトルBGM
 ・BGM_57		PerituneMaterial_Breeze4		【宴用】ピクニックのBGM
 ・BGM_58		PerituneMaterial_Music-box_Gentle2	ゲームオーバーのBGM
-・BGM_59		audiostock_3614_sample			クエストファンファーレのジングル
+・BGM_59		凱旋ファンファーレ			クエストファンファーレのジングル 旧：audiostock_3614_sample
 ・BGM_60		fjordnosundakaze			図書室のBGM
 ・BGM_61		PerituneMaterial_Cafe_Musette		調合テーマ７　ワルツの調合風音楽
 ・BGM_62		PerituneMaterial_Chinatown_loop		【宴用】中華BGM

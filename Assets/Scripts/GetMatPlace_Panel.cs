@@ -22,6 +22,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Compound_Main compound_Main;
 
     private Girl1_status girl1_status;
+    private GirlEat_Judge girlEat_judge;
 
     private TimeController time_controller;
     private GameObject TimePanel_obj1;
@@ -54,6 +55,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject text_area;
     private Text _text;
+    private GameObject text_area_Main;
+    private Text _textmain;
     private GameObject text_kaigyo_button;
     private string _temp_tx;
     private bool text_kaigyo_active;
@@ -154,6 +157,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
+        _textmain = text_area_Main.transform.Find("Text").GetComponent<Text>();
         text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
 
         //Yes no パネルの取得
@@ -168,6 +173,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子  
+
+        //GirlEat_Judgeの取得
+        girlEat_judge = GirlEat_Judge.Instance.GetComponent<GirlEat_Judge>();
 
         //ヒロインライフパネル
         HeroineLifePanel = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel/HeroineLife").gameObject;
@@ -439,10 +447,21 @@ public class GetMatPlace_Panel : MonoBehaviour {
             PlayerStatus.player_time += select_place_day;
             time_controller.TimeKoushin();
 
+            //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
+            if(GameMgr.OsotoIkitaiFlag)
+            {
+                GameMgr.OsotoIkitaiFlag = false;
+                girlEat_judge.loveGetPlusAnimeON(5, false);
+                _textmain.text = "お外にいって、喜んだようだ。";
+            }
+            else
+            {
+                _textmain.text = "家に戻ってきた。どうしようかなぁ？";
+            }
             //ハートゲージを更新。
             compound_Main.HeartGuageTextKoushin();
 
-            _text.text = "家に戻ってきた。どうしようかなぁ？";
+            
 
             //リザルトパネルを表示
             result_off = false;

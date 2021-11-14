@@ -31,6 +31,9 @@ public class Result_Panel : MonoBehaviour
     private Sprite scoreIcon_sprite_1;
     private Sprite scoreIcon_sprite_2;
     private Sprite scoreIcon_sprite_3;
+    private Sprite scoreIcon_sprite_4;
+    private Sprite scoreIcon_sprite_5;
+    private Sprite scoreIcon_sprite_6;
     private bool anim_on1;
     private bool anim_on2;
 
@@ -40,6 +43,7 @@ public class Result_Panel : MonoBehaviour
     private Sprite charaIcon_sprite_3;
     private Sprite charaIcon_sprite_4;
     private Sprite charaIcon_sprite_5;
+    private Animator chara_animator;
 
     private int getlove_exp;
     private int Total_score;
@@ -124,8 +128,10 @@ public class Result_Panel : MonoBehaviour
         charaIcon_sprite_3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_03");
         charaIcon_sprite_4 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_04");
         charaIcon_sprite_5 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_05");
-        chara_Icon = this.transform.Find("chara_Img").gameObject;
+        chara_Icon = this.transform.Find("CharaImgAnim/chara_Img").gameObject;
         chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
+        chara_animator = this.transform.Find("CharaImgAnim").GetComponent<Animator>();
+        chara_animator.SetInteger("trans_anim", 0);
 
         //キラエフェクト系
         kiraEffect_1 = this.transform.Find("Particle_KiraExplodeScore").gameObject;
@@ -136,6 +142,9 @@ public class Result_Panel : MonoBehaviour
         scoreIcon_sprite_1 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_blue_50");
         scoreIcon_sprite_2 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_orange_50");
         scoreIcon_sprite_3 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_pink_50");
+        scoreIcon_sprite_4 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_black_50");
+        scoreIcon_sprite_5 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_green_50");
+        scoreIcon_sprite_6 = Resources.Load<Sprite>("Sprites/Window/roundpartsC_white_50");
         score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_1;
         anim_on1 = false;
         anim_on2 = false;
@@ -224,7 +233,8 @@ public class Result_Panel : MonoBehaviour
 
             if (currentDispCoin < GameMgr.low_score) //文字色をかえる。
             {
-                okashi_score_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //白　(129f / 255f, 87f / 255f, 60f / 255f) 青文字(105f / 255f, 168f / 255f, 255f / 255f)      
+                okashi_score_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
+                //白(255f / 255f, 255f / 255f, 255f / 255f)　(129f / 255f, 87f / 255f, 60f / 255f) 青文字(105f / 255f, 168f / 255f, 255f / 255f)      
             }
             else if (currentDispCoin >= GameMgr.low_score && currentDispCoin < GameMgr.high_score)
             {
@@ -299,6 +309,14 @@ public class Result_Panel : MonoBehaviour
 
                 //キャラ画像変更
                 chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_5;
+
+                //30点以下で背景アイコンが黒色に変わる演出
+                if (!anim_on1)
+                {
+                    anim_on1 = true;
+                    score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
+                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_4;
+                }
             }
             if (Total_score >= 30 && Total_score < GameMgr.low_score)
             {
@@ -343,11 +361,11 @@ public class Result_Panel : MonoBehaviour
                     anim_on2 = true;
                     score_backIcon.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0);
                     score_backIcon.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 2.0f, 5, 0.5f);
-                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_3;
+                    score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_2;
                 }
 
             }
-            else if (GameMgr.high_score_2 >= 100)
+            else if (Total_score >= GameMgr.high_score_2)
             {
                 StartCoroutine(DelaySound(17));
                 sc.PlaySe(19);
@@ -357,7 +375,7 @@ public class Result_Panel : MonoBehaviour
                 chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_4;
                 CharaAnim();
 
-                //85点以上で背景アイコンが赤に変わる演出
+                //ハイスコア以上で背景アイコンが赤に変わる演出
                 if (!anim_on2)
                 {
                     anim_on2 = true;
@@ -477,15 +495,8 @@ public class Result_Panel : MonoBehaviour
     void CharaAnim()
     {
         //キャラアニメ
-        /*Sequence sequence2 = DOTween.Sequence();
+        chara_animator.SetInteger("trans_anim", 10);
 
-        sequence2.Append(chara_Icon.transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.3f)
-        .SetRelative()
-        .SetEase(Ease.OutQuart));
-
-        sequence2.Append(chara_Icon.transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.5f)
-        .SetRelative()
-        .SetEase(Ease.OutBounce));*/
     }
 
     void GoukakuPanelOn()
