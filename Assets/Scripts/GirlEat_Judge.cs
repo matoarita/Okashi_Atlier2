@@ -987,26 +987,32 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         // => Compound_Mainに戻る
 
-
-        //デバッグ用　計算結果の表示
         //デバッグパネルの取得
-        debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
+        /*debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
         debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
+        debug_taste_resultText.text = "";*/
+        //DebugTextLog();
+        
+    }
 
-        debug_taste_resultText.text = 
-            "###  好みの比較　結果　###"
+    void DebugTextLog()
+    {
+        //デバッグ用　計算結果の表示
+        
+        debug_taste_resultText.text +=
+            "\n" + "\n" + "###  好みの比較　結果　###"
             + "\n" + "\n" + "コンポ判定の番号(0~2）: " + countNum
             + "\n" + "\n" + "判定用お菓子セットの番号: " + _girl_judgenum[countNum]
             + "\n" + "\n" + "アイテム名: " + _basenameHyouji
-            + "\n" + "\n" + "あまさ: " + _basesweat 
+            + "\n" + "\n" + "あまさ: " + _basesweat
             + "\n" + " 女の子の好みの甘さ: " + _girlsweat[countNum]
             + "\n" + "あまさの差: " + sweat_result
             + "\n" + " 点数: " + sweat_score
-            + "\n" + "\n" + "苦さ: " + _basebitter 
+            + "\n" + "\n" + "苦さ: " + _basebitter
             + "\n" + " 女の子の好みの苦さ: " + _girlbitter[countNum]
             + "\n" + "にがさの差: " + bitter_result
             + "\n" + " 点数: " + bitter_score
-            + "\n" + "\n" + "酸味: " + _basesour 
+            + "\n" + "\n" + "酸味: " + _basesour
             + "\n" + " 女の子の好みの酸味: " + _girlsour[countNum]
             + "\n" + "酸味の差: " + sour_result
             + "\n" + " 点数: " + sour_score
@@ -1016,7 +1022,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness[countNum] + "\n" + " 点数: " + hardness_score
             + "\n" + "\n" + "飲みごたえ度: " + _basejuice + "\n" + "飲みごたえ閾値: " + _girljuice[countNum] + "\n" + " 点数: " + juice_score
             + "\n" + "\n" + "ぷるぷる度: " + "-"
-            + "\n" + "\n" + "噛み応え度: " + "-" 
+            + "\n" + "\n" + "噛み応え度: " + "-"
             + "\n" + "\n" + "判定セットごとの基本得点: " + set_score
             + "\n" + "\n" + "トッピングスコア: " + topping_score
             + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目閾値: " + _girlbeauty[countNum] + "\n" + "見た目スコア: " + beauty_score
@@ -1596,6 +1602,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
+        if(_setType==1) //コンテストのときは、ここでデバッグテキスト更新
+        {
+            //デバッグパネルの取得
+            debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
+            debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
+            DebugTextLog();
+        }
+        else
+        {
+            //デバッグパネルの取得
+            debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
+            debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
+            debug_taste_resultText.text = "";
+            DebugTextLog();
+        }
     }
 
     //酒場クエスト(Quest_Judge.cs)などからも読み込み
@@ -1619,42 +1640,42 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (Mathf.Abs(_taste_result) == 0)
         {
             Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
-            taste_score = 55;
+            taste_score = 80;
         }
         else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 40;
+            taste_score = 50;
         }
         else if (Mathf.Abs(_taste_result) < 10) //+-5~9  ほどよく良い塩梅
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 35;
+            taste_score = 40;
         }
         else if (Mathf.Abs(_taste_result) < 15) //+-10~14　いい感じ
         {
             Debug.Log(_taste_type + "Well!");
-            taste_score = 23;
+            taste_score = 20;
         }
         else if (Mathf.Abs(_taste_result) < 20) //+-15~19　いい感じ
         {
             Debug.Log(_taste_type + "A little Well!");
-            taste_score = 15;
+            taste_score = 20;
         }
         else if (Mathf.Abs(_taste_result) < 30) //+-20~29  ちょっと足りないかな
         {
             Debug.Log(_taste_type + "Good!");
-            taste_score = 10;
+            taste_score = 20;
         }
         else if (Mathf.Abs(_taste_result) < 50) //+-30~49　全然足りない
         {
             Debug.Log(_taste_type + "Normal");
-            taste_score = 0;
+            taste_score = 10;
         }
         else if (Mathf.Abs(_taste_result) < 80) //+-50~79
         {
             Debug.Log(_taste_type + "poor");
-            taste_score = -35;
+            taste_score = 0;
         }
         else if (Mathf.Abs(_taste_result) <= 100) //+-80~99
         {
@@ -1782,6 +1803,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Fluffy_Score();
                 break;
             case "Parfe":
+                Fluffy_Score();
                 Smooth_Score();
                 break;
             case "Pie":
@@ -1828,9 +1850,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //crispy_score = _basecrispy;
         shokukan_baseparam = _basecrispy;
-        shokukan_score = crispy_score;
+        shokukan_score += crispy_score;
         shokukan_mes = "さくさく感";
-        Debug.Log("サクサク度の点: " + crispy_score);
+        Debug.Log("サクサク度ベース: " + _basecrispy + " 判定値: " + _girlcrispy[countNum] + " サクサク度の点: " + crispy_score);
     }
 
     void Fluffy_Score()
@@ -1854,9 +1876,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //fluffy_score = _basefluffy;
         shokukan_baseparam = _basefluffy;
-        shokukan_score = fluffy_score;
+        shokukan_score += fluffy_score;
         shokukan_mes = "ふわふわ感";
-        Debug.Log("ふわふわ度の点: " + fluffy_score);
+        Debug.Log("ふわふわ度ベース: " + _basefluffy + " 判定値: " + _girlfluffy[countNum] + " ふわふわ度の点: " + fluffy_score);
     }
 
     void Smooth_Score()
@@ -1880,9 +1902,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //smooth_score = _basesmooth;
         shokukan_baseparam = _basesmooth;
-        shokukan_score = smooth_score;
+        shokukan_score += smooth_score;
         shokukan_mes = "なめらか感";
-        Debug.Log("なめらかの点: " + smooth_score);
+        Debug.Log("なめらかベース: " + _basesmooth + " 判定値: " + _girlsmooth[countNum] + " なめらかの点: " + smooth_score);
     }
 
     void Hardness_Score()
@@ -1906,9 +1928,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //hardness_score = _basehardness;
         shokukan_baseparam = _basehardness;
-        shokukan_score = hardness_score;
+        shokukan_score += hardness_score;
         shokukan_mes = "歯ごたえ";
-        Debug.Log("歯ごたえの点: " + hardness_score);
+        Debug.Log("歯ごたえベース: " + _basehardness + " 判定値: " + _girlhardness[countNum] + " 歯ごたえの点: " + hardness_score);
     }
 
     void Juice_Score()
@@ -1932,9 +1954,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         
         shokukan_baseparam = _basejuice;
-        shokukan_score = juice_score;
+        shokukan_score += juice_score;
         shokukan_mes = "のどごし";
-        Debug.Log("のどごしの点: " + juice_score);
+        Debug.Log("のどごしベース: " + _basejuice + " 判定値: " + _girljuice[countNum] + " のどごしの点: " + juice_score);
     }
 
     void Tea_Score()
@@ -1957,9 +1979,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
 
         shokukan_baseparam = _basecrispy;
-        shokukan_score = crispy_score;
+        shokukan_score += crispy_score;
         shokukan_mes = "香り";
-        Debug.Log("香り（サクサク度）の点: " + crispy_score);
+        Debug.Log("香りベース: " + _basecrispy + " 判定値: " + _girlcrispy[countNum] + " 香り（サクサク度）の点: " + crispy_score);
     }
 
     void Girl_reaction()
@@ -2328,19 +2350,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
                             {
                                 quest_clear = true; //quest_clearは感想出す用。sp_quest_clearはSPクエストをクリアしたよ、というフラグ。
-                                //sp_quest_clear = true;
+                                sp_quest_clear = true;
                                 _windowtext.text = "満足しているようだ。";
                             }
                             else if (topping_all_non && !topping_flag) //食べたいトッピングがあるが、該当するトッピングはのっていなかった。現状、それでもクリア可能。
                             {
                                 quest_clear = true;
-                                //sp_quest_clear = true;
+                                sp_quest_clear = true;
                                 _windowtext.text = "満足しているようだ。";
                             }
                             else if (!topping_all_non) //そもそも食べたいトッピングない場合
                             {
                                 quest_clear = true;
-                                //sp_quest_clear = true;
+                                sp_quest_clear = true;
                                 _windowtext.text = "満足しているようだ。";
                             }
 
@@ -3850,15 +3872,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //ヒントを表示する。０のものは、判定なしなので、表示もしない。
 
         SweatHintHyouji();
-
-        if (bitter_level != 0)
-        {
-            BitterHintHyouji();
-        }
-        if (sour_level != 0)
-        {
-            SourHintHyouji();
-        }
+        BitterHintHyouji();
+        SourHintHyouji();
+        
 
         ShokukanHintHyouji();
 
@@ -4237,7 +4253,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-
+            _sweat_kansou = "";
         }
     }
 
@@ -4307,7 +4323,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-
+            _bitter_kansou = "";
         }
     }
 
@@ -4377,7 +4393,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-
+            _sour_kansou = "";
         }
     }
 
@@ -4398,13 +4414,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else if (shokukan_score >= GameMgr.low_score && shokukan_score < GameMgr.high_score) //
         {
+            _shokukan_kansou = "まあまあの" + shokukan_mes;
+        }
+        else if (shokukan_score >= GameMgr.high_score && shokukan_score < GameMgr.high_score_2) //
+        {
             _shokukan_kansou = "ほどよい" + shokukan_mes;
         }
-        else if (shokukan_score >= GameMgr.high_score && shokukan_score < 120) //
-        {
-            _shokukan_kansou = "絶妙な" + shokukan_mes;
-        }
-        else if (shokukan_score >= GameMgr.high_score) //
+        else if (shokukan_score >= GameMgr.high_score_2) //
         {
             _shokukan_kansou = "神の" + shokukan_mes + "！！";
         }
@@ -4475,15 +4491,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //コンテスト判定に使いまわし
     //** **//
     public int Judge_Score_Return(int value1, int value2, int SetType, int _Setcount)
-    {
+    {      
         SceneInitSetting();
             
         //コンテスト用に、渡すアイテムのパラメータ設定
-        Girleat_Judge_method(value1, value2, SetType); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。
+        Girleat_Judge_method(value1, value2, 1); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。
 
         SetGirlTasteInit();      
 
-        judge_score(SetType, _Setcount); //SetTypeは、0=女の子か1=コンテスト用かの判定。_Setcountは、GirlLikeCompoの1,2,3番目のどれを判定に使うかの数値
+        judge_score(1, _Setcount); //SetTypeは、0=女の子か1=コンテスト用かの判定。_Setcountは、GirlLikeCompoの1,2,3番目のどれを判定に使うかの数値
 
         //他に、食感スコアと見た目スコアも、反映させている。 returnは使ってないけど。
         return total_score;
@@ -4494,6 +4510,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //** **//
     public int Judge_Score_ReturnEvent(int value1, int value2, int SetType)
     {
+        //デバッグパネルの取得
+        debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
+        debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
+        debug_taste_resultText.text = "";
+
         //SceneInitSetting();
 
         //コンテスト用に、渡すアイテムのパラメータ設定

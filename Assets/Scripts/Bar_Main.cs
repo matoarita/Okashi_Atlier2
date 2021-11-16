@@ -603,11 +603,18 @@ public class Bar_Main : MonoBehaviour
         {
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i+5]);
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
             }
         }
 
-        //
+        //クレープ
+        if (GameMgr.GirlLoveEvent_stage1[20])
+        {
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+            }
+        }
 
         //ランダムで噂を選ぶメソッド
         uwasa_randomselect();

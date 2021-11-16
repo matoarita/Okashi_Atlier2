@@ -1281,59 +1281,68 @@ public class SetImage : MonoBehaviour
                 CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
                 CompleteImage.SetActive(false);
 
-                //調合完了後、また調合画面に戻るか、メイン画面に戻るか
-                switch (GameMgr.compound_select)
+                //別画面で（たとえばピクニック中など）戻るときは、status=0にならず、また調合画面に戻る。
+                if (GameMgr.picnic_event_reading_now)
                 {
-                    case 1: //レシピ調合
+                    GameMgr.compound_status = 6; // 調合の画面に戻る。
+                    compound_Main.ReSetLive2DPos_Compound();
+                }
+                else
+                {
+                    //調合完了後、また調合画面に戻るか、メイン画面に戻るか
+                    switch (GameMgr.compound_select)
+                    {
+                        case 1: //レシピ調合
 
-                        if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
-                        {
-                            GameMgr.compound_status = 0;
-
-                            if (GameMgr.tutorial_ON == true)
+                            if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
                             {
-                                if (GameMgr.tutorial_Num == 180)
+                                GameMgr.compound_status = 0;
+
+                                if (GameMgr.tutorial_ON == true)
                                 {
-                                    GameMgr.tutorial_Progress = true;
-                                    GameMgr.tutorial_Num = 190;
+                                    if (GameMgr.tutorial_Num == 180)
+                                    {
+                                        GameMgr.tutorial_Progress = true;
+                                        GameMgr.tutorial_Num = 190;
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            GameMgr.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
-                            compound_Main.ReSetLive2DPos_Compound();
-                        }
-                        break;
-
-                    case 3: //オリジナル調合
-
-                        if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
-                        {
-                            GameMgr.compound_status = 0;
-
-
-                            if (GameMgr.tutorial_ON == true)
+                            else
                             {
-                                if (GameMgr.tutorial_Num == 180)
+                                GameMgr.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
+                                compound_Main.ReSetLive2DPos_Compound();
+                            }
+                            break;
+
+                        case 3: //オリジナル調合
+
+                            if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                            {
+                                GameMgr.compound_status = 0;
+
+
+                                if (GameMgr.tutorial_ON == true)
                                 {
-                                    GameMgr.tutorial_Progress = true;
-                                    GameMgr.tutorial_Num = 190;
+                                    if (GameMgr.tutorial_Num == 180)
+                                    {
+                                        GameMgr.tutorial_Progress = true;
+                                        GameMgr.tutorial_Num = 190;
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
-                            compound_Main.ReSetLive2DPos_Compound();
-                        }
-                        break;
+                            else
+                            {
+                                GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
+                                compound_Main.ReSetLive2DPos_Compound();
+                            }
+                            break;
 
-                    default:
+                        default:
 
-                        GameMgr.compound_status = 0;
-                        break;
+                            GameMgr.compound_status = 0;
+                            break;
 
+                    }
                 }
 
                 compound_Main.compo_ON = false; //成功でも失敗でも、必ずこのカードは押さないと、メイン画面に戻れない。

@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 58,
-		"TotalSegmentCount": 92,
-		"TotalPointCount": 302,
+		"CurveCount": 63,
+		"TotalSegmentCount": 97,
+		"TotalPointCount": 344,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -392,6 +392,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
+			"Segments": [
+				0,
+				0,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamGokigen",
 			"Segments": [
 				0,
@@ -527,6 +538,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBodyAngleX",
 			"Segments": [
 				0,
@@ -579,6 +601,21 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamBodyAngleZ",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamWaistRot",
 			"Segments": [
 				0,
 				0,
@@ -814,6 +851,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -825,7 +866,11 @@
 			"Segments": [
 				0,
 				-2,
-				0,
+				1,
+				1,
+				-2,
+				2,
+				-2,
 				3,
 				-2
 			]
@@ -836,7 +881,11 @@
 			"Segments": [
 				0,
 				4,
-				0,
+				1,
+				1,
+				4,
+				2,
+				4,
 				3,
 				4
 			]
@@ -847,6 +896,40 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_arm_maze_Scale",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "L_hand_maze_Scale",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -930,7 +1013,11 @@
 			"Segments": [
 				0,
 				-13,
-				0,
+				1,
+				1,
+				-13,
+				2,
+				-13,
 				3,
 				-13
 			]
@@ -941,6 +1028,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -952,6 +1043,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -963,6 +1058,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -974,6 +1073,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -985,6 +1088,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -996,6 +1103,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -1007,6 +1118,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0
@@ -1018,6 +1133,10 @@
 			"Segments": [
 				0,
 				0,
+				1,
+				1,
+				0,
+				2,
 				0,
 				3,
 				0

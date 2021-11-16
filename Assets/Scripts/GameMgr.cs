@@ -330,6 +330,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool MenuOpenFlag; //メニューを現在開いているか閉じているか
     public static bool QuestManzokuFace; //60点以上取って、喜び表情に変えるフラグ
     public static bool OsotoIkitaiFlag; //外いこうよ～モード。このときに外へいくと、喜んでハートがあがる。
+    public static bool picnic_event_reading_now; //ピクニック読み中
 
     private PlayerItemList pitemlist;
 
@@ -578,6 +579,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MenuOpenFlag = false;
         QuestManzokuFace = false;
         OsotoIkitaiFlag = false;
+        picnic_event_reading_now = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

@@ -34,6 +34,17 @@ public class Compound_BGPanel_A : MonoBehaviour {
         //音ならす
         //sc.PlaySe(25); //25 鐘の音:50 キラリン:17
 
+        if (GameMgr.picnic_event_reading_now)
+        {
+            this.transform.Find("SelectPanel_1/Picnic_yesno").gameObject.SetActive(true);
+            this.transform.Find("SelectPanel_1/No").gameObject.SetActive(false);
+        }
+        else
+        {
+            this.transform.Find("SelectPanel_1/Picnic_yesno").gameObject.SetActive(false);
+            this.transform.Find("SelectPanel_1/No").gameObject.SetActive(true);
+        }
+
         if (GameMgr.compound_select == 6)
         {
             //アニメーションスタート

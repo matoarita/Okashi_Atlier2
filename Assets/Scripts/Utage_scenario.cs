@@ -1433,8 +1433,10 @@ public class Utage_scenario : MonoBehaviour
             }
             else
             {
-                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-
+                //playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                //調合画面にはいる。
+                GameMgr.compound_status = 6;
+                compound_Main.MainCompoundMethod();
 
                 while (!GameMgr.event_pitem_use_OK && !GameMgr.event_pitem_cancel) //アイテム選択待ち
                 {
@@ -2283,6 +2285,12 @@ public class Utage_scenario : MonoBehaviour
             default:
 
                 break;
+        }
+
+        //ピクニックイベントの場合、終了のフラグ
+        if(GameMgr.picnic_event_reading_now)
+        {
+            GameMgr.picnic_event_reading_now = false;
         }
 
         scenario_loading = false;

@@ -93,6 +93,11 @@ public class BGM : MonoBehaviour {
 
                 _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
                 break;
+
+            case "Bar":
+
+                _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
+                break;
         }
 
         if(fade_status == 0) //フェードアウトがON

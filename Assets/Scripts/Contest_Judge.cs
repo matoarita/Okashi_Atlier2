@@ -16,6 +16,9 @@ public class Contest_Judge : MonoBehaviour {
     private SoundController sc;
     private BGM sceneBGM;
 
+    private Debug_Panel debug_panel;
+    private Text debug_taste_resultText;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -123,6 +126,8 @@ public class Contest_Judge : MonoBehaviour {
     private int _basepowdery;
     private int _baseoily;
     private int _basewatery;
+    private int _basebeauty;
+    private int _basejuice;
     private float _basegirl1_like;
     private int _baseSetjudge_num;
     private string[] _basetp;
@@ -150,6 +155,8 @@ public class Contest_Judge : MonoBehaviour {
     private int[] _girlhardness;
     private int[] _girljiggly;
     private int[] _girlchewy;
+    private int[] _girljuice;
+    private int[] _girlbeauty;
 
     private int _girlpowdery;
     private int _girloily;
@@ -162,6 +169,7 @@ public class Contest_Judge : MonoBehaviour {
 
     private int[] _girl_set_score;
     private int[] _girl_comment_flag;
+    private int[] _girl_judgenum;
 
 
     //女の子の採点用パラメータ
@@ -202,6 +210,8 @@ public class Contest_Judge : MonoBehaviour {
     public int hardness_score;
     public int jiggly_score;
     public int chewy_score;
+    public int juice_score;
+    public int beauty_score;
     private int shokukan_score;
 
     public int subtype1_score;
@@ -294,7 +304,7 @@ public class Contest_Judge : MonoBehaviour {
         _windowtext = text_area.GetComponentInChildren<Text>();
 
         //女の子、お菓子の判定処理オブジェクトの取得
-        girlEat_judge = this.GetComponent<GirlEat_Judge>();
+        girlEat_judge = GirlEat_Judge.Instance.GetComponent<GirlEat_Judge>();
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -313,12 +323,16 @@ public class Contest_Judge : MonoBehaviour {
         _girlhardness = new int[girl1_status.youso_count];
         _girljiggly = new int[girl1_status.youso_count];
         _girlchewy = new int[girl1_status.youso_count];
+        _girljuice = new int[girl1_status.youso_count];
+
+        _girlbeauty = new int[girl1_status.youso_count];
 
         _girl_subtype = new string[girl1_status.youso_count];
         _girl_likeokashi = new string[girl1_status.youso_count];
 
         _girl_set_score = new int[girl1_status.youso_count];
         _girl_comment_flag = new int[girl1_status.youso_count];
+        _girl_judgenum = new int[girl1_status.youso_count];
 
         total_score = new int[girl1_status.youso_count];
 
@@ -334,7 +348,7 @@ public class Contest_Judge : MonoBehaviour {
 	}
 
     //選んだアイテムを審査委員が判定するメソッド
-    public void Contest_Judge_method(int value1, int value2, int judge_num, int judge_type)
+    public void Contest_Judge_method(int value1, int value2, int judge_num, int judge_type) //judge_type=0で審査員3人の判定。基本0にしている。
     {
         //一度、決定したアイテムのリスト番号と、タイプを取得
         kettei_item1 = value1;
@@ -363,11 +377,13 @@ public class Contest_Judge : MonoBehaviour {
                 _basepowdery = database.items[kettei_item1].Powdery;
                 _baseoily = database.items[kettei_item1].Oily;
                 _basewatery = database.items[kettei_item1].Watery;
+                _basebeauty = database.items[kettei_item1].Beauty;
                 _basegirl1_like = database.items[kettei_item1].girl1_itemLike;
                 _baseitemtype = database.items[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = database.items[kettei_item1].itemType_sub.ToString();
                 _basecost = database.items[kettei_item1].cost_price;
                 _baseSetjudge_num = database.items[kettei_item1].SetJudge_Num;
+                _basejuice = database.items[kettei_item1].Juice;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -400,11 +416,13 @@ public class Contest_Judge : MonoBehaviour {
                 _basepowdery = pitemlist.player_originalitemlist[kettei_item1].Powdery;
                 _baseoily = pitemlist.player_originalitemlist[kettei_item1].Oily;
                 _basewatery = pitemlist.player_originalitemlist[kettei_item1].Watery;
+                _basebeauty = pitemlist.player_originalitemlist[kettei_item1].Beauty;
                 _basegirl1_like = pitemlist.player_originalitemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_originalitemlist[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = pitemlist.player_originalitemlist[kettei_item1].itemType_sub.ToString();
                 _basecost = pitemlist.player_originalitemlist[kettei_item1].cost_price;
                 _baseSetjudge_num = pitemlist.player_originalitemlist[kettei_item1].SetJudge_Num;
+                _basejuice = pitemlist.player_originalitemlist[kettei_item1].Juice;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -518,9 +536,13 @@ public class Contest_Judge : MonoBehaviour {
             }
         }
 
+        //
         //お菓子の味判定処理
+        //
         judge_result_contest(); //判定し、トータルのスコアが算出される。
        
+
+
         switch (dislike_status)
         {
             case 0:
@@ -555,7 +577,8 @@ public class Contest_Judge : MonoBehaviour {
                         }
 
                         GameMgr.contest_TotalScore = sum / GameMgr.contest_Score.Length;
-                        Debug.Log("総合得点：" + GameMgr.contest_TotalScore + "点");
+                        Debug.Log("総合得点：" + GameMgr.contest_TotalScore + "点");                       
+
 
                         break;
 
@@ -587,6 +610,7 @@ public class Contest_Judge : MonoBehaviour {
 
     void judge_result_contest()
     {
+
         count = 0;
 
         while (count < Set_Count) //セットの組み合わせ=審査員の数だけ判定。まずかった場合は、単純にスコアが下がる補正がかかるようにフラグをたてる。
@@ -658,7 +682,7 @@ public class Contest_Judge : MonoBehaviour {
             GameMgr.contest_Beauty_Score[count] = girlEat_judge.beauty_score;
 
             count++;
-
+            
         }
     }
 
@@ -720,12 +744,17 @@ public class Contest_Judge : MonoBehaviour {
             _girlhardness[i] = girl1_status.girl1_Hardness[i];
             _girljiggly[i] = girl1_status.girl1_Jiggly[i];
             _girlchewy[i] = girl1_status.girl1_Chewy[i];
+            _girljuice[i] = girl1_status.girl1_Juice[i];
+
+            _girlbeauty[i] = girl1_status.girl1_Beauty[i];
 
             _girl_subtype[i] = girl1_status.girl1_likeSubtype[i];
             _girl_likeokashi[i] = girl1_status.girl1_likeOkashi[i];
 
             _girl_set_score[i] = girl1_status.girl1_like_set_score[i];
             _girl_comment_flag[i] = girl1_status.girllike_comment_flag[i];
+
+            _girl_judgenum[i] = girl1_status.girllike_judgeNum[i];
         }
 
         //一回だけ代入すればよい。

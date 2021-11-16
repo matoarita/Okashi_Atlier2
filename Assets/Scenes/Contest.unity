@@ -330,7 +330,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 84067643}
-  - component: {fileID: 84067642}
   - component: {fileID: 84067644}
   - component: {fileID: 84067641}
   m_Layer: 0
@@ -420,44 +419,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &84067642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 84067640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28caab76cf2108d43a9cf7ed38ebd0f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScoreHyouji_ON: 0
-  subQuestClear_check: 0
-  Gameover_flag: 0
-  sound1: {fileID: 8300000, guid: b67971d97275b9246888ef583ab7c97d, type: 3}
-  sound2: {fileID: 8300000, guid: a36c633e0446fca4490f1b56e604a1dc, type: 3}
-  sound3: {fileID: 0}
-  quality_score: 0
-  rich_score: 0
-  sweat_score: 0
-  bitter_score: 0
-  sour_score: 0
-  crispy_score: 0
-  fluffy_score: 0
-  smooth_score: 0
-  hardness_score: 0
-  jiggly_score: 0
-  chewy_score: 0
-  subtype1_score: 0
-  subtype2_score: 0
-  topping_score: 0
-  topping_flag_point: 0
-  topping_flag: 0
-  topping_all_non: 0
-  total_score: 0
-  girllike_point: 0
-  _listHeart: []
-  heart_count: 0
 --- !u!4 &84067643
 Transform:
   m_ObjectHideFlags: 0
@@ -1637,6 +1598,17 @@ MonoBehaviour:
   sound8: {fileID: 0}
   sound9: {fileID: 0}
   sound10: {fileID: 0}
+  sound11: {fileID: 0}
+  sound12: {fileID: 0}
+  sound13: {fileID: 0}
+  sound14: {fileID: 0}
+  sound15: {fileID: 0}
+  sound16: {fileID: 0}
+  sound17: {fileID: 0}
+  sound18: {fileID: 0}
+  sound19: {fileID: 0}
+  sound20: {fileID: 0}
+  sound21: {fileID: 0}
   _mixRate: 0
 --- !u!82 &1088047717
 AudioSource:
@@ -2556,6 +2528,7 @@ MonoBehaviour:
   onclick: 0
   ketteiNouhin: 0
   onclick2: 0
+  kettei3: 0
 --- !u!4 &1465872527
 Transform:
   m_ObjectHideFlags: 0

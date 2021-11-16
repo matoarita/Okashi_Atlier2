@@ -43,6 +43,7 @@ public class Result_Panel : MonoBehaviour
     private Sprite charaIcon_sprite_3;
     private Sprite charaIcon_sprite_4;
     private Sprite charaIcon_sprite_5;
+    private Sprite charaIcon_sprite_6;
     private Animator chara_animator;
 
     private int getlove_exp;
@@ -128,8 +129,9 @@ public class Result_Panel : MonoBehaviour
         charaIcon_sprite_3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_03");
         charaIcon_sprite_4 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_04");
         charaIcon_sprite_5 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_05");
+        charaIcon_sprite_6 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_06");
         chara_Icon = this.transform.Find("CharaImgAnim/chara_Img").gameObject;
-        chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
+        chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_6;
         chara_animator = this.transform.Find("CharaImgAnim").GetComponent<Animator>();
         chara_animator.SetInteger("trans_anim", 0);
 

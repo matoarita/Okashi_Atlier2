@@ -48,21 +48,23 @@ public class QuestResultPanel2 : MonoBehaviour {
 
         //_listEffect.Add(Instantiate(Magic_effect_Prefab1, this.transform));
 
+        //ぽよんと飛び出るアニメーション
         Sequence sequence = DOTween.Sequence();
 
         //まず、初期値。
-        /*questResult_obj.GetComponent<CanvasGroup>().alpha = 0;
+        questResult_obj.GetComponent<CanvasGroup>().alpha = 0;
         sequence.Append(questResult_obj.transform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 0.0f));
-
-        //移動のアニメ
-        sequence.Append(questResult_obj.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.75f)
-            .SetEase(Ease.OutElastic));
-        sequence.Join(questResult_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));*/
-
+       
         WhiteFadeCanvas.GetComponent<CanvasGroup>().alpha = 0;
         WhiteFadeCanvas.SetActive(false);
         WhiteFade.GetComponent<CanvasGroup>().alpha = 1;
-        sequence.Append(WhiteFade.GetComponent<CanvasGroup>().DOFade(0, 1.0f));
+
+        //白でフラッシュ
+        sequence.Append(WhiteFade.GetComponent<CanvasGroup>().DOFade(0, 0.3f));
+        //移動のアニメ
+        sequence.Join(questResult_obj.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.75f)
+            .SetEase(Ease.OutElastic));
+        sequence.Join(questResult_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
 
         StartCoroutine("AfterButtonOn");
     }

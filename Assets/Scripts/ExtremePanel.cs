@@ -347,20 +347,10 @@ public class ExtremePanel : MonoBehaviour {
         {
             card_view.DeleteCard_DrawView();
 
-            /*if (PlayerStatus.First_recipi_on == false)
-            {
-                _text.text = compound_Main.originai_text;
-                compound_Main.compound_status = 3;
-
-                pitemlistController.extremepanel_on = false;
-            }
-            else
-            {*/
-                _text.text = "何の調合をする？";
+            _text.text = "何の調合をする？";
             GameMgr.compound_status = 6;
 
-                pitemlistController.extremepanel_on = false;
-            //}
+            pitemlistController.extremepanel_on = false;
 
             //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
             if (GameMgr.tutorial_ON == true)

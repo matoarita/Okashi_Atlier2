@@ -353,6 +353,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         yes_text = yes.GetComponentInChildren<Text>();
                         no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
                     }
+                    if (GameMgr.compound_select == 6) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
+                    {
+                        //yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+                        //yes_text = yes.GetComponentInChildren<Text>();
+                        //no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+                    }
                     else
                     {
                         yes = pitemlistController_obj.transform.Find("Yes").gameObject;
@@ -360,22 +366,27 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         no = pitemlistController_obj.transform.Find("No").gameObject;
                     }
 
-                    if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                    if (GameMgr.compound_select == 6) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
+                    { }
+                    else
                     {
-                        if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。
+                        if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                         {
-                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                            if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。
                             {
-                                //Debug.Log("調合シーンキャンセル");
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+                                    //Debug.Log("調合シーンキャンセル");
 
-                                card_view.DeleteCard_DrawView();
+                                    card_view.DeleteCard_DrawView();
 
-                                GameMgr.compound_status = 6; //何も選択していない状態にもどる。
-                                GameMgr.compound_select = 0;
-                                pitemlistController.extremepanel_on = false;
+                                    GameMgr.compound_status = 6; //何も選択していない状態にもどる。
+                                    GameMgr.compound_select = 0;
+                                    pitemlistController.extremepanel_on = false;
 
-                                yes_selectitem_kettei.onclick = false;
+                                    yes_selectitem_kettei.onclick = false;
 
+                                }
                             }
                         }
                     }

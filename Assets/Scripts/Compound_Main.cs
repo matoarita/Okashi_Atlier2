@@ -730,6 +730,12 @@ public class Compound_Main : MonoBehaviour
             }
         }
 
+        //ピクニックイベント中、お菓子制作中は更新する。
+        if(GameMgr.picnic_event_reading_now)
+        {
+            MainCompoundMethod();            
+        }
+
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
         if (GameMgr.scenario_ON == true)
         {
@@ -890,7 +896,7 @@ public class Compound_Main : MonoBehaviour
 
                         compoundselect_onoff_obj.SetActive(false);
                         OffCompoundSelect();
-                        text_area.SetActive(false);                       
+                        text_area.SetActive(false);
 
                         girl1_status.SetOneQuest(1);　//comp_Numを直接指定
                         girl1_status.Girl_Hungry();
@@ -902,7 +908,7 @@ public class Compound_Main : MonoBehaviour
 
                     case 100:
 
-                        MainCompoundMethod();                        
+                        MainCompoundMethod();
                         canvas.SetActive(true);
                         compoundselect_onoff_obj.SetActive(true);
 
@@ -911,7 +917,7 @@ public class Compound_Main : MonoBehaviour
                         //このタイミングで、アイテムのどれかが0になっていたら、また、全てのアイテムを5ずつにリセットしなおす。
                         if (pitemlist.KosuCount("komugiko") <= 1 || pitemlist.KosuCount("butter") <= 1 || pitemlist.KosuCount("suger") <= 1)
                         {
-                            pitemlist.addPlayerItemString("komugiko", 5- pitemlist.KosuCount("komugiko"));
+                            pitemlist.addPlayerItemString("komugiko", 5 - pitemlist.KosuCount("komugiko"));
                             pitemlist.addPlayerItemString("butter", 5 - pitemlist.KosuCount("butter"));
                             pitemlist.addPlayerItemString("suger", 5 - pitemlist.KosuCount("suger"));
                         }
@@ -920,7 +926,7 @@ public class Compound_Main : MonoBehaviour
                         break;
 
                     case 105:
-                        
+
                         MainCompoundMethod();
 
                         OffCompoundSelect();
@@ -947,7 +953,7 @@ public class Compound_Main : MonoBehaviour
                         girl1_status.SetOneQuest(11);
                         girl1_status.Girl_Hungry();
                         girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
-                        
+
                         GameMgr.tutorial_Num = 130;
 
                         GameMgr.tutorial_Progress = true;
@@ -1017,7 +1023,7 @@ public class Compound_Main : MonoBehaviour
                     case 200:
 
                         MainCompoundMethod();
-                       
+
                         canvas.SetActive(true);
                         OffCompoundSelectnoExtreme();
                         //extreme_Button.interactable = true;
@@ -1115,7 +1121,7 @@ public class Compound_Main : MonoBehaviour
                     case 285:
 
                         MainCompoundMethod();
-                        
+
                         break;
 
                     case 290:
@@ -1214,8 +1220,8 @@ public class Compound_Main : MonoBehaviour
     }
 
 
-    //メインの調合シーンの処理
-    void MainCompoundMethod()
+    //メインの調合シーンの処理  Utageからも読まれる。
+    public void MainCompoundMethod()
     {
         switch (GameMgr.compound_status)
         {
@@ -2339,12 +2345,55 @@ public class Compound_Main : MonoBehaviour
         GameMgr.compound_status = 0;
     }
 
-    public void OnCancelCompound_Select() //使っていない？
+    public void OnCancelCompound_Select() //調合画面から戻るとき
     {
+
         //カメラをメニューオープンの状態で戻す。メイン画面でカメラ位置を指定してたときの名残。
         GameMgr.compound_status = 0;
+
     }
 
+    public void OnOKPicnic_Select()
+    {
+        //ピクニックイベント中、お菓子制作中は更新する。
+        black_panel_A.SetActive(true);
+        text_area.SetActive(true);
+        yes_no_panel.SetActive(true);
+        yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+
+        if (exp_Controller._temp_extremeSetting)
+        {
+            _text.text = "このお菓子でいく？";
+
+            extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+
+            //一時的に腹減りを止める。
+            //girl1_status.GirlEat_Judge_on = false;
+            //girl1_status.Walk_Start = false;
+
+            //WindowOff();
+
+            Debug.Log("このお菓子でいく？");
+            card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
+            StartCoroutine("PicnicItem_Final_select");
+        }
+        else
+        {
+            _text.text = "持っていくお菓子が決まってないよ～";
+        }
+    }
+
+    public void OnCancelPicnic_Select()
+    {
+        //ピクニックイベント中、お菓子制作中は更新する。
+        black_panel_A.SetActive(true);
+        text_area.SetActive(true);
+        yes_no_panel.SetActive(true);
+        yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
+        _text.text = "やっぱりやめる？";
+
+        StartCoroutine("PicnicItem_Cancel_Final_select");
+    }
 
     public void OnMenu_toggle() //メニューをON
     {
@@ -2769,6 +2818,96 @@ public class Compound_Main : MonoBehaviour
                 {
                     compoundselect_onoff_obj.SetActive(true);
                 }
+                break;
+
+        }
+    }
+
+    IEnumerator PicnicItem_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        black_panel_A.SetActive(false);
+        card_view.DeleteCard_DrawView();
+        yes_no_panel.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                GameMgr.compound_select = 1000; //シナリオイベント読み中の状態にもどす。
+                GameMgr.compound_status = 1000;
+
+                //ピクニックアイテム決定
+                compoBG_A.SetActive(false);
+                
+                yes_selectitem_kettei.onclick = false;                
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
+
+                GameMgr.event_pitem_use_OK = true;
+
+                //決定したアイテムの番号と個数
+                GameMgr.event_kettei_itemID = extreme_panel.extreme_itemID;
+                GameMgr.event_kettei_item_Type = extreme_panel.extreme_itemtype;
+                //GameMgr.event_kettei_item_Kosu = updown_counter.updown_kosu; //最終個数を入れる。
+                GameMgr.event_kettei_item_Kosu = 1;
+                break;
+
+            case false:
+
+                //Debug.Log("cancel+ブラックパネルOFF");
+
+                //GameMgr.compound_status = 6;
+
+                yes_selectitem_kettei.onclick = false;
+
+                break;
+
+        }
+    }
+
+    //ピクニックキャンセルした
+    IEnumerator PicnicItem_Cancel_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        yes_no_panel.SetActive(false);
+        black_panel_A.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                compoBG_A.SetActive(false);
+
+                GameMgr.compound_select = 1000; //シナリオイベント読み中の状態にもどす。
+                GameMgr.compound_status = 1000;
+
+                //kettei_on_waiting = false;
+                GameMgr.event_pitem_cancel = true; //やめたフラグON
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                break;
+
+            case false:
+
+                Debug.Log("cancel");
+
+                //GameMgr.compound_status = 6;
+
+                yes_selectitem_kettei.onclick = false;
+
                 break;
 
         }
@@ -3476,7 +3615,7 @@ public class Compound_Main : MonoBehaviour
                         }
                         else
                         {
-                            _textmain.text = "どうしようかなぁ？" + "\n" + "（ハートレベルが上がるまでお菓子をあげてみよう。）";
+                            _textmain.text = "どうしようかなぁ？";
                         }
                     }
                     break;
@@ -3818,6 +3957,7 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
                             GameMgr.picnic_End = true;//さらにカウンターを置く。カウンターが０になったら、またランダムで発生するようになる。
                             GameMgr.picnic_event_ON = false;
+                            GameMgr.picnic_event_reading_now = true;
                             GameMgr.picnic_count = 3;
 
                             check_GirlLoveSubEvent_flag = false;

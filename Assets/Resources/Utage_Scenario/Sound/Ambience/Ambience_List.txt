@@ -5,3 +5,4 @@
 ・Ambience_05		audiostock_58814				きらきらぽんぽの音<宴で使用>
 ・Ambience_06		audiostock_170729				雨の音室内
 ・Ambience_07		VSQSE_0651_rain_5				雨の音外<宴で使用>
+・Ambience_08		brook1a						小川の音<宴で使用>

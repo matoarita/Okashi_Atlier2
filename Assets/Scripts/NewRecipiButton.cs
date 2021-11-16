@@ -75,39 +75,48 @@ public class NewRecipiButton : MonoBehaviour {
             }
         }
 
-        switch (GameMgr.compound_select)
+        //別画面で（たとえばピクニック中など）戻るときは、status=0にならず、また調合画面に戻る。
+        if (GameMgr.picnic_event_reading_now)
         {
-            case 1: //レシピ調合
+            GameMgr.compound_status = 6; // 調合の画面に戻る。
+            compound_Main.ReSetLive2DPos_Compound();
+        }
+        else
+        {
+            switch (GameMgr.compound_select)
+            {
+                case 1: //レシピ調合
 
-                if (extremePanel.extreme_itemID != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。現状は、新しいお菓子がセットされてない場合。
-                {
+                    if (extremePanel.extreme_itemID != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。現状は、新しいお菓子がセットされてない場合。
+                    {
+                        GameMgr.compound_status = 0;
+                    }
+                    else
+                    {
+                        GameMgr.compound_status = 1; // もう一回、オリジナル調合の画面に戻る。
+                        compound_Main.ReSetLive2DPos_Compound();
+                    }
+                    break;
+
+                case 3: //オリジナル調合
+
+                    if (extremePanel.extreme_itemID != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。
+                    {
+                        GameMgr.compound_status = 0;
+                    }
+                    else
+                    {
+                        GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
+                        compound_Main.ReSetLive2DPos_Compound();
+                    }
+                    break;
+
+                default:
+
                     GameMgr.compound_status = 0;
-                }
-                else
-                {
-                    GameMgr.compound_status = 1; // もう一回、オリジナル調合の画面に戻る。
-                    compound_Main.ReSetLive2DPos_Compound();
-                }
-                break;
+                    break;
 
-            case 3: //オリジナル調合
-
-                if (extremePanel.extreme_itemID != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。
-                {
-                    GameMgr.compound_status = 0;
-                }
-                else
-                {
-                    GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
-                    compound_Main.ReSetLive2DPos_Compound();
-                }
-                break;
-
-            default:
-
-                GameMgr.compound_status = 0;
-                break;
-
+            }
         }
 
         compound_Main.compo_ON = false;

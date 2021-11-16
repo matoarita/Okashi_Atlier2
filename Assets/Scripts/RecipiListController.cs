@@ -309,7 +309,7 @@ public class RecipiListController : MonoBehaviour {
         //_text.color = new Color(153f / 255f, 89f / 255f, 201f / 255f); //9959C980
 
         //画像を変更
-        texture2d = Resources.Load<Sprite>("Sprites/Icon/Book01");
+        texture2d = Resources.Load<Sprite>("Sprites/" + pitemlist.eventitemlist[i].event_fileName);
         _Img.sprite = texture2d;
 
         _HighStar.SetActive(false);
