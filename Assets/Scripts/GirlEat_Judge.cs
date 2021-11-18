@@ -3486,6 +3486,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     IEnumerator QuestClearStart()
     {
         //触れなくなる
+        Touch_WindowInteractOFF();
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
         //girl1_status.hukidasiOff();
@@ -3507,7 +3508,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         yield return new WaitForSeconds(1.0f);
 
-        //このタイミングで、「クエストクリア～！」みたいな演出？
+        //このタイミングで、「クエストクリア～！」みたいな演出？一時的に触れなくする。
+        compound_Main.girlEat_ON = true;
+        Touch_WindowInteractOFF();
         QuestClearEffectPanel.SetActive(true);
         sceneBGM.MuteBGM();
 

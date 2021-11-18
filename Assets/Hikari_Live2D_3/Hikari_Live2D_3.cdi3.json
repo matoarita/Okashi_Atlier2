@@ -157,6 +157,21 @@
 			"Name": "ハイライト揺らし"
 		},
 		{
+			"Id": "ParamEffNoseKemuri",
+			"GroupId": "ParamGroup7",
+			"Name": "鼻けむり"
+		},
+		{
+			"Id": "ParamEffOnpu",
+			"GroupId": "ParamGroup7",
+			"Name": "おんぷ"
+		},
+		{
+			"Id": "ParamEffAse",
+			"GroupId": "ParamGroup7",
+			"Name": "汗マーク"
+		},
+		{
 			"Id": "ParamBodyAngleX",
 			"GroupId": "ParamGroup4",
 			"Name": "体の回転　X"
@@ -1170,6 +1185,10 @@
 		}
 	],
 	"Parts": [
+		{
+			"Id": "Part14",
+			"Name": "エフェクト"
+		},
 		{
 			"Id": "Part",
 			"Name": "きらきら"

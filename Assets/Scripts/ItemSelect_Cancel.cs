@@ -366,7 +366,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         no = pitemlistController_obj.transform.Find("No").gameObject;
                     }
 
-                    if (GameMgr.compound_select == 6) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
+                    if (GameMgr.compound_select == 6 || GameMgr.compound_select == 120) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
                     { }
                     else
                     {

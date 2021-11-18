@@ -1142,7 +1142,7 @@ public class Compound_Main : MonoBehaviour
             {
                 mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
                 WindowOff();
-                text_area.SetActive(false);
+                
                 check_recipi_flag = false;
 
                 //腹減りカウント一時停止
@@ -1153,6 +1153,23 @@ public class Compound_Main : MonoBehaviour
 
                 touch_controller.Touch_OnAllOFF();
                 SceneStart_flag = false;
+
+                //テキストエリアの表示
+                if (GameMgr.picnic_event_reading_now)
+                {
+                    if (GameMgr.compound_select == 1 || GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 120)
+                    {
+
+                    }
+                    else
+                    {
+                        text_area.SetActive(false);
+                    }
+                }
+                else
+                {
+                    text_area.SetActive(false);
+                }
             }
 
         }
@@ -1400,7 +1417,7 @@ public class Compound_Main : MonoBehaviour
                 ReDrawLive2DPos_Compound();
 
                 //BGMを変更
-                /*if (!GameMgr.tutorial_ON)
+                if (!GameMgr.tutorial_ON)
                 {
                     if (bgm_changeuse_ON)
                     {
@@ -1410,7 +1427,7 @@ public class Compound_Main : MonoBehaviour
                             bgm_change_flag2 = true;
                         }
                     }
-                }*/
+                }
                 map_ambience.Mute();
 
                 //一時的に腹減りを止める。
@@ -1573,7 +1590,7 @@ public class Compound_Main : MonoBehaviour
             case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
 
                 //BGMを変更
-                if (!GameMgr.tutorial_ON)
+                /*if (!GameMgr.tutorial_ON)
                 {
                     if (bgm_changeuse_ON)
                     {
@@ -1583,9 +1600,9 @@ public class Compound_Main : MonoBehaviour
                             bgm_change_flag2 = true;
                         }
                     }
-                }
+                }*/
 
-                /*if (!GameMgr.tutorial_ON)
+                if (!GameMgr.tutorial_ON)
                 {
                     if (bgm_changeuse_ON)
                     {
@@ -1595,7 +1612,7 @@ public class Compound_Main : MonoBehaviour
                             sceneBGM.OnMainBGMFade();
                         }
                     }
-                }*/
+                }
 
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
@@ -1866,12 +1883,13 @@ public class Compound_Main : MonoBehaviour
 
             case 100: //退避用 トグル選択中のときなどに使用
 
-                break;
-
-
-            
+                break;            
 
             case 110: //調合、最後これでよいか選択中のステータス
+
+                break;
+
+            case 120: //なんらかの選択で、最後これでいいかどうかの確認中
 
                 break;
 
@@ -2361,6 +2379,7 @@ public class Compound_Main : MonoBehaviour
         yes_no_panel.SetActive(true);
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
+        GameMgr.compound_select = 120;
         if (exp_Controller._temp_extremeSetting)
         {
             _text.text = "このお菓子でいく？";
@@ -2379,7 +2398,9 @@ public class Compound_Main : MonoBehaviour
         }
         else
         {
-            _text.text = "持っていくお菓子が決まってないよ～";
+            //_text.text = "持っていくお菓子が決まってないよ～";
+            _text.text = "今は、何のお菓子も選択されていないよ。" + "\n" + "やっぱりやめる？";
+            StartCoroutine("PicnicItem_Cancel_Final_select");
         }
     }
 
@@ -2390,8 +2411,9 @@ public class Compound_Main : MonoBehaviour
         text_area.SetActive(true);
         yes_no_panel.SetActive(true);
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
-        _text.text = "やっぱりやめる？";
+        GameMgr.compound_select = 120;
 
+        _text.text = "やっぱりやめる？";
         StartCoroutine("PicnicItem_Cancel_Final_select");
     }
 
@@ -2835,6 +2857,7 @@ public class Compound_Main : MonoBehaviour
         black_panel_A.SetActive(false);
         card_view.DeleteCard_DrawView();
         yes_no_panel.SetActive(false);
+        GameMgr.compound_select = 6;
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -2885,6 +2908,7 @@ public class Compound_Main : MonoBehaviour
 
         yes_no_panel.SetActive(false);
         black_panel_A.SetActive(false);
+        GameMgr.compound_select = 6;
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -3349,12 +3373,13 @@ public class Compound_Main : MonoBehaviour
 
         GameMgr.girlloveevent_endflag = false;
         GameMgr.scenario_ON = false;
+
         sceneBGM.MuteOFFBGM();
         map_ambience.MuteOFF();
         mute_on = false;
 
         mainUI_panel_obj.SetActive(true);
-        OnCompoundSelect();
+        //OnCompoundSelect();
         Extremepanel_obj.SetActive(true);
         GirlHeartEffect_obj.SetActive(true);
         girlEat_judge.EffectClear();
@@ -3386,7 +3411,7 @@ public class Compound_Main : MonoBehaviour
                         case 1:
 
                             _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
+                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
                             break;
 
                         case 2:
@@ -3426,6 +3451,7 @@ public class Compound_Main : MonoBehaviour
 
             check_GirlLoveEvent_flag = true;
             girl1_status.Girl1_Status_Init2();
+
         }       
 
         //腹減りカウント開始
@@ -3900,12 +3926,12 @@ public class Compound_Main : MonoBehaviour
             //メインクエストに関係しないサブイベント関係は、60番台～
             //
 
-            //キラキラポンポン
+            //キラキラポンポン 発生すると、さらに親睦を深めて、BGMが変わる。
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
             else
             {
-                if (PlayerStatus.girl1_Love_lv >= 12 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
+                if (PlayerStatus.girl1_Love_lv >= 15 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
                 {
                     GameMgr.GirlLoveSubEvent_num = 60;
                     GameMgr.GirlLoveSubEvent_stage1[60] = true;
@@ -4354,50 +4380,45 @@ public class Compound_Main : MonoBehaviour
         ClickPanel_2.SetActive(false);
     }
 
-    //ストーリー進行度に応じてBGMが変わる。デバッグパネルからもアクセス
+    //ハートレベルに応じてBGMが変わる。デバッグパネルからもアクセス
     public void bgm_change_story()
-    {      
+    {
 
-        if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　雨
-        {
-            GameMgr.mainBGM_Num = 0; //雨はじまり
-            map_ambience.OnRainyDay(); //背景のSEを鳴らす。
-        }
-        if (GameMgr.GirlLoveEvent_num >= 1) //くもり　どんより HLv2~
-        {
-            GameMgr.mainBGM_Num = 0;
-            map_ambience.Stop();
-        }
-        if (GameMgr.GirlLoveEvent_num >= 10) //うすぐもり HLv4~
-        {
-            GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
-            map_ambience.Stop();
-        }
-        if (GameMgr.GirlLoveEvent_num >= 20) //はれ　風が強い HLv6~
-        {
-            GameMgr.mainBGM_Num = 2; //少し明るい　クレープのBGM
-            map_ambience.Stop();
-        }
-        if (GameMgr.GirlLoveEvent_num >= 30) //はれ HLv8~
-        {
-            GameMgr.mainBGM_Num = 2; //少し明るい　シュークリームのBGM
-            map_ambience.Stop();
-        }
-        if (GameMgr.GirlLoveEvent_num >= 40) //はれ HLv9~
-        {
-            GameMgr.mainBGM_Num = 3; //明るい　ドーナツのBGM
-            map_ambience.Stop();
-        }
-        if (GameMgr.GirlLoveEvent_num >= 50) //のどかなはれ HLv10~
+        if (GameMgr.GirlLoveEvent_num == 50) //のどかなはれ HLv10~
         {
             GameMgr.mainBGM_Num = 4; //コンテスト　鳥の鳴き声が外でなく
             map_ambience.OnSunnyDayBird();
         }
-        if (PlayerStatus.girl1_Love_lv >= 15) //快晴　夕方
+        else
         {
-            GameMgr.mainBGM_Num = 5; //少し明るい　クレープのBGM
-            map_ambience.Stop();
+            if (PlayerStatus.girl1_Love_lv >= 1) //デフォルト　雨
+            {
+                GameMgr.mainBGM_Num = 0; //雨はじまり
+                map_ambience.OnRainyDay(); //背景のSEを鳴らす。
+            }
+            if (PlayerStatus.girl1_Love_lv >= 2) //くもり　どんより HLv2~
+            {
+                GameMgr.mainBGM_Num = 0;
+                map_ambience.Stop();
+            }
+            if (PlayerStatus.girl1_Love_lv >= 4) //うすぐもり HLv4~
+            {
+                GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
+                map_ambience.Stop();
+            }
+            if (PlayerStatus.girl1_Love_lv >= 15) //快晴　夕方
+            {
+                GameMgr.mainBGM_Num = 5; //少し明るい　クレープのBGM
+                map_ambience.Stop();
+            }
         }
+
+        /*if (GameMgr.GirlLoveEvent_num >= 10) //うすぐもり HLv4~
+        {
+            GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
+            GameMgr.mainBGM_Num = 3; //明るい　ドーナツのBGM
+            map_ambience.Stop();
+        }*/
     }
 
     //ストーリー進行に応じて、背景の天気+エフェクトも変わる。

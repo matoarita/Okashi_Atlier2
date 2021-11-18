@@ -1375,6 +1375,12 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
+        //ピクニックイベントの場合、終了のフラグ
+        if (GameMgr.picnic_event_reading_now)
+        {
+            GameMgr.picnic_event_reading_now = false;
+        }
+
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
 
@@ -1433,14 +1439,30 @@ public class Utage_scenario : MonoBehaviour
             }
             else
             {
-                //playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                //調合画面にはいる。
-                GameMgr.compound_status = 6;
-                compound_Main.MainCompoundMethod();
+                
+                if (GameMgr.picnic_event_reading_now)
+                {
+                    //調合画面にはいる。
+                    GameMgr.compound_status = 6;
+                    compound_Main.MainCompoundMethod();
+
+                    //ゲーム上のキャラクタON
+                    CharacterLive2DImageON();
+                }
+                else
+                {
+                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                }
 
                 while (!GameMgr.event_pitem_use_OK && !GameMgr.event_pitem_cancel) //アイテム選択待ち
                 {
                     yield return null;
+                }
+
+                if (GameMgr.picnic_event_reading_now)
+                {
+                    //ゲーム上のキャラクタOFF
+                    CharacterLive2DImageOFF();
                 }
 
                 if (GameMgr.event_pitem_use_OK) //アイテム渡す場合の処理
@@ -2285,13 +2307,7 @@ public class Utage_scenario : MonoBehaviour
             default:
 
                 break;
-        }
-
-        //ピクニックイベントの場合、終了のフラグ
-        if(GameMgr.picnic_event_reading_now)
-        {
-            GameMgr.picnic_event_reading_now = false;
-        }
+        }        
 
         scenario_loading = false;
 
