@@ -42,6 +42,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public float timeOut3;
     public float timeOutMoveX;
     public float timeOutHeartDeg;
+    public float timeOutSec; //1秒ずつ減るカウンタ
     private float Default_hungry_cooltime;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
     public int touchGirl_status; //今、どこを触っているかの番号
@@ -79,7 +80,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public bool WaitHint_on;
     public float timeOutHint;
-    private string _hint1;
     private string _hintrandom;
     private List<string> _hintrandomDict = new List<string>();
 
@@ -309,7 +309,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //初期表情の設定
                 CheckGokigen();
-                DefaultFace();
+                DefFaceChange();
 
                 //エクストリームパネルの取得
                 Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
@@ -497,7 +497,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //初期表情の設定
                     CheckGokigen();
-                    DefaultFace();
+                    DefFaceChange();
 
                     //タイマーをリセット
                     timeOut = Default_hungry_cooltime;
@@ -529,8 +529,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
+
                 //女の子の今のご機嫌チェック
                 CheckGokigen();
+
+                //必ず1秒ずつ減るカウンタ
+                timeOutSec -= Time.deltaTime;
 
                 //trueだと腹減りカウントが進む。
                 if (GirlEat_Judge_on == true)
@@ -561,7 +565,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         if (GirlOishiso_Status != 0) //成功　もしくはしっぱい
                         {
                             GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
-                            DefaultFace();
+                            DefFaceChange();
                         }
 
                         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
@@ -590,7 +594,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     if (GameMgr.compound_status == 110) //トップ画面のときだけ発動
                     {
                         //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
-                        if (timeOut <= 0.0)
+                        if (timeOut <= 0.0f)
                         {
                             switch (timeGirl_hungry_status)
                             {
@@ -642,10 +646,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     break;
                             }
 
+                            
+                        }
+
+                        if(timeOutSec <= 0.0f)
+                        {
+                            timeOutSec = 1.0f;
+
+                            //不機嫌な状態は、時間で元に戻る。
+                            if (GameMgr.girl_express_param <= 20)
+                            {
+                                GameMgr.girl_express_param++;
+                            }
                         }
 
                         //一定時間たつとヒントを出すか、アイドルモーションを再生
-                        if (timeOut2 <= 0.0)
+                        if (timeOut2 <= 0.0f)
                         {
                             timeOut2 = 5.0f;
                             timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
@@ -678,7 +694,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                         break;
 
                                     default:
-                                        DefaultFace();
+                                        DefFaceChange();
                                         break;
                                 }
 
@@ -762,7 +778,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     maincam_animator.SetInteger("trans", trans);
 
                     //キャラクタ表情変更。お菓子食べる前の表情。
-                    DefaultFace();                    
+                    DefFaceChange();                    
 
                     special_animstart_flag = false;
                     special_animstart_endflag = true;
@@ -848,21 +864,65 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
     }
 
-    void DefFaceChange()
+    //普段の素の状態での表情変化 GameMgr.girl_expressionがまあまあのときは、ハートレベルに応じて、素の状態が変化する。GirlEat_Judgeからも読む。
+    public void DefFaceChange()
     {
-        if (GameMgr.QuestClearflag) //そのお菓子をクリアしたあとの表情
+        if (GameMgr.girl_express_param <= 0)
         {
-            AfterOkashiDefaultFace();
+            GameMgr.girl_express_param = 0;
         }
-        else
+        else if (GameMgr.girl_express_param >= 100)
         {
-            DefaultFace();
+            GameMgr.girl_express_param = 100;
         }
+
+        if (GameMgr.girl_express_param < 20)
+        {
+            GameMgr.girl_expression = 1;
+        }
+        else if (GameMgr.girl_express_param >= 20 && GameMgr.girl_express_param < 40)
+        {
+            GameMgr.girl_expression = 2;
+        }
+        else if (GameMgr.girl_express_param >= 40 && GameMgr.girl_express_param < 60)
+        {
+            GameMgr.girl_expression = 3;
+        }
+        else if (GameMgr.girl_express_param >= 60 && GameMgr.girl_express_param < 80)
+        {
+            GameMgr.girl_expression = 4;
+        }
+        else if (GameMgr.girl_express_param >= 80)
+        {
+            GameMgr.girl_expression = 5;
+        }
+
+        switch (GameMgr.girl_expression)
+        {
+            case 1: //まずいもの食べた直後などの最悪の表情
+
+                face_girl_Angry2();
+                break;
+
+
+            default:
+
+                if (GameMgr.QuestManzokuFace) //そのお菓子をクリアしたあとの表情
+                {
+                    AfterOkashiDefaultFace();
+                }
+                else
+                {
+                    DefaultFace();
+                }
+                break;
+        }
+        
     }
 
-    public void CheckGokigen()
+    public void CheckGokigen()　//Updateで常にチェック
     {
-        //女の子の今のご機嫌
+        //女の子の今のご機嫌　ハートレベルに応じた絶対的なもの
         if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 2) // HLv 1
         {
             //テンションが低すぎて暗い
@@ -1362,9 +1422,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //まだ一度も調合していない
         if (PlayerStatus.First_recipi_on != true)
-        {           
-            _hint1 = "..まずは左の「おかしパネル」から、お菓子を作ろうね。おにいちゃん。";            
-            hukidashiitem.GetComponent<TextController>().SetText(_hint1);
+        {                   
+            hukidashiitem.GetComponent<TextController>().SetText("..まずは左の「おかしパネル」から、お菓子を作ろうね。おにいちゃん。");
 
             timeOutHint = 20.0f; //セリフ＋モーション表示時間
             FaceMotionPlay(1006);
@@ -1377,37 +1436,39 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 _noweat_count = 0;
                 hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
-                FaceMotionPlay(1002);
+                FaceMotionPlay(1013);
             }
             else
             {
-                //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
-                random = Random.Range(0, 100);
-                if (random < 50)
+                if (GameMgr.girl_expression == 1) //まずいのあとは、怒ってとりとめのない会話がなくなる。
                 {
-                    _noweat_count++;
-                    IdleChange(); //ランダムモーション＋ヒントを決定
+                    hukidashiitem.GetComponent<TextController>().SetText("..。");
                 }
                 else
                 {
-                    if (GameMgr.QuestClearflag)
-                    {
-                        hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
-
-                        //表情喜びに。2秒ほどしてすぐ戻す。
-                        face_girl_Yorokobi();
-
-                        StartCoroutine("FaceModosu");
-                    }
-                    else
+                    //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
+                    random = Random.Range(0, 100);
+                    if (random < 50)
                     {
                         _noweat_count++;
                         IdleChange(); //ランダムモーション＋ヒントを決定
+                    }
+                    else
+                    {
+                        if (GameMgr.QuestManzokuFace)
+                        {
+                            hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
 
-                        /*_noweat_count = 0;
-                        hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
-                        //live2d_animator.Play("facemotion_03", motion_layer_num, 0.0f);
-                        FaceMotionPlay(1002);*/
+                            //表情喜びに。2秒ほどしてすぐ戻す。
+                            face_girl_Yorokobi();
+
+                            StartCoroutine("FaceModosu");
+                        }
+                        else
+                        {
+                            _noweat_count++;
+                            IdleChange(); //ランダムモーション＋ヒントを決定
+                        }
                     }
                 }
             }
@@ -1427,7 +1488,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         yield return new WaitForSeconds(2.0f);
 
-        AfterOkashiDefaultFace();
+        DefFaceChange();
+        //AfterOkashiDefaultFace();
     }
 
     IEnumerator WaitHintDesc()
@@ -1483,9 +1545,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         hukidashiitem = Instantiate(hukidashiPrefab, _model_obj.transform);
         hukidashion = true; //今吹き出しがゲームに表示されている状態
-
-        //hukidashiitem.transform.Find("hukidashi_Image_special").gameObject.SetActive(true);
-        //hukidashiitem.transform.Find("hukidashi_Image").gameObject.SetActive(false);
 
         //音を鳴らす
         sc.PlaySe(7);
@@ -2437,7 +2496,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1:
 
-                random = Random.Range(0, 2); //0~1
+                random = Random.Range(0, 3); //0~1
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2452,12 +2511,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                         IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
                         break;
+
+                    case 2: //おなかへった
+
+                        //モーション1種類
+                        FaceMotionPlay(1013);
+                        IdleMotionHukidashiSetting(3); //吹き出しも一緒に生成
+                        break;
                 }
                 break;
 
             case 2: //少し機嫌がよくなってきた？けど、まだ暗い。
 
-                random = Random.Range(0, 2); //0~1
+                random = Random.Range(0, 3); //0~1
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2471,6 +2537,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     case 1:
 
                         IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
+                        break;
+
+                    case 2: //おなかへった
+
+                        //モーション1種類
+                        FaceMotionPlay(1013);
+                        IdleMotionHukidashiSetting(3); //吹き出しも一緒に生成
                         break;
                 }
                 break;
@@ -2505,7 +2578,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 4:
 
-                random = Random.Range(0, 6); //0~5
+                random = Random.Range(0, 7); //0~6
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2556,13 +2629,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         IdleMotionHukidashiSetting(23);
                         break;
 
+                    case 6:
+
+                        //るんるんモーション
+                        Debug.Log("るんるん");
+                        FaceMotionPlay(1014);
+                        IdleMotionHukidashiSetting(35);
+                        break;
+
                 }
 
                 break;
 
             case 5:
 
-                random = Random.Range(0, 8); //0~7
+                random = Random.Range(0, 9); //0~8
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2628,13 +2709,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         FaceMotionPlay(1013);
                         IdleMotionHukidashiSetting(23);
                         break;
+
+                    case 8:
+
+                        //るんるんモーション
+                        Debug.Log("るんるん");
+                        FaceMotionPlay(1014);
+                        IdleMotionHukidashiSetting(35);
+                        break;
                 }
 
                 break;
 
             case 6:
 
-                random = Random.Range(0, 8); //0~7
+                random = Random.Range(0, 9); //0~8
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2700,13 +2789,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         FaceMotionPlay(1013);
                         IdleMotionHukidashiSetting(23);
                         break;
+
+                    case 8:
+
+                        //るんるんモーション
+                        Debug.Log("るんるん");
+                        FaceMotionPlay(1014);
+                        IdleMotionHukidashiSetting(35);
+                        break;
                 }
 
                 break;
 
             default: //それ以上
 
-                random = Random.Range(0, 8); //0~7
+                random = Random.Range(0, 9); //0~8
 
                 switch (random) //モーション4種類＋セリフがそれらにつく
                 {
@@ -2772,6 +2869,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         FaceMotionPlay(1013);
                         IdleMotionHukidashiSetting(23);
                         break;
+
+                    case 8:
+
+                        //るんるんモーション
+                        Debug.Log("るんるん");
+                        FaceMotionPlay(1014);
+                        IdleMotionHukidashiSetting(35);
+                        break;
                 }
 
                 break;
@@ -2793,15 +2898,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1: //悲しみモーションのときのセリフ
                                
-                _touchface_comment_lib.Add("..ママ。");
+                _touchface_comment_lib.Add("..まま。");
                 _touchface_comment_lib.Add("ぐすん..。");
-                _touchface_comment_lib.Add("（..ママ。）");
-                _touchface_comment_lib.Add("..ママ。会いたいなぁ..。");
-                _touchface_comment_lib.Add("..にいちゃん。お菓子..。食べたい。");
-                _touchface_comment_lib.Add("..。にいちゃん。..。なんでもない。");
-                _touchface_comment_lib.Add("..");
-                _touchface_comment_lib.Add("..おかし、食べたいな。おにいちゃん..。");
-                _touchface_comment_lib.Add("にいちゃん..。");
+                _touchface_comment_lib.Add("..まま。会いたいなぁ..。");                
+                _touchface_comment_lib.Add("..。にいちゃん。..。なんでもない。");                
+                _touchface_comment_lib.Add("にいちゃん..。まま、まだ帰ってこないかなぁ？");
 
                 timeOutHint = 20.0f;
 
@@ -2812,6 +2913,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add(".. ..。");
                 _touchface_comment_lib.Add("..兄ちゃんのおかし、食べたい。");
                 _touchface_comment_lib.Add("兄ちゃんのおかし作り、てつだう。");
+                break;
+
+            case 3:
+
+                _touchface_comment_lib.Add("..にいちゃん。お菓子..。食べたい。");
+                _touchface_comment_lib.Add("..おかし、食べたいな。おにいちゃん..。");
                 break;
 
             case 10:
@@ -2864,8 +2971,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 32: //るんるんモーション
 
-                _touchface_comment_lib.Add("るんるん♪");
-                _touchface_comment_lib.Add("♪");
+                _touchface_comment_lib.Add("るんるん♪");               
                 _touchface_comment_lib.Add("エメラルどんぐり、拾いにいこうよ～。お兄ちゃん。");
                 break;
 
@@ -2877,6 +2983,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 34: //ボウルをガシャガシャ
 
                 _touchface_comment_lib.Add("にいちゃんのクッキー、おいしくなぁれ♪");
+                break;
+
+            case 35: //エモのみ　♪
+
+                _touchface_comment_lib.Add("♪");
                 break;
 
             case 40:

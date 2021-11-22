@@ -45,6 +45,11 @@ public class MoneyStatus_Controller : MonoBehaviour {
         //moneypanel_localPos = moneyicon_transfrom.localPosition;
         //Debug.Log("moneypanel_localPos: " + moneypanel_localPos);
 
+        //例外処理　お金の表記が-とかになってたら、0に戻す。
+        if(PlayerStatus.player_money < 0 )
+        {
+            PlayerStatus.player_money = 0;
+        }
         _money_text.text = PlayerStatus.player_money.ToString();
 
         _coin_cullency = this.transform.Find("Money_text").GetComponent<Text>();
@@ -79,6 +84,15 @@ public class MoneyStatus_Controller : MonoBehaviour {
             else
             {
                 _money_text.text = _before_pmoney.ToString();
+            }
+
+            if(_before_pmoney >= 1000000)
+            {
+                _money_text.text = "1000000";
+            }
+            else if (_before_pmoney <= 0)
+            {
+                _money_text.text = "0";
             }
 
             //時間減少
@@ -117,6 +131,11 @@ public class MoneyStatus_Controller : MonoBehaviour {
         _before_pmoney = PlayerStatus.player_money;
         PlayerStatus.player_money += _getmoney;
 
+        if(PlayerStatus.player_money >= 1000000)
+        {
+            PlayerStatus.player_money = 1000000;
+        }
+
         timeOut = 0.1f;
 
         zougen_sw = 0; //増える処理
@@ -139,10 +158,15 @@ public class MoneyStatus_Controller : MonoBehaviour {
         _before_pmoney = PlayerStatus.player_money;
         PlayerStatus.player_money -= _usemoney;
 
+        if (PlayerStatus.player_money <= 0)
+        {
+            PlayerStatus.player_money = 0;
+        }
+
         timeOut = 0.1f;
 
         zougen_sw = 1; //減る処理
-        _moneymax = _usemoney;
+        _moneymax = Mathf.Abs(_usemoney);
         moneyanim_on = true;
     }
 

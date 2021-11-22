@@ -163,21 +163,27 @@ public class TimeController : MonoBehaviour
             timeLeft = 1.0f;
             count_switch = !count_switch;
 
+            //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
+            /*
             if (!GameMgr.scenario_ON)
             {
-                if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中は減らない
+                if (GameMgr.girl_expression == 1) //まずい状態直後、ハートが自動で下がる状態に。
                 {
+                    if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中は減らない
+                    {
 
+                    }
+                    else
+                    {
+                        timeIttei++;
+                        //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
+                        RealTimeControll();
+                    }
                 }
-                else
-                {
-                    timeIttei++;
-                }
-            }
+            }*/
         }
 
-        //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
-        //RealTimeControll();
+        
        
 
         if (count_switch)
@@ -385,30 +391,28 @@ public class TimeController : MonoBehaviour
                 {
                     case false:
 
-                        if (timeIttei >= 30) //放置して30秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
+                        if (timeIttei >= 5) //放置して5秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
                         {
                             timeIttei = 0;
                             timeDegHeart_flag = true;
 
-                            girleat_judge.DegHeart(-1);
-                            //PlayerStatus.girl1_Love_exp--;
+                            girleat_judge.DegHeart(-1, false); //false なら音なし
 
-                            PlayerStatus.player_time++;
-                            TimeKoushin();
+                            //PlayerStatus.player_time++;
+                            //TimeKoushin();
                         }
                         break;
 
                     case true:
 
-                        if (timeIttei >= 20)
+                        if (timeIttei >= 2)
                         {
                             timeIttei = 0;
 
-                            girleat_judge.DegHeart(-1);
-                            //PlayerStatus.girl1_Love_exp--;
+                            girleat_judge.DegHeart(-1, false);
 
-                            PlayerStatus.player_time++;
-                            TimeKoushin();
+                            //PlayerStatus.player_time++;
+                            //TimeKoushin();
                         }
                         break;
                 }

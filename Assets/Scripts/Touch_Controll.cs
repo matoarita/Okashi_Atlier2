@@ -36,6 +36,7 @@ public class Touch_Controll : MonoBehaviour
     private bool touch_interval_flag;
     private float time_inter_default;
 
+    private int _rnd;
 
     // Use this for initialization
     void Start()
@@ -154,7 +155,16 @@ public class Touch_Controll : MonoBehaviour
 
             if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
             {
-                girleat_judge.DegHeart(-1); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
+                girleat_judge.DegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
+                GameMgr.girl_express_param -= 5;
+            }
+
+            if(girl1_status.Girl1_touchhair_status >= 5 && girl1_status.Girl1_touchhair_status <= 9)
+            {
+                _rnd = Random.Range(0, 3);
+                girleat_judge.loveGetPlusAnimeON(1+_rnd, false); //1~3　ちょっとハートあがる。
+                GameMgr.girl_express_param = 50;
+                girl1_status.DefFaceChange();
             }
 
             draghair_count = 0;

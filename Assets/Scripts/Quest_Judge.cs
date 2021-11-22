@@ -417,12 +417,12 @@ public class Quest_Judge : MonoBehaviour {
                         timeOut = 1.5f;
                         if (nouhinOK_status == 0)
                         {
-                            judge_anim_status = 3;
+                            judge_anim_status = 4;
 
                             //白でフェード
-                            WhiteFadeCanvas.SetActive(true);
+                            /*WhiteFadeCanvas.SetActive(true);
                             WhiteFadeCanvas.GetComponent<CanvasGroup>().alpha = 0;
-                            WhiteFadeCanvas.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+                            WhiteFadeCanvas.GetComponent<CanvasGroup>().DOFade(1, 1.0f);*/
 
                             sceneBGM.FadeOutBGM();
                         }
@@ -639,7 +639,7 @@ public class Quest_Judge : MonoBehaviour {
         _getMoney = _buy_price * _kosu_default;
 
         //足りてるので、納品完了の処理
-        _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + "G を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
+        _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + GameMgr.MoneyCurrency + " を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
 
         //該当のクエストを削除
         quest_database.questTakeset.RemoveAt(_qitemID);
@@ -1119,14 +1119,15 @@ public class Quest_Judge : MonoBehaviour {
         if (okashi_totalkosu == 0) { okashi_totalkosu = 1; }
 
         //最終スコア
-        okashi_totalscore /= okashi_totalkosu;
-        Debug.Log("okashi_totalscore: " + okashi_totalscore);
-
+        okashi_totalscore /= okashi_totalkosu;       
+        
         if(okashi_totalscore <= 0) //0点以下でも、無条件でダメ
         {
             okashi_totalscore = 0;
             //nouhinOK_status = 2;
         }
+        Debug.Log("okashi_totalscore: " + okashi_totalscore);
+        GameMgr.bar_quest_okashiScore = okashi_totalscore;
 
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
         DeleteOriginalItem();
@@ -1193,43 +1194,43 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 120) //100~120
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * 1.75f);
-                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 1.75f)";
+                    _getMoney = (int)(_buy_price * _kosu_default * 2.0f);
+                    debug_money_text = "(基準値 * 2.0f)";
                     _getNinki = 3;
                     _kanso = "ありがとう！とても良い出来みたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 120 && okashi_totalscore < 140) //100~120
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * 2.0f);
-                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 2.0f)";
+                    _getMoney = (int)(_buy_price * _kosu_default * 2.5f);
+                    debug_money_text = "(基準値 * 2.5f)";
                     _getNinki = 3;
                     _kanso = "グレイトだわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 140 && okashi_totalscore < 150) //120~150
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * 2.5f);
-                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 2.5f)";
+                    _getMoney = (int)(_buy_price * _kosu_default * 2.75f);
+                    debug_money_text = "(基準値 * 2.75f)";
                     _getNinki = 5;
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 175) //150~175
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * 4.0f);
-                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 5.0f)";
+                    _getMoney = (int)(_buy_price * _kosu_default * 3.0f);
+                    debug_money_text = "(基準値 * 3.0f)";
                     _getNinki = 6;
                     _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 175 && okashi_totalscore < 200) //175~200
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * 4.5f);
-                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 8.0f)";
+                    _getMoney = (int)(_buy_price * _kosu_default * 4.5f);
+                    debug_money_text = "(基準値 * 4.5f)";
                     _getNinki = 6;
                     _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 200) //200~
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * (_score_deg) * 6.0f);
-                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 6.0f)";
+                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * (_score_deg) * 5.0f);
+                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score)^2 * 5.0f)";
                     _getNinki = 10;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
@@ -1244,8 +1245,8 @@ public class Quest_Judge : MonoBehaviour {
 
                 
 
-                //75点以下は通常音
-                if (okashi_totalscore < 80)
+                //60点以下は通常音
+                if (okashi_totalscore < GameMgr.low_score)
                 {
                     //ジャキーンみたいな音を鳴らす。                
                     //sc.PlaySe(4);
@@ -1253,15 +1254,20 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(31);
                     sceneBGM.FadeInBGM();
                 }
-                else if (okashi_totalscore >= 80 && okashi_totalscore < 100) //80点以上
+                else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < GameMgr.high_score) //80点以上
                 {
+                    sc.PlaySe(76);
+                    sc.PlaySe(31);
+
                     sc.PlaySe(78);
                     sc.PlaySe(88);
-                    sc.PlaySe(43);
                     sceneBGM.FadeInBGM();
                 }
-                else if (okashi_totalscore >= 100 && okashi_totalscore < 175) //ハイスコア
+                else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 175) //ハイスコア
                 {
+                    sc.PlaySe(76);
+                    sc.PlaySe(31);
+
                     sc.PlaySe(78);
                     sc.PlaySe(88);
                     sc.PlaySe(43);
@@ -1269,9 +1275,14 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 else if (okashi_totalscore >= 175) //175点以上のときは、ファンファーレ
                 {
+                    sc.PlaySe(76);
+                    sc.PlaySe(31);
+
                     sc.PlaySe(78);
+                    sc.PlaySe(88);
+                    sc.PlaySe(43);
                     sceneBGM.PlayFanfare1();
-                    sceneBGM.NowFadeVolumeONBGM();
+                    //sceneBGM.NowFadeVolumeONBGM();
                     mute_on = true;
                 }
                 else

@@ -701,6 +701,10 @@ public class SetImage : MonoBehaviour
                 subcategory = "クッキー";
                 Crispy_Text();
                 break;
+            case "Cookie_Hard":
+                subcategory = "ノンシュガークッキー";
+                Hardness_Text();
+                break;
             case "Chocolate":
                 subcategory = "チョコレート";
                 Smooth_Text();

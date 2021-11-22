@@ -703,6 +703,21 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
     }
 
+    //アイテム名を入力すると、該当するemeralditem_IDを返す処理
+    public int Find_emeralditemdatabase(string emerald_itemname)
+    {
+        j = 0;
+        while (j < emeralditemlist.Count)
+        {
+            if (emerald_itemname == emeralditemlist[j].event_itemName)
+            {
+                return j;
+            }
+            j++;
+        }
+
+        return 9999; //該当するIDがない場合
+    }
 
     //アイテム名を入力すると、エメラルドアイテムの現在の所持数を返す処理
     public int KosuCountEmerald(string _itemname)

@@ -106,6 +106,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //好感度やパティシエレベルで発生するサブイベントのフラグ   
     public static bool[] GirlLoveSubEvent_stage1 = new bool[GirlLoveSubEvent_stage_num];
 
+    //好感度ハイスコアイベントの取得フラグ
+    public static bool[] OkashiQuestHighScore_event = new bool[GirlLoveEvent_stage_num];
+
     //マップイベント
     public static bool[] MapEvent_01 = new bool[Event_num];         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
     public static bool[] MapEvent_02 = new bool[Event_num];         //井戸。
@@ -188,6 +191,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //いちごイベントのフラグ
     public static bool hiroba_ichigo_first; //一回でもいちごお菓子をわたした。
 
+    //女の子の今のご機嫌状態　gokigen_status（ハートに応じた絶対的な感情）とは別で、すぐに変化するもの 1=最悪 2=ごきげんななめ 3=まあまあ 4=良い 5=上機嫌
+    public static int girl_expression;
+    public static int girl_express_param; //ご機嫌度合 0~100　で上記の５段階
 
     /* セーブ　ここまで */
 
@@ -254,6 +260,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string NowEatOkashi; //今食べたいお菓子　girlCompoDBのテキストが入っている。
 
     //お菓子の点数基準値
+    public static int mazui_score;
     public static int low_score;
     public static int high_score;
     public static int high_score_2;    
@@ -277,6 +284,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //バーのコマンド
     public static bool bar_event_flag;  //バーで発生するイベントのフラグ。
     public static int bar_event_num;
+    public static int bar_quest_okashiScore; //酒場のクエストでのお菓子スコア
 
     //マップイベント発生フラグ
     public static int map_ev_ID;           //その時のイベント番号
@@ -471,6 +479,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         compound_status = 0;
         compound_select = 0;
 
+        girl_expression = 3;
+        girl_express_param = 50;
+
         //食費
         Foodexpenses_default = 100;
         Foodexpenses = Foodexpenses_default;
@@ -595,6 +606,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             GirlLoveSubEvent_stage1[system_i] = false;
         }
 
+        //お菓子クエストハイスコアゲットフラグの初期化
+        for (system_i = 0; system_i < OkashiQuestHighScore_event.Length; system_i++)
+        {
+            OkashiQuestHighScore_event[system_i] = false;
+        }
+        
+
         //ビギナーフラグの初期化
         for (system_i = 0; system_i < Beginner_flag.Length; system_i++)
         {
@@ -689,9 +707,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_lastbitter_param = 0;
 
         //お菓子のクリア基準値
+        mazui_score = 40;
         low_score = 60;
         high_score = 100;
-        high_score_2 = 150;
+        high_score_2 = 120;
 
         //チュートリアルフラグ
         tutorial_ON = false;

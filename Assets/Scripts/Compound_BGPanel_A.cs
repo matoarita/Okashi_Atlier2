@@ -79,7 +79,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
             .SetEase(Ease.OutQuart));
 
         //次にクエストタイトルを登場させる
-        sequence.Join(this.transform.Find("SelectPanel_1").transform.DOLocalMove(new Vector3(0.0f, 0f, 0.0f), 0.7f)
+        sequence.Join(this.transform.Find("SelectPanel_1").transform.DOLocalMove(new Vector3(0.0f, 62f, 0.0f), 0.7f)
             .SetEase(Ease.OutQuart)); //30px右から、元の位置に戻る。
         sequence.Join(this.transform.Find("SelectPanel_1").GetComponent<CanvasGroup>().DOFade(1, 0.3f)
              .SetEase(Ease.OutQuart));

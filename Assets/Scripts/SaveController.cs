@@ -215,6 +215,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             save_GirlLoveSubEvent_stage1 = GameMgr.GirlLoveSubEvent_stage1,
 
+            //好感度ハイスコアイベントの取得フラグ
+            save_OkashiQuestHighScore_event = GameMgr.OkashiQuestHighScore_event,
+
             //ビギナーフラグ
             save_Beginner_flag = GameMgr.Beginner_flag,
 
@@ -444,6 +447,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.GirlLoveEvent_stage3 = playerData.save_GirlLoveEvent_stage3;
 
         GameMgr.GirlLoveSubEvent_stage1 = playerData.save_GirlLoveSubEvent_stage1;
+
+        //好感度ハイスコアイベントの取得フラグ
+        GameMgr.OkashiQuestHighScore_event = playerData.save_OkashiQuestHighScore_event;
 
         //ビギナーフラグ
         GameMgr.Beginner_flag = playerData.save_Beginner_flag;

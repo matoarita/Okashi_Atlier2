@@ -107,6 +107,7 @@ public class Item
         Bread,
         Biscotti,
         Cookie,
+        Cookie_Hard,
         Cookie_Mat,
         Cookie_base,                
         Chocolate,

@@ -303,7 +303,7 @@ public class Result_Panel : MonoBehaviour
             }
 
             //合格演出
-            if(Total_score < 30) //まずい
+            if(Total_score < GameMgr.mazui_score) //まずい
             {
                 //sc.PlaySe(20);
                 StartCoroutine(DelaySound(20));
@@ -320,7 +320,7 @@ public class Result_Panel : MonoBehaviour
                     score_backIcon.GetComponent<Image>().sprite = scoreIcon_sprite_4;
                 }
             }
-            if (Total_score >= 30 && Total_score < GameMgr.low_score)
+            if (Total_score >= GameMgr.mazui_score && Total_score < GameMgr.low_score)
             {
                 StartCoroutine(DelaySound(17));
                 GoukakuPanel.transform.Find("Text").GetComponent<Text>().text = "あとひといき..！";

@@ -80,6 +80,9 @@ public class PlayerData
     //サブイベントフラグ
     public bool[] save_GirlLoveSubEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];
 
+    //好感度ハイスコアイベントの取得フラグ
+    public bool[] save_OkashiQuestHighScore_event = new bool[GameMgr.GirlLoveEvent_stage1.Length];
+
     //ビギナーフラグ
     public bool[] save_Beginner_flag = new bool[GameMgr.Beginner_flag.Length];
 

@@ -155,17 +155,17 @@ public class AAA_TotalResult : MonoBehaviour {
         else if (total_score >= 2500 && total_score < 3000)
         {
             player_rank_text.text = "B+";
-            player_shogo = "シェフ・ド・パルティ";
+            player_shogo = "一流パティシエ";
         }
         else if (total_score >= 3000 && total_score < 4000)
         {
             player_rank_text.text = "A";
-            player_shogo = "セカンド・シェフ";
+            player_shogo = "グランド・パティシエ";
         }
         else if (total_score >= 4000 && total_score < 5000)
         {
             player_rank_text.text = "S";
-            player_shogo = "マスター・シェフ";
+            player_shogo = "パティシエ・マイスター";
         }
         else if (total_score >= 5000)
         {

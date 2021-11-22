@@ -326,7 +326,6 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
             case 6:
 
-                ShiageUp();
                 break;
 
             case 9:
@@ -336,12 +335,10 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
             case 12:
 
-                ShiageUp();
                 break;
 
             case 15:
 
-                ShiageUp();
                 break;
 
             case 18:

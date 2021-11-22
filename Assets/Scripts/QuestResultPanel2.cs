@@ -46,7 +46,12 @@ public class QuestResultPanel2 : MonoBehaviour {
         ResultButton = this.transform.Find("QuestResultCloseButton").gameObject;
         ResultButton.SetActive(false);
 
-        //_listEffect.Add(Instantiate(Magic_effect_Prefab1, this.transform));
+        if (GameMgr.bar_quest_okashiScore < GameMgr.low_score) //60点より下だとエフェクトがでない
+        { }
+        else
+        {
+            _listEffect.Add(Instantiate(Magic_effect_Prefab1, this.transform));
+        }
 
         //ぽよんと飛び出るアニメーション
         Sequence sequence = DOTween.Sequence();
@@ -57,12 +62,12 @@ public class QuestResultPanel2 : MonoBehaviour {
        
         WhiteFadeCanvas.GetComponent<CanvasGroup>().alpha = 0;
         WhiteFadeCanvas.SetActive(false);
-        WhiteFade.GetComponent<CanvasGroup>().alpha = 1;
+        //WhiteFade.GetComponent<CanvasGroup>().alpha = 1;
 
         //白でフラッシュ
-        sequence.Append(WhiteFade.GetComponent<CanvasGroup>().DOFade(0, 0.3f));
+        //sequence.Append(WhiteFade.GetComponent<CanvasGroup>().DOFade(0, 0.3f));
         //移動のアニメ
-        sequence.Join(questResult_obj.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.75f)
+        sequence.Append(questResult_obj.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.75f)
             .SetEase(Ease.OutElastic));
         sequence.Join(questResult_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
 
