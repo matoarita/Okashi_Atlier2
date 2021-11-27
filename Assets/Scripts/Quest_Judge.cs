@@ -972,6 +972,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     juice_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    _a = "のどごしがいいね。";
                 }
                 else
                 {
@@ -1222,15 +1223,15 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 else if (okashi_totalscore >= 175 && okashi_totalscore < 200) //175~200
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * 4.5f);
-                    debug_money_text = "(基準値 * 4.5f)";
+                    _getMoney = (int)(_buy_price * _kosu_default * 4.0f);
+                    debug_money_text = "(基準値 * 4.0f)";
                     _getNinki = 6;
                     _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 200) //200~
                 {
-                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * (_score_deg) * 5.0f);
-                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score)^2 * 5.0f)";
+                    _getMoney = (int)(_buy_price * _kosu_default * (_score_deg) * 5.0f);
+                    debug_money_text = "(基準値 * (okashi_totalscore / GameMgr.high_score) * 5.0f)";
                     _getNinki = 10;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
@@ -1263,7 +1264,7 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(88);
                     sceneBGM.FadeInBGM();
                 }
-                else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 175) //ハイスコア
+                else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 200) //ハイスコア
                 {
                     sc.PlaySe(76);
                     sc.PlaySe(31);
@@ -1273,7 +1274,7 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(43);
                     sceneBGM.FadeInBGM();
                 }
-                else if (okashi_totalscore >= 175) //175点以上のときは、ファンファーレ
+                else if (okashi_totalscore >= 200) //200点以上のときは、ファンファーレ
                 {
                     sc.PlaySe(76);
                     sc.PlaySe(31);
@@ -1468,6 +1469,7 @@ public class Quest_Judge : MonoBehaviour {
             + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _fluffy + "\n" + " 点数: " + fluffy_score
             + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _smooth + "\n" + " 点数: " + smooth_score
             + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _hardness + "\n" + " 点数: " + hardness_score
+            + "\n" + "\n" + "のどごし度: " + _basejuice + "\n" + "のどごし閾値: " + _juice + "\n" + " 点数: " + juice_score
             + "\n" + "\n" + "ぷるぷる度: " + "-"
             + "\n" + "\n" + "噛み応え度: " + "-"
             + "\n" + "\n" + "トッピングスコア: " + topping_score

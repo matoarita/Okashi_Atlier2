@@ -3346,7 +3346,6 @@ public class Compound_Main : MonoBehaviour
 
         //吹き出しオフはこのタイミングで。
         girl1_status.hukidasiOff();
-        //girl1_status.DeleteHukidashiOnly();
 
         mainUI_panel_obj.SetActive(false);
         GirlHeartEffect_obj.SetActive(false);       
@@ -3372,6 +3371,9 @@ public class Compound_Main : MonoBehaviour
         GameMgr.scenario_ON = false;
 
         sceneBGM.MuteOFFBGM();
+        //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
+        bgm_change_story();
+
         map_ambience.MuteOFF();
         mute_on = false;
 
@@ -3423,6 +3425,8 @@ public class Compound_Main : MonoBehaviour
                             _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
                             GameMgr.girl_express_param += 30;
+                            GameMgr.picnic_after = true;
+                            GameMgr.picnic_after_time = 60;
                             break;
 
                         case 3:
@@ -3430,6 +3434,8 @@ public class Compound_Main : MonoBehaviour
                             _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
                             GameMgr.girl_express_param += 50;
+                            GameMgr.picnic_after = true;
+                            GameMgr.picnic_after_time = 60;
                             break;
 
                         case 4:
@@ -3437,6 +3443,8 @@ public class Compound_Main : MonoBehaviour
                             _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
                             GameMgr.girl_express_param += 100;
+                            GameMgr.picnic_after = true;
+                            GameMgr.picnic_after_time = 60;
                             break;
                     }
                                        
@@ -4035,9 +4043,9 @@ public class Compound_Main : MonoBehaviour
             else
             {
 
-                //クレープ以降　かつ　発見力120以上               
+                //クレープ以降　一回目は必ず発生               
                 if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
-                    && GameMgr.GirlLoveEvent_num >= 20 && PlayerStatus.player_girl_findpower >= 120) //12時から15時の間に、サイコロふる
+                    && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
                 {
 
                     if (GameMgr.picnic_End && GameMgr.picnic_count <= 0)

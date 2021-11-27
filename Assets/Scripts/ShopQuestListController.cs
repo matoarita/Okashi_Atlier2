@@ -144,10 +144,14 @@ public class ShopQuestListController : MonoBehaviour
 
         }
 
-        //パティシエレベルに応じて、追加するクエスト（レベル3～から追加されていく）
-        if(PlayerStatus.player_renkin_lv >= 3)
+        //ハートレベルに応じて、追加するクエスト（レベル5～から追加されていく）
+        if(PlayerStatus.girl1_Love_lv >= 5)
         {
-            quest2_count_add = (Mathf.FloorToInt(PlayerStatus.player_renkin_lv / 3) - 1); //LV3ごとに一個ずつ表示されるクエストが増えていく。
+            quest2_count_add = Mathf.FloorToInt(PlayerStatus.girl1_Love_lv / 5); //LV5ごとに一個ずつ表示されるクエストが増えていく。
+            if(quest2_count_add >= 10) //10個まで
+            {
+                quest2_count_add = 10;
+            }
             for (i = 0; i < sel_quest_count2 + quest2_count_add; i++)
             {
                 rand = Random.Range(0, selectquestDB2.Count);

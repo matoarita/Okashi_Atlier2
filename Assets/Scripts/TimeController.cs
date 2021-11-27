@@ -13,6 +13,7 @@ public class TimeController : MonoBehaviour
     private Compound_Main compound_main;
 
     private GirlEat_Judge girleat_judge;
+    private MoneyStatus_Controller moneyStatus_Controller;
 
     private GameObject _month_obj1;
     private GameObject _monthday_obj1;
@@ -84,6 +85,9 @@ public class TimeController : MonoBehaviour
                 compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
                 girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+
+                //お金パネル
+                moneyStatus_Controller = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
                 break;
         }
 
@@ -164,23 +168,28 @@ public class TimeController : MonoBehaviour
             count_switch = !count_switch;
 
             //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
-            /*
+
             if (!GameMgr.scenario_ON)
             {
-                if (GameMgr.girl_expression == 1) //まずい状態直後、ハートが自動で下がる状態に。
-                {
-                    if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中は減らない
-                    {
 
-                    }
-                    else
+                if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中は減らない
+                {
+
+                }
+                else
+                {
+                    timeIttei++;
+                    if (GameMgr.girl_expression == 1) //まずい状態直後、ハートが自動で下がる状態に。
                     {
-                        timeIttei++;
                         //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
                         RealTimeControll();
                     }
+
+                    //試験的に導入。秒ごとにリアルタイムに時間がすすみ、お金が減っていく。
+                    //RealTimeControllMoney();
                 }
-            }*/
+
+            }
         }
 
         
@@ -412,6 +421,50 @@ public class TimeController : MonoBehaviour
                             girleat_judge.DegHeart(-1, false);
 
                             //PlayerStatus.player_time++;
+                            //TimeKoushin();
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    void RealTimeControllMoney()
+    {
+        if (!GameMgr.scenario_ON)
+        {
+            if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中かお菓子あげ途中は減らない
+            {
+
+            }
+            else
+            {
+                switch (timeDegHeart_flag)
+                {
+                    case false:
+
+                        if (timeIttei >= 5) //放置して5秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
+                        {
+                            timeIttei = 0;
+                            timeDegHeart_flag = true;
+
+                            //girleat_judge.DegHeart(-1, false); //false なら音なし
+
+                            moneyStatus_Controller.UseMoney(1*(int)(PlayerStatus.girl1_Love_lv*0.2f));
+                            //PlayerStatus.player_money--;
+                            //TimeKoushin();
+                        }
+                        break;
+
+                    case true:
+
+                        if (timeIttei >= 2)
+                        {
+                            timeIttei = 0;
+
+                            //girleat_judge.DegHeart(-1, false);
+
+                            moneyStatus_Controller.UseMoney(1 * (int)(PlayerStatus.girl1_Love_lv * 0.2f));
                             //TimeKoushin();
                         }
                         break;

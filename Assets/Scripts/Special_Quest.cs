@@ -317,8 +317,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         QuestCountDict.Add(1, 3);
         QuestCountDict.Add(2, 2);
-        QuestCountDict.Add(3, 5);
-        QuestCountDict.Add(4, 5);
+        QuestCountDict.Add(3, 1);
+        QuestCountDict.Add(4, 1);
         QuestCountDict.Add(5, 1);
         QuestCountDict.Add(6, 1);
     }

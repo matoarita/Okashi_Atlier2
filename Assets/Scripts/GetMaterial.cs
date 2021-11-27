@@ -579,34 +579,6 @@ public class GetMaterial : MonoBehaviour
         count = 0;
         empty = 0;
 
-        /*
-        for (i = 0; i < _a_final.Length; i++)
-        {
-            _a_final[i] = "";
-            _b_final[i] = "";
-        }
-
-        //空白は無視するように調整
-        for (i = 0; i < _a.Length; i++)
-        {
-            if (_a[i] == "") //空白は無視
-            {
-                empty++;
-            }
-            else
-            {
-                if (count == 0)
-                {
-                    _a_final[count] = _a[i];
-                }
-                else
-                {
-                    _a_final[count] = "\n" + _a[i];
-                }
-                count++;
-            }
-        }*/
-
         _text.text = "";
         page_count = 0;
         if (_tansaku_result_temp.Count > tansaku_gyou)

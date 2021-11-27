@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 38,
-		"TotalSegmentCount": 59,
-		"TotalPointCount": 207,
+		"CurveCount": 41,
+		"TotalSegmentCount": 62,
+		"TotalPointCount": 217,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -116,6 +116,47 @@
 				0,
 				3,
 				3
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffNoseKemuri",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffOnpu",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffAse",
+			"Segments": [
+				0,
+				0,
+				0,
+				3,
+				0
 			]
 		},
 		{

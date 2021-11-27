@@ -245,6 +245,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private int _sum;
     private int _noweat_count;
+    private int _hlv_last;
 
     private Text girl_param;
     private Slider _slider; //好感度バーを取得
@@ -654,9 +655,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             timeOutSec = 1.0f;
 
                             //不機嫌な状態は、時間で元に戻る。
-                            if (GameMgr.girl_express_param <= 20)
+                            /*if (GameMgr.girl_express_param <= 20)
                             {
                                 GameMgr.girl_express_param++;
+                            }*/
+
+                            //ピクニック後、余韻のカウンタ
+                            if (GameMgr.picnic_after)
+                            {
+                                GameMgr.picnic_after_time--;
+
+                                if (GameMgr.picnic_after_time <= 0)
+                                {
+                                    GameMgr.picnic_after = false;
+                                }
                             }
                         }
 
@@ -907,13 +919,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             default:
 
-                if (GameMgr.QuestManzokuFace) //そのお菓子をクリアしたあとの表情
+                if (GameMgr.picnic_after) //ピクニック後の余韻の表情
                 {
-                    AfterOkashiDefaultFace();
+                    face_girl_Metoji();
                 }
                 else
                 {
-                    DefaultFace();
+                    if (GameMgr.QuestManzokuFace) //そのお菓子をクリアしたあとの表情
+                    {
+                        AfterOkashiDefaultFace();
+                    }
+                    else
+                    {
+                        DefaultFace();
+                    }
                 }
                 break;
         }
@@ -1446,28 +1465,35 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 else
                 {
-                    //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
-                    random = Random.Range(0, 100);
-                    if (random < 50)
+                    if (GameMgr.picnic_after)
                     {
-                        _noweat_count++;
-                        IdleChange(); //ランダムモーション＋ヒントを決定
+                        hukidashiitem.GetComponent<TextController>().SetText("にいちゃん。ピクニック楽しかった～♪");
                     }
                     else
-                    {
-                        if (GameMgr.QuestManzokuFace)
-                        {
-                            hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
-
-                            //表情喜びに。2秒ほどしてすぐ戻す。
-                            face_girl_Yorokobi();
-
-                            StartCoroutine("FaceModosu");
-                        }
-                        else
+                    { 
+                        //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
+                        random = Random.Range(0, 100);
+                        if (random < 50)
                         {
                             _noweat_count++;
                             IdleChange(); //ランダムモーション＋ヒントを決定
+                        }
+                        else
+                        {
+                            if (GameMgr.QuestManzokuFace)
+                            {
+                                hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
+
+                                //表情喜びに。2秒ほどしてすぐ戻す。
+                                face_girl_Yorokobi();
+
+                                StartCoroutine("FaceModosu");
+                            }
+                            else
+                            {
+                                _noweat_count++;
+                                IdleChange(); //ランダムモーション＋ヒントを決定
+                            }
                         }
                     }
                 }
@@ -1489,7 +1515,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         yield return new WaitForSeconds(2.0f);
 
         DefFaceChange();
-        //AfterOkashiDefaultFace();
     }
 
     IEnumerator WaitHintDesc()
@@ -3662,6 +3687,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     }
 
+    public void face_girl_Metoji()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 35; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
     public void face_girl_Tereru4()
     {
         face_girl_Reset();
@@ -3700,10 +3735,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         stage1_lvTable.Add(1350); //LV14
         stage1_lvTable.Add(1500); //LV15
 
-        //LV16以上～99まで　150ごとに上がるように設定
+        _hlv_last = 15;
+        //LV16以上～99まで　ハートレベル*110ごとに上がるように設定
         for (i=1; i < ( 99 - stage1_lvTable.Count); i++)
         {
-            stage1_lvTable.Add(stage1_lvTable[stage1_lvTable.Count-1] + 150);
+            //stage1_lvTable.Add(stage1_lvTable[stage1_lvTable.Count-1] + 150);
+            stage1_lvTable.Add((_hlv_last+i) * 110);
         }
     }
 

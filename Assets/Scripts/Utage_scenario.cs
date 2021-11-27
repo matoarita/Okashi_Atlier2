@@ -34,6 +34,7 @@ public class Utage_scenario : MonoBehaviour
     private int hiroba_num;
     private int hiroba_endflag_num;
     private int contest_num;
+    private int contest_boss_score;
 
     private int re_flag;
     private int ev_flag;
@@ -2373,11 +2374,14 @@ public class Utage_scenario : MonoBehaviour
 
 
         //感想データベースから該当の感想を検索
-        KansouSelect();       
+        KansouSelect();
 
 
         //優勝かどうかの判定
-        if (GameMgr.contest_TotalScore > 90) //アマクサよりも高得点なら、優勝
+        contest_boss_score = 87;
+        engine.Param.TrySetParameter("contest_boss_score", contest_boss_score);
+
+        if (GameMgr.contest_TotalScore > contest_boss_score) //アマクサよりも高得点なら、優勝
         {
             yusho_flag = true;
             engine.Param.TrySetParameter("contest_ranking_num", 1);
@@ -2386,35 +2390,54 @@ public class Utage_scenario : MonoBehaviour
         {
             yusho_flag = false;
             engine.Param.TrySetParameter("contest_ranking_num", 0);
-        }
+        }       
 
         //
-        //コンテストの点によって、EDが分岐する。
+        //コンテストの点＞ハートレベルによって、EDが分岐する。
         //
 
-        if (GameMgr.contest_TotalScore < 60) // LV4 ノーマルED ED:C
+        if (yusho_flag == false) // LV4 ノーマルED ED:C
         {
             
-            if (PlayerStatus.girl1_Love_exp < 200) //さらにハート数が足りていないとき badED ED:D
+            if (PlayerStatus.girl1_Love_exp < 400) //さらにハート数が足りていないとき badED ED:D
             {
                 engine.Param.TrySetParameter("ED_num", 1);
                 GameMgr.ending_number = 1;
             }
             else
-            {
-                engine.Param.TrySetParameter("ED_num", 2);
-                GameMgr.ending_number = 2;
+            {               
+                if (PlayerStatus.girl1_Love_exp >= 1200) // 
+                {
+                    engine.Param.TrySetParameter("ED_num", 3);
+                    GameMgr.ending_number = 3;
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("ED_num", 2); //ED C
+                    GameMgr.ending_number = 2;
+                }
             }
-        }
-        else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == false) // LV5~ 
+        }       
+        else if (yusho_flag == true)
         {
-            engine.Param.TrySetParameter("ED_num", 3);
-            GameMgr.ending_number = 3;
-        }
-        else if (GameMgr.contest_TotalScore >= 60 && yusho_flag == true)
-        {
-            engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
-            GameMgr.ending_number = 4;
+            if (PlayerStatus.girl1_Love_exp >= 1500) // 
+            {
+                engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
+                GameMgr.ending_number = 4;
+            }
+            else
+            {
+                if (PlayerStatus.girl1_Love_exp >= 1200) // 
+                {
+                    engine.Param.TrySetParameter("ED_num", 3); // LV5~ ベスト+優勝ED ED:B
+                    GameMgr.ending_number = 3;
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("ED_num", 2); //ED C
+                    GameMgr.ending_number = 2;
+                }
+            }
         }
 
         

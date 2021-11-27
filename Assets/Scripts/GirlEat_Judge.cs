@@ -1752,6 +1752,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case "Cookie":
                 Crispy_Score();
                 break;
+            case "Cookie_Mat":
+                Crispy_Score();
+                break;
             case "Cookie_Hard":
                 Hardness_Score();
                 break;
@@ -3427,8 +3430,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         touch_controller.Touch_OnAllOFF();
 
         //高得点のときは、ここで特別スチルがでる。
-        //Debug.Log("total_score check: " + total_score);
-
         if (total_score >= GameMgr.high_score)
         {
             if (!GameMgr.OkashiQuestHighScore_event[GameMgr.OkashiQuest_Num])

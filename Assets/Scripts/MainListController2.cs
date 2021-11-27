@@ -286,12 +286,12 @@ public class MainListController2 : MonoBehaviour
             {
                 case 40: //ドーナツイベント時
 
-                    if (!GameMgr.hiroba_event_end[0] || !GameMgr.hiroba_event_end[3] || !GameMgr.hiroba_event_end[5])
+                    /*if (!GameMgr.hiroba_event_end[0] || !GameMgr.hiroba_event_end[3] || !GameMgr.hiroba_event_end[5])
                     {
                         GameMgr.hiroba_event_ID = 2040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
-                    else //一度アマクサとあう＋花屋へいく＋図書館でドーナツの話をきくと、イベントが進む。
-                    {
+                    else //最初アマクサにあったら、すぐイベントが進む。
+                    {*/
                         if (!GameMgr.hiroba_event_end[1])
                         {
                             sceneBGM.FadeOutBGM();
@@ -303,7 +303,7 @@ public class MainListController2 : MonoBehaviour
                             GameMgr.hiroba_event_ID = 2046;
                         }
                         
-                    }
+                    //}
                     break;
 
                 case 50:
