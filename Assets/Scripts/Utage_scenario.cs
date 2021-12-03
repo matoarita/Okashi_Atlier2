@@ -35,6 +35,8 @@ public class Utage_scenario : MonoBehaviour
     private int hiroba_endflag_num;
     private int contest_num;
     private int contest_boss_score;
+    private string itemType_sub;
+    private string itemName;
 
     private int re_flag;
     private int ev_flag;
@@ -61,6 +63,7 @@ public class Utage_scenario : MonoBehaviour
 
     private int i, j;
     private string recipi_Name;
+    private int _itemid;
     private int CommentID;
     private int judge_num; //審査員の番号
     private bool SpecialItemFlag;
@@ -1482,6 +1485,8 @@ public class Utage_scenario : MonoBehaviour
                         Debug.Log("選択したアイテム: " + database.items[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
                         GameMgr.contest_okashiSlotName = "";
                         GameMgr.contest_okashiNameHyouji = database.items[GameMgr.event_kettei_itemID].itemNameHyouji;
+                        itemType_sub = database.items[GameMgr.event_kettei_itemID].itemType_sub.ToString();
+                        itemName = database.items[GameMgr.event_kettei_itemID].itemName;
 
                         //削除
                         pitemlist.deletePlayerItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
@@ -1491,6 +1496,8 @@ public class Utage_scenario : MonoBehaviour
                         Debug.Log("選択したアイテム: " + pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
                         GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].item_SlotName;
                         GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
+                        itemType_sub = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
+                        itemName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemName;
 
                         //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
                         pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
@@ -1501,25 +1508,24 @@ public class Utage_scenario : MonoBehaviour
                     engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);
 
                     playeritemlist_onoff.SetActive(false);
-
-                    //ピクニックイベントの場合
+                                
                     //採点
-                    if (total_score < 30)
+                    if (total_score < GameMgr.mazui_score)
                     {
                         engine.Param.TrySetParameter("Picnic_num", 0);
                         GameMgr.event_judge_status = 0;
                     }
-                    else if (total_score >= 30 && total_score < 60)
+                    else if (total_score >= GameMgr.mazui_score && total_score < GameMgr.low_score)
                     {
                         engine.Param.TrySetParameter("Picnic_num", 1);
                         GameMgr.event_judge_status = 1;
                     }
-                    else if (total_score >= 60 && total_score < 100)
+                    else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
                     {
                         engine.Param.TrySetParameter("Picnic_num", 2);
                         GameMgr.event_judge_status = 2;
                     }
-                    else if (total_score >= 100 && total_score < 150)
+                    else if (total_score >= GameMgr.high_score && total_score < 150)
                     {
                         engine.Param.TrySetParameter("Picnic_num", 3);
                         GameMgr.event_judge_status = 3;
@@ -1530,14 +1536,90 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.event_judge_status = 4;
                     }
 
-                    if(GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
+
+                    //ピクニックイベントの場合    
+                    //お菓子の種類＋高得点だと、行ける場所が変化する。
+                    if (total_score < GameMgr.low_score)
+                    {
+                        engine.Param.TrySetParameter("PicnicPlace_num", 0);
+                        Debug.Log(GameMgr.low_score + "点未満なので、ピクニック場所1");
+                    }
+                    else
+                    {
+                        //さらに150点以上のときはこっちが優先。必然、一番いい反応になる。
+                        if (total_score >= 150)
+                        {
+                            engine.Param.TrySetParameter("PicnicPlace_num", 10);
+                            Debug.Log("150" + "点以上なので、ピクニック場所3");
+                        }
+                        else
+                        {
+                            //80点以上~150未満かつ以下のお菓子種類だと場所が変化する。
+                            if (total_score >= 80)
+                            {
+                                if (itemType_sub == "Crepe" || itemType_sub == "Crepe_Mat" || itemType_sub == "Creampuff" || itemType_sub == "Donuts")
+                                {
+                                    engine.Param.TrySetParameter("PicnicPlace_num", 1);
+                                    Debug.Log("80点以上 クレープ・シュークリーム・ドーナツなので、ピクニック場所2");
+                                }
+                                else
+                                {
+                                    engine.Param.TrySetParameter("PicnicPlace_num", 0);
+                                    Debug.Log("80点以上 特定のお菓子に反応しなかったので、ピクニック場所1");
+                                }
+                            }
+                            else
+                            {
+                                engine.Param.TrySetParameter("PicnicPlace_num", 0);
+                                Debug.Log("80" + "点未満なので、" + "ピクニック場所1");
+                            }
+                        }
+
+                    }
+                    // *** //
+
+
+                    //
+                    //広場イベントで起こった場合。今のとこ、いちご少女のみ
+                    //
+                    if (GameMgr.hiroba_event_ON) 
                     {
                         GameMgr.hiroba_event_ON = false;
+                        
                         if (!GameMgr.hiroba_ichigo_first)
                         {
-                            GameMgr.hiroba_ichigo_first = true; //一回でもお菓子をわたしたフラグON
+                            GameMgr.hiroba_ichigo_first = true; //一回でもお菓子をわたしたフラグON　次は、残りのいちごお菓子の個数が聞ける質問が増える。
+                        }                       
+
+                        //60点以上で、特定のいちごのお菓子だった場合は、殿堂入り。その他は、少しセリフが変わる。
+                        //全てのいちごアイテムコンプリートすると、称号とかアイテムをもらえる。
+                        engine.Param.TrySetParameter("ichigo_event_num", 1);
+                        if (GameMgr.event_judge_status >= 2)
+                        {
+                            i = 0;
+                            while (i < GameMgr.ichigo_collection_list.Count)
+                            {
+                                //リストに該当するものがあった。
+                                if(GameMgr.ichigo_collection_list[i] == itemName)
+                                {
+                                    GameMgr.ichigo_collection_listFlag[i] = true;
+                                    engine.Param.TrySetParameter("ichigo_event_num", 0);
+                                    break;
+                                }
+                                i++;
+                            }
+                        }
+                        else if (GameMgr.event_judge_status == 1)
+                        {
+                            engine.Param.TrySetParameter("ichigo_event_num", 2);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("ichigo_event_num", 3);
                         }
                     }
+                    // *** //
+
 
                     //続きから再度読み込み
                     engine.ResumeScenario();
@@ -2239,6 +2321,36 @@ public class Utage_scenario : MonoBehaviour
             case 0: //いちご少女
 
                 scenarioLabel = "Hiroba_ichigo";
+
+                //いちごコレクションをチェック
+                //コレクションリストの数をチェック　すべて登録されてたら、セリフが変わる。
+                engine.Param.TrySetParameter("ichigo_event_collection_flag", 1);
+                i = 0;
+                while (i < GameMgr.ichigo_collection_list.Count)
+                {
+                    //リストで一個でも未発見のものがあった。
+                    if (!GameMgr.ichigo_collection_listFlag[i])
+                    {
+                        engine.Param.TrySetParameter("ichigo_event_collection_flag", 0);
+                        break;
+                    }
+                    i++;
+                }
+
+                //いちごコレクション用にアイテム名を宴にセッティング
+                for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
+                {
+                    //リストに該当するものがあった。
+                    if (GameMgr.ichigo_collection_listFlag[i])
+                    {
+                        _itemid = database.SearchItemIDString(GameMgr.ichigo_collection_list[i]);
+                        engine.Param.TrySetParameter("ichigo_okashi_name" + (i + 1).ToString(), database.items[_itemid].itemNameHyouji);
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("ichigo_okashi_name" + (i + 1).ToString(), "???");
+                    }
+                }
                 break;
 
             case 1: //噴水

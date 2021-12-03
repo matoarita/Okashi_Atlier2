@@ -190,6 +190,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //いちごイベントのフラグ
     public static bool hiroba_ichigo_first; //一回でもいちごお菓子をわたした。
+    public static bool[] ichigo_collection_listFlag; //いちごのお菓子のコレクションフラグ。
+    public static List<string> ichigo_collection_list = new List<string>(); //いちごのお菓子の名前リスト。こっちはセーブ不要。
 
     //女の子の今のご機嫌状態　gokigen_status（ハートに応じた絶対的な感情）とは別で、すぐに変化するもの 1=最悪 2=ごきげんななめ 3=まあまあ 4=良い 5=上機嫌
     public static int girl_expression;
@@ -742,6 +744,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         InitCollectionItemsLibrary();
         InitBGAcceItemsLibrary();
 
+        //いちご少女の殿堂入りリスト初期化
+        InitIchigoOkashiLibrary();
+
         CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
         {
@@ -789,5 +794,27 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         BGAcceItemsName.Add("Non");
         BGAcceItemsName.Add("Non");
         BGAcceItemsName.Add("Non");
+    }
+
+    //いちごお菓子コレクションのリスト　ItemNameとそろえる。
+    public static void InitIchigoOkashiLibrary()
+    {
+        ichigo_collection_list.Clear();
+        ichigo_collection_list.Add("strawberry_cookie");
+        ichigo_collection_list.Add("rusk_strawberry");
+        ichigo_collection_list.Add("strawberry_creampuff");
+        ichigo_collection_list.Add("pink_charlotte_donuts");
+        ichigo_collection_list.Add("izet_color_donuts");
+        ichigo_collection_list.Add("strawberry_crepe");
+        ichigo_collection_list.Add("strawberryblueberry_crepe");
+        ichigo_collection_list.Add("strawberry_parfe");
+        ichigo_collection_list.Add("strawberry_ice_cream");
+        ichigo_collection_list.Add("strawberry_juice");
+
+        ichigo_collection_listFlag = new bool[ichigo_collection_list.Count];
+        for (system_i = 0; system_i < ichigo_collection_listFlag.Length; system_i++)
+        {
+            ichigo_collection_listFlag[system_i] = false;
+        }
     }
 }

@@ -3446,7 +3446,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         pitemlist.add_EmeraldPlayerItem(pitemlist.Find_emeralditemdatabase("Meid_Black_Costume"), 1);
                         break;
 
-                    case 23: //宝石キャンディ　白衣装ゲット
+                    case 40: //宝石キャンディ　白衣装ゲット
 
                         pitemlist.add_EmeraldPlayerItem(pitemlist.Find_emeralditemdatabase("PinkGoth_Costume"), 1);
                         break;

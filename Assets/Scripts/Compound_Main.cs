@@ -3454,7 +3454,7 @@ public class Compound_Main : MonoBehaviour
                 case 70:
 
                     _textmain.text = "メガネによろこんだ！";
-                    girlEat_judge.loveGetPlusAnimeON(50, false);
+                    girlEat_judge.loveGetPlusAnimeON(20, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
@@ -3475,14 +3475,14 @@ public class Compound_Main : MonoBehaviour
                 case 73:
 
                     _textmain.text = "天使のワンピースをよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(100, false);
+                    girlEat_judge.loveGetPlusAnimeON(70, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
                 case 74:
 
                     _textmain.text = "深紅のハートドレスをよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(100, false);
+                    girlEat_judge.loveGetPlusAnimeON(70, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
@@ -3524,7 +3524,7 @@ public class Compound_Main : MonoBehaviour
                 case 100:
 
                     _textmain.text = "ぬいぐるみに喜んだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(100, false);
+                    girlEat_judge.loveGetPlusAnimeON(30, false);
                     GameMgr.girl_express_param += 50;
                     break;
             }

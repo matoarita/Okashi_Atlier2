@@ -64,3 +64,5 @@
 ・BGM_62		PerituneMaterial_Chinatown_loop		【宴用】中華BGM
 ・BGM_63		PerituneMaterial_Laid_Back3_loop	【宴用】クエストクリア高得点時のBGM
 ・BGM_64		PerituneMaterial_Laid_Back3_loop	調合時のBGM2　BGM_63と同じ
+・BGM_65		PerituneMaterial_Resort5		【宴用】ピクニックのBGM2 リゾート風
+・BGM_66		PerituneMaterial_Breeze3		【宴用】ピクニックのBGM3

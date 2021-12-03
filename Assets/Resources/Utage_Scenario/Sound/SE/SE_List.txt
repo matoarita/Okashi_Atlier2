@@ -96,5 +96,6 @@ SE表
 ・SE_94		sei_ge_nomimono_sosogu07			水をそそぐ音
 ・SE_95		飲み込む（低音）				水を飲む音
 ・SE_96		注ぐ・ウィスキー・ボトル			水をたぷんとゆらす音
-・SE_97		audiostock_493402_sample			＜未使用＞古時計音ambienceに移動
-・SE_98		audiostock_535114_sample			料理中の音ガシャコガシャコ
+・SE_97		大型船の汽笛2					船汽笛の音
+・SE_98		audiostock_898913				料理中の音ガシャコガシャコ
+・SE_99		audiostock_252849				料理中の音カンカン！

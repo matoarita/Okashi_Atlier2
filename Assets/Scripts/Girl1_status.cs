@@ -942,37 +942,37 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void CheckGokigen()　//Updateで常にチェック
     {
         //女の子の今のご機嫌　ハートレベルに応じた絶対的なもの
-        if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 2) // HLv 1
+        if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 3) // HLv
         {
             //テンションが低すぎて暗い
             GirlGokigenStatus = 0; //1と一緒
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 3) //2
+        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 5) //
         {
             //少し機嫌が悪い
             GirlGokigenStatus = 2;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 5) //3~6
+        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 10) //
         {
             //ちょっと元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 10) //6~9
+        else if (PlayerStatus.girl1_Love_lv >= 10 && PlayerStatus.girl1_Love_lv < 20) //
         {
             //だいぶ元気でてきた
             GirlGokigenStatus = 4;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 10 && PlayerStatus.girl1_Love_lv < 12) //10~12
+        else if (PlayerStatus.girl1_Love_lv >= 20 && PlayerStatus.girl1_Love_lv < 30) //
         {
             //元気
             GirlGokigenStatus = 5;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 12) //13~
+        else if (PlayerStatus.girl1_Love_lv >= 30) //13~
         {
             //最高に上機嫌
             GirlGokigenStatus = 6;
@@ -1011,17 +1011,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 5:
-                //face_girl_Joukigen();
-                face_girl_Tereru4();
+                face_girl_Joukigen();
                 break;
 
             case 6:
-                //face_girl_Joukigen();
                 face_girl_Tereru4();
                 break;
 
             default:
-                face_girl_Joukigen();
+                face_girl_Tereru4();
                 break;
         }
     }
@@ -1034,7 +1032,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator = _model.GetComponent<Animator>();
         trans_expression = live2d_animator.GetInteger("trans_expression");
 
-        switch (GirlGokigenStatus)
+        face_girl_Fine();
+        /*switch (GirlGokigenStatus)
         {
             case 0:
                 face_girl_Fine();
@@ -1067,7 +1066,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             default:
                 face_girl_Fine();
                 break;
-        }
+        }*/
     }
 
 

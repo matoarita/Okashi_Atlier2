@@ -200,6 +200,7 @@ public class PlayerData
     public bool save_picnic_event_ON;
 
     public bool save_hiroba_ichigo_first;
+    public bool[] save_ichigo_collection_listFlag = new bool[GameMgr.ichigo_collection_listFlag.Length];
 
     public override string ToString()
     {
