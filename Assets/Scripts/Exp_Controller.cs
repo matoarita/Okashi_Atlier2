@@ -545,7 +545,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             NewRecipiFlag = false;
 
             //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
-            pitemlist.addPlayerItem(result_item, result_kosu);
+            pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList();
@@ -638,7 +638,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         compound_keisan.Delete_playerItemList();
         renkin_hyouji = database.items[result_item].itemNameHyouji;
-        pitemlist.addPlayerItem(result_item, result_kosu);
+        pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
 
         if (database.items[result_item].itemType.ToString() == "Mat" || database.items[result_item].itemType.ToString() == "Potion")
         {
@@ -789,7 +789,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_kosu = 1;
 
             //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
-            pitemlist.addPlayerItem(result_item, result_kosu);
+            pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList();
@@ -1006,7 +1006,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             NewRecipiFlag = false;
 
             //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
-            pitemlist.addPlayerItem(result_item, result_kosu);
+            pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList();
@@ -1074,7 +1074,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (toggle_type1 == 0)
         {
             //プレイヤーアイテムリストに追加。
-            pitemlist.addPlayerItem(kettei_item1, result_kosu);
+            pitemlist.addPlayerItem(database.items[kettei_item1].itemName, result_kosu);
         }
         else if (toggle_type1 == 1) //shop_itemType=1のものは、レシピのこと。買うことで、あとでアトリエに戻ったときに、本を読み、いくつかのレシピを解禁するフラグになる。
         {
@@ -1094,13 +1094,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             //かごの大きさ計算やバフの計算は「Buf_Power_keisan.cs」
             //プレイヤーアイテムリストに追加。
-            pitemlist.addPlayerItem(kettei_item1, result_kosu);
+            pitemlist.addPlayerItem(database.items[kettei_item1].itemName, result_kosu);
             
         }
         else //トッピングなど
         {
             //プレイヤーアイテムリストに追加。
-            pitemlist.addPlayerItem(kettei_item1, result_kosu);
+            pitemlist.addPlayerItem(database.items[kettei_item1].itemName, result_kosu);
         }
 
         switch (SceneManager.GetActiveScene().name)
@@ -1185,7 +1185,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (toggle_type1 == 0)
         {
             //プレイヤーアイテムリストに追加。
-            pitemlist.deletePlayerItem(kettei_item1, result_kosu);
+            pitemlist.deletePlayerItem(database.items[kettei_item1].itemName, result_kosu);
         }
         else if (toggle_type1 == 1) //プレイヤーオリジナルアイテム
         {

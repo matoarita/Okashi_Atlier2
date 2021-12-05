@@ -719,8 +719,8 @@ public class ShopItemListController : MonoBehaviour
             case 0: //エメラルどんぐり
 
                 _ImgDongriIcon.sprite = texture_emeraldIcon;                
-                emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
-                if (pitemlist.playeritemlist[emeraldonguriID] < shop_database.emeraldshop_items[i].shop_costprice)
+                //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+                if (pitemlist.playeritemlist["emeralDongri"] < shop_database.emeraldshop_items[i].shop_costprice)
                 {
                     _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
                     //_togglebg.sprite = touchoff;
@@ -735,8 +735,8 @@ public class ShopItemListController : MonoBehaviour
             case 1: //サファイアどんぐり
 
                 _ImgDongriIcon.sprite = texture_sapphireIcon;
-                emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
-                if (pitemlist.playeritemlist[emeraldonguriID] < shop_database.emeraldshop_items[i].shop_costprice)
+                //emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
+                if (pitemlist.playeritemlist["sapphireDongri"] < shop_database.emeraldshop_items[i].shop_costprice)
                 {
                     _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
                     //_togglebg.sprite = touchoff;

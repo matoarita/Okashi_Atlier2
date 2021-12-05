@@ -80,10 +80,10 @@ public class GetMatResult_Panel : MonoBehaviour
 
         for (i=0;  i < getmatplace_panel.result_items.Count; i++)
         {
-            if(getmatplace_panel.result_items[i] > 0)
+            if(getmatplace_panel.result_items[database.items[i].itemName] > 0)
             {
                 itemID.Add(i);
-                itemKosu.Add(getmatplace_panel.result_items[i]);
+                itemKosu.Add(getmatplace_panel.result_items[database.items[i].itemName]);
             }
         }
         

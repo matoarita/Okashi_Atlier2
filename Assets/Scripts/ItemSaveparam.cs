@@ -10,6 +10,7 @@ using System.Collections;
 public class ItemSaveparam
 {
     public int itemID;
+    public string itemName;
 
     //以下パラメータはExcel上には記載なし
     public int Eat_kaisu;
@@ -30,12 +31,13 @@ public class ItemSaveparam
     
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemSaveparam(int id, int _eat_kaisu, int _highscore, int _lasttotal_score, 
+    public ItemSaveparam(int id, string itemname, int _eat_kaisu, int _highscore, int _lasttotal_score, 
         int _last_rich_score, int _last_sweat_score, int _last_bitter_score, int _last_sour_score,
         int _last_crispy_score, int _last_fluffy_score, int _last_smooth_score, int _last_hardness_score,
         int _last_jiggly_score, int _last_chewy_score, string _hinttext)
     {
         itemID = id;
+        itemName = itemname;
         
         Eat_kaisu = _eat_kaisu;
         HighScore_flag = _highscore;

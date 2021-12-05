@@ -1643,7 +1643,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                     _id = base_kettei_item;
 
-                    pitemlist.deletePlayerItem(_id, 1);
+                    pitemlist.deletePlayerItem(database.items[_id].itemName, 1);
                     break;
 
                 case 1: //オリジナルアイテムリストから選択している。
@@ -1701,7 +1701,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    pitemlist.deletePlayerItem(_id, final_kette_kosu1);
+                    pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu1);
                 }
                 break;
 
@@ -1733,7 +1733,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        pitemlist.deletePlayerItem(_id, final_kette_kosu2);
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu2);
                     }
                     break;
 
@@ -1766,7 +1766,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        pitemlist.deletePlayerItem(_id, final_kette_kosu3);
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu3);
                     }
                     break;
 
@@ -1810,7 +1810,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         deleteOriginalList.Clear();
 
         //一個目　final_kettei_kosu1より、店売りアイテムを多く持っているか、もしくは同じ。それより足りない場合に、オリジナルアイテムを見始める。
-        if (pitemlist.playeritemlist[kettei_item1] >= final_kette_kosu1)
+        if (pitemlist.playeritemlist[database.items[kettei_item1].itemName] >= final_kette_kosu1)
         {
             _id = kettei_item1;
             //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
@@ -1822,7 +1822,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
             else
             {
-                pitemlist.deletePlayerItem(_id, final_kette_kosu1);
+                pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu1);
             }
         }
         else //足りてないときは、残りの店売り分を削除し、残り数値分でオリジナルのほうを削除しはじめる。
@@ -1830,7 +1830,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _id = kettei_item1;
             //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
 
-            nokori_kosu = final_kette_kosu1 - pitemlist.playeritemlist[kettei_item1];
+            nokori_kosu = final_kette_kosu1 - pitemlist.playeritemlist[database.items[kettei_item1].itemName];
 
             //器具は、削除しない
             if (database.items[_id].itemType_sub.ToString() == "Machine")
@@ -1839,9 +1839,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
             else
             {
-                if (pitemlist.playeritemlist[kettei_item1] > 0)
+                if (pitemlist.playeritemlist[database.items[kettei_item1].itemName] > 0)
                 {
-                    pitemlist.deletePlayerItem(_id, pitemlist.playeritemlist[kettei_item1]);
+                    pitemlist.deletePlayerItem(database.items[_id].itemName, pitemlist.playeritemlist[database.items[kettei_item1].itemName]);
                 }
             }
 
@@ -1870,7 +1870,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (kettei_item2 != 9999) //二個目のトッピングアイテムを選んでいなければ、この処理は無視する。
         {
             //二個目　final_kettei_kosu1より、店売りアイテムを多く持っているか、もしくは同じ。それより足りない場合に、オリジナルアイテムを見始める。
-            if (pitemlist.playeritemlist[kettei_item1] >= final_kette_kosu2)
+            if (pitemlist.playeritemlist[database.items[kettei_item2].itemName] >= final_kette_kosu2)
             {
                 _id = kettei_item2;
                 //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
@@ -1882,14 +1882,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    pitemlist.deletePlayerItem(_id, final_kette_kosu2);
+                    pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu2);
                 }
             }
             else //足りてないときは、残りの店売り分を削除し、残り数値分でオリジナルのほうを削除しはじめる。
             {
-                _id = kettei_item1;
+                _id = kettei_item2;
 
-                nokori_kosu = final_kette_kosu2 - pitemlist.playeritemlist[kettei_item2];
+                nokori_kosu = final_kette_kosu2 - pitemlist.playeritemlist[database.items[kettei_item2].itemName];
 
                 //器具は、削除しない
                 if (database.items[_id].itemType_sub.ToString() == "Machine")
@@ -1898,9 +1898,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    if (pitemlist.playeritemlist[kettei_item2] > 0)
+                    if (pitemlist.playeritemlist[database.items[kettei_item2].itemName] > 0)
                     {
-                        pitemlist.deletePlayerItem(_id, pitemlist.playeritemlist[kettei_item2]);
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, pitemlist.playeritemlist[database.items[kettei_item2].itemName]);
                     }
                 }
 
@@ -1930,7 +1930,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (kettei_item3 != 9999) //三個目のトッピングアイテムを選んでいなければ、この処理は無視する。
         {
             //三個目　final_kettei_kosu1より、店売りアイテムを多く持っているか、もしくは同じ。それより足りない場合に、オリジナルアイテムを見始める。
-            if (pitemlist.playeritemlist[kettei_item3] >= final_kette_kosu3)
+            if (pitemlist.playeritemlist[database.items[kettei_item3].itemName] >= final_kette_kosu3)
             {
                 _id = kettei_item3;
 
@@ -1941,14 +1941,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    pitemlist.deletePlayerItem(_id, final_kette_kosu3);
+                    pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu3);
                 }
             }
             else //足りてないときは、残りの店売り分を削除し、残り数値分でオリジナルのほうを削除しはじめる。
             {
                 _id = kettei_item3;
 
-                nokori_kosu = final_kette_kosu3 - pitemlist.playeritemlist[kettei_item3];
+                nokori_kosu = final_kette_kosu3 - pitemlist.playeritemlist[database.items[kettei_item3].itemName];
 
                 //器具は、削除しない
                 if (database.items[_id].itemType_sub.ToString() == "Machine")
@@ -1957,9 +1957,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    if (pitemlist.playeritemlist[kettei_item3] > 0)
+                    if (pitemlist.playeritemlist[database.items[kettei_item3].itemName] > 0)
                     {
-                        pitemlist.deletePlayerItem(_id, pitemlist.playeritemlist[kettei_item3]);
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, pitemlist.playeritemlist[database.items[kettei_item3].itemName]);
                     }
                 }
 

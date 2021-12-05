@@ -516,10 +516,10 @@ public class GetMaterial : MonoBehaviour
                 //_a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
 
                 //アイテムの取得処理
-                pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
+                pitemlist.addPlayerItem(database.items[kettei_item[count]].itemName, kettei_kosu[count]);
 
                 //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-                getmatplace_panel.result_items[kettei_item[count]] += kettei_kosu[count];
+                getmatplace_panel.result_items[database.items[kettei_item[count]].itemName] += kettei_kosu[count];
             }
         }
 
@@ -563,10 +563,10 @@ public class GetMaterial : MonoBehaviour
                 //_b[count] = "\n" + "<color=#E37BB5>" + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！";
 
                 //アイテムの取得処理
-                pitemlist.addPlayerItem(kettei_item[count], kettei_kosu[count]);
+                pitemlist.addPlayerItem(database.items[kettei_item[count]].itemName, kettei_kosu[count]);
 
                 //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-                getmatplace_panel.result_items[kettei_item[count]] += kettei_kosu[count];
+                getmatplace_panel.result_items[database.items[kettei_item[count]].itemName] += kettei_kosu[count];
             }
         }
 
@@ -1150,8 +1150,8 @@ public class GetMaterial : MonoBehaviour
         pitemlist.addPlayerItemString("kirakira_stone1", 1);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        _itemid = pitemlist.SearchItemString("kirakira_stone1");
-        getmatplace_panel.result_items[_itemid] += 1;
+        //_itemid = pitemlist.SearchItemString("kirakira_stone1");
+        getmatplace_panel.result_items["kirakira_stone1"] += 1;
 
         //音を鳴らす
         sc.PlaySe(1);
@@ -1199,8 +1199,8 @@ public class GetMaterial : MonoBehaviour
         pitemlist.addPlayerItemString("kirakira_stone2", 1);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        _itemid = pitemlist.SearchItemString("kirakira_stone2");
-        getmatplace_panel.result_items[_itemid] += 1;
+        //_itemid = pitemlist.SearchItemString("kirakira_stone2");
+        getmatplace_panel.result_items["kirakira_stone2"] += 1;
 
         //音を鳴らす
         sc.PlaySe(1);
@@ -1215,8 +1215,8 @@ public class GetMaterial : MonoBehaviour
         pitemlist.addPlayerItemString("kirakira_stone3", 1);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        _itemid = pitemlist.SearchItemString("kirakira_stone3");
-        getmatplace_panel.result_items[_itemid] += 1;
+        //_itemid = pitemlist.SearchItemString("kirakira_stone3");
+        getmatplace_panel.result_items["kirakira_stone3"] += 1;
 
         //音を鳴らす
         sc.PlaySe(1);
@@ -1450,8 +1450,8 @@ public class GetMaterial : MonoBehaviour
         pitemlist.addPlayerItemString(itemName, 1);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        _itemid = pitemlist.SearchItemString(itemName);
-        getmatplace_panel.result_items[_itemid] += 1;
+        //_itemid = pitemlist.SearchItemString(itemName);
+        getmatplace_panel.result_items[itemName] += 1;
 
         //音を鳴らす
         switch (Treasure_Status)

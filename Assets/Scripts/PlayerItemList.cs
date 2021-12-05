@@ -14,6 +14,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private Exp_Controller exp_Controller;
 
     private int _id;
+    private string _itemname;
     private int event_id;
     private int _comp_hosei;
     private string _file_name, _nameHyouji, _desc;
@@ -27,6 +28,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int _lasttotal_score;
     private string _hinttext;
     private int _rare;
+    private int _total_kosu;
 
     private string ev_fileName, ev_itemName, ev_itemNameHyouji;
     private int ev_kosu;
@@ -46,8 +48,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int _itemcount;
     private int _itemid;    
 
-    //プレイヤーの所持アイテムリスト。Dictionaryなので、｛アイテムID, 個数｝の関係で格納する。
-    public Dictionary<int, int> playeritemlist = new Dictionary<int, int>();
+    //プレイヤーの所持アイテムリスト。Dictionaryなので、｛アイテム名, 個数｝の関係で格納する。
+    public Dictionary<string, int> playeritemlist = new Dictionary<string, int>();
 
     //プレイヤーのイベントアイテムリスト。
     public List<ItemEvent> eventitemlist = new List<ItemEvent>();
@@ -84,28 +86,20 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             while (count < excel_itemdatabase.sheets[sheet_no].list.Count)
             {
                 // 一旦代入 IDだけを取る。
-                _id = excel_itemdatabase.sheets[sheet_no].list[count].ItemID;
+                //_id = excel_itemdatabase.sheets[sheet_no].list[count].ItemID;
+                _itemname = excel_itemdatabase.sheets[sheet_no].list[count].name;
 
                 //ここでリストに追加している
-                playeritemlist.Add(_id, 0);
+                playeritemlist.Add(_itemname, 0);
 
                 ++count;
             }
 
             ++sheet_no;
 
-            if (sheet_no < excel_itemdatabase.sheets.Count)
-            {
-                sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる。ここでは、前シートの要素数を取得している。
-
-                for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
-                {
-                    playeritemlist.Add(_id+i+1, 0); //エクセルに登録されていないアイテムID分、空をいれている。
-                }
-            }
         }
 
-        /*foreach (KeyValuePair<int, int> item in playeritemlist) //ここで使っているitemは、foreach用の変数
+        /*foreach (KeyValuePair<string, int> item in playeritemlist) //ここで使っているitemは、foreach用の変数
         {
             Debug.Log(item.Key + " " + item.Value);
         }*/
@@ -152,17 +146,6 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
             ++sheet_count;
 
-            /*
-            if (sheet_no < excel_eventitemdatabase.sheets.Count)
-            {
-                sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる。ここでは、前シートの要素数を取得している。
-
-                for (i = 0; i < excel_eventitemdatabase.sheets[sheet_no].list[0].ev_ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
-                {
-                    eventitemlist.Add(new ItemEvent(_id + i + 1, "", "", "", 0, 0, 0, 0, 0, "", 9999, 9999)); //エクセルに登録されていないアイテムID分、空をいれている。
-                }
-            }
-            */
         }
 
         sheet_no = 1;
@@ -206,124 +189,27 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 	}
 
     //アイテムID＋個数で、追加
-    public void addPlayerItem(int itemID, int count_kosu)
+    public void addPlayerItem(string itemName, int count_kosu)
     {
-        playeritemlist[itemID] = playeritemlist[itemID] + count_kosu;
+        playeritemlist[itemName] = playeritemlist[itemName] + count_kosu;
 
-        if ( playeritemlist[itemID] > 99 )
+        if ( playeritemlist[itemName] > 99 )
         {
-            playeritemlist[itemID] = 99; //上限 99個
+            playeritemlist[itemName] = 99; //上限 99個
         }
     }
 
     //アイテム名＋個数で、追加
     public void addPlayerItemString(string itemName, int count_kosu)
     {
-        for (i = 0; i <= database.sheet_topendID[1]; i++)
-        {
-            if (database.items[i].itemName == itemName)
-            {
-                addPlayerItem(i, count_kosu);
-            }
-        }
-
-        //お菓子タイプ
-        count = database.sheet_topendID[2];
-
-        j = database.sheet_topendID[3] - database.sheet_topendID[2];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                addPlayerItem(count, count_kosu);
-            }
-            ++count;
-        }
-
-        //ポーションタイプ
-        count = database.sheet_topendID[4];
-
-        j = database.sheet_topendID[5] - database.sheet_topendID[4];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                addPlayerItem(count, count_kosu);
-            }
-            ++count;
-        }
-
-        //その他タイプ
-        count = database.sheet_topendID[6];
-
-        j = database.sheet_topendID[7] - database.sheet_topendID[6];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                addPlayerItem(count, count_kosu);
-            }
-            ++count;
-        }
-
+        addPlayerItem(itemName, count_kosu);
+       
     }
 
     //アイテム名＋個数で、指定した個数に変更する。（加算とは別。）
     public void ReSetPlayerItemString(string itemName, int count_kosu)
     {
-        for (i = 0; i <= database.sheet_topendID[1]; i++)
-        {
-            if (database.items[i].itemName == itemName)
-            {
-                playeritemlist[i] = count_kosu;
-            }
-        }
-
-        //お菓子タイプ
-        count = database.sheet_topendID[2];
-
-        j = database.sheet_topendID[3] - database.sheet_topendID[2];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                playeritemlist[count] = count_kosu;
-            }
-            ++count;
-        }
-
-        //ポーションタイプ
-        count = database.sheet_topendID[4];
-
-        j = database.sheet_topendID[5] - database.sheet_topendID[4];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                playeritemlist[count] = count_kosu;
-            }
-            ++count;
-        }
-
-        //その他タイプ
-        count = database.sheet_topendID[6];
-
-        j = database.sheet_topendID[7] - database.sheet_topendID[6];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                playeritemlist[count] = count_kosu;
-            }
-            ++count;
-        }
-
+        playeritemlist[itemName] = count_kosu;
     }
 
     //アイテム名をいれると、そのアイテムIDを返すメソッド
@@ -353,178 +239,66 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //アイテムリストに、名前をいれると、所持個数を返してくれるメソッド
     public int ReturnItemKosu(string itemName)
     {
-        for (i = 0; i <= database.sheet_topendID[1]; i++)
-        {
-            if (database.items[i].itemName == itemName)
-            {
-                if (database.items[i].ItemKosu > 0)
-                {
-                    return database.items[i].ItemKosu;
-                }
-            }
-        }
+        _total_kosu = 0;
+        _total_kosu += playeritemlist[itemName];       
 
-        //お菓子タイプ
-        count = database.sheet_topendID[2];
+            //オリジナルアイテムリストも見る。
 
-        j = database.sheet_topendID[3] - database.sheet_topendID[2];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                if (database.items[count].ItemKosu > 0)
-                {
-                    return database.items[count].ItemKosu;
-                }
-            }
-            ++count;
-        }
-
-        //ポーションタイプ
-        count = database.sheet_topendID[4];
-
-        j = database.sheet_topendID[5] - database.sheet_topendID[4];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                if (database.items[count].ItemKosu > 0)
-                {
-                    return database.items[count].ItemKosu;
-                }
-            }
-            ++count;
-        }
-
-        //その他タイプ
-        count = database.sheet_topendID[6];
-
-        j = database.sheet_topendID[7] - database.sheet_topendID[6];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                if (database.items[count].ItemKosu > 0)
-                {
-                    return database.items[count].ItemKosu;
-                }
-            }
-            ++count;
-        }
-
-        //オリジナルアイテムリストも見る。
-
-        for(i=0; i < player_originalitemlist.Count; i++)
+            for (i=0; i < player_originalitemlist.Count; i++)
         {
             if( player_originalitemlist[i].itemName == itemName)
             {
                 if (player_originalitemlist[i].ItemKosu > 0)
                 {
-                    return player_originalitemlist[i].ItemKosu;
+                    _total_kosu += player_originalitemlist[i].ItemKosu;
                 }
             }
         }
         
-        return 9999; //0個　持っていないときは、9999がかえる。
+        return _total_kosu; //0個　持っていないときは、9999がかえる。
     }
 
     //アイテムリストに、名前をいれると、アイテムリスト・オリジナルアイテムリストのどちらかに所持していた場合は、削除するメソッド
     public void SearchDeleteItem(string itemName)
     {
-        for (i = 0; i <= database.sheet_topendID[1]; i++)
+        //先にアイテムリストをみて、ない場合オリジナルアイテムリストを見る。
+        if (playeritemlist[itemName] > 0)
         {
-            if (database.items[i].itemName == itemName)
+            deletePlayerItem(itemName, 1);
+        }
+        else
+        {
+            //オリジナルアイテムリストも見る。
+            for (i = 0; i < player_originalitemlist.Count; i++)
             {
-                if (database.items[i].ItemKosu > 0)
+                if (player_originalitemlist[i].itemName == itemName)
                 {
-                    deletePlayerItem(i, 1);
+                    if (player_originalitemlist[i].ItemKosu > 0)
+                    {
+
+                        deleteOriginalItem(i, 1);
+                    }
                 }
             }
         }
-
-        //お菓子タイプ
-        count = database.sheet_topendID[2];
-
-        j = database.sheet_topendID[3] - database.sheet_topendID[2];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                if (database.items[count].ItemKosu > 0)
-                {
-                    deletePlayerItem(count, 1);
-                }
-            }
-            ++count;
-        }
-
-        //ポーションタイプ
-        count = database.sheet_topendID[4];
-
-        j = database.sheet_topendID[5] - database.sheet_topendID[4];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                if (database.items[count].ItemKosu > 0)
-                {
-                    deletePlayerItem(count, 1);
-                }
-            }
-            ++count;
-        }
-
-        //その他タイプ
-        count = database.sheet_topendID[6];
-
-        j = database.sheet_topendID[7] - database.sheet_topendID[6];
-
-        for (i = 0; i <= j; i++)
-        {
-            if (database.items[count].itemName == itemName)
-            {
-                if (database.items[count].ItemKosu > 0)
-                {
-                    deletePlayerItem(count, 1);
-                }
-            }
-            ++count;
-        }
-
-        //オリジナルアイテムリストも見る。
-
-        for (i = 0; i < player_originalitemlist.Count; i++)
-        {
-            if (player_originalitemlist[i].itemName == itemName)
-            {
-                if (player_originalitemlist[i].ItemKosu > 0)
-                {
-                   
-                    deleteOriginalItem(i, 1);
-                }
-            }
-        }
+     
     }
 
 
 
-    public void deletePlayerItem(int deleteID, int count_kosu)
+    public void deletePlayerItem(string delete_itemName, int count_kosu)
     {
         //Debug.Log("itemID: " + deleteID + " 所持数: " + playeritemlist[deleteID] + " を" + count_kosu + "個　消す");
-        playeritemlist[deleteID] = playeritemlist[deleteID] - count_kosu;
+        playeritemlist[delete_itemName] = playeritemlist[delete_itemName] - count_kosu;
         
-        if (playeritemlist[deleteID] < 0)
+        if (playeritemlist[delete_itemName] < 0)
         {
-            playeritemlist[deleteID] = 0; //下限 0個 
+            playeritemlist[delete_itemName] = 0; //下限 0個 
         }
         //Debug.Log("itemID: " + deleteID + " 残り所持数: " + playeritemlist[deleteID]);
     }
 
+    //イベントアイテムを追加
     public void add_eventPlayerItem(int ev_id, int count_kosu)
     {
 
@@ -536,6 +310,23 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
     }
 
+    //イベントアイテム名＋個数で、指定した個数に変更する。フラグも更新できる。
+    public void ReSetEventItemString(string itemName, int count_kosu, int _read_flag)
+    {
+        i = 0;
+        while (i < eventitemlist.Count)
+        {
+            if(eventitemlist[i].event_itemName == itemName)
+            {
+                eventitemlist[i].ev_itemKosu = count_kosu;
+                eventitemlist[i].ev_ReadFlag = _read_flag;
+                break;
+            }           
+            i++;
+        }
+    }
+
+    //エメラルドアイテムを追加
     public void add_EmeraldPlayerItem(int ev_id, int count_kosu)
     {
 
@@ -551,6 +342,21 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     {
         event_id = Find_eventitemdatabase(itemName);
         add_eventPlayerItem(event_id, count_kosu);
+    }
+
+    //エメラルドアイテム名＋個数で、指定した個数に変更する。
+    public void ReSetEmeraldItemString(string itemName, int count_kosu)
+    {
+        i = 0;
+        while (i < emeralditemlist.Count)
+        {
+            if (emeralditemlist[i].event_itemName == itemName)
+            {
+                emeralditemlist[i].ev_itemKosu = count_kosu;
+                break;
+            }
+            i++;
+        }
     }
 
     //　トッピングで、調節したオリジナルアイテムを登録する。
@@ -655,7 +461,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         {
             if(database.items[i].itemName == _itemname)
             {
-                _itemcount = playeritemlist[i];
+                _itemcount = playeritemlist[_itemname];
                 _itemid = i;
                 break;
             }

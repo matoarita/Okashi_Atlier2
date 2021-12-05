@@ -499,7 +499,7 @@ public class Quest_Judge : MonoBehaviour {
         //プレイヤーのアイテムリストを検索
         for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
-            if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、探索。
+            if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、探索。
             {                
 
                 //まず該当アイテムがあるかどうか調べる。
@@ -507,27 +507,27 @@ public class Quest_Judge : MonoBehaviour {
                 {
 
                     //一致したら、さらに個数が足りてるかどうかを調べる。
-                    if (pitemlist.playeritemlist[i] >= _kosu_total)
+                    if (pitemlist.playeritemlist[database.items[i].itemName] >= _kosu_total)
                     {
                         nouhinOK_flag = true;
 
                         if (_status) //削除処理もいれる場合
                         {
                             //所持アイテムを削除
-                            pitemlist.deletePlayerItem(i, _kosu_total);
+                            pitemlist.deletePlayerItem(database.items[i].itemName, _kosu_total);
                         }
                     }
                     else
                     {
                         nouhinOK_flag = false;
 
-                        _kosu_total -= pitemlist.playeritemlist[i];
+                        _kosu_total -= pitemlist.playeritemlist[database.items[i].itemName];
 
                         if (_status) //削除処理もいれる場合
                         {
                             //さらにデリートリストに追加しておく。
                             del_itemid = i;
-                            del_itemkosu = pitemlist.playeritemlist[i];
+                            del_itemkosu = pitemlist.playeritemlist[database.items[i].itemName];
                         }
                     }
                 }
@@ -632,7 +632,7 @@ public class Quest_Judge : MonoBehaviour {
         //アイテム削除
         if (deleteOriginalList.Count > 0)
         {
-            pitemlist.deletePlayerItem(del_itemid, del_itemkosu); //デフォルトアイテムから先に削除
+            pitemlist.deletePlayerItem(database.items[del_itemid].itemName, del_itemkosu); //デフォルトアイテムから先に削除
             DeleteOriginalItem(); //オリジナルからも削除
         }
 
@@ -1085,13 +1085,13 @@ public class Quest_Judge : MonoBehaviour {
                     //もし、エクストリームパネルにセットされているお菓子を納品し、個数が０になった場合。処理が必要。
                     if (exp_Controller._temp_extreme_id == _id)
                     {
-                        if (pitemlist.playeritemlist[_id] <= 0)
+                        if (pitemlist.playeritemlist[database.items[_id].itemName] <= 0)
                         {
                             exp_Controller._temp_extreme_id = 9999;
                         }
                     }
                     //所持アイテムを削除
-                    pitemlist.deletePlayerItem(_id, _kosu_default);
+                    pitemlist.deletePlayerItem(database.items[_id].itemName, _kosu_default);
                     break;
 
                 case 1:

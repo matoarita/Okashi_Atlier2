@@ -35,7 +35,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private Compound_Main compound_Main;
 
     private Text questname;
-    private List<int> _tempplayeritemlist = new List<int>();
+    private List<ItemSaveKosu> _tempplayeritemlist = new List<ItemSaveKosu>();
+    private List<ItemSaveKosu> _temp_eventitemlist = new List<ItemSaveKosu>();
+    private List<ItemSaveKosu> _temp_emeralditemlist = new List<ItemSaveKosu>();
+    private List<ItemSaveCompoFlag> _temp_cmpflaglist = new List<ItemSaveCompoFlag>();
     private List<int> _tempmap_placeflaglist = new List<int>();
     private List<int> _temp_shopzaiko = new List<int>();
     private List<int> _temp_farmzaiko = new List<int>();
@@ -46,7 +49,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private GameObject StageClearButton_panel;
     private AudioSource StageClearbutton_audio;
 
-    private int i;
+    private int i, count;
     private int _itemID;
 
     // Use this for initialization
@@ -97,9 +100,30 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //アイテムリストの所持数を取得
         _tempplayeritemlist.Clear();
-        for (i=0; i < pitemlist.playeritemlist.Count; i++)
+        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
-            _tempplayeritemlist.Add(pitemlist.playeritemlist[i]);
+            _tempplayeritemlist.Add(new ItemSaveKosu(database.items[i].itemName, pitemlist.playeritemlist[database.items[i].itemName], 0));
+        }
+
+        //イベントアイテムの所持数取得
+        _temp_eventitemlist.Clear();
+        for (i = 0; i < pitemlist.eventitemlist.Count; i++)
+        {
+            _temp_eventitemlist.Add(new ItemSaveKosu(pitemlist.eventitemlist[i].event_itemName, pitemlist.eventitemlist[i].ev_itemKosu, pitemlist.eventitemlist[i].ev_ReadFlag));
+        }
+
+        //エメラルドアイテムの所持数取得
+        _temp_emeralditemlist.Clear();
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
+        {
+            _temp_emeralditemlist.Add(new ItemSaveKosu(pitemlist.emeralditemlist[i].event_itemName, pitemlist.emeralditemlist[i].ev_itemKosu, 0));
+        }
+
+        //調合フラグと調合回数の取得
+        _temp_cmpflaglist.Clear();
+        for (i = 0; i < databaseCompo.compoitems.Count; i++)
+        {
+            _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, databaseCompo.compoitems[i].comp_count));
         }
 
         //マップのフラグのみ取得
@@ -134,7 +158,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_itemscorelist.Clear();
         for (i = 0; i < database.items.Count; i++)
         {
-            _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
+            _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
                 database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
                 database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
                 database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
@@ -296,10 +320,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_playeritemlist = _tempplayeritemlist,
 
             //プレイヤーのイベントアイテムリスト。
-            save_eventitemlist = pitemlist.eventitemlist,
+            save_eventitemlist = _temp_eventitemlist,
 
             //プレイヤーのエメラルドアイテムリスト。
-            save_player_emeralditemlist = pitemlist.emeralditemlist,
+            save_player_emeralditemlist = _temp_emeralditemlist,
 
             //アイテムリスト＜オリジナル＞
             save_player_originalitemlist = pitemlist.player_originalitemlist,
@@ -308,7 +332,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_itemdatabase = _temp_itemscorelist,
 
             //調合のフラグ＋調合回数を記録する
-            save_itemCompodatabase = databaseCompo.compoitems,
+            save_itemCompodatabase = _temp_cmpflaglist,
 
             //今うけてるクエストを保存する。
             save_questTakeset = quest_setdatabase.questTakeset,
@@ -521,18 +545,26 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.emeraldShopEvent_stage = playerData.save_emeraldShopEvent_stage;
 
         //アイテムリスト＜デフォルト＞
-        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
-        {
-            pitemlist.playeritemlist[i] = playerData.save_playeritemlist[i];
+        for (i = 0; i < playerData.save_playeritemlist.Count; i++)
+        {       
+            pitemlist.ReSetPlayerItemString(playerData.save_playeritemlist[i].itemName, playerData.save_playeritemlist[i].itemKosu);
         }
 
         //プレイヤーのイベントアイテムリスト。
-        pitemlist.eventitemlist.Clear();
-        pitemlist.eventitemlist = playerData.save_eventitemlist;
+        //pitemlist.eventitemlist.Clear();
+        for (i = 0; i < playerData.save_eventitemlist.Count; i++)
+        {
+            pitemlist.ReSetEventItemString(playerData.save_eventitemlist[i].itemName, playerData.save_eventitemlist[i].itemKosu, playerData.save_eventitemlist[i].read_Flag);
+        }
+        //pitemlist.eventitemlist = playerData.save_eventitemlist;
 
         //プレイヤーのエメラルドアイテムリスト。
-        pitemlist.emeralditemlist.Clear();
-        pitemlist.emeralditemlist = playerData.save_player_emeralditemlist;
+        //pitemlist.emeralditemlist.Clear();
+        for (i = 0; i < playerData.save_player_emeralditemlist.Count; i++)
+        {
+            pitemlist.ReSetEmeraldItemString(playerData.save_player_emeralditemlist[i].itemName, playerData.save_player_emeralditemlist[i].itemKosu);
+        }
+        //pitemlist.emeralditemlist = playerData.save_player_emeralditemlist;
 
         //アイテムリスト＜オリジナル＞
         pitemlist.player_originalitemlist.Clear();
@@ -546,27 +578,51 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //アイテムの前回スコアなどを読み込み
-        for (i = 0; i < database.items.Count; i++)
+        for (count = 0; count < playerData.save_itemdatabase.Count; count++)
         {
-            database.items[i].Eat_kaisu = playerData.save_itemdatabase[i].Eat_kaisu;
-            database.items[i].HighScore_flag = playerData.save_itemdatabase[i].HighScore_flag;
-            database.items[i].last_total_score = playerData.save_itemdatabase[i].last_total_score;
-            database.items[i].last_rich_score = playerData.save_itemdatabase[i].last_rich_score;
-            database.items[i].last_sweat_score = playerData.save_itemdatabase[i].last_sweat_score;
-            database.items[i].last_bitter_score = playerData.save_itemdatabase[i].last_bitter_score;
-            database.items[i].last_sour_score = playerData.save_itemdatabase[i].last_sour_score;
-            database.items[i].last_crispy_score = playerData.save_itemdatabase[i].last_crispy_score;
-            database.items[i].last_fluffy_score = playerData.save_itemdatabase[i].last_fluffy_score;
-            database.items[i].last_smooth_score = playerData.save_itemdatabase[i].last_smooth_score;
-            database.items[i].last_hardness_score = playerData.save_itemdatabase[i].last_hardness_score;
-            database.items[i].last_jiggly_score = playerData.save_itemdatabase[i].last_jiggly_score;
-            database.items[i].last_chewy_score = playerData.save_itemdatabase[i].last_chewy_score;
-            database.items[i].last_hinttext = playerData.save_itemdatabase[i].last_hinttext;
+            i = 0;
+            while (i < database.items.Count)
+            {
+                if (playerData.save_itemdatabase[count].itemName == database.items[i].itemName)
+                {
+                    database.items[i].Eat_kaisu = playerData.save_itemdatabase[count].Eat_kaisu;
+                    database.items[i].HighScore_flag = playerData.save_itemdatabase[count].HighScore_flag;
+                    database.items[i].last_total_score = playerData.save_itemdatabase[count].last_total_score;
+                    database.items[i].last_rich_score = playerData.save_itemdatabase[count].last_rich_score;
+                    database.items[i].last_sweat_score = playerData.save_itemdatabase[count].last_sweat_score;
+                    database.items[i].last_bitter_score = playerData.save_itemdatabase[count].last_bitter_score;
+                    database.items[i].last_sour_score = playerData.save_itemdatabase[count].last_sour_score;
+                    database.items[i].last_crispy_score = playerData.save_itemdatabase[count].last_crispy_score;
+                    database.items[i].last_fluffy_score = playerData.save_itemdatabase[count].last_fluffy_score;
+                    database.items[i].last_smooth_score = playerData.save_itemdatabase[count].last_smooth_score;
+                    database.items[i].last_hardness_score = playerData.save_itemdatabase[count].last_hardness_score;
+                    database.items[i].last_jiggly_score = playerData.save_itemdatabase[count].last_jiggly_score;
+                    database.items[i].last_chewy_score = playerData.save_itemdatabase[count].last_chewy_score;
+                    database.items[i].last_hinttext = playerData.save_itemdatabase[count].last_hinttext;
+                    break;
+                }
+                i++;
+            }                 
+            
         }
 
         //調合のフラグ＋調合回数を記録する
-        databaseCompo.compoitems.Clear();
-        databaseCompo.compoitems = playerData.save_itemCompodatabase;
+        //databaseCompo.compoitems.Clear();
+        for (count = 0; count < playerData.save_itemCompodatabase.Count; count++)
+        {
+            i = 0;
+            while (i < databaseCompo.compoitems.Count)
+            {
+                if (playerData.save_itemCompodatabase[count].comp_name == databaseCompo.compoitems[i].cmpitem_Name)
+                {
+                    databaseCompo.compoitems[i].cmpitem_flag = playerData.save_itemCompodatabase[count].comp_Flag;
+                    databaseCompo.compoitems[i].comp_count= playerData.save_itemCompodatabase[count].comp_Count;
+                    break;
+                }
+                i++;
+            }
+        }
+        
 
         //今うけてるクエストを保存する。
         quest_setdatabase.questTakeset.Clear();
@@ -720,9 +776,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //アイテムデータの初期化
         //アイテムリスト＜デフォルト＞
-        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
+        for (i = 0; i < database.items.Count; i++)
         {
-            pitemlist.playeritemlist[i] = 0;
+            pitemlist.playeritemlist[database.items[i].itemName] = 0;
         }
 
         //プレイヤーのイベントアイテムリスト。

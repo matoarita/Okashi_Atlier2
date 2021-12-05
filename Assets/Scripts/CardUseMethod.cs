@@ -105,7 +105,7 @@ public class CardUseMethod : MonoBehaviour
                 //登録したアイテムは削除
                 if (itemType == 0)
                 {
-                    pitemlist.deletePlayerItem(itemID, 1);
+                    pitemlist.deletePlayerItem(database.items[itemID].itemName, 1);
                 }
                 else
                 {

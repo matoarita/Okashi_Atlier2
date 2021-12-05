@@ -448,7 +448,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 else
                 {*/
 
-                    if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
+                    if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
                     {
 
                     if (SceneManager.GetActiveScene().name == "Compound")
@@ -805,7 +805,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 else
                 {
 
-                    if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
+                    if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
                     {
                         if (SceneManager.GetActiveScene().name == "Compound")
                         {
@@ -870,7 +870,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 else
                 {
 
-                    if (pitemlist.playeritemlist[i] > 0) //持っている個数が1以上のアイテムのみ、表示。
+                    if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
                     {
                         if (SceneManager.GetActiveScene().name == "Compound")
                         {
@@ -947,7 +947,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         _text[0].text = item_name;
 
-        item_kosu = pitemlist.playeritemlist[i];
+        item_kosu = pitemlist.playeritemlist[database.items[i].itemName];
 
         _text[1].text = item_kosu.ToString(); //プレイヤーがそのアイテムをもっている個数
 

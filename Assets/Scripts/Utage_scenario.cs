@@ -1489,7 +1489,7 @@ public class Utage_scenario : MonoBehaviour
                         itemName = database.items[GameMgr.event_kettei_itemID].itemName;
 
                         //削除
-                        pitemlist.deletePlayerItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+                        pitemlist.deletePlayerItem(database.items[GameMgr.event_kettei_itemID].itemName, GameMgr.event_kettei_item_Kosu);
                     }
                     else //自分が制作したオリジナルアイテム
                     {

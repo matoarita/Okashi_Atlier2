@@ -110,7 +110,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject sister_stand_img1;
 
-    public Dictionary<int, int> result_items;
+    public Dictionary<string, int> result_items;
     private bool result_off;
 
     private bool subevent_on;
@@ -1398,12 +1398,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     void InitializeResultItemDicts()
     {
-        result_items = new Dictionary<int, int>();
+        result_items = new Dictionary<string, int>();
 
         //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコア(所持数)と、追加得点用のスコアをつける
         for (i = 0; i < database.items.Count; i++)
         {
-            result_items.Add(database.items[i].itemID, 0);
+            result_items.Add(database.items[i].itemName, 0);
         }
     }
 

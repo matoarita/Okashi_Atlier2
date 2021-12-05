@@ -207,7 +207,7 @@ public class ExtremePanel : MonoBehaviour {
                     {
                         case 0: //プレイヤーアイテムリストから選択している。
 
-                            pitemlist.deletePlayerItem(extreme_itemID, 1);
+                            pitemlist.deletePlayerItem(database.items[extreme_itemID].itemName, 1);
                             break;
 
                         case 1: //オリジナルアイテムリストから選択している。
@@ -460,7 +460,7 @@ public class ExtremePanel : MonoBehaviour {
         //持ち物から減らす。
         if (extreme_itemtype == 0) //デフォルトアイテムの場合
         {
-            pitemlist.deletePlayerItem(extreme_itemID, 1);
+            pitemlist.deletePlayerItem(database.items[extreme_itemID].itemName, 1);
         }
         else if (extreme_itemtype == 1) //オリジナルアイテムの場合
         {

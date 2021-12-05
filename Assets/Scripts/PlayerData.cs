@@ -157,23 +157,23 @@ public class PlayerData
     //エメラルドアイテムイベントリスト
     public bool[] save_emeraldShopEvent_stage = new bool[GameMgr.emeraldShopEvent_stage.Length];
 
-    //アイテムリスト<デフォルト> 所持数のみのリスト
-    public List<int> save_playeritemlist = new List<int>();
+    //アイテムリスト<デフォルト> アイテム名＋所持数のみのリスト
+    public List<ItemSaveKosu> save_playeritemlist = new List<ItemSaveKosu>();
 
     //プレイヤーのイベントアイテムリスト。
-    public List<ItemEvent> save_eventitemlist = new List<ItemEvent>();
-
-    //プレイヤーが作成したオリジナルのアイテムリスト。
-    public List<Item> save_player_originalitemlist = new List<Item>();
+    public List<ItemSaveKosu> save_eventitemlist = new List<ItemSaveKosu>();
 
     //プレイヤーのエメラルドアイテムリスト。
-    public List<ItemEvent> save_player_emeralditemlist = new List<ItemEvent>();
+    public List<ItemSaveKosu> save_player_emeralditemlist = new List<ItemSaveKosu>();
+
+    //プレイヤーが作成したオリジナルのアイテムリスト。
+    public List<Item> save_player_originalitemlist = new List<Item>();    
 
     //アイテムの前回スコアなどを記録する
     public List<ItemSaveparam> save_itemdatabase = new List<ItemSaveparam>();
 
     //調合のフラグ＋調合回数を記録する
-    public List<ItemCompound> save_itemCompodatabase = new List<ItemCompound>();
+    public List<ItemSaveCompoFlag> save_itemCompodatabase = new List<ItemSaveCompoFlag>();
 
     //今うけてるクエストを保存する。
     public List<QuestSet> save_questTakeset = new List<QuestSet>();

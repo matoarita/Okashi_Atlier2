@@ -118,14 +118,14 @@ public class KaeruCoin_Controller : MonoBehaviour
         InitParam();
 
         //エメラルどんぐり所持数
-        emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
-        kaerucoin = pitemlist.playeritemlist[emeraldonguriID];
+        //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+        kaerucoin = pitemlist.playeritemlist["emeralDongri"];
 
         _emeraldongri_text.text = kaerucoin.ToString();
 
         //サファイアどんぐり所持数
-        emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
-        kaerucoin = pitemlist.playeritemlist[emeraldonguriID];
+        //emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
+        kaerucoin = pitemlist.playeritemlist["sapphireDongri"];
 
         _sapphiredongri_text.text = kaerucoin.ToString();
     }
@@ -142,13 +142,13 @@ public class KaeruCoin_Controller : MonoBehaviour
 
         _getmoney_text.text = "-" + _usemoney.ToString() + "G";
 
-        emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
-        kaerucoin = pitemlist.playeritemlist[emeraldonguriID];
+        //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+        kaerucoin = pitemlist.playeritemlist["emeralDongri"];
 
         //お金の増減
         _before_kaerucoin = kaerucoin;
         _result_kaerucoin = kaerucoin - _usemoney;
-        pitemlist.playeritemlist[emeraldonguriID] -= _usemoney;
+        pitemlist.playeritemlist["emeralDongri"] -= _usemoney;
 
         timeOut = 0.1f;
 
@@ -171,13 +171,13 @@ public class KaeruCoin_Controller : MonoBehaviour
 
         _getmoney_text.text = "-" + _usemoney.ToString() + "G";
 
-        emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
-        kaerucoin = pitemlist.playeritemlist[emeraldonguriID];
+        //emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
+        kaerucoin = pitemlist.playeritemlist["sapphireDongri"];
 
         //お金の増減
         _before_kaerucoin = kaerucoin;
         _result_kaerucoin = kaerucoin - _usemoney;
-        pitemlist.playeritemlist[emeraldonguriID] -= _usemoney;
+        pitemlist.playeritemlist["sapphireDongri"] -= _usemoney;
 
         timeOut = 0.1f;
 

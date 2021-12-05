@@ -434,17 +434,17 @@ public class shopitemSelectToggle : MonoBehaviour
                     {
                         case 0: //エメラルどんぐり
 
-                            emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+                            //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
 
-                            player_money = pitemlist.playeritemlist[emeraldonguriID];
+                            player_money = pitemlist.playeritemlist["emeralDongri"];
                             _cost = shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
                             break;
 
                         case 1: //サファイアどんぐり
 
-                            emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
+                            //emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
 
-                            player_money = pitemlist.playeritemlist[emeraldonguriID];
+                            player_money = pitemlist.playeritemlist["sapphireDongri"];
                             _cost = shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
                             break;
                     }

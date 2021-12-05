@@ -179,25 +179,15 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
                 ++count;
             }
-            
-            sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
 
             ++sheet_no;
+
+
+            sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。          
 
             if (sheet_no < excel_itemdatabase.sheets.Count )
             {
                 sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる
-
-                for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
-                {
-                    items.Add(new Item(_id+i+1, "orange", "empty", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 
-                        _ex_kaisu, 0, 0, 0, 0, 0, "", 0, 1));
-                    //comp_hoseiでバグらないようにするための、クローン
-                    items_gamedefault.Add(new Item(_id + i + 1, "orange", "empty", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
-                        _ex_kaisu, 0, 0, 0, 0, 0, "", 0, 1));
-                }
 
                 sheet_topendID.Add(excel_itemdatabase.sheets[sheet_no].list[0].ItemID); // 次sheetの頭のIDを入れる。
             }

@@ -3589,34 +3589,9 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
-            case "cookie_base_recipi": //お菓子の基本＜初級＞
-
-                //databaseCompo.CompoON_compoitemdatabase("cookie_nonsuger");
-                //databaseCompo.CompoON_compoitemdatabase("emerald_neko_cookie");
-                break;
-
-            case "ice_cream_recipi": //アイスクリームの書
-
-                //databaseCompo.CompoON_compoitemdatabase("ice_cream");
-
-                break;
-
             case "financier_recipi": //フィナンシェ
 
                 databaseCompo.CompoON_compoitemdatabase("kogashi_butter");
-
-                break;
-
-            case "crepe_recipi": //クレープ
-
-                //databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
-                //databaseCompo.CompoON_compoitemdatabase("crepe");
-
-                break;
-
-            case "maffin_recipi": //マフィン
-
-                //databaseCompo.CompoON_compoitemdatabase("maffin");
 
                 break;
 
@@ -3627,23 +3602,10 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
-            case "princesstota_recipi": //プリンセストータ
-
-                //databaseCompo.CompoON_compoitemdatabase("princess_tota");
-
-                break;
-
             case "recipibook_4": //アイスの実の森　ゲットすると、アイスクリームレシピも自動で追加される。
 
                 ev_id = pitemlist.Find_eventitemdatabase("ice_cream_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
-
-                break;
-
-            case "recipibook_5": //はじめてのパンケーキ
-
-                //databaseCompo.CompoON_compoitemdatabase("appaleil_milk");
-                //databaseCompo.CompoON_compoitemdatabase("pan_cake");
 
                 break;
 

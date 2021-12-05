@@ -111,7 +111,7 @@ public class Travel_Map01_Main : MonoBehaviour {
 
         for (i = 0; i < map_itemList.Count; i++)
         {
-            pitemlist.addPlayerItem(kettei_item[i], rand[i]);
+            pitemlist.addPlayerItem(database.items[kettei_item[i]].itemName, rand[i]);
         }
 
         //日数・時間の増減

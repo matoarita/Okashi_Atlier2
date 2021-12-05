@@ -2434,7 +2434,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             case 0: //プレイヤーアイテムリストから選択している。
 
-                pitemlist.deletePlayerItem(kettei_item1, 1);
+                pitemlist.deletePlayerItem(database.items[kettei_item1].itemName, 1);
                 break;
 
             case 1: //オリジナルアイテムリストから選択している。オリジナルの場合は、一度削除用リストにIDを追加し、降順にしてから、後の削除メソッドでまとめて削除する。
@@ -3446,7 +3446,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         pitemlist.add_EmeraldPlayerItem(pitemlist.Find_emeralditemdatabase("Meid_Black_Costume"), 1);
                         break;
 
-                    case 40: //宝石キャンディ　白衣装ゲット
+                    case 20: //クレープ
+
+                        pitemlist.addPlayerItem("yotuba_crown", 1);
+                        break;
+
+                    case 40: //ドーナツ　白衣装ゲット
 
                         pitemlist.add_EmeraldPlayerItem(pitemlist.Find_emeralditemdatabase("PinkGoth_Costume"), 1);
                         break;

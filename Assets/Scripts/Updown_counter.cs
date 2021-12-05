@@ -382,7 +382,7 @@ public class Updown_counter : MonoBehaviour {
                         {
                             case 0:
 
-                                _item_max1 = pitemlist.playeritemlist[pitemlistController.kettei_item1];
+                                _item_max1 = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
                                 break;
 
                             case 1:
@@ -398,7 +398,7 @@ public class Updown_counter : MonoBehaviour {
                         {
                             case 0:
 
-                                _item_max2 = pitemlist.playeritemlist[pitemlistController.kettei_item2];
+                                _item_max2 = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item2].itemName];
                                 break;
 
                             case 1:
@@ -416,7 +416,7 @@ public class Updown_counter : MonoBehaviour {
                             {
                                 case 0:
 
-                                    _item_max3 = pitemlist.playeritemlist[pitemlistController.kettei_item3];
+                                    _item_max3 = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item3].itemName];
                                     break;
 
                                 case 1:
@@ -480,7 +480,7 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName]; //一個目の決定アイテムの所持数
                                         break;
 
                                     case 1:
@@ -500,7 +500,7 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item2]; //二個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item2].itemName]; //二個目の決定アイテムの所持数
 
                                         break;
 
@@ -521,7 +521,7 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item3]; //三個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item3].itemName]; //三個目の決定アイテムの所持数
                                         break;
 
                                     case 1:
@@ -541,7 +541,7 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.base_kettei_item]; //ベース決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.base_kettei_item].itemName]; //ベース決定アイテムの所持数
                                         break;
 
                                     case 1:
@@ -561,7 +561,7 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName]; //一個目の決定アイテムの所持数
                                         break;
 
                                     case 1:
@@ -581,7 +581,7 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item2]; //二個目の決定アイテムの所持数                           
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item2].itemName]; //二個目の決定アイテムの所持数                           
                                         break;
 
                                     case 1:
@@ -601,7 +601,7 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item3]; //三個目の決定アイテムの所持数                           
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item3].itemName]; //三個目の決定アイテムの所持数                           
                                         break;
 
                                     case 1:
@@ -626,7 +626,7 @@ public class Updown_counter : MonoBehaviour {
                         {
                             case 0:
 
-                                _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1]; //一個目の決定アイテムの所持数
+                                _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName]; //一個目の決定アイテムの所持数
                                 break;
 
                             case 1:
@@ -691,7 +691,7 @@ public class Updown_counter : MonoBehaviour {
                 {
                     case 0:
 
-                        if (pitemlist.playeritemlist[pitemlistController.kettei_item1] >= 
+                        if (pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName] >= 
                             quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
                         {                           
                             _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default 
@@ -699,7 +699,7 @@ public class Updown_counter : MonoBehaviour {
                         }
                         else
                         {
-                            _zaiko_max = pitemlist.playeritemlist[pitemlistController.kettei_item1];
+                            _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
                         }
                         break;
 
@@ -731,7 +731,7 @@ public class Updown_counter : MonoBehaviour {
                 {
                     case 0:
 
-                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.final_kettei_item1];
+                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.final_kettei_item1].itemName];
                         break;
 
                     case 1:
@@ -775,8 +775,8 @@ public class Updown_counter : MonoBehaviour {
 
             AddMethod1();
 
-            emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
-            kaerucoin = pitemlist.playeritemlist[emeraldonguriID];
+            //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+            kaerucoin = pitemlist.playeritemlist["emeralDongri"];
 
             if (kaerucoin < shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * updown_kosu)
             {
@@ -817,7 +817,7 @@ public class Updown_counter : MonoBehaviour {
                 {
                     case 0:
 
-                        _zaiko_max = pitemlist.playeritemlist[pitemlistController.final_kettei_item1];
+                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.final_kettei_item1].itemName];
                         break;
 
                     case 1:
@@ -862,8 +862,8 @@ public class Updown_counter : MonoBehaviour {
 
             AddMethod2();
 
-            emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
-            kaerucoin = pitemlist.playeritemlist[emeraldonguriID];
+            //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+            kaerucoin = pitemlist.playeritemlist["emeralDongri"];
 
             if (kaerucoin < shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * updown_kosu)
             {
@@ -1147,7 +1147,7 @@ public class Updown_counter : MonoBehaviour {
             }
         }
         //店売りの所持個数を計算
-        player_itemkosu1 += pitemlist.playeritemlist[itemdb_id1];
+        player_itemkosu1 += pitemlist.playeritemlist[database.items[itemdb_id1].itemName];
 
         //二個目
         //オリジナルの所持個数を計算
@@ -1159,7 +1159,7 @@ public class Updown_counter : MonoBehaviour {
             }
         }
         //店売りの所持個数を計算
-        player_itemkosu2 += pitemlist.playeritemlist[itemdb_id2];
+        player_itemkosu2 += pitemlist.playeritemlist[database.items[itemdb_id2].itemName];
 
         //三個目
         //オリジナルの所持個数を計算
@@ -1171,7 +1171,7 @@ public class Updown_counter : MonoBehaviour {
             }
         }
         //店売りの所持個数を計算
-        player_itemkosu3 += pitemlist.playeritemlist[itemdb_id3];
+        player_itemkosu3 += pitemlist.playeritemlist[database.items[itemdb_id3].itemName];
 
 
 
