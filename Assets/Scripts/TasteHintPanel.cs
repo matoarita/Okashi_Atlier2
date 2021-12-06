@@ -84,7 +84,7 @@ public class TasteHintPanel : MonoBehaviour {
         Okashi_lastbitter_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelD/PanelD_Param/Text").GetComponent<Text>();
         Okashi_lastbitter_param_text.text = GameMgr.Okashi_lastbitter_param.ToString();
 
-        Okashi_Img = database.items[GameMgr.Okashi_lastID].itemIcon_sprite;
+        Okashi_Img = database.items[database.SearchItemID(GameMgr.Okashi_lastID)].itemIcon_sprite;
         Okashi_Icon = this.transform.Find("HintPanel/OkashiImage").GetComponent<Image>(); //画像アイコン
         Okashi_Icon.sprite = Okashi_Img;
 

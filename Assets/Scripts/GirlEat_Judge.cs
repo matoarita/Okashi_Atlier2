@@ -659,7 +659,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     //食べ始めのアニメーションをスタート
                     EatAnimPanel.SetActive(true);
-                    texture2d = database.items[_baseID].itemIcon_sprite;
+                    texture2d = database.items[database.SearchItemIDString(_basename)].itemIcon_sprite;
                     EatAnimPanel_itemImage.sprite = texture2d;
 
 
@@ -4180,7 +4180,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
 
-        database.items[_baseID].last_hinttext = temp_hint_text;
+        database.items[database.SearchItemID(_baseID)].last_hinttext = temp_hint_text;
         GameMgr.Okashi_lasthint = temp_hint_text;
         GameMgr.Okashi_lastname = _basenameHyouji;
         GameMgr.Okashi_lastslot = _basenameSlot;
