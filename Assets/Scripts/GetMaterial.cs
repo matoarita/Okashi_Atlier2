@@ -288,57 +288,78 @@ public class GetMaterial : MonoBehaviour
             }
             else
             {*/
-                //カゴの大きさのチェック。取った数の総量がMAXを超えると、これ以上取れない。
-                if (PlayerStatus.player_zairyobox >= cullent_total_mat)
+            //カゴの大きさのチェック。取った数の総量がMAXを超えると、これ以上取れない。
+            if (PlayerStatus.player_zairyobox >= cullent_total_mat)
+            {
+
+                //お金の消費
+                //moneyStatus_Controller.UseMoney(mat_cost);
+
+                //日数の経過
+                PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
+                time_controller.TimeKoushin();
+
+                //妹の体力消費 一回の行動でマップに応じた量減る。
+                if (matplace_database.matplace_lists[index].placeType != 0)
                 {
-
-                    //お金の消費
-                    //moneyStatus_Controller.UseMoney(mat_cost);
-
-                    //日数の経過
-                    PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
-                    time_controller.TimeKoushin();
-                   
-                    //妹の体力消費 一回の行動でマップに応じた量減る。
-                    if (matplace_database.matplace_lists[index].placeType != 0)
-                    {
-                    PlayerStatus.player_girl_lifepoint -= matplace_database.matplace_lists[index].placeHP;
-
-                    if(PlayerStatus.player_girl_lifepoint <= 0) //体力の下限0
-                    {
-                        PlayerStatus.player_girl_lifepoint = 0;
-                    }
-                    HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
-
-                    //PlayerStatus.girl1_Love_exp -= matplace_database.matplace_lists[index].placeHP;
-                    //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+                    GirlLifeDegKeisan(matplace_database.matplace_lists[index].placeHP);
                 }
 
-                    //プレイヤーのアイテム発見力をバフつきで計算
-                    _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
-                    player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
+                //プレイヤーのアイテム発見力をバフつきで計算
+                _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
+                player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
 
-                    //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
-                    rare_event_kakuritsu = (player_girl_findpower_final - PlayerStatus.player_girl_findpower_def) * 0.3f;
+                //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
+                rare_event_kakuritsu = (player_girl_findpower_final - PlayerStatus.player_girl_findpower_def) * 0.3f;
 
-                    //ウェイトアニメ
-                    mat_anim_on = true;
-                    mat_anim_end = false;
+                //ウェイトアニメ
+                mat_anim_on = true;
+                mat_anim_end = false;
 
-                    //画面を黒くする。
-                    TansakuLoding_Panel.GetComponent<CanvasGroup>().DOFade(1, 0.2f); //背景黒フェード
+                //画面を黒くする。
+                TansakuLoding_Panel.GetComponent<CanvasGroup>().DOFade(1, 0.2f); //背景黒フェード
 
-                    tansaku_panel.SetActive(false);
-                    StartCoroutine("Mat_Judge_anim_co");
+                tansaku_panel.SetActive(false);
+                StartCoroutine("Mat_Judge_anim_co");
 
-                }
-                else
-                {
-                    _text.text = "もうカゴがいっぱいだよ～。";
-                }
+            }
+            else
+            {
+                _text.text = "もうカゴがいっぱいだよ～。";
+            }
 
             //}
         }
+    }
+
+    //入れた数値分、体力を減らす処理
+    void GirlLifeDegKeisan(int _deghp)
+    {
+        PlayerStatus.player_girl_lifepoint -= _deghp;
+
+        if (PlayerStatus.player_girl_lifepoint <= 0) //体力の下限0
+        {
+            PlayerStatus.player_girl_lifepoint = 0;
+        }
+        HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
+
+        //PlayerStatus.girl1_Love_exp -= matplace_database.matplace_lists[index].placeHP;
+        //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
+    }
+
+    //入れた数値分、体力を上げる処理
+    void GirlLifeUpKeisan(int _uphp)
+    {
+        PlayerStatus.player_girl_lifepoint += _uphp;
+
+        if (PlayerStatus.player_girl_lifepoint >= 99) //体力の上限99
+        {
+            PlayerStatus.player_girl_lifepoint = 99;
+        }
+        HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
+
+        //PlayerStatus.girl1_Love_exp -= matplace_database.matplace_lists[index].placeHP;
+        //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
     }
 
     IEnumerator Mat_Judge_anim_co()
@@ -921,7 +942,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "あ！てんとうむしだ！　にいちゃん！" + "\n" + "妹は、はしゃいでいる。";
+                _text.text = "あ！てんとうむしだ！　にいちゃん！" + "\n" + "妹は、はしゃいでいる。ハートが３上がった！";
+                PlayerStatus.girl1_Love_exp += 3;
+                sc.PlaySe(17);
                 break;
 
             case 3:
@@ -960,7 +983,9 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                _text.text = "にいちゃん。水がいっぱい！　すっごくひろ～い。" + "\n" + "妹は感動しているようだ。";
+                _text.text = "にいちゃん。水がいっぱい！　すっごくひろ～い。" + "\n" + "妹は感動しているようだ。ハートが３上がった！";
+                PlayerStatus.girl1_Love_exp += 3;
+                sc.PlaySe(17);
                 break;
 
             case 1:
@@ -970,7 +995,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "この紫のお花、ラベンダーっていうの？　いい香り～。";
+                _text.text = "この紫のお花、ラベンダーっていうの？　いい香り～。" + "\n" + "ハートが１上がった！";
+                PlayerStatus.girl1_Love_exp += 1;
+                sc.PlaySe(17);
                 break;
 
             case 3:
@@ -995,7 +1022,8 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                _text.text = "ギャーー！どろんこにはまっちゃった..！　どろどろ～。";
+                _text.text = "ギャーー！どろんこにはまっちゃった..！　どろどろ～。" + "体力が１下がった。";
+                GirlLifeDegKeisan(1);
 
                 //音を鳴らす
                 sc.PlaySe(6);
@@ -1065,7 +1093,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "なつかしい匂いがする。" + "ゆっくりと畑を歩いた。";
+                _text.text = "なつかしい匂いがする。" + "ゆっくりと畑を歩いた。"+ "体力を２回復。";
+                GirlLifeUpKeisan(2);
+                sc.PlaySe(17);
                 break;
 
             default:
@@ -1489,7 +1519,7 @@ public class GetMaterial : MonoBehaviour
         random = Random.Range(0, 100);
 
         rare_eventitem_max = (int)(10 + rare_event_kakuritsu);
-        if(rare_eventitem_max >= 30)
+        if (rare_eventitem_max >= 30)
         {
             rare_eventitem_max = 30;
         }
@@ -1500,70 +1530,74 @@ public class GetMaterial : MonoBehaviour
         }
         else //通常のお宝テーブル
         {*/
-            switch (_treasure_num)
-            {
-                case 0: //お宝セットテーブル１　森
+        switch (_treasure_num)
+        {
+            case 0: //お宝セットテーブル１　森
 
-                    treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                    treasureInfo.Add(1, "doro_dango");
-                    treasureInfo.Add(2, "kirakira_stone1");
-                    treasureInfo.Add(3, "emerald_suger");
-                    treasureInfo.Add(4, "earlgrey_leaf");
-                    treasureInfo.Add(5, "copper_coin");
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "doro_dango");
+                treasureInfo.Add(2, "kirakira_stone1");
+                treasureInfo.Add(3, "emerald_suger");
+                treasureInfo.Add(4, "earlgrey_leaf");
+                treasureInfo.Add(5, "copper_coin");
+                treasureInfo.Add(6, "grape");
 
-                    treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                    treasureDropDict.Add(1, 20.0f);
-                    treasureDropDict.Add(2, 20.0f);
-                    treasureDropDict.Add(3, 20.0f + rare_event_kakuritsu);
-                    treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
-                    treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
-                    break;
+                treasureDropDict.Add(0, 10.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 10.0f);
+                treasureDropDict.Add(2, 20.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 20.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(6, 20.0f);
+                break;
 
-                case 1: //お宝セットテーブル２　ひまわりの丘
+            case 1: //お宝セットテーブル２　ひまわりの丘
 
-                    treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                    treasureInfo.Add(1, "doro_dango");
-                    treasureInfo.Add(2, "kirakira_stone1");
-                    treasureInfo.Add(3, "rich_komugiko");
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "doro_dango");
+                treasureInfo.Add(2, "kirakira_stone1");
+                treasureInfo.Add(3, "rich_komugiko");
 
-                    treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                    treasureDropDict.Add(1, 30.0f);
-                    treasureDropDict.Add(2, 20.0f);
-                    treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
-                    break;
+                treasureDropDict.Add(0, 10.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 0.0f);
+                treasureDropDict.Add(2, 20.0f);
+                treasureDropDict.Add(3, 70.0f + rare_event_kakuritsu);
+                break;
 
-                case 2: //お宝セットテーブル３　バードサンクチュアリ
+            case 2: //お宝セットテーブル３　バードサンクチュアリ
 
-                    treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                    treasureInfo.Add(1, "doro_dango");
-                    treasureInfo.Add(2, "kirakira_stone1");
-                    treasureInfo.Add(3, "egg_premiaum");
-                    treasureInfo.Add(4, "diamond_1");
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "doro_dango");
+                treasureInfo.Add(2, "kirakira_stone1");
+                treasureInfo.Add(3, "egg_premiaum");
+                treasureInfo.Add(4, "diamond_1");
+                treasureInfo.Add(5, "kirakira_stone2");
 
-                    treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                    treasureDropDict.Add(1, 20.0f);
-                    treasureDropDict.Add(2, 20.0f);
-                    treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
-                    treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
-                    break;
+                treasureDropDict.Add(0, 10.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 0.0f);
+                treasureDropDict.Add(2, 20.0f);
+                treasureDropDict.Add(3, 50.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
+                break;
 
-                default:
+            default:
 
-                    treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名
-                    treasureInfo.Add(1, "kirakira_stone1");
-                    treasureInfo.Add(2, "kirakira_stone1");
-                    treasureInfo.Add(3, "kirakira_stone1");
-                    treasureInfo.Add(4, "kirakira_stone1");
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名
+                treasureInfo.Add(1, "kirakira_stone1");
+                treasureInfo.Add(2, "kirakira_stone1");
+                treasureInfo.Add(3, "kirakira_stone1");
+                treasureInfo.Add(4, "kirakira_stone1");
 
-                    treasureDropDict.Add(0, 50.0f); //こっちは確率テーブル
-                    treasureDropDict.Add(1, 20.0f);
-                    treasureDropDict.Add(2, 10.0f);
-                    treasureDropDict.Add(3, 10.0f);
-                    treasureDropDict.Add(4, 10.0f);
-                    break;
-            }
+                treasureDropDict.Add(0, 10.0f); //こっちは確率テーブル
+                treasureDropDict.Add(1, 30.0f);
+                treasureDropDict.Add(2, 20.0f);
+                treasureDropDict.Add(3, 20.0f);
+                treasureDropDict.Add(4, 20.0f);
+                break;
+        }
         //}
-        
+
     }
 
     int TreasureChoose()

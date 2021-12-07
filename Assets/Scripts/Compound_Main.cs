@@ -236,6 +236,7 @@ public class Compound_Main : MonoBehaviour
     private bool GetFirstCollectionItem;
     private bool GetEmeraldItem;
     private string GetEmeraldItemName;
+    private int get_heart;
 
     private string _todayfood;
     private List<string> _todayfood_lib = new List<string>();
@@ -3415,15 +3416,17 @@ public class Compound_Main : MonoBehaviour
 
                         case 1:
 
-                            _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
+                            get_heart = 10; //GameMgr.event_okashi_score / 5
+                            _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "<color>" + "上がった！";
+                            girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
                             GameMgr.girl_express_param += 10;
                             break;
 
                         case 2:
 
-                            _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
+                            get_heart = 30;
+                            _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "<color>" + "上がった！";
+                            girlEat_judge.loveGetPlusAnimeON(get_heart, false);
                             GameMgr.girl_express_param += 30;
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
@@ -3431,8 +3434,9 @@ public class Compound_Main : MonoBehaviour
 
                         case 3:
 
-                            _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
+                            get_heart = 50;
+                            _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "<color>" + "上がった！";
+                            girlEat_judge.loveGetPlusAnimeON(get_heart, false);
                             GameMgr.girl_express_param += 50;
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
@@ -3440,7 +3444,8 @@ public class Compound_Main : MonoBehaviour
 
                         case 4:
 
-                            _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.event_okashi_score + "上がった！";
+                            get_heart = 100;
+                            _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "<color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
                             GameMgr.girl_express_param += 100;
                             GameMgr.picnic_after = true;
@@ -3451,24 +3456,25 @@ public class Compound_Main : MonoBehaviour
 
                     break;
 
+                    /*
                 case 70:
 
                     _textmain.text = "メガネによろこんだ！";
-                    girlEat_judge.loveGetPlusAnimeON(20, false);
+                    girlEat_judge.loveGetPlusAnimeON(10, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
                 case 71:
 
                     _textmain.text = "スク水をよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(50, false);
+                    girlEat_judge.loveGetPlusAnimeON(30, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
                 case 72:
 
                     _textmain.text = "黒メイド服をよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(50, false);
+                    girlEat_judge.loveGetPlusAnimeON(30, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
@@ -3489,28 +3495,28 @@ public class Compound_Main : MonoBehaviour
                 case 75:
 
                     _textmain.text = "バルーンハットをたいそうよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(100, false);
+                    girlEat_judge.loveGetPlusAnimeON(50, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
                 case 76:
 
                     _textmain.text = "天使の羽根にこころを浄化された！";
-                    girlEat_judge.loveGetPlusAnimeON(100, false);
+                    girlEat_judge.loveGetPlusAnimeON(70, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
                 case 77:
 
                     _textmain.text = "ねこみみに興味をひいたようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(70, false);
+                    girlEat_judge.loveGetPlusAnimeON(30, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
                 case 78:
 
                     _textmain.text = "お花のヘアピンを気に入ったようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(50, false);
+                    girlEat_judge.loveGetPlusAnimeON(10, false);
                     GameMgr.girl_express_param += 50;
                     break;
 
@@ -3519,7 +3525,7 @@ public class Compound_Main : MonoBehaviour
                     _textmain.text = "ティンクルスターダストを気に入ったようだ！";
                     girlEat_judge.loveGetPlusAnimeON(100, false);
                     GameMgr.girl_express_param += 50;
-                    break;
+                    break;*/
 
                 case 100:
 

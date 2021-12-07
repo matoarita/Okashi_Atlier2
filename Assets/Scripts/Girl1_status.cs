@@ -954,25 +954,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 2;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 10) //
+        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 8) //
         {
             //ちょっと元気でてきた
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 10 && PlayerStatus.girl1_Love_lv < 20) //
+        else if (PlayerStatus.girl1_Love_lv >= 8 && PlayerStatus.girl1_Love_lv < 12) //
         {
             //だいぶ元気でてきた
             GirlGokigenStatus = 4;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 20 && PlayerStatus.girl1_Love_lv < 30) //
+        else if (PlayerStatus.girl1_Love_lv >= 12 && PlayerStatus.girl1_Love_lv < 16) //
         {
             //元気
             GirlGokigenStatus = 5;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 30) //13~
+        else if (PlayerStatus.girl1_Love_lv >= 16) //13~
         {
             //最高に上機嫌
             GirlGokigenStatus = 6;

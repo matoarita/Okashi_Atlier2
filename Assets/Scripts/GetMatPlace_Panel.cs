@@ -21,6 +21,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private Exp_Controller exp_Controller;
+
     private Girl1_status girl1_status;
     private GirlEat_Judge girlEat_judge;
 
@@ -176,6 +178,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //GirlEat_Judgeの取得
         girlEat_judge = GirlEat_Judge.Instance.GetComponent<GirlEat_Judge>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //ヒロインライフパネル
         HeroineLifePanel = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel/HeroineLife").gameObject;
@@ -726,20 +731,26 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                 event_end_flag = true;
 
 
-                                if (!GameMgr.MapEvent_01[1] && pitemlist.ReturnItemKosu("shishamo_cookie") != 9999) //ししゃもクッキーをもっている
+                                if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている //pitemlist.ReturnItemKosu("shishamo_cookie") != 9999
                                 {
-                                    GameMgr.map_ev_ID = 11;
-                                    GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                    if(exp_Controller._temp_extremeSetting && 
+                                        pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemName == "shishamo_cookie")
+                                    {
+                                        GameMgr.map_ev_ID = 11;
+                                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-                                    pitemlist.SearchDeleteItem("shishamo_cookie"); //ししゃもクッキーを一個消費
+                                        //pitemlist.SearchDeleteItem("shishamo_cookie"); //ししゃもクッキーを一個消費
+                                        pitemlist.deleteOriginalItem(exp_Controller._temp_extreme_id, 1);
 
-                                    subevent_on = true;
-                                    sceneBGM.MuteBGM();
-                                    this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
-                                    getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
-                                    Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
+                                        subevent_on = true;
+                                        sceneBGM.MuteBGM();
+                                        this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
+                                        getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
+                                        Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
 
-                                    StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
+                                        StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
+                                    }
+                                    
                                 }
 
                             }

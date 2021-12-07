@@ -2502,10 +2502,15 @@ public class Utage_scenario : MonoBehaviour
         {
             yusho_flag = false;
             engine.Param.TrySetParameter("contest_ranking_num", 0);
-        }       
+        }
+
+        //最後に、コンテストのスコアがハートにボーナス加算される。150点とかでクリアすれば、ハートがさらに上がる。
+        //PlayerStatus.girl1_Love_exp += GameMgr.contest_TotalScore;
+
+
 
         //
-        //コンテストの点＞ハートレベルによって、EDが分岐する。
+        //ED分岐判定　コンテストの点＞ハートレベルによって、EDが分岐する。
         //
 
         if (yusho_flag == false) // LV4 ノーマルED ED:C

@@ -73,10 +73,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<string> CollectionItemsName = new List<string>(); //登録済みか否か。こっちはセーブ不要。
     public static List<string> BGAcceItemsName = new List<string>(); //背景の置物のリスト。こっちはセーブ不要。
 
-    //現在覚えているレシピの数と達成率
+    //現在覚えているレシピの数と達成率。調合成功率アップのパーセント
     public static int game_Cullent_recipi_count;
     public static int game_All_recipi_count;
     public static float game_Recipi_archivement_rate;
+    public static int game_Exup_rate;
 
     //イベントフラグ
     public static int GirlLoveEvent_num;            //女の子の好感度に応じて発生するイベントの、イベント番号   
@@ -162,9 +163,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_lastsweat_param; //さっき食べたお菓子のパラメータ
     public static int Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
     public static int Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
-    public static int Okashi_totalscore; //女の子にあげたときの点数
+    public static int Okashi_totalscore; //女の子にあげたときの点数   
     public static int Okashi_quest_bunki_on; //特定お菓子のときの条件分岐
     public static bool high_score_flag; //高得点でクリアしたというフラグ。セーブされる。
+
+    public static int Okashi_last_score; //前回あげた最高得点
+    public static int Okashi_last_heart; //前回あげたときの最高ハート取得量
 
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
@@ -584,6 +588,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_dislike_status = 0;
         Okashi_OnepointHint_num = 0;
         Okashi_quest_bunki_on = 0;
+        Okashi_last_score = 0;
+        Okashi_last_heart = 0;
         high_score_flag = false;
 
         sys_extreme_itemID = 9999;
@@ -713,10 +719,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_lastbitter_param = 0;
 
         //お菓子のクリア基準値
-        mazui_score = 40;
+        mazui_score = 30;
         low_score = 60;
         high_score = 100;
-        high_score_2 = 120;
+        high_score_2 = 150;
 
         //チュートリアルフラグ
         tutorial_ON = false;

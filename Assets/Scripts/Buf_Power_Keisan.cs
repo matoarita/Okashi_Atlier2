@@ -37,7 +37,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
       
         if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
         {
-            _buf_findpower += 10;
+            _buf_findpower += 100;
+        }
+
+        if (pitemlist.KosuCount("compass") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_findpower += 50;
         }
 
         return _buf_findpower;
@@ -62,11 +67,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
         {
-            _buf_kakuritsuup += 30;
+            _buf_kakuritsuup += 15;
         }
         if (pitemlist.KosuCount("star_pendant") >= 1) //持ってるだけで効果アップ
         {
-            _buf_kakuritsuup += 10;
+            _buf_kakuritsuup += 5;
         }
         if (pitemlist.KosuCount("maneki_cat") >= 1) //持ってるだけで効果アップ
         {

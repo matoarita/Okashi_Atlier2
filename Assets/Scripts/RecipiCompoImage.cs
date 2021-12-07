@@ -9,6 +9,7 @@ public class RecipiCompoImage : MonoBehaviour {
     private ItemCompoundDataBase databaseCompo;
 
     private Text recipi_tassei_text;
+    private Text exup_text;
 
     private int i, count;
     private float recipi_archivement_rate;
@@ -32,6 +33,7 @@ public class RecipiCompoImage : MonoBehaviour {
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         recipi_tassei_text = this.transform.Find("Panel/RecipiPercent").GetComponent<Text>();
+        exup_text = this.transform.Find("Panel/exup_param").GetComponent<Text>();
 
         this.transform.Find("Panel").gameObject.SetActive(true);
 
@@ -40,6 +42,10 @@ public class RecipiCompoImage : MonoBehaviour {
 
         recipi_tassei_text.text = GameMgr.game_Cullent_recipi_count + " / " + GameMgr.game_All_recipi_count + " " 
             + GameMgr.game_Recipi_archivement_rate.ToString("f2") + "%";
+
+        //調合成功率アップパーセント表示も更新
+        databaseCompo.RecipiCount_database();
+        exup_text.text = "+" + GameMgr.game_Exup_rate.ToString() + "%";
     }
 
 }

@@ -120,6 +120,9 @@ public class PlayerData
     public int save_Okashi_quest_bunki_on; //条件分岐しているか否かのフラグ
     public bool save_high_score_flag; //高得点でクリアしたというフラグ。
 
+    public int save_Okashi_last_score; //前回あげた最高得点
+    public int save_Okashi_last_heart; //前回あげたときの最高ハート取得量
+
     //ステージ１クリア時の好感度を保存
     public int save_stage1_girl1_loveexp;
     public int save_stage2_girl1_loveexp;
@@ -134,9 +137,9 @@ public class PlayerData
     public bool[] save_ShopLvEvent_stage = new bool[GameMgr.ShopLVEvent_stage.Length];
 
     //ショップの在庫
-    public List<int> save_shopzaiko = new List<int>();
-    public List<int> save_farmzaiko = new List<int>();
-    public List<int> save_emeraldshop_zaiko = new List<int>();
+    public List<ItemSaveKosu> save_shopzaiko = new List<ItemSaveKosu>();
+    public List<ItemSaveKosu> save_farmzaiko = new List<ItemSaveKosu>();
+    public List<ItemSaveKosu> save_emeraldshop_zaiko = new List<ItemSaveKosu>();
 
     //酒場のイベントリスト
     public bool[] save_BarEvent_stage = new bool[GameMgr.BarEvent_stage.Length];
@@ -179,7 +182,7 @@ public class PlayerData
     public List<QuestSet> save_questTakeset = new List<QuestSet>();
 
     //マップのフラグリスト
-    public List<int> save_mapflaglist = new List<int>();
+    public List<ItemSaveKosu> save_mapflaglist = new List<ItemSaveKosu>();
 
     //エクストリームパネル用のアイテムとタイプ
     public int save_extreme_itemid;

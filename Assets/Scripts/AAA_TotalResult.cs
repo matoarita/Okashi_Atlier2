@@ -124,53 +124,52 @@ public class AAA_TotalResult : MonoBehaviour {
         ed_view_list[EDList[GameMgr.ending_number - 1]].transform.Find("Text1_on").gameObject.SetActive(true);
 
         //上記のパラメータをもとに、ゲームトータルスコアを計算
-        //コンテストのスコア・ハート総数・コスチュームアイテム総数(＊100点）・見つけたレシピの総数(レシピ総数%＊20倍点）
-        total_score = GameMgr.contest_TotalScore + PlayerStatus.girl1_Love_exp + (int)(100 * pitemlist.emeralditemlist_CostumeCount()) +
-            ((int)(GameMgr.game_Recipi_archivement_rate * 20));
+        //ハート総数+コンテストのスコア
+        total_score = GameMgr.contest_TotalScore + PlayerStatus.girl1_Love_exp;
         total_score_text.text = total_score.ToString();
 
         //パティシエランク計算　トータルスコアをもとに、SS S A B C D E F 8段階
         player_rank_text.text = "";
         player_shogo = "-";
-        if (total_score < 1000)
+        if (total_score < 600)
         {
             player_rank_text.text = "F";
             player_shogo = "パティシエ見習い";
         }
-        else if (total_score >= 1000 && total_score < 1500)
+        else if (total_score >= 600 && total_score < 800)
         {
             player_rank_text.text = "D";
             player_shogo = "パティシエたまご";
         }
-        else if (total_score >= 1500 && total_score < 2000)
+        else if (total_score >= 800 && total_score < 1000)
         {
             player_rank_text.text = "C";
-            player_shogo = "パティシエ半人前";
-        }
-        else if (total_score >= 2000 && total_score < 2500)
-        {
-            player_rank_text.text = "B";
             player_shogo = "パティシエ一人前";
         }
-        else if (total_score >= 2500 && total_score < 3000)
+        else if (total_score >= 1000 && total_score < 1100)
+        {
+            player_rank_text.text = "B";
+            player_shogo = "オレンジ・パティシエ";
+        }
+        else if (total_score >= 1100 && total_score < 1200)
         {
             player_rank_text.text = "B+";
-            player_shogo = "一流パティシエ";
+            player_shogo = "スーパー・パティシエ";
         }
-        else if (total_score >= 3000 && total_score < 4000)
+        else if (total_score >= 1200 && total_score < 1300)
         {
             player_rank_text.text = "A";
             player_shogo = "グランド・パティシエ";
         }
-        else if (total_score >= 4000 && total_score < 5000)
+        else if (total_score >= 1300 && total_score < 1800)
         {
             player_rank_text.text = "S";
-            player_shogo = "パティシエ・マイスター";
+            player_shogo = "パティシエ・キング";
         }
-        else if (total_score >= 5000)
+        else if (total_score >= 1800)
         {
             player_rank_text.text = "SS";
-            player_shogo = "究極パティシエ";
+            player_shogo = "究極のパティシエ";
         }
 
         //称号計算　通常は、パティシエランクに合わせて決める。特別な条件をクリアすると、特殊な称号がもらえるようにする。

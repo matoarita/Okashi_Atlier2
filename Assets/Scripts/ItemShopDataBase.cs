@@ -278,4 +278,49 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
             ++sheet_count;
         }
     }
+
+    //アイテム名＋個数で、指定した在庫数に変更する。
+    public void ReSetShopItemString(string itemName, int count_kosu)
+    {
+        i = 0;
+        while (i < shopitems.Count)
+        {
+            if (shopitems[i].shop_itemName == itemName)
+            {
+                shopitems[i].shop_itemzaiko = count_kosu;
+                break;
+            }
+            i++;
+        }
+    }
+
+    //ファーム　アイテム名＋個数で、指定した在庫数に変更する。
+    public void ReSetFarmItemString(string itemName, int count_kosu)
+    {
+        i = 0;
+        while (i < farmitems.Count)
+        {
+            if (farmitems[i].shop_itemName == itemName)
+            {
+                farmitems[i].shop_itemzaiko = count_kosu;
+                break;
+            }
+            i++;
+        }
+    }
+
+    //エメラルドショップ　アイテム名＋個数で、指定した在庫数に変更する。
+    public void ReSetEmeraldItemString(string itemName, int count_kosu)
+    {
+        i = 0;
+        while (i < emeraldshop_items.Count)
+        {
+            if (emeraldshop_items[i].shop_itemName == itemName)
+            {
+                emeraldshop_items[i].shop_itemzaiko = count_kosu;
+                break;
+            }
+            i++;
+        }
+    }
 }

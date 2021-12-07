@@ -39,10 +39,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveKosu> _temp_eventitemlist = new List<ItemSaveKosu>();
     private List<ItemSaveKosu> _temp_emeralditemlist = new List<ItemSaveKosu>();
     private List<ItemSaveCompoFlag> _temp_cmpflaglist = new List<ItemSaveCompoFlag>();
-    private List<int> _tempmap_placeflaglist = new List<int>();
-    private List<int> _temp_shopzaiko = new List<int>();
-    private List<int> _temp_farmzaiko = new List<int>();
-    private List<int> _temp_emeraldshop_zaiko = new List<int>();
+    private List<ItemSaveKosu> _tempmap_placeflaglist = new List<ItemSaveKosu>();
+    private List<ItemSaveKosu> _temp_shopzaiko = new List<ItemSaveKosu>();
+    private List<ItemSaveKosu> _temp_farmzaiko = new List<ItemSaveKosu>();
+    private List<ItemSaveKosu> _temp_emeraldshop_zaiko = new List<ItemSaveKosu>();
     private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
 
     private GameObject _model_obj;
@@ -100,9 +100,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //アイテムリストの所持数を取得
         _tempplayeritemlist.Clear();
-        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
+        foreach (KeyValuePair <string, int> table in pitemlist.playeritemlist)
         {
-            _tempplayeritemlist.Add(new ItemSaveKosu(database.items[i].itemName, pitemlist.playeritemlist[database.items[i].itemName], 0));
+            _tempplayeritemlist.Add(new ItemSaveKosu(table.Key, table.Value, 0));
         }
 
         //イベントアイテムの所持数取得
@@ -130,28 +130,28 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _tempmap_placeflaglist.Clear();
         for (i = 0; i < matplace_database.matplace_lists.Count; i++)
         {
-            _tempmap_placeflaglist.Add(matplace_database.matplace_lists[i].placeFlag);
+            _tempmap_placeflaglist.Add(new ItemSaveKosu(matplace_database.matplace_lists[i].placeName, 0, matplace_database.matplace_lists[i].placeFlag));
         }
 
         //ショップの在庫のみ取得
         _temp_shopzaiko.Clear();
         for (i = 0; i < shop_database.shopitems.Count; i++)
         {
-            _temp_shopzaiko.Add(shop_database.shopitems[i].shop_itemzaiko);
+            _temp_shopzaiko.Add(new ItemSaveKosu(shop_database.shopitems[i].shop_itemName, shop_database.shopitems[i].shop_itemzaiko, 0));
         }
 
         //牧場の在庫のみ取得
         _temp_farmzaiko.Clear();
         for (i = 0; i < shop_database.farmitems.Count; i++)
         {
-            _temp_farmzaiko.Add(shop_database.farmitems[i].shop_itemzaiko);
+            _temp_farmzaiko.Add(new ItemSaveKosu(shop_database.farmitems[i].shop_itemName, shop_database.farmitems[i].shop_itemzaiko,0));
         }
 
         //エメラルドショップの在庫のみ取得
         _temp_emeraldshop_zaiko.Clear();
         for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
         {
-            _temp_emeraldshop_zaiko.Add(shop_database.emeraldshop_items[i].shop_itemzaiko);
+            _temp_emeraldshop_zaiko.Add(new ItemSaveKosu(shop_database.emeraldshop_items[i].shop_itemName, shop_database.emeraldshop_items[i].shop_itemzaiko, 0));
         }
 
         //アイテムの前回得点のみ取得
@@ -267,6 +267,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_Okashi_lastbitter_param = GameMgr.Okashi_lastbitter_param, //さっき食べたお菓子のパラメータ
             save_Okashi_quest_bunki_on = GameMgr.Okashi_quest_bunki_on, //条件分岐しているか否かのフラグ
             save_high_score_flag = GameMgr.high_score_flag, //高得点でクリアしたというフラグ。
+
+            save_Okashi_last_score = GameMgr.Okashi_last_score,
+            save_Okashi_last_heart = GameMgr.Okashi_last_heart,
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -501,6 +504,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Okashi_quest_bunki_on = playerData.save_Okashi_quest_bunki_on; //条件分岐しているか否かのフラグ
         GameMgr.high_score_flag = playerData.save_high_score_flag; //高得点でクリアしたというフラグ。
 
+        GameMgr.Okashi_last_score = playerData.save_Okashi_last_score;
+        GameMgr.Okashi_last_heart = playerData.save_Okashi_last_heart;
+
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
         GameMgr.MapEvent_02 = playerData.save_MapEvent_02;        //井戸。
@@ -551,30 +557,27 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //プレイヤーのイベントアイテムリスト。
-        //pitemlist.eventitemlist.Clear();
         for (i = 0; i < playerData.save_eventitemlist.Count; i++)
         {
-            pitemlist.ReSetEventItemString(playerData.save_eventitemlist[i].itemName, playerData.save_eventitemlist[i].itemKosu, playerData.save_eventitemlist[i].read_Flag);
+            pitemlist.ReSetEventItemString(playerData.save_eventitemlist[i].itemName, playerData.save_eventitemlist[i].itemKosu, playerData.save_eventitemlist[i].Flag);
         }
-        //pitemlist.eventitemlist = playerData.save_eventitemlist;
 
         //プレイヤーのエメラルドアイテムリスト。
-        //pitemlist.emeralditemlist.Clear();
         for (i = 0; i < playerData.save_player_emeralditemlist.Count; i++)
         {
             pitemlist.ReSetEmeraldItemString(playerData.save_player_emeralditemlist[i].itemName, playerData.save_player_emeralditemlist[i].itemKosu);
         }
-        //pitemlist.emeralditemlist = playerData.save_player_emeralditemlist;
 
         //アイテムリスト＜オリジナル＞
         pitemlist.player_originalitemlist.Clear();
         pitemlist.player_originalitemlist = playerData.save_player_originalitemlist;
 
-        //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。
+        //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。アイテムIDも、後でDB更新の際に全てずれる可能性があるので入れ直し。
         for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             _itemID = pitemlist.SearchItemString(pitemlist.player_originalitemlist[i].itemName);
             pitemlist.player_originalitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+            pitemlist.player_originalitemlist[i].itemID = database.items[_itemID].itemID;
         }
 
         //アイテムの前回スコアなどを読み込み
@@ -631,21 +634,21 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //マップフラグの読み込み
         for (i = 0; i < matplace_database.matplace_lists.Count; i++)
         {
-            matplace_database.matplace_lists[i].placeFlag = playerData.save_mapflaglist[i];
+            matplace_database.ReSetMapFlagString(playerData.save_mapflaglist[i].itemName, playerData.save_mapflaglist[i].Flag);
         }
 
         //ショップの在庫読み込み
         for (i = 0; i < shop_database.shopitems.Count; i++)
         {
-            shop_database.shopitems[i].shop_itemzaiko = playerData.save_shopzaiko[i];
+            shop_database.ReSetShopItemString(playerData.save_shopzaiko[i].itemName, playerData.save_shopzaiko[i].itemKosu);
         }
         for (i = 0; i < shop_database.farmitems.Count; i++)
         {
-            shop_database.farmitems[i].shop_itemzaiko = playerData.save_farmzaiko[i];
+            shop_database.ReSetFarmItemString(playerData.save_farmzaiko[i].itemName, playerData.save_farmzaiko[i].itemKosu);
         }
         for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
         {
-            shop_database.emeraldshop_items[i].shop_itemzaiko = playerData.save_emeraldshop_zaiko[i];
+            shop_database.ReSetEmeraldItemString(playerData.save_emeraldshop_zaiko[i].itemName, playerData.save_emeraldshop_zaiko[i].itemKosu);
         }
 
         //エクストリームパネルのアイテムを読み込み

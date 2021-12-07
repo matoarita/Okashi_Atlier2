@@ -184,6 +184,7 @@ public class ExtremePanel : MonoBehaviour {
             myscene_loaded = false;
         }
         
+        /*
         if( Life_anim_on == true) //お菓子が完成したら、だんだんとHPが減っていく。０になると、お菓子が壊れる。
         {
 
@@ -235,7 +236,7 @@ public class ExtremePanel : MonoBehaviour {
 
             //時間減少
             timeOut -= Time.deltaTime;
-        }
+        }*/
 	}
 
     public void SetInitParamExtreme()

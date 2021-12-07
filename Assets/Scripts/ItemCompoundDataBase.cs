@@ -156,7 +156,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         }
     }
 
-    //ゲーム中に表示される全てのレシピ数をカウントする
+    //ゲーム中に表示される全てのレシピ数をカウントする.また現在のレシピ達成率も計算する。
     public void RecipiCount_database()
     {
         all_recipicount = 0;
@@ -180,7 +180,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         GameMgr.game_Cullent_recipi_count = cullent_recipi_count;
         GameMgr.game_All_recipi_count = all_recipicount;
         GameMgr.game_Recipi_archivement_rate = recipi_archivement_rate;
-
+        GameMgr.game_Exup_rate = (int)(recipi_archivement_rate / 2);
         //Debug.Log("総レシピ数: " + all_recipicount);
         //Debug.Log("現在覚えているレシピ数: " + cullent_recipi_count);
         //Debug.Log("達成率: " + recipi_archivement_rate);

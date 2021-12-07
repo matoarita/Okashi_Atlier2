@@ -73,7 +73,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
 
-    public int trash_ID_1; //失敗アイテムのアイテムID。他クラスから参照されます。
+    //public int trash_ID_1; //失敗アイテムのアイテムID。他クラスから参照されます。
 
     public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
 
@@ -94,7 +94,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
         sheet_topendID.Add(0); //シートの頭のIDは0。
 
-        trash_ID_1 = 500;
+        //trash_ID_1 = 500;
         sheet_no = 0;
 
         while (sheet_no < excel_itemdatabase.sheets.Count)
@@ -189,6 +189,17 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
             {
                 sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる
 
+                for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
+                {
+                    items.Add(new Item(_id + i + 1, "orange", "Non" + (sheet_no - 1).ToString() + " " + (sheet_count + i).ToString(), "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                        "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
+                        _ex_kaisu, 0, 0, 0, 0, 0, "", 0, 1));
+                    //comp_hoseiでバグらないようにするための、クローン
+                    items_gamedefault.Add(new Item(_id + i + 1, "orange", "Non" + (sheet_no - 1).ToString() + " " + (sheet_count + i).ToString(), "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                        "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
+                        _ex_kaisu, 0, 0, 0, 0, 0, "", 0, 1));
+                }
+
                 sheet_topendID.Add(excel_itemdatabase.sheets[sheet_no].list[0].ItemID); // 次sheetの頭のIDを入れる。
             }
         }
@@ -252,7 +263,25 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
         }
     }
 
-    //アイテム名をいれると、そのアイテムのIDを返すメソッド
+    //アイテムIDをいれると、そのアイテムの(配列番号)を返すメソッド
+    public int SearchItemID(int _itemID)
+    {
+
+        i = 0;
+        while (i <= items.Count)
+        {
+            if (items[i].itemID == _itemID)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
+
+    }
+
+    //アイテム名をいれると、そのアイテムの(配列番号)を返すメソッド
     public int SearchItemIDString(string Name)
     {
         if (Name == "Non")
@@ -274,4 +303,5 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
             return 9999; //見つからなかった場合、9999
         }
     }
+   
 }

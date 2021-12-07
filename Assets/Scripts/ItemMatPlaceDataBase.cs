@@ -157,4 +157,19 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
             return 9999; //見つからなかった場合、9999
         }
     }
+
+    //マップ名＋フラグで、指定したフラグに変更する。
+    public void ReSetMapFlagString(string mapName, int map_flag)
+    {
+        i = 0;
+        while (i < matplace_lists.Count)
+        {
+            if (matplace_lists[i].placeName == mapName)
+            {
+                matplace_lists[i].placeFlag = map_flag;
+                break;
+            }
+            i++;
+        }
+    }
 }

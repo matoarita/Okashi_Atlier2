@@ -161,6 +161,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1200;
                 OkashiQuest_Count = 1;
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -206,7 +207,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1300;
                 OkashiQuest_Count = 1;
-                
+                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -261,7 +262,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 break;
         }
 
-        //クエストボタンを登場させる。
+        //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
         GameMgr.QuestClearAnim_Flag = true;
 
         //クエストネームの設定

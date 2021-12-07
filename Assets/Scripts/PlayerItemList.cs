@@ -86,17 +86,27 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             while (count < excel_itemdatabase.sheets[sheet_no].list.Count)
             {
                 // 一旦代入 IDだけを取る。
-                //_id = excel_itemdatabase.sheets[sheet_no].list[count].ItemID;
+                _id = excel_itemdatabase.sheets[sheet_no].list[count].ItemID;
                 _itemname = excel_itemdatabase.sheets[sheet_no].list[count].name;
 
                 //ここでリストに追加している
                 playeritemlist.Add(_itemname, 0);
 
                 ++count;
+
             }
 
             ++sheet_no;
 
+            if (sheet_no < excel_itemdatabase.sheets.Count)
+            {
+                sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる。ここでは、前シートの要素数を取得している。
+
+                for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
+                {
+                    playeritemlist.Add("Non" + (sheet_no-1).ToString() + " " + (sheet_count+i).ToString(), 0); //エクセルに登録されていないアイテムID分、空をいれている。
+                }
+            }
         }
 
         /*foreach (KeyValuePair<string, int> item in playeritemlist) //ここで使っているitemは、foreach用の変数

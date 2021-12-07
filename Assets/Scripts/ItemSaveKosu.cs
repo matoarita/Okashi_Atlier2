@@ -11,7 +11,7 @@ public class ItemSaveKosu
 {
     public string itemName;
     public int itemKosu;
-    public int read_Flag; //イベントアイテム用の項目
+    public int Flag; //イベントアイテム用の項目
     //ここまで
 
 
@@ -20,6 +20,6 @@ public class ItemSaveKosu
     {
         itemName = _name;
         itemKosu = _kosu;
-        read_Flag = _readflag;
+        Flag = _readflag;
     }
 }
