@@ -2926,7 +2926,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("ぐすん..。");
                 _touchface_comment_lib.Add("..まま。会いたいなぁ..。");                
                 _touchface_comment_lib.Add("..。にいちゃん。..。なんでもない。");                
-                _touchface_comment_lib.Add("にいちゃん..。まま、まだ帰ってこないかなぁ？");
+                _touchface_comment_lib.Add("にいちゃん..。");
 
                 timeOutHint = 20.0f;
 
@@ -2935,8 +2935,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 2:
 
                 _touchface_comment_lib.Add(".. ..。");
-                _touchface_comment_lib.Add("..兄ちゃんのおかし、食べたい。");
-                _touchface_comment_lib.Add("兄ちゃんのおかし作り、てつだう。");
+                _touchface_comment_lib.Add("..にいちゃんのおかし、食べたい。");
+                _touchface_comment_lib.Add("にいちゃんのおかし作り、てつだう。");
                 break;
 
             case 3:
@@ -2966,13 +2966,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //材料とりにいきたいモード。このときに外へいくと、ハートがあがる。
                 GameMgr.OsotoIkitaiFlag = true;
-                _touchface_comment_lib.Add("ねぇねぇ兄ちゃん。材料を採りにいこうよ～。");
+                _touchface_comment_lib.Add("ねぇねぇにいちゃん。材料を採りにいこうよ～。");
                 break;
 
             case 22:
 
                 _touchface_comment_lib.Add("うきうき！");
-                _touchface_comment_lib.Add("いっぱい手伝うね！お兄ちゃん。");
+                _touchface_comment_lib.Add("いっぱい手伝うね！おにいちゃん。");
                 break;
 
             case 23:
@@ -2982,8 +2982,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 30: 
                
-                _touchface_comment_lib.Add("今日はあたたかいね～、兄ちゃん！");
-                _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？兄ちゃん。");
+                _touchface_comment_lib.Add("今日はあたたかいね～、にいちゃん！");
+                _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？にいちゃん。");
                 _touchface_comment_lib.Add("にいちゃん。あのね.. 鳥さんがお庭にきてたから、パンあげたら食べたよ！");
 
                 break;
@@ -2996,7 +2996,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 32: //るんるんモーション
 
                 _touchface_comment_lib.Add("るんるん♪");               
-                _touchface_comment_lib.Add("エメラルどんぐり、拾いにいこうよ～。お兄ちゃん。");
+                _touchface_comment_lib.Add("エメラルどんぐり、拾いにいこうよ～。おにいちゃん。");
                 break;
 
             case 33: //クッキーつまみぐい
@@ -3017,21 +3017,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 40:
 
                 _touchface_comment_lib.Add("キラキラ♪");
-                _touchface_comment_lib.Add("兄ちゃん！大好き！！");
-                _touchface_comment_lib.Add("兄ちゃんのお菓子、こころがぽかぽかするんじゃ～");
-                _touchface_comment_lib.Add("兄ちゃんのおてて、あたたか～い");
-                _touchface_comment_lib.Add("お兄ちゃん。あたたかい～。");
+                _touchface_comment_lib.Add("にいちゃん！大好き！！");
+                _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
+                _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い");
+                _touchface_comment_lib.Add("おにいちゃん。あたたかい～。");
                 _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
-                _touchface_comment_lib.Add("兄ちゃん、もうコンテストとか余裕？");
+                _touchface_comment_lib.Add("にいちゃん、もうコンテストとか余裕？");
                 break;
 
             case 50:
 
                 _touchface_comment_lib.Add("キラキラ♪");
-                _touchface_comment_lib.Add("兄ちゃん！大好き！！");
-                _touchface_comment_lib.Add("兄ちゃんのお菓子、こころがぽかぽかするんじゃ～");
-                _touchface_comment_lib.Add("兄ちゃんのおてて、あたたか～い");
-                _touchface_comment_lib.Add("お兄ちゃん。あたたかい～。");
+                _touchface_comment_lib.Add("にいちゃん！大好き！！");
+                _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
+                _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い");
+                _touchface_comment_lib.Add("おにいちゃん。あたたかい～。");
                 _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
                 break;
            

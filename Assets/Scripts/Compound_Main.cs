@@ -3416,16 +3416,16 @@ public class Compound_Main : MonoBehaviour
 
                         case 1:
 
-                            get_heart = 10; //GameMgr.event_okashi_score / 5
-                            _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "<color>" + "上がった！";
+                            get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
+                            _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
                             GameMgr.girl_express_param += 10;
                             break;
 
                         case 2:
 
-                            get_heart = 30;
-                            _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "<color>" + "上がった！";
+                            get_heart = GameMgr.event_okashi_score;
+                            _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false);
                             GameMgr.girl_express_param += 30;
                             GameMgr.picnic_after = true;
@@ -3434,8 +3434,8 @@ public class Compound_Main : MonoBehaviour
 
                         case 3:
 
-                            get_heart = 50;
-                            _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "<color>" + "上がった！";
+                            get_heart = GameMgr.event_okashi_score;
+                            _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false);
                             GameMgr.girl_express_param += 50;
                             GameMgr.picnic_after = true;
@@ -3444,8 +3444,8 @@ public class Compound_Main : MonoBehaviour
 
                         case 4:
 
-                            get_heart = 100;
-                            _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "<color>" + "上がった！";
+                            get_heart = GameMgr.event_okashi_score;
+                            _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
                             GameMgr.girl_express_param += 100;
                             GameMgr.picnic_after = true;
@@ -4133,17 +4133,25 @@ public class Compound_Main : MonoBehaviour
             { }
             else
             {
-                if (!GameMgr.Beginner_flag[5])
+                //酒場でていなければイベント発生
+                if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag == 1)
                 {
 
-                    if (PlayerStatus.player_money <= 1000)
+                }
+                else
+                {
+                    if (!GameMgr.Beginner_flag[5])
                     {
-                        GameMgr.Beginner_flag[5] = true;
-                        GameMgr.GirlLoveSubEvent_stage1[83] = true;
-                        GameMgr.GirlLoveSubEvent_num = 83;
 
-                        mute_on = true;
-                        check_GirlLoveSubEvent_flag = false;
+                        if (PlayerStatus.player_money <= 1000)
+                        {
+                            GameMgr.Beginner_flag[5] = true;
+                            GameMgr.GirlLoveSubEvent_stage1[83] = true;
+                            GameMgr.GirlLoveSubEvent_num = 83;
+
+                            mute_on = true;
+                            check_GirlLoveSubEvent_flag = false;
+                        }
                     }
                 }
             }
@@ -4586,32 +4594,38 @@ public class Compound_Main : MonoBehaviour
         ClickPanel_2.SetActive(false);
     }
 
-    //ハートレベルに応じてBGMが変わる。デバッグパネルからもアクセス
+    //クエスト進行・ハートレベルに応じてBGMが変わる。デバッグパネルからもアクセス
     public void bgm_change_story()
     {
 
-        if (GameMgr.GirlLoveEvent_num == 50) //のどかなはれ HLv10~
+        if (GameMgr.GirlLoveEvent_num == 50) //コンテスト　のどかなはれ
         {
             GameMgr.mainBGM_Num = 4; //コンテスト　鳥の鳴き声が外でなく
             map_ambience.OnSunnyDayBird();
         }
         else
         {
+            //最初のBGM
             if (PlayerStatus.girl1_Love_lv >= 1) //デフォルト　雨
             {
-                GameMgr.mainBGM_Num = 0; //雨はじまり
+                GameMgr.mainBGM_Num = 0; //雨はじまり                
+            }
+
+            if (GameMgr.GirlLoveEvent_num == 0) //最初は雨
+            {
                 map_ambience.OnRainyDay(); //背景のSEを鳴らす。
             }
-            if (PlayerStatus.girl1_Love_lv >= 2) //くもり　どんより HLv2~
+            if (GameMgr.GirlLoveEvent_num >= 1) //雨やむ
             {
-                GameMgr.mainBGM_Num = 0;
                 map_ambience.Stop();
             }
-            if (PlayerStatus.girl1_Love_lv >= 4) //うすぐもり HLv4~
+            if (GameMgr.GirlLoveEvent_num >= 10) //ラスクでBGM変化
             {
                 GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
                 map_ambience.Stop();
             }
+
+            //ハートレベルに応じてBGM変化           
             if (PlayerStatus.girl1_Love_lv >= 15) //快晴　夕方
             {
                 GameMgr.mainBGM_Num = 5; //少し明るい　クレープのBGM

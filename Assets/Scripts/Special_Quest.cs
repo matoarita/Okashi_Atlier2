@@ -141,10 +141,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 12: //幻の青色紅茶食べたい＜10ラスクからの分岐２＞
+            case 12: //幻の青色紅茶食べたい＜13ラスクからの分岐＞
 
                 girl1_status.OkashiQuest_ID = 1120;
-                OkashiQuest_Count = 2;
+                OkashiQuest_Count = 3;
                 GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;

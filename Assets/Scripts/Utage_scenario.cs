@@ -529,6 +529,15 @@ public class Utage_scenario : MonoBehaviour
         
         engine.Param.TrySetParameter("Story_num", story_num);
 
+        //ショップのときのフラグ関係
+        if(scenarioLabel == "Shop_Event")
+        {
+            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Farm")].placeFlag == 1)
+            {
+                engine.Param.TrySetParameter("Farm_Flag", true);
+            }
+        }
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario( scenarioLabel );
 
@@ -566,6 +575,21 @@ public class Utage_scenario : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm" || SceneManager.GetActiveScene().name == "Bar")
         {
+            if (scenarioLabel == "Shop_Event")
+            {
+                switch (story_num)
+                {
+                    case 20:
+
+                        if ((bool)engine.Param.GetParameter("Farm_Flag"))
+                        {
+                            matplace_database.matPlaceKaikin("Farm"); //モタリケ牧場解禁
+                        }
+                        break;
+                }
+            }
+            
+
             CharacterSpriteFadeON();
 
             GameMgr.scenario_ON = false;
@@ -1385,6 +1409,19 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.picnic_event_reading_now = false;
         }
 
+        if (GameMgr.girlloveevent_bunki == 0)
+        { }
+        else if (GameMgr.girlloveevent_bunki == 1)
+        {
+            switch (GameMgr.GirlLoveSubEvent_num)
+            {
+                case 83: //お金が半分以下　酒場登場
+                    matplace_database.matPlaceKaikin("Bar"); //モタリケ牧場解禁
+                    break;
+            }
+        }
+        
+
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
 
@@ -1549,8 +1586,16 @@ public class Utage_scenario : MonoBehaviour
                         //さらに150点以上のときはこっちが優先。必然、一番いい反応になる。
                         if (total_score >= 150)
                         {
-                            engine.Param.TrySetParameter("PicnicPlace_num", 10);
-                            Debug.Log("150" + "点以上なので、ピクニック場所3");
+                            if (itemType_sub != "Cookie" || itemType_sub != "Rusk")
+                            {
+                                engine.Param.TrySetParameter("PicnicPlace_num", 10);
+                                Debug.Log("150" + "点以上なので、ピクニック場所3");
+                            }
+                            else
+                            {
+                                engine.Param.TrySetParameter("PicnicPlace_num", 0);
+                                Debug.Log("80" + "点未満なので、" + "ピクニック場所1");
+                            }
                         }
                         else
                         {
@@ -2104,6 +2149,10 @@ public class Utage_scenario : MonoBehaviour
         {
             engine.Param.TrySetParameter("Farm_Flag", true);
         }
+        if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag == 1)
+        {
+            engine.Param.TrySetParameter("Bar_Flag", true);
+        }
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -2117,7 +2166,11 @@ public class Utage_scenario : MonoBehaviour
         if( (bool)engine.Param.GetParameter("Farm_Flag") )
         {
             matplace_database.matPlaceKaikin("Farm"); //モタリケ牧場解禁
-        }               
+        }
+        if ((bool)engine.Param.GetParameter("Bar_Flag"))
+        {
+            matplace_database.matPlaceKaikin("Bar"); //酒場解禁
+        }
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 
@@ -2516,7 +2569,7 @@ public class Utage_scenario : MonoBehaviour
         if (yusho_flag == false) // LV4 ノーマルED ED:C
         {
             
-            if (PlayerStatus.girl1_Love_exp < 400) //さらにハート数が足りていないとき badED ED:D
+            if (PlayerStatus.girl1_Love_exp < 600) //さらにハート数が足りていないとき badED ED:D
             {
                 engine.Param.TrySetParameter("ED_num", 1);
                 GameMgr.ending_number = 1;

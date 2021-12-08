@@ -67,3 +67,4 @@
 ・BGM_65		PerituneMaterial_Resort5		【宴用】ピクニックのBGM2 リゾート風
 ・BGM_66		PerituneMaterial_Breeze3		【宴用】ピクニックのBGM3
 ・BGM_67		capybaranoyume				調合テーマ８　アトリエメインテーマ４　楽しい音楽
+・BGM_68		houkagonoyuzora				【宴用】ピクニックのBGM 帰り

@@ -296,7 +296,7 @@ public class GetMaterial : MonoBehaviour
                 //moneyStatus_Controller.UseMoney(mat_cost);
 
                 //日数の経過
-                PlayerStatus.player_time += 3; //場所に関係なく、一回とるごとに30分
+                PlayerStatus.player_time += 6; //場所に関係なく、一回とるごとに30分
                 time_controller.TimeKoushin();
 
                 //妹の体力消費 一回の行動でマップに応じた量減る。
@@ -1022,7 +1022,7 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                _text.text = "ギャーー！どろんこにはまっちゃった..！　どろどろ～。" + "体力が１下がった。";
+                _text.text = "ギャーー！どろんこにはまっちゃった..！　どろどろ～。" + "\n" + "体力が１下がった。";
                 GirlLifeDegKeisan(1);
 
                 //音を鳴らす
