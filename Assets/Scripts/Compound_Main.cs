@@ -4174,6 +4174,32 @@ public class Compound_Main : MonoBehaviour
                 }
             }*/
 
+            //はじめて水っぽいなどのマイナス効果がつくお菓子を作った
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+
+                if (!GameMgr.Beginner_flag[6])
+                {
+                    if (exp_Controller._temp_extremeSetting)
+                    {
+                        if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Watery > GameMgr.Watery_Line ||
+                            pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Oily > GameMgr.Watery_Line ||
+                            pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Powdery > GameMgr.Watery_Line)
+                        {
+                            GameMgr.Beginner_flag[6] = true;
+                            GameMgr.GirlLoveSubEvent_stage1[85] = true;
+                            GameMgr.GirlLoveSubEvent_num = 85;
+
+                            mute_on = true;
+                            check_GirlLoveSubEvent_flag = false;
+                        }
+                    }
+                }
+
+            }
+
             //はじめて衣装装備を買った 70番台～
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }

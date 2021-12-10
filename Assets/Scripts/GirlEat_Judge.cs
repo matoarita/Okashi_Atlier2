@@ -333,6 +333,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int rnd, rnd2;
     private int set_id;
     private int _slotid;
+    public bool Degheart_on; //TimeControllerから読み出し
 
     //エフェクト
     private GameObject Score_effect_Prefab1;
@@ -535,7 +536,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 Getlove_exp = 0;
                 GetMoney = 0;
-               
+                Degheart_on = false;
+
+
                 stage_levelTable.Clear();
 
                 //GirlExpバーの最大値の設定。テーブルの初期設定はGirl1_statusで行っている。ここではそれをもとにコピーしてるだけ。
@@ -1594,21 +1597,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         dislike_score = 0;
 
-        if (_basepowdery > 50)
+        if (_basepowdery > GameMgr.Watery_Line) //50より上
         {
             //dislike_flag = false;
             dislike_score += _basepowdery * 2;
             dislike_status = 3;
             dislike_num = 0;
         }
-        if (_baseoily > 50)
+        if (_baseoily > GameMgr.Watery_Line)
         {
             //dislike_flag = false;
             dislike_score += _baseoily * 2;
             dislike_status = 3;
             dislike_num = 1;
         }
-        if (_basewatery > 50)
+        if (_basewatery > GameMgr.Watery_Line)
         {
             //dislike_flag = false;
             dislike_score += _basewatery * 2;
@@ -2902,13 +2905,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //好感度が下がるときの処理。外部からアクセス用でもある。ゲージにも反映される。
     public void DegHeart(int _param, bool _sound)
     {
+        //重複防止用に、フラグをたてる。
+        Degheart_on = true;
+
         //好感度取得
         Getlove_exp = _param;
 
         _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
         _tempresultGirllove = PlayerStatus.girl1_Love_exp + Getlove_exp; //あがった後の好感度を一時保存
 
-        
+
         //好感度が0の場合、0が下限。
         if (_tempresultGirllove <= 0)
         {
@@ -2917,6 +2923,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //アニメーションをON
         UpdateDegHeart(_tempresultGirllove, _sound);
+
     }
 
     void UpdateDegHeart(int num, bool _sound)
@@ -2966,6 +2973,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //実際の好感度に値を反映
         PlayerStatus.girl1_Love_exp += Getlove_exp;
         GameMgr.stageclear_cullentlove += Getlove_exp;
+        Degheart_on = false;
 
         //0以下になったら、下限は0
         if (PlayerStatus.girl1_Love_exp <= 0)

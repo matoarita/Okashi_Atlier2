@@ -3,7 +3,7 @@ SE表
 ・SE_01		audiostock_56181				決定音　ウィンドウを開いたイメージ
 ・SE_02		audiostock_66347				アイテム取得音キラン　カエルコイン系　キラキラ石取得時など
 ・SE_03		audiostock_78242				汎用クリック音
-・SE_04		audiostock_809049				収束キラキラ音
+・SE_04		audiostock_809049				シュイィィーーーン　クリアボタン登場時の収束するようなシュイィーーン音
 ・SE_05		audiostock_104038.mp3				調合の成功音
 ・SE_06		audiostock_66345.mp3				キララーン
 ・SE_07		audiostock_126643.mp3				ステータスが下がる音
@@ -70,9 +70,9 @@ SE表
 ・SE_68		5f0e1a12-67a1-455b-840e-38b459bf45e0		和太鼓ドドン
 ・SE_69		audiostock_779925				カーペット足音
 ・SE_70		audiostock_20227				鐘の音
-・SE_71		audiostock_785135_sample			【#未使用】和風のジングル（シャウエッセン登場） 
+・SE_71		audiostock_833575_sample			EDリザルト　ランク登場時のキラキラ音
 ・SE_72		Motion-Pop21-1					お菓子アニメ用　皿にお菓子が落下した音
-・SE_73		audiostock_142318				お菓子アニメ用　キラキラ音(別候補：audiostock_18587_sample)
+・SE_73		audiostock_142318				お菓子アニメ用　魔法のようなルラララ音(別候補：audiostock_18587_sample)
 ・SE_74		audiostock_84822				ドラムロール後のジャーン
 ・SE_75		eye-shine1					キュピーーーン
 ・SE_76		flee1						逃げ足早いヒュイーーン
@@ -99,3 +99,5 @@ SE表
 ・SE_97		大型船の汽笛2					船汽笛の音
 ・SE_98		audiostock_898913				料理中の音ガシャコガシャコ
 ・SE_99		audiostock_252849				料理中の音カンカン！
+
+※現状100個を超えると、バグる。桁数を000にすれば、多分いけるかも？			

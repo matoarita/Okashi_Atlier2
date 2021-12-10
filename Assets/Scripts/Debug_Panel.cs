@@ -404,11 +404,18 @@ public class Debug_Panel : MonoBehaviour {
 
             GirlLove_Koushin(girllove_param);
 
-            compound_Main.bgm_change_story();
-            compound_Main.ChangeBGM();
-            compound_Main.Change_BGimage();
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Compound":
 
-            compound_Main.check_GirlLoveEvent_flag = false;
+                    compound_Main.bgm_change_story();
+                    compound_Main.ChangeBGM();
+                    compound_Main.Change_BGimage();
+
+                    compound_Main.check_GirlLoveEvent_flag = false;
+
+                    break;
+            }
         }
     }
 
@@ -550,6 +557,30 @@ public class Debug_Panel : MonoBehaviour {
             canvas = GameObject.FindWithTag("Canvas");
 
             GirlloveParamKoushinMethod(_girllove_param);                      
+        }
+        else
+        {
+            //その他シーン　ハート数値を更新するだけ
+            for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+            {
+                stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                //Debug.Log("stage1_levelTable: " + stage_levelTable[i]);
+            }
+
+            PlayerStatus.girl1_Love_exp = _girllove_param;
+
+            i = 0;
+            PlayerStatus.girl1_Love_lv = 1;
+            while (_girllove_param >= stage_levelTable[i])
+            {
+                //_girllove_param -= stage_levelTable[i];
+                PlayerStatus.girl1_Love_lv++;
+                i++;
+            }
+
+            //表情も即時変更
+            girl1_status.CheckGokigen();
+            //girl1_status.DefaultFace();
         }
     }
 

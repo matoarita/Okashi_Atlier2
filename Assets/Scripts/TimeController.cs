@@ -396,34 +396,37 @@ public class TimeController : MonoBehaviour
             }
             else
             {
-                switch (timeDegHeart_flag)
+                if (girleat_judge.Degheart_on)
                 {
-                    case false:
 
-                        if (timeIttei >= 5) //放置して5秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
-                        {
-                            timeIttei = 0;
-                            timeDegHeart_flag = true;
+                }
+                else
+                {
+                    switch (timeDegHeart_flag)
+                    {
+                        case false:
 
-                            girleat_judge.DegHeart(-1, false); //false なら音なし
+                            if (timeIttei >= 5) //放置して5秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
+                            {
+                                timeIttei = 0;
+                                timeDegHeart_flag = true;
 
-                            //PlayerStatus.player_time++;
-                            //TimeKoushin();
-                        }
-                        break;
+                                girleat_judge.DegHeart(-1, false); //false なら音なし
 
-                    case true:
+                            }
+                            break;
 
-                        if (timeIttei >= 2)
-                        {
-                            timeIttei = 0;
+                        case true:
 
-                            girleat_judge.DegHeart(-1, false);
+                            if (timeIttei >= 2)
+                            {
+                                timeIttei = 0;
 
-                            //PlayerStatus.player_time++;
-                            //TimeKoushin();
-                        }
-                        break;
+                                girleat_judge.DegHeart(-1, false);
+
+                            }
+                            break;
+                    }
                 }
             }
         }

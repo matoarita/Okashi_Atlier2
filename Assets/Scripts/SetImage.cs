@@ -905,14 +905,14 @@ public class SetImage : MonoBehaviour
 
 
         //粉っぽさなどの、マイナス要素の表示
-        if ( _powdery_score > 50 )
+        if ( _powdery_score > GameMgr.Watery_Line)
         {
             item_Powdery.text = "粉っぽい";
         } else
         {
             item_Powdery.text = "";
         }
-        if (_oily_score > 50)
+        if (_oily_score > GameMgr.Watery_Line)
         {
             item_Oily.text = "油っぽい";
         }
@@ -920,7 +920,7 @@ public class SetImage : MonoBehaviour
         {
             item_Oily.text = "";
         }
-        if (_watery_score > 50)
+        if (_watery_score > GameMgr.Watery_Line)
         {
             item_Watery.text = "水っぽい";
         }

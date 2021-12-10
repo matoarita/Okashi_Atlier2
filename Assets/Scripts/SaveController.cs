@@ -22,6 +22,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     //保存するものリスト　ここまで
 
     private PlayerData playerData;
+
     private Compound_Keisan compound_keisan;
     private BGAcceTrigger BGAccetrigger;
     private Debug_Panel debug_panel; //画面更新用のメソッドを借りる。
@@ -210,9 +211,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //コレクションに登録したアイテムのリスト
             save_CollectionItems = GameMgr.CollectionItems,
 
-            //エンディングカウント
-            save_ending_count = GameMgr.ending_count,
-
             //ステージ番号
             save_stage_number = GameMgr.stage_number,
             save_stage_quest_num = GameMgr.stage_quest_num,
@@ -220,9 +218,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //シナリオの進み具合
             save_scenario_flag = GameMgr.scenario_flag,
-
-            //セーブ保存フラグ
-            save_saveOK = GameMgr.saveOK,
 
             //初期アイテム取得フラグ
             save_gamestart_recipi_get = GameMgr.gamestart_recipi_get,
@@ -363,21 +358,22 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             save_hiroba_ichigo_first = GameMgr.hiroba_ichigo_first,
             save_ichigo_collection_listFlag = GameMgr.ichigo_collection_listFlag,
+
+
+            //システムデータ関係のセーブ
+            /*//セーブデータあるかどうかのフラグ
+            save_saveOK = GameMgr.saveOK,
+            //エンディングカウント
+            save_ending_count = GameMgr.ending_count,*/
         };
-       
 
         //デバッグ用
         Debug.Log("セーブ　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
-        /*for (i = 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
-        {          
-            Debug.Log("セーブ　GameMgr.GirlLoveEvent_stage1: " + GameMgr.GirlLoveEvent_stage1[i]);
-        }*/
-
         //Debug.Log(playerData);
 
         //データの一時保存。bankに、playerDataを「player1」という名前で現在のデータを保存。
         bank.Store("player1", playerData);
-        //Debug.Log("bank.Store()");
+        Debug.Log("bank.Store()");
 
         //一時データを永続的に保存。永続保存するときは、一度、一時データに保存しておく。
         bank.SaveAll();
@@ -385,6 +381,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //初期化(念のため)
         playerData = new PlayerData();
+
+        //システムデータもセーブ
+        SystemsaveCheck();
 
     }
 
@@ -394,12 +393,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //ロード前は一度初期化
         ResetAllParam();
 
-        //セーブデータがあるかどうかをチェック
-        SaveCheck();
+        SystemloadCheck(); //システムデータロード
+        PlayerDataLoad();
+        
 
+        //セーブデータがあるかチェック
         if (GameMgr.saveOK)
         {
             LoadingContents();
+            Debug.Log("ロード完了");
         }
         else
         {
@@ -449,9 +451,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //コレクションに登録したアイテムのリスト
         GameMgr.CollectionItems = playerData.save_CollectionItems;
-
-        //エンディングカウント
-        GameMgr.ending_count = playerData.save_ending_count;
 
         //ステージ番号
         GameMgr.stage_number = playerData.save_stage_number;
@@ -672,6 +671,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.hiroba_ichigo_first = playerData.save_hiroba_ichigo_first;
         GameMgr.ichigo_collection_listFlag = playerData.save_ichigo_collection_listFlag;
 
+        //システムロード
+        //エンディングカウント
+        GameMgr.ending_count = playerData.save_ending_count;
+
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
         /*for (i= 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
@@ -806,8 +809,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         shop_database.ShopZaiko_Reset();
     }
 
-    //セーブデータがあるかどうかだけをチェック
-    public void SaveCheck()
+    //ロードの準備
+    void PlayerDataLoad()
     {
         //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
         DataBank bank = DataBank.Open();
@@ -820,18 +823,70 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
         bank.Load<PlayerData>("player1");
-        Debug.Log("ロード完了");
+        //Debug.Log("ロード完了");
 
         //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
         playerData = bank.Get<PlayerData>("player1");
-        //Debug.Log(playerData);
+
+    }
 
 
-        //
-        //*** 以下、読み込み・更新 ***
-        //
+    //システムデータのセーブ
+    public void SystemsaveCheck()
+    {
+        //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
+        DataBank bank = DataBank.Open();
 
-        //まず、セーブデータがあるかどうかをチェック
-        GameMgr.saveOK = playerData.save_saveOK;
+        Debug.Log("DataBank.Open()");
+        Debug.Log($"save path of bank is { bank.SavePath }");
+
+        //システムデータに、セーブしたかどうかのフラグをセット
+        playerData = new PlayerData()
+        {
+            save_saveOK = GameMgr.saveOK,
+            save_ending_count = GameMgr.ending_count,
+        };
+
+        //データの一時保存。bankに、playerDataを「player1」という名前で現在のデータを保存。
+        bank.Store("System", playerData);
+        //Debug.Log("bank.Store()");
+
+        //一時データを永続的に保存。永続保存するときは、一度、一時データに保存しておく。
+        bank.SaveAll();
+        Debug.Log("bank.SaveAll()");
+
+    }
+
+    //システムデータのロード
+    public void SystemloadCheck()
+    {
+        //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
+        DataBank bank = DataBank.Open();
+
+        Debug.Log("DataBank.Open()");
+        Debug.Log($"save path of bank is { bank.SavePath }");
+
+        //初期化(念のため)
+        playerData = new PlayerData();
+
+        //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
+        bank.Load<PlayerData>("System");
+        
+
+        //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
+        playerData = bank.Get<PlayerData>("System");
+
+        if (playerData != null)
+        {
+            //
+            //*** 以下、読み込み・更新 ***
+            //
+
+            //
+            GameMgr.saveOK = playerData.save_saveOK;
+            GameMgr.ending_count = playerData.save_ending_count;
+
+            Debug.Log("システムロード完了");
+        }
     }
 }

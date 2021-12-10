@@ -4,6 +4,7 @@ using System.Collections;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 using Live2D.Cubism.Rendering;
+using UnityEngine.SceneManagement;
 
 
 public class Touch_Controll : MonoBehaviour
@@ -22,6 +23,8 @@ public class Touch_Controll : MonoBehaviour
     private int draghair_count;
     private int dragtwintail_count;
 
+    //Live2Dモデルの取得    
+    private GameObject _model_root_obj;
     private GameObject _model;
     private Animator live2d_animator;
     private int trans_expression;
@@ -37,6 +40,7 @@ public class Touch_Controll : MonoBehaviour
     private float time_inter_default;
 
     private int _rnd;
+    private bool nohearteffect;
 
     // Use this for initialization
     void Start()
@@ -56,7 +60,8 @@ public class Touch_Controll : MonoBehaviour
         time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
         //Live2Dモデルの取得
-        _model = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        _model_root_obj = GameObject.FindWithTag("CharacterRoot").gameObject;
+        _model = _model_root_obj.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
         live2d_animator = _model.GetComponent<Animator>();
 
         ALL_touch_flag = true;
@@ -70,6 +75,15 @@ public class Touch_Controll : MonoBehaviour
         isHimmeli = false;
 
         touch_interval_flag = false;
+        nohearteffect = false;
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "001_Title":
+
+                nohearteffect = true;
+                break;
+        }
     }
 
     private void Update()
@@ -92,9 +106,12 @@ public class Touch_Controll : MonoBehaviour
     //頭を触る。一回ならびっくりモーション。ドラッグすると、さわさわ触る反応。
     public void OnTouchHair()
     {
+        
+
         if (ALL_touch_flag)
         {
             sc.PlaySe(11); //触ったときの音
+            //Debug.Log("Touch_Hair");
 
             if (!touch_interval_flag)
             {
@@ -153,18 +170,21 @@ public class Touch_Controll : MonoBehaviour
         {
             //Debug.Log("EndDrag_Hair");           
 
-            if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
+            if (!nohearteffect) //メインシーンのみ
             {
-                girleat_judge.DegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
-                GameMgr.girl_express_param -= 5;
-            }
+                if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
+                {
+                    girleat_judge.DegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
+                    GameMgr.girl_express_param -= 5;
+                }
 
-            if(girl1_status.Girl1_touchhair_status >= 5 && girl1_status.Girl1_touchhair_status <= 9)
-            {
-                _rnd = Random.Range(0, 3);
-                girleat_judge.loveGetPlusAnimeON(1+_rnd, false); //1~3　ちょっとハートあがる。
-                GameMgr.girl_express_param = 50;
-                girl1_status.DefFaceChange();
+                if (girl1_status.Girl1_touchhair_status >= 5 && girl1_status.Girl1_touchhair_status <= 9)
+                {
+                    _rnd = Random.Range(0, 3);
+                    girleat_judge.loveGetPlusAnimeON(1 + _rnd, false); //1~3　ちょっとハートあがる。
+                    GameMgr.girl_express_param = 50;
+                    girl1_status.DefFaceChange();
+                }
             }
 
             draghair_count = 0;

@@ -338,6 +338,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 questtitle_panel.SetActive(false);
 
                 break;
+
+            case "001_Title":
+
+                //Live2Dモデルの取得
+                _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
+                live2d_animator = _model_obj.GetComponent<Animator>();
+
+                GirlEat_Judge_on = false;
+
+                break;
         }
        
         // *** パラメータ初期設定 ***
@@ -520,6 +530,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     main_cam = Camera.main;
                     maincam_animator = main_cam.GetComponent<Animator>();
                     trans = maincam_animator.GetInteger("trans");
+
+                    GirlEat_Judge_on = false;
+
+                    break;
+
+                case "001_Title":
+
+                    //Live2Dモデルの取得
+                    _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
+                    live2d_animator = _model_obj.GetComponent<Animator>();
 
                     GirlEat_Judge_on = false;
 
@@ -1438,65 +1458,83 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             hukidasiInit(_temptimehint);
         }
 
-        //まだ一度も調合していない
-        if (PlayerStatus.First_recipi_on != true)
-        {                   
-            hukidashiitem.GetComponent<TextController>().SetText("..まずは左の「おかしパネル」から、お菓子を作ろうね。おにいちゃん。");
-
-            timeOutHint = 20.0f; //セリフ＋モーション表示時間
-            FaceMotionPlay(1006);
-        }
-        else
+        switch (SceneManager.GetActiveScene().name)
         {
-            
-            //ヒントをだすか、今食べたいもののどちらかを表示する。3連続で食べたいものが表示されていないなら、4つめは次は必ず食べたいものを表示する。
-            if (_noweat_count >= 3)
-            {
-                _noweat_count = 0;
-                hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
-                FaceMotionPlay(1013);
-            }
-            else
-            {
-                if (GameMgr.girl_expression == 1) //まずいのあとは、怒ってとりとめのない会話がなくなる。
+            case "Compound":
+                //まだ一度も調合していない
+                if (PlayerStatus.First_recipi_on != true)
                 {
-                    hukidashiitem.GetComponent<TextController>().SetText("..。");
+                    hukidashiitem.GetComponent<TextController>().SetText("..まずは左の「おかしパネル」から、お菓子を作ろうね。おにいちゃん。");
+
+                    timeOutHint = 20.0f; //セリフ＋モーション表示時間
+                    FaceMotionPlay(1006);
                 }
                 else
                 {
-                    if (GameMgr.picnic_after)
+
+                    //ヒントをだすか、今食べたいもののどちらかを表示する。3連続で食べたいものが表示されていないなら、4つめは次は必ず食べたいものを表示する。
+                    if (_noweat_count >= 3)
                     {
-                        hukidashiitem.GetComponent<TextController>().SetText("にいちゃん。ピクニック楽しかった～♪");
+                        _noweat_count = 0;
+                        hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
+                        FaceMotionPlay(1013);
                     }
                     else
-                    { 
-                        //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
-                        random = Random.Range(0, 100);
-                        if (random < 50)
+                    {
+                        if (GameMgr.girl_expression == 1) //まずいのあとは、怒ってとりとめのない会話がなくなる。
                         {
-                            _noweat_count++;
-                            IdleChange(); //ランダムモーション＋ヒントを決定
+                            hukidashiitem.GetComponent<TextController>().SetText("..。");
                         }
                         else
                         {
-                            if (GameMgr.QuestManzokuFace)
+                            if (GameMgr.picnic_after)
                             {
-                                hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
-
-                                //表情喜びに。2秒ほどしてすぐ戻す。
-                                face_girl_Yorokobi();
-
-                                StartCoroutine("FaceModosu");
+                                hukidashiitem.GetComponent<TextController>().SetText("にいちゃん。ピクニック楽しかった～♪");
                             }
                             else
                             {
-                                _noweat_count++;
-                                IdleChange(); //ランダムモーション＋ヒントを決定
+                                //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
+                                random = Random.Range(0, 100);
+                                if (random < 50)
+                                {
+                                    _noweat_count++;
+                                    IdleChange(); //ランダムモーション＋ヒントを決定
+                                }
+                                else
+                                {
+                                    if (GameMgr.QuestManzokuFace)
+                                    {
+                                        hukidashiitem.GetComponent<TextController>().SetText("兄ちゃん！お菓子おいしかった！ありがと～♪");
+
+                                        //表情喜びに。2秒ほどしてすぐ戻す。
+                                        face_girl_Yorokobi();
+
+                                        StartCoroutine("FaceModosu");
+                                    }
+                                    else
+                                    {
+                                        _noweat_count++;
+                                        IdleChange(); //ランダムモーション＋ヒントを決定
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
+                break;
+
+            case "001_Title": //タイトルのときのセリフ
+
+                random = Random.Range(0, 100);
+                if (random < 50)
+                {
+                    hukidashiitem.GetComponent<TextController>().SetText("..おにいちゃん！　おかえりなさい～☆");
+                }
+                else
+                {
+                    IdleChange();
+                }
+                break;
         }
 
     }

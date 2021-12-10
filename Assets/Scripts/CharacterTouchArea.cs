@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class CharacterTouchArea : MonoBehaviour {
 
-    private GameObject _model_obj;
+    //Live2Dモデルの取得    
+    private GameObject _model_root_obj;
+    private GameObject _model;
 
     // Use this for initialization
     void Start () {
 
-        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        //Live2Dモデルの取得
+        _model_root_obj = GameObject.FindWithTag("CharacterRoot").gameObject;
+        _model = _model_root_obj.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
 
     }
 	
@@ -17,6 +21,6 @@ public class CharacterTouchArea : MonoBehaviour {
 	void Update () {
 
         //キャラクタの位置に合わせて、位置を更新
-        this.transform.localPosition = _model_obj.transform.localPosition;
+        this.transform.localPosition = _model.transform.localPosition;
     }
 }

@@ -269,7 +269,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int mazui_score;
     public static int low_score;
     public static int high_score;
-    public static int high_score_2;    
+    public static int high_score_2;
+
+    //水っぽさなどの基準値
+    public static int Watery_Line;
 
     //お菓子の点数    
     public static int Okashi_dislike_status; //状態。2で、新しいお菓子をあげた場合
@@ -396,6 +399,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int event_okashi_score;
     public static bool hiroba_event_ON;
 
+    //女の子の名前
+    public static string mainGirl_Name;
+
     //ゲーム共通の固有の色
     public static string ColorYellow;
     public static string ColorGold;
@@ -459,6 +465,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //通貨の名前
         MoneyCurrency = "ルピア";
         MoneyCurrencyEn = "Lp";
+
+        //メインの女の子名前
+        mainGirl_Name = "ヒカリ";
     }
 	
 	// Update is called once per frame
@@ -723,6 +732,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         low_score = 60;
         high_score = 100;
         high_score_2 = 150;
+
+        //水っぽさなどのマイナス効果の基準
+        Watery_Line = 50;
 
         //チュートリアルフラグ
         tutorial_ON = false;

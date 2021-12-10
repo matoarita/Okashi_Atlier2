@@ -5,11 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class AAA_AutoSave_Main : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    private SaveController save_controller;
+
+    // Use this for initialization
+    void Start () {
+
+        save_controller = SaveController.Instance.GetComponent<SaveController>();
+
+        //エンディング回数を+1
+        GameMgr.ending_count++;
+
+        //システムデータのセーブ
+        save_controller.SystemsaveCheck();
 
         StartCoroutine("WaitResetTitle");
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

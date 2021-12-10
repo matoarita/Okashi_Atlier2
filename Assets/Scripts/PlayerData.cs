@@ -48,9 +48,6 @@ public class PlayerData
     //シナリオの進み具合
     public int save_scenario_flag;
 
-    //セーブしたかどうかを保存するフラグ
-    public bool save_saveOK = false;
-
     //初期アイテム取得フラグ
     public bool save_gamestart_recipi_get;
 
@@ -67,9 +64,6 @@ public class PlayerData
 
     //コレクションに登録したアイテムのリスト
     public List<bool> save_CollectionItems = new List<bool>();
-
-    //エンディングカウント
-    public int save_ending_count;
 
     //イベントフラグ
     public int save_GirlLoveEvent_num;
@@ -204,6 +198,16 @@ public class PlayerData
 
     public bool save_hiroba_ichigo_first;
     public bool[] save_ichigo_collection_listFlag = new bool[GameMgr.ichigo_collection_listFlag.Length];
+
+
+    //システムデータ関係
+
+    //セーブしたかどうかを保存するフラグ
+    public bool save_saveOK = false;
+
+    //エンディングカウント
+    public int save_ending_count;
+
 
     public override string ToString()
     {
