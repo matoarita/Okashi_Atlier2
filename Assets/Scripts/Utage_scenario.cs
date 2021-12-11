@@ -1589,6 +1589,7 @@ public class Utage_scenario : MonoBehaviour
                             if (itemType_sub != "Cookie" || itemType_sub != "Rusk")
                             {
                                 engine.Param.TrySetParameter("PicnicPlace_num", 10);
+                                pitemlist.addPlayerItemString("rich_milk", 7);
                                 Debug.Log("150" + "点以上なので、ピクニック場所3");
                             }
                             else
@@ -2569,7 +2570,7 @@ public class Utage_scenario : MonoBehaviour
         if (yusho_flag == false) // LV4 ノーマルED ED:C
         {
             
-            if (PlayerStatus.girl1_Love_exp < 600) //さらにハート数が足りていないとき badED ED:D
+            if (PlayerStatus.girl1_Love_exp < 400) //さらにハート数が足りていないとき badED ED:D
             {
                 engine.Param.TrySetParameter("ED_num", 1);
                 GameMgr.ending_number = 1;
@@ -2624,7 +2625,14 @@ public class Utage_scenario : MonoBehaviour
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 
-        GameMgr.ending_on = true; //エンディングをONにする。
+        if (GameMgr.ending_number != 1)
+        {
+            GameMgr.ending_on = true; //エンディングをONにする。
+        }
+        else //Bad EDはスタッフロールなし
+        {
+            GameMgr.ending_on2 = true; //エンディングをONにする。
+        }
 
         GameMgr.scenario_ON = false;
 

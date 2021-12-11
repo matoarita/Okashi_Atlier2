@@ -35,6 +35,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject UIOpenButton_obj;
 
     private GameObject Girlloveexp_bar;
+    private Buf_Power_Keisan bufpower_keisan;
 
     private Debug_Panel debug_panel;
     private Text debug_taste_resultText;
@@ -367,6 +368,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject Fadeout_Black_obj;
 
     private int _temp_count;
+    private float _buf_moneyup;
 
     // Use this for initialization
     void Start() {
@@ -415,7 +417,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         exp_table = ExpTable.Instance.GetComponent<ExpTable>();
 
         //スペシャルお菓子クエストの取得
-        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();        
+        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+
+        //バフ効果計算メソッドの取得
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -2574,9 +2579,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //GetMoney = 0;
                
             }
-            else //SPお菓子以外では、ほとんどハートは上がらない。ただし、お金やどんぐりは入る。
+            else //SPお菓子以外では、ハートは上がりにくい。ただし、お金やどんぐりは入る。
             {               
-                Getlove_exp = Getlove_exp / 3;
+                Getlove_exp = Getlove_exp / 1;
 
                 //そのお菓子を食べた回数で割り算。同じお菓子を何度あげても、だんだん好感度は上がらなくなってくる。
                 if (database.items[_baseID].Eat_kaisu == 0)
@@ -2586,6 +2591,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Getlove_exp /= database.items[_baseID].Eat_kaisu;
                 //if (Getlove_exp <= 1) { Getlove_exp = 1; }
             }
+
+            //装備品による補正
+            _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
+            GetMoney = (int)(GetMoney * _buf_moneyup / 2);
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
             Debug.Log("取得お金: " + GetMoney);
@@ -4150,27 +4159,33 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         tpcheck_utageON = true;
                         tpcheck_utagebunki = 1;
                     }
-
-                    //トッピングスロットをみる
-                    if(_basename == "puff")
-                    {
-                        tpcheck = false; //ホイップがない
-                    }
-                    /*tpcheck_slot = "WhipeedCream";
-                    ToppingCheck();
-
-                    tpcheck_slot = "WhipeedCreamStrawberry";
-                    ToppingCheck();*/
-
-                    if (tpcheck) //ホイップがのっていた
-                    {
-
-                    }
                     else
                     {
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                        tpcheck_utagebunki = 0;
+                        //トッピングスロットをみる
+                        if (_basename == "puff")
+                        {
+                            tpcheck = false; //ホイップがない
+                        }
+                        else
+                        {
+                            tpcheck = true; //trueにすればチェックOK
+                        }
+                        /*tpcheck_slot = "WhipeedCream";
+                        ToppingCheck();
+
+                        tpcheck_slot = "WhipeedCreamStrawberry";
+                        ToppingCheck();*/
+
+                        if (tpcheck) //なにかしらのホイップがのっていた
+                        {
+
+                        }
+                        else
+                        {
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                            tpcheck_utagebunki = 0;
+                        }
                     }
 
                     break;

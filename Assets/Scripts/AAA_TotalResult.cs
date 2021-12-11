@@ -36,6 +36,7 @@ public class AAA_TotalResult : MonoBehaviour {
     private GameObject TitleButton;
 
     private GameObject Effect_1;
+    private GameObject Effect_2;
 
     private PlayableDirector playableDirector;
 
@@ -51,6 +52,7 @@ public class AAA_TotalResult : MonoBehaviour {
     //Live2Dモデルの取得    
     private GameObject _model_root_obj;
     private GameObject _model_obj;
+    private GameObject _model_move;
     private CubismRenderController cubism_rendercontroller;
     private Animator live2d_animator;
 
@@ -67,6 +69,7 @@ public class AAA_TotalResult : MonoBehaviour {
     private string player_shogo;
 
     private Sprite texture2d;
+    private GameObject ClearImg_obj;
     private Image ClearImg;
     private Text ClearItemName;
 
@@ -130,11 +133,14 @@ public class AAA_TotalResult : MonoBehaviour {
 
         //パネル１
         contest_score_text = canvas.transform.Find("ResultGroup/ResultPanel_1/ContestScorePanel/ContestScore").GetComponent<Text>();
+        ClearImg_obj = canvas.transform.Find("ResultGroup/ResultPanel_1/ContestOkashiPanel/ClearItemIcon/ClearItemIconImg").gameObject;
         ClearImg = canvas.transform.Find("ResultGroup/ResultPanel_1/ContestOkashiPanel/ClearItemIcon/ClearItemIconImg").GetComponent<Image>(); //アイテムの画像データ
         ClearItemName = canvas.transform.Find("ResultGroup/ResultPanel_1/ClearItemTextPanel/Panel/ClearItemText").GetComponent<Text>();
         Contest_scorepanel = canvas.transform.Find("ResultGroup/ResultPanel_1/ContestScorePanel").gameObject;
         Effect_1 = canvas.transform.Find("ResultGroup/ResultPanel_1/ParticleQClearEffect").gameObject;
         Effect_1.SetActive(false);
+        Effect_2 = canvas.transform.Find("ResultGroup/ResultPanel_1/Particle_KiraExplode").gameObject;
+        Effect_2.SetActive(false);
         button_panel1 = canvas.transform.Find("ResultGroup/ResultPanel_1/ButtonPanel_1").gameObject;
 
         //パネル２
@@ -166,16 +172,19 @@ public class AAA_TotalResult : MonoBehaviour {
         charaIcon_sprite_3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_03");
         charaIcon_sprite_4 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_04");
         charaIcon_sprite_5 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_05");
-        charaIcon_sprite_6 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_06");
-        chara_animator = canvas.transform.Find("ResultGroup/ResultPanel_3/CharaImgAnim").GetComponent<Animator>();
-        chara_animator.SetInteger("trans_anim", 0);
+        charaIcon_sprite_6 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_06");        
         chara_Icon = canvas.transform.Find("ResultGroup/ResultPanel_3/CharaImgAnim/chara_Img").gameObject;
         chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
+        chara_Icon.SetActive(false);
 
         //Live2Dモデルの取得
         _model_root_obj = GameObject.FindWithTag("CharacterRoot").gameObject;
-        _model_obj = _model_root_obj.transform.Find("Hikari_Live2D_3").gameObject;       
+        _model_move = _model_root_obj.transform.Find("CharacterMove").gameObject;
+        _model_move.SetActive(false);
+        _model_obj = _model_root_obj.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;       
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
+        chara_animator = _model_root_obj.GetComponent<Animator>();
+        chara_animator.SetInteger("trans_anim", 0);
         live2d_animator = _model_obj.GetComponent<Animator>();
         live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。      
         //_model_obj.SetActive(false);
@@ -200,7 +209,6 @@ public class AAA_TotalResult : MonoBehaviour {
         Panel1_Action();
 
         
-
         if (GameMgr.ending_number == 1) //Bad EDのときはいなくなる。
         {
             _model_obj.SetActive(false);
@@ -210,7 +218,9 @@ public class AAA_TotalResult : MonoBehaviour {
 
     void DebugParam()
     {
-        Panel3_Action();
+        //Panel3_Action();
+        _model_obj.SetActive(true);
+        live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。     
         GameMgr.ending_number = 4;
         GameMgr.contest_TotalScore = 100;
         PlayerStatus.girl1_Love_exp = 1300;
@@ -242,6 +252,7 @@ public class AAA_TotalResult : MonoBehaviour {
         Contest_scorepanel.GetComponent<CanvasGroup>().alpha = 0;
         button_panel1.GetComponent<CanvasGroup>().alpha = 0;
         button_panel1.SetActive(false);
+        ClearImg_obj.GetComponent<CanvasGroup>().alpha = 0;
         contest_score_text.text = "0";
 
         //カウントアップのための秒数を割り出す。
@@ -312,11 +323,18 @@ public class AAA_TotalResult : MonoBehaviour {
     //④数字がすべて表示された後のアニメ
     void EndCountUpAnim()
     {
-
+        //音を鳴らす
+        //sc.PlaySe(4);
+        sc.PlaySe(27);
+        sc.PlaySe(78);
         sc.PlaySe(17);
         sc.PlaySe(19);
 
         Effect_1.SetActive(true); //エフェクト発生
+        Effect_2.SetActive(true);
+
+        //お菓子のアニメーション
+        OkashiTojoAnim();       
 
         StartCoroutine("panel1_anim2");
     }
@@ -328,6 +346,21 @@ public class AAA_TotalResult : MonoBehaviour {
 
         button_panel1.SetActive(true);
         sequence.Append(button_panel1.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+    }
+
+    void OkashiTojoAnim()
+    {
+        //まず、初期値。
+        Sequence sequence = DOTween.Sequence();
+        ClearImg_obj.GetComponent<CanvasGroup>().alpha = 0;
+        sequence.Append(ClearImg_obj.transform.DOScale(new Vector3(0.5f, 0.5f, 1.0f), 0.0f)
+            ); //
+
+        //移動のアニメ
+        sequence.Append(ClearImg_obj.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 1.5f)
+            .SetEase(Ease.OutElastic)); //はねる動き
+                                        //.SetEase(Ease.OutExpo)); //スケール小からフェードイン
+        sequence.Join(ClearImg_obj.transform.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
 
@@ -374,7 +407,7 @@ public class AAA_TotalResult : MonoBehaviour {
 
     IEnumerator panel3_anim1_Start()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         panel3_anim1();
     }
@@ -409,14 +442,16 @@ public class AAA_TotalResult : MonoBehaviour {
 
         playableDirector.enabled = true;
         playableDirector.Play();
-        sc.PlaySe(3); //ための音　登場時の音はTimeline上で設定している。3　72
+        sc.PlaySe(72); //ための音　登場時の音はTimeline上で設定している。3　72
 
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(6.0f);
 
         playableDirector.enabled = false;
         playableDirector.time = 0;
+        //sc.StopSe();
 
         //④吹き出しとキャラクタの表情アニメ登場
+
         sc.PlaySe(17);
         sc.PlaySe(43);
         hukidashi.SetActive(true);
@@ -424,8 +459,9 @@ public class AAA_TotalResult : MonoBehaviour {
         EDHukidashiText(); //テキスト内容決定       
         hukidashi.GetComponent<TextController>().SetText(_hukidashi_content);
 
-        //キャラ画像変更
-        chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_3;
+        //キャラアニメ
+        _model_move.SetActive(true);
+        //chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_3;
         CharaAnim();
 
         yield return new WaitForSeconds(1.0f);
@@ -435,7 +471,7 @@ public class AAA_TotalResult : MonoBehaviour {
         button_panel4.SetActive(true);
         sequence.Append(button_panel4.GetComponent<CanvasGroup>().DOFade(1, 0.3f));
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3.0f);
 
         TitleButton.SetActive(true);
         sequence.Append(TitleButton.GetComponent<CanvasGroup>().DOFade(1, 0.3f));
@@ -474,7 +510,7 @@ public class AAA_TotalResult : MonoBehaviour {
 
         //衣装総数を計算
         total_costume_count_text.text = pitemlist.emeralditemlist_CostumeCount().ToString() + " / " + pitemlist.emeralditemlist_CostumeAllCount().ToString();
-        //total_costume_per = pitemlist.emeralditemlist_CostumeCount() / pitemlist.emeralditemlist_CostumeAllCount();
+        total_costume_per = pitemlist.emeralditemlist_CostumeCount() / pitemlist.emeralditemlist_CostumeAllCount();
 
         //EDタイプの計算
         ChangeEDNumArray();
@@ -488,52 +524,57 @@ public class AAA_TotalResult : MonoBehaviour {
         }
 
         //上記のパラメータをもとに、ゲームトータルスコアを計算
-        //ハート総数+コンテストのスコア
-        total_score = GameMgr.contest_TotalScore + PlayerStatus.girl1_Love_exp;
+        //ハート総数+コンテストスコア＋コスチュームの数*100
+        total_score = GameMgr.contest_TotalScore + PlayerStatus.girl1_Love_exp + (pitemlist.emeralditemlist_CostumeCount() * 100);
         
 
         //パティシエランク計算　トータルスコアをもとに、SS S A B C D E F 8段階
         player_rank_text.text = "";
         player_shogo = "-";
-        if (total_score < 600)
+        if (total_score < 800)
         {
             _rank = "F";           
             player_shogo = "パティシエ見習い";
         }
-        else if (total_score >= 600 && total_score < 800)
+        else if (total_score >= 800 && total_score < 1000)
         {
             _rank = "D";
             player_shogo = "パティシエたまご";
         }
-        else if (total_score >= 800 && total_score < 1000)
+        else if (total_score >= 1000 && total_score < 1300)
         {
             _rank = "C";
             player_shogo = "パティシエ一人前";
         }
-        else if (total_score >= 1000 && total_score < 1100)
+        else if (total_score >= 1300 && total_score < 1500)
         {
             _rank = "B";
             player_shogo = "オレンジ・パティシエ";
         }
-        else if (total_score >= 1100 && total_score < 1200)
+        else if (total_score >= 1500 && total_score < 1700)
         {
             _rank = "B+";
             player_shogo = "スーパー・パティシエ";
         }
-        else if (total_score >= 1200 && total_score < 1300)
+        else if (total_score >= 1700 && total_score < 2000)
         {
             _rank = "A";
             player_shogo = "グランド・パティシエ";
         }
-        else if (total_score >= 1300 && total_score < 1800)
+        else if (total_score >= 2000 && total_score < 3000)
         {
             _rank = "S";
             player_shogo = "パティシエ・キング";
         }
-        else if (total_score >= 1800)
+        else if (total_score >= 3000 && total_score < 7777)
         {
             _rank = "SS";
             player_shogo = "究極のパティシエ";
+        }
+        else if (total_score >= 7777)
+        {
+            _rank = "SSS";
+            player_shogo = "愛のパティシエ";
         }
         player_rank_text.text = _rank;
         player_rankanim_text.text = _rank;
@@ -693,12 +734,12 @@ public class AAA_TotalResult : MonoBehaviour {
         {
             case 1: //Bad ED
 
-                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。";
+                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートをもっと上げて、挑戦してね！";
                 break;
 
             case 2:
 
-                _hukidashi_content = "おにいちゃん！" + "\n" + "お菓子、とってもうまかった！！" + "\n" + "もっと遊びたいな～！！";
+                _hukidashi_content = "おにいちゃん！" + "\n" + "お菓子、とってもうんめぇ～～！！" + "\n" + "もっと遊びたいな～！！";
                 break;
 
             case 3:

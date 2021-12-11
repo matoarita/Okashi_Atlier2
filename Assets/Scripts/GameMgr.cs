@@ -24,6 +24,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Debug.unityLogger.logEnabled = true; // ←falseでログを止める
     }
 
+    public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
+
+
 
     public static bool scenario_ON;     //全シーンで共通。宴・シナリオを優先するフラグ。これがONのときは、調合シーンなどでも、宴の表示をまず優先する。宴を読み終えたらOFFにする。
     public static int scenario_flag_input;     //デバッグ用。シナリオフラグをインスペクタから入力
@@ -42,9 +45,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様
     public static int stageclear_cullentlove; //クエストをクリアするのに、必要なハートの蓄積量。
-
-    public static bool DEBUG_MODE = true; //デバッグモード　falseだと、デバッグパネルの表示をオフにする。
-
 
 
     /* セーブする */
@@ -330,6 +330,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //エンディングのフラッグ
     public static bool ending_on;       //コンテストメインで、エンディングシーンへ移動するためのフラグ
+    public static bool ending_on2;      //BadEDの場合。EDムービーなし。
     public static int ending_number;    //エンディング番号    
 
     //牧場のイベント発生フラグ
@@ -742,6 +743,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         tutorial_Num = 0;
 
         ending_on = false;
+        ending_on2 = false;
 
         //ステージごとの、クリア好感度の数値設定。現在は未使用
         stage1_clear_love = 100;

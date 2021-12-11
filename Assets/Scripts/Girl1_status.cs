@@ -343,6 +343,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //Live2Dモデルの取得
                 _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
+                _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
                 live2d_animator = _model_obj.GetComponent<Animator>();
 
                 GirlEat_Judge_on = false;
@@ -539,6 +540,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //Live2Dモデルの取得
                     _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
+                    _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
                     live2d_animator = _model_obj.GetComponent<Animator>();
 
                     GirlEat_Judge_on = false;
@@ -899,6 +901,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //普段の素の状態での表情変化 GameMgr.girl_expressionがまあまあのときは、ハートレベルに応じて、素の状態が変化する。GirlEat_Judgeからも読む。
     public void DefFaceChange()
     {
+        //Live2Dモデルの取得
+        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+        live2d_animator = _model.GetComponent<Animator>();
+        trans_expression = live2d_animator.GetInteger("trans_expression");
+
         if (GameMgr.girl_express_param <= 0)
         {
             GameMgr.girl_express_param = 0;
@@ -2531,7 +2538,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void IdleChange()
     {
         _model.GetComponent<CubismEyeBlinkController>().enabled = false;
-        Debug.Log("ランダムモーション　再生");
+        //Debug.Log("ランダムモーション　再生");
 
         switch (GirlGokigenStatus)
         {

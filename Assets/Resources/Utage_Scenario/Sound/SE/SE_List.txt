@@ -22,7 +22,7 @@ SE表
 ・SE_20		audiostock_805128				ファンファーレ。テッテレー
 ・SE_21		audiostock_5538.mp3				失敗爆発音
 ・SE_22		audiostock_66349				クエスト受注の音　キラリン１
-・SE_23		audiostock_83086				【未使用】クエストの受注音　キラリン２　ちょっと電子音っぽい
+・SE_23		ショック2					【宴で使用】ガーーーン　ピアノでショック音
 ・SE_24		button63.mp3					カーソル選択音②
 ・SE_25		足音・雑草、茂み.mp3				探索中の音
 ・SE_26		audiostock_104037.mp3				レシピ閃いた音
@@ -92,7 +92,7 @@ SE表
 ・SE_90		audiostock_175671.mp3				シュイイーーン２　新規レシピ時に、さらに調合ためる音
 ・SE_91		audiostock_176504				【宴で使用】パワーアップ音　ピクニックなどで使用
 ・SE_92		audiostock_120364				クエストクリア音
-・SE_93		brook1a						＜未使用＞
+・SE_93		holstein-cow-mooing-1				牛の鳴き声
 ・SE_94		sei_ge_nomimono_sosogu07			水をそそぐ音
 ・SE_95		飲み込む（低音）				水を飲む音
 ・SE_96		注ぐ・ウィスキー・ボトル			水をたぷんとゆらす音

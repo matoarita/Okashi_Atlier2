@@ -14,6 +14,8 @@ public class Title_Main : MonoBehaviour {
 
     private Debug_Panel_Init debug_panel_init;
 
+    private Girl1_status girl1_status;
+
     private GameObject option_panel_obj;
     private GameObject galleryButton_obj;
     private GameObject loadButton_obj;
@@ -43,6 +45,9 @@ public class Title_Main : MonoBehaviour {
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子   
+
         option_panel_obj = canvas.transform.Find("OptionPanel").gameObject;
         galleryButton_obj = canvas.transform.Find("TitleMenu/Viewport/Content/GalleryButton").gameObject;
         loadButton_obj = canvas.transform.Find("TitleMenu/Viewport/Content/GameLoadButton").gameObject;
@@ -62,11 +67,16 @@ public class Title_Main : MonoBehaviour {
 
         if (GameMgr.ending_count >= 1)
         {
-            //galleryButton_obj.SetActive(true);
+            galleryButton_obj.SetActive(false);
 
             chara_Icon.SetActive(false);
             _model_move.SetActive(true);
             live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
+
+            PlayerStatus.girl1_Love_lv = 99;
+            girl1_status.CheckGokigen();
+            //girl1_status.DefaultFace();
+            //girl1_status.GirlGokigenStatus = 99;
         }
         else
         {

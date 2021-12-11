@@ -8,6 +8,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     private int _buf_findpower;
     private int _buf_kakuritsuup;
+    private float _buf_kakuritsuup_f;
 
     private int i;
 
@@ -23,6 +24,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 		
 	}
 
+    //アイテム発見力のバフ
     public int Buf_findpower_Keisan()
     {
         _buf_findpower = 0;
@@ -48,6 +50,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         return _buf_findpower;
     }
 
+    //調合成功率のバフ
     public int Buf_CompKakuritsu_Keisan()
     {
         _buf_kakuritsuup = 0;
@@ -67,11 +70,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
         {
-            _buf_kakuritsuup += 15;
-        }
-        if (pitemlist.KosuCount("star_pendant") >= 1) //持ってるだけで効果アップ
-        {
-            _buf_kakuritsuup += 5;
+            _buf_kakuritsuup += 20;
         }
         if (pitemlist.KosuCount("maneki_cat") >= 1) //持ってるだけで効果アップ
         {
@@ -80,6 +79,21 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
 
         return _buf_kakuritsuup;
+    }
+
+    //仕送り額のバフ
+    public float Buf_CompFatherMoneyUp_Keisan()
+    {
+        _buf_kakuritsuup_f = 1.0f;
+
+
+        if (pitemlist.KosuCount("star_pendant") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_kakuritsuup_f *= 1.3f;
+        }
+
+
+        return _buf_kakuritsuup_f;
     }
 
     //メイン調合シーンで確認する
