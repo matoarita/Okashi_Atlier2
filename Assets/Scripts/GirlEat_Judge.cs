@@ -2548,11 +2548,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
 
             //そのお菓子を食べた回数でお金取得を割り算。同じお菓子を何度あげても、だんだんお金は上がらなくなってくる。
-            if (database.items[_baseID].Eat_kaisu == 0)
+            /*if (database.items[_baseID].Eat_kaisu == 0)
             {
                 database.items[_baseID].Eat_kaisu = 1; //0で割り算を回避。
             }
-            GetMoney /= database.items[_baseID].Eat_kaisu;
+            GetMoney /= database.items[_baseID].Eat_kaisu;*/
 
             //③補正
             if (non_spquest_flag == false) //SPクエストのお菓子をあげていた場合
@@ -2656,7 +2656,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //**
 
         
-        /*if (_slider.value + _Getlove_param >= _slider.maxValue)
+        if (_slider.value + _Getlove_param >= _slider.maxValue)
         {
             if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、判定処理をなくしておく。
             {
@@ -2668,7 +2668,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
         }
         else
-        { }*/
+        { }
         
 
         //**

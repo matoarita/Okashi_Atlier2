@@ -318,6 +318,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int contest_event_num;
 
     //コンテストに提出したお菓子
+    public static bool contest_eventStart_flag;
     public static string contest_okashiName;
     public static string contest_okashiNameHyouji;
     public static string contest_okashiSlotName;
@@ -607,6 +608,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         stageclear_cullentlove = 0;
 
+        contest_eventStart_flag = false;
         MenuOpenFlag = false;
         QuestManzokuFace = false;
         OsotoIkitaiFlag = false;

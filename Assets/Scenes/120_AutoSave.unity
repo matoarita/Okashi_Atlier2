@@ -213,7 +213,7 @@ Prefab:
     - target: {fileID: 114460735325552046, guid: 9bf898075b1647744813fb68267846f3,
         type: 2}
       propertyPath: m_Text
-      value: "\u30AA\u30FC\u30C8\u30BB\u30FC\u30D6\u4E2D"
+      value: "\u30B7\u30B9\u30C6\u30E0\u30BB\u30FC\u30D6\u4E2D"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bf898075b1647744813fb68267846f3, type: 2}
@@ -773,6 +773,16 @@ MonoBehaviour:
   sound9: {fileID: 8300000, guid: f97fe25e0612b9f4c99ada4935623a40, type: 3}
   sound10: {fileID: 8300000, guid: cfcbd05ea7c25974c97aff4ebcf02d45, type: 3}
   sound11: {fileID: 0}
+  sound12: {fileID: 0}
+  sound13: {fileID: 0}
+  sound14: {fileID: 0}
+  sound15: {fileID: 0}
+  sound16: {fileID: 0}
+  sound17: {fileID: 0}
+  sound18: {fileID: 0}
+  sound19: {fileID: 0}
+  sound20: {fileID: 0}
+  sound21: {fileID: 0}
   _mixRate: 0
 --- !u!4 &1583223738
 Transform:

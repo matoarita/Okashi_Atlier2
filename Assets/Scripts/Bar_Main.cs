@@ -597,7 +597,6 @@ public class Bar_Main : MonoBehaviour
         {
             shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
         }
-
         //ラスク
         if (GameMgr.GirlLoveEvent_stage1[10])
         {
@@ -606,9 +605,32 @@ public class Bar_Main : MonoBehaviour
                 shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
             }
         }
-
         //クレープ
         if (GameMgr.GirlLoveEvent_stage1[20])
+        {
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+            }
+        }
+        //シュークリーム
+        if (GameMgr.GirlLoveEvent_stage1[30])
+        {
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+            }
+        }
+        //ドーナツ
+        if (GameMgr.GirlLoveEvent_stage1[40])
+        {
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+            }
+        }
+        //コンテスト
+        if (GameMgr.GirlLoveEvent_stage1[50])
         {
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {

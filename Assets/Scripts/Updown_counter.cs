@@ -1163,15 +1163,18 @@ public class Updown_counter : MonoBehaviour {
 
         //三個目
         //オリジナルの所持個数を計算
-        for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
+        if (itemdb_id3 != 9999)
         {
-            if (cmpitem_name3 == pitemlist.player_originalitemlist[i].itemName)
+            for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
             {
-                player_itemkosu3 += pitemlist.player_originalitemlist[i].ItemKosu;
+                if (cmpitem_name3 == pitemlist.player_originalitemlist[i].itemName)
+                {
+                    player_itemkosu3 += pitemlist.player_originalitemlist[i].ItemKosu;
+                }
             }
+            //店売りの所持個数を計算
+            player_itemkosu3 += pitemlist.playeritemlist[database.items[itemdb_id3].itemName];
         }
-        //店売りの所持個数を計算
-        player_itemkosu3 += pitemlist.playeritemlist[database.items[itemdb_id3].itemName];
 
 
 
@@ -1179,7 +1182,14 @@ public class Updown_counter : MonoBehaviour {
         //テキストの更新　左：現在の所持数　右：必要個数
         _a = cmpitem_namehyouji1 + ": " + GameMgr.ColorYellow + player_itemkosu1 + "</color>" + "／" + cmpitem_kosu1_select;
         _b = cmpitem_namehyouji2 + ": " + GameMgr.ColorYellow + player_itemkosu2 + "</color>" + "／" + cmpitem_kosu2_select;
-        _c = cmpitem_namehyouji3 + ": " + GameMgr.ColorYellow + player_itemkosu3 + "</color>" + "／" + cmpitem_kosu3_select;
+        if (itemdb_id3 != 9999)
+        {
+            _c = cmpitem_namehyouji3 + ": " + GameMgr.ColorYellow + player_itemkosu3 + "</color>" + "／" + cmpitem_kosu3_select;
+        }
+        else
+        {
+            _c = "";
+        }
 
         //材料個数が足りてるかの判定し、足りてないときは赤字にテキスト更新
         if (cmpitem_kosu1_select > player_itemkosu1)
@@ -1190,9 +1200,12 @@ public class Updown_counter : MonoBehaviour {
         {
             _b = GameMgr.ColorRed + cmpitem_namehyouji2 + ": " + player_itemkosu2 + "／" + cmpitem_kosu2_select + "</color>";
         }
-        if (cmpitem_kosu3_select > player_itemkosu3)
+        if (itemdb_id3 != 9999)
         {
-            _c = GameMgr.ColorRed + cmpitem_namehyouji3 + ": " + player_itemkosu3 + "／" + cmpitem_kosu3_select + "</color>";
+            if (cmpitem_kosu3_select > player_itemkosu3)
+            {
+                _c = GameMgr.ColorRed + cmpitem_namehyouji3 + ": " + player_itemkosu3 + "／" + cmpitem_kosu3_select + "</color>";
+            }
         }
 
         

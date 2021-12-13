@@ -16,6 +16,7 @@ public class Contest_Main : MonoBehaviour {
 
     private GameObject placename_panel;
     private GameObject black_effect;
+    private GameObject scene_black_effect;
     private GameObject canvas;
 
     private GameObject updown_counter_obj;
@@ -100,6 +101,9 @@ public class Contest_Main : MonoBehaviour {
         //黒半透明パネルの取得
         black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
 
+        //シーン全てをブラックに消すパネル
+        scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
+
         //場所名前パネル
         placename_panel = canvas.transform.Find("PlaceNamePanel").gameObject;
 
@@ -122,15 +126,17 @@ public class Contest_Main : MonoBehaviour {
 
         contest_select = canvas.transform.Find("Contest_Select").gameObject;
         conteston_toggle_judge = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Judge").gameObject;
+
+        contest_status = 100;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
         //コンテスト会場きたときのイベント
-        if (!GameMgr.ContestEvent_stage[0])
+        if (!GameMgr.contest_eventStart_flag)
         {
-            GameMgr.ContestEvent_stage[0] = true;
+            GameMgr.contest_eventStart_flag = true;
             GameMgr.scenario_ON = true;
 
             sceneBGM.MuteBGM();
@@ -143,7 +149,8 @@ public class Contest_Main : MonoBehaviour {
         //コンテスト終了後、エンディングへ
         if(GameMgr.ending_on)
         {
-            GameMgr.scenario_ON = true;
+            scene_black_effect.SetActive(true);
+            //GameMgr.scenario_ON = true;
             GameMgr.ending_on = false;
             FadeManager.Instance.LoadScene("100_Ending", 0.3f);
         }
@@ -151,6 +158,7 @@ public class Contest_Main : MonoBehaviour {
         //バッドEDの場合、スタッフロールなし
         if (GameMgr.ending_on2)
         {
+            scene_black_effect.SetActive(true);
             //GameMgr.scenario_ON = true;
             GameMgr.ending_on2 = false;
             FadeManager.Instance.LoadScene("110_TotalResult", 0.3f);
@@ -163,8 +171,9 @@ public class Contest_Main : MonoBehaviour {
             placename_panel.SetActive(false);
             contest_select.SetActive(false);
             black_effect.SetActive(false);
+            scene_black_effect.SetActive(false);
 
-            contest_status = 0;
+            //contest_status = 0;
         }
         else
         {

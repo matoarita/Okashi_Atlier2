@@ -464,14 +464,14 @@ public class AAA_TotalResult : MonoBehaviour {
         //chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_3;
         CharaAnim();
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         //⑤遅れて、バックボタンとタイトルボタンも登場
 
         button_panel4.SetActive(true);
         sequence.Append(button_panel4.GetComponent<CanvasGroup>().DOFade(1, 0.3f));
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(0.5f);
 
         TitleButton.SetActive(true);
         sequence.Append(TitleButton.GetComponent<CanvasGroup>().DOFade(1, 0.3f));

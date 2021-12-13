@@ -239,6 +239,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
         return 0;
     }
 
+    //前回スコアの初期化
     public void ResetLastScore()
     {
         for (i = 0; i < items.Count; i++)

@@ -12,8 +12,9 @@ public class AAA_AutoSave_Main : MonoBehaviour {
 
         save_controller = SaveController.Instance.GetComponent<SaveController>();
 
-        //エンディング回数を+1
+        //エンディング回数を+1       
         GameMgr.ending_count++;
+        Debug.Log("エンディング回数: " + GameMgr.ending_count);
 
         //システムデータのセーブ
         save_controller.SystemsaveCheck();

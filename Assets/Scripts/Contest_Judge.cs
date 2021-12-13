@@ -577,6 +577,10 @@ public class Contest_Judge : MonoBehaviour {
                         }
 
                         GameMgr.contest_TotalScore = sum / GameMgr.contest_Score.Length;
+                        if(GameMgr.contest_TotalScore < 0)
+                        {
+                            GameMgr.contest_TotalScore = 0;
+                        }
                         Debug.Log("総合得点：" + GameMgr.contest_TotalScore + "点");                       
 
 
@@ -623,17 +627,17 @@ public class Contest_Judge : MonoBehaviour {
             //
             //判定処理　パターンCのみ
             //
-            if (_basepowdery > 50)
+            if (_basepowdery > GameMgr.Watery_Line)
             {
                 dislike_flag[count] = false;
                 dislike_status = 2;
             }
-            if (_baseoily > 50)
+            if (_baseoily > GameMgr.Watery_Line)
             {
                 dislike_flag[count] = false;
                 dislike_status = 2;
             }
-            if (_basewatery > 50)
+            if (_basewatery > GameMgr.Watery_Line)
             {
                 dislike_flag[count] = false;
                 dislike_status = 2;
@@ -678,6 +682,10 @@ public class Contest_Judge : MonoBehaviour {
             Debug.Log("#####  審査員: " + set_id + "#####");
             total_score[count] = girlEat_judge.Judge_Score_Return(kettei_item1, _toggle_type1, 1, count); //点数の判定。3番目の0~1の数字は、女の子のお菓子の判定か、コンテストでの判定かのタイプ分け
 
+            if(total_score[count] < 0)
+            {
+                total_score[count] = 0;
+            }
             GameMgr.contest_Taste_Score[count] = girlEat_judge.shokukan_score;
             GameMgr.contest_Beauty_Score[count] = girlEat_judge.beauty_score;
 

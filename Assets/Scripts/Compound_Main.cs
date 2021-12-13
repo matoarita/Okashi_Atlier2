@@ -653,9 +653,11 @@ public class Compound_Main : MonoBehaviour
             save_controller.DrawGameScreen();
             keymanager.InitCompoundMainScene();
             GameMgr.MesaggeKoushinON = true;
-            StartMessage();
+            StartMessage();           
 
             character_move.transform.position = new Vector3(0f, 0, 0); //念のため、ゼロにリセット
+
+            Debug.Log("エンディング回数: " + GameMgr.ending_count);
 
             //ロード直後のサブイベントを発生させる
             //Load_eventflag = true; //ロード直後に、おかえりなさい～のようなサブイベントを発生

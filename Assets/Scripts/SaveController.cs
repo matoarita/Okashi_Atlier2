@@ -22,6 +22,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     //保存するものリスト　ここまで
 
     private PlayerData playerData;
+    private PlayerData systemData;
 
     private Compound_Keisan compound_keisan;
     private BGAcceTrigger BGAccetrigger;
@@ -121,11 +122,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //調合フラグと調合回数の取得
-        _temp_cmpflaglist.Clear();
+        /*_temp_cmpflaglist.Clear();
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
             _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, databaseCompo.compoitems[i].comp_count));
-        }
+        }*/
 
         //マップのフラグのみ取得
         _tempmap_placeflaglist.Clear();
@@ -330,7 +331,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_itemdatabase = _temp_itemscorelist,
 
             //調合のフラグ＋調合回数を記録する
-            save_itemCompodatabase = _temp_cmpflaglist,
+            //save_itemCompodatabase = _temp_cmpflaglist,
 
             //今うけてるクエストを保存する。
             save_questTakeset = quest_setdatabase.questTakeset,
@@ -358,13 +359,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             save_hiroba_ichigo_first = GameMgr.hiroba_ichigo_first,
             save_ichigo_collection_listFlag = GameMgr.ichigo_collection_listFlag,
-
-
-            //システムデータ関係のセーブ
-            /*//セーブデータあるかどうかのフラグ
-            save_saveOK = GameMgr.saveOK,
-            //エンディングカウント
-            save_ending_count = GameMgr.ending_count,*/
         };
 
         //デバッグ用
@@ -378,9 +372,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //一時データを永続的に保存。永続保存するときは、一度、一時データに保存しておく。
         bank.SaveAll();
         Debug.Log("bank.SaveAll()");
-
-        //初期化(念のため)
-        playerData = new PlayerData();
 
         //システムデータもセーブ
         SystemsaveCheck();
@@ -610,7 +601,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //調合のフラグ＋調合回数を記録する
         //databaseCompo.compoitems.Clear();
-        for (count = 0; count < playerData.save_itemCompodatabase.Count; count++)
+        /*for (count = 0; count < playerData.save_itemCompodatabase.Count; count++)
         {
             i = 0;
             while (i < databaseCompo.compoitems.Count)
@@ -623,7 +614,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 }
                 i++;
             }
-        }
+        }*/
         
 
         //今うけてるクエストを保存する。
@@ -670,10 +661,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         GameMgr.hiroba_ichigo_first = playerData.save_hiroba_ichigo_first;
         GameMgr.ichigo_collection_listFlag = playerData.save_ichigo_collection_listFlag;
-
-        //システムロード
-        //エンディングカウント
-        GameMgr.ending_count = playerData.save_ending_count;
 
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
@@ -797,7 +784,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         database.ResetLastScore();
 
         //調合フラグ＋調合回数も初期化
-        databaseCompo.ResetDefaultCompoExcel();
+        //databaseCompo.ResetDefaultCompoExcel();
 
         //アイテムDBの味の初期化
         //compound_keisan.ResetDefaultTasteParam();
@@ -831,7 +818,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     }
 
 
-    //システムデータのセーブ
+    //システムデータのセーブ エンディングセーブ
     public void SystemsaveCheck()
     {
         //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
@@ -840,15 +827,25 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         Debug.Log("DataBank.Open()");
         Debug.Log($"save path of bank is { bank.SavePath }");
 
+        //調合フラグと調合回数の取得 周回しても引き継がれる要素
+        _temp_cmpflaglist.Clear();
+        for (i = 0; i < databaseCompo.compoitems.Count; i++)
+        {
+            _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, databaseCompo.compoitems[i].comp_count));
+        }
+
         //システムデータに、セーブしたかどうかのフラグをセット
-        playerData = new PlayerData()
+        systemData = new PlayerData()
         {
             save_saveOK = GameMgr.saveOK,
             save_ending_count = GameMgr.ending_count,
+
+            //調合のフラグ＋調合回数を記録する
+            save_itemCompodatabase = _temp_cmpflaglist,
         };
 
         //データの一時保存。bankに、playerDataを「player1」という名前で現在のデータを保存。
-        bank.Store("System", playerData);
+        bank.Store("System", systemData);
         //Debug.Log("bank.Store()");
 
         //一時データを永続的に保存。永続保存するときは、一度、一時データに保存しておく。
@@ -867,26 +864,45 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         Debug.Log($"save path of bank is { bank.SavePath }");
 
         //初期化(念のため)
-        playerData = new PlayerData();
+        systemData = new PlayerData();
 
         //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
         bank.Load<PlayerData>("System");
-        
+
 
         //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
-        playerData = bank.Get<PlayerData>("System");
+        systemData = bank.Get<PlayerData>("System");
 
-        if (playerData != null)
+        if (systemData != null)
         {
             //
             //*** 以下、読み込み・更新 ***
             //
 
             //
-            GameMgr.saveOK = playerData.save_saveOK;
-            GameMgr.ending_count = playerData.save_ending_count;
+            GameMgr.saveOK = systemData.save_saveOK;
+            GameMgr.ending_count = systemData.save_ending_count;
+
+            //調合のフラグ＋調合回数を記録する
+            for (count = 0; count < systemData.save_itemCompodatabase.Count; count++)
+            {
+                i = 0;
+                while (i < databaseCompo.compoitems.Count)
+                {
+                    if (systemData.save_itemCompodatabase[count].comp_name == databaseCompo.compoitems[i].cmpitem_Name)
+                    {
+                        databaseCompo.compoitems[i].cmpitem_flag = systemData.save_itemCompodatabase[count].comp_Flag;
+                        databaseCompo.compoitems[i].comp_count = systemData.save_itemCompodatabase[count].comp_Count;
+                        break;
+                    }
+                    i++;
+                }
+            }
 
             Debug.Log("システムロード完了");
+            Debug.Log("エンディング回数: " + GameMgr.ending_count);
+
+
         }
     }
 }

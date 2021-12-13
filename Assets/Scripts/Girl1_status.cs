@@ -1030,7 +1030,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 3:
-                face_girl_Little_Fine();
+                face_girl_Normal();
                 break;
 
             case 4:
