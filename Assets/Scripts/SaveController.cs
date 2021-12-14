@@ -622,21 +622,21 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         quest_setdatabase.questTakeset = playerData.save_questTakeset;
 
         //マップフラグの読み込み
-        for (i = 0; i < matplace_database.matplace_lists.Count; i++)
+        for (i = 0; i < playerData.save_mapflaglist.Count; i++)
         {
             matplace_database.ReSetMapFlagString(playerData.save_mapflaglist[i].itemName, playerData.save_mapflaglist[i].Flag);
         }
 
         //ショップの在庫読み込み
-        for (i = 0; i < shop_database.shopitems.Count; i++)
+        for (i = 0; i < playerData.save_shopzaiko.Count; i++)
         {
             shop_database.ReSetShopItemString(playerData.save_shopzaiko[i].itemName, playerData.save_shopzaiko[i].itemKosu);
         }
-        for (i = 0; i < shop_database.farmitems.Count; i++)
+        for (i = 0; i < playerData.save_farmzaiko.Count; i++)
         {
             shop_database.ReSetFarmItemString(playerData.save_farmzaiko[i].itemName, playerData.save_farmzaiko[i].itemKosu);
         }
-        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+        for (i = 0; i < playerData.save_emeraldshop_zaiko.Count; i++)
         {
             shop_database.ReSetEmeraldItemString(playerData.save_emeraldshop_zaiko[i].itemName, playerData.save_emeraldshop_zaiko[i].itemKosu);
         }

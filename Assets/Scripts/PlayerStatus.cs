@@ -18,6 +18,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_zairyobox_lv; // 材料カゴのLV
     public static int player_zairyobox; // 材料カゴの大きさ
 
+    public static int player_kamado_lv; //かまどのレベル
+
 
     //妹のステータス
     //好感度のexpとlvだけは、girl1_statusに登録。

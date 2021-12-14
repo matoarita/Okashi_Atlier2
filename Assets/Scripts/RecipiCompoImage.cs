@@ -8,11 +8,15 @@ public class RecipiCompoImage : MonoBehaviour {
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
+    private Buf_Power_Keisan bufpower_keisan;
+
     private Text recipi_tassei_text;
     private Text exup_text;
 
     private int i, count;
     private float recipi_archivement_rate;
+
+    private int cullent_exup;
 
     // Use this for initialization
     void Start () {
@@ -32,6 +36,9 @@ public class RecipiCompoImage : MonoBehaviour {
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
+        //バフ効果計算メソッドの取得
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
+
         recipi_tassei_text = this.transform.Find("Panel/RecipiPercent").GetComponent<Text>();
         exup_text = this.transform.Find("Panel/exup_param").GetComponent<Text>();
 
@@ -45,7 +52,8 @@ public class RecipiCompoImage : MonoBehaviour {
 
         //調合成功率アップパーセント表示も更新
         databaseCompo.RecipiCount_database();
-        exup_text.text = "+" + GameMgr.game_Exup_rate.ToString() + "%";
+        cullent_exup = GameMgr.game_Exup_rate + bufpower_keisan.Buf_CompKakuritsu_Keisan();
+        exup_text.text = "+" + cullent_exup.ToString() + "%";
     }
 
 }

@@ -549,7 +549,7 @@ public class AAA_TotalResult : MonoBehaviour {
         else if (total_score >= 1300 && total_score < 1500)
         {
             _rank = "B";
-            player_shogo = "オレンジ・パティシエ";
+            player_shogo = "上級パティシエ";
         }
         else if (total_score >= 1500 && total_score < 1700)
         {

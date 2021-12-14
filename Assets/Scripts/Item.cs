@@ -149,6 +149,7 @@ public class Item
         Milk,
         Pate,
         Suger,
+        SumireSuger,
         Salt,                     
         Source,
         WhipeedCream,

@@ -1509,7 +1509,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。";
         }
 
-        Debug.Log(pitemlist.player_originalitemlist[new_item].itemNameHyouji + "が出来ました！");
+        Debug.Log(database.items[_id1].itemNameHyouji + " " + database.items[_id2].itemNameHyouji + "が出来ました！");
 
     }
 

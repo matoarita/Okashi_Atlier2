@@ -1831,6 +1831,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case "Rusk":
                 Crispy_Score();
                 break;
+            case "SumireSuger":
+                Tea_Score();
+                break;
             case "Tea":
                 Tea_Score();
                 break;
@@ -1850,22 +1853,30 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void Crispy_Score()
     {
-        _temp_kyori = _basecrispy - _girlcrispy[countNum];
-        _temp_deg = 1.0f * _basecrispy / _girlcrispy[countNum];
-
-        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        if (_girlcrispy[countNum] > 0)
         {
-            _temp_ratio = 1.0f;
-            Debug.Log("_temp_deg: " + _temp_deg);
+            _temp_kyori = _basecrispy - _girlcrispy[countNum];
+            _temp_deg = 1.0f * _basecrispy / _girlcrispy[countNum];
 
-            crispy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+
+            if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+            {
+                _temp_ratio = 1.0f;
+                Debug.Log("_temp_deg: " + _temp_deg);
+
+                crispy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            }
+            else
+            {
+                _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                crispy_score = (int)(_basescore * _temp_ratio);
+            }
         }
         else
         {
-            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
-            Debug.Log("_temp_ratio: " + _temp_ratio);
-
-            crispy_score = (int)(_basescore * _temp_ratio);
+            crispy_score = 0;
         }
 
         //crispy_score = _basecrispy;
@@ -1877,22 +1888,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void Fluffy_Score()
     {
-        _temp_kyori = _basefluffy - _girlfluffy[countNum];
-        _temp_deg = 1.0f * _basefluffy / _girlfluffy[countNum];
-
-        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        if (_girlfluffy[countNum] > 0)
         {
-            _temp_ratio = 1.0f;
-            Debug.Log("_temp_deg: " + _temp_deg);
+            _temp_kyori = _basefluffy - _girlfluffy[countNum];
+            _temp_deg = 1.0f * _basefluffy / _girlfluffy[countNum];
 
-            fluffy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+            {
+                _temp_ratio = 1.0f;
+                Debug.Log("_temp_deg: " + _temp_deg);
+
+                fluffy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            }
+            else
+            {
+                _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                fluffy_score = (int)(_basescore * _temp_ratio);
+            }
         }
         else
         {
-            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
-            Debug.Log("_temp_ratio: " + _temp_ratio);
-
-            fluffy_score = (int)(_basescore * _temp_ratio);
+            fluffy_score = 0;
         }
 
         //fluffy_score = _basefluffy;
@@ -1904,22 +1922,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void Smooth_Score()
     {
-        _temp_kyori = _basesmooth - _girlsmooth[countNum];
-        _temp_deg = 1.0f * _basesmooth / _girlsmooth[countNum];
-
-        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        if (_girlsmooth[countNum] > 0)
         {
-            _temp_ratio = 1.0f;
-            Debug.Log("_temp_deg: " + _temp_deg);
+            _temp_kyori = _basesmooth - _girlsmooth[countNum];
+            _temp_deg = 1.0f * _basesmooth / _girlsmooth[countNum];
 
-            smooth_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+            {
+                _temp_ratio = 1.0f;
+                Debug.Log("_temp_deg: " + _temp_deg);
+
+                smooth_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            }
+            else
+            {
+                _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                smooth_score = (int)(_basescore * _temp_ratio);
+            }
         }
         else
         {
-            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
-            Debug.Log("_temp_ratio: " + _temp_ratio);
-
-            smooth_score = (int)(_basescore * _temp_ratio);
+            smooth_score = 0;
         }
 
         //smooth_score = _basesmooth;
@@ -1931,22 +1956,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void Hardness_Score()
     {
-        _temp_kyori = _basehardness - _girlhardness[countNum];
-        _temp_deg = 1.0f * _basehardness / _girlhardness[countNum];
-
-        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        if (_girlhardness[countNum] > 0)
         {
-            _temp_ratio = 1.0f;
-            Debug.Log("_temp_deg: " + _temp_deg);
+            _temp_kyori = _basehardness - _girlhardness[countNum];
+            _temp_deg = 1.0f * _basehardness / _girlhardness[countNum];
 
-            hardness_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+            {
+                _temp_ratio = 1.0f;
+                Debug.Log("_temp_deg: " + _temp_deg);
+
+                hardness_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            }
+            else
+            {
+                _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                hardness_score = (int)(_basescore * _temp_ratio);
+            }
         }
         else
         {
-            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
-            Debug.Log("_temp_ratio: " + _temp_ratio);
-
-            hardness_score = (int)(_basescore * _temp_ratio);
+            hardness_score = 0;
         }
 
         //hardness_score = _basehardness;
@@ -1958,25 +1990,32 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void Juice_Score()
     {
-        _temp_kyori = _basejuice - _girljuice[countNum];
-        _temp_deg = 1.0f * _basejuice / _girljuice[countNum];
-
-        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        if (_girljuice[countNum] > 0)
         {
-            _temp_ratio = 1.0f;
-            Debug.Log("_temp_deg: " + _temp_deg);
+            _temp_kyori = _basejuice - _girljuice[countNum];
+            _temp_deg = 1.0f * _basejuice / _girljuice[countNum];
 
-            juice_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+            {
+                _temp_ratio = 1.0f;
+                Debug.Log("_temp_deg: " + _temp_deg);
+
+                juice_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            }
+            else
+            {
+                _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                juice_score = (int)(_basescore * _temp_ratio);
+            }
         }
         else
         {
-            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
-            Debug.Log("_temp_ratio: " + _temp_ratio);
-
-            juice_score = (int)(_basescore * _temp_ratio);
+            juice_score = 0;
         }
 
-        
+
         shokukan_baseparam = _basejuice;
         shokukan_score += juice_score;
         shokukan_mes = "のどごし";
@@ -1985,22 +2024,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void Tea_Score()
     {
-        _temp_kyori = _basecrispy - _girlcrispy[countNum];
-        _temp_deg = 1.0f * _basecrispy / _girlcrispy[countNum];
-
-        if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+        if (_girlcrispy[countNum] > 0)
         {
-            _temp_ratio = 1.0f;
-            Debug.Log("_temp_deg: " + _temp_deg);
+            _temp_kyori = _basecrispy - _girlcrispy[countNum];
+            _temp_deg = 1.0f * _basecrispy / _girlcrispy[countNum];
 
-            crispy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+            {
+                _temp_ratio = 1.0f;
+                Debug.Log("_temp_deg: " + _temp_deg);
+
+                crispy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+            }
+            else
+            {
+                _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                crispy_score = (int)(_basescore * _temp_ratio);
+            }
         }
         else
         {
-            _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
-            Debug.Log("_temp_ratio: " + _temp_ratio);
-
-            crispy_score = (int)(_basescore * _temp_ratio);
+            crispy_score = 0;
         }
 
         shokukan_baseparam = _basecrispy;

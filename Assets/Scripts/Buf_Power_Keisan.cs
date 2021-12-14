@@ -9,6 +9,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _buf_findpower;
     private int _buf_kakuritsuup;
     private float _buf_kakuritsuup_f;
+    private int _buf_shokukanup;
 
     private int i;
 
@@ -70,11 +71,24 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
         {
-            _buf_kakuritsuup += 20;
+            _buf_kakuritsuup += 5;
         }
-        if (pitemlist.KosuCount("maneki_cat") >= 1) //持ってるだけで効果アップ
+        /*if (pitemlist.KosuCount("maneki_cat") >= 1) //持ってるだけで効果アップ
         {
             _buf_kakuritsuup += 5;
+        }*/
+
+        //かまどレベルによるバフ
+        if (pitemlist.KosuCount("gold_oven") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_kakuritsuup += 20;
+        }
+        else
+        {
+            if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
+            {
+                _buf_kakuritsuup += 10;
+            }
         }
 
 
@@ -94,6 +108,37 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
 
         return _buf_kakuritsuup_f;
+    }
+
+    //食感などのパラメータのバフ これのみ、ゲームスタート前に一度読み込む可能性あるので、アイテムリストを取得
+    public int Buf_OkashiParamUp_Keisan(int _status)
+    {
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        _buf_shokukanup = 0;
+
+        switch (_status)
+        {
+            case 0: //さくさく感のバフ
+
+                // かまどレベルによるバフ
+                if (pitemlist.KosuCount("gold_oven") >= 1) //持ってるだけで効果アップ
+                {
+                    _buf_shokukanup += 100;
+                }
+                else
+                {
+                    if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
+                    {
+                        _buf_shokukanup += 50;
+                    }
+                }
+                return _buf_shokukanup;
+                
+        }
+
+        return 0; //なにもない場合や例外は0
     }
 
     //メイン調合シーンで確認する
@@ -122,6 +167,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             {
                 PlayerStatus.player_zairyobox = 50;
                 PlayerStatus.player_zairyobox_lv = 4;
+            }
+        }
+
+        // かまどレベル
+        if (pitemlist.KosuCount("gold_oven") >= 1) //持ってるだけで効果アップ
+        {
+            PlayerStatus.player_kamado_lv = 3;
+        }
+        else
+        {
+            if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
+            {
+                PlayerStatus.player_kamado_lv = 2;
             }
         }
     }

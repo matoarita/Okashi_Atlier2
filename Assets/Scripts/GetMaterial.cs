@@ -55,6 +55,7 @@ public class GetMaterial : MonoBehaviour
 
     private float randomPoint;
     private float rare_event_kakuritsu;
+    private float rare_event_kakuritsu_hosei;
 
     //private int rare_eventitem_max;
 
@@ -66,7 +67,7 @@ public class GetMaterial : MonoBehaviour
     private int player_girl_findpower_final;
     private int _buf_findpower;
 
-    private int random;
+    private int random, random_param;
     private int i, count, empty;
     private int index;
     private int _itemid;
@@ -819,7 +820,10 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                _text.text = "にいちゃん！　とりさん、ふわふわ～！";
+                random_param = Random.Range(5, 15);
+                _text.text = "にいちゃん！　とりさん、ふわふわ～！" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </ color > " + "上がった！";
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
                 break;
 
             case 1:
@@ -829,7 +833,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "にいちゃん。お花畑きもちいいね。すやぁ～。" + "\n" + "妹は寝ている。";
+                _text.text = "にいちゃん。お花畑きもちいいね。すやぁ～。" + "\n" + "妹は寝ている。" + "体力を５回復。";
+                GirlLifeUpKeisan(5);
+                sc.PlaySe(17);
                 break;
 
             case 3:
@@ -879,8 +885,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "あ！てんとうむしだ！　にいちゃん！" + "\n" + "妹は、はしゃいでいる。ハートが３上がった！";
-                PlayerStatus.girl1_Love_exp += 3;
+                random_param = Random.Range(1, 10);
+                _text.text = "あ！てんとうむしだ！　にいちゃん！" + "\n" + "妹は、はしゃいでいる。ハートが " + GameMgr.ColorPink + random_param + "</color>" + "上がった！";
+                PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
                 break;
 
@@ -920,8 +927,9 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                _text.text = "にいちゃん。水がいっぱい！　すっごくひろ～い。" + "\n" + "妹は感動しているようだ。ハートが３上がった！";
-                PlayerStatus.girl1_Love_exp += 3;
+                random_param = Random.Range(3, 10);
+                _text.text = "にいちゃん。水がいっぱい！　すっごくひろ～い。" + "\n" + "妹は感動しているようだ。ハートが " + GameMgr.ColorPink + random_param + "</color>" + "上がった！";
+                PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
                 break;
 
@@ -932,8 +940,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "この紫のお花、ラベンダーっていうの？　いい香り～。" + "\n" + "ハートが１上がった！";
-                PlayerStatus.girl1_Love_exp += 1;
+                random_param = Random.Range(2, 6);
+                _text.text = "この紫のお花、ラベンダーっていうの？　いい香り～。" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </ color > " + "上がった！";
+                PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
                 break;
 
@@ -990,7 +999,7 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "なつかしい匂いがする。" + "ゆっくりと畑を歩いた。"+ "体力を５回復。";
+                _text.text = "なつかしい匂いがする。" + "ゆっくりと畑を歩いた。" + "体力を５回復。";
                 GirlLifeUpKeisan(5);
                 sc.PlaySe(17);
                 break;
@@ -1238,35 +1247,43 @@ public class GetMaterial : MonoBehaviour
 
     //イベントの発生確率をセット
     void InitializeEventDicts()
-    {       
-
+    {
+        if(rare_event_kakuritsu >= 15) //レアイベント発生確率などは、最大１５％ぐらいが上限。でないと採取が出にくくなるため。
+        {
+            rare_event_kakuritsu_hosei = 15;
+        }
+        else
+        {
+            rare_event_kakuritsu_hosei = rare_event_kakuritsu;
+        }
+        
         switch (mat_place)
         {
             case "Forest":
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 25.0f); //20%でイベント発生
-                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
+                eventDict.Add(0, 80.0f); //採集
+                eventDict.Add(1, 15.0f); //20%でイベント発生
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu_hosei); //お宝発見
                 break;
 
             case "BirdSanctuali":
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 25.0f); //20%でイベント発生
-                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
+                eventDict.Add(0, 80.0f); //採集
+                eventDict.Add(1, 15.0f); //20%でイベント発生
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu_hosei); //お宝発見
                 break;
 
             case "BerryFarm":
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 25.0f); //20%でイベント発生
+                eventDict.Add(0, 80.0f); //採集
+                eventDict.Add(1, 15.0f); //20%でイベント発生
                 eventDict.Add(2, 0.0f); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + (rare_event_kakuritsu*1.5f)); //お宝発見
+                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 1.5f)); //お宝発見
                 break;
 
             case "HimawariHill":
@@ -1274,7 +1291,7 @@ public class GetMaterial : MonoBehaviour
                 eventDict = new Dictionary<int, float>();
                 eventDict.Add(0, 80.0f); //採集
                 eventDict.Add(1, 10.0f); //10%でイベント
-                eventDict.Add(2, 10.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(2, 10.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
                 eventDict.Add(3, 0.0f); //お宝発見
 
                 /*
@@ -1283,15 +1300,15 @@ public class GetMaterial : MonoBehaviour
                     eventDict = new Dictionary<int, float>();
                     eventDict.Add(0, 70.0f); //採集
                     eventDict.Add(1, 30.0f); //30%でイベント 廃屋をみつけるまでは、発生しやすくなる。
-                    eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
+                    eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
                 }
                 else
                 {
                     eventDict = new Dictionary<int, float>();
                     eventDict.Add(0, 80.0f); //採集
                     eventDict.Add(1, 10.0f); //10%でイベント
-                    eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                    eventDict.Add(3, 10.0f + rare_event_kakuritsu); //お宝発見
+                    eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
+                    eventDict.Add(3, 10.0f + rare_event_kakuritsu_hosei); //お宝発見
                 }*/
                 break;
 
@@ -1300,8 +1317,8 @@ public class GetMaterial : MonoBehaviour
                 eventDict = new Dictionary<int, float>();
                 eventDict.Add(0, 80.0f); //採集
                 eventDict.Add(1, 15.0f); //10%でイベント
-                eventDict.Add(2, 0.0f + rare_event_kakuritsu); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu); //お宝発見
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
+                eventDict.Add(3, 5.0f + rare_event_kakuritsu_hosei); //お宝発見
                 break;
         }
     }
@@ -1580,7 +1597,7 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 40.0f);
                 treasureDropDict.Add(2, 39.0f);
-                treasureDropDict.Add(3, 1.0f + (rare_event_kakuritsu*1.5f));
+                treasureDropDict.Add(3, 1.0f + (rare_event_kakuritsu*0.2f));
                 break;
 
             default:

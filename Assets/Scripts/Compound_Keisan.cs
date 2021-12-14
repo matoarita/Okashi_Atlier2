@@ -26,6 +26,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private CombinationMain Combinationmain;
 
+    private Buf_Power_Keisan bufpower_keisan;
+
     private SlotChangeName slotchangename;
     private string[] _slotHyouji1; //日本語に変換後の表記を格納する。スロット覧用
     private string itemslotname;
@@ -259,6 +261,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //スロット名前変換用オブジェクトの取得
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+
+        //バフ効果計算メソッドの取得
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
 
         //トッピングスロットの配列
         _basetp = new string[database.items[0].toppingtype.Length];
@@ -1359,6 +1364,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //ジュースののどごしを計算する。
         _basejuice = _basesweat + _basebitter + _basesour;
+
+        //⑤器具やアクセサリーなどによるバフ効果を追加する。
+        _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0); //中の数字でどの食感パラムかの指定
     }
 
 

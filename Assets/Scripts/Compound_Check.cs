@@ -980,6 +980,12 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller.NewRecipiFlag = false;
                 newrecipi_flag = false;
             }
+
+            //例外処理　二個以上同時にできる場合は、新しいレシピとしては登録されない
+            if(exp_Controller.DoubleItemCreated == 1)
+            {
+                exp_Controller.NewRecipiFlag = false;
+            }
         }
         //どの調合リストにも当てはまらなかった場合
         else

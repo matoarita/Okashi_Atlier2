@@ -787,6 +787,12 @@ public class SetImage : MonoBehaviour
                 subcategory = "パイ";
                 Crispy_Text();
                 break;
+            case "SumireSuger":
+                subcategory = "すみれ砂糖菓子";
+                Crispy_Text();
+                item_Shokukan_Type.text = "香り";
+                item_lastShokukan_Type.text = "香り";
+                break;
             case "Rusk":
                 subcategory = "ラスク";
                 Crispy_Text();
