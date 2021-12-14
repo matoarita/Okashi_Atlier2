@@ -1147,10 +1147,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
             set_id = 0;
 
-            //
-            //判定処理　パターンCのみ
-            //
-            //Dislike_Okashi_Judge();
         }
         else
         {
@@ -1160,16 +1156,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 non_spquest_flag = true;
 
                 //お菓子の判定値は、compoundMainなどで指定している。ここでは、値のセッティングのみ。
+                girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順
                 SetGirlTasteInit();
 
                 dislike_flag = true;
                 dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
                 set_id = 0;
 
-                //
-                //判定処理　パターンCのみ
-                //
-                //Dislike_Okashi_Judge();
 
             }
             //通常かスペシャルお菓子の場合
@@ -1257,10 +1250,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                         set_id = 0;
 
-                        //
-                        //判定処理　パターンCのみ
-                        //
-                        //Dislike_Okashi_Judge();
                     }
                     else
                     {
@@ -1272,19 +1261,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
                         set_id = 0;
 
-                        //
-                        //判定処理　パターンCのみ
-                        //
-                        //Dislike_Okashi_Judge();
 
                     }
                 }
                 else //吹き出しに合っていた場合に、味を判定する。
                 {
-                    //
-                    //判定処理　パターンCのみ
-                    //
-                    //Dislike_Okashi_Judge();
+
                 }
             }
         }

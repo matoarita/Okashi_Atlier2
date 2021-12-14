@@ -776,9 +776,9 @@ public class Compound_Main : MonoBehaviour
 
                     case 10: //宴ポーズ。エクストリームパネルを押そう！で、待機。
 
-                        MainCompoundMethod();
-                        compoundselect_onoff_obj.SetActive(false);
                         canvas.SetActive(true);
+                        MainCompoundMethod();
+                        compoundselect_onoff_obj.SetActive(false);                        
                         OffCompoundSelectnoExtreme();
                         //extreme_Button.interactable = true;
 
@@ -910,7 +910,7 @@ public class Compound_Main : MonoBehaviour
                         OffCompoundSelect();
                         text_area.SetActive(false);
 
-                        girl1_status.SetOneQuest(1);　//comp_Numを直接指定
+                        //girl1_status.SetOneQuest(1);　//comp_Numを直接指定
                         girl1_status.Girl_Hungry();
                         girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
 
@@ -962,7 +962,7 @@ public class Compound_Main : MonoBehaviour
 
                         girl1_status.timeGirl_hungry_status = 2; //一回、画像を元に戻す。
 
-                        girl1_status.SetOneQuest(11);
+                        //girl1_status.SetOneQuest(11);
                         girl1_status.Girl_Hungry();
                         girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
 

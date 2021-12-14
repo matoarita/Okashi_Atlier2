@@ -100,7 +100,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int kettei_item1;
 
     private int result_item;
-    private int result_ID;
+    public int result_ID; //SetImageなどからも読む可能性あり
     private int new_item;
 
     private int result_kosu;

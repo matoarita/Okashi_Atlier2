@@ -1235,6 +1235,16 @@ public class SetImage : MonoBehaviour
             //半透明黒パネルはoff
             BlackImage.GetComponent<CanvasGroup>().alpha = 0;
 
+            //チュートリアル最初のクッキーのときだけは、強制的に新しいお菓子閃いたことにする
+            if (GameMgr.tutorial_ON == true)
+            {
+                if (GameMgr.tutorial_Num == 75 || GameMgr.tutorial_Num == 265)
+                {
+                    exp_Controller.NewRecipiFlag = true;
+                    exp_Controller.NewRecipi_compoID = exp_Controller.result_ID; //コンポ調合データベースのIDを代入
+                }
+            }
+
             //新しいレシピをひらめいたかどうかチェック
             if ( exp_Controller.NewRecipiFlag == true)
             {
