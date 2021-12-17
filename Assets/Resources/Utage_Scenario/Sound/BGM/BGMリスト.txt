@@ -28,12 +28,12 @@
 ・BGM_26		のっそりと気だるい感じ			コンテストのメンバー集合　ゆるっとした感じ
 ・BGM_27		yume					物語の核心に近い曲
 ・BGM_28		audiostock_64137			きらきらぽんぽのロマンチックなBGM
-・BGM_29		audiostock_854783_sample		【未使用】クリスタルのイメージの音２
-・BGM_30		audiostock_823980_sample		【未使用】月夜の曲
-・BGM_31		audiostock_94283_sample			【未使用】月夜の曲２
+・BGM_29		audiostock_12050			【宴で使用】思い出話の音楽
+・BGM_30		05_kazetotomoni				ED曲
+・BGM_31		audiostock_94283_sample			【未使用】削除
 ・BGM_32		audiostock_824733			月夜の曲３
 ・BGM_33		audiostock_158582			バードサンクチュアリイメージの静かなピアノ曲
-・BGM_34		audiostock_371284_sample		【未使用】じいさんのテーマ曲　ファンキー
+・BGM_34		audiostock_371284_sample		【未使用】削除
 ・BGM_35		audiostock_134515			クッキングの曲　ピアノ系の不思議なクッキングBGM
 ・BGM_36		audiostock_120586			エメラルショップの曲
 ・BGM_37		audiostock_78487			調合テーマ２　アトリエメインテーマ２　楽しい音楽

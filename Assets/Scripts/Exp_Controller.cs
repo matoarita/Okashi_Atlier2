@@ -605,6 +605,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //パネルに、作ったやつを表示する。
                 extremePanel.SetExtremeItem(result_item, 1);
 
+                //仕上げ回数をリセット
+                PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+
             }
 
             new_item = result_item;
@@ -886,6 +889,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             compound_keisan.Topping_Compound_Method(0);
 
             new_item = pitemlist.player_originalitemlist.Count - 1;
+
+            //仕上げ回数を減らす
+            PlayerStatus.player_extreme_kaisu--;
 
             //新しいアイテムを閃くかチェック
             if (NewRecipiflag_check != true)

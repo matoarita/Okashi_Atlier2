@@ -311,7 +311,11 @@ public class GetMaterial : MonoBehaviour
                 player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
 
                 //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
-                rare_event_kakuritsu = (player_girl_findpower_final - PlayerStatus.player_girl_findpower_def) * 0.3f;
+                rare_event_kakuritsu = (player_girl_findpower_final - PlayerStatus.player_girl_findpower_def) * 0.1f;
+                if(rare_event_kakuritsu >= 50.0f)
+                {
+                    rare_event_kakuritsu = 50.0f;
+                }
 
                 //ウェイトアニメ
                 mat_anim_on = true;
@@ -1597,7 +1601,7 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 40.0f);
                 treasureDropDict.Add(2, 39.0f);
-                treasureDropDict.Add(3, 1.0f + (rare_event_kakuritsu*0.2f));
+                treasureDropDict.Add(3, 1.0f + (rare_event_kakuritsu*0.05f));
                 break;
 
             default:

@@ -957,11 +957,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     //Debug.Log("今はあまりお腹が減ってないらしい");
 
-                    _windowtext.text = "今はあまりお腹が減ってないらしい";
+                    /*_windowtext.text = "今はあまりお腹が減ってないらしい";
 
                     GameMgr.compound_status = 0;
                     //お菓子の判定処理を終了
-                    compound_Main.girlEat_ON = false;
+                    compound_Main.girlEat_ON = false;*/
+
+                    //判定アニメ起動
+                    judge_anim_on = true;
+                    judge_end = false;
+                    StartCoroutine("Girl_Judge_anim_co");
 
                     break;
 

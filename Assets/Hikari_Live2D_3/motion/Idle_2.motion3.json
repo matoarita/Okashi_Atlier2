@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 40,
-		"TotalSegmentCount": 58,
-		"TotalPointCount": 204,
+		"CurveCount": 41,
+		"TotalSegmentCount": 61,
+		"TotalPointCount": 214,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -716,6 +716,35 @@
 				-1.319,
 				2.967,
 				-0.044
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "Hair_All_z_rotate",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.222,
+				0,
+				0.444,
+				15,
+				0.667,
+				15,
+				1,
+				1.167,
+				15,
+				1.667,
+				-13,
+				2.167,
+				-13,
+				1,
+				2.433,
+				-13,
+				2.7,
+				-1.019,
+				2.967,
+				-0.061
 			]
 		}
 	]

@@ -331,7 +331,7 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller.ResultOK();
 
                         //仕上げ回数をリセット
-                        PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+                        //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
 
                         break;
 
@@ -411,7 +411,7 @@ public class Compound_Check : MonoBehaviour {
                         exp_Controller.ResultOK();
 
                         //仕上げ回数をリセット
-                        PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+                        //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
 
                         break;
 
@@ -475,7 +475,7 @@ public class Compound_Check : MonoBehaviour {
                         Off_Flag_Setting();
 
                         //仕上げ回数を減らす
-                        PlayerStatus.player_extreme_kaisu--;
+                        //PlayerStatus.player_extreme_kaisu--;
                         
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
@@ -545,7 +545,7 @@ public class Compound_Check : MonoBehaviour {
                         Off_Flag_Setting();
 
                         //仕上げ回数を減らす
-                        PlayerStatus.player_extreme_kaisu--;
+                        //PlayerStatus.player_extreme_kaisu--;
 
 
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
@@ -618,7 +618,7 @@ public class Compound_Check : MonoBehaviour {
                         Off_Flag_Setting();
 
                         //仕上げ回数を減らす
-                        PlayerStatus.player_extreme_kaisu--;
+                        //PlayerStatus.player_extreme_kaisu--;
 
                         exp_Controller.Topping_Result_OK();
 
@@ -687,7 +687,7 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller.Recipi_ResultOK();
 
                 //仕上げ回数をリセット
-                PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+                //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
 
                 Debug.Log("選択完了！");
                 break;

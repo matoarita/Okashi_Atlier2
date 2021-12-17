@@ -101,7 +101,7 @@ public class TextController : MonoBehaviour
         currentLine = 0;
         currentText = string.Empty;
         uiText.text = "";
-        uiText.color = new Color(75f / 255f, 52f / 255f, 34f / 255f);
+        //uiText.color = new Color(75f / 255f, 52f / 255f, 34f / 255f);
         textend_flag = false;
         hint_on = false;
 
