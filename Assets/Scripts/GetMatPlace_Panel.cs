@@ -60,6 +60,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject text_area_Main;
     private Text _textmain;
     private GameObject text_kaigyo_button;
+    private GameObject text_kaigyo_buttonPanel;
     private string _temp_tx;
     private bool text_kaigyo_active;
 
@@ -162,6 +163,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.transform.Find("Text").GetComponent<Text>();
         text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
+        text_kaigyo_buttonPanel = canvas.transform.Find("MessageWindow/KaigyoButtonPanel").gameObject;
 
         //Yes no パネルの取得
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
@@ -1073,6 +1075,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 if (text_kaigyo_active)
                 {
                     text_kaigyo_button.SetActive(true);
+                    text_kaigyo_buttonPanel.SetActive(true);
                 }
 
                 yes_selectitem_kettei.onclick = false;
@@ -1433,6 +1436,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             text_kaigyo_active = true; //改行ボタンはtrueになっていた場合。一時的にオフにするが、あとでオンに直す用のフラグ。
             text_kaigyo_button.SetActive(false);
+            text_kaigyo_buttonPanel.SetActive(false);
         }
         else
         {

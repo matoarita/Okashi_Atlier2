@@ -437,6 +437,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
+        //スクリーン設定の固定
+        //Screen.SetResolution(800, 600, false); //(800, 600, false, 60) 3番目はフルスクリーンのありなし。4番目はFPSの固定
+
         //秒計算。　
         timeLeft = 1.0f;
 

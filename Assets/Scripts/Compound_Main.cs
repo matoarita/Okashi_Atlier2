@@ -4046,7 +4046,7 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.picnic_End = true;//さらにカウンターを置く。カウンターが０になったら、またランダムで発生するようになる。
                             GameMgr.picnic_event_ON = false;
                             GameMgr.picnic_event_reading_now = true;
-                            GameMgr.picnic_count = 3;
+                            GameMgr.picnic_count = 5; //次のピクニックイベントまでの日数カウンタ
 
                             check_GirlLoveSubEvent_flag = false;
 

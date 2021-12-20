@@ -731,12 +731,12 @@ public class Updown_counter : MonoBehaviour {
                 {
                     case 0:
 
-                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.final_kettei_item1].itemName];
+                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
                         break;
 
                     case 1:
 
-                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.final_kettei_item1].ItemKosu;
+                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
 
                         break;
 
@@ -817,12 +817,12 @@ public class Updown_counter : MonoBehaviour {
                 {
                     case 0:
 
-                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.final_kettei_item1].itemName];
+                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
                         break;
 
                     case 1:
 
-                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.final_kettei_item1].ItemKosu;
+                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
 
                         break;
 
@@ -1282,9 +1282,26 @@ public class Updown_counter : MonoBehaviour {
 
     void SellYosokuText()
     {
-        _text.text = database.items[pitemlistController.final_kettei_item1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + database.items[pitemlistController.final_kettei_item1].sell_price * updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+        switch (pitemlistController._toggle_type1)
+        {
+            case 0:
+
+                _text.text = database.items[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
+            GameMgr.ColorYellow + database.items[pitemlistController.kettei_item1].sell_price * updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
+                break;
+
+            case 1:
+
+                _text.text = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
+            GameMgr.ColorYellow + pitemlist.player_originalitemlist[pitemlistController.kettei_item1].sell_price * updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+            + "\n" + "個数を選択してください";
+                break;
+
+            default:
+                break;
+        }
+        
     }
 
     

@@ -161,7 +161,9 @@ public class Contest_Main : MonoBehaviour {
             scene_black_effect.SetActive(true);
             //GameMgr.scenario_ON = true;
             GameMgr.ending_on2 = false;
+
             FadeManager.Instance.LoadScene("110_TotalResult", 0.3f);
+            //FadeManager.Instance.LoadScene("120_AutoSave", 0.3f);
         }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。

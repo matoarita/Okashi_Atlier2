@@ -12,6 +12,7 @@ public class GetMaterial : MonoBehaviour
     private GameObject text_area;
     private Text _text;
     private GameObject text_kaigyo_button;
+    private GameObject text_kaigyo_buttonPanel;
 
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -141,6 +142,7 @@ public class GetMaterial : MonoBehaviour
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
         text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
+        text_kaigyo_buttonPanel = canvas.transform.Find("MessageWindow/KaigyoButtonPanel").gameObject;
 
         //時間管理オブジェクトの取得
         time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
@@ -212,6 +214,7 @@ public class GetMaterial : MonoBehaviour
                     OpenTreasureButton_obj.SetActive(false);
                     TreasureGetitem_obj.SetActive(false);
                     text_kaigyo_button.SetActive(false);
+                    text_kaigyo_buttonPanel.SetActive(false);
 
                     timeOut = 1.0f;
                     mat_anim_status = 1;
@@ -621,10 +624,12 @@ public class GetMaterial : MonoBehaviour
         if (_tansaku_result_temp.Count > tansaku_gyou)
         {
             text_kaigyo_button.SetActive(true);
+            text_kaigyo_buttonPanel.SetActive(true);
         }
         else
         {
             text_kaigyo_button.SetActive(false);
+            text_kaigyo_buttonPanel.SetActive(false);
             tansaku_panel.SetActive(true);
         }
 
@@ -684,6 +689,7 @@ public class GetMaterial : MonoBehaviour
         if (page_count >= lastpage_count)
         {
             tansaku_panel.SetActive(true);
+            //text_kaigyo_buttonPanel.SetActive(false);
         }
     }
 

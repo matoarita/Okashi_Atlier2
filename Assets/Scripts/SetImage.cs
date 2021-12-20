@@ -721,6 +721,10 @@ public class SetImage : MonoBehaviour
                 subcategory = "ケーキ";
                 Fluffy_Text();
                 break;
+            case "Cake_Mat":
+                subcategory = "ケーキの素材";
+                Fluffy_Text();
+                break;
             case "Castella":
                 subcategory = "カステラ";
                 Fluffy_Text();

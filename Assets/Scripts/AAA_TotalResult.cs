@@ -734,22 +734,22 @@ public class AAA_TotalResult : MonoBehaviour {
         {
             case 1: //Bad ED
 
-                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートをもっと上げて、挑戦してね！";
+                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートを400以上に上げて、挑戦してね！";
                 break;
 
             case 2:
 
-                _hukidashi_content = "おにいちゃん！" + "\n" + "お菓子、とってもうんめぇ～～！！" + "\n" + "もっと遊びたいな～！！";
+                _hukidashi_content = "おにいちゃん！" + "\n" + "お菓子、とってもうんめぇ～～！！" + "\n" + "まだまだ遊び足りないよ～！！";
                 break;
 
             case 3:
 
-                _hukidashi_content = "おにいちゃん！" + "\n" + "ありがと～！また会おうね！！" + "\n" + "..でも、まだ真の結末があるみたいだよ。";
+                _hukidashi_content = "おにいちゃん！" + "\n" + "ありがと～！" + "\n" + "ハートをもっと上げて、ベストEDを目指そう！";
                 break;
 
             case 4:
 
-                _hukidashi_content = "おにいちゃん！ホントにありがと～！" + "\n" + "大好き～！！" + "\n" + "また、" + GameMgr.mainGirl_Name + "と遊んでね！！";
+                _hukidashi_content = "おにいちゃん！ホントにありがと～！" + "\n" + "大好き～！！" + "\n" + "次の作品で..また会おうね♪";
                 break;
         }
 

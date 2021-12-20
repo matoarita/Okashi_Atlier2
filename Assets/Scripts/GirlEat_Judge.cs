@@ -1640,12 +1640,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (Mathf.Abs(_taste_result) == 0)
         {
             Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
-            taste_score = 80;
+            taste_score = 100;
         }
         else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 50;
+            taste_score = 80;
         }
         else if (Mathf.Abs(_taste_result) < 10) //+-5~9  ほどよく良い塩梅
         {
@@ -1764,6 +1764,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Smooth_Score();
                 break;
             case "Cake":
+                Fluffy_Score();
+                break;
+            case "Cake_Mat":
                 Fluffy_Score();
                 break;
             case "Castella":
@@ -2628,6 +2631,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //装備品による補正
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
             GetMoney = (int)(GetMoney * _buf_moneyup / 2);
+
+            //再計算後、60点以上とれていたら、1は必ず上がる。マイナスにはならない。
+            if (total_score >= GameMgr.low_score) //60点
+            {
+                if (Getlove_exp <= 0) //1は必ず上がる。
+                {
+                    Getlove_exp = 1;
+                }
+            }
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
             Debug.Log("取得お金: " + GetMoney);

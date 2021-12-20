@@ -170,6 +170,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(34);
                 break;
 
+            case "Recipi_Toggle": //レシピ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
             case "itemSelectToggle(Clone)": //アイテム欄で、アイテム選択するときの音
 
                 //ポインタが入ったときに鳴る音
@@ -279,6 +289,16 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音。
                 SE_point_click(23);
+                break;
+
+            case "ClothToggle":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(11);
                 break;
 
             case "Button_modoru":
