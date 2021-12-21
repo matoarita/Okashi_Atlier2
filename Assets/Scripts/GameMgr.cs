@@ -175,6 +175,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int contest_TotalScore;
     public static int[] contest_Taste_Score = new int[3];
     public static int[] contest_Beauty_Score = new int[3];
+    public static int[] contest_Sweat_Score = new int[3];
+    public static int[] contest_Bitter_Score = new int[3];
+    public static int[] contest_Sour_Score = new int[3];
+    public static string[] contest_Sweat_Comment = new string[3];
+    public static string[] contest_Bitter_Comment = new string[3];
+    public static string[] contest_Sour_Comment = new string[3];
 
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
@@ -438,7 +444,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         //スクリーン設定の固定
-        //Screen.SetResolution(800, 600, false); //(800, 600, false, 60) 3番目はフルスクリーンのありなし。4番目はFPSの固定
+        Screen.SetResolution(800, 600, false); //(800, 600, false, 60) 3番目はフルスクリーンのありなし。4番目はFPSの固定
 
         //秒計算。　
         timeLeft = 1.0f;
@@ -676,6 +682,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             contest_Score[system_i] = 0;
             contest_Taste_Score[system_i] = 0;
             contest_Beauty_Score[system_i] = 0;
+            contest_Sweat_Score[system_i] = 0;
+            contest_Bitter_Score[system_i] = 0;
+            contest_Sour_Score[system_i] = 0;
+            contest_Sweat_Comment[system_i] = "";
+            contest_Bitter_Comment[system_i] = "";
+            contest_Sour_Comment[system_i] = "";
         }
         contest_okashiName = "";
         contest_okashiNameHyouji = "";

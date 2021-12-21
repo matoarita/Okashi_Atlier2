@@ -1747,6 +1747,13 @@ public class Utage_scenario : MonoBehaviour
             else
             {
                 GameMgr.MapSubEvent_Flag = 10;
+
+                //ししゃもクッキーを消費　パネルにセットされていたら。
+                if (exp_Controller._temp_extremeSetting &&
+                                        pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemName == "shishamo_cookie")
+                {
+                    pitemlist.deleteOriginalItem(exp_Controller._temp_extreme_id, 1);
+                }
             }
         }
         
@@ -2699,6 +2706,11 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_judge1_comment3", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_3);
             engine.Param.TrySetParameter("contest_judge1_comment4", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_4);
         }
+        //甘さ、苦さ、酸味についてもセリフ
+        engine.Param.TrySetParameter("contest_sweat1_comment1", GameMgr.contest_Sweat_Comment[judge_num]);
+        engine.Param.TrySetParameter("contest_bitter1_comment1", GameMgr.contest_Bitter_Comment[judge_num]);
+        engine.Param.TrySetParameter("contest_sour1_comment1", GameMgr.contest_Sour_Comment[judge_num]);
+
 
         //審査員２の感想をセット。アントワネットは、見た目を重視する。豪華であればあるほど、得点が高い。
         judge_num++;

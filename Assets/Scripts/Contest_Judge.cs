@@ -687,7 +687,10 @@ public class Contest_Judge : MonoBehaviour {
                 total_score[count] = 0;
             }
             GameMgr.contest_Taste_Score[count] = girlEat_judge.shokukan_score;
-            GameMgr.contest_Beauty_Score[count] = girlEat_judge.beauty_score;
+            GameMgr.contest_Beauty_Score[count] = girlEat_judge.beauty_score;           
+            GameMgr.contest_Sweat_Comment[count] = girlEat_judge._contest_sweat_kansou;
+            GameMgr.contest_Bitter_Comment[count] = girlEat_judge._contest_bitter_kansou;
+            GameMgr.contest_Sour_Comment[count] = girlEat_judge._contest_sour_kansou;
 
             count++;
             

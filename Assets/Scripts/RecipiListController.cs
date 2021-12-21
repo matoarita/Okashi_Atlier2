@@ -459,7 +459,10 @@ public class RecipiListController : MonoBehaviour {
         //調合DBのフラグをチェック
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
-            databaseCompo.compoitems[i].cmpitem_flag = 1;
+            if (databaseCompo.compoitems[i].cmpitem_flag != 9999)
+            {
+                databaseCompo.compoitems[i].cmpitem_flag = 1;
+            }
         }
 
         RecipiList_DrawView2();

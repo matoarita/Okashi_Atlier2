@@ -51,7 +51,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private string temp_hint_text;
     private Text Result_Text;
     private string _result_text;
-    private string _sweat_kansou, _bitter_kansou, _sour_kansou;
+    private string _sweat_kansou, _bitter_kansou, _sour_kansou; 
+    public string _contest_sweat_kansou, _contest_bitter_kansou, _contest_sour_kansou; //Contestからも読み出し
     private string _shokukan_kansou;
     private string _temp_spkansou, _special_kansou;
     private bool Mazui_flag;
@@ -1342,6 +1343,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         sour_level = TasteLevel_Keisan(_girlsour[countNum], sour_score);
         Debug.Log("酸味点: " + sour_score);
 
+        //コンテスト用にここでヒントを更新
+        SweatHintHyouji();
+        BitterHintHyouji();
+        SourHintHyouji();
+        ShokukanHintHyouji();
+
 
         //食感パラメータは、大きければ大きいほど、そのまま得点に。
         //ただし、女の子の好み値を超えてないと加点されない。
@@ -1697,15 +1704,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            if (_tast_score >= 55)
+            if (_tast_score >= 100)
             {
                 taste_level = 8;
             }
-            else if ((_tast_score < 55) && _tast_score >= 40)
+            else if ((_tast_score < 100) && _tast_score >= 45)
             {
                 taste_level = 7;
             }
-            else if ((_tast_score < 40) && _tast_score >= 35)
+            else if ((_tast_score < 45) && _tast_score >= 35)
             {
                 taste_level = 6;
             }
@@ -4076,9 +4083,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         SweatHintHyouji();
         BitterHintHyouji();
-        SourHintHyouji();
-        
-
+        SourHintHyouji();       
         ShokukanHintHyouji();
 
         //クエストクリアの条件を満たしていない場合、
@@ -4412,24 +4417,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (sweat_level == 8)
         {
             _sweat_kansou = GameMgr.ColorGold + "甘さ S: 神の甘さ！ パーフェクト！！" + "</color>";
+            _contest_sweat_kansou = "甘さ S: ほほう..これは。すばらしい甘み。あとをひく良い甘さです。完璧ですね。";
         }
         else if (sweat_level == 7)
         {
             _sweat_kansou = GameMgr.ColorPink + "甘さ A+: 絶妙な甘さ！" + "</color>";
+            _contest_sweat_kansou = "甘さ A: 絶妙な甘さ..。ギリギリを見極めていますね。文句ありません。";
         }
         else if (sweat_level == 6)
         {
             _sweat_kansou = "甘さ A: 甘さ、かなり近い！";
+            _contest_sweat_kansou = "甘さ A: この甘さは、バランスがとれてて良い具合ですね。";
         }
         else if (sweat_level == 5)
         {
             if (sweat_result < 0)
             {
                 _sweat_kansou = "甘さ B: 甘さがちょっと足りない";
+                _contest_sweat_kansou = "甘さ B: 甘さが、すこし足りないようで、ちょっと物足りなかったですね。";
             }
             else
             {
                 _sweat_kansou = "甘さ B: 少し甘いかも？";
+                _contest_sweat_kansou = "甘さ B: 少し甘さが強かったようで、後味が少々くどいです。";
             }
         }
         else if (sweat_level == 4)
@@ -4437,10 +4447,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (sweat_result < 0)
             {
                 _sweat_kansou = "甘さ C: 甘さがちょっと足りない";
+                _contest_sweat_kansou = "甘さ B: 甘さが、すこし足りないようで、ちょっと物足りなかったですね。";
             }
             else
             {
                 _sweat_kansou = "甘さ C: 少し甘いかも？";
+                _contest_sweat_kansou = "甘さ B: 少し甘さが強かったようで、後味が少々くどいです。";
             }
         }
         else if (sweat_level == 3)
@@ -4448,10 +4460,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (sweat_result < 0)
             {
                 _sweat_kansou = GameMgr.ColorRedDeep + "甘さ D: 甘さがもっと欲しい" + "</color>";
+                _contest_sweat_kansou = "甘さ D: 甘さがもっとほしいですね。これではお菓子として物足りないです。";
             }
             else
             {
                 _sweat_kansou = GameMgr.ColorRedDeep + "甘さ D: 甘さがちょっと強すぎ" + "</color>";
+                _contest_sweat_kansou = "甘さ D: 甘さが少し、強すぎたでしょうか。";
             }
         }
         else if (sweat_level >= 1 && sweat_level <= 2)
@@ -4459,15 +4473,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (sweat_result < 0)
             {
                 _sweat_kansou = GameMgr.ColorRedDeep + "甘さ F: 甘さが全然足りない" + "</color>";
+                _contest_sweat_kansou = "甘さ F: 甘さが全然足りていないですね..。もう少し甘さを足しましょう。";
             }
             else
             {
                 _sweat_kansou = GameMgr.ColorRedDeep + "甘さ F: 甘すぎ" + "</color>";
+                _contest_sweat_kansou = "甘さ F: 甘すぎですね..。砂糖を入れすぎのようです。";
             }
         }
         else
         {
             _sweat_kansou = "";
+            _contest_sweat_kansou = "※甘さについて、感想なし";
         }
 
         if (sweat_level != 0)
@@ -4486,24 +4503,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (bitter_level == 8)
         {
             _bitter_kansou = GameMgr.ColorGold + "苦さ S: 神の苦さ！ パーフェクト！！" + "</color>";
+            _contest_bitter_kansou = "苦さ S: この苦み.. 苦すぎず、調和がとれており、とても良い加減です。完璧ですね。";
         }
         else if (bitter_level == 7)
         {
             _bitter_kansou = GameMgr.ColorPink + "苦さ A+: 絶妙な苦さ！" + "</color>";
+            _contest_bitter_kansou = "苦さ A+: 絶妙な苦さですね！　まさしくほろ苦く、お菓子にアクセントが効いています。";
         }
         else if (bitter_level == 6)
         {
             _bitter_kansou = "苦さ A: 苦さ、かなり近い！";
+            _contest_bitter_kansou = "苦さ A: 苦さほどよく良い具合です。もう一味、苦さが近くなれば..パーフェクトでしょう。";
         }
         else if (bitter_level == 5)
         {
             if (bitter_result < 0)
             {
                 _bitter_kansou = "苦さ B: 苦さがちょっと足りない";
+                _contest_bitter_kansou = "苦さ B: 苦さが少し足りない感じですね。";
             }
             else
             {
                 _bitter_kansou = "苦さ B: 少し苦いかも？";
+                _contest_bitter_kansou = "苦さ B: うぅん..。少し苦みが強かったですね。";
             }
         }
         else if (bitter_level == 4)
@@ -4511,10 +4533,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (bitter_result < 0)
             {
                 _bitter_kansou = "苦さ C: 苦さがちょっと足りない";
+                _contest_bitter_kansou = "苦さ C: 苦さが少し足りない感じですね。";
             }
             else
             {
                 _bitter_kansou = "苦さ C: 少し苦いかも？";
+                _contest_bitter_kansou = "苦さ C: うぅん..。少し苦みが強かったですね。";
             }
 
         }
@@ -4523,10 +4547,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (bitter_result < 0)
             {
                 _bitter_kansou = GameMgr.ColorRedDeep + "苦さ D:苦さがもっと欲しい" + "</color>";
+                _contest_bitter_kansou = "苦さ D: 苦さがもっと欲しいですね。少し大人なアクセントが効いてない感じです。";
             }
             else
             {
                 _bitter_kansou = GameMgr.ColorRedDeep + "苦さ D: 苦みが少し強すぎかも。" + "</color>";
+                _contest_bitter_kansou = "苦さ D: 苦みが少し強すぎのようですね。これでは、お菓子本来の味が消えてしまいます。";
             }
 
         }
@@ -4535,16 +4561,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (bitter_result < 0)
             {
                 _bitter_kansou = GameMgr.ColorRedDeep + "苦さ F: 苦さが全然足りない" + "</color>";
+                _contest_bitter_kansou = "苦さ F: 苦さが全然足りていないようです。もっと苦みは欲しいところですね。";
             }
             else
             {
                 _bitter_kansou = GameMgr.ColorRedDeep + "苦さ F: 苦すぎ..。" + "</color>";
+                _contest_bitter_kansou = "苦さ F: これは苦すぎですね..。..ぐふ。";
             }
 
         }
         else
         {
             _bitter_kansou = "";
+            _contest_bitter_kansou = "※苦さについて、感想なし";
         }
 
         if (bitter_level != 0)
@@ -4559,28 +4588,34 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void SourHintHyouji()
     {
+        
         //酸味がどの程度好みにあっていたかを、感想でいう。７はピッタリパーフェクト。
         if (sour_level == 8)
         {
             _sour_kansou = GameMgr.ColorGold + "酸味 S: 神のすっぱさ！ パーフェクト！！" + "</color>";
+            _contest_sour_kansou = "酸味 S: ううん！この強烈に舌に残りつつも後味はさらりと消えて..。神の酸っぱさですね。";
         }
         else if (sour_level == 7)
         {
             _sour_kansou = GameMgr.ColorPink + "酸味 A+: 絶妙なすっぱさ！" + "</color>";
+            _contest_sour_kansou = "酸味 A+: 絶妙なすっぱさで..　これはグっとパンチが効いておりますよ。いいですね！";
         }
         else if (sour_level == 6)
         {
             _sour_kansou = "酸味 A: すっぱさ、かなり近い！";
+            _contest_sour_kansou = "酸味 A: すっぱさ、ほどよく良い塩梅です。一味効いてますね。";
         }
         else if (sour_level == 5)
         {
             if (sour_result < 0)
             {
                 _sour_kansou = "酸味 B: すっぱさちょっと足りない";
+                _contest_sour_kansou = "酸味 B: すっぱさが、もう少し入れてもよいかもですね。";
             }
             else
             {
                 _sour_kansou = "酸味 B: 少しすっぱいかも？";
+                _contest_sour_kansou = "酸味 B: 少しすっぱさが強かったですね。他の味にまで影響がでそうです。";
             }
         }
         else if (sour_level == 4)
@@ -4588,10 +4623,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (sour_result < 0)
             {
                 _sour_kansou = "酸味 C: すっぱさちょっと足りない";
+                _contest_sour_kansou = "酸味 C: すっぱさが、もう少し入れてもよいかもですね。";
             }
             else
             {
                 _sour_kansou = "酸味 C: 少しすっぱいかも？";
+                _contest_sour_kansou = "酸味 C: 少しすっぱさが強かったですね。他の味にまで影響がでそうです。。";
             }
 
         }
@@ -4600,10 +4637,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (sour_result < 0)
             {
                 _sour_kansou = GameMgr.ColorRedDeep + "酸味 D: すっぱさがもっと欲しい" + "</color>";
+                _contest_sour_kansou = "酸味 D: すっばさがもっと欲しいところです。少々平凡な味わいです。";
             }
             else
             {
                 _sour_kansou = GameMgr.ColorRedDeep + "酸味 D: 少しすっぱ過ぎる？" + "</color>";
+                _contest_sour_kansou = "酸味 D: これは、かなりすっぱいですね。う～ん..。";
             }
 
         }
@@ -4612,17 +4651,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (sour_result < 0)
             {
                 _sour_kansou = GameMgr.ColorRedDeep + "酸味 F: 全然すっぱさがない" + "</color>";
+                _contest_sour_kansou = "酸味 F: すっぱさが全然ないですね..。これでは、味の印象が残らず、くどすぎてしまいます。";
             }
             else
             {
                 _sour_kansou = GameMgr.ColorRedDeep + "酸味 F: すっぺぇ..。" + "</color>";
+                _contest_sour_kansou = "酸味 F: すっぱすぎですね..。材料を見直してみましょう。";
             }
 
         }
         else
         {
             _sour_kansou = "";
+            _contest_sour_kansou = "※酸味について、感想なし"; //コンテスト用
         }
+
+        
 
         if (sour_level != 0)
         {

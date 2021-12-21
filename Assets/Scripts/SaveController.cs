@@ -832,6 +832,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
             _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, databaseCompo.compoitems[i].comp_count));
+            //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);
         }
 
         //システムデータに、セーブしたかどうかのフラグをセット
@@ -893,6 +894,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     {
                         databaseCompo.compoitems[i].cmpitem_flag = systemData.save_itemCompodatabase[count].comp_Flag;
                         databaseCompo.compoitems[i].comp_count = systemData.save_itemCompodatabase[count].comp_Count;
+                        //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);
                         break;
                     }
                     i++;

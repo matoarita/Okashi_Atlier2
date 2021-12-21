@@ -114,7 +114,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
         /*for (i = 0; i < compoitems.Count; i++)
         {
-            Debug.Log(i + " " + compoitems[i].cmpitemID + " " + compoitems[i].cmpitemID_1 + " " + compoitems[i].cmpitemID_2 + " " + compoitems[i].cmpitemID_3 + " ");
+            Debug.Log(i + " " + compoitems[i].cmpitem_Name + " " + compoitems[i].cmpitemID + " cmp_flag: " + compoitems[i].cmpitem_flag);
         }*/
     }
 

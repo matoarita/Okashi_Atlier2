@@ -742,7 +742,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                         GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                                         //pitemlist.SearchDeleteItem("shishamo_cookie"); //ししゃもクッキーを一個消費
-                                        pitemlist.deleteOriginalItem(exp_Controller._temp_extreme_id, 1);
+                                        //pitemlist.deleteOriginalItem(exp_Controller._temp_extreme_id, 1);
 
                                         subevent_on = true;
                                         sceneBGM.MuteBGM();
