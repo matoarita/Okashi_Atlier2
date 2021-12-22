@@ -1484,9 +1484,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //以上、全ての点数を合計。
         total_score = set_score + sweat_score + bitter_score + sour_score
             + shokukan_score + topping_score + beauty_score;
-
-        
-
+      
         //水っぽい・油っぽいなどの減点点数処理
         Dislike_Okashi_Judge();
 
@@ -1610,12 +1608,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_status = 3;
             dislike_num = 1;
         }
-        if (_basewatery > GameMgr.Watery_Line)
-        {
-            //dislike_flag = false;
-            dislike_score += _basewatery * 2;
-            dislike_status = 3;
-            dislike_num = 2;
+        //ジュース・ティー・コーヒー類は、水系の値の判定をなくす。もともと、みずなので。
+        if (_baseitemtype_sub == "Juice" || _baseitemtype_sub == "Tea" || _baseitemtype_sub == "Tea_Potion" || _baseitemtype_sub == "Coffee_Mat")
+        { }
+        else { 
+            if (_basewatery > GameMgr.Watery_Line)
+            {
+                //dislike_flag = false;
+                dislike_score += _basewatery * 2;
+                dislike_status = 3;
+                dislike_num = 2;
+            }
         }
 
         if (_basegirl1_like <= 0) //女の子の好みが-のものも、嫌われる。お菓子それ自体が嫌い、ということ。
@@ -1810,6 +1813,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Juice_Score();
                 break;
             case "Jelly":
+                Hardness_Score();
                 Smooth_Score();
                 break;
             case "Maffin":
@@ -2398,7 +2402,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;*/
 
-                default: //特殊なものがない限りは、デフォルト。60点以上でクリア
+        default: //特殊なものがない限りは、デフォルト。60点以上でクリア
 
                     if (non_spquest_flag == false) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
                     {

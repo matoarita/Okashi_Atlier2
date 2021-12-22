@@ -907,4 +907,37 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         }
     }
+
+    //セーブデータがあるかどうかのみチェック
+    public void SystemloadCheck_SaveOnly()
+    {
+        //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
+        DataBank bank = DataBank.Open();
+
+        Debug.Log("DataBank.Open()");
+        Debug.Log($"save path of bank is { bank.SavePath }");
+
+        //初期化(念のため)
+        systemData = new PlayerData();
+
+        //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
+        bank.Load<PlayerData>("System");
+
+
+        //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
+        systemData = bank.Get<PlayerData>("System");
+
+        if (systemData != null)
+        {
+            //
+            //*** 以下、読み込み・更新 ***
+            //
+
+            //
+            GameMgr.saveOK = systemData.save_saveOK;         
+
+            Debug.Log("システムロード完了");
+
+        }
+    }
 }

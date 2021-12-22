@@ -773,7 +773,8 @@ public class SetImage : MonoBehaviour
                 break;
             case "Jelly":
                 subcategory = "ゼリー";
-                Smooth_Text();
+                Hardness_Text();
+                //Smooth_Text();
                 break;
             case "Maffin":
                 subcategory = "マフィン";
@@ -930,13 +931,20 @@ public class SetImage : MonoBehaviour
         {
             item_Oily.text = "";
         }
-        if (_watery_score > GameMgr.Watery_Line)
+        if (item_type_sub == "Juice" || item_type_sub == "Tea" || item_type_sub == "Tea_Potion" || item_type_sub == "Coffee_Mat")
         {
-            item_Watery.text = "水っぽい";
+            item_Watery.text = "";
         }
         else
         {
-            item_Watery.text = "";
+            if (_watery_score > GameMgr.Watery_Line)
+            {
+                item_Watery.text = "水っぽい";
+            }
+            else
+            {
+                item_Watery.text = "";
+            }
         }
 
         if (_eat_kaisu > 0)

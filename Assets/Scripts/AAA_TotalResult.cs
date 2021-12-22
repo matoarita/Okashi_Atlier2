@@ -222,7 +222,7 @@ public class AAA_TotalResult : MonoBehaviour {
         _model_obj.SetActive(true);
         live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。     
         GameMgr.ending_number = 4;
-        GameMgr.contest_TotalScore = 100;
+        GameMgr.contest_TotalScore = 130;
         PlayerStatus.girl1_Love_exp = 1300;
     }
 	

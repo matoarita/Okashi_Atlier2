@@ -162,8 +162,8 @@ public class Contest_Main : MonoBehaviour {
             //GameMgr.scenario_ON = true;
             GameMgr.ending_on2 = false;
 
-            FadeManager.Instance.LoadScene("110_TotalResult", 0.3f);
-            //FadeManager.Instance.LoadScene("120_AutoSave", 0.3f);
+            //FadeManager.Instance.LoadScene("110_TotalResult", 0.3f);
+            FadeManager.Instance.LoadScene("120_AutoSave", 0.3f);
         }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
@@ -241,6 +241,7 @@ public class Contest_Main : MonoBehaviour {
             GameMgr.contest_okashiSlotName = "";
             GameMgr.contest_okashiName = database.items[kettei_itemID].itemName;
             GameMgr.contest_okashiNameHyouji = database.items[kettei_itemID].itemNameHyouji;
+            GameMgr.contest_okashiSubType = database.items[kettei_itemID].itemType_sub.ToString();
             GameMgr.contest_okashiID = database.items[kettei_itemID].itemID;
         }
         else if (kettei_itemType == 1)
@@ -252,6 +253,7 @@ public class Contest_Main : MonoBehaviour {
             GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[kettei_itemID].item_SlotName;
             GameMgr.contest_okashiName = pitemlist.player_originalitemlist[kettei_itemID].itemName;
             GameMgr.contest_okashiNameHyouji =  pitemlist.player_originalitemlist[kettei_itemID].itemNameHyouji;
+            GameMgr.contest_okashiSubType = pitemlist.player_originalitemlist[kettei_itemID].itemType_sub.ToString();
             GameMgr.contest_okashiID = pitemlist.player_originalitemlist[kettei_itemID].itemID;
         }
 

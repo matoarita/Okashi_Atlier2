@@ -23,6 +23,7 @@ public class SystemSelectPanel : MonoBehaviour {
     private GameObject titleback_panel;
     private Text titleback_text;
     private Text yes_text;
+    private GameObject loadButton_obj;
 
     private GameObject no_button;
 
@@ -56,6 +57,19 @@ public class SystemSelectPanel : MonoBehaviour {
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
         no_button = canvas.transform.Find("SystemPanel/No").gameObject;
+
+        loadButton_obj = this.transform.Find("Scroll View/Viewport/Content/LoadButton").gameObject;
+
+        if (GameMgr.saveOK)
+        {
+            //ロードボタンを表示
+            loadButton_obj.GetComponent<Button>().interactable = true;
+            //loadButton_obj.SetActive(true);
+        }
+        else
+        {
+            loadButton_obj.GetComponent<Button>().interactable = false;
+        }
     }
 	
 	// Update is called once per frame
@@ -137,6 +151,9 @@ public class SystemSelectPanel : MonoBehaviour {
                 GameMgr.compound_status = 0;
                 titleback_panel.SetActive(false);
                 this.transform.parent.gameObject.SetActive(false);
+
+                //ロードボタンを表示
+                loadButton_obj.GetComponent<Button>().interactable = true;
 
                 break;
 

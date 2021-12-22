@@ -644,6 +644,9 @@ public class Compound_Main : MonoBehaviour
 
         ReturnBackHome();
 
+        //セーブがあるかどうかをチェック
+        save_controller.SystemloadCheck_SaveOnly();
+
         //ロード画面から読み込んだ際の処理
         if (GameMgr.GameLoadOn)
         {
@@ -4186,8 +4189,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     if (exp_Controller._temp_extremeSetting)
                     {
-                        if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Watery > GameMgr.Watery_Line ||
-                            pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Oily > GameMgr.Watery_Line ||
+                        if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Oily > GameMgr.Watery_Line ||
                             pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Powdery > GameMgr.Watery_Line)
                         {
                             GameMgr.Beginner_flag[6] = true;
@@ -4195,7 +4197,27 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.GirlLoveSubEvent_num = 85;
 
                             mute_on = true;
-                            check_GirlLoveSubEvent_flag = false;
+                            check_GirlLoveSubEvent_flag = false;                                                    
+                        }
+                        else
+                        {
+                            if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Juice" ||
+                                pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Tea" ||
+                                pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Tea_Potion" ||
+                                pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Coffee_Mat")
+                            { }
+                            else
+                            {
+                                if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Watery > GameMgr.Watery_Line)
+                                {
+                                    GameMgr.Beginner_flag[6] = true;
+                                    GameMgr.GirlLoveSubEvent_stage1[85] = true;
+                                    GameMgr.GirlLoveSubEvent_num = 85;
+
+                                    mute_on = true;
+                                    check_GirlLoveSubEvent_flag = false;
+                                }
+                            }
                         }
                     }
                 }

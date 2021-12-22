@@ -591,7 +591,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         result_item = pitemlist.player_originalitemlist.Count - 1;
         GameMgr.Okashi_makeID = pitemlist.player_originalitemlist[result_item].itemID;
-
         renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
         
         if (DoubleItemCreated == 0)

@@ -1324,9 +1324,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basejiggly = (int)(_basejiggly * kyori_hosei);
                 _basechewy = (int)(_basechewy * kyori_hosei);
             }
+
         }
-
-
 
         //③スロット同士の計算をする。
         AddSlot_Method();
@@ -1364,6 +1363,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //ジュースののどごしを計算する。
         _basejuice = _basesweat + _basebitter + _basesour;
+
+        //特殊処理。カンノーリ生地ができるときは、生地をフライヤーであげるので、ふわふわ感をサクサク感に変換する。
+        if(_basename == "crepe_flyed")
+        {
+            _basecrispy = _basefluffy;
+            _basefluffy = 0;
+        }
+
 
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
         _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0); //中の数字でどの食感パラムかの指定

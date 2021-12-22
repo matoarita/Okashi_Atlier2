@@ -327,6 +327,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_eventStart_flag;
     public static string contest_okashiName;
     public static string contest_okashiNameHyouji;
+    public static string contest_okashiSubType;
     public static string contest_okashiSlotName;
     public static int contest_okashiID;
 
@@ -691,6 +692,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
         contest_okashiName = "";
         contest_okashiNameHyouji = "";
+        contest_okashiSubType = "";
         contest_TotalScore = 0;
 
         //コンテスト感想初期化

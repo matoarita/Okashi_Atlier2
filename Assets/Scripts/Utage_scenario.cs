@@ -2653,7 +2653,8 @@ public class Utage_scenario : MonoBehaviour
         i = 0;
         while (i < databaseContestComment.contestcomment_lists.Count)
         {
-            if (databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiName)
+            if (databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiName ||
+                databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiSubType)
             {
                 CommentID = i;
                 SpecialItemFlag = true;
@@ -2678,14 +2679,14 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //審査員１の感想をセット
-        if (GameMgr.contest_Score[judge_num] > GameMgr.high_score) //85~
+        if (GameMgr.contest_Score[judge_num] > GameMgr.high_score) //100~
         {
             engine.Param.TrySetParameter("contest_judge1_comment1", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_1);
             engine.Param.TrySetParameter("contest_judge1_comment2", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_2);
             engine.Param.TrySetParameter("contest_judge1_comment3", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_3);
             engine.Param.TrySetParameter("contest_judge1_comment4", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_4);
         }
-        else if (GameMgr.contest_Score[judge_num] > GameMgr.low_score && GameMgr.contest_Score[0] <= GameMgr.high_score) //60~85
+        else if (GameMgr.contest_Score[judge_num] > GameMgr.low_score && GameMgr.contest_Score[0] <= GameMgr.high_score) //60~100
         {
             engine.Param.TrySetParameter("contest_judge1_comment1", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_1);
             engine.Param.TrySetParameter("contest_judge1_comment2", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_2);

@@ -225,7 +225,6 @@ public class Contest_Judge : MonoBehaviour {
     public int[] total_score;
     private float _temp_score;
 
-    private bool[] dislike_flag;
     private int dislike_status;
 
     public int girllike_point;
@@ -335,8 +334,6 @@ public class Contest_Judge : MonoBehaviour {
         _girl_judgenum = new int[girl1_status.youso_count];
 
         total_score = new int[girl1_status.youso_count];
-
-        dislike_flag = new bool[girl1_status.youso_count];
 
         _basetp = new string[database.items[0].toppingtype.Length];
         _koyutp = new string[database.items[0].koyu_toppingtype.Length];
@@ -620,62 +617,9 @@ public class Contest_Judge : MonoBehaviour {
         while (count < Set_Count) //セットの組み合わせ=審査員の数だけ判定。まずかった場合は、単純にスコアが下がる補正がかかるようにフラグをたてる。
         {
             //パラメータ初期化し、判定処理
-            dislike_flag[count] = true;
             dislike_status = 0;
             set_id = count;
-
-            //
-            //判定処理　パターンCのみ
-            //
-            if (_basepowdery > GameMgr.Watery_Line)
-            {
-                dislike_flag[count] = false;
-                dislike_status = 2;
-            }
-            if (_baseoily > GameMgr.Watery_Line)
-            {
-                dislike_flag[count] = false;
-                dislike_status = 2;
-            }
-            if (_basewatery > GameMgr.Watery_Line)
-            {
-                dislike_flag[count] = false;
-                dislike_status = 2;
-            }
-
-
-            //
-            //判定処理　パターンA
-            //                    
-            /*
-            //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
-            if (_girl_likeokashi[count] == "Non") //特に指定なし
-            {
-                //③お菓子の種別の計算
-                if (_girl_subtype[count] == "Non") //特に指定なし
-                {
-
-                }
-                else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
-                {
-
-                }
-                else
-                {
-                    dislike_flag[count] = false;
-                    dislike_status = 1;
-                }
-            }
-            else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
-            {
-                //サブは計算せず、特定のお菓子自体が正解なら、正解
-
-            }
-            else
-            {
-                dislike_flag[count] = false;
-                dislike_status = 1;
-            }*/
+            
 
             //次に味の判定処理。判定後、採点の数値がかえってくる。
 
