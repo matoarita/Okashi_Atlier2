@@ -100,7 +100,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public bool shopsell_final_select_flag;
 
-    public ItemCompoundDataBase DatabaseCompo
+    /*public ItemCompoundDataBase DatabaseCompo
     {
         get
         {
@@ -111,11 +111,64 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         {
             databaseCompo = value;
         }
-    }
+    }*/
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
 
+        
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+        //表示中リストの、選択した番号も保存
+        _count1 = 9999;
+        _count2 = 9999;
+        _count3 = 9999;
+        _base_count = 9999;
+
+        //決定したアイテムが、店売りか、オリジナルかの判定用変数。
+        _toggle_type1 = 0;
+        _toggle_type2 = 0;
+        _toggle_type3 = 0;
+        _base_toggle_type = 0;
+
+        //選択したアイテムの並び番号を格納しておく変数。(店売り 0, 1, 2..., オリジナル 0, 1, 2.. ) といった感じ。店売りアイテムは、アイテムIDと並びは一緒になる。
+        kettei_item1 = 0;
+        kettei_item2 = 0;
+        kettei_item3 = 0;
+        base_kettei_item = 0;
+
+        kettei1_bunki = 0;
+        kettei1_on = false;
+        final_select_flag = false;
+
+        //選んだアイテムのアイテムIDが入る。（店売り、オリジナル関係なし）
+        final_kettei_item1 = 9999;
+        final_kettei_item2 = 9999;
+        final_kettei_item3 = 9999; //9999 = empty
+        final_base_kettei_item = 9999;
+
+        final_kettei_kosu1 = 1;
+        final_kettei_kosu2 = 1;
+        final_kettei_kosu3 = 1;
+        final_base_kettei_kosu = 1;
+
+        result_item = 0;
+
+        i = 0;
+
+        extremepanel_on = false;
+
+        shopsell_final_select_flag = false;
+
+        _listitem.Clear();
+        _prelistitem.Clear();
+    }
+
+    void InitSetUp()
+    {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
@@ -134,56 +187,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //スクロールビュー内の、コンテンツ要素を取得
         content = GameObject.FindWithTag("PlayerItemListContent");
         textPrefab = (GameObject)Resources.Load("Prefabs/itemSelectToggle");
-
-
-        //表示中リストの、選択した番号も保存
-        _count1 = 9999;
-        _count2 = 9999;
-        _count3 = 9999;
-        _base_count = 9999;
-
-        //決定したアイテムが、店売りか、オリジナルかの判定用変数。
-        _toggle_type1 = 0;
-        _toggle_type2 = 0;
-        _toggle_type3 = 0;
-        _base_toggle_type = 0;
-
-        //選択したアイテムの並び番号を格納しておく変数。(店売り 0, 1, 2..., オリジナル 0, 1, 2.. ) といった感じ。店売りアイテムは、アイテムIDと並びは一緒になる。
-        kettei_item1 = 0; 
-        kettei_item2 = 0;
-        kettei_item3 = 0;
-        base_kettei_item = 0;
-
-        kettei1_bunki = 0;
-        kettei1_on = false;
-        final_select_flag = false;
-
-        //選んだアイテムのアイテムIDが入る。（店売り、オリジナル関係なし）
-        final_kettei_item1 = 9999;
-        final_kettei_item2 = 9999;
-        final_kettei_item3 = 9999; //9999 = empty
-        final_base_kettei_item = 9999;
-        
-        final_kettei_kosu1 = 1;
-        final_kettei_kosu2 = 1;
-        final_kettei_kosu3 = 1;
-        final_base_kettei_kosu = 1;
-
-        result_item = 0;
-
-        i = 0;
-
-        extremepanel_on = false;
-
-        shopsell_final_select_flag = false;
-
-        _listitem.Clear();
-        _prelistitem.Clear();
-    }
-
-    // Use this for initialization
-    void Start()
-    {
         
     }
 
@@ -197,7 +200,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     void OnEnable()
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
-        //Debug.Log("OnEnable");      
+        //Debug.Log("OnEnable");   
+
+        InitSetUp();
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
@@ -435,21 +440,18 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         list_count = 0;
         _listitem.Clear();
 
+        //Debug.Log("max: " + pitemlist.playeritemlist.Count);
+        //Debug.Log("database.items.Count: " + database.items.Count);
+
         //まず、プレイヤーアイテムリストを、表示
         for (i = 0; i < max; i++)
         {
             if (database.items[i].item_Hyouji > 0) //item_hyoujiが1のものを表示する。未使用アイテムなどは0にして表示しない。
             {
-                //Debug.Log("ID: " + i + "所持数: " + pitemlist.playeritemlist[i]);
-                /*if (i > 500) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+                //Debug.Log("ID: " + i + " アイテムID: " + database.items[i].itemID + " 所持数: " + pitemlist.playeritemlist[database.items[i].itemName]);
+
+                if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
                 {
-
-                }
-                else
-                {*/
-
-                    if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
-                    {
 
                     if (SceneManager.GetActiveScene().name == "Compound")
                     {
@@ -487,7 +489,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                         database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
                                         database.items[i].itemType_sub.ToString() == "Crepe_Mat" || database.items[i].itemType_sub.ToString() == "Castella" ||
                                         database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Juice" ||
-                                        database.items[i].itemType_sub.ToString() == "Cake_Mat" || database.items[i].itemType_sub.ToString() == "Coffee_Mat" || 
+                                        database.items[i].itemType_sub.ToString() == "Cake_Mat" || database.items[i].itemType_sub.ToString() == "Coffee_Mat" ||
                                         database.items[i].itemType_sub.ToString() == "Cookie_Mat")
                                     {
                                         itemlist_hyouji();
@@ -557,7 +559,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                                     itemlist_hyouji();
                                 }
-                                
+
                                 break;
 
                             default:
@@ -605,7 +607,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             itemlist_hyouji();
                         }
                     }
-                    //}
+
                 }
             }
         }

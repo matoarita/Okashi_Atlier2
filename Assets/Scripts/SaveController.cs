@@ -540,6 +540,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //エメラルドショップのイベントリスト
         GameMgr.emeraldShopEvent_stage = playerData.save_emeraldShopEvent_stage;
 
+        
         //アイテムリスト＜デフォルト＞
         for (i = 0; i < playerData.save_playeritemlist.Count; i++)
         {       
@@ -561,14 +562,16 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //アイテムリスト＜オリジナル＞
         pitemlist.player_originalitemlist.Clear();
         pitemlist.player_originalitemlist = playerData.save_player_originalitemlist;
-
+       
         //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。アイテムIDも、後でDB更新の際に全てずれる可能性があるので入れ直し。
         for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             _itemID = pitemlist.SearchItemString(pitemlist.player_originalitemlist[i].itemName);
             pitemlist.player_originalitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
-            pitemlist.player_originalitemlist[i].itemID = database.items[_itemID].itemID;
+            pitemlist.player_originalitemlist[i].itemID = database.items[_itemID].itemID;            
         }
+
+        
 
         //アイテムの前回スコアなどを読み込み
         for (count = 0; count < playerData.save_itemdatabase.Count; count++)
@@ -676,7 +679,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             case "Compound":
 
-                DrawGameScreen();
+                DrawGameScreen();               
                 break;
         }
     }

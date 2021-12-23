@@ -678,6 +678,8 @@ public class GetMaterial : MonoBehaviour
     //採集アイテムが4個以上のとき、3行ずつ表示する。ボタンを押すと、次のページへ送り出す。
     public void KaigyoButton()
     {
+        sc.PlaySe(30);
+
         page_count++;
         if (_tansaku_result_temp.Count - (page_count * tansaku_gyou) < 0)
         {

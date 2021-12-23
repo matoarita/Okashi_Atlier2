@@ -102,7 +102,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             {
                 sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる。ここでは、前シートの要素数を取得している。
 
-                for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
+                for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。シートNoは2枚目から始まり
                 {
                     playeritemlist.Add("Non" + (sheet_no-1).ToString() + " " + (sheet_count+i).ToString(), 0); //エクセルに登録されていないアイテムID分、空をいれている。
                 }
@@ -219,7 +219,13 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //アイテム名＋個数で、指定した個数に変更する。（加算とは別。）
     public void ReSetPlayerItemString(string itemName, int count_kosu)
     {
-        playeritemlist[itemName] = count_kosu;
+        for(i=0; i < database.items.Count; i++) //前回セーブしたときのアイテムが、今のアイテムDBにも残っていたら、個数を上書き。
+        {
+            if(database.items[i].itemName == itemName)
+            {
+                playeritemlist[itemName] = count_kosu;
+            }
+        }      
     }
 
     //アイテム名をいれると、そのアイテムIDを返すメソッド

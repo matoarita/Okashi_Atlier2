@@ -194,6 +194,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     items.Add(new Item(_id + i + 1, "orange", "Non" + (sheet_no - 1).ToString() + " " + (sheet_count + i).ToString(), "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         _ex_kaisu, 0, 0, 0, 0, 0, "", 0, 1));
+
                     //comp_hoseiでバグらないようにするための、クローン
                     items_gamedefault.Add(new Item(_id + i + 1, "orange", "Non" + (sheet_no - 1).ToString() + " " + (sheet_count + i).ToString(), "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,

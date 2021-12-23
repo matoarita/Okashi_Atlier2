@@ -3340,7 +3340,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchchest_comment_lib.Add("..！");
                 _touchchest_comment_lib.Add("..。");
-                _touchchest_comment_lib.Add("..やめて。");
+                _touchchest_comment_lib.Add("..なんでそんなとこさわるの？。");
 
                 break;
 
@@ -3348,7 +3348,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchchest_comment_lib.Add("..！");
                 _touchchest_comment_lib.Add("..。");
-                _touchchest_comment_lib.Add("..やめて。");
+                _touchchest_comment_lib.Add("..なんでそんなとこさわるの？。");
 
                 break;
 
