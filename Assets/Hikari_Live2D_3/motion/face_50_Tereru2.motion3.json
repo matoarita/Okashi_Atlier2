@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 43,
-		"TotalSegmentCount": 78,
-		"TotalPointCount": 267,
+		"CurveCount": 48,
+		"TotalSegmentCount": 83,
+		"TotalPointCount": 281,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -413,6 +413,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
+			"Segments": [
+				0,
+				0,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamGokigen",
 			"Segments": [
 				0,
@@ -548,6 +559,58 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				0,
+				3,
+				3
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffNoseKemuri",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffOnpu",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffAse",
+			"Segments": [
+				0,
+				0,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBodyAngleX",
 			"Segments": [
 				0,
@@ -642,42 +705,6 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamBreath",
-			"Segments": [
-				0,
-				1,
-				1,
-				0.244,
-				1,
-				0.489,
-				0,
-				0.733,
-				0,
-				1,
-				0.989,
-				0,
-				1.244,
-				1,
-				1.5,
-				1,
-				1,
-				1.744,
-				1,
-				1.989,
-				0,
-				2.233,
-				0,
-				1,
-				2.489,
-				0,
-				2.744,
-				1,
-				3,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamCharaPosX",
 			"Segments": [
 				0,
@@ -711,6 +738,42 @@
 				0,
 				3,
 				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBreath",
+			"Segments": [
+				0,
+				1,
+				1,
+				0.244,
+				1,
+				0.489,
+				0,
+				0.733,
+				0,
+				1,
+				0.989,
+				0,
+				1.244,
+				1,
+				1.5,
+				1,
+				1,
+				1.744,
+				1,
+				1.989,
+				0,
+				2.233,
+				0,
+				1,
+				2.489,
+				0,
+				2.744,
+				1,
+				3,
+				1
 			]
 		},
 		{

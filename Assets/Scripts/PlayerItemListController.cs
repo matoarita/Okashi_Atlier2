@@ -115,13 +115,25 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
-        
-    }
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
-    // Use this for initialization
-    void Start()
-    {
+        //調合組み合わせデータベースの取得
+        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //スロットの日本語表示用リストの取得
+        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
+        //キーマネージャー取得
+        keymanager = keyManager.Instance.GetComponent<keyManager>();
+
+        //スクロールビュー内の、コンテンツ要素を取得
+        content = GameObject.FindWithTag("PlayerItemListContent");
+        textPrefab = (GameObject)Resources.Load("Prefabs/itemSelectToggle");
+
         //表示中リストの、選択した番号も保存
         _count1 = 9999;
         _count2 = 9999;
@@ -167,26 +179,15 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _prelistitem.Clear();
     }
 
+    // Use this for initialization
+    void Start()
+    {
+        
+    }
+
     void InitSetUp()
     {
-        //プレイヤー所持アイテムリストの取得
-        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
-        //アイテムデータベースの取得
-        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
-
-        //調合組み合わせデータベースの取得
-        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
-
-        //スロットの日本語表示用リストの取得
-        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
-
-        //キーマネージャー取得
-        keymanager = keyManager.Instance.GetComponent<keyManager>();
-
-        //スクロールビュー内の、コンテンツ要素を取得
-        content = GameObject.FindWithTag("PlayerItemListContent");
-        textPrefab = (GameObject)Resources.Load("Prefabs/itemSelectToggle");
+        
         
     }
 

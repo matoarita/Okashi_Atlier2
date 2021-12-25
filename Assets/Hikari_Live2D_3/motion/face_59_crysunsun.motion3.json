@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 42,
-		"TotalSegmentCount": 143,
-		"TotalPointCount": 465,
+		"CurveCount": 47,
+		"TotalSegmentCount": 148,
+		"TotalPointCount": 479,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -783,6 +783,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamGokigen",
 			"Segments": [
 				0,
@@ -918,6 +929,58 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				5
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffNoseKemuri",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.333,
+				0,
+				2.667,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffOnpu",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.333,
+				0,
+				2.667,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffAse",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBodyAngleX",
 			"Segments": [
 				0,
@@ -1013,6 +1076,36 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamUpperbodyYure",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.333,
+				0,
+				2.667,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosX",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.333,
+				0,
+				2.667,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCharaPosY",
 			"Segments": [
 				0,
 				0,
@@ -1126,36 +1219,6 @@
 				3.844,
 				0.4,
 				3.922,
-				0,
-				4,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamCharaPosX",
-			"Segments": [
-				0,
-				0,
-				1,
-				1.333,
-				0,
-				2.667,
-				0,
-				4,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamCharaPosY",
-			"Segments": [
-				0,
-				0,
-				1,
-				1.333,
-				0,
-				2.667,
 				0,
 				4,
 				0

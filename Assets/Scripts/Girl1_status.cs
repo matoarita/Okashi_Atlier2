@@ -3109,10 +3109,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             _touchface_comment_lib.Add("にいちゃん。こまったときは、ショップのおねえちゃんにきこう。");
                             break;
 
+                        case 2:
+
+                            FaceMotionPlay(1017);
+                            _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
+                            break;
+
                         default:
 
-                            
-                            _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
+                            FaceMotionPlay(1018);
                             _touchface_comment_lib.Add("にいちゃん。伝説のお菓子のレシピが・・。どこかにあるらしいよ。");
                             _touchface_comment_lib.Add("にいちゃん。同じ素材でも上位素材があるよ。採取地で、ごくまれに採れるらしいよ！");
                             break;
@@ -3356,7 +3361,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchchest_comment_lib.Add("..？");
                 _touchchest_comment_lib.Add("..。");
-                _touchchest_comment_lib.Add("変なとこ触っちゃだめ！");
+                _touchchest_comment_lib.Add("へんなとこ、さわっちゃだめ！");
 
                 break;
 

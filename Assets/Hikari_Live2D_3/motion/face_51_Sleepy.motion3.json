@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 45,
-		"TotalSegmentCount": 71,
-		"TotalPointCount": 250,
+		"CurveCount": 49,
+		"TotalSegmentCount": 75,
+		"TotalPointCount": 262,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -554,11 +554,63 @@
 			"Id": "ParamHiLightOn",
 			"Segments": [
 				0,
+				1,
+				1,
+				0.667,
+				1,
+				1.333,
+				1,
+				2,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				0,
+				2,
+				2
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffNoseKemuri",
+			"Segments": [
+				0,
 				0,
 				1,
 				0.667,
 				0,
 				1.333,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffOnpu",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.667,
+				0,
+				1.333,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffAse",
+			"Segments": [
+				0,
+				0,
 				0,
 				2,
 				0
@@ -697,28 +749,6 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamBreath",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.333,
-				0,
-				0.667,
-				1,
-				1,
-				1,
-				1,
-				1.333,
-				1,
-				1.667,
-				0,
-				2,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamCharaPosX",
 			"Segments": [
 				0,
@@ -756,6 +786,28 @@
 				1.467,
 				-1,
 				1.733,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBreath",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.333,
+				0,
+				0.667,
+				1,
+				1,
+				1,
+				1,
+				1.333,
+				1,
+				1.667,
 				0,
 				2,
 				0

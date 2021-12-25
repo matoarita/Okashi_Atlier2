@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 39,
-		"TotalSegmentCount": 160,
-		"TotalPointCount": 519,
+		"CurveCount": 44,
+		"TotalSegmentCount": 165,
+		"TotalPointCount": 533,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -574,6 +574,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamGokigen",
 			"Segments": [
 				0,
@@ -768,6 +779,58 @@
 				1,
 				4,
 				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				5
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffNoseKemuri",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.333,
+				0,
+				2.667,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffOnpu",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.333,
+				0,
+				2.667,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEffAse",
+			"Segments": [
+				0,
+				0,
+				0,
+				4,
+				0
 			]
 		},
 		{
@@ -1056,6 +1119,28 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamCharaPosY",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.667,
+				0,
+				1.333,
+				0,
+				2,
+				0,
+				1,
+				2.667,
+				0,
+				3.333,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamBreath",
 			"Segments": [
 				0,
@@ -1172,28 +1257,6 @@
 				1,
 				4,
 				1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamCharaPosY",
-			"Segments": [
-				0,
-				0,
-				1,
-				0.667,
-				0,
-				1.333,
-				0,
-				2,
-				0,
-				1,
-				2.667,
-				0,
-				3.333,
-				0,
-				4,
-				0
 			]
 		},
 		{
