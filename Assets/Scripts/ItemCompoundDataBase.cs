@@ -156,6 +156,29 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         }
     }
 
+    //レシピの名前を入力すると、該当のレシピを解禁してるかどうかチェックする
+    public int SearchCompoFlagString(string itemName)
+    {
+        if (itemName == "Non")
+        {
+            return 0;
+        }
+        else
+        {
+            i = 0;
+            while (i <= compoitems.Count)
+            {
+                if (compoitems[i].cmpitem_Name == itemName)
+                {
+                    return compoitems[i].cmpitem_flag;
+                }
+                i++;
+            }
+
+            return 0; //見つからなかった場合、0
+        }
+    }
+
     //ゲーム中に表示される全てのレシピ数をカウントする.また現在のレシピ達成率も計算する。
     public void RecipiCount_database()
     {

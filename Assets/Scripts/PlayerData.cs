@@ -10,6 +10,7 @@ public class PlayerData
     //主人公ステータス
     
     public int save_player_money; // 所持金
+    public int save_player_money_system; // 所持金　システム引継ぎ用
     public int save_player_kaeru_coin; //かえるコインの所持数。危ないお店などで使える。
 
     public int save_player_renkin_lv; //パティシエレベル
@@ -157,6 +158,9 @@ public class PlayerData
     //アイテムリスト<デフォルト> アイテム名＋所持数のみのリスト
     public List<ItemSaveKosu> save_playeritemlist = new List<ItemSaveKosu>();
 
+    //アイテムリスト　どんぐりと装備品セーブ用
+    public List<ItemSaveKosu> save_dongurilist = new List<ItemSaveKosu>();
+
     //プレイヤーのイベントアイテムリスト。
     public List<ItemSaveKosu> save_eventitemlist = new List<ItemSaveKosu>();
 
@@ -178,6 +182,15 @@ public class PlayerData
     //マップのフラグリスト
     public List<ItemSaveKosu> save_mapflaglist = new List<ItemSaveKosu>();
 
+    //称号リスト
+    public List<ItemSaveFlag> save_titlecollectionlist = new List<ItemSaveFlag>();
+
+    //イベントリスト
+    public List<ItemSaveFlag> save_event_collection_list = new List<ItemSaveFlag>();
+
+    //コンテストクリアお菓子リスト
+    public List<ItemSaveFlag> save_contestclear_collection_list = new List<ItemSaveFlag>();
+
     //エクストリームパネル用のアイテムとタイプ
     public int save_extreme_itemid;
     public int save_extreme_itemtype;
@@ -185,19 +198,21 @@ public class PlayerData
     //お菓子の一度にトッピングできる回数
     public int save_topping_Set_Count;
 
-    //音設定データ
-    public float save_masterVolumeparam;
-    public float save_BGMVolumeParam;
-    public float save_SeVolumeParam;
-
-    public int save_mainBGM_Num;
-
     public bool save_picnic_End;
     public int save_picnic_count;
     public bool save_picnic_event_ON;
 
     public bool save_hiroba_ichigo_first;
     public bool[] save_ichigo_collection_listFlag = new bool[GameMgr.ichigo_collection_listFlag.Length];
+
+
+
+    //音設定データ
+    public float save_masterVolumeparam;
+    public float save_BGMVolumeParam;
+    public float save_SeVolumeParam;
+
+    public int save_mainBGM_Num;
 
 
     //システムデータ関係

@@ -218,6 +218,23 @@ public class Utage_scenario : MonoBehaviour
 
             }
 
+            //CGギャラリーなどオマケ
+            if (SceneManager.GetActiveScene().name == "200_Omake")
+            {
+                if (!sceneBGM)
+                {
+                    //BGMの取得
+                    sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                }
+
+                if (GameMgr.CGGallery_readflag)
+                {
+                    GameMgr.CGGallery_readflag = false;
+                    scenarioLabel = "CGGalleryScene";
+                    StartCoroutine(CGGallery_Read());
+                }
+            }
+
             //調合シーンでのテキスト処理
             if (SceneManager.GetActiveScene().name == "Compound")
             {
@@ -601,16 +618,35 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    //テキスト表示するだけの処理（シナリオフラグの判定なども行わない）
+    //CGギャラリーの処理
     //
-    IEnumerator Text_Read()
+    IEnumerator CGGallery_Read()
     {
         scenario_loading = true;
 
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
+        //ここで、宴のパラメータ設定
+        engine.Param.TrySetParameter("TextRead_num", GameMgr.CGGallery_num);
+        //Debug.Log("GameMgr.CGGallery_num: " + GameMgr.CGGallery_num);
+
+        //音を止める
+        sceneBGM.MuteBGM();
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        //
+        //「宴」のポーズ終了待ち
+        /*while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        //終了ボタンをおすと、シナリオエンド
+
+        //続きから再度読み込み
+        engine.ResumeScenario();*/
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
@@ -618,9 +654,13 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
+        //BGMを再開
+        sceneBGM.MuteOFFBGM();
+
         scenario_loading = false;
 
         GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+        GameMgr.scenario_ON = false;
     }
 
     //
@@ -1369,7 +1409,7 @@ public class Utage_scenario : MonoBehaviour
             GirlLoveEvent_num = GameMgr.GirlLoveSubEvent_num;
             scenarioLabel = "GirlLove_EventSub"; //イベントレシピタグのシナリオを再生。
         }
-
+        
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
@@ -1387,6 +1427,8 @@ public class Utage_scenario : MonoBehaviour
 
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
+
+        
 
         Debug.Log("GirlLoveEvent_num: " + GirlLoveEvent_num);
         //「宴」のシナリオを呼び出す
@@ -1586,16 +1628,24 @@ public class Utage_scenario : MonoBehaviour
                         //さらに150点以上のときはこっちが優先。必然、一番いい反応になる。
                         if (total_score >= 150)
                         {
-                            if (itemType_sub != "Cookie" || itemType_sub != "Rusk")
+                            if (itemType_sub != "Cookie" && itemType_sub != "Rusk" && itemType_sub != "Crepe")
                             {
                                 engine.Param.TrySetParameter("PicnicPlace_num", 10);
                                 pitemlist.addPlayerItemString("rich_milk", 7);
-                                Debug.Log("150" + "点以上なので、ピクニック場所3");
+                                Debug.Log("クッキー・ラスク・クレープ以外　かつ　" + "150" + "点以上なので、ピクニック場所3");
                             }
                             else
                             {
-                                engine.Param.TrySetParameter("PicnicPlace_num", 0);
-                                Debug.Log("80" + "点未満なので、" + "ピクニック場所1");
+                                if (itemType_sub == "Crepe" || itemType_sub == "Crepe_Mat" || itemType_sub == "Creampuff" || itemType_sub == "Donuts")
+                                {
+                                    engine.Param.TrySetParameter("PicnicPlace_num", 1);
+                                    Debug.Log("150点以上 クレープ・シュークリーム・ドーナツなので、ピクニック場所2");
+                                }
+                                else
+                                {
+                                    engine.Param.TrySetParameter("PicnicPlace_num", 0);
+                                    Debug.Log("150点以上だが、基本のお菓子なので、" + "ピクニック場所1");
+                                }
                             }
                         }
                         else
@@ -1614,7 +1664,7 @@ public class Utage_scenario : MonoBehaviour
                                     Debug.Log("80点以上 特定のお菓子に反応しなかったので、ピクニック場所1");
                                 }
                             }
-                            else
+                            else //80未満
                             {
                                 engine.Param.TrySetParameter("PicnicPlace_num", 0);
                                 Debug.Log("80" + "点未満なので、" + "ピクニック場所1");
@@ -2565,10 +2615,21 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_ranking_num", 0);
         }
 
-        //最後に、コンテストのスコアがハートにボーナス加算される。150点とかでクリアすれば、ハートがさらに上がる。
-        //PlayerStatus.girl1_Love_exp += GameMgr.contest_TotalScore;
 
+        //特殊な称号のチェック 後ろのほうが優先順位が高い。
+        SpecialTitleCheck();      
 
+        //コンテストクリアのお菓子リストをチェック
+        if(yusho_flag)
+        {
+            switch(GameMgr.contest_okashiSubType)
+            {
+                case "Cookie":
+
+                    GameMgr.SetContestClearCollectionFlag("contestclear1", true);
+                    break;
+            }
+        }
 
         //
         //ED分岐判定　コンテストの点＞ハートレベルによって、EDが分岐する。
@@ -2588,6 +2649,7 @@ public class Utage_scenario : MonoBehaviour
                 {
                     engine.Param.TrySetParameter("ED_num", 3);
                     GameMgr.ending_number = 3;
+                    GameMgr.SetEventCollectionFlag("event3", true);
                 }
                 else
                 {
@@ -2602,6 +2664,7 @@ public class Utage_scenario : MonoBehaviour
             {
                 engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
                 GameMgr.ending_number = 4;
+                GameMgr.SetEventCollectionFlag("event3", true);
             }
             else
             {
@@ -2609,11 +2672,20 @@ public class Utage_scenario : MonoBehaviour
                 {
                     engine.Param.TrySetParameter("ED_num", 3); // LV5~ ベスト+優勝ED ED:B
                     GameMgr.ending_number = 3;
+                    GameMgr.SetEventCollectionFlag("event3", true);
                 }
                 else
                 {
-                    engine.Param.TrySetParameter("ED_num", 2); //ED C
-                    GameMgr.ending_number = 2;
+                    if (PlayerStatus.girl1_Love_exp < 400) //さらにハート数が足りていないとき badED ED:D
+                    {
+                        engine.Param.TrySetParameter("ED_num", 1);
+                        GameMgr.ending_number = 1;
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("ED_num", 2); //ED C
+                        GameMgr.ending_number = 2;
+                    }
                 }
             }
         }
@@ -2778,6 +2850,83 @@ public class Utage_scenario : MonoBehaviour
         }
     }
 
+    //特殊な称号のチェック　後ろほど優先順位が高い
+    void SpecialTitleCheck()
+    {
+        //ゴールドマスター　50000ルピア以上持った状態で、優勝する。
+        if (PlayerStatus.player_money >= 50000)
+        {
+            if (yusho_flag)
+            {
+                GameMgr.special_shogo_flag = true;
+                GameMgr.special_shogo_num = 5;
+            }
+        }
+
+        //スカーレット　いちごのお菓子で、150点以上
+        for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
+        {
+            if (GameMgr.contest_okashiName == GameMgr.ichigo_collection_list[i])
+            {
+                if (GameMgr.contest_TotalScore >= 150)
+                {
+                    GameMgr.special_shogo_flag = true;
+                    GameMgr.special_shogo_num = 0;
+                }
+            }
+        }
+        //ホワイトプリム　クレープ系でコンテストスコア150以上
+        for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
+        {
+            if (GameMgr.contest_okashiSubType == "Crepe")
+            {
+                if (GameMgr.contest_TotalScore >= 150)
+                {
+                    GameMgr.special_shogo_flag = true;
+                    GameMgr.special_shogo_num = 1;
+                }
+            }
+        }
+        //ハイルング　プリンセストータでコンテストスコア130以上
+        for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
+        {
+            if (GameMgr.contest_okashiName == "princess_tota")
+            {
+                if (GameMgr.contest_TotalScore >= 130)
+                {
+                    GameMgr.special_shogo_flag = true;
+                    GameMgr.special_shogo_num = 2;
+                }
+            }
+        }
+        //ブルーヴェール　ブルーハワイアイス・ブルーハーブティー・レーブドゥヴィオレッタ・ジェリーボーイ・ブルーベリーシュー・ブラックベリーシュー・鉱石マフィン
+        //のどれかでコンテストスコア130以上
+        for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
+        {
+            if (GameMgr.contest_okashiName == "bluehawai_ice_cream" || GameMgr.contest_okashiName == "sumire_suger" || GameMgr.contest_okashiName == "violatte_tea" ||
+                GameMgr.contest_okashiName == "blueberry_creampuff" || GameMgr.contest_okashiName == "blackberry_creampuff" || GameMgr.contest_okashiName == "slimejelly" ||
+                GameMgr.contest_okashiName == "maffin_jewery")
+            {
+                if (GameMgr.contest_TotalScore >= 130)
+                {
+                    GameMgr.special_shogo_flag = true;
+                    GameMgr.special_shogo_num = 3;
+                }
+            }
+        }
+        //ししゃもマニア　ししゃも系お菓子ししゃもクッキーとクレープのレシピをだした状態で、どちらかのお菓子で100点以上
+        if (databaseCompo.SearchCompoFlagString("shishamo_crepe") == 1 && databaseCompo.SearchCompoFlagString("shishamo_cookie") == 1)
+        {
+            if (GameMgr.contest_okashiName == "shishamo_cookie" || GameMgr.contest_okashiName == "shishamo_crepe")
+            {
+                if (GameMgr.contest_TotalScore >= 100)
+                {
+                    GameMgr.special_shogo_flag = true;
+                    GameMgr.special_shogo_num = 4;
+                }
+            }
+        }
+    }
 
     //ゲームメイン中のLive2DキャラクタをONにする。
     void CharacterLive2DImageON()

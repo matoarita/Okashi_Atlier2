@@ -1310,7 +1310,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 _text.text = "ねこのお墓がある。";
 
                 PlayerStatus.girl1_Love_exp += 50;//ハートが50あがっている。
-               
+
+                //イベントCG解禁
+                GameMgr.SetEventCollectionFlag("event9", true);
+
                 break;
         }
 

@@ -133,7 +133,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //初期化
         switch (SceneManager.GetActiveScene().name)
         {
-            case "000_CompanyLogoMovie": //シナリオ系のシーンでは読み込まない。
+            /*case "000_CompanyLogoMovie": //シナリオ系のシーンでは読み込まない。
                 break;
 
             case "001_Title": //シナリオ系のシーンでは読み込まない。
@@ -166,11 +166,20 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             case "120_AutoSave":
                 break;
 
+            case "200_Omake":
+                break;
+
             case "999_Gameover":
                 break;
 
             case "Farm":
                 break;
+
+            case "Emerald_Shop":
+                break;
+
+            case "Contest":
+                break;*/
 
             case "Compound":
 
@@ -305,18 +314,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
                 }
 
-                break;
-
-            case "Emerald_Shop":
-
-                break;
-
-            case "Contest":
-
-                break;
+                break;           
 
             default: //上記シーン以外
 
+                /*
                 if (text_area == null)
                 {
                     canvas = GameObject.FindWithTag("Canvas");
@@ -330,7 +332,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     canvas = GameObject.FindWithTag("Canvas");
                     pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
                     pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-                }
+                }*/
 
                 break;
         }
@@ -821,7 +823,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
 
-
+            updown_counter_obj.SetActive(false);
 
         }
         else if (SceneManager.GetActiveScene().name == "GirlEat") // 女の子シーンでやりたい処理。
@@ -835,6 +837,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             update_ListSelect_Flag = 0; //オールリセットするのみ。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
         }
+        else if (SceneManager.GetActiveScene().name == "200_Omake") // 女の子シーンでやりたい処理。
+        {
+            update_ListSelect_Flag = 0; //オールリセットするのみ。
+            //update_ListSelect(); //アイテム選択時の、リストの表示処理
+        }
         else
         {
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
@@ -847,6 +854,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             update_ListSelect_Flag = 0; //オールリセットするのみ。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
+
+            updown_counter_obj.SetActive(false);
         }
 
 
@@ -862,8 +871,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         {
             no.SetActive(true);
         }
-        
-        updown_counter_obj.SetActive(false);
+     
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 

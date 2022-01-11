@@ -9,13 +9,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //DontDestroyOnLoad（シーン間で移動してもオブジェクトが削除されない）と併用することで、シーンをまたいでも、常にそのゲームオブジェクトは生き残る。
 
     //
-    //イベント数をセッティング
+    // ** -- イベント数をセッティング -- ** //
     //
     public static int GirlLoveEvent_stage_num = 100;
     public static int GirlLoveSubEvent_stage_num = 200;
     public static int Event_num = 30;
 
     //** --ここまで-- **//
+
+    // ** -- デフォルトの設定 -- ** //
 
     // ゲーム開始前に呼び出す。デバッグログをオフにする。
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -25,7 +27,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     }
 
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
+    public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。
 
+    //** --ここまで-- **//
 
 
     public static bool scenario_ON;     //全シーンで共通。宴・シナリオを優先するフラグ。これがONのときは、調合シーンなどでも、宴の表示をまず優先する。宴を読み終えたらOFFにする。
@@ -203,6 +207,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] ichigo_collection_listFlag; //いちごのお菓子のコレクションフラグ。
     public static List<string> ichigo_collection_list = new List<string>(); //いちごのお菓子の名前リスト。こっちはセーブ不要。
 
+    //獲得称号リストのフラグ
+    public static List<SpecialTitle> title_collection_list = new List<SpecialTitle>(); //称号の名前リスト。
+
+    //獲得スチルリストのフラグ
+    public static List<SpecialTitle> event_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。
+
+    //獲得コンテストお菓子リストのフラグ
+    public static List<SpecialTitle> contestclear_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。
+
     //女の子の今のご機嫌状態　gokigen_status（ハートに応じた絶対的な感情）とは別で、すぐに変化するもの 1=最悪 2=ごきげんななめ 3=まあまあ 4=良い 5=上機嫌
     public static int girl_expression;
     public static int girl_express_param; //ご機嫌度合 0~100　で上記の５段階
@@ -331,6 +344,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string contest_okashiSlotName;
     public static int contest_okashiID;
 
+    public static bool special_shogo_flag;
+    public static int special_shogo_num;
+
     //コンテスト感想
     public static string[] contest_judge1_comment = new string[4];
     public static string[] contest_judge2_comment = new string[4];
@@ -350,6 +366,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int CompoundEvent_num; //別シーンから、どのイベントを呼び出すかを、指定する。
     public static bool CompoundEvent_storyflag;
     public static int CompoundEvent_storynum; //メインシーンから、宴に移る際に、どのシナリオを読むかを指定する。
+
+    //CGギャラリー再生用のフラグ
+    public static bool CGGallery_readflag;
+    public static int CGGallery_num; //別シーンから、どのイベントを呼び出すかを、指定する。
 
     //その他、一時的なフラグ
     public static int MapSubEvent_Flag;
@@ -605,6 +625,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CompoundEvent_storyflag = false;
         CompoundEvent_storynum = 0;
 
+        CGGallery_readflag = false;
+
         Okashi_totalscore = 0;
         Okashi_dislike_status = 0;
         Okashi_OnepointHint_num = 0;
@@ -694,6 +716,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_okashiNameHyouji = "";
         contest_okashiSubType = "";
         contest_TotalScore = 0;
+        special_shogo_flag = false;
 
         //コンテスト感想初期化
         for (system_i = 0; system_i < contest_judge1_comment.Length; system_i++)
@@ -786,6 +809,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //いちご少女の殿堂入りリスト初期化
         InitIchigoOkashiLibrary();
 
+        //称号リストの初期化
+        InitTitleCollectionLibrary();
+
+        //イベントコレクションのリスト
+        InitEventCollectionLibrary();
+
+        //コンテストクリアお菓子のリスト
+        InitContestClearCollectionLibrary();
+
         CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
         {
@@ -854,6 +886,147 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < ichigo_collection_listFlag.Length; system_i++)
         {
             ichigo_collection_listFlag[system_i] = false;
+        }
+    }
+
+    //称号コレクションのリスト
+    public static void InitTitleCollectionLibrary()
+    {
+        title_collection_list.Clear();
+        title_collection_list.Add(new SpecialTitle(000, "title1", "パティシエたまご", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(001, "title3", "パティシエ一人前", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(002, "title4", "上級パティシエ", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(003, "title5", "虹のパティシエ", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(004, "title6", "グランド・シェフ", false, "Non"));      
+        title_collection_list.Add(new SpecialTitle(005, "title100", "深紅-スカーレット-", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(006, "title101", "白羽-ホワイトプリム-", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(007, "title102", "蒼碧-ブルーヴェール-", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(008, "title103", "緑癒-ハイルング-", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(009, "title104", "ししゃもマニア", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(010, "title105", "ゴールドマスター", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(011, "title7", "愛のパティシエ", false, "Non"));
+
+    }
+
+    //称号のnameを入れると、表示用名前を返すメソッド
+    public static string SearchTitleCollectionNameString(string _name)
+    {
+        for (system_i = 0; system_i < title_collection_list.Count; system_i++)
+        {
+            if(title_collection_list[system_i].titleName == _name)
+            {
+                return title_collection_list[system_i].titleNameHyouji;
+            }
+        }
+
+        return ""; //一致しない場合は空
+    }
+
+    //称号のnameを入れると、フラグを置き換えるメソッド
+    public static void SetTitleCollectionFlag(string _name, bool _flag)
+    {
+        for (system_i = 0; system_i < title_collection_list.Count; system_i++)
+        {
+            if (title_collection_list[system_i].titleName == _name)
+            {
+                title_collection_list[system_i].Flag = _flag;
+            }
+        }
+    }
+
+    //イベントコレクションのリスト
+    public static void InitEventCollectionLibrary()
+    {
+        event_collection_list.Clear();       
+               
+        event_collection_list.Add(new SpecialTitle(003, "event4", "うまいぞ！にいちゃんのクッキー", false, "EventCG_Icon/cg_gallery_icon_2"));
+        event_collection_list.Add(new SpecialTitle(004, "event5", "ラスクとありんこ", false, "EventCG_Icon/cg_gallery_icon_1"));
+        event_collection_list.Add(new SpecialTitle(005, "event6", "やもりのねがいごと", false, "EventCG_Icon/cg_gallery_icon_10"));
+        event_collection_list.Add(new SpecialTitle(006, "event7", "しあわせの花かんむり", false, "EventCG_Icon/cg_gallery_icon_4"));
+        event_collection_list.Add(new SpecialTitle(007, "event8", "おにいちゃんにキス！", false, "EventCG_Icon/cg_gallery_icon_3"));
+        event_collection_list.Add(new SpecialTitle(008, "event9", "ねこちゃんのお墓", false, "EventCG_Icon/cg_gallery_icon_5"));
+        event_collection_list.Add(new SpecialTitle(009, "event10", "ままに会いたい", false, "EventCG_Icon/cg_gallery_icon_6"));
+        event_collection_list.Add(new SpecialTitle(000, "event1", "きらきらぽんぽん", false, "EventCG_Icon/cg_gallery_icon_7"));
+        event_collection_list.Add(new SpecialTitle(001, "event2", "おやすみ", false, "EventCG_Icon/cg_gallery_icon_8"));        
+        event_collection_list.Add(new SpecialTitle(002, "event3", "誕生日のクッキー", false, "EventCG_Icon/cg_gallery_icon_9"));
+
+        //デバッグ用
+        /*for (system_i = 0; system_i < event_collection_list.Count; system_i++)
+        {
+            event_collection_list[system_i].Flag = true;
+        }*/
+    }
+
+    //イベントのnameを入れると、表示用名前を返すメソッド
+    public static string SearchEventCollectionNameString(string _name)
+    {
+        for (system_i = 0; system_i < event_collection_list.Count; system_i++)
+        {
+            if (event_collection_list[system_i].titleName == _name)
+            {
+                return event_collection_list[system_i].titleNameHyouji;
+            }
+        }
+
+        return ""; //一致しない場合は空
+    }
+
+    //イベントのnameを入れると、フラグを置き換えるメソッド
+    public static void SetEventCollectionFlag(string _name, bool _flag)
+    {
+        for (system_i = 0; system_i < event_collection_list.Count; system_i++)
+        {
+            if (event_collection_list[system_i].titleName == _name)
+            {
+                event_collection_list[system_i].Flag = _flag;
+            }
+        }
+    }
+
+    //コンテストクリアお菓子コレクションのリスト
+    public static void InitContestClearCollectionLibrary()
+    {
+        contestclear_collection_list.Clear();
+
+        contestclear_collection_list.Add(new SpecialTitle(000, "contestclear1", "クッキーでクリア！", false, "Non"));
+        contestclear_collection_list.Add(new SpecialTitle(001, "contestclear2", "ラスクでクリア！", false, "Non"));
+        contestclear_collection_list.Add(new SpecialTitle(002, "contestclear3", "クレープでクリア！", false, "Non"));
+        contestclear_collection_list.Add(new SpecialTitle(003, "contestclear4", "シュークリームでクリア！", false, "Non"));
+        contestclear_collection_list.Add(new SpecialTitle(004, "contestclear5", "ドーナツでクリア！", false, "Non"));
+        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "ティーでクリア！", false, "Non"));
+        contestclear_collection_list.Add(new SpecialTitle(006, "contestclear7", "ジュースでクリア！", false, "Non"));
+        contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "コーヒーでクリア！", false, "Non"));
+
+        //デバッグ用
+        /*for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)
+        {
+            contestclear_collection_list[system_i].Flag = true;
+        }*/
+    }
+
+    //コンテストクリアのnameを入れると、表示用名前を返すメソッド
+    public static string SearchContestClearCollectionNameString(string _name)
+    {
+        for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)
+        {
+            if (contestclear_collection_list[system_i].titleName == _name)
+            {
+                return contestclear_collection_list[system_i].titleNameHyouji;
+            }
+        }
+
+        return ""; //一致しない場合は空
+    }
+
+    //コンテストクリアのnameを入れると、フラグを置き換えるメソッド
+    public static void SetContestClearCollectionFlag(string _name, bool _flag)
+    {
+        for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)
+        {
+            if (contestclear_collection_list[system_i].titleName == _name)
+            {
+                contestclear_collection_list[system_i].Flag = _flag;
+            }
         }
     }
 }

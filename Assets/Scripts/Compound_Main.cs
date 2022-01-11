@@ -3280,6 +3280,9 @@ public class Compound_Main : MonoBehaviour
 
                             //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                             StartCoroutine("ReadGirlLoveEvent");
+
+                            //イベントCG解禁
+                            GameMgr.SetEventCollectionFlag("event10", true);
                         }
                     }
 
@@ -4007,6 +4010,10 @@ public class Compound_Main : MonoBehaviour
 
                     SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
                     SubEvAfterHeartGet_num = 60;
+
+                    //イベントCG解禁
+                    GameMgr.SetEventCollectionFlag("event1", true);
+                    GameMgr.SetEventCollectionFlag("event2", true);
                 }
             }
 

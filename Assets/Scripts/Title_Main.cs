@@ -63,11 +63,11 @@ public class Title_Main : MonoBehaviour {
 
         //システムロード
         save_controller.SystemloadCheck();
-
-
+        //これ以降、システムのデータに応じて、処理を分けて大丈夫。
+        
         if (GameMgr.ending_count >= 1)
         {
-            galleryButton_obj.SetActive(false);
+            galleryButton_obj.SetActive(true);
 
             chara_Icon.SetActive(false);
             _model_move.SetActive(true);
@@ -85,8 +85,6 @@ public class Title_Main : MonoBehaviour {
             chara_Icon.SetActive(true);
             _model_move.SetActive(false);
         }
-
-        
 
         if(GameMgr.saveOK)
         {
@@ -110,6 +108,7 @@ public class Title_Main : MonoBehaviour {
     public void OnStartButton()
     {
         save_controller.ResetAllParam();
+        save_controller.SystemloadCheck(); //システムデータロード
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene("010_Prologue", 0.3f);
     }
@@ -127,7 +126,7 @@ public class Title_Main : MonoBehaviour {
 
     public void OnGalleryButton()
     {
-
+        FadeManager.Instance.LoadScene("200_Omake", 0.3f);
     }
 
     public void OnOptionButton()

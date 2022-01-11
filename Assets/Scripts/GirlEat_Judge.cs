@@ -3369,7 +3369,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.QuestClearButtonMessage_EvNum = GameMgr.OkashiQuest_Num + 10000;
                             switch (GameMgr.OkashiQuest_Num)
                             {
-                                case 0: //特定のお菓子のみ、特殊イベント発生
+                                //特定のお菓子のみ、特殊イベント発生
+                                case 0: //クッキー
 
                                     break;
 
@@ -3381,6 +3382,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                                 case 20: //クレープ
 
                                     pitemlist.addPlayerItem("yotuba_crown", 1);
+                                    //イベントCG解禁
+                                    GameMgr.SetEventCollectionFlag("event7", true);
+                                    break;
+
+                                case 30: //シュークリーム
+
+                                    //イベントCG解禁
+                                    GameMgr.SetEventCollectionFlag("event8", true); //キスイベント
                                     break;
 
                                 case 40: //ドーナツ　白衣装ゲット
@@ -3983,6 +3992,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.scenario_ON = true;
         GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
         GameMgr.mainClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        //イベントスチル解禁
+        switch (GameMgr.mainquest_ID)
+        {
+            case 1001: //うまいぞ！にいちゃんのクッキー
+
+                //イベントCG解禁
+                GameMgr.SetEventCollectionFlag("event4", true);
+                break;
+
+            case 1101: //ラスクとありんこ
+
+                //イベントCG解禁
+                GameMgr.SetEventCollectionFlag("event5", true);
+                break;
+
+            case 1401: //やもりのねがいごと
+
+                //イベントCG解禁
+                GameMgr.SetEventCollectionFlag("event6", true);
+                break;
+
+        }
 
         while (!GameMgr.recipi_read_endflag)
         {

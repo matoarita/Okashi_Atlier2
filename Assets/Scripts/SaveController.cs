@@ -38,6 +38,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
     private Text questname;
     private List<ItemSaveKosu> _tempplayeritemlist = new List<ItemSaveKosu>();
+    private List<ItemSaveKosu> _tempdongrilist = new List<ItemSaveKosu>();
     private List<ItemSaveKosu> _temp_eventitemlist = new List<ItemSaveKosu>();
     private List<ItemSaveKosu> _temp_emeralditemlist = new List<ItemSaveKosu>();
     private List<ItemSaveCompoFlag> _temp_cmpflaglist = new List<ItemSaveCompoFlag>();
@@ -46,6 +47,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveKosu> _temp_farmzaiko = new List<ItemSaveKosu>();
     private List<ItemSaveKosu> _temp_emeraldshop_zaiko = new List<ItemSaveKosu>();
     private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
+    private List<ItemSaveFlag> _temp_titlecollectionlist = new List<ItemSaveFlag>();
+    private List<ItemSaveFlag> _temp_eventcollectionlist = new List<ItemSaveFlag>();
+    private List<ItemSaveFlag> _temp_contestclearcollectionlist = new List<ItemSaveFlag>();
 
     private GameObject _model_obj;
     private GameObject StageClearButton_panel;
@@ -115,11 +119,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //エメラルドアイテムの所持数取得
-        _temp_emeralditemlist.Clear();
+        /*_temp_emeralditemlist.Clear();
         for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
             _temp_emeralditemlist.Add(new ItemSaveKosu(pitemlist.emeralditemlist[i].event_itemName, pitemlist.emeralditemlist[i].ev_itemKosu, 0));
-        }
+        }*/
 
         //調合フラグと調合回数の取得
         /*_temp_cmpflaglist.Clear();
@@ -157,14 +161,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //アイテムの前回得点のみ取得
-        _temp_itemscorelist.Clear();
+        /*_temp_itemscorelist.Clear();
         for (i = 0; i < database.items.Count; i++)
         {
             _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
                 database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
                 database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
                 database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
-        }
+        }*/
 
 
         //セーブ保存用のクラスを新規作成。
@@ -203,8 +207,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_special_animatFirst = girl1_status.special_animatFirst,
 
             //コスチューム番号
-            save_costume_num = GameMgr.Costume_Num,
-            save_acce_num = GameMgr.Accesory_Num,
+            //save_costume_num = GameMgr.Costume_Num,
+            //save_acce_num = GameMgr.Accesory_Num,
 
             //飾っているアイテムのリスト
             save_DecoItems = GameMgr.DecoItems,
@@ -322,13 +326,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_eventitemlist = _temp_eventitemlist,
 
             //プレイヤーのエメラルドアイテムリスト。
-            save_player_emeralditemlist = _temp_emeralditemlist,
+            //save_player_emeralditemlist = _temp_emeralditemlist,
 
             //アイテムリスト＜オリジナル＞
             save_player_originalitemlist = pitemlist.player_originalitemlist,
 
             //アイテムの前回スコアなどを記録する
-            save_itemdatabase = _temp_itemscorelist,
+            //save_itemdatabase = _temp_itemscorelist,
 
             //調合のフラグ＋調合回数を記録する
             //save_itemCompodatabase = _temp_cmpflaglist,
@@ -344,12 +348,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_extreme_itemtype = GameMgr.sys_extreme_itemType,
 
             //お菓子の一度にトッピングできる回数
-            save_topping_Set_Count = GameMgr.topping_Set_Count,
-
-            //音設定データ
-            save_masterVolumeparam = GameMgr.MasterVolumeParam,
-            save_BGMVolumeParam = GameMgr.BGMVolumeParam,
-            save_SeVolumeParam = GameMgr.SeVolumeParam,
+            save_topping_Set_Count = GameMgr.topping_Set_Count,            
 
             save_mainBGM_Num = GameMgr.mainBGM_Num,
 
@@ -434,8 +433,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         girl1_status.special_animatFirst = playerData.save_special_animatFirst;
 
         //コスチューム番号
-        GameMgr.Costume_Num = playerData.save_costume_num;
-        GameMgr.Accesory_Num = playerData.save_acce_num;
+        //GameMgr.Costume_Num = playerData.save_costume_num;
+        //GameMgr.Accesory_Num = playerData.save_acce_num;
 
         //飾っているアイテムのリスト
         GameMgr.DecoItems = playerData.save_DecoItems;
@@ -554,10 +553,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //プレイヤーのエメラルドアイテムリスト。
-        for (i = 0; i < playerData.save_player_emeralditemlist.Count; i++)
+        /*for (i = 0; i < playerData.save_player_emeralditemlist.Count; i++)
         {
             pitemlist.ReSetEmeraldItemString(playerData.save_player_emeralditemlist[i].itemName, playerData.save_player_emeralditemlist[i].itemKosu);
-        }
+        }*/
 
         //アイテムリスト＜オリジナル＞
         pitemlist.player_originalitemlist.Clear();
@@ -574,7 +573,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         
 
         //アイテムの前回スコアなどを読み込み
-        for (count = 0; count < playerData.save_itemdatabase.Count; count++)
+        /*for (count = 0; count < playerData.save_itemdatabase.Count; count++)
         {
             i = 0;
             while (i < database.items.Count)
@@ -600,7 +599,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 i++;
             }                 
             
-        }
+        }*/
 
         //調合のフラグ＋調合回数を記録する
         //databaseCompo.compoitems.Clear();
@@ -649,12 +648,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.sys_extreme_itemType = playerData.save_extreme_itemtype;
 
         //お菓子の一度にトッピングできる回数
-        GameMgr.topping_Set_Count = playerData.save_topping_Set_Count;
-
-        //音設定データ
-        GameMgr.MasterVolumeParam = playerData.save_masterVolumeparam;
-        GameMgr.BGMVolumeParam = playerData.save_BGMVolumeParam;
-        GameMgr.SeVolumeParam = playerData.save_SeVolumeParam;
+        GameMgr.topping_Set_Count = playerData.save_topping_Set_Count;       
 
         GameMgr.mainBGM_Num = playerData.save_mainBGM_Num;
 
@@ -726,6 +720,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 if (GameMgr.sys_extreme_itemID != 9999)
                 {
                     extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponentInChildren<ExtremePanel>();
+                    Debug.Log("GameMgr.sys_extreme_itemID: " + GameMgr.sys_extreme_itemID);
+                    Debug.Log("GameMgr.sys_extreme_itemType: " + GameMgr.sys_extreme_itemType);
                     extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
                     extreme_panel.SetInitParamExtreme();
 
@@ -821,7 +817,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     }
 
 
-    //システムデータのセーブ エンディングセーブ
+    //システムデータのセーブ エンディングでもオートセーブ
     public void SystemsaveCheck()
     {
         //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
@@ -830,7 +826,28 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         Debug.Log("DataBank.Open()");
         Debug.Log($"save path of bank is { bank.SavePath }");
 
-        //調合フラグと調合回数の取得 周回しても引き継がれる要素
+
+        //周回しても引き継がれる要素
+
+        //どんぐりと装備品やオーブン置物
+        _tempdongrilist.Clear();
+        for (i = 0; i < database.items.Count; i++)
+        {
+            if(database.items[i].itemType_sub.ToString() == "Donguri" || database.items[i].itemType_sub.ToString() == "Equip" ||
+                database.items[i].itemType_sub.ToString() == "Machine" || database.items[i].itemType_sub.ToString() == "Object")
+            {
+                _tempdongrilist.Add(new ItemSaveKosu(database.items[i].itemName, pitemlist.playeritemlist[database.items[i].itemName], 0));
+            }
+        }
+
+        //エメラルドアイテム
+        _temp_emeralditemlist.Clear();
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
+        {
+            _temp_emeralditemlist.Add(new ItemSaveKosu(pitemlist.emeralditemlist[i].event_itemName, pitemlist.emeralditemlist[i].ev_itemKosu, 0));
+        }
+
+        //調合フラグと調合回数の取得 
         _temp_cmpflaglist.Clear();
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
@@ -838,14 +855,74 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);
         }
 
+        //アイテムの前回得点のみ取得
+        _temp_itemscorelist.Clear();
+        for (i = 0; i < database.items.Count; i++)
+        {
+            _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
+                database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
+                database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
+                database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
+        }
+
+        //称号リスト
+        _temp_titlecollectionlist.Clear();
+        for (i = 0; i < GameMgr.title_collection_list.Count; i++)
+        {
+            _temp_titlecollectionlist.Add(new ItemSaveFlag(GameMgr.title_collection_list[i].titleName, 0, GameMgr.title_collection_list[i].Flag));
+        }
+
+        //イベントリスト
+        _temp_eventcollectionlist.Clear();
+        for (i = 0; i < GameMgr.event_collection_list.Count; i++)
+        {
+            _temp_eventcollectionlist.Add(new ItemSaveFlag(GameMgr.event_collection_list[i].titleName, 0, GameMgr.event_collection_list[i].Flag));
+        }
+
+        //コンテストクリアお菓子リスト
+        _temp_contestclearcollectionlist.Clear();
+        for (i = 0; i < GameMgr.contestclear_collection_list.Count; i++)
+        {
+            _temp_contestclearcollectionlist.Add(new ItemSaveFlag(GameMgr.contestclear_collection_list[i].titleName, 0, GameMgr.contestclear_collection_list[i].Flag));
+        }
+
         //システムデータに、セーブしたかどうかのフラグをセット
         systemData = new PlayerData()
         {
             save_saveOK = GameMgr.saveOK,
             save_ending_count = GameMgr.ending_count,
+            
+            save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
+
+            //コスチューム番号
+            save_costume_num = GameMgr.Costume_Num,
+            save_acce_num = GameMgr.Accesory_Num,
+
+            //アイテムリスト＜どんぐりと装備品関係＞
+            save_dongurilist = _tempdongrilist,
+
+            //エメラルドアイテム
+            save_player_emeralditemlist = _temp_emeralditemlist,
 
             //調合のフラグ＋調合回数を記録する
             save_itemCompodatabase = _temp_cmpflaglist,
+
+            //アイテムの前回得点
+            save_itemdatabase = _temp_itemscorelist,
+
+            //称号リストを記録する
+            save_titlecollectionlist = _temp_titlecollectionlist,
+
+            //イベントリストを記録する
+            save_event_collection_list = _temp_eventcollectionlist,
+
+            //コンテストクリアお菓子リストを記録する
+            save_contestclear_collection_list = _temp_contestclearcollectionlist,
+
+            //音設定データ
+            save_masterVolumeparam = GameMgr.MasterVolumeParam,
+            save_BGMVolumeParam = GameMgr.BGMVolumeParam,
+            save_SeVolumeParam = GameMgr.SeVolumeParam,
         };
 
         //データの一時保存。bankに、playerDataを「player1」という名前で現在のデータを保存。
@@ -856,6 +933,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         bank.SaveAll();
         Debug.Log("bank.SaveAll()");
 
+        Debug.Log("システムセーブ完了");
     }
 
     //システムデータのロード
@@ -886,7 +964,25 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //
             GameMgr.saveOK = systemData.save_saveOK;
             GameMgr.ending_count = systemData.save_ending_count;
+            
+            PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
+            
+            //コスチューム番号
+            GameMgr.Costume_Num = systemData.save_costume_num;
+            GameMgr.Accesory_Num = systemData.save_acce_num;
+            
+            //アイテムリスト＜どんぐりと装備品＞
+            for (i = 0; i < systemData.save_dongurilist.Count; i++)
+            {
+                pitemlist.ReSetPlayerItemString(systemData.save_dongurilist[i].itemName, systemData.save_dongurilist[i].itemKosu);
+            }
 
+            //プレイヤーのエメラルドアイテムリスト。
+            for (i = 0; i < systemData.save_player_emeralditemlist.Count; i++)
+            {
+                pitemlist.ReSetEmeraldItemString(systemData.save_player_emeralditemlist[i].itemName, systemData.save_player_emeralditemlist[i].itemKosu);
+            }
+            
             //調合のフラグ＋調合回数を記録する
             for (count = 0; count < systemData.save_itemCompodatabase.Count; count++)
             {
@@ -904,11 +1000,96 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 }
             }
 
+            //アイテムの前回スコアなどを読み込み
+            for (count = 0; count < systemData.save_itemdatabase.Count; count++)
+            {
+                i = 0;
+                while (i < database.items.Count)
+                {
+                    if (systemData.save_itemdatabase[count].itemName == database.items[i].itemName)
+                    {
+                        database.items[i].Eat_kaisu = systemData.save_itemdatabase[count].Eat_kaisu;
+                        database.items[i].HighScore_flag = systemData.save_itemdatabase[count].HighScore_flag;
+                        database.items[i].last_total_score = systemData.save_itemdatabase[count].last_total_score;
+                        database.items[i].last_rich_score = systemData.save_itemdatabase[count].last_rich_score;
+                        database.items[i].last_sweat_score = systemData.save_itemdatabase[count].last_sweat_score;
+                        database.items[i].last_bitter_score = systemData.save_itemdatabase[count].last_bitter_score;
+                        database.items[i].last_sour_score = systemData.save_itemdatabase[count].last_sour_score;
+                        database.items[i].last_crispy_score = systemData.save_itemdatabase[count].last_crispy_score;
+                        database.items[i].last_fluffy_score = systemData.save_itemdatabase[count].last_fluffy_score;
+                        database.items[i].last_smooth_score = systemData.save_itemdatabase[count].last_smooth_score;
+                        database.items[i].last_hardness_score = systemData.save_itemdatabase[count].last_hardness_score;
+                        database.items[i].last_jiggly_score = systemData.save_itemdatabase[count].last_jiggly_score;
+                        database.items[i].last_chewy_score = systemData.save_itemdatabase[count].last_chewy_score;
+                        database.items[i].last_hinttext = systemData.save_itemdatabase[count].last_hinttext;
+                        break;
+                    }
+                    i++;
+                }
+
+            }
+
+
+            //称号リスト
+            for (count = 0; count < systemData.save_titlecollectionlist.Count; count++)
+            {
+                i = 0;
+                while (i < GameMgr.title_collection_list.Count)
+                {
+                    if (systemData.save_titlecollectionlist[count].itemName == GameMgr.title_collection_list[i].titleName)
+                    {
+                        GameMgr.title_collection_list[i].Flag = systemData.save_titlecollectionlist[count].Flag;
+                        break;
+                    }
+                    i++;
+                }
+            }
+
+
+            //イベントリスト
+            for (count = 0; count < systemData.save_event_collection_list.Count; count++)
+            {
+                i = 0;
+                while (i < GameMgr.event_collection_list.Count)
+                {
+                    if (systemData.save_event_collection_list[count].itemName == GameMgr.event_collection_list[i].titleName)
+                    {
+                        GameMgr.event_collection_list[i].Flag = systemData.save_event_collection_list[count].Flag;
+                        break;
+                    }
+                    i++;
+                }
+            }
+
+            //コンテストクリアお菓子リスト
+            for (count = 0; count < systemData.save_contestclear_collection_list.Count; count++)
+            {
+                i = 0;
+                while (i < GameMgr.contestclear_collection_list.Count)
+                {
+                    if (systemData.save_contestclear_collection_list[count].itemName == GameMgr.contestclear_collection_list[i].titleName)
+                    {
+                        GameMgr.contestclear_collection_list[i].Flag = systemData.save_contestclear_collection_list[count].Flag;
+                        break;
+                    }
+                    i++;
+                }
+            }
+
+
+            //音設定データ
+            GameMgr.MasterVolumeParam = systemData.save_masterVolumeparam;
+            GameMgr.BGMVolumeParam = systemData.save_BGMVolumeParam;
+            GameMgr.SeVolumeParam = systemData.save_SeVolumeParam;
+
             Debug.Log("システムロード完了");
             Debug.Log("エンディング回数: " + GameMgr.ending_count);
-
-
         }
+
+        //音量データの再読み込み
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+        sc.VolumeSetting(); //効果音音量調整　BGMはupdateで常にチェックしてるのでいらない
     }
 
     //セーブデータがあるかどうかのみチェック
@@ -939,7 +1120,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //
             GameMgr.saveOK = systemData.save_saveOK;         
 
-            Debug.Log("システムロード完了");
+            Debug.Log("システムロード　セーブデータあるかどうかのみ確認");
 
         }
     }

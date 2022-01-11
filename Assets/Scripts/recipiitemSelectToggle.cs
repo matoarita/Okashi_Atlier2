@@ -35,6 +35,7 @@ public class recipiitemSelectToggle : MonoBehaviour
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
     private Button[] updown_button = new Button[2];
+    private bool updown_counter_USE;
 
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
@@ -56,6 +57,7 @@ public class recipiitemSelectToggle : MonoBehaviour
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
+    private GameObject yes_no_panel;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -87,59 +89,8 @@ public class recipiitemSelectToggle : MonoBehaviour
 
     void Start()
     {
-
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        //Fetch the Toggle GameObject
-        m_Toggle = GetComponent<Toggle>();
-
-
-        //Add listener for when the state of the Toggle changes, to take action アドリスナー　トグルの値が変化したときに、｛｝内のメソッドを呼び出す
-        m_Toggle.onValueChanged.AddListener(delegate
-        {
-            ToggleValueChanged(m_Toggle);
-        });
-
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
-        {
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-            kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
-            kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-            compound_Check_obj = GameObject.FindWithTag("Compound_Check");
-            compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
-
-            //サウンドコントローラーの取得
-            sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-        }
-
-        recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
-        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();      
-
-        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
-        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
-
-        updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-
-        yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
-        yes_text = yes.GetComponentInChildren<Text>();
-        no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
-
-        selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
-        //黒半透明パネルの取得
-        BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject;
-
-        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-        _text = text_area.GetComponentInChildren<Text>();
-        
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
@@ -155,6 +106,68 @@ public class recipiitemSelectToggle : MonoBehaviour
         //合成計算オブジェクトの取得
         compound_keisan = GameObject.FindWithTag("Compound_Keisan").GetComponent<Compound_Keisan>();
 
+        //Fetch the Toggle GameObject
+        m_Toggle = GetComponent<Toggle>();
+
+        //Add listener for when the state of the Toggle changes, to take action アドリスナー　トグルの値が変化したときに、｛｝内のメソッドを呼び出す
+        m_Toggle.onValueChanged.AddListener(delegate
+        {
+            ToggleValueChanged(m_Toggle);
+        });
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
+        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+
+        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
+
+        selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+        //黒半透明パネルの取得
+        BlackImage = recipilistController_obj.transform.Find("BlackImage").gameObject;
+
+        updown_counter_USE = true;
+
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
+        {
+            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+            kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+            kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+            compound_Check_obj = GameObject.FindWithTag("Compound_Check");
+            compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
+
+            //サウンドコントローラーの取得
+            sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+            
+            yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+            yes_text = yes.GetComponentInChildren<Text>();
+            no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+
+            text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+            _text = text_area.GetComponentInChildren<Text>();
+        }
+        else if (SceneManager.GetActiveScene().name == "200_Omake")
+        {
+            yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+            yes_text = yes.GetComponentInChildren<Text>();
+            no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+
+            yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+
+            updown_counter_USE = false;
+        }
+      
+        
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
@@ -248,9 +261,18 @@ public class recipiitemSelectToggle : MonoBehaviour
 
             yes.SetActive(true);
             no.SetActive(true);
-            updown_counter_obj.SetActive(true);
-            updown_counter.updown_keisan_Method();
-            BlackImage.GetComponent<CanvasGroup>().alpha = 1;
+            if (updown_counter_USE)
+            {
+                updown_counter_obj.SetActive(true);
+                updown_counter.updown_keisan_Method();
+            }
+            if (SceneManager.GetActiveScene().name == "200_Omake")
+            {
+                yes_no_panel.SetActive(true);
+                yes.SetActive(false);
+            }
+            BlackImage.SetActive(true);
+            //BlackImage.GetComponent<CanvasGroup>().alpha = 1;
 
             //調合判定を行うかどうか
             exp_Controller._success_judge_flag = 1; //判定処理を行う。
@@ -274,7 +296,7 @@ public class recipiitemSelectToggle : MonoBehaviour
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
-
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -284,8 +306,6 @@ public class recipiitemSelectToggle : MonoBehaviour
                 recipilistController._recipi_listitem[count].GetComponent<Toggle>().interactable = false;
 
                 compound_Check.final_select_flag = true;               
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 Debug.Log("レシピ選択完了！");
                 break;
@@ -309,10 +329,21 @@ public class recipiitemSelectToggle : MonoBehaviour
                     
                 }
 
-                BlackImage.GetComponent<CanvasGroup>().alpha = 0;
+                BlackImage.SetActive(false);
+                //BlackImage.GetComponent<CanvasGroup>().alpha = 0;
 
-                //Debug.Log("キャンセルをおした");
-                itemselect_cancel.All_cancel();
+                
+
+                if (SceneManager.GetActiveScene().name == "200_Omake")
+                {
+                    yes_no_panel.SetActive(false);
+                    card_view.DeleteCard_DrawView();
+                }
+                else
+                {
+                    //Debug.Log("キャンセルをおした");
+                    itemselect_cancel.All_cancel();
+                }
 
                 break;
         }

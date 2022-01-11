@@ -65,7 +65,7 @@ public class BGM : MonoBehaviour {
 
             case "110_TotalResult":
 
-                if(GameMgr.ending_number == 4)
+                if(GameMgr.ending_number == 3 || GameMgr.ending_number == 4)
                 {
                     EndingBGM_A();
                 }

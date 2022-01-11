@@ -33,9 +33,6 @@ public class RecipiListController : MonoBehaviour {
     private string item_name;
     private int item_kosu;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private Girl1_status girl1_status;
 
     private GameObject comp_text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
@@ -121,9 +118,6 @@ public class RecipiListController : MonoBehaviour {
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");  
-
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;

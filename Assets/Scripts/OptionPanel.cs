@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class OptionPanel : MonoBehaviour {
 
     private GameObject canvas;
 
     private SoundController sc;
+    private SaveController save_controller;
 
     private Slider mastervolume_Slider;
     private Text mastervolume_paramtext;
@@ -25,6 +27,8 @@ public class OptionPanel : MonoBehaviour {
     private GameObject system_panel;
 
     private Compound_Main compound_Main;
+
+    private GameObject SystemSave_Panel;
 
     private BGM sceneBGM;
     private List<Toggle> bgm_toggle = new List<Toggle>(); 
@@ -51,6 +55,9 @@ public class OptionPanel : MonoBehaviour {
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        save_controller = SaveController.Instance.GetComponent<SaveController>();
+        SystemSave_Panel = this.transform.Find("systemSavePanel").gameObject;
 
         //調合メイン取得
         switch (SceneManager.GetActiveScene().name)
@@ -177,6 +184,24 @@ public class OptionPanel : MonoBehaviour {
 
     public void BackOption()
     {
+        //一回黒フェードして「システムデータセーブ中」でてから、シーンもどす。
+        save_controller.SystemsaveCheck();
+
+        SystemSave_Panel.SetActive(true);
+        SystemSave_Panel.GetComponent<CanvasGroup>().alpha = 0;
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(SystemSave_Panel.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
+
+        StartCoroutine("EndOptionPanel");
+    }
+
+    IEnumerator EndOptionPanel()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        SystemSave_Panel.SetActive(false);
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":

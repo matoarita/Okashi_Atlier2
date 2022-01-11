@@ -585,7 +585,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
         for (i = 0; i < emeralditemlist.Count; i++)
         {
-            if (emeralditemlist[i].ev_itemType == 1)
+            if (emeralditemlist[i].ev_itemType == 1 && emeralditemlist[i].ev_ListOn == 1)
             {
                 _itemcount++;
             }
