@@ -34,7 +34,9 @@ public class PlayerData
 
     //日付・フラグ関係
     public int save_player_day; //現在の日付
-    public int save_player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
+    //public int save_player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
+    public int save_player_cullent_hour; //現在の時間
+    public int save_player_cullent_minute; //現在の分
 
     public bool save_First_recipi_on; //はじめて調合したフラグ
     public bool save_First_extreme_on; //はじめて仕上げをしたフラグ
@@ -74,6 +76,7 @@ public class PlayerData
 
     //サブイベントフラグ
     public bool[] save_GirlLoveSubEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];
+    public bool[] save_GirlLoveSubEvent_stage1_system = new bool[GameMgr.GirlLoveEvent_stage1.Length]; //衣装などのイベントは、周回しても発生しないように、システムにもセーブする
 
     //好感度ハイスコアイベントの取得フラグ
     public bool[] save_OkashiQuestHighScore_event = new bool[GameMgr.GirlLoveEvent_stage1.Length];
@@ -219,6 +222,9 @@ public class PlayerData
 
     //セーブしたかどうかを保存するフラグ
     public bool save_saveOK = false;
+
+    //オートセーブフラグ
+    public bool save_Autosave_ON = false;
 
     //エンディングカウント
     public int save_ending_count;

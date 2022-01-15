@@ -34,7 +34,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     //日付・フラグ関係
     public static int player_day; //現在の日付
-    public static int player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
+    public static int player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分　現在は未使用。
 
     public static int player_cullent_month; //現在の月（上記プレイヤーデイを基に、time_controllerで計算する。）
     public static int player_cullent_day; //現在の日（上記プレイヤーデイを基に、time_controllerで計算する。）
@@ -60,8 +60,14 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
         //プレイヤー初期設定
         player_money = 2000;
-        player_day = 91;
-        player_time = 0; //8:00始まり
+
+        //時間関係
+        player_day = 91; //cullent_monthとcullent_dayは、左のplayer_dayをもとに、TimeControllerで計算するので、初期化不要。
+        player_time = 0; //現在は未使用。
+
+        player_cullent_hour = 8; //8:00始まり
+        player_cullent_minute = 0;
+
         player_renkin_lv = 1;
         player_renkin_exp = 0;
         player_ninki_param = 10;

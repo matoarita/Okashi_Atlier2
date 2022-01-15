@@ -567,7 +567,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         result_ok = false;
 
         //日数の経過
-        PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
+        time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
+        //PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
 
         _ex_text = "";
 
@@ -816,7 +817,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compound_Main.StartMessage();
 
         //日数の経過
-        PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
+        time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
+        //PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time; //分単位でくる。
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1037,6 +1039,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //メインテキストも更新
         compound_Main.StartMessage();
+
+        //日数の経過
+        time_controller.SetMinuteToHour(3);
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();

@@ -221,6 +221,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
+    private GameObject autosave_panel;
+
     private int i, j, _id, ev_id;
     private int random;
     private int nokori_kaisu;
@@ -380,6 +382,9 @@ public class Compound_Main : MonoBehaviour
 
         //お菓子ヒントパネルの取得
         okashihint_panel = canvas.transform.Find("TasteHintPanel").gameObject;
+
+        //オートセーブ表示パネルの取得
+        autosave_panel = canvas.transform.Find("AutoSaveCompletePanel").gameObject;
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -683,7 +688,25 @@ public class Compound_Main : MonoBehaviour
 
             //パネルを閉じる
             mainUI_panel_obj.GetComponent<MainUIPanel>().OnCloseButton(); //メニューは最初閉じ
+
+            //オートセーブ
+            if (GameMgr.AUTOSAVE_ON)
+            {
+                save_controller.OnSaveMethod();
+                Debug.Log("オートセーブ完了");
+
+                AutoSaveCompleteText();
+            }
         }
+    }
+
+    //オートセーブ完了できたら、ちっちゃくテキストを表示する
+    public void AutoSaveCompleteText()
+    {
+        autosave_panel.SetActive(true);
+
+        autosave_panel.GetComponent<CanvasGroup>().DOFade(0, 1.0f).SetDelay(2)
+            .OnComplete(() => autosave_panel.SetActive(false));
     }
 
     // Update is called once per frame
@@ -4549,9 +4572,11 @@ public class Compound_Main : MonoBehaviour
         //リセット。
         PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint; //体力は全回復
         PlayerStatus.player_day++;
-        PlayerStatus.player_time = 0;
+        //PlayerStatus.player_time = 0;
+        PlayerStatus.player_cullent_hour = GameMgr.StartDay_hour;
+        PlayerStatus.player_cullent_minute = 0;
 
-        //日をまたぐと、ピクニックイベントのカウンタが進む。
+        //寝るイベント発生時に、ピクニックイベントのカウンタが+1進む。
         Debug.Log("ピクニックカウント: " + GameMgr.picnic_count);
         GameMgr.picnic_count--;
 

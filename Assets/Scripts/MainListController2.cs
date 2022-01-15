@@ -349,7 +349,7 @@ public class MainListController2 : MonoBehaviour
                         else
                         {
                             //ひまわり油をもっていたら、イベントが進む。ひまわり油は削除する。
-                            if (pitemlist.ReturnItemKosu("himawari_Oil") != 9999)
+                            if (pitemlist.ReturnItemKosu("himawari_Oil") >= 1)
                             {
                                 pitemlist.SearchDeleteItem("himawari_Oil");
                                 pitemlist.addPlayerItemString("flyer", 1);

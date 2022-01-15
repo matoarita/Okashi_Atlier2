@@ -97,7 +97,7 @@ public class Farm_Main : MonoBehaviour {
         //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
         for (i = 0; i < shop_database.farmitems.Count; i++)
         {
-            if (shop_database.farmitems[i].shop_itemType == 0)
+            if (shop_database.farmitems[i].shop_itemType == 0 || shop_database.farmitems[i].shop_itemType == 3)
             {
                 shop_database.farmitems[i].shop_itemzaiko = 50;
             }

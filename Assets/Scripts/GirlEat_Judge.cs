@@ -4177,8 +4177,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
 
+                    if (_baseitemtype_sub == "Crepe_Mat")
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                    }
+
                     //特定のトッピングスロットをみる
-                    tpcheck_slot = "WhipeedCream";
+                    /*tpcheck_slot = "WhipeedCream";
                     ToppingCheck();
 
                     if (tpcheck) //ホイップがちゃんとのっていた。
@@ -4189,7 +4195,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         no_hint = false;
                         tpcheck_utageON = true;
-                    }
+                    }*/
 
                     break;
 

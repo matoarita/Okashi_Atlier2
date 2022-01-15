@@ -53,6 +53,7 @@ public class ContestClearListPanel : MonoBehaviour {
             if (GameMgr.contestclear_collection_list[i].Flag)
             {
                 _count++;
+                contestlist_List[i].transform.Find("ItemImg").GetComponent<Image>().sprite = GameMgr.contestclear_collection_list[i].imgIcon_sprite;
                 contestlist_List[i].transform.Find("Text").GetComponent<Text>().text = GameMgr.contestclear_collection_list[i].titleNameHyouji;
             }
         }

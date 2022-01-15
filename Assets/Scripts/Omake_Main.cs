@@ -117,7 +117,7 @@ public class Omake_Main : MonoBehaviour {
 
     public void OnBackButton()
     {
-        FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
+        FadeManager.Instance.fadeColor = new Color(1.0f, 1.0f, 1.0f);
         FadeManager.Instance.LoadScene("001_Title", 0.3f);
     }
    

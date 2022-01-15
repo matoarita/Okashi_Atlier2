@@ -24,6 +24,9 @@ public class OptionPanel : MonoBehaviour {
     private Text SEvolume_paramtext;
     private int SEvolume_param;
 
+    private Toggle Autosave_on_toggle;
+    private GameObject Autosave_text_obj;
+
     private GameObject system_panel;
 
     private Compound_Main compound_Main;
@@ -89,6 +92,22 @@ public class OptionPanel : MonoBehaviour {
 
         SEvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider").GetComponent<Slider>();
         SEvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider/Param").GetComponent<Text>();
+
+        Autosave_on_toggle = this.transform.Find("OptionList/Viewport/Content/AutoSaveOn/AutoSaveToggle").GetComponent<Toggle>();
+        Autosave_text_obj= this.transform.Find("OptionList/Viewport/Content/AutoSaveOn/autosave_text").gameObject;
+
+        if (GameMgr.AUTOSAVE_ON)
+        {
+            Autosave_on_toggle.SetIsOnWithoutCallback(true);
+            Autosave_text_obj.SetActive(true);
+            //sc.PlaySe(21);
+        }
+        else
+        {
+            Autosave_on_toggle.SetIsOnWithoutCallback(false);
+            Autosave_text_obj.SetActive(false);
+            //sc.PlaySe(2);
+        }
 
         //BGMセレクトをONにするときは、以下の命令もONにする。
 
@@ -180,6 +199,22 @@ public class OptionPanel : MonoBehaviour {
                 break;
         }
 
+    }
+
+    public void OnAutosaveON()
+    {
+        if(Autosave_on_toggle.isOn)
+        {
+            GameMgr.AUTOSAVE_ON = true;
+            Autosave_text_obj.SetActive(true);
+            sc.PlaySe(21);
+        }
+        else
+        {
+            GameMgr.AUTOSAVE_ON = false;
+            Autosave_text_obj.SetActive(false);
+            sc.PlaySe(2);
+        }
     }
 
     public void BackOption()

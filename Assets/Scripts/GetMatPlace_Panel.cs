@@ -22,6 +22,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Compound_Main compound_Main;
 
     private Exp_Controller exp_Controller;
+    private SaveController save_controller;
 
     private Girl1_status girl1_status;
     private GirlEat_Judge girlEat_judge;
@@ -228,6 +229,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         content = getmatplace_view.transform.Find("Viewport/Content").gameObject;
         matplace_toggle_obj = (GameObject)Resources.Load("Prefabs/MatPlace_toggle1");
+
+        save_controller = SaveController.Instance.GetComponent<SaveController>();
 
         matplace_toggle.Clear();
 
@@ -451,7 +454,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
             sister_stand_img1.SetActive(false);
 
             //日数の経過。帰りも同じ時間かかる。
-            PlayerStatus.player_time += select_place_day;
+            //PlayerStatus.player_time += select_place_day;
+            time_controller.SetMinuteToHour(select_place_day);
             time_controller.TimeKoushin();
 
             //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
@@ -468,15 +472,22 @@ public class GetMatPlace_Panel : MonoBehaviour {
             }
             //ハートゲージを更新。
             compound_Main.HeartGuageTextKoushin();
-
             
-
             //リザルトパネルを表示
             result_off = false;
             getmatResult_panel_obj.SetActive(true);
             getmatResult_panel.reset_and_DrawView();
             getmatResult_panel.OnStartAnim();
             StartCoroutine("ResultOn");
+
+            //オートセーブ
+            if (GameMgr.AUTOSAVE_ON)
+            {
+                save_controller.OnSaveMethod();
+                Debug.Log("オートセーブ完了");
+
+                compound_Main.AutoSaveCompleteText();
+            }
         }
     }
 
@@ -502,8 +513,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     //時間が20時をこえないかチェック
                     if (GameMgr.TimeUSE_FLAG)
                     {
-                        _yosokutime = PlayerStatus.player_time + (matplace_database.matplace_lists[_place_num].placeDay); //行きの時間だけ計算
-                        if (_yosokutime >= time_controller.max_time * 12)
+                        //_yosokutime = PlayerStatus.player_time + matplace_database.matplace_lists[_place_num].placeDay; //行きの時間だけ計算
+                        _yosokutime = time_controller.YosokuMinuteToHour(matplace_database.matplace_lists[_place_num].placeDay);
+                        if (_yosokutime >= GameMgr.EndDay_hour) //20時をこえるかどうか。
                         {
                             //20時を超えるので、妹に止められる。
                             _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
@@ -613,7 +625,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     sceneBGM.FadeOutBGM();
 
                     //日数の経過。場所ごとに、移動までの日数が変わる。
-                    PlayerStatus.player_time += select_place_day;
+                    //PlayerStatus.player_time += select_place_day;
+                    time_controller.SetMinuteToHour(select_place_day);
                     time_controller.TimeKoushin();
 
                     //時間の項目リセット

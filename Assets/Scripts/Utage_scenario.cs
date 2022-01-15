@@ -1426,9 +1426,7 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //ゲーム上のキャラクタOFF
-        CharacterLive2DImageOFF();
-
-        
+        CharacterLive2DImageOFF();        
 
         Debug.Log("GirlLoveEvent_num: " + GirlLoveEvent_num);
         //「宴」のシナリオを呼び出す
@@ -2578,19 +2576,19 @@ public class Utage_scenario : MonoBehaviour
 
 
         //採点によって、感想が変わる。
-        if (GameMgr.contest_TotalScore > GameMgr.high_score) //85~
+        if (GameMgr.contest_TotalScore >= GameMgr.high_score) //85~
         {
             engine.Param.TrySetParameter("contest_comment_num", 0);
         }
-        else if (GameMgr.contest_TotalScore > GameMgr.low_score && GameMgr.contest_TotalScore <= GameMgr.high_score) //60~85
+        else if (GameMgr.contest_TotalScore >= GameMgr.low_score && GameMgr.contest_TotalScore < GameMgr.high_score) //60~85
         {
             engine.Param.TrySetParameter("contest_comment_num", 1);
         }       
-        else if (GameMgr.contest_TotalScore > 30 && GameMgr.contest_TotalScore <= GameMgr.low_score) //30~60
+        else if (GameMgr.contest_TotalScore >= 30 && GameMgr.contest_TotalScore < GameMgr.low_score) //30~60
         {
             engine.Param.TrySetParameter("contest_comment_num", 2);
         }
-        else if (GameMgr.contest_TotalScore <= 30)
+        else if (GameMgr.contest_TotalScore < 30)
         {
             engine.Param.TrySetParameter("contest_comment_num", 3);
         }
@@ -2620,14 +2618,141 @@ public class Utage_scenario : MonoBehaviour
         SpecialTitleCheck();      
 
         //コンテストクリアのお菓子リストをチェック
-        if(yusho_flag)
+        if(GameMgr.contest_TotalScore >= GameMgr.low_score)
         {
-            switch(GameMgr.contest_okashiSubType)
+            //固有お菓子がないかをチェックし、なければサブをみる。
+            if (GameMgr.contest_okashiName == "tiramisu")
             {
-                case "Cookie":
+                GameMgr.SetContestClearCollectionFlag("contestclear12", true);
+            }
+            else if (GameMgr.contest_okashiName == "princess_tota")
+            {
+                GameMgr.SetContestClearCollectionFlag("contestclear11", true);
+            }
+            else
+            {
+                switch (GameMgr.contest_okashiSubType)
+                {
+                    case "Cookie":
 
-                    GameMgr.SetContestClearCollectionFlag("contestclear1", true);
-                    break;
+                        GameMgr.SetContestClearCollectionFlag("contestclear1", true);
+                        break;
+
+                    case "Cookie_Mat":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear1", true);
+                        break;
+
+                    case "Cookie_Hard": //ノンシュガードロップクッキーは素材の味でクリアになる
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                        break;
+
+                    case "Bread": //パン
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear21", true);
+                        break;
+
+                    case "Rusk":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear2", true);
+                        break;
+
+                    case "Crepe":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear3", true);
+                        break;
+
+                    case "Creampuff":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear4", true);
+                        break;
+
+                    case "Donuts":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear5", true);
+                        break;
+
+                    case "Maffin":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear16", true);
+                        break;
+
+                    case "Financier":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear17", true);
+                        break;
+
+                    case "Biscotti":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear18", true);
+                        break;
+
+                    case "PanCake":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear19", true);
+                        break;
+
+                    case "Castella":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear20", true);
+                        break;
+
+                    case "SumireSuger":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear22", true);
+                        break;
+
+                    case "Tea":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear6", true);
+                        break;
+
+                    case "Tea_Potion":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear6", true);
+                        break;
+
+                    case "Juice":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear7", true);
+                        break;
+
+                    case "Coffee_Mat":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear8", true);
+                        break;
+
+                    case "Jelly":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear10", true);
+                        break;
+
+                    case "Cannoli":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear13", true);
+                        break;
+
+                    case "IceCream":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear14", true);
+                        break;
+
+                    case "Parfe":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear15", true);
+                        break;
+
+                    case "Candy":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear23", true);
+                        break;
+
+                    default: //素材の味でクリアになる。_Mat系
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                        break;
+                }
             }
         }
 

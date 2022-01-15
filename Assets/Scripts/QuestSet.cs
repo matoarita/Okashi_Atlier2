@@ -99,4 +99,9 @@ public class QuestSet
         Quest_desc = _setkansou;
     }
 
+    public void ResetSprite(string fileName)
+    {
+        Quest_FileName = fileName;
+        questIcon = Resources.Load<Sprite>("Sprites/Items/" + Quest_FileName);
+    }
 }

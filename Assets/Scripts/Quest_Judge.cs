@@ -928,7 +928,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     jiggly_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "さくさく感がいい感じだわ";
+                    _a = "ぷにぷに感がいい感じだわ";
                 }
                 else
                 {
@@ -950,7 +950,7 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     chewy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "さくさく感がいい感じだわ";
+                    _a = "噛みごたえがいい感じだわ";
                 }
                 else
                 {
@@ -981,6 +981,31 @@ public class Quest_Judge : MonoBehaviour {
 
                     juice_score = (int)(_basescore * _temp_ratio);
                     _a = "のどごしがちょっと足りない。";
+                }
+            }
+
+            if(_base_itemType_sub == "Tea" || _base_itemType_sub == "Tea_Potion" || _base_itemType_sub == "Coffee_Mat")
+            {
+                if (_crispy > 0)
+                {
+                    _temp_kyori = _basecrispy - _crispy;
+
+                    if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+                    {
+                        _temp_ratio = 1.0f;
+                        Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                        crispy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                        _a = "香りがいい感じだわ";
+                    }
+                    else
+                    {
+                        _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                        Debug.Log("_temp_ratio: " + _temp_ratio);
+
+                        crispy_score = (int)(_basescore * _temp_ratio);
+                        _a = "香りがちょっと足りない。";
+                    }
                 }
             }
 

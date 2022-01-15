@@ -111,7 +111,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     }
 
     //食感などのパラメータのバフ これのみ、ゲームスタート前に一度読み込む可能性あるので、アイテムリストを取得
-    public int Buf_OkashiParamUp_Keisan(int _status)
+    public int Buf_OkashiParamUp_Keisan(int _status, string _itemType_sub)
     {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -123,22 +123,108 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case 0: //さくさく感のバフ
 
                 // かまどレベルによるバフ
-                if (pitemlist.KosuCount("gold_oven") >= 1) //持ってるだけで効果アップ
+                switch (_itemType_sub)
                 {
-                    _buf_shokukanup += 100;
+                    case "Bread":
+
+                        OvenBuf();
+                        break;
+
+                    case "Cookie":
+
+                        OvenBuf();
+                        break;
+
+                    case "Cookie_Mat":
+
+                        OvenBuf();
+                        break;
+
+                    case "Rusk":
+
+                        OvenBuf();
+                        break;
                 }
-                else
-                {
-                    if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
-                    {
-                        _buf_shokukanup += 50;
-                    }
-                }
-                return _buf_shokukanup;
                 
+                return _buf_shokukanup;
+
+            case 1: //ふわふわ感のバフ
+
+                // かまどレベルによるバフ
+                switch (_itemType_sub)
+                {
+                    case "Creampuff":
+
+                        OvenBuf();
+                        break;
+
+                    case "Cake_Mat":
+
+                        OvenBuf();
+                        break;
+
+                    case "Financier":
+
+                        OvenBuf();
+                        break;
+
+                    case "Maffin":
+
+                        OvenBuf();
+                        break;
+
+                    case "Castella":
+
+                        OvenBuf();
+                        break;
+                }
+
+                return _buf_shokukanup;
+
+            case 2: //なめらか感のバフ
+
+                break;
+
+            case 3: //歯ごたえ感のバフ
+
+                // かまどレベルによるバフ
+                switch (_itemType_sub)
+                {
+                    case "Biscotti":
+
+                        OvenBuf();
+                        break;
+
+                    case "Cookie_Hard":
+
+                        OvenBuf();
+                        break;
+                }
+
+                return _buf_shokukanup;
         }
 
         return 0; //なにもない場合や例外は0
+    }
+
+    void OvenBuf()
+    {
+        // かまどレベルによるバフ
+        if (PlayerStatus.player_kamado_lv >= 3) //持ってるだけで効果アップ
+        {
+            _buf_shokukanup += 150;
+        }
+        else
+        {
+            if (PlayerStatus.player_kamado_lv >= 2) //持ってるだけで効果アップ
+            {
+                _buf_shokukanup += 75;
+            }
+            else
+            {
+                _buf_shokukanup = 0;
+            }
+        }
     }
 
     //メイン調合シーンで確認する

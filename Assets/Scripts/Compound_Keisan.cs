@@ -1373,7 +1373,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
-        _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0); //中の数字でどの食感パラムかの指定
+        _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType_sub); //中の数字でどの食感パラムかの指定
+        _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType_sub);
+        _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType_sub);
+        _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType_sub);
     }
 
 

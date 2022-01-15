@@ -256,13 +256,13 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     public int ReturnItemKosu(string itemName)
     {
         _total_kosu = 0;
-        _total_kosu += playeritemlist[itemName];       
+        _total_kosu += playeritemlist[itemName];
 
-            //オリジナルアイテムリストも見る。
+        //オリジナルアイテムリストも見る。
 
-            for (i=0; i < player_originalitemlist.Count; i++)
+        for (i = 0; i < player_originalitemlist.Count; i++)
         {
-            if( player_originalitemlist[i].itemName == itemName)
+            if (player_originalitemlist[i].itemName == itemName)
             {
                 if (player_originalitemlist[i].ItemKosu > 0)
                 {
@@ -270,8 +270,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 }
             }
         }
-        
-        return _total_kosu; //0個　持っていないときは、9999がかえる。
+
+        return _total_kosu; //0個　持っていないときは、0
     }
 
     //アイテムリストに、名前をいれると、アイテムリスト・オリジナルアイテムリストのどちらかに所持していた場合は、削除するメソッド

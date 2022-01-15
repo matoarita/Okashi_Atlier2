@@ -205,7 +205,7 @@ public class AAA_TotalResult : MonoBehaviour {
         panel3_anim_start = false;
 
         //** デバッグ用 **/
-        DebugParam();
+        //DebugParam();
         // *** //
 
         //★エンディング　各スコアの計算　重要
@@ -597,31 +597,31 @@ public class AAA_TotalResult : MonoBehaviour {
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title1");
                 GameMgr.SetTitleCollectionFlag("title1", true);
             }
-            else if (total_score >= 400 && total_score < 1000)
+            else if (total_score >= 400 && total_score < 800)
             {
                 _rank = "C";
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title3");
                 GameMgr.SetTitleCollectionFlag("title3", true);
             }
-            else if (total_score >= 1000 && total_score < 1500)
+            else if (total_score >= 800 && total_score < 1200)
             {
                 _rank = "B";
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title4");
                 GameMgr.SetTitleCollectionFlag("title4", true);
             }
-            else if (total_score >= 1500 && total_score < 2200)
+            else if (total_score >= 1200 && total_score < 1500)
             {
                 _rank = "A";
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title5");
                 GameMgr.SetTitleCollectionFlag("title5", true);
             }
-            else if (total_score >= 2200 && total_score < 3000)
+            else if (total_score >= 1500 && total_score < 2000)
             {
                 _rank = "S";
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title6");
                 GameMgr.SetTitleCollectionFlag("title6", true);
             }
-            else if (total_score >= 3000)
+            else if (total_score >= 2000)
             {
                 _rank = "SS";
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title7");

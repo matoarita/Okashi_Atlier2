@@ -300,7 +300,8 @@ public class GetMaterial : MonoBehaviour
                 //moneyStatus_Controller.UseMoney(mat_cost);
 
                 //日数の経過
-                PlayerStatus.player_time += 6; //場所に関係なく、一回とるごとに30分
+                //PlayerStatus.player_time += 6; //場所に関係なく、一回とるごとに30分
+                time_controller.SetMinuteToHour(6);
                 time_controller.TimeKoushin();
 
                 //妹の体力消費 一回の行動でマップに応じた量減る。
@@ -421,6 +422,11 @@ public class GetMaterial : MonoBehaviour
                     case "HimawariHill":
 
                         event_HimawariHill();
+                        break;
+
+                    case "CatGrave":
+
+                        event_CatGrave();
                         break;
 
                     default:
@@ -1045,8 +1051,72 @@ public class GetMaterial : MonoBehaviour
         }*/
     }
 
-    //レアイベント関係
+    //ねこのお墓
+    void event_CatGrave()
+    {
+        random = Random.Range(0, 10);
 
+        switch (random)
+        {
+            case 0:
+
+                random_param = Random.Range(3, 10);
+                _text.text = "木漏れ日があったかいね～。にいちゃん！" + "\n" + "妹は、ひなたぼっこをしている。ハートが " + GameMgr.ColorPink + random_param + "</color>" + "上がった！";
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                break;
+
+            case 1:
+
+                _text.text = "あ、にいちゃん！　あそこにくろねこ、いるよ～！" + "\n" + "妹は、目をキラキラさせながら凝視している。";
+                break;
+
+            case 2:
+
+                random_param = Random.Range(2, 6);
+                _text.text = "にいちゃん～。ねこさんのおはか、お参りしていこ～！" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </ color > " + "上がった！";
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                break;
+
+            case 3:
+
+                event_itemGet03();
+                break;
+
+            case 4:
+
+                _text.text = "ねこ～♪　ねこ～♪" + "\n" + "妹は、ねこたちを追っかけまわしている。";
+                break;
+
+            case 5:
+
+                random_param = Random.Range(2, 6);
+                _text.text = "くん..。くん..。にいちゃん！　このくだもの.. おいしいよ♪　シャリシャリ。" + "\n" + "最大体力が " + GameMgr.ColorPink + random_param + " </ color > " + "上がった！";
+                PlayerStatus.player_girl_maxlifepoint += random_param;
+                break;
+
+            case 6:
+
+                event_itemGet04();
+                break;
+
+            default:
+
+                _text.text = "うわ..！にいちゃん。ねこちゃんのフン、ふんじゃった..。" + "\n" + "体力が２下がった。";
+                GirlLifeDegKeisan(2);
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+
+
+    //レアイベント関係
     void rare_event_Forest()
     {
         random = Random.Range(0, 10);

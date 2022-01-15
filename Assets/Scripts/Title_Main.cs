@@ -126,6 +126,7 @@ public class Title_Main : MonoBehaviour {
 
     public void OnGalleryButton()
     {
+        FadeManager.Instance.fadeColor = new Color(1.0f, 1.0f, 1.0f);
         FadeManager.Instance.LoadScene("200_Omake", 0.3f);
     }
 

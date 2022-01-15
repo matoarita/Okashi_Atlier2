@@ -17,7 +17,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private ItemMatPlaceDataBase matplace_database; //マップのオンフラグ
     private ExtremePanel extreme_panel; //エクストリームパネルに登録したものがあった場合は、そのアイテムも表示されるように。
     private ItemShopDataBase shop_database;
-    private QuestSetDataBase quest_setdatabase;
+    private QuestSetDataBase quest_database;
 
     //保存するものリスト　ここまで
 
@@ -85,7 +85,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //味パラメータ初期化
         compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
 
-        quest_setdatabase = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+        quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
     }
 	
 	// Update is called once per frame
@@ -199,7 +199,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //日付・フラグ関係
             save_player_day = PlayerStatus.player_day, //現在の日付
-            save_player_time = PlayerStatus.player_time, //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
+            //save_player_time = PlayerStatus.player_time, //現在の時刻
+            save_player_cullent_hour = PlayerStatus.player_cullent_hour, //現在の時間
+            save_player_cullent_minute = PlayerStatus.player_cullent_minute, //現在の分
 
             save_First_recipi_on = PlayerStatus.First_recipi_on,
             save_First_extreme_on = PlayerStatus.First_extreme_on,
@@ -338,7 +340,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //save_itemCompodatabase = _temp_cmpflaglist,
 
             //今うけてるクエストを保存する。
-            save_questTakeset = quest_setdatabase.questTakeset,
+            save_questTakeset = quest_database.questTakeset,
 
             //マップフラグリスト
             save_mapflaglist = _tempmap_placeflaglist,
@@ -425,7 +427,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //日付・フラグ関係
         PlayerStatus.player_day = playerData.save_player_day; //現在の日付
-        PlayerStatus.player_time = playerData.save_player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
+        //PlayerStatus.player_time = playerData.save_player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
+        PlayerStatus.player_cullent_hour = playerData.save_player_cullent_hour; //現在の時間
+        PlayerStatus.player_cullent_minute = playerData.save_player_cullent_minute; //現在の分
 
         PlayerStatus.First_recipi_on = playerData.save_First_recipi_on;
         PlayerStatus.First_extreme_on = playerData.save_First_extreme_on;
@@ -619,9 +623,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }*/
         
 
-        //今うけてるクエストを保存する。
-        quest_setdatabase.questTakeset.Clear();
-        quest_setdatabase.questTakeset = playerData.save_questTakeset;
+        //今うけてるクエストをロード。
+        quest_database.questTakeset.Clear();
+        quest_database.questTakeset = playerData.save_questTakeset;
+
+        //テクスチャのデータは入れ直し。
+        for (i = 0; i < quest_database.questTakeset.Count; i++)
+        {
+            quest_database.ResetSpriteTex(i);
+        }
 
         //マップフラグの読み込み
         for (i = 0; i < playerData.save_mapflaglist.Count; i++)
@@ -793,6 +803,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //各ショップのイベントアイテムの在庫の初期化
         shop_database.ShopZaiko_Reset();
+
+        //受けていた酒場クエストのリセット
+        quest_database.ResetQuestTakeSet();
     }
 
     //ロードの準備
@@ -891,7 +904,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             save_saveOK = GameMgr.saveOK,
             save_ending_count = GameMgr.ending_count,
-            
+
+            //オートセーブフラグ
+            save_Autosave_ON = GameMgr.AUTOSAVE_ON,
+
             save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
 
             //コスチューム番号
@@ -909,6 +925,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //アイテムの前回得点
             save_itemdatabase = _temp_itemscorelist,
+
+            //衣装などのサブイベントのフラグ
+            save_GirlLoveSubEvent_stage1_system = GameMgr.GirlLoveSubEvent_stage1,
 
             //称号リストを記録する
             save_titlecollectionlist = _temp_titlecollectionlist,
@@ -964,7 +983,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //
             GameMgr.saveOK = systemData.save_saveOK;
             GameMgr.ending_count = systemData.save_ending_count;
-            
+
+            //オートセーブフラグ
+            GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
+
             PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
             
             //コスチューム番号
@@ -1029,6 +1051,18 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             }
 
+            //衣装などのサブイベントのフラグのみ引継ぎ
+            for (i = 0; i < systemData.save_GirlLoveSubEvent_stage1_system.Length; i++)
+            {
+                if (i >= 70 && i < 80)
+                {
+                    GameMgr.GirlLoveSubEvent_stage1[i] = systemData.save_GirlLoveSubEvent_stage1_system[i];
+                }
+                if (i >= 100 && i < 110)
+                {
+                    GameMgr.GirlLoveSubEvent_stage1[i] = systemData.save_GirlLoveSubEvent_stage1_system[i];
+                }
+            }
 
             //称号リスト
             for (count = 0; count < systemData.save_titlecollectionlist.Count; count++)

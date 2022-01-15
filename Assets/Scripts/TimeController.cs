@@ -43,6 +43,8 @@ public class TimeController : MonoBehaviour
     private List<int> calender = new List<int>();
     private int _cullent_day;
     private int _cullent_time;
+    private int _cullent_hour;
+    private int _cullent_minute;
     private int _stage_limit_day;
     private int month, day;
     private int hour, minute;
@@ -52,7 +54,6 @@ public class TimeController : MonoBehaviour
     public int timeIttei; //表示用にpublicにしてるだけ。
     public bool timeDegHeart_flag; //表示用にpublicにしてるだけ。
 
-    public int max_time;
     private int count;
 
     private float timeLeft;
@@ -62,6 +63,8 @@ public class TimeController : MonoBehaviour
 
     public bool TimeCheck_flag; //調合メインメソッドのトップ画面で起動開始
 
+    private GameObject DebugTimecountUp_button;
+    private GameObject DebugTimecountDown_button;
 
     // Use this for initialization
     void Start()
@@ -140,9 +143,8 @@ public class TimeController : MonoBehaviour
         _time_obj2_limit = this.transform.Find("TimeHyouji_2/NokoriTimeParam").gameObject;
         _time_limit2 = _time_obj2_limit.GetComponent<Text>();
 
-        _cullent_day = PlayerStatus.player_day;
-
-        max_time = 12; //1時間単位
+        DebugTimecountUp_button = this.transform.Find("TimeHyouji_2/TimeCountUpButton").gameObject;
+        DebugTimecountDown_button = this.transform.Find("TimeHyouji_2/TimeCountDownButton").gameObject;
 
         timeLeft = 1.0f;
         count_switch = true;
@@ -192,9 +194,6 @@ public class TimeController : MonoBehaviour
             }
         }
 
-        
-       
-
         if (count_switch)
         {
             //表示
@@ -207,16 +206,45 @@ public class TimeController : MonoBehaviour
             //表示
             _time_count1.text = " ";
             _time_count2.text = " ";
+        }
 
-            //money_counter = false; //お金減る
+        if (GameMgr.DEBUG_MODE)
+        {
+            DebugTimecountUp_button.SetActive(true);
+            DebugTimecountDown_button.SetActive(true);
+        }
+        else
+        {
+            DebugTimecountUp_button.SetActive(false);
+            DebugTimecountDown_button.SetActive(false);
         }
     }
 
+    //現在の月日・現在時刻を計算する。また、イベントチェックも行う。
     public void TimeKoushin()
     {
         
         if (GameMgr.TimeUSE_FLAG) //TRUEのときは使用。オフにするときは、TimePanelのゲームオブジェクトもオフにする。
         {
+
+            /* 時刻の計算 */
+
+            //現在時刻を計算 この時点で、25時 ○○分とかの可能性もあり。そのときに、player_dayへの変換もする。
+            TimeKeisan();
+
+            //表示
+            _time_hour1.text = PlayerStatus.player_cullent_hour.ToString("00");
+            _time_minute1.text = PlayerStatus.player_cullent_minute.ToString("00");
+            _time_hour2.text = PlayerStatus.player_cullent_hour.ToString("00");
+            _time_minute2.text = PlayerStatus.player_cullent_minute.ToString("00");
+
+            //** 時刻の計算　ここまで **//
+
+
+            //
+            /* 月日の計算 */
+            //
+
             InitParam();
 
             //プレイヤーデイを基に、カレンダーの日付に変換。
@@ -228,6 +256,8 @@ public class TimeController : MonoBehaviour
             _cullent_day = PlayerStatus.player_day;
             month = 0;
             day = 0;
+
+            /*現在は未使用 */
 
             switch (GameMgr.stage_number)
             {
@@ -252,6 +282,8 @@ public class TimeController : MonoBehaviour
             _time_limit1.text = (_stage_limit_day - _cullent_day).ToString() + "日";
             _time_limit2.text = (_stage_limit_day - _cullent_day).ToString() + "日";
 
+            //** ここの間は未使用 **//
+
             count = 0;
             while (count < calender.Count)
             {
@@ -269,20 +301,38 @@ public class TimeController : MonoBehaviour
             PlayerStatus.player_cullent_month = month;
             PlayerStatus.player_cullent_day = day;
 
-
             //表示
             _month_text1.text = month.ToString();
             _day_text1.text = day.ToString();
             _day_text2.text = month.ToString() + "/" + day.ToString();
 
-            //時間を計算
-            TimeKeisan();
+            //** 月日の計算　ここまで **//
 
-            //表示
-            _time_hour1.text = hour.ToString("00");
-            _time_minute1.text = minute.ToString("00");
-            _time_hour2.text = hour.ToString("00");
-            _time_minute2.text = minute.ToString("00");
+
+            //時刻と月日の計算後にイベントチェック
+
+            //20時を超えた場合、寝るなどのイベント発生チェック
+            if (PlayerStatus.player_cullent_hour >= GameMgr.EndDay_hour) //20時をこえた
+            {
+                DayEndEvent();               
+            }
+            else if(PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < GameMgr.StartDay_hour) //深夜1時～朝8時未満
+            {
+                DayEndEvent();
+            }
+        }
+    }
+
+    void DayEndEvent()
+    {
+        //一日が経った。
+        if (TimeCheck_flag) //Compound_MainでTimeCheck_flagをtrueにしている。
+        {
+            TimeCheck_flag = false;
+
+            //寝るイベントが発生
+            GameMgr.sleep_status = 0;
+            compound_main.OnSleepReceive();
         }
     }
 
@@ -290,65 +340,84 @@ public class TimeController : MonoBehaviour
     {
         //Debug.Log("時間の更新");
 
-        //時間を計算
-        _cullent_time = PlayerStatus.player_time;
-        hour = 8; //8時始まり
-        minute = 0;
-
-        //10分刻みなので、6ごとに時間を+1 5分刻みなら12ごとに時間を+1
         count = 0;
-        while (_cullent_time > 0)
-        {
-            if (_cullent_time >= 12)
-            {
-                hour++;
-                _cullent_time -= 12;
-                ++count;
 
-                if (hour > 24 )
+        //まず、分を時間と分に変換。
+        if (PlayerStatus.player_cullent_minute >= 0)
+        {
+            _cullent_minute = PlayerStatus.player_cullent_minute;
+
+            //60分で1時間に変換            
+            while (_cullent_minute > 0) //
+            {
+                if (_cullent_minute >= 60)
                 {
-                    PlayerStatus.player_day++;
-                    hour = 0; //0時にリセット
+                    _cullent_minute -= 60;
+                    count++;
+                }
+                else //その月の日付
+                {
+                    break;
                 }
             }
-            else //その月の日付
-            {
-                minute = _cullent_time * 5; //残り時間 * 10分
-                _cullent_time = 0;
-                break;
-            }
+        }
+        else if(PlayerStatus.player_cullent_minute < 0) //SetMinuteでもしマイナスの分になっていた場合は、ここで正常な時間と分に戻す。SetMinuteの調整で、-60分とかにはならない。
+        {
+            _cullent_minute = PlayerStatus.player_cullent_minute;
+
+            count--;
+            _cullent_minute = 60 - Mathf.Abs(_cullent_minute);
+        }
+
+        PlayerStatus.player_cullent_hour += count;
+        PlayerStatus.player_cullent_minute = _cullent_minute;
+
+        //次にcullent_hourを、日と時間に変換  ○○時(49時とか78時などの可能性もある）を日数に変換し、日数加算と24時間以内の時間に直す。
+
+        count = 0;
+        //24時間で1日がたつ
+        if (PlayerStatus.player_cullent_hour >= 0) //
+        {
+            _cullent_hour = PlayerStatus.player_cullent_hour;
             
-        }
-
-        PlayerStatus.player_cullent_hour = hour;
-        PlayerStatus.player_cullent_minute = minute;
-        Debug.Log("現在時刻: " + PlayerStatus.player_cullent_hour + ": " + PlayerStatus.player_cullent_minute);
-
-        if (count >= max_time)
-        {
-            //一日が経った。
-            if (TimeCheck_flag) //Compound_MainでTimeCheck_flagをtrueにしている。
+            while (_cullent_hour > 0) //
             {
-                TimeCheck_flag = false;
-
-                //寝るイベントが発生
-                GameMgr.sleep_status = 0;
-                compound_main.OnSleepReceive();
-
-                //もし、材料採取などしていたら、別でイベントを発生し、家に戻す。か、無視。
-
-                /*
-                PlayerStatus.player_time = _cullent_time;
-                PlayerStatus.player_day++;
-
-                if (_cullent_time > 0)
+                if (_cullent_hour >= 24)
                 {
-                    //さらに日数計算。
-                    TimeKeisan();
+                    _cullent_hour -= 24;
+                    count++;
                 }
-                */
+                else //その月の日付
+                {
+                    break;
+                }
             }
         }
+        if (PlayerStatus.player_cullent_hour < 0) //-1時とかになった場合の計算
+        {
+            _cullent_hour = PlayerStatus.player_cullent_hour;
+
+            while (_cullent_hour < 0) //
+            {
+                if (_cullent_hour <= -24)
+                {
+                    _cullent_hour += 24;
+                    count--;
+                }
+                else //その月の日付
+                {
+                    count--;
+                    _cullent_hour = 24 - Mathf.Abs(_cullent_hour);
+                    break;
+                }
+            }
+        }
+
+        PlayerStatus.player_day += count;
+        PlayerStatus.player_cullent_hour = _cullent_hour; //残った時　多分、深夜1時とかになるはず。15時とかならそのまま15時
+
+        Debug.Log("現在時刻: " + PlayerStatus.player_cullent_hour + ": " + PlayerStatus.player_cullent_minute);
+       
     }
 
     //他のスクリプトから寝るを選択
@@ -474,5 +543,125 @@ public class TimeController : MonoBehaviour
                 }
             }
         }
+    }
+
+    //入力された分単位の時間を、時間と分にわけて、現在の時間に加算する。マイナスの場合、引き算する。
+    public void SetMinuteToHour(int _m)
+    {
+        if (_m >= 0)
+        {
+            minute = 0;
+            hour = 0;
+            //現在5分刻みで計算
+            //10分刻みなので、6ごとに時間を+1 5分刻みなら12ごとに時間を+1
+
+            while (_m > 0) //
+            {
+                if (_m >= 12)
+                {
+                    _m -= 12;
+                    hour++;
+                }
+                else //12より下なら、分のみで、時間は計算いらない。
+                {
+                    minute = _m * 5; //残り時間 * 10分
+                    _m = 0;
+                    break;
+                }
+            }
+
+            //入力された分を、時間と分に直し加算する。
+            PlayerStatus.player_cullent_hour += hour;
+            PlayerStatus.player_cullent_minute += minute;
+        }
+        else
+        {
+            minute = 0;
+            hour = 0;
+
+            while (_m < 0) //
+            {
+                if (_m <= -12)
+                {
+                    _m += 12;
+                    hour--;
+                }
+                else //
+                {
+                    minute = _m * 5; //巻き戻し時間をだす。マイナスになるかも。
+                    _m = 0;
+                    break;
+                }
+            }
+
+            //入力された分を、時間と分に直し加算する。
+            PlayerStatus.player_cullent_hour += hour;
+            PlayerStatus.player_cullent_minute += minute;
+        }
+    }
+
+    //入力された分単位の時間を、時間と分にわけて、現在の時間に加算し、予測時間をだす。実際の加算はしない。Returnは時間のみ。
+    public int YosokuMinuteToHour(int _m)
+    {
+        _cullent_hour = PlayerStatus.player_cullent_hour;
+        _cullent_minute = PlayerStatus.player_cullent_minute;
+
+        minute = 0;
+        hour = 0;
+        //現在5分刻みで計算
+        //10分刻みなので、6ごとに時間を+1 5分刻みなら12ごとに時間を+1
+
+        while (_m > 0) //
+        {
+            if (_m >= 12)
+            {
+                _m -= 12;
+                hour++;
+            }
+            else //12より下なら、分のみで、時間は計算いらない。
+            {
+                minute = _m * 5; //残り時間 * 10分
+                _m = 0;
+                break;
+            }
+        }
+
+        //入力された分を、時間と分に直し加算する。
+        _cullent_hour += hour;
+        _cullent_minute += minute;
+
+
+        //さらに、60分をこえてるかどうかをちぇっくし、時間に変換
+
+        //60分で1時間に変換   
+        count = 0;
+        while (_cullent_minute > 0) //
+        {
+            if (_cullent_minute >= 60)
+            {
+                _cullent_minute -= 60;
+                count++;
+            }
+            else //その月の日付
+            {
+                break;
+            }
+        }
+
+        _cullent_hour += count;
+
+        return _cullent_hour;
+    }
+
+    public void OnDebugTimeCountUpButton()
+    {
+        SetMinuteToHour(6); //+30分
+        TimeKoushin();
+    }
+
+    public void OnDebugTimeCountDownButton()
+    {
+        SetMinuteToHour(-6); //-30分
+        TimeKoushin();
     }
 }

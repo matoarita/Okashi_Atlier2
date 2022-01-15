@@ -335,4 +335,15 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc));
     }
+
+    public void ResetQuestTakeSet()
+    {
+        questTakeset.Clear();
+    }
+
+    public void ResetSpriteTex(int _count)
+    {
+        _filename = questTakeset[_count].Quest_FileName;
+        questTakeset[_count].ResetSprite(_filename);
+    }
 }

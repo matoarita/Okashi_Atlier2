@@ -180,6 +180,46 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(34);
                 break;
 
+            case "CGgelleryButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "SpecialTitleButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "ContestClearButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
+            case "RecipiBookButton": //メモ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(34);
+                break;
+
             case "itemSelectToggle(Clone)": //アイテム欄で、アイテム選択するときの音
 
                 //ポインタが入ったときに鳴る音
@@ -479,6 +519,15 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音。
                 SE_point_click(0);
+                break;
+
+            case "AutoSaveToggle":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                //SE_point_click(0);
                 break;
 
             case "MainUIOpenButton":
