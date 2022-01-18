@@ -130,11 +130,18 @@ public class RecipiListController : MonoBehaviour {
             category_toggle[i].GetComponent<Toggle>().isOn = false;
             category_toggle[i].SetActive(true);
         }
-        
 
-        switch(GameMgr.compound_select)
+        //初期位置
+        //this.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
+        //this.transform.localPosition = new Vector3(-105, 80, 0);
+
+        switch (GameMgr.compound_select)
         {
             case 1:
+
+                //初期位置
+                this.transform.localScale = new Vector3(0.7f, 0.7f, 1.0f);
+                this.transform.localPosition = new Vector3(-105, 75, 0);
 
                 category_toggle[0].SetActive(false);
                 category_toggle[1].GetComponent<Toggle>().isOn = true;
@@ -145,6 +152,10 @@ public class RecipiListController : MonoBehaviour {
 
             case 60:
 
+                //初期位置
+                this.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
+                this.transform.localPosition = new Vector3(0, 75, 0);
+
                 no_button.SetActive(true);
 
                 category_toggle[1].SetActive(false);
@@ -152,6 +163,19 @@ public class RecipiListController : MonoBehaviour {
                 
                 reset_and_DrawView();
                 recipititle.text = "レシピブック";
+                break;
+
+            case 3000: //オマケで開く場合
+
+                //初期位置
+                this.transform.localScale = new Vector3(0.85f, 0.85f, 1.0f);
+                this.transform.localPosition = new Vector3(0, 40, 0);
+
+                category_toggle[0].SetActive(false);
+                category_toggle[1].GetComponent<Toggle>().isOn = true;
+
+                reset_and_DrawView_Okashi();
+                recipititle.text = "お菓子手帳";
                 break;
         }
 

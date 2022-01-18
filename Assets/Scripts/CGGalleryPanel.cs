@@ -161,6 +161,7 @@ public class CGGalleryPanel : MonoBehaviour {
             if (GameMgr.event_collection_list[_count - 1 + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
             {
                 eventlist_List[i].GetComponent<Button>().interactable = false;
+                eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = false;
             }
         }
 
@@ -177,6 +178,7 @@ public class CGGalleryPanel : MonoBehaviour {
             if (GameMgr.event_collection_list[_count - 1 + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
             {
                 eventlist_List[i].GetComponent<Button>().interactable = true;
+                eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = true;
             }
         }
 

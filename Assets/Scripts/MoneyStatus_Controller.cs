@@ -131,9 +131,9 @@ public class MoneyStatus_Controller : MonoBehaviour {
         _before_pmoney = PlayerStatus.player_money;
         PlayerStatus.player_money += _getmoney;
 
-        if(PlayerStatus.player_money >= 1000000)
+        if(PlayerStatus.player_money >= 999999)
         {
-            PlayerStatus.player_money = 1000000;
+            PlayerStatus.player_money = 999999;
         }
 
         timeOut = 0.1f;

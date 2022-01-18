@@ -107,8 +107,9 @@ public class Title_Main : MonoBehaviour {
 
     public void OnStartButton()
     {
-        save_controller.ResetAllParam();
-        save_controller.SystemloadCheck(); //システムデータロード
+        save_controller.ResetAllParam(); //まず全てのパラメータを初期化
+        save_controller.SystemloadCheck(); //システムデータロード　お菓子手帳やED回数など引継ぎデータはロード
+        save_controller.ResetParamSecondTime();//いくつかのパラメータは、システムロード後に、またリセットする。食べた回数など。
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene("010_Prologue", 0.3f);
     }

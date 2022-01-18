@@ -552,10 +552,16 @@ public class Debug_Panel : MonoBehaviour {
 
         PlayerStatus.girl1_Love_exp = 0;
 
+        if(_girllove_param >= girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count-1])
+        {
+            _girllove_param = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
+        }
+
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
             canvas = GameObject.FindWithTag("Canvas");
 
+            //Debug.Log("_girllove_param: " + _girllove_param);
             GirlloveParamKoushinMethod(_girllove_param);                      
         }
         else
@@ -623,7 +629,7 @@ public class Debug_Panel : MonoBehaviour {
                 for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
                 {
                     stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                    //Debug.Log("stage1_levelTable: " + stage_levelTable[i]);
+                    //Debug.Log("stage1_levelTable: " + "次のLv" + (i+2) + " " + stage_levelTable[i]);
                 }
 
                 break;
@@ -654,6 +660,11 @@ public class Debug_Panel : MonoBehaviour {
             //_girllove_param -= stage_levelTable[i];
             PlayerStatus.girl1_Love_lv++;
             i++;
+
+            if(PlayerStatus.girl1_Love_lv >= 99)
+            {
+                break;
+            }
         }
 
         //スライダマックスバリューも更新

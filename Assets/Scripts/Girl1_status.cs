@@ -3803,13 +3803,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         stage1_lvTable.Add(1350); //LV14
         stage1_lvTable.Add(1500); //LV15
 
-        _hlv_last = 15;
+        _hlv_last = stage1_lvTable.Count;
         //LV16以上～99まで　ハートレベル*110ごとに上がるように設定
-        for (i=1; i < ( 99 - stage1_lvTable.Count); i++)
+        for (i=1; i < ( 99 - _hlv_last); i++)
         {
-            //stage1_lvTable.Add(stage1_lvTable[stage1_lvTable.Count-1] + 150);
-            stage1_lvTable.Add((_hlv_last+i) * 110);
+            stage1_lvTable.Add((_hlv_last+i) * 100);           
         }
+        stage1_lvTable[stage1_lvTable.Count - 1] = 9999; //最後だけ9999
+
+        //デバッグ用
+        /*for (i = 0; i < stage1_lvTable.Count; i++)
+        {
+            Debug.Log("stage1_levelTable: " + "次のLv" + (i+2) + " " + stage1_lvTable[i]);
+        }
+        Debug.Log("stage1_lvTable.Count: " + stage1_lvTable.Count);*/
     }
 
     //レベルをいれると、それまでに必要な経験値の合計を返すメソッド レベルは１始まり

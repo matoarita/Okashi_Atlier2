@@ -10,12 +10,16 @@ public class GalleryPanel : MonoBehaviour {
     private GameObject CGGallery_panel;
 
     private GameObject canvas;
+    private SoundController sc;
 
     // Use this for initialization
     void Start () {
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         Omake_Main = GameObject.FindWithTag("Omake_Main");
         CGGallery_panel = canvas.transform.Find("CGGalleryPanel").gameObject;
@@ -35,5 +39,7 @@ public class GalleryPanel : MonoBehaviour {
 
         Omake_Main.GetComponent<Omake_Main>().ReadCGGallery();
         CGGallery_panel.GetComponent<CGGalleryPanel>().OffInteractPanel();
+
+        sc.PlaySe(2);
     }  
 }

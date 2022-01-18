@@ -16,6 +16,7 @@ public class AAA_TotalResult : MonoBehaviour {
 
     private PlayerItemList pitemlist;
     private SoundController sc;
+    private BGM sceneBGM;
 
     private GameObject canvas;
 
@@ -38,6 +39,10 @@ public class AAA_TotalResult : MonoBehaviour {
 
     private GameObject Effect_1;
     private GameObject Effect_2;
+
+    private GameObject BG_panel;
+    private GameObject BG_1;
+    private GameObject BG_2;
 
     private PlayableDirector playableDirector;
 
@@ -68,6 +73,7 @@ public class AAA_TotalResult : MonoBehaviour {
     private Text player_rankanim_text;
     private Text player_shogo_text;
     private string player_shogo;
+    private bool Live2Dexp_flag;
 
     private Sprite texture2d;
     private GameObject ClearImg_obj;
@@ -121,6 +127,14 @@ public class AAA_TotalResult : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
+        BG_panel = GameObject.FindWithTag("BG").gameObject;
+        BG_1 = BG_panel.transform.Find("Title_BG").gameObject;
+        BG_2 = BG_panel.transform.Find("Title_BG_Black").gameObject;
+        BG_2.SetActive(false);
 
         foreach (Transform child in canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/ED_View/Viewport/Content").transform) //
         {
@@ -203,6 +217,7 @@ public class AAA_TotalResult : MonoBehaviour {
         page_cullent = 1;
 
         panel3_anim_start = false;
+        Live2Dexp_flag = false;
 
         //** デバッグ用 **/
         //DebugParam();
@@ -235,7 +250,17 @@ public class AAA_TotalResult : MonoBehaviour {
 	void Update () {
 		
 	}
-    
+
+    private void LateUpdate()
+    {
+        if (Live2Dexp_flag)
+        {
+            Live2Dexp_flag = false;
+
+            Live2DExpression();
+        }
+    }
+
     //
     //** パネル１アクション **//
     //
@@ -640,7 +665,8 @@ public class AAA_TotalResult : MonoBehaviour {
 
     public void OnEndSceneButton()
     {
-        FadeManager.Instance.LoadScene("120_AutoSave", 0.3f);
+        sceneBGM.FadeOutBGM();
+        FadeManager.Instance.LoadScene("120_AutoSave", 2.0f);
     }
 
     public void OnNextButton()
@@ -715,6 +741,8 @@ public class AAA_TotalResult : MonoBehaviour {
             case 3:
 
                 Effect_1.SetActive(false);
+                BG_1.SetActive(true);
+                BG_2.SetActive(false);
 
                 TotalResult_panel3.SetActive(true);
 
@@ -725,13 +753,15 @@ public class AAA_TotalResult : MonoBehaviour {
                 else
                 {
                     _model_move.SetActive(true);
-                    Live2DExpression();
+                    Live2Dexp_flag = true; //Live2D表情変更。LateUpdateで行う。
                 }
                 break;
 
             case 4:
 
                 _model_move.SetActive(false);
+                BG_1.SetActive(false);
+                BG_2.SetActive(true);
                 break;
         }
     }
@@ -760,7 +790,8 @@ public class AAA_TotalResult : MonoBehaviour {
         //キャラアニメ
         chara_animator.SetInteger("trans_anim", 10);
 
-        Live2DExpression();     
+        Live2Dexp_flag = true; //Live2D表情変更。LateUpdateで行う。
+           
     }
 
     void Live2DExpression()
@@ -817,43 +848,15 @@ public class AAA_TotalResult : MonoBehaviour {
 
             case 3:
 
-                _hukidashi_content = "おにいちゃん！" + "\n" + "遊んでくれてありがと～！" + "\n" + "..でもまだ、真の結末があるみたいだよ！";
+                _hukidashi_content = "おにいちゃん！" + "\n" + "いっしょにいてくれて、うれしいな～！" + "\n" + "..でもまだ、真の結末があるみたいだよ！？";
                 break;
 
             case 4:
 
-                _hukidashi_content = "にいちゃん、ヒカリを元気にしてくれて、ありがとう！" + "\n" + "大好きだよ.. にいちゃん！！" + "\n" + "次..また会いたいな～♪";
+                _hukidashi_content = "にいちゃん、ヒカリのハートいっぱいにしてくれて、ありがとう！" + "\n" + "にいちゃんのこと、だ～いすき！！！！" + "\n" + "..また遊びたいな～♪";
                 break;
         }
 
-        /*
-        switch (_rank)
-        {
-            case "F":
-                break;
-
-            case "D":
-                break;
-
-            case "C":
-                break;
-
-            case "B":
-                break;
-
-            case "B+":
-                break;
-
-            case "A":
-                break;
-
-            case "S":
-                break;
-
-            case "SS":
-
-                break;
-        }*/
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

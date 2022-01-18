@@ -2692,6 +2692,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         heart_count = _Getlove_param;
         _sumlove = PlayerStatus.girl1_Love_exp + _Getlove_param;
+        if(_sumlove >= girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count-1]) //カンスト
+        {
+            _sumlove = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
+        }
         //Debug.Log("heart_count: " + heart_count);
 
         //ハートのインスタンスを、獲得好感度分だけ生成する。
@@ -2902,7 +2906,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
 
         //好感度　取得分増加
-        PlayerStatus.girl1_Love_exp += _getloveparam;
+        if (PlayerStatus.girl1_Love_lv >= 99)
+        {
+            PlayerStatus.girl1_Love_exp = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
+        }
+        else
+        {
+            PlayerStatus.girl1_Love_exp += _getloveparam;
+        }
 
         //テキストも更新
         girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
@@ -2918,33 +2929,40 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //ハートがゲージに衝突した時に、このメソッドが呼び出される。
     public void GetHeartValue()
     {
-        //スライダにも反映
-        _slider.value++;
-        _tempGirllove++;
-       
-        if (_sumlove <= _tempGirllove)
+        if (PlayerStatus.girl1_Love_lv >= 99) //カンスト
         {
             girl_param.text = _sumlove.ToString();
         }
         else
         {
-            girl_param.text = _tempGirllove.ToString();
-        }
-        
+            //スライダにも反映
+            _slider.value++;
+            _tempGirllove++;
 
-        //現在のスライダ上限に好感度が達したら、次のレベルへ。
-        if (_slider.value >= _slider.maxValue)
-        {
-            PlayerStatus.girl1_Love_lv++;           
+            if (_sumlove <= _tempGirllove)
+            {
+                girl_param.text = _sumlove.ToString();
+            }
+            else
+            {
+                girl_param.text = _tempGirllove.ToString();
+            }
 
-            //Maxバリューを再設定
-            Love_Slider_Setting();            
 
-            //分かりやすくするように、レベルアップ時のパネルも表示
-            _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+            //現在のスライダ上限に好感度が達したら、次のレベルへ。
+            if (_slider.value >= _slider.maxValue)
+            {
+                PlayerStatus.girl1_Love_lv++;
 
-            //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
-            exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、GirlEatJudgeから読むフラグ
+                //Maxバリューを再設定
+                Love_Slider_Setting();
+
+                //分かりやすくするように、レベルアップ時のパネルも表示
+                _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+
+                //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
+                exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、GirlEatJudgeから読むフラグ
+            }
         }
 
         //エフェクト
@@ -3086,8 +3104,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             _slider.minValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 2];
         }
-        
-        _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+
+        if (PlayerStatus.girl1_Love_lv >= 99)
+        {
+            _slider.maxValue = 99999; //Lv99でカンストしたときは、Lv100のMaxがないので、適当な数字に。
+        }
+        else
+        {
+            _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+        }
 
         girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
 

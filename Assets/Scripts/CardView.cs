@@ -40,6 +40,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private Vector3 _temp_nowpos;
     private Vector3 _temp_nowrot;
 
+    private float timeOut;
+
     private float speed;
     private List<Vector3> _now_cardpos = new List<Vector3>();
     private List<Vector3> _now_cardrot = new List<Vector3>();
@@ -47,6 +49,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private List<float> _diff_y = new List<float>();
     private List<float> radius = new List<float>();
     private List<Vector3> _diff_rot = new List<Vector3>();
+    private float rot_speed_x;
+    private float rot_speed_y;
+    private float rot_speed_z;
     private int _movetime;
     public bool cardcompo_anim_on;
 
@@ -67,6 +72,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         audioSource = GetComponent<AudioSource>();
 
         speed = 2.0f;
+        //timeOut = 1.0f / 60.0f;
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -108,73 +114,79 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         if (cardcompo_anim_on == true)
         {
-            for (i = 0; i < _cardImage_obj.Count; i++)
-            {
-                //位置の計算
-                _temp_nowpos = _now_cardpos[i];
+            //timeOut -= Time.deltaTime;
 
-                
-                if (_diff_x[i] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
+            //if (timeOut <= 0.0f)
+            //{
+                //timeOut = 1.0f / 60.0f;
+                for (i = 0; i < _cardImage_obj.Count; i++)
                 {
-                    if (_temp_nowpos.x <= 0)
+                    //位置の計算
+                    _temp_nowpos = _now_cardpos[i];
+
+
+                    if (_diff_x[i] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
                     {
-                        _temp_nowpos.x = 0;
+                        if (_temp_nowpos.x <= 0)
+                        {
+                            _temp_nowpos.x = 0;
+                        }
+                        else
+                        {
+                            _temp_nowpos.x += (_diff_x[i] * (-1.0f));
+                        }
                     }
-                    else
+                    else //こっちは負の場合
                     {
-                        _temp_nowpos.x += (_diff_x[i] * (-1.0f));
+                        if (_temp_nowpos.x >= 0)
+                        {
+                            _temp_nowpos.x = 0;
+                        }
+                        else
+                        {
+                            _temp_nowpos.x += (_diff_x[i] * (-1.0f));
+                        }
                     }
+
+                    if (_diff_y[i] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
+                    {
+                        if (_temp_nowpos.y <= 0)
+                        {
+                            _temp_nowpos.y = 0;
+                        }
+                        else
+                        {
+                            _temp_nowpos.y += (_diff_y[i] * (-1.0f));
+                            //_temp_nowpos.y = (_temp_nowpos.y - radius[i] * Mathf.Cos(Time.time * speed));
+                        }
+                    }
+                    else //こっちは負の場合
+                    {
+                        if (_temp_nowpos.y >= 0)
+                        {
+                            _temp_nowpos.y = 0;
+                        }
+                        else
+                        {
+                            _temp_nowpos.y += (_diff_y[i] * (-1.0f));
+                            //_temp_nowpos.y = (_temp_nowpos.y - radius[i] * Mathf.Cos(Time.time * speed));
+                        }
+                    }
+
+                    //位置の更新
+                    _now_cardpos[i] = _temp_nowpos;
+                    _cardImage_obj[i].transform.localPosition = _now_cardpos[i];
+
+
+                    //回転の更新
+                    _temp_nowrot = _now_cardrot[i];
+                    _temp_nowrot += _diff_rot[i] * (Time.deltaTime*10);
+                    _now_cardrot[i] = _temp_nowrot;
+
+                    _cardImage_obj[i].transform.localEulerAngles = _now_cardrot[i];
+
                 }
-                else //こっちは負の場合
-                {
-                    if (_temp_nowpos.x >= 0)
-                    {
-                        _temp_nowpos.x = 0;
-                    }
-                    else
-                    {
-                        _temp_nowpos.x += (_diff_x[i] * (-1.0f));
-                    }
-                }
-
-                if (_diff_y[i] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
-                {
-                    if (_temp_nowpos.y <= 0)
-                    {
-                        _temp_nowpos.y = 0;
-                    }
-                    else
-                    {
-                        _temp_nowpos.y += (_diff_y[i] * (-1.0f));
-                        //_temp_nowpos.y = (_temp_nowpos.y - radius[i] * Mathf.Cos(Time.time * speed));
-                    }
-                }
-                else //こっちは負の場合
-                {
-                    if (_temp_nowpos.y >= 0)
-                    {
-                        _temp_nowpos.y = 0;
-                    }
-                    else
-                    {
-                        _temp_nowpos.y += (_diff_y[i] * (-1.0f));
-                        //_temp_nowpos.y = (_temp_nowpos.y - radius[i] * Mathf.Cos(Time.time * speed));
-                    }
-                }
-
-                //位置の更新
-                _now_cardpos[i] = _temp_nowpos;                                
-                _cardImage_obj[i].transform.localPosition = _now_cardpos[i];
-
-
-                //回転の更新
-                _temp_nowrot = _now_cardrot[i];
-                _temp_nowrot += _diff_rot[i];
-
-                _now_cardrot[i] = _temp_nowrot;
-                _cardImage_obj[i].transform.localEulerAngles = _now_cardrot[i];
-
-            }
+            //}
         }
 
     }
@@ -799,7 +811,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
             //radius.Add(Mathf.Sqrt(_diff_pos.x * _diff_pos.x + _diff_pos.y * _diff_pos.y));
 
             //回転ランダム
-            _diff_rot.Add(new Vector3(Random.Range(0, 360)/30.0f, Random.Range(0, 360)/30.0f, Random.Range(0, 360)/30.0f));
+            rot_speed_x = Random.Range(0, 360) / Random.Range(1f, 36f);
+            rot_speed_y = Random.Range(0, 360) / Random.Range(1f, 36f);
+            rot_speed_z = Random.Range(0, 360) / Random.Range(1f, 36f);
+            _diff_rot.Add(new Vector3(rot_speed_x, rot_speed_y, rot_speed_z));
+            //Debug.Log("rot_speed_x, y, z: " + rot_speed_x + " " + rot_speed_y + " " + rot_speed_z);
 
             _cardImage_obj[i].GetComponent<SetImage>().CardParamOFF();
             _cardImage_obj[i].GetComponent<SetImage>().Kosu_OFF();

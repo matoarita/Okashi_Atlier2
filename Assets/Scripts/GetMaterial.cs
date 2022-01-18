@@ -1679,7 +1679,7 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 40.0f);
                 treasureDropDict.Add(2, 39.0f);
-                treasureDropDict.Add(3, 1.0f + (rare_event_kakuritsu*0.05f));
+                treasureDropDict.Add(3, 1.0f + (rare_event_kakuritsu*0.5f)); //rare_event_kakuritsu = アイテム発見力によるバフは最大で50%
                 break;
 
             default:

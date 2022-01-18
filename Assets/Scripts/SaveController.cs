@@ -732,6 +732,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponentInChildren<ExtremePanel>();
                     Debug.Log("GameMgr.sys_extreme_itemID: " + GameMgr.sys_extreme_itemID);
                     Debug.Log("GameMgr.sys_extreme_itemType: " + GameMgr.sys_extreme_itemType);
+
+                    //対処療法　なぜか理由がわからないけど、たまにオリジナルアイテムリスト+1の箇所を、extremepanelで指定してしまうことがある。
+                    if(pitemlist.player_originalitemlist.Count-1 < GameMgr.sys_extreme_itemID)
+                    {
+                        GameMgr.sys_extreme_itemID = GameMgr.sys_extreme_itemID - 1;
+                    }
                     extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
                     extreme_panel.SetInitParamExtreme();
 
@@ -806,6 +812,21 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //受けていた酒場クエストのリセット
         quest_database.ResetQuestTakeSet();
+    }
+
+    //ゲーム「はじめから」で、システムロード後に、再度リセットする。周回後の状態や、絶対にリセットしておきたいパラメータだけ、再度リセットするイメージ。
+    public void ResetParamSecondTime()
+    {
+        for (i = 0; i < database.items.Count; i++)
+        {
+            database.items[i].Eat_kaisu = 0;
+        }
+
+        //二週目以降、自動で出てくる。
+        if (GameMgr.ending_count >= 1)
+        {
+            matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag = 1;
+        }
     }
 
     //ロードの準備

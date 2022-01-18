@@ -2648,10 +2648,10 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.SetContestClearCollectionFlag("contestclear9", true);
                         break;
 
-                    case "Bread": //パン
+                    /*case "Bread": //パン
 
                         GameMgr.SetContestClearCollectionFlag("contestclear21", true);
-                        break;
+                        break;*/
 
                     case "Rusk":
 

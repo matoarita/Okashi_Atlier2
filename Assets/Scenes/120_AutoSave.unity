@@ -215,6 +215,10 @@ Prefab:
       propertyPath: m_Text
       value: "\u30B7\u30B9\u30C6\u30E0\u30BB\u30FC\u30D6\u4E2D.."
       objectReference: {fileID: 0}
+    - target: {fileID: 1936480507059974, guid: 9bf898075b1647744813fb68267846f3, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bf898075b1647744813fb68267846f3, type: 2}
   m_IsPrefabParent: 0

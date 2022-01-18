@@ -20,6 +20,8 @@ public class Omake_Main : MonoBehaviour {
     private GameObject OmakeEnterPanel_obj;
     private GameObject RecipiListPanel_obj;
 
+    private GameObject fadeout_panel_obj;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
@@ -31,6 +33,8 @@ public class Omake_Main : MonoBehaviour {
 
     private bool isLoading;
     Coroutine _waitSeconds;
+
+    private int i;
 
 
     // Use this for initialization
@@ -60,6 +64,8 @@ public class Omake_Main : MonoBehaviour {
         OmakeEnterPanel_obj = canvas.transform.Find("OmakeEnterPanel").gameObject;
         RecipiListPanel_obj = canvas.transform.Find("RecipiListPanel").gameObject;
 
+        fadeout_panel_obj = canvas.transform.Find("FadeOutPanel").gameObject;
+
         //プレイヤー所持アイテムリストパネルの取得
         pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
         pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
@@ -83,7 +89,18 @@ public class Omake_Main : MonoBehaviour {
         //システムロード
         save_controller.SystemloadCheck();
 
-      
+        //デバッグ用コマンド
+        //DebugCommand();
+        
+    }
+
+    void DebugCommand()
+    {
+        //全イベント解放
+        for (i = 0; i < GameMgr.event_collection_list.Count; i++)
+        {
+            GameMgr.event_collection_list[i].Flag = true;
+        }
     }
 	
 	// Update is called once per frame
@@ -110,7 +127,7 @@ public class Omake_Main : MonoBehaviour {
 
     public void OnRecipiListButton()
     {
-        GameMgr.compound_select = 1;
+        GameMgr.compound_select = 3000;
         RecipiListPanel_obj.SetActive(true);
         recipilist_onoff.SetActive(true);
     }
@@ -130,6 +147,7 @@ public class Omake_Main : MonoBehaviour {
 
     IEnumerator CGGallery_EndWait()
     {
+        
         //「宴」のシナリオ終了待ち
         while (GameMgr.scenario_ON)
         {
@@ -145,16 +163,27 @@ public class Omake_Main : MonoBehaviour {
         cg_gallerypanel_obj.SetActive(true);
         OmakeEnterPanel_obj.SetActive(true);
 
-        cg_gallerypanel_obj.GetComponent<CGGalleryPanel>().OnInteractPanel(); //入力をON
+        cg_gallerypanel_obj.GetComponent<CGGalleryPanel>().OffInteractPanel(); //入力をOFF 1~2秒後に入力可能
+
+        //白からフェードイン        
+        fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
+        fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 1.5f)
+        .OnComplete(() => cg_gallerypanel_obj.GetComponent<CGGalleryPanel>().OnInteractPanel()); //入力をON        
+
+        //cg_gallerypanel_obj.GetComponent<CGGalleryPanel>().OnInteractPanel(); //入力をON
     }
 
     IEnumerator WaitSeconds()
     {
         isLoading = true;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.5f);
 
         isLoading = false;
         cg_gallerypanel_obj.SetActive(false);
         OmakeEnterPanel_obj.SetActive(false);
+
+        fadeout_panel_obj.SetActive(true);
+        fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 0;
+        fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
     }
 }
