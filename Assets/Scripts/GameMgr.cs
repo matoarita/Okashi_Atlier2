@@ -1015,10 +1015,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "コーヒーで優雅な朝を..！", false, "Items/coffee"));
         contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "素材の味で、わびさび！", false, "Items/crepe_maple"));
         contestclear_collection_list.Add(new SpecialTitle(009, "contestclear10", "ゼリーマスター！", false, "Items/slimejelly"));
-        contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータクリア！", false, "Items/princess_tota"));
-        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "ナウなティラミスクリア！", false, "Items/tiramisu"));
-        contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタクリア！", false, "Items/violatte_suger"));
-        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "ハードボイルドなカンノーリでクリア！", false, "Items/cannoli"));
+        contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータで優勝！", false, "Items/princess_tota"));
+        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "ナウなティラミスで優勝！", false, "Items/tiramisu"));
+        contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタで優勝！", false, "Items/violatte_suger"));
+        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "ハードボイルドなカンノーリで優勝！", false, "Items/cannoli"));
         contestclear_collection_list.Add(new SpecialTitle(013, "contestclear14", "アイスクリーム！ユースクリ～ム！", false, "Items/icecream"));
         contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "憧れのパフェマニア！", false, "Items/parfe_vanilla"));
         contestclear_collection_list.Add(new SpecialTitle(022, "contestclear23", "キラキラのキャンディクリア！", false, "Items/jewery_candy"));

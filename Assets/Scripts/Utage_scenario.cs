@@ -1626,11 +1626,11 @@ public class Utage_scenario : MonoBehaviour
                         //さらに150点以上のときはこっちが優先。必然、一番いい反応になる。
                         if (total_score >= 150)
                         {
-                            if (itemType_sub != "Cookie" && itemType_sub != "Rusk" && itemType_sub != "Crepe")
+                            if (itemType_sub != "Cookie" && itemType_sub != "Rusk")
                             {
                                 engine.Param.TrySetParameter("PicnicPlace_num", 10);
                                 pitemlist.addPlayerItemString("rich_milk", 7);
-                                Debug.Log("クッキー・ラスク・クレープ以外　かつ　" + "150" + "点以上なので、ピクニック場所3");
+                                Debug.Log("クッキー・ラスク以外　かつ　" + "150" + "点以上なので、ピクニック場所3");
                             }
                             else
                             {
@@ -2618,7 +2618,7 @@ public class Utage_scenario : MonoBehaviour
         SpecialTitleCheck();      
 
         //コンテストクリアのお菓子リストをチェック
-        if(GameMgr.contest_TotalScore >= GameMgr.low_score)
+        if(yusho_flag) //GameMgr.contest_TotalScore >= GameMgr.low_score
         {
             //固有お菓子がないかをチェックし、なければサブをみる。
             if (GameMgr.contest_okashiName == "tiramisu")
