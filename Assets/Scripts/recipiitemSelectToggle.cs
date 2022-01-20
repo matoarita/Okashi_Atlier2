@@ -272,7 +272,6 @@ public class recipiitemSelectToggle : MonoBehaviour
                 yes.SetActive(false);
             }
             BlackImage.SetActive(true);
-            //BlackImage.GetComponent<CanvasGroup>().alpha = 1;
 
             //調合判定を行うかどうか
             exp_Controller._success_judge_flag = 1; //判定処理を行う。
@@ -330,10 +329,7 @@ public class recipiitemSelectToggle : MonoBehaviour
                 }
 
                 BlackImage.SetActive(false);
-                //BlackImage.GetComponent<CanvasGroup>().alpha = 0;
-
                 
-
                 if (SceneManager.GetActiveScene().name == "200_Omake")
                 {
                     yes_no_panel.SetActive(false);

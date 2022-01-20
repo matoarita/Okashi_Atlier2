@@ -741,8 +741,8 @@ public class AAA_TotalResult : MonoBehaviour {
             case 3:
 
                 Effect_1.SetActive(false);
-                BG_1.SetActive(true);
-                BG_2.SetActive(false);
+                //BG_1.SetActive(true);
+                //BG_2.SetActive(false);
 
                 TotalResult_panel3.SetActive(true);
 
@@ -760,8 +760,8 @@ public class AAA_TotalResult : MonoBehaviour {
             case 4:
 
                 _model_move.SetActive(false);
-                BG_1.SetActive(false);
-                BG_2.SetActive(true);
+                //BG_1.SetActive(false);
+                //BG_2.SetActive(true);
                 break;
         }
     }
@@ -848,12 +848,12 @@ public class AAA_TotalResult : MonoBehaviour {
 
             case 3:
 
-                _hukidashi_content = "おにいちゃん！" + "\n" + "いっしょにいてくれて、うれしいな～！" + "\n" + "..でもまだ、真の結末があるみたいだよ！？";
+                _hukidashi_content = "おにいちゃん！" + "\n" + "ありがと～！　また会おうね。" + "\n" + "..でもまだ、真の結末があるみたいだよ。";
                 break;
 
             case 4:
 
-                _hukidashi_content = "にいちゃん、ヒカリのハートいっぱいにしてくれて、ありがとう！" + "\n" + "にいちゃんのこと、だ～いすき！！！！" + "\n" + "..また遊びたいな～♪";
+                _hukidashi_content = "にいちゃん、ヒカリのハートいっぱいにしてくれて、ありがとう！" + "\n" + "にいちゃんのこと、だ～いすき！！！！";
                 break;
         }
 

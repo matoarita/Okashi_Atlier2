@@ -153,7 +153,7 @@ public class Compound_Check : MonoBehaviour {
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
         //黒半透明パネルの取得
-        BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject;
+        BlackImage = recipilistController_obj.transform.Find("BlackImage").gameObject;
 
         //スクロールビュー内の、コンテンツ要素を取得
         content = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Scroll View/Viewport/Content").gameObject;
@@ -704,7 +704,9 @@ public class Compound_Check : MonoBehaviour {
                     recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
 
-                BlackImage.GetComponent<CanvasGroup>().alpha = 0;
+                BlackImage = recipilistController_obj.transform.Find("BlackImage").gameObject;
+                BlackImage.SetActive(false);
+
                 GameMgr.compound_status = 100;
                 itemselect_cancel.All_cancel();
 
