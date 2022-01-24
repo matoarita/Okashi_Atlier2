@@ -177,28 +177,35 @@ public class BGM : MonoBehaviour {
 
     void BGMMainChange()
     {
-        if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
+        if (GameMgr.GirlLoveSubEvent_stage1[60]) //HLV15~できらぽんイベント発生後
         {
-            _bgm[0].clip = sound10;
+            _bgm[0].clip = sound19;
         }
         else
         {
-            switch (GameMgr.stage_number)
+            if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
             {
-                case 1:
+                _bgm[0].clip = sound10;
+            }
+            else
+            {
+                switch (GameMgr.stage_number)
+                {
+                    case 1:
 
-                    Story_BGMSelect();
-                    break;
+                        Story_BGMSelect();
+                        break;
 
-                case 2:
+                    case 2:
 
-                    _bgm[0].clip = sound6;
-                    break;
+                        _bgm[0].clip = sound6;
+                        break;
 
-                case 3:
+                    case 3:
 
-                    _bgm[0].clip = sound7;
-                    break;
+                        _bgm[0].clip = sound7;
+                        break;
+                }
             }
         }
     }

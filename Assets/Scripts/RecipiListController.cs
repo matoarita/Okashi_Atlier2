@@ -459,6 +459,28 @@ public class RecipiListController : MonoBehaviour {
         ++list_count;
     }
 
+    //集めたお菓子のブック　の描画更新のみ　処理を軽くするため
+    public void Redraw_OkashiBook()
+    {
+        //調合DBのフラグをチェック
+        for (i = 0; i < _recipi_listitem.Count; i++)
+        {
+            //調合DBのフラグが1（調合したことがある）かつ、ゲーム中に登場するフラグがONのやつを、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
+            if (_recipi_listitem[i].GetComponent<recipiitemSelectToggle>()._empty_flag)
+            {
+                //Debug.Log(i);
+                _recipi_listitem[i].GetComponent<Toggle>().interactable = true;
+
+            }
+            else if (!_recipi_listitem[i].GetComponent<recipiitemSelectToggle>()._empty_flag)
+            {
+                //Debug.Log(i);
+                _recipi_listitem[i].GetComponent<Toggle>().interactable = false;
+
+            }
+        }
+    }
+
     //デバッグ用　本全て解放　本を所持したことにする。
     public void Debug_R1_button()
     {

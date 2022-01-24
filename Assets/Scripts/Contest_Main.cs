@@ -249,6 +249,7 @@ public class Contest_Main : MonoBehaviour {
             GameMgr.contest_okashiNameHyouji = database.items[kettei_itemID].itemNameHyouji;
             GameMgr.contest_okashiSubType = database.items[kettei_itemID].itemType_sub.ToString();
             GameMgr.contest_okashiID = database.items[kettei_itemID].itemID;
+            Debug.Log("コンテストお菓子　セッティングOK");
         }
         else if (kettei_itemType == 1)
         {
@@ -261,6 +262,7 @@ public class Contest_Main : MonoBehaviour {
             GameMgr.contest_okashiNameHyouji =  pitemlist.player_originalitemlist[kettei_itemID].itemNameHyouji;
             GameMgr.contest_okashiSubType = pitemlist.player_originalitemlist[kettei_itemID].itemType_sub.ToString();
             GameMgr.contest_okashiID = pitemlist.player_originalitemlist[kettei_itemID].itemID;
+            Debug.Log("コンテストお菓子　セッティングOK");
         }
 
         

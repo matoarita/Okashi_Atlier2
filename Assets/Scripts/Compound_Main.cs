@@ -4679,6 +4679,9 @@ public class Compound_Main : MonoBehaviour
     //クエスト進行・ハートレベルに応じてBGMが変わる。デバッグパネルからもアクセス
     public void bgm_change_story()
     {
+        //BGM.csのほうが強い
+
+        map_ambience.Stop();
 
         if (GameMgr.GirlLoveEvent_num == 50) //コンテスト　のどかなはれ
         {
@@ -4707,20 +4710,7 @@ public class Compound_Main : MonoBehaviour
                 map_ambience.Stop();
             }
 
-            //ハートレベルに応じてBGM変化           
-            if (PlayerStatus.girl1_Love_lv >= 15) //快晴　夕方
-            {
-                GameMgr.mainBGM_Num = 5; //少し明るい　クレープのBGM
-                map_ambience.Stop();
-            }
         }
-
-        /*if (GameMgr.GirlLoveEvent_num >= 10) //うすぐもり HLv4~
-        {
-            GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
-            GameMgr.mainBGM_Num = 3; //明るい　ドーナツのBGM
-            map_ambience.Stop();
-        }*/
     }
 
     //ストーリー進行に応じて、背景の天気+エフェクトも変わる。

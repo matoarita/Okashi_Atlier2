@@ -152,9 +152,6 @@ public class Compound_Check : MonoBehaviour {
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
-        //黒半透明パネルの取得
-        BlackImage = recipilistController_obj.transform.Find("BlackImage").gameObject;
-
         //スクロールビュー内の、コンテンツ要素を取得
         content = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Scroll View/Viewport/Content").gameObject;
         finalcheck_Prefab = (GameObject)Resources.Load("Prefabs/finalcheck_item");
@@ -177,8 +174,8 @@ public class Compound_Check : MonoBehaviour {
             pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
             pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-            recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-            recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+            //recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+            //recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
 
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
@@ -198,6 +195,8 @@ public class Compound_Check : MonoBehaviour {
         {
             if (GameMgr.compound_select == 1) //レシピ調合のときの処理
             {
+                recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+                recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
 
                 GameMgr.compound_status = 110;
 
@@ -205,6 +204,8 @@ public class Compound_Check : MonoBehaviour {
 
                 final_select_flag = false;
                 resultitemName_obj.SetActive(true);
+
+                
 
                 StartCoroutine("recipiFinal_select");
 
@@ -703,6 +704,8 @@ public class Compound_Check : MonoBehaviour {
                     recipilistController._recipi_listitem[i].GetComponent<Toggle>().interactable = true;
                     recipilistController._recipi_listitem[i].GetComponent<Toggle>().isOn = false;
                 }
+
+                recipilistController.Redraw_OkashiBook();
 
                 BlackImage = recipilistController_obj.transform.Find("BlackImage").gameObject;
                 BlackImage.SetActive(false);

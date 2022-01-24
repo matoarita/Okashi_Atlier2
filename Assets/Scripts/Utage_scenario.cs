@@ -2267,13 +2267,11 @@ public class Utage_scenario : MonoBehaviour
                 canvas = GameObject.FindWithTag("Canvas");
                 moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
-                //GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true; //そのうわさを読んだフラグをON
-                //engine.Param.TrySetParameter("MoneyCheck_Flag", true);
-
                 //お金の消費
                 if (PlayerStatus.player_money >= 30)
                 {
                     GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true;
+                    //GameMgr.ShopUwasa_stage1[GameMgr.uwasa_number] = true;
                     moneyStatus_Controller.UseMoney(30); //うわさ話をきくをONにしたので、-30G
 
                     //ここで、宴で呼び出したいイベント番号を設定する。

@@ -71,6 +71,7 @@ public class Bar_Main : MonoBehaviour
     private List<int> random_uwasa_select = new List<int>();
     private int uwasalist_count;
     private int rnd;
+    private int count;
 
     // Use this for initialization
     void Start()
@@ -587,8 +588,8 @@ public class Bar_Main : MonoBehaviour
     void InitUwasaList()
     {
         shopuwasa_List.Clear();
-        random_uwasa_select.Clear();
         uwasalist_count = 5;
+        count = 0;
 
         //***  うわさリスト選択 ***//
 
@@ -597,44 +598,50 @@ public class Bar_Main : MonoBehaviour
         {
             shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
         }
+
         //ラスク
         if (GameMgr.GirlLoveEvent_stage1[10])
         {
+            count++;
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
             }
         }
         //クレープ
         if (GameMgr.GirlLoveEvent_stage1[20])
         {
+            count++;
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
             }
         }
         //シュークリーム
         if (GameMgr.GirlLoveEvent_stage1[30])
         {
+            count++;
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
             }
         }
         //ドーナツ
         if (GameMgr.GirlLoveEvent_stage1[40])
         {
+            count++;
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
             }
         }
         //コンテスト
         if (GameMgr.GirlLoveEvent_stage1[50])
         {
+            count++;
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + 5]);
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
             }
         }
 
@@ -646,6 +653,7 @@ public class Bar_Main : MonoBehaviour
         }
         else //もしきける話を全て聞いていた場合
         {
+            Debug.Log("うわさ番号　リセット");
             //きける話を全てリセットして、もっかい抽選
             for (i = 0; i < shopuwasa_List.Count; i++)
             {
@@ -653,23 +661,34 @@ public class Bar_Main : MonoBehaviour
 
             }
 
-            random_uwasa_select.Clear();
+            for (i = 0; i < GameMgr.ShopUwasa_stage1.Length; i++)
+            {
+                GameMgr.ShopUwasa_stage1[i] = false;
+            }
+
+
             uwasa_randomselect();
             //GameMgr.uwasa_number = 9999; //うわさ話はすべて聞いたというフラグ
         }
 
         rnd = Random.Range(0, random_uwasa_select.Count);
-        GameMgr.uwasa_number = random_uwasa_select[rnd];
+        GameMgr.uwasa_number = random_uwasa_select[rnd];       
+
+        Debug.Log("選ばれたうわさ番号: " + GameMgr.uwasa_number);
+
     }
 
     void uwasa_randomselect()
     {
+        random_uwasa_select.Clear();
+
         for (i = 0; i < shopuwasa_List.Count; i++)
         {
             if (!shopuwasa_List[i]) //まだうわさをきいてないやつだけをランダムで選ばれるようにする。
             {
                 random_uwasa_select.Add(i);
             }
+            //Debug.Log("shopuwasa_List: " + shopuwasa_List[i]);
         }
     }
 }
