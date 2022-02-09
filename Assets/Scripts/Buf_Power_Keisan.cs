@@ -230,6 +230,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //メイン調合シーンで確認する
     public void CheckEquip_Keisan()
     {
+        //かごレベル
+        PlayerStatus.player_zairyobox_lv = 1;
+
         //条件分岐
         if (pitemlist.KosuCount("itembox_1") >= 1) //アイテムかごLv2
         {
@@ -266,6 +269,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
             {
                 PlayerStatus.player_kamado_lv = 2;
+            }
+            else
+            {
+                PlayerStatus.player_kamado_lv = 1;
             }
         }
     }

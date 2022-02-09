@@ -20,6 +20,7 @@ public class ItemShop
     public int shop_costprice; //アイテムの値段。アイテムDBから引っ張ってくる。
     public int shop_sellprice; //アイテムの売却時の値段。アイテムDBから引っ張ってくる。
     public int shop_itemzaiko; //在庫数
+    public int shop_itemzaiko_max; //Max在庫数
 
     public int shop_item_hyouji;
     public bool shop_item_hyouji_on;
@@ -43,6 +44,7 @@ public class ItemShop
         shop_costprice = cost;
         shop_sellprice = sell;
         shop_itemzaiko = zaiko;
+        shop_itemzaiko_max = zaiko;
 
         shop_item_hyouji = item_hyouji;
         shop_item_hyouji_on = item_hyouji_on;

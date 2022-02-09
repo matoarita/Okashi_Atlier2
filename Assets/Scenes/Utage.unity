@@ -408,10 +408,10 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00023306467
-    y: 0
-    width: 0.9995339
-    height: 1
+    x: 0
+    y: 0.00023764372
+    width: 1
+    height: 0.9995247
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -3666,10 +3666,10 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.00023306467
-    y: 0
-    width: 0.9995339
-    height: 1
+    x: 0
+    y: 0.00023764372
+    width: 1
+    height: 0.9995247
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -4525,6 +4525,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2033263235}
+  - component: {fileID: 2033263236}
   m_Layer: 9
   m_Name: IconRoot
   m_TagString: Untagged
@@ -4551,6 +4552,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 20}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &2033263236
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2033263234}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 10ae736c05d218a41b290ad880a80099, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &2048142439
 GameObject:
   m_ObjectHideFlags: 0

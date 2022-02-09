@@ -246,6 +246,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int _sum;
     private int _noweat_count;
     private int _hlv_last;
+    private int hukidashi_number;
 
     private Text girl_param;
     private Slider _slider; //好感度バーを取得
@@ -1000,13 +1001,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 4;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 12 && PlayerStatus.girl1_Love_lv < 16) //
+        else if (PlayerStatus.girl1_Love_lv >= 12 && PlayerStatus.girl1_Love_lv < 15) //
         {
             //元気
             GirlGokigenStatus = 5;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 16) //13~
+        else if (PlayerStatus.girl1_Love_lv >= 15) //
         {
             //最高に上機嫌
             GirlGokigenStatus = 6;
@@ -1067,40 +1068,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         trans_expression = live2d_animator.GetInteger("trans_expression");
 
         face_girl_Fine();
-        /*switch (GirlGokigenStatus)
-        {
-            case 0:
-                face_girl_Fine();
-                break;
-
-            case 1:
-                face_girl_Fine();
-                break;
-
-            case 2:
-                face_girl_Fine();
-                break;
-
-            case 3:
-                face_girl_Fine();
-                break;
-
-            case 4:
-                face_girl_Fine();
-                break;
-
-            case 5:
-                face_girl_Fine();
-                break;
-
-            case 6:
-                face_girl_Fine();
-                break;
-
-            default:
-                face_girl_Fine();
-                break;
-        }*/
     }
 
 
@@ -1490,8 +1457,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     if (_noweat_count >= 3)
                     {
                         _noweat_count = 0;
-                        hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);
                         FaceMotionPlay(1013);
+                        hukidashiitem.GetComponent<TextController>().SetTextColorPink(_desc);                       
                     }
                     else
                     {
@@ -1540,8 +1507,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case "001_Title": //タイトルのときのセリフ
 
                 random = Random.Range(0, 100);
-                if (random < 50)
+                if (random < 20)
                 {
+                    FaceMotionPlay(1005);
                     hukidashiitem.GetComponent<TextController>().SetText("..おにいちゃん！　おかえりなさい～☆");
                 }
                 else
@@ -2546,410 +2514,146 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         _model.GetComponent<CubismEyeBlinkController>().enabled = false;
         //Debug.Log("ランダムモーション　再生");
+        hukidashi_number = 0;
 
-        switch (GirlGokigenStatus)
+        if (GirlGokigenStatus >= 0 && GirlGokigenStatus < 4)
         {
-            case 0: //沈んでいる.. 0と1は一緒なので、0を設定する。
+            switch (GirlGokigenStatus)
+            {
+                case 0: //沈んでいる.. 0と1は一緒なので、0を設定する。
 
-                random = Random.Range(0, 2); //0~1
+                    random = Random.Range(0, 2); //0~1                   
+                    break;
 
-                switch (random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
+                case 1:
 
-                        //モーション1種類
-                        FaceMotionPlay(1002);
-                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
-                        break;
+                    random = Random.Range(0, 2); //0~1
+                    break;
 
-                    case 1:
+                case 2: //少し機嫌がよくなってきた？けど、まだ暗い。
 
-                        IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
-                        break;
-                }                      
+                    random = Random.Range(0, 3); //0~1
+                    hukidashi_number = 3;
+                    break;
 
-                break;
+                case 3: //少し機嫌がよくなってきた？けど、まだ暗い。～LV5
 
-            case 1:
+                    random = Random.Range(0, 3); //0~2
+                    hukidashi_number = 23;
+                    break;
+            }
 
-                random = Random.Range(0, 3); //0~1
+            switch (random) //モーション4種類＋セリフがそれらにつく
+            {
+                case 0:
 
-                switch (random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
+                    //モーション1種類
+                    FaceMotionPlay(1002);
+                    IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
+                    break;
 
-                        //モーション1種類
-                        FaceMotionPlay(1002);
-                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
-                        break;
+                case 1:
 
-                    case 1:
+                    IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
+                    break;
 
-                        IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
-                        break;
+                case 2:
 
-                }
-                break;
+                    //おなかへった..
+                    Debug.Log("おなかへった");
+                    FaceMotionPlay(1013);
+                    IdleMotionHukidashiSetting(hukidashi_number);
+                    break;
+            }
+        }
+        else if (GirlGokigenStatus >= 4)
+        {
+            switch (GirlGokigenStatus)
+            {
 
-            case 2: //少し機嫌がよくなってきた？けど、まだ暗い。
+                case 4:
 
-                random = Random.Range(0, 3); //0~1
+                    random = Random.Range(0, 7); //0~6
+                    hukidashi_number = 20;
+                    break;
 
-                switch (random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
+                case 5:
 
-                        //モーション1種類
-                        FaceMotionPlay(1002);
-                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
-                        break;
+                    random = Random.Range(0, 8); //0~8
+                    hukidashi_number = 30;
+                    break;
 
-                    case 1:
+                case 6:
 
-                        IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
-                        break;
+                    random = Random.Range(0, 9); //0~8
+                    hukidashi_number = 40;                    
+                    break;
 
-                    case 2: //おなかへった
+                default: //それ以上
 
-                        //モーション1種類
-                        FaceMotionPlay(1013);
-                        IdleMotionHukidashiSetting(3); //吹き出しも一緒に生成
-                        break;
-                }
-                break;
+                    random = Random.Range(0, 9); //0~8
+                    hukidashi_number = 50;
+                    break;
+            }
 
-            case 3: //少し機嫌がよくなってきた？けど、まだ暗い。～LV5
+            switch (random) //モーション4種類＋セリフがそれらにつく
+            {
+                case 0:
 
-                random = Random.Range(0, 3); //0~2
+                    //モーションなし
+                    Debug.Log("0 モーションなし");
+                    IdleMotionHukidashiSetting(hukidashi_number);
+                    break;
 
-                switch (random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
+                case 1:
 
-                        //モーション1種類
-                        FaceMotionPlay(1002);
-                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
-                        break;
+                    //ヒントだす
+                    Debug.Log("ヒント");
+                    IdleMotionHukidashiSetting(100);
+                    break;               
 
-                    case 1:
+                case 2:
 
-                        IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
-                        break;
+                    //るんるんモーション                                      
+                    IdleMotionHukidashiSetting(32);
+                    break;                
 
-                    case 2:
+                case 3:
 
-                        //おなかへった..
-                        Debug.Log("おなかへった");
-                        FaceMotionPlay(1013);
-                        IdleMotionHukidashiSetting(23);
-                        break;
-                }
-                break;
+                    //ボウルをガシャガシャ                    
+                    IdleMotionHukidashiSetting(34);
+                    break;
 
-            case 4:
+                case 4:
 
-                random = Random.Range(0, 7); //0~6
+                    //左右にふりふり                   
+                    IdleMotionHukidashiSetting(21);
+                    break;               
 
-                switch (random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
+                case 5:
 
-                        //モーションなし
-                        Debug.Log("モーションなし");
-                        IdleMotionHukidashiSetting(20);
-                        break;
+                    //おなかへった..                    
+                    IdleMotionHukidashiSetting(23);
+                    break;
 
-                    case 1:
+                case 6:
 
-                        //るんるんモーション
-                        Debug.Log("るんるん");
-                        FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(32);
-                        break;
+                    //♪モーション                    
+                    IdleMotionHukidashiSetting(35);
+                    break;
 
-                    case 2:
+                case 7:
 
-                        //左右にふりふり
-                        Debug.Log("左右にふりふり");
-                        FaceMotionPlay(1004);
-                        IdleMotionHukidashiSetting(21);
-                        break;
+                    //きらきらほわわ                    
+                    IdleMotionHukidashiSetting(31);
+                    break;
 
-                    case 3:
+                case 8:
 
-                        //るんるんモーション
-                        Debug.Log("るんるん");
-                        FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(22);
-                        break;
-
-                    case 4:
-
-                        //ヒント
-                        Debug.Log("ヒント");
-                        //FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(100);
-                        break;
-
-                    case 5:
-
-                        //おなかへった..
-                        Debug.Log("おなかへった");
-                        FaceMotionPlay(1013);
-                        IdleMotionHukidashiSetting(23);
-                        break;
-
-                    case 6:
-
-                        //るんるんモーション
-                        Debug.Log("るんるん");
-                        FaceMotionPlay(1014);
-                        IdleMotionHukidashiSetting(35);
-                        break;
-
-                }
-
-                break;
-
-            case 5:
-
-                random = Random.Range(0, 9); //0~8
-
-                switch (random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
-
-                        //モーションなし
-                        Debug.Log("0 モーションなし");
-                        IdleMotionHukidashiSetting(30);
-                        break;
-
-                    case 1:
-
-                        //きらきらほわわ
-                        Debug.Log("0 きらきらほわわ");
-                        FaceMotionPlay(1000);
-                        IdleMotionHukidashiSetting(31);
-                        break;
-
-                    case 2:
-
-                        //るんるんモーション
-                        Debug.Log("1 るんるん");
-                        FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(32);
-                        break;
-
-                    case 3:
-
-                        //クッキーのつまみぐい
-                        Debug.Log("2 つまみぐい");
-                        FaceMotionPlay(1008);
-                        IdleMotionHukidashiSetting(33);
-                        break;
-
-                    case 4:
-
-                        //ボウルをガシャガシャ
-                        Debug.Log("3 ボウルをガシャガシャ");
-                        FaceMotionPlay(1012);
-                        IdleMotionHukidashiSetting(34);
-                        break;
-
-                    case 5:
-
-                        //左右にふりふり
-                        Debug.Log("2 左右にふりふり");
-                        FaceMotionPlay(1004);
-                        IdleMotionHukidashiSetting(21);
-                        break;
-
-                    case 6:
-
-                        //ヒントだす
-                        Debug.Log("ヒント");
-                        //FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(100);
-                        break;
-
-                    case 7:
-
-                        //おなかへった..
-                        Debug.Log("おなかへった");
-                        FaceMotionPlay(1013);
-                        IdleMotionHukidashiSetting(23);
-                        break;
-
-                    case 8:
-
-                        //るんるんモーション
-                        Debug.Log("るんるん");
-                        FaceMotionPlay(1014);
-                        IdleMotionHukidashiSetting(35);
-                        break;
-                }
-
-                break;
-
-            case 6:
-
-                random = Random.Range(0, 9); //0~8
-
-                switch (random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
-
-                        //モーションなし
-                        Debug.Log("0 モーションなし");
-                        IdleMotionHukidashiSetting(40);
-                        break;
-
-                    case 1:
-
-                        //きらきらほわわ
-                        Debug.Log("0 きらきらほわわ");
-                        FaceMotionPlay(1000);
-                        IdleMotionHukidashiSetting(31);
-                        break;
-
-                    case 2:
-
-                        //るんるんモーション
-                        Debug.Log("1 るんるん");
-                        FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(32);
-                        break;
-
-                    case 3:
-
-                        //クッキーのつまみぐい
-                        Debug.Log("2 つまみぐい");
-                        FaceMotionPlay(1008);
-                        IdleMotionHukidashiSetting(33);
-                        break;
-
-                    case 4:
-
-                        //ボウルをガシャガシャ
-                        Debug.Log("3 ボウルをガシャガシャ");
-                        FaceMotionPlay(1012);
-                        IdleMotionHukidashiSetting(34);
-                        break;
-
-                    case 5:
-
-                        //左右にふりふり
-                        Debug.Log("2 左右にふりふり");
-                        FaceMotionPlay(1004);
-                        IdleMotionHukidashiSetting(21);
-                        break;
-
-                    case 6:
-
-                        //ヒントだす
-                        Debug.Log("ヒント");
-                        //FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(100);
-                        break;
-
-                    case 7:
-
-                        //おなかへった..
-                        Debug.Log("おなかへった");
-                        FaceMotionPlay(1013);
-                        IdleMotionHukidashiSetting(23);
-                        break;
-
-                    case 8:
-
-                        //るんるんモーション
-                        Debug.Log("るんるん");
-                        FaceMotionPlay(1014);
-                        IdleMotionHukidashiSetting(35);
-                        break;
-                }
-
-                break;
-
-            default: //それ以上
-
-                random = Random.Range(0, 9); //0~8
-
-                switch (random) //モーション4種類＋セリフがそれらにつく
-                {
-                    case 0:
-
-                        //モーションなし
-                        Debug.Log("0 モーションなし");
-                        IdleMotionHukidashiSetting(50);
-                        break;
-
-                    case 1:
-
-                        //きらきらほわわ
-                        Debug.Log("0 きらきらほわわ");
-                        FaceMotionPlay(1000);
-                        IdleMotionHukidashiSetting(31);
-                        break;
-
-                    case 2:
-
-                        //るんるんモーション
-                        Debug.Log("1 るんるん");
-                        FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(32);
-                        break;
-
-                    case 3:
-
-                        //クッキーのつまみぐい
-                        Debug.Log("2 つまみぐい");
-                        FaceMotionPlay(1008);
-                        IdleMotionHukidashiSetting(33);
-                        break;
-
-                    case 4:
-
-                        //ボウルをガシャガシャ
-                        Debug.Log("3 ボウルをガシャガシャ");
-                        FaceMotionPlay(1012);
-                        IdleMotionHukidashiSetting(34);
-                        break;
-
-                    case 5:
-
-                        //左右にふりふり
-                        Debug.Log("2 左右にふりふり");
-                        FaceMotionPlay(1004);
-                        IdleMotionHukidashiSetting(21);
-                        break;
-
-                    case 6:
-
-                        //ヒントだす
-                        Debug.Log("ヒント");
-                        //FaceMotionPlay(1005);
-                        IdleMotionHukidashiSetting(100);
-                        break;
-
-                    case 7:
-
-                        //おなかへった..
-                        Debug.Log("おなかへった");
-                        FaceMotionPlay(1013);
-                        IdleMotionHukidashiSetting(23);
-                        break;
-
-                    case 8:
-
-                        //るんるんモーション
-                        Debug.Log("るんるん");
-                        FaceMotionPlay(1014);
-                        IdleMotionHukidashiSetting(35);
-                        break;
-                }
-
-                break;
+                    //クッキーのつまみぐい                    
+                    IdleMotionHukidashiSetting(33);
+                    break;
+            }
         }
     }   
 
@@ -2972,8 +2676,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("ぐすん..。");
                 _touchface_comment_lib.Add("..まま..。");                
                 _touchface_comment_lib.Add("..。にいちゃん。..。なんでもない。");                
-
-                //timeOutHint = 20.0f;
 
                 break;
 
@@ -2999,8 +2701,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 20:
 
-                _touchface_comment_lib.Add("ちょっと元気。");
-                
+                _touchface_comment_lib.Add("ちょっと元気。");                
                 _touchface_comment_lib.Add("おいしい..。");
                 _touchface_comment_lib.Add("にいちゃんのおかし、もぐもぐ..。");            
                 _touchface_comment_lib.Add("いい朝だねぇ～。にいちゃん～。");
@@ -3011,7 +2712,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //材料とりにいきたいモード。このときに外へいくと、ハートがあがる。
                 GameMgr.OsotoIkitaiFlag = true;
+
+                Debug.Log("2 左右にふりふり");
+                FaceMotionPlay(1004);
                 _touchface_comment_lib.Add("ねぇねぇにいちゃん。材料を採りにいこうよ～。");
+                _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
                 break;
 
             case 22:
@@ -3022,6 +2727,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 23:
 
+                Debug.Log("23 おなかへった");
+                FaceMotionPlay(1013);
                 _touchface_comment_lib.Add("お腹へった..。");
                 break;
 
@@ -3035,27 +2742,37 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 31:
 
+                Debug.Log("31 きらきらほわわ");
+                FaceMotionPlay(1000);
                 _touchface_comment_lib.Add("早く、にいちゃんのお菓子食べたいな～。");
                 break;
 
             case 32: //るんるんモーション
 
+                Debug.Log("32 るんるん");
+                FaceMotionPlay(1005);
                 _touchface_comment_lib.Add("るんるん♪");               
                 _touchface_comment_lib.Add("エメラルどんぐり、拾いにいこうよ～。おにいちゃん。");
                 break;
 
             case 33: //クッキーつまみぐい
 
+                Debug.Log("33 つまみぐい");
+                FaceMotionPlay(1008);
                 _touchface_comment_lib.Add("こっそり.. 味見～♪");
                 break;
 
             case 34: //ボウルをガシャガシャ
 
+                Debug.Log("34 ボウルをガシャガシャ");
+                FaceMotionPlay(1012);
                 _touchface_comment_lib.Add("にいちゃんのクッキー、おいしくなぁれ♪");
                 break;
 
             case 35: //エモのみ　♪
 
+                Debug.Log("35 ♪モーション");
+                FaceMotionPlay(1014);
                 _touchface_comment_lib.Add("♪");
                 break;
 
@@ -3064,8 +2781,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("にいちゃん！大好き！！");
                 _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
                 _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い");
-                _touchface_comment_lib.Add("おにいちゃん。あたたかい～。");
-                _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
+                _touchface_comment_lib.Add("おにいちゃん。あたたかい～。");                
                 _touchface_comment_lib.Add("にいちゃん、もうコンテストとか余裕？");
                 break;
 
@@ -3075,7 +2791,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
                 _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い");
                 _touchface_comment_lib.Add("おにいちゃん。あたたかい～。");
-                _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
                 break;
            
 

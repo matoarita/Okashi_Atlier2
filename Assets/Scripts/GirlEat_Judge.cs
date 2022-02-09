@@ -1479,7 +1479,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("トッピングスコア: " + topping_score);
 
         //見た目点数の計算
-        beauty_score = _basebeauty - _girlbeauty[countNum];
+        if (_girlbeauty[countNum] > 0)
+        {
+            beauty_score = _basebeauty - _girlbeauty[countNum];
+        }
+        else
+        {
+            beauty_score = 0;
+        }
 
         //以上、全ての点数を合計。
         total_score = set_score + sweat_score + bitter_score + sour_score
@@ -1758,6 +1765,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case "Bread":
                 Crispy_Score();
                 break;
+            case "Bread_Sliced":
+                Crispy_Score();
+                break;
             case "Cookie":
                 Crispy_Score();
                 break;
@@ -1823,6 +1833,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Fluffy_Score();
                 break;
             case "Parfe":
+                Crispy_Score();
                 Fluffy_Score();
                 Smooth_Score();
                 break;
@@ -2112,6 +2123,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             
             //お菓子をたべたフラグをON + 食べた回数もカウント
             database.items[_baseID].Eat_kaisu += 1;
+            Debug.Log("食べた回数: " + database.items[_baseID].Eat_kaisu);
 
             //好感度とお金を計算
             LoveScoreCal();
@@ -2602,7 +2614,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             GetMoney /= database.items[_baseID].Eat_kaisu;*/
 
             //③補正
-            if (non_spquest_flag == false) //SPクエストのお菓子をあげていた場合
+            //そのお菓子を食べた回数で割り算。同じお菓子を何度あげても、だんだん好感度は上がらなくなってくる。
+            Getlove_exp = Getlove_exp * 2; //2倍
+            if (database.items[_baseID].Eat_kaisu == 0)
+            {
+                database.items[_baseID].Eat_kaisu = 1; //0で割り算を回避。
+            }
+            Getlove_exp /= database.items[_baseID].Eat_kaisu;
+            if (Getlove_exp <= 1) { Getlove_exp = 1; }
+
+            /*if (non_spquest_flag == false) //SPクエストのお菓子をあげていた場合
             {
                 
                 Getlove_exp = Getlove_exp * 2; //2倍
@@ -2636,8 +2657,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     database.items[_baseID].Eat_kaisu = 1; //0で割り算を回避。
                 }
                 Getlove_exp /= database.items[_baseID].Eat_kaisu;
+                Debug.Log("食べた回数: " + database.items[_baseID].Eat_kaisu);
                 //if (Getlove_exp <= 1) { Getlove_exp = 1; }
-            }
+            }*/
 
             //装備品による補正
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
@@ -4484,12 +4506,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (sweat_level == 8)
         {
             _sweat_kansou = GameMgr.ColorGold + "甘さ S: 神の甘さ！ パーフェクト！！" + "</color>";
-            _contest_sweat_kansou = "甘さ S: ほほう..これは。すばらしい甘み。あとをひく良い甘さです。完璧ですね。";
+            _contest_sweat_kansou = "甘さ S: ほほう..これは。すばらしい甘みです。パーフェクトですね！高得点をつけましょう。";
         }
         else if (sweat_level == 7)
         {
             _sweat_kansou = GameMgr.ColorPink + "甘さ A+: 絶妙な甘さ！" + "</color>";
-            _contest_sweat_kansou = "甘さ A: 絶妙な甘さ..。ギリギリを見極めていますね。文句ありません。";
+            _contest_sweat_kansou = "甘さ A+: 絶妙で、神レベルの甘みで良いです。これは高得点をつけざるを得ない。";
         }
         else if (sweat_level == 6)
         {
@@ -4570,17 +4592,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (bitter_level == 8)
         {
             _bitter_kansou = GameMgr.ColorGold + "苦さ S: 神の苦さ！ パーフェクト！！" + "</color>";
-            _contest_bitter_kansou = "苦さ S: この苦み.. 苦すぎず、調和がとれており、とても良い加減です。完璧ですね。";
+            _contest_bitter_kansou = "苦さ S: この苦み.. パーフェクトです。まさしく神の苦み・・！　";
         }
         else if (bitter_level == 7)
         {
             _bitter_kansou = GameMgr.ColorPink + "苦さ A+: 絶妙な苦さ！" + "</color>";
-            _contest_bitter_kansou = "苦さ A+: 絶妙な苦さですね！　まさしくほろ苦く、お菓子にアクセントが効いています。";
+            _contest_bitter_kansou = "苦さ A+: 絶妙な苦さですね！　まさしく神レベル。これは高得点をつけざるを得ません。";
         }
         else if (bitter_level == 6)
         {
             _bitter_kansou = "苦さ A: 苦さ、かなり近い！";
-            _contest_bitter_kansou = "苦さ A: 苦さほどよく良い具合です。もう一味、苦さが近くなれば..パーフェクトでしょう。";
+            _contest_bitter_kansou = "苦さ A: 苦さほどよく、かなり良い具合です。もう一味、苦さが近くなれば..パーフェクトでしょう。";
         }
         else if (bitter_level == 5)
         {
@@ -4660,17 +4682,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (sour_level == 8)
         {
             _sour_kansou = GameMgr.ColorGold + "酸味 S: 神のすっぱさ！ パーフェクト！！" + "</color>";
-            _contest_sour_kansou = "酸味 S: ううん！この強烈に舌に残りつつも後味はさらりと消えて..。神の酸っぱさですね。";
+            _contest_sour_kansou = "酸味 S: ううん！この強烈に舌に残りつつも後味はさらりと消えて..。神の酸っぱさですね！！";
         }
         else if (sour_level == 7)
         {
             _sour_kansou = GameMgr.ColorPink + "酸味 A+: 絶妙なすっぱさ！" + "</color>";
-            _contest_sour_kansou = "酸味 A+: 絶妙なすっぱさで..　これはグっとパンチが効いておりますよ。いいですね！";
+            _contest_sour_kansou = "酸味 A+: 絶妙なすっぱさで..　まさしく神レベル。これは高得点をつけざるを得ません。";
         }
         else if (sour_level == 6)
         {
             _sour_kansou = "酸味 A: すっぱさ、かなり近い！";
-            _contest_sour_kansou = "酸味 A: すっぱさ、ほどよく良い塩梅です。一味効いてますね。";
+            _contest_sour_kansou = "酸味 A: すっぱさ、かなり良い塩梅です。一味効いてますね。";
         }
         else if (sour_level == 5)
         {

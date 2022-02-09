@@ -449,16 +449,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             }
 
+            //完成アイテムの、レシピフラグをONにする。
+            _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
+            databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+            Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
 
             //作ったことがあるかどうかをチェック
             if (databaseCompo.compoitems[result_ID].comp_count == 0)
             {
                 //作った回数をカウント
-                databaseCompo.compoitems[result_ID].comp_count++;
-
-                //完成アイテムの、レシピフラグをONにする。
-                _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
-                databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+                databaseCompo.compoitems[result_ID].comp_count++;               
 
                 //レシピ達成率を更新
                 databaseCompo.RecipiCount_database();
@@ -476,7 +476,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 //作った回数をカウント
                 databaseCompo.compoitems[result_ID].comp_count++;
-
+                
                 _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
                 PlayerStatus.player_renkin_exp += _getexp; //すでに作ったことがある場合、取得量は少なくなる
 

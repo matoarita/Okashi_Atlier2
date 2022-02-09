@@ -99,7 +99,7 @@ public class Farm_Main : MonoBehaviour {
         {
             if (shop_database.farmitems[i].shop_itemType == 0 || shop_database.farmitems[i].shop_itemType == 3)
             {
-                shop_database.farmitems[i].shop_itemzaiko = 50;
+                shop_database.farmitems[i].shop_itemzaiko = shop_database.farmitems[i].shop_itemzaiko_max;
             }
             else
             {

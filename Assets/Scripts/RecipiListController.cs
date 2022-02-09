@@ -40,6 +40,8 @@ public class RecipiListController : MonoBehaviour {
 
     private Text recipititle;
 
+    private GameObject black_panel;
+
     private int max;
     private int count;
     private int i, j;
@@ -121,8 +123,10 @@ public class RecipiListController : MonoBehaviour {
 
         yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;
+        black_panel = this.transform.Find("BlackImage").gameObject;
         yes_button.SetActive(false);
         no_button.SetActive(false);
+        black_panel.SetActive(false);
 
         final_recipiselect_flag = false;
         for (i = 0; i < category_toggle.Count; i++)
@@ -298,6 +302,8 @@ public class RecipiListController : MonoBehaviour {
                 drawEmptyRecipi();
 
             }
+
+            //Debug.Log(databaseCompo.compoitems[i].cmpitem_Name + ": databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_flag);
         }
     }
 

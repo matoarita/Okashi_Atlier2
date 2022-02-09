@@ -42,6 +42,7 @@ public class ShopItemListController : MonoBehaviour
     private int max;
     private int count;
     private int i;
+    private int rnd;
     private int shop_hyouji_flag;
 
     public int shop_count; //選択したリスト番号が入る。
@@ -60,6 +61,7 @@ public class ShopItemListController : MonoBehaviour
     private int category_status;
 
     private int emeraldonguriID;
+    private bool sale_ON;
 
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
@@ -119,6 +121,28 @@ public class ShopItemListController : MonoBehaviour
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
 
+        //ショップセール判定用　日付を更新
+        if (PlayerStatus.player_day != GameMgr.Shopday)
+        {
+            //Debug.Log("セール 判定");
+            GameMgr.Shopday = PlayerStatus.player_day;
+
+            //セール判定
+            rnd = Random.Range(0, 5);
+            if (rnd <= 1)
+            {
+                GameMgr.Sale_ON = true;
+                Debug.Log("セール ON");
+            }
+            else
+            {
+                GameMgr.Sale_ON = false;
+                Debug.Log("セール OFF");
+            }
+        }
+
+        //一度表示フラグはリセット
+        OFFShopListFlag();
         //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
         Check_ShopListFlag();
 
@@ -212,8 +236,6 @@ public class ShopItemListController : MonoBehaviour
     // リストビューの描画部分。重要。
     void reset_and_DrawView()
     {
-        //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        //Check_ShopListFlag();
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -290,8 +312,7 @@ public class ShopItemListController : MonoBehaviour
     // トッピング系
     void reset_and_DrawView_Topping()
     {
-        //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        //Check_ShopListFlag();
+
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -364,8 +385,6 @@ public class ShopItemListController : MonoBehaviour
     // 器材系
     void reset_and_DrawView_Machine()
     {
-        //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        //Check_ShopListFlag();
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -442,8 +461,7 @@ public class ShopItemListController : MonoBehaviour
     // レシピ系
     void reset_and_DrawView_Recipi()
     {
-        //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        //Check_ShopListFlag();
+
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -517,8 +535,7 @@ public class ShopItemListController : MonoBehaviour
     // お土産系
     void reset_and_DrawView_Etc()
     {
-        //リスト表示のフラグチェック　パティシエレベルが○○以上だと、品ぞろえが増えるなど。
-        //Check_ShopListFlag();
+
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -603,6 +620,12 @@ public class ShopItemListController : MonoBehaviour
         _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.shopitems[i].shop_itemNameHyouji; //表示用の名前
         _toggle_itemID.toggle_shopitem_costprice = shop_database.shopitems[i].shop_costprice; //単価
 
+        //セール表示
+        if(shop_database.shopitems[i].shop_item_hyouji == 100)
+        {
+            _shop_listitem[list_count].transform.Find("SalePanel").gameObject.SetActive(true);
+        }
+
 
         item_name = shop_database.shopitems[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
 
@@ -648,6 +671,12 @@ public class ShopItemListController : MonoBehaviour
         _toggle_itemID.toggle_shopitem_type = shop_database.farmitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
         _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.farmitems[i].shop_itemNameHyouji; //表示用の名前
         _toggle_itemID.toggle_shopitem_costprice = shop_database.farmitems[i].shop_costprice; //単価
+
+        //セール表示
+        if (shop_database.farmitems[i].shop_item_hyouji == 100)
+        {
+            _shop_listitem[list_count].transform.Find("SalePanel").gameObject.SetActive(true);
+        }
 
 
         item_name = shop_database.farmitems[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
@@ -697,6 +726,11 @@ public class ShopItemListController : MonoBehaviour
         _toggle_itemID.toggle_shopitem_costprice = shop_database.emeraldshop_items[i].shop_costprice; //単価
         _toggle_itemID.toggle_shopitem_dongri_type = shop_database.emeraldshop_items[i].shop_dongriType; //どんぐりタイプ
 
+        //セール表示
+        if (shop_database.emeraldshop_items[i].shop_item_hyouji == 100)
+        {
+            _shop_listitem[list_count].transform.Find("SalePanel").gameObject.SetActive(true);
+        }
 
         item_name = shop_database.emeraldshop_items[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
 
@@ -779,6 +813,48 @@ public class ShopItemListController : MonoBehaviour
         {
             shop_hyouji_flag = 5;
             Check_ONShopListFlag(shop_hyouji_flag);
+        }
+
+        //セールや日によって出たりでなかったりする品物
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Shop":
+
+                break;
+
+            case "Farm":
+
+                if(GameMgr.Sale_ON)
+                {
+                    //Debug.Log("セール品　表示");
+                    shop_hyouji_flag = 100; //100番台はセール品
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                break;
+        }
+    }
+
+    void OFFShopListFlag()
+    {
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+
+            shop_database.shopitems[i].shop_item_hyouji_on = false;
+
+        }
+
+        for (i = 0; i < shop_database.farmitems.Count; i++)
+        {
+
+            shop_database.farmitems[i].shop_item_hyouji_on = false;
+
+        }
+
+        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+        {
+
+            shop_database.emeraldshop_items[i].shop_item_hyouji_on = false;
+
         }
     }
 

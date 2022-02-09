@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class RecipiMemoController : MonoBehaviour
@@ -37,6 +38,12 @@ public class RecipiMemoController : MonoBehaviour
 
     public int _count1;
 
+    // ドラッグ前の位置
+    private Vector3 prevPos;
+
+    //基準点（マウスの基準は左下だが、オブジェクトの基準は画面中央になるので補正する。）
+    private Vector2 rootPos;
+
     // Use this for initialization
     void Awake()
     {
@@ -56,6 +63,11 @@ public class RecipiMemoController : MonoBehaviour
         i = 0;
 
         //this.gameObject.SetActive(false);
+
+        rootPos = new Vector3(400f, 400f, 0f); //画面の半分（400, 300）+y方向に100
+
+        //初期位置
+        this.transform.localPosition = new Vector3(250f, 50f, 0f);
     }
 
     // Update is called once per frame
@@ -123,5 +135,29 @@ public class RecipiMemoController : MonoBehaviour
     {
         recipiMemoButton.SetActive(true);
         this.gameObject.SetActive(false);
+    }
+
+    //ドラッグ＆ドロップ関係
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        // ドラッグ前の位置を記憶しておく
+        prevPos = transform.localPosition;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        // ドラッグ中は位置を更新する
+        transform.localPosition = eventData.position - rootPos;
+        //Debug.Log("eventData.position: " + eventData.position);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // ドラッグ前の位置に戻す
+        //transform.position = prevPos;
+        transform.localPosition = eventData.position - rootPos;
+
+        //画面外にでたら、端っこあたりにでるようにする。
     }
 }

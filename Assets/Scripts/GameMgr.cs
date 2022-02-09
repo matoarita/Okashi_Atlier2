@@ -347,6 +347,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string contest_okashiSubType;
     public static string contest_okashiSlotName;
     public static int contest_okashiID;
+    public static Item contest_okashi_ItemData;
 
     public static bool special_shogo_flag;
     public static int special_shogo_num;
@@ -451,6 +452,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string MoneyCurrency;
     public static string MoneyCurrencyEn;
 
+    //ゴールドマスター称号用のルピア閾値
+    public static int GoldMasterMoneyLine;
+
     //時間の概念を使用するかどうかのフラグ
     public static bool TimeUSE_FLAG = true; //使用するならtrue
 
@@ -462,6 +466,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //一日のはじまり・終わりの時間
     public static int StartDay_hour;
     public static int EndDay_hour;
+
+    public static int Shopday; //ショップ入ったら更新する日付。その日を記録する。
+    public static bool Sale_ON; //セール判定　日付をまたいだら、OFFに。
 
     // Use this for initialization
     void Start () {
@@ -507,6 +514,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //メインの女の子名前
         mainGirl_Name = "ヒカリ";
+
+        GoldMasterMoneyLine = 100000;
 
         //日が終わる時間
         StartDay_hour = 8;
@@ -782,6 +791,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_lastbitter_param = 0;
         NowEatOkashi = "";
 
+        //コンテストお菓子初期化
+        contest_okashi_ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                        "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
+                        0, 0, 0, 0, 0, 0, "", 0, 1);
+
         //お菓子のクリア基準値
         mazui_score = 30;
         low_score = 60;
@@ -847,6 +861,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //メインBGMの番号
         mainBGM_Num = 0;
+
+        Shopday = 0;
+        Sale_ON = false;
     }
     
     public static void InitCollectionItemsLibrary()
@@ -905,18 +922,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void InitTitleCollectionLibrary()
     {
         title_collection_list.Clear();
-        title_collection_list.Add(new SpecialTitle(000, "title1", "D:パティシエたまご", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(000, "title1", "D:パティシエたまご", false, "Icon/badge_icon_01"));
         title_collection_list.Add(new SpecialTitle(001, "title3", "C:パティシエ一人前", false, "Non"));
         title_collection_list.Add(new SpecialTitle(002, "title4", "B:上級パティシエ", false, "Non"));
         title_collection_list.Add(new SpecialTitle(003, "title5", "A:虹のパティシエ", false, "Non"));
         title_collection_list.Add(new SpecialTitle(004, "title6", "S:グランド・シェフ", false, "Non"));      
-        title_collection_list.Add(new SpecialTitle(005, "title100", "深紅-スカーレット-", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(006, "title101", "白羽-ホワイトプリム-", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(007, "title102", "蒼碧-ブルーヴェール-", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(008, "title103", "緑癒-ハイルング-", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(009, "title104", "ししゃもマニア", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(010, "title105", "ゴールドマスター", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(011, "title7", "SS:愛のパティシエ", false, "Non"));
+        title_collection_list.Add(new SpecialTitle(005, "title100", "深紅-スカーレット-", false, "Icon/badge_icon_02")); //バッチアイコンのスプライトが入っている。
+        title_collection_list.Add(new SpecialTitle(006, "title101", "白羽-ホワイトプリム-", false, "Icon/badge_icon_03"));
+        title_collection_list.Add(new SpecialTitle(007, "title102", "蒼碧-ブルーヴェール-", false, "Icon/badge_icon_04"));
+        title_collection_list.Add(new SpecialTitle(008, "title103", "緑癒-ハイルング-", false, "Icon/badge_icon_05"));
+        title_collection_list.Add(new SpecialTitle(009, "title104", "ししゃもマニア", false, "Icon/badge_icon_06"));
+        title_collection_list.Add(new SpecialTitle(010, "title105", "ゴールドマスター", false, "Icon/badge_icon_07"));
+        title_collection_list.Add(new SpecialTitle(011, "title7", "SS:愛のパティシエ", false, "Icon/badge_icon_08"));
 
     }
 
@@ -944,6 +961,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                 title_collection_list[system_i].Flag = _flag;
             }
         }
+    }
+
+    //称号のnameを入れると、フラグをゲットするメソッド
+    public static bool GetTitleCollectionFlag(string _name)
+    {
+        for (system_i = 0; system_i < title_collection_list.Count; system_i++)
+        {
+            if (title_collection_list[system_i].titleName == _name)
+            {
+                return title_collection_list[system_i].Flag;
+            }
+        }
+
+        return false;
     }
 
     //イベントコレクションのリスト
@@ -1005,24 +1036,24 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contestclear_collection_list.Add(new SpecialTitle(002, "contestclear3", "クレープで優勝！", false, "Items/crepe"));
         contestclear_collection_list.Add(new SpecialTitle(003, "contestclear4", "シュークリームで優勝！", false, "Items/creampuff"));
         contestclear_collection_list.Add(new SpecialTitle(004, "contestclear5", "ドーナツで優勝！", false, "Items/donuts_pinkcharlotte"));
-        contestclear_collection_list.Add(new SpecialTitle(015, "contestclear16", "マフィンこそ命！で優勝！", false, "Items/maffin_jewery"));
-        contestclear_collection_list.Add(new SpecialTitle(016, "contestclear17", "フィナンシェの妖精！で優勝！", false, "Items/financier"));
-        contestclear_collection_list.Add(new SpecialTitle(017, "contestclear18", "ビスコッティで大人なひととき..！", false, "Items/biscouti"));
+        contestclear_collection_list.Add(new SpecialTitle(015, "contestclear16", "マフィンの王様！", false, "Items/maffin_jewery"));
+        contestclear_collection_list.Add(new SpecialTitle(016, "contestclear17", "フィナンシェの妖精！", false, "Items/financier"));
+        contestclear_collection_list.Add(new SpecialTitle(017, "contestclear18", "ビスコッティでヨーロピアンブレイク！", false, "Items/biscouti"));
         contestclear_collection_list.Add(new SpecialTitle(018, "contestclear19", "パンケーキマイスタ～！", false, "Items/pan_cake_maple"));
-        contestclear_collection_list.Add(new SpecialTitle(019, "contestclear20", "カステラでほっこり味わい優勝！", false, "Items/castella"));
+        contestclear_collection_list.Add(new SpecialTitle(019, "contestclear20", "カステラでシベリアマスター！", false, "Items/castella"));
         //contestclear_collection_list.Add(new SpecialTitle(020, "contestclear21", "パンで優勝！", false, "Items/bugget"));
-        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "ティーで優雅なひとときを。", false, "Items/rich_tea"));
+        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "お茶会の貴婦人！", false, "Items/rich_tea"));
         contestclear_collection_list.Add(new SpecialTitle(006, "contestclear7", "ジュースでビタミンNo.１！", false, "Items/orange_juice"));
-        contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "コーヒーで優雅な朝を..！", false, "Items/coffee"));
-        contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "素材の味で、わびさびのこころ..！", false, "Items/crepe_maple"));
+        contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "コーヒーでイギリス紳士な朝食を！", false, "Items/coffee"));
+        contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "素材の味にこだわる職人！", false, "Items/crepe_maple"));
         contestclear_collection_list.Add(new SpecialTitle(009, "contestclear10", "きみも、ジェリーボーイ！", false, "Items/slimejelly"));
-        contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータで優勝！", false, "Items/princess_tota"));
-        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "ナウなティラミスで優勝！", false, "Items/tiramisu"));
-        contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタで優勝！", false, "Items/violatte_suger"));
-        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "ハードボイルドなカンノーリで優勝！", false, "Items/cannoli"));
+        contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータ！", false, "Items/princess_tota"));
+        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "オシャ～レティラミス！", false, "Items/tiramisu"));
+        contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタ！", false, "Items/violatte_suger"));
+        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "ハードボイルド・カンノーリ！", false, "Items/cannoli"));
         contestclear_collection_list.Add(new SpecialTitle(013, "contestclear14", "アイスクリーム！ユースクリ～ム！", false, "Items/icecream"));
-        contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "憧れのパフェマニア！", false, "Items/parfe_vanilla"));
-        contestclear_collection_list.Add(new SpecialTitle(022, "contestclear23", "宝石の煌めき！キラキラキャンディでクリア！", false, "Items/jewery_candy"));
+        contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "あま～い☆憧れのパフェマスター！", false, "Items/parfe_vanilla"));
+        contestclear_collection_list.Add(new SpecialTitle(022, "contestclear23", "キラキラ宝石！キャンディ職人！", false, "Items/jewery_candy"));
 
         //デバッグ用
         /*for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)
@@ -1053,6 +1084,44 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             if (contestclear_collection_list[system_i].titleName == _name)
             {
                 contestclear_collection_list[system_i].Flag = _flag;
+            }
+        }
+    }
+
+    //コンテストクリアのnameを入れると、点数を置き換えるメソッド
+    public static void SetContestClearCollectionScore(string _name, int _score)
+    {
+        for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)
+        {
+            if (contestclear_collection_list[system_i].titleName == _name)
+            {
+                contestclear_collection_list[system_i].Score = _score;
+            }
+        }
+    }
+
+    //コンテストクリアのnameを入れると、そのときの最高得点を取得するメソッド
+    public static int GetContestClearCollectionScore(string _name)
+    {
+        for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)
+        {
+            if (contestclear_collection_list[system_i].titleName == _name)
+            {
+                return contestclear_collection_list[system_i].Score;
+            }
+        }
+
+        return 0; //_nameなければとりあえず0点
+    }
+
+    //コンテストクリアのnameを入れると、アイテムデータを置き換えるメソッド
+    public static void SetContestClearCollectionItemData(string _name, Item _itemdata)
+    {
+        for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)
+        {
+            if (contestclear_collection_list[system_i].titleName == _name)
+            {
+                contestclear_collection_list[system_i].ItemData = _itemdata;
             }
         }
     }

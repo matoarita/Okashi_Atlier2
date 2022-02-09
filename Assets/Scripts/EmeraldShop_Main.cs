@@ -54,6 +54,8 @@ public class EmeraldShop_Main : MonoBehaviour {
     public int shop_status;
     public int shop_scene; //どのシーンを選択しているかを判別
 
+    private int i;
+
     private bool event_loading;
 
     // Use this for initialization
@@ -137,6 +139,19 @@ public class EmeraldShop_Main : MonoBehaviour {
         shop_scene = 0;
 
         event_loading = false;
+
+        //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
+        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
+        {
+            if (shop_database.emeraldshop_items[i].shop_itemType == 0 || shop_database.emeraldshop_items[i].shop_itemType == 3)
+            {
+                shop_database.emeraldshop_items[i].shop_itemzaiko = shop_database.emeraldshop_items[i].shop_itemzaiko_max;
+            }
+            else
+            {
+
+            }
+        }
 
         //入店の音
         sc.PlaySe(51);

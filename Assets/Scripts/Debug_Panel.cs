@@ -676,7 +676,15 @@ public class Debug_Panel : MonoBehaviour {
         {
             _slider.minValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 2];
         }
-        _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+
+        if (PlayerStatus.girl1_Love_lv >= 99)
+        {
+            _slider.maxValue = 99999; //Lv99でカンストしたときは、Lv100のMaxがないので、適当な数字に。
+        }
+        else
+        {
+            _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+        }
 
         _slider.value = _girllove_param;
 

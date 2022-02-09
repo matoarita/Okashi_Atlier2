@@ -170,6 +170,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _tempsell;
     private string[] _temptp;
 
+    private string _before_itemtype_Sub;
 
     //小麦粉の比率計算時に使用。
     /*private int _komugikomp;
@@ -353,10 +354,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
                 final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
 
+                _before_itemtype_Sub = "";
+
                 //Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
                 //Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);
             }
-            else //エクストリーム調合から閃いた場合
+            else //仕上げで新しく閃く場合
             {
                 kettei_item1 = pitemlistController.base_kettei_item;
                 kettei_item2 = pitemlistController.kettei_item1;
@@ -369,6 +372,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 final_kette_kosu1 = pitemlistController.final_base_kettei_kosu;
                 final_kette_kosu2 = pitemlistController.final_kettei_kosu1;
                 final_kette_kosu3 = pitemlistController.final_kettei_kosu2;
+
+                if (toggle_type1 == 0)
+                {
+                    _before_itemtype_Sub = database.items[kettei_item1].itemType_sub.ToString();
+                }
+                else if (toggle_type1 == 1)
+                {
+                    _before_itemtype_Sub = pitemlist.player_originalitemlist[kettei_item1].itemType_sub.ToString();
+                }
             }
 
             /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
@@ -1375,10 +1387,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
         {
-            _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType_sub); //中の数字でどの食感パラムかの指定
-            _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType_sub);
-            _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType_sub);
-            _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType_sub);
+            if (_before_itemtype_Sub != _base_itemType_sub) //
+            {
+                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType_sub); //中の数字でどの食感パラムかの指定
+                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType_sub);
+                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType_sub);
+                _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType_sub);
+            }
         }
     }
 

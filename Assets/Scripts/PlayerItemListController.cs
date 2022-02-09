@@ -487,7 +487,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                         itemlist_hyouji();
                                     }
                                     else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
-                                        database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
+                                        database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Bread_Sliced" || 
+                                        database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
                                         database.items[i].itemType_sub.ToString() == "Crepe_Mat" || database.items[i].itemType_sub.ToString() == "Castella" ||
                                         database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Juice" ||
                                         database.items[i].itemType_sub.ToString() == "Cake_Mat" || database.items[i].itemType_sub.ToString() == "Coffee_Mat" ||
@@ -555,7 +556,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             case 5:
 
                                 //フルーツかレアアイテムを表示
-                                if (database.items[i].itemType.ToString() == "Mat" || database.items[i].itemType_sub.ToString() == "Rare")
+                                if (database.items[i].itemType.ToString() == "Mat" || database.items[i].itemType_sub.ToString() == "Rare" || 
+                                    database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Equip")
                                 {
 
                                     itemlist_hyouji();
@@ -653,7 +655,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     original_itemlist_hyouji();
                                 }
                                 else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
+                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread_Sliced" || 
+                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
                                     pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Castella" ||
                                     pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Juice" ||
                                     pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cake_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Coffee_Mat" ||
@@ -722,7 +725,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         case 5:
 
                             //フルーツかレアアイテムを表示
-                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Rare")
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Rare" ||
+                                    pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Equip")
                             {
 
                                 original_itemlist_hyouji();

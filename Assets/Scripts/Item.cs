@@ -105,6 +105,7 @@ public class Item
     {
         Non,
         Bread,
+        Bread_Sliced,
         Biscotti,
         Cookie,
         Cookie_Hard,

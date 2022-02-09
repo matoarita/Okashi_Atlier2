@@ -101,6 +101,12 @@ public class Omake_Main : MonoBehaviour {
         {
             GameMgr.event_collection_list[i].Flag = true;
         }
+
+        //全称号解放
+        for (i = 0; i < GameMgr.title_collection_list.Count; i++)
+        {
+            GameMgr.title_collection_list[i].Flag = true;
+        }
     }
 	
 	// Update is called once per frame

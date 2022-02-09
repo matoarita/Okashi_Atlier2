@@ -652,6 +652,12 @@ public class Compound_Main : MonoBehaviour
         //セーブがあるかどうかをチェック
         save_controller.SystemloadCheck_SaveOnly();
 
+        //二週目以降はエメラルショップはじめからでてる。
+        if (GameMgr.ending_count >= 1)
+        {
+            matplace_database.matPlaceKaikin("Emerald_Shop");
+        }
+
         //ロード画面から読み込んだ際の処理
         if (GameMgr.GameLoadOn)
         {
@@ -3306,6 +3312,10 @@ public class Compound_Main : MonoBehaviour
 
                             //イベントCG解禁
                             GameMgr.SetEventCollectionFlag("event10", true);
+
+                            //広場は必ずでる。
+                            matplace_database.matPlaceKaikin("Hiroba"); //広場解禁
+                            //matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり解禁
                         }
                     }
 
@@ -4572,6 +4582,7 @@ public class Compound_Main : MonoBehaviour
         //リセット。
         PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint; //体力は全回復
         PlayerStatus.player_day++;
+        GameMgr.Sale_ON = false;
         //PlayerStatus.player_time = 0;
         PlayerStatus.player_cullent_hour = GameMgr.StartDay_hour;
         PlayerStatus.player_cullent_minute = 0;

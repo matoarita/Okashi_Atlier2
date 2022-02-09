@@ -95,6 +95,8 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
         rootPos = new Vector3(400f, 400f, 0f); //画面の半分（400, 300）+y方向に100
 
+        //初期位置
+        this.transform.localPosition = new Vector3(250f, 50f, 0f);
     }
 
     public void SeteventID(int _ev_id )

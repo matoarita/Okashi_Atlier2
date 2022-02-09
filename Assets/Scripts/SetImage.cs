@@ -697,6 +697,10 @@ public class SetImage : MonoBehaviour
                 subcategory = "パン";
                 Crispy_Text();
                 break;
+            case "Bread_Sliced":
+                subcategory = "パン";
+                Crispy_Text();
+                break;
             case "Cookie":
                 subcategory = "クッキー";
                 Crispy_Text();

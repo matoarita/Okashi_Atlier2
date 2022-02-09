@@ -50,6 +50,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveFlag> _temp_titlecollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_eventcollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_contestclearcollectionlist = new List<ItemSaveFlag>();
+    private List<Item> _temp_contestclearcollectionlistItemData = new List<Item>();
 
     private GameObject _model_obj;
     private GameObject StageClearButton_panel;
@@ -827,6 +828,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag = 1;
         }
+
+        //体力は全回復
+        PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;
     }
 
     //ロードの準備
@@ -915,9 +919,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //コンテストクリアお菓子リスト
         _temp_contestclearcollectionlist.Clear();
+        _temp_contestclearcollectionlistItemData.Clear();
         for (i = 0; i < GameMgr.contestclear_collection_list.Count; i++)
         {
-            _temp_contestclearcollectionlist.Add(new ItemSaveFlag(GameMgr.contestclear_collection_list[i].titleName, 0, GameMgr.contestclear_collection_list[i].Flag));
+            _temp_contestclearcollectionlist.Add(new ItemSaveFlag(GameMgr.contestclear_collection_list[i].titleName, GameMgr.contestclear_collection_list[i].Score, GameMgr.contestclear_collection_list[i].Flag));
+            _temp_contestclearcollectionlistItemData.Add(GameMgr.contestclear_collection_list[i].ItemData);
         }
 
         //システムデータに、セーブしたかどうかのフラグをセット
@@ -930,6 +936,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_Autosave_ON = GameMgr.AUTOSAVE_ON,
 
             save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
+            save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
 
             //コスチューム番号
             save_costume_num = GameMgr.Costume_Num,
@@ -958,6 +965,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //コンテストクリアお菓子リストを記録する
             save_contestclear_collection_list = _temp_contestclearcollectionlist,
+            save_contestclear_collection_listItemData = _temp_contestclearcollectionlistItemData,
 
             //音設定データ
             save_masterVolumeparam = GameMgr.MasterVolumeParam,
@@ -1009,7 +1017,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
 
             PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
-            
+            PlayerStatus.player_girl_maxlifepoint = systemData.save_player_girl_maxlifepoint_system; // 女の子のMAX体力　システム引継ぎ用
+
             //コスチューム番号
             GameMgr.Costume_Num = systemData.save_costume_num;
             GameMgr.Accesory_Num = systemData.save_acce_num;
@@ -1125,11 +1134,36 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     if (systemData.save_contestclear_collection_list[count].itemName == GameMgr.contestclear_collection_list[i].titleName)
                     {
                         GameMgr.contestclear_collection_list[i].Flag = systemData.save_contestclear_collection_list[count].Flag;
+                        GameMgr.contestclear_collection_list[i].Score = systemData.save_contestclear_collection_list[count].Param;
                         break;
                     }
                     i++;
                 }
             }
+
+            for (count = 0; count < systemData.save_contestclear_collection_listItemData.Count; count++)
+            {
+                i = 0;
+                while (i < GameMgr.contestclear_collection_list.Count)
+                {
+                    if (systemData.save_contestclear_collection_list[count].itemName == GameMgr.contestclear_collection_list[i].titleName)
+                    {
+
+                        GameMgr.contestclear_collection_list[i].ItemData = systemData.save_contestclear_collection_listItemData[count];
+
+                        //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。アイテムIDも、後でDB更新の際に全てずれる可能性があるので入れ直し。
+                        if (GameMgr.contestclear_collection_list[i].ItemData.itemID != 9999)
+                        {
+                            _itemID = pitemlist.SearchItemString(GameMgr.contestclear_collection_list[i].ItemData.itemName);
+                            GameMgr.contestclear_collection_list[i].ItemData.itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+                        }
+                        break;
+                    }
+                    i++;
+                }
+            }
+
+            
 
 
             //音設定データ

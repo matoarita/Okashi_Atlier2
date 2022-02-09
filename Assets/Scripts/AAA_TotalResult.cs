@@ -575,6 +575,7 @@ public class AAA_TotalResult : MonoBehaviour {
         //特殊な称号を取得してた場合、そっちが優先される。
         if (GameMgr.special_shogo_flag)
         {
+            _rank = "★";
             switch (GameMgr.special_shogo_num)
             {
                 case 0: //スカーレット
@@ -834,29 +835,66 @@ public class AAA_TotalResult : MonoBehaviour {
 
     void EDHukidashiText()
     {
-        switch (GameMgr.ending_number)
+        if (GameMgr.special_shogo_flag)
         {
-            case 1: //Bad ED
+            switch (GameMgr.special_shogo_num)
+            {
+                case 0: //スカーレット
 
-                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートを400以上に上げて、再度挑戦してね！";
-                break;
+                    _hukidashi_content = ".." + "いちごのお菓子で150点以上とって、優勝しちゃったね・・!" + "\n" + "いちご好きのおにいちゃんにピッタリの、赤い称号をもらたよ～☆";
+                    break;
 
-            case 2:
+                case 1: //ホワイトプリム
 
-                _hukidashi_content = "おにいちゃん！" + "\n" + "お菓子、とってもうんめぇ～～！！" + "\n" + "まだまだ遊び足りないよ～！！";
-                break;
+                    _hukidashi_content = ".." + "おにいちゃん！" + "\n" + "天使のようなふわふわのクレープ..！とろけたよ～！" + "\n" + "にいちゃんのクレープに、天使のような称号がついたよ♪　おめでと！";
+                    break;
 
-            case 3:
+                case 2: //ハイルング
 
-                _hukidashi_content = "おにいちゃん！" + "\n" + "ありがと～！　また会おうね。" + "\n" + "..でもまだ、真の結末があるみたいだよ。";
-                break;
+                    _hukidashi_content = ".." + "にいちゃん、夢のプリンセストータで優勝しちゃった・・！" + "\n" + "130点以上とったから、じいちゃんから特別な称号もらったよ！！　おめでと～☆";
+                    break;
 
-            case 4:
+                case 3: //ブルーヴェール
 
-                _hukidashi_content = "にいちゃん、ヒカリのハートいっぱいにしてくれて、ありがとう！" + "\n" + "にいちゃんのこと、だ～いすき！！！！";
-                break;
+                    _hukidashi_content = ".." + "おにいちゃん！" + "\n" + "ブルーヴェール.. かがやくような青色のお菓子で、みんな目が輝いてたよ！！" + "\n" + "特別な称号.. おめでとう～☆";
+                    break;
+
+                case 4: //ししゃもマニア
+
+                    _hukidashi_content = ".." + "おにいちゃん！" + "\n" + "やっぱりにいちゃんは、ししゃも大好きなんだね！" + "\n" + "ししゃもマニアなあにに、このししゃもバッチあげよう♪";
+                    break;
+
+                case 5: //ゴールドマスター
+
+                    _hukidashi_content = ".." + "おにいちゃん！" + "\n" + "お金がとうとう" + GameMgr.GoldMasterMoneyLine.ToString() + GameMgr.MoneyCurrency + "こえちゃった・・！" + "\n" + "ここまでがんばってくれて、にいちゃんありがと♪" + "\n" + "また" + GameMgr.mainGirl_Name + "と遊んでね！";
+                    break;
+            }
         }
+        else
+        {
+            switch (GameMgr.ending_number)
+            {
+                case 1: //Bad ED
 
+                    _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートを400以上に上げて、再度挑戦してね！";
+                    break;
+
+                case 2:
+
+                    _hukidashi_content = "おにいちゃん！" + "\n" + "お菓子、とってもうんめぇ～～！！" + "\n" + "まだまだ遊び足りないよ～！！";
+                    break;
+
+                case 3:
+
+                    _hukidashi_content = "おにいちゃん！" + "\n" + "ありがと～！　また会おうね。" + "\n" + "..でもまだ、真の結末があるみたいだよ。";
+                    break;
+
+                case 4:
+
+                    _hukidashi_content = "にいちゃん" + "\n" + GameMgr.mainGirl_Name + "のハートいっぱいにしてくれて、ありがとう！" + "\n" + "にいちゃん.. だ～いすき♪　また会いたいな～♪";
+                    break;
+            }
+        }
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

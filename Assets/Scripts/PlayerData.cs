@@ -30,6 +30,7 @@ public class PlayerData
     public int save_girl_love_lv; //妹の好感度レベル
     public int save_player_girl_lifepoint; //妹の体力
     public int save_player_girl_maxlifepoint; //妹のMAX体力
+    public int save_player_girl_maxlifepoint_system; //妹のMAX体力 システム引継ぎ用
     public int save_player_girl_eatCount; //妹が食べたお菓子の回数
 
     //日付・フラグ関係
@@ -193,6 +194,7 @@ public class PlayerData
 
     //コンテストクリアお菓子リスト
     public List<ItemSaveFlag> save_contestclear_collection_list = new List<ItemSaveFlag>();
+    public List<Item> save_contestclear_collection_listItemData = new List<Item>();
 
     //エクストリームパネル用のアイテムとタイプ
     public int save_extreme_itemid;

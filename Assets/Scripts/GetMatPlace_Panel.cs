@@ -899,7 +899,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         compound_Main.bgm_change_flag = true;
 
                         //背景エフェクト
-                        map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
+                        map_bg_effect.transform.Find("MapBG_Effect_BirdSanctuali").gameObject.SetActive(true);
 
                         //イベントチェック
                         if (!GameMgr.MapEvent_06[0])

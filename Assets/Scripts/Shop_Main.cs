@@ -175,7 +175,7 @@ public class Shop_Main : MonoBehaviour {
         {
             if (shop_database.shopitems[i].shop_itemType == 0 || shop_database.shopitems[i].shop_itemType == 3)
             {
-                shop_database.shopitems[i].shop_itemzaiko = 50;
+                shop_database.shopitems[i].shop_itemzaiko = shop_database.shopitems[i].shop_itemzaiko_max;
             }
             else
             {

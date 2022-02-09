@@ -13,6 +13,8 @@ public class SpecialTitle
     public string titleName;
     public string titleNameHyouji;
     public bool Flag; //イベントアイテム用の項目
+    public int Score;
+    public Item ItemData; //アイテムのデータ保存用
 
     public Sprite imgIcon_sprite; //使う場合は、_fileNameに、"Sprites/"以下のフォルダ名/画像データ名を指定。使わない場合は、Non
     //ここまで
@@ -30,5 +32,11 @@ public class SpecialTitle
         {
             imgIcon_sprite = Resources.Load<Sprite>("Sprites/" + _fileName);
         }
+
+        Score = 0;
+
+        ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                        "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
+                        0, 0, 0, 0, 0, 0, "", 0, 1);
     }
 }

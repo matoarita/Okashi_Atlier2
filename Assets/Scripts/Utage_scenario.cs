@@ -2549,6 +2549,16 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Contest_num", contest_num);
 
+        //ED一回以上みてれば、イベントをスキップできる。
+        if (GameMgr.ending_count >= 1)
+        {
+            engine.Param.TrySetParameter("ContestSkip_Flag", true);
+        }
+        else
+        {
+            engine.Param.TrySetParameter("ContestSkip_Flag", false);
+        }
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -2616,16 +2626,18 @@ public class Utage_scenario : MonoBehaviour
         SpecialTitleCheck();      
 
         //コンテストクリアのお菓子リストをチェック
-        if(yusho_flag) //GameMgr.contest_TotalScore >= GameMgr.low_score
+        if(yusho_flag)
         {
             //固有お菓子がないかをチェックし、なければサブをみる。
             if (GameMgr.contest_okashiName == "tiramisu")
             {
                 GameMgr.SetContestClearCollectionFlag("contestclear12", true);
+                YushoOkashi_Koushin("contestclear12");
             }
             else if (GameMgr.contest_okashiName == "princess_tota")
             {
                 GameMgr.SetContestClearCollectionFlag("contestclear11", true);
+                YushoOkashi_Koushin("contestclear11");
             }
             else
             {
@@ -2634,16 +2646,19 @@ public class Utage_scenario : MonoBehaviour
                     case "Cookie":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear1", true);
+                        YushoOkashi_Koushin("contestclear1");
                         break;
 
                     case "Cookie_Mat":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear1", true);
+                        YushoOkashi_Koushin("contestclear1");
                         break;
 
                     case "Cookie_Hard": //ノンシュガードロップクッキーは素材の味でクリアになる
 
                         GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                        YushoOkashi_Koushin("contestclear9");
                         break;
 
                     /*case "Bread": //パン
@@ -2654,101 +2669,121 @@ public class Utage_scenario : MonoBehaviour
                     case "Rusk":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear2", true);
+                        YushoOkashi_Koushin("contestclear2");
                         break;
 
                     case "Crepe":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear3", true);
+                        YushoOkashi_Koushin("contestclear3");
                         break;
 
                     case "Creampuff":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear4", true);
+                        YushoOkashi_Koushin("contestclear4");
                         break;
 
                     case "Donuts":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear5", true);
+                        YushoOkashi_Koushin("contestclear5");
                         break;
 
                     case "Maffin":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear16", true);
+                        YushoOkashi_Koushin("contestclear16");
                         break;
 
                     case "Financier":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear17", true);
+                        YushoOkashi_Koushin("contestclear17");
                         break;
 
                     case "Biscotti":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear18", true);
+                        YushoOkashi_Koushin("contestclear18");
                         break;
 
                     case "PanCake":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear19", true);
+                        YushoOkashi_Koushin("contestclear19");
                         break;
 
                     case "Castella":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear20", true);
+                        YushoOkashi_Koushin("contestclear20");
                         break;
 
                     case "SumireSuger":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear22", true);
+                        YushoOkashi_Koushin("contestclear22");
                         break;
 
                     case "Tea":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear6", true);
+                        YushoOkashi_Koushin("contestclear6");
                         break;
 
                     case "Tea_Potion":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear6", true);
+                        YushoOkashi_Koushin("contestclear6");
                         break;
 
                     case "Juice":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear7", true);
+                        YushoOkashi_Koushin("contestclear7");
                         break;
 
                     case "Coffee_Mat":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear8", true);
+                        YushoOkashi_Koushin("contestclear8");
                         break;
 
                     case "Jelly":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear10", true);
+                        YushoOkashi_Koushin("contestclear10");
                         break;
 
                     case "Cannoli":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear13", true);
+                        YushoOkashi_Koushin("contestclear13");
                         break;
 
                     case "IceCream":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear14", true);
+                        YushoOkashi_Koushin("contestclear14");
                         break;
 
                     case "Parfe":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear15", true);
+                        YushoOkashi_Koushin("contestclear15");
                         break;
 
                     case "Candy":
 
                         GameMgr.SetContestClearCollectionFlag("contestclear23", true);
+                        YushoOkashi_Koushin("contestclear23");
                         break;
 
                     default: //素材の味でクリアになる。_Mat系
 
                         GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                        YushoOkashi_Koushin("contestclear9");
                         break;
                 }
             }
@@ -2838,6 +2873,16 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
+    }
+
+    void YushoOkashi_Koushin(string _listname)
+    {
+        //前回得点より、今回のお菓子が得点を上回ったら、新しくデータ更新
+        if(GameMgr.contest_TotalScore > GameMgr.GetContestClearCollectionScore(_listname))
+        {
+            GameMgr.SetContestClearCollectionScore(_listname, GameMgr.contest_TotalScore);
+            GameMgr.SetContestClearCollectionItemData(_listname, GameMgr.contest_okashi_ItemData);
+        }
     }
 
     void KansouSelect()
@@ -2976,13 +3021,16 @@ public class Utage_scenario : MonoBehaviour
     //特殊な称号のチェック　後ろほど優先順位が高い
     void SpecialTitleCheck()
     {
-        //ゴールドマスター　50000ルピア以上持った状態で、優勝する。
-        if (PlayerStatus.player_money >= 50000)
+        //ゴールドマスター　100000ルピア以上持った状態で、優勝する。
+        if (!GameMgr.GetTitleCollectionFlag("title105"))
         {
-            if (yusho_flag)
+            if (PlayerStatus.player_money >= GameMgr.GoldMasterMoneyLine)
             {
-                GameMgr.special_shogo_flag = true;
-                GameMgr.special_shogo_num = 5;
+                if (yusho_flag)
+                {
+                    GameMgr.special_shogo_flag = true;
+                    GameMgr.special_shogo_num = 5;
+                }
             }
         }
 
