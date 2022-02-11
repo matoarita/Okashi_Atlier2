@@ -110,7 +110,7 @@ public class Result_Panel : MonoBehaviour
         button = this.transform.Find("Button").GetComponent<Button>();
         button.interactable = false;
 
-        okashi_score_text = this.transform.Find("Image/Okashi_Score").GetComponent<Text>();
+        okashi_score_text = this.transform.Find("Image/ScoreBackIcon/Okashi_Score").GetComponent<Text>();
         okashi_score_text.text = "";
 
         Manzoku_star_content = this.transform.Find("Image/Manzoku_Score_star/Viewport/Content").gameObject;

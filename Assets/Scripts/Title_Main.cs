@@ -18,6 +18,7 @@ public class Title_Main : MonoBehaviour {
 
     private GameObject option_panel_obj;
     private GameObject galleryButton_obj;
+    private GameObject freeModeButton_obj;
     private GameObject loadButton_obj;
 
     private GameObject canvas;
@@ -50,6 +51,8 @@ public class Title_Main : MonoBehaviour {
 
         option_panel_obj = canvas.transform.Find("OptionPanel").gameObject;
         galleryButton_obj = canvas.transform.Find("TitleMenu/Viewport/Content/GalleryButton").gameObject;
+        freeModeButton_obj = canvas.transform.Find("TitleMenu/Viewport/Content/GameStartButton_2").gameObject;
+        freeModeButton_obj.SetActive(false);
         loadButton_obj = canvas.transform.Find("TitleMenu/Viewport/Content/GameLoadButton").gameObject;
 
         chara_Icon = GameObject.FindWithTag("Character").gameObject;
@@ -68,6 +71,7 @@ public class Title_Main : MonoBehaviour {
         if (GameMgr.ending_count >= 1)
         {
             galleryButton_obj.SetActive(true);
+            //freeModeButton_obj.SetActive(true);
 
             chara_Icon.SetActive(false);
             _model_move.SetActive(true);
@@ -81,6 +85,7 @@ public class Title_Main : MonoBehaviour {
         else
         {
             galleryButton_obj.SetActive(false);
+            freeModeButton_obj.SetActive(false);
 
             chara_Icon.SetActive(true);
             _model_move.SetActive(false);
@@ -110,6 +115,19 @@ public class Title_Main : MonoBehaviour {
         save_controller.ResetAllParam(); //まず全てのパラメータを初期化
         save_controller.SystemloadCheck(); //システムデータロード　お菓子手帳やED回数など引継ぎデータはロード
         save_controller.ResetParamSecondTime();//いくつかのパラメータは、システムロード後に、またリセットする。食べた回数など。
+
+        GameMgr.Story_Mode = 0;
+        FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
+        FadeManager.Instance.LoadScene("010_Prologue", 0.3f);
+    }
+
+    public void OnStartButton2() //フリーモード　強くてニューゲーム
+    {
+        save_controller.ResetAllParam(); //まず全てのパラメータを初期化
+        save_controller.SystemloadCheck(); //システムデータロード　お菓子手帳やED回数など引継ぎデータはロード
+        save_controller.ResetParamSecondTime();//いくつかのパラメータは、システムロード後に、またリセットする。食べた回数など。
+
+        GameMgr.Story_Mode = 1;
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene("010_Prologue", 0.3f);
     }

@@ -452,6 +452,15 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(28);
                 break;
 
+            case "GameStartButton_2":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(28);
+                break;
+
             case "GameLoadButton":
 
                 //ポインタが入ったときに鳴る音

@@ -1868,7 +1868,7 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
-        if(sp_Okashi_ID == 1010) //雨が止むので、グラフィックを差し替える。
+        if(sp_Okashi_ID == 1010 || sp_Okashi_ID == 1040) //雨が止むので、グラフィックを差し替える。
         {
             while (!engine.IsPausingScenario)
             {
@@ -3021,18 +3021,17 @@ public class Utage_scenario : MonoBehaviour
     //特殊な称号のチェック　後ろほど優先順位が高い
     void SpecialTitleCheck()
     {
-        //ゴールドマスター　100000ルピア以上持った状態で、優勝する。
-        if (!GameMgr.GetTitleCollectionFlag("title105"))
+        //ゴールドマスター　ねこクッキーで、優勝する。
+
+        if (GameMgr.contest_okashiName == "gold_neko_cookie")
         {
-            if (PlayerStatus.player_money >= GameMgr.GoldMasterMoneyLine)
+            if (yusho_flag)
             {
-                if (yusho_flag)
-                {
-                    GameMgr.special_shogo_flag = true;
-                    GameMgr.special_shogo_num = 5;
-                }
+                GameMgr.special_shogo_flag = true;
+                GameMgr.special_shogo_num = 5;
             }
         }
+
 
         //スカーレット　いちごのお菓子で、150点以上
         for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
@@ -3085,12 +3084,12 @@ public class Utage_scenario : MonoBehaviour
                 }
             }
         }
-        //ししゃもマニア　ししゃも系お菓子ししゃもクッキーとクレープのレシピをだした状態で、どちらかのお菓子で100点以上
+        //ししゃもマニア　ししゃも系お菓子ししゃもクッキーとクレープのレシピをだした状態で、どちらかのお菓子で優勝
         if (databaseCompo.SearchCompoFlagString("shishamo_crepe") == 1 && databaseCompo.SearchCompoFlagString("shishamo_cookie") == 1)
         {
             if (GameMgr.contest_okashiName == "shishamo_cookie" || GameMgr.contest_okashiName == "shishamo_crepe")
             {
-                if (GameMgr.contest_TotalScore >= 100)
+                if (yusho_flag)
                 {
                     GameMgr.special_shogo_flag = true;
                     GameMgr.special_shogo_num = 4;

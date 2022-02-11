@@ -136,6 +136,7 @@ public class Item
         Pie_base,
         PanCake,
         Parfe,
+        Pudding,
         Rusk,
         Tea,
         Tea_Mat,

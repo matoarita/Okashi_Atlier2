@@ -855,7 +855,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     }
 
 
-    //システムデータのセーブ エンディングでもオートセーブ
+    //システムデータのセーブ
     public void SystemsaveCheck()
     {
         //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
@@ -971,6 +971,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_masterVolumeparam = GameMgr.MasterVolumeParam,
             save_BGMVolumeParam = GameMgr.BGMVolumeParam,
             save_SeVolumeParam = GameMgr.SeVolumeParam,
+
+            //ストーリーモード
+            save_Story_Mode = GameMgr.Story_Mode,
         };
 
         //データの一時保存。bankに、playerDataを「player1」という名前で現在のデータを保存。
@@ -1170,6 +1173,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.MasterVolumeParam = systemData.save_masterVolumeparam;
             GameMgr.BGMVolumeParam = systemData.save_BGMVolumeParam;
             GameMgr.SeVolumeParam = systemData.save_SeVolumeParam;
+
+            //ストーリーモード
+            GameMgr.Story_Mode = systemData.save_Story_Mode;
 
             Debug.Log("システムロード完了");
             Debug.Log("エンディング回数: " + GameMgr.ending_count);

@@ -231,6 +231,9 @@ public class PlayerData
     //エンディングカウント
     public int save_ending_count;
 
+    //ストーリーモード
+    public int save_Story_Mode;
+
 
     public override string ToString()
     {

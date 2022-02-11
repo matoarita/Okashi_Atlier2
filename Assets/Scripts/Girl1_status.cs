@@ -788,7 +788,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     //エフェクト生成＋アニメ開始
                     _listEffect.Add(Instantiate(Emo_effect_Prefab1, character.transform));
-                    //_listEffect.Add(Instantiate(Emo_effect_Prefab2, character.transform));
 
                     //音ならす
                     sc.PlaySe(39);
@@ -1106,11 +1105,17 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     SetQuestHukidashiText(OkashiQuest_ID, false);
 
+
                     if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
                     {
                         //一度、一度ドアップになり、電球がキラン！　→　そのあと、クエストの吹き出し。最初の一回だけ。
                         StartCoroutine("Special_StartAnim");
-                    }                   
+                    }
+
+                    else
+                    {
+
+                    }
 
                     break;
 
@@ -1121,7 +1126,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     {
                         Destroy(hukidashiitem);
                     }
-                   
+
 
                     break;
 
@@ -2522,12 +2527,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 case 0: //沈んでいる.. 0と1は一緒なので、0を設定する。
 
-                    random = Random.Range(0, 2); //0~1                   
+                    random = Random.Range(0, 2); //0~1       
+                    hukidashi_number = 0;
                     break;
 
                 case 1:
 
                     random = Random.Range(0, 2); //0~1
+                    hukidashi_number = 0;
                     break;
 
                 case 2: //少し機嫌がよくなってきた？けど、まだ暗い。
@@ -2669,6 +2676,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         switch (_motion_num)
         {
+            case 0: //悲しみモーションのときのセリフ
+
+                _touchface_comment_lib.Add("..まま。");
+                _touchface_comment_lib.Add("ぐすん..。");
+                _touchface_comment_lib.Add("..まま..。");
+                _touchface_comment_lib.Add("..。にいちゃん。..。なんでもない。");
+
+                break;
 
             case 1: //悲しみモーションのときのセリフ
                                
@@ -2797,16 +2812,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 100:
 
                 //レベルが低い時のヒント
-                if (PlayerStatus.girl1_Love_lv < 3) //LV 1~2
+                if (GirlGokigenStatus < 3) //LV 1~2
                 {
                     _touchface_comment_lib.Add("さくさく感の出し方は、ショップのおねえちゃんが知ってたかも？");
                     _touchface_comment_lib.Add("さわられると、ビックリしちゃうよ～・・。おにいちゃん。");
                     _touchface_comment_lib.Add("にいちゃん、フルーツは外でしか採れないよ～。");
                     _touchface_comment_lib.Add("にいちゃん、たいりょくが０になったら、材料集めはムリぃ～・・。");
                 }
-
                 //ごきげんに応じて、ヒントをだす。
-                if (GirlGokigenStatus >= 3) //
+                else if (GirlGokigenStatus >= 3) //
                 {
                     random = Random.Range(0, 5); //0~4
 

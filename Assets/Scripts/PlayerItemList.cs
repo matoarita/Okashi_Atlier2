@@ -515,6 +515,22 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return _itemcount; //該当するIDがない場合 0
     }
 
+    //アイテム名を入力すると、イベントアイテムを読んだことにする処理
+    public void EventReadOn(string _itemname)
+    {
+        i = 0;
+
+        while (i < eventitemlist.Count)
+        {
+            if (eventitemlist[i].event_itemName == _itemname)
+            {
+                eventitemlist[i].ev_ReadFlag = 1;
+                break;
+            }
+            i++;
+        }
+    }
+
 
     //イベントアイテムのリストを参照。
     public void eventitemlist_Sansho()

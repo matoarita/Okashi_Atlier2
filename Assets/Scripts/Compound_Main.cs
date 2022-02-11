@@ -3693,6 +3693,20 @@ public class Compound_Main : MonoBehaviour
             ev_id = pitemlist.Find_eventitemdatabase("ev01_neko_cookie_recipi");
             pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
 
+            //すでにレシピ100%フラグなど達成してた場合は、引き継がれる要素
+            if (GameMgr.GirlLoveSubEvent_stage1[101])
+            {
+                ev_id = pitemlist.Find_eventitemdatabase("silver_neko_cookie_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //銀のねこクッキーのレシピ
+                pitemlist.EventReadOn("silver_neko_cookie_recipi");
+            }
+            if (GameMgr.GirlLoveSubEvent_stage1[102])
+            {
+                ev_id = pitemlist.Find_eventitemdatabase("gold_neko_cookie_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //金のねこクッキーのレシピ
+                pitemlist.EventReadOn("gold_neko_cookie_recipi");
+            }
+
             //Debug.Log("プレイヤーステータス　アイテム初期化　実行");
             //初期に所持するアイテム
 
@@ -3749,13 +3763,16 @@ public class Compound_Main : MonoBehaviour
 
                 case 1: //ぶどうクッキー
 
-                    if (!GameMgr.MapEvent_01[0]) //まだ森にいったことがない場合
+                    if (GameMgr.Story_Mode == 0)
                     {
-                        _textmain.text = "どうしようかなぁ？" + "\n" + "（むらさきのくだものは、「近くの森」で採れたっけ。）";
-                    }
-                    else
-                    {
+                        if (!GameMgr.MapEvent_01[0]) //まだ森にいったことがない場合
+                        {
+                            _textmain.text = "どうしようかなぁ？" + "\n" + "（むらさきのくだものは、「近くの森」で採れたっけ。）";
+                        }
+                        else
+                        {
 
+                        }
                     }
                     break;
 
@@ -4100,11 +4117,8 @@ public class Compound_Main : MonoBehaviour
                             SubEvAfterHeartGet_num = 61;
                         }
                     }
-
-
                 }
-
-            }
+            }            
 
             //
             //ビギナー系のサブイベント関係は、80番台～
@@ -4264,7 +4278,7 @@ public class Compound_Main : MonoBehaviour
 
             }
 
-            //はじめて衣装装備を買った 70番台～
+            //はじめて衣装装備を買った 70番台～　周回しても、フラグは引継ぎ。二度目以上の発生はない。
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
             else
@@ -4464,7 +4478,7 @@ public class Compound_Main : MonoBehaviour
                 }    
             }
 
-            //置物や土産を買った 100番台～
+            //置物や土産を買った 100番台～ 周回しても、フラグは引継ぎ。二度目以上の発生はない。
             if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
             else
@@ -4483,6 +4497,44 @@ public class Compound_Main : MonoBehaviour
                         SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
                         SubEvAfterHeartGet_num = 100;
                     }
+                }
+            }
+
+            //レシピ100%達成
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                if (GameMgr.game_Recipi_archivement_rate >= 100.0f && GameMgr.GirlLoveSubEvent_stage1[101] == false) //4になったときのサブイベントを使う。
+                {
+                    GameMgr.GirlLoveSubEvent_num = 101;
+                    GameMgr.GirlLoveSubEvent_stage1[101] = true;
+
+                    check_GirlLoveSubEvent_flag = false;
+
+                    mute_on = true;
+
+                    ev_id = pitemlist.Find_eventitemdatabase("silver_neko_cookie_recipi");
+                    pitemlist.add_eventPlayerItem(ev_id, 1); //銀のねこクッキーのレシピを追加
+                }
+            }
+
+            //お金10万ルピア達成
+            if (!check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                if (PlayerStatus.player_money >= GameMgr.GoldMasterMoneyLine && GameMgr.GirlLoveSubEvent_stage1[102] == false) //4になったときのサブイベントを使う。
+                {
+                    GameMgr.GirlLoveSubEvent_num = 102;
+                    GameMgr.GirlLoveSubEvent_stage1[102] = true;
+
+                    check_GirlLoveSubEvent_flag = false;
+
+                    mute_on = true;
+
+                    ev_id = pitemlist.Find_eventitemdatabase("gold_neko_cookie_recipi");
+                    pitemlist.add_eventPlayerItem(ev_id, 1); //金のねこクッキーのレシピを追加
                 }
             }
 

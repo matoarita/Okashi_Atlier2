@@ -59,6 +59,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage_number;     //ステージ番号　stage1 stage2のこと
     public static int stage_quest_num; //メインのクエスト番号
     public static int stage_quest_num_sub; //クエスト番号
+    public static int Story_Mode; //0が本編。1が、フリーモード（強くてニューゲーム）。
 
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;
@@ -515,6 +516,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //メインの女の子名前
         mainGirl_Name = "ヒカリ";
 
+        //ゴールドマスターのライン
         GoldMasterMoneyLine = 100000;
 
         //日が終わる時間
@@ -547,6 +549,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         compound_status = 0;
         compound_select = 0;
+        Story_Mode = 0;
 
         girl_expression = 3;
         girl_express_param = 50;

@@ -135,10 +135,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         OvenBuf();
                         break;
 
-                    case "Cookie_Mat":
+                    /*case "Cookie_Mat":
 
                         OvenBuf();
-                        break;
+                        break;*/
 
                     case "Rusk":
 

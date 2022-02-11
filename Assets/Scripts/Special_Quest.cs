@@ -100,29 +100,65 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         GameMgr.QuestClearAnim_Flag = false; //クエスト前に一度falseでリセット
 
-        switch (_num)
+        
+        if (GameMgr.Story_Mode == 0)
+        {
+            Stage1_Normal();
+        }
+        else
+        {
+            Stage1_Hard(); //強くてニューゲームの場合のクエスト。
+        }
+
+
+        //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
+        GameMgr.QuestClearAnim_Flag = true;
+
+        //クエストネームの設定
+        QuestNameFind();
+
+        //◆ボタン表示用
+        OkashiQuest_AllCount = QuestCountDict[GameMgr.stage_quest_num];
+
+        GameMgr.stage_quest_num_sub = OkashiQuest_Count;
+
+        if (GameMgr.OkashiQuest_Num != 50)
+        {
+            OkashiQuest_Number = GameMgr.stage_quest_num.ToString() + "-" + OkashiQuest_Count.ToString(); //表示用のステージ番号
+        }
+        else
+        {
+            OkashiQuest_Number = "Contest";
+        }
+
+        //吹き出しは消す。
+        girl1_status.ResetHukidashiNoSound();
+    }
+
+    void Stage1_Normal()
+    {
+        switch (spquest_set_num)
         {
             case 0: //オリジナルクッキーを食べたい
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
-                girl1_status.OkashiQuest_ID = 1000;              
+                girl1_status.OkashiQuest_ID = 1000;
                 OkashiQuest_Count = 1;
-                
 
                 break;
 
             case 1: //ぶどうクッキー
-             
+
                 girl1_status.OkashiQuest_ID = 1010;
                 OkashiQuest_Count = 2;
 
                 break;
 
             case 2: //かわいいクッキー
-             
+
                 girl1_status.OkashiQuest_ID = 1020;
                 OkashiQuest_Count = 3;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -137,7 +173,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1110;
                 OkashiQuest_Count = 2;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -145,7 +181,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1120;
                 OkashiQuest_Count = 3;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -153,7 +189,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1130;
                 OkashiQuest_Count = 2;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -161,7 +197,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1200;
                 OkashiQuest_Count = 1;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -190,10 +226,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1230;
                 OkashiQuest_Count = 5;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
-            
+
 
             /*case 29: //クレープ＜20クレープからの分岐１＞ 200点クレープ
 
@@ -207,7 +243,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1300;
                 OkashiQuest_Count = 1;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -215,7 +251,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1310;
                 OkashiQuest_Count = 2;
-                
+
 
                 break;
 
@@ -223,7 +259,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1320;
                 OkashiQuest_Count = 3;
-                
+
 
                 break;
 
@@ -231,7 +267,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1330;
                 OkashiQuest_Count = 4;
-                
+
 
                 break;
 
@@ -239,7 +275,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1340;
                 OkashiQuest_Count = 5;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -247,43 +283,184 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1400;
                 OkashiQuest_Count = 1;
-                GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
             case 50: //ステージ１ラスト　コンテスト開始
 
                 girl1_status.OkashiQuest_ID = 1500;
-                
+
                 OkashiQuest_Count = 1;
                 break;
 
             default:
                 break;
         }
+    }
 
-        //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
-        GameMgr.QuestClearAnim_Flag = true;
-
-        //クエストネームの設定
-        QuestNameFind();
-
-        //◆ボタン表示用
-        OkashiQuest_AllCount = QuestCountDict[GameMgr.stage_quest_num];
-
-        GameMgr.stage_quest_num_sub = OkashiQuest_Count;
-
-        if (GameMgr.OkashiQuest_Num != 50)
+    void Stage1_Hard()
+    {
+        switch (spquest_set_num)
         {
-            OkashiQuest_Number = GameMgr.stage_quest_num.ToString() + "-" + OkashiQuest_Count.ToString(); //表示用のステージ番号
-        }
-        else
-        {
-            OkashiQuest_Number = "Contest";
-        }
+            case 0: //オリジナルクッキーを食べたい
 
-        //吹き出しは消す。
-        girl1_status.ResetHukidashiNoSound();
+                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
+                girl1_status.OkashiQuest_ID = 1030;
+                OkashiQuest_Count = 1;
+
+                break;
+
+            case 1: //ココアクッキー
+
+                girl1_status.OkashiQuest_ID = 1040;
+                OkashiQuest_Count = 2;
+
+                break;
+
+            /*case 2: //かわいいクッキー
+
+                girl1_status.OkashiQuest_ID = 1020;
+                OkashiQuest_Count = 3;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;*/
+
+            case 10: //ラスク食べたい
+
+                girl1_status.OkashiQuest_ID = 1100;
+                OkashiQuest_Count = 1;
+
+                break;
+
+            case 11: //すっぱいラスク食べたい
+
+                girl1_status.OkashiQuest_ID = 1110;
+                OkashiQuest_Count = 2;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 12: //幻の青色紅茶食べたい＜13ラスクからの分岐＞
+
+                girl1_status.OkashiQuest_ID = 1120;
+                OkashiQuest_Count = 3;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 13: //キラキララスク食べたい＜10ラスクからの分岐１＞
+
+                girl1_status.OkashiQuest_ID = 1130;
+                OkashiQuest_Count = 2;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 20: //クレープ食べたい
+
+                girl1_status.OkashiQuest_ID = 1200;
+                OkashiQuest_Count = 1;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 21: //オレンジクレープ食べたい
+
+                girl1_status.OkashiQuest_ID = 1210;
+                OkashiQuest_Count = 2;
+
+                break;
+
+            case 22: //アイス食べたい
+
+                girl1_status.OkashiQuest_ID = 1240;
+                OkashiQuest_Count = 3;
+
+                break;
+
+            case 23: //ジェム・ボンボン 宝石のような見た目のお菓子を食べたい
+
+                girl1_status.OkashiQuest_ID = 1220;
+                OkashiQuest_Count = 4;
+
+                break;
+
+            case 24: //豪華なベリークレープ食べたい
+
+                girl1_status.OkashiQuest_ID = 1230;
+                OkashiQuest_Count = 5;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+
+            /*case 29: //クレープ＜20クレープからの分岐１＞ 200点クレープ
+
+                girl1_status.OkashiQuest_ID = 1290;
+                OkashiQuest_Count = 2;
+
+                break;*/
+
+
+            case 30: //シュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1300;
+                OkashiQuest_Count = 1;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 31: //ラズベリーシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1310;
+                OkashiQuest_Count = 2;
+
+
+                break;
+
+            case 32: //カフェオーレシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1320;
+                OkashiQuest_Count = 3;
+
+
+                break;
+
+            case 33: //ティラミス食べたい
+
+                girl1_status.OkashiQuest_ID = 1330;
+                OkashiQuest_Count = 4;
+
+
+                break;
+
+            case 34: //150点以上のシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1340;
+                OkashiQuest_Count = 5;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 40: //ドーナツ食べたい
+
+                girl1_status.OkashiQuest_ID = 1400;
+                OkashiQuest_Count = 1;
+                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
+
+                break;
+
+            case 50: //ステージ１ラスト　コンテスト開始
+
+                girl1_status.OkashiQuest_ID = 1500;
+
+                OkashiQuest_Count = 1;
+                break;
+
+            default:
+                break;
+        }
     }
 
     //エクセルDBのset_compID（クエスト番号）と、GirlLoveEvent_numの紐づけ。ゲーム中クエストの総数でもある。
@@ -293,7 +470,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         QuestDict.Add(1000, 0);
         QuestDict.Add(1010, 1);
-        QuestDict.Add(1020, 2);
+        QuestDict.Add(1020, 2);        
         QuestDict.Add(1100, 10);
         QuestDict.Add(1110, 11);
         QuestDict.Add(1120, 12);
@@ -310,6 +487,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(1340, 34);
         QuestDict.Add(1400, 40);
         QuestDict.Add(1500, 50);
+
+        //ハードモード用　左の数字は、上のやつと被らないように。
+        QuestDict.Add(1030, 0);
+        QuestDict.Add(1040, 1);
     }
 
     void InitQuestCount() //ステージごとの、クエストの総数　1なら、クエスト3個など。クエストの進行度を表示する◆ボタン用に使う。

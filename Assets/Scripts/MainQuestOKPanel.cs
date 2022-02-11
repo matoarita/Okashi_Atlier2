@@ -7,6 +7,8 @@ public class MainQuestOKPanel : MonoBehaviour {
 
     private Button button;
 
+    private ItemDataBase database;
+
     private Text stagenum_text;
     private Image okashiImage;
 
@@ -28,6 +30,9 @@ public class MainQuestOKPanel : MonoBehaviour {
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
 
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
         girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
         button = this.transform.Find("Button").GetComponent<Button>();
@@ -38,6 +43,7 @@ public class MainQuestOKPanel : MonoBehaviour {
 
         okashiImage = this.transform.Find("ItemImgPanel/ItemImg").GetComponent<Image>();
         okashiImage.sprite = special_quest.OkashiQuest_sprite;
+        //okashiImage.sprite = database.items[database.SearchItemID(GameMgr.Okashi_lastID)].itemIcon_sprite;
 
         StartCoroutine("WaitButton");
     }

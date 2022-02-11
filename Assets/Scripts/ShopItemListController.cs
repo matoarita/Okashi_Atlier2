@@ -832,6 +832,24 @@ public class ShopItemListController : MonoBehaviour
                 }
                 break;
         }
+
+        //その他、条件をみたすとでてくるショップ品
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Emerald_Shop":
+
+                if(GameMgr.GirlLoveSubEvent_stage1[62])
+                {
+                    shop_hyouji_flag = 1000;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                if (GameMgr.GirlLoveSubEvent_stage1[63])
+                {
+                    shop_hyouji_flag = 1001; 
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                break;
+        }
     }
 
     void OFFShopListFlag()
