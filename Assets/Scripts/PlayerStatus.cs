@@ -31,6 +31,14 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_maxlifepoint;     //妹の体力のMAX
     public static int player_girl_eatCount;         //妹が食べたお菓子の回数
 
+    /* まだセーブしてない */
+    //女の子の今のご機嫌状態　ハート量に応じて変化するgokigen_statusとは別。現在の機嫌。 1=最悪 2=ごきげんななめ 3=まあまあ 4=良い 5=上機嫌
+    public static int player_girl_expression;
+    public static int player_girl_express_param; //ご機嫌度合 0~100　で上記の５段階
+
+    public static int player_girl_manpuku;         //妹の満腹度　ハードモードで使用
+    //**//
+
 
     //日付・フラグ関係
     public static int player_day; //現在の日付
@@ -85,6 +93,10 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_maxlifepoint = 10;
         player_girl_lifepoint = player_girl_maxlifepoint;
         player_girl_eatCount = 0;
+
+        player_girl_expression = 3;
+        player_girl_express_param = 50;
+        player_girl_manpuku = 50;
 
         First_recipi_on = false;
         First_extreme_on = false;

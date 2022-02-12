@@ -317,6 +317,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                
     
     private GameObject heart_Prefab;
+    private GameObject heart_Prefab2;
     public List<GameObject> _listHeart = new List<GameObject>();
     public int heart_count; //画面上に存在するハートの個数
 
@@ -347,6 +348,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //好感度レベルテーブルの取得
     private List<int> stage_levelTable = new List<int>();
     //レベルアップ用
+    private GameObject zeropoint;
     private GameObject HeartLvUpPanel_obj;
     private GameObject lvuppanel_Prefab;
     private List<GameObject> _listlvup_obj = new List<GameObject>();
@@ -489,6 +491,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 //ハートプレファブの取得
                 heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
+                heart_Prefab2 = (GameObject)Resources.Load("Prefabs/HeartUpObj2");
                 hearthit_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect");
                 hearthit2_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect2");
                 //エフェクトプレファブの取得
@@ -539,6 +542,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //好感度バーの取得
                 _slider_obj = MainUIPanel_obj.transform.Find("Girl_love_exp_bar").gameObject;
                 _slider = _slider_obj.GetComponent<Slider>();
+
+                zeropoint = canvas.transform.Find("ZeroPoint").gameObject;
 
                 Getlove_exp = 0;
                 GetMoney = 0;
@@ -2354,11 +2359,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (Mazui_flag)
         {
             sc.PlaySe(6); //ダウン音
-
-            //if (GameMgr.GirlLoveEvent_num >= 20) //クレープ以降あたりから、不機嫌状態になる可能性あり。
-            //{
-                GameMgr.girl_express_param -= 35; //まずいと、不機嫌になる。
-            //}
+            compound_Main.GirlExpressionKoushin(-35); //まずいと、不機嫌になる。
         }
         else
         {
@@ -2596,20 +2597,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 0.7f));
                 GetMoney += (int)(_basecost * 1.0f);
-                GameMgr.girl_express_param += 20;
+                compound_Main.GirlExpressionKoushin(20);
             }
             else if (total_score >= GameMgr.high_score && total_score < GameMgr.high_score_2) //ベース×3
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
                 GetMoney += (int)(_basecost * 1.5f);
-                GameMgr.girl_express_param += 40;
+                compound_Main.GirlExpressionKoushin(40);
             }
             else if (total_score >= GameMgr.high_score_2) //150点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.25f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
-                GameMgr.girl_express_param += 60;
+                compound_Main.GirlExpressionKoushin(60);
             }
 
             //そのお菓子を食べた回数でお金取得を割り算。同じお菓子を何度あげても、だんだんお金は上がらなくなってくる。
@@ -2629,44 +2630,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             Getlove_exp /= database.items[_baseID].Eat_kaisu;
             if (Getlove_exp <= 1) { Getlove_exp = 1; }
 
-            /*if (non_spquest_flag == false) //SPクエストのお菓子をあげていた場合
-            {
-                
-                Getlove_exp = Getlove_exp * 2; //2倍
-                                               //GameMgr.girl_express_param += 60;
-               
-                //前回より、高得点のときだけ、ハートがあがる。そのときの好感度は保存する。
-                if (total_score > GameMgr.Okashi_last_score)
-                {
-                    GameMgr.Okashi_last_score = total_score;
-
-                    _tempgetlove = Getlove_exp; //前回の最高ハート量
-                    Getlove_exp = Getlove_exp - GameMgr.Okashi_last_heart; //差分をだす。
-                    GameMgr.Okashi_last_heart = _tempgetlove; //新しい最高ハート量を更新。
-
-                }
-                else
-                {
-                    Getlove_exp = 0;
-                }
-
-                //GetMoney = 0;
-               
-            }
-            else //SPお菓子以外では、ハートは上がりにくい。ただし、お金やどんぐりは入る。
-            {               
-                Getlove_exp = Getlove_exp / 1;
-
-                //そのお菓子を食べた回数で割り算。同じお菓子を何度あげても、だんだん好感度は上がらなくなってくる。
-                if (database.items[_baseID].Eat_kaisu == 0)
-                {
-                    database.items[_baseID].Eat_kaisu = 1; //0で割り算を回避。
-                }
-                Getlove_exp /= database.items[_baseID].Eat_kaisu;
-                Debug.Log("食べた回数: " + database.items[_baseID].Eat_kaisu);
-                //if (Getlove_exp <= 1) { Getlove_exp = 1; }
-            }*/
-
             //装備品による補正
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
             GetMoney = (int)(GetMoney * _buf_moneyup / 2);
@@ -2678,6 +2641,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 {
                     Getlove_exp = 1;
                 }
+            }
+
+            //フリーモード時　さらに計算
+            if (GameMgr.Story_Mode == 1)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.5f); //ハートが上がりにくく
+                compound_Main.ManpukuBarKoushin((int)(total_score * 0.3f)); //満腹度も計算
             }
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
@@ -2729,7 +2699,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //ハートのインスタンスを、獲得好感度分だけ生成する。
         for (i = 0; i < heart_count; i++)
         {
-            _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
+            if (GameMgr.Story_Mode == 0)
+            {
+                _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
+                //_listHeart.Add(Instantiate(heart_Prefab, zeropoint.transform));
+            }
+            else
+            {
+                _listHeart.Add(Instantiate(heart_Prefab2, _slider_obj.transform));
+                //_listHeart.Add(Instantiate(heart_Prefab2, zeropoint.transform));
+            }
             _listHeart[i].GetComponent<HeartUpObj>()._id = i;
         }
 

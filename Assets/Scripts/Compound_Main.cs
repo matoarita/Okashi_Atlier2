@@ -71,6 +71,9 @@ public class Compound_Main : MonoBehaviour
     private GameObject GetMatStatusButton_obj;
     private GameObject mainUIFrame_panel;
 
+    private GameObject manpuku_bar;
+    private Slider manpuku_slider;
+
     private GameObject GirlHeartEffect_obj;
 
     private GameObject TimePanel_obj1;
@@ -245,8 +248,9 @@ public class Compound_Main : MonoBehaviour
     private int _todayfoodexpence;
     private List<int> _todayfoodexpence_lib = new List<int>();
 
-    //public int compound_status;
-    //public int compound_select;
+    //デバッグ確認用　ゲーム中では、GameMgr.compound_status（select）を使う。
+    public int compound_status;
+    public int compound_select;
 
     public int event_itemID; //イベントレシピ使用時のイベントのID
 
@@ -529,6 +533,10 @@ public class Compound_Main : MonoBehaviour
         girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").gameObject;
         girl_param = girl_love_exp_bar.transform.Find("Girllove_param").GetComponent<Text>();
 
+        //満腹ゲージの取得
+        manpuku_bar = canvas.transform.Find("MainUIPanel/ManpukuBar").gameObject;
+        manpuku_slider = manpuku_bar.GetComponent<Slider>();
+
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
 
@@ -678,6 +686,8 @@ public class Compound_Main : MonoBehaviour
             //compound_Main.check_GirlLoveEvent_flag = false; //compound_Mainからロードしても、おかえりなさい～が発生
         }
 
+        Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
+
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
     }
 
@@ -718,6 +728,10 @@ public class Compound_Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //デバッグでの確認用
+        compound_status = GameMgr.compound_status;
+        compound_select = GameMgr.compound_select;
+
         //お金が0を下回ったらゲームオーバー
         /*if(PlayerStatus.player_money <= 0)
         {
@@ -2152,15 +2166,17 @@ public class Compound_Main : MonoBehaviour
 
     public void WindowOff() //Girl1_Statusなどからもよむ
     {
-        compoundselect_onoff_obj.SetActive(false);
+        //mainUI_panel_obj.SetActive(false); //MainUI自体をオフにすると、材料選択や採取地でUIが消えてしまうので、あえて個別でON/OFFしている。
+
+        compoundselect_onoff_obj.SetActive(false);       
         Extremepanel_obj.SetActive(false);
         text_area_Main.SetActive(false);
         girl_love_exp_bar.SetActive(false);
+        manpuku_bar.SetActive(false);
         TimePanel_obj1.SetActive(false);
         moneystatus_panel.SetActive(false);
         mainUIFrame_panel.SetActive(false);
         Stagepanel_obj.SetActive(false);
-        //kaerucoin_panel.SetActive(false);
 
         //MainUICloseButton.SetActive(false);
         //UIOpenButton_obj.SetActive(false);
@@ -2174,18 +2190,22 @@ public class Compound_Main : MonoBehaviour
 
     public void WindowOn()
     {
+        mainUI_panel_obj.SetActive(true);
         compoundselect_onoff_obj.SetActive(true);
         Extremepanel_obj.SetActive(true);
         text_area.SetActive(false);
         text_area_Main.SetActive(true); //テキストエリアメインは、MainUIPanel.csのほうも、trueとfalseを設定する。 
-        girl_love_exp_bar.SetActive(true);
+        girl_love_exp_bar.SetActive(true);        
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
         mainUIFrame_panel.SetActive(true);
         Stagepanel_obj.SetActive(true);
 
-        //kaerucoin_panel.SetActive(true);
+        if (GameMgr.Story_Mode == 1)
+        {
+            manpuku_bar.SetActive(true);
+        }
 
         //MainUICloseButton.SetActive(true);
         //UIOpenButton_obj.SetActive(true);
@@ -3436,7 +3456,7 @@ public class Compound_Main : MonoBehaviour
 
                     _textmain.text = "ぽんぽんの力で、より元気になってきた。";
                     //girlEat_judge.loveGetPlusAnimeON(30, false);    
-                    GameMgr.girl_express_param = 50;
+                    GirlExpressionKoushin(50);
 
                     break;
 
@@ -3452,7 +3472,7 @@ public class Compound_Main : MonoBehaviour
 
                             _textmain.text = "あまりピクニックは喜ばなかったようだ..。";
                             girlEat_judge.DegHeart((int)(SujiMap(GameMgr.event_okashi_score, 0, 30, 60, 0)), true);
-                            GameMgr.girl_express_param -= 20;
+                            GirlExpressionKoushin(-20);
                             break;
 
                         case 1:
@@ -3460,7 +3480,7 @@ public class Compound_Main : MonoBehaviour
                             get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
                             _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
-                            GameMgr.girl_express_param += 10;
+                            GirlExpressionKoushin(10);
                             break;
 
                         case 2:
@@ -3468,7 +3488,7 @@ public class Compound_Main : MonoBehaviour
                             get_heart = GameMgr.event_okashi_score;
                             _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false);
-                            GameMgr.girl_express_param += 30;
+                            GirlExpressionKoushin(30);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
                             break;
@@ -3478,7 +3498,7 @@ public class Compound_Main : MonoBehaviour
                             get_heart = GameMgr.event_okashi_score;
                             _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false);
-                            GameMgr.girl_express_param += 50;
+                            GirlExpressionKoushin(50);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
                             break;
@@ -3488,7 +3508,7 @@ public class Compound_Main : MonoBehaviour
                             get_heart = GameMgr.event_okashi_score;
                             _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
-                            GameMgr.girl_express_param += 100;
+                            GirlExpressionKoushin(100);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
                             break;
@@ -3572,7 +3592,7 @@ public class Compound_Main : MonoBehaviour
 
                     _textmain.text = "ぬいぐるみに喜んだようだ！";
                     girlEat_judge.loveGetPlusAnimeON(30, false);
-                    GameMgr.girl_express_param += 50;
+                    GirlExpressionKoushin(50);
                     break;
             }
 
@@ -4746,103 +4766,244 @@ public class Compound_Main : MonoBehaviour
 
         map_ambience.Stop();
 
-        if (GameMgr.GirlLoveEvent_num == 50) //コンテスト　のどかなはれ
+        if (GameMgr.Story_Mode == 0)
         {
-            GameMgr.mainBGM_Num = 4; //コンテスト　鳥の鳴き声が外でなく
-            map_ambience.OnSunnyDayBird();
+            if (GameMgr.GirlLoveEvent_num == 50) //コンテスト　のどかなはれ
+            {
+                GameMgr.mainBGM_Num = 4; //コンテスト　鳥の鳴き声が外でなく
+                map_ambience.OnSunnyDayBird();
+            }
+            else
+            {
+                //最初のBGM
+                if (PlayerStatus.girl1_Love_lv >= 1) //デフォルト　雨
+                {
+                    GameMgr.mainBGM_Num = 0; //雨はじまり                
+                }
+                if (GameMgr.GirlLoveEvent_num == 0) //最初は雨
+                {
+                    map_ambience.OnRainyDay(); //背景のSEを鳴らす。
+                }
+                if (GameMgr.GirlLoveEvent_num >= 1) //雨やむ
+                {
+                    map_ambience.Stop();
+                }
+                if (GameMgr.GirlLoveEvent_num >= 10) //ラスクでBGM変化
+                {
+                    GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
+                    map_ambience.Stop();
+                }
+
+            }
         }
         else
         {
-            //最初のBGM
-            if (PlayerStatus.girl1_Love_lv >= 1) //デフォルト　雨
-            {
-                GameMgr.mainBGM_Num = 0; //雨はじまり                
-            }
-
-            if (GameMgr.GirlLoveEvent_num == 0) //最初は雨
-            {
-                map_ambience.OnRainyDay(); //背景のSEを鳴らす。
-            }
-            if (GameMgr.GirlLoveEvent_num >= 1) //雨やむ
-            {
-                map_ambience.Stop();
-            }
-            if (GameMgr.GirlLoveEvent_num >= 10) //ラスクでBGM変化
-            {
-                GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
-                map_ambience.Stop();
-            }
 
         }
     }
 
     //ストーリー進行に応じて、背景の天気+エフェクトも変わる。
     public void Change_BGimage()
-    {        
-        if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　雨
+    {
+        if (GameMgr.Story_Mode == 0)
         {
-            DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout1").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_01").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Rain").gameObject.SetActive(true);
+            if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　雨
+            {
+                DrawALLOFFBG();
+                bgweather_image_panel.transform.Find("BG_windowout_white").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_morning").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Rain").gameObject.SetActive(true);
+            }
+            if (GameMgr.GirlLoveEvent_num >= 1) //くもり　どんより HLv2~
+            {
+                DrawALLOFFBG();
+                bgweather_image_panel.transform.Find("BG_windowout_white").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_morning").gameObject.SetActive(true);
+            }
+            if (GameMgr.GirlLoveEvent_num >= 10) //うすぐもり HLv4~
+            {
+                DrawALLOFFBG();
+                bgweather_image_panel.transform.Find("BG_windowout_morning").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+            }
+            if (GameMgr.GirlLoveEvent_num >= 20) //やや霧がかったはれ　風が強い HLv6~
+            {
+                DrawALLOFFBG();
+                bgweather_image_panel.transform.Find("BG_windowout_sunny").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);               
+            }
+            if (GameMgr.GirlLoveEvent_num >= 30) //はれ HLv8~
+            {
+                DrawALLOFFBG();
+                bgweather_image_panel.transform.Find("BG_windowout_noon").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+            }
+            if (GameMgr.GirlLoveEvent_num >= 50) //のどかなはれ HLv10~
+            {
+                DrawALLOFFBG();
+                bgweather_image_panel.transform.Find("BG_windowout_noon").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+            }
+            if (PlayerStatus.girl1_Love_lv >= 15) //快晴　夕方
+            {
+                DrawALLOFFBG();
+                bgweather_image_panel.transform.Find("BG_windowout_noon").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+            }
+            if (PlayerStatus.girl1_Love_lv >= 20) //快晴　夕方　ぽんぽ日和
+            {
+                DrawALLOFFBG();
+                bgweather_image_panel.transform.Find("BG_windowout_noon").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+            }
         }
-        if (GameMgr.GirlLoveEvent_num >= 1) //くもり　どんより HLv2~
+        else
         {
+            //フリーモード
             DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout2").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_02").gameObject.SetActive(true);
-        }
-        if (GameMgr.GirlLoveEvent_num >= 10) //うすぐもり HLv4~
-        {
-            DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout3").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_03").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
-        }
-        if (GameMgr.GirlLoveEvent_num >= 20) //やや霧がかったはれ　風が強い HLv6~
-        {
-            DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout4").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_03").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
-            //BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
-        }
-        if (GameMgr.GirlLoveEvent_num >= 30) //はれ HLv8~
-        {
-            DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout5").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_04").gameObject.SetActive(true);
+            RealTimeBGSetInit();
+
             BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+
+            BG_RealtimeChange();
         }
-        if (GameMgr.GirlLoveEvent_num >= 50) //のどかなはれ HLv10~
+    }
+
+    //TimeControllerから読む。背景をリアルタイムに変更する処理。
+    public void BG_RealtimeChange()
+    {
+        switch(GameMgr.BG_cullent_weather) //TimeControllerで変更
         {
-            DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout5").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_05").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+            case 1:
+
+                break;
+
+            case 2: //深夜→朝
+
+                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(1, 5.0f);
+                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(1, 5.0f)
+                    .OnComplete(RealTimeBGSetInit);
+                break;
+
+            case 3:
+
+                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                break;
+
+            case 4:
+
+                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+
+                bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);                
+                break;
+
+            case 5:
+
+                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+
+                bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                break;
+
+            case 6:
+
+                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+
+                bgweather_image_panel.transform.Find("BG_windowout_evening").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                BG_Imagepanel.transform.Find("BG_sprite_evening").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                break;
         }
-        if (PlayerStatus.girl1_Love_lv >= 15) //快晴　夕方
+    }
+
+    //満腹ゲージの処理
+    public void ManpukuBarKoushin(int _param)
+    {
+        if(_param >= 0)
         {
-            DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout6").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_06").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+            PlayerStatus.player_girl_manpuku += _param;
         }
-        if (PlayerStatus.girl1_Love_lv >= 20) //快晴　夕方　ぽんぽ日和
+        else
         {
-            DrawALLOFFBG();
-            bgweather_image_panel.transform.Find("BG_windowout7").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BG_sprite_07").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
-            BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+            PlayerStatus.player_girl_manpuku += _param;
+        }
+
+        if(PlayerStatus.player_girl_manpuku <= 0)
+        {
+            PlayerStatus.player_girl_manpuku = 0;
+        }
+        if (PlayerStatus.player_girl_manpuku >= 100)
+        {
+            PlayerStatus.player_girl_manpuku = 100;
+        }
+
+        manpuku_slider.value = PlayerStatus.player_girl_manpuku;
+    }
+
+    //機嫌状態の処理
+    public void GirlExpressionKoushin(int _param)
+    {
+        if (_param >= 0)
+        {
+            PlayerStatus.player_girl_manpuku += _param;
+        }
+        else
+        {
+            PlayerStatus.player_girl_manpuku += _param;
+        }
+
+        if (PlayerStatus.player_girl_express_param <= 0)
+        {
+            PlayerStatus.player_girl_express_param = 0;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 100)
+        {
+            PlayerStatus.player_girl_express_param = 100;
+        }
+
+        if (PlayerStatus.player_girl_express_param < 20)
+        {
+            PlayerStatus.player_girl_expression = 1;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 20 && PlayerStatus.player_girl_express_param < 40)
+        {
+            PlayerStatus.player_girl_expression = 2;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 40 && PlayerStatus.player_girl_express_param < 60)
+        {
+            PlayerStatus.player_girl_expression = 3;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 60 && PlayerStatus.player_girl_express_param < 80)
+        {
+            PlayerStatus.player_girl_expression = 4;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 80)
+        {
+            PlayerStatus.player_girl_expression = 5;
         }
     }
 
@@ -4856,14 +5017,40 @@ public class Compound_Main : MonoBehaviour
         for (i = 0; i < bg_weather_image.Count; i++)
         {
             bg_weather_image[i].SetActive(false);
-            bgwall_sprite[i].SetActive(false);
+            bg_weather_image[i].GetComponent<SpriteRenderer>().DOFade(1, 0.0f);
         }
-
+        for (i = 0; i < bgwall_sprite.Count; i++)
+        {
+            bgwall_sprite[i].SetActive(false);
+            bgwall_sprite[i].GetComponent<SpriteRenderer>().DOFade(1, 0.0f);
+        }
         for (i = 0; i < bgeffect_obj.Count; i++)
         {
             bgeffect_obj[i].SetActive(false);
         }
         
+    }
+
+    void RealTimeBGSetInit()
+    {
+        for (i = 0; i < bg_weather_image.Count; i++)
+        {
+            bg_weather_image[i].SetActive(true);
+            bg_weather_image[i].GetComponent<SpriteRenderer>().DOFade(1, 0.0f);
+        }
+        for (i = 0; i < bgwall_sprite.Count; i++)
+        {
+            bgwall_sprite[i].SetActive(true);
+            bgwall_sprite[i].GetComponent<SpriteRenderer>().DOFade(1, 0.0f);
+        }
+        bgweather_image_panel.transform.Find("BG_windowout_white").gameObject.SetActive(false);
+    }
+
+    //即座に朝背景に変更。Utageの寝るイベントから呼び出し
+    public void OnMorningBG()
+    {
+        RealTimeBGSetInit();
+
     }
 
     public void HeartGuageTextKoushin()

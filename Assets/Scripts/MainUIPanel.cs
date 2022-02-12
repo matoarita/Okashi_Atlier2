@@ -31,8 +31,15 @@ public class MainUIPanel : MonoBehaviour {
     private Text _textmain;
 
     private GameObject girl_love_exp_bar;
+    private Image bar_sprite;
+    private Sprite bar_sprite_1;
+    private Sprite bar_sprite_2;
+
+    private GameObject manpuku_bar;
 
     private Text stage_text;
+    private GameObject stage_text_obj;
+    private GameObject FreeModeText_obj;
 
     // Use this for initialization
     void Start () {
@@ -63,12 +70,35 @@ public class MainUIPanel : MonoBehaviour {
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.GetComponentInChildren<Text>();
 
+        stage_text_obj = this.transform.Find("Comp/StagePanel/Image/StageText").gameObject;
         stage_text = this.transform.Find("Comp/StagePanel/Image/StageText").GetComponent<Text>();
+        FreeModeText_obj = this.transform.Find("Comp/StagePanel/Image/FreeModeText").gameObject;
 
         _CompObj = this.transform.Find("Comp/").gameObject;
 
         //好感度バーの取得
         girl_love_exp_bar = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").gameObject;
+        bar_sprite = girl_love_exp_bar.transform.Find("Fill Area/Fill").GetComponent<Image>();
+        bar_sprite_1 = Resources.Load<Sprite>("Sprites/Window/gaugeC_bar_pink_h66");
+        bar_sprite_2 = Resources.Load<Sprite>("Sprites/Window/gaugeC_bar_orange_h66");
+
+        //満腹ゲージの取得
+        manpuku_bar = canvas.transform.Find("MainUIPanel/ManpukuBar").gameObject;
+        manpuku_bar.SetActive(false);
+
+        if (GameMgr.Story_Mode == 0)
+        {
+            bar_sprite.sprite = bar_sprite_1;
+            stage_text_obj.SetActive(true);
+            FreeModeText_obj.SetActive(false);
+        }
+        else
+        {
+            bar_sprite.sprite = bar_sprite_2;
+            stage_text_obj.SetActive(false);
+            FreeModeText_obj.SetActive(true);
+            manpuku_bar.SetActive(true);
+        }       
 
         total_obj_count = 0;
         foreach (Transform child in this.transform)

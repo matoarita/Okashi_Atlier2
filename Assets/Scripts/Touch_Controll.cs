@@ -13,6 +13,9 @@ public class Touch_Controll : MonoBehaviour
 
     private SoundController sc;
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     private Girl1_status girl1_status;
     private GirlEat_Judge girleat_judge;
 
@@ -172,19 +175,30 @@ public class Touch_Controll : MonoBehaviour
 
             if (!nohearteffect) //メインシーンのみ
             {
-                if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
+                switch (SceneManager.GetActiveScene().name)
                 {
-                    girleat_judge.DegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
-                    GameMgr.girl_express_param -= 5;
-                }
+                    case "Compound":
 
-                if (girl1_status.Girl1_touchhair_status >= 5 && girl1_status.Girl1_touchhair_status <= 9)
-                {
-                    _rnd = Random.Range(0, 3);
-                    girleat_judge.loveGetPlusAnimeON(1 + _rnd, false); //1~3　ちょっとハートあがる。
-                    GameMgr.girl_express_param = 50;
-                    girl1_status.DefFaceChange();
+                        //調合シーンメインオブジェクトの取得
+                        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                        if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
+                        {
+                            girleat_judge.DegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
+                            compound_Main.GirlExpressionKoushin(-5);
+                        }
+
+                        if (girl1_status.Girl1_touchhair_status >= 5 && girl1_status.Girl1_touchhair_status <= 9)
+                        {
+                            _rnd = Random.Range(0, 3);
+                            girleat_judge.loveGetPlusAnimeON(1 + _rnd, false); //1~3　ちょっとハートあがる。
+                            compound_Main.GirlExpressionKoushin(50);
+                            girl1_status.DefFaceChange();
+                        }
+                        break;
                 }
+                
             }
 
             draghair_count = 0;

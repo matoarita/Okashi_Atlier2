@@ -52,6 +52,8 @@ public class TimeController : MonoBehaviour
     private int limit_month, limit_day;
 
     public int timeIttei; //表示用にpublicにしてるだけ。
+    public int timeIttei2;
+    public int timeIttei3;
     public bool timeDegHeart_flag; //表示用にpublicにしてるだけ。
 
     private int count;
@@ -72,6 +74,8 @@ public class TimeController : MonoBehaviour
         InitParam();
 
         timeIttei = 0;
+        timeIttei2 = 0;
+        timeIttei3 = 0;
         timeDegHeart_flag = false;
         TimeCheck_flag = false;
     }
@@ -170,27 +174,88 @@ public class TimeController : MonoBehaviour
             count_switch = !count_switch;
 
             //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
-
             if (!GameMgr.scenario_ON)
             {
-
-                if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中は減らない
-                {
-
-                }
-                else
+                if (GameMgr.compound_status == 110) //採集中やステータス画面など開いてるときは減らない
                 {
                     timeIttei++;
-                    if (GameMgr.girl_expression == 1) //まずい状態直後、ハートが自動で下がる状態に。
+                    if (PlayerStatus.player_girl_expression == 1) //まずい状態直後、ハートが自動で下がる状態に。
                     {
                         //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
                         RealTimeControll();
                     }
-
-                    //試験的に導入。秒ごとにリアルタイムに時間がすすみ、お金が減っていく。
-                    //RealTimeControllMoney();
                 }
+            }
 
+            //フリーモードのときは、時間がリアルタイムで経過　30カウントで5分とか
+            if(GameMgr.Story_Mode == 1)
+            {
+                if (!GameMgr.scenario_ON)
+                {
+                    if (GameMgr.compound_status == 110)  //採集中やステータス画面など開いてるときは減らない
+                    {
+                        timeIttei2++;
+                        if (timeIttei2 >= 5)
+                        {
+                            timeIttei2 = 0;
+                            SetMinuteToHour(1); //1=5分単位
+                            TimeKoushin();
+
+                            if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < 8)
+                            {
+                                GameMgr.BG_cullent_weather = 1;
+
+                            }
+                            else if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour < 10)
+                            {
+                                GameMgr.BG_cullent_weather = 2;
+
+                            }
+                            else if (PlayerStatus.player_cullent_hour >= 10 && PlayerStatus.player_cullent_hour < 12)
+                            {
+                                GameMgr.BG_cullent_weather = 3;
+
+                            }
+                            else if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour < 16)
+                            {
+                                GameMgr.BG_cullent_weather = 4;
+
+                            }
+                            else if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 19)
+                            {
+                                GameMgr.BG_cullent_weather = 5;
+
+                            }
+                            else if (PlayerStatus.player_cullent_hour >= 19)
+                            {
+                                GameMgr.BG_cullent_weather = 6;
+                            }
+
+                            if (GameMgr.BG_cullent_weather != GameMgr.BG_before_weather)
+                            {
+                                GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
+
+                                //天気アニメ変更をトリガー
+                                compound_main.BG_RealtimeChange(); //背景更新
+                            }                            
+                        }
+
+                        timeIttei3++;
+                        if (timeIttei3 >= 10)
+                        {
+                            timeIttei3 = 0;
+
+                            //満腹度が減る。
+                            compound_main.ManpukuBarKoushin(-1);
+
+                            //満腹度が0になると、ハートも減り始める。
+                            if (PlayerStatus.player_girl_manpuku <= 0)
+                            {
+                                girleat_judge.DegHeart((-1 * PlayerStatus.girl1_Love_lv), false);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -457,93 +522,42 @@ public class TimeController : MonoBehaviour
 
     void RealTimeControll()
     {
-        if (!GameMgr.scenario_ON)
+
+        if (girleat_judge.Degheart_on)
         {
-            if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中かお菓子あげ途中は減らない
-            {
 
-            }
-            else
+        }
+        else
+        {
+            switch (timeDegHeart_flag)
             {
-                if (girleat_judge.Degheart_on)
-                {
+                case false:
 
-                }
-                else
-                {
-                    switch (timeDegHeart_flag)
+                    if (timeIttei >= 5) //放置して5秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
                     {
-                        case false:
+                        timeIttei = 0;
+                        timeDegHeart_flag = true;
 
-                            if (timeIttei >= 5) //放置して5秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
-                            {
-                                timeIttei = 0;
-                                timeDegHeart_flag = true;
+                        girleat_judge.DegHeart(-1, false); //false なら音なし
 
-                                girleat_judge.DegHeart(-1, false); //false なら音なし
-
-                            }
-                            break;
-
-                        case true:
-
-                            if (timeIttei >= 2)
-                            {
-                                timeIttei = 0;
-
-                                girleat_judge.DegHeart(-1, false);
-
-                            }
-                            break;
                     }
-                }
+                    break;
+
+                case true:
+
+                    if (timeIttei >= 2)
+                    {
+                        timeIttei = 0;
+
+                        girleat_judge.DegHeart(-1, false);
+
+                    }
+                    break;
             }
         }
+
     }
 
-    void RealTimeControllMoney()
-    {
-        if (!GameMgr.scenario_ON)
-        {
-            if (GameMgr.compound_status == 22 || GameMgr.compound_status == 12) //採集中かお菓子あげ途中は減らない
-            {
-
-            }
-            else
-            {
-                switch (timeDegHeart_flag)
-                {
-                    case false:
-
-                        if (timeIttei >= 5) //放置して5秒たつと、下がり始めのフラグがたつ。その後、何秒かごとに減っていく。
-                        {
-                            timeIttei = 0;
-                            timeDegHeart_flag = true;
-
-                            //girleat_judge.DegHeart(-1, false); //false なら音なし
-
-                            moneyStatus_Controller.UseMoney(1*(int)(PlayerStatus.girl1_Love_lv*0.2f));
-                            //PlayerStatus.player_money--;
-                            //TimeKoushin();
-                        }
-                        break;
-
-                    case true:
-
-                        if (timeIttei >= 2)
-                        {
-                            timeIttei = 0;
-
-                            //girleat_judge.DegHeart(-1, false);
-
-                            moneyStatus_Controller.UseMoney(1 * (int)(PlayerStatus.girl1_Love_lv * 0.2f));
-                            //TimeKoushin();
-                        }
-                        break;
-                }
-            }
-        }
-    }
 
     //入力された分単位の時間を、時間と分にわけて、現在の時間に加算する。マイナスの場合、引き算する。
     public void SetMinuteToHour(int _m)

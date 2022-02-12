@@ -1179,6 +1179,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             Debug.Log("システムロード完了");
             Debug.Log("エンディング回数: " + GameMgr.ending_count);
+            Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
         }
 
         //音量データの再読み込み

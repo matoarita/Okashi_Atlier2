@@ -71,7 +71,7 @@ public class Title_Main : MonoBehaviour {
         if (GameMgr.ending_count >= 1)
         {
             galleryButton_obj.SetActive(true);
-            //freeModeButton_obj.SetActive(true);
+            freeModeButton_obj.SetActive(true);
 
             chara_Icon.SetActive(false);
             _model_move.SetActive(true);

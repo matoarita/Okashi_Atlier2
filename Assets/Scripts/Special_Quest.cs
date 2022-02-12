@@ -497,12 +497,24 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     {
         QuestCountDict = new Dictionary<int, int>();
 
-        QuestCountDict.Add(1, 3);
-        QuestCountDict.Add(2, 2);
-        QuestCountDict.Add(3, 1);
-        QuestCountDict.Add(4, 1);
-        QuestCountDict.Add(5, 1);
-        QuestCountDict.Add(6, 1);
+        if (GameMgr.Story_Mode == 0)
+        {
+            QuestCountDict.Add(1, 3);
+            QuestCountDict.Add(2, 2);
+            QuestCountDict.Add(3, 1);
+            QuestCountDict.Add(4, 1);
+            QuestCountDict.Add(5, 1);
+            QuestCountDict.Add(6, 1);
+        }
+        else
+        {
+            QuestCountDict.Add(1, 1);
+            QuestCountDict.Add(2, 2);
+            QuestCountDict.Add(3, 1);
+            QuestCountDict.Add(4, 1);
+            QuestCountDict.Add(5, 1);
+            QuestCountDict.Add(6, 1);
+        }
     }
 
     //GirlLikeCompoのクエストのIDを入れると、GirlloveEventNumに変換して、SPクエストを指定する。

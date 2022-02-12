@@ -913,37 +913,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator = _model.GetComponent<Animator>();
         trans_expression = live2d_animator.GetInteger("trans_expression");
 
-        if (GameMgr.girl_express_param <= 0)
-        {
-            GameMgr.girl_express_param = 0;
-        }
-        else if (GameMgr.girl_express_param >= 100)
-        {
-            GameMgr.girl_express_param = 100;
-        }
-
-        if (GameMgr.girl_express_param < 20)
-        {
-            GameMgr.girl_expression = 1;
-        }
-        else if (GameMgr.girl_express_param >= 20 && GameMgr.girl_express_param < 40)
-        {
-            GameMgr.girl_expression = 2;
-        }
-        else if (GameMgr.girl_express_param >= 40 && GameMgr.girl_express_param < 60)
-        {
-            GameMgr.girl_expression = 3;
-        }
-        else if (GameMgr.girl_express_param >= 60 && GameMgr.girl_express_param < 80)
-        {
-            GameMgr.girl_expression = 4;
-        }
-        else if (GameMgr.girl_express_param >= 80)
-        {
-            GameMgr.girl_expression = 5;
-        }
-
-        switch (GameMgr.girl_expression)
+        switch (PlayerStatus.player_girl_expression)
         {
             case 1: //まずいもの食べた直後などの最悪の表情
 
@@ -1467,7 +1437,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                     else
                     {
-                        if (GameMgr.girl_expression == 1) //まずいのあとは、怒ってとりとめのない会話がなくなる。
+                        if (PlayerStatus.player_girl_expression == 1) //まずいのあとは、怒ってとりとめのない会話がなくなる。
                         {
                             hukidashiitem.GetComponent<TextController>().SetText("..。");
                         }

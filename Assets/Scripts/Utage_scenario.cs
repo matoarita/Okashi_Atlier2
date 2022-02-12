@@ -697,6 +697,9 @@ public class Utage_scenario : MonoBehaviour
         //音を止めて、宿屋のジングル
         sceneBGM.MuteBGM();
 
+        //このタイミングで、背景は朝にしておく。
+        compound_Main.OnMorningBG();
+
         //続きから再度読み込み
         engine.ResumeScenario();
 

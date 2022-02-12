@@ -219,8 +219,9 @@ public class OptionPanel : MonoBehaviour {
 
     public void BackOption()
     {
+
         //一回黒フェードして「システムデータセーブ中」でてから、シーンもどす。
-        save_controller.SystemsaveCheck();
+        //save_controller.SystemsaveCheck();
 
         SystemSave_Panel.SetActive(true);
         SystemSave_Panel.GetComponent<CanvasGroup>().alpha = 0;

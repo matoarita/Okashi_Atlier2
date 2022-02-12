@@ -13,6 +13,10 @@ public class QuestTitlePanel : MonoBehaviour {
     private float qtitlepanel_pos_y;
 
     private Image okashiImage;
+    private GameObject questpanel_num_obj;
+    private GameObject text_quest;
+    private GameObject text_extra;
+
     private Text questpanel_text;
     private Text questpanel_num;
 
@@ -46,13 +50,30 @@ public class QuestTitlePanel : MonoBehaviour {
         questpanel_text = this.transform.Find("QuestPanel/QuestName").GetComponent<Text>();
         questpanel_num = this.transform.Find("QuestPanel/TitleImage/Questnum").GetComponent<Text>();
 
+        questpanel_num_obj = this.transform.Find("QuestPanel/TitleImage/Questnum").gameObject;
+        text_quest = this.transform.Find("QuestPanel/TitleImage/Text_quest").gameObject;
+        text_extra = this.transform.Find("QuestPanel/TitleImage/Text_Extra").gameObject;
+
         questprogress_Prefab1 = (GameObject)Resources.Load("Prefabs/QProgressButton");
         questprogress_nowImg = Resources.Load<Sprite>("Sprites/Window/pageguideD_pink_50");
 
         okashiImage = this.transform.Find("OkashiImage/Image").GetComponent<Image>();
 
         questpanel_text.text = special_quest.OkashiQuest_Name;
-        questpanel_num.text = special_quest.OkashiQuest_Number;
+
+        if (GameMgr.Story_Mode == 0)
+        {
+            questpanel_num.text = special_quest.OkashiQuest_Number;
+            questpanel_num_obj.SetActive(true);
+            text_quest.SetActive(true);
+            text_extra.SetActive(false);
+        }
+        else
+        {
+            questpanel_num_obj.SetActive(false);
+            text_quest.SetActive(false);
+            text_extra.SetActive(true);
+        }
 
         questview_obj.Clear();
         foreach (Transform child in this.transform.Find("QuestPanel/QuestProgressView/Viewport/Content").gameObject.transform) //

@@ -219,11 +219,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<SpecialTitle> event_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。
 
     //獲得コンテストお菓子リストのフラグ
-    public static List<SpecialTitle> contestclear_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。
-
-    //女の子の今のご機嫌状態　gokigen_status（ハートに応じた絶対的な感情）とは別で、すぐに変化するもの 1=最悪 2=ごきげんななめ 3=まあまあ 4=良い 5=上機嫌
-    public static int girl_expression;
-    public static int girl_express_param; //ご機嫌度合 0~100　で上記の５段階
+    public static List<SpecialTitle> contestclear_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。    
 
     /* セーブ　ここまで */
 
@@ -468,6 +464,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int StartDay_hour;
     public static int EndDay_hour;
 
+    //現在の天気の状態
+    public static int BG_cullent_weather;
+    public static int BG_before_weather;
+
     public static int Shopday; //ショップ入ったら更新する日付。その日を記録する。
     public static bool Sale_ON; //セール判定　日付をまたいだら、OFFに。
 
@@ -549,14 +549,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         compound_status = 0;
         compound_select = 0;
-        Story_Mode = 0;
 
-        girl_expression = 3;
-        girl_express_param = 50;
+        BG_cullent_weather = 2;
+        BG_before_weather = BG_cullent_weather;       
 
         //食費
         Foodexpenses_default = 100;
         Foodexpenses = Foodexpenses_default;
+
+        //ストーリーモード
+        Story_Mode = 0;
 
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。
         scenario_ON = false;
