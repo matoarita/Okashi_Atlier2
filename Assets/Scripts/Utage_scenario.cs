@@ -677,6 +677,14 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("FoodExpenses", GameMgr.Foodexpenses);
         engine.Param.TrySetParameter("TodayFood", GameMgr.MgrTodayFood);
 
+        if(girl1_status.GirlGokigenStatus < 3)
+        {
+            engine.Param.TrySetParameter("GirlGokigen_num", 0);
+        } else
+        {
+            engine.Param.TrySetParameter("GirlGokigen_num", 1);
+        }
+
         //環境音は先にとめる。
         map_ambience.Mute();
 
@@ -697,8 +705,22 @@ public class Utage_scenario : MonoBehaviour
         //音を止めて、宿屋のジングル
         sceneBGM.MuteBGM();
 
-        //このタイミングで、背景は朝にしておく。
-        compound_Main.OnMorningBG();
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+        //
+        //「宴」のポーズ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        if (GameMgr.Story_Mode == 1)
+        {
+            //このタイミングで、背景は朝にしておく。
+            compound_Main.OnMorningBG();
+
+        }
 
         //続きから再度読み込み
         engine.ResumeScenario();
@@ -720,6 +742,7 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
     }
+
 
     //
     // チュートリアルの処理
@@ -1419,7 +1442,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);       
 
         //今食べたいお菓子を設定
-        engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashi);
+        engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
 
         //コンテスト時は、締め切り日も設定
         if (GameMgr.GirlLoveEvent_num == 50)
@@ -1452,6 +1475,46 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.picnic_event_reading_now = false;
         }
 
+        //外出イベントの場合、外遊びにいったかどうかをチェック
+        if (GameMgr.GirlLoveSubEvent_num == 150)
+        {
+            if ((bool)engine.Param.GetParameter("OutGirlOK_Flag"))
+            {
+                //外へいった場合 ヒカリは一時的にいなくなる。
+                GameMgr.outgirl_Nowprogress = true;
+            }
+            else
+            {
+                //ダメといった場合
+                GameMgr.outgirl_Nowprogress = false;
+            }
+        }
+
+        //外出から帰ってきたときの処理。
+        if (GameMgr.GirlLoveSubEvent_num == 151)
+        {
+            GameMgr.outgirl_returnhome_reading_now = false;
+            GameMgr.outgirl_returnhome_homeru = true;
+        }
+
+        //そのあと、ほめるかしかるか。
+        if (GameMgr.GirlLoveSubEvent_num == 152)
+        {
+            GameMgr.outgirl_returnhome_homeru = false;
+
+            if ((int)engine.Param.GetParameter("OutGirlHomeru_num") == 0)
+            {
+                //女の子、お菓子の判定処理オブジェクトの取得
+                girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+                girlEat_judge.loveGetPlusAnimeON(5, false);
+                compound_Main.GirlExpressionKoushin(30); //ほめる場合
+            }
+            else
+            {
+                compound_Main.GirlExpressionKoushin(-80); //しかった場合
+            }
+        }
+
         if (GameMgr.girlloveevent_bunki == 0)
         { }
         else if (GameMgr.girlloveevent_bunki == 1)
@@ -1463,10 +1526,16 @@ public class Utage_scenario : MonoBehaviour
                     break;
             }
         }
-        
 
-        //ゲーム上のキャラクタON
-        CharacterLive2DImageON();
+        if (GameMgr.outgirl_Nowprogress)
+        {
+
+        }
+        else
+        {
+            //ゲーム上のキャラクタON
+            CharacterLive2DImageON();
+        }
 
         GameMgr.girlloveevent_endflag = true; //レシピを読み終えたフラグ
 
@@ -1510,7 +1579,7 @@ public class Utage_scenario : MonoBehaviour
                 if (SceneManager.GetActiveScene().name == "Compound")
                 {
                     //いかないを選択したので、ハート獲得演出はキャンセル
-                    compound_Main.SubEvAfterHeartGet = false;
+                    GameMgr.SubEvAfterHeartGet = false;
                 }
 
                 if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
@@ -1744,7 +1813,7 @@ public class Utage_scenario : MonoBehaviour
                     if (SceneManager.GetActiveScene().name == "Compound")
                     {
                         //いかないを選択したので、ハート獲得演出はキャンセル
-                        compound_Main.SubEvAfterHeartGet = false;
+                        GameMgr.SubEvAfterHeartGet = false;
                     }
 
                     if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。

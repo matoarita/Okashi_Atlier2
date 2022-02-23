@@ -815,6 +815,19 @@ public class ShopItemListController : MonoBehaviour
             Check_ONShopListFlag(shop_hyouji_flag);
         }
 
+        //エクストラモードの場合、最初から全てでている。
+        if(GameMgr.Story_Mode != 0)
+        {
+            shop_hyouji_flag = 2;
+            Check_ONShopListFlag(shop_hyouji_flag);
+            shop_hyouji_flag = 3;
+            Check_ONShopListFlag(shop_hyouji_flag);
+            shop_hyouji_flag = 4;
+            Check_ONShopListFlag(shop_hyouji_flag);
+            shop_hyouji_flag = 5;
+            Check_ONShopListFlag(shop_hyouji_flag);
+        }
+
         //セールや日によって出たりでなかったりする品物
         switch (SceneManager.GetActiveScene().name)
         {
@@ -838,12 +851,12 @@ public class ShopItemListController : MonoBehaviour
         {
             case "Emerald_Shop":
 
-                if(GameMgr.GirlLoveSubEvent_stage1[62])
+                if(GameMgr.GirlLoveSubEvent_stage1[101])
                 {
                     shop_hyouji_flag = 1000;
                     Check_ONShopListFlag(shop_hyouji_flag);
                 }
-                if (GameMgr.GirlLoveSubEvent_stage1[63])
+                if (GameMgr.GirlLoveSubEvent_stage1[102])
                 {
                     shop_hyouji_flag = 1001; 
                     Check_ONShopListFlag(shop_hyouji_flag);

@@ -197,6 +197,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_girl_lifepoint = PlayerStatus.player_girl_lifepoint, //妹の体力
             save_player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力
             save_player_girl_eatCount = PlayerStatus.player_girl_eatCount, //妹が食べたお菓子の回数
+            save_player_girl_manpuku = PlayerStatus.player_girl_manpuku, //妹の満腹度
 
             //日付・フラグ関係
             save_player_day = PlayerStatus.player_day, //現在の日付
@@ -273,6 +274,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             save_Okashi_last_score = GameMgr.Okashi_last_score,
             save_Okashi_last_heart = GameMgr.Okashi_last_heart,
+
+            save_NowEatOkashiName = GameMgr.NowEatOkashiName, //今食べたいお菓子の名前表示
+            save_NowEatOkashiID = GameMgr.NowEatOkashiID, //今食べたいお菓子ID表示
 
             //マップイベントフラグ
             save_MapEvent_01 = GameMgr.MapEvent_01,         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -351,16 +355,21 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_extreme_itemtype = GameMgr.sys_extreme_itemType,
 
             //お菓子の一度にトッピングできる回数
-            save_topping_Set_Count = GameMgr.topping_Set_Count,            
+            save_topping_Set_Count = GameMgr.topping_Set_Count,
 
             save_mainBGM_Num = GameMgr.mainBGM_Num,
 
-            save_picnic_End = GameMgr.picnic_End,
+            //save_picnic_End = GameMgr.picnic_End,
             save_picnic_count = GameMgr.picnic_count,
             save_picnic_event_ON = GameMgr.picnic_event_ON,
 
+            //outgirl_End = GameMgr.outgirl_End,
+            outgirl_count = GameMgr.outgirl_count,
+            outgirl_event_ON = GameMgr.outgirl_event_ON,
+            outgirl_Nowprogress = GameMgr.outgirl_Nowprogress,
+
             save_hiroba_ichigo_first = GameMgr.hiroba_ichigo_first,
-            save_ichigo_collection_listFlag = GameMgr.ichigo_collection_listFlag,
+            save_ichigo_collection_listFlag = GameMgr.ichigo_collection_listFlag,           
         };
 
         //デバッグ用
@@ -425,6 +434,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_girl_lifepoint = playerData.save_player_girl_lifepoint; //妹の体力
         PlayerStatus.player_girl_maxlifepoint = playerData.save_player_girl_maxlifepoint; //妹のMax体力
         PlayerStatus.player_girl_eatCount = playerData.save_player_girl_eatCount; //妹が食べたお菓子の回数
+        PlayerStatus.player_girl_manpuku = playerData.save_player_girl_manpuku; //妹の満腹度
 
         //日付・フラグ関係
         PlayerStatus.player_day = playerData.save_player_day; //現在の日付
@@ -500,6 +510,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         GameMgr.Okashi_last_score = playerData.save_Okashi_last_score;
         GameMgr.Okashi_last_heart = playerData.save_Okashi_last_heart;
+
+        if (playerData.save_NowEatOkashiName != null)
+        {
+            GameMgr.NowEatOkashiName = playerData.save_NowEatOkashiName; //今食べたいお菓子の名前表示
+            GameMgr.NowEatOkashiID = playerData.save_NowEatOkashiID; //今食べたいお菓子ID表示
+        }
 
         //マップイベントフラグ
         GameMgr.MapEvent_01 = playerData.save_MapEvent_01;        //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
@@ -663,9 +679,24 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         GameMgr.mainBGM_Num = playerData.save_mainBGM_Num;
 
-        GameMgr.picnic_End = playerData.save_picnic_End;
         GameMgr.picnic_count = playerData.save_picnic_count;
         GameMgr.picnic_event_ON = playerData.save_picnic_event_ON;
+        if (GameMgr.picnic_count <= 0)
+        {
+            GameMgr.picnic_event_ON = true;
+        }
+
+        GameMgr.outgirl_count = playerData.outgirl_count;
+        GameMgr.outgirl_event_ON = playerData.outgirl_event_ON;
+        GameMgr.outgirl_Nowprogress = playerData.outgirl_Nowprogress;
+
+        if(GameMgr.outgirl_count <= 0)
+        {
+            GameMgr.outgirl_event_ON = true;
+        }
+
+        Debug.Log("GameMgr.outgirl_count: " + GameMgr.outgirl_count);
+        Debug.Log("GameMgr.outgirl_event_ON " + GameMgr.outgirl_event_ON);
 
         GameMgr.hiroba_ichigo_first = playerData.save_hiroba_ichigo_first;
         GameMgr.ichigo_collection_listFlag = playerData.save_ichigo_collection_listFlag;
@@ -754,22 +785,31 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 //背景を変更
                 compound_Main.Change_BGimage();
 
+                //ステージ更新
+
                 GameMgr.compound_status = 0;
 
                 //ロード直後のサブイベントを発生させる
-                compound_Main.Load_eventflag = true; //ロード直後に、おかえりなさい～のようなサブイベントを発生
-                compound_Main.check_GirlLoveEvent_flag = false; //compound_Mainからロードしても、おかえりなさい～が発生               
+                GameMgr.Load_eventflag = true; //ロード直後に、おかえりなさい～のようなサブイベントを発生
+                GameMgr.check_GirlLoveEvent_flag = false; //compound_Mainからロードしても、おかえりなさい～が発生               
                 break;
         }
 
         //まずクエストを再設定
         special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 1); //クエスト番号を再設定ここで。
-        special_quest.RedrawQeustName();
+        special_quest.RedrawQuestName();
 
         //そのあと、クエストに応じて、各要素の再設定
-        girl1_status.OkashiNew_Status = 0;
+        if (GameMgr.Story_Mode == 0)
+        {
+            girl1_status.OkashiNew_Status = 0;
+        }
+        else
+        {
+            girl1_status.OkashiNew_Status = 2; //エクストラモード
+        }
         girl1_status.special_animatFirst = true;
-        girl1_status.Girl_Hungry();         
+        girl1_status.Girl_EatDecide();         
 
         debug_panel.GirlLove_Koushin(PlayerStatus.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
         GameMgr.KeyInputOff_flag = true;
@@ -815,18 +855,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         quest_database.ResetQuestTakeSet();
     }
 
-    //ゲーム「はじめから」で、システムロード後に、再度リセットする。周回後の状態や、絶対にリセットしておきたいパラメータだけ、再度リセットするイメージ。
+    //ゲーム「はじめから」で、システムロード後に、再度リセットする。絶対にリセットしておきたいパラメータだけ、再度リセットするイメージ。
     public void ResetParamSecondTime()
     {
         for (i = 0; i < database.items.Count; i++)
         {
             database.items[i].Eat_kaisu = 0;
-        }
-
-        //二週目以降、自動で出てくる。
-        if (GameMgr.ending_count >= 1)
-        {
-            matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag = 1;
         }
 
         //体力は全回復
@@ -1019,7 +1053,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //オートセーブフラグ
             GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
 
-            PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
+            //PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
             PlayerStatus.player_girl_maxlifepoint = systemData.save_player_girl_maxlifepoint_system; // 女の子のMAX体力　システム引継ぎ用
 
             //コスチューム番号

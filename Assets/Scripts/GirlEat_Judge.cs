@@ -32,7 +32,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private ExtremePanel extreme_panel;
 
     private GameObject MainUIPanel_obj;
-    private GameObject UIOpenButton_obj;
 
     private GameObject Girlloveexp_bar;
     private Buf_Power_Keisan bufpower_keisan;
@@ -83,7 +82,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private bool kansou_on; //採点表示の際、事前に「うんめー」などのお菓子の感想を表示するか否か。specialクエストの場合は、表示する。
 
     //女の子の反映用ハートエフェクト
-    private GameObject GirlHeartEffect_obj;
     private Particle_Heart_Character GirlHeartEffect;
     private int girllove_param;
 
@@ -100,6 +98,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     private Girl1_status girl1_status;
     private GameObject character;
+    private GameObject character_root;
 
     private GameObject hukidashiitem;   
     private Text _hukidashitext;
@@ -300,7 +299,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int shokukan_baseparam;
 
     private bool emerarudonguri_end;
-    private bool questclear_end;
 
     // スロットのデータを保持するリスト。点数とセット。
     List<string> itemslotInfo = new List<string>();
@@ -364,7 +362,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject stageclear_panel;
     private GameObject stageclear_toggle;
     private GameObject stageclear_Button;
-    private bool stageclear_button_on;
 
     private int contest_type;
 
@@ -458,14 +455,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 //キャラクタ取得
                 character = GameObject.FindWithTag("Character");
+                character_root = GameObject.FindWithTag("CharacterRoot");
 
                 //お金の増減用パネルの取得
                 MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
                 //女の子の反映用ハートエフェクト取得
-                GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
-                GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
+                GirlHeartEffect = character_root.transform.Find("CharacterMove/Particle_Heart_Character").GetComponent<Particle_Heart_Character>();
 
                 //女の子のレベル表示取得
                 girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
@@ -475,9 +472,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 stageclear_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
                 stageclear_toggle = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
                 stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
-                stageclear_button_on = false;
-
-                UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
 
                 //エフェクトプレファブの取得
                 effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
@@ -590,7 +584,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         dislike_flag = true;
         emerarudonguri_get = false;
         emerarudonguri_end = false;
-        questclear_end = false;
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
@@ -660,12 +653,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     text_area.SetActive(false);
                     MainUIPanel_obj.SetActive(false);
 
-                    if (stageclear_Button.activeInHierarchy)
-                    {
-                        stageclear_button_on = true;
-                        stageclear_Button.SetActive(false);
-                    }
-
                     timeOut = 4.0f;
                     judge_anim_status = 1;
 
@@ -676,8 +663,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     EatAnimPanel.SetActive(true);
                     texture2d = database.items[database.SearchItemIDString(_basename)].itemIcon_sprite;
                     EatAnimPanel_itemImage.sprite = texture2d;
-
-
 
                     //カメラ寄る。
                     trans = 2; //transが1を超えたときに、ズームするように設定されている。
@@ -725,17 +710,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 case 3: //アニメ終了。判定する
 
                     girl1_status.gireleat_start_flag = false;
-
-                    Extremepanel_obj.SetActive(true);
-                    MoneyStatus_Panel_obj.SetActive(true);
-                    text_area.SetActive(true);
-                    Girlloveexp_bar.SetActive(true);
-                    MainUIPanel_obj.SetActive(true);
-
-                    if (stageclear_button_on)
-                    {
-                        stageclear_Button.SetActive(true);
-                    }
 
                     //食べ中吹き出しの削除
                     if (eat_hukidashiitem != null)
@@ -882,34 +856,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
 
-        //** 判定用に、女の子の好み値(GirlLikeSet)をセッティング
-
-        if (girl1_status.OkashiNew_Status == 1) //OkashiNew_Status=1は、直接クエストを指定しているので、セッティングのみでOK　チュートリアルなどで使用
-        {
-
-        }
-        else
-        {
-            if (contest_type == 0) //コンテスト=1 ではこのセッティングは使用しない
-            {
-                //通常の場合は、あげたお菓子によって、その好み値をセッティングする。girlLikeSetのcompNum番号を指定して、判定用に使う。
-                //未使用？
-                if (girl1_status.OkashiNew_Status == 0)
-                {
-                    girl1_status.SetQuestRandomSet(girl1_status.OkashiQuest_ID, false);
-                }
-                else if (girl1_status.OkashiNew_Status == 1)
-                {
-                    girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
-                }
-
-                SetGirlTasteInit();
-            }
-        }
-        //**
-
-
-
         //一回まず各スコアを初期化。
         for (i = 0; i < itemslotScore.Count; i++)
         {
@@ -959,15 +905,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             switch (girl1_status.timeGirl_hungry_status)
             {
-                case 0: //お腹が特に減ってない状態。
+                case 0: //お腹が特に減ってない状態。はなくなった
 
                     //Debug.Log("今はあまりお腹が減ってないらしい");
-
-                    /*_windowtext.text = "今はあまりお腹が減ってないらしい";
-
-                    GameMgr.compound_status = 0;
-                    //お菓子の判定処理を終了
-                    compound_Main.girlEat_ON = false;*/
 
                     //判定アニメ起動
                     judge_anim_on = true;
@@ -1083,7 +1023,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _girloily = girl1_status.girl1_Oily;
         _girlwatery = girl1_status.girl1_Watery;
 
-        _set_compID = girl1_status.Set_compID;
+        //_set_compID = girl1_status.Set_compID;
     }
 
     IEnumerator Girl_Judge_anim_co()
@@ -1148,142 +1088,147 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         if (GameMgr.GirlLoveEvent_num == 50 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
         {
-            non_spquest_flag = true;
-
-            //お菓子の判定値をセッティング
-            girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
-            SetGirlTasteInit();
-
-            dislike_flag = true;
-            dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
-            set_id = 0;
-
+            SettingGirlHungrySet();
         }
         else
         {
-            //主にチュートリアル
-            if (girl1_status.OkashiNew_Status == 1)
+            switch (girl1_status.OkashiNew_Status)
             {
-                non_spquest_flag = true;
+                case 0: //メイン
 
-                //お菓子の判定値は、compoundMainなどで指定している。ここでは、値のセッティングのみ。
-                girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順
-                SetGirlTasteInit();
+                    //まず、値のセッティング
+                    girl1_status.SetQuestRandomSet(girl1_status.OkashiQuest_ID); //girlLikeCompoから3つのセットを指定
+                    SetGirlTasteInit();
 
-                dislike_flag = true;
-                dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
-                set_id = 0;
+                    //判定処理
+                    count = 0;
+                    dislike_status = 1;
 
-
-            }
-            //通常かスペシャルお菓子の場合
-            else if (girl1_status.OkashiNew_Status == 0)
-            {
-
-                count = 0;
-                dislike_status = 1;
-
-                //Debug.Log("girl1_status.Set_Count: " + girl1_status.Set_Count);
-                while (count < girl1_status.Set_Count) //セットの組み合わせの数だけ判定。最大３。どれか一つのセットが条件をクリアしていれば、正解。
-                {
-                    //パラメータ初期化し、判定処理
-                    dislike_flag = true;                    
-                    set_id = count;
-
-
-                    //
-                    //判定処理　パターンA
-                    //                    
-
-                    //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
-                    if (_girl_likeokashi[count] == "Non") //特に指定なし
+                    //Debug.Log("girl1_status.Set_Count: " + girl1_status.Set_Count);
+                    while (count < girl1_status.Set_Count) //セットの組み合わせの数だけ判定。最大３。どれか一つのセットが条件をクリアしていれば、正解。
                     {
-                        //③お菓子の種別の計算
-                        if (_girl_subtype[count] == "Non") //特に指定なし
+                        //パラメータ初期化し、判定処理
+                        dislike_flag = true;
+                        set_id = count;
+
+
+                        //
+                        //判定処理　パターンA
+                        //                    
+
+                        //④特定のお菓子の判定。④が一致していない場合は、③は計算するまでもなく不正解となる。
+                        if (_girl_likeokashi[count] == "Non") //特に指定なし
                         {
-                            dislike_flag = true;
+                            //③お菓子の種別の計算
+                            if (_girl_subtype[count] == "Non") //特に指定なし
+                            {
+                                dislike_flag = true;
+                            }
+                            else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
+                            {
+                                dislike_flag = true;
+                            }
+                            else
+                            {
+                                dislike_flag = false;
+                            }
                         }
-                        else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
+                        else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
                         {
+                            //サブは計算せず、特定のお菓子自体が正解なら、正解。ピンポイントで正解。
                             dislike_flag = true;
                         }
                         else
                         {
                             dislike_flag = false;
                         }
+
+                        Debug.Log("あげたお菓子: " + _basename);
+
+                        //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
+                        if (dislike_flag)
+                        {
+                            break;
+                        }
+
+                        count++;
                     }
-                    else if (_girl_likeokashi[count] == _basename) //お菓子の名前が一致している。
+
+
+                    //この時点で、吹き出しと違うものであれば、dislike_flagがfalse。
+                    Debug.Log("dislike_flag: " + dislike_flag);
+
+                    //
+                    //判定処理　パターンB
+                    //
+
+                    //吹き出しにあっているかいないかの判定。
+                    if (dislike_flag == false) //吹き出しに合っていない場合
                     {
-                        //サブは計算せず、特定のお菓子自体が正解なら、正解。ピンポイントで正解。
+                        non_spquest_flag = true;
+
+                        //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。
+
+                        //お菓子の判定値をセッティング
+                        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
+                        SetGirlTasteInit();
+
                         dislike_flag = true;
+                        set_id = 0;
+
+                        if (database.items[_baseID].Eat_kaisu == 0) //新しい食べ物の場合
+                        {                           
+                            dislike_status = 2;                            
+                        }
+                        else
+                        {
+                            dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
+                        }
                     }
-                    else
+                    else //吹き出しに合っていた場合に、味を判定する。
                     {
-                        dislike_flag = false;
+
                     }
+                    break;
 
-                    Debug.Log("あげたお菓子: " + _basename);
+                case 1: //主にチュートリアル
 
-                    //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
-                    if (dislike_flag)
-                    {
-                        break;
-                    }
+                    SettingGirlHungrySet();
+                    break;
 
-                    count++;
-                }
+                case 2: //エクストラ
 
-
-                //この時点で、吹き出しと違うものであれば、dislike_flagがfalse。
-                Debug.Log("dislike_flag: " + dislike_flag);
-
-                //
-                //判定処理　パターンB
-                //
-
-                //吹き出しにあっているかいないかの判定。
-                if (dislike_flag == false) //吹き出しに合っていない場合
-                {
-                    non_spquest_flag = true;
-
-                    //dislike_status = 5; //スペシャルクエストだった場合は、これじゃないという。
-
-                    //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。
-                                        
                     if (database.items[_baseID].Eat_kaisu == 0) //新しい食べ物の場合
                     {
-                        //お菓子の判定値をセッティング
-                        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
-                        SetGirlTasteInit();
-
-                        dislike_flag = true;
+                        //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。
+                        SettingGirlHungrySet();
                         dislike_status = 2;
-
-                        set_id = 0;
-
                     }
                     else
                     {
-                        //お菓子の判定値をセッティング
-                        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
-                        SetGirlTasteInit();
-
-                        dislike_flag = true;
-                        dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
-                        set_id = 0;
-
-
+                        //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。
+                        SettingGirlHungrySet();
                     }
-                }
-                else //吹き出しに合っていた場合に、味を判定する。
-                {
-
-                }
+                                       
+                    break;
             }
         }
 
         GameMgr.Okashi_dislike_status = dislike_status;
     }   
+
+    void SettingGirlHungrySet()
+    {
+        non_spquest_flag = true; //そもそも吹き出しに合わない設定
+
+        //まず、値のセッティング
+        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //
+        SetGirlTasteInit();
+
+        dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
+        dislike_flag = true;
+        set_id = 0;
+    }
 
     public void judge_score(int _setType, int _setCountNum)
     {
@@ -2093,7 +2038,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     //girl1_status.hukidashiMessage("お兄ちゃん！ありがとー！！");
 
                     //そのお菓子セットをどれだけ食べたか。回数を増やす。
-                    if (girl1_status.OkashiNew_Status == 0)　//スペシャルクエストの場合
+                    /*if (girl1_status.OkashiNew_Status == 0)　//スペシャルクエストの場合
                     {
                         for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
                         {
@@ -2118,7 +2063,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             }
                         }
                     }
-                    else { }
+                    else { }*/
 
                     //3秒ほど表示したら、お菓子の感想を言ったり、なんか褒めてくれたりする。
                     //StartCoroutine("WaitCommentDesc");
@@ -2460,6 +2405,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             _windowtext.text = "";
                         }
                     }
+
                     break;
             }
 
@@ -2647,7 +2593,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (GameMgr.Story_Mode == 1)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.5f); //ハートが上がりにくく
-                compound_Main.ManpukuBarKoushin((int)(total_score * 0.3f)); //満腹度も計算
+                if(GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。ハート〇倍。
+                {
+                    Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.75倍");
+                    Getlove_exp = (int)(Getlove_exp * 1.75f);
+                }
+                compound_Main.ManpukuBarKoushin((int)(total_score * 0.2f * _basegirl1_like)); //満腹度も計算
             }
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
@@ -2666,7 +2617,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //
     //好感度の値反映処理のメソッド
     //
-
     IEnumerator Love_effect()
     {
         //10秒待つ
@@ -2702,12 +2652,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (GameMgr.Story_Mode == 0)
             {
                 _listHeart.Add(Instantiate(heart_Prefab, _slider_obj.transform));
-                //_listHeart.Add(Instantiate(heart_Prefab, zeropoint.transform));
             }
             else
             {
                 _listHeart.Add(Instantiate(heart_Prefab2, _slider_obj.transform));
-                //_listHeart.Add(Instantiate(heart_Prefab2, zeropoint.transform));
             }
             _listHeart[i].GetComponent<HeartUpObj>()._id = i;
         }
@@ -2931,7 +2879,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Getlove_exp = 0;
 
         //好感度によって発生するサブイベントがないかチェック
-        compound_Main.check_GirlLoveSubEvent_flag = false;
+        GameMgr.check_GirlLoveSubEvent_flag = false;
         //compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
     }
 
@@ -3462,7 +3410,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     canvas.SetActive(true);
                     ResetResult();
                     touch_controller.Touch_OnAllON();
-                    questclear_end = true;
                     quest_clear = false;
                     GameMgr.QuestClearCommentflag = true;
                 }
@@ -3532,6 +3479,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //表情も一瞬喜びに。
             StartCoroutine("GirlHeartUpYorokobiFace");
             GameMgr.QuestManzokuFace = true; //おいしかった～の表情
+            girl1_status.QuestManzoku_counter = 10;
 
             //テキストウィンドウの更新
             exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
@@ -3636,19 +3584,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     IEnumerator QuestClearStart()
     {
         //触れなくなる
-        Touch_WindowInteractOFF();
+        compound_Main.WindowOn(); //ウィンドウは表示
+        Touch_WindowInteractOFF(); //その後触れなくする。
+
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
         //girl1_status.hukidasiOff();
         touch_controller.Touch_OnAllOFF();
-
-        //クエストクリア感想が終了するまで待つ
-        /*while (!questclear_end)
-        {
-            yield return null;
-        }
-
-        questclear_end = false;*/
 
         //エメラルどんぐりイベントが発生した場合は、どんぐりが終了するまで待つ。emerarudonguri_end GameMgr.QuestClearflag
         while (!emerarudonguri_end)
@@ -3931,7 +3873,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         GameMgr.KeyInputOff_flag = false;
         GameMgr.scenario_ON = true;
-        GameMgr.mainquest_ID = _set_MainQuestID; //GirlLikeCompoSetの_set_compIDが入っている。
+        GameMgr.mainquest_ID = _set_MainQuestID; //
         GameMgr.mainClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
         //イベントスチル解禁
@@ -4016,8 +3958,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut();
 
         yield return new WaitForSeconds(1.0f);
-       
-        compound_Main.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
+
+        GameMgr.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
         GameMgr.questclear_After = true;
         ResetResult();
     }
@@ -4048,8 +3990,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         compound_Main.girlEat_ON = false;
         GameMgr.compound_status = 0;
 
-        compound_Main.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
-        compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
+        GameMgr.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
+        GameMgr.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
     }
 
     //食べたあとのヒント関係の処理

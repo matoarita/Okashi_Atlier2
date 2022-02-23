@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class TimeController : MonoBehaviour
 {
@@ -48,12 +49,14 @@ public class TimeController : MonoBehaviour
     private int _stage_limit_day;
     private int month, day;
     private int hour, minute;
+    private int cullent_hour_clock;
 
     private int limit_month, limit_day;
 
     public int timeIttei; //表示用にpublicにしてるだけ。
     public int timeIttei2;
     public int timeIttei3;
+    public int timeIttei4;
     public bool timeDegHeart_flag; //表示用にpublicにしてるだけ。
 
     private int count;
@@ -68,6 +71,15 @@ public class TimeController : MonoBehaviour
     private GameObject DebugTimecountUp_button;
     private GameObject DebugTimecountDown_button;
 
+    private GameObject clock_hari1;
+    private GameObject clock_hari2;
+
+    private Transform clock_hari1Transform;
+    private Transform clock_hari2Transform;
+
+    private Vector3 localAngle1;
+    private Vector3 localAngle2;
+
     // Use this for initialization
     void Start()
     {
@@ -76,6 +88,7 @@ public class TimeController : MonoBehaviour
         timeIttei = 0;
         timeIttei2 = 0;
         timeIttei3 = 0;
+        timeIttei4 = 0;
         timeDegHeart_flag = false;
         TimeCheck_flag = false;
     }
@@ -90,12 +103,12 @@ public class TimeController : MonoBehaviour
             case "Compound":
 
                 compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
-
                 girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
                 //お金パネル
                 moneyStatus_Controller = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
                 break;
+
         }
 
         //カレンダー初期化
@@ -149,6 +162,17 @@ public class TimeController : MonoBehaviour
 
         DebugTimecountUp_button = this.transform.Find("TimeHyouji_2/TimeCountUpButton").gameObject;
         DebugTimecountDown_button = this.transform.Find("TimeHyouji_2/TimeCountDownButton").gameObject;
+
+        clock_hari1 = this.transform.Find("TimeHyouji_1/Image/HourPanel/ClockBase/Clock_hari1").gameObject;
+        clock_hari2 = this.transform.Find("TimeHyouji_1/Image/HourPanel/ClockBase/Clock_hari2").gameObject;
+
+        // transformを取得
+        clock_hari1Transform = clock_hari1.transform;
+        clock_hari2Transform = clock_hari2.transform;
+
+        // ローカル座標を基準に、回転を取得
+        localAngle1 = clock_hari1Transform.localEulerAngles;
+        localAngle2 = clock_hari2Transform.localEulerAngles;
 
         timeLeft = 1.0f;
         count_switch = true;
@@ -206,17 +230,17 @@ public class TimeController : MonoBehaviour
                                 GameMgr.BG_cullent_weather = 1;
 
                             }
-                            else if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour < 10)
+                            else if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour < 11)
                             {
                                 GameMgr.BG_cullent_weather = 2;
 
                             }
-                            else if (PlayerStatus.player_cullent_hour >= 10 && PlayerStatus.player_cullent_hour < 12)
+                            else if (PlayerStatus.player_cullent_hour >= 11 && PlayerStatus.player_cullent_hour < 13)
                             {
                                 GameMgr.BG_cullent_weather = 3;
 
                             }
-                            else if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour < 16)
+                            else if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour < 16)
                             {
                                 GameMgr.BG_cullent_weather = 4;
 
@@ -237,21 +261,48 @@ public class TimeController : MonoBehaviour
 
                                 //天気アニメ変更をトリガー
                                 compound_main.BG_RealtimeChange(); //背景更新
-                            }                            
+                            }
+
+                            //サブ時間イベントをチェック
+                            if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
+                            {
+
+                            }
+                            else
+                            {
+                                GameMgr.check_GirlLoveTimeEvent_flag = false;
+                            }
                         }
 
-                        timeIttei3++;
-                        if (timeIttei3 >= 10)
+                        if (!GameMgr.outgirl_Nowprogress)
                         {
-                            timeIttei3 = 0;
-
-                            //満腹度が減る。
-                            compound_main.ManpukuBarKoushin(-1);
-
-                            //満腹度が0になると、ハートも減り始める。
-                            if (PlayerStatus.player_girl_manpuku <= 0)
+                            timeIttei3++;
+                            if (timeIttei3 >= 10)
                             {
-                                girleat_judge.DegHeart((-1 * PlayerStatus.girl1_Love_lv), false);
+                                timeIttei3 = 0;
+
+                                //満腹度が減る。
+                                compound_main.ManpukuBarKoushin(-1);
+
+                                //満腹度が0になると、ハートも減り始める。
+                                if (PlayerStatus.player_girl_manpuku <= 0)
+                                {
+                                    girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.2f), false);
+                                }
+                            }
+
+                            //時間でゆるやかにハートも減る。
+                            timeIttei4++;
+                            if (timeIttei4 >= 30)
+                            {
+                                timeIttei4 = 0;
+
+                                //満腹度が0になると、ハートも減り始める。
+                                if (PlayerStatus.player_girl_manpuku <= 70)
+                                {
+                                    girleat_judge.DegHeart(-2, false);
+                                }
+
                             }
                         }
                     }
@@ -302,6 +353,22 @@ public class TimeController : MonoBehaviour
             _time_minute1.text = PlayerStatus.player_cullent_minute.ToString("00");
             _time_hour2.text = PlayerStatus.player_cullent_hour.ToString("00");
             _time_minute2.text = PlayerStatus.player_cullent_minute.ToString("00");
+
+            //時計版表示           
+            localAngle1.z = -1 * PlayerStatus.player_cullent_minute * 6; // ローカル座標を基準に、z軸を軸にした回転
+            clock_hari1Transform.localEulerAngles = localAngle1; // 回転角度を設定
+
+            if(PlayerStatus.player_cullent_hour >= 12)
+            {
+                cullent_hour_clock = PlayerStatus.player_cullent_hour - 12;
+            }
+            else
+            {
+                cullent_hour_clock = PlayerStatus.player_cullent_hour;
+            }
+            localAngle2.z = -1 * 30 * cullent_hour_clock; // ローカル座標を基準に、z軸を軸にした回転
+            localAngle2.z = localAngle2.z  + (- 2.5f * (PlayerStatus.player_cullent_minute / 5));
+            clock_hari2Transform.localEulerAngles = localAngle2; // 回転角度を設定
 
             //** 時刻の計算　ここまで **//
 
@@ -481,7 +548,7 @@ public class TimeController : MonoBehaviour
         PlayerStatus.player_day += count;
         PlayerStatus.player_cullent_hour = _cullent_hour; //残った時　多分、深夜1時とかになるはず。15時とかならそのまま15時
 
-        Debug.Log("現在時刻: " + PlayerStatus.player_cullent_hour + ": " + PlayerStatus.player_cullent_minute);
+        //Debug.Log("現在時刻: " + PlayerStatus.player_cullent_hour + ": " + PlayerStatus.player_cullent_minute);
        
     }
 
@@ -514,7 +581,7 @@ public class TimeController : MonoBehaviour
         PlayerStatus.player_cullent_Deadday = limit_day;
     }
 
-    public void ResetTimeFlag() //compound_mainなどから読む。compound_status=0のときにリセットする
+    public void ResetTimeFlag() //compound_main, touch_controllerなどから読む。compound_status=0のときにリセットする
     {
         timeDegHeart_flag = false;
         timeIttei = 0;

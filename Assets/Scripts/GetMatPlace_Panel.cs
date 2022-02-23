@@ -18,6 +18,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private SoundController sc;
     private Map_Ambience map_ambience;
 
+    private EventDataBase eventdatabase;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -76,8 +78,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject get_material_obj;
     private GetMaterial get_material;
 
-    private GameObject mainUIFrame_panel;
-
     private GameObject map_imageBG;
     private Texture2D texture2d;
     private Texture2D texture2d_map;
@@ -115,7 +115,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject sister_stand_img1;
 
     public Dictionary<string, int> result_items;
-    private bool result_off;
 
     private bool subevent_on;
     private bool event_end_flag;
@@ -153,6 +152,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //イベントデータベースの取得
+        eventdatabase = EventDataBase.Instance.GetComponent<EventDataBase>();
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -218,8 +220,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
         getmatplace_view = this.transform.Find("Comp/GetMatPlace_View").gameObject;
         getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
         getmatResult_panel = canvas.transform.Find("GetMatResult_Panel").GetComponent<GetMatResult_Panel>();
-
-        mainUIFrame_panel = canvas.transform.Find("MainUIPanel/Comp/MainUIPanelTopFrame").gameObject;
 
         //マップ背景エフェクト
         map_bg_effect = GameObject.FindWithTag("MapBG_Effect");
@@ -472,13 +472,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
             }
             //ハートゲージを更新。
             compound_Main.HeartGuageTextKoushin();
-            
+
             //リザルトパネルを表示
-            result_off = false;
-            getmatResult_panel_obj.SetActive(true);
-            getmatResult_panel.reset_and_DrawView();
-            getmatResult_panel.OnStartAnim();
-            StartCoroutine("ResultOn");
+            ResultPanelOn();
+            
 
             //オートセーブ
             if (GameMgr.AUTOSAVE_ON)
@@ -489,6 +486,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 compound_Main.AutoSaveCompleteText();
             }
         }
+    }
+
+    //リザルトパネル表示の一連の処理　EventDataBaseかUtage_scenarioからも読み出し
+    public void ResultPanelOn()
+    {
+        GameMgr.ResultOFF = true; //リザルト表示中
+        getmatResult_panel_obj.SetActive(true);
+        getmatResult_panel.reset_and_DrawView();
+        getmatResult_panel.OnStartAnim();
+        StartCoroutine("ResultOn");
     }
 
     public void OnClick_Place(int place_num)
@@ -634,6 +641,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     //お金の消費
                     moneyStatus_Controller.UseMoney(mat_cost);
+
+                    //腹も減る
+                    if(GameMgr.Story_Mode != 0)
+                    {
+                        PlayerStatus.player_girl_manpuku -= 10;
+                    }
 
                     Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
                 }
@@ -1346,7 +1359,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         MoneyStatus_Panel_obj.SetActive(false);
         GetMatStatusButton_obj.SetActive(false);
-        mainUIFrame_panel.SetActive(false);
         if (GameMgr.TimeUSE_FLAG)
         {
             TimePanel_obj1.SetActive(false);
@@ -1357,7 +1369,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         MoneyStatus_Panel_obj.SetActive(true);
         GetMatStatusButton_obj.SetActive(true);
-        mainUIFrame_panel.SetActive(true);
         if (GameMgr.TimeUSE_FLAG)
         {
             TimePanel_obj1.SetActive(true);
@@ -1396,37 +1407,46 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public void GetMatResultPanelOff()
     {
         sc.PlaySe(30);
-        result_off = true;
+        GameMgr.ResultOFF = false;
 
-        compound_Main.check_GetMat_flag = true; //採取地帰ってきたよのフラグ
-        compound_Main.check_GirlLoveEvent_flag = false; //再度イベントチェック
+        GameMgr.check_GetMat_flag = true; //採取地帰ってきたよのフラグ
+        GameMgr.check_GirlLoveEvent_flag = false; //再度イベントチェック
         //Debug.Log("イベントチェックON");
     }
 
-    //リザルト画面を表示
+    //リザルト画面を表示中。オフにしたあとの処理。
     IEnumerator ResultOn()
     {
 
         // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
-
-        while (result_off != true)
+        while (GameMgr.ResultOFF)
         {
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
-        result_off = false;
+        GameMgr.ResultOFF = false;
         getmatResult_panel_obj.SetActive(false);
 
-        //メインシーンのデフォルトに戻る。
-        time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
-        time_controller.TimeKoushin();
-        girl1_status.hukidasiOn();
+        if (GameMgr.outgirl_returnhome_homeru)
+        {
+            GameMgr.outgirl_returnhome_homeru = false;
 
-        slot_view_status = 0;
+            //ほめるかどうかをまた宴できく。
+            eventdatabase.eventOutGirlHomeru();
+        }
+        else
+        {
+            //メインシーンのデフォルトに戻る。
+            time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
+            time_controller.TimeKoushin();
+            girl1_status.hukidasiOn();
+
+            slot_view_status = 0;
+        }       
     }
 
-
-    void InitializeResultItemDicts()
+    //外出から帰ってきた時のイベントからも読み出し　初期化。
+    public void InitializeResultItemDicts()
     {
         result_items = new Dictionary<string, int>();
 

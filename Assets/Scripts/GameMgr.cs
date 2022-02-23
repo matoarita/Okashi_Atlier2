@@ -203,9 +203,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int mainBGM_Num;
 
     //ピクニックイベントのカウンター
-    public static bool picnic_End;
     public static int picnic_count;
     public static bool picnic_event_ON;
+
+    //外出るイベントのカウンター
+    public static int outgirl_count;
+    public static bool outgirl_event_ON;
+    public static bool outgirl_Nowprogress;
 
     //いちごイベントのフラグ
     public static bool hiroba_ichigo_first; //一回でもいちごお菓子をわたした。
@@ -283,7 +287,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //お菓子イベント現在のナンバー
     public static int OkashiQuest_Num; //セーブはしなくてもGirlLoveEvent_numからロード時に自動で設定し直すので大丈夫。
-    public static string NowEatOkashi; //今食べたいお菓子　girlCompoDBのテキストが入っている。
+    public static string NowEatOkashiName; //今食べたいお菓子の名前表示
+    public static int NowEatOkashiID; //今食べたいお菓子のアイテムID。ItemdatabaseのitemID。
 
     //お菓子の点数基準値
     public static int mazui_score;
@@ -381,6 +386,21 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool picnic_event_reading_now; //ピクニック読み中
     public static bool picnic_after; //ピクニック後、少し余韻にひたる
     public static int picnic_after_time; //余韻にひたる時間
+    public static bool GirlLove_loading; //好感度イベントを読み中
+    public static bool Load_eventflag; //ロード直後のフラグ
+    public static bool check_GirlLoveEvent_flag;
+    public static bool check_GirlLoveSubEvent_flag;
+    public static bool check_GirlLoveTimeEvent_flag;
+    public static bool check_CompoAfter_flag;
+    public static bool check_GetMat_flag;
+    public static bool check_OkashiAfter_flag;
+    public static int ResultComplete_flag;
+    public static bool Mute_on;
+    public static bool SubEvAfterHeartGet; //Utage_scenarioからも読まれる
+    public static int SubEvAfterHeartGet_num;
+    public static bool outgirl_returnhome_reading_now; //外出から帰ってきたときの宴読み中
+    public static bool outgirl_returnhome_homeru; //リザルトパネルをおして、ほめるか否か
+    public static bool ResultOFF; //リザルトパネルのオンオフ
 
     private PlayerItemList pitemlist;
 
@@ -459,6 +479,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Foodexpenses;
     public static int Foodexpenses_default;
     public static string MgrTodayFood; //今日の食事　セーブはしない   
+
+    public static bool Haraheri_Msg;
 
     //一日のはじまり・終わりの時間
     public static int StartDay_hour;
@@ -551,14 +573,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         compound_select = 0;
 
         BG_cullent_weather = 2;
-        BG_before_weather = BG_cullent_weather;       
+        BG_before_weather = BG_cullent_weather;
 
         //食費
         Foodexpenses_default = 100;
         Foodexpenses = Foodexpenses_default;
 
         //ストーリーモード
-        Story_Mode = 0;
+        Story_Mode = 1;
 
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。
         scenario_ON = false;
@@ -567,6 +589,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         camerazoom_endflag = false;
         qclear_effect_endflag = false;
+        Haraheri_Msg = false;
 
         Costume_Num = 0; //初期コスチューム　メイド服がデフォルト
         for (system_i = 0; system_i < Accesory_Num.Length; system_i++)
@@ -608,9 +631,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         emeraldshop_event_flag = false;
         emeraldshop_event_num = 0;
 
-        picnic_End = false;
         picnic_count = 3;
         picnic_event_ON = true;
+
+        outgirl_count = 3;
+        outgirl_event_ON = true;
+        outgirl_Nowprogress = false;
 
         hiroba_ichigo_first = false;
 
@@ -629,7 +655,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Scene_back_home = false;
 
-        
+
         Game_timeCount = 0; //1秒タイマー
 
         GirlLoveEvent_num = 0;
@@ -670,15 +696,30 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         QuestManzokuFace = false;
         OsotoIkitaiFlag = false;
         picnic_event_reading_now = false;
+        outgirl_returnhome_reading_now = false;
+        outgirl_returnhome_homeru = false;
+        ResultOFF = false;
+        Load_eventflag = false;
         picnic_after = false;
         picnic_after_time = 0;
+        GirlLove_loading = false;
+        check_GirlLoveEvent_flag = false;
+        check_GirlLoveSubEvent_flag = false;
+        check_GirlLoveTimeEvent_flag = false;
+        check_CompoAfter_flag = false;
+        check_GetMat_flag = false;
+        check_OkashiAfter_flag = false;
+        ResultComplete_flag = 0;
+        Mute_on = false;
+        SubEvAfterHeartGet = false;
+        SubEvAfterHeartGet_num = 0;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
         {
             GirlLoveEvent_stage1[system_i] = false;
             GirlLoveEvent_stage2[system_i] = false;
-            GirlLoveEvent_stage3[system_i] = false;            
+            GirlLoveEvent_stage3[system_i] = false;
         }
 
         //好感度サブイベントフラグの初期化
@@ -692,7 +733,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             OkashiQuestHighScore_event[system_i] = false;
         }
-        
+
 
         //ビギナーフラグの初期化
         for (system_i = 0; system_i < Beginner_flag.Length; system_i++)
@@ -794,7 +835,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_lastsweat_param = 0;
         Okashi_lastsour_param = 0;
         Okashi_lastbitter_param = 0;
-        NowEatOkashi = "";
+        NowEatOkashiID = 0;
+        NowEatOkashiName = "";
 
         //コンテストお菓子初期化
         contest_okashi_ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1130,4 +1172,5 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             }
         }
     }
+
 }

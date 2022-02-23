@@ -87,7 +87,7 @@ public class RuntimeInitializer : MonoBehaviour
         //クエストセットデータベースリスト
         var questset_database_init = new GameObject("QuestSetDataBase", typeof(QuestSetDataBase));
         GameObject.DontDestroyOnLoad(questset_database_init);
-
+       
         //コンテスト感想データベースリスト
         var contestcomment_database_init = new GameObject("ContestCommentDataBase", typeof(ContestCommentDataBase));
         GameObject.DontDestroyOnLoad(contestcomment_database_init);
@@ -157,6 +157,10 @@ public class RuntimeInitializer : MonoBehaviour
         //バフ効果計算メソッド
         var buf_Power_Keisan_init = new GameObject("Buf_Power_Keisan", typeof(Buf_Power_Keisan));
         GameObject.DontDestroyOnLoad(buf_Power_Keisan_init);
+
+        //イベントデータベースリスト
+        var event_database_init = new GameObject("EventDataBase", typeof(EventDataBase));
+        GameObject.DontDestroyOnLoad(event_database_init);
 
     }
 

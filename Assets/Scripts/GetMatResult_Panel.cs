@@ -10,6 +10,8 @@ public class GetMatResult_Panel : MonoBehaviour
 
     private ItemDataBase database;
 
+    private SoundController sc;
+
     private GameObject textPrefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
     private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
 
@@ -37,20 +39,8 @@ public class GetMatResult_Panel : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
-        //アイテムデータベースの取得
-        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
-
-        //スクロールビュー内の、コンテンツ要素を取得
-        content = this.transform.Find("Comp/Image/Scroll View/Viewport/Content").gameObject;
-        textPrefab = (GameObject)Resources.Load("Prefabs/itemResultToggle");
-
-        getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
-
-        getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
-        getmatResult_Image_obj = canvas.transform.Find("GetMatResult_Panel/Comp/Image").gameObject;
+        InitSetting();
+        
     }
 
     // Update is called once per frame
@@ -63,6 +53,32 @@ public class GetMatResult_Panel : MonoBehaviour
                 getmatplace_panel.GetMatResultPanelOff();
             }
         }
+    }
+
+    void InitSetting()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //スクロールビュー内の、コンテンツ要素を取得
+        content = this.transform.Find("Comp/Image/Scroll View/Viewport/Content").gameObject;
+        textPrefab = (GameObject)Resources.Load("Prefabs/itemResultToggle");
+
+        getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
+
+        getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
+        getmatResult_Image_obj = canvas.transform.Find("GetMatResult_Panel/Comp/Image").gameObject;
+    }
+
+    private void OnEnable()
+    {
+
     }
 
     // リストビューの描画部分。重要。
@@ -119,6 +135,8 @@ public class GetMatResult_Panel : MonoBehaviour
     public void OnStartAnim()
     {
         Sequence sequence = DOTween.Sequence();
+
+        sc.PlaySe(30); //ポコ
 
         //まず、初期値。
         getmatResult_Image_obj.GetComponent<CanvasGroup>().alpha = 0;

@@ -93,7 +93,7 @@ public class TasteHintPanel : MonoBehaviour {
         RandomOneComment();
 
         NowEat_text = this.transform.Find("HintPanel/NowEatText").GetComponent<Text>();
-        NowEat_text.text = GameMgr.NowEatOkashi;
+        NowEat_text.text = GameMgr.NowEatOkashiName;
 
         HikariIcon_Angry = this.transform.Find("HintPanel/CharaIcon/HikariIcon2").gameObject;
         if(GameMgr.Okashi_totalscore <= 30)

@@ -13,7 +13,6 @@ public class MainUIPanel : MonoBehaviour {
     private int trans; //トランジション用のパラメータ
 
     private GameObject canvas;
-    private GameObject UIOpenButton_obj;
     private GameObject GetMatStatusButton_obj;
     private GameObject TimePanel_obj;
     private GameObject _CompObj;
@@ -55,7 +54,6 @@ public class MainUIPanel : MonoBehaviour {
         //Live2Dモデル取得
         _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
 
-        UIOpenButton_obj = canvas.transform.Find("MainUIOpenButton").gameObject;
         TimePanel_obj = this.transform.Find("Comp/TimePanel").gameObject;
         GetMatStatusButton_obj = this.transform.Find("Comp/GetMatStatusPanel").gameObject;
 
@@ -86,19 +84,7 @@ public class MainUIPanel : MonoBehaviour {
         manpuku_bar = canvas.transform.Find("MainUIPanel/ManpukuBar").gameObject;
         manpuku_bar.SetActive(false);
 
-        if (GameMgr.Story_Mode == 0)
-        {
-            bar_sprite.sprite = bar_sprite_1;
-            stage_text_obj.SetActive(true);
-            FreeModeText_obj.SetActive(false);
-        }
-        else
-        {
-            bar_sprite.sprite = bar_sprite_2;
-            stage_text_obj.SetActive(false);
-            FreeModeText_obj.SetActive(true);
-            manpuku_bar.SetActive(true);
-        }       
+        SetStageMode();           
 
         total_obj_count = 0;
         foreach (Transform child in this.transform)
@@ -112,10 +98,34 @@ public class MainUIPanel : MonoBehaviour {
 		
 	}
 
-    public void OnOpenButton()
+    //compoundmainから更新
+    public void StageNumKoushin()
     {
+        stage_text.text = GameMgr.stage_quest_num.ToString() + "-" + GameMgr.stage_quest_num_sub.ToString();
+        SetStageMode();
+    }
+
+    void SetStageMode()
+    {
+        if (GameMgr.Story_Mode == 0)
+        {
+            bar_sprite.sprite = bar_sprite_1;
+            stage_text_obj.SetActive(true);
+            FreeModeText_obj.SetActive(false);
+        }
+        else
+        {
+            bar_sprite.sprite = bar_sprite_2;
+            stage_text_obj.SetActive(false);
+            FreeModeText_obj.SetActive(true);
+            manpuku_bar.SetActive(true);
+        }
+    }
+
+    public void OnOpenButton() //未使用
+    {
+        /*
         //_CompObj.gameObject.SetActive(true);
-        //UIOpenButton_obj.SetActive(false);
 
         //girl_love_exp_bar.SetActive(true);       
         text_area_Main.SetActive(true); //テキストエリアメインは、こっちもON/OFFが必要
@@ -136,15 +146,15 @@ public class MainUIPanel : MonoBehaviour {
         trans = 10; //transが1を超えたときに、ズームするように設定されている。
 
         //intパラメーターの値を設定する.
-        maincam_animator.SetInteger("trans", trans);
+        maincam_animator.SetInteger("trans", trans);*/
 
         GameMgr.MenuOpenFlag = true; //現在メニューを開いている状態
     }
 
-    public void OnCloseButton()
+    public void OnCloseButton() //未使用
     {
+        /*
         //_CompObj.SetActive(false);
-        //UIOpenButton_obj.SetActive(true);
 
         //girl_love_exp_bar.SetActive(false);       
         text_area_Main.SetActive(true);
@@ -154,14 +164,8 @@ public class MainUIPanel : MonoBehaviour {
 
         //intパラメーターの値を設定する.
         maincam_animator.SetInteger("trans", trans);
-
+        */
         GameMgr.MenuOpenFlag = false; //現在メニューを閉じている状態
-    }
-
-    //compoundmainから更新
-    public void StageNumKoushin()
-    {
-        stage_text.text = GameMgr.stage_quest_num.ToString() + "-" + GameMgr.stage_quest_num_sub.ToString();
     }
 
     void OsawariON()

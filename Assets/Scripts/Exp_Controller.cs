@@ -355,7 +355,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             if (compo_anim_on == true)
             {
                 compound_Main.compo_ON = true;
-                compound_Main.check_GirlLoveSubEvent_flag = false;
+                GameMgr.check_GirlLoveSubEvent_flag = false;
 
                 //アニメスタート
                 Compo_Magic_Animation();
@@ -516,7 +516,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
-            compound_Main.ResultComplete_flag = 1;
+            GameMgr.ResultComplete_flag = 1;
             ResultSuccess = true;
             
         }
@@ -560,7 +560,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             ResultEffect_NG();
 
             //調合完了＋失敗
-            compound_Main.ResultComplete_flag = 2;
+            GameMgr.ResultComplete_flag = 2;
             ResultSuccess = false;
         }
 
@@ -582,20 +582,20 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         time_controller.ResetTimeFlag();
 
         //作った直後のサブイベントをチェック
-        compound_Main.check_CompoAfter_flag = true;
+        GameMgr.check_CompoAfter_flag = true;
     }
 
     void Compo_1()
     {
         //①調合処理 オリジナルアイテムとして生成
         compound_keisan.Topping_Compound_Method(0);
-
-        result_item = pitemlist.player_originalitemlist.Count - 1;
-        GameMgr.Okashi_makeID = pitemlist.player_originalitemlist[result_item].itemID;
-        renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
-        
+                
         if (DoubleItemCreated == 0)
         {
+            result_item = pitemlist.player_originalitemlist.Count - 1;
+            GameMgr.Okashi_makeID = pitemlist.player_originalitemlist[result_item].itemID;
+            renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
+
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
             if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
             {
@@ -764,7 +764,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
-            compound_Main.ResultComplete_flag = 1;
+            GameMgr.ResultComplete_flag = 1;
             ResultSuccess = true;
             
         }
@@ -807,7 +807,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             ResultEffect_NG();
 
             //調合完了＋失敗
-            compound_Main.ResultComplete_flag = 2;
+            GameMgr.ResultComplete_flag = 2;
             ResultSuccess = false;
         }
 
@@ -827,7 +827,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         time_controller.ResetTimeFlag();
 
         //作った直後のサブイベントをチェック
-        compound_Main.check_CompoAfter_flag = true;
+        GameMgr.check_CompoAfter_flag = true;
     }
 
 
@@ -985,7 +985,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
-            compound_Main.ResultComplete_flag = 1;
+            GameMgr.ResultComplete_flag = 1;
             ResultSuccess = true;
             
         }
@@ -1028,7 +1028,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             ResultEffect_NG();
 
             //調合完了＋失敗
-            compound_Main.ResultComplete_flag = 2;
+            GameMgr.ResultComplete_flag = 2;
             ResultSuccess = false;
         }
 
@@ -1050,7 +1050,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         time_controller.ResetTimeFlag();
 
         //作った直後のサブイベントをチェック
-        compound_Main.check_CompoAfter_flag = true;
+        GameMgr.check_CompoAfter_flag = true;
     }   
 
 
@@ -1538,14 +1538,27 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         if(_getmoney > 0)
         {
-            //_text.text = "";
-            _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！" + "\n" +
-                "ぱぱから仕送り " + GameMgr.ColorYellow + _getmoney + GameMgr.MoneyCurrency + "</color>" + " 送られてきた！"; ;
+            if (_getlove_exp != 0)
+            {
+                _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！" + "\n" +
+                    "ぱぱから仕送り " + GameMgr.ColorYellow + _getmoney + GameMgr.MoneyCurrency + "</color>" + " 送られてきた！";
+            }
+            else
+            {
+                _text.text = "ハートはかわらなかった。" + "\n" +
+                    "ぱぱから仕送り " + GameMgr.ColorYellow + _getmoney + GameMgr.MoneyCurrency + "</color>" + " 送られてきた！";
+            }
         }
         else
         {
-            //_text.text = "";
-            _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！";
+            if (_getlove_exp != 0)
+            {
+                _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！";
+            }
+            else
+            {
+                _text.text = "ハートはかわらなかった。";
+            }
         }
     }
 
@@ -1555,7 +1568,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
-        _text.text = "ハートが" + Mathf.Abs(_getlove_exp) + "下がった..。";
+        if (_getlove_exp != 0)
+        {
+            _text.text = "ハートが" + Mathf.Abs(_getlove_exp) + "下がった..。";
+        }
+        else
+        {
+            _text.text = "ハートはかわらなかった。";
+        }
     }
 
     public void GirlNotEatText()

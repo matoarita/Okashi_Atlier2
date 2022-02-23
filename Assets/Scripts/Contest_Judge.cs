@@ -742,7 +742,7 @@ public class Contest_Judge : MonoBehaviour {
         _girlwatery = girl1_status.girl1_Watery;
 
         //girllikeCompoのOkashiQuest_IDのこと。コンテストでは使ってないかも。
-        _set_compID = girl1_status.Set_compID;
+        //_set_compID = girl1_status.Set_compID;
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

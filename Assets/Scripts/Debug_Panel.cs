@@ -412,7 +412,7 @@ public class Debug_Panel : MonoBehaviour {
                     compound_Main.ChangeBGM();
                     compound_Main.Change_BGimage();
 
-                    compound_Main.check_GirlLoveEvent_flag = false;
+                    GameMgr.check_GirlLoveEvent_flag = false;
 
                     break;
             }
@@ -607,11 +607,7 @@ public class Debug_Panel : MonoBehaviour {
     {
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-        //女の子の反映用ハートエフェクト取得
-        GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
-        GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
-
+       
         //好感度バーの取得
         _slider = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").GetComponent<Slider>();
 
@@ -707,7 +703,17 @@ public class Debug_Panel : MonoBehaviour {
         girl1_status.DefaultFace();
 
         //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
-        GirlHeartEffect.LoveRateChange();
+        if (GameMgr.outgirl_Nowprogress)
+        {
+
+        }
+        else
+        {
+            //女の子の反映用ハートエフェクト取得
+            GirlHeartEffect_obj = GameObject.FindWithTag("Particle_Heart_Character");
+            GirlHeartEffect = GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>();
+            GirlHeartEffect.LoveRateChange();
+        }
     }
 
     public void OnTasteButton()

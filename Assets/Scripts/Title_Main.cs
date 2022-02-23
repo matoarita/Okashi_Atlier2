@@ -77,10 +77,8 @@ public class Title_Main : MonoBehaviour {
             _model_move.SetActive(true);
             live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
 
-            PlayerStatus.girl1_Love_lv = 99;
+            PlayerStatus.girl1_Love_lv = 99; //タイトル画面でのみの、一時的なレベル
             girl1_status.CheckGokigen();
-            //girl1_status.DefaultFace();
-            //girl1_status.GirlGokigenStatus = 99;
         }
         else
         {

@@ -38,6 +38,7 @@ public class Live2DCostumeTrigger : MonoBehaviour {
 
     public void ChangeCostume()
     {
+        //01 黒エプロン　02 スク水　03 白い服　04 赤い服
         trans_costume = GameMgr.Costume_Num;
         live2d_animator.SetInteger("trans_costume", trans_costume);
     }

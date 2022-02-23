@@ -175,8 +175,8 @@ public class GetMaterial : MonoBehaviour
 
         cullent_total_mat = 0;
 
-        kettei_item = new int[tansaku_count];
-        kettei_kosu = new int[tansaku_count];
+        kettei_item = new int[99];
+        kettei_kosu = new int[99];
 
         TansakuLoding_Panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/TansakuLodingPanel").gameObject;
 
@@ -273,7 +273,8 @@ public class GetMaterial : MonoBehaviour
         index = _index; //採取地IDの決定
 
         // 入手できるアイテムのデータベース
-        InitializeDicts();
+        ResetItemDicts();
+        InitializeDicts(_index);
 
         mat_cost = matplace_database.matplace_lists[index].placeCost;
         mat_place = matplace_database.matplace_lists[index].placeName;
@@ -308,6 +309,12 @@ public class GetMaterial : MonoBehaviour
                 if (matplace_database.matplace_lists[index].placeType != 0)
                 {
                     GirlLifeDegKeisan(matplace_database.matplace_lists[index].placeHP);
+                }
+
+                //腹も減る
+                if (GameMgr.Story_Mode != 0)
+                {
+                    PlayerStatus.player_girl_manpuku -= 5;
                 }
 
                 //プレイヤーのアイテム発見力をバフつきで計算
@@ -525,95 +532,14 @@ public class GetMaterial : MonoBehaviour
 
         for (count = 0; count < tansaku_count; count++) //3回繰り返す
         {
-            // ドロップアイテムの抽選
-            itemId = Choose();
-            itemName = itemInfo[itemId];
-
-            //  個数の抽選
-            itemKosu = ChooseKosu();
-            kettei_kosu[count] = itemKosu;
-
+            ItemGetMethod(count);
             
-
-            if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
-            {
-                //_a[count] = "";
-                kettei_kosu[count] = 0;
-            }
-            else
-            {
-
-                //itemNameをもとに、アイテムデータベースのアイテムIDを取得
-                i = 0;
-
-                while (i < database.items.Count)
-                {
-                    if (database.items[i].itemName == itemName)
-                    {
-                        kettei_item[count] = i; //一致したときのiが、DBのitemIDのこと
-                        break;
-                    }
-                    ++i;
-                }
-
-                cullent_total_mat += kettei_kosu[count]; //現在拾った材料の数
-
-                _tansaku_result_temp.Add(GameMgr.ColorYellow + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！");
-                //_a[count] = database.items[kettei_item[count]].itemNameHyouji + " を" + kettei_kosu[count] + "個　手に入れた！";
-
-                //アイテムの取得処理
-                pitemlist.addPlayerItem(database.items[kettei_item[count]].itemName, kettei_kosu[count]);
-
-                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-                getmatplace_panel.result_items[database.items[kettei_item[count]].itemName] += kettei_kosu[count];
-            }
         }
 
         //通常アイテムとは別に、レアアイテムのドロップも抽選する。
         for (count = 0; count < 1; count++) //1回繰り返す
         {
-            // レアドロップアイテムの抽選
-            itemId = rareChoose();
-            itemName = itemrareInfo[itemId];
-
-            //  個数の抽選
-            itemKosu = ChooserareKosu();
-            kettei_kosu[count] = itemKosu;
-
-            //Debug.Log("レアアイテムの抽選 ダイスの目: " + randomPoint + " 結果 itemID:" + itemId + " itemName: " + itemName);
-
-            if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
-            {
-                //_b[count] = "";
-                kettei_kosu[count] = 0;
-            }
-            else
-            {
-
-                //itemNameをもとに、アイテムデータベースのアイテムIDを取得
-                i = 0;
-
-                while (i < database.items.Count)
-                {
-                    if (database.items[i].itemName == itemName)
-                    {
-                        kettei_item[count] = i; //一致したときのiが、DBのitemIDのこと
-                        break;
-                    }
-                    ++i;
-                }
-
-                cullent_total_mat += kettei_kosu[count]; //現在拾った材料の数
-
-                _tansaku_result_temp.Add("<color=#E37BB5>" + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！");
-                //_b[count] = "\n" + "<color=#E37BB5>" + database.items[kettei_item[count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[count] + "個　手に入れた！";
-
-                //アイテムの取得処理
-                pitemlist.addPlayerItem(database.items[kettei_item[count]].itemName, kettei_kosu[count]);
-
-                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-                getmatplace_panel.result_items[database.items[kettei_item[count]].itemName] += kettei_kosu[count];
-            }
+            RareItemGetMethod(count);            
         }
 
 
@@ -681,6 +607,93 @@ public class GetMaterial : MonoBehaviour
 
     }
 
+    void ItemGetMethod(int _count)
+    {
+        // ドロップアイテムの抽選
+        itemId = Choose();
+        itemName = itemInfo[itemId];
+
+        //  個数の抽選
+        itemKosu = ChooseKosu();
+        kettei_kosu[_count] = itemKosu;
+
+
+        if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
+        {
+            kettei_kosu[_count] = 0;
+        }
+        else
+        {
+
+            //itemNameをもとに、アイテムデータベースのアイテムIDを取得
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+                if (database.items[i].itemName == itemName)
+                {
+                    kettei_item[_count] = i; //一致したときのiが、DBのitemIDのこと
+                    break;
+                }
+                ++i;
+            }
+
+            cullent_total_mat += kettei_kosu[_count]; //現在拾った材料の数
+
+            _tansaku_result_temp.Add(GameMgr.ColorYellow + database.items[kettei_item[_count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[_count] + "個　手に入れた！");
+
+            //アイテムの取得処理
+            pitemlist.addPlayerItem(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
+
+            //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+            getmatplace_panel.result_items[database.items[kettei_item[_count]].itemName] += kettei_kosu[_count];
+        }
+    }
+
+    void RareItemGetMethod(int _count)
+    {
+        // レアドロップアイテムの抽選
+        itemId = rareChoose();
+        itemName = itemrareInfo[itemId];
+
+        //  個数の抽選
+        itemKosu = ChooserareKosu();
+        kettei_kosu[_count] = itemKosu;
+
+        //Debug.Log("レアアイテムの抽選 ダイスの目: " + randomPoint + " 結果 itemID:" + itemId + " itemName: " + itemName);
+
+        if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
+        {
+            kettei_kosu[_count] = 0;
+        }
+        else
+        {
+
+            //itemNameをもとに、アイテムデータベースのアイテムIDを取得
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+                if (database.items[i].itemName == itemName)
+                {
+                    kettei_item[_count] = i; //一致したときのiが、DBのitemIDのこと
+                    break;
+                }
+                ++i;
+            }
+
+            cullent_total_mat += kettei_kosu[_count]; //現在拾った材料の数
+
+            _tansaku_result_temp.Add("<color=#E37BB5>" + database.items[kettei_item[_count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[_count] + "個　手に入れた！");
+
+            //アイテムの取得処理
+            pitemlist.addPlayerItem(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
+
+            //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+            getmatplace_panel.result_items[database.items[kettei_item[_count]].itemName] += kettei_kosu[_count];
+        }
+    }
+
     //採集アイテムが4個以上のとき、3行ずつ表示する。ボタンを押すと、次のページへ送り出す。
     public void KaigyoButton()
     {
@@ -725,53 +738,58 @@ public class GetMaterial : MonoBehaviour
         }
     }
 
-
-    void InitializeDicts()
+    void ResetItemDicts()
     {
-        //通常アイテム
         itemInfo = new Dictionary<int, string>();
-
-        itemInfo.Add(0, matplace_database.matplace_lists[index].dropItem1); //アイテムデータベースに登録されているアイテム名と同じにする
-        itemInfo.Add(1, matplace_database.matplace_lists[index].dropItem2);
-        itemInfo.Add(2, matplace_database.matplace_lists[index].dropItem3);
-        itemInfo.Add(3, matplace_database.matplace_lists[index].dropItem4);
-        itemInfo.Add(4, matplace_database.matplace_lists[index].dropItem5);
-        itemInfo.Add(5, matplace_database.matplace_lists[index].dropItem6);
-        itemInfo.Add(6, matplace_database.matplace_lists[index].dropItem7);
-        itemInfo.Add(7, matplace_database.matplace_lists[index].dropItem8);
-        itemInfo.Add(8, matplace_database.matplace_lists[index].dropItem9);
-        itemInfo.Add(9, matplace_database.matplace_lists[index].dropItem10);
-
         itemDropDict = new Dictionary<int, float>();
-        itemDropDict.Add(0, matplace_database.matplace_lists[index].dropProb1); //こっちは確率テーブル
-        itemDropDict.Add(1, matplace_database.matplace_lists[index].dropProb2);
-        itemDropDict.Add(2, matplace_database.matplace_lists[index].dropProb3);
-        itemDropDict.Add(3, matplace_database.matplace_lists[index].dropProb4);
-        itemDropDict.Add(4, matplace_database.matplace_lists[index].dropProb5);
-        itemDropDict.Add(5, matplace_database.matplace_lists[index].dropProb6);
-        itemDropDict.Add(6, matplace_database.matplace_lists[index].dropProb7);
-        itemDropDict.Add(7, matplace_database.matplace_lists[index].dropProb8);
-        itemDropDict.Add(8, matplace_database.matplace_lists[index].dropProb9);
-        itemDropDict.Add(9, matplace_database.matplace_lists[index].dropProb10);
-
         itemDropKosuDict = new Dictionary<int, float>();
+        itemrareInfo = new Dictionary<int, string>();
+        itemrareDropDict = new Dictionary<int, float>();
+        itemrareDropKosuDict = new Dictionary<int, float>();
+    }
+
+    void InitializeDicts(int _index)
+    {
+        //通常アイテム       
+        itemInfo.Add(0, matplace_database.matplace_lists[_index].dropItem1); //アイテムデータベースに登録されているアイテム名と同じにする
+        itemInfo.Add(1, matplace_database.matplace_lists[_index].dropItem2);
+        itemInfo.Add(2, matplace_database.matplace_lists[_index].dropItem3);
+        itemInfo.Add(3, matplace_database.matplace_lists[_index].dropItem4);
+        itemInfo.Add(4, matplace_database.matplace_lists[_index].dropItem5);
+        itemInfo.Add(5, matplace_database.matplace_lists[_index].dropItem6);
+        itemInfo.Add(6, matplace_database.matplace_lists[_index].dropItem7);
+        itemInfo.Add(7, matplace_database.matplace_lists[_index].dropItem8);
+        itemInfo.Add(8, matplace_database.matplace_lists[_index].dropItem9);
+        itemInfo.Add(9, matplace_database.matplace_lists[_index].dropItem10);
+
+        //こっちは入手確率テーブル
+        itemDropDict.Add(0, matplace_database.matplace_lists[_index].dropProb1); 
+        itemDropDict.Add(1, matplace_database.matplace_lists[_index].dropProb2);
+        itemDropDict.Add(2, matplace_database.matplace_lists[_index].dropProb3);
+        itemDropDict.Add(3, matplace_database.matplace_lists[_index].dropProb4);
+        itemDropDict.Add(4, matplace_database.matplace_lists[_index].dropProb5);
+        itemDropDict.Add(5, matplace_database.matplace_lists[_index].dropProb6);
+        itemDropDict.Add(6, matplace_database.matplace_lists[_index].dropProb7);
+        itemDropDict.Add(7, matplace_database.matplace_lists[_index].dropProb8);
+        itemDropDict.Add(8, matplace_database.matplace_lists[_index].dropProb9);
+        itemDropDict.Add(9, matplace_database.matplace_lists[_index].dropProb10);
+
+        //個数
         itemDropKosuDict.Add(1, 75.0f); //1個　75%
         itemDropKosuDict.Add(2, 25.0f); //2個　25%
         itemDropKosuDict.Add(3, 0.0f); //3個　15%
 
 
         //レア関係
-        itemrareInfo = new Dictionary<int, string>();
-        itemrareInfo.Add(0, matplace_database.matplace_lists[index].dropRare1);
-        itemrareInfo.Add(1, matplace_database.matplace_lists[index].dropRare2);
-        itemrareInfo.Add(2, matplace_database.matplace_lists[index].dropRare3);
-
-        itemrareDropDict = new Dictionary<int, float>();
-        itemrareDropDict.Add(0, matplace_database.matplace_lists[index].dropRareProb1);
-        itemrareDropDict.Add(1, matplace_database.matplace_lists[index].dropRareProb2);
-        itemrareDropDict.Add(2, matplace_database.matplace_lists[index].dropRareProb3);
-
-        itemrareDropKosuDict = new Dictionary<int, float>();
+        
+        itemrareInfo.Add(0, matplace_database.matplace_lists[_index].dropRare1);
+        itemrareInfo.Add(1, matplace_database.matplace_lists[_index].dropRare2);
+        itemrareInfo.Add(2, matplace_database.matplace_lists[_index].dropRare3);
+        
+        itemrareDropDict.Add(0, matplace_database.matplace_lists[_index].dropRareProb1);
+        itemrareDropDict.Add(1, matplace_database.matplace_lists[_index].dropRareProb2);
+        itemrareDropDict.Add(2, matplace_database.matplace_lists[_index].dropRareProb3);
+       
         itemrareDropKosuDict.Add(1, 95.0f); //1個
         itemrareDropKosuDict.Add(2, 5.0f); //2個
         itemrareDropKosuDict.Add(3, 0.0f); //3個
@@ -839,7 +857,7 @@ public class GetMaterial : MonoBehaviour
             case 0:
 
                 random_param = Random.Range(5, 15);
-                _text.text = "にいちゃん！　とりさん、ふわふわ～！" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </ color > " + "上がった！";
+                _text.text = "にいちゃん！　とりさん、ふわふわ～！" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
                 break;
@@ -921,7 +939,7 @@ public class GetMaterial : MonoBehaviour
 
             case 5:
 
-                event_itemGet02();
+                event_itemGet02(2);
                 break;
 
             default:
@@ -959,7 +977,7 @@ public class GetMaterial : MonoBehaviour
             case 2:
 
                 random_param = Random.Range(2, 6);
-                _text.text = "この紫のお花、ラベンダーっていうの？　いい香り～。" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </ color > " + "上がった！";
+                _text.text = "この紫のお花、ラベンダーっていうの？　いい香り～。" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
                 break;
@@ -981,7 +999,7 @@ public class GetMaterial : MonoBehaviour
 
             case 6:
 
-                event_itemGet02();
+                event_itemGet02(3);
                 break;
 
             default:
@@ -1074,7 +1092,7 @@ public class GetMaterial : MonoBehaviour
             case 2:
 
                 random_param = Random.Range(2, 6);
-                _text.text = "にいちゃん～。ねこさんのおはか、お参りしていこ～！" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </ color > " + "上がった！";
+                _text.text = "にいちゃん～。ねこさんのおはか、お参りしていこ～！" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
                 break;
@@ -1092,7 +1110,7 @@ public class GetMaterial : MonoBehaviour
             case 5:
 
                 random_param = Random.Range(2, 6);
-                _text.text = "くん..。くん..。にいちゃん！　このくだもの.. おいしいよ♪　シャリシャリ。" + "\n" + "最大体力が " + GameMgr.ColorPink + random_param + " </ color > " + "上がった！";
+                _text.text = "くん..。くん..。にいちゃん！　このくだもの.. おいしいよ♪　シャリシャリ。" + "\n" + "最大体力が " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 PlayerStatus.player_girl_maxlifepoint += random_param;
                 break;
 
@@ -1125,12 +1143,12 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                event_itemGet02();
+                event_itemGet02(1);
                 break;
 
             case 1:
 
-                event_itemGet02();
+                event_itemGet02(1);
                 break;
 
             case 3:
@@ -1164,12 +1182,12 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                event_itemGet02();
+                event_itemGet02(3);
                 break;
 
             case 1:
 
-                event_itemGet02();
+                event_itemGet02(3);
                 break;
 
             case 3:
@@ -1204,12 +1222,12 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                event_itemGet02();
+                event_itemGet02(4);
                 break;
 
             case 1:
 
-                event_itemGet02();
+                event_itemGet02(4);
                 break;
 
             case 3:
@@ -1261,14 +1279,29 @@ public class GetMaterial : MonoBehaviour
         sc.PlaySe(1);
     }
 
-    void event_itemGet02()
+    void event_itemGet02(int _place)
     {
         //少額か、大金塊か
         _prob = Random.Range(0, 100);
 
         if (_prob <= 5) //大金塊 5%
         {
-            _getMoney = Random.Range(1000, 2000);
+            switch(_place)
+            {
+                case 1:
+                    _getMoney = 500;
+                    break;
+                case 2:
+                    _getMoney = 1000;
+                    break;
+                case 3:
+                    _getMoney = 2000;
+                    break;
+                case 4:
+                    _getMoney = 3000;
+                    break;
+            }
+            //_getMoney = Random.Range(1000, 2000);
 
             _text.text = "にいちゃん。すごい！　金塊を見つけたよ！！" +
                             "\n" + GameMgr.ColorYellow + _getMoney + "</color>" + "ルピアをみつけた！";
@@ -1281,7 +1314,22 @@ public class GetMaterial : MonoBehaviour
         }
         else
         {
-            _getMoney = Random.Range(0, 200);
+            switch (_place)
+            {
+                case 1:
+                    _getMoney = 10;
+                    break;
+                case 2:
+                    _getMoney = 50;
+                    break;
+                case 3:
+                    _getMoney = 100;
+                    break;
+                case 4:
+                    _getMoney = 500;
+                    break;
+            }
+            //_getMoney = Random.Range(0, 200);
 
             _text.text = "にいちゃん。お金ひろった！へへ。" +
                             "\n" + GameMgr.ColorYellow + _getMoney + "</color>" + "ルピアをみつけた！";
@@ -1885,5 +1933,28 @@ public class GetMaterial : MonoBehaviour
     {
         cullent_total_mat = 0;
         _a_zairyomax = "";
+    }
+
+    public void OutGirlGetRandomMaterials(int _index) //妹が外出から帰ってきて材料をゲットする処理 EventDataBaseから読み出し
+    {
+
+        index = _index; //採取地IDの決定
+
+        // 入手できるアイテムのデータベース
+        ResetItemDicts();
+        InitializeDicts(_index);
+
+        //アイテムの入手
+        for (count = 0; count < 5; count++) //〇回繰り返す
+        {
+            ItemGetMethod(count);
+        }
+
+        //レアアイテムの入手
+        for (count = 0; count < 3; count++) //〇回繰り返す
+        {
+
+            RareItemGetMethod(count);
+        }
     }
 }

@@ -30,7 +30,7 @@ public class Particle_Heart_Character : MonoBehaviour {
 
     }
 
-    public void LoveRateChange()
+    public void LoveRateChange() //Compound_Mainなどからも読む。
     {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
@@ -38,42 +38,19 @@ public class Particle_Heart_Character : MonoBehaviour {
         particle = this.GetComponent<ParticleSystem>();
         particleEm = particle.emission;
 
-        /*if (transform.name == "Particle_Heart_Character_yellow")
+
+
+        _love = PlayerStatus.girl1_Love_exp;
+        _love = _love * 0.05f;
+
+        _setlove = (int)_love;
+
+        if (_setlove >= 200) //MAX 200
         {
-            if(PlayerStatus.girl1_Love_lv >= 15)
-            {
-                _love = PlayerStatus.girl1_Love_exp - girl1_status.stage1_lvTable[14];
-                _love = _love * 0.05f;
-
-                _setlove = (int)_love;
-
-                if (_setlove >= 200) //MAX 200
-                {
-                    _setlove = 200;
-                }
-
-                particleEm.rate = new ParticleSystem.MinMaxCurve(_setlove);
-            }
-            else
-            {
-                _setlove = 0;
-                particleEm.rate = new ParticleSystem.MinMaxCurve(_setlove);
-            }
+            _setlove = 200;
         }
-        else
-        {*/
 
-            _love = PlayerStatus.girl1_Love_exp;
-            _love = _love * 0.05f;
+        particleEm.rateOverTime = new ParticleSystem.MinMaxCurve(_setlove);
 
-            _setlove = (int)_love;
-
-            if (_setlove >= 200) //MAX 200
-            {
-                _setlove = 200;
-            }
-
-            particleEm.rate = new ParticleSystem.MinMaxCurve(_setlove);
-        //}
     }
 }

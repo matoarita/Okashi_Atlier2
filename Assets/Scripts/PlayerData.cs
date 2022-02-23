@@ -32,6 +32,7 @@ public class PlayerData
     public int save_player_girl_maxlifepoint; //妹のMAX体力
     public int save_player_girl_maxlifepoint_system; //妹のMAX体力 システム引継ぎ用
     public int save_player_girl_eatCount; //妹が食べたお菓子の回数
+    public int save_player_girl_manpuku; //妹の満腹度
 
     //日付・フラグ関係
     public int save_player_day; //現在の日付
@@ -122,6 +123,9 @@ public class PlayerData
     public int save_Okashi_last_score; //前回あげた最高得点
     public int save_Okashi_last_heart; //前回あげたときの最高ハート取得量
 
+    public string save_NowEatOkashiName; //今食べたいお菓子の名前表示
+    public int save_NowEatOkashiID; //今食べたいお菓子ID表示
+
     //ステージ１クリア時の好感度を保存
     public int save_stage1_girl1_loveexp;
     public int save_stage2_girl1_loveexp;
@@ -203,14 +207,19 @@ public class PlayerData
     //お菓子の一度にトッピングできる回数
     public int save_topping_Set_Count;
 
+    //ピクニック系
     public bool save_picnic_End;
     public int save_picnic_count;
     public bool save_picnic_event_ON;
 
+    //外出系
+    public bool outgirl_End;
+    public int outgirl_count;
+    public bool outgirl_event_ON;
+    public bool outgirl_Nowprogress;
+
     public bool save_hiroba_ichigo_first;
     public bool[] save_ichigo_collection_listFlag = new bool[GameMgr.ichigo_collection_listFlag.Length];
-
-
 
     //音設定データ
     public float save_masterVolumeparam;

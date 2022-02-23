@@ -93,6 +93,11 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             girl1_status.OkashiNew_Status = 0;
             GameMgr.QuestClearflag = false;
         }
+        else if (_status == 2) //エクストラ
+        {
+            girl1_status.OkashiNew_Status = 2;
+            GameMgr.QuestClearflag = false;
+        }
         else //ロードから再開された場合の処理
         {
 
@@ -107,7 +112,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
         else
         {
-            Stage1_Hard(); //強くてニューゲームの場合のクエスト。
+            Stage1_Extra(); //エクストラ
         }
 
 
@@ -299,14 +304,14 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
     }
 
-    void Stage1_Hard()
+    void Stage1_Extra()
     {
         switch (spquest_set_num)
         {
             case 0: //オリジナルクッキーを食べたい
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
-                girl1_status.OkashiQuest_ID = 1030;
+                girl1_status.OkashiQuest_ID = 10000;
                 OkashiQuest_Count = 1;
 
                 break;
@@ -317,140 +322,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 2;
 
                 break;
-
-            /*case 2: //かわいいクッキー
-
-                girl1_status.OkashiQuest_ID = 1020;
-                OkashiQuest_Count = 3;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;*/
-
-            case 10: //ラスク食べたい
-
-                girl1_status.OkashiQuest_ID = 1100;
-                OkashiQuest_Count = 1;
-
-                break;
-
-            case 11: //すっぱいラスク食べたい
-
-                girl1_status.OkashiQuest_ID = 1110;
-                OkashiQuest_Count = 2;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;
-
-            case 12: //幻の青色紅茶食べたい＜13ラスクからの分岐＞
-
-                girl1_status.OkashiQuest_ID = 1120;
-                OkashiQuest_Count = 3;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;
-
-            case 13: //キラキララスク食べたい＜10ラスクからの分岐１＞
-
-                girl1_status.OkashiQuest_ID = 1130;
-                OkashiQuest_Count = 2;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;
-
-            case 20: //クレープ食べたい
-
-                girl1_status.OkashiQuest_ID = 1200;
-                OkashiQuest_Count = 1;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;
-
-            case 21: //オレンジクレープ食べたい
-
-                girl1_status.OkashiQuest_ID = 1210;
-                OkashiQuest_Count = 2;
-
-                break;
-
-            case 22: //アイス食べたい
-
-                girl1_status.OkashiQuest_ID = 1240;
-                OkashiQuest_Count = 3;
-
-                break;
-
-            case 23: //ジェム・ボンボン 宝石のような見た目のお菓子を食べたい
-
-                girl1_status.OkashiQuest_ID = 1220;
-                OkashiQuest_Count = 4;
-
-                break;
-
-            case 24: //豪華なベリークレープ食べたい
-
-                girl1_status.OkashiQuest_ID = 1230;
-                OkashiQuest_Count = 5;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;
-
-
-            /*case 29: //クレープ＜20クレープからの分岐１＞ 200点クレープ
-
-                girl1_status.OkashiQuest_ID = 1290;
-                OkashiQuest_Count = 2;
-
-                break;*/
-
-
-            case 30: //シュークリーム食べたい
-
-                girl1_status.OkashiQuest_ID = 1300;
-                OkashiQuest_Count = 1;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;
-
-            case 31: //ラズベリーシュークリーム食べたい
-
-                girl1_status.OkashiQuest_ID = 1310;
-                OkashiQuest_Count = 2;
-
-
-                break;
-
-            case 32: //カフェオーレシュークリーム食べたい
-
-                girl1_status.OkashiQuest_ID = 1320;
-                OkashiQuest_Count = 3;
-
-
-                break;
-
-            case 33: //ティラミス食べたい
-
-                girl1_status.OkashiQuest_ID = 1330;
-                OkashiQuest_Count = 4;
-
-
-                break;
-
-            case 34: //150点以上のシュークリーム食べたい
-
-                girl1_status.OkashiQuest_ID = 1340;
-                OkashiQuest_Count = 5;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;
-
-            case 40: //ドーナツ食べたい
-
-                girl1_status.OkashiQuest_ID = 1400;
-                OkashiQuest_Count = 1;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
-
-                break;
-
+            
             case 50: //ステージ１ラスト　コンテスト開始
 
                 girl1_status.OkashiQuest_ID = 1500;
@@ -497,24 +369,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     {
         QuestCountDict = new Dictionary<int, int>();
 
-        if (GameMgr.Story_Mode == 0)
-        {
-            QuestCountDict.Add(1, 3);
-            QuestCountDict.Add(2, 2);
-            QuestCountDict.Add(3, 1);
-            QuestCountDict.Add(4, 1);
-            QuestCountDict.Add(5, 1);
-            QuestCountDict.Add(6, 1);
-        }
-        else
-        {
-            QuestCountDict.Add(1, 1);
-            QuestCountDict.Add(2, 2);
-            QuestCountDict.Add(3, 1);
-            QuestCountDict.Add(4, 1);
-            QuestCountDict.Add(5, 1);
-            QuestCountDict.Add(6, 1);
-        }
+        QuestCountDict.Add(1, 3);
+        QuestCountDict.Add(2, 2);
+        QuestCountDict.Add(3, 1);
+        QuestCountDict.Add(4, 1);
+        QuestCountDict.Add(5, 1);
+        QuestCountDict.Add(6, 1);
+
     }
 
     //GirlLikeCompoのクエストのIDを入れると、GirlloveEventNumに変換して、SPクエストを指定する。
@@ -544,7 +405,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
     }
 
-    public void RedrawQeustName()
+    public void RedrawQuestName()
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
