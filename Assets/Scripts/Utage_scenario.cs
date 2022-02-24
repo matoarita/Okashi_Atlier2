@@ -1511,7 +1511,8 @@ public class Utage_scenario : MonoBehaviour
             }
             else
             {
-                compound_Main.GirlExpressionKoushin(-80); //しかった場合
+                //compound_Main.GirlExpressionKoushin(-80); //しかった場合
+                girlEat_judge.DegHeart(-30, true);
             }
         }
 

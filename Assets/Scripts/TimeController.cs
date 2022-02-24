@@ -292,7 +292,7 @@ public class TimeController : MonoBehaviour
                             }
 
                             //時間でゆるやかにハートも減る。
-                            timeIttei4++;
+                            /*timeIttei4++;
                             if (timeIttei4 >= 30)
                             {
                                 timeIttei4 = 0;
@@ -303,7 +303,7 @@ public class TimeController : MonoBehaviour
                                     girleat_judge.DegHeart(-2, false);
                                 }
 
-                            }
+                            }*/
                         }
                     }
                 }

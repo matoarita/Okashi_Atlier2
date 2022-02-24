@@ -130,8 +130,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private Text girl_lv;
     private Text girl_param;
     private Color origin_color;
+
     private int _tempGirllove;
-    private int _tempresultGirllove;
+    private int _tempResultGirllove;
+    private int _lovecounter;
     private int _sumlove;
     public int star_Count;
     private int emeraldonguri_status;
@@ -153,6 +155,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     //時間
     private float timeOut;
+    private float timeOutHeart;
 
     //アイテムのパラメータ
     private int _baseID;
@@ -334,6 +337,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int rnd, rnd2;
     private int set_id;
     private int _slotid;
+    private bool heart_animON; //ハートが上がったり下がったりするアニメのフラグ
     public bool Degheart_on; //TimeControllerから読み出し
 
     //エフェクト
@@ -590,10 +594,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //アニメーション用時間
         timeOut = 5.0f;
+        timeOutHeart = 0.05f;
 
         judge_anim_on = false;
         judge_end = false;
         judge_anim_status = 0;
+        heart_animON = false;
 
         //要素数の初期化
         _girlsweat = new int[girl1_status.youso_count];
@@ -748,6 +754,32 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             //時間減少
             timeOut -= Time.deltaTime;
+        }
+
+        //ハートゲージのアニメーション中
+        if (heart_animON)
+        {
+            //スライダの更新 減る処理の場合のみ、Updateで行う。増える場合は、ハートがゲージに衝突したタイミングなので、ここでは処理しない。
+            if (_tempResultGirllove < _tempGirllove) //アニメ前より、現在の計算用ハートが-
+            {
+                if (timeOutHeart <= 0)
+                {
+                    timeOutHeart = 0.05f;
+
+                    _lovecounter--;
+                    Slider_Koushin(_lovecounter);
+
+                    girl_param.color = new Color(105f / 255f, 168f / 255f, 255f / 255f); //青文字(105f / 255f, 168f / 255f, 255f / 255f)
+                    girl_param.text = _lovecounter.ToString();
+
+                    if (_lovecounter <= _tempResultGirllove) //減る処理の終了
+                    {
+                        EndDegHeart();
+                    }
+                }
+
+                timeOutHeart -= Time.deltaTime;
+            }              
         }
     }
 
@@ -2630,7 +2662,106 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listEffect.Clear();
     }
 
-    public void loveGetPlusAnimeON(int _Getlove_param, bool _mstatus) //通常は、お菓子食べたあとに発生。サブイベント終了後などからも、呼ばれる可能性あり。
+    //好感度が下がるときの処理。外部からアクセス用でもある。ゲージにも反映される。
+    public void DegHeart(int _param, bool _sound)
+    {
+        //TimeControllerでのハート減る　重複防止用に、フラグをたてる。
+        Degheart_on = true;
+
+        //好感度取得
+        Getlove_exp = _param;
+
+        if(!heart_animON) //アニメ前
+        {
+            _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
+            _tempResultGirllove = PlayerStatus.girl1_Love_exp + Getlove_exp; //あがった後の好感度を一時保存
+            _lovecounter = _tempGirllove; //スライダ表示用のカウンター
+            heart_animON = true;
+        }
+        else //アニメ中 計算用の_tempの値を変動させる。
+        {
+            _tempResultGirllove += Getlove_exp;
+        }
+
+
+        //好感度が0の場合、0が下限。
+        if (_tempResultGirllove <= 0)
+        {
+            _tempResultGirllove = 0;
+        }
+
+        //アニメーションをON
+        //UpdateDegHeart(_tempResultGirllove, _sound);
+
+    }
+
+    void UpdateDegHeart(int num, bool _sound)
+    {
+        //カウントアップのための秒数を割り出す。
+        countTime = Mathf.Abs(Getlove_exp) * 0.05f; //1ごとに0.05fで表示する
+
+        currentDispCoin = PlayerStatus.girl1_Love_exp;
+
+        origin_color = girl_param.color;
+
+        DOTween.Kill(coinTween);
+        coinTween = DOTween.To(() => currentDispCoin, (val) =>
+        {
+            //Debug.Log("bang");
+            currentDispCoin = val;
+
+            if (_slider.value <= 0) //スライダが0になった場合、そこが下限。girl1_Love_expは、それ以上減少しない。
+            {
+                _slider.value = 0;
+            }
+            else
+            {
+                if (currentDispCoin != preDispCoin)
+                {
+                    if (_sound)
+                    {
+                        sc.PlaySe(37); //トゥルルルルという文字送り音
+                    }
+                    //スライダにも反映
+                    Slider_Koushin(currentDispCoin);
+                }
+
+            }
+
+            girl_param.color = new Color(105f / 255f, 168f / 255f, 255f / 255f); //青文字(105f / 255f, 168f / 255f, 255f / 255f)
+            girl_param.text = string.Format("{0:#,0}", val);
+
+
+            preDispCoin = currentDispCoin; //前回の値も保存
+        }, num, countTime).SetEase(Ease.OutQuart)
+        .OnComplete(EndDegHeart); //③エンドアニメ　再生終了時;
+    }
+
+    void EndDegHeart()
+    {
+        //実際の好感度に値を反映
+        //PlayerStatus.girl1_Love_exp += Getlove_exp;
+        PlayerStatus.girl1_Love_exp = _tempResultGirllove;
+        GameMgr.stageclear_cullentlove += Getlove_exp;
+        Degheart_on = false;
+        heart_animON = false;
+
+        //0以下になったら、下限は0
+        if (PlayerStatus.girl1_Love_exp <= 0)
+        {
+            PlayerStatus.girl1_Love_exp = 0;
+        }
+        if (GameMgr.stageclear_cullentlove <= 0)
+        {
+            GameMgr.stageclear_cullentlove = 0;
+        }
+        girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
+        girl_param.color = origin_color;
+
+        Slider_Koushin(_tempResultGirllove); //念のため、スライダを再度更新
+    }
+
+    public void loveGetPlusAnimeON(int _Getlove_param, bool _mstatus) //ハート増える処理。通常は、お菓子食べたあとに発生。サブイベント終了後などからも、呼ばれる可能性あり。
     {
         _listHeart.Clear();
         _listHeartAtkeffect.Clear();
@@ -2638,13 +2769,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //音を鳴らす
         sc.PlaySe(5);
 
+        //ハート個数決定
         heart_count = _Getlove_param;
+
         _sumlove = PlayerStatus.girl1_Love_exp + _Getlove_param;
         if(_sumlove >= girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count-1]) //カンスト
         {
             _sumlove = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
         }
-        //Debug.Log("heart_count: " + heart_count);
 
         //ハートのインスタンスを、獲得好感度分だけ生成する。
         for (i = 0; i < heart_count; i++)
@@ -2660,8 +2792,25 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _listHeart[i].GetComponent<HeartUpObj>()._id = i;
         }
 
-        _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
-        girl_param.text = _tempGirllove.ToString();
+        if (!heart_animON) //アニメ前
+        {
+            _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
+            _tempResultGirllove = _sumlove; //あがった後の好感度を一時保存
+            _lovecounter = _tempGirllove; //スライダ表示用のカウンター
+            heart_animON = true;
+        }
+        else //アニメ中 計算用の_tempの値で計算する。アニメ終わりに、この値を実際のハートの値に反映させる。
+        {
+            _tempResultGirllove += Getlove_exp;
+        }
+
+        //好感度上限
+        if (_tempResultGirllove >= girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1]) //カンスト
+        {
+            _tempResultGirllove = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
+        }
+
+        //girl_param.text = _tempGirllove.ToString();
 
         //**
         //クリア判定
@@ -2688,9 +2837,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         
 
-        //**
-
-        //Debug.Log("好感度　内部を更新");
+        //**　画面上に生成したハートがなくなるまでのコルーチン
         StartCoroutine(HeartKoushin(_Getlove_param));
 
         if (_mstatus)
@@ -2698,6 +2845,131 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             GetLoveEnd();
         }
         else { }
+    }
+
+    //スライダバリューを正確に更新。現在の好感度数値をいれればOK
+    void Slider_Koushin(int cullent_value)
+    {
+        _slider.value = cullent_value;
+
+        if (_slider.minValue > cullent_value)
+        {
+            if (cullent_value <= 0) //0より下回る場合は、何もしない。
+            {
+
+            }
+            else
+            {
+                //ゲージの最小を下回った場合は、レベルが下がる。
+                PlayerStatus.girl1_Love_lv--;
+                Love_Slider_Setting();
+            }
+        }
+    }
+
+    //スライダマックスバリューを更新
+    public void Love_Slider_Setting()
+    {
+        if (PlayerStatus.girl1_Love_lv <= 1)
+        {
+            _slider.minValue = 0;
+        }
+        else
+        {
+            _slider.minValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 2];
+        }
+
+        if (PlayerStatus.girl1_Love_lv >= 99)
+        {
+            _slider.maxValue = 99999; //Lv99でカンストしたときは、Lv100のMaxがないので、適当な数字に。
+        }
+        else
+        {
+            _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
+        }
+
+        girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
+
+    }
+
+    //発生したハートが全てなくなったら、実際の好感度の変動と、表示も更新。 ハートが上がるアニメ中に、ハートが下がる可能性もある。（TimeControllerからの処理で）
+    IEnumerator HeartKoushin(int _getloveparam)
+    {
+        while (heart_count > 0)
+        {
+            yield return null;
+        }
+
+        //ハートゲージ更新のアニメは終了
+        heart_animON = false;
+
+        //好感度　取得分増加
+        if (PlayerStatus.girl1_Love_lv >= 99)
+        {
+            PlayerStatus.girl1_Love_exp = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
+        }
+        else
+        {
+            //PlayerStatus.girl1_Love_exp += _getloveparam;
+            PlayerStatus.girl1_Love_exp = _tempResultGirllove;
+        }
+
+        //テキストも更新
+        girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
+
+        //リセット
+        Getlove_exp = 0;
+
+        //好感度によって発生するサブイベントがないかチェック
+        GameMgr.check_GirlLoveSubEvent_flag = false;
+    }
+
+    //ハートがゲージに衝突した時に、このメソッドが呼び出される。
+    public void GetHeartValue()
+    {
+        if (PlayerStatus.girl1_Love_lv >= 99) //カンスト
+        {
+            //girl_param.text = _sumlove.ToString();
+            girl_param.text = _tempResultGirllove.ToString();
+        }
+        else
+        {
+            //スライダにも反映
+            _slider.value++;
+            /*_tempGirllove++;
+
+            if (_sumlove <= _tempGirllove)
+            {
+                girl_param.text = _sumlove.ToString();
+            }
+            else
+            {
+                girl_param.text = _tempGirllove.ToString();
+            }*/
+
+            _lovecounter++;
+            girl_param.text = _lovecounter.ToString();
+
+            //現在のスライダ上限に好感度が達したら、次のレベルへ。
+            if (_slider.value >= _slider.maxValue)
+            {
+                PlayerStatus.girl1_Love_lv++;
+
+                //Maxバリューを再設定
+                Love_Slider_Setting();
+
+                //分かりやすくするように、レベルアップ時のパネルも表示
+                _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+
+                //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
+                exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、GirlEatJudgeから読むフラグ
+            }
+        }
+
+        //エフェクト
+        _listHeartHit.Add(Instantiate(hearthit_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
+        _listHeartHit2.Add(Instantiate(hearthit2_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
+
     }
 
     void GetLoveEnd()
@@ -2854,79 +3126,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         emerarudonguri_end = true;
     }
 
-    //発生したハートが全てなくなったら、実際の好感度の変動と、表示も更新
-    IEnumerator HeartKoushin(int _getloveparam)
-    {
-        while (heart_count > 0)
-        {
-            yield return null;
-        }
-
-        //好感度　取得分増加
-        if (PlayerStatus.girl1_Love_lv >= 99)
-        {
-            PlayerStatus.girl1_Love_exp = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
-        }
-        else
-        {
-            PlayerStatus.girl1_Love_exp += _getloveparam;
-        }
-
-        //テキストも更新
-        girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
-
-        //リセット
-        Getlove_exp = 0;
-
-        //好感度によって発生するサブイベントがないかチェック
-        GameMgr.check_GirlLoveSubEvent_flag = false;
-        //compound_Main.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
-    }
-
-    //ハートがゲージに衝突した時に、このメソッドが呼び出される。
-    public void GetHeartValue()
-    {
-        if (PlayerStatus.girl1_Love_lv >= 99) //カンスト
-        {
-            girl_param.text = _sumlove.ToString();
-        }
-        else
-        {
-            //スライダにも反映
-            _slider.value++;
-            _tempGirllove++;
-
-            if (_sumlove <= _tempGirllove)
-            {
-                girl_param.text = _sumlove.ToString();
-            }
-            else
-            {
-                girl_param.text = _tempGirllove.ToString();
-            }
-
-
-            //現在のスライダ上限に好感度が達したら、次のレベルへ。
-            if (_slider.value >= _slider.maxValue)
-            {
-                PlayerStatus.girl1_Love_lv++;
-
-                //Maxバリューを再設定
-                Love_Slider_Setting();
-
-                //分かりやすくするように、レベルアップ時のパネルも表示
-                _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
-
-                //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
-                exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、GirlEatJudgeから読むフラグ
-            }
-        }
-
-        //エフェクト
-        _listHeartHit.Add(Instantiate(hearthit_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
-        _listHeartHit2.Add(Instantiate(hearthit2_Prefab, _slider_obj.transform.Find("Panel").gameObject.transform));
-
-    }
+    
 
     //ExpTableから読み出し
     public void LvUpPanel1(int _kaisu) //仕上げ回数あがった
@@ -2941,139 +3141,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_3();
     }
 
-
-    //好感度が下がるときの処理。外部からアクセス用でもある。ゲージにも反映される。
-    public void DegHeart(int _param, bool _sound)
-    {
-        //重複防止用に、フラグをたてる。
-        Degheart_on = true;
-
-        //好感度取得
-        Getlove_exp = _param;
-
-        _tempGirllove = PlayerStatus.girl1_Love_exp;//あがる前の好感度を一時保存
-        _tempresultGirllove = PlayerStatus.girl1_Love_exp + Getlove_exp; //あがった後の好感度を一時保存
-
-
-        //好感度が0の場合、0が下限。
-        if (_tempresultGirllove <= 0)
-        {
-            _tempresultGirllove = 0;
-        }
-
-        //アニメーションをON
-        UpdateDegHeart(_tempresultGirllove, _sound);
-
-    }
-
-    void UpdateDegHeart(int num, bool _sound)
-    {
-        //カウントアップのための秒数を割り出す。
-        countTime = Mathf.Abs(Getlove_exp) * 0.05f; //1ごとに0.05fで表示する
-
-        currentDispCoin = PlayerStatus.girl1_Love_exp;
-
-        origin_color = girl_param.color;
-
-        DOTween.Kill(coinTween);
-        coinTween = DOTween.To(() => currentDispCoin, (val) =>
-        {
-            //Debug.Log("bang");
-            currentDispCoin = val;
-
-            if (_slider.value <= 0) //スライダが0になった場合、そこが下限。girl1_Love_expは、それ以上減少しない。
-            {
-                _slider.value = 0;
-            }
-            else
-            {
-                if (currentDispCoin != preDispCoin)
-                {
-                    if (_sound)
-                    {
-                        sc.PlaySe(37); //トゥルルルルという文字送り音
-                    }
-                                   //スライダにも反映
-                    Slider_Koushin(currentDispCoin);
-                }
-                
-            }
-
-            girl_param.color = new Color(105f / 255f, 168f / 255f, 255f / 255f); //青文字(105f / 255f, 168f / 255f, 255f / 255f)
-            girl_param.text = string.Format("{0:#,0}", val);
-
-            
-            preDispCoin = currentDispCoin; //前回の値も保存
-        }, num, countTime).SetEase(Ease.OutQuart)
-        .OnComplete(EndDegHeart); //③エンドアニメ　再生終了時;
-    }
-
-    void EndDegHeart()
-    {
-        //実際の好感度に値を反映
-        PlayerStatus.girl1_Love_exp += Getlove_exp;
-        GameMgr.stageclear_cullentlove += Getlove_exp;
-        Degheart_on = false;
-
-        //0以下になったら、下限は0
-        if (PlayerStatus.girl1_Love_exp <= 0)
-        {
-            PlayerStatus.girl1_Love_exp = 0;
-        }
-        if (GameMgr.stageclear_cullentlove <= 0)
-        {
-            GameMgr.stageclear_cullentlove = 0;
-        }
-        girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
-        girl_param.color = origin_color;
-
-        Slider_Koushin(_tempresultGirllove);
-    }
-
-    //スライダバリューを正確に更新。現在の好感度数値をいれればOK
-    void Slider_Koushin(int cullent_value)
-    {        
-        _slider.value = cullent_value;
-
-        if(_slider.minValue > cullent_value)
-        {
-            if (cullent_value <= 0) //0より下回る場合は、何もしない。
-            {
-
-            }
-            else
-            {
-                //ゲージの最小を下回った場合は、レベルが下がる。
-                PlayerStatus.girl1_Love_lv--;
-                Love_Slider_Setting();
-            }
-        }
-    }
-
-    //スライダマックスバリューを更新
-    public void Love_Slider_Setting()
-    {
-        if(PlayerStatus.girl1_Love_lv <= 1)
-        {
-            _slider.minValue = 0;
-        }
-        else
-        {
-            _slider.minValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 2];
-        }
-
-        if (PlayerStatus.girl1_Love_lv >= 99)
-        {
-            _slider.maxValue = 99999; //Lv99でカンストしたときは、Lv100のMaxがないので、適当な数字に。
-        }
-        else
-        {
-            _slider.maxValue = stage_levelTable[PlayerStatus.girl1_Love_lv - 1]; //レベルは１始まりなので、配列番号になおすため、-1してる
-        }
-
-        girl_lv.text = PlayerStatus.girl1_Love_lv.ToString();
-
-    }
 
 
     //
