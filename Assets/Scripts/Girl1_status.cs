@@ -1539,28 +1539,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
     }
 
-    /*
-    IEnumerator WaitHintDesc()
-    {
-        if (isRunning) //重複を防ぐ。
-        {
-            yield break;
-        }
-        isRunning = true;
-
-        GirlEat_Judge_on = false;
-
-        yield return new WaitForSeconds(5.0f);
-
-        //吹き出しが残っていたら、内容を変える。
-        if (hukidashiitem != null)
-        {
-            _text.text = _desc;
-        }
-
-        GirlEat_Judge_on = true;
-        isRunning = false;
-    }*/
 
     public void hukidashiReturnHome()
     {
@@ -3149,6 +3127,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         random = Random.Range(0, _touchface_comment_lib.Count);
         _hintrandom = _touchface_comment_lib[random];
         hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
+    }
+
+    //compound_Mainなどから読む 即座にそのモーションと吹き出しを再生
+    public void MotionChange(int _motion_num)
+    {                           
+        IdleMotionHukidashiSetting(_motion_num);
     }
 
     void Init_touchHeadComment()

@@ -1500,20 +1500,25 @@ public class Utage_scenario : MonoBehaviour
         //そのあと、ほめるかしかるか。
         if (GameMgr.GirlLoveSubEvent_num == 152)
         {
+            //女の子、お菓子の判定処理オブジェクトの取得
+            girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+
             GameMgr.outgirl_returnhome_homeru = false;
 
             if ((int)engine.Param.GetParameter("OutGirlHomeru_num") == 0)
-            {
-                //女の子、お菓子の判定処理オブジェクトの取得
-                girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+            {               
                 girlEat_judge.loveGetPlusAnimeON(5, false);
                 compound_Main.GirlExpressionKoushin(30); //ほめる場合
+                PlayerStatus.player_girl_yaruki += 10;
             }
             else
             {
-                //compound_Main.GirlExpressionKoushin(-80); //しかった場合
+                compound_Main.GirlExpressionKoushin(-50); //しかった場合
                 girlEat_judge.DegHeart(-30, true);
+                PlayerStatus.player_girl_yaruki -= 30;
             }
+
+            GameMgr.outgirl_Nowprogress = false;
         }
 
         if (GameMgr.girlloveevent_bunki == 0)

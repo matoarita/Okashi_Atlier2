@@ -30,6 +30,7 @@ public class Bar_Main : MonoBehaviour
     private GameObject shopquestlist_obj;
 
     private GameObject money_status_obj;
+    private GameObject ninki_status_obj;
 
     public GameObject hukidasi_sub;
     private GameObject hukidasi_sub_Prefab;
@@ -53,7 +54,6 @@ public class Bar_Main : MonoBehaviour
     private GameObject shopon_toggle_uwasa;
 
     private bool check_event;
-    private bool event_loading;
     private bool check_lvevent;
     private bool lvevent_loading;
 
@@ -130,6 +130,17 @@ public class Bar_Main : MonoBehaviour
         money_status_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
         money_status_obj.SetActive(false);
 
+        //自分の持ってるお金などのステータス
+        ninki_status_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
+        if (GameMgr.Story_Mode == 0)
+        {
+            ninki_status_obj.SetActive(false);
+        }
+        else
+        {
+            ninki_status_obj.SetActive(true);
+        }
+
         //場所名前パネル
         placename_panel = canvas.transform.Find("PlaceNamePanel").gameObject;
 
@@ -165,22 +176,9 @@ public class Bar_Main : MonoBehaviour
         shop_scene = 0;
 
         check_event = false; //強制で発生するイベントのフラグ
-        event_loading = false;
         check_lvevent = false; //レベルに応じて発生するイベントのフラグ
         lvevent_loading = false;
 
-        //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
-        for (i = 0; i < shop_database.shopitems.Count; i++)
-        {
-            if (shop_database.shopitems[i].shop_itemType == 0 || shop_database.shopitems[i].shop_itemType == 3)
-            {
-                shop_database.shopitems[i].shop_itemzaiko = 50;
-            }
-            else
-            {
-
-            }
-        }
 
         //入店のタイミングでのみ、クエスト更新
         shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
@@ -193,29 +191,25 @@ public class Bar_Main : MonoBehaviour
     void Update()
     {
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
-        if (event_loading) { }
-        else
+
+        if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
         {
-            
-            if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
-            {
-                GameMgr.BarEvent_stage[0] = true;
+            GameMgr.BarEvent_stage[0] = true;
 
-                GameMgr.scenario_ON = true;
+            GameMgr.scenario_ON = true;
 
-                GameMgr.bar_event_num = 0;
-                GameMgr.bar_event_flag = true;
-               
-                check_event = true;
-                event_loading = true;
+            GameMgr.bar_event_num = 0;
+            GameMgr.bar_event_flag = true;
 
-                StartCoroutine("Scenario_loading");
+            check_event = true;
 
-                //メイン画面にもどったときに、イベントを発生させるフラグをON
-                GameMgr.CompoundEvent_num = 5;
-                GameMgr.CompoundEvent_flag = true;
-            }
+            StartCoroutine("Scenario_loading");
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_flag = true;
         }
+
 
         if (!check_event)
         {
@@ -239,92 +233,6 @@ public class Bar_Main : MonoBehaviour
 
                     break;
 
-                case 10: //ショップ二度目。ラスク作りの材料を買いにきた。
-
-                    if (!GameMgr.ShopEvent_stage[1])
-                    {
-                        GameMgr.ShopEvent_stage[1] = true;
-                        GameMgr.scenario_ON = true;
-
-                        GameMgr.shop_event_num = 10;
-                        GameMgr.shop_event_flag = true;
-
-                        StartCoroutine("Scenario_loading");
-                    }
-
-                    break;
-
-                case 20: //クレープイベント
-
-                    if (!GameMgr.ShopEvent_stage[2])
-                    {
-                        GameMgr.ShopEvent_stage[2] = true;
-                        GameMgr.scenario_ON = true;
-
-                        GameMgr.shop_event_num = 20;
-                        GameMgr.shop_event_flag = true;
-
-                        StartCoroutine("Scenario_loading");
-                    }
-
-                    break;
-
-                case 30: //シュークリームイベント
-
-                    if (!GameMgr.ShopEvent_stage[3])
-                    {
-                        GameMgr.ShopEvent_stage[3] = true;
-                        GameMgr.scenario_ON = true;
-
-                        GameMgr.shop_event_num = 30;
-                        GameMgr.shop_event_flag = true;
-
-                        StartCoroutine("Scenario_loading");
-                    }
-
-                    break;
-
-                case 40: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
-
-                    if (!GameMgr.ShopEvent_stage[4])
-                    {
-                        GameMgr.ShopEvent_stage[4] = true;
-                        GameMgr.scenario_ON = true;
-
-                        GameMgr.shop_event_num = 40;
-                        GameMgr.shop_event_flag = true;
-
-                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                        GameMgr.CompoundEvent_num = 20;
-                        GameMgr.CompoundEvent_flag = true;
-
-                        //村の広場にいけるようになる。
-                        matplace_database.matPlaceKaikin("Hiroba");
-
-                        StartCoroutine("Scenario_loading");
-                    }
-
-                    break;
-
-                case 50: //コンテストイベント
-
-                    if (!GameMgr.ShopEvent_stage[5])
-                    {
-                        GameMgr.ShopEvent_stage[5] = true;
-                        GameMgr.scenario_ON = true;
-
-                        GameMgr.shop_event_num = 50;
-                        GameMgr.shop_event_flag = true;
-
-                        GameMgr.CompoundEvent_flag = false; //もし一度もショップへきたことなかった場合は、帰ってきてもヒカリが「なに買ってきたの？」と聞くイベントは発生しない。
-
-                        StartCoroutine("Scenario_loading");
-                    }
-
-                    break;
-
-                default:
-                    break;
             }
             */
         }
@@ -423,7 +331,6 @@ public class Bar_Main : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void OnCheck_1() //ショップ　アイテムを買う
@@ -570,16 +477,10 @@ public class Bar_Main : MonoBehaviour
         GameMgr.scenario_ON = false;
 
         check_event = false;
-        event_loading = false;
         check_lvevent = false;
         lvevent_loading = false;
         shop_status = 0;
 
-        /*if (lvevent_loading)
-        {
-            check_lvevent = true;
-            lvevent_loading = false;
-        }*/
     }
 
     //
@@ -593,55 +494,66 @@ public class Bar_Main : MonoBehaviour
 
         //***  うわさリスト選択 ***//
 
-        //クッキー作り開始　初期値
-        for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+        if (GameMgr.Story_Mode == 0)
         {
-            shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
-        }
+            //クッキー作り開始　初期値
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
+            }
 
-        //ラスク
-        if (GameMgr.GirlLoveEvent_stage1[10])
-        {
-            count++;
-            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            //ラスク
+            if (GameMgr.GirlLoveEvent_stage1[10])
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //クレープ
+            if (GameMgr.GirlLoveEvent_stage1[20])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //シュークリーム
+            if (GameMgr.GirlLoveEvent_stage1[30])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //ドーナツ
+            if (GameMgr.GirlLoveEvent_stage1[40])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //コンテスト
+            if (GameMgr.GirlLoveEvent_stage1[50])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
             }
         }
-        //クレープ
-        if (GameMgr.GirlLoveEvent_stage1[20])
+        else
         {
-            count++;
-            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            //エクストラモードは全てでてる。
+            for (i = 0; i < uwasalist_count*6; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-            }
-        }
-        //シュークリーム
-        if (GameMgr.GirlLoveEvent_stage1[30])
-        {
-            count++;
-            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-            {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-            }
-        }
-        //ドーナツ
-        if (GameMgr.GirlLoveEvent_stage1[40])
-        {
-            count++;
-            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-            {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
-            }
-        }
-        //コンテスト
-        if (GameMgr.GirlLoveEvent_stage1[50])
-        {
-            count++;
-            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-            {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
             }
         }
 

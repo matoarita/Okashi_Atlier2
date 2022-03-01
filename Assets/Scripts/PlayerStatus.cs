@@ -13,7 +13,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_extreme_kaisu_Max; //仕上げ可能回数
     public static int player_extreme_kaisu; //現在の仕上げ可能回数
 
-    public static int player_ninki_param; //人気度。いるかな？とりあえず置き
+    public static int player_ninki_param; //人気度。
 
     public static int player_zairyobox_lv; // 材料カゴのLV
     public static int player_zairyobox; // 材料カゴの大きさ
@@ -30,6 +30,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_lifepoint;        //妹の体力。探索のときに消費する。大きくなるほど、より遠くまで探索できる、ということ。
     public static int player_girl_maxlifepoint;     //妹の体力のMAX
     public static int player_girl_eatCount;         //妹が食べたお菓子の回数
+    public static int player_girl_yaruki;         //妹のやる気　隠しパラメータ　しかったりすると永続的に下がる。
 
     //エクストラモード
     public static int player_girl_manpuku;         //妹の満腹度　ハードモードで使用
@@ -95,6 +96,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_maxlifepoint = 10;
         player_girl_lifepoint = player_girl_maxlifepoint;
         player_girl_eatCount = 0;
+        player_girl_yaruki = 100;
 
         player_girl_expression = 3;
         player_girl_express_param = 50;

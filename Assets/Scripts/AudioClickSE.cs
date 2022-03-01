@@ -16,6 +16,6 @@ public class AudioClickSE : MonoBehaviour {
 
     public void VolumeSetting()
     {
-        this.GetComponent<AudioSource>().volume = 1.0f * GameMgr.MasterVolumeParam; //
+        this.GetComponent<AudioSource>().volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam; //
     }
 }

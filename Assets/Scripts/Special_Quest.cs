@@ -67,6 +67,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 		
 	}
 
+    //EventDataBaseから設定
     public void SetSpecialOkashi(int _num, int _status)
     {
       
@@ -109,15 +110,17 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         if (GameMgr.Story_Mode == 0)
         {
             Stage1_Normal();
+            //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
+            GameMgr.QuestClearAnim_Flag = true;
         }
         else
         {
             Stage1_Extra(); //エクストラ
+            GameMgr.QuestClearAnim_Flag = false;　//全てのクエストで、クエストボタンなしで次へ。
         }
 
 
-        //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
-        GameMgr.QuestClearAnim_Flag = true;
+        
 
         //クエストネームの設定
         QuestNameFind();
@@ -163,7 +166,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1020;
                 OkashiQuest_Count = 3;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -178,7 +180,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1110;
                 OkashiQuest_Count = 2;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -186,7 +187,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1120;
                 OkashiQuest_Count = 3;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -194,7 +194,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1130;
                 OkashiQuest_Count = 2;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -202,7 +201,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1200;
                 OkashiQuest_Count = 1;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -231,7 +229,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1230;
                 OkashiQuest_Count = 5;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -248,7 +245,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1300;
                 OkashiQuest_Count = 1;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -280,7 +276,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1340;
                 OkashiQuest_Count = 5;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -288,7 +283,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 1400;
                 OkashiQuest_Count = 1;
-                //GameMgr.QuestClearAnim_Flag = true; //そのクエストの最後は、ボタンを登場させる。
 
                 break;
 
@@ -322,7 +316,21 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 2;
 
                 break;
-            
+
+            case 10: //
+               
+                girl1_status.OkashiQuest_ID = 10010;
+                OkashiQuest_Count = 1;
+
+                break;
+
+            case 20: //
+
+                girl1_status.OkashiQuest_ID = 10020;
+                OkashiQuest_Count = 1;
+
+                break;
+
             case 50: //ステージ１ラスト　コンテスト開始
 
                 girl1_status.OkashiQuest_ID = 1500;
@@ -361,8 +369,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(1500, 50);
 
         //ハードモード用　左の数字は、上のやつと被らないように。
-        QuestDict.Add(1030, 0);
+        QuestDict.Add(10000, 0);
         QuestDict.Add(1040, 1);
+        QuestDict.Add(10010, 10);
+        QuestDict.Add(10020, 20);
     }
 
     void InitQuestCount() //ステージごとの、クエストの総数　1なら、クエスト3個など。クエストの進行度を表示する◆ボタン用に使う。
@@ -378,7 +388,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
     }
 
-    //GirlLikeCompoのクエストのIDを入れると、GirlloveEventNumに変換して、SPクエストを指定する。
+    //GirlLikeCompoのクエストのIDを入れると、GirlloveEventNumに変換して、SPクエストを指定する。GirlEatJudgeから読み出し。
     public void SetSpecialOkashiDict(int _questID, int _status)
     {
         _questnum = QuestDict[_questID];

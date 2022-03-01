@@ -16,6 +16,8 @@ public class TimeController : MonoBehaviour
     private GirlEat_Judge girleat_judge;
     private MoneyStatus_Controller moneyStatus_Controller;
 
+    private Girl1_status girl1_status;
+
     private GameObject _month_obj1;
     private GameObject _monthday_obj1;
     private GameObject _month_obj2;
@@ -107,6 +109,9 @@ public class TimeController : MonoBehaviour
 
                 //お金パネル
                 moneyStatus_Controller = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+
+                //女の子データの取得
+                girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
                 break;
 
         }
@@ -288,6 +293,7 @@ public class TimeController : MonoBehaviour
                                 if (PlayerStatus.player_girl_manpuku <= 0)
                                 {
                                     girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.2f), false);
+                                    girl1_status.MotionChange(23);
                                 }
                             }
 
@@ -589,11 +595,8 @@ public class TimeController : MonoBehaviour
 
     void RealTimeControll()
     {
-
-        if (girleat_judge.Degheart_on)
-        {
-
-        }
+        if (GameMgr.Degheart_on)
+        { }
         else
         {
             switch (timeDegHeart_flag)
@@ -622,7 +625,6 @@ public class TimeController : MonoBehaviour
                     break;
             }
         }
-
     }
 
 

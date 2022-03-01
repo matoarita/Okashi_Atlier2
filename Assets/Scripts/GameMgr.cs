@@ -401,6 +401,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool outgirl_returnhome_reading_now; //外出から帰ってきたときの宴読み中
     public static bool outgirl_returnhome_homeru; //リザルトパネルをおして、ほめるか否か
     public static bool ResultOFF; //リザルトパネルのオンオフ
+    public static bool Degheart_on; //ハート下がっている途中は、時間で下がる機能を一時的にオフにするフラグ
 
     private PlayerItemList pitemlist;
 
@@ -699,6 +700,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         outgirl_returnhome_reading_now = false;
         outgirl_returnhome_homeru = false;
         ResultOFF = false;
+        Degheart_on = false;
         Load_eventflag = false;
         picnic_after = false;
         picnic_after_time = 0;

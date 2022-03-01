@@ -116,6 +116,5 @@ public class SoundController : SingletonMonoBehaviour<SoundController>
         {
             source.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
         }
-        //audioSource.volume = 1.0f * GameMgr.MasterVolumeParam;
     }
 }

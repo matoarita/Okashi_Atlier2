@@ -33,6 +33,7 @@ public class PlayerData
     public int save_player_girl_maxlifepoint_system; //妹のMAX体力 システム引継ぎ用
     public int save_player_girl_eatCount; //妹が食べたお菓子の回数
     public int save_player_girl_manpuku; //妹の満腹度
+    public int save_player_girl_yaruki; //妹のやる気
 
     //日付・フラグ関係
     public int save_player_day; //現在の日付

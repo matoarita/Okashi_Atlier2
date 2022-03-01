@@ -1424,7 +1424,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
-        GameMgr.ResultOFF = false;
         getmatResult_panel_obj.SetActive(false);
 
         if (GameMgr.outgirl_returnhome_homeru)

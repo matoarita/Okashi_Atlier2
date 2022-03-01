@@ -71,6 +71,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject manpuku_bar;
     private Slider manpuku_slider;
+    private Text manpuku_text;
 
     private GameObject GirlHeartEffect_obj;
 
@@ -532,6 +533,7 @@ public class Compound_Main : MonoBehaviour
         //満腹ゲージの取得
         manpuku_bar = canvas.transform.Find("MainUIPanel/ManpukuBar").gameObject;
         manpuku_slider = manpuku_bar.GetComponent<Slider>();
+        manpuku_text = manpuku_bar.transform.Find("ManpukuText").GetComponent<Text>();
 
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
@@ -1360,7 +1362,7 @@ public class Compound_Main : MonoBehaviour
                 mainUI_panel_obj.GetComponent<MainUIPanel>().StageNumKoushin();
 
                 //満腹度更新
-                manpuku_slider.value = PlayerStatus.player_girl_manpuku;
+                ManpukuKoushin();                
 
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
@@ -3560,49 +3562,52 @@ public class Compound_Main : MonoBehaviour
         {
             _textmain.text = "どうしようかなぁ？"; //デフォルトメッセージ
 
-            switch (GameMgr.OkashiQuest_Num)
+            if (GameMgr.Story_Mode == 0)
             {
-                case 0: //クッキー
+                switch (GameMgr.OkashiQuest_Num)
+                {
+                    case 0: //クッキー
 
-                    if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
-                    {
-                        _textmain.text = GameMgr.ColorLemon + "左の「おかしパネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみようね！　にいちゃん！";
-                    }
-                    else
-                    {
-                        if (!GameMgr.Beginner_flag[0]) //クッキーをまだあげていない
+                        if (!PlayerStatus.First_recipi_on) //最初お菓子をつくってないときは、これがでる。
                         {
-                            _textmain.text = GameMgr.ColorLemon + "「あげる」" + "</color>" + "ボタンを押して、クッキーをちょうだい！";
+                            _textmain.text = GameMgr.ColorLemon + "左の「おかしパネル」" + "</color>" + "から、" + "\n" + "クッキーを作ってみようね！　にいちゃん！";
                         }
                         else
                         {
-                            _textmain.text = "どうしようかなぁ？";
+                            if (!GameMgr.Beginner_flag[0]) //クッキーをまだあげていない
+                            {
+                                _textmain.text = GameMgr.ColorLemon + "「あげる」" + "</color>" + "ボタンを押して、クッキーをちょうだい！";
+                            }
+                            else
+                            {
+                                _textmain.text = "どうしようかなぁ？";
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case 1: //ぶどうクッキー
+                    case 1: //ぶどうクッキー
 
-                    if (GameMgr.Story_Mode == 0)
-                    {
-                        if (!GameMgr.MapEvent_01[0]) //まだ森にいったことがない場合
+                        if (GameMgr.Story_Mode == 0)
                         {
-                            _textmain.text = "どうしようかなぁ？" + "\n" + "（むらさきのくだものは、「近くの森」で採れたっけ。）";
+                            if (!GameMgr.MapEvent_01[0]) //まだ森にいったことがない場合
+                            {
+                                _textmain.text = "どうしようかなぁ？" + "\n" + "（むらさきのくだものは、「近くの森」で採れたっけ。）";
+                            }
+                            else
+                            {
+
+                            }
                         }
-                        else
+                        break;
+
+                    case 10: //ラスクのとき
+
+                        if (!GameMgr.Beginner_flag[1]) //ラスクのレシピをまだ読んだことが無い
                         {
-
+                            _textmain.text = "ラスクのレシピを読もう！　にいちゃん！";
                         }
-                    }
-                    break;
-
-                case 10: //ラスクのとき
-
-                    if (!GameMgr.Beginner_flag[1]) //ラスクのレシピをまだ読んだことが無い
-                    {
-                        _textmain.text = "ラスクのレシピを読もう！　にいちゃん！";
-                    }
-                    break;
+                        break;
+                }
             }
         }
 
@@ -3672,7 +3677,7 @@ public class Compound_Main : MonoBehaviour
         moneyStatus_Controller.UseMoney(GameMgr.Foodexpenses);
 
         //腹が回復する。
-        PlayerStatus.player_girl_manpuku = 50;
+        PlayerStatus.player_girl_manpuku = 30;
 
         //寝たらスリープフラグもOFFに。
         Sleep_on = false;
@@ -3982,11 +3987,39 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.Haraheri_Msg = true;
                 //音鳴らす
                 sc.PlaySe(45);
+
+                girl1_status.MotionChange(23);
             }
         }
         if (PlayerStatus.player_girl_manpuku >= 100)
         {
             PlayerStatus.player_girl_manpuku = 100;
+        }
+
+        ManpukuKoushin();
+    }
+
+    void ManpukuKoushin()
+    {
+        if (PlayerStatus.player_girl_manpuku >= 0 && PlayerStatus.player_girl_manpuku < 1)
+        {
+            manpuku_text.text = "はらへり";
+        }
+        else if (PlayerStatus.player_girl_manpuku >= 1 && PlayerStatus.player_girl_manpuku < 30)
+        {
+            manpuku_text.text = "はらへり";
+        }
+        else if (PlayerStatus.player_girl_manpuku >= 30 && PlayerStatus.player_girl_manpuku < 60)
+        {
+            manpuku_text.text = "ふつう";
+        }
+        else if (PlayerStatus.player_girl_manpuku >= 60 && PlayerStatus.player_girl_manpuku < 80)
+        {
+            manpuku_text.text = "みたされ";
+        }
+        else if (PlayerStatus.player_girl_manpuku >= 80)
+        {
+            manpuku_text.text = "まんぷく";
         }
 
         manpuku_slider.value = PlayerStatus.player_girl_manpuku;

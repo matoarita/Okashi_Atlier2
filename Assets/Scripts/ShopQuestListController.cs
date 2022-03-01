@@ -62,8 +62,6 @@ public class ShopQuestListController : MonoBehaviour
     private List<int> selectquestDB = new List<int>();
     private List<int> selectquestDB2 = new List<int>();
 
-    private int story_num;
-
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
         //キャンバスの読み込み
@@ -168,15 +166,27 @@ public class ShopQuestListController : MonoBehaviour
         selectquestDB2.Clear();
 
         //シナリオの進行度に応じて、クエストが変化する。
-        story_num = GameMgr.GirlLoveEvent_num; //GirlLoveEvent_numは、0~50まで。10の単位。
-        for (j = 0; j < quest_database.questset.Count; j++)
+        if (GameMgr.Story_Mode == 0)
         {
-            if (quest_database.questset[j].QuestHyouji <= story_num)
+            for (j = 0; j < quest_database.questset.Count; j++)
             {
-                selectquestDB.Add(j);
+                if (quest_database.questset[j].QuestHyouji <= GameMgr.GirlLoveEvent_num)//GirlLoveEvent_numは、0~50まで。10の単位。
+                {
+                    selectquestDB.Add(j);
+                }
             }
         }
-       
+        else
+        {
+            for (j = 0; j < quest_database.questset.Count; j++)
+            {
+                if (quest_database.questset[j].QuestHyouji <= PlayerStatus.player_ninki_param)//名声値に応じてクエストでる。
+                {
+                    selectquestDB.Add(j);
+                }
+            }           
+        }
+
         for (j = 0; j < quest_database.questset2.Count; j++)
         {
             if (quest_database.questset2[j].QuestHyouji <= PlayerStatus.girl1_Love_lv) //PlayerStatus.player_renkin_lv

@@ -221,7 +221,17 @@ public class OptionPanel : MonoBehaviour {
     {
 
         //一回黒フェードして「システムデータセーブ中」でてから、シーンもどす。
-        //save_controller.SystemsaveCheck();
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                break;
+
+            case "001_Title":
+
+                save_controller.SystemsaveCheck();
+                break;
+        }       
 
         SystemSave_Panel.SetActive(true);
         SystemSave_Panel.GetComponent<CanvasGroup>().alpha = 0;

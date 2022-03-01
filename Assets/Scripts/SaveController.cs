@@ -198,6 +198,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力
             save_player_girl_eatCount = PlayerStatus.player_girl_eatCount, //妹が食べたお菓子の回数
             save_player_girl_manpuku = PlayerStatus.player_girl_manpuku, //妹の満腹度
+            save_player_girl_yaruki = PlayerStatus.player_girl_yaruki, //妹のやる気
 
             //日付・フラグ関係
             save_player_day = PlayerStatus.player_day, //現在の日付
@@ -435,6 +436,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_girl_maxlifepoint = playerData.save_player_girl_maxlifepoint; //妹のMax体力
         PlayerStatus.player_girl_eatCount = playerData.save_player_girl_eatCount; //妹が食べたお菓子の回数
         PlayerStatus.player_girl_manpuku = playerData.save_player_girl_manpuku; //妹の満腹度
+        PlayerStatus.player_girl_yaruki = playerData.save_player_girl_yaruki; //妹のやる気
 
         //日付・フラグ関係
         PlayerStatus.player_day = playerData.save_player_day; //現在の日付

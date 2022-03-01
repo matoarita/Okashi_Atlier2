@@ -107,33 +107,35 @@ public class Farm_Main : MonoBehaviour {
             }
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         //イベント発生フラグをチェック
+
+        if (!GameMgr.FarmEvent_stage[0]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
+        {
+            GameMgr.FarmEvent_stage[0] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.farm_event_num = 0;
+            GameMgr.farm_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 10;
+            GameMgr.CompoundEvent_flag = true;
+
+            //たまご・牛乳を各５個ずつもらえる。
+            pitemlist.addPlayerItemString("egg", 5);
+            pitemlist.addPlayerItemString("milk", 5);
+            pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
+        }
+
         switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
         {
             default:
 
-                if (!GameMgr.FarmEvent_stage[0])　//はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
-                {
-                    GameMgr.FarmEvent_stage[0] = true;
-                    GameMgr.scenario_ON = true;
-
-                    GameMgr.farm_event_num = 0;
-                    GameMgr.farm_event_flag = true;
-
-                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                    GameMgr.CompoundEvent_num = 10;
-                    GameMgr.CompoundEvent_flag = true;
-
-                    //たまご・牛乳を各５個ずつもらえる。
-                    pitemlist.addPlayerItemString("egg", 5);
-                    pitemlist.addPlayerItemString("milk", 5);
-                    pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
-                }
-               
                 break;
         }
 

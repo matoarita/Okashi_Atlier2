@@ -371,6 +371,7 @@ public class Quest_Judge : MonoBehaviour {
                 case 0: //初期化 状態１
 
                     MoneyStatus_Panel_obj.SetActive(false);
+                    NinkiStatus_Panel_obj.SetActive(false);
                     //text_area.SetActive(false);
                     shopquestlistController_obj.SetActive(false);
                     black_effect.SetActive(false);
@@ -449,6 +450,11 @@ public class Quest_Judge : MonoBehaviour {
                 case 4: //アニメ終了。判定する
 
                     MoneyStatus_Panel_obj.SetActive(true);
+
+                    if (GameMgr.Story_Mode != 0)
+                    {
+                        NinkiStatus_Panel_obj.SetActive(true);
+                    }
                     //text_area.SetActive(true);
 
 
@@ -493,6 +499,9 @@ public class Quest_Judge : MonoBehaviour {
 
         nouhinOK_flag = false;
         deleteOriginalList.Clear();
+
+        _getNinki = 0;
+        _getMoney = 0;
 
         _kosu_total = _kosu_default; //トータルで〇個いる。デフォルトアイテムから１個、プレイヤーアイテムリストから、１個＋１個のような感じで、減っていく。
 
@@ -637,6 +646,7 @@ public class Quest_Judge : MonoBehaviour {
         }
 
         _getMoney = _buy_price * _kosu_default;
+        _getNinki = 1;
 
         //足りてるので、納品完了の処理
         _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + GameMgr.MoneyCurrency + " を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
@@ -711,6 +721,8 @@ public class Quest_Judge : MonoBehaviour {
         result_OkashiScore.Clear();
         okashi_totalscore = 0;
         okashi_totalkosu = 0;
+        _getNinki = 0;
+        _getMoney = 0;
 
         set_kaisu = pitemlistController._listcount.Count;
 
@@ -1410,24 +1422,26 @@ public class Quest_Judge : MonoBehaviour {
             yield return null;
         }
 
-        endresultbutton = false;        
+        endresultbutton = false;
 
         //所持金をプラス
         moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
-        
+
         //名声をプラスかマイナス。0は変化なし
-        if(_getNinki < 0)
+
+        if (_getNinki < 0)
         {
             //名声値は減る
             PlayerStatus.player_ninki_param -= (Mathf.Abs(_getNinki));
             //ninkiStatus_Controller.DegNinki(Mathf.Abs(_getNinki)); //アニメつき
         }
-        else if(_getNinki > 0)
+        else if (_getNinki > 0)
         {
             //名声値は増える
             PlayerStatus.player_ninki_param += (Mathf.Abs(_getNinki));
             //ninkiStatus_Controller.GetNinki(_getNinki); //アニメつき
         }
+        ninkiStatus_Controller.money_Draw();
 
         ResetQuestStatus();
     }
