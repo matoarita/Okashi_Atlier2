@@ -4046,6 +4046,7 @@ public class Compound_Main : MonoBehaviour
             PlayerStatus.player_girl_express_param = 100;
         }
 
+        //機嫌決定
         if (PlayerStatus.player_girl_express_param < 20)
         {
             PlayerStatus.player_girl_expression = 1;

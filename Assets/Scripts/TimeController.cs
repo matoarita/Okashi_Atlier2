@@ -224,7 +224,7 @@ public class TimeController : MonoBehaviour
                     if (GameMgr.compound_status == 110)  //採集中やステータス画面など開いてるときは減らない
                     {
                         timeIttei2++;
-                        if (timeIttei2 >= 5)
+                        if (timeIttei2 >= 10)
                         {
                             timeIttei2 = 0;
                             SetMinuteToHour(1); //1=5分単位

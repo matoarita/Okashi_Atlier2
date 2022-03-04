@@ -57,7 +57,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private bool Mazui_flag;
     private bool non_spquest_flag;
     public int clear_spokashi_status;
-    private bool quest_clear;
     private bool sp_quest_clear;
     private int _tempgetlove;
 
@@ -627,7 +626,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         HighScore_flag = false;
         Gameover_flag = false;
         kansou_on = false;
-        quest_clear = false;
         sp_quest_clear = false;
 
         //テキストのセッティング
@@ -2336,7 +2334,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (Mazui_flag)
         {
             sc.PlaySe(6); //ダウン音
-            compound_Main.GirlExpressionKoushin(-35); //まずいと、不機嫌になる。
+            compound_Main.GirlExpressionKoushin(-75); //まずいと、不機嫌になる。
         }
         else
         {
@@ -2405,19 +2403,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             {
                                 if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
                                 {
-                                    quest_clear = true; //quest_clearは感想出す用。sp_quest_clearはSPクエストをクリアしたよ、というフラグ。
                                     sp_quest_clear = true;
                                     _windowtext.text = "満足しているようだ。";
                                 }
                                 else if (topping_all_non && !topping_flag) //食べたいトッピングがあるが、該当するトッピングはのっていなかった。現状、それでもクリア可能。
                                 {
-                                    quest_clear = true;
                                     sp_quest_clear = true;
                                     _windowtext.text = "満足しているようだ。";
                                 }
                                 else if (!topping_all_non) //そもそも食べたいトッピングない場合
                                 {
-                                    quest_clear = true;
                                     sp_quest_clear = true;
                                     _windowtext.text = "満足しているようだ。";
                                 }
@@ -2432,7 +2427,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         }
                         else //そもそも60点以下
                         {
-                            quest_clear = false;
                             sp_quest_clear = false;
                             _windowtext.text = "";
                         }
@@ -2977,30 +2971,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
 
         //一時的に触れなくする。
-        /*if (quest_clear)
+        if (emerarudonguri_get)
         {
             Touch_WindowInteractOFF();
         }
         else
-        {*/
-            if (emerarudonguri_get)
+        {
+            if (sp_quest_clear && !GameMgr.QuestClearButton_anim) //クエストクリアした際は、一連の演出をみせる。
             {
                 Touch_WindowInteractOFF();
+
             }
             else
             {
-                if (sp_quest_clear && !GameMgr.QuestClearButton_anim) //クエストクリアした際は、一連の演出をみせる。
-                {
-                    Touch_WindowInteractOFF();
-
-                }
-                else
-                {
-                    GameMgr.compound_status = 0;
-                }
-
+                GameMgr.compound_status = 0;
             }
-        //}
+
+        }
 
         //エメラルどんぐり入るかチェック
         if (emerarudonguri_get)
@@ -3478,7 +3465,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     canvas.SetActive(true);
                     ResetResult();
                     touch_controller.Touch_OnAllON();
-                    quest_clear = false;
                     GameMgr.QuestClearCommentflag = true;
                 }
                 else
