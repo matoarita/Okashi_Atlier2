@@ -370,7 +370,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             outgirl_Nowprogress = GameMgr.outgirl_Nowprogress,
 
             save_hiroba_ichigo_first = GameMgr.hiroba_ichigo_first,
-            save_ichigo_collection_listFlag = GameMgr.ichigo_collection_listFlag,           
+            save_ichigo_collection_listFlag = GameMgr.ichigo_collection_listFlag,
+
+            //ユーザーが設定した好みの音楽
+            save_userBGM_Num = GameMgr.userBGM_Num,
+
+            //ゲームスピード
+            save_GameSpeedParam = GameMgr.GameSpeedParam,
         };
 
         //デバッグ用
@@ -702,6 +708,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         GameMgr.hiroba_ichigo_first = playerData.save_hiroba_ichigo_first;
         GameMgr.ichigo_collection_listFlag = playerData.save_ichigo_collection_listFlag;
+
+        //ユーザーが設定した好みの音楽
+        if(playerData.save_userBGM_Num <= 0 || playerData.save_userBGM_Num > GameMgr.bgm_collection_list.Count) { GameMgr.userBGM_Num = 0; }
+        else { GameMgr.userBGM_Num = playerData.save_userBGM_Num; }
+
+        //ゲームスピード
+        if (playerData.save_GameSpeedParam < 1 || playerData.save_GameSpeedParam > 6) { GameMgr.GameSpeedParam = 3; } //例外処理
+        else { GameMgr.GameSpeedParam = playerData.save_GameSpeedParam; }
 
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);

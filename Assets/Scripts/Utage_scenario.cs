@@ -62,6 +62,7 @@ public class Utage_scenario : MonoBehaviour
     private GirlEat_Judge girlEat_judge;
 
     private int i, j;
+    private int random;
     private string recipi_Name;
     private int _itemid;
     private int CommentID;
@@ -1506,16 +1507,18 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.outgirl_returnhome_homeru = false;
 
             if ((int)engine.Param.GetParameter("OutGirlHomeru_num") == 0)
-            {               
-                girlEat_judge.loveGetPlusAnimeON(5, false);
+            {
+                random = Random.Range(5, 21); //0~4
+                girlEat_judge.loveGetPlusAnimeON(random, false);
                 compound_Main.GirlExpressionKoushin(30); //ほめる場合
-                PlayerStatus.player_girl_yaruki += 10;
+                PlayerStatus.player_girl_yaruki += 30;
             }
             else
             {
+                random = -1 * Random.Range(30, 151); //0~4
+                girlEat_judge.DegHeart(random, true);
                 compound_Main.GirlExpressionKoushin(-50); //しかった場合
-                girlEat_judge.DegHeart(-30, true);
-                PlayerStatus.player_girl_yaruki -= 30;
+                PlayerStatus.player_girl_yaruki -= 50;
             }
 
             GameMgr.outgirl_Nowprogress = false;

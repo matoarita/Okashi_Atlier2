@@ -198,9 +198,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float MasterVolumeParam;
     public static float BGMVolumeParam;
     public static float SeVolumeParam;
+    public static int GameSpeedParam;
 
     //現在のメインBGMの番号
     public static int mainBGM_Num;
+    public static int userBGM_Num; //ユーザーが音楽図鑑で選んだ自分の一曲
 
     //ピクニックイベントのカウンター
     public static int picnic_count;
@@ -223,7 +225,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<SpecialTitle> event_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。
 
     //獲得コンテストお菓子リストのフラグ
-    public static List<SpecialTitle> contestclear_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。    
+    public static List<SpecialTitle> contestclear_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。 
+    
+    //獲得音楽図鑑のフラグ
+    public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
     /* セーブ　ここまで */
 
@@ -581,7 +586,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Foodexpenses = Foodexpenses_default;
 
         //ストーリーモード
-        Story_Mode = 1;
+        Story_Mode = 1; //0=本編　1=エクストラモード　初期値は0でOK
+        GameSpeedParam = 3;
 
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。
         scenario_ON = false;
@@ -893,6 +899,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //コンテストクリアお菓子のリスト
         InitContestClearCollectionLibrary();
 
+        //音楽コレクションのリスト
+        InitBgmCollectionLibrary();
+
         CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
         {
@@ -910,6 +919,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //メインBGMの番号
         mainBGM_Num = 0;
+        userBGM_Num = 0;
 
         Shopday = 0;
         Sale_ON = false;
@@ -1175,4 +1185,33 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
     }
 
+    //音楽コレクションのリスト 音楽リストは、頭から順番にフラグを設定しているので、順番が大事。OptionPanelのBGMリストと順番をそろえる。
+    public static void InitBgmCollectionLibrary()
+    {
+        bgm_collection_list.Clear();
+
+        bgm_collection_list.Add(new SpecialTitle(001, "bgm1", "デフォルト", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "朝露のワルツ", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "フェアリー・アンド・バタフライ", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エリーのカンツォーネ", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(006, "bgm6", "ずんたかぽんぽん・マーチ！", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィーのエレガントなティータイム", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫、さんぽ街道まっしぐら", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(009, "bgm9", "木漏れ日に包まれて", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエの一日", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
+    }
+
+    //音楽リストのnameを入れると、フラグを置き換えるメソッド
+    public static void SetBGMCollectionFlag(string _name, bool _flag)
+    {
+        for (system_i = 0; system_i < bgm_collection_list.Count; system_i++)
+        {
+            if (bgm_collection_list[system_i].titleName == _name)
+            {
+                bgm_collection_list[system_i].Flag = _flag;
+            }
+        }
+    }
 }

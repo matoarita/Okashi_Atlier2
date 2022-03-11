@@ -66,6 +66,8 @@ public class TimeController : MonoBehaviour
     private float timeLeft;
     private bool count_switch;
 
+    private float timespeed_range;
+
     private bool money_counter;
 
     public bool TimeCheck_flag; //調合メインメソッドのトップ画面で起動開始
@@ -182,6 +184,8 @@ public class TimeController : MonoBehaviour
         timeLeft = 1.0f;
         count_switch = true;
 
+        timespeed_range = 1.0f;
+
         money_counter = false;        
     }
 
@@ -219,12 +223,14 @@ public class TimeController : MonoBehaviour
             //フリーモードのときは、時間がリアルタイムで経過　30カウントで5分とか
             if(GameMgr.Story_Mode == 1)
             {
+                GameSpeedRange(); //ゲームスピードパラメータの変更
+
                 if (!GameMgr.scenario_ON)
                 {
                     if (GameMgr.compound_status == 110)  //採集中やステータス画面など開いてるときは減らない
                     {
                         timeIttei2++;
-                        if (timeIttei2 >= 10)
+                        if (timeIttei2 >= (int)(10*timespeed_range))
                         {
                             timeIttei2 = 0;
                             SetMinuteToHour(1); //1=5分単位
@@ -282,7 +288,7 @@ public class TimeController : MonoBehaviour
                         if (!GameMgr.outgirl_Nowprogress)
                         {
                             timeIttei3++;
-                            if (timeIttei3 >= 10)
+                            if (timeIttei3 >= (int)(20 * timespeed_range))
                             {
                                 timeIttei3 = 0;
 
@@ -292,14 +298,15 @@ public class TimeController : MonoBehaviour
                                 //満腹度が0になると、ハートも減り始める。
                                 if (PlayerStatus.player_girl_manpuku <= 0)
                                 {
-                                    girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.2f), false);
+                                    //girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.2f), false);
+                                    girleat_judge.DegHeart(-1, false);
                                     girl1_status.MotionChange(23);
                                 }
                             }
 
                             //時間でゆるやかにハートも減る。
                             /*timeIttei4++;
-                            if (timeIttei4 >= 30)
+                            if (timeIttei4 >= (int)(30*timespeed_range))
                             {
                                 timeIttei4 = 0;
 
@@ -746,5 +753,41 @@ public class TimeController : MonoBehaviour
     {
         SetMinuteToHour(-6); //-30分
         TimeKoushin();
+    }
+
+    void GameSpeedRange()
+    {
+        switch(GameMgr.GameSpeedParam)
+        {
+            case 1:
+
+                timespeed_range = 0.25f;
+                break;
+
+            case 2:
+
+                timespeed_range = 0.5f;
+                break;
+
+            case 3:
+
+                timespeed_range = 1.0f;
+                break;
+
+            case 4:
+
+                timespeed_range = 2.0f;
+                break;
+
+            case 5:
+
+                timespeed_range = 4.0f;
+                break;
+
+            default:
+
+                timespeed_range = 1.0f;
+                break;
+        }
     }
 }

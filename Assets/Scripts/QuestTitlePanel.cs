@@ -81,10 +81,12 @@ public class QuestTitlePanel : MonoBehaviour {
             Destroy(child.gameObject);
         }
 
+        //Debug.Log("special_quest.OkashiQuest_AllCount: " + special_quest.OkashiQuest_AllCount);
         for (i = 0; i < special_quest.OkashiQuest_AllCount; i++)
         {
             questview_obj.Add(Instantiate(questprogress_Prefab1, this.transform.Find("QuestPanel/QuestProgressView/Viewport/Content").gameObject.transform));
         }
+
         if (special_quest.OkashiQuest_Count <= special_quest.OkashiQuest_AllCount)
         {
             questview_obj[special_quest.OkashiQuest_Count - 1].GetComponent<Image>().sprite = questprogress_nowImg;

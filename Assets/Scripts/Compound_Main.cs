@@ -147,6 +147,8 @@ public class Compound_Main : MonoBehaviour
     private ParticleSystem.EmissionModule particleEm_Light1;
     private ParticleSystem.EmissionModule particleEm_Light2;
     private ParticleSystem.EmissionModule particleEm_Light3;
+    private ParticleSystem.EmissionModule particleEm_Light4;
+    private ParticleSystem.EmissionModule particleEm_Light5;
 
     //Live2Dモデルの取得
     private GameObject _model_obj;
@@ -577,6 +579,8 @@ public class Compound_Main : MonoBehaviour
         particleEm_Light1 = BG_effectpanel.transform.Find("BG_Particle_Light").GetComponent<ParticleSystem>().emission;
         particleEm_Light2 = BG_effectpanel.transform.Find("BG_Particle_Light_Ball").GetComponent<ParticleSystem>().emission;
         particleEm_Light3 = BG_effectpanel.transform.Find("BG_Particle_Light_Kira").GetComponent<ParticleSystem>().emission;
+        particleEm_Light4 = BG_effectpanel.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
+        particleEm_Light5 = BG_effectpanel.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
 
         Change_BGimage();
         //メモボタン
@@ -1383,6 +1387,10 @@ public class Compound_Main : MonoBehaviour
                     CharacterLive2DImageON();
                     touch_controller.Touch_OnAllON();
                     sleep_toggle.GetComponent<Toggle>().interactable = true;
+                    if (GameMgr.QuestClearflag)
+                    {
+                        stageclear_Button.GetComponent<Toggle>().interactable = true;
+                    }
 
                 }
                 else //外出中はLive2Dをオフに。
@@ -1391,6 +1399,10 @@ public class Compound_Main : MonoBehaviour
                     touch_controller.Touch_OnAllOFF();
                     girleat_toggle.GetComponent<Toggle>().interactable = false;
                     sleep_toggle.GetComponent<Toggle>().interactable = false;
+                    if (GameMgr.QuestClearflag)
+                    {
+                        stageclear_Button.GetComponent<Toggle>().interactable = false;
+                    }
                 }
 
                 //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
@@ -3891,6 +3903,8 @@ public class Compound_Main : MonoBehaviour
             BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Morning").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_Night").gameObject.SetActive(true);
 
             BG_RealtimeChange();
         }
@@ -3919,6 +3933,8 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 4:
@@ -3930,6 +3946,8 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 5:
@@ -3943,6 +3961,8 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 6:
@@ -3958,6 +3978,8 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(200);
                 break;
         }
     }
@@ -4110,6 +4132,8 @@ public class Compound_Main : MonoBehaviour
         particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
         particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+        particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
+        particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
     }
 
     //即座に朝背景に変更。Utageの寝るイベントから呼び出し

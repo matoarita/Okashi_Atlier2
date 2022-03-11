@@ -1015,13 +1015,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 6;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 20 && PlayerStatus.girl1_Love_lv < 30) //
+        else if (PlayerStatus.girl1_Love_lv >= 20 && PlayerStatus.girl1_Love_lv < 25) //
         {
             //最高に上機嫌
             GirlGokigenStatus = 7;
 
         }
-        else if (PlayerStatus.girl1_Love_lv >= 30)
+        else if (PlayerStatus.girl1_Love_lv >= 25)
         {
             //最高に上機嫌
             GirlGokigenStatus = 8;
@@ -1567,6 +1567,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         //Live2Dモデルの取得
         _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        
 
         if (hukidashiitem != null)
         {
@@ -1575,11 +1576,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         hukidashiitem = Instantiate(hukidashiPrefab, _model_obj.transform);
         hukidashion = true; //今吹き出しがゲームに表示されている状態
+        _text = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
 
         //音を鳴らす
         sc.PlaySe(7);
-
-        _text = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
+        
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
         WaitHint_on = true;
@@ -2647,14 +2648,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 8:
 
-                    random = Random.Range(0, 12);
-                    hukidashi_number = 70;
+                    random = Random.Range(0, 13);
+                    hukidashi_number = 60;
                     break;
 
                 default: //それ以上
 
-                    random = Random.Range(0, 12); 
-                    hukidashi_number = 50;
+                    random = Random.Range(0, 13); 
+                    hukidashi_number = 60;
                     break;
             }
 
@@ -2745,7 +2746,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 case 7:
 
                     //♪モーション                    
-                    IdleMotionHukidashiSetting(35);
+                    //IdleMotionHukidashiSetting(35);
+                    FaceMotionPlay(1014);
                     break;
 
                 case 8:
@@ -2778,11 +2780,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             FaceMotionPlay(1011); //生地をガシャガシャしはじめる
                             break;
 
+                        case 1:
+                            Debug.Log("2002  なでられたときのへにゃっとモーション");
+                            FaceMotionPlay(2002); //
+                            break;
+
                         default:
                             Debug.Log("61 生地ガシャモーション");
                             FaceMotionPlay(1011); //生地をガシャガシャしはじめる
                             break;
                     }
+                    break;
+
+                case 12:
+
+                    IdleMotionHukidashiSetting(70); //雑談
+                    break;
+
+                default:
+
                     break;
             }
         }        
@@ -2850,12 +2866,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 21:
 
-                if (GameMgr.BG_cullent_weather >= 1 && GameMgr.BG_cullent_weather < 2)
+                if (GameMgr.BG_cullent_weather < 2)
                 {
                     FaceMotionPlay(1024);
                     _touchface_comment_lib.Add("にいちゃ..。zZZ..。");
                 }
-                else if (GameMgr.BG_cullent_weather >= 2 && GameMgr.BG_cullent_weather < 5)
+                else if (GameMgr.BG_cullent_weather >= 2 && GameMgr.BG_cullent_weather < 6)
                 {
                     //材料とりにいきたいモード。このときに外へいくと、ハートがあがる。
                     GameMgr.OsotoIkitaiFlag = true;
@@ -2865,8 +2881,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _touchface_comment_lib.Add("ねぇねぇにいちゃん。材料を採りにいこうよ～。");
                     _touchface_comment_lib.Add("どこかへ出かけたいなぁ～");
                 }
-                else if (GameMgr.BG_cullent_weather >= 5 && GameMgr.BG_cullent_weather <= 6)
+                else if (GameMgr.BG_cullent_weather >= 6)
                 {
+                    FaceMotionPlay(1005);
                     _touchface_comment_lib.Add("ねぇねぇにいちゃん。明日も、お外へ材料とりにいこ～ね！");
                 }
                 break;
@@ -2937,6 +2954,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 switch (random)
                 {
                     case 0:
+                        FaceMotionPlay(2002);
                         _touchface_comment_lib.Add("にいちゃん！大好き！！");
                         _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
                         break;
@@ -2951,6 +2969,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 50:
 
+                FaceMotionPlay(2002);
                 _touchface_comment_lib.Add("にいちゃん！大好き！！");
                 _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
                 _touchface_comment_lib.Add("おにいちゃん。あたたかい～。");
@@ -2958,14 +2977,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 60:
 
-                _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
-                _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
-                break;
-
-            case 70:
-
-                random = Random.Range(0, 2); //0~4
-
+                random = Random.Range(0, 2);
                 switch (random)
                 {
                     case 0:
@@ -2977,10 +2989,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     case 1:
 
+                        FaceMotionPlay(2002);
                         _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
                         _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
                         break;
                 }
+                break;
+
+            case 70:
+
+                random = Random.Range(0, 2); //0~4
+
+                zatudan(random);               
 
                 break;
 
@@ -3033,7 +3053,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         case 1:
 
                             FaceMotionPlay(2000);
-                            _touchface_comment_lib.Add("にいちゃん。今日のお夕飯は、じゃがバターとシチューたべよ～♪");
+                            _touchface_comment_lib.Add("にいちゃん。今日のお夕飯は、じゃがバターとシチューだよ～♪");
                             break;
 
                         case 2:
@@ -3194,7 +3214,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                         FaceMotionPlay(1005); //るんるんモーション
                         _touchface_comment_lib.Add("うわぁ～☆　ハートリボンお気に入り♪");
-                        _touchface_comment_lib.Add("赤くてオシャレな服～♪　お外でかけたいな～。にいちゃん！");
+                        _touchface_comment_lib.Add("赤くてオシャレな服～♪　お外でかけたいな～♪");
                         _touchface_comment_lib.Add("にいちゃん！　ちょっと大人っぽい服だよ！　似合う～？");
                         break;
                 }
@@ -3237,6 +3257,44 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         random = Random.Range(0, _touchface_comment_lib.Count);
         _hintrandom = _touchface_comment_lib[random];
         hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
+    }
+
+    void zatudan(int _random)
+    {
+        switch (_random)
+        {
+            case 0: //雑談をする
+
+                FaceMotionPlay(1018); //こっちをむいて口パク
+                _touchface_comment_lib.Add("インドは、カレーの本場なんだよ。ちょっと甘くておいしいらしいよ..！");
+                _touchface_comment_lib.Add("にいちゃん。おしごとってなぁに？");
+                _touchface_comment_lib.Add("にいちゃん。てんごくって、どこにあるの～？　おそら？");
+                _touchface_comment_lib.Add("にいちゃん。なんで、ゆめって、楽しいのに、消えちゃうの？");
+                break;
+
+            case 1: //雑談をする2 癒し
+
+                FaceMotionPlay(2001); //こっちをむいて口パク
+                _touchface_comment_lib.Add("しっぱいは、あとでいいお話のネタになるよ。にいちゃん。");
+                _touchface_comment_lib.Add("ほどほどの生活がうまくいってれば、それは大成功..！にいちゃん！");
+                _touchface_comment_lib.Add("にいちゃん。つかれたら、ヒカリがよしよししてあげるね。よしよし..。");
+                _touchface_comment_lib.Add("にいちゃん。しごと終わりのミルクは、最高～！　えへへ♪");
+                _touchface_comment_lib.Add("おいもとバターって、相性ぴったり♪　まるで恋人みたいだね。");
+                break;
+
+            //80~から
+
+            case 2:
+
+                break;
+
+            default:
+
+                FaceMotionPlay(1019);
+                _touchface_comment_lib.Add("にいちゃん！大好き！！");
+                _touchface_comment_lib.Add("おにいちゃんのお菓子..、だいすき～！");
+                break;
+        }
     }
 
     //compound_Mainなどから読む 即座にそのモーションと吹き出しを再生

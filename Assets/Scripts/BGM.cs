@@ -30,6 +30,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound19;  //Stage1MainのBGM3
     public AudioClip sound20;  //Stage1MainのBGM4
     public AudioClip sound21;  //Stage1MainのBGM5
+    public AudioClip sound22;  //Stage1MainのBGM6
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -177,6 +178,25 @@ public class BGM : MonoBehaviour {
 
     void BGMMainChange()
     {
+        if(GameMgr.Story_Mode == 0)
+        {
+            BGMDefault();
+        }
+        else
+        {
+            if (GameMgr.userBGM_Num == 0) //デフォルト　ユーザーが1をおした場合、デフォルトのBGM
+            {
+                BGMDefault();                
+            }
+            else
+            {
+                OngakuZukanSelect();
+            }
+        }       
+    }
+
+    void BGMDefault()
+    {
         if (GameMgr.GirlLoveSubEvent_stage1[60]) //HLV15~できらぽんイベント発生後
         {
             _bgm[0].clip = sound19;
@@ -251,6 +271,69 @@ public class BGM : MonoBehaviour {
                 break;
         }
 
+    }
+
+    void OngakuZukanSelect()
+    {
+        switch(GameMgr.userBGM_Num)
+        {
+            //case 0はストーリーのデフォルト
+
+            case 1:
+
+                _bgm[0].clip = sound20;
+                break;
+
+            case 2:
+
+                _bgm[0].clip = sound21;
+                break;
+
+            case 3:
+
+                _bgm[0].clip = sound18;
+                break;
+
+            case 4:
+
+                _bgm[0].clip = sound19;
+                break;
+
+            case 5:
+
+                _bgm[0].clip = sound10;
+                break;
+
+            case 6:
+
+                _bgm[0].clip = sound6;
+                break;
+
+            case 7:
+
+                _bgm[0].clip = sound7;
+                break;
+
+            case 8:
+
+                _bgm[0].clip = sound11;
+                break;
+
+            case 9:
+
+                _bgm[0].clip = sound1;
+                break;
+
+            case 10:
+
+                _bgm[0].clip = sound22;
+                break;
+
+            default:
+
+                Story_BGMSelect();
+                break;
+        }
     }
 
     public void OnMainBGM()

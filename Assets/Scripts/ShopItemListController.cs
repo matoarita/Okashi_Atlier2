@@ -861,6 +861,13 @@ public class ShopItemListController : MonoBehaviour
                     shop_hyouji_flag = 1001; 
                     Check_ONShopListFlag(shop_hyouji_flag);
                 }
+
+                if(GameMgr.Story_Mode != 0)
+                {
+                    //エクストラモードのときにでるアイテム
+                    shop_hyouji_flag = 2000;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
                 break;
         }
     }

@@ -9,6 +9,9 @@ public class OptionPanel : MonoBehaviour {
 
     private GameObject canvas;
 
+    private ItemDataBase database;
+    private PlayerItemList pitemlist;
+
     private SoundController sc;
     private SaveController save_controller;
 
@@ -24,6 +27,9 @@ public class OptionPanel : MonoBehaviour {
     private Text SEvolume_paramtext;
     private int SEvolume_param;
 
+    private Text GameSpeed_paramtext;
+    private Text music_paramtext;
+
     private Toggle Autosave_on_toggle;
     private GameObject Autosave_text_obj;
 
@@ -33,8 +39,13 @@ public class OptionPanel : MonoBehaviour {
 
     private GameObject SystemSave_Panel;
 
+    private GameObject Gamespeed_Panel;
+    private GameObject BGMSelectPanel;
+
     private BGM sceneBGM;
-    private List<Toggle> bgm_toggle = new List<Toggle>(); 
+    private List<GameObject> bgm_toggle = new List<GameObject>();
+    private Dropdown Bgm_dropdown;
+    private List<Toggle> gamespeed_toggle = new List<Toggle>();
 
     private int i;
 
@@ -58,6 +69,9 @@ public class OptionPanel : MonoBehaviour {
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         save_controller = SaveController.Instance.GetComponent<SaveController>();
         SystemSave_Panel = this.transform.Find("systemSavePanel").gameObject;
@@ -84,17 +98,24 @@ public class OptionPanel : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        mastervolume_Slider = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider").GetComponent<Slider>();
-        mastervolume_paramtext = this.transform.Find("OptionList/Viewport/Content/MasterVolumeSliderPanel/MasterVolumeSlider/Param").GetComponent<Text>();
+        mastervolume_Slider = this.transform.Find("OptionList/Viewport/Content/SoundPanel/MasterVolumeSliderPanel/MasterVolumeSlider").GetComponent<Slider>();
+        mastervolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SoundPanel/MasterVolumeSliderPanel/MasterVolumeSlider/Param").GetComponent<Text>();
 
-        BGMvolume_Slider = this.transform.Find("OptionList/Viewport/Content/BGMVolumeSliderPanel/BGMVolumeSlider").GetComponent<Slider>();
-        BGMvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/BGMVolumeSliderPanel/BGMVolumeSlider/Param").GetComponent<Text>();
+        BGMvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SoundPanel/BGMVolumeSliderPanel/BGMVolumeSlider").GetComponent<Slider>();
+        BGMvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SoundPanel/BGMVolumeSliderPanel/BGMVolumeSlider/Param").GetComponent<Text>();
 
-        SEvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider").GetComponent<Slider>();
-        SEvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SEVolumeSliderPanel/SEVolumeSlider/Param").GetComponent<Text>();
+        SEvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SoundPanel/SEVolumeSliderPanel/SEVolumeSlider").GetComponent<Slider>();
+        SEvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SoundPanel/SEVolumeSliderPanel/SEVolumeSlider/Param").GetComponent<Text>();
 
         Autosave_on_toggle = this.transform.Find("OptionList/Viewport/Content/AutoSaveOn/AutoSaveToggle").GetComponent<Toggle>();
         Autosave_text_obj= this.transform.Find("OptionList/Viewport/Content/AutoSaveOn/autosave_text").gameObject;
+
+        GameSpeed_paramtext = this.transform.Find("OptionList/Viewport/Content/GameSpeed/speed_text").GetComponent<Text>();
+        music_paramtext = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/music_text").GetComponent<Text>();
+        Bgm_dropdown = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Dropdown").GetComponent<Dropdown>();
+
+        Gamespeed_Panel = this.transform.Find("OptionList/Viewport/Content/GameSpeed").gameObject;
+        BGMSelectPanel = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel").gameObject;
 
         if (GameMgr.AUTOSAVE_ON)
         {
@@ -109,19 +130,83 @@ public class OptionPanel : MonoBehaviour {
             //sc.PlaySe(2);
         }
 
-        //BGMセレクトをONにするときは、以下の命令もONにする。
-
-        /*bgm_toggle.Clear();
-        foreach (Transform child in this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Scroll_View/Viewport/Content").transform) //
+        switch (SceneManager.GetActiveScene().name)
         {
-            bgm_toggle.Add(child.gameObject.GetComponent<Toggle>());           
-        }
+            case "001_Title":
 
-        for(i=0; i < bgm_toggle.Count; i++)
-        {
-            bgm_toggle[i].SetIsOnWithoutCallback(false);
+                Gamespeed_Panel.SetActive(false);
+                BGMSelectPanel.SetActive(false);
+                break;
+
+            case "Compound":
+
+                if (GameMgr.Story_Mode == 0)
+                {
+                    Gamespeed_Panel.SetActive(false);
+                    BGMSelectPanel.SetActive(false);
+                }
+                else
+                {
+                    Gamespeed_Panel.SetActive(true);
+                    if(pitemlist.KosuCount("music_box") >= 1)
+                    {
+                        BGMSelectPanel.SetActive(true);
+                    }
+                    else
+                    {
+                        BGMSelectPanel.SetActive(false);
+                    }
+
+                    //BGM所持チェック
+                    BGMFlagCheck();
+
+                    //BGMセレクトをONにするときは、以下の命令もONにする。
+                    bgm_toggle.Clear();
+                    foreach (Transform child in this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Scroll_View/Viewport/Content").transform) //
+                    {
+                        bgm_toggle.Add(child.gameObject);
+                    }
+
+                    for (i = 0; i < bgm_toggle.Count; i++)
+                    {
+                        if (GameMgr.bgm_collection_list[i].Flag)
+                        {
+                            bgm_toggle[i].transform.Find("Background/Text_kaikinOn").gameObject.SetActive(true);
+                            bgm_toggle[i].transform.GetComponent<Toggle>().interactable = true;
+                            bgm_toggle[i].transform.GetComponent<Sound_Trigger>().enabled = true;
+                        }
+                        else
+                        {
+                            bgm_toggle[i].transform.Find("Background/Text_kaikinOn").gameObject.SetActive(false);
+                            bgm_toggle[i].transform.GetComponent<Toggle>().interactable = false;
+                            bgm_toggle[i].transform.GetComponent<Sound_Trigger>().enabled = false;
+                        }
+                    }
+
+                    for (i = 0; i < bgm_toggle.Count; i++)
+                    {
+                        bgm_toggle[i].GetComponent<Toggle>().SetIsOnWithoutCallback(false);
+                    }
+                    bgm_toggle[GameMgr.userBGM_Num].GetComponent<Toggle>().SetIsOnWithoutCallback(true);
+                    music_paramtext.text = "♪ " + GameMgr.bgm_collection_list[GameMgr.userBGM_Num].titleNameHyouji;
+
+                    //ゲームスピード変更のトグル
+                    gamespeed_toggle.Clear();
+                    foreach (Transform child in this.transform.Find("OptionList/Viewport/Content/GameSpeed/Scroll_View/Viewport/Content").transform) //
+                    {
+                        gamespeed_toggle.Add(child.gameObject.GetComponent<Toggle>());
+                    }
+
+                    for (i = 0; i < gamespeed_toggle.Count; i++)
+                    {
+                        gamespeed_toggle[i].SetIsOnWithoutCallback(false);
+                    }
+                    gamespeed_toggle[GameMgr.GameSpeedParam - 1].SetIsOnWithoutCallback(true);
+                    GameSpeedChange();
+                }
+                break;
         }
-        bgm_toggle[GameMgr.mainBGM_Num].SetIsOnWithoutCallback(true);*/
+        
     }
 
     private void OnEnable()
@@ -177,19 +262,19 @@ public class OptionPanel : MonoBehaviour {
 
     public void SelectBGM()
     {
+        i = 0;
+        while(i < bgm_toggle.Count)
+        {
+            if(bgm_toggle[i].GetComponent<Toggle>().isOn)
+            {
+                GameMgr.userBGM_Num = i;
+                music_paramtext.text = "♪ " + GameMgr.bgm_collection_list[GameMgr.userBGM_Num].titleNameHyouji;
+                break;
+            }
+            i++;
+        }
 
-        if (bgm_toggle[0].isOn)
-        {
-            GameMgr.mainBGM_Num = 0;
-        }
-        else if (bgm_toggle[1].isOn)
-        {
-            GameMgr.mainBGM_Num = 1;
-        }
-        else if (bgm_toggle[2].isOn)
-        {
-            GameMgr.mainBGM_Num = 2;
-        }
+        //GameMgr.userBGM_Num = Bgm_dropdown.value;
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -201,19 +286,92 @@ public class OptionPanel : MonoBehaviour {
 
     }
 
+    public void GameSpeedChange()
+    {
+
+        if (gamespeed_toggle[0].isOn)
+        {
+            GameMgr.GameSpeedParam = 1;
+            GameSpeed_paramtext.text = "めちゃはや";
+        }
+        else if (gamespeed_toggle[1].isOn)
+        {
+            GameMgr.GameSpeedParam = 2;
+            GameSpeed_paramtext.text = "はやい";
+        }
+        else if (gamespeed_toggle[2].isOn)
+        {
+            GameMgr.GameSpeedParam = 3;
+            GameSpeed_paramtext.text = "ふつう";
+        }
+        else if (gamespeed_toggle[3].isOn)
+        {
+            GameMgr.GameSpeedParam = 4;
+            GameSpeed_paramtext.text = "ゆっくり";
+        }
+        else if (gamespeed_toggle[4].isOn)
+        {
+            GameMgr.GameSpeedParam = 5;
+            GameSpeed_paramtext.text = "めちゃおそ";
+        }
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                
+                break;
+        }
+
+    }
+
+    void BGMFlagCheck()
+    {
+        if (pitemlist.KosuCount("Record_1") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm7", true);
+        }
+        if (pitemlist.KosuCount("Record_2") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm8", true);
+        }
+        if (pitemlist.KosuCount("Record_3") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm9", true);
+        }
+        if (pitemlist.KosuCount("Record_4") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm10", true);
+        }
+        if (pitemlist.KosuCount("Record_5") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm11", true);
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[60]) //きらきらぽんぽん
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm5", true);
+        }
+    }
+
     public void OnAutosaveON()
     {
         if(Autosave_on_toggle.isOn)
         {
             GameMgr.AUTOSAVE_ON = true;
             Autosave_text_obj.SetActive(true);
-            sc.PlaySe(21);
+            sc.PlaySe(81); //21
         }
         else
         {
             GameMgr.AUTOSAVE_ON = false;
             Autosave_text_obj.SetActive(false);
-            sc.PlaySe(2);
+            sc.PlaySe(81);
         }
     }
 

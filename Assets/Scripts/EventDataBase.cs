@@ -251,6 +251,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 //広場は必ずでる。
                                 matplace_database.matPlaceKaikin("Hiroba"); //広場解禁
                                                                             //matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり解禁
+                                
                             }
                         }
                     }
@@ -603,7 +604,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                     //イベントCG解禁
                     GameMgr.SetEventCollectionFlag("event1", true);
-                    GameMgr.SetEventCollectionFlag("event2", true);
+                    GameMgr.SetEventCollectionFlag("event2", true);                    
                 }
             }
 

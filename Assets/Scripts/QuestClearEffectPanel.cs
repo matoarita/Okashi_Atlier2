@@ -23,6 +23,11 @@ public class QuestClearEffectPanel : MonoBehaviour
 
         _questclear_text = this.transform.Find("QuestClearImage/Text").GetComponent<Text>();
 
+        this.transform.Find("QuestClearImage/clearImage_1").gameObject.SetActive(true);
+        this.transform.Find("QuestClearImage/clearImage_2").gameObject.SetActive(false);
+        this.transform.Find("QuestClearImage_Eff/clearImage_1").gameObject.SetActive(true);
+        this.transform.Find("QuestClearImage_Eff/clearImage_2").gameObject.SetActive(false);
+        /*
         if(GameMgr.high_score_flag)
         {
             //_questclear_text.text = "Excellent Clear!!";
@@ -34,7 +39,7 @@ public class QuestClearEffectPanel : MonoBehaviour
             //_questclear_text.text = "Quest Clear";
             this.transform.Find("QuestClearImage/clearImage_1").gameObject.SetActive(true);
             this.transform.Find("QuestClearImage/clearImage_2").gameObject.SetActive(false);
-        }
+        }*/
     }
 
     private void OnEnable()
@@ -45,7 +50,7 @@ public class QuestClearEffectPanel : MonoBehaviour
         sc.PlaySe(91);
 
         //アニメーションスタート
-        OnStartAnim();
+        //OnStartAnim();
 
         StartCoroutine("WaitSeconds");
     }

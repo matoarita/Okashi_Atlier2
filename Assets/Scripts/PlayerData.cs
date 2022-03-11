@@ -225,10 +225,13 @@ public class PlayerData
     //音設定データ
     public float save_masterVolumeparam;
     public float save_BGMVolumeParam;
-    public float save_SeVolumeParam;
+    public float save_SeVolumeParam;   
 
     public int save_mainBGM_Num;
+    public int save_userBGM_Num;
 
+    //ゲームスピード
+    public int save_GameSpeedParam;
 
     //システムデータ関係
 

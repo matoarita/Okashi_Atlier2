@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 //スペシャルお菓子　吹き出しクエストのON/OFFを管理
 
@@ -58,8 +59,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         //クエストナンバーの紐づけ
         InitQuestNumDict();
-
-        InitQuestCount();
     }
 	
 	// Update is called once per frame
@@ -70,13 +69,16 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     //EventDataBaseから設定
     public void SetSpecialOkashi(int _num, int _status)
     {
-      
+        //クエスト総数の更新
+        InitQuestCount();
+
         spquest_set_num = _num;
         GameMgr.OkashiQuest_Num = _num; //現在のクエストナンバーを設定　GirlLoveEvent_numと数値は一緒
 
-        //ステージの判定　10桁目をみてステージ数を自動で検出
+        //ステージの判定　10桁目をみてステージ数を自動で検出 1の位の数もみて、現在のクエスト番号を見る。
         _stage_count = 1;
         _keta = _num;
+
         while (_keta >= 0)
         {
             _keta = _keta - 10;
@@ -110,13 +112,15 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         if (GameMgr.Story_Mode == 0)
         {
             Stage1_Normal();
+            //Stage1_Setting();
             //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
             GameMgr.QuestClearAnim_Flag = true;
         }
         else
         {
             Stage1_Extra(); //エクストラ
-            GameMgr.QuestClearAnim_Flag = false;　//全てのクエストで、クエストボタンなしで次へ。
+            //Stage1_Setting();
+            GameMgr.QuestClearAnim_Flag = true;　//全てのクエストで、クエストボタンなしで次へ。
         }
 
 
@@ -141,6 +145,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         //吹き出しは消す。
         girl1_status.ResetHukidashiNoSound();
+    }
+
+    //spquest_set_numをいれると、QuestDictのKeyを取得し、それをOkashiQuest_IDに自動で割り当てる処理。使わなければ、必要なし。
+    void Stage1_Setting()
+    {
+        var pair = QuestDict.FirstOrDefault( c => c.Value == spquest_set_num);
+        girl1_status.OkashiQuest_ID = pair.Key;
     }
 
     void Stage1_Normal()
@@ -310,24 +321,101 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 1: //ココアクッキー
+            case 1: //
 
-                girl1_status.OkashiQuest_ID = 1040;
+                girl1_status.OkashiQuest_ID = 10010;
                 OkashiQuest_Count = 2;
 
                 break;
 
-            case 10: //
+            case 2: //
+
+                girl1_status.OkashiQuest_ID = 10020;
+                OkashiQuest_Count = 3;
+
+                break;
+
+            case 3: //
+
+                girl1_status.OkashiQuest_ID = 10030;
+                OkashiQuest_Count = 4;
+
+                break;
+
+            case 4: //
+
+                girl1_status.OkashiQuest_ID = 10040;
+                OkashiQuest_Count = 5;
+
+                break;
+
+            case 10: //茶色クッキー
                
-                girl1_status.OkashiQuest_ID = 10010;
+                girl1_status.OkashiQuest_ID = 10100;
                 OkashiQuest_Count = 1;
+
+                break;
+
+            case 11: //茶色クッキー
+
+                girl1_status.OkashiQuest_ID = 10110;
+                OkashiQuest_Count = 2;
+
+                break;
+
+            case 12: //茶色クッキー
+
+                girl1_status.OkashiQuest_ID = 10120;
+                OkashiQuest_Count = 3;
+
+                break;
+
+            case 13: //茶色クッキー
+
+                girl1_status.OkashiQuest_ID = 10130;
+                OkashiQuest_Count = 4;
+
+                break;
+
+            case 14: //茶色クッキー
+
+                girl1_status.OkashiQuest_ID = 10140;
+                OkashiQuest_Count = 5;
 
                 break;
 
             case 20: //
 
-                girl1_status.OkashiQuest_ID = 10020;
+                girl1_status.OkashiQuest_ID = 10200;
                 OkashiQuest_Count = 1;
+
+                break;
+
+            case 21: //
+
+                girl1_status.OkashiQuest_ID = 10210;
+                OkashiQuest_Count = 2;
+
+                break;
+
+            case 22: //
+
+                girl1_status.OkashiQuest_ID = 10220;
+                OkashiQuest_Count = 3;
+
+                break;
+
+            case 23: //
+
+                girl1_status.OkashiQuest_ID = 10230;
+                OkashiQuest_Count = 4;
+
+                break;
+
+            case 24: //
+
+                girl1_status.OkashiQuest_ID = 10240;
+                OkashiQuest_Count = 5;
 
                 break;
 
@@ -348,6 +436,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     {
         QuestDict = new Dictionary<int, int>();
 
+        //本編のモード
         QuestDict.Add(1000, 0);
         QuestDict.Add(1010, 1);
         QuestDict.Add(1020, 2);        
@@ -368,23 +457,43 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(1400, 40);
         QuestDict.Add(1500, 50);
 
-        //ハードモード用　左の数字は、上のやつと被らないように。
+        //エクストラモード用　左の数字は、上のやつと被らないように。
         QuestDict.Add(10000, 0);
-        QuestDict.Add(1040, 1);
-        QuestDict.Add(10010, 10);
-        QuestDict.Add(10020, 20);
+        QuestDict.Add(10010, 1);
+        QuestDict.Add(10020, 2);
+        QuestDict.Add(10030, 3);
+        QuestDict.Add(10040, 4);
+        QuestDict.Add(10100, 10);
+        QuestDict.Add(10110, 11);
+        QuestDict.Add(10120, 12);
+        QuestDict.Add(10130, 13);
+        QuestDict.Add(10140, 14);
+        QuestDict.Add(10200, 20);
+        QuestDict.Add(10210, 21);
+        QuestDict.Add(10220, 22);
+        QuestDict.Add(10230, 23);
+        QuestDict.Add(10240, 24);
     }
 
     void InitQuestCount() //ステージごとの、クエストの総数　1なら、クエスト3個など。クエストの進行度を表示する◆ボタン用に使う。
     {
         QuestCountDict = new Dictionary<int, int>();
 
-        QuestCountDict.Add(1, 3);
-        QuestCountDict.Add(2, 2);
-        QuestCountDict.Add(3, 1);
-        QuestCountDict.Add(4, 1);
-        QuestCountDict.Add(5, 1);
-        QuestCountDict.Add(6, 1);
+        if (GameMgr.Story_Mode == 0)
+        {
+            QuestCountDict.Add(1, 3);
+            QuestCountDict.Add(2, 2);
+            QuestCountDict.Add(3, 1);
+            QuestCountDict.Add(4, 1);
+            QuestCountDict.Add(5, 1);
+            QuestCountDict.Add(6, 1);
+        }
+        else
+        {
+            QuestCountDict.Add(1, 5);
+            QuestCountDict.Add(2, 5);
+            QuestCountDict.Add(3, 5);
+        }
 
     }
 
