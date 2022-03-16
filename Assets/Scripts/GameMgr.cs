@@ -1191,16 +1191,35 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Clear();
 
         bgm_collection_list.Add(new SpecialTitle(001, "bgm1", "デフォルト", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "朝露のワルツ", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "フェアリー・アンド・バタフライ", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エリーのカンツォーネ", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(006, "bgm6", "ずんたかぽんぽん・マーチ！", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィーのエレガントなティータイム", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫、さんぽ街道まっしぐら", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(009, "bgm9", "木漏れ日に包まれて", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエの一日", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "太陽のワルツ", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "アイネ・クライネ・フィー", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));      
+        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィーのティータイム", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie"));       
+        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエ", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(012, "bgm12", "近くの森", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(014, "bgm14", "ベリーファーム", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(009, "bgm9", "陽だまりの午後", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(013, "bgm13", "いちごのおさんぽ道", false, "Items/neko_cookie"));      
+        bgm_collection_list.Add(new SpecialTitle(015, "bgm15", "ひまわりの想い出", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(016, "bgm16", "井戸～Ido～", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(017, "bgm17", "鳥たちの楽園", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(018, "bgm18", "白猫のお墓<ジムノペディ～第1番～>", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(019, "bgm19", "シャーリーのブルネット", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(023, "bgm23", "プリンのお菓子店", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(024, "bgm24", "モタリケ・ファ～ム", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(025, "bgm25", "クエスト日和", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(006, "bgm6", "ずんたかぽんぽん・マーチ！", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(022, "bgm22", "不思議な3分間クッキング", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(020, "bgm20", "Welcome to ヒカリのアトリエ", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(021, "bgm21", "風と共に", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(026, "bgm26", "ピクニックだよ！にいちゃん！", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(027, "bgm27", "小さな海の冒険", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(028, "bgm28", "天空の庭", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(029, "bgm29", "あったか帰り道", false, "Items/neko_cookie"));
+
     }
 
     //音楽リストのnameを入れると、フラグを置き換えるメソッド

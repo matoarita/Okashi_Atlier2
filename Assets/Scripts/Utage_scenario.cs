@@ -2017,6 +2017,7 @@ public class Utage_scenario : MonoBehaviour
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
+        Debug.Log("お菓子アフター感想　宴処理スタート");
         if (GameMgr.okashiafter_status == 0)
         {
             scenarioLabel = "SpOkashiAfter"; //イベントレシピタグのシナリオを再生。

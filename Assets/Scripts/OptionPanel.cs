@@ -30,6 +30,10 @@ public class OptionPanel : MonoBehaviour {
     private Text GameSpeed_paramtext;
     private Text music_paramtext;
 
+    private GameObject MusicSelect_panel;
+    private GameObject bgm_select_content;
+    private GameObject bgm_select_obj;
+
     private Toggle Autosave_on_toggle;
     private GameObject Autosave_text_obj;
 
@@ -117,6 +121,11 @@ public class OptionPanel : MonoBehaviour {
         Gamespeed_Panel = this.transform.Find("OptionList/Viewport/Content/GameSpeed").gameObject;
         BGMSelectPanel = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel").gameObject;
 
+        MusicSelect_panel = this.transform.Find("MusicSelectPanel").gameObject;
+        MusicSelect_panel.SetActive(false);
+        bgm_select_content = this.transform.Find("MusicSelectPanel/Scroll_View/Viewport/Content").gameObject;
+        bgm_select_obj = (GameObject)Resources.Load("Prefabs/BGMSelect");
+
         if (GameMgr.AUTOSAVE_ON)
         {
             Autosave_on_toggle.SetIsOnWithoutCallback(true);
@@ -160,35 +169,47 @@ public class OptionPanel : MonoBehaviour {
                     //BGM所持チェック
                     BGMFlagCheck();
 
-                    //BGMセレクトをONにするときは、以下の命令もONにする。
+                    //BGMリストの初期化
                     bgm_toggle.Clear();
-                    foreach (Transform child in this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Scroll_View/Viewport/Content").transform) //
+                    foreach (Transform child in bgm_select_content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
                     {
-                        bgm_toggle.Add(child.gameObject);
+                        Destroy(child.gameObject);
                     }
+
+                    for (i = 0; i < GameMgr.bgm_collection_list.Count; i++)
+                    {
+                        bgm_toggle.Add(Instantiate(bgm_select_obj, bgm_select_content.transform));
+                        bgm_toggle[i].GetComponent<bgmSelectToggle>().toggle_ID = i;
+
+                        //デバッグ用　全部ON
+                        GameMgr.bgm_collection_list[i].Flag = true;
+                        //デバッグ用  ここまで
+                    }
+
+
 
                     for (i = 0; i < bgm_toggle.Count; i++)
                     {
+                        bgm_toggle[i].transform.Find("Background/MusicTextBack").gameObject.SetActive(true);
+                        bgm_toggle[i].transform.Find("Background/MusicText").gameObject.SetActive(false);
+
                         if (GameMgr.bgm_collection_list[i].Flag)
-                        {
-                            bgm_toggle[i].transform.Find("Background/Text_kaikinOn").gameObject.SetActive(true);
+                        {                            
+                            bgm_toggle[i].transform.Find("Background/MusicTextBack").GetComponent<Text>().text = GameMgr.bgm_collection_list[i].titleNameHyouji;
+                            bgm_toggle[i].transform.Find("Background/MusicText").GetComponent<Text>().text = GameMgr.bgm_collection_list[i].titleNameHyouji;
                             bgm_toggle[i].transform.GetComponent<Toggle>().interactable = true;
-                            bgm_toggle[i].transform.GetComponent<Sound_Trigger>().enabled = true;
+                            bgm_toggle[i].transform.GetComponent<Sound_Trigger>().enabled = true;                           
                         }
                         else
                         {
-                            bgm_toggle[i].transform.Find("Background/Text_kaikinOn").gameObject.SetActive(false);
+                            bgm_toggle[i].transform.Find("Background/MusicTextBack").GetComponent<Text>().text = "???";
                             bgm_toggle[i].transform.GetComponent<Toggle>().interactable = false;
                             bgm_toggle[i].transform.GetComponent<Sound_Trigger>().enabled = false;
                         }
                     }
 
-                    for (i = 0; i < bgm_toggle.Count; i++)
-                    {
-                        bgm_toggle[i].GetComponent<Toggle>().SetIsOnWithoutCallback(false);
-                    }
-                    bgm_toggle[GameMgr.userBGM_Num].GetComponent<Toggle>().SetIsOnWithoutCallback(true);
-                    music_paramtext.text = "♪ " + GameMgr.bgm_collection_list[GameMgr.userBGM_Num].titleNameHyouji;
+                    //現在のBGMの表示更新
+                    DrawBGMSelectToggle();
 
                     //ゲームスピード変更のトグル
                     gamespeed_toggle.Clear();
@@ -260,21 +281,12 @@ public class OptionPanel : MonoBehaviour {
         //ステージクリアボタンの音量は、「StageClear_Button」スクリプトで直接調整
     }
 
-    public void SelectBGM()
+    public void SelectBGM(int _id)
     {
-        i = 0;
-        while(i < bgm_toggle.Count)
-        {
-            if(bgm_toggle[i].GetComponent<Toggle>().isOn)
-            {
-                GameMgr.userBGM_Num = i;
-                music_paramtext.text = "♪ " + GameMgr.bgm_collection_list[GameMgr.userBGM_Num].titleNameHyouji;
-                break;
-            }
-            i++;
-        }
+        GameMgr.userBGM_Num = _id;
+        music_paramtext.text = "♪ " + GameMgr.bgm_collection_list[GameMgr.userBGM_Num].titleNameHyouji;
 
-        //GameMgr.userBGM_Num = Bgm_dropdown.value;
+        DrawBGMSelectToggle();
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -284,6 +296,21 @@ public class OptionPanel : MonoBehaviour {
                 break;
         }
 
+    }
+
+    void DrawBGMSelectToggle()
+    {
+        for (i = 0; i < bgm_toggle.Count; i++)
+        {
+            bgm_toggle[i].GetComponent<Toggle>().SetIsOnWithoutCallback(false);
+            bgm_toggle[i].transform.Find("Background/MusicText").gameObject.SetActive(false);
+            bgm_toggle[i].transform.Find("BG_Particle_Light").gameObject.SetActive(false);
+        }
+
+        bgm_toggle[GameMgr.userBGM_Num].GetComponent<Toggle>().SetIsOnWithoutCallback(true);
+        bgm_toggle[GameMgr.userBGM_Num].transform.Find("Background/MusicText").gameObject.SetActive(true);
+        bgm_toggle[GameMgr.userBGM_Num].transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+        music_paramtext.text = "♪ " + GameMgr.bgm_collection_list[GameMgr.userBGM_Num].titleNameHyouji;
     }
 
     public void GameSpeedChange()
@@ -420,5 +447,16 @@ public class OptionPanel : MonoBehaviour {
                 this.gameObject.SetActive(false);
                 break;
         }
+    }
+
+    public void OnMusicSelectPanel()
+    {
+        //音楽セレクト画面をオンに。
+        MusicSelect_panel.SetActive(true);
+    }
+    public void BackMusicSelect()
+    {
+        //音楽セレクト画面をオフに。
+        MusicSelect_panel.SetActive(false);
     }
 }

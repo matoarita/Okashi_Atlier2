@@ -3160,6 +3160,7 @@ public class Compound_Main : MonoBehaviour
 
     public void ReadGirlLoveEvent_Fire() //EventDataBaseから読み出し
     {
+        Debug.Log("ReadGirlLoveEvent_Fire");
         StartCoroutine("ReadGirlLoveEvent");
     }
 
@@ -3184,10 +3185,10 @@ public class Compound_Main : MonoBehaviour
             yield return null;
         }
 
-        while (girlEat_judge.heart_count > 0)
+        /*while (girlEat_judge.heart_count > 0)
         {
             yield return null;
-        }
+        }*/
 
         //吹き出しオフはこのタイミングで。
         girl1_status.hukidasiOff();

@@ -31,6 +31,17 @@ public class BGM : MonoBehaviour {
     public AudioClip sound20;  //Stage1MainのBGM4
     public AudioClip sound21;  //Stage1MainのBGM5
     public AudioClip sound22;  //Stage1MainのBGM6
+    public AudioClip sound23;  //広場のBGM
+    public AudioClip sound24;  //タイトルのBGM
+    public AudioClip sound25;  //EDのBGM
+    public AudioClip sound26;  //調合不思議なクッキングのBGM
+    public AudioClip sound27;  //ショップのBGM
+    public AudioClip sound28;  //モタリケ牧場のBGM
+    public AudioClip sound29;  //酒場のBGM
+    public AudioClip sound30;  //ピクニック1のBGM
+    public AudioClip sound31;  //ピクニック2のBGM
+    public AudioClip sound32;  //ピクニック3のBGM
+    public AudioClip sound33;  //ピクニック帰りのBGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -209,22 +220,29 @@ public class BGM : MonoBehaviour {
             }
             else
             {
-                switch (GameMgr.stage_number)
+                if (GameMgr.Story_Mode == 0)
                 {
-                    case 1:
+                    switch (GameMgr.stage_number)
+                    {
+                        case 1:
 
-                        Story_BGMSelect();
-                        break;
+                            Story_BGMSelect();
+                            break;
 
-                    case 2:
+                        case 2:
 
-                        _bgm[0].clip = sound6;
-                        break;
+                            _bgm[0].clip = sound6;
+                            break;
 
-                    case 3:
+                        case 3:
 
-                        _bgm[0].clip = sound7;
-                        break;
+                            _bgm[0].clip = sound7;
+                            break;
+                    }
+                }
+                else
+                {
+                    _bgm[0].clip = sound1; //エクストラモード専用曲
                 }
             }
         }
@@ -275,58 +293,149 @@ public class BGM : MonoBehaviour {
 
     void OngakuZukanSelect()
     {
-        switch(GameMgr.userBGM_Num)
+               
+        switch(GameMgr.bgm_collection_list[GameMgr.userBGM_Num].titleName)
         {
             //case 0はストーリーのデフォルト
 
-            case 1:
+            case "bgm2":
 
                 _bgm[0].clip = sound20;
                 break;
 
-            case 2:
+            case "bgm3":
 
                 _bgm[0].clip = sound21;
                 break;
 
-            case 3:
+            case "bgm4":
 
                 _bgm[0].clip = sound18;
                 break;
 
-            case 4:
+            case "bgm5":
 
                 _bgm[0].clip = sound19;
                 break;
 
-            case 5:
+            case "bgm6":
 
                 _bgm[0].clip = sound10;
                 break;
 
-            case 6:
+            case "bgm7":
 
                 _bgm[0].clip = sound6;
                 break;
 
-            case 7:
+            case "bgm8":
 
                 _bgm[0].clip = sound7;
                 break;
 
-            case 8:
+            case "bgm9":
 
                 _bgm[0].clip = sound11;
                 break;
 
-            case 9:
+            case "bgm10":
 
                 _bgm[0].clip = sound1;
                 break;
 
-            case 10:
+            case "bgm11":
 
                 _bgm[0].clip = sound22;
+                break;
+
+            case "bgm12":
+
+                _bgm[0].clip = sound4;
+                break;
+
+            case "bgm13":
+
+                _bgm[0].clip = sound8;
+                break;
+
+            case "bgm14":
+
+                _bgm[0].clip = sound17;
+                break;
+
+            case "bgm15":
+
+                _bgm[0].clip = sound9;
+                break;
+
+            case "bgm16":
+
+                _bgm[0].clip = sound5;
+                break;
+
+            case "bgm17":
+
+                _bgm[0].clip = sound12;
+                break;
+
+            case "bgm18":
+
+                _bgm[0].clip = sound15;
+                break;
+
+            case "bgm19":
+
+                _bgm[0].clip = sound23;
+                break;
+
+            case "bgm20":
+
+                _bgm[0].clip = sound24;
+                break;
+
+            case "bgm21":
+
+                _bgm[0].clip = sound25;
+                break;
+
+            case "bgm22":
+
+                _bgm[0].clip = sound26;
+                break;
+
+            case "bgm23":
+
+                _bgm[0].clip = sound27;
+                break;
+
+            case "bgm24":
+
+                _bgm[0].clip = sound28;
+                break;
+
+            case "bgm25":
+
+                _bgm[0].clip = sound29;
+                break;
+
+            case "bgm26":
+
+                _bgm[0].clip = sound30;
+                break;
+
+            case "bgm27":
+
+                _bgm[0].clip = sound31;
+                break;
+
+            case "bgm28":
+
+                _bgm[0].clip = sound32;
+                break;
+
+            case "bgm29":
+
+                _bgm[0].clip = sound33;
                 break;
 
             default:

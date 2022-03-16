@@ -3060,102 +3060,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_3();
     }
 
-
-
-    //
-    //スコア表示パネルを押したらこのメソッドが呼び出し
-    //
-    public void ResultPanel_On()
-    {
-        ScoreHyoujiPanel.SetActive(false);
-        sc.PlaySe(2);
-
-        if (subQuestClear_check)
-        {
-            //クリアフラッグをたてる。
-            _temp_count = 0;
-            while (_temp_count <= girl1_status.OkashiQuest_ID)
-            {
-                _temp_count += 100;
-                if (_temp_count > girl1_status.OkashiQuest_ID)
-                {
-                    _temp_count -= 100;
-                    break;
-                }
-            }
-
-            switch (_temp_count)
-            {
-                case 1000: //クッキー系完了
-
-                    GameMgr.OkashiQuest_flag_stage1[0] = true;
-
-                    break;
-
-                case 1100: //ラスク
-
-                    GameMgr.OkashiQuest_flag_stage1[1] = true;
-
-                    break;
-
-                case 1200: //クレープ
-
-                    GameMgr.OkashiQuest_flag_stage1[2] = true;
-
-                    break;
-
-                case 1300: //シュークリーム
-
-                    GameMgr.OkashiQuest_flag_stage1[3] = true;
-
-                    break;
-
-                case 1400: //ドーナツ
-
-                    GameMgr.OkashiQuest_flag_stage1[4] = true;
-
-                    break;
-
-                default:
-                    break;
-            }
-
-            ClearQuestName();
-            MainQuestText.text = _mainquest_name;
-
-            if (!GameMgr.high_score_flag) //通常クリア
-            {
-                _set_MainQuestID = _temp_count;
-            }
-            else
-            {
-                _set_MainQuestID = _temp_count + 1;
-            }
-
-            StartCoroutine("MainQuestClearEvent");
-
-        }
-        else
-        {
-            if (!GameMgr.tutorial_ON)
-            {
-                //クエストまだクリアでなければ、お菓子の感想を表示する。
-                StartCoroutine("OkashiAfter_Comment");
-            }
-            else //チュートリアル中の特殊処理
-            {
-                GameMgr.tutorial_Progress = true; //チュートリアル時、パネルを押したよ～のフラグ
-                ResultOFF();
-
-                //お菓子の判定処理を終了
-                compound_Main.girlEat_ON = false;
-                GameMgr.compound_status = 0;
-            }
-        }      
-    }
-
-    
-
     
 
     //
@@ -3942,6 +3846,105 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 {
                     _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name3;
                 }
+            }
+        }
+    }
+
+    //
+    //スコア表示パネルを押したらこのメソッドが呼び出し
+    //
+    public void ResultPanel_On()
+    {
+        ScoreHyoujiPanel.SetActive(false);
+        sc.PlaySe(2);
+
+        if (subQuestClear_check)
+        {
+            //クリアフラッグをたてる。
+            _temp_count = 0;
+            while (_temp_count <= girl1_status.OkashiQuest_ID)
+            {
+                _temp_count += 100;
+                if (_temp_count > girl1_status.OkashiQuest_ID)
+                {
+                    _temp_count -= 100;
+                    break;
+                }
+            }
+
+            switch (_temp_count)
+            {
+                case 1000: //クッキー系完了
+
+                    GameMgr.OkashiQuest_flag_stage1[0] = true;
+
+                    break;
+
+                case 1100: //ラスク
+
+                    GameMgr.OkashiQuest_flag_stage1[1] = true;
+
+                    break;
+
+                case 1200: //クレープ
+
+                    GameMgr.OkashiQuest_flag_stage1[2] = true;
+
+                    break;
+
+                case 1300: //シュークリーム
+
+                    GameMgr.OkashiQuest_flag_stage1[3] = true;
+
+                    break;
+
+                case 1400: //ドーナツ
+
+                    GameMgr.OkashiQuest_flag_stage1[4] = true;
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            ClearQuestName();
+            MainQuestText.text = _mainquest_name;
+
+            if (GameMgr.Story_Mode == 0)
+            {
+                if (!GameMgr.high_score_flag) //通常クリア
+                {
+                    _set_MainQuestID = _temp_count;
+                }
+                else //ハイスコアクリア　直前で食べたお菓子で85~だせばフラグがたつ。
+                {
+                    _set_MainQuestID = _temp_count + 1;
+                }
+            }
+            else
+            {
+                _set_MainQuestID = _temp_count;
+            }
+
+            StartCoroutine("MainQuestClearEvent");
+
+        }
+        else
+        {
+            if (!GameMgr.tutorial_ON)
+            {
+                //クエストまだクリアでなければ、お菓子の感想を表示する。
+                StartCoroutine("OkashiAfter_Comment");
+            }
+            else //チュートリアル中の特殊処理
+            {
+                GameMgr.tutorial_Progress = true; //チュートリアル時、パネルを押したよ～のフラグ
+                ResultOFF();
+
+                //お菓子の判定処理を終了
+                compound_Main.girlEat_ON = false;
+                GameMgr.compound_status = 0;
             }
         }
     }
