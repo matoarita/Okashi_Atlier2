@@ -3171,7 +3171,7 @@ public class Compound_Main : MonoBehaviour
         Extremepanel_obj.SetActive(false);
         compoBG_A.SetActive(false);
         girl_love_exp_bar.SetActive(true);
-        GameMgr.GirlLove_loading = true;
+        GameMgr.GirlLove_loading = true;        
 
         //腹減りカウント一時停止
         girl1_status.GirlEatJudgecounter_OFF();
@@ -3522,18 +3522,11 @@ public class Compound_Main : MonoBehaviour
 
                 //
                 matplace_database.matPlaceKaikin("Farm"); //牧場解禁
-
-                //
                 matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
-
-                //
                 matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
-
-                //
                 matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁
-
-                //
                 matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁
+                matplace_database.matPlaceKaikin("Hiroba"); //広場解禁
             }
 
             //二週目以降、自動で出てくる。
@@ -3577,7 +3570,7 @@ public class Compound_Main : MonoBehaviour
 
             if (GameMgr.Story_Mode == 0)
             {
-                switch (GameMgr.OkashiQuest_Num)
+                switch (GameMgr.GirlLoveEvent_num)
                 {
                     case 0: //クッキー
 
@@ -3746,13 +3739,20 @@ public class Compound_Main : MonoBehaviour
     //ゲームの進行度合いなどに応じて、表示ボタンなどを追加する。
     public void CheckButtonFlag()
     {
-        if (GameMgr.GirlLoveSubEvent_stage1[0] || GameMgr.OkashiQuest_Num >= 1)
+        if (GameMgr.Story_Mode == 0)
         {
-            hinttaste_toggle.SetActive(true);
+            if (GameMgr.GirlLoveSubEvent_stage1[0] || GameMgr.GirlLoveEvent_num >= 1)
+            {
+                hinttaste_toggle.SetActive(true);
+            }
+            else
+            {
+                hinttaste_toggle.SetActive(false);
+            }
         }
         else
         {
-            hinttaste_toggle.SetActive(false);
+            hinttaste_toggle.SetActive(true);
         }
 
         //まだお菓子を作ったことがなかったら、生地をクリックボタンが登場

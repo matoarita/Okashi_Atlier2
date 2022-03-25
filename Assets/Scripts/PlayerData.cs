@@ -247,6 +247,9 @@ public class PlayerData
     //ストーリーモード
     public int save_Story_Mode;
 
+    //ゲームバージョン情報
+    public float save_GameVersion;
+    public string save_GameSaveDaytime;
 
     public override string ToString()
     {

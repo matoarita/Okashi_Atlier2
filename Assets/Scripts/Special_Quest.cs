@@ -73,7 +73,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         InitQuestCount();
 
         spquest_set_num = _num;
-        GameMgr.OkashiQuest_Num = _num; //現在のクエストナンバーを設定　GirlLoveEvent_numと数値は一緒
+        GameMgr.GirlLoveEvent_num = _num; //現在のクエストナンバーを設定
 
         //ステージの判定　10桁目をみてステージ数を自動で検出 1の位の数もみて、現在のクエスト番号を見る。
         _stage_count = 1;
@@ -134,7 +134,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         GameMgr.stage_quest_num_sub = OkashiQuest_Count;
 
-        if (GameMgr.OkashiQuest_Num != 50)
+        if (GameMgr.GirlLoveEvent_num != 50)
         {
             OkashiQuest_Number = GameMgr.stage_quest_num.ToString() + "-" + OkashiQuest_Count.ToString(); //表示用のステージ番号
         }

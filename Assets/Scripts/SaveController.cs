@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System; //DateTimeを使用する為追加。
 
 public class SaveController : SingletonMonoBehaviour<SaveController>
 {
@@ -869,6 +870,19 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //受けていた酒場クエストのリセット
         quest_database.ResetQuestTakeSet();
+
+        //エクストリームパネルも空に。
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                //キャンバスの読み込み
+                canvas = GameObject.FindWithTag("Canvas");
+                extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponentInChildren<ExtremePanel>();
+                extreme_panel.deleteExtreme_Item();
+                break;
+        }
+
     }
 
     //ゲーム「はじめから」で、システムロード後に、再度リセットする。絶対にリセットしておきたいパラメータだけ、再度リセットするイメージ。
@@ -1024,6 +1038,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ストーリーモード
             save_Story_Mode = GameMgr.Story_Mode,
+
+            //バージョン情報
+            save_GameVersion = GameMgr.GameVersion,
+            save_GameSaveDaytime = DateTime.Now.ToString("yyyy.MM.dd.HH.mm"),
         };
 
         //データの一時保存。bankに、playerDataを「player1」という名前で現在のデータを保存。
@@ -1062,7 +1080,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //*** 以下、読み込み・更新 ***
             //
 
-            //
+            //バージョン情報 セーブデータのバージョン情報を読み込む。現行バージョンとあとで比較して、なんらかの処理を行う。
+            GameMgr.Load_GameVersion = systemData.save_GameVersion;
+            GameMgr.Load_GameSaveDaytime = systemData.save_GameSaveDaytime;
+
+            //セーブやED関係
             GameMgr.saveOK = systemData.save_saveOK;
             GameMgr.ending_count = systemData.save_ending_count;
 
@@ -1070,7 +1092,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
 
             //PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
-            PlayerStatus.player_girl_maxlifepoint = systemData.save_player_girl_maxlifepoint_system; // 女の子のMAX体力　システム引継ぎ用
+            if (systemData.save_player_girl_maxlifepoint_system != 0) //ver途中から引継ぎするように仕様変更。なので例外処理をいれる。
+            {
+                PlayerStatus.player_girl_maxlifepoint = systemData.save_player_girl_maxlifepoint_system; // 女の子のMAX体力　システム引継ぎ用
+            }
+            else
+            {
+                PlayerStatus.player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint_default;
+            }
 
             //コスチューム番号
             GameMgr.Costume_Num = systemData.save_costume_num;
@@ -1216,8 +1245,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 }
             }
 
-            
-
 
             //音設定データ
             GameMgr.MasterVolumeParam = systemData.save_masterVolumeparam;
@@ -1225,11 +1252,22 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.SeVolumeParam = systemData.save_SeVolumeParam;
 
             //ストーリーモード
-            GameMgr.Story_Mode = systemData.save_Story_Mode;
+            if(GameMgr.Load_GameVersion >= 1.20f) //バージョン1.2以降で追加したので、それ以前のセーブデータではstory_modeは0に。
+            {
+                GameMgr.Story_Mode = systemData.save_Story_Mode;
+            }
+            else //そもそも古いバージョンではセーブデータ自体がない。その場合、デタラメな数値が入る可能性があるので、その際の例外処理
+            {
+                GameMgr.Story_Mode = 0; //強制的に本編のモードに。
+            }        
 
+            
             Debug.Log("システムロード完了");
             Debug.Log("エンディング回数: " + GameMgr.ending_count);
             Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
+            Debug.Log("現行のバージョン情報: " + GameMgr.GameVersion);
+            Debug.Log("セーブデータのバージョン情報: " + GameMgr.Load_GameVersion);
+            Debug.Log("セーブデータの日付: " + GameMgr.Load_GameSaveDaytime);
         }
 
         //音量データの再読み込み

@@ -1225,7 +1225,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GameMgr.camerazoom_endflag = false;
 
             //最初にお菓子にまつわるヒントやお話。宴へとぶ。SpOkashiBeforeコメント。
-            GameMgr.scenario_ON = true;
+            
             if (GameMgr.Story_Mode == 0)
             {
                 GameMgr.sp_okashi_ID = Set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
@@ -1234,6 +1234,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 GameMgr.sp_okashi_ID = 10000;
             }
+
+            GameMgr.scenario_ON = true;
             GameMgr.sp_okashi_hintflag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
                                                //Debug.Log("レシピ: " + pitemlist.eventitemlist[recipi_num].event_itemNameHyouji);
             while (!GameMgr.recipi_read_endflag)

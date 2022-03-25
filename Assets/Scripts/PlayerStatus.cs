@@ -32,6 +32,9 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_eatCount;         //妹が食べたお菓子の回数
     public static int player_girl_yaruki;         //妹のやる気　隠しパラメータ　しかったりすると永続的に下がる。
 
+    //セーブしない
+    public static int player_girl_maxlifepoint_default;     //妹の体力のMAXデフォルト
+
     //エクストラモード
     public static int player_girl_manpuku;         //妹の満腹度　ハードモードで使用
 
@@ -93,7 +96,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         girl1_Love_lv = 1;
         player_girl_findpower_def = 100;
         player_girl_findpower = player_girl_findpower_def; //探索力
-        player_girl_maxlifepoint = 10;
+        player_girl_maxlifepoint_default = 10;
+        player_girl_maxlifepoint = player_girl_maxlifepoint_default;
         player_girl_lifepoint = player_girl_maxlifepoint;
         player_girl_eatCount = 0;
         player_girl_yaruki = 100;

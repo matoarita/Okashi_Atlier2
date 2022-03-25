@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Hiroba_Main2 : MonoBehaviour
 {
+    //
+    //** 広場全部で共通スクリプト **
+    //
 
     private GameObject text_area;
     private Text _text;
@@ -82,8 +85,8 @@ public class Hiroba_Main2 : MonoBehaviour
         timepanel = canvas.transform.Find("TimePanel").gameObject;
         time_controller = canvas.transform.Find("TimePanel").GetComponent<TimeController>();
 
-        time_controller.TimeCheck_flag = true;
-        time_controller.TimeKoushin(); //時間の更新
+        //time_controller.TimeCheck_flag = true;
+        //time_controller.TimeKoushin(); //時間の更新
 
     }
 
@@ -141,6 +144,8 @@ public class Hiroba_Main2 : MonoBehaviour
         GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
         GameMgr.compound_status = 1000;
 
+        //Debug.Log("広場イベント　読み中");
+
         while (!GameMgr.scenario_read_endflag)
         {
             yield return null;
@@ -152,7 +157,6 @@ public class Hiroba_Main2 : MonoBehaviour
 
         //読み終わったら、またウィンドウなどを元に戻す。
         text_area.SetActive(true);
-        //timepanel.SetActive(true);
         mainlist_controller2_obj.SetActive(true);
 
         //音を戻す。

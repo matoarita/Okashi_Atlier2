@@ -182,7 +182,7 @@ public class OptionPanel : MonoBehaviour {
                         bgm_toggle[i].GetComponent<bgmSelectToggle>().toggle_ID = i;
 
                         //デバッグ用　全部ON
-                        GameMgr.bgm_collection_list[i].Flag = true;
+                        //GameMgr.bgm_collection_list[i].Flag = true;
                         //デバッグ用  ここまで
                     }
 

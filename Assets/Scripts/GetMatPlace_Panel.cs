@@ -91,7 +91,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int select_place_day;
     private int _place_num;
 
-    private bool Slot_view_on;
     public int slot_view_status;
 
     private int i, j;
@@ -279,7 +278,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         select_place_num = 0;
 
-        Slot_view_on = false;
         slot_view_status = 0;
 
         next_on = false;
@@ -358,52 +356,44 @@ public class GetMatPlace_Panel : MonoBehaviour {
         if (move_anim_end == true)
         {
             move_anim_end = false;
-            Slot_view_on = true;
             slot_view_status = 0;
-        }
 
-        if ( Slot_view_on == true )
-        {
             //シーン移動のマップは、そのままシーン移動
             switch (select_place_name)
             {
                 case "Hiroba":
 
-                    Slot_view_on = false;
                     FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
                     break;
 
                 case "Shop":
 
-                    Slot_view_on = false;
                     FadeManager.Instance.LoadScene("Shop", 0.3f);
                     break;
 
                 case "Bar":
 
-                    Slot_view_on = false;
                     FadeManager.Instance.LoadScene("Bar", 0.3f);
                     break;
 
                 case "Emerald_Shop":
 
-                    Slot_view_on = false;
                     FadeManager.Instance.LoadScene("Emerald_Shop", 0.3f);
                     break;
 
                 case "Farm":
 
-                    Slot_view_on = false;
                     FadeManager.Instance.LoadScene("Farm", 0.3f);
                     break;
 
                 default:
-                    
+
                     //採取地表示
                     Slot_View();
                     break;
-            }                    
+            }
         }
+        
 
         if (treasure_anim_on == true)
         {
@@ -642,8 +632,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     //お金の消費
                     moneyStatus_Controller.UseMoney(mat_cost);
 
+                    //リザルトアイテムをリセット
+                    InitializeResultItemDicts();
+                    get_material.SetInit();
+
                     //腹も減る
-                    if(GameMgr.Story_Mode != 0)
+                    if (GameMgr.Story_Mode != 0)
                     {
                         PlayerStatus.player_girl_manpuku -= 10;
                     }
@@ -689,11 +683,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 OpenTreasureButton_obj.SetActive(false);
                 NextButton_obj.SetActive(false);
 
-                if (!next_on)//先へ進まない場合は、リセットしない。
+                /*if (!next_on)//先へ進まない場合は、リセットしない。
                 {
                     InitializeResultItemDicts();
                     get_material.SetInit();
-                } 
+                } */
 
                 slot_view_status = 1;
                 GameMgr.compound_status = 22;
@@ -758,17 +752,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             {
                                 event_end_flag = true;
 
-
-                                if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている //pitemlist.ReturnItemKosu("shishamo_cookie") != 9999
+                                if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている
                                 {
                                     if(exp_Controller._temp_extremeSetting && 
                                         pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemName == "shishamo_cookie")
                                     {
                                         GameMgr.map_ev_ID = 11;
                                         GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                                        //pitemlist.SearchDeleteItem("shishamo_cookie"); //ししゃもクッキーを一個消費
-                                        //pitemlist.deleteOriginalItem(exp_Controller._temp_extreme_id, 1);
 
                                         subevent_on = true;
                                         sceneBGM.MuteBGM();
@@ -777,8 +767,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                         Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
 
                                         StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
-                                    }
-                                    
+                                    }                                    
                                 }
 
                             }
@@ -975,10 +964,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                             slot_view_status = 3; //イベント読み込み中用に退避
 
-                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            //event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
-                            //event_Frame.SetActive(true);
-
                             GameMgr.map_ev_ID = 50;
                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
@@ -1147,11 +1132,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 StatusPanelOFF();
 
-                if (next_on) //先へ進む場合
-                {
-                    
-                }
-
                 _text.text = "移動中 .";
                 moveanim_panel_image_text.GetComponent<Text>().text = "移動中 .";
                 break;
@@ -1236,8 +1216,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 modoru_anim_end = false;
 
                 yes_no_panel.SetActive(false);
-
-                Slot_view_on = false;
 
                 moveanim_panel.GetComponent<CanvasGroup>().DOFade(1, 0.5f); //背景黒フェード
                 moveanim_panel.GetComponent<GraphicRaycaster>().enabled = true;

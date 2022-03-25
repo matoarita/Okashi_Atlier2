@@ -1086,7 +1086,7 @@ public class GetMaterial : MonoBehaviour
 
             case 1:
 
-                _text.text = "あ、にいちゃん！　あそこにくろねこ、いるよ～！" + "\n" + "妹は、目をキラキラさせながら凝視している。";
+                _text.text = "あ、にいちゃん！　あそこにくろねこ、いるよ～！" + "\n" + "妹は、目をキラキラさせながらじっと見ている。";
                 break;
 
             case 2:
@@ -1110,7 +1110,7 @@ public class GetMaterial : MonoBehaviour
             case 5:
 
                 random_param = Random.Range(2, 6);
-                _text.text = "くん..。くん..。にいちゃん！　このくだもの.. おいしいよ♪　シャリシャリ。" + "\n" + "最大体力が " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                _text.text = "くん..。くん..。にいちゃん！　このりんご.. おいしいよ♪　シャリシャリ。" + "\n" + "最大体力が " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 PlayerStatus.player_girl_maxlifepoint += random_param;
                 break;
 
@@ -1929,6 +1929,7 @@ public class GetMaterial : MonoBehaviour
         return 0;
     }
 
+    //GetMatPlace_Panel.csからよみだし
     public void SetInit()
     {
         cullent_total_mat = 0;

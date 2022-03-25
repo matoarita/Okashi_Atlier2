@@ -165,7 +165,7 @@ public class Debug_Panel : MonoBehaviour {
             DebugInputOn.text = "Input:OFF";
         }
 
-        EventNumber_text.text = "Event: " + GameMgr.OkashiQuest_Num;
+        EventNumber_text.text = "Event: " + GameMgr.GirlLoveEvent_num;
         StageNumber_text.text = "Stage: " + GameMgr.stage_number;
 
         CStatus_text.text = "compound_Status: " + GameMgr.compound_status.ToString();
@@ -337,12 +337,17 @@ public class Debug_Panel : MonoBehaviour {
                         
                         GameMgr.GirlLoveEvent_stage1[event_num - 10] = true;
                         Debug.Log("event_num: " + event_num);
-                        special_quest.SetSpecialOkashi(event_num - 10, 0);
+                        if (GameMgr.Story_Mode == 0)
+                        {
+                            special_quest.SetSpecialOkashi(event_num - 10, 0);
+                        }
+                        else
+                        {
+                            special_quest.SetSpecialOkashi(event_num - 10, 2);
+                        }
 
                         //** 初期化               
                         girlEat_judge.subQuestClear_check = true; //強制的に、そのクエストをクリアしたことにする。
-                        girlEat_judge.Gameover_flag = false;
-                        girlEat_judge.clear_spokashi_status = 1; //SPお菓子でクリアしたことにする。
                         girlEat_judge.ResultPanel_On();
 
                         //現在のクエストの順番を、再度指定。（前クエストから始まるようにしているため）Special_Quest.csに揃える。
@@ -354,7 +359,14 @@ public class Debug_Panel : MonoBehaviour {
                         GameMgr.GirlLoveEvent_stage1[event_num] = true;
                         GameMgr.GirlLoveEvent_num = event_num;
                         Debug.Log("event_num: " + event_num);
-                        special_quest.SetSpecialOkashi(event_num, 0);
+                        if (GameMgr.Story_Mode == 0)
+                        {
+                            special_quest.SetSpecialOkashi(event_num, 0);
+                        }
+                        else
+                        {
+                            special_quest.SetSpecialOkashi(event_num, 2);
+                        }
 
                         girlEat_judge.subQuestClear_check = false;
                         girlEat_judge.ResultOFF();
@@ -382,7 +394,14 @@ public class Debug_Panel : MonoBehaviour {
                 //現在のクエストを再度設定
                 if (event_num != 0)
                 {
-                    special_quest.SetSpecialOkashi(event_num, 0);
+                    if (GameMgr.Story_Mode == 0)
+                    {
+                        special_quest.SetSpecialOkashi(event_num, 0);
+                    }
+                    else
+                    {
+                        special_quest.SetSpecialOkashi(event_num, 2);
+                    }
                     GameMgr.GirlLoveEvent_num = event_num;
                     GameMgr.GirlLoveEvent_stage1[event_num] = true;
                     Debug.Log("event_num: " + event_num);

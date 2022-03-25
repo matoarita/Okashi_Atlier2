@@ -183,6 +183,12 @@ public class ExtremePanel : MonoBehaviour {
 
             myscene_loaded = false;
         }
+
+        if(pitemlistController_obj == null)
+        { //Compound_Mainのトッピング時と処理が同じ
+            pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+        }
         
         /*
         if( Life_anim_on == true) //お菓子が完成したら、だんだんとHPが減っていく。０になると、お菓子が壊れる。
@@ -323,10 +329,6 @@ public class ExtremePanel : MonoBehaviour {
     {
 
         extreme_Button.interactable = false;
-
-        //Compound_Mainのトッピング時と処理が同じ
-        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
         if (extreme_itemID != 9999)
         {

@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class MainListController2 : MonoBehaviour
 {
+    //
+    //** 広場全部で共通スクリプト **
+    //
+
+
     private GameObject canvas;
 
     private ItemMatPlaceDataBase matplace_database;
@@ -34,6 +39,13 @@ public class MainListController2 : MonoBehaviour
     private Toggle npc8_toggle;
     private Toggle shopstreet_toggle;
     private Toggle hiroba1_toggle;
+
+    //3番外関連のトグル
+    private GameObject hiroba3_npc1_toggle_obj;
+    private GameObject hiroba3_back_toggle_obj;
+
+    private Toggle hiroba3_npc1_toggle;
+    private Toggle hiroba3_back_toggle;
 
     private GameObject text_area;
     private Text _text;
@@ -75,46 +87,60 @@ public class MainListController2 : MonoBehaviour
         //自身のレイアウトグループ情報の取得
         gridlayout = this.transform.Find("Viewport/Content_Main").GetComponent<GridLayoutGroup>();
         list_BG = this.transform.Find("ListBGimage").gameObject;
-        defaultPos = this.transform.localPosition;      
-
-        if (GameMgr.hiroba_event_end[0])
-        {
-            MenuWindowExpand();
-        }
+        defaultPos = this.transform.localPosition;             
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
-        npc1_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC1_SelectToggle").gameObject;
-        npc2_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC2_SelectToggle").gameObject;
-        npc3_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC3_SelectToggle").gameObject;
-        npc4_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC4_SelectToggle").gameObject;
-        npc5_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC5_SelectToggle").gameObject;
-        npc6_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC6_SelectToggle").gameObject;
-        npc7_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC7_SelectToggle").gameObject;
-        npc8_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC8_SelectToggle").gameObject;
-        shopstreet_toggle_obj = this.transform.Find("Viewport/Content_Main/ShopStreet_SelectToggle").gameObject;
-        hiroba1_toggle_obj = this.transform.Find("Viewport/Content_Main/Hiroba1_SelectToggle").gameObject;
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Hiroba2":
+                npc1_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC1_SelectToggle").gameObject;
+                npc2_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC2_SelectToggle").gameObject;
+                npc3_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC3_SelectToggle").gameObject;
+                npc4_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC4_SelectToggle").gameObject;
+                npc5_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC5_SelectToggle").gameObject;
+                npc6_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC6_SelectToggle").gameObject;
+                npc7_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC7_SelectToggle").gameObject;
+                npc8_toggle_obj = this.transform.Find("Viewport/Content_Main/NPC8_SelectToggle").gameObject;
+                shopstreet_toggle_obj = this.transform.Find("Viewport/Content_Main/ShopStreet_SelectToggle").gameObject;
+                hiroba1_toggle_obj = this.transform.Find("Viewport/Content_Main/Hiroba1_SelectToggle").gameObject;
 
 
-        npc1_toggle = npc1_toggle_obj.GetComponent<Toggle>();
-        npc2_toggle = npc2_toggle_obj.GetComponent<Toggle>();
-        npc3_toggle = npc3_toggle_obj.GetComponent<Toggle>();
-        npc4_toggle = npc4_toggle_obj.GetComponent<Toggle>();
-        npc5_toggle = npc5_toggle_obj.GetComponent<Toggle>();
-        npc6_toggle = npc6_toggle_obj.GetComponent<Toggle>();
-        npc7_toggle = npc7_toggle_obj.GetComponent<Toggle>();
-        npc8_toggle = npc8_toggle_obj.GetComponent<Toggle>();
-        shopstreet_toggle = shopstreet_toggle_obj.GetComponent<Toggle>();
-        hiroba1_toggle = hiroba1_toggle_obj.GetComponent<Toggle>();
+                npc1_toggle = npc1_toggle_obj.GetComponent<Toggle>();
+                npc2_toggle = npc2_toggle_obj.GetComponent<Toggle>();
+                npc3_toggle = npc3_toggle_obj.GetComponent<Toggle>();
+                npc4_toggle = npc4_toggle_obj.GetComponent<Toggle>();
+                npc5_toggle = npc5_toggle_obj.GetComponent<Toggle>();
+                npc6_toggle = npc6_toggle_obj.GetComponent<Toggle>();
+                npc7_toggle = npc7_toggle_obj.GetComponent<Toggle>();
+                npc8_toggle = npc8_toggle_obj.GetComponent<Toggle>();
+                shopstreet_toggle = shopstreet_toggle_obj.GetComponent<Toggle>();
+                hiroba1_toggle = hiroba1_toggle_obj.GetComponent<Toggle>();
 
-        //最初はoff
-        npc4_toggle_obj.SetActive(false);
-        npc5_toggle_obj.SetActive(false);
-        npc6_toggle_obj.SetActive(false);
-        npc7_toggle_obj.SetActive(false);
-        npc8_toggle_obj.SetActive(false);
-        shopstreet_toggle_obj.SetActive(false);
+                //最初はoff
+                npc4_toggle_obj.SetActive(false);
+                npc5_toggle_obj.SetActive(false);
+                npc6_toggle_obj.SetActive(false);
+                npc7_toggle_obj.SetActive(false);
+                npc8_toggle_obj.SetActive(false);
+                shopstreet_toggle_obj.SetActive(false);
+                break;
+
+            case "Hiroba3":
+
+                hiroba3_npc1_toggle_obj = this.transform.Find("Viewport/Content_Main/hiroba3_NPC1_SelectToggle").gameObject;
+                hiroba3_back_toggle_obj = this.transform.Find("Viewport/Content_Main/hiroba3_Back_SelectToggle").gameObject;
+                hiroba1_toggle_obj = this.transform.Find("Viewport/Content_Main/Hiroba1_SelectToggle").gameObject;
+
+                hiroba3_npc1_toggle = hiroba3_npc1_toggle_obj.GetComponent<Toggle>();
+                hiroba3_back_toggle = hiroba3_back_toggle_obj.GetComponent<Toggle>();
+                hiroba1_toggle = hiroba1_toggle_obj.GetComponent<Toggle>();
+
+                //最初はoff
+                hiroba3_npc1_toggle_obj.SetActive(false);
+                break;
+        }
 
         //フラグをチェックし、必要ならONにする。
         ToggleFlagCheck();
@@ -124,38 +150,76 @@ public class MainListController2 : MonoBehaviour
     {
         MovedPos = new Vector3(190, defaultPos.y, defaultPos.z);
         gridlayout.constraintCount = 2;
-        list_BG.GetComponent<RectTransform>().sizeDelta = new Vector2(410, list_BG.GetComponent<RectTransform>().sizeDelta.y);
+        list_BG.GetComponent<RectTransform>().sizeDelta = new Vector2(480, list_BG.GetComponent<RectTransform>().sizeDelta.y);
         this.transform.localPosition = MovedPos;
     }
 
     public void ToggleFlagCheck()
     {
-        //新しく4人のNPCのとこへいける
-        if(GameMgr.hiroba_event_end[0])
+        switch (SceneManager.GetActiveScene().name)
         {
-            npc5_toggle_obj.SetActive(true);
-            npc6_toggle_obj.SetActive(true);
-            npc7_toggle_obj.SetActive(true);
-            //npc8_toggle_obj.SetActive(true);
-        }
+            case "Hiroba2":
 
-        //パン工房へいける
-        if (GameMgr.hiroba_event_end[0] && GameMgr.hiroba_event_end[1])
-        {
-            npc4_toggle_obj.SetActive(true);
-        }
+                if (GameMgr.Story_Mode == 0)
+                {
+                    //新しく3人のNPCのとこへいける
+                    if (GameMgr.hiroba_event_end[0])
+                    {
+                        npc5_toggle_obj.SetActive(true);
+                        npc6_toggle_obj.SetActive(true);
+                        npc7_toggle_obj.SetActive(true);
+                    }
 
-        //ストロベリーガーデンへいける
-        if (GameMgr.hiroba_event_end[2])
-        {
-            matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。
-        }
+                    //パン工房へいける
+                    if (GameMgr.hiroba_event_end[0] && GameMgr.hiroba_event_end[1])
+                    {
+                        npc4_toggle_obj.SetActive(true);
+                    }
 
-        //ひまわり畑へいける
-        if (GameMgr.hiroba_event_end[7])
-        {
-            matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁　ひまわりの種がとれるようになる。
+                    //ストロベリーガーデンへいける
+                    if (GameMgr.hiroba_event_end[2])
+                    {
+                        matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。
+                    }
+
+                    //ひまわり畑へいける
+                    if (GameMgr.hiroba_event_end[7])
+                    {
+                        matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁　ひまわりの種がとれるようになる。
+                    }
+
+                    if (GameMgr.hiroba_event_end[0])
+                    {
+                        MenuWindowExpand();
+                    }
+                }
+                else
+                {
+                    MenuWindowExpand();
+                    npc4_toggle_obj.SetActive(true);
+                    npc5_toggle_obj.SetActive(true);
+                    npc6_toggle_obj.SetActive(true);
+                    npc7_toggle_obj.SetActive(true);
+
+                    //3番街へいける
+                    if (GameMgr.GirlLoveSubEvent_stage1[160])
+                    {
+                        npc8_toggle_obj.SetActive(true);
+                    }
+                }
+                break;
+
+            case "Hiroba3":
+
+                MenuWindowExpand();
+
+                if(GameMgr.GirlLoveSubEvent_stage1[160])
+                {
+                    hiroba3_npc1_toggle_obj.SetActive(true);
+                }
+                break;
         }
+        
     }
 
     // Update is called once per frame
@@ -163,6 +227,10 @@ public class MainListController2 : MonoBehaviour
     {
 
     }
+
+    //
+    //広場関連
+    //
 
     //ベンチ　いちご少女
     public void OnNPC1_toggle()
@@ -557,15 +625,65 @@ public class MainListController2 : MonoBehaviour
         }
     }
 
-    //不思議なお店
+    //3番街へ
     public void OnNPC8_toggle()
     {
         if (npc8_toggle.isOn == true)
         {
             npc8_toggle.isOn = false;
 
-            //エメラルどんぐりショップへ
-            FadeManager.Instance.LoadScene("Emerald_Shop", 0.3f);
+            //3番街へ（主にNPCイベント関係）
+            FadeManager.Instance.LoadScene("Hiroba3", 0.3f);
+        }
+    }
+
+    //
+    //3番街関連
+    //
+
+    //モーセの礼拝堂
+    public void OnHiroba3_NPC1_toggle()
+    {
+        if (hiroba3_npc1_toggle.isOn == true)
+        {
+            hiroba3_npc1_toggle.isOn = false;
+
+            //モーセの礼拝堂　宴の処理へ
+            GameMgr.hiroba_event_placeNum = 100; //
+
+            //イベント発生フラグをチェック
+            if (GameMgr.GirlLoveSubEvent_stage1[160])
+            {
+                GameMgr.hiroba_event_ID = 10001;
+
+                GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+
+                //下は、使うときだけtrueにすればOK
+                GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                GameMgr.KoyuJudge_num = GameMgr.NPC_Okashi_num01;//GirlLikeSetの番号を直接指定
+                GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+            }
+            else
+            {
+                GameMgr.hiroba_event_ID = 10000; //デフォルト
+            }            
+
+            Hiroba_main2.EventReadingStart();
+
+            CanvasOff();
+        }
+    }
+
+    //3番街から広場へ戻る
+    public void OnHiroba3_Backtoggle()
+    {
+        if (hiroba3_back_toggle.isOn == true)
+        {
+            hiroba3_back_toggle.isOn = false;
+
+            //3番街へ（主にNPCイベント関係）
+            FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
         }
     }
 

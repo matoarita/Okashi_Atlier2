@@ -230,6 +230,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //獲得音楽図鑑のフラグ
     public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
+    //バージョン情報
+    public static float GameVersion = 1.20f;
+    public static string GameSaveDaytime = ""; //セーブしたときの日付
+
     /* セーブ　ここまで */
 
 
@@ -291,7 +295,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_quest_bunki_num; //条件分岐した場合の、クエスト番号
 
     //お菓子イベント現在のナンバー
-    public static int OkashiQuest_Num; //セーブはしなくてもGirlLoveEvent_numからロード時に自動で設定し直すので大丈夫。
     public static string NowEatOkashiName; //今食べたいお菓子の名前表示
     public static int NowEatOkashiID; //今食べたいお菓子のアイテムID。ItemdatabaseのitemID。
 
@@ -454,7 +457,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool event_pitem_cancel;
     public static int event_judge_status;
     public static int event_okashi_score;
+    public static bool mainscene_event_ON; //調合画面メインでイベントがおこったフラグ
     public static bool hiroba_event_ON;
+    public static bool KoyuJudge_ON;
+    public static int KoyuJudge_num;
+    public static bool NPC_DislikeFlag;
+    public static bool NPC_Dislike_UseON;
+
+    //各NPCお菓子判定番号
+    public static int NPC_Okashi_num01;
 
     //女の子の名前
     public static string mainGirl_Name;
@@ -498,6 +509,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int Shopday; //ショップ入ったら更新する日付。その日を記録する。
     public static bool Sale_ON; //セール判定　日付をまたいだら、OFFに。
+
+    //ロードしたセーブデータのバージョン情報
+    public static float Load_GameVersion;
+    public static string Load_GameSaveDaytime; //セーブしたときの日付を読み込み
 
     // Use this for initialization
     void Start () {
@@ -627,7 +642,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         uwasa_number = 0;
         shop_hint = false;
         shop_hint_num = 0;
+        mainscene_event_ON = false;
         hiroba_event_ON = false;
+        KoyuJudge_ON = false;
+        NPC_DislikeFlag = false;
+        NPC_Dislike_UseON = false;
 
         farm_event_flag = false;
         farm_event_num = 0;
@@ -831,7 +850,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             OkashiQuest_flag_stage2[system_i] = false;
             OkashiQuest_flag_stage3[system_i] = false;
         }
-        OkashiQuest_Num = 0;
+
         QuestClearflag = false;
         QuestClearButton_anim = false;
         QuestClearAnim_Flag = false;
@@ -901,6 +920,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //音楽コレクションのリスト
         InitBgmCollectionLibrary();
+
+        //各サブNPCのお菓子判定番号をセット
+        InitSubNPCEvent_OkashiJudgeLibrary();
 
         CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
@@ -1097,21 +1119,21 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contestclear_collection_list.Add(new SpecialTitle(004, "contestclear5", "ドーナツで優勝！", false, "Items/donuts_pinkcharlotte"));
         contestclear_collection_list.Add(new SpecialTitle(015, "contestclear16", "マフィンの王様！", false, "Items/maffin_jewery"));
         contestclear_collection_list.Add(new SpecialTitle(016, "contestclear17", "フィナンシェの妖精！", false, "Items/financier"));
-        contestclear_collection_list.Add(new SpecialTitle(017, "contestclear18", "ビスコッティでヨーロピアンブレイク！", false, "Items/biscouti"));
+        contestclear_collection_list.Add(new SpecialTitle(017, "contestclear18", "ビスコッティでヨーロピアン・ブレイク！", false, "Items/biscouti"));
         contestclear_collection_list.Add(new SpecialTitle(018, "contestclear19", "パンケーキマイスタ～！", false, "Items/pan_cake_maple"));
-        contestclear_collection_list.Add(new SpecialTitle(019, "contestclear20", "カステラでシベリアマスター！", false, "Items/castella"));
+        contestclear_collection_list.Add(new SpecialTitle(019, "contestclear20", "カステラでほっこり優勝！", false, "Items/castella"));
         //contestclear_collection_list.Add(new SpecialTitle(020, "contestclear21", "パンで優勝！", false, "Items/bugget"));
-        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "お茶会の貴婦人！", false, "Items/rich_tea"));
-        contestclear_collection_list.Add(new SpecialTitle(006, "contestclear7", "ジュースでビタミンNo.１！", false, "Items/orange_juice"));
+        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "優雅なお茶会マスター！", false, "Items/rich_tea"));
+        contestclear_collection_list.Add(new SpecialTitle(006, "contestclear7", "ジュースで健康！ビタミンNo.１！", false, "Items/orange_juice"));
         contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "コーヒーでイギリス紳士な朝食を！", false, "Items/coffee"));
-        contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "素材の味にこだわる職人！", false, "Items/crepe_maple"));
+        contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "シンプル！素材の味にこだわり優勝！", false, "Items/crepe_maple"));
         contestclear_collection_list.Add(new SpecialTitle(009, "contestclear10", "きみも、ジェリーボーイ！", false, "Items/slimejelly"));
-        contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータ！", false, "Items/princess_tota"));
-        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "オシャ～レティラミス！", false, "Items/tiramisu"));
-        contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタ！", false, "Items/violatte_suger"));
-        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "ハードボイルド・カンノーリ！", false, "Items/cannoli"));
+        contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータで優勝！", false, "Items/princess_tota"));
+        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "オシャ～レティラミスで優勝！", false, "Items/tiramisu"));
+        contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタで優勝！", false, "Items/violatte_suger"));
+        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "ハードボイルド・カンノーリで優勝！", false, "Items/cannoli"));
         contestclear_collection_list.Add(new SpecialTitle(013, "contestclear14", "アイスクリーム！ユースクリ～ム！", false, "Items/icecream"));
-        contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "あま～い☆憧れのパフェマスター！", false, "Items/parfe_vanilla"));
+        contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "憧れのパフェマスタ～！", false, "Items/parfe_vanilla"));
         contestclear_collection_list.Add(new SpecialTitle(022, "contestclear23", "キラキラ宝石！キャンディ職人！", false, "Items/jewery_candy"));
 
         //デバッグ用
@@ -1191,13 +1213,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Clear();
 
         bgm_collection_list.Add(new SpecialTitle(001, "bgm1", "デフォルト", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "太陽のワルツ", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "アイネ・クライネ・フィー", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "目覚めのワルツ", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "小妖精たちのお茶会", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));      
-        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィーのティータイム", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "ヴィヴィのアフターヌーンティー", false, "Items/neko_cookie"));      
+        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ショパンの夢", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie"));       
-        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエ", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(012, "bgm12", "近くの森", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(014, "bgm14", "ベリーファーム", false, "Items/neko_cookie"));
@@ -1218,8 +1240,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(026, "bgm26", "ピクニックだよ！にいちゃん！", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(027, "bgm27", "小さな海の冒険", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(028, "bgm28", "天空の庭", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(029, "bgm29", "あったか帰り道", false, "Items/neko_cookie"));
-
+        bgm_collection_list.Add(new SpecialTitle(029, "bgm29", "あったか帰り道", false, "Items/neko_cookie"));       
     }
 
     //音楽リストのnameを入れると、フラグを置き換えるメソッド
@@ -1232,5 +1253,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                 bgm_collection_list[system_i].Flag = _flag;
             }
         }
+    }
+
+    //各サブイベントのNPCのお菓子判定番号
+    public static void InitSubNPCEvent_OkashiJudgeLibrary()
+    {
+        NPC_Okashi_num01 = 5000; //モーセ
     }
 }

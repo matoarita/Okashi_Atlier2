@@ -31,6 +31,8 @@ public class Title_Main : MonoBehaviour {
     private Animator live2d_animator;
     private GameObject chara_Icon;
 
+    private GameObject version_text;
+
     // Use this for initialization
     void Start () {
 
@@ -62,7 +64,10 @@ public class Title_Main : MonoBehaviour {
         _model_move = _model_root_obj.transform.Find("CharacterMove").gameObject;
         _model_obj = _model_root_obj.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
-        live2d_animator = _model_obj.GetComponent<Animator>();       
+        live2d_animator = _model_obj.GetComponent<Animator>();
+
+        version_text = canvas.transform.Find("VersionText").gameObject;
+        version_text.GetComponent<Text>().text = "ver " + GameMgr.GameVersion.ToString();
 
         //システムロード
         save_controller.SystemloadCheck();
@@ -132,7 +137,6 @@ public class Title_Main : MonoBehaviour {
 
     public void OnLoadButton()
     {
-        //save_controller.ResetAllParam();
         
         save_controller.OnLoadMethod();
         GameMgr.GameLoadOn = true; //順番が大事。ロードより後にこっちはtrueにしとく。
@@ -143,6 +147,7 @@ public class Title_Main : MonoBehaviour {
 
     public void OnGalleryButton()
     {
+        save_controller.SystemloadCheck(); //システムデータロード　お菓子手帳やED回数など引継ぎデータはロード
         FadeManager.Instance.fadeColor = new Color(1.0f, 1.0f, 1.0f);
         FadeManager.Instance.LoadScene("200_Omake", 0.3f);
     }

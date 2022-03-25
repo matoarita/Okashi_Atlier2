@@ -119,7 +119,7 @@ public class TasteHintPanel : MonoBehaviour {
         _one_comment_lib.Clear();
         ev_yusen = false;
 
-        switch (GameMgr.OkashiQuest_Num)
+        switch (GameMgr.GirlLoveEvent_num)
         {
             case 0: //オリジナルクッキーを食べたい
 

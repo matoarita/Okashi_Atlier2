@@ -80,7 +80,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                         if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント０
                         {
-                            GameMgr.GirlLoveEvent_num = 0;
                             GameMgr.GirlLoveEvent_stage1[event_num] = true; //0番がtrueになってたら、現在は、ステージ１－１のクエストが発生中という意味。
 
                             //クッキー作りのクエスト発生
@@ -106,32 +105,31 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     else
                     {
                         if (GameMgr.OkashiQuest_flag_stage1[0] && GameMgr.questclear_After) //レベル２のときのイベント
-                        {
-
+                        {                           
                             event_num = 10;
 
                             if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント１
                             {
-                                GameMgr.GirlLoveEvent_num = 10;
-                                GameMgr.GirlLoveEvent_stage1[event_num] = true; //1番がtrueになってたら、現在は、ステージ１－２のクエストが発生中という意味。
-
                                 GameMgr.questclear_After = false;
-
-                                GameMgr.check_GirlLoveEvent_flag = false;
-
-                                //レシピの追加
-                                pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                            
-
-                                //クエスト発生
-                                Debug.Log("好感度イベント２をON: ラスクが食べたい　開始");
+                                GameMgr.GirlLoveEvent_stage1[event_num] = true; //1番がtrueになってたら、現在は、ステージ１－２のクエストが発生中という意味。
 
                                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
                                 if (GameMgr.Story_Mode == 0)
                                 {
+                                    GameMgr.check_GirlLoveEvent_flag = false;
+
+                                    //レシピの追加
+                                    pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                            
+
+                                    //クエスト発生
+                                    Debug.Log("好感度イベント２をON: ラスクが食べたい　開始");
+
+
                                     special_quest.SetSpecialOkashi(10, 0);
                                 }
                                 else
                                 {
+                                    GameMgr.check_GirlLoveEvent_flag = true; //GirlLoveEventは発生しない。
                                     special_quest.SetSpecialOkashi(10, 2); //エクストラモード
                                 }
                             }
@@ -144,25 +142,32 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (GameMgr.OkashiQuest_flag_stage1[1] && GameMgr.questclear_After) //レベル３のときのイベント。
                         {
+                            
                             event_num = 20;
 
                             if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント２
                             {
-                                GameMgr.GirlLoveEvent_num = 20;
+                                GameMgr.questclear_After = false;
                                 GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
-                                GameMgr.questclear_After = false;
-
-                                GameMgr.check_GirlLoveEvent_flag = false;
-
-                                //レシピの追加
-                                pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加                                
-
-                                //クエスト発生
-                                Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
-
                                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                special_quest.SetSpecialOkashi(20, 0);
+                                if (GameMgr.Story_Mode == 0)
+                                {                                   
+                                    GameMgr.check_GirlLoveEvent_flag = false;
+
+                                    //レシピの追加
+                                    pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加                                
+
+                                    //クエスト発生
+                                    Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
+
+                                    special_quest.SetSpecialOkashi(20, 0);
+                                }
+                                else
+                                {
+                                    GameMgr.check_GirlLoveEvent_flag = true; //GirlLoveEventは発生しない。
+                                    special_quest.SetSpecialOkashi(20, 2);
+                                }
                             }
                         }
                     }
@@ -173,22 +178,29 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (GameMgr.OkashiQuest_flag_stage1[2] && GameMgr.questclear_After) //レベル４のときのイベント。
                         {
+                            
                             event_num = 30;
 
                             if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント３
                             {
-                                GameMgr.GirlLoveEvent_num = 30;
+                                GameMgr.questclear_After = false;
                                 GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
-                                GameMgr.questclear_After = false;
+                                if (GameMgr.Story_Mode == 0)
+                                {
+                                    GameMgr.check_GirlLoveEvent_flag = false;
 
-                                GameMgr.check_GirlLoveEvent_flag = false;
+                                    //クエスト発生
+                                    Debug.Log("好感度イベント４をON: シュークリームが食べたい　開始");
 
-                                //クエスト発生
-                                Debug.Log("好感度イベント４をON: シュークリームが食べたい　開始");
 
-                                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                special_quest.SetSpecialOkashi(30, 0);
+                                    special_quest.SetSpecialOkashi(30, 0);
+                                }
+                                else
+                                {
+                                    GameMgr.check_GirlLoveEvent_flag = true; //GirlLoveEventは発生しない。
+                                    special_quest.SetSpecialOkashi(30, 2);
+                                }
                             }
                         }
                     }
@@ -199,22 +211,29 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (GameMgr.OkashiQuest_flag_stage1[3] && GameMgr.questclear_After) //レベル５のときのイベント。
                         {
+                            
                             event_num = 40;
 
                             if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　好感度イベント４
                             {
-                                GameMgr.GirlLoveEvent_num = 40;
+                                GameMgr.questclear_After = false;
                                 GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
-                                GameMgr.questclear_After = false;
+                                if (GameMgr.Story_Mode == 0)
+                                {
+                                    GameMgr.check_GirlLoveEvent_flag = false;
 
-                                GameMgr.check_GirlLoveEvent_flag = false;
+                                    //クエスト発生
+                                    Debug.Log("好感度イベント５をON: ドーナツが食べたい　開始");
 
-                                //クエスト発生
-                                Debug.Log("好感度イベント５をON: ドーナツが食べたい　開始");
 
-                                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                special_quest.SetSpecialOkashi(40, 0);
+                                    special_quest.SetSpecialOkashi(40, 0);
+                                }
+                                else
+                                {
+                                    GameMgr.check_GirlLoveEvent_flag = true; //GirlLoveEventは発生しない。
+                                    special_quest.SetSpecialOkashi(40, 2);
+                                }
                             }
                         }
                     }
@@ -225,28 +244,36 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (GameMgr.OkashiQuest_flag_stage1[4] && GameMgr.questclear_After) //ステージ１　５つクリアしたので、コンテストイベント
                         {
+                            
                             event_num = 50;
 
                             if (GameMgr.GirlLoveEvent_stage1[event_num] != true) //ステージ１　ラストイベント
                             {
-                                GameMgr.GirlLoveEvent_num = 50;
+                                GameMgr.questclear_After = false;
                                 GameMgr.GirlLoveEvent_stage1[event_num] = true;
 
-                                GameMgr.questclear_After = false;
-
-                                GameMgr.check_GirlLoveEvent_flag = false;
-
-                                //コンテストの締め切り日を設定
-                                GameMgr.stage1_limit_day = PlayerStatus.player_day + 7;
-
-                                //クエスト発生
-                                Debug.Log("ステージ１ラストイベントをON: コンテスト　開始");
-
                                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。
-                                special_quest.SetSpecialOkashi(50, 0);
+                                if (GameMgr.Story_Mode == 0)
+                                {
+                                    GameMgr.check_GirlLoveEvent_flag = false;
 
-                                //イベントCG解禁
-                                GameMgr.SetEventCollectionFlag("event10", true);
+                                    //コンテストの締め切り日を設定
+                                    GameMgr.stage1_limit_day = PlayerStatus.player_day + 7;
+
+                                    //クエスト発生
+                                    Debug.Log("ステージ１ラストイベントをON: コンテスト　開始");
+
+                                    //イベントCG解禁
+                                    GameMgr.SetEventCollectionFlag("event10", true);
+
+                                    special_quest.SetSpecialOkashi(50, 0);
+                                }
+                                else
+                                {
+                                    GameMgr.check_GirlLoveEvent_flag = true; //GirlLoveEventは発生しない。
+                                    special_quest.SetSpecialOkashi(50, 2);
+                                }
+                               
 
                                 //広場は必ずでる。
                                 matplace_database.matPlaceKaikin("Hiroba"); //広場解禁
@@ -304,7 +331,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             if (GameMgr.Story_Mode == 0)
             {
                 //クエストで発生するサブイベント
-                switch (GameMgr.OkashiQuest_Num)
+                switch (GameMgr.GirlLoveEvent_num)
                 {
                     case 0: //クッキー
 
@@ -613,48 +640,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             { }
             else
             {
-
                 //クレープ以降　一回目は必ず発生               
                 if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
                     && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
                 {
-
-                    if (GameMgr.picnic_count <= 0)
-                    {
-                        GameMgr.picnic_event_ON = true;
-                    }
-
-                    if (GameMgr.picnic_event_ON)
-                    {
-                        random = Random.Range(0, 100);
-                        Debug.Log("ピクニックイベント　抽選スタート　60以下で成功: " + random);
-
-                        if (GameMgr.GirlLoveSubEvent_stage1[61])
-                        {
-                            picnic_exprob = 60; //60%の確率で発生。
-                        }
-                        else
-                        {
-                            picnic_exprob = 100; //初回は100%
-                        }
-
-                        if (random <= picnic_exprob)
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 61;
-                            GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
-                            GameMgr.picnic_event_ON = false;
-                            GameMgr.picnic_event_reading_now = true;
-                            GameMgr.picnic_count = 5; //次のピクニックイベントまでの日数カウンタ
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
-
-                            GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                            GameMgr.SubEvAfterHeartGet_num = 61;
-                        }
-                    }
+                    PicnicEvent();                    
                 }
             }
 
@@ -1123,7 +1113,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (!GameMgr.outgirl_Nowprogress)
                     {
                         if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour < 13
-                            && PlayerStatus.girl1_Love_lv >= 10) //9時から12時の間に、サイコロふる
+                            && PlayerStatus.girl1_Love_lv >= 5) //9時から12時の間に、サイコロふる
                         {
                             if (GameMgr.outgirl_count <= 0)
                             {
@@ -1133,10 +1123,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             if (GameMgr.outgirl_event_ON)
                             {
                                 random = Random.Range(0, 100);
-                                Debug.Log("外出イベント　抽選スタート　10以下で成功: " + random);
+                                //Debug.Log("外出イベント　抽選スタート　10以下で成功: " + random);
 
                                 picnic_exprob = 10 * (int)(PlayerStatus.player_girl_yaruki * 0.01f); //20%の確率で発生。10~13時　5分ごとに判定
-                                if(picnic_exprob <= 0)
+                                if (picnic_exprob <= 0)
                                 {
                                     picnic_exprob = 0;
                                 }
@@ -1187,6 +1177,57 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             {
                                 //ただいま～
                                 OutGirlReturnHome();
+                            }
+                        }
+                    }
+                }
+
+                if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //ピクニックイベントチェック
+                    if (!GameMgr.outgirl_Nowprogress)
+                    {              
+                        if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
+                            && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
+                        {
+                            PicnicEvent();
+                        }
+                    }
+                }
+
+                
+                if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //モーセ家にくる 午前中
+                    if (!GameMgr.outgirl_Nowprogress)
+                    {              
+                        if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12
+                            && GameMgr.GirlLoveEvent_num >= 1 && PlayerStatus.girl1_Love_lv >= 5) //
+                        {
+                            random = Random.Range(0, 100);
+                            //Debug.Log("モーセくるイベント　10以下で成功: " + random);
+                            if (random <= 10)
+                            {
+                                if (!GameMgr.GirlLoveSubEvent_stage1[160])
+                                {
+                                    GameMgr.GirlLoveSubEvent_num = 160;
+                                    GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
+                                    GameMgr.mainscene_event_ON = true;
+
+                                    GameMgr.check_GirlLoveTimeEvent_flag = false;
+
+                                    GameMgr.Mute_on = true;
+                                    GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
+
+                                    //下は、使うときだけtrueにすればOK
+                                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                                    GameMgr.KoyuJudge_num = GameMgr.NPC_Okashi_num01;//GirlLikeSetの番号を直接指定
+                                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                                }
                             }
                         }
                     }
@@ -1245,6 +1286,53 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         //採取地とアイテムの決定
         get_material.OutGirlGetRandomMaterials(matplace_database.SearchMapString("Forest"));
+    }
+
+    void PicnicEvent()
+    {
+        if (GameMgr.picnic_count <= 0)
+        {
+            GameMgr.picnic_event_ON = true;
+        }
+
+        if (GameMgr.picnic_event_ON)
+        {
+            random = Random.Range(0, 100);
+            Debug.Log("ピクニックイベント　抽選スタート　60以下で成功: " + random);
+
+            if (GameMgr.GirlLoveSubEvent_stage1[61])
+            {
+                picnic_exprob = 60; //60%の確率で発生。
+            }
+            else
+            {
+                picnic_exprob = 100; //初回は100%
+            }
+
+            if (random <= picnic_exprob)
+            {
+                GameMgr.GirlLoveSubEvent_num = 61;
+                GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
+                GameMgr.picnic_event_ON = false;
+                GameMgr.picnic_event_reading_now = true; //ピクニックイベント発生のフラグ　宴で使用
+                GameMgr.picnic_count = 3; //次のピクニックイベントまでの日数カウンタ
+
+                if (GameMgr.Story_Mode == 0)
+                {
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                }
+                else
+                {
+                    GameMgr.check_GirlLoveTimeEvent_flag = false;
+                }
+
+                GameMgr.Mute_on = true;
+                GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
+
+                GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                GameMgr.SubEvAfterHeartGet_num = 61;
+            }
+        }
     }
 
     void ReadGirlLoveEvent()

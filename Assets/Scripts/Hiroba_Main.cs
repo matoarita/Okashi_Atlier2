@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Hiroba_Main : MonoBehaviour {
 
+    //
+    //** 現在未使用 **
+    //
     private GameObject text_area;
     private Text _text;
 
