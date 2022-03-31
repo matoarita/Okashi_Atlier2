@@ -199,7 +199,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力
             save_player_girl_eatCount = PlayerStatus.player_girl_eatCount, //妹が食べたお菓子の回数
             save_player_girl_manpuku = PlayerStatus.player_girl_manpuku, //妹の満腹度
-            save_player_girl_yaruki = PlayerStatus.player_girl_yaruki, //妹のやる気
+            //save_player_girl_yaruki = PlayerStatus.player_girl_yaruki, //妹のやる気
 
             //日付・フラグ関係
             save_player_day = PlayerStatus.player_day, //現在の日付
@@ -287,6 +287,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_MapEvent_04 = GameMgr.MapEvent_04,         //ひまわりの丘
             save_MapEvent_05 = GameMgr.MapEvent_05,         //ラベンダー
             save_MapEvent_06 = GameMgr.MapEvent_06,         //バードサンクチュアリ
+            save_MapEvent_07 = GameMgr.MapEvent_07,         //ベリーファーム
+            save_MapEvent_08 = GameMgr.MapEvent_08,         //白猫のおはか
 
             //広場でのイベント
             save_hiroba_event_end = GameMgr.hiroba_event_end,
@@ -443,7 +445,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_girl_maxlifepoint = playerData.save_player_girl_maxlifepoint; //妹のMax体力
         PlayerStatus.player_girl_eatCount = playerData.save_player_girl_eatCount; //妹が食べたお菓子の回数
         PlayerStatus.player_girl_manpuku = playerData.save_player_girl_manpuku; //妹の満腹度
-        PlayerStatus.player_girl_yaruki = playerData.save_player_girl_yaruki; //妹のやる気
+        //PlayerStatus.player_girl_yaruki = playerData.save_player_girl_yaruki; //妹のやる気
 
         //日付・フラグ関係
         PlayerStatus.player_day = playerData.save_player_day; //現在の日付
@@ -533,6 +535,23 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.MapEvent_04 = playerData.save_MapEvent_04;        //ひまわりの丘
         GameMgr.MapEvent_05 = playerData.save_MapEvent_05;        //ラベンダー
         GameMgr.MapEvent_06 = playerData.save_MapEvent_06;        //バードサンクチュアリ
+
+        if (playerData.save_MapEvent_07 == null)
+        {
+            //バージョンが新しくなっていた場合は、ロードしてしまうと、nullが入ってしまうので、回避用。ver1.20で以下二つのマップイベント配列を追加。
+        }
+        else
+        {
+            GameMgr.MapEvent_07 = playerData.save_MapEvent_07;        //ベリーファーム          
+        }
+        if (playerData.save_MapEvent_08 == null)
+        {
+            //バージョンが新しくなっていた場合は、ロードしてしまうと、nullが入ってしまうので、回避用。ver1.20で以下二つのマップイベント配列を追加。
+        }
+        else
+        {
+            GameMgr.MapEvent_08 = playerData.save_MapEvent_08;        //白猫のおはか
+        }
 
         //広場でのイベント
         GameMgr.hiroba_event_end = playerData.save_hiroba_event_end;
@@ -799,10 +818,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 //飾りアイテムのセット
                 BGAccetrigger.DrawBGAcce();
 
-                //背景を変更
+                //背景を自動で変更
                 compound_Main.Change_BGimage();
-
-                //ステージ更新
 
                 GameMgr.compound_status = 0;
 

@@ -3799,7 +3799,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 3:
 
-                    if (PlayerStatus.girl1_Love_exp >= 1200)
+                    if (PlayerStatus.girl1_Love_exp >= 900)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
@@ -3808,7 +3808,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 20:
 
-                    if (PlayerStatus.girl1_Love_exp >= 2400)
+                    if (PlayerStatus.girl1_Love_exp >= 2000)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;

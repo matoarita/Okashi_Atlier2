@@ -94,6 +94,8 @@ public class PlayerData
     public bool[] save_MapEvent_04;         //ひまわりの丘
     public bool[] save_MapEvent_05;         //ラベンダー
     public bool[] save_MapEvent_06;         //バードサンクチュアリ
+    public bool[] save_MapEvent_07;         //ベリーファーム
+    public bool[] save_MapEvent_08;         //白猫のおはか
 
     //広場でのイベント
     public bool[] save_hiroba_event_end = new bool[GameMgr.hiroba_event_end.Length]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。

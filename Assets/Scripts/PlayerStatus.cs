@@ -30,7 +30,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_lifepoint;        //妹の体力。探索のときに消費する。大きくなるほど、より遠くまで探索できる、ということ。
     public static int player_girl_maxlifepoint;     //妹の体力のMAX
     public static int player_girl_eatCount;         //妹が食べたお菓子の回数
-    public static int player_girl_yaruki;         //妹のやる気　隠しパラメータ　しかったりすると永続的に下がる。
+    public static int player_girl_yaruki;         //妹のやる気　隠しパラメータ　しかったりすると下がる。セーブはされないのでリセット可能。
 
     //セーブしない
     public static int player_girl_maxlifepoint_default;     //妹の体力のMAXデフォルト

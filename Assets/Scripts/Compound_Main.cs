@@ -271,6 +271,8 @@ public class Compound_Main : MonoBehaviour
 
     private int motion_layer_num = 1;
 
+    private Tween t1, t2, t3, t4, t5, t6, t7;
+
     // Use this for initialization
     void Start()
     {
@@ -681,7 +683,10 @@ public class Compound_Main : MonoBehaviour
             save_controller.DrawGameScreen();
             keymanager.InitCompoundMainScene();
             GameMgr.MesaggeKoushinON = true;
-            StartMessage();           
+            StartMessage();
+
+            //時間をチェックし、背景を自動で変更
+            Change_BGimage();
 
             character_move.transform.position = new Vector3(0f, 0, 0); //念のため、ゼロにリセット
 
@@ -714,6 +719,9 @@ public class Compound_Main : MonoBehaviour
             //入店の音
             sc.PlaySe(38); //ドア
             sc.PlaySe(50); //ベル
+
+            //時間をチェックし、背景を自動で変更
+            time_controller.Weather_Change(0.0f);
 
             //オートセーブ
             if (GameMgr.AUTOSAVE_ON)
@@ -783,12 +791,16 @@ public class Compound_Main : MonoBehaviour
             {
                 GameMgr.CompoundEvent_flag = false;
 
-                GameMgr.CompoundEvent_storynum = GameMgr.CompoundEvent_num;
-                GameMgr.CompoundEvent_storyflag = true;
-                GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+                if (GameMgr.outgirl_Nowprogress) { } //妹外出中のときは、発生しない
+                else
+                {
+                    GameMgr.CompoundEvent_storynum = GameMgr.CompoundEvent_num;
+                    GameMgr.CompoundEvent_storyflag = true;
+                    GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
 
-                GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-                GameMgr.compound_status = 1000;
+                    GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+                    GameMgr.compound_status = 1000;
+                }
             }
         }
 
@@ -3161,6 +3173,8 @@ public class Compound_Main : MonoBehaviour
     public void ReadGirlLoveEvent_Fire() //EventDataBaseから読み出し
     {
         Debug.Log("ReadGirlLoveEvent_Fire");
+        GameMgr.compound_status = 0; //採取地選択画面など開いてる場合、被る可能性があるので、一度画面をリセット
+        MainCompoundMethod();
         StartCoroutine("ReadGirlLoveEvent");
     }
 
@@ -3825,7 +3839,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    //ストーリー進行に応じて、背景の天気+エフェクトも変わる。
+    //ストーリー進行に応じて、背景の天気+エフェクトも変わる。Save_Controllerからも読まれる。
     public void Change_BGimage()
     {
         if (GameMgr.Story_Mode == 0)
@@ -3907,14 +3921,23 @@ public class Compound_Main : MonoBehaviour
             BG_effectpanel.transform.Find("BG_Particle_Light_Morning").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Night").gameObject.SetActive(true);
 
-            BG_RealtimeChange();
+            //時間をチェックし、背景を自動で変更。
+            time_controller.Weather_ChangeNow(0.0f);
         }
     }
 
     //TimeControllerから読む。背景をリアルタイムに変更する処理。
-    public void BG_RealtimeChange()
+    public void BG_RealtimeChange(float _changetime)
     {
-        switch(GameMgr.BG_cullent_weather) //TimeControllerで変更
+        DOTween.Kill(t1);
+        DOTween.Kill(t2);
+        DOTween.Kill(t3);
+        DOTween.Kill(t4);
+        DOTween.Kill(t5);
+        DOTween.Kill(t6);
+        DOTween.Kill(t7);
+
+        switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
         {
             case 1:
 
@@ -3922,15 +3945,15 @@ public class Compound_Main : MonoBehaviour
 
             case 2: //深夜→朝
 
-                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(1, 5.0f);
-                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(1, 5.0f)
+                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(1, _changetime);
+                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(1, _changetime)
                     .OnComplete(RealTimeBGSetInit);
                 break;
 
             case 3:
 
-                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -3940,42 +3963,42 @@ public class Compound_Main : MonoBehaviour
 
             case 4:
 
-                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
 
-                bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 5:
 
-                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
 
-                bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                t4 = bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t5 = BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
-                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(5);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 6:
 
-                bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t4 = bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t5 = BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
 
-                bgweather_image_panel.transform.Find("BG_windowout_evening").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
-                BG_Imagepanel.transform.Find("BG_sprite_evening").GetComponent<SpriteRenderer>().DOFade(0, 5.0f);
+                t6 = bgweather_image_panel.transform.Find("BG_windowout_evening").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                t7 = BG_Imagepanel.transform.Find("BG_sprite_evening").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);

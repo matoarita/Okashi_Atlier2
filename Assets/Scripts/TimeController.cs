@@ -249,43 +249,7 @@ public class TimeController : MonoBehaviour
                                     SetMinuteToHour(1); //1=5分単位
                                     TimeKoushin();
 
-                                    if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < 8)
-                                    {
-                                        GameMgr.BG_cullent_weather = 1;
-
-                                    }
-                                    else if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour < 11)
-                                    {
-                                        GameMgr.BG_cullent_weather = 2;
-
-                                    }
-                                    else if (PlayerStatus.player_cullent_hour >= 11 && PlayerStatus.player_cullent_hour < 13)
-                                    {
-                                        GameMgr.BG_cullent_weather = 3;
-
-                                    }
-                                    else if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour < 16)
-                                    {
-                                        GameMgr.BG_cullent_weather = 4;
-
-                                    }
-                                    else if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 19)
-                                    {
-                                        GameMgr.BG_cullent_weather = 5;
-
-                                    }
-                                    else if (PlayerStatus.player_cullent_hour >= 19)
-                                    {
-                                        GameMgr.BG_cullent_weather = 6;
-                                    }
-
-                                    if (GameMgr.BG_cullent_weather != GameMgr.BG_before_weather)
-                                    {
-                                        GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
-
-                                        //天気アニメ変更をトリガー
-                                        compound_main.BG_RealtimeChange(); //背景更新
-                                    }
+                                    Weather_Change(5.0f);                                   
 
                                     //サブ時間イベントをチェック
                                     if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
@@ -361,6 +325,80 @@ public class TimeController : MonoBehaviour
                     DebugTimecountDown_button.SetActive(false);
                 }
                 break;
+        }
+    }
+
+    //時間に応じて、天気（背景）を変更する。BG_RealtimeChange()内の数字は、切り替わりの時間。調合後（ExpController）や採取から帰ってきたとき（Compound_Main）からも読まれる。
+    //下の関数とほぼ同じだが、こっちはcompound_main.BG_RealtimeChange内のtweenのDoFadeを、重複して発生しないようにしている。基本はこっちを使用でOK。
+    public void Weather_Change(float _changetime)
+    {
+        //フリーモードのときのみ　変更
+        if (GameMgr.Story_Mode == 1)
+        {
+            Weather_Judge_Method();            
+
+            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
+            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
+            if (GameMgr.BG_cullent_weather != GameMgr.BG_before_weather)
+            {
+                GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
+
+                //天気アニメ変更をトリガー
+                compound_main.BG_RealtimeChange(_changetime); //背景更新
+                Debug.Log("天気を変更　秒数: " + _changetime);
+            }
+        }
+    }
+
+    //現在時刻に合わせて、即背景を変更。前時間と現在時間の比較計算をしない。ロード直後はこっちを使用。（うまくbeforeとcullentの値の切り替えが出来なかったため。）
+    public void Weather_ChangeNow(float _changetime)
+    {
+        //フリーモードのときのみ　変更
+        if (GameMgr.Story_Mode == 1)
+        {
+            Weather_Judge_Method();
+
+            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
+            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
+            GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
+
+            //天気アニメ変更をトリガー
+            compound_main.BG_RealtimeChange(_changetime); //背景更新
+            Debug.Log("天気を変更　秒数: " + _changetime);
+        }
+    }
+
+    void Weather_Judge_Method()
+    {
+        Debug.Log("天気チェック");
+        if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < 8)
+        {
+            GameMgr.BG_cullent_weather = 1;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour < 11)
+        {
+            GameMgr.BG_cullent_weather = 2;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 11 && PlayerStatus.player_cullent_hour < 13)
+        {
+            GameMgr.BG_cullent_weather = 3;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour < 16)
+        {
+            GameMgr.BG_cullent_weather = 4;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 19)
+        {
+            GameMgr.BG_cullent_weather = 5;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 19)
+        {
+            GameMgr.BG_cullent_weather = 6;
         }
     }
 

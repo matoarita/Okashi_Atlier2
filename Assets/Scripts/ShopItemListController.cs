@@ -868,6 +868,48 @@ public class ShopItemListController : MonoBehaviour
                     shop_hyouji_flag = 2000;
                     Check_ONShopListFlag(shop_hyouji_flag);
                 }
+
+                if (GameMgr.MapEvent_01[0]) //近くの森へいったことがある
+                {
+                    shop_hyouji_flag = 2100;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                if (GameMgr.MapEvent_07[0]) //ベリーファームへいったことがある
+                {
+                    shop_hyouji_flag = 2101;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                if (GameMgr.MapEvent_05[0]) //ラベンダー畑へいったことがある
+                {
+                    shop_hyouji_flag = 2102;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                if (GameMgr.MapEvent_03[0]) //いちご畑へいったことがある
+                {
+                    shop_hyouji_flag = 2103;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                if (GameMgr.MapEvent_04[0]) //ひまわり畑へいったことがある
+                {
+                    shop_hyouji_flag = 2104;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                if (GameMgr.MapEvent_02[0]) //井戸へいったことがある
+                {
+                    shop_hyouji_flag = 2105;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                if (GameMgr.MapEvent_06[0]) //バードサンクチュアリへいったことがある
+                {
+                    shop_hyouji_flag = 2106;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+                if (GameMgr.SearchEventCollectionFlag("event9")) //白猫のお墓へいったことがある
+                {
+                    shop_hyouji_flag = 2107;
+                    Check_ONShopListFlag(shop_hyouji_flag);
+                }
+
                 break;
         }
     }

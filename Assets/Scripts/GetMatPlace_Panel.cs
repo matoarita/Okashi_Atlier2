@@ -444,12 +444,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
             sister_stand_img1.SetActive(false);
 
             //日数の経過。帰りも同じ時間かかる。
-            //PlayerStatus.player_time += select_place_day;
             time_controller.SetMinuteToHour(select_place_day);
             time_controller.TimeKoushin();
+            time_controller.Weather_Change(0.0f);
 
             //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
-            if(GameMgr.OsotoIkitaiFlag)
+            if (GameMgr.OsotoIkitaiFlag)
             {
                 GameMgr.OsotoIkitaiFlag = false;
                 girlEat_judge.loveGetPlusAnimeON(5, false);
@@ -501,7 +501,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //妹の体力が足りてるかチェック
                 if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
                 {
-                    _text.text = "にいちゃん。からだがグタグタでもう動けねぇ～・・。" + "\n" + "（寝て、" + GameMgr.ColorYellow  + "体力を回復" + "</color>" + "しよう。）";
+                    if (GameMgr.outgirl_Nowprogress)
+                    {
+                        _text.text = "今日はもうからだが疲れているな..。" + "\n" + "（寝て、" + GameMgr.ColorYellow + "体力を回復" + "</color>" + "しよう。）";
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん。からだがグタグタでもう動けねぇ～・・。" + "\n" + "（寝て、" + GameMgr.ColorYellow + "体力を回復" + "</color>" + "しよう。）";
+                    }
 
                     All_Off();
                 }
@@ -515,7 +522,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         if (_yosokutime >= GameMgr.EndDay_hour) //20時をこえるかどうか。
                         {
                             //20時を超えるので、妹に止められる。
-                            _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
+                            if (GameMgr.outgirl_Nowprogress)
+                            {
+                                _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
+                            }
+                            else
+                            {
+                                _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
+                            }
                             All_Off();
                         }
                         else
@@ -593,7 +607,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 mat_cost = matplace_database.matplace_lists[select_place_num].placeCost;
                 if (PlayerStatus.player_money < mat_cost)
                 {
-                    _text.text = "にいちゃん。お金が足りないよ～・・。";
+                    if (GameMgr.outgirl_Nowprogress)
+                    {
+                        _text.text = "お金が足りない・・。";
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん。お金が足りないよ～・・。";
+                    }
 
                     All_Off();
                 }
@@ -724,52 +745,58 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
 
-                        //イベントチェック
-                        if (!GameMgr.MapEvent_01[0])
+                        if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                         {
-                            GameMgr.MapEvent_01[0] = true;
-
-                            _text.text = "すげぇ～～！森だー！";
-
-                            slot_view_status = 3; //イベント読み込み中用に退避
-
-                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            //event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
-                            //event_Frame.SetActive(true);
-
-                            GameMgr.map_ev_ID = 10;
-                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                            StartCoroutine(MapEventOn(0));
+                            _text.text = "森のいい香りだ。ここはとても落ち着く..。";
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、いっぱいとろうね！";
-
-                            //サブイベントチェック
-                            //Debug.Log("ししゃもクッキー所持数: " + pitemlist.ReturnItemKosu("shishamo_cookie"));
-                            if (!event_end_flag) //来るたびの初回のみイベントチェック
+                            //イベントチェック
+                            if (!GameMgr.MapEvent_01[0])
                             {
-                                event_end_flag = true;
+                                GameMgr.MapEvent_01[0] = true;
 
-                                if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている
+                                _text.text = "すげぇ～～！森だー！";
+
+                                slot_view_status = 3; //イベント読み込み中用に退避
+
+                                //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                                //event_panel.transform.Find("MapEv_FirstForest").gameObject.SetActive(true);
+                                //event_Frame.SetActive(true);
+
+                                GameMgr.map_ev_ID = 10;
+                                GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                StartCoroutine(MapEventOn(0));
+                            }
+                            else
+                            {
+                                _text.text = "兄ちゃん、いっぱいとろうね！";
+
+                                //サブイベントチェック
+                                //Debug.Log("ししゃもクッキー所持数: " + pitemlist.ReturnItemKosu("shishamo_cookie"));
+                                if (!event_end_flag) //来るたびの初回のみイベントチェック
                                 {
-                                    if(exp_Controller._temp_extremeSetting && 
-                                        pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemName == "shishamo_cookie")
+                                    event_end_flag = true;
+
+                                    if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている
                                     {
-                                        GameMgr.map_ev_ID = 11;
-                                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+                                        if (exp_Controller._temp_extremeSetting &&
+                                            pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemName == "shishamo_cookie")
+                                        {
+                                            GameMgr.map_ev_ID = 11;
+                                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-                                        subevent_on = true;
-                                        sceneBGM.MuteBGM();
-                                        this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
-                                        getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
-                                        Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
+                                            subevent_on = true;
+                                            sceneBGM.MuteBGM();
+                                            this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
+                                            getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
+                                            Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
 
-                                        StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
-                                    }                                    
+                                            StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
+                                        }
+                                    }
                                 }
-
                             }
                         }
 
@@ -788,27 +815,34 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Lavender").gameObject.SetActive(true);
 
-                        //イベントチェック
-                        if (!GameMgr.MapEvent_05[0])
+                        if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                         {
-                            GameMgr.MapEvent_05[0] = true;
-
-                            _text.text = "ラベンダー畑だ～！いい香り～。";
-
-                            slot_view_status = 3; //イベント読み込み中用に退避
-
-                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            //event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
-                            //event_Frame.SetActive(true);
-
-                            GameMgr.map_ev_ID = 60;
-                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                            StartCoroutine(MapEventOn(0));
+                            _text.text = "ラベンダー畑だ。湖が青く美しい。";
                         }
                         else
                         {
-                            _text.text = "にいちゃん！　お花のいい香り～.. ゴロゴロ。";
+                            //イベントチェック
+                            if (!GameMgr.MapEvent_05[0])
+                            {
+                                GameMgr.MapEvent_05[0] = true;
+
+                                _text.text = "ラベンダー畑だ～！いい香り～。";
+
+                                slot_view_status = 3; //イベント読み込み中用に退避
+
+                                //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                                //event_panel.transform.Find("MapEv_FirstLavender").gameObject.SetActive(true);
+                                //event_Frame.SetActive(true);
+
+                                GameMgr.map_ev_ID = 60;
+                                GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                StartCoroutine(MapEventOn(0));
+                            }
+                            else
+                            {
+                                _text.text = "にいちゃん！　お花のいい香り～.. ゴロゴロ。";
+                            }
                         }
 
                         break;
@@ -822,7 +856,22 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Lavender").gameObject.SetActive(true);
 
-                        _text.text = "兄ちゃん、色んな実がなってるよ～！！";
+                        if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                        {
+                            _text.text = "ベリーがそこかしこになっている。たくさん採るぞ！";
+                        }
+                        else
+                        {
+                            _text.text = "兄ちゃん、色んな実がなってるよ～！！";
+
+                            //イベントチェック
+                            if (!GameMgr.MapEvent_07[0])
+                            {
+                                GameMgr.MapEvent_07[0] = true;
+
+                                //今のとこ、特にイベントなし
+                            }
+                        }
 
                         break;
 
@@ -835,27 +884,34 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_StrawberryGarden").gameObject.SetActive(true);
 
-                        //イベントチェック
-                        if (!GameMgr.MapEvent_03[0])
+                        if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                         {
-                            GameMgr.MapEvent_03[0] = true;
-
-                            _text.text = "いいにお～い。兄ちゃん、いちごいっぱい～！";
-
-                            slot_view_status = 3; //イベント読み込み中用に退避
-
-                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            //event_panel.transform.Find("MapEv_FirstStrawberry").gameObject.SetActive(true);
-                            //event_Frame.SetActive(true);
-
-                            GameMgr.map_ev_ID = 40;
-                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                            StartCoroutine(MapEventOn(0));
+                            _text.text = "いちごが盛だくさんだ。いっぱい採っておこう！";
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、いちごたくさんー！";
+                            //イベントチェック
+                            if (!GameMgr.MapEvent_03[0])
+                            {
+                                GameMgr.MapEvent_03[0] = true;
+
+                                _text.text = "いいにお～い。兄ちゃん、いちごいっぱい～！";
+
+                                slot_view_status = 3; //イベント読み込み中用に退避
+
+                                //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                                //event_panel.transform.Find("MapEv_FirstStrawberry").gameObject.SetActive(true);
+                                //event_Frame.SetActive(true);
+
+                                GameMgr.map_ev_ID = 40;
+                                GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                StartCoroutine(MapEventOn(0));
+                            }
+                            else
+                            {
+                                _text.text = "兄ちゃん、いちごたくさんー！";
+                            }
                         }
 
                         break;
@@ -869,27 +925,34 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
 
-                        //イベントチェック
-                        if (!GameMgr.MapEvent_04[0])
+                        if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                         {
-                            GameMgr.MapEvent_04[0] = true;
-
-                            _text.text = "兄ちゃん。まっ黄色～～！すごいきれい～。";
-
-                            slot_view_status = 3; //イベント読み込み中用に退避
-
-                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            //event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
-                            //event_Frame.SetActive(true);
-
-                            GameMgr.map_ev_ID = 50;
-                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                            StartCoroutine(MapEventOn(0));
+                            _text.text = "ひまわり畑だ。どこか懐かしいにおいを感じる。";
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、種とりは任せてね！";
+                            //イベントチェック
+                            if (!GameMgr.MapEvent_04[0])
+                            {
+                                GameMgr.MapEvent_04[0] = true;
+
+                                _text.text = "兄ちゃん。まっ黄色～～！すごいきれい～。";
+
+                                slot_view_status = 3; //イベント読み込み中用に退避
+
+                                //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                                //event_panel.transform.Find("MapEv_FirstHimawari").gameObject.SetActive(true);
+                                //event_Frame.SetActive(true);
+
+                                GameMgr.map_ev_ID = 50;
+                                GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                StartCoroutine(MapEventOn(0));
+                            }
+                            else
+                            {
+                                _text.text = "兄ちゃん、種とりは任せてね！";
+                            }
                         }
 
                         break;
@@ -903,30 +966,37 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_BirdSanctuali").gameObject.SetActive(true);
 
-                        //イベントチェック
-                        if (!GameMgr.MapEvent_06[0])
+                        if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                         {
-                            GameMgr.MapEvent_06[0] = true;
-
-                            _text.text = "兄ちゃん。とりさんがいっぱいいるよ～！！";
-
-                            slot_view_status = 3; //イベント読み込み中用に退避
-
-                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            //event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
-                            //event_Frame.SetActive(true);
-
-                            GameMgr.map_ev_ID = 20;
-                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                            //次回以降、バードサンクチュアリにいけるようになる。
-                            matplace_database.matPlaceKaikin("BirdSanctuali");
-
-                            StartCoroutine(MapEventOn(0));
+                            _text.text = "鳥たちが、静かに水をのんでいる。";
                         }
                         else
                         {
-                            _text.text = "兄ちゃん。とりさんとあそぼ！！";
+                            //イベントチェック
+                            if (!GameMgr.MapEvent_06[0])
+                            {
+                                GameMgr.MapEvent_06[0] = true;
+
+                                _text.text = "兄ちゃん。とりさんがいっぱいいるよ～！！";
+
+                                slot_view_status = 3; //イベント読み込み中用に退避
+
+                                //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                                //event_panel.transform.Find("MapEv_FirstBirdSanctuali").gameObject.SetActive(true);
+                                //event_Frame.SetActive(true);
+
+                                GameMgr.map_ev_ID = 20;
+                                GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                //次回以降、バードサンクチュアリにいけるようになる。
+                                matplace_database.matPlaceKaikin("BirdSanctuali");
+
+                                StartCoroutine(MapEventOn(0));
+                            }
+                            else
+                            {
+                                _text.text = "兄ちゃん。とりさんとあそぼ！！";
+                            }
                         }
 
                         break;
@@ -940,7 +1010,20 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
 
-                        _text.text = "ねこのお墓がある。";
+                        if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                        {
+                            _text.text = "白猫のお墓だ。";
+                        }
+                        else
+                        {
+                            _text.text = "ねこのお墓がある。";
+
+                            //イベントチェック
+                            if (!GameMgr.MapEvent_08[0])
+                            {
+                                GameMgr.MapEvent_08[0] = true;
+                            }
+                        }
 
                         break;
 
@@ -985,28 +1068,35 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //背景エフェクト
                         map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
 
-                        //イベントチェック
-                        if (!GameMgr.MapEvent_02[0])
+                        if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                         {
-                            GameMgr.MapEvent_02[0] = true;
-
-                            _text.text = "いっぱい水を汲もう。兄ちゃん。";
-
-                            slot_view_status = 3; //イベント読み込み中用に退避                           
-
-                            //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
-                            //event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
-                            //event_Frame.SetActive(true);
-
-
-                            GameMgr.map_ev_ID = 30;
-                            GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                            StartCoroutine(MapEventOn(0));
+                            _text.text = "村の井戸だ。キリキリに澄んだ水が、たっぷり貯まっている。";
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、今日も水汲み？私も手伝うー！";
+                            //イベントチェック
+                            if (!GameMgr.MapEvent_02[0])
+                            {
+                                GameMgr.MapEvent_02[0] = true;
+
+                                _text.text = "いっぱい水を汲もう。兄ちゃん。";
+
+                                slot_view_status = 3; //イベント読み込み中用に退避                           
+
+                                //各イベントの再生用オブジェクト。このパネルをONにすると、イベントが再生される。
+                                //event_panel.transform.Find("MapEv_FirstIdo").gameObject.SetActive(true);
+                                //event_Frame.SetActive(true);
+
+
+                                GameMgr.map_ev_ID = 30;
+                                GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                StartCoroutine(MapEventOn(0));
+                            }
+                            else
+                            {
+                                _text.text = "兄ちゃん、今日も水汲み？私も手伝うー！";
+                            }
                         }
                         break;
 
@@ -1317,6 +1407,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //イベントCG解禁
                 GameMgr.SetEventCollectionFlag("event9", true);
+
+                //イベントチェック ねこのお墓関連のイベントフラグ
+                if (!GameMgr.MapEvent_08[0])
+                {
+                    GameMgr.MapEvent_08[0] = true;
+                }
 
                 break;
         }

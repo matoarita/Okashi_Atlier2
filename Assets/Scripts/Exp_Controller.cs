@@ -568,7 +568,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
-        //PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time;
+        time_controller.Weather_Change(0.0f);
 
         _ex_text = "";
 
@@ -818,7 +818,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
-        //PlayerStatus.player_time += databaseCompo.compoitems[result_ID].cost_Time; //分単位でくる。
+        time_controller.Weather_Change(0.0f);
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1042,6 +1042,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //日数の経過
         time_controller.SetMinuteToHour(3);
+        time_controller.Weather_Change(0.0f);
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();

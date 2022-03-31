@@ -125,7 +125,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] MapEvent_03 = new bool[Event_num];         //ストロベリーガーデン
     public static bool[] MapEvent_04 = new bool[Event_num];         //ひまわりの丘
     public static bool[] MapEvent_05 = new bool[Event_num];         //ラベンダー畑
-    public static bool[] MapEvent_06 = new bool[Event_num];         //バードサンクチュアリ   
+    public static bool[] MapEvent_06 = new bool[Event_num];         //バードサンクチュアリ
+    public static bool[] MapEvent_07 = new bool[Event_num];         //ベリーファーム 
+    public static bool[] MapEvent_08 = new bool[Event_num];         //白猫のおはか  
 
     //広場でのイベント
     public static bool[] hiroba_event_end = new bool[99]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。
@@ -828,6 +830,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             MapEvent_04[system_i] = false;
             MapEvent_05[system_i] = false;
             MapEvent_06[system_i] = false;
+            MapEvent_07[system_i] = false;
+            MapEvent_08[system_i] = false;
         }
 
         //通常お菓子感想フラグ
@@ -1095,6 +1099,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         return ""; //一致しない場合は空
     }
 
+    //イベントのnameを入れると、フラグを返すメソッド
+    public static bool SearchEventCollectionFlag(string _name)
+    {
+        for (system_i = 0; system_i < event_collection_list.Count; system_i++)
+        {
+            if (event_collection_list[system_i].titleName == _name)
+            {
+                return event_collection_list[system_i].Flag;
+            }
+        }
+
+        return false; //一致しない場合は空
+    }
+
     //イベントのnameを入れると、フラグを置き換えるメソッド
     public static void SetEventCollectionFlag(string _name, bool _flag)
     {
@@ -1215,11 +1233,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(001, "bgm1", "デフォルト", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "目覚めのワルツ", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "小妖精たちのお茶会", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "ヴィヴィのアフターヌーンティー", false, "Items/neko_cookie"));      
         bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ショパンの夢", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie"));       
-        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(012, "bgm12", "近くの森", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(014, "bgm14", "ベリーファーム", false, "Items/neko_cookie"));

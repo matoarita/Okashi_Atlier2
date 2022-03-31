@@ -612,458 +612,463 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             //メインクエストに関係しないサブイベント関係は、60番台～
             //
 
-            //キラキラポンポン 発生すると、さらに親睦を深めて、BGMが変わる。
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            if(GameMgr.outgirl_Nowprogress)
             { }
             else
             {
-                if (PlayerStatus.girl1_Love_lv >= 15 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
-                {
-                    GameMgr.GirlLoveSubEvent_num = 60;
-                    GameMgr.GirlLoveSubEvent_stage1[60] = true;
-
-                    GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                    GameMgr.Mute_on = true;
-
-                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                    GameMgr.SubEvAfterHeartGet_num = 60;
-
-                    //イベントCG解禁
-                    GameMgr.SetEventCollectionFlag("event1", true);
-                    GameMgr.SetEventCollectionFlag("event2", true);                    
-                }
-            }
-
-            //ピクニック
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                //クレープ以降　一回目は必ず発生               
-                if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
-                    && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
-                {
-                    PicnicEvent();                    
-                }
-            }
-
-
-            //
-            //ビギナー系のサブイベント関係は、80番台～
-            //
-
-            //はじめてお菓子を作ったら発生
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                if (PlayerStatus.First_recipi_on)
-                {
-                    if (GameMgr.GirlLoveSubEvent_stage1[80] == false)
-                    {
-                        GameMgr.GirlLoveSubEvent_stage1[80] = true;
-                        GameMgr.GirlLoveSubEvent_num = 80;
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                    }
-                }
-            }
-
-            //はじめてコレクションアイテムを手に入れたら発生
-            /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            {}
-            else
-            {
-                if (!GameMgr.Beginner_flag[2]) //はじめてコレクションアイテム手に入れた
-                {
-                    //所持数チェック
-                    GetFirstCollectionItem = false;
-                    for (i=0; i< GameMgr.CollectionItemsName.Count; i++)
-                    {
-                        if(pitemlist.KosuCount(GameMgr.CollectionItemsName[i]) >= 1)
-                        {
-                            GetFirstCollectionItem = true;
-                        }
-                    }
-
-                    if (GetFirstCollectionItem)
-                    {
-                        GameMgr.Beginner_flag[2] = true;
-                        GameMgr.GirlLoveSubEvent_stage1[81] = true;
-                        GameMgr.GirlLoveSubEvent_num = 81;
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                    }
-                }
-            }*/
-
-            //はじめて体力が0
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                if (!GameMgr.Beginner_flag[4])
-                {
-
-                    if (PlayerStatus.player_girl_lifepoint <= 0)
-                    {
-                        GameMgr.Beginner_flag[4] = true;
-                        GameMgr.GirlLoveSubEvent_stage1[82] = true;
-                        GameMgr.GirlLoveSubEvent_num = 82;
-
-                        GameMgr.Mute_on = true;
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                    }
-                }
-            }
-
-            //はじめてお金が半分を下回った
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                //酒場でていなければイベント発生
-                if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag == 1)
-                {
-
-                }
+                //キラキラポンポン 発生すると、さらに親睦を深めて、BGMが変わる。
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
                 else
                 {
-                    if (!GameMgr.Beginner_flag[5])
+                    if (PlayerStatus.girl1_Love_lv >= 15 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
                     {
+                        GameMgr.GirlLoveSubEvent_num = 60;
+                        GameMgr.GirlLoveSubEvent_stage1[60] = true;
 
-                        if (PlayerStatus.player_money <= 1000)
-                        {
-                            GameMgr.Beginner_flag[5] = true;
-                            GameMgr.GirlLoveSubEvent_stage1[83] = true;
-                            GameMgr.GirlLoveSubEvent_num = 83;
-
-                            GameMgr.Mute_on = true;
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-                        }
-                    }
-                }
-            }
-
-            //はじめてエメラルどんぐりをとったら発生　衣装交換アイテムの説明がある。
-            /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                if (pitemlist.KosuCount("emeralDongri") >= 1 || pitemlist.KosuCount("sapphireDongri") >= 1)
-                {
-                    if (GameMgr.GirlLoveSubEvent_stage1[84] == false)
-                    {
-                        GameMgr.GirlLoveSubEvent_stage1[84] = true;
-                        GameMgr.GirlLoveSubEvent_num = 84;
+                        GameMgr.check_GirlLoveSubEvent_flag = false;
 
                         GameMgr.Mute_on = true;
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                        GameMgr.SubEvAfterHeartGet_num = 60;
+
+                        //イベントCG解禁
+                        GameMgr.SetEventCollectionFlag("event1", true);
+                        GameMgr.SetEventCollectionFlag("event2", true);
                     }
                 }
-            }*/
 
-            //はじめて水っぽいなどのマイナス効果がつくお菓子を作った
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-
-                if (!GameMgr.Beginner_flag[6])
+                //ピクニック
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
                 {
-                    if (exp_Controller._temp_extremeSetting)
+                    //クレープ以降　一回目は必ず発生               
+                    if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
+                        && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
                     {
-                        if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Oily > GameMgr.Watery_Line ||
-                            pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Powdery > GameMgr.Watery_Line)
+                        PicnicEvent();
+                    }
+                }
+
+
+                //
+                //ビギナー系のサブイベント関係は、80番台～
+                //
+
+                //はじめてお菓子を作ったら発生
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (PlayerStatus.First_recipi_on)
+                    {
+                        if (GameMgr.GirlLoveSubEvent_stage1[80] == false)
                         {
-                            GameMgr.Beginner_flag[6] = true;
-                            GameMgr.GirlLoveSubEvent_stage1[85] = true;
-                            GameMgr.GirlLoveSubEvent_num = 85;
+                            GameMgr.GirlLoveSubEvent_stage1[80] = true;
+                            GameMgr.GirlLoveSubEvent_num = 80;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                        }
+                    }
+                }
+
+                //はじめてコレクションアイテムを手に入れたら発生
+                /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                {}
+                else
+                {
+                    if (!GameMgr.Beginner_flag[2]) //はじめてコレクションアイテム手に入れた
+                    {
+                        //所持数チェック
+                        GetFirstCollectionItem = false;
+                        for (i=0; i< GameMgr.CollectionItemsName.Count; i++)
+                        {
+                            if(pitemlist.KosuCount(GameMgr.CollectionItemsName[i]) >= 1)
+                            {
+                                GetFirstCollectionItem = true;
+                            }
+                        }
+
+                        if (GetFirstCollectionItem)
+                        {
+                            GameMgr.Beginner_flag[2] = true;
+                            GameMgr.GirlLoveSubEvent_stage1[81] = true;
+                            GameMgr.GirlLoveSubEvent_num = 81;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                        }
+                    }
+                }*/
+
+                //はじめて体力が0
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (!GameMgr.Beginner_flag[4])
+                    {
+
+                        if (PlayerStatus.player_girl_lifepoint <= 0)
+                        {
+                            GameMgr.Beginner_flag[4] = true;
+                            GameMgr.GirlLoveSubEvent_stage1[82] = true;
+                            GameMgr.GirlLoveSubEvent_num = 82;
 
                             GameMgr.Mute_on = true;
                             GameMgr.check_GirlLoveSubEvent_flag = false;
                         }
-                        else
-                        {
-                            if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Juice" ||
-                                pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Tea" ||
-                                pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Tea_Potion" ||
-                                pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Coffee_Mat")
-                            { }
-                            else
-                            {
-                                if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Watery > GameMgr.Watery_Line)
-                                {
-                                    GameMgr.Beginner_flag[6] = true;
-                                    GameMgr.GirlLoveSubEvent_stage1[85] = true;
-                                    GameMgr.GirlLoveSubEvent_num = 85;
+                    }
+                }
 
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                }
+                //はじめてお金が半分を下回った
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //酒場でていなければイベント発生
+                    if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag == 1)
+                    {
+
+                    }
+                    else
+                    {
+                        if (!GameMgr.Beginner_flag[5])
+                        {
+
+                            if (PlayerStatus.player_money <= 1000)
+                            {
+                                GameMgr.Beginner_flag[5] = true;
+                                GameMgr.GirlLoveSubEvent_stage1[83] = true;
+                                GameMgr.GirlLoveSubEvent_num = 83;
+
+                                GameMgr.Mute_on = true;
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
                             }
                         }
                     }
                 }
 
-            }
-
-            //はじめて衣装装備を買った 70番台～　周回しても、フラグは引継ぎ。二度目以上の発生はない。
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                //所持数チェック
-                GetEmeraldItem = false;
-                i = 0;
-                while (i < pitemlist.emeralditemlist.Count)
+                //はじめてエメラルどんぐりをとったら発生　衣装交換アイテムの説明がある。
+                /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
                 {
-                    if (pitemlist.KosuCountEmerald(pitemlist.emeralditemlist[i].event_itemName) >= 1)
+                    if (pitemlist.KosuCount("emeralDongri") >= 1 || pitemlist.KosuCount("sapphireDongri") >= 1)
                     {
-
-                        switch (pitemlist.emeralditemlist[i].event_itemName)
+                        if (GameMgr.GirlLoveSubEvent_stage1[84] == false)
                         {
-                            case "Glass_Acce":
+                            GameMgr.GirlLoveSubEvent_stage1[84] = true;
+                            GameMgr.GirlLoveSubEvent_num = 84;
 
-                                if (!GameMgr.GirlLoveSubEvent_stage1[70])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 70;
-                                    GameMgr.GirlLoveSubEvent_stage1[70] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 70;
-                                }
-                                break;
-
-                            case "Sukumizu_Costume":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[71])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 71;
-                                    GameMgr.GirlLoveSubEvent_stage1[71] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 71;
-                                }
-                                break;
-
-                            case "Meid_Black_Costume":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[72])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 72;
-                                    GameMgr.GirlLoveSubEvent_stage1[72] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 72;
-                                }
-                                break;
-
-                            case "PinkGoth_Costume":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[73])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 73;
-                                    GameMgr.GirlLoveSubEvent_stage1[73] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 73;
-                                }
-                                break;
-
-                            case "RedDress_Costume":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[74])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 74;
-                                    GameMgr.GirlLoveSubEvent_stage1[74] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 74;
-                                }
-                                break;
-
-                            case "BalloonHat_Acce":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[75])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 75;
-                                    GameMgr.GirlLoveSubEvent_stage1[75] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 75;
-                                }
-                                break;
-
-                            case "AngelWing_Acce":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[76])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 76;
-                                    GameMgr.GirlLoveSubEvent_stage1[76] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 76;
-                                }
-                                break;
-
-                            case "Nekomimi_Acce":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[77])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 77;
-                                    GameMgr.GirlLoveSubEvent_stage1[77] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 77;
-                                }
-                                break;
-
-                            case "FlowerHairpin_Acce":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[78])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 78;
-                                    GameMgr.GirlLoveSubEvent_stage1[78] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 78;
-                                }
-                                break;
-
-                            case "TwincleStarDust_Acce":
-
-                                if (!GameMgr.GirlLoveSubEvent_stage1[79])
-                                {
-                                    //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                    GameMgr.GirlLoveSubEvent_num = 79;
-                                    GameMgr.GirlLoveSubEvent_stage1[79] = true;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GetEmeraldItem = true;
-
-                                    GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                    GameMgr.SubEvAfterHeartGet_num = 79;
-                                }
-                                break;
-
-                            default:
-
-                                break;
-                        }
-
-                        if (GetEmeraldItem)
-                        {
-                            break;
+                            GameMgr.Mute_on = true;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
                         }
                     }
-                    i++;
-                }
-            }
+                }*/
 
-
-            //置物や土産を買った 100番台～ 周回しても、フラグは引継ぎ。二度目以上の発生はない。
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                if (!GameMgr.GirlLoveSubEvent_stage1[100])
+                //はじめて水っぽいなどのマイナス効果がつくお菓子を作った
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
                 {
-                    if (pitemlist.KosuCount("kuma_nuigurumi") >= 1)
-                    {
-                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                        GameMgr.GirlLoveSubEvent_num = 100;
-                        GameMgr.GirlLoveSubEvent_stage1[100] = true;
 
-                        GameMgr.Mute_on = true;
+                    if (!GameMgr.Beginner_flag[6])
+                    {
+                        if (exp_Controller._temp_extremeSetting)
+                        {
+                            if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Oily > GameMgr.Watery_Line ||
+                                pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Powdery > GameMgr.Watery_Line)
+                            {
+                                GameMgr.Beginner_flag[6] = true;
+                                GameMgr.GirlLoveSubEvent_stage1[85] = true;
+                                GameMgr.GirlLoveSubEvent_num = 85;
+
+                                GameMgr.Mute_on = true;
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
+                            }
+                            else
+                            {
+                                if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Juice" ||
+                                    pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Tea" ||
+                                    pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Tea_Potion" ||
+                                    pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Coffee_Mat")
+                                { }
+                                else
+                                {
+                                    if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Watery > GameMgr.Watery_Line)
+                                    {
+                                        GameMgr.Beginner_flag[6] = true;
+                                        GameMgr.GirlLoveSubEvent_stage1[85] = true;
+                                        GameMgr.GirlLoveSubEvent_num = 85;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                //はじめて衣装装備を買った 70番台～　周回しても、フラグは引継ぎ。二度目以上の発生はない。
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //所持数チェック
+                    GetEmeraldItem = false;
+                    i = 0;
+                    while (i < pitemlist.emeralditemlist.Count)
+                    {
+                        if (pitemlist.KosuCountEmerald(pitemlist.emeralditemlist[i].event_itemName) >= 1)
+                        {
+
+                            switch (pitemlist.emeralditemlist[i].event_itemName)
+                            {
+                                case "Glass_Acce":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[70])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 70;
+                                        GameMgr.GirlLoveSubEvent_stage1[70] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 70;
+                                    }
+                                    break;
+
+                                case "Sukumizu_Costume":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[71])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 71;
+                                        GameMgr.GirlLoveSubEvent_stage1[71] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 71;
+                                    }
+                                    break;
+
+                                case "Meid_Black_Costume":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[72])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 72;
+                                        GameMgr.GirlLoveSubEvent_stage1[72] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 72;
+                                    }
+                                    break;
+
+                                case "PinkGoth_Costume":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[73])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 73;
+                                        GameMgr.GirlLoveSubEvent_stage1[73] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 73;
+                                    }
+                                    break;
+
+                                case "RedDress_Costume":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[74])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 74;
+                                        GameMgr.GirlLoveSubEvent_stage1[74] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 74;
+                                    }
+                                    break;
+
+                                case "BalloonHat_Acce":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[75])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 75;
+                                        GameMgr.GirlLoveSubEvent_stage1[75] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 75;
+                                    }
+                                    break;
+
+                                case "AngelWing_Acce":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[76])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 76;
+                                        GameMgr.GirlLoveSubEvent_stage1[76] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 76;
+                                    }
+                                    break;
+
+                                case "Nekomimi_Acce":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[77])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 77;
+                                        GameMgr.GirlLoveSubEvent_stage1[77] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 77;
+                                    }
+                                    break;
+
+                                case "FlowerHairpin_Acce":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[78])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 78;
+                                        GameMgr.GirlLoveSubEvent_stage1[78] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 78;
+                                    }
+                                    break;
+
+                                case "TwincleStarDust_Acce":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[79])
+                                    {
+                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                                        GameMgr.GirlLoveSubEvent_num = 79;
+                                        GameMgr.GirlLoveSubEvent_stage1[79] = true;
+
+                                        GameMgr.Mute_on = true;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GetEmeraldItem = true;
+
+                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                                        GameMgr.SubEvAfterHeartGet_num = 79;
+                                    }
+                                    break;
+
+                                default:
+
+                                    break;
+                            }
+
+                            if (GetEmeraldItem)
+                            {
+                                break;
+                            }
+                        }
+                        i++;
+                    }
+                }
+
+
+                //置物や土産を買った 100番台～ 周回しても、フラグは引継ぎ。二度目以上の発生はない。
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (!GameMgr.GirlLoveSubEvent_stage1[100])
+                    {
+                        if (pitemlist.KosuCount("kuma_nuigurumi") >= 1)
+                        {
+                            //メイン画面にもどったときに、イベントを発生させるフラグをON
+                            GameMgr.GirlLoveSubEvent_num = 100;
+                            GameMgr.GirlLoveSubEvent_stage1[100] = true;
+
+                            GameMgr.Mute_on = true;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                            GameMgr.SubEvAfterHeartGet_num = 100;
+                        }
+                    }
+                }
+
+                //レシピ100%達成
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.game_Recipi_archivement_rate >= 100.0f && GameMgr.GirlLoveSubEvent_stage1[101] == false) //4になったときのサブイベントを使う。
+                    {
+                        GameMgr.GirlLoveSubEvent_num = 101;
+                        GameMgr.GirlLoveSubEvent_stage1[101] = true;
+
                         GameMgr.check_GirlLoveSubEvent_flag = false;
 
-                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                        GameMgr.SubEvAfterHeartGet_num = 100;
+                        GameMgr.Mute_on = true;
+
+                        ev_id = pitemlist.Find_eventitemdatabase("silver_neko_cookie_recipi");
+                        pitemlist.add_eventPlayerItem(ev_id, 1); //銀のねこクッキーのレシピを追加
                     }
                 }
-            }
 
-            //レシピ100%達成
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                if (GameMgr.game_Recipi_archivement_rate >= 100.0f && GameMgr.GirlLoveSubEvent_stage1[101] == false) //4になったときのサブイベントを使う。
+                //お金10万ルピア達成
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
                 {
-                    GameMgr.GirlLoveSubEvent_num = 101;
-                    GameMgr.GirlLoveSubEvent_stage1[101] = true;
+                    if (PlayerStatus.player_money >= GameMgr.GoldMasterMoneyLine && GameMgr.GirlLoveSubEvent_stage1[102] == false) //4になったときのサブイベントを使う。
+                    {
+                        GameMgr.GirlLoveSubEvent_num = 102;
+                        GameMgr.GirlLoveSubEvent_stage1[102] = true;
 
-                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                        GameMgr.check_GirlLoveSubEvent_flag = false;
 
-                    GameMgr.Mute_on = true;
+                        GameMgr.Mute_on = true;
 
-                    ev_id = pitemlist.Find_eventitemdatabase("silver_neko_cookie_recipi");
-                    pitemlist.add_eventPlayerItem(ev_id, 1); //銀のねこクッキーのレシピを追加
-                }
-            }
-
-            //お金10万ルピア達成
-            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                if (PlayerStatus.player_money >= GameMgr.GoldMasterMoneyLine && GameMgr.GirlLoveSubEvent_stage1[102] == false) //4になったときのサブイベントを使う。
-                {
-                    GameMgr.GirlLoveSubEvent_num = 102;
-                    GameMgr.GirlLoveSubEvent_stage1[102] = true;
-
-                    GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                    GameMgr.Mute_on = true;
-
-                    ev_id = pitemlist.Find_eventitemdatabase("gold_neko_cookie_recipi");
-                    pitemlist.add_eventPlayerItem(ev_id, 1); //金のねこクッキーのレシピを追加
+                        ev_id = pitemlist.Find_eventitemdatabase("gold_neko_cookie_recipi");
+                        pitemlist.add_eventPlayerItem(ev_id, 1); //金のねこクッキーのレシピを追加
+                    }
                 }
             }
 
@@ -1113,7 +1118,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (!GameMgr.outgirl_Nowprogress)
                     {
                         if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour < 13
-                            && PlayerStatus.girl1_Love_lv >= 5) //9時から12時の間に、サイコロふる
+                            && PlayerStatus.girl1_Love_lv >= 8) //9時から12時の間に、サイコロふる
                         {
                             if (GameMgr.outgirl_count <= 0)
                             {
@@ -1123,9 +1128,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             if (GameMgr.outgirl_event_ON)
                             {
                                 random = Random.Range(0, 100);
-                                //Debug.Log("外出イベント　抽選スタート　10以下で成功: " + random);
+                                Debug.Log("外出イベント　抽選スタート　10以下で成功: " + random);
+                                Debug.Log("player_girl_yaruki: " + PlayerStatus.player_girl_yaruki);
 
-                                picnic_exprob = 10 * (int)(PlayerStatus.player_girl_yaruki * 0.01f); //20%の確率で発生。10~13時　5分ごとに判定
+                                picnic_exprob = (int)(20f * PlayerStatus.player_girl_yaruki * 0.01f); //20%の確率で発生。10~13時　5分ごとに判定
                                 if (picnic_exprob <= 0)
                                 {
                                     picnic_exprob = 0;
@@ -1134,6 +1140,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 if (PlayerStatus.player_girl_yaruki == 0) { }
                                 else
                                 {
+                                    Debug.Log("picnic_exprob: " + picnic_exprob);
                                     if (random <= picnic_exprob)
                                     {
                                         GameMgr.GirlLoveSubEvent_num = 150;
@@ -1153,7 +1160,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                     else //すでに外出中　15時ぐらいまでには帰ってくる。もし、帰ってくる前に寝るイベントが発生（お菓子で時間がたつなど）したら、そのときの条件分岐が必要。
                     {
-                        if (PlayerStatus.player_cullent_hour >= 16)
+                        if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 18)
                         {
                             random = Random.Range(0, 100);
                             Debug.Log("外出から帰ってくる　抽選スタート　20以下で成功: " + random);
@@ -1167,17 +1174,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                             }
                         }
-
-                        if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                        else if (PlayerStatus.player_cullent_hour >= 18)
                         {
-                        }
-                        else
-                        {
-                            if (PlayerStatus.player_cullent_hour >= 18)
-                            {
-                                //ただいま～
-                                OutGirlReturnHome();
-                            }
+                                //18時を超えたら、必ず帰ってくる。ただいま～
+                                OutGirlReturnHome();                           
                         }
                     }
                 }

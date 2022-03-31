@@ -367,7 +367,7 @@ public class OptionPanel : MonoBehaviour {
         if (pitemlist.KosuCount("Record_3") >= 1)
         {
             //音楽も解禁
-            GameMgr.SetBGMCollectionFlag("bgm9", true);
+            GameMgr.SetBGMCollectionFlag("bgm4", true);
         }
         if (pitemlist.KosuCount("Record_4") >= 1)
         {
@@ -379,6 +379,57 @@ public class OptionPanel : MonoBehaviour {
             //音楽も解禁
             GameMgr.SetBGMCollectionFlag("bgm11", true);
         }
+
+        //採取地系のBGM
+        if (pitemlist.KosuCount("Record_6") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm12", true);
+        }
+        if (pitemlist.KosuCount("Record_7") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm14", true);
+        }
+        if (pitemlist.KosuCount("Record_8") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm9", true);
+        }
+        if (pitemlist.KosuCount("Record_9") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm13", true);
+        }
+        if (pitemlist.KosuCount("Record_10") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm15", true);
+        }
+        if (pitemlist.KosuCount("Record_11") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm16", true);
+        }
+        if (pitemlist.KosuCount("Record_12") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm17", true);
+        }
+        if (pitemlist.KosuCount("Record_13") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm18", true);
+        }
+
+        //お店関係　まだ入れてない
+        if (pitemlist.KosuCount("Record_14") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm18", true);
+        }
+
+        //サブイベントなど
         if (GameMgr.GirlLoveSubEvent_stage1[60]) //きらきらぽんぽん
         {
             //音楽も解禁
