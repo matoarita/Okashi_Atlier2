@@ -1360,7 +1360,10 @@ public class Quest_Judge : MonoBehaviour {
                 moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
 
                 //名声値は減る
-                //ninkiStatus_Controller.DegNinki(3); //アニメつき
+                if (GameMgr.Story_Mode == 1)
+                {
+                    //ninkiStatus_Controller.DegNinki(3); //アニメつき
+                }
 
                 WhiteFadeCanvas.SetActive(false);
                 //sceneBGM.FadeInBGM();
@@ -1428,20 +1431,22 @@ public class Quest_Judge : MonoBehaviour {
         moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
 
         //名声をプラスかマイナス。0は変化なし
-
-        if (_getNinki < 0)
+        if (GameMgr.Story_Mode == 1)
         {
-            //名声値は減る
-            PlayerStatus.player_ninki_param -= (Mathf.Abs(_getNinki));
-            //ninkiStatus_Controller.DegNinki(Mathf.Abs(_getNinki)); //アニメつき
+            if (_getNinki < 0)
+            {
+                //名声値は減る
+                PlayerStatus.player_ninki_param -= (Mathf.Abs(_getNinki));
+                //ninkiStatus_Controller.DegNinki(Mathf.Abs(_getNinki)); //アニメつき
+            }
+            else if (_getNinki > 0)
+            {
+                //名声値は増える
+                PlayerStatus.player_ninki_param += (Mathf.Abs(_getNinki));
+                //ninkiStatus_Controller.GetNinki(_getNinki); //アニメつき
+            }
+            ninkiStatus_Controller.money_Draw();
         }
-        else if (_getNinki > 0)
-        {
-            //名声値は増える
-            PlayerStatus.player_ninki_param += (Mathf.Abs(_getNinki));
-            //ninkiStatus_Controller.GetNinki(_getNinki); //アニメつき
-        }
-        ninkiStatus_Controller.money_Draw();
 
         ResetQuestStatus();
     }

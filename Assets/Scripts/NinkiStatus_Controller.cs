@@ -47,6 +47,15 @@ public class NinkiStatus_Controller : MonoBehaviour {
 
         _deg = 1;
         moneyanim_on = false;
+
+        if (GameMgr.Story_Mode == 0)
+        {
+            this.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.gameObject.SetActive(true);
+        }
     }
 	
 	// Update is called once per frame

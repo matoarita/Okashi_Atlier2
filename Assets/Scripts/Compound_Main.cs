@@ -3173,8 +3173,14 @@ public class Compound_Main : MonoBehaviour
     public void ReadGirlLoveEvent_Fire() //EventDataBaseから読み出し
     {
         Debug.Log("ReadGirlLoveEvent_Fire");
+        StartCoroutine("ReadGirlLoveEvent");
+    }
+
+    public void ReadGirlLoveTimeEvent_Fire() //EventDataBaseから読み出し 時間イベントからの読み出し
+    {
+        Debug.Log("ReadGirlLoveTimeEvent_Fire");
         GameMgr.compound_status = 0; //採取地選択画面など開いてる場合、被る可能性があるので、一度画面をリセット
-        MainCompoundMethod();
+        MainCompoundMethod(); //ただし、こっちを通す場合は、Muteが解除されるバグがあったので、使用に気を付ける。
         StartCoroutine("ReadGirlLoveEvent");
     }
 

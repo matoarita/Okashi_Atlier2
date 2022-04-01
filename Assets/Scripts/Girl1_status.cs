@@ -1105,7 +1105,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //食べたいものはSpcial_Questで決定。ここでは吹き出しだけ設定してる。OkashiQuest_IDをSpecial_Quest.csから選択している。
                 //OkashiQuest_ID = compIDを指定すると、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
-                Set_compID = OkashiQuest_ID;                
+                //Set_compID = OkashiQuest_ID;                
                 SetQuestHukidashiText(OkashiQuest_ID, 0);
 
 
@@ -1138,6 +1138,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
                 {
+                    //Set_compID = OkashiQuest_ID;
                     RandomEatOkashiDecide();
 
                     //Debug.Log("エクストラモード　電球ピコ");
@@ -1228,11 +1229,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             
             if (GameMgr.Story_Mode == 0)
             {
-                GameMgr.sp_okashi_ID = Set_compID; //GirlLikeCompoSetの_set_compIDが入っている。
+                GameMgr.sp_okashi_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
             }
-            else //エクストラで呼び出すシナリオ
+            else //エクストラで呼び出すシナリオ。処理的には、同じ。
             {
-                GameMgr.sp_okashi_ID = 10000;
+                //GameMgr.sp_okashi_ID = 10000;
+                GameMgr.sp_okashi_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
             }
 
             GameMgr.scenario_ON = true;
@@ -1268,7 +1270,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         Set_Count = 1;
         OkashiNew_Status = 1; //チュートリアルなど。直接指定できるときの状態
-        Set_compID = _ID;
+        //Set_compID = _ID;
 
         //テキストの設定。直接しているか、セット組み合わせエクセルにかかれたキャプションのどちらかが入る。
         _desc = girllike_desc[0];

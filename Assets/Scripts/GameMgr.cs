@@ -1237,7 +1237,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "ヴィヴィのアフターヌーンティー", false, "Items/neko_cookie"));      
         bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ショパンの夢", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie"));       
-        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(012, "bgm12", "近くの森", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(014, "bgm14", "ベリーファーム", false, "Items/neko_cookie"));

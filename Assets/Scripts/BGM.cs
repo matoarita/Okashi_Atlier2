@@ -208,87 +208,85 @@ public class BGM : MonoBehaviour {
 
     void BGMDefault()
     {
-        if (GameMgr.GirlLoveSubEvent_stage1[60]) //HLV15~できらぽんイベント発生後
+        if (GameMgr.Story_Mode == 0)
         {
-            _bgm[0].clip = sound19;
+            switch (GameMgr.stage_number)
+            {
+                case 1:
+
+                    Story_BGMSelect();
+                    break;
+
+                case 2:
+
+                    _bgm[0].clip = sound6;
+                    break;
+
+                case 3:
+
+                    _bgm[0].clip = sound7;
+                    break;
+            }
         }
         else
         {
-            if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
-            {
-                _bgm[0].clip = sound10;
-            }
-            else
-            {
-                if (GameMgr.Story_Mode == 0)
-                {
-                    switch (GameMgr.stage_number)
-                    {
-                        case 1:
-
-                            Story_BGMSelect();
-                            break;
-
-                        case 2:
-
-                            _bgm[0].clip = sound6;
-                            break;
-
-                        case 3:
-
-                            _bgm[0].clip = sound7;
-                            break;
-                    }
-                }
-                else
-                {
-                    _bgm[0].clip = sound1; //エクストラモード専用曲
-                }
-            }
+            _bgm[0].clip = sound1; //エクストラモード専用曲
         }
     }
 
     void Story_BGMSelect()
     {
-
-        switch (GameMgr.mainBGM_Num)
+        if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
         {
-            case 0:
-
-                _bgm[0].clip = sound20;
-                break;
-
-            case 1:
-
-                _bgm[0].clip = sound11;
-                break;
-
-            case 2:
-
-                _bgm[0].clip = sound21;
-                break;
-
-            case 3:
-
-                _bgm[0].clip = sound1;
-                break;
-
-            case 4:
-
-                _bgm[0].clip = sound1;
-                break;
-
-            case 5:
-
-                _bgm[0].clip = sound19;
-                break;
-
-            default:
-
-                _bgm[0].clip = sound19;
-                break;
+            _bgm[0].clip = sound10;
         }
+        else
+        {
+            if (GameMgr.GirlLoveSubEvent_stage1[60]) //HLV15~できらぽんイベント発生後
+            {
+                _bgm[0].clip = sound19;
+            }
+            else
+            {
+                switch (GameMgr.mainBGM_Num)
+                {
+                    case 0:
 
+                        _bgm[0].clip = sound20;
+                        break;
+
+                    case 1:
+
+                        _bgm[0].clip = sound11;
+                        break;
+
+                    case 2:
+
+                        _bgm[0].clip = sound21;
+                        break;
+
+                    case 3:
+
+                        _bgm[0].clip = sound1;
+                        break;
+
+                    case 4:
+
+                        _bgm[0].clip = sound1;
+                        break;
+
+                    case 5:
+
+                        _bgm[0].clip = sound19;
+                        break;
+
+                    default:
+
+                        _bgm[0].clip = sound19;
+                        break;
+                }
+            }
+        }
     }
 
     void OngakuZukanSelect()

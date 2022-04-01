@@ -1244,7 +1244,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 Debug.Log("サブ時間イベントの発生");
 
                 //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
-                ReadGirlLoveEvent();
+                ReadGirlLoveTimeEvent();
 
             }
         }
@@ -1341,6 +1341,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         compound_Main.ReadGirlLoveEvent_Fire();
+    }
+
+    void ReadGirlLoveTimeEvent()
+    {
+        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        compound_Main.ReadGirlLoveTimeEvent_Fire();
     }
 
     IEnumerator eventOutGirlReturnHome_end()
