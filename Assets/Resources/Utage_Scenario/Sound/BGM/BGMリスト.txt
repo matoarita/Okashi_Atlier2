@@ -73,3 +73,4 @@
 ・BGM_71		PerituneMaterial_Breeze3		ピクニックのBGM3　66と同じ
 ・BGM_72		houkagonoyuzora				ピクニックのBGM 帰り  68と同じ
 ・BGM_73		audiostock_259681			【宴用】広場のBGM
+・BGM_74		ボサノバ2				【宴用】カフェのBGM

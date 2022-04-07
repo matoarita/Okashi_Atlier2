@@ -1236,6 +1236,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //GameMgr.sp_okashi_ID = 10000;
                 GameMgr.sp_okashi_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
             }
+            //Debug.Log("OkashiQuest_ID: " + OkashiQuest_ID);
 
             GameMgr.scenario_ON = true;
             GameMgr.sp_okashi_hintflag = true; //->宴の処理へ移行する。「Utage_scenario.cs」

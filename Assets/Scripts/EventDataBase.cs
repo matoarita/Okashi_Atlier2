@@ -28,6 +28,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private int picnic_exprob;
     private int ev_id;
 
+    private List<int> map_list = new List<int>();
+
     // Use this for initialization
     void Start () {
 
@@ -1118,7 +1120,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (!GameMgr.outgirl_Nowprogress)
                     {
                         if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour < 13
-                            && PlayerStatus.girl1_Love_lv >= 8) //9時から12時の間に、サイコロふる
+                            && PlayerStatus.girl1_Love_lv >= 6) //9時から12時の間に、サイコロふる
                         {
                             if (GameMgr.outgirl_count <= 0)
                             {
@@ -1160,24 +1162,29 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                     else //すでに外出中　15時ぐらいまでには帰ってくる。もし、帰ってくる前に寝るイベントが発生（お菓子で時間がたつなど）したら、そのときの条件分岐が必要。
                     {
-                        if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 18)
+                        if (GameMgr.ReadGirlLoveTimeEvent_reading_now) //すでにこのイベント読み中の場合、スキップするように。
+                        { }
+                        else
                         {
-                            random = Random.Range(0, 100);
-                            Debug.Log("外出から帰ってくる　抽選スタート　20以下で成功: " + random);
-
-                            picnic_exprob = 20; //20%の確率で発生。
-
-                            if (random <= picnic_exprob)
+                            if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 18)
                             {
-                                //ただいま～
-                                OutGirlReturnHome();
+                                random = Random.Range(0, 100);
+                                Debug.Log("外出から帰ってくる　抽選スタート　20以下で成功: " + random);
 
+                                picnic_exprob = 20; //20%の確率で発生。
+
+                                if (random <= picnic_exprob)
+                                {
+                                    //ただいま～
+                                    OutGirlReturnHome();
+
+                                }
                             }
-                        }
-                        else if (PlayerStatus.player_cullent_hour >= 18)
-                        {
+                            else if (PlayerStatus.player_cullent_hour >= 18)
+                            {
                                 //18時を超えたら、必ず帰ってくる。ただいま～
-                                OutGirlReturnHome();                           
+                                OutGirlReturnHome();
+                            }
                         }
                     }
                 }
@@ -1212,7 +1219,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             //Debug.Log("モーセくるイベント　10以下で成功: " + random);
                             if (random <= 10)
                             {
-                                if (!GameMgr.GirlLoveSubEvent_stage1[160])
+                                if (!GameMgr.GirlLoveSubEvent_stage1[160])　//160番～　サブイベントNPC系　フラグ３つか５つずつぐらい余分をとっておく。
                                 {
                                     GameMgr.GirlLoveSubEvent_num = 160;
                                     GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
@@ -1261,9 +1268,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         GameMgr.check_GirlLoveTimeEvent_flag = false;
         GameMgr.outgirl_returnhome_reading_now = true;
+        GameMgr.ReadGirlLoveTimeEvent_reading_now = true; //152が終わったときに、フラグもoffにする。
 
         PlayerStatus.player_girl_manpuku -= 30;
-
 
         //取得アイテムの計算
         OutGirlGetItems();
@@ -1271,7 +1278,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         StartCoroutine("eventOutGirlReturnHome_end");　//シナリオ読み終わり待ち
     }
 
-    void OutGirlGetItems()
+    //GetMatPlace_Panelからも読み出し
+    public void OutGirlGetItems()
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -1284,8 +1292,19 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         getmatplace_panel.InitializeResultItemDicts();
 
-        //採取地とアイテムの決定
-        get_material.OutGirlGetRandomMaterials(matplace_database.SearchMapString("Forest"));
+        //採取地とアイテムの決定　今までいったことがある採取地をランダムで決定
+        map_list.Clear();
+        for(i=0; i < matplace_database.matplace_lists.Count; i++)
+        {
+            if(matplace_database.matplace_lists[i].placeFlag == 1 && matplace_database.matplace_lists[i].placeType == 1)
+            {
+                map_list.Add(matplace_database.matplace_lists[i].matplaceID);
+            }
+        }
+
+        random = Random.Range(0, map_list.Count);
+        get_material.OutGirlGetRandomMaterials(map_list[random]);
+        //get_material.OutGirlGetRandomMaterials(matplace_database.SearchMapString("Forest"));
     }
 
     void PicnicEvent()

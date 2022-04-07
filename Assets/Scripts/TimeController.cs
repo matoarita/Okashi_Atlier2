@@ -71,6 +71,7 @@ public class TimeController : MonoBehaviour
     private bool money_counter;
 
     public bool TimeCheck_flag; //調合メインメソッドのトップ画面で起動開始
+    public bool TimeReturnHomeSleep_Status; //兄が帰ってきたあと、少しセリフ変わる。 
 
     private GameObject DebugTimecountUp_button;
     private GameObject DebugTimecountDown_button;
@@ -95,6 +96,7 @@ public class TimeController : MonoBehaviour
         timeIttei4 = 0;
         timeDegHeart_flag = false;
         TimeCheck_flag = false;
+        TimeReturnHomeSleep_Status = false;
     }
 
     void InitParam()
@@ -242,58 +244,61 @@ public class TimeController : MonoBehaviour
                         {
                             if (GameMgr.compound_status == 110)  //採集中やステータス画面など開いてるときは減らない
                             {
-                                timeIttei2++;
-                                if (timeIttei2 >= (int)(10 * timespeed_range))
+                                if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //特定の時間イベント読み中の間もoffに。
                                 {
-                                    timeIttei2 = 0;
-                                    SetMinuteToHour(1); //1=5分単位
-                                    TimeKoushin();
-
-                                    Weather_Change(5.0f);                                   
-
-                                    //サブ時間イベントをチェック
-                                    if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
+                                    timeIttei2++;
+                                    if (timeIttei2 >= (int)(10 * timespeed_range))
                                     {
+                                        timeIttei2 = 0;
+                                        SetMinuteToHour(1); //1=5分単位
+                                        TimeKoushin();
 
-                                    }
-                                    else
-                                    {
-                                        GameMgr.check_GirlLoveTimeEvent_flag = false;
-                                    }
-                                }
+                                        Weather_Change(5.0f);
 
-                                if (!GameMgr.outgirl_Nowprogress)
-                                {
-                                    timeIttei3++;
-                                    if (timeIttei3 >= (int)(20 * timespeed_range))
-                                    {
-                                        timeIttei3 = 0;
-
-                                        //満腹度が減る。
-                                        compound_main.ManpukuBarKoushin(-1);
-
-                                        //満腹度が0になると、ハートも減り始める。
-                                        if (PlayerStatus.player_girl_manpuku <= 0)
+                                        //サブ時間イベントをチェック
+                                        if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
                                         {
-                                            //girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.2f), false);
-                                            girleat_judge.DegHeart(-1, false);
-                                            girl1_status.MotionChange(23);
+
+                                        }
+                                        else
+                                        {
+                                            GameMgr.check_GirlLoveTimeEvent_flag = false;
                                         }
                                     }
 
-                                    //時間でゆるやかにハートも減る。
-                                    /*timeIttei4++;
-                                    if (timeIttei4 >= (int)(30*timespeed_range))
+                                    if (!GameMgr.outgirl_Nowprogress)
                                     {
-                                        timeIttei4 = 0;
-
-                                        //満腹度が0になると、ハートも減り始める。
-                                        if (PlayerStatus.player_girl_manpuku <= 70)
+                                        timeIttei3++;
+                                        if (timeIttei3 >= (int)(20 * timespeed_range))
                                         {
-                                            girleat_judge.DegHeart(-2, false);
+                                            timeIttei3 = 0;
+
+                                            //満腹度が減る。
+                                            compound_main.ManpukuBarKoushin(-1);
+
+                                            //満腹度が0になると、ハートも減り始める。
+                                            if (PlayerStatus.player_girl_manpuku <= 0)
+                                            {
+                                                //girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.2f), false);
+                                                girleat_judge.DegHeart(-1, false);
+                                                girl1_status.MotionChange(23);
+                                            }
                                         }
 
-                                    }*/
+                                        //時間でゆるやかにハートも減る。
+                                        /*timeIttei4++;
+                                        if (timeIttei4 >= (int)(30*timespeed_range))
+                                        {
+                                            timeIttei4 = 0;
+
+                                            //満腹度が0になると、ハートも減り始める。
+                                            if (PlayerStatus.player_girl_manpuku <= 70)
+                                            {
+                                                girleat_judge.DegHeart(-2, false);
+                                            }
+
+                                        }*/
+                                    }
                                 }
                             }
                         }
@@ -529,7 +534,15 @@ public class TimeController : MonoBehaviour
             TimeCheck_flag = false;
 
             //寝るイベントが発生
-            GameMgr.sleep_status = 0;
+            if (TimeReturnHomeSleep_Status) //兄が帰ってきたあとのセリフ
+            {
+                TimeReturnHomeSleep_Status = false;
+                GameMgr.sleep_status = 2;
+            }
+            else
+            {
+                GameMgr.sleep_status = 0;
+            }
             compound_main.OnSleepReceive();
         }
     }

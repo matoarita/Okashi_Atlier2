@@ -652,22 +652,32 @@ public class MainListController2 : MonoBehaviour
             GameMgr.hiroba_event_placeNum = 100; //
 
             //イベント発生フラグをチェック
-            if (GameMgr.GirlLoveSubEvent_stage1[160])
+            if (GameMgr.GirlLoveSubEvent_stage1[161]) //モーセクリア済み
             {
-                GameMgr.hiroba_event_ID = 10001;
+                GameMgr.hiroba_event_ID = 10002;
 
                 GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
                 GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
-
-                //下は、使うときだけtrueにすればOK
-                GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                GameMgr.KoyuJudge_num = GameMgr.NPC_Okashi_num01;//GirlLikeSetの番号を直接指定
-                GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
             }
             else
             {
-                GameMgr.hiroba_event_ID = 10000; //デフォルト
-            }            
+                if (GameMgr.GirlLoveSubEvent_stage1[160])
+                {
+                    GameMgr.hiroba_event_ID = 10001;
+
+                    GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                    GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+
+                    //下は、使うときだけtrueにすればOK
+                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                    GameMgr.KoyuJudge_num = GameMgr.NPC_Okashi_num01;//GirlLikeSetの番号を直接指定
+                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                }
+                else
+                {
+                    GameMgr.hiroba_event_ID = 10000; //デフォルト
+                }
+            }
 
             Hiroba_main2.EventReadingStart();
 

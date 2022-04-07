@@ -45,15 +45,18 @@ public class AddPlayerItemButton : MonoBehaviour {
 
     public void OnClickAddSkillButton2()
     {
+        //どんぐり追加
+        pitemlist.addPlayerItem("emeralDongri", 5);
+        pitemlist.addPlayerItem("sapphireDongri", 5);
 
         //基本アイテムのみ追加。
-        pitemlist.addPlayerItem("komugiko", 5);
+        /*pitemlist.addPlayerItem("komugiko", 5);
         pitemlist.addPlayerItem("butter", 5);
         pitemlist.addPlayerItem("suger", 5);
         pitemlist.addPlayerItem("orange", 5);
         pitemlist.addPlayerItem("nuts", 5);
 
-        pitemlist.addPlayerItem("neko_cookie", 5);
+        pitemlist.addPlayerItem("neko_cookie", 5);*/
 
         //pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 5, 0.95f, 99, 99, 50, 30, 30, 0, 0, 0, 0, 0, 50, 50, 50, 20, 50, 50, "Orange", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5, 3, 1);
 

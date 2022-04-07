@@ -464,8 +464,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             compound_Main.HeartGuageTextKoushin();
 
             //リザルトパネルを表示
-            ResultPanelOn();
-            
+            ResultPanelOn();                      
 
             //オートセーブ
             if (GameMgr.AUTOSAVE_ON)
@@ -1509,13 +1508,71 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
         else
         {
-            //メインシーンのデフォルトに戻る。
-            time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
-            time_controller.TimeKoushin();
-            girl1_status.hukidasiOn();
+            if (GameMgr.girl_returnhome_flag) //兄が家にかえってきたタイミングで、妹がすでに家にいた場合。おかえり～という。
+            {
+                if(GameMgr.girl_returnhome_num == 0)
+                {
+                    GameMgr.girlloveevent_bunki = 1;
+                    GameMgr.GirlLoveSubEvent_num = 153;
+                    GameMgr.GirlLoveSubEvent_stage1[153] = true; //イベント初発生の分をフラグっておく。
+                    GameMgr.girl_returnhome_endflag = true;
 
+                    StartCoroutine("HikariOkaeri");
+                    compound_Main.ReadGirlLoveEvent_Fire();
+                }
+                else
+                {
+                    GameMgr.girl_returnhome_endflag2 = false;
+                    GameMgr.girl_returnhome_flag = false;
+                }                
+                
+            }
+            else
+            {
+                //メインシーンのデフォルトに戻る。
+                time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
+                time_controller.TimeKoushin();
+                girl1_status.hukidasiOn();
+            }
+          
             slot_view_status = 0;
         }       
+    }
+
+    //Compound_mainから読み出し
+    public void OnHikariOkaeri_Fire()
+    {
+        StartCoroutine("HikariOkaeri");
+    }
+
+    IEnumerator HikariOkaeri()
+    {
+        while (GameMgr.girl_returnhome_endflag)
+        {
+            yield return null;
+        }
+        GameMgr.girl_returnhome_endflag = false;
+
+        //妹がとってきたアイテムの一覧
+        eventdatabase.OutGirlGetItems();
+        ResultPanelOn();
+        GameMgr.girl_returnhome_endflag2 = true;
+        GameMgr.girl_returnhome_num = 1;
+
+        while (GameMgr.girl_returnhome_endflag2)
+        {
+            yield return null;
+        }
+        GameMgr.girl_returnhome_endflag2 = false;
+
+        Debug.Log("時間更新＆チェック");
+        //メインシーンのデフォルトに戻る。
+        time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
+        time_controller.TimeReturnHomeSleep_Status = true;
+        time_controller.TimeKoushin();
+        girl1_status.hukidasiOn();
+
+        GameMgr.ReadGirlLoveTimeEvent_reading_now = false;
     }
 
     //外出から帰ってきた時のイベントからも読み出し　初期化。

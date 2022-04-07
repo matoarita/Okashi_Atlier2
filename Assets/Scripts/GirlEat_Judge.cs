@@ -1525,6 +1525,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
+        //フリーモード時　さらに計算
+        if (GameMgr.Story_Mode == 1)
+        {
+            if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。得点も少し上がる。
+            {
+                total_score = (int)(total_score * 1.3f);
+            }
+        }
+
+        //まずいの判定
         if (total_score < GameMgr.mazui_score) //total_scoreが30より下だと、マズイ。
         {
             Mazui_flag = true;
@@ -1533,8 +1543,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
         }
-
-
+        
         GameMgr.Okashi_totalscore = total_score;
 
         Debug.Log("###  ###");
@@ -3799,7 +3808,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 3:
 
-                    if (PlayerStatus.girl1_Love_exp >= 900)
+                    if (PlayerStatus.girl1_Love_exp >= 1000)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;

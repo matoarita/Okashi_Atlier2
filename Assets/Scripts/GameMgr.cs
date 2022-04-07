@@ -410,6 +410,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int SubEvAfterHeartGet_num;
     public static bool outgirl_returnhome_reading_now; //外出から帰ってきたときの宴読み中
     public static bool outgirl_returnhome_homeru; //リザルトパネルをおして、ほめるか否か
+    public static bool girl_returnhome_flag; //兄が家に帰ってきたときに、妹がすでに外出からかえってきているかどうかのフラグ
+    public static int girl_returnhome_num;
+    public static bool girl_returnhome_endflag;
+    public static bool girl_returnhome_endflag2;
+    public static bool ReadGirlLoveTimeEvent_reading_now; //外出から帰ってきたときの宴読み中
     public static bool ResultOFF; //リザルトパネルのオンオフ
     public static bool Degheart_on; //ハート下がっている途中は、時間で下がる機能を一時的にオフにするフラグ
 
@@ -726,6 +731,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         picnic_event_reading_now = false;
         outgirl_returnhome_reading_now = false;
         outgirl_returnhome_homeru = false;
+        girl_returnhome_flag = false;
+        girl_returnhome_num = 0;
+        girl_returnhome_endflag = false;
+        girl_returnhome_endflag2 = false;
+        ReadGirlLoveTimeEvent_reading_now = false;
         ResultOFF = false;
         Degheart_on = false;
         Load_eventflag = false;
@@ -1234,7 +1244,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "目覚めのワルツ", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "小妖精たちのお茶会", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "ヴィヴィのアフターヌーンティー", false, "Items/neko_cookie"));      
+        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));      
         bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ショパンの夢", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie"));       
         bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie"));

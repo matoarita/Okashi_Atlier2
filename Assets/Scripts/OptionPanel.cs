@@ -422,19 +422,24 @@ public class OptionPanel : MonoBehaviour {
             GameMgr.SetBGMCollectionFlag("bgm18", true);
         }
 
-        //お店関係　まだ入れてない
         if (pitemlist.KosuCount("Record_14") >= 1)
         {
             //音楽も解禁
             GameMgr.SetBGMCollectionFlag("bgm18", true);
         }
 
-        //サブイベントなど
-        if (GameMgr.GirlLoveSubEvent_stage1[60]) //きらきらぽんぽん
+        if (pitemlist.KosuCount("Record_15") >= 1)
         {
             //音楽も解禁
             GameMgr.SetBGMCollectionFlag("bgm5", true);
         }
+
+        //サブイベントなど
+        /*if (GameMgr.GirlLoveSubEvent_stage1[60]) //きらきらぽんぽん
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm5", true);
+        }*/
     }
 
     public void OnAutosaveON()

@@ -314,7 +314,11 @@ public class GetMaterial : MonoBehaviour
                 //腹も減る
                 if (GameMgr.Story_Mode != 0)
                 {
-                    PlayerStatus.player_girl_manpuku -= 5;
+                    if (GameMgr.outgirl_Nowprogress) { }
+                    else
+                    {
+                        PlayerStatus.player_girl_manpuku -= 5;
+                    }
                 }
 
                 //プレイヤーのアイテム発見力をバフつきで計算
@@ -341,7 +345,14 @@ public class GetMaterial : MonoBehaviour
             }
             else
             {
-                _text.text = "もうカゴがいっぱいだよ～。";
+                if (GameMgr.outgirl_Nowprogress)
+                {
+                    _text.text = "もうカゴがいっぱいだ。";
+                }
+                else
+                {
+                    _text.text = "もうカゴがいっぱいだよ～。";
+                }
             }
 
             //}
@@ -391,6 +402,11 @@ public class GetMaterial : MonoBehaviour
         //イベント発生orアイテム取得　の抽選
         InitializeEventDicts(); //採集、イベント、レアイベント、宝箱の4種類から一つ
         event_num = ChooseEvent(); //eventDictから算出
+
+        if(GameMgr.outgirl_Nowprogress) //妹が外出してていない場合。　イベントなしで採取のみ。
+        {
+            event_num = 0;
+        }
 
         switch (event_num)
         {
@@ -590,13 +606,18 @@ public class GetMaterial : MonoBehaviour
         {
             if (PlayerStatus.player_zairyobox >= cullent_total_mat)
             {
-                //_a_zairyomax = "";
             }
             else
             {
-                //_a_zairyomax = "もうカゴがいっぱい。";
-                _tansaku_result_temp.Add("もうカゴがいっぱい。");
-                getmatplace_panel.SisterOn1();
+                if (GameMgr.outgirl_Nowprogress)
+                {
+                    _tansaku_result_temp.Add("もうカゴがいっぱいだ。");
+                }
+                else
+                {
+                    _tansaku_result_temp.Add("もうカゴがいっぱい。");
+                    getmatplace_panel.SisterOn1();
+                }
             }
 
             textArea_Koushin();           

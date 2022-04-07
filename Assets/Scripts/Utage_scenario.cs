@@ -1455,7 +1455,11 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //ゲーム上のキャラクタOFF
-        CharacterLive2DImageOFF();        
+        if (GameMgr.GirlLoveSubEvent_num == 151 && GameMgr.outgirl_Nowprogress) { } //外出から帰ってくる場合、すでにOFFなので、この処理は無視
+        else
+        {
+            CharacterLive2DImageOFF();
+        }
 
         Debug.Log("GirlLoveEvent_num: " + GirlLoveEvent_num);
         //「宴」のシナリオを呼び出す
@@ -1500,7 +1504,7 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.outgirl_returnhome_homeru = true;
         }
 
-        //そのあと、ほめるかしかるか。
+        //そのあと、ほめるかしかるか。ここで材料とってくるイベント終了
         if (GameMgr.GirlLoveSubEvent_num == 152)
         {
             //女の子、お菓子の判定処理オブジェクトの取得
@@ -1524,6 +1528,7 @@ public class Utage_scenario : MonoBehaviour
             }
 
             GameMgr.outgirl_Nowprogress = false;
+            GameMgr.ReadGirlLoveTimeEvent_reading_now = false;
         }
 
         if (GameMgr.girlloveevent_bunki == 0)
@@ -1940,15 +1945,33 @@ public class Utage_scenario : MonoBehaviour
         }
         else
         {
-            if (GameMgr.event_judge_status >= 2)
+            if (GameMgr.GirlLoveSubEvent_stage1[161]) //モーセクリア済み
             {
-                engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
+                if (GameMgr.event_judge_status >= 2)
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
+                }
             }
             else
             {
-                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
+                if (GameMgr.event_judge_status >= 2)
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
+
+                    pitemlist.addPlayerItemString("whisk_magic", 1); //魔力の泡だて器
+                    pitemlist.addPlayerItemString("Record_15", 1); //レコード
+                    GameMgr.GirlLoveSubEvent_stage1[161] = true; //モーセクリアフラグ
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
+                }
+                Debug.Log("モーセ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
             }
-            Debug.Log("モーセ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
         }
     }
 

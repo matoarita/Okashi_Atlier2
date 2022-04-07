@@ -479,6 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  se_sound_ON: 0
 --- !u!114 &114047210627090484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1382,7 +1383,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u521D\u7D1A\n\u30BB\u30C3\u30C8"
+  m_Text: "\u3069\u3093\u3050\u308A\n\u8FFD\u52A0"
 --- !u!114 &114687639826328260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1514,6 +1515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  se_sound_ON: 0
 --- !u!114 &114879604831473808
 MonoBehaviour:
   m_ObjectHideFlags: 1

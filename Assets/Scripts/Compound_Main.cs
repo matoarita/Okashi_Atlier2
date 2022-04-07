@@ -751,7 +751,7 @@ public class Compound_Main : MonoBehaviour
         compound_select = GameMgr.compound_select;
 
         //エクストラモード　ハートと満腹度が0を下回ったらゲームオーバー
-        if (GameMgr.Story_Mode != 0)
+        /*if (GameMgr.Story_Mode != 0)
         {
             if (PlayerStatus.girl1_Love_exp <= 0 && PlayerStatus.player_girl_manpuku <= 0)
             {
@@ -764,7 +764,7 @@ public class Compound_Main : MonoBehaviour
                     FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
                 }
             }
-        }
+        }*/
 
         if (GameMgr.scenario_ON != true)
         {
@@ -1393,8 +1393,49 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.tween_start = false;
                 live2d_animator.Play("Idle", motion_layer_num, 0.0f);
 
+                //時間のチェック。
+                time_controller.TimeKoushin(); //時間の更新
+
+                //妹が外出していて（または調合終了して）、よる７時をまわってから、自分が家にかえってきた場合は、先に妹は家に帰っている。
+                if (PlayerStatus.player_cullent_hour >= 19 && GameMgr.outgirl_Nowprogress)
+                {
+                    GameMgr.outgirl_Nowprogress = false;
+                    GameMgr.outgirl_event_ON = false;
+                    GameMgr.outgirl_count = 2; //次の外出るイベントまでの日数カウンタ                    
+
+                    if (GameMgr.ResultOFF) //採取から帰ってきた場合
+                    {
+                        GameMgr.ReadGirlLoveTimeEvent_reading_now = true; 
+                        GameMgr.girl_returnhome_flag = true;
+                        GameMgr.girl_returnhome_num = 0;
+                    }
+                    else //お店などから帰ってきた場合
+                    {
+                        GameMgr.ReadGirlLoveTimeEvent_reading_now = true; 
+                        GameMgr.girl_returnhome_flag = true;
+                        GameMgr.girl_returnhome_num = 0;
+
+                        GameMgr.girlloveevent_bunki = 1;
+                        GameMgr.GirlLoveSubEvent_num = 153;
+                        GameMgr.GirlLoveSubEvent_stage1[153] = true; //イベント初発生の分をフラグっておく。
+                        GameMgr.girl_returnhome_endflag = true;
+
+                        getmatplace.OnHikariOkaeri_Fire();
+                        ReadGirlLoveEvent_Fire();
+                    }
+                }
+                else
+                {
+                    if (!GameMgr.ReadGirlLoveTimeEvent_reading_now)
+                    {
+                        Debug.Log("時間更新＆チェック");
+                        time_controller.TimeCheck_flag = true;
+                        time_controller.TimeKoushin(); //時間の更新     
+                    }
+                }
+
                 //外出時の処理
-                if(!GameMgr.outgirl_Nowprogress) 
+                if (!GameMgr.outgirl_Nowprogress) 
                 {
                     CharacterLive2DImageON();
                     touch_controller.Touch_OnAllON();
@@ -1417,13 +1458,13 @@ public class Compound_Main : MonoBehaviour
                     }
                 }
 
-                //時間のチェック。採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
-                if (getmatplace.slot_view_status == 0)
+                //採取地から帰ってきたときのみ、リザルトパネルを押してから、更新
+                /*if (getmatplace.slot_view_status == 0)
                 {
                     Debug.Log("時間更新＆チェック");
                     time_controller.TimeCheck_flag = true;
-                    time_controller.TimeKoushin(); //時間の更新
-                }
+                    time_controller.TimeKoushin(); //時間の更新                   
+                }*/
 
                 //音関係
                 if (!GameMgr.tutorial_ON)
@@ -3170,7 +3211,9 @@ public class Compound_Main : MonoBehaviour
         return _checkexp;
     }
 
-    public void ReadGirlLoveEvent_Fire() //EventDataBaseから読み出し
+    
+
+    public void ReadGirlLoveEvent_Fire() //EventDataBaseやGetMatPlace_Panelから読み出し
     {
         Debug.Log("ReadGirlLoveEvent_Fire");
         StartCoroutine("ReadGirlLoveEvent");
@@ -3180,7 +3223,7 @@ public class Compound_Main : MonoBehaviour
     {
         Debug.Log("ReadGirlLoveTimeEvent_Fire");
         GameMgr.compound_status = 0; //採取地選択画面など開いてる場合、被る可能性があるので、一度画面をリセット
-        MainCompoundMethod(); //ただし、こっちを通す場合は、Muteが解除されるバグがあったので、使用に気を付ける。
+        MainCompoundMethod(); //ただし、こっちを通す場合は、Muteが解除されるバグがあったので、使用に気を付ける。        
         StartCoroutine("ReadGirlLoveEvent");
     }
 
@@ -3235,6 +3278,7 @@ public class Compound_Main : MonoBehaviour
 
         GameMgr.girlloveevent_endflag = false;
         GameMgr.scenario_ON = false;
+        GameMgr.girl_returnhome_endflag = false;
 
         sceneBGM.MuteOFFBGM();
         //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
@@ -3697,6 +3741,9 @@ public class Compound_Main : MonoBehaviour
         Debug.Log("ピクニックカウント: " + GameMgr.picnic_count);
         GameMgr.picnic_count--;
         GameMgr.outgirl_count--; //外出カウンタも進む
+
+        //変更したセリフ類は、必ず元に戻す。
+        time_controller.TimeReturnHomeSleep_Status = false;
 
         //一日経つと、食費を消費
         //所持金をへらす

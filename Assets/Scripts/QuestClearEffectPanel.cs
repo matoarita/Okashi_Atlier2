@@ -52,6 +52,7 @@ public class QuestClearEffectPanel : MonoBehaviour
         //アニメーションスタート
         //OnStartAnim();
 
+        this.GetComponent<CanvasGroup>().alpha = 1;
         StartCoroutine("WaitSeconds");
     }
     // Update is called once per frame
