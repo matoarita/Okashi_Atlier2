@@ -474,7 +474,70 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //**ここまで**
     }
-    
+
+    //ヒカリがお菓子作る場合の初期化
+    void SetParamHikariMakeInit()
+    {
+        //プレイヤーアイテム表示用コントローラーの取得
+        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        //レシピリストコントローラーの取得
+        recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+
+        //分岐を取得
+        Comp_method_bunki = 0;
+
+        if (Comp_method_bunki == 0) //オリジナル調合の場合
+        {
+            //オリジナル調合の設定
+
+            //**重要** 
+            //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
+            //店売りの場合は、実質アイテムIDと数字は一緒。
+            //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
+
+            kettei_item1 = GameMgr.hikari_kettei_item[0];
+            kettei_item2 = GameMgr.hikari_kettei_item[1];
+            kettei_item3 = GameMgr.hikari_kettei_item[2];
+
+            toggle_type1 = GameMgr.hikari_kettei_toggleType[0];
+            toggle_type2 = GameMgr.hikari_kettei_toggleType[1];
+            toggle_type3 = GameMgr.hikari_kettei_toggleType[2];
+
+            final_kette_kosu1 = GameMgr.hikari_kettei_kosu[0];
+            final_kette_kosu2 = GameMgr.hikari_kettei_kosu[1];
+            final_kette_kosu3 = GameMgr.hikari_kettei_kosu[2];
+
+            _before_itemtype_Sub = "";
+
+            //Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+            //Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);
+
+
+            /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
+            Debug.Log("pitemlistController.kettei_item2: " + kettei_item2);
+            Debug.Log("pitemlistController._toggle_type1: " + toggle_type1);
+            Debug.Log("pitemlistController._toggle_type2: " + toggle_type2);
+            Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+            Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
+
+            //セット数　updowncounterの値をもとに設定してる。現在は、セット数は選択できないようにしているので、1に固定
+            //final_select_kaisu = exp_Controller.set_kaisu;
+            final_select_kaisu = 1;
+
+            //パラメータを取得
+            result_item = GameMgr.hikari_make_okashiID;
+
+            //コンポ調合データベースのIDを代入
+            result_ID = GameMgr.hikari_make_okashi_compID;
+
+            exp_Controller.result_ok = true; //オリジナル調合扱い
+            exp_Controller.DoubleItemCreated = GameMgr.hikari_make_doubleItemCreated;
+        }
+    }
+
 
     //ゲーム最初に、アイテムデータベースの味パラメータを、コンポDBから計算して初期化
     void SetParamDatabaseInit()
@@ -610,6 +673,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     //  合成処理 //
     //           //
 
+    //Exp_Controllerからのみ読み出し
     public void Topping_Compound_Method(int _mstatus)
     {
         //キャンバスの読み込み
@@ -632,9 +696,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (_mstatus == 1)
         {
-
+            //パラメータを取得
+            SetParamInit();
         }
-
+        else if (_mstatus == 2) //ヒカリがお菓子を作る場合
+        {            
+            SetParamHikariMakeInit();
+        }
         else if (_mstatus == 99)
         {
             //パラメータを取得。アイテムデータベースを、ここで計算して初期化する。ゲーム開始時のみ使用。
@@ -787,16 +855,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
             }
 
+            for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+            {
+                _basetp[i] = "Non";
+            }
 
-                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
-                {
-                    _basetp[i] = "Non";
-                }
-            
-            
-            
         }
-
         else if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //生地合成、もしくはトッピング調合の場合。　一個目に選んだアイテムをベースに、リザルトアイテムにする。
         {
             switch (base_toggle_type)
@@ -906,7 +970,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                         }
                         ++i;
                     }
-                    
+
                     break;
 
                 default:
@@ -932,7 +996,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
         //以下、実際にアイテムリスト削除と、プレイヤーアイテムへの所持追加処理
-        if (_mstatus == 0)
+        if (_mstatus == 0 || _mstatus == 2)
         {
             //最終的に生成されるアイテムの個数を決定
             if (exp_Controller.result_ok == true) //オリジナル調合の場合
@@ -953,7 +1017,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
 
             // アイテムリストの削除処理 //
-            Delete_playerItemList();
+            Delete_playerItemList(0);
 
             if (exp_Controller.DoubleItemCreated == 0)
             {
@@ -967,7 +1031,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
                 //カード正式名称（ついてるスロット名も含めた名前）
-                slotchangename.slotChangeName(1, new_item, "yellow");
+                slotchangename.slotChangeName(1, new_item, "yellow", 0);
 
                 itemslotname = "";
                 for (i = 0; i < _slotHyouji1.Length; i++)
@@ -996,7 +1060,28 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (_mstatus == 1) //予測の場合、アイテムの追加処理はいらない。
         {
+            //新しく作ったアイテムを予測表示用のアイテムリストに追加。
+            pitemlist.addYosokuOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
+            _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basebeauty,
+            _basegirl1_like, _basecost, _basesell,
+            _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
+            result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
 
+            new_item = pitemlist.player_yosokuitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
+
+            //カード正式名称（ついてるスロット名も含めた名前）
+            slotchangename.slotChangeName(1, new_item, "yellow", 1); //4つ目の番号は、ステータス。
+
+            itemslotname = "";
+            for (i = 0; i < _slotHyouji1.Length; i++)
+            {
+                _slotHyouji1[i] = slotchangename._slotHyouji[i];
+                itemslotname += _slotHyouji1[i];
+            }
+
+            pitemlist.player_yosokuitemlist[new_item].item_SlotName = itemslotname;
+            itemfullname = itemslotname + pitemlist.player_yosokuitemlist[new_item].itemNameHyouji;
+            pitemlist.player_yosokuitemlist[new_item].item_FullName = itemfullname;
         }
         else if (_mstatus == 99 ) //初期化の場合
         {
@@ -1018,6 +1103,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             database.items[itemNum].Juice = _basesweat + _basebitter + _basesour;
         }
     }   
+
+
+
+
+
 
 
     //
@@ -1244,7 +1334,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _baseexp += _tempexp;
         _getExp = _tempexp; //トッピング調合時に取得する経験値。パブリック
 
-        totalkyori = Combinationmain.totalkyori; //_mstatus=99のときにこのスクリプトから計算するか、調合時にもCombinationmain.csで計算して、値が更新されてるはず。
+        if (mstatus != 2)
+        {
+            totalkyori = Combinationmain.totalkyori; //_mstatus=99のときにこのスクリプトから計算するか、調合時にもCombinationmain.csで計算して、値が更新されてるはず。
+        }
+        else //mstatus=2はヒカリが作るお菓子　totalkyoriはセーブしておく。
+        {
+            totalkyori = GameMgr.hikari_make_okashi_totalkyori;
+        }
 
 
 
@@ -1387,12 +1484,33 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
         {
-            if (_before_itemtype_Sub != _base_itemType_sub) //
+            if (_before_itemtype_Sub != _base_itemType_sub) //クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType_sub); //中の数字でどの食感パラムかの指定
                 _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType_sub);
                 _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType_sub);
                 _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType_sub);
+
+                //魔力の泡だて器をもっている
+                if(pitemlist.ReturnItemKosu("whisk_magic") >= 1)
+                {
+                    if (_base_itemType_sub.ToString() == "Cream" || _base_itemType_sub.ToString() == "Appaleil") //クリーム系かアパレイユを作るとき
+                    {
+                        _basecrispy = (int)(_basecrispy * 1.3f);
+                        _basefluffy = (int)(_basefluffy * 1.3f);
+                        _basesmooth = (int)(_basesmooth * 1.3f);
+                    }
+                    else
+                    {
+                        if (result_ID == databaseCompo.SearchCompoIDString("whipped cream_row_magic") ||
+                            result_ID == databaseCompo.SearchCompoIDString("whipped cream_row_magic_Free"))
+                        {
+                            _basecrispy = (int)(_basecrispy * 1.3f);
+                            _basefluffy = (int)(_basefluffy * 1.3f);
+                            _basesmooth = (int)(_basesmooth * 1.3f);
+                        }
+                    }
+                }
             }
         }
     }
@@ -1658,14 +1776,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     }   
 
 
-    //プレイヤーアイテムリストから、選んだ材料の削除処理
-    public void Delete_playerItemList()
+    //プレイヤーアイテムリストから、選んだ材料の削除処理 Exp_Controllerからも読み出し。
+    public void Delete_playerItemList(int _dstatus)
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        //パラメータの取得
-        SetParamInit();
+        if (_dstatus == 1) //Exp_contorollerから読み込む場合
+        {
+            //パラメータの取得
+            SetParamInit();
+        }
 
         deleteOriginalList.Clear();
 

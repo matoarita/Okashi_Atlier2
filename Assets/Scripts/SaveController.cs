@@ -259,6 +259,18 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //現在のクエストクリアフラグ
             save_QuestClearflag = GameMgr.QuestClearflag,
             save_QuestClearButton_anim = GameMgr.QuestClearButton_anim,
+            
+            //ヒカリのお菓子作り系フラグ
+            save_hikari_kettei_item = GameMgr.hikari_kettei_item,
+            save_hikari_kettei_kosu = GameMgr.hikari_kettei_kosu,
+            save_hikari_kettei_toggleType = GameMgr.hikari_kettei_toggleType,
+            save_hikari_make_okashiFlag = GameMgr.hikari_make_okashiFlag, //ヒカリがお菓子を制作中かどうかのフラグ
+            save_hikari_make_okashiID = GameMgr.hikari_make_okashiID,
+            save_hikari_make_okashi_compID = GameMgr.hikari_make_okashi_compID, //CompoDBのID
+            save_hikari_make_okashiTimeCost = GameMgr.hikari_make_okashiTimeCost, //かかる時間
+            save_hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCounter, //制作時間のタイマー
+            save_hikari_make_doubleItemCreated = GameMgr.hikari_make_doubleItemCreated,
+            save_hikari_make_okashi_totalkyori = GameMgr.hikari_make_okashi_totalkyori,
 
             //さっき食べたお菓子の情報
             save_Okashi_lasthint = GameMgr.Okashi_lasthint, //さっき食べたお菓子のヒント。
@@ -504,6 +516,18 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         GameMgr.QuestClearflag = playerData.save_QuestClearflag;
         GameMgr.QuestClearButton_anim = playerData.save_QuestClearButton_anim;
+
+        //ヒカリのお菓子作り系フラグ
+        GameMgr.hikari_kettei_item = playerData.save_hikari_kettei_item;
+        GameMgr.hikari_kettei_kosu = playerData.save_hikari_kettei_kosu;
+        GameMgr.hikari_kettei_toggleType = playerData.save_hikari_kettei_toggleType;
+        GameMgr.hikari_make_okashiFlag = playerData.save_hikari_make_okashiFlag; //ヒカリがお菓子を制作中かどうかのフラグ
+        GameMgr.hikari_make_okashiID = playerData.save_hikari_make_okashiID;
+        GameMgr.hikari_make_okashi_compID = playerData.save_hikari_make_okashi_compID; //CompoDBのID
+        GameMgr.hikari_make_okashiTimeCost = playerData.save_hikari_make_okashiTimeCost; //かかる時間
+        GameMgr.hikari_make_okashiTimeCounter = playerData.save_hikari_make_okashiTimeCounter; //制作時間のタイマー
+        GameMgr.hikari_make_doubleItemCreated = playerData.save_hikari_make_doubleItemCreated;
+        GameMgr.hikari_make_okashi_totalkyori = playerData.save_hikari_make_okashi_totalkyori;
 
         //さっき食べたお菓子の情報
         GameMgr.Okashi_lasthint = playerData.save_Okashi_lasthint; //さっき食べたお菓子のヒント。

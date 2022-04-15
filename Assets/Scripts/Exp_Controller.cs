@@ -139,7 +139,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool NewRecipiflag_check;
     public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
 
-    public bool result_ok; // 調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
+    public bool result_ok; // 調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。現在、未使用。
     public bool recipiresult_ok; //レシピ調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool topping_result_ok; //トッピング調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool roast_result_ok; //「焼く」完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
@@ -393,7 +393,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         StartCoroutine("Original_Compo_anim");
 
-
     }
 
     IEnumerator Original_Compo_anim()
@@ -548,7 +547,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
 
             //失敗した場合でも、アイテムは消える。
-            compound_keisan.Delete_playerItemList();
+            compound_keisan.Delete_playerItemList(1);
             extremePanel.deleteExtreme_Item();
 
             card_view.ResultCard_DrawView(0, result_item);
@@ -639,7 +638,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //リザルトアイテムを代入
         result_item = recipilistController.result_recipiitem;
 
-        compound_keisan.Delete_playerItemList();
+        compound_keisan.Delete_playerItemList(1);
         renkin_hyouji = database.items[result_item].itemNameHyouji;
         pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
 
@@ -795,7 +794,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
 
             //失敗した場合でも、アイテムは消える。
-            compound_keisan.Delete_playerItemList();
+            compound_keisan.Delete_playerItemList(1);
             extremePanel.deleteExtreme_Item();
 
             card_view.ResultCard_DrawView(0, result_item);
@@ -1016,7 +1015,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
 
             //失敗した場合でも、アイテムは消える。
-            compound_keisan.Delete_playerItemList();
+            compound_keisan.Delete_playerItemList(1);
             extremePanel.deleteExtreme_Item();
 
             card_view.ResultCard_DrawView(0, result_item);
@@ -1052,7 +1051,89 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
-    }   
+    }
+
+
+    //
+    //ヒカリが作る完了の場合
+    //
+    public void HikariMakeOK()
+    {
+        InitObject();
+
+        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        //リザルトアイテムを代入
+        result_item = pitemlistController.result_item;
+
+        //コンポ調合データベースのIDを代入
+        result_ID = pitemlistController.result_compID;
+
+        Comp_method_bunki = 0;
+
+        
+        //調合の予測処理 予測用オリジナルアイテムを生成　パラメータも予測して表示する（アイテム消費はしない）
+        compound_keisan.Topping_Compound_Method(1);
+
+        //使用する材料と個数を別に保存する。すぐにはアイテムの使用はせず、時間イベントに合わせて、処理を行う。
+        GameMgr.hikari_kettei_item[0] = pitemlistController.kettei_item1;
+        GameMgr.hikari_kettei_item[1] = pitemlistController.kettei_item2;
+        GameMgr.hikari_kettei_item[2] = pitemlistController.kettei_item3;
+        GameMgr.hikari_kettei_toggleType[0] = pitemlistController._toggle_type1;
+        GameMgr.hikari_kettei_toggleType[1] = pitemlistController._toggle_type2;
+        GameMgr.hikari_kettei_toggleType[2] = pitemlistController._toggle_type3;
+        GameMgr.hikari_kettei_kosu[0] = pitemlistController.final_kettei_kosu1;
+        GameMgr.hikari_kettei_kosu[1] = pitemlistController.final_kettei_kosu2;
+        GameMgr.hikari_kettei_kosu[2] = pitemlistController.final_kettei_kosu3;
+        GameMgr.hikari_make_okashiFlag = true; //現在制作中。このフラグをもとに、キャンセルできるようにもする。
+        GameMgr.hikari_make_okashiID = result_item;
+        GameMgr.hikari_make_okashi_compID = result_ID;
+        GameMgr.hikari_make_okashiTimeCost = databaseCompo.compoitems[result_ID].cost_Time;//制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット
+        GameMgr.hikari_make_okashiTimeCounter = 0;
+        GameMgr.hikari_make_doubleItemCreated = DoubleItemCreated;
+
+        //
+        result_item = pitemlist.player_yosokuitemlist.Count - 1;
+        //GameMgr.Okashi_makeID = pitemlist.player_originalitemlist[result_item].itemID;
+        renkin_hyouji = pitemlist.player_yosokuitemlist[result_item].itemNameHyouji;
+
+        new_item = result_item;
+
+
+        //リザルトアニメーション開始
+        pitemlistController_obj.SetActive(false);
+        //compo_anim_on = true; //アニメスタート
+        //StartCoroutine("Original_Compo_anim");
+
+        //メモは全てオフに
+        recipiMemoButton.SetActive(false);
+        recipimemoController_obj.SetActive(false);
+        memoResult_obj.SetActive(false);
+        recipi_archivement_obj.SetActive(false);
+        kakuritsuPanel_obj.SetActive(false);
+        yes_no_panel.SetActive(false);
+
+        //半透明の黒をON
+        BlackImage.GetComponent<CanvasGroup>().alpha = 1;
+
+        //カード表示
+        NewRecipiFlag = false; //ヒカリが作る場合、強制的に新レシピ解放フラグをOFFに。
+        card_view.ResultCardYosoku_DrawView(1, new_item);
+
+        //音も鳴らす
+        sc.PlaySe(25);
+
+        //テキストの表示
+        _text.text = 
+            pitemlist.player_yosokuitemlist[new_item].itemNameHyouji +
+            " を登録しました！" + "\n" + "時間がたつと、ヒカリがお菓子を作ってくれるよ！";
+    }
+
+
 
 
     //

@@ -42,7 +42,7 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
     }
 
     //指定したIDの、プレイヤーオリジナルアイテムの、正式名称を表示する。 
-    public void slotChangeName( int _itemtype, int _itemID, string _name_color)
+    public void slotChangeName( int _itemtype, int _itemID, string _name_color, int _status)
     {
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
@@ -62,7 +62,14 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
         {
             for (i = 0; i < _slot.Length; i++)
             {
-                _slot[i] = pitemlist.player_originalitemlist[itemID].toppingtype[i].ToString();
+                if (_status == 0)
+                {
+                    _slot[i] = pitemlist.player_originalitemlist[itemID].toppingtype[i].ToString();
+                }
+                else
+                {
+                    _slot[i] = pitemlist.player_yosokuitemlist[itemID].toppingtype[i].ToString();
+                }
             }
         }
 

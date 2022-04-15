@@ -337,6 +337,11 @@ public class Updown_counter : MonoBehaviour {
                             this.transform.localPosition = new Vector3(0, -87, 0);
                             break;
 
+                        case 7: //ヒカリに作らせる場合の、カウンターの位置
+
+                            this.transform.localPosition = new Vector3(0, -87, 0);
+                            break;
+
                         default:
 
                             this.transform.localPosition = new Vector3(100, -120, 0);
@@ -373,7 +378,7 @@ public class Updown_counter : MonoBehaviour {
             {
                 if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    if (GameMgr.compound_select == 3) //オリジナル調合のとき
+                    if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) //オリジナル調合のとき
                     {
                         //カウントをとりあえず１足す
                         ++updown_kosu;
@@ -470,7 +475,7 @@ public class Updown_counter : MonoBehaviour {
                 }
                 else
                 {
-                    if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3)
+                    if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
                     {
                         switch (pitemlistController.kettei1_bunki)
                         {
@@ -620,7 +625,7 @@ public class Updown_counter : MonoBehaviour {
                         }
                     }
 
-                    else if (GameMgr.compound_select == 5)
+                    else if (GameMgr.compound_select == 5) //焼くの場合　未使用
                     {
                         switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
                         {

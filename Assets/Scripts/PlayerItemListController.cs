@@ -100,19 +100,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public bool shopsell_final_select_flag;
 
-    /*public ItemCompoundDataBase DatabaseCompo
-    {
-        get
-        {
-            return databaseCompo;
-        }
-
-        set
-        {
-            databaseCompo = value;
-        }
-    }*/
-
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
         //プレイヤー所持アイテムリストの取得
@@ -435,8 +422,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             Destroy(child.gameObject);
         }
 
-        max = pitemlist.playeritemlist.Count; //現在のプレイヤーアイテムリストの最大数を更新
-        max_original = pitemlist.player_originalitemlist.Count; //現在のプレイヤーオリジナルアイテムリストの最大数を更新
+        //max = pitemlist.playeritemlist.Count; //現在のプレイヤーアイテムリストの最大数を更新
+        //max_original = pitemlist.player_originalitemlist.Count; //現在のプレイヤーオリジナルアイテムリストの最大数を更新
 
         list_count = 0;
         _listitem.Clear();
@@ -445,7 +432,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //Debug.Log("database.items.Count: " + database.items.Count);
 
         //まず、プレイヤーアイテムリストを、表示
-        for (i = 0; i < max; i++)
+        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
             if (database.items[i].item_Hyouji > 0) //item_hyoujiが1のものを表示する。未使用アイテムなどは0にして表示しない。
             {
@@ -473,34 +460,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
 
-                                if (GameMgr.tutorial_ON == true)
-                                {
-                                    if (database.items[i].itemName == "komugiko" || database.items[i].itemName == "butter" || database.items[i].itemName == "suger")
-                                    {
-                                        itemlist_hyouji();
-                                    }
-                                }
-                                else
-                                {
-                                    if (database.items[i].itemType.ToString() == "Mat")
-                                    {
-                                        itemlist_hyouji();
-                                    }
-                                    else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
-                                        database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Bread_Sliced" || 
-                                        database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
-                                        database.items[i].itemType_sub.ToString() == "Crepe_Mat" || database.items[i].itemType_sub.ToString() == "Castella" ||
-                                        database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Juice" ||
-                                        database.items[i].itemType_sub.ToString() == "Cake_Mat" || database.items[i].itemType_sub.ToString() == "Coffee_Mat" ||
-                                        database.items[i].itemType_sub.ToString() == "Cookie_Mat")
-                                    {
-                                        itemlist_hyouji();
-                                    }
-                                    else if (database.items[i].itemType_sub.ToString() == "Garbage" || database.items[i].itemType_sub.ToString() == "Machine")
-                                    {
-                                        itemlist_hyouji();
-                                    }
-                                }
+                                OriginalComp_Playeritemlist();                               
 
                                 break;
 
@@ -510,6 +470,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 {
                                     itemlist_hyouji();
                                 }
+                                break;
+
+                            case 7: //ヒカリに作らせる。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
+
+                                OriginalComp_Playeritemlist();
+
                                 break;
 
                             case 10: //お菓子をあげるとき。アイテムタイプが「お菓子」のみ表示
@@ -616,7 +582,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
 
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
-        for (i = 0; i < max_original; i++)
+        for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             if (pitemlist.player_originalitemlist[i].item_Hyouji > 0) //item_hyoujiが1のものを表示する。未使用アイテムなどは0にして表示しない。
             {
@@ -640,35 +606,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         case 3: //オリジナル調合。材料・生地などの素材アイテムのみ表示。
 
-                            if (GameMgr.tutorial_ON == true)
-                            {
-                                if (pitemlist.player_originalitemlist[i].itemName == "komugiko" || pitemlist.player_originalitemlist[i].itemName == "butter" ||
-                                    pitemlist.player_originalitemlist[i].itemName == "suger")
-                                {
-                                    original_itemlist_hyouji();
-                                }
-                            }
-                            else
-                            {
-                                if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat")
-                                {
-                                    original_itemlist_hyouji();
-                                }
-                                else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread_Sliced" || 
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Castella" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Juice" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cake_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Coffee_Mat" ||
-                                    pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cookie_Mat")
-                                {
-                                    original_itemlist_hyouji();
-                                }
-                                else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Garbage" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Machine")
-                                {
-                                    original_itemlist_hyouji();
-                                }
-                            }
+                            OriginalComp_Player_originalitemlist();
 
                             break;
 
@@ -678,6 +616,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             {
                                 original_itemlist_hyouji();
                             }
+                            break;
+
+                        case 7: //ヒカリに作らせる。材料・生地などの素材アイテムのみ表示。
+
+                            OriginalComp_Player_originalitemlist();                           
+
                             break;
 
                         case 10: //お菓子をあげるとき。アイテムタイプが「お菓子」のみ表示
@@ -779,7 +723,70 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
     }
 
+    void OriginalComp_Playeritemlist()
+    {
+        if (GameMgr.tutorial_ON == true)
+        {
+            if (database.items[i].itemName == "komugiko" || database.items[i].itemName == "butter" || database.items[i].itemName == "suger")
+            {
+                itemlist_hyouji();
+            }
+        }
+        else
+        {
+            if (database.items[i].itemType.ToString() == "Mat")
+            {
+                itemlist_hyouji();
+            }
+            else if (database.items[i].itemType_sub.ToString() == "Chocolate_Mat" || database.items[i].itemType_sub.ToString() == "IceCream" ||
+                database.items[i].itemType_sub.ToString() == "Bread" || database.items[i].itemType_sub.ToString() == "Bread_Sliced" ||
+                database.items[i].itemType_sub.ToString() == "Tea_Mat" ||
+                database.items[i].itemType_sub.ToString() == "Crepe_Mat" || database.items[i].itemType_sub.ToString() == "Castella" ||
+                database.items[i].itemType_sub.ToString() == "Source" || database.items[i].itemType_sub.ToString() == "Juice" ||
+                database.items[i].itemType_sub.ToString() == "Cake_Mat" || database.items[i].itemType_sub.ToString() == "Coffee_Mat" ||
+                database.items[i].itemType_sub.ToString() == "Cookie_Mat")
+            {
+                itemlist_hyouji();
+            }
+            else if (database.items[i].itemType_sub.ToString() == "Garbage" || database.items[i].itemType_sub.ToString() == "Machine")
+            {
+                itemlist_hyouji();
+            }
+        }
+    }
 
+    void OriginalComp_Player_originalitemlist()
+    {
+        if (GameMgr.tutorial_ON == true)
+        {
+            if (pitemlist.player_originalitemlist[i].itemName == "komugiko" || pitemlist.player_originalitemlist[i].itemName == "butter" ||
+                pitemlist.player_originalitemlist[i].itemName == "suger")
+            {
+                original_itemlist_hyouji();
+            }
+        }
+        else
+        {
+            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat")
+            {
+                original_itemlist_hyouji();
+            }
+            else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" ||
+                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Bread_Sliced" ||
+                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Mat" ||
+                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Crepe_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Castella" ||
+                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Source" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Juice" ||
+                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cake_Mat" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Coffee_Mat" ||
+                pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Cookie_Mat")
+            {
+                original_itemlist_hyouji();
+            }
+            else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Garbage" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Machine")
+            {
+                original_itemlist_hyouji();
+            }
+        }
+    }
 
 
     //トッピング調合の時のみ使用。ベースアイテムを決める時。
@@ -792,8 +799,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             Destroy(child.gameObject);
         }
 
-        max = pitemlist.playeritemlist.Count; //現在のプレイヤーアイテムリストの最大数を更新
-        max_original = pitemlist.player_originalitemlist.Count; //現在のプレイヤーオリジナルアイテムリストの最大数を更新
+        //max = pitemlist.playeritemlist.Count; //現在のプレイヤーアイテムリストの最大数を更新
+        //max_original = pitemlist.player_originalitemlist.Count; //現在のプレイヤーオリジナルアイテムリストの最大数を更新
         //Debug.Log("max: " + max);
         //Debug.Log("max_original: " + max_original);
 
@@ -801,7 +808,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _listitem.Clear();
 
         //まず、プレイヤーアイテムリストを、表示
-        for (i = 0; i < max; i++)
+        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
             if ( database.items[i].item_Hyouji > 0 )
             {
@@ -828,7 +835,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
 
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
-        for (i = 0; i < max_original; i++)
+        for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             if (pitemlist.player_originalitemlist[i].item_Hyouji > 0)
             {
@@ -857,8 +864,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             Destroy(child.gameObject);
         }
 
-        max = pitemlist.playeritemlist.Count; //現在のプレイヤーアイテムリストの最大数を更新
-        max_original = pitemlist.player_originalitemlist.Count; //現在のプレイヤーオリジナルアイテムリストの最大数を更新
+        //max = pitemlist.playeritemlist.Count; //現在のプレイヤーアイテムリストの最大数を更新
+        //max_original = pitemlist.player_originalitemlist.Count; //現在のプレイヤーオリジナルアイテムリストの最大数を更新
         //Debug.Log("max: " + max);
         //Debug.Log("max_original: " + max_original);
 
@@ -866,7 +873,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _listitem.Clear();
 
         //まず、プレイヤーアイテムリストを、表示
-        for (i = 0; i < max; i++)
+        for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
             if (database.items[i].item_Hyouji > 0)
             {
@@ -909,7 +916,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
 
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
-        for (i = 0; i < max_original; i++)
+        for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             if (pitemlist.player_originalitemlist[i].item_Hyouji > 0)
             {

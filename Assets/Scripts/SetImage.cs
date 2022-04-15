@@ -397,6 +397,11 @@ public class SetImage : MonoBehaviour
         Card_draw();
     }
 
+    public void SetInitYosoku()
+    {
+        Card_drawYosoku();
+    }
+
     //アイテムリストから開いた場合
     public void SetInitPitemList()
     {
@@ -592,7 +597,87 @@ public class SetImage : MonoBehaviour
 
         //実際にカードの表示を更新する部分
         DrawCardParam();
-    }    
+    }
+
+    //カード描画用のパラメータ　予測表示用
+    void Card_drawYosoku()
+    {
+
+        //アイテムID
+        itemID = pitemlist.player_yosokuitemlist[check_counter].itemID;
+
+        //アイテムタイプを代入//
+        item_type = pitemlist.player_yosokuitemlist[check_counter].itemType.ToString();
+
+        //サブカテゴリーの代入
+        item_type_sub = pitemlist.player_yosokuitemlist[check_counter].itemType_sub.ToString();
+
+        /* アイテム解説の表示 */
+        item_RankDesc.text = pitemlist.player_yosokuitemlist[check_counter].itemDesc;
+
+        // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
+        texture2d = pitemlist.player_yosokuitemlist[check_counter].itemIcon_sprite;
+
+        //カードのスロット部分の名
+        item_SlotName = pitemlist.player_yosokuitemlist[check_counter].item_SlotName;
+
+        //カードのアイテム名
+        //item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
+        _name = pitemlist.player_yosokuitemlist[check_counter].itemNameHyouji;
+
+        //アイテムの品質値
+        _quality = pitemlist.player_yosokuitemlist[check_counter].Quality.ToString();
+
+        //レアリティ
+        _rare = pitemlist.player_yosokuitemlist[check_counter].Rare;
+
+        //甘さなどのパラメータを代入
+        _quality_score = pitemlist.player_yosokuitemlist[check_counter].Quality;
+        _rich_score = pitemlist.player_yosokuitemlist[check_counter].Rich;
+        _sweat_score = pitemlist.player_yosokuitemlist[check_counter].Sweat;
+        _bitter_score = pitemlist.player_yosokuitemlist[check_counter].Bitter;
+        _sour_score = pitemlist.player_yosokuitemlist[check_counter].Sour;
+
+        _crispy_score = pitemlist.player_yosokuitemlist[check_counter].Crispy;
+        _fluffy_score = pitemlist.player_yosokuitemlist[check_counter].Fluffy;
+        _smooth_score = pitemlist.player_yosokuitemlist[check_counter].Smooth;
+        _hardness_score = pitemlist.player_yosokuitemlist[check_counter].Hardness;
+
+        _juice_score = pitemlist.player_yosokuitemlist[check_counter].Juice;
+
+        _powdery_score = pitemlist.player_yosokuitemlist[check_counter].Powdery;
+        _oily_score = pitemlist.player_yosokuitemlist[check_counter].Oily;
+        _watery_score = pitemlist.player_yosokuitemlist[check_counter].Watery;
+
+        //前回の味読み込み
+        //_lastquality_score = pitemlist.player_originalitemlist[check_counter].Quality;
+        _lastrich_score = pitemlist.player_yosokuitemlist[check_counter].last_rich_score;
+        _lastsweat_score = pitemlist.player_yosokuitemlist[check_counter].last_sweat_score;
+        _lastbitter_score = pitemlist.player_yosokuitemlist[check_counter].last_bitter_score;
+        _lastsour_score = pitemlist.player_yosokuitemlist[check_counter].last_sour_score;
+
+        _lastcrispy_score = pitemlist.player_yosokuitemlist[check_counter].last_crispy_score;
+        _lastfluffy_score = pitemlist.player_yosokuitemlist[check_counter].last_fluffy_score;
+        _lastsmooth_score = pitemlist.player_yosokuitemlist[check_counter].last_smooth_score;
+        _lasthardness_score = pitemlist.player_yosokuitemlist[check_counter].last_hardness_score;
+        _lastjuice_score = pitemlist.player_yosokuitemlist[check_counter].last_juice_score;
+
+        _eat_kaisu = pitemlist.player_yosokuitemlist[check_counter].Eat_kaisu;
+        _highscore_flag = pitemlist.player_yosokuitemlist[check_counter].HighScore_flag;
+        _lasttotal_score = pitemlist.player_yosokuitemlist[check_counter].last_total_score;
+        _lasthint_text = pitemlist.player_yosokuitemlist[check_counter].last_hinttext;
+
+        for (i = 0; i < _slot.Length; i++)
+        {
+            _slot[i] = pitemlist.player_yosokuitemlist[check_counter].toppingtype[i].ToString();
+        }
+
+        //カード　スロット名 現在は、特に表示はしていない
+        Slotname_Hyouji();
+
+        //実際にカードの表示を更新する部分
+        DrawCardParam();
+    }
 
     void DrawCardParam()
     {
@@ -752,6 +837,12 @@ public class SetImage : MonoBehaviour
             case "Creampuff":
                 subcategory = "シュークリーム";
                 Fluffy_Text();
+                break;
+            case "Coffee":
+                subcategory = "コーヒー";
+                Crispy_Text();
+                item_Shokukan_Type.text = "香り";
+                item_lastShokukan_Type.text = "香り";
                 break;
             case "Coffee_Mat":
                 subcategory = "コーヒー";
@@ -935,7 +1026,7 @@ public class SetImage : MonoBehaviour
         {
             item_Oily.text = "";
         }
-        if (item_type_sub == "Juice" || item_type_sub == "Tea" || item_type_sub == "Tea_Potion" || item_type_sub == "Coffee_Mat")
+        if (item_type_sub == "Juice" || item_type_sub == "Tea" || item_type_sub == "Tea_Potion" || item_type_sub == "Coffee_Mat" || item_type_sub == "Coffee")
         {
             item_Watery.text = "";
         }

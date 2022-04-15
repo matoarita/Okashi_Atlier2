@@ -254,8 +254,8 @@ public class itemSelectToggle : MonoBehaviour
 
                 GameMgr.compound_status = 100; //トグルを押して、調合中の状態。All_cancelで、status=4に戻る。status=4でキャンセルすると、最初の調合選択シーンに戻る。
                 
-                // オリジナル調合を選択した場合の処理
-                if (GameMgr.compound_select == 3)
+                // オリジナル調合かヒカリに作らせるを選択した場合の処理
+                if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
                 {
                     yes.SetActive(true);
 

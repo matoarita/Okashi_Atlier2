@@ -250,6 +250,32 @@ public class Compound_Check : MonoBehaviour {
                 StartCoroutine("Final_select");
 
             }
+
+            if (GameMgr.compound_select == 7) //ヒカリに作らせるのときの処理
+            {
+
+                GameMgr.compound_status = 110;
+
+                SelectPaused();
+
+                final_select_flag = false;
+                resultitemName_obj.SetActive(true);
+
+                FinalCheckPanel.SetActive(true);
+                yes.GetComponent<Button>().interactable = false;
+                no.GetComponent<Button>().interactable = false;
+
+                //一度contentの中身を削除
+                foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+                {
+                    Destroy(child.gameObject);
+                }
+                list_count = 0;
+                _listitem.Clear();
+
+                StartCoroutine("Final_select");
+
+            }
         }
         
         
@@ -282,9 +308,14 @@ public class Compound_Check : MonoBehaviour {
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
                 FinalCheck_ItemIconHyouji(0); //2個表示のとき
 
-                _text.text = final_itemmes + "\n" + "作る？";
-                /*_text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
-                    + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個";*/
+                if (GameMgr.compound_select == 3)
+                {
+                    _text.text = final_itemmes + "\n" + "作る？";
+                }
+                else if (GameMgr.compound_select == 7)
+                {
+                    _text.text = final_itemmes + "\n" + "このお菓子を作ってもらう？";
+                }
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
@@ -302,37 +333,69 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
 
-                        //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
-
-                        //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
-
-                        exp_Controller.extreme_on = false;
-
-                        if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                        if (GameMgr.compound_select == 3)
                         {
-                            exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+                            //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
+
+                            //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
+
+                            exp_Controller.extreme_on = false;
+
+                            if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                            {
+                                exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+                            }
+                            else
+                            {
+                                exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                            }
+
+                            exp_Controller.result_kosuset.Clear();
+                            for (i = 0; i < result_kosuset.Count; i++)
+                            {
+                                exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                            }
+
+                            GameMgr.compound_status = 4;
+
+                            card_view.CardCompo_Anim();
+                            Off_Flag_Setting();
+
+                            exp_Controller.ResultOK();
+
+                            //仕上げ回数をリセット
+                            //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
                         }
-                        else
+                        else if (GameMgr.compound_select == 7)
                         {
+                            //ヒカリに作ってもらう。材料の決定
+
+                            exp_Controller.extreme_on = false;
+
                             exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                            /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                            {
+                                exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+                            }
+                            else
+                            {
+                                exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                            }*/
+
+                            exp_Controller.result_kosuset.Clear();
+                            for (i = 0; i < result_kosuset.Count; i++)
+                            {
+                                exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                            }
+
+                            GameMgr.compound_status = 4;
+
+                            //card_view.CardCompo_Anim();
+                            Off_Flag_Setting();
+
+                            exp_Controller.HikariMakeOK();
                         }
-
-                        exp_Controller.result_kosuset.Clear();
-                        for (i = 0; i < result_kosuset.Count; i++)
-                        {
-                            exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
-                        }
-
-                        GameMgr.compound_status = 4;
-
-                        card_view.CardCompo_Anim();
-                        Off_Flag_Setting();
-
-                        exp_Controller.ResultOK();
-
-                        //仕上げ回数をリセット
-                        //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
 
                         break;
 
@@ -367,12 +430,16 @@ public class Compound_Check : MonoBehaviour {
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
                 FinalCheck_ItemIconHyouji(1); //3個表示のとき
 
-                _text.text = final_itemmes + "\n" + "作る？";
-                /*_text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" 
-                    + "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" 
-                    + "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個";*/
+                if (GameMgr.compound_select == 3)
+                {
+                    _text.text = final_itemmes + "\n" + "作る？";
+                }
+                else if (GameMgr.compound_select == 7)
+                {
+                    _text.text = final_itemmes + "\n" + "このお菓子を作ってもらう？";
+                }
 
-                //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
+                    //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
 
                 while (yes_selectitem_kettei.onclick != true)
                 {
@@ -388,31 +455,63 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
 
-                        //選んだ三つをもとに、一つのアイテムを生成する。
-
-                        //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.result_ok = true; //オリジナル調合完了のフラグをたてておく。
-
-                        exp_Controller.extreme_on = false;
-
-                        exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
-
-                        exp_Controller.result_kosuset.Clear();
-                        for (i = 0; i < result_kosuset.Count; i++)
+                        if (GameMgr.compound_select == 3)
                         {
-                            exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                            //選んだ三つをもとに、一つのアイテムを生成する。
+
+                            //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.result_ok = true; //オリジナル調合完了のフラグをたてておく。
+
+                            exp_Controller.extreme_on = false;
+
+                            exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+
+                            exp_Controller.result_kosuset.Clear();
+                            for (i = 0; i < result_kosuset.Count; i++)
+                            {
+                                exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                            }
+
+                            GameMgr.compound_status = 4;
+
+                            //card_view.DeleteCard_DrawView();
+                            card_view.CardCompo_Anim();
+                            Off_Flag_Setting();
+
+                            exp_Controller.ResultOK();
+
+                            //仕上げ回数をリセット
+                            //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
                         }
+                        else if (GameMgr.compound_select == 7)
+                        {
+                            //ヒカリに作ってもらう。材料の決定
 
-                        GameMgr.compound_status = 4;
+                            exp_Controller.extreme_on = false;
 
-                        //card_view.DeleteCard_DrawView();
-                        card_view.CardCompo_Anim();
-                        Off_Flag_Setting();
+                            exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                            /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                            {
+                                exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+                            }
+                            else
+                            {
+                                exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                            }*/
 
-                        exp_Controller.ResultOK();
+                            exp_Controller.result_kosuset.Clear();
+                            for (i = 0; i < result_kosuset.Count; i++)
+                            {
+                                exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                            }
 
-                        //仕上げ回数をリセット
-                        //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+                            GameMgr.compound_status = 4;
+
+                            //card_view.CardCompo_Anim();
+                            Off_Flag_Setting();
+
+                            exp_Controller.HikariMakeOK();
+                        }
 
                         break;
 

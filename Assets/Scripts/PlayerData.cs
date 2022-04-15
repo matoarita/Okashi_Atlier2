@@ -109,6 +109,18 @@ public class PlayerData
     public bool save_QuestClearflag;
     public bool save_QuestClearButton_anim; //クエストクリア演出が発生したか否か
 
+    //ヒカリのお菓子作り系フラグ
+    public int[] save_hikari_kettei_item = new int[GameMgr.hikari_kettei_item.Length];
+    public int[] save_hikari_kettei_kosu = new int[GameMgr.hikari_kettei_kosu.Length];
+    public int[] save_hikari_kettei_toggleType = new int[GameMgr.hikari_kettei_toggleType.Length];
+    public bool save_hikari_make_okashiFlag; //ヒカリがお菓子を制作中かどうかのフラグ
+    public int save_hikari_make_okashiID;
+    public int save_hikari_make_okashi_compID; //CompoDBのID
+    public int save_hikari_make_okashiTimeCost; //かかる時間
+    public int save_hikari_make_okashiTimeCounter; //制作時間のタイマー
+    public int save_hikari_make_doubleItemCreated;
+    public float save_hikari_make_okashi_totalkyori;
+
     //さっき食べたお菓子の情報
     public string save_Okashi_lasthint; //さっき食べたお菓子のヒント。
     public string save_Okashi_lastname; //さっき食べたお菓子の名前。

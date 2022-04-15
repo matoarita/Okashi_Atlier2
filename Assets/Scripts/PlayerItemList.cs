@@ -58,7 +58,10 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     public List<ItemEvent> emeralditemlist = new List<ItemEvent>();
 
     //プレイヤーが作成したオリジナルのアイテムリスト。
-    public List<Item> player_originalitemlist = new List<Item>(); 
+    public List<Item> player_originalitemlist = new List<Item>();
+
+    //予測用のオリジナルのアイテムリスト。プレイヤーから触ることはできない架空の所持リスト。
+    public List<Item> player_yosokuitemlist = new List<Item>();
 
     // Use this for initialization
     void Start () {
@@ -375,7 +378,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
     }
 
-    //　トッピングで、調節したオリジナルアイテムを登録する。
+    //トッピングで、調節したオリジナルアイテムを登録する。
     public void addOriginalItem(string _name, int _mp, int _day, int _quality, int _exp, float _ex_probabilty, 
         int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _beauty,
         float _girl1_like, int _cost, int _sell, 
@@ -418,6 +421,54 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
         player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty, 
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _type, _subtype, _base_score, _girl1_like, _cost, _sell, 
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare));
+    }
+
+    //予測表示用オリジナルアイテムを登録する。
+    public void addYosokuOriginalItem(string _name, int _mp, int _day, int _quality, int _exp, float _ex_probabilty,
+        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _beauty,
+        float _girl1_like, int _cost, int _sell,
+        string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10,
+        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori)
+    {
+
+        player_yosokuitemlist.Clear();
+
+        //データベースから_nameに一致するものを取得。
+        i = 0;
+
+        while (i < database.items.Count)
+        {
+
+            if (database.items[i].itemName == _name)
+            {
+                _id = database.items[i].itemID;　//アイテムIDのこと。
+                _comp_hosei = database.items[i].itemComp_Hosei;
+                _file_name = database.items[i].fileName;
+                _nameHyouji = database.items[i].itemNameHyouji;
+                _desc = database.items[i].itemDesc;
+                _type = database.items[i].itemType.ToString();
+                _subtype = database.items[i].itemType_sub.ToString();
+                _base_score = database.items[i].Base_Score;
+                _judge_num = database.items[i].SetJudge_Num;
+                _eat_kaisu = database.items[i].Eat_kaisu;
+                _highscore_flag = database.items[i].HighScore_flag;
+                _lasttotal_score = database.items[i].last_total_score;
+                _hinttext = database.items[i].last_hinttext;
+                _rare = database.items[i].Rare;
+
+                for (k = 0; k < _koyutp.Length; k++)
+                {
+                    _koyutp[k] = database.items[i].koyu_toppingtype[k];
+                }
+                break;
+            }
+            ++i;
+        }
+
+        player_yosokuitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _type, _subtype, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare));
     }

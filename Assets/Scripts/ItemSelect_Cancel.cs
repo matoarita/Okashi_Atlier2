@@ -447,7 +447,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 case 100: //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
 
                     //調合選択中のとき、キャンセル待ち処理
-                    if (GameMgr.compound_select == 3) //オリジナル調合のときの処理
+                    if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) //オリジナル調合のときの処理
                     {
                         if (compound_Check.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
                         {
@@ -738,7 +738,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
 
             //オリジナル調合の処理
-            if (GameMgr.compound_select == 3) 
+            if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) 
             {
                 if (pitemlistController.kettei1_bunki == 1)
                 {

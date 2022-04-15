@@ -1120,6 +1120,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         }
 
         totalkyori = kyori1 + kyori2 + kyori3;
+        GameMgr.hikari_make_okashi_totalkyori = totalkyori; //ヒカリが作るお菓子のときに使用する。
         //Debug.Log("ベスト配合との距離: " + totalkyori);
 
         if (mstatus != 99)
@@ -1161,6 +1162,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         }
 
         totalkyori = kyori1 + kyori2 + kyori3;
+        GameMgr.hikari_make_okashi_totalkyori = totalkyori; //ヒカリが作るお菓子のときに使用する。
         //Debug.Log("ベスト配合との距離: " + totalkyori);
 
         if (mstatus != 99)

@@ -57,6 +57,9 @@ public class Utage_scenario : MonoBehaviour
     private EmeraldShop_Main emeraldshop_main;
     private Exp_Controller exp_Controller;
 
+    private GameObject character_root;
+    private GameObject GirlHeartEffect_obj;
+
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
 
@@ -248,6 +251,10 @@ public class Utage_scenario : MonoBehaviour
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     _renderController = _model.GetComponent<CubismRenderController>();
                     live2d_animator = _model.GetComponent<Animator>();
+
+                    //女の子の反映用ハートエフェクト取得
+                    character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                    GirlHeartEffect_obj = character_root.transform.Find("CharacterMove/Particle_Heart_Character").gameObject;
                 }
 
                 if (!sceneBGM)
@@ -1938,23 +1945,24 @@ public class Utage_scenario : MonoBehaviour
 
     void MosesEventCheck()
     {
-        if (!GameMgr.NPC_DislikeFlag)
+        if (GameMgr.GirlLoveSubEvent_stage1[161]) //モーセクリア済み
         {
-            engine.Param.TrySetParameter("EventJudge_num", 100);
-            Debug.Log("モーセ　お菓子が違ってた");
+            if (GameMgr.event_judge_status >= 2)
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
+            }
+            else
+            {
+                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
+            }
         }
         else
         {
-            if (GameMgr.GirlLoveSubEvent_stage1[161]) //モーセクリア済み
+            //初回の判定はこちら。こっちは、モーセの食べたいお菓子だったかどうかの判定もする。
+            if (!GameMgr.NPC_DislikeFlag)
             {
-                if (GameMgr.event_judge_status >= 2)
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
-                }
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("モーセ　お菓子が違ってた");
             }
             else
             {
@@ -2083,6 +2091,12 @@ public class Utage_scenario : MonoBehaviour
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 
+        if(GameMgr.Story_Mode == 1)
+        {
+            //キャラ背後のハートもオフにする。
+            GirlHeartEffect_obj.SetActive(false);
+        }
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -2111,6 +2125,12 @@ public class Utage_scenario : MonoBehaviour
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
+
+        if (GameMgr.Story_Mode == 1)
+        {
+            //キャラ背後のハートもオンにする。
+            GirlHeartEffect_obj.SetActive(true);
+        }
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 

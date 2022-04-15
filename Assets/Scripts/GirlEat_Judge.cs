@@ -1640,7 +1640,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_num = 1;
         }
         //ジュース・ティー・コーヒー類は、水系の値の判定をなくす。もともと、みずなので。
-        if (_baseitemtype_sub == "Juice" || _baseitemtype_sub == "Tea" || _baseitemtype_sub == "Tea_Potion" || _baseitemtype_sub == "Coffee_Mat")
+        if (_baseitemtype_sub == "Juice" || _baseitemtype_sub == "Tea" || _baseitemtype_sub == "Tea_Potion" || _baseitemtype_sub == "Coffee_Mat" 
+            || _baseitemtype_sub == "Coffee")
         { }
         else { 
             if (_basewatery > GameMgr.Watery_Line)
@@ -1830,6 +1831,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
             case "Creampuff":
                 Fluffy_Score();
+                break;
+            case "Coffee":
+                Tea_Score();
                 break;
             case "Coffee_Mat":
                 Tea_Score();
@@ -3732,8 +3736,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
+
+
+
     //
-    //クエストクリア条件
+    //クエストクリア条件関係
     //
     void QuestClearJoukenCheck()
     {
@@ -3761,7 +3768,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
-                default: //特殊なものがない限りは、デフォルト。60点以上でクリア
+                case 10: //茶色いクッキー
+
+                    if(_basename == "cocoa_cookie" && total_score >= GameMgr.low_score)
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
+                    break;
+
+                default: //Extraモードでは、食べたいお菓子がランダムで変わるので、こちらは使用しない。
 
                     DefaultQuestJouken();
 
@@ -3831,6 +3847,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
         }
     }
+
+
+
 
     void EndSpQuest()
     {
@@ -4749,7 +4768,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     void ShokukanHintHyouji()
     {
         //食感に関するヒント
-        if (shokukan_score >= 0 && shokukan_score < 20) //
+        if (shokukan_score < 20) //
         {
             _shokukan_kansou = GameMgr.ColorRedDeep + "食感 F: " + shokukan_mes + "が全然足りない..。" + "</color>";
         }
@@ -4903,7 +4922,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             DislikeJudge();
 
-            if (dislike_flag == false) //好みでない場合の処理　たいてい、クエストは失敗におわる。
+            if (dislike_flag == false) //好みでない場合の処理　好みと一致していないとfalseがでる。その場合、たいてい、クエストは失敗におわる。
             {
                 GameMgr.NPC_DislikeFlag = false;
             }

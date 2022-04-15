@@ -171,6 +171,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject compoBGA_imageOri;
     private GameObject compoBGA_imageRecipi;
     private GameObject compoBGA_imageExtreme;
+    private GameObject compoBGA_imageHikariMake;
 
     private GameObject original_toggle;
     private GameObject recipi_toggle;
@@ -204,9 +205,6 @@ public class Compound_Main : MonoBehaviour
     private bool status_zero_readOK;
     private bool Recipi_loading;
     public bool check_recipi_flag;
-    //public bool check_OkashiAfter_flag;
-    //public bool check_CompoAfter_flag; //Exp_Controllerから読み出し
-    //public bool check_GetMat_flag; //採取地から帰ってきたあとのサブイベントのチェック用
     private int not_read_total;
     private int _checkexp;
 
@@ -258,6 +256,7 @@ public class Compound_Main : MonoBehaviour
     public string originai_text;
     public string extreme_text;
     public string recipi_text;
+    public string hikarimake_text;
 
     private bool gameover_loading;
     private bool Sleep_on;
@@ -433,6 +432,7 @@ public class Compound_Main : MonoBehaviour
         compoBGA_imageOri = canvas.transform.Find("Compound_BGPanel_A/OriCompoImage").gameObject;
         compoBGA_imageRecipi = canvas.transform.Find("Compound_BGPanel_A/RecipiCompoImage").gameObject;
         compoBGA_imageExtreme = canvas.transform.Find("Compound_BGPanel_A/ExtremeImage").gameObject;
+        compoBGA_imageHikariMake = canvas.transform.Find("Compound_BGPanel_A/HikariMakeImage").gameObject;
         ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
         ResultBGimage.SetActive(false);
         compoBG_A_effect = GameObject.FindWithTag("Comp_Effect").gameObject;
@@ -656,8 +656,11 @@ public class Compound_Main : MonoBehaviour
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをしよう！にいちゃん！ 一個目の材料を選んでね。";
         recipi_text = "ヒカリのお菓子手帳だよ！" + "\n" + "にいちゃんのレシピが増えたら、ここに書いてくね！";
+        hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" + 
+            "好きな材料を" + GameMgr.ColorYellow +
+            "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
 
-        
+
 
         //飾りアイテムのセット
         BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();
@@ -868,6 +871,7 @@ public class Compound_Main : MonoBehaviour
                         compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                        compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
 
                         Extremepanel_obj.SetActive(false);
 
@@ -889,6 +893,7 @@ public class Compound_Main : MonoBehaviour
                         compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                        compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
 
                         Extremepanel_obj.SetActive(false);
 
@@ -914,6 +919,7 @@ public class Compound_Main : MonoBehaviour
                         compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                        compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
                         pitemlistController.Offinteract();
                         kakuritsuPanel_obj.SetActive(false);
 
@@ -1345,6 +1351,7 @@ public class Compound_Main : MonoBehaviour
                     compoBGA_imageOri.GetComponent<Image>().raycastTarget = true;
                     compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = true;
                     compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = true;
+                    compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
                     
                     keymanager.InitCompoundMainScene();
@@ -1543,6 +1550,7 @@ public class Compound_Main : MonoBehaviour
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(true);
                 compoBGA_imageExtreme.SetActive(false);
+                compoBGA_imageHikariMake.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();               
                 time_controller.TimeCheck_flag = false;
@@ -1601,6 +1609,7 @@ public class Compound_Main : MonoBehaviour
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(true);
+                compoBGA_imageHikariMake.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
@@ -1655,6 +1664,7 @@ public class Compound_Main : MonoBehaviour
                 compoBGA_imageOri.SetActive(true);
                 compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(false);
+                compoBGA_imageHikariMake.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 recipiMemoButton.SetActive(true);
@@ -1764,6 +1774,7 @@ public class Compound_Main : MonoBehaviour
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
                 compoBGA_imageExtreme.SetActive(false);
+                compoBGA_imageHikariMake.SetActive(false);
                 touch_controller.Touch_OnAllOFF();
                 extreme_panel.extremeButtonInteractOFF();
                 time_controller.TimeCheck_flag = false;
@@ -1826,6 +1837,64 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.DeleteHukidashiOnly();
 
                 keymanager.InitCompoundMainScene();
+
+                break;
+
+
+            case 7: //ヒカリが作るを開始
+
+                GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                GameMgr.compound_select = 7; //ヒカリに作らせるを選択
+
+                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                kakuritsuPanel_obj.SetActive(true);
+
+                compoBG_A.SetActive(true);
+                compoBG_A_effect.SetActive(false);
+                //compoBGA_image.SetActive(false);
+                compoBGA_imageOri.SetActive(false);
+                compoBGA_imageRecipi.SetActive(false);
+                compoBGA_imageExtreme.SetActive(false);
+                compoBGA_imageHikariMake.SetActive(true);
+                touch_controller.Touch_OnAllOFF();
+                extreme_panel.extremeButtonInteractOFF();
+                recipiMemoButton.SetActive(true);
+                recipimemoController_obj.SetActive(false);
+                time_controller.TimeCheck_flag = false;
+                memoResult_obj.SetActive(false);
+                stageclear_panel.SetActive(false);
+
+                text_area.SetActive(true);
+                WindowOff();
+                StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+
+                //ヒカリちゃんを表示する
+                ReDrawLive2DPos_Compound();
+
+                //BGMを変更
+                /*if (!GameMgr.tutorial_ON)
+                {
+                    if (bgm_changeuse_ON)
+                    {
+                        if (bgm_change_flag2 != true)
+                        {
+                            sceneBGM.OnCompoundBGM();
+                            bgm_change_flag2 = true;
+                        }
+                    }
+                }*/
+                map_ambience.Mute();
+
+                //腹減りカウント一時停止
+                girl1_status.GirlEatJudgecounter_OFF();
+                girl1_status.Girl1_touchhair_start = false; //gaze状態もリセット
+
+                //吹き出しも消す
+                girl1_status.DeleteHukidashiOnly();
+
+                pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+
+                keymanager.SelectOff();
 
                 break;
 
@@ -2412,6 +2481,15 @@ public class Compound_Main : MonoBehaviour
 
         _text.text = originai_text;
         GameMgr.compound_status = 3;
+    }
+
+    public void OnCheck_4_button() //調合選択画面からボタンを選択して、ヒカリにつくらせるをON
+    {
+        card_view.DeleteCard_DrawView();
+        SelectCompo_panel_1.SetActive(false);
+
+        _text.text = hikarimake_text;
+        GameMgr.compound_status = 7;
     }
 
     /*public void OnCheck_4() //ブレンド調合をON

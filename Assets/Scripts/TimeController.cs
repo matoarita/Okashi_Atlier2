@@ -16,7 +16,13 @@ public class TimeController : MonoBehaviour
     private GirlEat_Judge girleat_judge;
     private MoneyStatus_Controller moneyStatus_Controller;
 
+    private Compound_Keisan compound_keisan;
+
     private Girl1_status girl1_status;
+
+    private PlayerItemList pitemlist;
+
+    private ItemDataBase database;
 
     private GameObject _month_obj1;
     private GameObject _monthday_obj1;
@@ -61,10 +67,12 @@ public class TimeController : MonoBehaviour
     public int timeIttei4;
     public bool timeDegHeart_flag; //表示用にpublicにしてるだけ。
 
-    private int count;
+    private int i, count;
 
     private float timeLeft;
     private bool count_switch;
+
+    private bool itemkosu_check;
 
     private float timespeed_range;
 
@@ -103,6 +111,15 @@ public class TimeController : MonoBehaviour
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //合成計算オブジェクトの取得
+        compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -242,7 +259,7 @@ public class TimeController : MonoBehaviour
 
                         if (!GameMgr.scenario_ON)
                         {
-                            if (GameMgr.compound_status == 110)  //採集中やステータス画面など開いてるときは減らない
+                            if (GameMgr.compound_status == 110 && GameMgr.compound_select == 0)  //採集中やステータス画面など開いてるときは減らない
                             {
                                 if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //特定の時間イベント読み中の間もoffに。
                                 {
@@ -263,6 +280,59 @@ public class TimeController : MonoBehaviour
                                         else
                                         {
                                             GameMgr.check_GirlLoveTimeEvent_flag = false;
+                                        }
+
+                                        //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
+                                        if (!GameMgr.outgirl_Nowprogress)
+                                        {
+                                            if (GameMgr.hikari_make_okashiFlag)
+                                            {
+                                                GameMgr.hikari_make_okashiTimeCounter += 5;
+                                                if (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost * 5 * 2) //costtime=1が5分　ヒカリが作ると2倍時間かかる
+                                                {
+                                                    GameMgr.hikari_make_okashiTimeCounter = 0;
+
+                                                    //まず個数チェック。材料がなくなってたら、ここで終了。
+                                                    itemkosu_check = false;
+                                                    for (i = 0; i < 3; i++)
+                                                    {
+                                                        if (GameMgr.hikari_kettei_item[2] == 9999) //3個目が空のときは9999入ってて、無視
+                                                        {
+
+                                                        }
+                                                        else
+                                                        {
+                                                            if (GameMgr.hikari_kettei_toggleType[i] == 0)
+                                                            {
+                                                                if (pitemlist.playeritemlist[database.items[GameMgr.hikari_kettei_item[i]].itemName] < GameMgr.hikari_kettei_kosu[i])
+                                                                {
+                                                                    //終了
+                                                                    itemkosu_check = true;
+                                                                }
+                                                            }
+                                                            else if (GameMgr.hikari_kettei_toggleType[i] == 1)
+                                                            {
+                                                                if (pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[i]].ItemKosu < GameMgr.hikari_kettei_kosu[i])
+                                                                {
+                                                                    //終了
+                                                                    itemkosu_check = true;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (itemkosu_check)
+                                                    {
+                                                        //終了
+                                                        GameMgr.hikari_make_okashiFlag = false;
+                                                    }
+                                                    else
+                                                    {
+                                                        //お菓子を一個完成。演出はなしで、新規調合と同じ処理を行う。
+                                                        compound_keisan.Topping_Compound_Method(2);
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
 

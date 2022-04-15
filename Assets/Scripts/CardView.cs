@@ -242,7 +242,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
-        if (GameMgr.compound_select == 3)
+        if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -273,7 +273,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //_cardImage_obj[1].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
-        if (GameMgr.compound_select == 3)
+        if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -307,7 +307,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
-        if (GameMgr.compound_select == 3)
+        if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -345,7 +345,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //_cardImage_obj[2].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
-        if (GameMgr.compound_select == 3)
+        if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -383,7 +383,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
-        if (GameMgr.compound_select == 3)
+        if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.5f, 0.5f, 1);
             _cardImage_obj[0].transform.localPosition = new Vector3(0, 150, 0);
@@ -425,7 +425,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //_cardImage_obj[3].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
-        if (GameMgr.compound_select == 3)
+        if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
             //オリジナル調合では使わない。
         }
@@ -459,7 +459,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
-        if (GameMgr.compound_select == 3)
+        if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
         {
             //オリジナル調合では使わない
         }
@@ -553,6 +553,34 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj[1].GetComponent<SetImage>().CardParamOFF_2();
 
         Result_animOn(1); //スケールが小さいから大きくなるアニメーションをON
+    }
+
+    //予測表示するときのカード表示
+    public void ResultCardYosoku_DrawView(int _toggleType, int _result_item)
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+
+        _cardImage_obj.Clear();
+
+        _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        _cardImage.anim_status = 99;
+
+        _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+
+        //_cardImage.Pitem_or_Origin = _toggleType;
+        _cardImage.check_counter = _result_item;
+        _cardImage.SetInitYosoku();
+
+        _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
+        //_cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+
+        _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
+
+        Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
     }
 
 

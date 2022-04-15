@@ -196,6 +196,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
 
+    //ヒカリに作らせるお菓子の材料
+    public static int[] hikari_kettei_item = new int[10];
+    public static int[] hikari_kettei_kosu = new int[10];
+    public static int[] hikari_kettei_toggleType = new int[10];
+    public static bool hikari_make_okashiFlag; //ヒカリがお菓子を制作中かどうかのフラグ
+    public static int hikari_make_okashiID;
+    public static int hikari_make_okashi_compID; //CompoDBのID
+    public static int hikari_make_okashiTimeCost; //かかる時間
+    public static int hikari_make_okashiTimeCounter; //制作時間のタイマー
+    public static int hikari_make_doubleItemCreated;
+    public static float hikari_make_okashi_totalkyori;
+
     //オプションの設定　マスター音量など
     public static float MasterVolumeParam;
     public static float BGMVolumeParam;
@@ -830,6 +842,21 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             contest_judge2_comment[system_i] = "";
             contest_judge3_comment[system_i] = "";
         }
+
+        //ヒカリの作るアイテムリスト初期化
+        for (system_i = 0; system_i < hikari_kettei_item.Length; system_i++)
+        {
+            hikari_kettei_item[system_i] = 0;
+            hikari_kettei_kosu[system_i] = 0;
+            hikari_kettei_toggleType[system_i] = 0;
+        }
+        hikari_make_okashiFlag = false;
+        hikari_make_okashiID = 0;
+        hikari_make_okashi_compID = 0;
+        hikari_make_okashiTimeCost = 0;
+        hikari_make_okashiTimeCounter = 0;
+        hikari_make_doubleItemCreated = 0;
+        hikari_make_okashi_totalkyori = 0f;
 
         //マップイベントの初期化
         for (system_i = 0; system_i < MapEvent_01.Length; system_i++)
