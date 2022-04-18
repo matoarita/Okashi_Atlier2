@@ -113,6 +113,7 @@ public class PlayerData
     public int[] save_hikari_kettei_item = new int[GameMgr.hikari_kettei_item.Length];
     public int[] save_hikari_kettei_kosu = new int[GameMgr.hikari_kettei_kosu.Length];
     public int[] save_hikari_kettei_toggleType = new int[GameMgr.hikari_kettei_toggleType.Length];
+    public string[] save_hikari_kettei_itemName = new string[GameMgr.hikari_kettei_itemName.Length];
     public bool save_hikari_make_okashiFlag; //ヒカリがお菓子を制作中かどうかのフラグ
     public int save_hikari_make_okashiID;
     public int save_hikari_make_okashi_compID; //CompoDBのID
@@ -120,6 +121,7 @@ public class PlayerData
     public int save_hikari_make_okashiTimeCounter; //制作時間のタイマー
     public int save_hikari_make_doubleItemCreated;
     public float save_hikari_make_okashi_totalkyori;
+    public int save_hikari_make_okashiKosu;
 
     //さっき食べたお菓子の情報
     public string save_Okashi_lasthint; //さっき食べたお菓子のヒント。
@@ -191,7 +193,10 @@ public class PlayerData
     public List<ItemSaveKosu> save_player_emeralditemlist = new List<ItemSaveKosu>();
 
     //プレイヤーが作成したオリジナルのアイテムリスト。
-    public List<Item> save_player_originalitemlist = new List<Item>();    
+    public List<Item> save_player_originalitemlist = new List<Item>();
+
+    //プレイヤーが作成したオリジナルの予測アイテムリスト。
+    public List<Item> save_player_yosokuitemlist = new List<Item>();
 
     //アイテムの前回スコアなどを記録する
     public List<ItemSaveparam> save_itemdatabase = new List<ItemSaveparam>();

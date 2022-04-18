@@ -119,6 +119,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject ResultBGimage;
     private GameObject compoBG_A_effect;
 
+    private GameObject Hikarimake_StartPanel;
     private GameObject SelectCompo_panel_1;
     private GameObject system_panel;
     private GameObject status_panel;
@@ -437,6 +438,8 @@ public class Compound_Main : MonoBehaviour
         ResultBGimage.SetActive(false);
         compoBG_A_effect = GameObject.FindWithTag("Comp_Effect").gameObject;
         compoBG_A_effect.SetActive(false);
+        Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").gameObject;
+        Hikarimake_StartPanel.SetActive(false);
 
         //調合選択画面の取得
         SelectCompo_panel_1 = canvas.transform.Find("Compound_BGPanel_A/SelectPanel_1").gameObject;
@@ -1866,7 +1869,7 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(true);
                 WindowOff();
-                StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+                _text.text = hikarimake_text;
 
                 //ヒカリちゃんを表示する
                 ReDrawLive2DPos_Compound();
@@ -1895,6 +1898,66 @@ public class Compound_Main : MonoBehaviour
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
 
                 keymanager.SelectOff();
+
+                break;
+
+            case 8: //ヒカリお菓子作りのスタートパネルを開く               
+
+                Hikarimake_StartPanel.SetActive(true);
+
+                GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                GameMgr.compound_select = 8;
+
+                playeritemlist_onoff.SetActive(false);
+                recipilist_onoff.SetActive(false);
+                kakuritsuPanel_obj.SetActive(false);
+                stageclear_panel.SetActive(false);                
+
+                SelectCompo_panel_1.SetActive(false);
+                compoBG_A.SetActive(true);
+                compoBG_A_effect.SetActive(false);
+                //compoBGA_image.SetActive(true);
+                compoBGA_imageOri.SetActive(false);
+                compoBGA_imageRecipi.SetActive(false);
+                compoBGA_imageExtreme.SetActive(false);
+                compoBGA_imageHikariMake.SetActive(false);
+                touch_controller.Touch_OnAllOFF();
+                extreme_panel.extremeButtonInteractOFF();
+                time_controller.TimeCheck_flag = false;
+                yes_no_panel.SetActive(false);
+
+                text_area.SetActive(false);
+                WindowOff();
+
+                //カメラリセット
+                //アイドルに戻るときに0に戻す。
+                //trans = 0;
+
+                //intパラメーターの値を設定する.
+                //maincam_animator.SetInteger("trans", trans);
+
+                //ヒカリちゃんを表示しない。デフォルト描画順
+                //SetLive2DPos_Compound();
+                //cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順
+
+                recipiMemoButton.SetActive(false);
+                recipimemoController_obj.SetActive(false);
+                memoResult_obj.SetActive(false);
+
+                if (extreme_panel.extreme_itemID != 9999 && PlayerStatus.player_extreme_kaisu > 0)　//extreme_panel.extreme_kaisu
+                {
+                    select_extreme_button.interactable = true;
+                }
+                else
+                {
+                    select_extreme_button.interactable = false;
+                }
+
+                //腹減りカウント一時停止
+                girl1_status.GirlEatJudgecounter_OFF();
+
+                //吹き出しも消す
+                girl1_status.DeleteHukidashiOnly();
 
                 break;
 
@@ -2488,8 +2551,8 @@ public class Compound_Main : MonoBehaviour
         card_view.DeleteCard_DrawView();
         SelectCompo_panel_1.SetActive(false);
 
-        _text.text = hikarimake_text;
-        GameMgr.compound_status = 7;
+        //_text.text = hikarimake_text;
+        GameMgr.compound_status = 8;
     }
 
     /*public void OnCheck_4() //ブレンド調合をON

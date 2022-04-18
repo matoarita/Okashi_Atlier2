@@ -70,6 +70,7 @@ public class Compound_Check : MonoBehaviour {
     private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
 
     private bool compoDB_select_judge;
+    private bool hikari_nomake;
     private string resultitemID;
     private int result_compoID;
     private List<int> result_kosuset = new List<int>();
@@ -995,18 +996,7 @@ public class Compound_Check : MonoBehaviour {
         }
 
         //stringのリザルドアイテムを、アイテムIDに変換。
-        i = 0;
-
-        while (i < database.items.Count)
-        {
-
-            if (database.items[i].itemName == resultitemID)
-            {
-                pitemlistController.result_item = i; //プレイヤーコントローラーの変数に、アイテムIDを代入
-                break;
-            }
-            ++i;
-        }
+        pitemlistController.result_item = database.SearchItemIDString(resultitemID);
 
         pitemlistController.result_compID = result_compoID;
 
@@ -1017,6 +1007,7 @@ public class Compound_Check : MonoBehaviour {
         //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
         _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
         newrecipi_flag = false;
+        hikari_nomake = false;
 
         if (compoDB_select_judge == true)
         {
@@ -1070,14 +1061,31 @@ public class Compound_Check : MonoBehaviour {
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
             }
 
-            //新しいレシピかどうか。
+            //新しいレシピかどうか。           
             _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
             if (databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
             {
-                success_text = "新しいお菓子を思いつきそう..？";
-                newrecipi_flag = true;
-                exp_Controller.NewRecipiFlag = true;
-                //kakuritsuPanel.KakuritsuYosoku_NewImg(); //??にする。
+                if (GameMgr.compound_select == 7) //ヒカリに作らせる場合　兄がおぼえていないレシピは作れない。
+                {
+                    success_text = "にいちゃん～・・。このレシピ、見たことないよ～・・。";
+                    exp_Controller._success_judge_flag = 2; //必ず失敗する
+                    kakuritsuPanel.KakuritsuYosoku_Img(0);
+                    exp_Controller.NewRecipiFlag = false;
+                    newrecipi_flag = false;
+                    compoDB_select_judge = false;
+                    hikari_nomake = true;
+
+                    resultitemID = "gomi_1";
+                    //stringのリザルドアイテムを、アイテムIDに変換。
+                    pitemlistController.result_item = database.SearchItemIDString(resultitemID);
+                }
+                else
+                {
+                    success_text = "新しいお菓子を思いつきそう..？";
+                    newrecipi_flag = true;
+                    exp_Controller.NewRecipiFlag = true;
+                    //kakuritsuPanel.KakuritsuYosoku_NewImg(); //??にする。
+                }
             }
             else
             {
@@ -1284,7 +1292,14 @@ public class Compound_Check : MonoBehaviour {
             }
             else
             {
-                final_itemmes = "これは.. ダメかもしれぬ。";
+                if (hikari_nomake)
+                {
+                    final_itemmes = "にいちゃんが作れないレシピは、ヒカリも作れないよ～・・。";
+                }
+                else
+                {
+                    final_itemmes = "これは.. ダメかもしれぬ。";
+                }
             }
             texture2d = database.items[pitemlistController.result_item].itemIcon_sprite;
             resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ

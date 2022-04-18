@@ -1088,13 +1088,47 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_kettei_toggleType[2] = pitemlistController._toggle_type3;
         GameMgr.hikari_kettei_kosu[0] = pitemlistController.final_kettei_kosu1;
         GameMgr.hikari_kettei_kosu[1] = pitemlistController.final_kettei_kosu2;
-        GameMgr.hikari_kettei_kosu[2] = pitemlistController.final_kettei_kosu3;
+        GameMgr.hikari_kettei_kosu[2] = pitemlistController.final_kettei_kosu3;        
         GameMgr.hikari_make_okashiFlag = true; //現在制作中。このフラグをもとに、キャンセルできるようにもする。
         GameMgr.hikari_make_okashiID = result_item;
         GameMgr.hikari_make_okashi_compID = result_ID;
-        GameMgr.hikari_make_okashiTimeCost = databaseCompo.compoitems[result_ID].cost_Time;//制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット
+       
         GameMgr.hikari_make_okashiTimeCounter = 0;
         GameMgr.hikari_make_doubleItemCreated = DoubleItemCreated;
+        GameMgr.hikari_make_okashiKosu = 0;
+
+        //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が5分なので、*5。さらに、ヒカリの場合時間が2倍かかる。
+        GameMgr.hikari_make_okashiTimeCost = databaseCompo.compoitems[result_ID].cost_Time * 5 * 2; 
+
+        if (GameMgr.hikari_kettei_toggleType[0] == 0)
+        {
+            GameMgr.hikari_kettei_itemName[0] = database.items[GameMgr.hikari_kettei_item[0]].itemName;
+        }
+        else if (GameMgr.hikari_kettei_toggleType[0] == 1)
+        {
+            GameMgr.hikari_kettei_itemName[0] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[0]].itemName;
+        }
+
+        if (GameMgr.hikari_kettei_toggleType[1] == 0)
+        {
+            GameMgr.hikari_kettei_itemName[1] = database.items[GameMgr.hikari_kettei_item[1]].itemName;
+        }
+        else if (GameMgr.hikari_kettei_toggleType[1] == 1)
+        {
+            GameMgr.hikari_kettei_itemName[1] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[1]].itemName;
+        }
+
+        if (GameMgr.hikari_kettei_item[2] != 9999)
+        {
+            if (GameMgr.hikari_kettei_toggleType[2] == 0)
+            {
+                GameMgr.hikari_kettei_itemName[2] = database.items[GameMgr.hikari_kettei_item[2]].itemName;
+            }
+            else if (GameMgr.hikari_kettei_toggleType[2] == 1)
+            {
+                GameMgr.hikari_kettei_itemName[2] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[2]].itemName;
+            }
+        }
 
         //
         result_item = pitemlist.player_yosokuitemlist.Count - 1;

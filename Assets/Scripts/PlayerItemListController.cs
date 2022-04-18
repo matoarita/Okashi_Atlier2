@@ -474,7 +474,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             case 7: //ヒカリに作らせる。材料・生地などの素材アイテムのみ表示。お菓子アイテムは表示しない。
 
-                                OriginalComp_Playeritemlist();
+                                //OriginalComp_Playeritemlist();
+
+                                if (database.items[i].itemType.ToString() == "Mat" || database.items[i].itemType.ToString() == "Okashi")
+                                {
+                                    itemlist_hyouji();
+                                }
+                                else if (database.items[i].itemType_sub.ToString() == "Garbage" || database.items[i].itemType_sub.ToString() == "Machine")
+                                {
+                                    itemlist_hyouji();
+                                }
 
                                 break;
 
@@ -620,7 +629,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         case 7: //ヒカリに作らせる。材料・生地などの素材アイテムのみ表示。
 
-                            OriginalComp_Player_originalitemlist();                           
+                            //OriginalComp_Player_originalitemlist();
+
+                            if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
+                            {
+                                original_itemlist_hyouji();
+                            }
+                            else if (pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Garbage" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Machine")
+                            {
+                                original_itemlist_hyouji();
+                            }
 
                             break;
 

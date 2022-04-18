@@ -368,8 +368,31 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         no = pitemlistController_obj.transform.Find("No").gameObject;
                     }
 
-                    if (GameMgr.compound_select == 6 || GameMgr.compound_select == 120) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
-                    { }
+                    if (GameMgr.compound_select == 6 || GameMgr.compound_select == 8 || GameMgr.compound_select == 120) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
+                    {
+                    }
+                    else if (GameMgr.compound_select == 7)
+                    {
+                        if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                        {
+                            if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。
+                            {
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+                                    //Debug.Log("調合シーンキャンセル");
+
+                                    card_view.DeleteCard_DrawView();
+
+                                    GameMgr.compound_status = 8; //何も選択していない状態にもどる。
+                                    GameMgr.compound_select = 0;
+                                    pitemlistController.extremepanel_on = false;
+
+                                    yes_selectitem_kettei.onclick = false;
+
+                                }
+                            }
+                        }
+                    }
                     else
                     {
                         if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された

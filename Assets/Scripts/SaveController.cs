@@ -264,6 +264,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_hikari_kettei_item = GameMgr.hikari_kettei_item,
             save_hikari_kettei_kosu = GameMgr.hikari_kettei_kosu,
             save_hikari_kettei_toggleType = GameMgr.hikari_kettei_toggleType,
+            save_hikari_kettei_itemName = GameMgr.hikari_kettei_itemName,
             save_hikari_make_okashiFlag = GameMgr.hikari_make_okashiFlag, //ヒカリがお菓子を制作中かどうかのフラグ
             save_hikari_make_okashiID = GameMgr.hikari_make_okashiID,
             save_hikari_make_okashi_compID = GameMgr.hikari_make_okashi_compID, //CompoDBのID
@@ -271,6 +272,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCounter, //制作時間のタイマー
             save_hikari_make_doubleItemCreated = GameMgr.hikari_make_doubleItemCreated,
             save_hikari_make_okashi_totalkyori = GameMgr.hikari_make_okashi_totalkyori,
+            save_hikari_make_okashiKosu = GameMgr.hikari_make_okashiKosu,
 
             //さっき食べたお菓子の情報
             save_Okashi_lasthint = GameMgr.Okashi_lasthint, //さっき食べたお菓子のヒント。
@@ -353,6 +355,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //アイテムリスト＜オリジナル＞
             save_player_originalitemlist = pitemlist.player_originalitemlist,
+
+            //アイテムリスト＜予測＞
+            save_player_yosokuitemlist = pitemlist.player_yosokuitemlist,
 
             //アイテムの前回スコアなどを記録する
             //save_itemdatabase = _temp_itemscorelist,
@@ -528,6 +533,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.hikari_make_okashiTimeCounter = playerData.save_hikari_make_okashiTimeCounter; //制作時間のタイマー
         GameMgr.hikari_make_doubleItemCreated = playerData.save_hikari_make_doubleItemCreated;
         GameMgr.hikari_make_okashi_totalkyori = playerData.save_hikari_make_okashi_totalkyori;
+        GameMgr.hikari_make_okashiKosu = playerData.save_hikari_make_okashiKosu;
+
+        if (playerData.save_hikari_kettei_itemName != null)
+        {
+            GameMgr.hikari_kettei_itemName = playerData.save_hikari_kettei_itemName;
+        }
 
         //さっき食べたお菓子の情報
         GameMgr.Okashi_lasthint = playerData.save_Okashi_lasthint; //さっき食べたお菓子のヒント。
@@ -643,7 +654,18 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             pitemlist.player_originalitemlist[i].itemID = database.items[_itemID].itemID;            
         }
 
-        
+        //アイテムリスト＜予測＞
+        pitemlist.player_yosokuitemlist.Clear();
+        pitemlist.player_yosokuitemlist = playerData.save_player_yosokuitemlist;
+
+        //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。アイテムIDも、後でDB更新の際に全てずれる可能性があるので入れ直し。
+        for (i = 0; i < pitemlist.player_yosokuitemlist.Count; i++)
+        {
+            _itemID = pitemlist.SearchItemString(pitemlist.player_yosokuitemlist[i].itemName);
+            pitemlist.player_yosokuitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+            pitemlist.player_yosokuitemlist[i].itemID = database.items[_itemID].itemID;
+        }
+
 
         //アイテムの前回スコアなどを読み込み
         /*for (count = 0; count < playerData.save_itemdatabase.Count; count++)
@@ -690,7 +712,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 i++;
             }
         }*/
-        
+
 
         //今うけてるクエストをロード。
         quest_database.questTakeset.Clear();

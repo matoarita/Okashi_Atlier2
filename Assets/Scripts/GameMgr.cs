@@ -200,6 +200,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] hikari_kettei_item = new int[10];
     public static int[] hikari_kettei_kosu = new int[10];
     public static int[] hikari_kettei_toggleType = new int[10];
+    public static string[] hikari_kettei_itemName = new string[10]; //ItemDBのItemNameも入れておく。材料表示するときなどに使う。
     public static bool hikari_make_okashiFlag; //ヒカリがお菓子を制作中かどうかのフラグ
     public static int hikari_make_okashiID;
     public static int hikari_make_okashi_compID; //CompoDBのID
@@ -207,6 +208,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikari_make_okashiTimeCounter; //制作時間のタイマー
     public static int hikari_make_doubleItemCreated;
     public static float hikari_make_okashi_totalkyori;
+    public static int hikari_make_okashiKosu; //ヒカリが現在制作したお菓子の個数
 
     //オプションの設定　マスター音量など
     public static float MasterVolumeParam;
@@ -849,6 +851,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             hikari_kettei_item[system_i] = 0;
             hikari_kettei_kosu[system_i] = 0;
             hikari_kettei_toggleType[system_i] = 0;
+            hikari_kettei_itemName[system_i] = "";
         }
         hikari_make_okashiFlag = false;
         hikari_make_okashiID = 0;
@@ -857,6 +860,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikari_make_okashiTimeCounter = 0;
         hikari_make_doubleItemCreated = 0;
         hikari_make_okashi_totalkyori = 0f;
+        hikari_make_okashiKosu = 0;
 
         //マップイベントの初期化
         for (system_i = 0; system_i < MapEvent_01.Length; system_i++)
