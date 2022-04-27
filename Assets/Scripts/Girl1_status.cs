@@ -300,10 +300,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         
         //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();        
-
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+     
         //好感度レベルのテーブル初期化
-        Init_Stage1_LVTable();         
+        Init_Stage1_LVTable();        
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -1532,7 +1532,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void IdleMotionReset()
     {
         //Idleにリセット
-        live2d_animator.Play("Idle", motion_layer_num, 0.0f);
+        if (!GameMgr.hikari_makeokashi_startflag)
+        {
+            live2d_animator.Play("Idle", motion_layer_num, 0.0f);
+        }
+        else
+        {
+            live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
+        }
+        
         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
     }
 
@@ -2523,9 +2531,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //FaceMotionの数字を入れると、それを再生。かつ再生フラグもたてる。.Playを使うよりも、アニメの遷移をなめらかにする処理。
     void FaceMotionPlay(int _trans_motion)
     {
-        trans_motion = _trans_motion;
-        live2d_animator.SetInteger("trans_motion", trans_motion);
-        facemotion_start = true;
+        if (!GameMgr.hikari_makeokashi_startflag)
+        {
+            trans_motion = _trans_motion;
+            live2d_animator.SetInteger("trans_motion", trans_motion);
+            facemotion_start = true;
+        }
+        else //作り始めて10秒ぐらいは、作り中モーションを再生し、その他のモーション再生を一時ストップ
+        {
+
+        }
     }
 
     //ランダムで仕草　ランダムモーションor口をタップしたときの共通　どのモーションを再生するか＋セリフを決定　モーションがなくても、セリフだけは表示される。
@@ -2863,9 +2878,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 20:
 
-                _touchface_comment_lib.Add("ちょっと元気でてきた。");
-                _touchface_comment_lib.Add("えへへ♪　にいちゃん、お菓子また作って～♪");
-                _touchface_comment_lib.Add("うひひ。エメラルどんぐり、また集めなきゃ。");
+                if (!GameMgr.hikari_make_okashiFlag)
+                {
+                    FaceMotionPlay(1005);
+                    _touchface_comment_lib.Add("ちょっと元気でてきた。");
+                    _touchface_comment_lib.Add("えへへ♪　にいちゃん、お菓子また作って～♪");
+                    _touchface_comment_lib.Add("うひひ。エメラルどんぐり、また集めなきゃ。");
+                }
+                else
+                {
+                    FaceMotionPlay(1022);
+                    _touchface_comment_lib.Add("えへへ♪　にいちゃんのお菓子、作りちゅう～♪");
+                    _touchface_comment_lib.Add("ぐるぐる.. 生地まぜ、たのし～♪");
+                }
 
                 break;
 
@@ -2908,9 +2933,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 30:
 
-                _touchface_comment_lib.Add("今日はあたたかいね～、にいちゃん！");
-                _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？にいちゃん。");
-                _touchface_comment_lib.Add("にいちゃん。あのね.. 鳥さんがお庭にきてたから、パンあげたら食べたよ！");
+                if (!GameMgr.hikari_make_okashiFlag)
+                {
+                    FaceMotionPlay(1018); //こっちをむいて口パク
+                    _touchface_comment_lib.Add("今日はあたたかいね～、にいちゃん！");
+                    _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？にいちゃん。");
+                    _touchface_comment_lib.Add("にいちゃん。あのね.. 鳥さんがお庭にきてたから、パンあげたら食べたよ！");
+                }
+                else
+                {
+                    FaceMotionPlay(1022);
+                    _touchface_comment_lib.Add("えへへ♪　にいちゃんのお菓子、作りちゅう～♪");
+                    _touchface_comment_lib.Add("ぐるこん♪　ぐ～るこん♪");
+                }
 
                 break;
 
@@ -2954,21 +2989,30 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 40:
 
-                random = Random.Range(0, 2); //0~4
-
-                switch (random)
+                if (!GameMgr.hikari_make_okashiFlag)
                 {
-                    case 0:
-                        FaceMotionPlay(2002);
-                        _touchface_comment_lib.Add("にいちゃん！大好き！！");
-                        _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
-                        break;
+                    random = Random.Range(0, 2); //0~4
 
-                    case 1:
+                    switch (random)
+                    {
+                        case 0:
+                            FaceMotionPlay(2002);
+                            _touchface_comment_lib.Add("にいちゃん！大好き！！");
+                            _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
+                            break;
 
-                        FaceMotionPlay(1004);
-                        _touchface_comment_lib.Add("にいちゃん、コンテストは、もう余裕？");
-                        break;
+                        case 1:
+
+                            FaceMotionPlay(1004);
+                            _touchface_comment_lib.Add("にいちゃん、コンテストは、もう余裕？");
+                            break;
+                    }
+                }
+                else
+                {
+                    FaceMotionPlay(1022);
+                    _touchface_comment_lib.Add("えへへ♪　にいちゃんのお菓子、おいしくなぁれ～♪");
+                    _touchface_comment_lib.Add("ぐるこん♪　ぐ～るこん♪");
                 }
                 break;
 
@@ -2982,7 +3026,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 60:
 
-                random = Random.Range(0, 2);
+                if (!GameMgr.hikari_make_okashiFlag)
+                {
+                    random = Random.Range(0, 2);
                 switch (random)
                 {
                     case 0:
@@ -2998,6 +3044,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
                         _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
                         break;
+                }
+                }
+                else
+                {
+                    FaceMotionPlay(1022);
+                    _touchface_comment_lib.Add("えへへ♪　にいちゃんのお菓子、作りちゅう～♪");
+                    _touchface_comment_lib.Add("おいしくなれ～♪　おいしくなれ～♪");
                 }
                 break;
 
@@ -3272,19 +3325,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 FaceMotionPlay(1018); //こっちをむいて口パク
                 _touchface_comment_lib.Add("インドは、カレーの本場なんだよ。ちょっと甘くておいしいらしいよ..！");
-                _touchface_comment_lib.Add("にいちゃん。おしごとってなぁに？");
+                _touchface_comment_lib.Add("にいちゃん。おしごとってなぁに？　お金をかせぐこと？");
                 _touchface_comment_lib.Add("にいちゃん。てんごくって、どこにあるの～？　おそら？");
                 _touchface_comment_lib.Add("にいちゃん。なんで、ゆめって、楽しいのに、消えちゃうの？");
+                _touchface_comment_lib.Add("にいちゃん。ゆめって、なんでみるのかなぁ？");
                 break;
 
             case 1: //雑談をする2 癒し
 
                 FaceMotionPlay(2001); //こっちをむいて口パク
-                _touchface_comment_lib.Add("しっぱいは、あとでいいお話のネタになるよ。にいちゃん。");
-                _touchface_comment_lib.Add("ほどほどの生活がうまくいってれば、それは大成功..！にいちゃん！");
+                _touchface_comment_lib.Add("しっぱいは、あとでいいお話のネタになるんだよ。にいちゃん！");
+                _touchface_comment_lib.Add("にいちゃんといつまでも一緒♪　でも、キラキラ宝石は欲しい..。にいちゃん！");
                 _touchface_comment_lib.Add("にいちゃん。つかれたら、ヒカリがよしよししてあげるね。よしよし..。");
-                _touchface_comment_lib.Add("にいちゃん。しごと終わりのミルクは、最高～！　えへへ♪");
+                _touchface_comment_lib.Add("にいちゃん。しごと終わりのミルクは、最高だ！　ごくごく・・♪");
                 _touchface_comment_lib.Add("おいもとバターって、相性ぴったり♪　まるで恋人みたいだね。");
+                _touchface_comment_lib.Add("プリンのおねえちゃん。なにしてるかなぁ～？");
+                _touchface_comment_lib.Add("このあいだ、はっぱがキラキラしててきれいだったよ～。にいちゃん！");
                 break;
 
             //80~から

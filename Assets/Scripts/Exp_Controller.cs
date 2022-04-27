@@ -24,6 +24,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private HikariMakeStartPanel Hikarimake_StartPanel;
+
     private TimeController time_controller;
 
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
@@ -292,6 +294,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
 
         //時間管理オブジェクトの取得
         time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
@@ -1067,6 +1071,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
+        //一個以上作ってた場合、先にそれは入手する。
+        if(GameMgr.hikari_make_okashiKosu >= 1)
+        {
+            Hikarimake_StartPanel.GetYosokuItem();
+        }
+
         //リザルトアイテムを代入
         result_item = pitemlistController.result_item;
 
@@ -1092,13 +1102,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_okashiFlag = true; //現在制作中。このフラグをもとに、キャンセルできるようにもする。
         GameMgr.hikari_make_okashiID = result_item;
         GameMgr.hikari_make_okashi_compID = result_ID;
-       
+        GameMgr.hikari_make_success_rate = _success_rate;
+
+
         GameMgr.hikari_make_okashiTimeCounter = 0;
         GameMgr.hikari_make_doubleItemCreated = DoubleItemCreated;
         GameMgr.hikari_make_okashiKosu = 0;
 
-        //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が5分なので、*5。さらに、ヒカリの場合時間が2倍かかる。
-        GameMgr.hikari_make_okashiTimeCost = databaseCompo.compoitems[result_ID].cost_Time * 5 * 2; 
+        GameMgr.hikari_makeokashi_startcounter = 10;
+        GameMgr.hikari_makeokashi_startflag = true;
+
+        //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が5分なので、*5。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
+        GameMgr.hikari_make_okashiTimeCost = (int)(databaseCompo.compoitems[result_ID].cost_Time * 5f * 2 * GameMgr.hikari_make_okashiTime_costbuf); 
 
         if (GameMgr.hikari_kettei_toggleType[0] == 0)
         {
@@ -1164,7 +1179,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //テキストの表示
         _text.text = 
             pitemlist.player_yosokuitemlist[new_item].itemNameHyouji +
-            " を登録しました！" + "\n" + "時間がたつと、ヒカリがお菓子を作ってくれるよ！";
+            " を登録しました！" + "\n" + "にいちゃん！　ヒカリ、がんばって作る～！";
     }
 
 

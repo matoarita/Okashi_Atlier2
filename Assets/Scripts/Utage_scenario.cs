@@ -74,6 +74,7 @@ public class Utage_scenario : MonoBehaviour
     private bool SpecialItemFlag;
     private int total_score;
     private bool eventend_flag;
+    private bool NPCevent_okashicheck;
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -128,6 +129,8 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false; //「Utage」シーンを最初に読み込むときに、falseに初期化。宴のシナリオを読み中はtrue。コルーチンのリセットを回避する。 
         
         picnic_place_num = 1;
+
+        NPCevent_okashicheck = false;
     }
 
     void Update()
@@ -1599,6 +1602,7 @@ public class Utage_scenario : MonoBehaviour
         if (eventend_flag) //やめる場合
         {
             //アイテムを開いたりする処理は無視して、endにいく。
+            GameMgr.picnic_event_reading_now = false;
 
             //ここで、宴のパラメータ設定。リセットしておく。
             engine.Param.TrySetParameter("EventEnd_Flag", false);
@@ -1612,6 +1616,11 @@ public class Utage_scenario : MonoBehaviour
             if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
             {
                 GameMgr.hiroba_event_ON = false;
+            }
+
+            if(GameMgr.shop_event_ON) //お店イベントで起こった場合
+            {
+                GameMgr.shop_event_ON = false;
             }
 
             //続きから再度読み込み
@@ -1650,9 +1659,11 @@ public class Utage_scenario : MonoBehaviour
             if (GameMgr.event_pitem_use_OK) 
             {
                 GameMgr.event_pitem_use_OK = false;
+                NPCevent_okashicheck = false;
 
-                PitemPresentEvent(); //判定処理    
-
+                PitemPresentEvent(); //判定処理   
+                PitemDelete(); //アイテム削除処理
+                
                 //続きから再度読み込み
                 engine.ResumeScenario();
             }
@@ -1686,6 +1697,11 @@ public class Utage_scenario : MonoBehaviour
                 if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
                 {
                     GameMgr.hiroba_event_ON = false;
+                }
+
+                if (GameMgr.shop_event_ON) //お店イベントで起こった場合
+                {
+                    GameMgr.shop_event_ON = false;
                 }
 
                 //ここで、宴のパラメータ設定。リセットしておく。
@@ -1725,7 +1741,7 @@ public class Utage_scenario : MonoBehaviour
             itemName = database.items[GameMgr.event_kettei_itemID].itemName;
 
             //削除
-            pitemlist.deletePlayerItem(database.items[GameMgr.event_kettei_itemID].itemName, GameMgr.event_kettei_item_Kosu);
+            //pitemlist.deletePlayerItem(database.items[GameMgr.event_kettei_itemID].itemName, GameMgr.event_kettei_item_Kosu);
         }
         else //自分が制作したオリジナルアイテム
         {
@@ -1736,7 +1752,7 @@ public class Utage_scenario : MonoBehaviour
             itemName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemName;
 
             //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
-            pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+            //pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
         }
 
         //提出したお菓子の名前をセット
@@ -1941,6 +1957,64 @@ public class Utage_scenario : MonoBehaviour
             
         }
         // *** //
+
+        //
+        //お店サブイベント関連
+        //
+        if (GameMgr.shop_event_ON) //お店イベントで起こった場合
+        {
+            GameMgr.shop_event_ON = false;
+
+            //判定
+            if (!GameMgr.NPC_DislikeFlag)
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("プリンさん　お菓子が違ってた");
+
+                //Teaが違ってた場合、Tea_Potionをみる。
+                if (!NPCevent_okashicheck)
+                {
+                    NPCevent_okashicheck = true;
+                    GameMgr.shop_event_ON = true;
+                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                    GameMgr.KoyuJudge_num = GameMgr.Shop_Okashi_num02;//GirlLikeSetの番号を直接指定
+                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                    PitemPresentEvent();
+                }
+            }
+            else
+            {
+                if (GameMgr.event_judge_status >= 2)
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
+
+                    GameMgr.ShopEvent_stage[10] = true; //エクストラ　クエストNo11お店クリアフラグ
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
+                }
+                Debug.Log("プリンさん　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+            }
+        }
+        // *** //
+       
+    }
+
+    void PitemDelete()
+    {
+        //Debug.Log("アイテム削除");
+        //アイテムの削除
+        if (GameMgr.event_kettei_item_Type == 0) //通常
+        {
+            //削除
+            pitemlist.deletePlayerItem(database.items[GameMgr.event_kettei_itemID].itemName, GameMgr.event_kettei_item_Kosu);
+        }
+        else //自分が制作したオリジナルアイテム
+        {
+            //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
+            pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+        }
     }
 
     void MosesEventCheck()
@@ -2449,8 +2523,18 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("Bar_Flag", true);
         }
 
+        if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
+        {
+            CharacterSpriteSetOFF();
+        }
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
+        {
+            StartCoroutine("PitemPresent");
+        }
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
@@ -2465,6 +2549,12 @@ public class Utage_scenario : MonoBehaviour
         if ((bool)engine.Param.GetParameter("Bar_Flag"))
         {
             matplace_database.matPlaceKaikin("Bar"); //酒場解禁
+        }
+
+        if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
+        {
+            GameMgr.utage_charaHyouji_flag = false;
+            CharacterSpriteFadeON();
         }
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。

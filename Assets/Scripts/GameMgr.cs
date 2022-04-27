@@ -206,9 +206,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikari_make_okashi_compID; //CompoDBのID
     public static int hikari_make_okashiTimeCost; //かかる時間
     public static int hikari_make_okashiTimeCounter; //制作時間のタイマー
+    public static float hikari_make_success_rate; //成功率
     public static int hikari_make_doubleItemCreated;
     public static float hikari_make_okashi_totalkyori;
     public static int hikari_make_okashiKosu; //ヒカリが現在制作したお菓子の個数
+
+    public static int hikari_makeokashi_startcounter; //これはセーブ不要。10秒ほどたったら、元のアイドルモーションにもどすためのタイマー
+    public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
+    public static float hikari_make_okashiTime_costbuf; //セーブ不要。お菓子作りにかかる時間をお菓子LVによって補正かける。かかる時間okashiTimeCostを保存しているので、こっちはセーブ不要
+    public static float hikari_make_okashiTime_successrate_buf; //こっちも、hikari_make_success_rateを保存すれば、保存不要。
 
     //オプションの設定　マスター音量など
     public static float MasterVolumeParam;
@@ -431,6 +437,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool ReadGirlLoveTimeEvent_reading_now; //外出から帰ってきたときの宴読み中
     public static bool ResultOFF; //リザルトパネルのオンオフ
     public static bool Degheart_on; //ハート下がっている途中は、時間で下がる機能を一時的にオフにするフラグ
+    public static bool utage_charaHyouji_flag; //イベントで、宴キャラクタの表示をONにするかOFFにするか
 
     private PlayerItemList pitemlist;
 
@@ -480,13 +487,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int event_okashi_score;
     public static bool mainscene_event_ON; //調合画面メインでイベントがおこったフラグ
     public static bool hiroba_event_ON;
+    public static bool shop_event_ON;
     public static bool KoyuJudge_ON;
     public static int KoyuJudge_num;
     public static bool NPC_DislikeFlag;
     public static bool NPC_Dislike_UseON;
 
+    public static Dictionary<int, int> Hikariokashi_Exptable = new Dictionary<int, int>();
+
     //各NPCお菓子判定番号
-    public static int NPC_Okashi_num01;
+    public static int Mose_Okashi_num01;
+    public static int Shop_Okashi_num01;
+    public static int Shop_Okashi_num02;
 
     //女の子の名前
     public static string mainGirl_Name;
@@ -665,6 +677,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         shop_hint_num = 0;
         mainscene_event_ON = false;
         hiroba_event_ON = false;
+        shop_event_ON = false;
         KoyuJudge_ON = false;
         NPC_DislikeFlag = false;
         NPC_Dislike_UseON = false;
@@ -766,6 +779,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Mute_on = false;
         SubEvAfterHeartGet = false;
         SubEvAfterHeartGet_num = 0;
+        utage_charaHyouji_flag = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -861,6 +875,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikari_make_doubleItemCreated = 0;
         hikari_make_okashi_totalkyori = 0f;
         hikari_make_okashiKosu = 0;
+        hikari_makeokashi_startcounter = 0;
+        hikari_makeokashi_startflag = false;
 
         //マップイベントの初期化
         for (system_i = 0; system_i < MapEvent_01.Length; system_i++)
@@ -913,7 +929,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //コンテストお菓子初期化
         contest_okashi_ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
-                        0, 0, 0, 0, 0, 0, "", 0, 1);
+                        0, 0, 0, 0, 0, 0, "", 0, 1, 0);
 
         //お菓子のクリア基準値
         mazui_score = 30;
@@ -968,6 +984,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //各サブNPCのお菓子判定番号をセット
         InitSubNPCEvent_OkashiJudgeLibrary();
+
+        //ヒカリのお菓子経験値テーブルをセット
+        InitHikariOkashi_ExpTable();
 
         CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
@@ -1317,6 +1336,24 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各サブイベントのNPCのお菓子判定番号
     public static void InitSubNPCEvent_OkashiJudgeLibrary()
     {
-        NPC_Okashi_num01 = 5000; //モーセ
+        Mose_Okashi_num01 = 5000; //モーセ
+        Shop_Okashi_num01 = 200; //プリンさん　エクストラ　クエストNo11 お茶会用
+        Shop_Okashi_num02 = 201;
+    }
+
+    //ヒカリのお菓子経験値テーブル
+    public static void InitHikariOkashi_ExpTable()
+    {
+        Hikariokashi_Exptable.Clear();
+
+        Hikariokashi_Exptable.Add(1, 10);
+        Hikariokashi_Exptable.Add(2, 20);
+        Hikariokashi_Exptable.Add(3, 30);
+        Hikariokashi_Exptable.Add(4, 40);
+        Hikariokashi_Exptable.Add(5, 50);
+        Hikariokashi_Exptable.Add(6, 100);
+        Hikariokashi_Exptable.Add(7, 150);
+        Hikariokashi_Exptable.Add(8, 200);
+        Hikariokashi_Exptable.Add(9, 9999);
     }
 }

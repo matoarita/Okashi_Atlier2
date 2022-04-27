@@ -32,6 +32,41 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_eatCount;         //妹が食べたお菓子の回数
     public static int player_girl_yaruki;         //妹のやる気　隠しパラメータ　しかったりすると下がる。セーブはされないのでリセット可能。
 
+
+    //お菓子経験値　全１５種類
+    public static int player_girl_appaleil_exp;
+    public static int player_girl_cream_exp;
+    public static int player_girl_cookie_exp;
+    public static int player_girl_chocolate_exp;
+    public static int player_girl_crepe_exp;
+    public static int player_girl_creampuff_exp;
+    public static int player_girl_donuts_exp;
+    public static int player_girl_cake_exp;
+    public static int player_girl_rusk_exp;
+    public static int player_girl_candy_exp;
+    public static int player_girl_jelly_exp;
+    public static int player_girl_juice_exp;
+    public static int player_girl_tea_exp;
+    public static int player_girl_icecream_exp;
+    public static int player_girl_rareokashi_exp;
+
+    public static int player_girl_appaleil_lv;
+    public static int player_girl_cream_lv;
+    public static int player_girl_cookie_lv;
+    public static int player_girl_chocolate_lv;
+    public static int player_girl_crepe_lv;
+    public static int player_girl_creampuff_lv;
+    public static int player_girl_donuts_lv;
+    public static int player_girl_cake_lv;
+    public static int player_girl_rusk_lv;
+    public static int player_girl_candy_lv;
+    public static int player_girl_jelly_lv;
+    public static int player_girl_juice_lv;
+    public static int player_girl_tea_lv;
+    public static int player_girl_icecream_lv;
+    public static int player_girl_rareokashi_lv;
+
+
     //セーブしない
     public static int player_girl_maxlifepoint_default;     //妹の体力のMAXデフォルト
 
@@ -108,6 +143,39 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
         First_recipi_on = false;
         First_extreme_on = false;
+
+        //お菓子経験値
+        player_girl_appaleil_exp = 0;
+        player_girl_cream_exp = 0;
+        player_girl_cookie_exp = 0;
+        player_girl_chocolate_exp = 0;
+        player_girl_crepe_exp = 0;
+        player_girl_creampuff_exp = 0;
+        player_girl_donuts_exp = 0;
+        player_girl_cake_exp = 0;
+        player_girl_rusk_exp = 0;
+        player_girl_candy_exp = 0;
+        player_girl_jelly_exp = 0;
+        player_girl_juice_exp = 0;
+        player_girl_tea_exp = 0;
+        player_girl_icecream_exp = 0;
+        player_girl_rareokashi_exp = 0;
+
+        player_girl_appaleil_lv = 1;
+        player_girl_cream_lv = 1;
+        player_girl_cookie_lv = 1;
+        player_girl_chocolate_lv = 1;
+        player_girl_crepe_lv = 1;
+        player_girl_creampuff_lv = 1;
+        player_girl_donuts_lv = 1;
+        player_girl_cake_lv = 1;
+        player_girl_rusk_lv = 1;
+        player_girl_candy_lv = 1;
+        player_girl_jelly_lv = 1;
+        player_girl_juice_lv = 1;
+        player_girl_tea_lv = 1;
+        player_girl_icecream_lv = 1;
+        player_girl_rareokashi_lv = 1;
 
         //セーブデータがあれば、次にそこから読み込んで、更新
     }

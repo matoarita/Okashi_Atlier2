@@ -39,6 +39,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private string release_recipi;
     private int recipi_count;
 
+    private int hikari_make_count;
+
     private int i, j;
     private int count;
     private int sheet_count;
@@ -46,6 +48,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
     private int all_recipicount, cullent_recipi_count;
     private float recipi_archivement_rate;
+
+    private int hikari_make_totalcount;
 
     //調合データベース。3つのアイテムの組み合わせを見て、一個のアイテムを決定する。
     //アイテム番号が低いものをベースに、残りの番号との組み合わせを見る。番号は、アイテムID。
@@ -103,11 +107,14 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
             release_recipi = excel_compoitemdatabase.sheets[sheet_no].list[count].release_recipi;
             recipi_count = excel_compoitemdatabase.sheets[sheet_no].list[count].recipi_count;
+            
+            //Excelにのってない変数
+            hikari_make_count = 0;
 
             //ここでリストに追加している
             compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
                 cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3, 
-                cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count));
+                cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, hikari_make_count));
 
             ++count;
         }
@@ -207,5 +214,20 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         //Debug.Log("総レシピ数: " + all_recipicount);
         //Debug.Log("現在覚えているレシピ数: " + cullent_recipi_count);
         //Debug.Log("達成率: " + recipi_archivement_rate);
+    }
+
+    //ヒカリが現在作れるお菓子の総数をカウント
+    public int Hikarimake_Totalcount()
+    {
+        hikari_make_totalcount = 0;
+        for (i = 0; i < compoitems.Count; i++)
+        {
+            if (compoitems[i].hikari_make_count >= 1)
+            {
+                hikari_make_totalcount++;
+            }
+        }
+
+        return hikari_make_totalcount;
     }
 }

@@ -17,6 +17,7 @@ public class TimeController : MonoBehaviour
     private MoneyStatus_Controller moneyStatus_Controller;
 
     private Compound_Keisan compound_keisan;
+    private HikariMakeStartPanel Hikarimake_StartPanel;
 
     private Girl1_status girl1_status;
 
@@ -68,6 +69,7 @@ public class TimeController : MonoBehaviour
     public bool timeDegHeart_flag; //表示用にpublicにしてるだけ。
 
     private int i, count;
+    private int dice;
 
     private float timeLeft;
     private bool count_switch;
@@ -133,6 +135,8 @@ public class TimeController : MonoBehaviour
 
                 //女の子データの取得
                 girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+                Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
                 break;
 
         }
@@ -264,7 +268,8 @@ public class TimeController : MonoBehaviour
                                 if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //特定の時間イベント読み中の間もoffに。
                                 {
                                     timeIttei2++;
-                                    if (timeIttei2 >= (int)(10 * timespeed_range))
+
+                                    if (timeIttei2 >= (int)(10 * timespeed_range)) //5分ずつ進める。timespeed_rangeが早まることで、5分の間隔が早くなる。
                                     {
                                         timeIttei2 = 0;
                                         SetMinuteToHour(1); //1=5分単位
@@ -292,8 +297,25 @@ public class TimeController : MonoBehaviour
                                                 {
                                                     GameMgr.hikari_make_okashiTimeCounter = 0;
 
-                                                    //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
-                                                    GameMgr.hikari_make_okashiKosu++;
+                                                    //お菓子制作。成功率を計算する。
+                                                    //サイコロをふる
+                                                    dice = Random.Range(1, 100); //1~100までのサイコロをふる。
+
+                                                    Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
+
+                                                    if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
+                                                    {
+                                                        //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
+                                                        GameMgr.hikari_make_okashiKosu++;
+                                                        Hikarimake_StartPanel.hikarimake_GetExp(2);
+                                                    }
+                                                    else //失敗
+                                                    {
+                                                        //生成されず。材料だけ消費。
+                                                        Hikarimake_StartPanel.hikarimake_GetExp(5);
+                                                    }
+
+                                                    
 
                                                     //削除前に残り個数チェック
                                                     //材料がなくなってたら、ここで終了。
@@ -348,7 +370,7 @@ public class TimeController : MonoBehaviour
                                     if (!GameMgr.outgirl_Nowprogress)
                                     {
                                         timeIttei3++;
-                                        if (timeIttei3 >= (int)(20 * timespeed_range))
+                                        if (timeIttei3 >= (int)(40 * timespeed_range))
                                         {
                                             timeIttei3 = 0;
 
@@ -377,6 +399,15 @@ public class TimeController : MonoBehaviour
                                             }
 
                                         }*/
+                                    }
+
+                                    if(GameMgr.hikari_makeokashi_startflag)
+                                    {
+                                        GameMgr.hikari_makeokashi_startcounter--;
+                                        if (GameMgr.hikari_makeokashi_startcounter <= 0)
+                                        {
+                                            GameMgr.hikari_makeokashi_startflag = false;
+                                        }
                                     }
                                 }
                             }
@@ -454,7 +485,7 @@ public class TimeController : MonoBehaviour
 
     void Weather_Judge_Method()
     {
-        Debug.Log("天気チェック");
+        //Debug.Log("天気チェック");
         if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < 8)
         {
             GameMgr.BG_cullent_weather = 1;

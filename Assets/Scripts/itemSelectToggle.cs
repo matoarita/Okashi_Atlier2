@@ -326,6 +326,12 @@ public class itemSelectToggle : MonoBehaviour
 
                         itemsell_active(); //アイテムを売る
                         break;
+
+                    case 6: //わたすとき
+
+                        GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
+                        itempresent_active();
+                        break;
                 }
             }
 

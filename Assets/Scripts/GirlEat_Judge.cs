@@ -177,10 +177,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int _basewatery;
     private int _basebeauty;
     private int _basescore;
-    private float _basegirl1_like;
+    private float _basegirl1_like;   
     private int _baseSetjudge_num;
     private string[] _basetp;
     private string[] _koyutp;
+
+    private int _basegirl1_manpuku;
 
     private string _baseitemtype;
     private string _baseitemtype_sub;
@@ -825,6 +827,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basecost = database.items[kettei_item1].cost_price;
                 _baseSetjudge_num = database.items[kettei_item1].SetJudge_Num;
                 _basejuice = database.items[kettei_item1].Juice;
+                _basegirl1_manpuku = database.items[kettei_item1].Manpuku;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -867,6 +870,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basecost = pitemlist.player_originalitemlist[kettei_item1].cost_price;
                 _baseSetjudge_num = pitemlist.player_originalitemlist[kettei_item1].SetJudge_Num;
                 _basejuice = pitemlist.player_originalitemlist[kettei_item1].Juice;
+                _basegirl1_manpuku = pitemlist.player_originalitemlist[kettei_item1].Manpuku;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -1160,6 +1164,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                             //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
                             SettingGirlHungrySet();                           
+                            break;
+
+                        case 20: //ハートあげる系
+
+                            //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
+                            SettingGirlHungrySet();
                             break;
 
                         default: //特殊なものがない限りは、デフォルト。60点以上でクリア
@@ -2590,7 +2600,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.75倍");
                     Getlove_exp = (int)(Getlove_exp * 1.75f);
                 }
-                compound_Main.ManpukuBarKoushin((int)(total_score * 0.2f * _basegirl1_like)); //満腹度も計算
             }
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
@@ -2601,6 +2610,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 GameMgr.stageclear_cullentlove += Getlove_exp;
             }
+        }
+
+        //フリーモード時　満腹度の計算
+        if (GameMgr.Story_Mode == 1)
+        {
+            compound_Main.ManpukuBarKoushin((int)(_basegirl1_manpuku + (total_score * 0.1f))); //満腹度も計算
+            Debug.Log("満腹上昇値Base: " + _basegirl1_manpuku);
         }
     }
 
@@ -2984,6 +3000,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         compound_Main.OnCompoundSelectObj();
         Extremepanel_obj.SetActive(false);
         hinttaste_toggle.SetActive(false);
+    }
+
+    //外部からクエストクリアしたかどうかをチェックする　compound_mainなどから読む。
+    public void ExtraSPQuestClearCheck()
+    {
+        if (!GameMgr.QuestClearButton_anim)
+        {
+            HeartUpQuestBunkiCheck();
+        }
     }
 
     IEnumerator EmeraldCheck_EndCompo()
@@ -3740,7 +3765,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
     //
-    //クエストクリア条件関係
+    //クエストクリア条件関係 こっちは食べたとき用。
     //
     void QuestClearJoukenCheck()
     {
@@ -3777,6 +3802,61 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
+                case 13: //カミナリのようにすっぱいクレープ 酸味が70以上のクレープ　すっぱすぎてもクリアできる
+
+                    if (_baseitemtype_sub == "Crepe" && total_score >= 120 && _basesour >= 70)
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
+                    break;
+
+                case 14: //300点以上のいちごのクレープ
+
+                    if (total_score >= 300)
+                    {
+                        if(_basename == "strawberry_crepe" || _basename == "strawberryblueberry_crepe" || _basename == "berry_crepe" || _basename == "doubleberry_crepe")
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+                        }
+                        
+                    }
+                    break;
+
+                case 21: //ムーディーな大人のおかし　カンノーリかティラミスかコーヒー
+
+                    if (total_score >= GameMgr.low_score)
+                    {
+                        if (_basename == "cannoli" || _basename == "tiramisu" || _basename == "sea_losanonos" || _basename == "cream_coffee")
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+                        }
+
+                    }
+                    break;
+
+                case 23: //200をこえる夢のようなパンケーキ
+
+                    if (_baseitemtype_sub == "PanCake" && total_score >= 200 && _basebeauty >= 120)
+                    {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+                        
+                    }
+                    break;
+
+                case 24: //300点超えのプリンセストータ
+
+                    if (_basename == "princess_tota" && total_score >= 300)
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+
+                    }
+                    break;
+
                 default: //Extraモードでは、食べたいお菓子がランダムで変わるので、こちらは使用しない。
 
                     DefaultQuestJouken();
@@ -3787,7 +3867,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }  
 
     //
-    //クエストクリア条件　エクストラモード時ハート系
+    //クエストクリア条件　エクストラモード時ハート系　食べなくてもハートが上がったタイミングでクエストクリア判定する
     //
     void HeartUpQuestBunkiCheck()
     {
@@ -3831,6 +3911,25 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
+                case 11:
+
+                    if (GameMgr.ShopEvent_stage[10])
+                    {
+                        Debug.Log("＜エクストラ＞プリンさんにお菓子渡した。クエストクリア");
+                        sp_quest_clear = true;
+                    }
+                    break;
+
+                case 12:
+
+                    if (databaseCompo.Hikarimake_Totalcount() >= 3)
+                    {
+                        Debug.Log("＜エクストラ＞ヒカリがお菓子を3種類覚えたので、クエストクリア");
+                        sp_quest_clear = true;
+                    }
+
+                    break;
+
                 case 20:
 
                     if (PlayerStatus.girl1_Love_exp >= 2000)
@@ -3838,6 +3937,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
                     }
+                    break;
+
+                case 22:
+
+                    if (databaseCompo.Hikarimake_Totalcount() >= 10)
+                    {
+                        Debug.Log("＜エクストラ＞ヒカリがお菓子を10種類覚えたので、クエストクリア");
+                        sp_quest_clear = true;
+                    }
+
                     break;
             }
 
@@ -3974,6 +4083,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 case 10200: //
 
                     GameMgr.OkashiQuest_flag_stage1[2] = true;
+
+                    //3と4を飛ばしてコンテストへ
+                    GameMgr.OkashiQuest_flag_stage1[3] = true;
+                    GameMgr.OkashiQuest_flag_stage1[4] = true;
+                    GameMgr.GirlLoveEvent_stage1[30] = true;
+                    GameMgr.GirlLoveEvent_stage1[40] = true;
 
                     break;
 

@@ -11,6 +11,8 @@ public class Compound_BGPanel_A : MonoBehaviour {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject HikariMakeButton;
+
     // Use this for initialization
     void Start () {
 
@@ -32,7 +34,8 @@ public class Compound_BGPanel_A : MonoBehaviour {
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         //デフォルトではOFF
-        this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/HikariMakeButton").gameObject.SetActive(false);
+        HikariMakeButton = this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/HikariMakeButton").gameObject;
+        HikariMakeButton.SetActive(false);
 
         //音ならす
         //sc.PlaySe(25); //25 鐘の音:50 キラリン:17
@@ -62,7 +65,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
         {
             if(GameMgr.GirlLoveEvent_num >= 12)
             {
-                this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/HikariMakeButton").gameObject.SetActive(true);
+                HikariMakeButton.SetActive(true);
             }
         }
     }

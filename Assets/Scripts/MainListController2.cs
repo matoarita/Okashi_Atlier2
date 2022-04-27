@@ -242,49 +242,66 @@ public class MainListController2 : MonoBehaviour
             //いちご少女押した　宴の処理へ
             GameMgr.hiroba_event_placeNum = 0; //いちご少女を押した　という指定番号
 
-                                               //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            if (GameMgr.Story_Mode == 0)
             {
-                case 40: //ドーナツイベント時
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+                    case 40: //ドーナツイベント時
 
-                    if (!GameMgr.hiroba_event_end[2])
-                    {
-                        GameMgr.hiroba_event_ID = 40; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else
-                    {
-                        GameMgr.hiroba_event_ID = 41; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-
-                    break;
-
-                case 50: //コンテストイベント時
-
-                    if (!GameMgr.hiroba_event_end[10])
-                    {
-                        GameMgr.hiroba_event_ID = 50; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else
-                    {
-                        if (!GameMgr.hiroba_ichigo_first)
+                        if (!GameMgr.hiroba_event_end[2])
                         {
-                            GameMgr.hiroba_event_ID = 51; //いちごお菓子もってきた。初回
+                            GameMgr.hiroba_event_ID = 40; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                         }
                         else
                         {
-                            GameMgr.hiroba_event_ID = 52; //いちごお菓子もってきた。二回目以降
+                            GameMgr.hiroba_event_ID = 41; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                         }
 
-                        GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
-                        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
-                    }
+                        break;
 
-                    break;
+                    case 50: //コンテストイベント時
 
-                default:
+                        if (!GameMgr.hiroba_event_end[10])
+                        {
+                            GameMgr.hiroba_event_ID = 50; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                        else
+                        {
+                            if (!GameMgr.hiroba_ichigo_first)
+                            {
+                                GameMgr.hiroba_event_ID = 51; //いちごお菓子もってきた。初回
+                            }
+                            else
+                            {
+                                GameMgr.hiroba_event_ID = 52; //いちごお菓子もってきた。二回目以降
+                            }
 
-                    GameMgr.hiroba_event_ID = 0;
-                    break;
+                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                            GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+                        }
+
+                        break;
+
+                    default:
+
+                        GameMgr.hiroba_event_ID = 0;
+                        break;
+                }
+            }
+            else
+            {
+                if (!GameMgr.hiroba_ichigo_first)
+                {
+                    GameMgr.hiroba_event_ID = 10050; //いちごお菓子もってきた。初回
+                }
+                else
+                {
+                    GameMgr.hiroba_event_ID = 52; //いちごお菓子もってきた。二回目以降
+                }
+
+                GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
             }
             
             Hiroba_main2.EventReadingStart();
@@ -670,7 +687,7 @@ public class MainListController2 : MonoBehaviour
 
                     //下は、使うときだけtrueにすればOK
                     GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                    GameMgr.KoyuJudge_num = GameMgr.NPC_Okashi_num01;//GirlLikeSetの番号を直接指定
+                    GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
                     GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
                 }
                 else

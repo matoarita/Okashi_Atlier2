@@ -99,6 +99,7 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(46); p.item_hyouji = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(47); p.Set_JudgeNum = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(48); p.Rare = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(49); p.Manpuku = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

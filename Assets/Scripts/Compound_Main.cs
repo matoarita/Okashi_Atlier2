@@ -56,10 +56,12 @@ public class Compound_Main : MonoBehaviour
     private GameObject select_original_button_obj;
     private GameObject select_recipi_button_obj;
     private GameObject select_extreme_button_obj;
+    private GameObject select_hikarimake_button_obj;
     private GameObject select_sister_shop_button_obj;
     private Button select_original_button;
     private Button select_recipi_button;
     private Button select_extreme_button;
+    private Button select_hikarimake_button;
     private Button select_sister_shop_button;
     private Button select_no_button;
 
@@ -247,6 +249,7 @@ public class Compound_Main : MonoBehaviour
     private List<string> _todayfood_lib = new List<string>();
     private int _todayfoodexpence;
     private List<int> _todayfoodexpence_lib = new List<int>();
+    private float _todayfood_buf;
 
     //デバッグ確認用　ゲーム中では、GameMgr.compound_status（select）を使う。
     public int compound_status;
@@ -361,6 +364,8 @@ public class Compound_Main : MonoBehaviour
         select_recipi_button = select_recipi_button_obj.GetComponent<Button>();
         select_extreme_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/ExButton").gameObject;
         select_extreme_button = select_extreme_button_obj.GetComponent<Button>();
+        select_hikarimake_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/HikariMakeButton").gameObject;
+        select_hikarimake_button = select_hikarimake_button_obj.GetComponent<Button>();
         select_sister_shop_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/SellButton").gameObject;
         select_sister_shop_button = select_sister_shop_button_obj.GetComponent<Button>();
         select_no_button = selectPanel_1.transform.Find("No").GetComponent<Button>();
@@ -1401,7 +1406,8 @@ public class Compound_Main : MonoBehaviour
                 Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f);
                 girl1_status.HukidashiFlag = true;
                 girl1_status.tween_start = false;
-                live2d_animator.Play("Idle", motion_layer_num, 0.0f);
+                //live2d_animator.Play("Idle", motion_layer_num, 0.0f);
+                girl1_status.IdleMotionReset();
 
                 //時間のチェック。
                 time_controller.TimeKoushin(); //時間の更新
@@ -1436,11 +1442,16 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
-                    if (!GameMgr.ReadGirlLoveTimeEvent_reading_now)
+                    if (GameMgr.ResultOFF) //リザルト画面開き中のときは、タイムチェックしない
+                    {  }
+                    else
                     {
-                        Debug.Log("時間更新＆チェック");
-                        time_controller.TimeCheck_flag = true;
-                        time_controller.TimeKoushin(); //時間の更新     
+                        if (!GameMgr.ReadGirlLoveTimeEvent_reading_now)
+                        {
+                            Debug.Log("時間更新＆チェック");
+                            time_controller.TimeCheck_flag = true;
+                            time_controller.TimeKoushin(); //時間の更新     
+                        }
                     }
                 }
 
@@ -1526,6 +1537,12 @@ public class Compound_Main : MonoBehaviour
                 if (!SceneStart_flag)
                 {
                     SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
+
+                    //エクストラモード　クエストクリアチェック
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        girlEat_judge.ExtraSPQuestClearCheck();
+                    }
                 }
 
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
@@ -1534,7 +1551,7 @@ public class Compound_Main : MonoBehaviour
                     Debug.Log("調合後に、サブイベントチェック入る");
                     GameMgr.check_CompoAfter_flag = false;
                     GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
-                }
+                }                
 
                 status_zero_readOK = true;
 
@@ -1812,9 +1829,20 @@ public class Compound_Main : MonoBehaviour
                     select_extreme_button.interactable = false;
                 }
 
+                if(GameMgr.outgirl_Nowprogress)
+                {
+                    select_hikarimake_button.interactable = false;
+                }
+                else
+                {
+                    select_hikarimake_button.interactable = true;
+                }
+
                 //ピクニックイベント中は、ピクニックテキストのアイテムテキスト更新
                 if (GameMgr.picnic_event_reading_now)
                 {
+                    select_hikarimake_button.interactable = false; //ピクニックイベント中はヒカリお菓子作るボタンオフ
+
                     if (extreme_panel.extreme_itemID != 9999)
                     {
                         picnic_itemText.text = GameMgr.ColorYellow + pitemlist.player_originalitemlist[extreme_panel.extreme_itemID].item_SlotName + "</color>" +
@@ -1928,17 +1956,6 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(false);
                 WindowOff();
-
-                //カメラリセット
-                //アイドルに戻るときに0に戻す。
-                //trans = 0;
-
-                //intパラメーターの値を設定する.
-                //maincam_animator.SetInteger("trans", trans);
-
-                //ヒカリちゃんを表示しない。デフォルト描画順
-                //SetLive2DPos_Compound();
-                //cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -2425,6 +2442,18 @@ public class Compound_Main : MonoBehaviour
             stageclear_panel.SetActive(true);
             stageclear_Button.SetActive(true);
             stageclear_button_text.text = "コンテストへ";
+
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (GameMgr.outgirl_Nowprogress)
+                {
+                    stageclear_button_toggle.interactable = false;
+                }
+                else
+                {
+                    stageclear_button_toggle.interactable = true;
+                }
+            }
         }
         else
         {
@@ -4243,7 +4272,7 @@ public class Compound_Main : MonoBehaviour
     {
         if (PlayerStatus.player_girl_manpuku >= 0 && PlayerStatus.player_girl_manpuku < 1)
         {
-            manpuku_text.text = "はらへり";
+            manpuku_text.text = "空腹";
         }
         else if (PlayerStatus.player_girl_manpuku >= 1 && PlayerStatus.player_girl_manpuku < 30)
         {
@@ -4377,6 +4406,24 @@ public class Compound_Main : MonoBehaviour
         _todayfood_lib.Clear();
         _todayfoodexpence_lib.Clear();
 
+        _todayfood_buf = 1.0f;
+        if(PlayerStatus.girl1_Love_lv >= 12)
+        {
+            _todayfood_buf = 1.3f;
+        }
+        else if (PlayerStatus.girl1_Love_lv >= 18)
+        {
+            _todayfood_buf = 1.5f;
+        }
+        else if (PlayerStatus.girl1_Love_lv >= 25)
+        {
+            _todayfood_buf = 2.0f;
+        }
+        else if (PlayerStatus.girl1_Love_lv >= 35)
+        {
+            _todayfood_buf = 2.5f;
+        }
+
         for (i = 1; i <= PlayerStatus.girl1_Love_lv; i++)
         {
             switch (i)
@@ -4384,77 +4431,101 @@ public class Compound_Main : MonoBehaviour
                 case 1:
                     
                     _todayfood_lib.Add("じゃがバター");
-                    _todayfoodexpence_lib.Add(30);                    
+                    _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));                    
                     _todayfood_lib.Add("じゃがいもとお豆のスープ");
-                    _todayfoodexpence_lib.Add(60);
+                    _todayfoodexpence_lib.Add((int)(60f * _todayfood_buf));
                     _todayfood_lib.Add("パン");
-                    _todayfoodexpence_lib.Add(50);
+                    _todayfoodexpence_lib.Add((int)(50f * _todayfood_buf));
                     _todayfood_lib.Add("ゆでじゃが");
-                    _todayfoodexpence_lib.Add(70);
+                    _todayfoodexpence_lib.Add((int)(70f * _todayfood_buf));
                     _todayfood_lib.Add("野菜の端っこゆで");
-                    _todayfoodexpence_lib.Add(50);
+                    _todayfoodexpence_lib.Add((int)(50f * _todayfood_buf));
                     _todayfood_lib.Add("ほしにくのせパン");
-                    _todayfoodexpence_lib.Add(100);
+                    _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
                     _todayfood_lib.Add("ねぎピザ");
-                    _todayfoodexpence_lib.Add(30);
+                    _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     _todayfood_lib.Add("きのこピザ");
-                    _todayfoodexpence_lib.Add(30);
+                    _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     break;
 
                 case 3:
 
                     _todayfood_lib.Add("じゃがいもとベーコンの炒め");
-                    _todayfoodexpence_lib.Add(75);
+                    _todayfoodexpence_lib.Add((int)(75f * _todayfood_buf));
                     _todayfood_lib.Add("じゃがいもスープ");
-                    _todayfoodexpence_lib.Add(60);                                     
+                    _todayfoodexpence_lib.Add((int)(60f * _todayfood_buf));                                     
                     _todayfood_lib.Add("ポテト・ガレット");
-                    _todayfoodexpence_lib.Add(50);                  
+                    _todayfoodexpence_lib.Add((int)(50f * _todayfood_buf));                  
                     _todayfood_lib.Add("ハンバーグもどき");
-                    _todayfoodexpence_lib.Add(70);
+                    _todayfoodexpence_lib.Add((int)(70f * _todayfood_buf));
                     
                     break;
 
                 case 5:
 
                     _todayfood_lib.Add("特製ポテトペペロンチーノ");
-                    _todayfoodexpence_lib.Add(100);
+                    _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
                     _todayfood_lib.Add("バリバリ貝のブイヤ・ベース");
-                    _todayfoodexpence_lib.Add(110);
+                    _todayfoodexpence_lib.Add((int)(110f * _todayfood_buf));
                     _todayfood_lib.Add("じゃがいものトマト煮込み");
-                    _todayfoodexpence_lib.Add(90);
+                    _todayfoodexpence_lib.Add((int)(90f * _todayfood_buf));
                     _todayfood_lib.Add("ステーキ");
-                    _todayfoodexpence_lib.Add(90);
+                    _todayfoodexpence_lib.Add((int)(90f * _todayfood_buf));
                     _todayfood_lib.Add("おさかな地中海蒸し焼き");
-                    _todayfoodexpence_lib.Add(120);
+                    _todayfoodexpence_lib.Add((int)(120f * _todayfood_buf));
                     _todayfood_lib.Add("手ごねバーグ");
-                    _todayfoodexpence_lib.Add(120);
+                    _todayfoodexpence_lib.Add((int)(120f * _todayfood_buf));
                     _todayfood_lib.Add("ほっくりじゃがピザ");
-                    _todayfoodexpence_lib.Add(150);
+                    _todayfoodexpence_lib.Add((int)(150f * _todayfood_buf));
                     _todayfood_lib.Add("ビールとえだまめのたきこみご飯");
-                    _todayfoodexpence_lib.Add(120);
+                    _todayfoodexpence_lib.Add((int)(120f * _todayfood_buf));
                     break;
 
                 case 7:
 
                     _todayfood_lib.Add("ゴールデンカレーライス");
-                    _todayfoodexpence_lib.Add(160);
+                    _todayfoodexpence_lib.Add((int)(160f * _todayfood_buf));
                     _todayfood_lib.Add("アツアツリゾット");
-                    _todayfoodexpence_lib.Add(120);
+                    _todayfoodexpence_lib.Add((int)(120f * _todayfood_buf));
                     _todayfood_lib.Add("イカスミスパゲティ");
-                    _todayfoodexpence_lib.Add(200);
+                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     
                     break;
 
                 case 9:
 
-                    _todayfood_lib.Add("落雷じゃがいもスープ");
-                    _todayfoodexpence_lib.Add(200);
+                    _todayfood_lib.Add("あったかじゃがいもポタージュ");
+                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("ブルゴーニュ風ステーキ");
-                    _todayfoodexpence_lib.Add(300);
+                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("じゃがいもりだくさんのペスカトーレ");
-                    _todayfoodexpence_lib.Add(200);
+                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("うまうまステーキ");
-                    _todayfoodexpence_lib.Add(250);
+                    _todayfoodexpence_lib.Add((int)(250f * _todayfood_buf));
+                    break;
+
+                case 13:
+
+                    _todayfood_lib.Add("黄金じゃがのバター焼き");
+                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
+                    _todayfood_lib.Add("エビと魚介のアヒージョ・ドリア");
+                    _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
+                    _todayfood_lib.Add("しめじとタラコの和風パスタ");
+                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
+                    _todayfood_lib.Add("厚切りの肩ロースステーキ");
+                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
+                    break;
+
+                case 18:
+
+                    _todayfood_lib.Add("エビときのこの香り高いジェノベーゼ");
+                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
+                    _todayfood_lib.Add("たことガーリック盛沢山ペペロンチーノ");
+                    _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
+                    _todayfood_lib.Add("巨大イカの逆襲パスタ・オリーブ仕上げ");
+                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
+                    _todayfood_lib.Add("ジャンボ・えびふらい");
+                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
                 default:
@@ -4510,7 +4581,6 @@ public class Compound_Main : MonoBehaviour
         cubism_rendercontroller.Opacity = 0.0f;
         GirlHeartEffect_obj.SetActive(false);
     }
-
 
 
     float SujiMap(float value, float start1, float stop1, float start2, float stop2)

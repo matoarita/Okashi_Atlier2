@@ -12,15 +12,16 @@ public class ItemSaveCompoFlag
     public string comp_name;
     public int comp_Flag;
     public int comp_Count;
+    public int hikarimake_Count;
     //ここまで
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemSaveCompoFlag(string _cmpname, int _cmpflag, int _cmpcount)
+    public ItemSaveCompoFlag(string _cmpname, int _cmpflag, int _cmpcount, int _hikarimake_count)
     {
         comp_name = _cmpname;
         comp_Flag = _cmpflag;
         comp_Count = _cmpcount;
-
+        hikarimake_Count = _hikarimake_count;
     }
 }

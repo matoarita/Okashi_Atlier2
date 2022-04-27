@@ -63,6 +63,8 @@ public class SetImage : MonoBehaviour
 
     private GameObject CompleteImage;
 
+    private HikariMakeStartPanel hikarimake_startpanel;
+
     public int itemID; //CardViewなどから呼び出すこともあり。
     private Image item_Icon;
     private Text item_Name;
@@ -602,7 +604,6 @@ public class SetImage : MonoBehaviour
     //カード描画用のパラメータ　予測表示用
     void Card_drawYosoku()
     {
-
         //アイテムID
         itemID = pitemlist.player_yosokuitemlist[check_counter].itemID;
 
@@ -1316,182 +1317,191 @@ public class SetImage : MonoBehaviour
     //調合完了後、カードのボタンを押すと呼び出される。
     public void CompoundResult_Button()
     {
-        //レベルアップチェック用オブジェクトの取得
-        exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
-
-        //Expコントローラーの取得
-        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
-
-        //エクストリームパネルオブジェクトの取得
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
-        extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
-
-        //ブラックエフェクトを取得
-        BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
-
-        //カード表示用オブジェクトの取得
-        card_view_obj = GameObject.FindWithTag("CardView");
-        card_view = card_view_obj.GetComponent<CardView>();
-
-        if (exp_table.check_on == true)
+        if (GameMgr.compound_select != 8)
         {
-            //レベルチェック中は、カードを消せないようにする。
-        }
-        else
-        {
-            //半透明黒パネルはoff
-            BlackImage.GetComponent<CanvasGroup>().alpha = 0;
+            //レベルアップチェック用オブジェクトの取得
+            exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
 
-            //チュートリアル最初のクッキーのときだけは、強制的に新しいお菓子閃いたことにする
-            if (GameMgr.tutorial_ON == true)
+            //Expコントローラーの取得
+            exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+            //エクストリームパネルオブジェクトの取得
+            extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
+            extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
+
+            //ブラックエフェクトを取得
+            BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
+
+            //カード表示用オブジェクトの取得
+            card_view_obj = GameObject.FindWithTag("CardView");
+            card_view = card_view_obj.GetComponent<CardView>();
+
+            if (exp_table.check_on == true)
             {
-                if (GameMgr.tutorial_Num == 75 || GameMgr.tutorial_Num == 265)
-                {
-                    exp_Controller.NewRecipiFlag = true;
-                    exp_Controller.NewRecipi_compoID = exp_Controller.result_ID; //コンポ調合データベースのIDを代入
-                }
-            }
-
-            //新しいレシピをひらめいたかどうかチェック
-            if ( exp_Controller.NewRecipiFlag == true)
-            {
-                newrecipi_id = exp_Controller.NewRecipi_compoID;
-
-                //調合DBの名前と一致するものを、アイテムDBから検索。表示名前と画像を取得
-                i = 0;
-                while ( i < database.items.Count )
-                {
-                    if( database.items[i].itemName == databaseCompo.compoitems[newrecipi_id].cmpitemID_result)
-                    {
-                        newrecipi_name = database.items[i].itemNameHyouji;
-                        newrecipi_Img = database.items[i].itemIcon_sprite;
-                        break;
-                    }
-                    i++;
-                }
-
-                //取得
-                NewRecipi = Instantiate(NewRecipi_Prefab1, canvas.transform);
-                newrecipi_text = NewRecipi.transform.Find("Panel/RecipiTextPanel/Text").gameObject.GetComponent<Text>();
-                newrecipi_Img_hyouji = NewRecipi.transform.Find("Panel/ItemPanel/ItemImage").gameObject.GetComponent<Image>();
-
-                //表示
-                newrecipi_text.text = GameMgr.ColorLemon + newrecipi_name + "</color>" + "\n" + "を覚えた！";
-
-                // texture2dを使い、Spriteを作って、反映させる
-                newrecipi_Img_hyouji.sprite = newrecipi_Img;
-
-                //アニメーション
-                //まず、初期値。
-                Sequence sequence = DOTween.Sequence();
-                NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().alpha = 0;
-                sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(0.65f, 0.65f, 1.0f), 0.0f)
-                    ); //
-
-                //移動のアニメ
-                sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f)
-                    .SetEase(Ease.OutElastic)); //はねる動き
-                //.SetEase(Ease.OutExpo)); //スケール小からフェードイン
-                sequence.Join(NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().DOFade(1, 0.2f));
-                
-
-                //音を鳴らす 新しいレシピ閃いたときの音 scのほうに音を送ると、途中で音が途切れない。
-                //audioSource.PlayOneShot(sound1);
-                sc.PlaySe(25);
-
-                exp_Controller.NewRecipiFlag = false; //オフにしておく。
-
-                card_view.DeleteCard_DrawView();
+                //レベルチェック中は、カードを消せないようにする。
             }
             else
             {
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+                //半透明黒パネルはoff
+                BlackImage.GetComponent<CanvasGroup>().alpha = 0;
 
-                //完成時パネルの取得
-                CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
-                CompleteImage.SetActive(false);
-
-                //別画面で（たとえばピクニック中など）戻るときは、status=0にならず、また調合画面に戻る。
-                if (GameMgr.picnic_event_reading_now)
+                //チュートリアル最初のクッキーのときだけは、強制的に新しいお菓子閃いたことにする
+                if (GameMgr.tutorial_ON == true)
                 {
-                    GameMgr.compound_status = 6; // 調合の画面に戻る。
-                    compound_Main.ReSetLive2DPos_Compound();
-                }
-                else
-                {
-                    //調合完了後、また調合画面に戻るか、メイン画面に戻るか
-                    switch (GameMgr.compound_select)
+                    if (GameMgr.tutorial_Num == 75 || GameMgr.tutorial_Num == 265)
                     {
-                        case 1: //レシピ調合
-
-                            if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
-                            {
-                                GameMgr.compound_status = 0;
-
-                                if (GameMgr.tutorial_ON == true)
-                                {
-                                    if (GameMgr.tutorial_Num == 180)
-                                    {
-                                        GameMgr.tutorial_Progress = true;
-                                        GameMgr.tutorial_Num = 190;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                GameMgr.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
-                                compound_Main.ReSetLive2DPos_Compound();
-                            }
-                            break;
-
-                        case 3: //オリジナル調合
-
-                            if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
-                            {
-                                GameMgr.compound_status = 0;
-
-
-                                if (GameMgr.tutorial_ON == true)
-                                {
-                                    if (GameMgr.tutorial_Num == 180)
-                                    {
-                                        GameMgr.tutorial_Progress = true;
-                                        GameMgr.tutorial_Num = 190;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
-                                compound_Main.ReSetLive2DPos_Compound();
-                            }
-                            break;
-
-                        default:
-
-                            GameMgr.compound_status = 0;
-                            break;
-
+                        exp_Controller.NewRecipiFlag = true;
+                        exp_Controller.NewRecipi_compoID = exp_Controller.result_ID; //コンポ調合データベースのIDを代入
                     }
                 }
 
-                compound_Main.compo_ON = false; //成功でも失敗でも、必ずこのカードは押さないと、メイン画面に戻れない。
-
-
-                if (exp_Controller.compound_success == true)
+                //新しいレシピをひらめいたかどうかチェック
+                if (exp_Controller.NewRecipiFlag == true)
                 {
-                    extremePanel.LifeAnimeOnTrue();
+                    newrecipi_id = exp_Controller.NewRecipi_compoID;
+
+                    //調合DBの名前と一致するものを、アイテムDBから検索。表示名前と画像を取得
+                    i = 0;
+                    while (i < database.items.Count)
+                    {
+                        if (database.items[i].itemName == databaseCompo.compoitems[newrecipi_id].cmpitemID_result)
+                        {
+                            newrecipi_name = database.items[i].itemNameHyouji;
+                            newrecipi_Img = database.items[i].itemIcon_sprite;
+                            break;
+                        }
+                        i++;
+                    }
+
+                    //取得
+                    NewRecipi = Instantiate(NewRecipi_Prefab1, canvas.transform);
+                    newrecipi_text = NewRecipi.transform.Find("Panel/RecipiTextPanel/Text").gameObject.GetComponent<Text>();
+                    newrecipi_Img_hyouji = NewRecipi.transform.Find("Panel/ItemPanel/ItemImage").gameObject.GetComponent<Image>();
+
+                    //表示
+                    newrecipi_text.text = GameMgr.ColorLemon + newrecipi_name + "</color>" + "\n" + "を覚えた！";
+
+                    // texture2dを使い、Spriteを作って、反映させる
+                    newrecipi_Img_hyouji.sprite = newrecipi_Img;
+
+                    //アニメーション
+                    //まず、初期値。
+                    Sequence sequence = DOTween.Sequence();
+                    NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().alpha = 0;
+                    sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(0.65f, 0.65f, 1.0f), 0.0f)
+                        ); //
+
+                    //移動のアニメ
+                    sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f)
+                        .SetEase(Ease.OutElastic)); //はねる動き
+                                                    //.SetEase(Ease.OutExpo)); //スケール小からフェードイン
+                    sequence.Join(NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+
+
+                    //音を鳴らす 新しいレシピ閃いたときの音 scのほうに音を送ると、途中で音が途切れない。
+                    //audioSource.PlayOneShot(sound1);
+                    sc.PlaySe(25);
+
+                    exp_Controller.NewRecipiFlag = false; //オフにしておく。
+
+                    card_view.DeleteCard_DrawView();
                 }
                 else
                 {
+                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+                    //完成時パネルの取得
+                    CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
+                    CompleteImage.SetActive(false);
+
+                    //別画面で（たとえばピクニック中など）戻るときは、status=0にならず、また調合画面に戻る。
+                    if (GameMgr.picnic_event_reading_now)
+                    {
+                        GameMgr.compound_status = 6; // 調合の画面に戻る。
+                        compound_Main.ReSetLive2DPos_Compound();
+                    }
+                    else
+                    {
+                        //調合完了後、また調合画面に戻るか、メイン画面に戻るか
+                        switch (GameMgr.compound_select)
+                        {
+                            case 1: //レシピ調合
+
+                                if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                                {
+                                    GameMgr.compound_status = 0;
+
+                                    if (GameMgr.tutorial_ON == true)
+                                    {
+                                        if (GameMgr.tutorial_Num == 180)
+                                        {
+                                            GameMgr.tutorial_Progress = true;
+                                            GameMgr.tutorial_Num = 190;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    GameMgr.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
+                                    compound_Main.ReSetLive2DPos_Compound();
+                                }
+                                break;
+
+                            case 3: //オリジナル調合
+
+                                if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                                {
+                                    GameMgr.compound_status = 0;
+
+
+                                    if (GameMgr.tutorial_ON == true)
+                                    {
+                                        if (GameMgr.tutorial_Num == 180)
+                                        {
+                                            GameMgr.tutorial_Progress = true;
+                                            GameMgr.tutorial_Num = 190;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
+                                    compound_Main.ReSetLive2DPos_Compound();
+                                }
+                                break;
+
+                            default:
+
+                                GameMgr.compound_status = 0;
+                                break;
+
+                        }
+                    }
+
+                    compound_Main.compo_ON = false; //成功でも失敗でも、必ずこのカードは押さないと、メイン画面に戻れない。
+
+
+                    if (exp_Controller.compound_success == true)
+                    {
+                        extremePanel.LifeAnimeOnTrue();
+                    }
+                    else
+                    {
+
+                    }
+
+                    exp_Controller.EffectListClear();
+                    card_view.DeleteCard_DrawView();
 
                 }
-
-                exp_Controller.EffectListClear();
-                card_view.DeleteCard_DrawView();
-
             }
+        }
+        else
+        {
+            hikarimake_startpanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
+
+            hikarimake_startpanel.ResultHikariMakeCardView_andOFF();
         }
     }
 

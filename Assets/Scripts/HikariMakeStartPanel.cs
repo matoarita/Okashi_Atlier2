@@ -15,7 +15,14 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject card_view_obj;
+    private CardView card_view;
+    private Transform resulttransform;
+
+    private SoundController sc;
+
     private ItemDataBase database;
+    private ItemCompoundDataBase databaseCompo;
     private PlayerItemList pitemlist;
 
     private GameObject selectitem_kettei_obj;
@@ -45,6 +52,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private SetImage _cardImage; //カードの描画処理は、SetImageスクリプト
     private GameObject cardPrefab;
 
+    private GameObject effect_Particle_KiraExplode;
+    private GameObject effect_Particle_KiraExplode_2;
+
     private Text makeokasi_kosu;
     private Text timecost_kosu;
 
@@ -56,6 +66,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private GameObject chara_Icon;
 
     private int i;
+    private int _getexp;
+    private int _nowexp, _nowlv;
+    private string _itemType_subtext;
 
     // Use this for initialization
     void Start () {
@@ -76,11 +89,17 @@ public class HikariMakeStartPanel : MonoBehaviour {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
+        //調合組み合わせデータベースの取得
+        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         //合成計算オブジェクトの取得
         compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         charaIcon_sprite_1 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_02");
         charaIcon_sprite_2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_07");
@@ -91,6 +110,15 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+        //カード表示用オブジェクトの取得
+        card_view_obj = GameObject.FindWithTag("CardView");
+        card_view = card_view_obj.GetComponent<CardView>();
+
+        effect_Particle_KiraExplode = this.transform.Find("Particle_KiraExplode").gameObject;
+        effect_Particle_KiraExplode.SetActive(false);
+        effect_Particle_KiraExplode_2 = this.transform.Find("Particle_KiraExplode_2").gameObject;
+        effect_Particle_KiraExplode_2.SetActive(false);
 
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
@@ -122,6 +150,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         select_obj_2 = this.transform.Find("Comp2/Select_command/Scroll View/Viewport/Content/Select_3").gameObject;
         SelectHyouji_OnOFF();
         CharaIconChange();
+        paramHyoujiKoushin();
 
         //一度contentの中身を削除
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -231,6 +260,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         }
     }
 
+    //この画面専用でのカード表示　cardViewとは別で処理
     public void HikariMakeResultCard_DrawView()
     {
         for (i = 0; i < _cardImage_obj.Count; i++)
@@ -256,7 +286,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
         _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
     }
 
-    public void TakeResultCard_DrawView()
+    //この画面専用でのカード表示　cardViewとは別で処理
+    public void TakeResultCard_DrawView(int _mstatus)
     {
         for (i = 0; i < _cardImage_obj2.Count; i++)
         {
@@ -270,17 +301,26 @@ public class HikariMakeStartPanel : MonoBehaviour {
         _cardImage.anim_status = 99;
 
         _cardImage_obj2[0].GetComponent<Canvas>().sortingOrder = 1000;
-
-        _cardImage_obj2[0].transform.Find("CompoundResultButton").gameObject.SetActive(false);
-
+        
         //店売りかオリジナルか、アイテムID        
         _cardImage.check_counter = pitemlist.player_yosokuitemlist.Count - 1;
         _cardImage.SetInitYosoku();
-
-        _cardImage_obj2[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
-        _cardImage_obj2[0].transform.localPosition = new Vector3(0, 85, 0);
-
+       
         _cardImage_obj2[0].GetComponent<SetImage>().CardParamOFF_2();
+
+        if (_mstatus == 0)
+        {
+            _cardImage_obj2[0].transform.Find("CompoundResultButton").gameObject.SetActive(false);
+            _cardImage_obj2[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
+            _cardImage_obj2[0].transform.localPosition = new Vector3(0, 85, 0);
+        }
+        else
+        {
+            _cardImage_obj2[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+            _cardImage_obj2[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
+            _cardImage_obj2[0].transform.localPosition = new Vector3(0, 85, 0);
+            Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
+        }
     }
 
     //全てのカードを削除する。
@@ -294,7 +334,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         _cardImage_obj.Clear();
 
     }
-
+   
     void DeleteCard_DrawView2()
     {
         for (i = 0; i < _cardImage_obj2.Count; i++) //最後から削除していく。
@@ -322,7 +362,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "が　" + 
             GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　できてるよ。" + "うけとる？";
-        TakeResultCard_DrawView();
+        TakeResultCard_DrawView(0);
 
         StartCoroutine("Select2_finalcheck");
     }
@@ -334,7 +374,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         text_area.SetActive(true);
 
         _text.text = "お菓子作りをやめる？" + "\n" + "（途中まで作ったお菓子は、受け取れるよ！）";
-        TakeResultCard_DrawView();
+        TakeResultCard_DrawView(0);
 
         StartCoroutine("Select3_finalcheck");
         
@@ -379,11 +419,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
-
-        black_Image.SetActive(false);
-        yes_no_panel.SetActive(false);
-        text_area.SetActive(false);
         yes_selectitem_kettei.onclick = false;
+
+        yes_no_panel.SetActive(false);                
 
         DeleteCard_DrawView2();        
 
@@ -392,9 +430,50 @@ public class HikariMakeStartPanel : MonoBehaviour {
             case true:
 
                 //うけとる処理
+
+                //カード表示
+                sc.PlaySe(17);
+                TakeResultCard_DrawView(1);
+                effect_Particle_KiraExplode.SetActive(true); //エフェクト
+                effect_Particle_KiraExplode_2.SetActive(true);
+
                 compound_keisan.HikariMakeGetItem();
+               
+
+                //ヒカリのお菓子経験値の処理
+                _getexp = 10 * GameMgr.hikari_make_okashiKosu;
+                hikariOkashi_ExpTable(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString());
+
+                if (GameMgr.hikari_make_doubleItemCreated == 0)
+                {
+                    if (databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].hikari_make_count == 0)
+                    {
+                        sc.PlaySe(19);
+                        _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
+                    GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！"
+                    + "\n" + "ヒカリは　" + GameMgr.ColorYellow + database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "</color>" + "　を　おぼえた！"
+                    + "\n" + _itemType_subtext + "経験値: " + _getexp + "アップ！　"
+                    + _itemType_subtext + "LV: " + _nowlv;
+                    }
+                    else
+                    {
+                        _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
+                    GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！"
+                    + "\n" + _itemType_subtext + "経験値: " + _getexp + "アップ！　"
+                    + _itemType_subtext + "LV: " + _nowlv;
+                    }
+                }
+                else //卵白卵黄などの例外処理
+                {
+                    _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
+                    GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！";
+                }
+
+                //個数リセット
                 GameMgr.hikari_make_okashiKosu = 0;
-                makeokasi_kosu.text = GameMgr.hikari_make_okashiKosu.ToString();
+
+                //ヒカリがそのお菓子作った回数をカウント
+                databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].hikari_make_count++;
 
                 break;
 
@@ -402,12 +481,367 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 Debug.Log("cancel");
 
+                black_Image.SetActive(false);
+                text_area.SetActive(false);
                 break;
 
         }
 
         SelectHyouji_OnOFF();
+        paramHyoujiKoushin();
         CharaIconChange();
+    }
+
+    //TimeControllerなどから読み込み。失敗しても経験ははいる。
+    public void hikarimake_GetExp(int _exp)
+    {
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        _getexp = _exp;
+        hikariOkashi_ExpTable(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString());
+    }
+
+    void hikariOkashi_ExpTable(string _itemType_sub)
+    {
+        switch (_itemType_sub)
+        {
+            case "Appaleil":
+                PlayerStatus.player_girl_appaleil_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_appaleil_exp;
+                _nowlv = PlayerStatus.player_girl_appaleil_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_appaleil_exp = _nowexp;
+                PlayerStatus.player_girl_appaleil_lv = _nowlv;
+                _itemType_subtext = "生地";
+                break;
+            case "Cream":
+                PlayerStatus.player_girl_cream_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cream_exp;
+                _nowlv = PlayerStatus.player_girl_cream_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cream_exp = _nowexp;
+                PlayerStatus.player_girl_cream_lv = _nowlv;
+                _itemType_subtext = "クリーム";
+                break;
+            case "Biscotti":
+                PlayerStatus.player_girl_rusk_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_rusk_exp;
+                _nowlv = PlayerStatus.player_girl_rusk_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_rusk_exp = _nowexp;
+                PlayerStatus.player_girl_rusk_lv = _nowlv;
+                _itemType_subtext = "ラスク";
+                break;
+            case "Bread":
+                PlayerStatus.player_girl_rusk_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_rusk_exp;
+                _nowlv = PlayerStatus.player_girl_rusk_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_rusk_exp = _nowexp;
+                PlayerStatus.player_girl_rusk_lv = _nowlv;
+                _itemType_subtext = "ラスク";
+                break;
+            case "Bread_Sliced":
+                PlayerStatus.player_girl_rusk_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_rusk_exp;
+                _nowlv = PlayerStatus.player_girl_rusk_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_rusk_exp = _nowexp;
+                PlayerStatus.player_girl_rusk_lv = _nowlv;
+                _itemType_subtext = "ラスク";
+                break;
+            case "Cookie":
+                PlayerStatus.player_girl_cookie_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cookie_exp;
+                _nowlv = PlayerStatus.player_girl_cookie_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cookie_exp = _nowexp;
+                PlayerStatus.player_girl_cookie_lv = _nowlv;
+                _itemType_subtext = "クッキー";
+                break;
+            case "Cookie_Mat":
+                PlayerStatus.player_girl_cookie_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cookie_exp;
+                _nowlv = PlayerStatus.player_girl_cookie_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cookie_exp = _nowexp;
+                PlayerStatus.player_girl_cookie_lv = _nowlv;
+                _itemType_subtext = "クッキー";
+                break;
+            case "Cookie_Hard":
+                PlayerStatus.player_girl_cookie_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cookie_exp;
+                _nowlv = PlayerStatus.player_girl_cookie_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cookie_exp = _nowexp;
+                PlayerStatus.player_girl_cookie_lv = _nowlv;
+                _itemType_subtext = "クッキー";
+                break;
+            case "Chocolate":
+                PlayerStatus.player_girl_chocolate_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_chocolate_exp;
+                _nowlv = PlayerStatus.player_girl_chocolate_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_chocolate_exp = _nowexp;
+                PlayerStatus.player_girl_chocolate_lv = _nowlv;
+                _itemType_subtext = "チョコレート";
+                break;
+            case "Chocolate_Mat":
+                PlayerStatus.player_girl_chocolate_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_chocolate_exp;
+                _nowlv = PlayerStatus.player_girl_chocolate_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_chocolate_exp = _nowexp;
+                PlayerStatus.player_girl_chocolate_lv = _nowlv;
+                _itemType_subtext = "チョコレート";
+                break;
+            case "Cake":
+                PlayerStatus.player_girl_cake_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cake_exp;
+                _nowlv = PlayerStatus.player_girl_cake_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cake_exp = _nowexp;
+                PlayerStatus.player_girl_cake_lv = _nowlv;
+                _itemType_subtext = "ケーキ";
+                break;
+            case "Cake_Mat":
+                PlayerStatus.player_girl_cake_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cake_exp;
+                _nowlv = PlayerStatus.player_girl_cake_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cake_exp = _nowexp;
+                PlayerStatus.player_girl_cake_lv = _nowlv;
+                _itemType_subtext = "ケーキ";
+                break;
+            case "Castella":
+                PlayerStatus.player_girl_cake_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cake_exp;
+                _nowlv = PlayerStatus.player_girl_cake_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cake_exp = _nowexp;
+                PlayerStatus.player_girl_cake_lv = _nowlv;
+                _itemType_subtext = "ケーキ";
+                break;
+            case "Cannoli":
+                PlayerStatus.player_girl_crepe_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_crepe_exp;
+                _nowlv = PlayerStatus.player_girl_crepe_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_crepe_exp = _nowexp;
+                PlayerStatus.player_girl_crepe_lv = _nowlv;
+                _itemType_subtext = "クレープ";
+                break;
+            case "Candy":
+                PlayerStatus.player_girl_candy_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_candy_exp;
+                _nowlv = PlayerStatus.player_girl_candy_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_candy_exp = _nowexp;
+                PlayerStatus.player_girl_candy_lv = _nowlv;
+                _itemType_subtext = "キャンディ";
+                break;
+            case "Crepe":
+                PlayerStatus.player_girl_crepe_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_crepe_exp;
+                _nowlv = PlayerStatus.player_girl_crepe_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_crepe_exp = _nowexp;
+                PlayerStatus.player_girl_crepe_lv = _nowlv;
+                _itemType_subtext = "クレープ";
+                break;
+            case "Crepe_Mat":
+                PlayerStatus.player_girl_crepe_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_crepe_exp;
+                _nowlv = PlayerStatus.player_girl_crepe_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_crepe_exp = _nowexp;
+                PlayerStatus.player_girl_crepe_lv = _nowlv;
+                _itemType_subtext = "クレープ";
+                break;
+            case "Creampuff":
+                PlayerStatus.player_girl_creampuff_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_creampuff_exp;
+                _nowlv = PlayerStatus.player_girl_creampuff_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_creampuff_exp = _nowexp;
+                PlayerStatus.player_girl_creampuff_lv = _nowlv;
+                _itemType_subtext = "シュークリーム";
+                break;
+            case "Coffee":
+                PlayerStatus.player_girl_tea_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_tea_exp;
+                _nowlv = PlayerStatus.player_girl_tea_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_tea_exp = _nowexp;
+                PlayerStatus.player_girl_tea_lv = _nowlv;
+                _itemType_subtext = "ティー";
+                break;
+            case "Coffee_Mat":
+                PlayerStatus.player_girl_tea_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_tea_exp;
+                _nowlv = PlayerStatus.player_girl_tea_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_tea_exp = _nowexp;
+                PlayerStatus.player_girl_tea_lv = _nowlv;
+                _itemType_subtext = "ティー";
+                break;
+            case "Donuts":
+                PlayerStatus.player_girl_donuts_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_donuts_exp;
+                _nowlv = PlayerStatus.player_girl_donuts_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_donuts_exp = _nowexp;
+                PlayerStatus.player_girl_donuts_lv = _nowlv;
+                _itemType_subtext = "ドーナツ";
+                break;
+            case "Financier":
+                PlayerStatus.player_girl_cake_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cake_exp;
+                _nowlv = PlayerStatus.player_girl_cake_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cake_exp = _nowexp;
+                PlayerStatus.player_girl_cake_lv = _nowlv;
+                _itemType_subtext = "ケーキ";
+                break;
+            case "IceCream":
+                PlayerStatus.player_girl_icecream_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_icecream_exp;
+                _nowlv = PlayerStatus.player_girl_icecream_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_icecream_exp = _nowexp;
+                PlayerStatus.player_girl_icecream_lv = _nowlv;
+                _itemType_subtext = "アイス";
+                break;
+            case "Juice":
+                PlayerStatus.player_girl_juice_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_juice_exp;
+                _nowlv = PlayerStatus.player_girl_juice_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_juice_exp = _nowexp;
+                PlayerStatus.player_girl_juice_lv = _nowlv;
+                _itemType_subtext = "ジュース";
+                break;
+            case "Jelly":
+                PlayerStatus.player_girl_jelly_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_jelly_exp;
+                _nowlv = PlayerStatus.player_girl_jelly_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_jelly_exp = _nowexp;
+                PlayerStatus.player_girl_jelly_lv = _nowlv;
+                _itemType_subtext = "ゼリー";
+                break;
+            case "Maffin":
+                PlayerStatus.player_girl_cake_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cake_exp;
+                _nowlv = PlayerStatus.player_girl_cake_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cake_exp = _nowexp;
+                PlayerStatus.player_girl_cake_lv = _nowlv;
+                _itemType_subtext = "ケーキ";
+                break;
+            case "PanCake":
+                PlayerStatus.player_girl_cake_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cake_exp;
+                _nowlv = PlayerStatus.player_girl_cake_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cake_exp = _nowexp;
+                PlayerStatus.player_girl_cake_lv = _nowlv;
+                _itemType_subtext = "ケーキ";
+                break;
+            case "Parfe":
+                PlayerStatus.player_girl_icecream_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_icecream_exp;
+                _nowlv = PlayerStatus.player_girl_icecream_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_icecream_exp = _nowexp;
+                PlayerStatus.player_girl_icecream_lv = _nowlv;
+                _itemType_subtext = "アイス";
+                break;
+            case "Pie":
+                PlayerStatus.player_girl_cake_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_cake_exp;
+                _nowlv = PlayerStatus.player_girl_cake_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_cake_exp = _nowexp;
+                PlayerStatus.player_girl_cake_lv = _nowlv;
+                _itemType_subtext = "ケーキ";
+                break;
+            case "Rusk":
+                PlayerStatus.player_girl_rusk_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_rusk_exp;
+                _nowlv = PlayerStatus.player_girl_rusk_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_rusk_exp = _nowexp;
+                PlayerStatus.player_girl_rusk_lv = _nowlv;
+                _itemType_subtext = "ラスク";
+                break;
+            case "SumireSuger":
+                PlayerStatus.player_girl_rareokashi_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_rareokashi_exp;
+                _nowlv = PlayerStatus.player_girl_rareokashi_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_rareokashi_exp = _nowexp;
+                PlayerStatus.player_girl_rareokashi_lv = _nowlv;
+                _itemType_subtext = "レアお菓子";
+                break;
+            case "Tea":
+                PlayerStatus.player_girl_tea_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_tea_exp;
+                _nowlv = PlayerStatus.player_girl_tea_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_tea_exp = _nowexp;
+                PlayerStatus.player_girl_tea_lv = _nowlv;
+                _itemType_subtext = "ティー";
+                break;
+            case "Tea_Mat":
+                PlayerStatus.player_girl_tea_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_tea_exp;
+                _nowlv = PlayerStatus.player_girl_tea_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_tea_exp = _nowexp;
+                PlayerStatus.player_girl_tea_lv = _nowlv;
+                _itemType_subtext = "ティー";
+                break;
+            case "Tea_Potion":
+                PlayerStatus.player_girl_tea_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_tea_exp;
+                _nowlv = PlayerStatus.player_girl_tea_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_tea_exp = _nowexp;
+                PlayerStatus.player_girl_tea_lv = _nowlv;
+                _itemType_subtext = "ティー";
+                break;
+            default: //一致しないものは何もしない
+                break;
+        }
+
+        
+    }
+
+    void Check_OkashilvUP()
+    {
+        if (_nowlv >= 9) //9がカンスト
+        { }
+        else
+        {
+            if (_nowexp >= GameMgr.Hikariokashi_Exptable[_nowlv])
+            {
+                _nowexp = 0;
+                _nowlv++;
+            }
+        }
+    }
+
+
+    //SetImageから読み出し
+    public void ResultHikariMakeCardView_andOFF()
+    {
+        black_Image.SetActive(false);
+        text_area.SetActive(false);
+        effect_Particle_KiraExplode.SetActive(false);
+        effect_Particle_KiraExplode_2.SetActive(false);
+        DeleteCard_DrawView2();
     }
 
     IEnumerator Select3_finalcheck()
@@ -430,22 +864,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         {
             case true:
 
-                //お菓子作りやめる
-                DeleteCard_DrawView();
-
-                //一度contentの中身を削除
-                foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
-                {
-                    Destroy(child.gameObject);
-                }
-
-                Emptypanel.SetActive(true);
-                GameMgr.hikari_make_okashiFlag = false;
-
-                //うけとる処理
-                compound_keisan.HikariMakeGetItem();
-                GameMgr.hikari_make_okashiKosu = 0;
-                makeokasi_kosu.text = GameMgr.hikari_make_okashiKosu.ToString();
+                GetYosokuItem();                               
 
                 break;
 
@@ -458,7 +877,34 @@ public class HikariMakeStartPanel : MonoBehaviour {
         }
 
         SelectHyouji_OnOFF();
+        paramHyoujiKoushin();
         CharaIconChange();
+    }
+
+    public void GetYosokuItem()
+    {
+        //お菓子作りやめる
+        DeleteCard_DrawView();
+
+        //一度contentの中身を削除
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        Emptypanel.SetActive(true);
+        GameMgr.hikari_make_okashiFlag = false;
+
+        //うけとる処理
+        if (GameMgr.hikari_make_okashiKosu >= 1)
+        {
+            compound_keisan.HikariMakeGetItem();
+            GameMgr.hikari_make_okashiKosu = 0;
+        }
+        else
+        {
+            GameMgr.hikari_make_okashiKosu = 0;
+        }
     }
 
     void CharaIconChange()
@@ -471,5 +917,46 @@ public class HikariMakeStartPanel : MonoBehaviour {
         {
             chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
         }
+    }
+
+    void paramHyoujiKoushin()
+    {
+        makeokasi_kosu.text = GameMgr.hikari_make_okashiKosu.ToString();
+        if (!GameMgr.hikari_make_okashiFlag)
+        {
+            timecost_kosu.text = "-";
+        }
+        else
+        {
+            timecost_kosu.text = (GameMgr.hikari_make_okashiTimeCost / 60.0f).ToString("F1");
+        }
+    }
+
+    //ボインとはじくようなアニメ
+    void Result_animOn(int _card_num)
+    {
+        resulttransform = _cardImage_obj2[_card_num].transform;
+        //resultPos = resulttransform.localPosition;
+        //resultScale = resulttransform.localScale;
+
+        {
+            Sequence sequence = DOTween.Sequence();
+
+            //まず、初期値。
+            _cardImage_obj2[0].GetComponent<CanvasGroup>().alpha = 0;
+            sequence.Append(resulttransform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 0.0f));
+            //sequence.Join(resulttransform.DOLocalMove(new Vector3(0, 0, 0), 0.0f)
+            //); //
+            //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
+
+            //移動のアニメ
+            sequence.Append(resulttransform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.75f)
+                .SetEase(Ease.OutElastic));
+            /*sequence.Join(resulttransform.DOLocalMove(new Vector3(0f, 80f, 0), 0.75f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo)); //元の位置に戻る。*/
+            sequence.Join(_cardImage_obj2[0].GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+        }
+
     }
 }

@@ -66,6 +66,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int item_hyouji;
 		public int Set_JudgeNum;
 		public int Rare;
+		public int Manpuku;
 	}
 }
 

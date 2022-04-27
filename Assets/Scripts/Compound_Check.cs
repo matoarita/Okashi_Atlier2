@@ -1005,7 +1005,15 @@ public class Compound_Check : MonoBehaviour {
         //調合判定
 
         //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
-        _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
+        if (GameMgr.compound_select != 7)
+        {
+            _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
+        }
+           else
+        {
+            bufpower_keisan.hikariBuf_okashilv(database.items[pitemlistController.result_item].itemType_sub.ToString()); //GameMgr.hikari_make_okashiTime_successrate_bufを事前計算
+            _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID) * GameMgr.hikari_make_okashiTime_successrate_buf;
+        } 
         newrecipi_flag = false;
         hikari_nomake = false;
 

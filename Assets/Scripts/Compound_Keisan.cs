@@ -237,6 +237,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private int mstatus;
 
+    private float hikari_okashilv_hosei;
 
 
     // Use this for initialization
@@ -1572,6 +1573,19 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                 }
             }
+        }
+
+        //⑥ヒカリのお菓子の場合　味に補正かかる。
+        if(mstatus == 1)
+        {
+            //まず、作るお菓子のサブタイプをもとに、計算。制作時間なども計算する。
+            hikari_okashilv_hosei = bufpower_keisan.Buf_HikariOkashiLV_Keisan(_base_itemType_sub);
+
+            _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_hosei);
+            _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_hosei);
+            _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_hosei);
+            _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_hosei);
+           
         }
     }
 

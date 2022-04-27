@@ -129,13 +129,13 @@ namespace Utage
 			if (!ignoreSoundVolume)
 			{
 				//音量設定 サウンド全体
-				SoundMasterVolume = data.soundMasterVolume * GameMgr.MasterVolumeParam;
+				SoundMasterVolume = data.soundMasterVolume;
 				//音量設定 BGM
-				BgmVolume = data.bgmVolume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
+				BgmVolume = data.bgmVolume;
 				//音量設定 SE
-				SeVolume = data.seVolume * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
+				SeVolume = data.seVolume;
 				//音量設定 環境音
-				AmbienceVolume = data.ambienceVolume * GameMgr.MasterVolumeParam;
+				AmbienceVolume = data.ambienceVolume;
 				//音量設定 ボイス
 				VoiceVolume = data.voiceVolume;
 			}

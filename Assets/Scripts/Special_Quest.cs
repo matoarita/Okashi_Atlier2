@@ -356,42 +356,42 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 11: //茶色クッキー
+            case 11: //お茶会用の
 
                 girl1_status.OkashiQuest_ID = 10110;
                 OkashiQuest_Count = 2;
 
                 break;
 
-            case 12: //茶色クッキー
+            case 12: //ヒカリが3種類のお菓子を作れるようにする。
 
                 girl1_status.OkashiQuest_ID = 10120;
                 OkashiQuest_Count = 3;
 
                 break;
 
-            case 13: //茶色クッキー
+            case 13: //カミナリのすっぱいクレープ
 
                 girl1_status.OkashiQuest_ID = 10130;
                 OkashiQuest_Count = 4;
 
                 break;
 
-            case 14: //茶色クッキー
+            case 14: //300点以上のいちごのクレープ
 
                 girl1_status.OkashiQuest_ID = 10140;
                 OkashiQuest_Count = 5;
 
                 break;
 
-            case 20: //
+            case 20: //ハート2000以上
 
                 girl1_status.OkashiQuest_ID = 10200;
                 OkashiQuest_Count = 1;
 
                 break;
 
-            case 21: //
+            case 21: //大人でムーディーなお菓子
 
                 girl1_status.OkashiQuest_ID = 10210;
                 OkashiQuest_Count = 2;
@@ -405,24 +405,26 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 23: //
+            case 23: //200点超える夢のようなパンケーキ
 
                 girl1_status.OkashiQuest_ID = 10230;
                 OkashiQuest_Count = 4;
 
                 break;
 
-            case 24: //
+            case 24: //ミントとプリンセストータで対決！
 
+                //Debug.Log("Extra 24: Check");
                 girl1_status.OkashiQuest_ID = 10240;
                 OkashiQuest_Count = 5;
+
+                //３と４は飛ばす GirlEatJudgeのほうで、条件分岐                
 
                 break;
 
             case 50: //ステージ１ラスト　コンテスト開始
 
-                girl1_status.OkashiQuest_ID = 1500;
-
+                girl1_status.OkashiQuest_ID = 10500;
                 OkashiQuest_Count = 1;
                 break;
 
@@ -473,6 +475,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(10220, 22);
         QuestDict.Add(10230, 23);
         QuestDict.Add(10240, 24);
+        QuestDict.Add(10500, 50);
     }
 
     void InitQuestCount() //ステージごとの、クエストの総数　1なら、クエスト3個など。クエストの進行度を表示する◆ボタン用に使う。
@@ -493,6 +496,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             QuestCountDict.Add(1, 5);
             QuestCountDict.Add(2, 5);
             QuestCountDict.Add(3, 5);
+            QuestCountDict.Add(6, 1);
         }
 
     }

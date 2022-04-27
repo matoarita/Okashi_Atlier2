@@ -35,6 +35,39 @@ public class PlayerData
     public int save_player_girl_manpuku; //妹の満腹度
     public int save_player_girl_yaruki; //妹のやる気
 
+    //お菓子経験値　全１５種類
+    public int save_player_girl_appaleil_exp;
+    public int save_player_girl_cream_exp;
+    public int save_player_girl_cookie_exp;
+    public int save_player_girl_chocolate_exp;
+    public int save_player_girl_crepe_exp;
+    public int save_player_girl_creampuff_exp;
+    public int save_player_girl_donuts_exp;
+    public int save_player_girl_cake_exp;
+    public int save_player_girl_rusk_exp;
+    public int save_player_girl_candy_exp;
+    public int save_player_girl_jelly_exp;
+    public int save_player_girl_juice_exp;
+    public int save_player_girl_tea_exp;
+    public int save_player_girl_icecream_exp;
+    public int save_player_girl_rareokashi_exp;
+
+    public int save_player_girl_appaleil_lv;
+    public int save_player_girl_cream_lv;
+    public int save_player_girl_cookie_lv;
+    public int save_player_girl_chocolate_lv;
+    public int save_player_girl_crepe_lv;
+    public int save_player_girl_creampuff_lv;
+    public int save_player_girl_donuts_lv;
+    public int save_player_girl_cake_lv;
+    public int save_player_girl_rusk_lv;
+    public int save_player_girl_candy_lv;
+    public int save_player_girl_jelly_lv;
+    public int save_player_girl_juice_lv;
+    public int save_player_girl_tea_lv;
+    public int save_player_girl_icecream_lv;
+    public int save_player_girl_rareokashi_lv;
+
     //日付・フラグ関係
     public int save_player_day; //現在の日付
     //public int save_player_time; //現在の時刻　8:00~24:00まで　10分刻み　トータルで96*10分
@@ -119,6 +152,7 @@ public class PlayerData
     public int save_hikari_make_okashi_compID; //CompoDBのID
     public int save_hikari_make_okashiTimeCost; //かかる時間
     public int save_hikari_make_okashiTimeCounter; //制作時間のタイマー
+    public float save_hikari_make_success_rate; //成功率
     public int save_hikari_make_doubleItemCreated;
     public float save_hikari_make_okashi_totalkyori;
     public int save_hikari_make_okashiKosu;
@@ -219,6 +253,9 @@ public class PlayerData
     //コンテストクリアお菓子リスト
     public List<ItemSaveFlag> save_contestclear_collection_list = new List<ItemSaveFlag>();
     public List<Item> save_contestclear_collection_listItemData = new List<Item>();
+
+    //獲得音楽図鑑のフラグ
+    public List<ItemSaveFlag> save_bgm_collection_list = new List<ItemSaveFlag>(); //音楽リスト。 
 
     //エクストリームパネル用のアイテムとタイプ
     public int save_extreme_itemid;

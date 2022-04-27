@@ -11,6 +11,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _buf_kakuritsuup_f;
     private int _buf_shokukanup;
 
+    private float _buf_hikari_okashiparam;
+    private int hikari_okashiLV;
+
     private int i;
 
     // Use this for initialization
@@ -227,6 +230,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+
     //メイン調合シーンで確認する
     public void CheckEquip_Keisan()
     {
@@ -275,5 +279,180 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 PlayerStatus.player_kamado_lv = 1;
             }
         }
+    }
+
+    //作るお菓子の種類によって、ヒカリのお菓子レベルの補正をかける。
+    public float Buf_HikariOkashiLV_Keisan(string _itemType_sub)
+    {
+
+        _buf_hikari_okashiparam = 1.0f;
+
+        hikariBuf_okashilv(_itemType_sub);
+
+        return _buf_hikari_okashiparam;
+    }
+
+    //上記でreturnを使わずに、計算だけしたい場合。直接これを読む。compound_Checkで成功率だすときなどに使用。
+    public void hikariBuf_okashilv(string _itemType_sub)
+    {
+        switch (_itemType_sub)
+        {
+            case "Appaleil":
+                hikari_okashiLV = PlayerStatus.player_girl_appaleil_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                GameMgr.hikari_make_okashiTime_successrate_buf = 1.0f;
+                break;
+            case "Cream":
+                hikari_okashiLV = PlayerStatus.player_girl_cream_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                GameMgr.hikari_make_okashiTime_successrate_buf = 1.0f;
+                break;
+            case "Biscotti":
+                hikari_okashiLV = PlayerStatus.player_girl_rusk_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Bread":
+                hikari_okashiLV = PlayerStatus.player_girl_rusk_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Bread_Sliced":
+                hikari_okashiLV = PlayerStatus.player_girl_rusk_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Cookie":
+                hikari_okashiLV = PlayerStatus.player_girl_cookie_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Cookie_Mat":
+                hikari_okashiLV = PlayerStatus.player_girl_cookie_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Cookie_Hard":
+                hikari_okashiLV = PlayerStatus.player_girl_cookie_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Chocolate":
+                hikari_okashiLV = PlayerStatus.player_girl_chocolate_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Chocolate_Mat":
+                hikari_okashiLV = PlayerStatus.player_girl_chocolate_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Cake":
+                hikari_okashiLV = PlayerStatus.player_girl_cake_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Cake_Mat":
+                hikari_okashiLV = PlayerStatus.player_girl_cake_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Castella":
+                hikari_okashiLV = PlayerStatus.player_girl_cake_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Cannoli":
+                hikari_okashiLV = PlayerStatus.player_girl_crepe_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Candy":
+                hikari_okashiLV = PlayerStatus.player_girl_candy_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Crepe":
+                hikari_okashiLV = PlayerStatus.player_girl_crepe_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Crepe_Mat":
+                hikari_okashiLV = PlayerStatus.player_girl_crepe_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Creampuff":
+                hikari_okashiLV = PlayerStatus.player_girl_creampuff_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Coffee":
+                hikari_okashiLV = PlayerStatus.player_girl_tea_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Coffee_Mat":
+                hikari_okashiLV = PlayerStatus.player_girl_tea_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Donuts":
+                hikari_okashiLV = PlayerStatus.player_girl_donuts_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Financier":
+                hikari_okashiLV = PlayerStatus.player_girl_cake_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "IceCream":
+                hikari_okashiLV = PlayerStatus.player_girl_icecream_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Juice":
+                hikari_okashiLV = PlayerStatus.player_girl_juice_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Jelly":
+                hikari_okashiLV = PlayerStatus.player_girl_jelly_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Maffin":
+                hikari_okashiLV = PlayerStatus.player_girl_cake_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "PanCake":
+                hikari_okashiLV = PlayerStatus.player_girl_cake_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Parfe":
+                hikari_okashiLV = PlayerStatus.player_girl_icecream_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Pie":
+                hikari_okashiLV = PlayerStatus.player_girl_cake_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Rusk":
+                hikari_okashiLV = PlayerStatus.player_girl_rusk_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "SumireSuger":
+                hikari_okashiLV = PlayerStatus.player_girl_rareokashi_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Tea":
+                hikari_okashiLV = PlayerStatus.player_girl_tea_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Tea_Mat":
+                hikari_okashiLV = PlayerStatus.player_girl_tea_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            case "Tea_Potion":
+                hikari_okashiLV = PlayerStatus.player_girl_tea_lv;
+                HikariOkashilv_table(); //実際のバフ率を計算
+                break;
+            default: //一致しない場合は特に何もしない。
+                GameMgr.hikari_make_okashiTime_costbuf = 1.0f;
+                GameMgr.hikari_make_okashiTime_successrate_buf = 1.0f;
+                break;
+        }
+    }
+
+    void HikariOkashilv_table()
+    {
+        _buf_hikari_okashiparam = 0.2f + SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.3f, 2.1f);
+
+        GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 3.0f, 0.5f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の2倍
+        GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.5f, 1.3f); //成功率　LV1~9 を　0.5から1.3に変換。
+    }
+
+    //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
+    float SujiMap(float value, float start1, float stop1, float start2, float stop2)
+    {
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     }
 }

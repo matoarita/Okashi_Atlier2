@@ -27,6 +27,7 @@ public class RecipiListController : MonoBehaviour {
     private Image _TextBGImg;
     private GameObject _HighStar;
     private GameObject _HighStar_2;
+    private GameObject _HikariLaernIcon;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -316,6 +317,7 @@ public class RecipiListController : MonoBehaviour {
         _TextBGImg.color = new Color(239f / 250f, 184f / 255f, 255f / 255f);
         _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
         _HighStar_2 = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar_2").gameObject;
+        _HikariLaernIcon = _recipi_listitem[list_count].transform.Find("Background/HikariMakeStar").gameObject;
 
         _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
         _toggle_itemID.recipi_toggleEventitem_ID = i; //イベントアイテムIDを、リストビューのトグル自体にも記録させておく。
@@ -338,6 +340,7 @@ public class RecipiListController : MonoBehaviour {
 
         _HighStar.SetActive(false);
         _HighStar_2.SetActive(false);
+        _HikariLaernIcon.SetActive(false);
 
         ++list_count;
     }
@@ -351,6 +354,7 @@ public class RecipiListController : MonoBehaviour {
         _TextBGImg.color = new Color(255f / 255f, 250f / 255f, 184f / 255f);
         _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
         _HighStar_2 = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar_2").gameObject;
+        _HikariLaernIcon = _recipi_listitem[list_count].transform.Find("Background/HikariMakeStar").gameObject;
 
         _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
         _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
@@ -391,6 +395,15 @@ public class RecipiListController : MonoBehaviour {
             ++j;
         }
 
+        if(databaseCompo.compoitems[i].hikari_make_count >= 1)
+        {
+            _HikariLaernIcon.SetActive(true);
+        }
+        else
+        {
+            _HikariLaernIcon.SetActive(false);
+        }
+
         _toggle_itemID.recipi_itemNameHyouji = item_name;
 
         _text.text = item_name;
@@ -411,6 +424,7 @@ public class RecipiListController : MonoBehaviour {
         _TextBGImg.color = new Color(255f / 255f, 250f / 255f, 184f / 255f);
         _HighStar = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar").gameObject;
         _HighStar_2 = _recipi_listitem[list_count].transform.Find("Background/HighScoreStar_2").gameObject;
+        _HikariLaernIcon = _recipi_listitem[list_count].transform.Find("Background/HikariMakeStar").gameObject;
 
         _toggle_itemID = _recipi_listitem[list_count].GetComponent<recipiitemSelectToggle>();
         _toggle_itemID.recipi_toggleCompoitem_ID = i; //コンポアイテムIDを、リストビューのトグル自体にも記録させておく。
@@ -452,6 +466,7 @@ public class RecipiListController : MonoBehaviour {
             }
             ++j;
         }
+        _HikariLaernIcon.SetActive(false);
 
         _toggle_itemID.recipi_itemNameHyouji = item_name;
 

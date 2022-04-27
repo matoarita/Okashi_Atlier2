@@ -51,6 +51,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveFlag> _temp_titlecollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_eventcollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_contestclearcollectionlist = new List<ItemSaveFlag>();
+    private List<ItemSaveFlag> _temp_bgmcollectionlist = new List<ItemSaveFlag>();
     private List<Item> _temp_contestclearcollectionlistItemData = new List<Item>();
 
     private GameObject _model_obj;
@@ -201,6 +202,40 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_girl_manpuku = PlayerStatus.player_girl_manpuku, //妹の満腹度
             //save_player_girl_yaruki = PlayerStatus.player_girl_yaruki, //妹のやる気
 
+            //お菓子経験値　全１５種類
+            save_player_girl_appaleil_exp = PlayerStatus.player_girl_appaleil_exp,
+            save_player_girl_cream_exp = PlayerStatus.player_girl_cream_exp,
+            save_player_girl_cookie_exp = PlayerStatus.player_girl_cream_exp,
+            save_player_girl_chocolate_exp = PlayerStatus.player_girl_chocolate_exp,
+            save_player_girl_crepe_exp = PlayerStatus.player_girl_crepe_exp,
+            save_player_girl_creampuff_exp = PlayerStatus.player_girl_creampuff_exp,
+            save_player_girl_donuts_exp = PlayerStatus.player_girl_donuts_exp,
+            save_player_girl_cake_exp = PlayerStatus.player_girl_cake_exp,
+            save_player_girl_rusk_exp = PlayerStatus.player_girl_rusk_exp,
+            save_player_girl_candy_exp = PlayerStatus.player_girl_candy_exp,
+            save_player_girl_jelly_exp = PlayerStatus.player_girl_jelly_exp,
+            save_player_girl_juice_exp = PlayerStatus.player_girl_juice_exp,
+            save_player_girl_tea_exp = PlayerStatus.player_girl_tea_exp,
+            save_player_girl_icecream_exp = PlayerStatus.player_girl_icecream_exp,
+            save_player_girl_rareokashi_exp = PlayerStatus.player_girl_rareokashi_exp,
+
+            save_player_girl_appaleil_lv = PlayerStatus.player_girl_appaleil_lv,
+            save_player_girl_cream_lv = PlayerStatus.player_girl_cream_lv,
+            save_player_girl_cookie_lv = PlayerStatus.player_girl_cookie_lv,
+            save_player_girl_chocolate_lv = PlayerStatus.player_girl_chocolate_lv,
+            save_player_girl_crepe_lv = PlayerStatus.player_girl_crepe_lv,
+            save_player_girl_creampuff_lv = PlayerStatus.player_girl_creampuff_lv,
+            save_player_girl_donuts_lv = PlayerStatus.player_girl_donuts_lv,
+            save_player_girl_cake_lv = PlayerStatus.player_girl_cake_lv,
+            save_player_girl_rusk_lv = PlayerStatus.player_girl_rusk_lv,
+            save_player_girl_candy_lv = PlayerStatus.player_girl_candy_lv,
+            save_player_girl_jelly_lv = PlayerStatus.player_girl_jelly_lv,
+            save_player_girl_juice_lv = PlayerStatus.player_girl_juice_lv,
+            save_player_girl_tea_lv = PlayerStatus.player_girl_tea_lv,
+            save_player_girl_icecream_lv = PlayerStatus.player_girl_icecream_lv,
+            save_player_girl_rareokashi_lv = PlayerStatus.player_girl_rareokashi_lv,
+
+
             //日付・フラグ関係
             save_player_day = PlayerStatus.player_day, //現在の日付
             //save_player_time = PlayerStatus.player_time, //現在の時刻
@@ -270,6 +305,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_hikari_make_okashi_compID = GameMgr.hikari_make_okashi_compID, //CompoDBのID
             save_hikari_make_okashiTimeCost = GameMgr.hikari_make_okashiTimeCost, //かかる時間
             save_hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCounter, //制作時間のタイマー
+            save_hikari_make_success_rate = GameMgr.hikari_make_success_rate, //成功率
             save_hikari_make_doubleItemCreated = GameMgr.hikari_make_doubleItemCreated,
             save_hikari_make_okashi_totalkyori = GameMgr.hikari_make_okashi_totalkyori,
             save_hikari_make_okashiKosu = GameMgr.hikari_make_okashiKosu,
@@ -462,7 +498,45 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_girl_maxlifepoint = playerData.save_player_girl_maxlifepoint; //妹のMax体力
         PlayerStatus.player_girl_eatCount = playerData.save_player_girl_eatCount; //妹が食べたお菓子の回数
         PlayerStatus.player_girl_manpuku = playerData.save_player_girl_manpuku; //妹の満腹度
-        //PlayerStatus.player_girl_yaruki = playerData.save_player_girl_yaruki; //妹のやる気
+                                                                                //PlayerStatus.player_girl_yaruki = playerData.save_player_girl_yaruki; //妹のやる気
+
+        //お菓子経験値　全１５種類
+        PlayerStatus.player_girl_appaleil_exp = playerData.save_player_girl_appaleil_exp;
+        PlayerStatus.player_girl_cream_exp = playerData.save_player_girl_cream_exp;
+        PlayerStatus.player_girl_cream_exp = playerData.save_player_girl_cookie_exp;
+        PlayerStatus.player_girl_chocolate_exp = playerData.save_player_girl_chocolate_exp;
+        PlayerStatus.player_girl_crepe_exp = playerData.save_player_girl_crepe_exp;
+        PlayerStatus.player_girl_creampuff_exp = playerData.save_player_girl_creampuff_exp;
+        PlayerStatus.player_girl_donuts_exp = playerData.save_player_girl_donuts_exp;
+        PlayerStatus.player_girl_cake_exp = playerData.save_player_girl_cake_exp;
+        PlayerStatus.player_girl_rusk_exp = playerData.save_player_girl_rusk_exp;
+        PlayerStatus.player_girl_candy_exp = playerData.save_player_girl_candy_exp;
+        PlayerStatus.player_girl_jelly_exp = playerData.save_player_girl_jelly_exp;
+        PlayerStatus.player_girl_juice_exp = playerData.save_player_girl_juice_exp;
+        PlayerStatus.player_girl_tea_exp = playerData.save_player_girl_tea_exp;
+        PlayerStatus.player_girl_icecream_exp = playerData.save_player_girl_icecream_exp;
+        PlayerStatus.player_girl_rareokashi_exp = playerData.save_player_girl_rareokashi_exp;
+
+        if (playerData.save_player_girl_appaleil_lv == 0)
+        { }
+        else
+        {
+            PlayerStatus.player_girl_appaleil_lv = playerData.save_player_girl_appaleil_lv;
+            PlayerStatus.player_girl_cream_lv = playerData.save_player_girl_cream_lv;
+            PlayerStatus.player_girl_cookie_lv = playerData.save_player_girl_cookie_lv;
+            PlayerStatus.player_girl_chocolate_lv = playerData.save_player_girl_chocolate_lv;
+            PlayerStatus.player_girl_crepe_lv = playerData.save_player_girl_crepe_lv;
+            PlayerStatus.player_girl_creampuff_lv = playerData.save_player_girl_creampuff_lv;
+            PlayerStatus.player_girl_donuts_lv = playerData.save_player_girl_donuts_lv;
+            PlayerStatus.player_girl_cake_lv = playerData.save_player_girl_cake_lv;
+            PlayerStatus.player_girl_rusk_lv = playerData.save_player_girl_rusk_lv;
+            PlayerStatus.player_girl_candy_lv = playerData.save_player_girl_candy_lv;
+            PlayerStatus.player_girl_jelly_lv = playerData.save_player_girl_jelly_lv;
+            PlayerStatus.player_girl_juice_lv = playerData.save_player_girl_juice_lv;
+            PlayerStatus.player_girl_tea_lv = playerData.save_player_girl_tea_lv;
+            PlayerStatus.player_girl_icecream_lv = playerData.save_player_girl_icecream_lv;
+            PlayerStatus.player_girl_rareokashi_lv = playerData.save_player_girl_rareokashi_lv;
+        }
 
         //日付・フラグ関係
         PlayerStatus.player_day = playerData.save_player_day; //現在の日付
@@ -531,10 +605,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.hikari_make_okashi_compID = playerData.save_hikari_make_okashi_compID; //CompoDBのID
         GameMgr.hikari_make_okashiTimeCost = playerData.save_hikari_make_okashiTimeCost; //かかる時間
         GameMgr.hikari_make_okashiTimeCounter = playerData.save_hikari_make_okashiTimeCounter; //制作時間のタイマー
+        GameMgr.hikari_make_success_rate = playerData.save_hikari_make_success_rate; //成功率
         GameMgr.hikari_make_doubleItemCreated = playerData.save_hikari_make_doubleItemCreated;
         GameMgr.hikari_make_okashi_totalkyori = playerData.save_hikari_make_okashi_totalkyori;
         GameMgr.hikari_make_okashiKosu = playerData.save_hikari_make_okashiKosu;
-
+       
         if (playerData.save_hikari_kettei_itemName != null)
         {
             GameMgr.hikari_kettei_itemName = playerData.save_hikari_kettei_itemName;
@@ -1016,7 +1091,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_cmpflaglist.Clear();
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
-            _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, databaseCompo.compoitems[i].comp_count));
+            _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, 
+                databaseCompo.compoitems[i].comp_count, databaseCompo.compoitems[i].hikari_make_count));
             //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);
         }
 
@@ -1051,6 +1127,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             _temp_contestclearcollectionlist.Add(new ItemSaveFlag(GameMgr.contestclear_collection_list[i].titleName, GameMgr.contestclear_collection_list[i].Score, GameMgr.contestclear_collection_list[i].Flag));
             _temp_contestclearcollectionlistItemData.Add(GameMgr.contestclear_collection_list[i].ItemData);
+        }
+
+        //音楽図鑑リスト
+        _temp_bgmcollectionlist.Clear();
+        for (i = 0; i < GameMgr.bgm_collection_list.Count; i++)
+        {
+            _temp_bgmcollectionlist.Add(new ItemSaveFlag(GameMgr.bgm_collection_list[i].titleName, 0, GameMgr.bgm_collection_list[i].Flag));
         }
 
         //システムデータに、セーブしたかどうかのフラグをセット
@@ -1093,6 +1176,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //コンテストクリアお菓子リストを記録する
             save_contestclear_collection_list = _temp_contestclearcollectionlist,
             save_contestclear_collection_listItemData = _temp_contestclearcollectionlistItemData,
+
+            //獲得音楽図鑑のフラグ
+            save_bgm_collection_list = _temp_bgmcollectionlist, //音楽リスト。 
 
             //音設定データ
             save_masterVolumeparam = GameMgr.MasterVolumeParam,
@@ -1190,6 +1276,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     {
                         databaseCompo.compoitems[i].cmpitem_flag = systemData.save_itemCompodatabase[count].comp_Flag;
                         databaseCompo.compoitems[i].comp_count = systemData.save_itemCompodatabase[count].comp_Count;
+                        databaseCompo.compoitems[i].hikari_make_count = systemData.save_itemCompodatabase[count].hikarimake_Count;
                         //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);
                         break;
                     }
@@ -1302,6 +1389,21 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                             _itemID = pitemlist.SearchItemString(GameMgr.contestclear_collection_list[i].ItemData.itemName);
                             GameMgr.contestclear_collection_list[i].ItemData.itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
                         }
+                        break;
+                    }
+                    i++;
+                }
+            }
+
+            //音楽図鑑リスト
+            for (count = 0; count < systemData.save_bgm_collection_list.Count; count++)
+            {
+                i = 0;
+                while (i < GameMgr.bgm_collection_list.Count)
+                {
+                    if (systemData.save_bgm_collection_list[count].itemName == GameMgr.bgm_collection_list[i].titleName)
+                    {
+                        GameMgr.bgm_collection_list[i].Flag = systemData.save_bgm_collection_list[count].Flag;
                         break;
                     }
                     i++;
