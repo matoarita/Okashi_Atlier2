@@ -3597,6 +3597,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         canvas.SetActive(true);
         stageclear_panel.SetActive(true);
+        stageclear_panel.transform.Find("ClearButton_Effect/SPClearTojoSe").GetComponent<PlayerRankTojoSE>().OnTriggerFlag(0);
         playableDirector.enabled = true;
         playableDirector.Play();
 
@@ -3607,6 +3608,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         playableDirector.enabled = false;
         playableDirector.time = 0;
         stageclear_Button.GetComponent<Toggle>().interactable = true;
+        stageclear_panel.transform.Find("ClearButton_Effect").gameObject.SetActive(false);
 
         GameMgr.QuestClearflag = true;
 

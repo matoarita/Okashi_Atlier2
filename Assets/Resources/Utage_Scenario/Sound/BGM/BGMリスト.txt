@@ -30,7 +30,7 @@
 ・BGM_28		audiostock_64137			きらきらぽんぽのロマンチックなBGM
 ・BGM_29		audiostock_12050			【宴で使用】思い出話の音楽
 ・BGM_30		05_kazetotomoni				ED曲
-・BGM_31		audiostock_94283_sample			【未使用】削除
+・BGM_31		PerituneMaterial_Holiday4_loop		【宴で使用】どっこいステーキのBGM
 ・BGM_32		audiostock_824733			月夜の曲３
 ・BGM_33		audiostock_158582			バードサンクチュアリイメージの静かなピアノ曲
 ・BGM_34		audiostock_371284_sample		【未使用】削除

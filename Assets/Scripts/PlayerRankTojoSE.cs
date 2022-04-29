@@ -6,6 +6,8 @@ public class PlayerRankTojoSE : MonoBehaviour {
 
     private SoundController sc;
 
+    public int _setrigger;
+
     // Use this for initialization
     void Start () {
 
@@ -24,7 +26,28 @@ public class PlayerRankTojoSE : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        sc.PlaySe(27);
-        sc.PlaySe(4);
+        switch (transform.name)
+        {
+            case "SPClearTojoSe":
+
+                if (_setrigger == 0)
+                {
+                    _setrigger = 1;
+                    sc.PlaySe(12);
+                }
+                break;
+
+            case "PlayerRank":
+
+                sc.PlaySe(27);
+                sc.PlaySe(4);
+                break;
+        }
+                
+    }
+
+    public void OnTriggerFlag(int _set)
+    {
+        _setrigger = _set;
     }
 }
