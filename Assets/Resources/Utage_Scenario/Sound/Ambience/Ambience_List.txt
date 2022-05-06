@@ -11,3 +11,4 @@
 ・Ambience_11		VSQSE_0981_wave_26				浜辺の波音<宴で使用>
 ・Ambience_12		VSQSE_0612_wind_3				風の音<宴で使用>
 ・Ambience_13		nc199576					夜の虫の鳴き声<宴で使用>
+・Ambience_14		VSQSE_0722_steak_01_cooking			ステーキジュージュー<宴で使用>
