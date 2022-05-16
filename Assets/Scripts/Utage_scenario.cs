@@ -1673,6 +1673,9 @@ public class Utage_scenario : MonoBehaviour
             {
                 GameMgr.event_pitem_cancel = false;
 
+                //アイテムを開いたりする処理は無視して、endにいく。
+                GameMgr.picnic_event_reading_now = false;
+
                 playeritemlist_onoff.SetActive(false);
 
                 //ここで、宴のパラメータ設定。リセットしておく。
