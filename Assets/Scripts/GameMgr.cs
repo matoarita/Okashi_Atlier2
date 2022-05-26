@@ -163,6 +163,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool QuestClearflag; //現在のクエストで60点以上だして、クリアしたかどうかのフラグ。
     public static bool QuestClearButton_anim; //クリア初回のみ、ボタンが登場する演出のフラグ。他シーンを移動しても、大丈夫なようにしている。  
 
+    //クリアお菓子の情報
+    public static int SpecialQuestClear_okashiItemID;
+
     //さっき食べたお菓子情報
     public static string Okashi_lasthint; //さっき食べたお菓子のヒント。
     public static string Okashi_lastname; //さっき食べたお菓子の名前。
@@ -912,6 +915,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             OkashiQuest_flag_stage3[system_i] = false;
         }
 
+        SpecialQuestClear_okashiItemID = 200; //デフォルトでねこクッキーを入れる。
         QuestClearflag = false;
         QuestClearButton_anim = false;
         QuestClearAnim_Flag = false;

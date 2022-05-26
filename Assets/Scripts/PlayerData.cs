@@ -157,6 +157,9 @@ public class PlayerData
     public float save_hikari_make_okashi_totalkyori;
     public int save_hikari_make_okashiKosu;
 
+    //クリアお菓子の情報
+    public int save_SpecialQuestClear_okashiItemID;
+
     //さっき食べたお菓子の情報
     public string save_Okashi_lasthint; //さっき食べたお菓子のヒント。
     public string save_Okashi_lastname; //さっき食べたお菓子の名前。

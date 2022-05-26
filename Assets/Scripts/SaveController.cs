@@ -310,6 +310,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_hikari_make_okashi_totalkyori = GameMgr.hikari_make_okashi_totalkyori,
             save_hikari_make_okashiKosu = GameMgr.hikari_make_okashiKosu,
 
+            //クリアお菓子の情報
+            save_SpecialQuestClear_okashiItemID = GameMgr.SpecialQuestClear_okashiItemID,
+
             //さっき食べたお菓子の情報
             save_Okashi_lasthint = GameMgr.Okashi_lasthint, //さっき食べたお菓子のヒント。
             save_Okashi_lastname = GameMgr.Okashi_lastname, //さっき食べたお菓子の名前。
@@ -614,6 +617,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             GameMgr.hikari_kettei_itemName = playerData.save_hikari_kettei_itemName;
         }
+
+        //クリアお菓子の情報
+        GameMgr.SpecialQuestClear_okashiItemID = playerData.save_SpecialQuestClear_okashiItemID;
 
         //さっき食べたお菓子の情報
         GameMgr.Okashi_lasthint = playerData.save_Okashi_lasthint; //さっき食べたお菓子のヒント。

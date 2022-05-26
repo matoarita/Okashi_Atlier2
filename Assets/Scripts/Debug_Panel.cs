@@ -343,7 +343,15 @@ public class Debug_Panel : MonoBehaviour {
                         }
                         else
                         {
-                            special_quest.SetSpecialOkashi(event_num - 10, 2);
+                            if (event_num == 50)
+                            {
+                                GameMgr.GirlLoveEvent_stage1[20] = true;
+                                special_quest.SetSpecialOkashi(20, 2); //stage3終わりを呼び出す。
+                            }
+                            else
+                            {
+                                special_quest.SetSpecialOkashi(event_num - 10, 2);
+                            }
                         }
 
                         //** 初期化               

@@ -12,3 +12,7 @@
 ・Ambience_12		VSQSE_0612_wind_3				風の音<宴で使用>
 ・Ambience_13		nc199576					夜の虫の鳴き声<宴で使用>
 ・Ambience_14		VSQSE_0722_steak_01_cooking			ステーキジュージュー<宴で使用>
+・Ambience_15		audiostock_1068548				激しめの雷雨<宴で使用>
+・Ambience_16		shower_going					雨上がり後雷去っていく<宴で使用>
+・Ambience_17		VSQSE_0828_morning_countryside_05		鳥の鳴き声　雨上がり後<宴で使用>
+・Ambience_18		audiostock_532849				雨上がり後ぴちゃぴちゃ<宴で使用>

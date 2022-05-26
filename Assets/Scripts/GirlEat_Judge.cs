@@ -3526,6 +3526,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //girl1_status.hukidasiOff();
         touch_controller.Touch_OnAllOFF();
 
+        //クエスト初クリア時に、最後に食べたお菓子をクリアお菓子として保存する。ItemIDとして保存。
+        GameMgr.SpecialQuestClear_okashiItemID = GameMgr.Okashi_lastID;
+
         //エメラルどんぐりイベントが発生した場合は、どんぐりが終了するまで待つ。emerarudonguri_end GameMgr.QuestClearflag
         while (!emerarudonguri_end)
         {
@@ -3552,8 +3555,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             yield return null;
         }
-        GameMgr.qclear_effect_endflag = false;
-       
+        GameMgr.qclear_effect_endflag = false;      
         //ここまで　演出処理
 
         canvas.SetActive(false);

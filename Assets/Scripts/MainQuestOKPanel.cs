@@ -42,8 +42,15 @@ public class MainQuestOKPanel : MonoBehaviour {
         stagenum_text.text = GameMgr.stage_quest_num.ToString();
 
         okashiImage = this.transform.Find("ItemImgPanel/ItemImg").GetComponent<Image>();
-        okashiImage.sprite = special_quest.OkashiQuest_sprite;
-        //okashiImage.sprite = database.items[database.SearchItemID(GameMgr.Okashi_lastID)].itemIcon_sprite;
+
+        if (GameMgr.Story_Mode == 0)
+        {
+            okashiImage.sprite = special_quest.OkashiQuest_sprite;
+        }
+        else
+        {
+            okashiImage.sprite = database.items[database.SearchItemID(GameMgr.SpecialQuestClear_okashiItemID)].itemIcon_sprite;
+        }
 
         StartCoroutine("WaitButton");
     }

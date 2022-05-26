@@ -418,7 +418,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 10240;
                 OkashiQuest_Count = 5;
 
-                //３と４は飛ばす GirlEatJudgeのほうで、条件分岐                
+                //３と４は飛ばす GirlEatJudgeのほうで、条件分岐    
+                //debug_panelでも更新してる。
 
                 break;
 
