@@ -600,6 +600,56 @@ public class Sound_Trigger : MonoBehaviour {
                 //SE_point_click(36);
                 break;
 
+            case "Speed1": //ゲーム中の時間速度変更のボタン音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(126);
+                break;
+
+            case "Speed2": //ゲーム中の時間速度変更のボタン音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(125);
+                break;
+
+            case "Speed3": //ゲーム中の時間速度変更のボタン音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(124);
+                break;
+
+            case "Speed4": //ゲーム中の時間速度変更のボタン音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(123);
+                break;
+
+            case "Speed5": //ゲーム中の時間速度変更のボタン音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(122);
+                break;
+
             default: //特に指定がない場合
 
                 //Debug.Log("リストボタンを押した");

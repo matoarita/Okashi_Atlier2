@@ -695,7 +695,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         emeraldshop_event_num = 0;
 
         picnic_count = 3;
-        picnic_event_ON = true;
+        picnic_event_ON = false;
 
         outgirl_count = 3;
         outgirl_event_ON = true;
@@ -1300,7 +1300,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));      
         bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ショパンの夢", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie"));       
+        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "ココア・シガレット", false, "Items/neko_cookie"));       
         bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(012, "bgm12", "近くの森", false, "Items/neko_cookie"));

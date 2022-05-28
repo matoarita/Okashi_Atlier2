@@ -197,11 +197,6 @@
 			"Name": "上半身のうねり"
 		},
 		{
-			"Id": "ParamBreath",
-			"GroupId": "ParamGroup4",
-			"Name": "呼吸"
-		},
-		{
 			"Id": "ParamCharaPosX",
 			"GroupId": "ParamGroup4",
 			"Name": "MainX"
@@ -210,6 +205,16 @@
 			"Id": "ParamCharaPosY",
 			"GroupId": "ParamGroup4",
 			"Name": "MainY"
+		},
+		{
+			"Id": "ParamFaceScale",
+			"GroupId": "ParamGroup4",
+			"Name": "顔が近づく"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "ParamGroup4",
+			"Name": "呼吸"
 		},
 		{
 			"Id": "LR_upperarm_Rot",
@@ -812,136 +817,6 @@
 			"Name": "髪揺れ_横L_hairB_2"
 		},
 		{
-			"Id": "ParamCattail_rootRot",
-			"GroupId": "ParamGroup9",
-			"Name": "猫しっぽ根本の回転"
-		},
-		{
-			"Id": "Param_Angle_Rotation_1_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[0]猫しっぽ"
-		},
-		{
-			"Id": "Param_Angle_Rotation_2_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[1]猫しっぽ"
-		},
-		{
-			"Id": "Param_Angle_Rotation_3_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[2]猫しっぽ"
-		},
-		{
-			"Id": "Param_Angle_Rotation_4_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[3]猫しっぽ"
-		},
-		{
-			"Id": "Param_Angle_Rotation_5_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[4]猫しっぽ"
-		},
-		{
-			"Id": "Param_Angle_Rotation_6_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[5]猫しっぽ"
-		},
-		{
-			"Id": "Param_Angle_Rotation_7_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[6]猫しっぽ"
-		},
-		{
-			"Id": "Param_Angle_Rotation_8_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[7]猫しっぽ"
-		},
-		{
-			"Id": "Param_Angle_Rotation_9_ArtMesh421",
-			"GroupId": "ParamGroup9",
-			"Name": "[8]猫しっぽ"
-		},
-		{
-			"Id": "Hair_All_z_Pos",
-			"GroupId": "",
-			"Name": "風揺れ位置"
-		},
-		{
-			"Id": "Hair_All_z_rotate",
-			"GroupId": "",
-			"Name": "風揺れ回転"
-		},
-		{
-			"Id": "ParamWingOpen",
-			"GroupId": "ParamGroup16",
-			"Name": "つばさの開閉"
-		},
-		{
-			"Id": "ParamWingOpen2",
-			"GroupId": "ParamGroup16",
-			"Name": "つばさの開閉2"
-		},
-		{
-			"Id": "ParamWingScale",
-			"GroupId": "ParamGroup16",
-			"Name": "つばさの拡縮"
-		},
-		{
-			"Id": "ParamStarRot_1",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星回転1"
-		},
-		{
-			"Id": "ParamStarRot_2",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星回転2"
-		},
-		{
-			"Id": "ParamStarRot_3",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星回転3"
-		},
-		{
-			"Id": "ParamStarRot_4",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星回転4"
-		},
-		{
-			"Id": "ParamStarScale_1",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星スケール1"
-		},
-		{
-			"Id": "ParamStarScale_2",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星スケール2"
-		},
-		{
-			"Id": "ParamStarScale_3",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星スケール3"
-		},
-		{
-			"Id": "ParamStarMove_1",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星ムーブ1"
-		},
-		{
-			"Id": "ParamStarMove_2",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星ムーブ2"
-		},
-		{
-			"Id": "ParamStarMove_3",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星ムーブ3"
-		},
-		{
-			"Id": "ParamStarMove_4",
-			"GroupId": "ParamGroup14",
-			"Name": "きら星ムーブ4"
-		},
-		{
 			"Id": "Param_Angle_Rotation_1_ArtMesh179",
 			"GroupId": "ParamGroup10",
 			"Name": "[0]右ツインテール"
@@ -1100,6 +975,136 @@
 			"Id": "Param_Angle_Rotation_7_ArtMesh194",
 			"GroupId": "ParamGroup13",
 			"Name": "[6]左ツインテール裏"
+		},
+		{
+			"Id": "ParamCattail_rootRot",
+			"GroupId": "ParamGroup9",
+			"Name": "猫しっぽ根本の回転"
+		},
+		{
+			"Id": "Param_Angle_Rotation_1_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[0]猫しっぽ"
+		},
+		{
+			"Id": "Param_Angle_Rotation_2_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[1]猫しっぽ"
+		},
+		{
+			"Id": "Param_Angle_Rotation_3_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[2]猫しっぽ"
+		},
+		{
+			"Id": "Param_Angle_Rotation_4_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[3]猫しっぽ"
+		},
+		{
+			"Id": "Param_Angle_Rotation_5_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[4]猫しっぽ"
+		},
+		{
+			"Id": "Param_Angle_Rotation_6_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[5]猫しっぽ"
+		},
+		{
+			"Id": "Param_Angle_Rotation_7_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[6]猫しっぽ"
+		},
+		{
+			"Id": "Param_Angle_Rotation_8_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[7]猫しっぽ"
+		},
+		{
+			"Id": "Param_Angle_Rotation_9_ArtMesh421",
+			"GroupId": "ParamGroup9",
+			"Name": "[8]猫しっぽ"
+		},
+		{
+			"Id": "Hair_All_z_Pos",
+			"GroupId": "",
+			"Name": "風揺れ位置"
+		},
+		{
+			"Id": "Hair_All_z_rotate",
+			"GroupId": "",
+			"Name": "風揺れ回転"
+		},
+		{
+			"Id": "ParamWingOpen",
+			"GroupId": "ParamGroup16",
+			"Name": "つばさの開閉"
+		},
+		{
+			"Id": "ParamWingOpen2",
+			"GroupId": "ParamGroup16",
+			"Name": "つばさの開閉2"
+		},
+		{
+			"Id": "ParamWingScale",
+			"GroupId": "ParamGroup16",
+			"Name": "つばさの拡縮"
+		},
+		{
+			"Id": "ParamStarRot_1",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星回転1"
+		},
+		{
+			"Id": "ParamStarRot_2",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星回転2"
+		},
+		{
+			"Id": "ParamStarRot_3",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星回転3"
+		},
+		{
+			"Id": "ParamStarRot_4",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星回転4"
+		},
+		{
+			"Id": "ParamStarScale_1",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星スケール1"
+		},
+		{
+			"Id": "ParamStarScale_2",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星スケール2"
+		},
+		{
+			"Id": "ParamStarScale_3",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星スケール3"
+		},
+		{
+			"Id": "ParamStarMove_1",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ムーブ1"
+		},
+		{
+			"Id": "ParamStarMove_2",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ムーブ2"
+		},
+		{
+			"Id": "ParamStarMove_3",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ムーブ3"
+		},
+		{
+			"Id": "ParamStarMove_4",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ムーブ4"
 		}
 	],
 	"ParameterGroups": [
@@ -1149,21 +1154,6 @@
 			"Name": "髪"
 		},
 		{
-			"Id": "ParamGroup9",
-			"GroupId": "",
-			"Name": "猫しっぽ"
-		},
-		{
-			"Id": "ParamGroup16",
-			"GroupId": "",
-			"Name": "つばさ"
-		},
-		{
-			"Id": "ParamGroup14",
-			"GroupId": "",
-			"Name": "きら星回転"
-		},
-		{
 			"Id": "ParamGroup10",
 			"GroupId": "",
 			"Name": "右ツインテール"
@@ -1182,6 +1172,21 @@
 			"Id": "ParamGroup13",
 			"GroupId": "",
 			"Name": "左ツインテール裏"
+		},
+		{
+			"Id": "ParamGroup9",
+			"GroupId": "",
+			"Name": "猫しっぽ"
+		},
+		{
+			"Id": "ParamGroup16",
+			"GroupId": "",
+			"Name": "つばさ"
+		},
+		{
+			"Id": "ParamGroup14",
+			"GroupId": "",
+			"Name": "きら星回転"
 		}
 	],
 	"Parts": [

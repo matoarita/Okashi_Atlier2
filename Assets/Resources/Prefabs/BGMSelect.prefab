@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224690899127420190}
   - component: {fileID: 222623779472145220}
   - component: {fileID: 114891781667919386}
+  - component: {fileID: 95645029927133318}
   m_Layer: 0
   m_Name: Checkmark
   m_TagString: Untagged
@@ -119,6 +120,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95645029927133318
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1015684116362722}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e1d68ad03a11ada4081965f24180bec0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114011321474499228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -540,7 +558,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5514706, g: 0.49486932, b: 0.3730536, a: 0.384}
+      maxColor: {r: 1, g: 0.8740365, b: 0.60294116, a: 0.303}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -602,7 +620,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 1.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2

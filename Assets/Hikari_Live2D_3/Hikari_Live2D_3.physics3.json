@@ -1672,7 +1672,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 11
+						"Y": 7
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1682,7 +1682,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 22
+						"Y": 14
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1692,7 +1692,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 33
+						"Y": 21
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1702,7 +1702,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 44
+						"Y": 28
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1712,7 +1712,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 55
+						"Y": 35
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1722,7 +1722,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 66
+						"Y": 42
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1732,7 +1732,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 77
+						"Y": 49
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1742,7 +1742,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 88
+						"Y": 56
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -1752,7 +1752,7 @@
 				{
 					"Position": {
 						"X": 0,
-						"Y": 99
+						"Y": 63
 					},
 					"Mobility": 0.85,
 					"Delay": 0.9,
@@ -5246,7 +5246,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleX"
 					},
-					"Weight": 50,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				},
@@ -5255,7 +5255,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleZ"
 					},
-					"Weight": 100,
+					"Weight": 0,
 					"Type": "Angle",
 					"Reflect": false
 				},
@@ -5264,7 +5264,7 @@
 						"Target": "Parameter",
 						"Id": "ParamBodyAngleY"
 					},
-					"Weight": 50,
+					"Weight": 0,
 					"Type": "X",
 					"Reflect": false
 				}

@@ -219,7 +219,16 @@ public class GetMaterial : MonoBehaviour
                     timeOut = 1.0f;
                     mat_anim_status = 1;
 
-                    _text.text = "探索中 .";
+                    switch(mat_place)
+                    {
+                        case "Ido":
+                            _text.text = "うんしょ .";
+                            break;
+
+                        default:
+                            _text.text = "探索中 .";
+                            break;
+                    }
                     break;
 
                 case 1: // 状態2
@@ -229,7 +238,17 @@ public class GetMaterial : MonoBehaviour
                         timeOut = 1.0f;
                         mat_anim_status = 2;
 
-                        _text.text = "探索中 . .";
+                        switch (mat_place)
+                        {
+                            case "Ido":
+                                _text.text = "うんしょ . うんしょ . . ";
+                                break;
+
+                            default:
+                                _text.text = "探索中 . .";
+                                break;
+                        }
+                        
                     }
                     break;
 
@@ -546,11 +565,24 @@ public class GetMaterial : MonoBehaviour
     {
         _tansaku_result_temp.Clear();
 
-        for (count = 0; count < tansaku_count; count++) //3回繰り返す
+        switch (mat_place)
         {
-            ItemGetMethod(count);
-            
+            case "Ido":
+
+                //井戸は一回のみ
+                ItemGetMethod(0);
+                break;
+
+            default:
+
+                for (count = 0; count < tansaku_count; count++) //3回繰り返す
+                {
+                    ItemGetMethod(count);
+
+                }
+                break;
         }
+        
 
         //通常アイテムとは別に、レアアイテムのドロップも抽選する。
         for (count = 0; count < 1; count++) //1回繰り返す

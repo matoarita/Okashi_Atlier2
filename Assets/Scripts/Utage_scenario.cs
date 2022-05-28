@@ -143,6 +143,12 @@ public class Utage_scenario : MonoBehaviour
 
         utagesoundmanager.MasterVolume = GameMgr.MasterVolumeParam;
 
+        //キャンバスの読み込み
+        if (canvas == null)
+        {
+            canvas = GameObject.FindWithTag("Canvas");
+        }
+
         //フェードアニメ用
         if (FadeAnim_flag)
         {
@@ -1471,7 +1477,8 @@ public class Utage_scenario : MonoBehaviour
             CharacterLive2DImageOFF();
         }
 
-        Debug.Log("GirlLoveEvent_num: " + GirlLoveEvent_num);
+        Debug.Log("イベントラベル: " + scenarioLabel + " " + "_num: " + GirlLoveEvent_num);
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -1580,7 +1587,7 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.event_pitem_use_select = false;
 
         //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
+        //canvas = GameObject.FindWithTag("Canvas");
 
         //アイテムリストオブジェクト取得
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
@@ -1628,6 +1635,7 @@ public class Utage_scenario : MonoBehaviour
         }
         else //いく場合
         {
+            canvas.SetActive(true);
             //ピクニックイベントの場合は、調合画面にはいる。
             if (GameMgr.picnic_event_reading_now)
             {

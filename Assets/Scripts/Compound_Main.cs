@@ -692,7 +692,7 @@ public class Compound_Main : MonoBehaviour
 
             GameMgr.GameLoadOn = false;
             save_controller.DrawGameScreen();
-            keymanager.InitCompoundMainScene();
+            //keymanager.InitCompoundMainScene();
             GameMgr.MesaggeKoushinON = true;
             StartMessage();
 
@@ -1362,7 +1362,7 @@ public class Compound_Main : MonoBehaviour
                     compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = true;
                     GameMgr.scenario_read_endflag = false;
                     
-                    keymanager.InitCompoundMainScene();
+                    //keymanager.InitCompoundMainScene();
                 }
 
                 mainUI_panel_obj.SetActive(true);
@@ -1612,7 +1612,7 @@ public class Compound_Main : MonoBehaviour
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
 
-                keymanager.SelectOff();
+                //keymanager.SelectOff();
 
                 break;
 
@@ -1666,7 +1666,7 @@ public class Compound_Main : MonoBehaviour
 
                 extreme_panel.extreme_Compo_Setup();
 
-                keymanager.SelectOff();
+                //keymanager.SelectOff();
 
                 break;
 
@@ -1723,7 +1723,7 @@ public class Compound_Main : MonoBehaviour
 
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
 
-                keymanager.SelectOff();
+                //keymanager.SelectOff();
 
                 if (GameMgr.tutorial_ON == true)
                 {
@@ -1867,7 +1867,7 @@ public class Compound_Main : MonoBehaviour
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
 
-                keymanager.InitCompoundMainScene();
+                //keymanager.InitCompoundMainScene();
 
                 break;
 
@@ -1925,7 +1925,7 @@ public class Compound_Main : MonoBehaviour
 
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
 
-                keymanager.SelectOff();
+                //keymanager.SelectOff();
 
                 break;
 
@@ -4508,33 +4508,33 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("黄金じゃがのバター焼き");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
-                    _todayfood_lib.Add("エビと魚介のアヒージョ・ドリア");
+                    _todayfood_lib.Add("エビのオリーブアヒージョ・ドリア");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
-                    _todayfood_lib.Add("しめじとタラコの和風パスタ");
+                    _todayfood_lib.Add("しめじとキノコの純和風パスタ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("厚切りの肩ロースステーキ");
+                    _todayfood_lib.Add("厚切りの赤身ロースステーキ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
                 case 18:
 
-                    _todayfood_lib.Add("エビときのこの香り高いジェノベーゼ");
+                    _todayfood_lib.Add("エビきのこのジェノベーゼ");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("たことガーリック盛沢山ペペロンチーノ");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("巨大イカの逆襲パスタ・オリーブ仕上げ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("ジャンボ・えびふらい");
+                    _todayfood_lib.Add("ジャンボ・えびふら～い");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
                 case 30:
 
-                    _todayfood_lib.Add("牛肉のビール煮込み");
+                    _todayfood_lib.Add("牛肉のビールやわらか煮込み");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("チキンのレモン煮");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("巨大エビドリア");
+                    _todayfood_lib.Add("巨大なエビ・ドリア");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("なすとひき肉のチーズペンネ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
@@ -4542,19 +4542,19 @@ public class Compound_Main : MonoBehaviour
 
                 case 35:
 
-                    _todayfood_lib.Add("サラダそうめん");
+                    _todayfood_lib.Add("地中海風サラダそうめん");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("ビーフシチュー");
+                    _todayfood_lib.Add("こくまろ・ビーフシチュー");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("アサリとムール貝の酒蒸し");
+                    _todayfood_lib.Add("アサリとムール貝の大人な酒蒸し");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
-                    _todayfood_lib.Add("ゴルゴンゾーラパスタ");
+                    _todayfood_lib.Add("ゴルゴンゾーラ・クリームパスタ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
                 case 45:
 
-                    _todayfood_lib.Add("マグロと鮭のドリア");
+                    _todayfood_lib.Add("マグロと鮭のこってりドリア");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("カジキとあらびきソーセージピザ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
@@ -4562,7 +4562,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
                     _todayfood_lib.Add("湯葉とカブラの京風オリーブパスタ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("イベリコ豚しゃぶサラダパスタ");
+                    _todayfood_lib.Add("イベリコ豚しゃぶサラダ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     break;
 
@@ -4572,12 +4572,14 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("イタリアンロイヤルトマトピザ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("ジャーマンポテトガーリックピザ");
+                    _todayfood_lib.Add("ジャーマンポテトのガーリックピザ");
                     _todayfoodexpence_lib.Add((int)(700f * _todayfood_buf));
-                    _todayfood_lib.Add("ラザニア");
+                    _todayfood_lib.Add("まんぷくラザニア");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("メガトンハンバーグ");
+                    _todayfood_lib.Add("ギガトンハンバーグ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
+                    _todayfood_lib.Add("じゃがバター");
+                    _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     break;
 
                 default:

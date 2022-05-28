@@ -160,10 +160,12 @@ public class OptionPanel : MonoBehaviour {
                     if(pitemlist.KosuCount("music_box") >= 1)
                     {
                         BGMSelectPanel.SetActive(true);
+                        //BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(true);
                     }
                     else
                     {
                         BGMSelectPanel.SetActive(false);
+                        BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(false);
                     }
 
                     //BGM所持チェック
@@ -472,8 +474,9 @@ public class OptionPanel : MonoBehaviour {
 
                 save_controller.SystemsaveCheck();
                 break;
-        }       
+        }
 
+        BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(false);
         SystemSave_Panel.SetActive(true);
         SystemSave_Panel.GetComponent<CanvasGroup>().alpha = 0;
 
@@ -509,10 +512,12 @@ public class OptionPanel : MonoBehaviour {
     {
         //音楽セレクト画面をオンに。
         MusicSelect_panel.SetActive(true);
+        BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(false);
     }
     public void BackMusicSelect()
     {
         //音楽セレクト画面をオフに。
         MusicSelect_panel.SetActive(false);
+        //BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(true);
     }
 }

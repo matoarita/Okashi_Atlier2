@@ -158,7 +158,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.check_GirlLoveEvent_flag = false;
 
                                     //レシピの追加
-                                    pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加                                
+                                    pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加        
+                                    GameMgr.picnic_count = 3; //ピクニックこのイベント以降、カウント開始する。
 
                                     //クエスト発生
                                     Debug.Log("好感度イベント３をON: クレープが食べたい　開始");

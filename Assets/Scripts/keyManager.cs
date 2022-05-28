@@ -261,6 +261,9 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
     {       
         if (canvas == null)
         {
+            //キャンバスの読み込み
+            canvas = GameObject.FindWithTag("Canvas");
+
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Compound":
@@ -1032,21 +1035,22 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
 
     public void SelectOff()
     {
+        /*
         Cursor_On = false;
         itemCursor_On = false;
 
         for (i = 0; i < compobgA_selectitem.Count; i++) //一回全てのカーソルをOff
         {
             compobgA_selectitem[i].transform.Find("SelectCursor").gameObject.SetActive(false);
-        }
+        }*/
     }
 
 
 
-    public void InitCompoundMainScene()
+    void InitCompoundMainScene()
     {
         //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
+        //canvas = GameObject.FindWithTag("Canvas");
 
         //オプションパネル読み込み
         option_panel = canvas.transform.Find("OptionPanel").GetComponent<OptionPanel>();
