@@ -36,6 +36,7 @@ public class ItemCompound
 
     public string release_recipi; //新しくお菓子を作ったとき、ここに入った名前のレシピを解放する
     public int recipi_count; //ゲーム中でカウントするレシピ　これが0だと、レシピは表示されない。
+    public int buf_kouka_on;
 
     //Excelにはのってない変数
     public int hikari_make_count; //ヒカリがそのレシピを作った回数
@@ -43,7 +44,7 @@ public class ItemCompound
     //ここでリスト化時に渡す引数をあてがいます   
     public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, 
         string result_item, int _result_kosu, int _kosu1, int _kosu2, int _kosu3, float _bestkosu1, float _bestkosu2, float _bestkosu3, 
-        int _flag, int cost_time, int srate, int renkin_bexp, string _keisanm, int _comp_count, string _release_recipi, int _recipi_count, int _hikari_make_count)
+        int _flag, int cost_time, int srate, int renkin_bexp, string _keisanm, int _comp_count, string _release_recipi, int _recipi_count, int _buf_kouka_on, int _hikari_make_count)
     {
         cmpitemID = id;
         cmpitem_Name = cmpname;
@@ -75,6 +76,7 @@ public class ItemCompound
 
         release_recipi = _release_recipi;
         recipi_count = _recipi_count;
+        buf_kouka_on = _buf_kouka_on;
 
         _hikari_make_count = hikari_make_count;
     }

@@ -160,7 +160,7 @@ public class OptionPanel : MonoBehaviour {
                     if(pitemlist.KosuCount("music_box") >= 1)
                     {
                         BGMSelectPanel.SetActive(true);
-                        //BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(true);
+                        BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(true);
                     }
                     else
                     {
@@ -427,7 +427,7 @@ public class OptionPanel : MonoBehaviour {
         if (pitemlist.KosuCount("Record_14") >= 1)
         {
             //音楽も解禁
-            GameMgr.SetBGMCollectionFlag("bgm18", true);
+            GameMgr.SetBGMCollectionFlag("bgm19", true);
         }
 
         if (pitemlist.KosuCount("Record_15") >= 1)
@@ -476,7 +476,7 @@ public class OptionPanel : MonoBehaviour {
                 break;
         }
 
-        BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(false);
+        
         SystemSave_Panel.SetActive(true);
         SystemSave_Panel.GetComponent<CanvasGroup>().alpha = 0;
 
@@ -490,6 +490,7 @@ public class OptionPanel : MonoBehaviour {
     {
         yield return new WaitForSeconds(2.0f);
 
+        BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(false);
         SystemSave_Panel.SetActive(false);
 
         switch (SceneManager.GetActiveScene().name)
@@ -518,6 +519,6 @@ public class OptionPanel : MonoBehaviour {
     {
         //音楽セレクト画面をオフに。
         MusicSelect_panel.SetActive(false);
-        //BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(true);
+        BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(true);
     }
 }

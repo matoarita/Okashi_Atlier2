@@ -65,6 +65,14 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private Sprite charaIcon_sprite_2;
     private GameObject chara_Icon;
 
+    private Slider _slider;
+    private GameObject makeTimePanel;
+    private Text _slider_text;
+    private Text hikari_success_text;
+    private Text hikari_failed_text;
+
+    private Text _hukidashi;
+
     private int i;
     private int _getexp;
     private int _nowexp, _nowlv;
@@ -140,6 +148,20 @@ public class HikariMakeStartPanel : MonoBehaviour {
         hikarimakecheck_Prefab = (GameObject)Resources.Load("Prefabs/hikarimakecheck_item");
         resultitem_Hyouji = this.transform.Find("Comp/MatPanel/Image/Result_item").gameObject;
 
+        makeTimePanel = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel").gameObject;
+        _slider = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel/Slider").GetComponent<Slider>();
+        _slider.maxValue = GameMgr.hikari_make_okashiTimeCost;
+        _slider.value = GameMgr.hikari_make_okashiTimeCost - GameMgr.hikari_make_okashiTimeCounter;
+        _slider_text = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel/TimeTextPanel/TimeText").GetComponent<Text>();
+        _slider_text.text = ((GameMgr.hikari_make_okashiTimeCost - GameMgr.hikari_make_okashiTimeCounter) / 60.0f).ToString("F1");
+
+        hikari_success_text = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel/SuccessTextPanel/SuccessText").GetComponent<Text>();
+        hikari_failed_text = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel/SuccessTextPanel/FailedText").GetComponent<Text>();
+        hikari_success_text.text = GameMgr.hikari_make_success_count.ToString();
+        hikari_failed_text.text = GameMgr.hikari_make_failed_count.ToString();
+
+        _hukidashi = this.transform.Find("hukidashiPanel/Image/Text").GetComponent<Text>();
+
         makeokasi_kosu = this.transform.Find("Comp2/KosuPanel/Image/Kosu_param").GetComponent<Text>();
         makeokasi_kosu.text = GameMgr.hikari_make_okashiKosu.ToString();
 
@@ -162,12 +184,17 @@ public class HikariMakeStartPanel : MonoBehaviour {
         if(GameMgr.hikari_make_okashiFlag) //なんらかのお菓子を登録中
         {
             Emptypanel.SetActive(false);
+            makeTimePanel.SetActive(true);
             Start_ZairyoItemIconHyouji(1);
             HikariMakeResultCard_DrawView();
+
+            _hukidashi.text = "ヒカリ、" + "\n" + "ただいま作りちゅう～♪";
         }
         else
         {
             Emptypanel.SetActive(true);
+            makeTimePanel.SetActive(false);
+            _hukidashi.text = "にいちゃん！" + "\n" + "ヒカリ、何作ろうかなぁ～？";
         }
     }
 
@@ -507,6 +534,15 @@ public class HikariMakeStartPanel : MonoBehaviour {
         switch (_itemType_sub)
         {
             case "Appaleil":
+                PlayerStatus.player_girl_appaleil_exp += _getexp;
+                _nowexp = PlayerStatus.player_girl_appaleil_exp;
+                _nowlv = PlayerStatus.player_girl_appaleil_lv;
+                Check_OkashilvUP();
+                PlayerStatus.player_girl_appaleil_exp = _nowexp;
+                PlayerStatus.player_girl_appaleil_lv = _nowlv;
+                _itemType_subtext = "生地";
+                break;
+            case "Water":
                 PlayerStatus.player_girl_appaleil_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_appaleil_exp;
                 _nowlv = PlayerStatus.player_girl_appaleil_lv;
@@ -893,7 +929,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
         }
 
         Emptypanel.SetActive(true);
+        makeTimePanel.SetActive(false);
         GameMgr.hikari_make_okashiFlag = false;
+
+        _hukidashi.text = "にいちゃん！" + "\n" + "ヒカリ、何作ろうかなぁ～？";
 
         //うけとる処理
         if (GameMgr.hikari_make_okashiKosu >= 1)

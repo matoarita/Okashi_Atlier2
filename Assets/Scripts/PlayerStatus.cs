@@ -29,7 +29,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_findpower_def;    //デフォルト初期値。変動しない。
     public static int player_girl_lifepoint;        //妹の体力。探索のときに消費する。大きくなるほど、より遠くまで探索できる、ということ。
     public static int player_girl_maxlifepoint;     //妹の体力のMAX
-    public static int player_girl_eatCount;         //妹が食べたお菓子の回数
+    public static int player_girl_eatCount;         //妹が食べたお菓子の回数　お菓子種類に限らず総カウント数
+    public static int player_girl_eatCount_tabetai; //妹が食べたいお菓子をあげた回数
     public static int player_girl_yaruki;         //妹のやる気　隠しパラメータ　しかったりすると下がる。セーブはされないのでリセット可能。
 
 
@@ -135,6 +136,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_maxlifepoint = player_girl_maxlifepoint_default;
         player_girl_lifepoint = player_girl_maxlifepoint;
         player_girl_eatCount = 0;
+        player_girl_eatCount_tabetai = 0;
         player_girl_yaruki = 100;
 
         player_girl_expression = 3;

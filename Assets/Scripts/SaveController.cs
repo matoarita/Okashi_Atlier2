@@ -199,6 +199,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_girl_lifepoint = PlayerStatus.player_girl_lifepoint, //妹の体力
             save_player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力
             save_player_girl_eatCount = PlayerStatus.player_girl_eatCount, //妹が食べたお菓子の回数
+            save_player_girl_eatCount_tabetai = PlayerStatus.player_girl_eatCount_tabetai, //妹が食べたいお菓子をあげた回数
             save_player_girl_manpuku = PlayerStatus.player_girl_manpuku, //妹の満腹度
             //save_player_girl_yaruki = PlayerStatus.player_girl_yaruki, //妹のやる気
 
@@ -309,6 +310,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_hikari_make_doubleItemCreated = GameMgr.hikari_make_doubleItemCreated,
             save_hikari_make_okashi_totalkyori = GameMgr.hikari_make_okashi_totalkyori,
             save_hikari_make_okashiKosu = GameMgr.hikari_make_okashiKosu,
+            save_hikari_make_success_count = GameMgr.hikari_make_success_count,
+            save_hikari_make_failed_count = GameMgr.hikari_make_failed_count,
 
             //クリアお菓子の情報
             save_SpecialQuestClear_okashiItemID = GameMgr.SpecialQuestClear_okashiItemID,
@@ -500,6 +503,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_girl_lifepoint = playerData.save_player_girl_lifepoint; //妹の体力
         PlayerStatus.player_girl_maxlifepoint = playerData.save_player_girl_maxlifepoint; //妹のMax体力
         PlayerStatus.player_girl_eatCount = playerData.save_player_girl_eatCount; //妹が食べたお菓子の回数
+        PlayerStatus.player_girl_eatCount_tabetai = playerData.save_player_girl_eatCount_tabetai; //妹が食べたいお菓子をあげた回数
         PlayerStatus.player_girl_manpuku = playerData.save_player_girl_manpuku; //妹の満腹度
                                                                                 //PlayerStatus.player_girl_yaruki = playerData.save_player_girl_yaruki; //妹のやる気
 
@@ -612,7 +616,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.hikari_make_doubleItemCreated = playerData.save_hikari_make_doubleItemCreated;
         GameMgr.hikari_make_okashi_totalkyori = playerData.save_hikari_make_okashi_totalkyori;
         GameMgr.hikari_make_okashiKosu = playerData.save_hikari_make_okashiKosu;
-       
+        GameMgr.hikari_make_success_count = playerData.save_hikari_make_success_count;
+        GameMgr.hikari_make_failed_count = playerData.save_hikari_make_failed_count;
+
+
         if (playerData.save_hikari_kettei_itemName != null)
         {
             GameMgr.hikari_kettei_itemName = playerData.save_hikari_kettei_itemName;

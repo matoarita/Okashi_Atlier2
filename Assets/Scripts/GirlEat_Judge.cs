@@ -2553,9 +2553,30 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 GetMoney += (int)(_basecost * 1.5f);
                 compound_Main.GirlExpressionKoushin(40);
             }
-            else if (total_score >= GameMgr.high_score_2) //150点を超えた場合、ベース×5
+            else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
             {
-                Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.25f));
+                Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.25f));
+                GetMoney += (int)(_basecost * 2.0f);
+                GetMoney *= (int)(total_score * 0.01f);
+                compound_Main.GirlExpressionKoushin(60);
+            }
+            else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
+            {
+                Getlove_exp += (int)((total_score * 0.25f) * (_basegirl1_like * 1.5f));
+                GetMoney += (int)(_basecost * 2.2f);
+                GetMoney *= (int)(total_score * 0.01f);
+                compound_Main.GirlExpressionKoushin(60);
+            }
+            else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
+            {
+                Getlove_exp += (int)((total_score * 0.3f) * (_basegirl1_like * 1.5f));
+                GetMoney += (int)(_basecost * 2.5f);
+                GetMoney *= (int)(total_score * 0.01f);
+                compound_Main.GirlExpressionKoushin(60);
+            }
+            else if (total_score >= 500) //300~500点を超えた場合、ベース×5
+            {
+                Getlove_exp += (int)((total_score * 0.4f) * (_basegirl1_like * 1.75f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
                 compound_Main.GirlExpressionKoushin(60);
@@ -2575,7 +2596,31 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 database.items[_baseID].Eat_kaisu = 1; //0で割り算を回避。
             }
-            Getlove_exp /= database.items[_baseID].Eat_kaisu;
+
+            if (database.items[_baseID].Eat_kaisu >= 0 && database.items[_baseID].Eat_kaisu < 2)
+            {                
+            }
+            else if (database.items[_baseID].Eat_kaisu >= 2 && database.items[_baseID].Eat_kaisu < 5)
+            {
+                Getlove_exp = (int)(Getlove_exp*0.75f);
+            }
+            else if (database.items[_baseID].Eat_kaisu >= 5 && database.items[_baseID].Eat_kaisu < 7) {
+                Getlove_exp = (int)(Getlove_exp * 0.5f);
+            }
+            else if (database.items[_baseID].Eat_kaisu >= 7 && database.items[_baseID].Eat_kaisu < 15)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.25f);
+            }
+            else if (database.items[_baseID].Eat_kaisu >= 15 && database.items[_baseID].Eat_kaisu < 20)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.1f);
+            }
+            else if (database.items[_baseID].Eat_kaisu >= 20)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.05f);
+            }
+
+
             if (Getlove_exp <= 1) { Getlove_exp = 1; }
 
             //装備品による補正
@@ -2599,6 +2644,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 {
                     Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.75倍");
                     Getlove_exp = (int)(Getlove_exp * 1.75f);
+                    PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
                 }
             }
 
@@ -3806,9 +3852,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
-                case 13: //カミナリのようにすっぱいクレープ 酸味が70以上のクレープ　すっぱすぎてもクリアできる
+                case 13: //カミナリのようにすっぱいクレープ 酸味が100以上のクレープ　すっぱすぎてもクリアできる
 
-                    if (_baseitemtype_sub == "Crepe" && total_score >= 120 && _basesour >= 70)
+                    if (_baseitemtype_sub == "Crepe" && total_score >= 120 && _basesour >= 100)
                     {
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
@@ -3908,7 +3954,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 3:
 
-                    if (PlayerStatus.girl1_Love_exp >= 1000)
+                    if (PlayerStatus.girl1_Love_exp >= 900)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;

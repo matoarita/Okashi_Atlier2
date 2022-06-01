@@ -340,6 +340,39 @@ public class Updown_counter : MonoBehaviour {
                         case 7: //ヒカリに作らせる場合の、カウンターの位置
 
                             this.transform.localPosition = new Vector3(0, -87, 0);
+
+                            if (GameMgr.compound_status == 100) //アイテム選択中
+                            {
+                                switch (pitemlistController.kettei1_bunki) //itemselectToggle内で、分岐数字を変えてるので、注意。selectToggleでは、0,1,2になっている。
+                                {
+                                    case 1:
+
+                                        if (database.items[pitemlistController.final_kettei_item1].itemType.ToString() == "Okashi")
+                                        {
+                                            updown_button[0].interactable = false;
+                                            updown_button[1].interactable = false;
+                                        }
+                                        break;
+
+                                    case 2:
+
+                                        if (database.items[pitemlistController.final_kettei_item2].itemType.ToString() == "Okashi")
+                                        {
+                                            updown_button[0].interactable = false;
+                                            updown_button[1].interactable = false;
+                                        }
+                                        break;
+
+                                    case 3:
+
+                                        if (database.items[pitemlistController.final_kettei_item3].itemType.ToString() == "Okashi")
+                                        {
+                                            updown_button[0].interactable = false;
+                                            updown_button[1].interactable = false;
+                                        }
+                                        break;
+                                }
+                            }
                             break;
 
                         default:

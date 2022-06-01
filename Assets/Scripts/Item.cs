@@ -156,6 +156,7 @@ public class Item
         Salt,                     
         Source,
         WhipeedCream,
+        Water,
         Topping,
         Potion,      
         Flower,       

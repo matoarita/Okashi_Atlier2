@@ -1545,7 +1545,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
         {
-            if (_before_itemtype_Sub != _base_itemType_sub) //クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
+            if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType_sub); //中の数字でどの食感パラムかの指定
                 _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType_sub);
@@ -1555,7 +1555,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 //魔力の泡だて器をもっている
                 if(pitemlist.ReturnItemKosu("whisk_magic") >= 1)
                 {
-                    if (_base_itemType_sub.ToString() == "Cream" || _base_itemType_sub.ToString() == "Appaleil") //クリーム系かアパレイユを作るとき
+                    if (_base_itemType_sub.ToString() == "Appaleil") //アパレイユを作るとき
                     {
                         _basecrispy = (int)(_basecrispy * 1.3f);
                         _basefluffy = (int)(_basefluffy * 1.3f);
@@ -1563,8 +1563,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
+                        //クリーム系の補正 魔法泡だて器を使って、作りたてクリーム　か　リコッタクリーム
                         if (result_ID == databaseCompo.SearchCompoIDString("whipped cream_row_magic") ||
-                            result_ID == databaseCompo.SearchCompoIDString("whipped cream_row_magic_Free"))
+                            result_ID == databaseCompo.SearchCompoIDString("whipped cream_row_magic_Free") ||
+                            result_ID == databaseCompo.SearchCompoIDString("cream_row_ricotta"))
                         {
                             _basecrispy = (int)(_basecrispy * 1.3f);
                             _basefluffy = (int)(_basefluffy * 1.3f);
@@ -1578,14 +1580,16 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //⑥ヒカリのお菓子の場合　味に補正かかる。
         if(mstatus == 1)
         {
-            //まず、作るお菓子のサブタイプをもとに、計算。制作時間なども計算する。
-            hikari_okashilv_hosei = bufpower_keisan.Buf_HikariOkashiLV_Keisan(_base_itemType_sub);
+            if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+            {
+                //まず、作るお菓子のサブタイプをもとに、計算。制作時間なども計算する。
+                hikari_okashilv_hosei = bufpower_keisan.Buf_HikariOkashiLV_Keisan(_base_itemType_sub);
 
-            _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_hosei);
-            _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_hosei);
-            _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_hosei);
-            _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_hosei);
-           
+                _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_hosei);
+                _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_hosei);
+                _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_hosei);
+                _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_hosei);
+            }
         }
     }
 

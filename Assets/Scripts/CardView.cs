@@ -739,6 +739,30 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Draw1();
     }
 
+    //
+    //コンテストロフィーのカード表示処理
+    //
+    public void ContestClearOkashi(int _result_item)
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+
+        _cardImage_obj.Clear();
+
+        _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 1500;
+
+        _cardImage.Pitem_or_Origin = 0;
+        _cardImage.check_counter = _result_item;
+        _cardImage.SetInitContestClear();
+
+        //位置とスケール
+        Draw5();
+    }
+
     //ショップで、選択したときのカード表示処理
     public void ShopSelectCard_DrawView(int _toggleType, int _kettei_item1)
     {
@@ -807,6 +831,14 @@ public class CardView : SingletonMonoBehaviour<CardView>
     {
         _cardImage_obj[0].transform.localScale = new Vector3(0.95f, 0.95f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(-180, 80, 0);
+        _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
+        _cardImage.CardHyoujiAnim();
+    }
+
+    void Draw5() //コンテストクリア用
+    {
+        _cardImage_obj[0].transform.localScale = new Vector3(0.95f, 0.95f, 1);
+        _cardImage_obj[0].transform.localPosition = new Vector3(-100, 50, 0);
         _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
         _cardImage.CardHyoujiAnim();
     }

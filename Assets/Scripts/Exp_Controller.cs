@@ -572,6 +572,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
         time_controller.Weather_Change(0.0f);
+        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 
@@ -600,12 +601,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
 
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
-            if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
+            if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || 
+                pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
             {
             }
             else
             {
-                //パネルに、作ったやつを表示する。
+                //お菓子パネルに、作ったやつをセット。
                 extremePanel.SetExtremeItem(result_item, 1);
 
                 //仕上げ回数をリセット
@@ -822,6 +824,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
         time_controller.Weather_Change(0.0f);
+        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1046,6 +1049,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(3);
         time_controller.Weather_Change(0.0f);
+        time_controller.HikarimakeTimeCheck(3); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1104,6 +1108,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_okashi_compID = result_ID;
         GameMgr.hikari_make_success_rate = _success_rate;
 
+        GameMgr.hikari_make_success_count = 0;
+        GameMgr.hikari_make_failed_count = 0;
 
         GameMgr.hikari_make_okashiTimeCounter = 0;
         GameMgr.hikari_make_doubleItemCreated = DoubleItemCreated;
@@ -1113,7 +1119,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_makeokashi_startflag = true;
 
         //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が5分なので、*5。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
-        GameMgr.hikari_make_okashiTimeCost = (int)(databaseCompo.compoitems[result_ID].cost_Time * 5f * 2 * GameMgr.hikari_make_okashiTime_costbuf); 
+        GameMgr.hikari_make_okashiTimeCost = (int)(databaseCompo.compoitems[result_ID].cost_Time * 5f * 2 * GameMgr.hikari_make_okashiTime_costbuf);
+        //Debug.Log("GameMgr.hikari_make_okashiTime_costbuf: " + GameMgr.hikari_make_okashiTime_costbuf);
 
         if (GameMgr.hikari_kettei_toggleType[0] == 0)
         {

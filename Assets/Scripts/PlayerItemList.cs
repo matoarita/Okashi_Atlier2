@@ -263,7 +263,6 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         _total_kosu += playeritemlist[itemName];
 
         //オリジナルアイテムリストも見る。
-
         for (i = 0; i < player_originalitemlist.Count; i++)
         {
             if (player_originalitemlist[i].itemName == itemName)
@@ -295,7 +294,6 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 {
                     if (player_originalitemlist[i].ItemKosu > 0)
                     {
-
                         deleteOriginalItem(i, 1);
                     }
                 }

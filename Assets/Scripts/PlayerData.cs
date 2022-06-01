@@ -32,6 +32,7 @@ public class PlayerData
     public int save_player_girl_maxlifepoint; //妹のMAX体力
     public int save_player_girl_maxlifepoint_system; //妹のMAX体力 システム引継ぎ用
     public int save_player_girl_eatCount; //妹が食べたお菓子の回数
+    public int save_player_girl_eatCount_tabetai; //妹が食べたいお菓子をあげた回数
     public int save_player_girl_manpuku; //妹の満腹度
     public int save_player_girl_yaruki; //妹のやる気
 
@@ -156,6 +157,8 @@ public class PlayerData
     public int save_hikari_make_doubleItemCreated;
     public float save_hikari_make_okashi_totalkyori;
     public int save_hikari_make_okashiKosu;
+    public int save_hikari_make_success_count;
+    public int save_hikari_make_failed_count;
 
     //クリアお菓子の情報
     public int save_SpecialQuestClear_okashiItemID;

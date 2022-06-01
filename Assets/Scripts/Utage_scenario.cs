@@ -772,9 +772,18 @@ public class Utage_scenario : MonoBehaviour
 
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
+        //ストーリーモードで変わる
+        if(GameMgr.Story_Mode == 0)
+        {
+            engine.Param.TrySetParameter("Tutorial_start_num", 0);
+            
+        } else
+        {
+            engine.Param.TrySetParameter("Tutorial_start_num", 1);
+        }
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
-
         
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
@@ -815,7 +824,18 @@ public class Utage_scenario : MonoBehaviour
     IEnumerator Tutorial_Start_Content()
     {
 
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち        
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち     
+        
+        //ストーリーモードで変わる
+        if (GameMgr.Story_Mode == 0)
+        {
+            engine.Param.TrySetParameter("Tutorial_start_num", 0);
+
+        }
+        else
+        {
+            engine.Param.TrySetParameter("Tutorial_start_num", 1);
+        }
 
         //「宴」のシナリオを呼び出す
         scenarioLabel = "Tutorial_Content";
@@ -1982,7 +2002,7 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("EventJudge_num", 100);
                 Debug.Log("プリンさん　お菓子が違ってた");
 
-                //Teaが違ってた場合、Tea_Potionをみる。
+                //Teaが違ってた場合、Tea_Potionをみる処理。
                 if (!NPCevent_okashicheck)
                 {
                     NPCevent_okashicheck = true;
@@ -1997,13 +2017,13 @@ public class Utage_scenario : MonoBehaviour
             {
                 if (GameMgr.event_judge_status >= 2)
                 {
-                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
+                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。2~は合格。
 
                     GameMgr.ShopEvent_stage[10] = true; //エクストラ　クエストNo11お店クリアフラグ
                 }
                 else
                 {
-                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
+                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
                 }
                 Debug.Log("プリンさん　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
             }

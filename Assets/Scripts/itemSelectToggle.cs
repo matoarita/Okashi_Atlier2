@@ -1474,9 +1474,11 @@ public class itemSelectToggle : MonoBehaviour
         itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
         pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
 
+        /*
         _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" +
             GameMgr.ColorYellow + database.items[itemID_1].sell_price + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
+            */
 
         //Debug.Log(count + "番が押されたよ");
         //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
@@ -1488,11 +1490,6 @@ public class itemSelectToggle : MonoBehaviour
 
         yes.SetActive(true);
         no.SetActive(true);
-        /*updown_counter_obj.SetActive(true);
-        updown_button[0].interactable = false;
-        updown_button[1].interactable = false;
-        updown_button[2].interactable = false;
-        updown_button[3].interactable = false;*/
 
         StartCoroutine("itempresent_Finalkakunin");
 

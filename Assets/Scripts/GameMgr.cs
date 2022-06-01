@@ -213,6 +213,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikari_make_doubleItemCreated;
     public static float hikari_make_okashi_totalkyori;
     public static int hikari_make_okashiKosu; //ヒカリが現在制作したお菓子の個数
+    public static int hikari_make_success_count; //ヒカリが制作に成功した数
+    public static int hikari_make_failed_count; //ヒカリが制作に失敗した数
 
     public static int hikari_makeokashi_startcounter; //これはセーブ不要。10秒ほどたったら、元のアイドルモーションにもどすためのタイマー
     public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
@@ -878,6 +880,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikari_make_doubleItemCreated = 0;
         hikari_make_okashi_totalkyori = 0f;
         hikari_make_okashiKosu = 0;
+        hikari_make_success_count = 0;
+        hikari_make_failed_count = 0;
         hikari_makeokashi_startcounter = 0;
         hikari_makeokashi_startflag = false;
 
@@ -1299,7 +1303,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "小妖精たちのお茶会", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));      
-        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ショパンの夢", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィのアフタヌーンティー", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "ココア・シガレット", false, "Items/neko_cookie"));       
         bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
@@ -1309,9 +1313,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(013, "bgm13", "いちごのおさんぽ道", false, "Items/neko_cookie"));      
         bgm_collection_list.Add(new SpecialTitle(015, "bgm15", "ひまわりの想い出", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(016, "bgm16", "井戸～Ido～", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(017, "bgm17", "鳥たちの楽園", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(017, "bgm17", "バードサンクチュアリ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(018, "bgm18", "白猫のお墓<ジムノペディ～第1番～>", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(019, "bgm19", "シャーリーのブルネット", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(019, "bgm19", "大広場のカンタービレ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(023, "bgm23", "プリンのお菓子店", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(024, "bgm24", "モタリケ・ファ～ム", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(025, "bgm25", "クエスト日和", false, "Items/neko_cookie"));
@@ -1341,8 +1345,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void InitSubNPCEvent_OkashiJudgeLibrary()
     {
         Mose_Okashi_num01 = 5000; //モーセ
-        Shop_Okashi_num01 = 200; //プリンさん　エクストラ　クエストNo11 お茶会用
-        Shop_Okashi_num02 = 201;
+        Shop_Okashi_num01 = 5010; //プリンさん　エクストラ　クエストNo11 お茶会用
+        Shop_Okashi_num02 = 5011;
     }
 
     //ヒカリのお菓子経験値テーブル

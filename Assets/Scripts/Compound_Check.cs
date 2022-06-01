@@ -365,8 +365,6 @@ public class Compound_Check : MonoBehaviour {
 
                             exp_Controller.ResultOK();
 
-                            //仕上げ回数をリセット
-                            //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
                         }
                         else if (GameMgr.compound_select == 7)
                         {
@@ -481,8 +479,6 @@ public class Compound_Check : MonoBehaviour {
 
                             exp_Controller.ResultOK();
 
-                            //仕上げ回数をリセット
-                            //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
                         }
                         else if (GameMgr.compound_select == 7)
                         {
@@ -574,9 +570,6 @@ public class Compound_Check : MonoBehaviour {
 
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
-
-                        //仕上げ回数を減らす
-                        //PlayerStatus.player_extreme_kaisu--;
                         
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
@@ -644,9 +637,6 @@ public class Compound_Check : MonoBehaviour {
 
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
-
-                        //仕上げ回数を減らす
-                        //PlayerStatus.player_extreme_kaisu--;
 
 
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
@@ -718,9 +708,6 @@ public class Compound_Check : MonoBehaviour {
                         card_view.CardCompo_Anim();
                         Off_Flag_Setting();
 
-                        //仕上げ回数を減らす
-                        //PlayerStatus.player_extreme_kaisu--;
-
                         exp_Controller.Topping_Result_OK();
 
                         break;
@@ -786,9 +773,6 @@ public class Compound_Check : MonoBehaviour {
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 exp_Controller.Recipi_ResultOK();
-
-                //仕上げ回数をリセット
-                //PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
 
                 Debug.Log("選択完了！");
                 break;
@@ -1011,8 +995,9 @@ public class Compound_Check : MonoBehaviour {
         }
            else
         {
+            //ヒカリが作る場合、成功率を事前に計算
             bufpower_keisan.hikariBuf_okashilv(database.items[pitemlistController.result_item].itemType_sub.ToString()); //GameMgr.hikari_make_okashiTime_successrate_bufを事前計算
-            _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID) * GameMgr.hikari_make_okashiTime_successrate_buf;
+            _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
         } 
         newrecipi_flag = false;
         hikari_nomake = false;
@@ -1340,8 +1325,14 @@ public class Compound_Check : MonoBehaviour {
         databaseCompo.RecipiCount_database();
 
         //レシピ達成率に応じて調合成功率あがる + 装備品による確率上昇
-        _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + GameMgr.game_Exup_rate + _buf_kakuritsu;        
+        _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + GameMgr.game_Exup_rate + _buf_kakuritsu;
         //PlayerStatus.player_renkin_lv-1
+
+        //ヒカリが作るときはさらにバフ計算
+        if (GameMgr.compound_select == 7)
+        {
+            _rate = (int)(_rate * GameMgr.hikari_make_okashiTime_successrate_buf);
+        }
 
         Debug.Log("成功基本確率: " + databaseCompo.compoitems[_compID].success_Rate);
         Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);

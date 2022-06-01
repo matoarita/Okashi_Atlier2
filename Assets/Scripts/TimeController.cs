@@ -293,75 +293,14 @@ public class TimeController : MonoBehaviour
                                             if (GameMgr.hikari_make_okashiFlag)
                                             {
                                                 GameMgr.hikari_make_okashiTimeCounter += 5;
-                                                if (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost) //costtime=1が5分　ヒカリが作ると2倍時間かかる
+                                                if (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost) //costtime=1が5分　ヒカリが作ると2倍時間かかる　
+                                                    //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
                                                 {
                                                     GameMgr.hikari_make_okashiTimeCounter = 0;
 
                                                     //お菓子制作。成功率を計算する。
-                                                    //サイコロをふる
-                                                    dice = Random.Range(1, 100); //1~100までのサイコロをふる。
-
-                                                    Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
-
-                                                    if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
-                                                    {
-                                                        //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
-                                                        GameMgr.hikari_make_okashiKosu++;
-                                                        Hikarimake_StartPanel.hikarimake_GetExp(2);
-                                                    }
-                                                    else //失敗
-                                                    {
-                                                        //生成されず。材料だけ消費。
-                                                        Hikarimake_StartPanel.hikarimake_GetExp(5);
-                                                    }
-
+                                                    HikariMakeOkashiJudge();
                                                     
-
-                                                    //削除前に残り個数チェック
-                                                    //材料がなくなってたら、ここで終了。
-                                                    itemkosu_check = false;
-                                                    for (i = 0; i < 3; i++)
-                                                    {
-                                                        if (i == 2 && GameMgr.hikari_kettei_item[2] == 9999) //3個目が空のときは9999入ってて、無視
-                                                        {
-
-                                                        }
-                                                        else
-                                                        {
-                                                            if (GameMgr.hikari_kettei_toggleType[i] == 0)
-                                                            {
-                                                                if (database.items[GameMgr.hikari_kettei_item[i]].itemType_sub.ToString() == "Machine")
-                                                                {
-
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (pitemlist.playeritemlist[database.items[GameMgr.hikari_kettei_item[i]].itemName] - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
-                                                                    {
-                                                                        //終了
-                                                                        itemkosu_check = true;
-                                                                    }
-                                                                }
-                                                            }
-                                                            else if (GameMgr.hikari_kettei_toggleType[i] == 1)
-                                                            {
-                                                                if (pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[i]].ItemKosu - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
-                                                                {
-                                                                    //終了
-                                                                    itemkosu_check = true;
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-
-                                                    compound_keisan.Delete_playerItemList(2);
-
-                                                    if (itemkosu_check)
-                                                    {
-                                                        //終了
-                                                        GameMgr.hikari_make_okashiFlag = false;
-                                                    }
-
                                                 }
                                             }
                                         }
@@ -440,6 +379,76 @@ public class TimeController : MonoBehaviour
                     DebugTimecountDown_button.SetActive(false);
                 }
                 break;
+        }
+    }
+
+    public void HikariMakeOkashiJudge()
+    {
+        //サイコロをふる
+        dice = Random.Range(1, 100); //1~100までのサイコロをふる。
+
+        Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
+
+        if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
+        {
+            GameMgr.hikari_make_success_count++;
+
+            //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
+            GameMgr.hikari_make_okashiKosu++;
+            Hikarimake_StartPanel.hikarimake_GetExp(2);
+        }
+        else //失敗
+        {
+            GameMgr.hikari_make_failed_count++;
+
+            //生成されず。材料だけ消費。
+            Hikarimake_StartPanel.hikarimake_GetExp(5);
+        }
+
+
+        //削除前に残り個数チェック
+        //材料がなくなってたら、ここで終了。
+        itemkosu_check = false;
+        for (i = 0; i < 3; i++)
+        {
+            if (i == 2 && GameMgr.hikari_kettei_item[2] == 9999) //3個目が空のときは9999入ってて、無視
+            {
+
+            }
+            else
+            {
+                if (GameMgr.hikari_kettei_toggleType[i] == 0)
+                {
+                    if (database.items[GameMgr.hikari_kettei_item[i]].itemType_sub.ToString() == "Machine")
+                    {
+
+                    }
+                    else
+                    {
+                        if (pitemlist.playeritemlist[database.items[GameMgr.hikari_kettei_item[i]].itemName] - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
+                        {
+                            //終了
+                            itemkosu_check = true;
+                        }
+                    }
+                }
+                else if (GameMgr.hikari_kettei_toggleType[i] == 1)
+                {
+                    if (pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[i]].ItemKosu - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
+                    {
+                        //終了
+                        itemkosu_check = true;
+                    }
+                }
+            }
+        }
+
+        compound_keisan.Delete_playerItemList(2);
+
+        if (itemkosu_check)
+        {
+            //終了
+            GameMgr.hikari_make_okashiFlag = false;
         }
     }
 
@@ -929,6 +938,36 @@ public class TimeController : MonoBehaviour
     {
         SetMinuteToHour(-6); //-30分
         TimeKoushin();
+    }
+
+    //時間をいれると、その経過時間をチェックし、お菓子を作ってないかを判定
+    public void HikarimakeTimeCheck(int _costTime)
+    {
+        //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
+        if (!GameMgr.outgirl_Nowprogress)
+        {
+            if (GameMgr.hikari_make_okashiFlag)
+            {
+                GameMgr.hikari_make_okashiTimeCounter += (5 * _costTime);
+
+                while (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost)
+                {
+                    //costtime=1が5分　ヒカリが作ると2倍時間かかる　
+                    //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
+
+                    GameMgr.hikari_make_okashiTimeCounter -= GameMgr.hikari_make_okashiTimeCost;
+
+                    //お菓子制作。成功率を計算する。
+                    HikariMakeOkashiJudge();
+
+                    if (!GameMgr.hikari_make_okashiFlag)
+                    {
+                        //終了
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     void GameSpeedRange()

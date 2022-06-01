@@ -43,6 +43,7 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public int comp_count;
 		public string release_recipi;
 		public int recipi_count;
+		public int buf_kouka_on;
 	}
 }
 

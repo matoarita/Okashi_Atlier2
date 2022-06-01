@@ -67,6 +67,7 @@ public class GetMaterial : MonoBehaviour
 
     private int player_girl_findpower_final;
     private int _buf_findpower;
+    private int _findpower_girl_getmat, _findpower_girl_getmat_final;
 
     private int random, random_param;
     private int i, count, empty;
@@ -1989,23 +1990,40 @@ public class GetMaterial : MonoBehaviour
         _a_zairyomax = "";
     }
 
-    public void OutGirlGetRandomMaterials(int _index) //妹が外出から帰ってきて材料をゲットする処理 EventDataBaseから読み出し
+    //妹が外出から帰ってきて材料をゲットする処理 EventDataBaseから読み出し
+    public void OutGirlGetRandomMaterials(int _index) 
     {
 
         index = _index; //採取地IDの決定
+        _findpower_girl_getmat_final = 0;
 
         // 入手できるアイテムのデータベース
         ResetItemDicts();
         InitializeDicts(_index);
 
+        //プレイヤーのアイテム発見力をバフつきで計算
+        _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
+        player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
+       
+        _findpower_girl_getmat = player_girl_findpower_final - PlayerStatus.player_girl_findpower_def;
+
+        _findpower_girl_getmat_final = 0;
+        while(_findpower_girl_getmat >= 30)
+        {
+            _findpower_girl_getmat -= 30;
+            _findpower_girl_getmat_final++;
+        }
+        if(_findpower_girl_getmat_final < 1) { _findpower_girl_getmat_final = 0; }
+        //Debug.Log("_findpower_girl_getmat_final: " + _findpower_girl_getmat_final);
+
         //アイテムの入手
-        for (count = 0; count < 5; count++) //〇回繰り返す
+        for (count = 0; count < 5 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
             ItemGetMethod(count);
         }
 
         //レアアイテムの入手
-        for (count = 0; count < 3; count++) //〇回繰り返す
+        for (count = 0; count < 3 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
 
             RareItemGetMethod(count);
