@@ -1297,10 +1297,18 @@ public class Compound_Check : MonoBehaviour {
             texture2d = database.items[pitemlistController.result_item].itemIcon_sprite;
             resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
             resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(true);
-            resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
-                databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(false);
             resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(true);
+
+            if (GameMgr.compound_select == 7)
+            {
+                resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = "1";
+            }
+            else
+            {
+                resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
+                databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
+            }
         }
         else //新しいお菓子を思いつきそうな場合。アイコンは「？」とかになる。
         {
@@ -1308,12 +1316,20 @@ public class Compound_Check : MonoBehaviour {
             final_itemmes = "今までに作ったことのないお菓子が出来そう！";
             texture2d = Resources.Load<Sprite>("Sprites/Icon/question");
             resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
-            resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(true);
-            resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
-                databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
+            resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(true);            
             //resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().color = new Color(256,256,256);
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(true);
             resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(false);
+
+            if (GameMgr.compound_select == 7)
+            {
+                resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = "1";
+            }
+            else
+            {
+                resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
+                databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
+            }
         }
     }
 
@@ -1323,40 +1339,52 @@ public class Compound_Check : MonoBehaviour {
         _buf_kakuritsu = 0;
         _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan();
         databaseCompo.RecipiCount_database();
-
-        //レシピ達成率に応じて調合成功率あがる + 装備品による確率上昇
-        _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + GameMgr.game_Exup_rate + _buf_kakuritsu;
-        //PlayerStatus.player_renkin_lv-1
-
-        //ヒカリが作るときはさらにバフ計算
-        if (GameMgr.compound_select == 7)
+       
+        
+        if (GameMgr.compound_select == 7) //ヒカリが作るときの成功率計算
         {
-            _rate = (int)(_rate * GameMgr.hikari_make_okashiTime_successrate_buf);
+            _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp * GameMgr.hikari_make_okashiTime_successrate_buf);
+        }
+        else
+        {
+            //レシピ達成率に応じて調合成功率あがる + 装備品による確率上昇
+            _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + GameMgr.game_Exup_rate + _buf_kakuritsu;
         }
 
         Debug.Log("成功基本確率: " + databaseCompo.compoitems[_compID].success_Rate);
+        Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _rate);
         Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);
 
         if(databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない
         {
-            _rate = 100;
+            if (GameMgr.compound_select == 7) //ヒカリが作るときは、失敗する可能性あり。
+            {
+                RateJougenCheck();
+            }
+            else
+            {
+                _rate = 100;
+            }
         }
         else
         {
-            if (_rate >= 98) //99~は、全て98で上限
-            {
-                _rate = 98; //上限は98％　ミスする可能性は０ではない
-            }
-
-            if (_rate < 0)
-            {
-                _rate = 0;
-            }
+            RateJougenCheck();        
         }
         
 
         return _rate;
     }
  
-    
+    void RateJougenCheck()
+    {
+        if (_rate >= 98) //99~は、全て98で上限
+        {
+            _rate = 98; //上限は98％　ミスする可能性は０ではない
+        }
+
+        if (_rate < 0)
+        {
+            _rate = 0;
+        }
+    }
 }

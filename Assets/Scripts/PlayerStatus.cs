@@ -67,6 +67,10 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_icecream_lv;
     public static int player_girl_rareokashi_lv;
 
+    public static Dictionary<string, string> player_girl_okashiparam_NameList = new Dictionary<string, string>();
+
+    public static int player_girl_okashiparam_Count;
+
 
     //セーブしない
     public static int player_girl_maxlifepoint_default;     //妹の体力のMAXデフォルト
@@ -179,6 +183,30 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_icecream_lv = 1;
         player_girl_rareokashi_lv = 1;
 
+        InitTitleCollectionLibrary();
+
+        player_girl_okashiparam_Count = 15;
         //セーブデータがあれば、次にそこから読み込んで、更新
+    }
+
+    //ヒカリお菓子ステータスのネームリスト
+    public static void InitTitleCollectionLibrary()
+    {
+        player_girl_okashiparam_NameList.Clear();
+        player_girl_okashiparam_NameList.Add("appaleil", "生地");
+        player_girl_okashiparam_NameList.Add("cream", "クリーム");
+        player_girl_okashiparam_NameList.Add("cookie", "クッキー");
+        player_girl_okashiparam_NameList.Add("chocolate", "チョコレート");
+        player_girl_okashiparam_NameList.Add("crepe", "クレープ");
+        player_girl_okashiparam_NameList.Add("creampuff", "シュークリーム");
+        player_girl_okashiparam_NameList.Add("donuts", "ドーナツ");
+        player_girl_okashiparam_NameList.Add("cake", "ケーキ");
+        player_girl_okashiparam_NameList.Add("rusk", "ラスク");
+        player_girl_okashiparam_NameList.Add("candy", "キャンディ");
+        player_girl_okashiparam_NameList.Add("jelly", "ゼリー");
+        player_girl_okashiparam_NameList.Add("juice", "ジュース");
+        player_girl_okashiparam_NameList.Add("tea", "ティー");
+        player_girl_okashiparam_NameList.Add("icecream", "アイスクリーム");
+        player_girl_okashiparam_NameList.Add("rareokashi", "レアお菓子");
     }
 }

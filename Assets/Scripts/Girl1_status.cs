@@ -243,6 +243,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private GameObject _model_obj;
     private CubismModel _model;
     private Animator live2d_animator;
+    private ChangeAnimationClip changeanim_clip;
     private int trans_expression;
     private int trans_motion;
     private GameObject character_root;
@@ -318,6 +319,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                 _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                 live2d_animator = _model.GetComponent<Animator>();
+                changeanim_clip = _model.GetComponent<ChangeAnimationClip>();
                 /*trans_expression = live2d_animator.GetInteger("trans_expression");*/
                 character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
                 character_move = character_root.transform.Find("CharacterMove").gameObject;
@@ -360,6 +362,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
                 _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
                 live2d_animator = _model_obj.GetComponent<Animator>();
+                changeanim_clip = _model.GetComponent<ChangeAnimationClip>();
                 character = GameObject.FindWithTag("Character");
 
                 GirlEat_Judge_on = false;
@@ -514,6 +517,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     live2d_animator = _model.GetComponent<Animator>();
+                    changeanim_clip = _model.GetComponent<ChangeAnimationClip>();
                     character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
                     character_move = character_root.transform.Find("CharacterMove").gameObject;
                     character = GameObject.FindWithTag("Character");
@@ -563,6 +567,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
                     character = GameObject.FindWithTag("Character");
                     live2d_animator = _model_obj.GetComponent<Animator>();
+                    changeanim_clip = _model.GetComponent<ChangeAnimationClip>();
 
                     GirlEat_Judge_on = false;
 
@@ -1021,10 +1026,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 7;
 
         }
-        else if (PlayerStatus.girl1_Love_lv >= 25)
+        else if (PlayerStatus.girl1_Love_lv >= 25 && PlayerStatus.girl1_Love_lv < 70)
         {
             //最高に上機嫌
             GirlGokigenStatus = 8;
+
+        }
+        else if (PlayerStatus.girl1_Love_lv >= 70)
+        {
+            //あたたかい安心
+            GirlGokigenStatus = 9;
 
         }
     }
@@ -1065,6 +1076,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 6:
                 face_girl_Tereru4();
+                break;
+
+            case 7:
+                face_girl_Tereru4();
+                break;
+
+            case 8:
+                face_girl_Tereru4();
+                break;
+
+            case 9:
+                face_girl_Joukigen();
+                //face_girl_Joukigen2();
                 break;
 
             default:
@@ -1154,6 +1178,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     void RandomEatOkashiDecide()
     {
+        GameMgr.RandomEatOkashi_counter++;
+
+        if (GameMgr.RandomEatOkashi_counter >= 3)
+        {
+            GameMgr.RandomEatOkashi_counter = 0;
+
+            RandomOkashiDecideMethod();
+        }
+        else
+        {
+            SetQuestHukidashiText(GameMgr.NowEatOkashiID, 1);
+        }
+    }
+
+    //girlEatJudgeからも読まれる。直接この処理に入れば、すぐに食べたいお菓子を変更できる。
+    public void RandomOkashiDecideMethod()
+    {
         //ランダムでおぼえたレシピから一つ、食べたいお菓子がきまる。
         girlRandomEat_List.Clear();
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
@@ -1162,11 +1203,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 if (database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemType.ToString() == "Okashi")
                 {
-                    if(database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_cookie" ||
-                       database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_crepe" )
+                    if (database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_cookie" ||
+                       database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_crepe")
                     {
 
-                    } else
+                    }
+                    else
                     {
                         girlRandomEat_List.Add(database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result));
                         //Debug.Log("databaseCompo.compoitems[i].cmpitemID_result: " + databaseCompo.compoitems[i].cmpitemID_result);
@@ -1318,9 +1360,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 Debug.Log("にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！");
                 break;
-        }
-            
-        
+        }   
     }
 
     //girl_eatJudgeから設定
@@ -1486,10 +1526,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             {
                                 //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
                                 random = Random.Range(0, 100);
-                                if (random < 50)
+                                if (random >= 0 && random < 50)
                                 {
                                     _noweat_count++;
-                                    IdleChange(); //ランダムモーション＋ヒントを決定
+
+                                    if (GameMgr.hikari_makeokashi_startflag) //もしヒカリお菓子作り中なら、25%ぐらいで、またグルグルのアイドルに戻る
+                                    {
+                                        if (random >= 0 && random < 25)
+                                        {
+                                            FaceMotionPlay(1022);
+                                        }
+                                        else
+                                        {
+                                            IdleChange(); //ランダムモーション＋ヒントを決定
+                                        }
+                                    }
+                                    else
+                                    {
+                                        IdleChange(); //ランダムモーション＋ヒントを決定
+                                    }
                                 }
                                 else
                                 {
@@ -1534,10 +1589,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //Idleにリセット
         if (!GameMgr.hikari_makeokashi_startflag)
         {
+            //changeanim_clip.ChangeClip(0);
             live2d_animator.Play("Idle", motion_layer_num, 0.0f);
         }
         else
         {
+            //changeanim_clip.ChangeClip(1);           
             live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
         }
         
@@ -1581,7 +1638,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //Live2Dモデルの取得
         _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
         
-
         if (hukidashiitem != null)
         {
             DeleteHukidashi();
@@ -2531,6 +2587,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //FaceMotionの数字を入れると、それを再生。かつ再生フラグもたてる。.Playを使うよりも、アニメの遷移をなめらかにする処理。
     void FaceMotionPlay(int _trans_motion)
     {
+        trans_motion = _trans_motion;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        facemotion_start = true;
+        /*
         if (!GameMgr.hikari_makeokashi_startflag)
         {
             trans_motion = _trans_motion;
@@ -2540,7 +2600,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         else //作り始めて10秒ぐらいは、作り中モーションを再生し、その他のモーション再生を一時ストップ
         {
 
-        }
+        }*/
     }
 
     //ランダムで仕草　ランダムモーションor口をタップしたときの共通　どのモーションを再生するか＋セリフを決定　モーションがなくても、セリフだけは表示される。
@@ -2766,8 +2826,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 case 7:
 
                     //♪モーション                    
-                    //IdleMotionHukidashiSetting(35);
-                    FaceMotionPlay(1014);
+                    IdleMotionHukidashiSetting(35);
+                    //FaceMotionPlay(1014);
                     break;
 
                 case 8:
@@ -3029,22 +3089,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (!GameMgr.hikari_make_okashiFlag)
                 {
                     random = Random.Range(0, 2);
-                switch (random)
-                {
-                    case 0:
+                    switch (random)
+                    {
+                        case 0:
 
-                        FaceMotionPlay(1019);
-                        _touchface_comment_lib.Add("にいちゃん！大好き！！");
-                        _touchface_comment_lib.Add("おにいちゃんのお菓子..、だいすき～！");
-                        break;
+                            FaceMotionPlay(1019);
+                            _touchface_comment_lib.Add("にいちゃん！大好き！！");
+                            _touchface_comment_lib.Add("おにいちゃんのお菓子..、だいすき～！");
+                            break;
 
-                    case 1:
+                        case 1:
 
-                        FaceMotionPlay(2002);
-                        _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
-                        _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
-                        break;
-                }
+                            FaceMotionPlay(2002);
+                            _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
+                            _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
+                            break;
+                    }
                 }
                 else
                 {
@@ -3221,6 +3281,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     case 6:
 
                         FaceMotionPlay(1024);
+                        _touchface_comment_lib.Add("にいちゃん。しごと終わりのミルクは、最高だ！　ごくごく・・♪");
                         _touchface_comment_lib.Add("もう遅い時間～。ふわぁ～・・。");
                         _touchface_comment_lib.Add("にいちゃん。そろそろ寝ようよ～。");
                         _touchface_comment_lib.Add("今日はよく頑張ったね！にいちゃん～ .. ..");
@@ -3326,9 +3387,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 FaceMotionPlay(1018); //こっちをむいて口パク
                 _touchface_comment_lib.Add("インドは、カレーの本場なんだよ。ちょっと甘くておいしいらしいよ..！");
                 _touchface_comment_lib.Add("にいちゃん。おしごとってなぁに？　お金をかせぐこと？");
-                _touchface_comment_lib.Add("にいちゃん。てんごくって、どこにあるの～？　おそら？");
-                _touchface_comment_lib.Add("にいちゃん。なんで、ゆめって、楽しいのに、消えちゃうの？");
-                _touchface_comment_lib.Add("にいちゃん。ゆめって、なんでみるのかなぁ？");
+                _touchface_comment_lib.Add("にいちゃん。てんごくって、どこにあるの～？　おそらの上？");
+                _touchface_comment_lib.Add("にいちゃん。なんで、ゆめって、楽しいのに、消えちゃうのかなぁ？");
+                _touchface_comment_lib.Add("にいちゃん。この間、ゆめの中で、じゃがバターいっぱい食べた♪");
+                _touchface_comment_lib.Add("にいちゃん。お空のくも、ふわふわしてておいしそう..。");
                 break;
 
             case 1: //雑談をする2 癒し
@@ -3336,8 +3398,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 FaceMotionPlay(2001); //こっちをむいて口パク
                 _touchface_comment_lib.Add("しっぱいは、あとでいいお話のネタになるんだよ。にいちゃん！");
                 _touchface_comment_lib.Add("にいちゃんといつまでも一緒♪　でも、キラキラ宝石は欲しい..。にいちゃん！");
-                _touchface_comment_lib.Add("にいちゃん。つかれたら、ヒカリがよしよししてあげるね。よしよし..。");
-                _touchface_comment_lib.Add("にいちゃん。しごと終わりのミルクは、最高だ！　ごくごく・・♪");
+                _touchface_comment_lib.Add("にいちゃん。つかれたら、ヒカリがよしよししてあげるね。よしよし..。");                
                 _touchface_comment_lib.Add("おいもとバターって、相性ぴったり♪　まるで恋人みたいだね。");
                 _touchface_comment_lib.Add("プリンのおねえちゃん。なにしてるかなぁ～？");
                 _touchface_comment_lib.Add("このあいだ、はっぱがキラキラしててきれいだったよ～。にいちゃん！");
@@ -3978,6 +4039,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //intパラメーターの値を設定する.  
         trans_expression = 26; //各表情に遷移。
+        live2d_animator.SetInteger("trans_expression", trans_expression);
+
+    }
+
+    public void face_girl_Joukigen2()
+    {
+        face_girl_Reset();
+
+        //intパラメーターの値を設定する.  
+        trans_expression = 32; //各表情に遷移。
         live2d_animator.SetInteger("trans_expression", trans_expression);
 
     }

@@ -37,6 +37,6 @@ public class SpecialTitle
 
         ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
-                        0, 0, 0, 0, 0, 0, "", 0, 1, 0);
+                        0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0);
     }
 }

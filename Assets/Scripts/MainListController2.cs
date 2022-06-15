@@ -559,27 +559,50 @@ public class MainListController2 : MonoBehaviour
             sceneBGM.FadeOutBGM();
             Hiroba_main2.bgm_change_flag = true;
 
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            if (GameMgr.Story_Mode == 0)
             {
-                case 40: //ドーナツイベント時
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+                    case 40: //ドーナツイベント時
 
-                    if (!GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
-                    {
-                        GameMgr.hiroba_event_ID = 5040;
-                    }
-                    else if (GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
-                    {
-                        GameMgr.hiroba_event_ID = 5041;
-                    }
-                    else if(GameMgr.hiroba_event_end[5])
-                    {
-                        GameMgr.hiroba_event_ID = 5042;
-                    }
-                    break;
+                        if (!GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
+                        {
+                            GameMgr.hiroba_event_ID = 5040;
+                        }
+                        else if (GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
+                        {
+                            GameMgr.hiroba_event_ID = 5041;
+                        }
+                        else if (GameMgr.hiroba_event_end[5])
+                        {
+                            GameMgr.hiroba_event_ID = 5042;
+                        }
+                        break;
 
-                case 50:
+                    case 50:
 
+                        if (!GameMgr.hiroba_event_end[13])
+                        {
+                            GameMgr.hiroba_event_ID = 5050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                        else
+                        {
+                            GameMgr.hiroba_event_ID = 5051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+
+                        break;
+
+                    default:
+
+                        GameMgr.hiroba_event_ID = 5000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        break;
+                }
+            }
+            else
+            {
+                if(GameMgr.GirlLoveEvent_num == 50) //コンテスト時
+                {
                     if (!GameMgr.hiroba_event_end[13])
                     {
                         GameMgr.hiroba_event_ID = 5050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
@@ -588,13 +611,11 @@ public class MainListController2 : MonoBehaviour
                     {
                         GameMgr.hiroba_event_ID = 5051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
-
-                    break;
-
-                default:
-
-                    GameMgr.hiroba_event_ID = 5000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    break;
+                }
+                else
+                {
+                    GameMgr.hiroba_event_ID = 15000;
+                }
             }
 
             Hiroba_main2.EventReadingStart();

@@ -39,6 +39,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private string release_recipi;
     private int recipi_count;
     private int buf_kouka_on;
+    private int secretFlag;
 
     private int hikari_make_count;
 
@@ -109,6 +110,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
             release_recipi = excel_compoitemdatabase.sheets[sheet_no].list[count].release_recipi;
             recipi_count = excel_compoitemdatabase.sheets[sheet_no].list[count].recipi_count;
             buf_kouka_on = excel_compoitemdatabase.sheets[sheet_no].list[count].buf_kouka_on;
+            secretFlag = excel_compoitemdatabase.sheets[sheet_no].list[count].seacretFlag;
 
             //Excelにのってない変数
             hikari_make_count = 0;
@@ -116,7 +118,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
             //ここでリストに追加している
             compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
                 cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3, 
-                cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, hikari_make_count));
+                cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, secretFlag, hikari_make_count));
 
             ++count;
         }

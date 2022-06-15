@@ -85,8 +85,9 @@ public class GetMaterial : MonoBehaviour
     private string[] _b = new string[3];
     private string[] _b_final = new string[3];
 
-    private int tansaku_count = 3;
+    private int tansaku_count = 2;
     private int tansaku_gyou = 3; //テキストエリアに表示する行数
+    private int box_count, rare_box_count;
     private List<string> _tansaku_result_temp = new List<string>();
     private int[] kettei_item;
     private int[] kettei_kosu;
@@ -472,6 +473,11 @@ public class GetMaterial : MonoBehaviour
                         event_CatGrave();
                         break;
 
+                    case "StrawberryGarden":
+
+                        event_Strawberry_Garden();
+                        break;
+
                     default:
 
                         //イベント１
@@ -566,6 +572,15 @@ public class GetMaterial : MonoBehaviour
     {
         _tansaku_result_temp.Clear();
 
+        box_count = 0;
+        rare_box_count = 0;
+
+        if (PlayerStatus.player_zairyobox_lv >= 3)
+        {
+            box_count = PlayerStatus.player_zairyobox_lv - 2;
+            rare_box_count = 1;
+        }
+
         switch (mat_place)
         {
             case "Ido":
@@ -576,17 +591,17 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                for (count = 0; count < tansaku_count; count++) //3回繰り返す
+                for (count = 0; count < tansaku_count + box_count; count++) //3回繰り返す
                 {
                     ItemGetMethod(count);
 
                 }
                 break;
         }
-        
 
+            
         //通常アイテムとは別に、レアアイテムのドロップも抽選する。
-        for (count = 0; count < 1; count++) //1回繰り返す
+        for (count = 0; count < 1 + rare_box_count; count++) //1回繰り返す
         {
             RareItemGetMethod(count);            
         }
@@ -1068,7 +1083,63 @@ public class GetMaterial : MonoBehaviour
                 break;
         }
     }
-   
+
+    //ストロベリーガーデン
+    void event_Strawberry_Garden()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                random_param = Random.Range(2, 5);
+                _text.text = "にいちゃん。てんとうむし！　みつけた～！" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                break;
+
+            case 1:
+
+                _text.text = "いちごがたくさん..。しあわせいっぱい～♪（妹は、大きいいちごをつまみ食いしている。）";
+                break;
+
+            case 2:
+
+                _text.text = "にいちゃん。腹へった～。" + "\n" + "妹は帰りたそうにしている。";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                random_param = Random.Range(3, 10);
+                _text.text = "にいちゃん！！　なんか青色のちょうちょ、とんでた～！" + "\n" + "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                break;
+
+            case 5:
+
+                _text.text = "にいちゃん。ちっちゃいいちごは、これから大きくなるから、つまずに取っておこうね♪";
+                break;
+
+            default:
+
+                _text.text = "にいちゃん、カメムシにぎっちゃった..。" + "\n" + "体力が３下がった。";
+
+                GirlLifeDegKeisan(3);
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
 
     //ひまわりの丘
     void event_HimawariHill()

@@ -527,7 +527,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             }
                             else
                             {
-                                _text.text = "兄ちゃん。今日は遅いから、明日いこ～。";
+                                _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
                             }
                             All_Off();
                         }
@@ -770,7 +770,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             }
                             else
                             {
-                                _text.text = "兄ちゃん、いっぱいとろうね！";
+                                _text.text = "にいちゃん、いっぱいとろうね！";
 
                                 //サブイベントチェック
                                 //Debug.Log("ししゃもクッキー所持数: " + pitemlist.ReturnItemKosu("shishamo_cookie"));
@@ -861,7 +861,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
                         else
                         {
-                            _text.text = "兄ちゃん、色んな実がなってるよ～！！";
+                            _text.text = "にいちゃん、色んな実がなってるよ～！！";
 
                             //イベントチェック
                             if (!GameMgr.MapEvent_07[0])
@@ -894,7 +894,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             {
                                 GameMgr.MapEvent_03[0] = true;
 
-                                _text.text = "いいにお～い。兄ちゃん、いちごいっぱい～！";
+                                _text.text = "いいにお～い。にいちゃん、いちごいっぱい～！";
 
                                 slot_view_status = 3; //イベント読み込み中用に退避
 
@@ -909,7 +909,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             }
                             else
                             {
-                                _text.text = "兄ちゃん、いちごたくさんー！";
+                                _text.text = "にいちゃん、いちごがたくさん～！";
                             }
                         }
 
@@ -935,7 +935,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             {
                                 GameMgr.MapEvent_04[0] = true;
 
-                                _text.text = "兄ちゃん。まっ黄色～～！すごいきれい～。";
+                                _text.text = "にいちゃん。まっ黄色～～！すごいきれい～。";
 
                                 slot_view_status = 3; //イベント読み込み中用に退避
 
@@ -950,7 +950,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             }
                             else
                             {
-                                _text.text = "兄ちゃん、種とりは任せてね！";
+                                _text.text = "にいちゃん、種とりはまかせてね！";
                             }
                         }
 
@@ -976,7 +976,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             {
                                 GameMgr.MapEvent_06[0] = true;
 
-                                _text.text = "兄ちゃん。とりさんがいっぱいいるよ～！！";
+                                _text.text = "にいちゃん。とりさんがいっぱいいるよ～！！";
 
                                 slot_view_status = 3; //イベント読み込み中用に退避
 
@@ -994,7 +994,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             }
                             else
                             {
-                                _text.text = "兄ちゃん。とりさんとあそぼ！！";
+                                _text.text = "にいちゃん。とりさんとあそぼ！！";
                             }
                         }
 
@@ -1078,7 +1078,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             {
                                 GameMgr.MapEvent_02[0] = true;
 
-                                _text.text = "いっぱい水を汲もう。兄ちゃん。";
+                                _text.text = "いっぱい水を汲もう。にいちゃん。";
 
                                 slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -1094,7 +1094,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                             }
                             else
                             {
-                                _text.text = "兄ちゃん、今日も水汲み？私も手伝うー！";
+                                _text.text = "にいちゃん、今日も水汲み？ヒカリも手伝うー！";
                             }
                         }
                         break;

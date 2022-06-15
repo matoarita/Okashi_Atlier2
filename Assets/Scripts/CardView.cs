@@ -504,7 +504,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
         //_cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
 
-        _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
+        _cardImage.CardParamOFF_2();
 
         Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
     }

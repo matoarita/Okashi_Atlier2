@@ -242,7 +242,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             if (PlayerStatus.player_zairyobox_lv < 2) //LV3とか買った後で買っても、持てる量は更新されない。
             {
-                PlayerStatus.player_zairyobox = 15;
+                PlayerStatus.player_zairyobox = 10;
                 PlayerStatus.player_zairyobox_lv = 2;
             }
         }
@@ -250,7 +250,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             if (PlayerStatus.player_zairyobox_lv < 3)
             {
-                PlayerStatus.player_zairyobox = 30;
+                PlayerStatus.player_zairyobox = 20;
                 PlayerStatus.player_zairyobox_lv = 3;
             }
         }
@@ -258,7 +258,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             if (PlayerStatus.player_zairyobox_lv < 4)
             {
-                PlayerStatus.player_zairyobox = 50;
+                PlayerStatus.player_zairyobox = 30;
                 PlayerStatus.player_zairyobox_lv = 4;
             }
         }
@@ -443,15 +443,16 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void HikariOkashilv_table()
     {
-        _buf_hikari_okashiparam = 0.2f + SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.3f, 1.5f);
+        _buf_hikari_okashiparam = 0.1f + SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.2f, 1.5f);
 
         //最終的にかかる時間は、Exp_Controllerで計算
         GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 3.0f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の2倍
 
         //最終的な成功率は、Compound_Checkで計算
-        GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.5f, 1.1f); //成功率　LV1~9 を　0.5から1.1に変換。
+        GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.2f, 1.3f); //成功率　LV1~9 を　0.5から1.1に変換。
+        Debug.Log("GameMgr.hikari_make_okashiTime_successrate_buf: " + GameMgr.hikari_make_okashiTime_successrate_buf + " " + "hikari_okashiLV: " + hikari_okashiLV);
 
-        if(GameMgr.hikari_make_okashiTime_costbuf <= 0.1f)
+        if (GameMgr.hikari_make_okashiTime_costbuf <= 0.1f)
         {
             GameMgr.hikari_make_okashiTime_costbuf = 0.1f;
         }

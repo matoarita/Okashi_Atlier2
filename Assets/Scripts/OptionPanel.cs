@@ -12,6 +12,8 @@ public class OptionPanel : MonoBehaviour {
     private ItemDataBase database;
     private PlayerItemList pitemlist;
 
+    private TimeController time_controller;
+
     private SoundController sc;
     private SaveController save_controller;
 
@@ -91,6 +93,9 @@ public class OptionPanel : MonoBehaviour {
 
                 //BGMの取得
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
+                //時間管理オブジェクトの取得
+                time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
                 break;
 
@@ -348,7 +353,6 @@ public class OptionPanel : MonoBehaviour {
         {
             case "Compound":
 
-                
                 break;
         }
 

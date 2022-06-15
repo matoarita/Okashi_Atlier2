@@ -149,6 +149,7 @@ public class PlayerData
     public int[] save_hikari_kettei_toggleType = new int[GameMgr.hikari_kettei_toggleType.Length];
     public string[] save_hikari_kettei_itemName = new string[GameMgr.hikari_kettei_itemName.Length];
     public bool save_hikari_make_okashiFlag; //ヒカリがお菓子を制作中かどうかのフラグ
+    public bool save_hikari_makeokashi_startflag;
     public int save_hikari_make_okashiID;
     public int save_hikari_make_okashi_compID; //CompoDBのID
     public int save_hikari_make_okashiTimeCost; //かかる時間

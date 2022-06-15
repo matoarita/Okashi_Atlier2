@@ -1115,8 +1115,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_doubleItemCreated = DoubleItemCreated;
         GameMgr.hikari_make_okashiKosu = 0;
 
-        GameMgr.hikari_makeokashi_startcounter = 10;
+        GameMgr.hikari_makeokashi_startcounter = 9999; //作り始めのフラグ。10なら、10秒たったら、TimeControllerでfalseにする。カウンターは今使ってない。
         GameMgr.hikari_makeokashi_startflag = true;
+
+        GameMgr.hikari_make_Allfailed = false;
 
         //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が5分なので、*5。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
         GameMgr.hikari_make_okashiTimeCost = (int)(databaseCompo.compoitems[result_ID].cost_Time * 5f * 2 * GameMgr.hikari_make_okashiTime_costbuf);

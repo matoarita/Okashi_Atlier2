@@ -29,6 +29,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private string _hinttext;
     private int _rare;
     private int _manpuku;
+    private int _secretFlag;
     private int _total_kosu;
 
     private string ev_fileName, ev_itemName, ev_itemNameHyouji;
@@ -409,6 +410,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _hinttext = database.items[i].last_hinttext;
                 _rare = database.items[i].Rare;
                 _manpuku = database.items[i].Manpuku;
+                _secretFlag = database.items[i].SecretFlag;
 
                 for ( k=0; k < _koyutp.Length; k++)
                 {
@@ -422,7 +424,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty, 
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _type, _subtype, _base_score, _girl1_like, _cost, _sell, 
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
-            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku));
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
     }
 
     //予測表示用オリジナルアイテムを登録する。
@@ -458,6 +460,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _hinttext = database.items[i].last_hinttext;
                 _rare = database.items[i].Rare;
                 _manpuku = database.items[i].Manpuku;
+                _secretFlag = database.items[i].SecretFlag;
 
                 for (k = 0; k < _koyutp.Length; k++)
                 {
@@ -471,7 +474,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         player_yosokuitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _type, _subtype, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
-            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku));
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
     }
 
     //指定したIDのオリジナルアイテムを削除する

@@ -1417,7 +1417,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     GameMgr.outgirl_Nowprogress = false;
                     GameMgr.outgirl_event_ON = false;
-                    GameMgr.outgirl_count = 2; //次の外出るイベントまでの日数カウンタ                    
+                    eventdatabase.outGirlCounterReset(); //次の外出るイベントまでの日数カウンタ                   
 
                     if (GameMgr.ResultOFF) //採取から帰ってきた場合
                     {
@@ -1536,12 +1536,17 @@ public class Compound_Main : MonoBehaviour
 
                 if (!SceneStart_flag)
                 {
-                    SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
-
-                    //エクストラモード　クエストクリアチェック
-                    if (GameMgr.Story_Mode == 1)
+                    if (girl1_status.special_animatFirst) //SPアニメ終わったあとにチェック
                     {
-                        girlEat_judge.ExtraSPQuestClearCheck();
+
+                        SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
+
+                        //エクストラモード　クエストクリアチェック
+                        if (GameMgr.Story_Mode == 1)
+                        {
+                            girlEat_judge.ExtraSPQuestClearCheck();
+                        }
+
                     }
                 }
 
@@ -4512,7 +4517,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("しめじとキノコの純和風パスタ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("厚切りの赤身ロースステーキ");
+                    _todayfood_lib.Add("厚切り！アルプス牛ロースステーキ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
@@ -4536,37 +4541,37 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     _todayfood_lib.Add("巨大なエビ・ドリア");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
-                    _todayfood_lib.Add("なすとひき肉のチーズペンネ");
+                    _todayfood_lib.Add("なすとひき肉のまろやかチーズペンネ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
-                case 35:
+                case 40:
 
                     _todayfood_lib.Add("地中海風サラダそうめん");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("こくまろ・ビーフシチュー");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("アサリとムール貝の大人な酒蒸し");
+                    _todayfood_lib.Add("アサリとムール貝のアダルティ酒蒸し");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("ゴルゴンゾーラ・クリームパスタ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
-                case 45:
+                case 50:
 
-                    _todayfood_lib.Add("マグロと鮭のこってりドリア");
+                    _todayfood_lib.Add("マグロ切れ端と鮭のこってりドリア");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
-                    _todayfood_lib.Add("カジキとあらびきソーセージピザ");
+                    _todayfood_lib.Add("カジキとあらびきチョリソーのピザ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("スクランブルエッグとパン");
+                    _todayfood_lib.Add("スクランブルエッグとパンの軽食セット");
                     _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
                     _todayfood_lib.Add("湯葉とカブラの京風オリーブパスタ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("イベリコ豚しゃぶサラダ");
+                    _todayfood_lib.Add("イベリコ豚しゃぶとたまねぎサラダ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     break;
 
-                case 55:
+                case 60:
 
                     _todayfood_lib.Add("極上ローストビーフわさび添え");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
@@ -4578,7 +4583,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("ギガトンハンバーグ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("じゃがバター");
+                    _todayfood_lib.Add("新・じゃがバター");
                     _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     break;
 

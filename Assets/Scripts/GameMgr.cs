@@ -215,6 +215,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikari_make_okashiKosu; //ヒカリが現在制作したお菓子の個数
     public static int hikari_make_success_count; //ヒカリが制作に成功した数
     public static int hikari_make_failed_count; //ヒカリが制作に失敗した数
+    public static bool hikari_make_Allfailed; //すべて失敗して材料がなくなってしまった
 
     public static int hikari_makeokashi_startcounter; //これはセーブ不要。10秒ほどたったら、元のアイドルモーションにもどすためのタイマー
     public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
@@ -443,6 +444,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool ResultOFF; //リザルトパネルのオンオフ
     public static bool Degheart_on; //ハート下がっている途中は、時間で下がる機能を一時的にオフにするフラグ
     public static bool utage_charaHyouji_flag; //イベントで、宴キャラクタの表示をONにするかOFFにするか
+    public static int RandomEatOkashi_counter; //食べたいお菓子が変わるまでのカウンタ
 
     private PlayerItemList pitemlist;
 
@@ -499,6 +501,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool NPC_Dislike_UseON;
 
     public static Dictionary<int, int> Hikariokashi_Exptable = new Dictionary<int, int>();
+    public static Dictionary<int, int> Hikariokashi_Exptable2 = new Dictionary<int, int>();
 
     //各NPCお菓子判定番号
     public static int Mose_Okashi_num01;
@@ -785,6 +788,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SubEvAfterHeartGet = false;
         SubEvAfterHeartGet_num = 0;
         utage_charaHyouji_flag = false;
+        RandomEatOkashi_counter = 0;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -884,6 +888,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikari_make_failed_count = 0;
         hikari_makeokashi_startcounter = 0;
         hikari_makeokashi_startflag = false;
+        hikari_make_Allfailed = false;
 
         //マップイベントの初期化
         for (system_i = 0; system_i < MapEvent_01.Length; system_i++)
@@ -937,7 +942,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //コンテストお菓子初期化
         contest_okashi_ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
-                        0, 0, 0, 0, 0, 0, "", 0, 1, 0);
+                        0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0);
 
         //お菓子のクリア基準値
         mazui_score = 30;
@@ -1076,10 +1081,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         title_collection_list.Clear();
         title_collection_list.Add(new SpecialTitle(000, "title1", "D:パティシエたまご", false, "Icon/badge_icon_01"));
-        title_collection_list.Add(new SpecialTitle(001, "title3", "C:パティシエ一人前", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(002, "title4", "B:上級パティシエ", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(003, "title5", "A:虹のパティシエ", false, "Non"));
-        title_collection_list.Add(new SpecialTitle(004, "title6", "S:グランド・シェフ", false, "Non"));      
+        title_collection_list.Add(new SpecialTitle(001, "title3", "C:パティシエ一人前", false, "Icon/badge_icon_09"));
+        title_collection_list.Add(new SpecialTitle(002, "title4", "B:上級パティシエ", false, "Icon/badge_icon_11"));
+        title_collection_list.Add(new SpecialTitle(003, "title5", "A:虹のパティシエ", false, "Icon/badge_icon_10"));
+        title_collection_list.Add(new SpecialTitle(004, "title6", "S:グランド・シェフ", false, "Icon/badge_icon_12"));      
         title_collection_list.Add(new SpecialTitle(005, "title100", "深紅-スカーレット-", false, "Icon/badge_icon_02")); //バッチアイコンのスプライトが入っている。
         title_collection_list.Add(new SpecialTitle(006, "title101", "白羽-ホワイトプリム-", false, "Icon/badge_icon_03"));
         title_collection_list.Add(new SpecialTitle(007, "title102", "蒼碧-ブルーヴェール-", false, "Icon/badge_icon_04"));
@@ -1304,7 +1309,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));      
         bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィのアフタヌーンティー", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "ココア・シガレット", false, "Items/neko_cookie"));       
+        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie"));       
         bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(012, "bgm12", "近くの森", false, "Items/neko_cookie"));
@@ -1346,7 +1351,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         Mose_Okashi_num01 = 5000; //モーセ
         Shop_Okashi_num01 = 5010; //プリンさん　エクストラ　クエストNo11 お茶会用
-        Shop_Okashi_num02 = 5011;
+        Shop_Okashi_num02 = 5011; //プリンさん　エクストラ　クエストNo11 お茶会用
     }
 
     //ヒカリのお菓子経験値テーブル
@@ -1360,8 +1365,21 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable.Add(4, 40);
         Hikariokashi_Exptable.Add(5, 50);
         Hikariokashi_Exptable.Add(6, 100);
-        Hikariokashi_Exptable.Add(7, 150);
-        Hikariokashi_Exptable.Add(8, 200);
+        Hikariokashi_Exptable.Add(7, 250);
+        Hikariokashi_Exptable.Add(8, 500);
         Hikariokashi_Exptable.Add(9, 9999);
+
+        //少し難しめのお菓子は、レベルも上がりにくくなる。
+        Hikariokashi_Exptable2.Clear();
+
+        Hikariokashi_Exptable2.Add(1, 30);
+        Hikariokashi_Exptable2.Add(2, 70);
+        Hikariokashi_Exptable2.Add(3, 150);
+        Hikariokashi_Exptable2.Add(4, 200);
+        Hikariokashi_Exptable2.Add(5, 300);
+        Hikariokashi_Exptable2.Add(6, 400);
+        Hikariokashi_Exptable2.Add(7, 500);
+        Hikariokashi_Exptable2.Add(8, 750);
+        Hikariokashi_Exptable2.Add(9, 9999);
     }
 }

@@ -83,6 +83,7 @@ public class SetImage : MonoBehaviour
     private string _quality_bar;
 
     private int _rare;
+    private int _secretFlag;
 
     private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
@@ -134,6 +135,8 @@ public class SetImage : MonoBehaviour
 
     private GameObject kosu_panel;
     private Text kosu_text;
+
+    private GameObject secret_panel;
 
     private int i, count;
 
@@ -350,6 +353,9 @@ public class SetImage : MonoBehaviour
         kosu_panel.SetActive(false);
         kosu_text = this.transform.Find("Item_card_template/ItemKosu_Panel/ItemKosu").gameObject.GetComponent<Text>();
 
+        secret_panel = this.transform.Find("Item_card_template/SecretPanel").gameObject;
+        //secret_panel.SetActive(false);
+
         //各パラメータバーの取得
         _Shokukan_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanBar").gameObject.GetComponent<Slider>();
         _Sweat_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
@@ -479,6 +485,9 @@ public class SetImage : MonoBehaviour
                 //レアリティ
                 _rare = database.items[check_counter].Rare;
 
+                //シークレット表示フラグ
+                _secretFlag = database.items[check_counter].SecretFlag;
+
                 //甘さなどのパラメータを代入
                 _quality_score = database.items[check_counter].Quality;
                 _rich_score = database.items[check_counter].Rich;
@@ -552,6 +561,9 @@ public class SetImage : MonoBehaviour
 
                 //レアリティ
                 _rare = pitemlist.player_originalitemlist[check_counter].Rare;
+
+                //シークレット表示フラグ
+                _secretFlag = pitemlist.player_originalitemlist[check_counter].SecretFlag;
 
                 //甘さなどのパラメータを代入
                 _quality_score = pitemlist.player_originalitemlist[check_counter].Quality;
@@ -639,6 +651,9 @@ public class SetImage : MonoBehaviour
         //レアリティ
         _rare = pitemlist.player_yosokuitemlist[check_counter].Rare;
 
+        //シークレット表示フラグ
+        _secretFlag = pitemlist.player_yosokuitemlist[check_counter].SecretFlag;
+
         //甘さなどのパラメータを代入
         _quality_score = pitemlist.player_yosokuitemlist[check_counter].Quality;
         _rich_score = pitemlist.player_yosokuitemlist[check_counter].Rich;
@@ -718,6 +733,9 @@ public class SetImage : MonoBehaviour
         //レアリティ
         _rare = GameMgr.contestclear_collection_list[check_counter].ItemData.Rare;
 
+        //シークレット表示フラグ
+        _secretFlag = GameMgr.contestclear_collection_list[check_counter].ItemData.SecretFlag;
+
         //甘さなどのパラメータを代入
         _quality_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Quality;
         _rich_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Rich;
@@ -770,7 +788,7 @@ public class SetImage : MonoBehaviour
     {
     
         // texture2dを使い、Spriteを作って、反映させる
-        item_Icon.sprite = texture2d;        
+        item_Icon.sprite = texture2d;       
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
         switch (item_type_sub)
@@ -824,8 +842,7 @@ public class SetImage : MonoBehaviour
         }
 
 
-        /* カテゴリーの表示 ついでに、ランクによって、「ふわふわ感」などの表示も行う。*/
-
+        /* カテゴリーの表示 */
 
         //itemTypeを検出し、Categoryの内容に、日本語名で入力
         switch (item_type)
@@ -1189,8 +1206,7 @@ public class SetImage : MonoBehaviour
         {
             item_HighScoreFlag.SetActive(false);
             item_HighScoreFlag_2.SetActive(false);
-        }
-
+        }       
 
         //品質の表示
         /*
@@ -1355,6 +1371,18 @@ public class SetImage : MonoBehaviour
             Card_param_obj2.SetActive(false);
 
             item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
+        }
+
+        //Debug.Log("_secretFlag: " + _secretFlag);
+        //シークレットアイテムの場合、シークレット表示
+        if (_secretFlag == 1)
+        {
+            Debug.Log("_secretFlag表示ON");
+            secret_panel.SetActive(true);
+        }
+        else
+        {
+            secret_panel.SetActive(false);
         }
     }
 
@@ -1606,6 +1634,7 @@ public class SetImage : MonoBehaviour
             hikarimake_startpanel.ResultHikariMakeCardView_andOFF();
         }
     }
+   
 
     //調合アニメ時、パラメータ部分はオフにする。
     public void CardParamON()
@@ -1623,6 +1652,17 @@ public class SetImage : MonoBehaviour
     public void CardParamOFF_2()
     {
         Card_param_obj2.SetActive(false);
+    }
+
+    public void SecretFlag_Hyouji()
+    {
+        Debug.Log("_secretFlag: " + _secretFlag);
+        //シークレットアイテムの場合、シークレット表示
+        if ( _secretFlag == 1)
+        {
+            Debug.Log("_secretFlag表示ON");            
+            secret_panel.SetActive(true);
+        }
     }
 
     public void Kosu_ON(int _kosu)

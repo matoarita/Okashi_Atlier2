@@ -72,6 +72,7 @@ public class TimeController : MonoBehaviour
     private int dice;
 
     private float timeLeft;
+    private float timeLeft2;
     private bool count_switch;
 
     private bool itemkosu_check;
@@ -101,7 +102,6 @@ public class TimeController : MonoBehaviour
         InitParam();
 
         timeIttei = 0;
-        timeIttei2 = 0;
         timeIttei3 = 0;
         timeIttei4 = 0;
         timeDegHeart_flag = false;
@@ -205,8 +205,9 @@ public class TimeController : MonoBehaviour
         localAngle2 = clock_hari2Transform.localEulerAngles;
 
         timeLeft = 1.0f;
+        timeLeft2 = 0.0f;
         count_switch = true;
-
+      
         timespeed_range = 1.0f;
 
         money_counter = false;
@@ -235,11 +236,14 @@ public class TimeController : MonoBehaviour
 
                 //時間のカウント
                 timeLeft -= Time.deltaTime;
+                timeLeft2 += Time.deltaTime;
 
                 //1秒ごとのタイムカウンター
                 if (timeLeft <= 0.0)
                 {
-                    timeLeft = 1.0f;
+                    GameSpeedRange(); //ゲームスピードパラメータの変更。
+
+                    timeLeft = 1.0f; //現実の1秒の時間。
                     count_switch = !count_switch;
 
                     //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
@@ -254,62 +258,61 @@ public class TimeController : MonoBehaviour
                                 RealTimeControll();
                             }
                         }
-                    }
+                    }                   
+                }
 
-                    //フリーモードのときは、時間がリアルタイムで経過　30カウントで5分とか
-                    if (GameMgr.Story_Mode == 1)
+                //フリーモードのときは、時間がリアルタイムで経過　timeLeft2が更新されると、ゲーム時間が5分進む。
+                if (GameMgr.Story_Mode == 1)
+                {                   
+                    if (!GameMgr.scenario_ON)
                     {
-                        GameSpeedRange(); //ゲームスピードパラメータの変更
-
-                        if (!GameMgr.scenario_ON)
+                        if (GameMgr.compound_status == 110 && GameMgr.compound_select == 0)  //採集中やステータス画面など開いてるときは減らない
                         {
-                            if (GameMgr.compound_status == 110 && GameMgr.compound_select == 0)  //採集中やステータス画面など開いてるときは減らない
+                            if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //特定の時間イベント読み中の間もoffに。
                             {
-                                if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //特定の時間イベント読み中の間もoffに。
+
+                                if (timeLeft2 >= 10f * timespeed_range) //timeLeft2は、現実の1秒で1.0ずつ増加する。10カウント＝10秒。そこからtimespeed_rangeで更新時間を早めている。
                                 {
-                                    timeIttei2++;
+                                    
+                                    timeLeft2 = 0.0f;
+                                    SetMinuteToHour(1); //1=5分単位
+                                    TimeKoushin();
 
-                                    if (timeIttei2 >= (int)(10 * timespeed_range)) //5分ずつ進める。timespeed_rangeが早まることで、5分の間隔が早くなる。
+                                    Weather_Change(5.0f);
+
+                                    //サブ時間イベントをチェック
+                                    if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
                                     {
-                                        timeIttei2 = 0;
-                                        SetMinuteToHour(1); //1=5分単位
-                                        TimeKoushin();
 
-                                        Weather_Change(5.0f);
+                                    }
+                                    else
+                                    {
+                                        GameMgr.check_GirlLoveTimeEvent_flag = false;
+                                    }
 
-                                        //サブ時間イベントをチェック
-                                        if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
+                                    //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
+                                    if (!GameMgr.outgirl_Nowprogress)
+                                    {
+                                        if (GameMgr.hikari_make_okashiFlag)
                                         {
-
-                                        }
-                                        else
-                                        {
-                                            GameMgr.check_GirlLoveTimeEvent_flag = false;
-                                        }
-
-                                        //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
-                                        if (!GameMgr.outgirl_Nowprogress)
-                                        {
-                                            if (GameMgr.hikari_make_okashiFlag)
+                                            GameMgr.hikari_make_okashiTimeCounter += 5;
+                                            if (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost) //costtime=1が5分　ヒカリが作ると2倍時間かかる　
+                                                                                                                             //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
                                             {
-                                                GameMgr.hikari_make_okashiTimeCounter += 5;
-                                                if (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost) //costtime=1が5分　ヒカリが作ると2倍時間かかる　
-                                                    //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
-                                                {
-                                                    GameMgr.hikari_make_okashiTimeCounter = 0;
+                                                GameMgr.hikari_make_okashiTimeCounter = 0;
 
-                                                    //お菓子制作。成功率を計算する。
-                                                    HikariMakeOkashiJudge();
-                                                    
-                                                }
+                                                //お菓子制作。成功率を計算する。
+                                                HikariMakeOkashiJudge();
+
                                             }
                                         }
                                     }
 
+                                    //5分を基準に腹もへる。
                                     if (!GameMgr.outgirl_Nowprogress)
                                     {
                                         timeIttei3++;
-                                        if (timeIttei3 >= (int)(40 * timespeed_range))
+                                        if (timeIttei3 >= 3) //1=5分なので、3だと15分で腹減り-1
                                         {
                                             timeIttei3 = 0;
 
@@ -327,7 +330,7 @@ public class TimeController : MonoBehaviour
 
                                         //時間でゆるやかにハートも減る。
                                         /*timeIttei4++;
-                                        if (timeIttei4 >= (int)(30*timespeed_range))
+                                        if (timeIttei4 >= (int)(30))
                                         {
                                             timeIttei4 = 0;
 
@@ -339,16 +342,19 @@ public class TimeController : MonoBehaviour
 
                                         }*/
                                     }
-
-                                    if(GameMgr.hikari_makeokashi_startflag)
-                                    {
-                                        GameMgr.hikari_makeokashi_startcounter--;
-                                        if (GameMgr.hikari_makeokashi_startcounter <= 0)
-                                        {
-                                            GameMgr.hikari_makeokashi_startflag = false;
-                                        }
-                                    }
                                 }
+
+
+
+                                /*
+                                if(GameMgr.hikari_makeokashi_startflag)
+                                {
+                                    GameMgr.hikari_makeokashi_startcounter--;
+                                    if (GameMgr.hikari_makeokashi_startcounter <= 0)
+                                    {
+                                        GameMgr.hikari_makeokashi_startflag = false;
+                                    }
+                                }*/
                             }
                         }
                     }
@@ -449,6 +455,13 @@ public class TimeController : MonoBehaviour
         {
             //終了
             GameMgr.hikari_make_okashiFlag = false;
+            GameMgr.hikari_makeokashi_startflag = false;
+
+            //このとき、成功が0だった場合は、全て失敗してるので、失敗しちゃった～の顔に。
+            if (GameMgr.hikari_make_success_count == 0)
+            {
+                GameMgr.hikari_make_Allfailed = true;
+            }
         }
     }
 
@@ -976,7 +989,7 @@ public class TimeController : MonoBehaviour
         {
             case 1:
 
-                timespeed_range = 0.25f;
+                timespeed_range = 0.15f;
                 break;
 
             case 2:
@@ -996,7 +1009,7 @@ public class TimeController : MonoBehaviour
 
             case 5:
 
-                timespeed_range = 4.0f;
+                timespeed_range = 3.0f;
                 break;
 
             default:

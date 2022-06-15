@@ -63,6 +63,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
     private Sprite charaIcon_sprite_1;
     private Sprite charaIcon_sprite_2;
+    private Sprite charaIcon_sprite_3;
     private GameObject chara_Icon;
 
     private Slider _slider;
@@ -111,6 +112,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         charaIcon_sprite_1 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_02");
         charaIcon_sprite_2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_07");
+        charaIcon_sprite_3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_08");
         chara_Icon = this.transform.Find("Comp2/CharaPanel/Image").gameObject;
         chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
 
@@ -194,7 +196,17 @@ public class HikariMakeStartPanel : MonoBehaviour {
         {
             Emptypanel.SetActive(true);
             makeTimePanel.SetActive(false);
-            _hukidashi.text = "にいちゃん！" + "\n" + "ヒカリ、何作ろうかなぁ～？";
+
+            if (GameMgr.hikari_make_Allfailed)
+            {
+                chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_3;
+                _hukidashi.text = "にいちゃん..。" + "\n" + "しっぱいしちゃった～・・。";
+                makeTimePanel.SetActive(true);
+            }
+            else
+            {
+                _hukidashi.text = "にいちゃん！" + "\n" + "ヒカリ、何作ろうかなぁ～？";
+            }
         }
     }
 
@@ -469,7 +481,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 //ヒカリのお菓子経験値の処理
                 _getexp = 10 * GameMgr.hikari_make_okashiKosu;
-                hikariOkashi_ExpTable(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString());
+                hikariOkashi_ExpTable(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), 0);
+
+                //ハートも少し上がる。
+                //PlayerStatus.girl1_Love_exp += _getexp;
 
                 if (GameMgr.hikari_make_doubleItemCreated == 0)
                 {
@@ -526,14 +541,18 @@ public class HikariMakeStartPanel : MonoBehaviour {
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         _getexp = _exp;
-        hikariOkashi_ExpTable(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString());
+        hikariOkashi_ExpTable(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), 1);
     }
 
-    void hikariOkashi_ExpTable(string _itemType_sub)
+    void hikariOkashi_ExpTable(string _itemType_sub, int _status)
     {
         switch (_itemType_sub)
         {
             case "Appaleil":
+                if (_status == 0)
+                {
+                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                }
                 PlayerStatus.player_girl_appaleil_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_appaleil_exp;
                 _nowlv = PlayerStatus.player_girl_appaleil_lv;
@@ -543,6 +562,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 _itemType_subtext = "生地";
                 break;
             case "Water":
+                if (_status == 0)
+                {
+                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                }
                 PlayerStatus.player_girl_appaleil_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_appaleil_exp;
                 _nowlv = PlayerStatus.player_girl_appaleil_lv;
@@ -552,6 +575,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 _itemType_subtext = "生地";
                 break;
             case "Cream":
+                if (_status == 0)
+                {
+                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                }
                 PlayerStatus.player_girl_cream_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_cream_exp;
                 _nowlv = PlayerStatus.player_girl_cream_lv;
@@ -570,6 +597,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 _itemType_subtext = "ラスク";
                 break;
             case "Bread":
+                if (_status == 0)
+                {
+                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                }
                 PlayerStatus.player_girl_rusk_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_rusk_exp;
                 _nowlv = PlayerStatus.player_girl_rusk_lv;
@@ -579,6 +610,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 _itemType_subtext = "ラスク";
                 break;
             case "Bread_Sliced":
+                if (_status == 0)
+                {
+                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                }
                 PlayerStatus.player_girl_rusk_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_rusk_exp;
                 _nowlv = PlayerStatus.player_girl_rusk_lv;
@@ -636,16 +671,20 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_cake_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_cake_exp;
                 _nowlv = PlayerStatus.player_girl_cake_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_cake_exp = _nowexp;
                 PlayerStatus.player_girl_cake_lv = _nowlv;
                 _itemType_subtext = "ケーキ";
                 break;
             case "Cake_Mat":
+                if (_status == 0)
+                {
+                    _getexp = 3 * GameMgr.hikari_make_okashiKosu;
+                }
                 PlayerStatus.player_girl_cake_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_cake_exp;
                 _nowlv = PlayerStatus.player_girl_cake_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_cake_exp = _nowexp;
                 PlayerStatus.player_girl_cake_lv = _nowlv;
                 _itemType_subtext = "ケーキ";
@@ -681,16 +720,20 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_crepe_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_crepe_exp;
                 _nowlv = PlayerStatus.player_girl_crepe_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_crepe_exp = _nowexp;
                 PlayerStatus.player_girl_crepe_lv = _nowlv;
                 _itemType_subtext = "クレープ";
                 break;
             case "Crepe_Mat":
+                if (_status == 0)
+                {
+                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                }
                 PlayerStatus.player_girl_crepe_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_crepe_exp;
                 _nowlv = PlayerStatus.player_girl_crepe_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_crepe_exp = _nowexp;
                 PlayerStatus.player_girl_crepe_lv = _nowlv;
                 _itemType_subtext = "クレープ";
@@ -699,7 +742,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_creampuff_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_creampuff_exp;
                 _nowlv = PlayerStatus.player_girl_creampuff_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_creampuff_exp = _nowexp;
                 PlayerStatus.player_girl_creampuff_lv = _nowlv;
                 _itemType_subtext = "シュークリーム";
@@ -708,7 +751,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_tea_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_tea_exp;
                 _nowlv = PlayerStatus.player_girl_tea_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_tea_exp = _nowexp;
                 PlayerStatus.player_girl_tea_lv = _nowlv;
                 _itemType_subtext = "ティー";
@@ -717,7 +760,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_tea_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_tea_exp;
                 _nowlv = PlayerStatus.player_girl_tea_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_tea_exp = _nowexp;
                 PlayerStatus.player_girl_tea_lv = _nowlv;
                 _itemType_subtext = "ティー";
@@ -726,7 +769,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_donuts_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_donuts_exp;
                 _nowlv = PlayerStatus.player_girl_donuts_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_donuts_exp = _nowexp;
                 PlayerStatus.player_girl_donuts_lv = _nowlv;
                 _itemType_subtext = "ドーナツ";
@@ -744,7 +787,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_icecream_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_icecream_exp;
                 _nowlv = PlayerStatus.player_girl_icecream_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_icecream_exp = _nowexp;
                 PlayerStatus.player_girl_icecream_lv = _nowlv;
                 _itemType_subtext = "アイス";
@@ -789,7 +832,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_icecream_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_icecream_exp;
                 _nowlv = PlayerStatus.player_girl_icecream_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_icecream_exp = _nowexp;
                 PlayerStatus.player_girl_icecream_lv = _nowlv;
                 _itemType_subtext = "アイス";
@@ -816,7 +859,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 PlayerStatus.player_girl_rareokashi_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_rareokashi_exp;
                 _nowlv = PlayerStatus.player_girl_rareokashi_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_rareokashi_exp = _nowexp;
                 PlayerStatus.player_girl_rareokashi_lv = _nowlv;
                 _itemType_subtext = "レアお菓子";
@@ -862,6 +905,21 @@ public class HikariMakeStartPanel : MonoBehaviour {
         else
         {
             if (_nowexp >= GameMgr.Hikariokashi_Exptable[_nowlv])
+            {
+                _nowexp = 0;
+                _nowlv++;
+            }
+        }
+    }
+
+    //少し難しめのお菓子の経験テーブル
+    void Check_OkashilvUP2()
+    {
+        if (_nowlv >= 9) //9がカンスト
+        { }
+        else
+        {
+            if (_nowexp >= GameMgr.Hikariokashi_Exptable2[_nowlv])
             {
                 _nowexp = 0;
                 _nowlv++;
@@ -931,6 +989,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         Emptypanel.SetActive(true);
         makeTimePanel.SetActive(false);
         GameMgr.hikari_make_okashiFlag = false;
+        GameMgr.hikari_makeokashi_startflag = false;
 
         _hukidashi.text = "にいちゃん！" + "\n" + "ヒカリ、何作ろうかなぁ～？";
 

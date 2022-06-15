@@ -2640,12 +2640,32 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (GameMgr.Story_Mode == 1)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.5f); //ハートが上がりにくく
-                if(GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。ハート〇倍。
+                GameMgr.RandomEatOkashi_counter++;
+
+                if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
                     Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.75倍");
                     Getlove_exp = (int)(Getlove_exp * 1.75f);
                     PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
+
+                    //次で食べたいお菓子が強制的に変わる。
+                    GameMgr.RandomEatOkashi_counter = 0; 
+                    girl1_status.RandomOkashiDecideMethod();
                 }
+            }
+
+            //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
+            if(PlayerStatus.girl1_Love_lv >= 70 && PlayerStatus.girl1_Love_lv < 80)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.7f);
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.5f);
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 90 && PlayerStatus.girl1_Love_lv < 99)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.3f);
             }
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);

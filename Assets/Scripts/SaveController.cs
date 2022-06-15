@@ -302,6 +302,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_hikari_kettei_toggleType = GameMgr.hikari_kettei_toggleType,
             save_hikari_kettei_itemName = GameMgr.hikari_kettei_itemName,
             save_hikari_make_okashiFlag = GameMgr.hikari_make_okashiFlag, //ヒカリがお菓子を制作中かどうかのフラグ
+            save_hikari_makeokashi_startflag = GameMgr.hikari_makeokashi_startflag,
             save_hikari_make_okashiID = GameMgr.hikari_make_okashiID,
             save_hikari_make_okashi_compID = GameMgr.hikari_make_okashi_compID, //CompoDBのID
             save_hikari_make_okashiTimeCost = GameMgr.hikari_make_okashiTimeCost, //かかる時間
@@ -608,6 +609,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.hikari_kettei_kosu = playerData.save_hikari_kettei_kosu;
         GameMgr.hikari_kettei_toggleType = playerData.save_hikari_kettei_toggleType;
         GameMgr.hikari_make_okashiFlag = playerData.save_hikari_make_okashiFlag; //ヒカリがお菓子を制作中かどうかのフラグ
+        GameMgr.hikari_makeokashi_startflag = playerData.save_hikari_makeokashi_startflag;
         GameMgr.hikari_make_okashiID = playerData.save_hikari_make_okashiID;
         GameMgr.hikari_make_okashi_compID = playerData.save_hikari_make_okashi_compID; //CompoDBのID
         GameMgr.hikari_make_okashiTimeCost = playerData.save_hikari_make_okashiTimeCost; //かかる時間

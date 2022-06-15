@@ -658,6 +658,105 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //エクストラモードのみのイベント　カフェ
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 40 && GameMgr.GirlLoveSubEvent_stage1[62] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 62;
+                            GameMgr.GirlLoveSubEvent_stage1[62] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            //イベントCG解禁
+                            //GameMgr.SetEventCollectionFlag("event1", true);
+                            //GameMgr.SetEventCollectionFlag("event2", true);
+                        }
+                    }
+                }
+
+                //エクストラモードのみのイベント　どっこいステーキ
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 50 && GameMgr.GirlLoveSubEvent_stage1[63] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 63;
+                            GameMgr.GirlLoveSubEvent_stage1[63] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+                        }
+                    }
+                }
+
+                //エクストラモードのみのイベント　わたあめ
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 70 && GameMgr.GirlLoveSubEvent_stage1[64] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 64;
+                            GameMgr.GirlLoveSubEvent_stage1[64] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+                        }
+                    }
+                }
+
+                //エクストラモードのみのイベント　クリスタルキャッチャー
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 80 && GameMgr.GirlLoveSubEvent_stage1[65] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 65;
+                            GameMgr.GirlLoveSubEvent_stage1[65] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+                        }
+                    }
+                }
+
+                //エクストラモードのみのイベント　カミナリ
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 90 && GameMgr.GirlLoveSubEvent_stage1[66] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 66;
+                            GameMgr.GirlLoveSubEvent_stage1[66] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+                        }
+                    }
+                }
+
 
                 //
                 //ビギナー系のサブイベント関係は、80番台～
@@ -1153,7 +1252,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                         GameMgr.GirlLoveSubEvent_stage1[150] = true; //イベント初発生の分をフラグっておく。
 
                                         GameMgr.outgirl_event_ON = false;
-                                        GameMgr.outgirl_count = 2; //次の外出るイベントまでの日数カウンタ
+                                        outGirlCounterReset();//次の外出るイベントまでの日数カウンタ                                       
 
                                         GameMgr.check_GirlLoveTimeEvent_flag = false;
 
@@ -1213,16 +1312,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-                    //モーセ家にくる 午前中
+                    //モーセ家にくる
                     if (!GameMgr.outgirl_Nowprogress)
                     {              
-                        if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12
-                            && GameMgr.GirlLoveEvent_num >= 1 && PlayerStatus.girl1_Love_lv >= 5) //
+                        if (PlayerStatus.girl1_Love_lv >= 10) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
                         {
-                            random = Random.Range(0, 100);
+                            //random = Random.Range(0, 100);
                             //Debug.Log("モーセくるイベント　10以下で成功: " + random);
-                            if (random <= 10)
-                            {
+                            //if (random <= 10)
+                            //{
                                 if (!GameMgr.GirlLoveSubEvent_stage1[160])　//160番～　サブイベントNPC系　フラグ３つか５つずつぐらい余分をとっておく。
                                 {
                                     GameMgr.GirlLoveSubEvent_num = 160;
@@ -1239,7 +1337,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
                                     GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
                                 }
-                            }
+                            //}
                         }
                     }
                 }
@@ -1261,13 +1359,20 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
+    //外出カウンタリセット　compound_mainからも読まれる。
+    public void outGirlCounterReset()
+    {
+        random = Random.Range(0, 3);
+        GameMgr.outgirl_count = 3 + random; //次の外出るイベントまでの日数カウンタ
+    }
+
     void OutGirlReturnHome()
     {
         GameMgr.GirlLoveSubEvent_num = 151;
         GameMgr.GirlLoveSubEvent_stage1[151] = true; //イベント初発生の分をフラグっておく。
 
         GameMgr.outgirl_event_ON = false;
-        GameMgr.outgirl_count = 2; //次の外出るイベントまでの日数カウンタ
+        outGirlCounterReset(); //次の外出るイベントまでの日数カウンタ
         //GameMgr.outgirl_Nowprogress = false;
 
         GameMgr.check_GirlLoveTimeEvent_flag = false;

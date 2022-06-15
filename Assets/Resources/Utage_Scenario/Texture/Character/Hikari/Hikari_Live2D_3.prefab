@@ -10801,6 +10801,7 @@ GameObject:
   - component: {fileID: 114899112828045512}
   - component: {fileID: 114122875576114562}
   - component: {fileID: 114392116706504304}
+  - component: {fileID: 114832836993629954}
   m_Layer: 0
   m_Name: Hikari_Live2D_3
   m_TagString: CharacterLive2D
@@ -64809,6 +64810,19 @@ MonoBehaviour:
   _renderOrder: 123
   _depthOffset: 0.00001
   _opacity: 0
+--- !u!114 &114832836993629954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1760104866161304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f919c975eb9da428e66dac0b17c6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip1: {fileID: 7400000, guid: c99bad7e67cbfa44a8a8ad791a891925, type: 2}
+  clip2: {fileID: 7400000, guid: 6ed4cc9a17935db4cb94056dd55665c1, type: 2}
 --- !u!114 &114834209981109164
 MonoBehaviour:
   m_ObjectHideFlags: 1

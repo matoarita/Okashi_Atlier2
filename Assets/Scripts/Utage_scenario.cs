@@ -1551,14 +1551,14 @@ public class Utage_scenario : MonoBehaviour
 
             if ((int)engine.Param.GetParameter("OutGirlHomeru_num") == 0)
             {
-                random = Random.Range(5, 21); //0~4
+                random = Random.Range(5, 21); //
                 girlEat_judge.loveGetPlusAnimeON(random, false);
                 compound_Main.GirlExpressionKoushin(30); //ほめる場合
                 PlayerStatus.player_girl_yaruki += 50;
             }
             else
             {
-                random = -1 * Random.Range(30, 151); //0~4
+                random = -1 * Random.Range(30, 151); //
                 girlEat_judge.DegHeart(random, true);
                 compound_Main.GirlExpressionKoushin(-50); //しかった場合
                 PlayerStatus.player_girl_yaruki -= 30;

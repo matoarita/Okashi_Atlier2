@@ -20,6 +20,12 @@ public class AAA_AutoSave_Main : MonoBehaviour {
         _text = Msg_window.transform.Find("Text").GetComponent<Text>();
         Msg_window.SetActive(false);
 
+        if (GameMgr.Story_Mode == 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm21", true);
+        }
+
         //エンディング回数を+1       
         GameMgr.ending_count++;
         Debug.Log("エンディング回数: " + GameMgr.ending_count);
