@@ -53,6 +53,7 @@ public class OptionPanel : MonoBehaviour {
     private Dropdown Bgm_dropdown;
     private List<Toggle> gamespeed_toggle = new List<Toggle>();
 
+    private Coroutine _currentBGMCoroutine;
     private int i;
 
     // Use this for initialization
@@ -299,10 +300,29 @@ public class OptionPanel : MonoBehaviour {
         {
             case "Compound":
 
-                sceneBGM.PlayMain();
+                sceneBGM.StopPlayMain();
+
+                if (_currentBGMCoroutine == null)
+                {
+                    _currentBGMCoroutine = StartCoroutine("WaitBGMStart");
+                }
+                else
+                {
+                    StopCoroutine(_currentBGMCoroutine);
+                    _currentBGMCoroutine = null;
+
+                    _currentBGMCoroutine = StartCoroutine("WaitBGMStart");
+                }
+
                 break;
         }
 
+    }
+
+    IEnumerator WaitBGMStart()
+    {
+        yield return new WaitForSeconds(1.0f);
+        sceneBGM.PlayMain();
     }
 
     void DrawBGMSelectToggle()
@@ -440,6 +460,36 @@ public class OptionPanel : MonoBehaviour {
             GameMgr.SetBGMCollectionFlag("bgm5", true);
         }
 
+        if (pitemlist.KosuCount("Record_16") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm20", true);
+        }
+
+        if (pitemlist.KosuCount("Record_17") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm22", true);
+        }
+
+        if (pitemlist.KosuCount("Record_18") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm23", true);
+        }
+
+        if (pitemlist.KosuCount("Record_19") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm24", true);
+        }
+
+        if (pitemlist.KosuCount("Record_20") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm25", true);
+        }
+
         //サブイベントなど
         /*if (GameMgr.GirlLoveSubEvent_stage1[60]) //きらきらぽんぽん
         {
@@ -521,6 +571,9 @@ public class OptionPanel : MonoBehaviour {
     }
     public void BackMusicSelect()
     {
+        //音楽は念のため、再生しなおす。
+        //sceneBGM.PlayMain();
+
         //音楽セレクト画面をオフに。
         MusicSelect_panel.SetActive(false);
         BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(true);

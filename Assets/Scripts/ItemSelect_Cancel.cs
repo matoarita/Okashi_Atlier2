@@ -101,8 +101,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 compound_Check_obj = GameObject.FindWithTag("Compound_Check");
                 compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
 
-                selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();               
+                yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
+                //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();               
 
                 text_area = canvas.transform.Find("MessageWindow").gameObject;
                 _text = text_area.GetComponentInChildren<Text>();
@@ -189,8 +190,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 {
                     canvas = GameObject.FindWithTag("Canvas");
 
-                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+                    yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
+                    //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                    //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -244,8 +246,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                     NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
-                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+                    yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
+                    //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                    //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                     shopMain_obj = GameObject.FindWithTag("Shop_Main");
                     shopMain = shopMain_obj.GetComponent<Shop_Main>();
@@ -284,8 +287,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                     NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
-                    selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                    yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+                    yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
+                    //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                    //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                     shopMain_obj = GameObject.FindWithTag("Bar_Main");
                     shopMain = shopMain_obj.GetComponent<Shop_Main>();
@@ -317,6 +321,10 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 break;           
 
             default: //上記シーン以外
+
+                yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
+                //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+                //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                 /*
                 if (text_area == null)

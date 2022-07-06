@@ -137,6 +137,7 @@ public class SetImage : MonoBehaviour
     private Text kosu_text;
 
     private GameObject secret_panel;
+    private GameObject hlvbonus_panel;
 
     private int i, count;
 
@@ -355,6 +356,8 @@ public class SetImage : MonoBehaviour
 
         secret_panel = this.transform.Find("Item_card_template/SecretPanel").gameObject;
         //secret_panel.SetActive(false);
+
+        hlvbonus_panel = this.transform.Find("Item_card_template/HlvBonusPanel").gameObject;
 
         //各パラメータバーの取得
         _Shokukan_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanBar").gameObject.GetComponent<Slider>();
@@ -1663,6 +1666,17 @@ public class SetImage : MonoBehaviour
             Debug.Log("_secretFlag表示ON");            
             secret_panel.SetActive(true);
         }
+    }
+
+    public void HLVBonus_Hyouji()
+    {
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        if (databaseCompo.compoitems[exp_Controller.result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+        {
+            hlvbonus_panel.SetActive(true);
+        }           
     }
 
     public void Kosu_ON(int _kosu)

@@ -52,6 +52,7 @@ public class Bar_Main : MonoBehaviour
     private GameObject shopon_toggle_talk;
     private GameObject shopon_toggle_quest;
     private GameObject shopon_toggle_uwasa;
+    private GameObject shopon_toggle_present;
 
     private bool check_event;
     private bool check_lvevent;
@@ -122,6 +123,8 @@ public class Bar_Main : MonoBehaviour
         shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
         shopon_toggle_quest = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Quest").gameObject;
         shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
+        shopon_toggle_present = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Present").gameObject;
+        shopon_toggle_present.SetActive(false);
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
         //shopon_toggle_quest.SetActive(false);
@@ -179,6 +182,14 @@ public class Bar_Main : MonoBehaviour
         check_lvevent = false; //レベルに応じて発生するイベントのフラグ
         lvevent_loading = false;
 
+        if (GameMgr.Story_Mode == 1)
+        {
+            //あるクエスト以降、フィオナにお菓子わたせる。
+            if (GameMgr.GirlLoveEvent_num >= 11)
+            {
+                shopon_toggle_present.SetActive(true);
+            }
+        }
 
         //入店のタイミングでのみ、クエスト更新
         shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
@@ -242,7 +253,7 @@ public class Bar_Main : MonoBehaviour
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {
-            playeritemlist_onoff.SetActive(false);
+            //playeritemlist_onoff.SetActive(false);
             shopitemlist_onoff.SetActive(false);
             shopquestlist_obj.SetActive(false);
             backshopfirst_obj.SetActive(false);
@@ -252,6 +263,10 @@ public class Bar_Main : MonoBehaviour
             placename_panel.SetActive(false);
             black_effect.SetActive(false);
 
+            if (GameMgr.Story_Mode == 1)
+            {
+                ninki_status_obj.SetActive(false);
+            }
         }
         else
         {
@@ -285,6 +300,11 @@ public class Bar_Main : MonoBehaviour
                         money_status_obj.SetActive(true);
                         placename_panel.SetActive(true);
                         black_effect.SetActive(false);
+
+                        if (GameMgr.Story_Mode == 1)
+                        {
+                            ninki_status_obj.SetActive(true);
+                        }
 
                         shop_scene = 0;
                         shop_status = 100;
@@ -444,6 +464,34 @@ public class Bar_Main : MonoBehaviour
         }
     }
 
+    public void OnCheck_6() //アイテムをあげる
+    {
+        if (shopon_toggle_present.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle_present.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            shop_status = 6; //クエストを押したときのフラグ
+            shop_scene = 6;
+
+            GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
+            GameMgr.talk_flag = true;
+            GameMgr.talk_number = 500;
+            GameMgr.utage_charaHyouji_flag = true;
+
+            //アイテムを使用するときのフラグ
+            GameMgr.event_pitem_use_select = true;
+            GameMgr.bar_event_ON = true;
+
+            //下は、使うときだけtrueにすればOK
+            GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+            GameMgr.KoyuJudge_num = GameMgr.Bar_Okashi_num01;//GirlLikeSetの番号を直接指定
+            GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+
+            StartCoroutine("UtageEndWait");
+
+        }
+    }
+
 
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
     void CheckBarLvEvent()
@@ -453,10 +501,16 @@ public class Bar_Main : MonoBehaviour
 
     IEnumerator UtageEndWait()
     {
+        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+        GameMgr.compound_status = 1000;
+
         while (GameMgr.scenario_ON)
         {
             yield return null;
         }
+
+        GameMgr.compound_select = 0; //何もしていない状態
+        GameMgr.compound_status = 0;
 
         shop_status = 0;
         shop_scene = 0;

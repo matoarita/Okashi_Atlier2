@@ -32,7 +32,7 @@ public class ItemCompound
     public int renkin_Bexp;
 
     public string KeisanMethod; //値を加算するか、比率で計算するか。Nonの場合、加算。何らかのアイテム名が入ってる場合、それを基準に（例えば小麦粉）他の材料の値を計算する。
-    public int comp_count;
+    public int comp_count; //
 
     public string release_recipi; //新しくお菓子を作ったとき、ここに入った名前のレシピを解放する
     public int recipi_count; //ゲーム中でカウントするレシピ　これが0だと、レシピは表示されない。
@@ -40,7 +40,7 @@ public class ItemCompound
     public int secretFlag; //隠しレシピか否かのフラグ
 
     //Excelにはのってない変数
-    public int hikari_make_count; //ヒカリがそのレシピを作った回数
+    public int hikari_make_count; //ヒカリがそのお菓子を作った回数
 
     //ここでリスト化時に渡す引数をあてがいます   
     public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, 

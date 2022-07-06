@@ -333,6 +333,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         break;
 
+                    case 6: //あげるとき
+
+                        yes_button.SetActive(false);
+                        no_button.SetActive(true);
+                        reset_and_DrawView();
+
+                        break;
                 }
 
                 OpenAnim();
@@ -639,6 +646,15 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         if (check_itemType == "Mat" || check_itemType_sub == "Rare")
                         {
 
+                            itemlist_hyouji_Check();
+                        }
+                        break;
+
+                    case 6:
+
+                        //お菓子のみ表示
+                        if (check_itemType == "Okashi")
+                        {
                             itemlist_hyouji_Check();
                         }
                         break;

@@ -757,6 +757,48 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //エクストラモードのみのイベント　ハートレベル99 レコードをゲット
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 99 && GameMgr.GirlLoveSubEvent_stage1[67] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 67;
+                            GameMgr.GirlLoveSubEvent_stage1[67] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            pitemlist.addPlayerItemString("Record_16", 1); //レコード
+                        }
+                    }
+                }
+
+                //エクストラモードのみのイベント　ヒカリに食べたいお菓子あげた回数50回超えた　レコードゲット
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.player_girl_eatCount_tabetai >= 50 && GameMgr.GirlLoveSubEvent_stage1[68] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 68;
+                            GameMgr.GirlLoveSubEvent_stage1[68] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            pitemlist.addPlayerItemString("Record_17", 1); //レコード
+                        }
+                    }
+                }
+
 
                 //
                 //ビギナー系のサブイベント関係は、80番台～
@@ -1173,6 +1215,29 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                         ev_id = pitemlist.Find_eventitemdatabase("gold_neko_cookie_recipi");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //金のねこクッキーのレシピを追加
+                    }
+                }
+
+                //エクストラモードのみのイベント　ゲーム中で点数が777点をこえた。
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (GameMgr.specialsubevent_flag1 == true && GameMgr.GirlLoveSubEvent_stage1[103] == false) //
+                        {
+                            GameMgr.specialsubevent_flag1 = false;
+
+                            GameMgr.GirlLoveSubEvent_num = 103;
+                            GameMgr.GirlLoveSubEvent_stage1[103] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            //pitemlist.addPlayerItemString("Record_17", 1); //レコード
+                        }
                     }
                 }
             }

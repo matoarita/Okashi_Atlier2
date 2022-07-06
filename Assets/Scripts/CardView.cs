@@ -501,6 +501,12 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _result_item;
         _cardImage.SetInit();
 
+        if(PlayerStatus.girl1_Love_lv >= 99)
+        {
+            //Hlvのときは食感があがるボーナスがつくので、それの効果表示
+            _cardImage.HLVBonus_Hyouji();
+        }
+
         _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
         //_cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
 

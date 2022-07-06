@@ -445,6 +445,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Degheart_on; //ハート下がっている途中は、時間で下がる機能を一時的にオフにするフラグ
     public static bool utage_charaHyouji_flag; //イベントで、宴キャラクタの表示をONにするかOFFにするか
     public static int RandomEatOkashi_counter; //食べたいお菓子が変わるまでのカウンタ
+    public static bool specialsubevent_flag1; //お菓子の採点が777のときに、サブイベントを呼び出すときのフラグ
+    public static string hikarimakeokashi_itemTypeSub_nameHyouji; //ヒカリのお菓子Expテーブルの各お菓子の名前表記。スクリプト間の値受け渡し用で一時的。
+    public static int hikarimakeokashi_nowlv; //ヒカリのお菓子Expテーブルで、現在のお菓子レベル。スクリプト間の値受け渡し用で一時的。
+    public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
 
     private PlayerItemList pitemlist;
 
@@ -495,6 +499,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool mainscene_event_ON; //調合画面メインでイベントがおこったフラグ
     public static bool hiroba_event_ON;
     public static bool shop_event_ON;
+    public static bool farm_event_ON;
+    public static bool bar_event_ON;
     public static bool KoyuJudge_ON;
     public static int KoyuJudge_num;
     public static bool NPC_DislikeFlag;
@@ -507,6 +513,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Mose_Okashi_num01;
     public static int Shop_Okashi_num01;
     public static int Shop_Okashi_num02;
+    public static int Farm_Okashi_num01;
+    public static int Bar_Okashi_num01;
 
     //女の子の名前
     public static string mainGirl_Name;
@@ -520,8 +528,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string ColorRedDeep;
     public static string ColorBlue;
     public static string ColorCyan;
+    public static string ColorMizuiro;
     public static string ColorOrange;
     public static string ColorGreen;
+    public static string ColorGlay;
 
     //ゲームの通貨名
     public static string MoneyCurrency;
@@ -590,8 +600,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ColorRedDeep = "<color=#FF4D4D>";
         ColorBlue = "<color=#0000FF>";
         ColorCyan = "<color=#44A2FF>";
+        ColorMizuiro = "<color=#8DC1FF>"; 
         ColorOrange = "<color=#FF8400>";
-        ColorGreen = "<color=48EE72FF>";
+        ColorGreen = "<color=#48EE72>";
+        ColorGlay = "<color=#909090>";
 
         //通貨の名前
         MoneyCurrency = "ルピア";
@@ -686,6 +698,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mainscene_event_ON = false;
         hiroba_event_ON = false;
         shop_event_ON = false;
+        farm_event_ON = false;
+        bar_event_ON = false;
         KoyuJudge_ON = false;
         NPC_DislikeFlag = false;
         NPC_Dislike_UseON = false;
@@ -789,6 +803,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SubEvAfterHeartGet_num = 0;
         utage_charaHyouji_flag = false;
         RandomEatOkashi_counter = 0;
+        specialsubevent_flag1 = false;
+        hikariokashiExpTable_noTypeflag = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -940,7 +956,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         NowEatOkashiName = "";
 
         //コンテストお菓子初期化
-        contest_okashi_ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        contest_okashi_ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0);
 
@@ -1326,7 +1342,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(025, "bgm25", "クエスト日和", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(006, "bgm6", "ずんたかぽんぽん・マーチ！", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(022, "bgm22", "不思議な3分間クッキング", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(020, "bgm20", "Welcome to ヒカリのアトリエ", false, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(020, "bgm20", "ウェルカム・トゥー・ヒカリのアトリエ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(021, "bgm21", "風と共に", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(026, "bgm26", "ピクニックだよ！にいちゃん！", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(027, "bgm27", "小さな海の冒険", false, "Items/neko_cookie"));
@@ -1352,6 +1368,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Mose_Okashi_num01 = 5000; //モーセ
         Shop_Okashi_num01 = 5010; //プリンさん　エクストラ　クエストNo11 お茶会用
         Shop_Okashi_num02 = 5011; //プリンさん　エクストラ　クエストNo11 お茶会用
+        Farm_Okashi_num01 = 5020; //モタリケさん　エクストラ
+        Bar_Okashi_num01 = 5030; //フィオナさん　エクストラ
     }
 
     //ヒカリのお菓子経験値テーブル

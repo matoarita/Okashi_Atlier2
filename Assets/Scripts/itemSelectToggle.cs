@@ -360,6 +360,12 @@ public class itemSelectToggle : MonoBehaviour
                         nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
                         break;
 
+                    case 6: //わたすとき
+
+                        GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
+                        itempresent_active();
+                        break;
+
                 }
             }
 

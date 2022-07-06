@@ -157,6 +157,11 @@ public class BGM : MonoBehaviour {
         }
     }
 
+    public void StopPlayMain() //音の一時停止などに使用。あまり使わないかも。
+    {
+        _bgm[0].Stop();
+    }
+
     public void PlayMain()
     {
 

@@ -455,8 +455,21 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.talk_flag = false;
                     shop_talk_number = GameMgr.talk_number;
-                    StartCoroutine(Shop_Talk());
 
+                    switch(SceneManager.GetActiveScene().name)
+                    {
+                        case "Shop":
+                            StartCoroutine(Shop_Talk());
+                            break;
+
+                        case "Farm":
+                            StartCoroutine(Farm_Talk());
+                            break;
+
+                        case "Bar":
+                            StartCoroutine(Bar_Talk());
+                            break;
+                    }
                 }
 
                 if (GameMgr.uwasa_flag == true)
@@ -482,7 +495,6 @@ public class Utage_scenario : MonoBehaviour
 
                     scenarioLabel = "Farm_Event";
                     StartCoroutine(Scenario_Start());
-
                 }
 
                 if (GameMgr.bar_event_flag)
@@ -1551,7 +1563,7 @@ public class Utage_scenario : MonoBehaviour
 
             if ((int)engine.Param.GetParameter("OutGirlHomeru_num") == 0)
             {
-                random = Random.Range(5, 21); //
+                random = Random.Range(10, 25); //
                 girlEat_judge.loveGetPlusAnimeON(random, false);
                 compound_Main.GirlExpressionKoushin(30); //ほめる場合
                 PlayerStatus.player_girl_yaruki += 50;
@@ -1648,6 +1660,16 @@ public class Utage_scenario : MonoBehaviour
             if(GameMgr.shop_event_ON) //お店イベントで起こった場合
             {
                 GameMgr.shop_event_ON = false;
+            }
+
+            if (GameMgr.farm_event_ON) //ファームイベントで起こった場合
+            {
+                GameMgr.farm_event_ON = false;
+            }
+
+            if (GameMgr.bar_event_ON) //酒場イベントで起こった場合
+            {
+                GameMgr.bar_event_ON = false;
             }
 
             //続きから再度読み込み
@@ -2015,9 +2037,25 @@ public class Utage_scenario : MonoBehaviour
             }
             else
             {
+                //食感、甘さ、苦さ、酸味についてもセリフ
+                engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
+                engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
+                engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
+                engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
+
                 if (GameMgr.event_judge_status >= 2)
                 {
-                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。2~は合格。
+                    if (GameMgr.event_judge_status == 2 || GameMgr.event_judge_status == 3) //2~は合格。3=100~150。
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 2);
+                        PlayerStatus.player_money += 5000;
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 3); //4=150以上。
+                        PlayerStatus.player_money += 10000;
+                        pitemlist.addPlayerItemString("Record_18", 1); //レコード
+                    }
 
                     GameMgr.ShopEvent_stage[10] = true; //エクストラ　クエストNo11お店クリアフラグ
                 }
@@ -2029,7 +2067,94 @@ public class Utage_scenario : MonoBehaviour
             }
         }
         // *** //
-       
+
+
+        //
+        //ファームサブイベント関連
+        //
+        if (GameMgr.farm_event_ON) //お店イベントで起こった場合
+        {
+            GameMgr.farm_event_ON = false;
+
+            //判定
+            if (!GameMgr.NPC_DislikeFlag)
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("モタリケ　お菓子が違ってた");
+
+            }
+            else
+            {
+                //食感、甘さ、苦さ、酸味についてもセリフ
+                engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
+                engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
+                engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
+                engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
+
+                if (GameMgr.event_judge_status >= 2)
+                {
+                    if (GameMgr.event_judge_status == 2 || GameMgr.event_judge_status == 3) //2~は合格。3=100~150。
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 2);                        
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 3); //4=150以上。
+                        pitemlist.addPlayerItemString("Record_19", 1); //レコード
+                    }
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+                }
+                Debug.Log("モタリケ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+            }
+        }
+        // *** //
+
+
+        //
+        //酒場サブイベント関連
+        //
+        if (GameMgr.bar_event_ON) //お店イベントで起こった場合
+        {
+            GameMgr.bar_event_ON = false;
+
+            //判定
+            if (!GameMgr.NPC_DislikeFlag)
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("フィオナ　お菓子が違ってた");
+
+            }
+            else
+            {
+                //食感、甘さ、苦さ、酸味についてもセリフ
+                engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
+                engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
+                engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
+                engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
+
+                if (GameMgr.event_judge_status >= 2)
+                {
+                    if (total_score < 300)
+                    { 
+                        engine.Param.TrySetParameter("EventJudge_num", 2);
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 3); //
+                        pitemlist.addPlayerItemString("Record_20", 1); //レコード
+                    }
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+                }
+                Debug.Log("フィオナ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+            }
+        }
+        // *** //
     }
 
     void PitemDelete()
@@ -2073,7 +2198,7 @@ public class Utage_scenario : MonoBehaviour
             {
                 if (GameMgr.event_judge_status >= 2)
                 {
-                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
+                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。3=100以上。4=150以上。
 
                     pitemlist.addPlayerItemString("whisk_magic", 1); //魔力の泡だて器
                     pitemlist.addPlayerItemString("Record_15", 1); //レコード
@@ -2724,6 +2849,98 @@ public class Utage_scenario : MonoBehaviour
         }
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+        GameMgr.scenario_ON = false;
+
+    }
+
+    //
+    // ファームの「話す」コマンド
+    //
+    IEnumerator Farm_Talk()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Farm_Talk"; //ショップ話すタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+
+        if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
+        {
+            CharacterSpriteSetOFF();
+        }
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
+        {
+            StartCoroutine("PitemPresent");
+        }
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+        
+        if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
+        {
+            GameMgr.utage_charaHyouji_flag = false;
+            CharacterSpriteFadeON();
+        }
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+
+        GameMgr.scenario_ON = false;
+
+    }
+
+    //
+    // 酒場の「話す」コマンド
+    //
+    IEnumerator Bar_Talk()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Bar_Talk"; //ショップ話すタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+
+        if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
+        {
+            CharacterSpriteSetOFF();
+        }
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
+        {
+            StartCoroutine("PitemPresent");
+        }
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
+        {
+            GameMgr.utage_charaHyouji_flag = false;
+            CharacterSpriteFadeON();
+        }
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
 
         GameMgr.scenario_ON = false;
 

@@ -28,6 +28,11 @@ public class Farm_Main : MonoBehaviour {
     private GameObject placename_panel;
     private GameObject farm_toggle_buy;
     private GameObject farm_toggle_talk;
+    private GameObject farm_toggle_present;
+
+    private GameObject playeritemlist_onoff;
+    private PlayerItemListController pitemlistController;
+    private GameObject pitemlist_scrollview_init_obj;
 
     private GameObject updown_counter_obj;
     private GameObject updown_counter_Prefab;
@@ -70,12 +75,23 @@ public class Farm_Main : MonoBehaviour {
         farm_select = canvas.transform.Find("Farm_Select").gameObject;
         farm_toggle_buy = farm_select.transform.Find("Viewport/Content/FarmOn_Toggle_Buy").gameObject;
         farm_toggle_talk = farm_select.transform.Find("Viewport/Content/FarmOn_Toggle_Talk").gameObject;
+        farm_toggle_present = farm_select.transform.Find("Viewport/Content/FarmOn_Toggle_Present").gameObject;
+        farm_toggle_present.SetActive(false);
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
 
         //ファームでのショップリスト画面。初期設定で最初はOFF。
         shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
         shopitemlist_onoff.SetActive(false);
+
+        //プレイヤー所持アイテムリストパネルの初期化・取得
+        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
+
+        playeritemlist_onoff.SetActive(false); //
 
         //自分の持ってるお金などのステータス
         money_status_obj = GameObject.FindWithTag("MoneyStatus_panel");
@@ -104,6 +120,15 @@ public class Farm_Main : MonoBehaviour {
             else
             {
 
+            }
+        }
+
+        if (GameMgr.Story_Mode == 1)
+        {
+            //あるクエスト以降、モタリケにお菓子わたせる。
+            if (GameMgr.GirlLoveEvent_num >= 11)
+            {
+                farm_toggle_present.SetActive(true);
             }
         }
     }
@@ -188,6 +213,9 @@ public class Farm_Main : MonoBehaviour {
                 case 2:
                     break;
 
+                case 3:
+                    break;
+
                 case 100: //退避
                     break;
 
@@ -224,16 +252,62 @@ public class Farm_Main : MonoBehaviour {
         {
             farm_toggle_talk.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            //farm_status = 2; //話すを押したときのフラグ
-            //farm_scene = 2;
+            farm_status = 2; //話すを押したときのフラグ
+            farm_scene = 2;
 
-            _text.text = "（..今はしゃべる気がないようだ。）";
+            //_text.text = "（..今はしゃべる気がないようだ。）";
 
-            /*
+            
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
-            GameMgr.talk_number = 100;*/
+            GameMgr.talk_number = 100;
+
+            StartCoroutine("UtageEndWait");
+        }
+    }
+
+    public void OnCheck_3() //アイテムをあげる
+    {
+        if (farm_toggle_present.GetComponent<Toggle>().isOn == true)
+        {
+            farm_toggle_present.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            farm_status = 3; //クエストを押したときのフラグ
+            farm_scene = 3;
+
+            GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
+            GameMgr.talk_flag = true;
+            GameMgr.talk_number = 500;
+            GameMgr.utage_charaHyouji_flag = true;
+
+            //アイテムを使用するときのフラグ
+            GameMgr.event_pitem_use_select = true;
+            GameMgr.farm_event_ON = true;
+
+            //下は、使うときだけtrueにすればOK
+            GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+            GameMgr.KoyuJudge_num = GameMgr.Farm_Okashi_num01;//GirlLikeSetの番号を直接指定
+            GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+
+            StartCoroutine("UtageEndWait");
 
         }
+    }
+
+    IEnumerator UtageEndWait()
+    {
+        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+        GameMgr.compound_status = 1000;
+
+        while (GameMgr.scenario_ON)
+        {
+            yield return null;
+        }
+
+        GameMgr.compound_select = 0; //何もしていない状態
+        GameMgr.compound_status = 0;
+
+        farm_status = 0;
+        farm_scene = 0;
     }
 }

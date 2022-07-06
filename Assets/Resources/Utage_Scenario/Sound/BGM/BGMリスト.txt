@@ -76,3 +76,4 @@
 ・BGM_74		ボサノバ2				【宴用】カフェのBGM
 ・BGM_75		contedefees_0177			【宴用】ティンクルパンクルポップンのBGM
 ・BGM_76		bgm_classic_tchaikovsky_kurumi-hana	【宴用】クリスタルキャッチャー8bitBGM
+・BGM_77		ボサノバ2				カフェのBGM＜広場２で使用＞

@@ -176,6 +176,8 @@ public class Shop_Main : MonoBehaviour {
             //あるクエスト以降、プリンさんにお菓子渡せる。
             if(GameMgr.GirlLoveEvent_num >= 11)
             {
+                shopon_toggle_present.SetActive(true);
+                /*
                 if (!GameMgr.ShopEvent_stage[10])
                 {
                     shopon_toggle_present.SetActive(true);
@@ -183,7 +185,7 @@ public class Shop_Main : MonoBehaviour {
                 else
                 {
                     shopon_toggle_present.SetActive(false);
-                }
+                }*/
             }
         }
 
@@ -574,12 +576,20 @@ public class Shop_Main : MonoBehaviour {
         {
             shopon_toggle_present.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
+            if (GameMgr.GirlLoveEvent_num == 11)
+            {
+                GameMgr.talk_number = 500;
+            }
+            else //11以降　いつでもお茶を渡せる。高得点でレコード取得。
+            {
+                GameMgr.talk_number = 501;
+            }
             shop_status = 6; //クエストを押したときのフラグ
             shop_scene = 6;
 
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
-            GameMgr.talk_number = 500;
+            
             GameMgr.utage_charaHyouji_flag = true;
 
             //アイテムを使用するときのフラグ

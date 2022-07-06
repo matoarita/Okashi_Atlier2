@@ -25,6 +25,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private PlayerData playerData;
     private PlayerData systemData;
 
+    private GirlEat_Judge girlEat_judge;
     private Compound_Keisan compound_keisan;
     private BGAcceTrigger BGAccetrigger;
     private Debug_Panel debug_panel; //画面更新用のメソッドを借りる。
@@ -69,6 +70,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        //GirlEatJudgeを取得
+        girlEat_judge = GirlEat_Judge.Instance.GetComponent<GirlEat_Judge>();
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
@@ -991,6 +995,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     {
         PlayerStatus.Setup_PlayerStatus(); //プレイヤーステータスの初期化
         girl1_status.ResetDefaultStatus(); //女の子ステータスの初期化
+        girlEat_judge.ResetLoadStatus(); //女の子ステータスの初期化
         GameMgr.ResetGameDefaultStatus(); //ゲームステータスの初期化　イベントフラグ関係は、ここで初期化
 
         //アイテムデータの初期化

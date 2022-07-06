@@ -112,9 +112,14 @@ public class RuntimeInitializer : MonoBehaviour
         expcontroller_init.tag = "Exp_Controller";
 
         //Expテーブル
-        var exp_table__init = new GameObject("ExpTable", typeof(ExpTable));
-        GameObject.DontDestroyOnLoad(exp_table__init);
-        exp_table__init.tag = "ExpTable";
+        var exp_table_init = new GameObject("ExpTable", typeof(ExpTable));
+        GameObject.DontDestroyOnLoad(exp_table_init);
+        exp_table_init.tag = "ExpTable";
+
+        //ヒカリお菓子Expテーブル
+        var hikariOkashiExpTable_init = new GameObject("HikariOkashiExpTable", typeof(HikariOkashiExpTable));
+        GameObject.DontDestroyOnLoad(hikariOkashiExpTable_init);
+        hikariOkashiExpTable_init.tag = "HikariOkashiExpTable";
 
         //スロット名前変更
         var slotchangename_init = new GameObject("SlotChangeName", typeof(SlotChangeName));

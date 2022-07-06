@@ -140,7 +140,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private bool special_animstart_endflag;
     private int special_animstart_status;
     private float special_timeOut;
-    public bool special_animatFirst;
+    public bool special_animatFirst;   
 
     private int i, j, count;
     private int index;
@@ -472,7 +472,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         Walk_Start = true; //歩きフラグをON
 
-        girl_Mazui_flag = false;
+        girl_Mazui_flag = false;        
 
 
         //ステージごとに、女の子が食べたいお菓子のセットを初期化
@@ -1534,7 +1534,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                     {
                                         if (random >= 0 && random < 25)
                                         {
-                                            FaceMotionPlay(1022);
+                                            random = Random.Range(0, 2);
+                                            switch (random)
+                                            {
+                                                case 0:
+
+                                                    FaceMotionPlay(1022);
+                                                    break;
+
+                                                case 1:
+
+                                                    FaceMotionPlay(1025);
+                                                    break;
+                                            }
                                         }
                                         else
                                         {
@@ -3070,7 +3082,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 else
                 {
-                    FaceMotionPlay(1022);
+                    random = Random.Range(0, 2);
+                    switch (random)
+                    {
+                        case 0:
+
+                            FaceMotionPlay(1022);
+                            break;
+
+                        case 1:
+
+                            FaceMotionPlay(1025);
+                            break;
+                    }
                     _touchface_comment_lib.Add("えへへ♪　にいちゃんのお菓子、おいしくなぁれ～♪");
                     _touchface_comment_lib.Add("ぐるこん♪　ぐ～るこん♪");
                 }
@@ -3108,7 +3132,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 else
                 {
-                    FaceMotionPlay(1022);
+                    random = Random.Range(0, 2);
+                    switch (random)
+                    {
+                        case 0:
+
+                            FaceMotionPlay(1022);
+                            break;
+
+                        case 1:
+
+                            FaceMotionPlay(1025);
+                            break;
+                    }
+                    
                     _touchface_comment_lib.Add("えへへ♪　にいちゃんのお菓子、作りちゅう～♪");
                     _touchface_comment_lib.Add("おいしくなれ～♪　おいしくなれ～♪");
                 }

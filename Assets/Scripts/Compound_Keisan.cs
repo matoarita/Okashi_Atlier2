@@ -238,7 +238,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int mstatus;
 
     private float hikari_okashilv_hosei;
-
+    private float hikari_okashilv_paramup;
 
     // Use this for initialization
     void Start() {
@@ -265,7 +265,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
 
         //バフ効果計算メソッドの取得
-        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();        
 
         //トッピングスロットの配列
         _basetp = new string[database.items[0].toppingtype.Length];
@@ -738,9 +738,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basehardness = 0;
                     _basejiggly = 0;
                     _basechewy = 0;
+                    _basejuice = 0;
                     _basepowdery = 0;
                     _baseoily = 0;
-                    _basewatery = 0;
+                    _basewatery = 0;                   
                     _basebeauty = database.items[_id].Beauty;
                     _basegirl1_like = database.items[_id].girl1_itemLike;
                     _basecost = database.items[_id].cost_price;
@@ -771,6 +772,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basehardness = database.items[_id].Hardness;
                     _basejiggly = database.items[_id].Jiggly;
                     _basechewy = database.items[_id].Chewy;
+                    _basejuice = database.items[_id].Juice;
                     _basepowdery = database.items[_id].Powdery;
                     _baseoily = database.items[_id].Oily;
                     _basewatery = database.items[_id].Watery;
@@ -807,6 +809,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basehardness = 0;
                     _basejiggly = 0;
                     _basechewy = 0;
+                    _basejuice = 0;
                     _basepowdery = 0;
                     _baseoily = 0;
                     _basewatery = 0;
@@ -840,6 +843,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basehardness = database.items_gamedefault[_id].Hardness;
                     _basejiggly = database.items_gamedefault[_id].Jiggly;
                     _basechewy = database.items_gamedefault[_id].Chewy;
+                    _basejuice = database.items_gamedefault[_id].Juice;
                     _basepowdery = database.items_gamedefault[_id].Powdery;
                     _baseoily = database.items_gamedefault[_id].Oily;
                     _basewatery = database.items_gamedefault[_id].Watery;
@@ -887,6 +891,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basehardness = database.items[_id].Hardness;
                     _basejiggly = database.items[_id].Jiggly;
                     _basechewy = database.items[_id].Chewy;
+                    _basejuice = database.items[_id].Juice;
                     _basepowdery = database.items[_id].Powdery;
                     _baseoily = database.items[_id].Oily;
                     _basewatery = database.items[_id].Watery;
@@ -936,6 +941,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basehardness = pitemlist.player_originalitemlist[_id].Hardness;
                     _basejiggly = pitemlist.player_originalitemlist[_id].Jiggly;
                     _basechewy = pitemlist.player_originalitemlist[_id].Chewy;
+                    _basejuice = pitemlist.player_originalitemlist[_id].Juice;
                     _basepowdery = pitemlist.player_originalitemlist[_id].Powdery;
                     _baseoily = pitemlist.player_originalitemlist[_id].Oily;
                     _basewatery = pitemlist.player_originalitemlist[_id].Watery;
@@ -1028,6 +1034,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             //新しく作ったアイテムを予測表示用のアイテムリストに追加。
             pitemlist.addYosokuOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
             _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basebeauty,
+            _basejuice,
             _basegirl1_like, _basecost, _basesell,
             _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
             result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
@@ -1132,6 +1139,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             //新しく作ったアイテムをオリジナルアイテムリストに追加。
             pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
             _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, _basebeauty,
+            _basejuice,
             _basegirl1_like, _basecost, _basesell,
             _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
             result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
@@ -1589,6 +1597,40 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_hosei);
                 _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_hosei);
                 _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_hosei);
+                _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_hosei);
+            }
+        }
+
+        
+        if (mstatus != 99)
+        {
+            //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合、ヒカリが作る場合共通。
+            if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+            {
+                if (_base_itemType == "Okashi")
+                {
+                    //作るお菓子のサブタイプをもとに、ヒカリのお菓子レベルを算出し、補正値をだす。
+                    hikari_okashilv_paramup = bufpower_keisan.Buf_HikariOkashiLV_HoseiParamUp(_base_itemType_sub);
+
+                    _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_paramup);
+                    _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_paramup);
+                    _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_paramup);
+                    _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_paramup);
+                    _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_paramup);
+                }
+            }
+
+            //⑧ハートボーナス　HLV=99のときは、お菓子の味が1.3倍に上昇。
+            if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+            {
+                if (PlayerStatus.girl1_Love_lv >= 99)
+                {
+                    _basecrispy = (int)(1.3f * _basecrispy);
+                    _basefluffy = (int)(1.3f * _basefluffy);
+                    _basesmooth = (int)(1.3f * _basesmooth);
+                    _basehardness = (int)(1.3f * _basehardness);
+                    _basejuice = (int)(1.3f * _basejuice);
+                }
             }
         }
     }
