@@ -2079,8 +2079,16 @@ public class Utage_scenario : MonoBehaviour
             //判定
             if (!GameMgr.NPC_DislikeFlag)
             {
-                engine.Param.TrySetParameter("EventJudge_num", 100);
-                Debug.Log("モタリケ　お菓子が違ってた");
+                if (itemName == "banana_milk") //バナナミルクをあげると、特殊メッセージ
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 110);
+                    Debug.Log("モタリケ　バナナミルクあげた");
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 100);
+                    Debug.Log("モタリケ　お菓子が違ってた");
+                }
 
             }
             else
@@ -3207,6 +3215,7 @@ public class Utage_scenario : MonoBehaviour
             yusho_flag = false;
             engine.Param.TrySetParameter("contest_ranking_num", 0);
         }
+        GameMgr.Contest_yusho_flag = yusho_flag;
 
 
         //特殊な称号のチェック 後ろのほうが優先順位が高い。
@@ -3608,7 +3617,7 @@ public class Utage_scenario : MonoBehaviour
     //特殊な称号のチェック　後ろほど優先順位が高い
     void SpecialTitleCheck()
     {
-        //ゴールドマスター　ねこクッキーで、優勝する。
+        //ゴールドマスター　金のねこクッキーで、優勝する。
 
         if (GameMgr.contest_okashiName == "gold_neko_cookie")
         {
@@ -3649,7 +3658,7 @@ public class Utage_scenario : MonoBehaviour
         {
             if (GameMgr.contest_okashiName == "princess_tota")
             {
-                if (GameMgr.contest_TotalScore >= 130)
+                if (GameMgr.contest_TotalScore >= 150)
                 {
                     GameMgr.special_shogo_flag = true;
                     GameMgr.special_shogo_num = 2;
@@ -3657,14 +3666,14 @@ public class Utage_scenario : MonoBehaviour
             }
         }
         //ブルーヴェール　ブルーハワイアイス・ブルーハーブティー・レーブドゥヴィオレッタ・ジェリーボーイ・ブルーベリーシュー・ブラックベリーシュー・鉱石マフィン
-        //のどれかでコンテストスコア130以上
+        //のどれかでコンテストスコア150以上　かつ　アントワネット王妃の見た目基準から50以上良い見た目にすること
         for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
         {
             if (GameMgr.contest_okashiName == "bluehawai_ice_cream" || GameMgr.contest_okashiName == "sumire_suger" || GameMgr.contest_okashiName == "violatte_tea" ||
                 GameMgr.contest_okashiName == "blueberry_creampuff" || GameMgr.contest_okashiName == "blackberry_creampuff" || GameMgr.contest_okashiName == "slimejelly" ||
                 GameMgr.contest_okashiName == "maffin_jewery")
             {
-                if (GameMgr.contest_TotalScore >= 130)
+                if (GameMgr.contest_TotalScore >= 150 && GameMgr.contest_Beauty_Score[1] > 50)
                 {
                     GameMgr.special_shogo_flag = true;
                     GameMgr.special_shogo_num = 3;

@@ -334,9 +334,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_Okashi_lastbitter_param = GameMgr.Okashi_lastbitter_param, //さっき食べたお菓子のパラメータ
             save_Okashi_quest_bunki_on = GameMgr.Okashi_quest_bunki_on, //条件分岐しているか否かのフラグ
             save_high_score_flag = GameMgr.high_score_flag, //高得点でクリアしたというフラグ。
+            save_Okashi_lasttotalscore = GameMgr.Okashi_last_totalscore, //前回食べたお菓子の点数。メモ保存用。
 
-            save_Okashi_last_score = GameMgr.Okashi_last_score,
-            save_Okashi_last_heart = GameMgr.Okashi_last_heart,
+            save_Okashi_toplast_score = GameMgr.Okashi_toplast_score,
+            save_Okashi_toplast_heart = GameMgr.Okashi_toplast_heart,
 
             save_NowEatOkashiName = GameMgr.NowEatOkashiName, //今食べたいお菓子の名前表示
             save_NowEatOkashiID = GameMgr.NowEatOkashiID, //今食べたいお菓子ID表示
@@ -647,9 +648,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Okashi_lastbitter_param = playerData.save_Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
         GameMgr.Okashi_quest_bunki_on = playerData.save_Okashi_quest_bunki_on; //条件分岐しているか否かのフラグ
         GameMgr.high_score_flag = playerData.save_high_score_flag; //高得点でクリアしたというフラグ。
+        GameMgr.Okashi_last_totalscore = playerData.save_Okashi_lasttotalscore; //前回食べたお菓子の点数。メモ保存用。
 
-        GameMgr.Okashi_last_score = playerData.save_Okashi_last_score;
-        GameMgr.Okashi_last_heart = playerData.save_Okashi_last_heart;
+        GameMgr.Okashi_toplast_score = playerData.save_Okashi_toplast_score;
+        GameMgr.Okashi_toplast_heart = playerData.save_Okashi_toplast_heart;
 
         if (playerData.save_NowEatOkashiName != null)
         {
@@ -1165,6 +1167,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //オートセーブフラグ
             save_Autosave_ON = GameMgr.AUTOSAVE_ON,
 
+            //調合シーンでBGM切り替えるフラグ
+            save_CompoBGMChange_ON = GameMgr.CompoBGMCHANGE_ON,
+
             save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
             save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
 
@@ -1259,6 +1264,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //オートセーブフラグ
             GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
+
+            //調合シーンでBGM切り替えるフラグ
+            GameMgr.CompoBGMCHANGE_ON = systemData.save_CompoBGMChange_ON;
 
             //PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
             if (systemData.save_player_girl_maxlifepoint_system != 0) //ver途中から引継ぎするように仕様変更。なので例外処理をいれる。

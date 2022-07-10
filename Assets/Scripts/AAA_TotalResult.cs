@@ -617,42 +617,47 @@ public class AAA_TotalResult : MonoBehaviour {
         }
         else
         {
-            if (total_score < 400)
-            {
-                _rank = "D";
-                player_shogo = GameMgr.SearchTitleCollectionNameString("title1");
-                GameMgr.SetTitleCollectionFlag("title1", true);
-            }
-            else if (total_score >= 400 && total_score < 800)
-            {
-                _rank = "C";
-                player_shogo = GameMgr.SearchTitleCollectionNameString("title3");
-                GameMgr.SetTitleCollectionFlag("title3", true);
-            }
-            else if (total_score >= 800 && total_score < 1200)
-            {
-                _rank = "B";
-                player_shogo = GameMgr.SearchTitleCollectionNameString("title4");
-                GameMgr.SetTitleCollectionFlag("title4", true);
-            }
-            else if (total_score >= 1200 && total_score < 1500)
-            {
-                _rank = "A";
-                player_shogo = GameMgr.SearchTitleCollectionNameString("title5");
-                GameMgr.SetTitleCollectionFlag("title5", true);
-            }
-            else if (total_score >= 1500 && total_score < 2000)
-            {
-                _rank = "S";
-                player_shogo = GameMgr.SearchTitleCollectionNameString("title6");
-                GameMgr.SetTitleCollectionFlag("title6", true);
-            }
-            else if (total_score >= 2000)
+            //ハートが7777以上　かつ　レシピ75%以上達成　かつ　コンテストで優勝
+            if (total_score >= 7777 && GameMgr.game_Recipi_archivement_rate >= 75.0f && GameMgr.Contest_yusho_flag)
             {
                 _rank = "SS";
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title7");
                 GameMgr.SetTitleCollectionFlag("title7", true);
             }
+            else
+            {
+                if (total_score < 400)
+                {
+                    _rank = "D";
+                    player_shogo = GameMgr.SearchTitleCollectionNameString("title1");
+                    GameMgr.SetTitleCollectionFlag("title1", true);
+                }
+                else if (total_score >= 400 && total_score < 800)
+                {
+                    _rank = "C";
+                    player_shogo = GameMgr.SearchTitleCollectionNameString("title3");
+                    GameMgr.SetTitleCollectionFlag("title3", true);
+                }
+                else if (total_score >= 800 && total_score < 1500)
+                {
+                    _rank = "B";
+                    player_shogo = GameMgr.SearchTitleCollectionNameString("title4");
+                    GameMgr.SetTitleCollectionFlag("title4", true);
+                }
+                else if (total_score >= 1500 && total_score < 2500)
+                {
+                    _rank = "A";
+                    player_shogo = GameMgr.SearchTitleCollectionNameString("title5");
+                    GameMgr.SetTitleCollectionFlag("title5", true);
+                }
+                else if (total_score >= 2500)
+                {
+                    _rank = "S";
+                    player_shogo = GameMgr.SearchTitleCollectionNameString("title6");
+                    GameMgr.SetTitleCollectionFlag("title6", true);
+                }
+            }
+            
         }
         
 

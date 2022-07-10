@@ -177,9 +177,10 @@ public class PlayerData
     public int save_Okashi_lastbitter_param;
     public int save_Okashi_quest_bunki_on; //条件分岐しているか否かのフラグ
     public bool save_high_score_flag; //高得点でクリアしたというフラグ。
+    public int save_Okashi_lasttotalscore; //前回食べたお菓子の点数。メモ保存用。
 
-    public int save_Okashi_last_score; //前回あげた最高得点
-    public int save_Okashi_last_heart; //前回あげたときの最高ハート取得量
+    public int save_Okashi_toplast_score; //前回あげた最高得点
+    public int save_Okashi_toplast_heart; //前回あげたときの最高ハート取得量
 
     public string save_NowEatOkashiName; //今食べたいお菓子の名前表示
     public int save_NowEatOkashiID; //今食べたいお菓子ID表示
@@ -303,6 +304,9 @@ public class PlayerData
 
     //オートセーブフラグ
     public bool save_Autosave_ON = false;
+
+    //調合シーンでBGM切り替えるフラグ
+    public bool save_CompoBGMChange_ON = true;
 
     //エンディングカウント
     public int save_ending_count;

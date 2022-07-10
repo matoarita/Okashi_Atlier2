@@ -156,7 +156,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
         {
             case 0:
 
-                LVKeisanMethod(Type_Num, _getExp);
+                LVKeisanMethod(Type_Num, _status, _getExp);
                 break;
 
             case 1:
@@ -166,9 +166,11 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
         }
     }
 
-    void LVKeisanMethod(int _status, int _getExp)
+    void LVKeisanMethod(int Type_num, int _status, int _getExp)
     {
-        switch(_status)
+        _getexp = _getExp;
+
+        switch (Type_num)
         {
             case 0: //生地
 

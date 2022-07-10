@@ -366,17 +366,19 @@ public class MainListController2 : MonoBehaviour
             //村長の家押した　宴の処理へ
             GameMgr.hiroba_event_placeNum = 2; //
 
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            if (GameMgr.Story_Mode == 0)
             {
-                case 40: //ドーナツイベント時
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+                    case 40: //ドーナツイベント時
 
-                    /*if (!GameMgr.hiroba_event_end[0] || !GameMgr.hiroba_event_end[3] || !GameMgr.hiroba_event_end[5])
-                    {
-                        GameMgr.hiroba_event_ID = 2040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else //最初アマクサにあったら、すぐイベントが進む。
-                    {*/
+                        /*if (!GameMgr.hiroba_event_end[0] || !GameMgr.hiroba_event_end[3] || !GameMgr.hiroba_event_end[5])
+                        {
+                            GameMgr.hiroba_event_ID = 2040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
+                        }
+                        else //最初アマクサにあったら、すぐイベントが進む。
+                        {*/
                         if (!GameMgr.hiroba_event_end[1])
                         {
                             sceneBGM.FadeOutBGM();
@@ -387,19 +389,26 @@ public class MainListController2 : MonoBehaviour
                         {
                             GameMgr.hiroba_event_ID = 2046;
                         }
-                        
-                    //}
-                    break;
 
-                case 50:
+                        //}
+                        break;
 
-                    GameMgr.hiroba_event_ID = 2050;
-                    break;
+                    case 50:
 
-                default:
+                        GameMgr.hiroba_event_ID = 2050;
+                        break;
 
-                    GameMgr.hiroba_event_ID = 2000;
-                    break;
+                    default:
+
+                        GameMgr.hiroba_event_ID = 2000;
+                        break;
+                }
+            }
+            else
+            {
+                sceneBGM.FadeOutBGM();
+                Hiroba_main2.bgm_change_flag = true;
+                GameMgr.hiroba_event_ID = 12000;
             }
 
             Hiroba_main2.EventReadingStart();
@@ -491,52 +500,72 @@ public class MainListController2 : MonoBehaviour
             //お花屋さん押した　宴の処理へ
             GameMgr.hiroba_event_placeNum = 4; //
 
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            if (GameMgr.Story_Mode == 0)
             {
-                case 40: //ドーナツイベント時
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+                    case 40: //ドーナツイベント時
 
-                    if (!GameMgr.hiroba_event_end[6])
-                    {
-                        if (!GameMgr.hiroba_event_end[3])
+                        if (!GameMgr.hiroba_event_end[6])
                         {
-                            GameMgr.hiroba_event_ID = 4040;
+                            if (!GameMgr.hiroba_event_end[3])
+                            {
+                                GameMgr.hiroba_event_ID = 4040;
+                            }
+                            else
+                            {
+                                GameMgr.hiroba_event_ID = 4041;
+                            }
+                        }
+                        else //油の話をききにくる。
+                        {
+                            if (!GameMgr.hiroba_event_end[7])
+                            {
+                                GameMgr.hiroba_event_ID = 4042;
+                            }
+                            else
+                            {
+                                GameMgr.hiroba_event_ID = 4043;
+                            }
+                        }
+                        break;
+
+                    case 50:
+
+                        if (!GameMgr.hiroba_event_end[12])
+                        {
+                            GameMgr.hiroba_event_ID = 4050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                         }
                         else
                         {
-                            GameMgr.hiroba_event_ID = 4041;
+                            GameMgr.hiroba_event_ID = 4051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                         }
-                    }
-                    else //油の話をききにくる。
-                    {
-                        if(!GameMgr.hiroba_event_end[7])
-                        {
-                            GameMgr.hiroba_event_ID = 4042;
-                        }
-                        else
-                        {
-                            GameMgr.hiroba_event_ID = 4043;
-                        }
-                    }
-                    break;
 
-                case 50:
+                        break;
 
-                    if (!GameMgr.hiroba_event_end[12])
-                    {
-                        GameMgr.hiroba_event_ID = 4050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else
-                    {
-                        GameMgr.hiroba_event_ID = 4051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
+                    default:
 
-                    break;
+                        GameMgr.hiroba_event_ID = 4000;
+                        break;
+                }
+            }
+            else
+            {
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+                    case 50:
 
-                default:
+                        GameMgr.hiroba_event_ID = 14050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
 
-                    GameMgr.hiroba_event_ID = 4000;
-                    break;
+                        break;
+
+                    default:
+
+                        GameMgr.hiroba_event_ID = 14000;
+                        break;
+                }
             }
 
             Hiroba_main2.EventReadingStart();
@@ -634,27 +663,36 @@ public class MainListController2 : MonoBehaviour
             //井戸端の奥さん押した　宴の処理へ
             GameMgr.hiroba_event_placeNum = 6; //
 
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            if (GameMgr.Story_Mode == 0)
             {
-                case 40: //ドーナツイベント時
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+                    case 40: //ドーナツイベント時
 
-                    //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
-                    rndnum = Random.Range(0, 5);
-                    GameMgr.hiroba_event_ID = 6040 + rndnum;
-                    break;
+                        //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
+                        rndnum = Random.Range(0, 5);
+                        GameMgr.hiroba_event_ID = 6040 + rndnum;
+                        break;
 
-                case 50: //
+                    case 50: //
 
-                    //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
-                    rndnum = Random.Range(0, 5);
-                    GameMgr.hiroba_event_ID = 6050;
-                    break;
+                        //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。
+                        rndnum = Random.Range(0, 5);
+                        GameMgr.hiroba_event_ID = 6050;
+                        break;
 
-                default:
+                    default:
 
-                    GameMgr.hiroba_event_ID = 6000;
-                    break;
+                        GameMgr.hiroba_event_ID = 6000;
+                        break;
+                }
+            }
+            else
+            {
+                //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。
+                rndnum = Random.Range(0, 6);
+                GameMgr.hiroba_event_ID = 16000 + rndnum;
             }
            
             Hiroba_main2.EventReadingStart();

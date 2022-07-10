@@ -132,7 +132,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     private int _tempGirllove;
     private int _tempResultGirllove;
-    private int _lovecounter;
+    private float _lovecounter;
     public int star_Count;
     private int emeraldonguri_status;
 
@@ -372,6 +372,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     private int _temp_count;
     private float _buf_moneyup;
+    private float _up_deg;
+    private bool hlv_check;
 
     // Use this for initialization
     void Start() {
@@ -780,7 +782,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     timeOutHeart = 0.05f;
 
                     _lovecounter--;
-                    Slider_Koushin(_lovecounter);
+                    Slider_Koushin((int)(_lovecounter));
 
                     girl_param.color = new Color(105f / 255f, 168f / 255f, 255f / 255f); //青文字(105f / 255f, 168f / 255f, 255f / 255f)
                     girl_param.text = _lovecounter.ToString();
@@ -1619,7 +1621,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         }
                     }
                 }
-                
+
+                //食べたお菓子のスコアを保存する。
+                GameMgr.Okashi_last_totalscore = total_score;
+
                 break;
 
             case 1:
@@ -2829,12 +2834,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         _listHeart.Clear();
         _listHeartAtkeffect.Clear();
+        _up_deg = 1f;
 
         //音を鳴らす
         sc.PlaySe(5);
 
         //ハート個数決定
         heart_count = _Getlove_param;
+
+        //処理落ちするため、数が多くなりすぎないように調整。
+        if(heart_count >= 300)
+        {
+            heart_count = 300;
+            _up_deg = _Getlove_param / 300f;
+        }
 
         //ハートのインスタンスを、獲得好感度分だけ生成する。
         for (i = 0; i < heart_count; i++)
@@ -2904,7 +2917,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else { }
     }
 
-    //スライダバリューを正確に更新。現在の好感度数値をいれればOK
+    //スライダバリューを正確に更新。現在の好感度数値をいれればOK。下限もレベルテーブルの値が入っている。5000~5100など。
     void Slider_Koushin(int cullent_value)
     {
         _slider.value = cullent_value;
@@ -2973,6 +2986,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //テキストも更新
         girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
 
+        //念のため、スライダを再度更新
+        Slider_Koushin(PlayerStatus.girl1_Love_exp); 
+
         //リセット
         Getlove_exp = 0;
 
@@ -2992,24 +3008,33 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
+            hlv_check = false;
+            _lovecounter += _up_deg; //love_counter自体は、floatで正確な上がり幅を計算し、表示用のカウンタでは、intにむりやりなおす。レベルチェックもlove_counterを基準に計算。
+
             //スライダにも反映
-            _slider.value++;
-            _lovecounter++;
-            girl_param.text = _lovecounter.ToString();
+            _slider.value = (int)_lovecounter;           
+            girl_param.text = ((int)_lovecounter).ToString();
 
             //現在のスライダ上限に好感度が達したら、次のレベルへ。
-            if (_slider.value >= _slider.maxValue)
+            while (!hlv_check)
             {
-                PlayerStatus.girl1_Love_lv++;
+                if (_lovecounter >= _slider.maxValue)
+                {
+                    PlayerStatus.girl1_Love_lv++;
 
-                //Maxバリューを再設定
-                Love_Slider_Setting();
+                    //Maxバリューを再設定
+                    Love_Slider_Setting();
 
-                //分かりやすくするように、レベルアップ時のパネルも表示
-                _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+                    //分かりやすくするように、レベルアップ時のパネルも表示
+                    _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
 
-                //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
-                exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、GirlEatJudgeから読むフラグ
+                    //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
+                    exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、GirlEatJudgeから読むフラグ
+                }
+                else
+                {
+                    hlv_check = true;
+                }
             }
         }
 
@@ -3286,11 +3311,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (GameMgr.GirlLoveEvent_num == 50 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
             {
-                //GameMgr.okashiafter_ID = girl1_status.OkashiQuest_ID;
-
-                //お菓子ごとにさらに感想だしてもよいかも。
-                GameMgr.okashiafter_ID = _baseSetjudge_num;
-                GameMgr.okashiafter_status = 1;
+                OkashiAfterKansou_Setting();
             }
             else
             {
@@ -3318,11 +3339,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
                 else //クエスト以外のお菓子をあげた場合、お菓子ごとの感想などを表示する？
                 {
-                    
-                    //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
-                    GameMgr.okashiafter_ID = _baseSetjudge_num;
-                    GameMgr.okashiafter_status = 1;
-
+                    OkashiAfterKansou_Setting();                   
                 }
             }
         }
@@ -3540,6 +3557,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         ResultOFF();
     } 
 
+    void OkashiAfterKansou_Setting()
+    {
+        //_baseSetjudge_num  ItemDBに登録された、お菓子ごとの固有の判定ナンバー
+        GameMgr.okashiafter_ID = _baseSetjudge_num;
+        GameMgr.okashiafter_status = 1;
+
+        //特殊条件でセリフが変わる。
+        if (_basename == "strange_tea" && total_score >= GameMgr.low_score) //へんな草ティーがおいしく作れた
+        {
+            GameMgr.okashiafter_ID = 5000;
+        }
+    }
+
 
     IEnumerator GirlHeartUpYorokobiFace()
     {
@@ -3730,8 +3760,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.special_animatFirst = false;
 
         //前回最高得点を０に戻す。
-        GameMgr.Okashi_last_score = 0;
-        GameMgr.Okashi_last_heart = 0;
+        GameMgr.Okashi_toplast_score = 0;
+        GameMgr.Okashi_toplast_heart = 0;
 
         //次のお菓子クエストがあるかどうかをチェック。特定の条件を満たしていれば、ルートが分岐する。
         if (GameMgr.Okashi_quest_bunki_on == 0)

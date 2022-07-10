@@ -41,7 +41,6 @@ public class Compound_Main : MonoBehaviour
     private Map_Ambience map_ambience;
     public bool bgm_change_flag;
     public bool bgm_change_flag2;
-    private bool bgm_changeuse_ON = true; //お菓子手帳のシーンで、BGMを切り替えるかどうか。
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -152,6 +151,7 @@ public class Compound_Main : MonoBehaviour
     private ParticleSystem.EmissionModule particleEm_Light3;
     private ParticleSystem.EmissionModule particleEm_Light4;
     private ParticleSystem.EmissionModule particleEm_Light5;
+    private ParticleSystem.EmissionModule particleEm_Light6;
 
     //Live2Dモデルの取得
     private GameObject _model_obj;
@@ -591,6 +591,7 @@ public class Compound_Main : MonoBehaviour
         particleEm_Light3 = BG_effectpanel.transform.Find("BG_Particle_Light_Kira").GetComponent<ParticleSystem>().emission;
         particleEm_Light4 = BG_effectpanel.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
         particleEm_Light5 = BG_effectpanel.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
+        particleEm_Light6 = BG_effectpanel.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
 
         Change_BGimage();
         //メモボタン
@@ -1500,7 +1501,7 @@ public class Compound_Main : MonoBehaviour
                        
                         sceneBGM.OnMainBGM();
                     }
-                    if (bgm_changeuse_ON)
+                    if (GameMgr.CompoBGMCHANGE_ON)
                     {
                         if (bgm_change_flag2 == true)
                         {
@@ -1598,18 +1599,6 @@ public class Compound_Main : MonoBehaviour
                 //ヒカリちゃんを表示する
                 ReDrawLive2DPos_Compound();
 
-                //BGMを変更
-                if (!GameMgr.tutorial_ON)
-                {
-                    if (bgm_changeuse_ON)
-                    {
-                        if (bgm_change_flag2 != true)
-                        {
-                            sceneBGM.OnCompoundBGM();
-                            bgm_change_flag2 = true;
-                        }
-                    }
-                }
                 map_ambience.Mute();
 
                 //腹減りカウント一時停止
@@ -1648,18 +1637,6 @@ public class Compound_Main : MonoBehaviour
                 //ヒカリちゃんを表示する
                 ReDrawLive2DPos_Compound();
 
-                //BGMを変更
-                /*if (!GameMgr.tutorial_ON)
-                {                                     
-                    if (bgm_changeuse_ON) //調合時にBGMを切り替えるかどうか。
-                    {
-                        if (bgm_change_flag2 != true)
-                        {
-                            sceneBGM.OnCompoundBGM();
-                            bgm_change_flag2 = true;
-                        }
-                    }
-                }*/
                 map_ambience.Mute();
 
                 //腹減りカウント一時停止
@@ -1706,18 +1683,6 @@ public class Compound_Main : MonoBehaviour
                 //ヒカリちゃんを表示する
                 ReDrawLive2DPos_Compound();
 
-                //BGMを変更
-                /*if (!GameMgr.tutorial_ON)
-                {
-                    if (bgm_changeuse_ON)
-                    {
-                        if (bgm_change_flag2 != true)
-                        {
-                            sceneBGM.OnCompoundBGM();
-                            bgm_change_flag2 = true;
-                        }
-                    }
-                }*/
                 map_ambience.Mute();
 
                 //腹減りカウント一時停止
@@ -1773,7 +1738,7 @@ public class Compound_Main : MonoBehaviour
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
                 {
-                    if (bgm_changeuse_ON)
+                    if (GameMgr.CompoBGMCHANGE_ON)
                     {
                         if (bgm_change_flag2 != true)
                         {
@@ -1908,18 +1873,6 @@ public class Compound_Main : MonoBehaviour
                 //ヒカリちゃんを表示する
                 ReDrawLive2DPos_Compound();
 
-                //BGMを変更
-                /*if (!GameMgr.tutorial_ON)
-                {
-                    if (bgm_changeuse_ON)
-                    {
-                        if (bgm_change_flag2 != true)
-                        {
-                            sceneBGM.OnCompoundBGM();
-                            bgm_change_flag2 = true;
-                        }
-                    }
-                }*/
                 map_ambience.Mute();
 
                 //腹減りカウント一時停止
@@ -4127,7 +4080,8 @@ public class Compound_Main : MonoBehaviour
                 DrawALLOFFBG();
                 bgweather_image_panel.transform.Find("BG_windowout_noon").gameObject.SetActive(true);
                 BG_Imagepanel.transform.Find("BG_sprite_sunny").gameObject.SetActive(true);
-                BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+                //BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light_twilight").gameObject.SetActive(true);
                 BG_effectpanel.transform.Find("BG_Particle_Light_Ball").gameObject.SetActive(true);
                 BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
             }
@@ -4152,6 +4106,7 @@ public class Compound_Main : MonoBehaviour
             BG_effectpanel.transform.Find("BG_Particle_Light_Kira").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Morning").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Night").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_twilight").gameObject.SetActive(true);
 
             //時間をチェックし、背景を自動で変更。
             time_controller.Weather_ChangeNow(0.0f);
@@ -4191,6 +4146,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 4:
@@ -4199,11 +4155,12 @@ public class Compound_Main : MonoBehaviour
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
 
                 t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 5:
@@ -4214,11 +4171,12 @@ public class Compound_Main : MonoBehaviour
 
                 t4 = bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 t5 = BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(5);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 break;
 
             case 6:
@@ -4236,6 +4194,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(200);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
         }
     }
@@ -4390,6 +4349,7 @@ public class Compound_Main : MonoBehaviour
         particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
         particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+        particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
     }
 
     //即座に朝背景に変更。Utageの寝るイベントから呼び出し

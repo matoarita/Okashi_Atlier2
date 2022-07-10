@@ -1101,7 +1101,7 @@ public class GetMaterial : MonoBehaviour
 
             case 1:
 
-                _text.text = "いちごがたくさん..。しあわせいっぱい～♪（妹は、大きいいちごをつまみ食いしている。）";
+                _text.text = "いちごがたくさん..。しあわせいっぱい～♪" + "\n" + "（妹は、大きいいちごをつまみ食いしている。）";
                 break;
 
             case 2:

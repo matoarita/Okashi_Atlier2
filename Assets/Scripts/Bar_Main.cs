@@ -338,7 +338,6 @@ public class Bar_Main : MonoBehaviour
                         break;
 
                     case 4: //うわさ話聞き中
-
                         break;
 
                     case 100: //退避

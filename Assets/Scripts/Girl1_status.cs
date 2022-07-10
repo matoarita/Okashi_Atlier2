@@ -2744,9 +2744,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     hukidashi_number = 60;
                     break;
 
+                case 9:
+
+                    random = Random.Range(0, 14);
+                    hukidashi_number = 60;
+                    break;
+
                 default: //それ以上
 
-                    random = Random.Range(0, 13); 
+                    random = Random.Range(0, 14); 
                     hukidashi_number = 60;
                     break;
             }
@@ -2887,6 +2893,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 case 12:
 
                     IdleMotionHukidashiSetting(70); //雑談
+                    break;
+
+                case 13:
+
+                    IdleMotionHukidashiSetting(80); //雑談
                     break;
 
                 default:
@@ -3156,6 +3167,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 random = Random.Range(0, 2); //0~4
 
                 zatudan(random);               
+
+                break;
+
+            case 80:
+
+                random = Random.Range(0, 3); //0~4
+
+                zatudan(random);
 
                 break;
 
@@ -3432,19 +3451,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1: //雑談をする2 癒し
 
-                FaceMotionPlay(2001); //こっちをむいて口パク
-                _touchface_comment_lib.Add("しっぱいは、あとでいいお話のネタになるんだよ。にいちゃん！");
+                FaceMotionPlay(2001); //はなうた
+                _touchface_comment_lib.Add("しっぱいは、せいこうの母なんだよ～！にいちゃん！");
                 _touchface_comment_lib.Add("にいちゃんといつまでも一緒♪　でも、キラキラ宝石は欲しい..。にいちゃん！");
-                _touchface_comment_lib.Add("にいちゃん。つかれたら、ヒカリがよしよししてあげるね。よしよし..。");                
+                _touchface_comment_lib.Add("にいちゃん。つかれたら、ヒカリが膝枕でよしよししてあげるね。よしよし..。");                
                 _touchface_comment_lib.Add("おいもとバターって、相性ぴったり♪　まるで恋人みたいだね。");
                 _touchface_comment_lib.Add("プリンのおねえちゃん。なにしてるかなぁ～？");
                 _touchface_comment_lib.Add("このあいだ、はっぱがキラキラしててきれいだったよ～。にいちゃん！");
+                _touchface_comment_lib.Add("にいちゃん！　このまえ、おさかな焦がしちゃった～。");
                 break;
 
-            //80~から
+            //70~から
 
             case 2:
 
+                FaceMotionPlay(2001); //はなうた
+                _touchface_comment_lib.Add("にいちゃん！今日はのんびり日和～♪　ごろごろ..。");
+                _touchface_comment_lib.Add("あのね！　このあいだ、いしの隙間でやもりさん見つけたよ～！");
+                _touchface_comment_lib.Add("毎朝みるく飲んで、背のばすよ～。おにいちゃん超えてやる！");
+                _touchface_comment_lib.Add("黄金じゃがいも..　いっぱい買う～♪");
                 break;
 
             default:

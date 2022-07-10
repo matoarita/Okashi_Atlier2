@@ -1240,6 +1240,27 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }
+
+                //エクストラモードのみのイベント　ヒカリにあげたお菓子総数150回超えた　レコードゲット
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.player_girl_eatCount >= 150 && GameMgr.GirlLoveSubEvent_stage1[104] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 104;
+                            GameMgr.GirlLoveSubEvent_stage1[104] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            pitemlist.addPlayerItemString("Record_30", 1); //レコード
+                        }
+                    }
+                }
             }
 
 

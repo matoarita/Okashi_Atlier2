@@ -67,7 +67,7 @@ public class TasteHintPanel : MonoBehaviour {
         Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.Okashi_lastslot + "</color>" + GameMgr.Okashi_lastname;
 
         Okashi_lastscore_text = this.transform.Find("HintPanel/OkashiScore").GetComponent<Text>();
-        Okashi_lastscore_text.text = GameMgr.Okashi_totalscore.ToString();
+        Okashi_lastscore_text.text = GameMgr.Okashi_last_totalscore.ToString();
 
         Okashi_lastshokukan_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelA/PanelA_Param/Text").GetComponent<Text>();
         Okashi_lastshokukan_param_text.text = GameMgr.Okashi_lastshokukan_param.ToString();

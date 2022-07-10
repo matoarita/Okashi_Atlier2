@@ -39,6 +39,8 @@ public class OptionPanel : MonoBehaviour {
     private Toggle Autosave_on_toggle;
     private GameObject Autosave_text_obj;
 
+    private Toggle CompoBGMchange_on_toggle;
+
     private GameObject system_panel;
 
     private Compound_Main compound_Main;
@@ -120,6 +122,8 @@ public class OptionPanel : MonoBehaviour {
         Autosave_on_toggle = this.transform.Find("OptionList/Viewport/Content/AutoSaveOn/AutoSaveToggle").GetComponent<Toggle>();
         Autosave_text_obj= this.transform.Find("OptionList/Viewport/Content/AutoSaveOn/autosave_text").gameObject;
 
+        CompoBGMchange_on_toggle = this.transform.Find("OptionList/Viewport/Content/CompoChangeBGMOn/CompoBGMToggle").GetComponent<Toggle>();
+
         GameSpeed_paramtext = this.transform.Find("OptionList/Viewport/Content/GameSpeed/speed_text").GetComponent<Text>();
         music_paramtext = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/music_text").GetComponent<Text>();
         Bgm_dropdown = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Dropdown").GetComponent<Dropdown>();
@@ -143,6 +147,15 @@ public class OptionPanel : MonoBehaviour {
             Autosave_on_toggle.SetIsOnWithoutCallback(false);
             Autosave_text_obj.SetActive(false);
             //sc.PlaySe(2);
+        }
+
+        if(GameMgr.CompoBGMCHANGE_ON)
+        {
+            CompoBGMchange_on_toggle.SetIsOnWithoutCallback(true);
+        }
+        else
+        {
+            CompoBGMchange_on_toggle.SetIsOnWithoutCallback(false);
         }
 
         switch (SceneManager.GetActiveScene().name)
@@ -490,6 +503,12 @@ public class OptionPanel : MonoBehaviour {
             GameMgr.SetBGMCollectionFlag("bgm25", true);
         }
 
+        if (pitemlist.KosuCount("Record_21") >= 1)
+        {
+            //音楽も解禁
+            GameMgr.SetBGMCollectionFlag("bgm30", true);
+        }
+
         //サブイベントなど
         /*if (GameMgr.GirlLoveSubEvent_stage1[60]) //きらきらぽんぽん
         {
@@ -510,6 +529,20 @@ public class OptionPanel : MonoBehaviour {
         {
             GameMgr.AUTOSAVE_ON = false;
             Autosave_text_obj.SetActive(false);
+            sc.PlaySe(81);
+        }
+    }
+
+    public void OnCompoBGMChangeON()
+    {
+        if (CompoBGMchange_on_toggle.isOn)
+        {
+            GameMgr.CompoBGMCHANGE_ON = true;
+            sc.PlaySe(81); //21
+        }
+        else
+        {
+            GameMgr.CompoBGMCHANGE_ON = false;
             sc.PlaySe(81);
         }
     }

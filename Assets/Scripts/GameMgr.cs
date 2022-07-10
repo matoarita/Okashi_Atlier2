@@ -67,6 +67,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //オートセーブのON/OFF
     public static bool AUTOSAVE_ON = false; //シーンからメインに戻ってきたときや、採取から帰ってきたときにオートセーブするかどうか
 
+    //調合シーンでBGM切り替えるかどうかのフラグ
+    public static bool CompoBGMCHANGE_ON = true;
+
     //初期アイテム取得のフラグ
     public static bool gamestart_recipi_get;
 
@@ -178,11 +181,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_lastsour_param; //さっき食べたお菓子のパラメータ
     public static int Okashi_lastbitter_param; //さっき食べたお菓子のパラメータ
     public static int Okashi_totalscore; //女の子にあげたときの点数   
+    public static int Okashi_last_totalscore; //前回食べたお菓子の点数 
     public static int Okashi_quest_bunki_on; //特定お菓子のときの条件分岐
     public static bool high_score_flag; //高得点でクリアしたというフラグ。セーブされる。
 
-    public static int Okashi_last_score; //前回あげた最高得点
-    public static int Okashi_last_heart; //前回あげたときの最高ハート取得量
+    public static int Okashi_toplast_score; //前回あげた最高得点
+    public static int Okashi_toplast_heart; //前回あげたときの最高ハート取得量
 
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
@@ -449,6 +453,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string hikarimakeokashi_itemTypeSub_nameHyouji; //ヒカリのお菓子Expテーブルの各お菓子の名前表記。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_nowlv; //ヒカリのお菓子Expテーブルで、現在のお菓子レベル。スクリプト間の値受け渡し用で一時的。
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
+    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ
 
     private PlayerItemList pitemlist;
 
@@ -761,11 +766,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CGGallery_readflag = false;
 
         Okashi_totalscore = 0;
+        Okashi_last_totalscore = 0;
         Okashi_dislike_status = 0;
         Okashi_OnepointHint_num = 0;
         Okashi_quest_bunki_on = 0;
-        Okashi_last_score = 0;
-        Okashi_last_heart = 0;
+        Okashi_toplast_score = 0;
+        Okashi_toplast_heart = 0;
         high_score_flag = false;
 
         sys_extreme_itemID = 9999;
@@ -1320,8 +1326,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Clear();
 
         bgm_collection_list.Add(new SpecialTitle(001, "bgm1", "デフォルト", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "目覚めのワルツ", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "小妖精たちのお茶会", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "太陽のワルツ", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "フィオーレ・ファティーナ", true, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));      
         bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィのアフタヌーンティー", false, "Items/neko_cookie"));
@@ -1341,6 +1347,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         bgm_collection_list.Add(new SpecialTitle(024, "bgm24", "モタリケ・ファ～ム", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(025, "bgm25", "クエスト日和", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(006, "bgm6", "ずんたかぽんぽん・マーチ！", true, "Items/neko_cookie"));
+        bgm_collection_list.Add(new SpecialTitle(030, "bgm30", "パティシエール・レッスン", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(022, "bgm22", "不思議な3分間クッキング", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(020, "bgm20", "ウェルカム・トゥー・ヒカリのアトリエ", false, "Items/neko_cookie"));
         bgm_collection_list.Add(new SpecialTitle(021, "bgm21", "風と共に", false, "Items/neko_cookie"));
@@ -1379,12 +1386,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Hikariokashi_Exptable.Add(1, 10);
         Hikariokashi_Exptable.Add(2, 20);
-        Hikariokashi_Exptable.Add(3, 30);
-        Hikariokashi_Exptable.Add(4, 40);
-        Hikariokashi_Exptable.Add(5, 50);
-        Hikariokashi_Exptable.Add(6, 100);
-        Hikariokashi_Exptable.Add(7, 250);
-        Hikariokashi_Exptable.Add(8, 500);
+        Hikariokashi_Exptable.Add(3, 50);
+        Hikariokashi_Exptable.Add(4, 100);
+        Hikariokashi_Exptable.Add(5, 250);
+        Hikariokashi_Exptable.Add(6, 500);
+        Hikariokashi_Exptable.Add(7, 1000);
+        Hikariokashi_Exptable.Add(8, 1500);
         Hikariokashi_Exptable.Add(9, 9999);
 
         //少し難しめのお菓子は、レベルも上がりにくくなる。
@@ -1393,11 +1400,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable2.Add(1, 30);
         Hikariokashi_Exptable2.Add(2, 70);
         Hikariokashi_Exptable2.Add(3, 150);
-        Hikariokashi_Exptable2.Add(4, 200);
-        Hikariokashi_Exptable2.Add(5, 300);
-        Hikariokashi_Exptable2.Add(6, 400);
-        Hikariokashi_Exptable2.Add(7, 500);
-        Hikariokashi_Exptable2.Add(8, 750);
+        Hikariokashi_Exptable2.Add(4, 300);
+        Hikariokashi_Exptable2.Add(5, 600);
+        Hikariokashi_Exptable2.Add(6, 900);
+        Hikariokashi_Exptable2.Add(7, 1300);
+        Hikariokashi_Exptable2.Add(8, 1800);
         Hikariokashi_Exptable2.Add(9, 9999);
     }
 }

@@ -441,6 +441,11 @@ public class BGM : MonoBehaviour {
                 _bgm[0].clip = sound33;
                 break;
 
+            case "bgm30":
+
+                _bgm[0].clip = sound2;
+                break;
+
             default:
 
                 Story_BGMSelect();
@@ -473,12 +478,12 @@ public class BGM : MonoBehaviour {
 
     public void OnGetMatStartBGM()
     {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound3;
-        _bgm[1].Play();
+        _bgm[0].Stop();
+        _bgm[0].clip = sound3;
+        _bgm[0].Play();
 
         //fade_status = 3;
-        _mixRate = 1;
+        //_mixRate = 1;
     }
 
     public void OnGetMat_ForestBGM()
