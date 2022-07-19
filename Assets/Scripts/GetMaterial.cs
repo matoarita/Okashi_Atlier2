@@ -863,6 +863,53 @@ public class GetMaterial : MonoBehaviour
         itemrareDropKosuDict.Add(2, 5.0f); //2個
         itemrareDropKosuDict.Add(3, 0.0f); //3個
 
+    }
+
+    void InitializeHikariDicts(int _index)
+    {
+        //通常アイテム       
+        itemInfo.Add(0, matplace_database.matplace_hikariget_lists[_index].dropItem1); //アイテムデータベースに登録されているアイテム名と同じにする
+        itemInfo.Add(1, matplace_database.matplace_hikariget_lists[_index].dropItem2);
+        itemInfo.Add(2, matplace_database.matplace_hikariget_lists[_index].dropItem3);
+        itemInfo.Add(3, matplace_database.matplace_hikariget_lists[_index].dropItem4);
+        itemInfo.Add(4, matplace_database.matplace_hikariget_lists[_index].dropItem5);
+        itemInfo.Add(5, matplace_database.matplace_hikariget_lists[_index].dropItem6);
+        itemInfo.Add(6, matplace_database.matplace_hikariget_lists[_index].dropItem7);
+        itemInfo.Add(7, matplace_database.matplace_hikariget_lists[_index].dropItem8);
+        itemInfo.Add(8, matplace_database.matplace_hikariget_lists[_index].dropItem9);
+        itemInfo.Add(9, matplace_database.matplace_hikariget_lists[_index].dropItem10);
+
+        //こっちは入手確率テーブル
+        itemDropDict.Add(0, matplace_database.matplace_hikariget_lists[_index].dropProb1);
+        itemDropDict.Add(1, matplace_database.matplace_hikariget_lists[_index].dropProb2);
+        itemDropDict.Add(2, matplace_database.matplace_hikariget_lists[_index].dropProb3);
+        itemDropDict.Add(3, matplace_database.matplace_hikariget_lists[_index].dropProb4);
+        itemDropDict.Add(4, matplace_database.matplace_hikariget_lists[_index].dropProb5);
+        itemDropDict.Add(5, matplace_database.matplace_hikariget_lists[_index].dropProb6);
+        itemDropDict.Add(6, matplace_database.matplace_hikariget_lists[_index].dropProb7);
+        itemDropDict.Add(7, matplace_database.matplace_hikariget_lists[_index].dropProb8);
+        itemDropDict.Add(8, matplace_database.matplace_hikariget_lists[_index].dropProb9);
+        itemDropDict.Add(9, matplace_database.matplace_hikariget_lists[_index].dropProb10);
+
+        //個数
+        itemDropKosuDict.Add(1, 75.0f); //1個　75%
+        itemDropKosuDict.Add(2, 25.0f); //2個　25%
+        itemDropKosuDict.Add(3, 0.0f); //3個　15%
+
+
+        //レア関係
+
+        itemrareInfo.Add(0, matplace_database.matplace_hikariget_lists[_index].dropRare1);
+        itemrareInfo.Add(1, matplace_database.matplace_hikariget_lists[_index].dropRare2);
+        itemrareInfo.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRare3);
+
+        itemrareDropDict.Add(0, matplace_database.matplace_hikariget_lists[_index].dropRareProb1);
+        itemrareDropDict.Add(1, matplace_database.matplace_hikariget_lists[_index].dropRareProb2);
+        itemrareDropDict.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRareProb3);
+
+        itemrareDropKosuDict.Add(1, 95.0f); //1個
+        itemrareDropKosuDict.Add(2, 5.0f); //2個
+        itemrareDropKosuDict.Add(3, 0.0f); //3個
 
     }
 
@@ -2070,7 +2117,7 @@ public class GetMaterial : MonoBehaviour
 
         // 入手できるアイテムのデータベース
         ResetItemDicts();
-        InitializeDicts(_index);
+        InitializeHikariDicts(_index); //ヒカリ入手用のDB
 
         //プレイヤーのアイテム発見力をバフつきで計算
         _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算

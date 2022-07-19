@@ -565,9 +565,11 @@ public class Contest_Judge : MonoBehaviour {
                         Debug.Log("審査員２　正規化点数：" + total_score[1] + "点");
                         Debug.Log("審査員３　正規化点数：" + total_score[2] + "点");
 
+                        Debug.Log("### ###");
                         Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
                         Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
                         Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
+                        Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
 
                         sum = 0;
                         for (i=0; i< GameMgr.contest_Score.Length; i++)
@@ -643,7 +645,7 @@ public class Contest_Judge : MonoBehaviour {
             
         }
 
-        //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。
+        //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。その代わり見た目の点数が一切入らない。
         before_tastescore[2] = GameMgr.contest_Taste_Score[2];
         if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
         {
@@ -653,11 +655,23 @@ public class Contest_Judge : MonoBehaviour {
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
+        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 110)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.6f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 110 && GameMgr.contest_Taste_Score[2] < 130)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.75f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 130 && GameMgr.contest_Taste_Score[2] < 150)
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.0f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 150)
+        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 180)
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
         }

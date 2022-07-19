@@ -3641,12 +3641,12 @@ public class Utage_scenario : MonoBehaviour
                 }
             }
         }
-        //ホワイトプリム　クレープ系でコンテストスコア150以上
+        //ホワイトプリム　クレープ系でコンテストスコア250以上
         for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
         {
             if (GameMgr.contest_okashiSubType == "Crepe")
             {
-                if (GameMgr.contest_TotalScore >= 150)
+                if (GameMgr.contest_TotalScore >= 250)
                 {
                     GameMgr.special_shogo_flag = true;
                     GameMgr.special_shogo_num = 1;
@@ -3673,7 +3673,7 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.contest_okashiName == "blueberry_creampuff" || GameMgr.contest_okashiName == "blackberry_creampuff" || GameMgr.contest_okashiName == "slimejelly" ||
                 GameMgr.contest_okashiName == "maffin_jewery")
             {
-                if (GameMgr.contest_TotalScore >= 150 && GameMgr.contest_Beauty_Score[1] > 50)
+                if (GameMgr.contest_TotalScore >= 150 && GameMgr.contest_Beauty_Score[1] >= 50)
                 {
                     GameMgr.special_shogo_flag = true;
                     GameMgr.special_shogo_num = 3;

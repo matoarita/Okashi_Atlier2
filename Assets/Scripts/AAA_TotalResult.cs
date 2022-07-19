@@ -67,6 +67,7 @@ public class AAA_TotalResult : MonoBehaviour {
     private Text total_recipi_count_text;
     private Text total_collection_count_text;
     private Text total_costume_count_text;
+    private Text total_okashiHighScore_text;
     private float total_costume_per;
     private string _rank;
     private Text player_rank_text;
@@ -136,7 +137,7 @@ public class AAA_TotalResult : MonoBehaviour {
         BG_2 = BG_panel.transform.Find("Title_BG_Black").gameObject;
         BG_2.SetActive(false);
 
-        foreach (Transform child in canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/ED_View/Viewport/Content").transform) //
+        foreach (Transform child in canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/EDLastScoreView/Viewport/Content/EDlastscoreList4/ED_View/Viewport/Content").transform) //
         {
             ed_view_list.Add(child.gameObject);
         }
@@ -164,9 +165,11 @@ public class AAA_TotalResult : MonoBehaviour {
         //パネル２
         girllv_param_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/Hlv_Param").GetComponent<Text>();
         girl_exp_param_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/TotalHeart_Param").GetComponent<Text>();
-        total_recipi_count_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/TotalRecipiCount").GetComponent<Text>();
+
+        total_recipi_count_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/EDLastScoreView/Viewport/Content/EDlastscoreList/TotalRecipiCount").GetComponent<Text>();
         //total_collection_count_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/TotalCollection").GetComponent<Text>();
-        total_costume_count_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/TotalCostume").GetComponent<Text>();
+        total_costume_count_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/EDLastScoreView/Viewport/Content/EDlastscoreList2/TotalCostume").GetComponent<Text>();
+        total_okashiHighScore_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/EDLastScoreView/Viewport/Content/EDlastscoreList3/GameTotalHighScore").GetComponent<Text>();
         button_panel2 = canvas.transform.Find("ResultGroup/ResultPanel_2/ButtonPanel_2").gameObject;
         button_panel3 = canvas.transform.Find("ResultGroup/ResultPanel_2/ButtonPanel_3").gameObject;
 
@@ -552,6 +555,9 @@ public class AAA_TotalResult : MonoBehaviour {
         total_costume_count_text.text = pitemlist.emeralditemlist_CostumeCount().ToString() + " / " + pitemlist.emeralditemlist_CostumeAllCount().ToString();
         total_costume_per = pitemlist.emeralditemlist_CostumeCount() / pitemlist.emeralditemlist_CostumeAllCount();
 
+        //ゲーム中最高スコアを表示
+        total_okashiHighScore_text.text = GameMgr.Okashi_toplast_score.ToString();
+
         //EDタイプの計算
         ChangeEDNumArray();
         if (GameMgr.ending_number < 5)
@@ -617,8 +623,8 @@ public class AAA_TotalResult : MonoBehaviour {
         }
         else
         {
-            //ハートが7777以上　かつ　レシピ75%以上達成　かつ　コンテストで優勝
-            if (total_score >= 7777 && GameMgr.game_Recipi_archivement_rate >= 75.0f && GameMgr.Contest_yusho_flag)
+            //ハートが9999以上　かつ　レシピ75%以上達成　かつ　コンテストで優勝
+            if (total_score >= 9999 && GameMgr.game_Recipi_archivement_rate >= 75.0f && GameMgr.Contest_yusho_flag)
             {
                 _rank = "SS";
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title7");

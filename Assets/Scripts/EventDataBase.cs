@@ -734,6 +734,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.check_GirlLoveSubEvent_flag = false;
 
                             GameMgr.Mute_on = true;
+
+                            pitemlist.addPlayerItemString("heart_jewery", 1); //ハート宝石ゲット
                         }
                     }
                 }

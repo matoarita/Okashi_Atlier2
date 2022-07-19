@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_matplaceItemDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Excel_Data/Entity_matplaceItemDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Excel_Data/Entity_matplaceItemDataBase.asset";
-	private static readonly string[] sheetNames = { "Sheet1", };
+	private static readonly string[] sheetNames = { "Sheet1","Sheet2", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{

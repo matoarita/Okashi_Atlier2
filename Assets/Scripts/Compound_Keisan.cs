@@ -1586,7 +1586,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //⑥ヒカリのお菓子の場合　味に補正かかる。
-        if(mstatus == 1)
+        if(mstatus == 2)
         {
             if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
             {
@@ -1602,34 +1602,37 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         
-        if (mstatus != 99)
+        if (mstatus == 0 || mstatus == 1)
         {
-            //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合、ヒカリが作る場合共通。
-            if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+            if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
             {
-                if (_base_itemType == "Okashi")
+                //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合のみ。。
+                if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
                 {
-                    //作るお菓子のサブタイプをもとに、ヒカリのお菓子レベルを算出し、補正値をだす。
-                    hikari_okashilv_paramup = bufpower_keisan.Buf_HikariOkashiLV_HoseiParamUp(_base_itemType_sub);
+                    if (_base_itemType == "Okashi")
+                    {
+                        //作るお菓子のサブタイプをもとに、ヒカリのお菓子レベルを算出し、補正値をだす。
+                        hikari_okashilv_paramup = bufpower_keisan.Buf_HikariOkashiLV_HoseiParamUp(_base_itemType_sub);
 
-                    _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_paramup);
-                    _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_paramup);
-                    _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_paramup);
-                    _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_paramup);
-                    _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_paramup);
+                        _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_paramup);
+                        _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_paramup);
+                        _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_paramup);
+                        _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_paramup);
+                        _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_paramup);
+                    }
                 }
-            }
 
-            //⑧ハートボーナス　HLV=99のときは、お菓子の味が1.3倍に上昇。
-            if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
-            {
-                if (PlayerStatus.girl1_Love_lv >= 99)
+                //⑧ハートボーナス　HLV=99のときは、お菓子の味が1.3倍に上昇。にいちゃんが作る場合のみ。
+                if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
                 {
-                    _basecrispy = (int)(1.3f * _basecrispy);
-                    _basefluffy = (int)(1.3f * _basefluffy);
-                    _basesmooth = (int)(1.3f * _basesmooth);
-                    _basehardness = (int)(1.3f * _basehardness);
-                    _basejuice = (int)(1.3f * _basejuice);
+                    if (PlayerStatus.girl1_Love_lv >= 99)
+                    {
+                        _basecrispy = (int)(1.2f * _basecrispy);
+                        _basefluffy = (int)(1.2f * _basefluffy);
+                        _basesmooth = (int)(1.2f * _basesmooth);
+                        _basehardness = (int)(1.2f * _basehardness);
+                        _basejuice = (int)(1.2f * _basejuice);
+                    }
                 }
             }
         }

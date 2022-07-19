@@ -1673,10 +1673,13 @@ public class SetImage : MonoBehaviour
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        if (databaseCompo.compoitems[exp_Controller.result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+        if (exp_Controller.Comp_method_bunki == 0 || exp_Controller.Comp_method_bunki == 2) //オリジナル調合かレシピ調合の場合のみ。
         {
-            hlvbonus_panel.SetActive(true);
-        }           
+            if (databaseCompo.compoitems[exp_Controller.result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+            {
+                hlvbonus_panel.SetActive(true);
+            }
+        }
     }
 
     public void Kosu_ON(int _kosu)

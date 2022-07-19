@@ -1226,28 +1226,28 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contestclear_collection_list.Clear();
 
         contestclear_collection_list.Add(new SpecialTitle(000, "contestclear1", "クッキーで優勝！", false, "Items/neko_cookie"));
-        contestclear_collection_list.Add(new SpecialTitle(001, "contestclear2", "ラスクで優勝！", false, "Items/rusk"));
-        contestclear_collection_list.Add(new SpecialTitle(002, "contestclear3", "クレープで優勝！", false, "Items/crepe"));
-        contestclear_collection_list.Add(new SpecialTitle(003, "contestclear4", "シュークリームで優勝！", false, "Items/creampuff"));
-        contestclear_collection_list.Add(new SpecialTitle(004, "contestclear5", "ドーナツで優勝！", false, "Items/donuts_pinkcharlotte"));
-        contestclear_collection_list.Add(new SpecialTitle(015, "contestclear16", "マフィンの王様！", false, "Items/maffin_jewery"));
-        contestclear_collection_list.Add(new SpecialTitle(016, "contestclear17", "フィナンシェの妖精！", false, "Items/financier"));
-        contestclear_collection_list.Add(new SpecialTitle(017, "contestclear18", "ビスコッティでヨーロピアン・ブレイク！", false, "Items/biscouti"));
-        contestclear_collection_list.Add(new SpecialTitle(018, "contestclear19", "パンケーキマイスタ～！", false, "Items/pan_cake_maple"));
-        contestclear_collection_list.Add(new SpecialTitle(019, "contestclear20", "カステラでほっこり優勝！", false, "Items/castella"));
+        contestclear_collection_list.Add(new SpecialTitle(001, "contestclear2", "カリカリ！ラスクで優勝！", false, "Items/rusk"));
+        contestclear_collection_list.Add(new SpecialTitle(002, "contestclear3", "ふんわり☆クレープで優勝！", false, "Items/crepe"));
+        contestclear_collection_list.Add(new SpecialTitle(003, "contestclear4", "さくふわ☆シュークリームで優勝！", false, "Items/creampuff"));
+        contestclear_collection_list.Add(new SpecialTitle(004, "contestclear5", "さっくり☆ドーナツで優勝！", false, "Items/donuts_pinkcharlotte"));
+        contestclear_collection_list.Add(new SpecialTitle(015, "contestclear16", "マフィンの王様！マフィンで優勝！", false, "Items/maffin_jewery"));
+        contestclear_collection_list.Add(new SpecialTitle(016, "contestclear17", "しっとり☆フィナンシェで優勝！", false, "Items/financier"));
+        contestclear_collection_list.Add(new SpecialTitle(017, "contestclear18", "ビスコッティで優勝！", false, "Items/biscouti"));
+        contestclear_collection_list.Add(new SpecialTitle(018, "contestclear19", "パンケーキマイスタ～！パンケーキで優勝！", false, "Items/pan_cake_maple"));
+        contestclear_collection_list.Add(new SpecialTitle(019, "contestclear20", "ほっこり！カステラで優勝！", false, "Items/castella"));
         //contestclear_collection_list.Add(new SpecialTitle(020, "contestclear21", "パンで優勝！", false, "Items/bugget"));
-        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "優雅なお茶会マスター！", false, "Items/rich_tea"));
-        contestclear_collection_list.Add(new SpecialTitle(006, "contestclear7", "ジュースで健康！ビタミンNo.１！", false, "Items/orange_juice"));
-        contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "コーヒーでイギリス紳士な朝食を！", false, "Items/coffee"));
-        contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "シンプル！素材の味にこだわり優勝！", false, "Items/crepe_maple"));
-        contestclear_collection_list.Add(new SpecialTitle(009, "contestclear10", "きみも、ジェリーボーイ！", false, "Items/slimejelly"));
+        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "優雅なお茶会マスター！お茶で優勝！", false, "Items/rich_tea"));
+        contestclear_collection_list.Add(new SpecialTitle(006, "contestclear7", "健康！ビタミンNo.１！ジュースで優勝！", false, "Items/orange_juice"));
+        contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "イギリス紳士な朝食を！コーヒーで優勝！", false, "Items/coffee"));
+        contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "シンプル！素材の味で優勝！", false, "Items/crepe_maple"));
+        contestclear_collection_list.Add(new SpecialTitle(009, "contestclear10", "きみも、ジェリーボーイ！ゼリー優勝！", false, "Items/slimejelly"));
         contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータで優勝！", false, "Items/princess_tota"));
-        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "オシャ～レティラミスで優勝！", false, "Items/tiramisu"));
+        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "オサ～レ☆ティラミスで優勝！", false, "Items/tiramisu"));
         contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタで優勝！", false, "Items/violatte_suger"));
-        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "ハードボイルド・カンノーリで優勝！", false, "Items/cannoli"));
-        contestclear_collection_list.Add(new SpecialTitle(013, "contestclear14", "アイスクリーム！ユースクリ～ム！", false, "Items/icecream"));
-        contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "憧れのパフェマスタ～！", false, "Items/parfe_vanilla"));
-        contestclear_collection_list.Add(new SpecialTitle(022, "contestclear23", "キラキラ宝石！キャンディ職人！", false, "Items/jewery_candy"));
+        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "カンノーリでハードボイルドな優勝！", false, "Items/cannoli"));
+        contestclear_collection_list.Add(new SpecialTitle(013, "contestclear14", "アイスクリーム！ユースクリ～ム！で優勝！", false, "Items/icecream"));
+        contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "憧れのパフェマスタ～！パフェで優勝！", false, "Items/parfe_vanilla"));
+        contestclear_collection_list.Add(new SpecialTitle(022, "contestclear23", "キラキラ宝石職人！キャンディで優勝！", false, "Items/jewery_candy"));
 
         //デバッグ用
         /*for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)

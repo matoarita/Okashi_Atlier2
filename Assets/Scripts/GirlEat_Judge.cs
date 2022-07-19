@@ -1550,12 +1550,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
-        //フリーモード時　さらに計算
+        //フリーモード時　さらに計算。コンテスト時は除外。
         if (GameMgr.Story_Mode == 1)
         {
-            if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。得点も少し上がる。
+            if (_setType == 0)
             {
-                total_score = (int)(total_score * 1.3f);
+                if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。得点も少し上がる。
+                {
+                    total_score = (int)(total_score * 1.3f);
+                }
             }
         }
 
@@ -1622,8 +1625,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                 }
 
+                //ゲーム中の最高スコアを更新した場合。
+                if(total_score > GameMgr.Okashi_toplast_score)
+                {
+                    GameMgr.Okashi_toplast_score = total_score;
+                }
+
                 //食べたお菓子のスコアを保存する。
                 GameMgr.Okashi_last_totalscore = total_score;
+
+                //エクストラモードで、ゲーム中に777点以上をだすと、レコードがもらえる。
+                if (GameMgr.Story_Mode == 1)
+                {
+                    if (total_score >= 777)
+                    {
+                        //GameMgr.specialsubevent_flag1 = true;
+                    }
+                }
 
                 break;
 
@@ -1631,15 +1649,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 break;
         }
-
-        //エクストラモードで、ゲーム中に777点以上をだすと、レコードがもらえる。
-        if(GameMgr.Story_Mode == 1)
-        {
-            if(total_score >= 777)
-            {
-                //GameMgr.specialsubevent_flag1 = true;
-            }
-        }
+        
 
         if(_setType==1) //コンテストのときは、ここでデバッグテキスト更新
         {
@@ -2629,7 +2639,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else if (database.items[_baseID].Eat_kaisu >= 2 && database.items[_baseID].Eat_kaisu < 5)
             {
-                Getlove_exp = (int)(Getlove_exp*0.75f);
+                Getlove_exp = (int)(Getlove_exp * 0.75f);
             }
             else if (database.items[_baseID].Eat_kaisu >= 5 && database.items[_baseID].Eat_kaisu < 7) {
                 Getlove_exp = (int)(Getlove_exp * 0.5f);
@@ -2684,15 +2694,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
             if(PlayerStatus.girl1_Love_lv >= 70 && PlayerStatus.girl1_Love_lv < 80)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.7f);
+                Getlove_exp = (int)(Getlove_exp * 0.5f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.5f);
+                Getlove_exp = (int)(Getlove_exp * 0.25f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 90 && PlayerStatus.girl1_Love_lv < 99)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.2f);
+                Getlove_exp = (int)(Getlove_exp * 0.05f);
             }
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
@@ -3760,8 +3770,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.special_animatFirst = false;
 
         //前回最高得点を０に戻す。
-        GameMgr.Okashi_toplast_score = 0;
-        GameMgr.Okashi_toplast_heart = 0;
+        //GameMgr.Okashi_toplast_score = 0;
+        //GameMgr.Okashi_toplast_heart = 0;
 
         //次のお菓子クエストがあるかどうかをチェック。特定の条件を満たしていれば、ルートが分岐する。
         if (GameMgr.Okashi_quest_bunki_on == 0)
