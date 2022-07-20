@@ -3629,12 +3629,20 @@ public class Utage_scenario : MonoBehaviour
         }
 
 
-        //スカーレット　いちごのお菓子で、150点以上
+        //スカーレット　いちごのお菓子で、180点以上
         for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
         {
             if (GameMgr.contest_okashiName == GameMgr.ichigo_collection_list[i])
             {
-                if (GameMgr.contest_TotalScore >= 150)
+                if (GameMgr.contest_TotalScore >= 180)
+                {
+                    GameMgr.special_shogo_flag = true;
+                    GameMgr.special_shogo_num = 0;
+                }
+            }
+            else if (GameMgr.contest_okashiName == "strawberry_milk")
+            {
+                if (GameMgr.contest_TotalScore >= 180)
                 {
                     GameMgr.special_shogo_flag = true;
                     GameMgr.special_shogo_num = 0;
@@ -3653,12 +3661,12 @@ public class Utage_scenario : MonoBehaviour
                 }
             }
         }
-        //ハイルング　プリンセストータでコンテストスコア130以上
+        //ハイルング　プリンセストータでコンテストスコア250以上
         for (i = 0; i < GameMgr.ichigo_collection_list.Count; i++)
         {
             if (GameMgr.contest_okashiName == "princess_tota")
             {
-                if (GameMgr.contest_TotalScore >= 150)
+                if (GameMgr.contest_TotalScore >= 250)
                 {
                     GameMgr.special_shogo_flag = true;
                     GameMgr.special_shogo_num = 2;
@@ -3673,7 +3681,7 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.contest_okashiName == "blueberry_creampuff" || GameMgr.contest_okashiName == "blackberry_creampuff" || GameMgr.contest_okashiName == "slimejelly" ||
                 GameMgr.contest_okashiName == "maffin_jewery")
             {
-                if (GameMgr.contest_TotalScore >= 150 && GameMgr.contest_Beauty_Score[1] >= 50)
+                if (GameMgr.contest_TotalScore >= 200 && GameMgr.contest_Beauty_Score[1] >= 50)
                 {
                     GameMgr.special_shogo_flag = true;
                     GameMgr.special_shogo_num = 3;

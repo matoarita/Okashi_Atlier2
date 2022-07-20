@@ -852,7 +852,7 @@ public class AAA_TotalResult : MonoBehaviour {
             {
                 case 0: //スカーレット
 
-                    _hukidashi_content = ".." + "いちごのお菓子で150点以上とって、優勝しちゃったね・・!" + "\n" + "いちご好きのおにいちゃんにピッタリの、赤い称号をもらたよ～☆";
+                    _hukidashi_content = ".." + "いちごのお菓子で優勝しちゃったね・・!" + "\n" + "いちご好きのおにいちゃんにピッタリの、赤い称号をもらたよ～☆";
                     break;
 
                 case 1: //ホワイトプリム
@@ -862,7 +862,7 @@ public class AAA_TotalResult : MonoBehaviour {
 
                 case 2: //ハイルング
 
-                    _hukidashi_content = ".." + "にいちゃん、夢のプリンセストータで優勝しちゃった・・！" + "\n" + "130点以上とったから、じいちゃんから特別な称号もらったよ！！　おめでと☆";
+                    _hukidashi_content = ".." + "にいちゃん、夢のプリンセストータで優勝しちゃった・・！" + "\n" + "じいちゃんから特別な称号もらったよ！！　おめでと☆";
                     break;
 
                 case 3: //ブルーヴェール
@@ -887,7 +887,7 @@ public class AAA_TotalResult : MonoBehaviour {
             {
                 case 1: //Bad ED
 
-                    _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートを400以上に上げて、再度挑戦してね！";
+                    _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートをもっと上げて、再度挑戦してね！";
                     break;
 
                 case 2:

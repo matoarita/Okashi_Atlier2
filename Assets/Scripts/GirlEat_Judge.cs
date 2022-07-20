@@ -2700,7 +2700,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Getlove_exp = (int)(Getlove_exp * 0.25f);
             }
-            else if (PlayerStatus.girl1_Love_lv >= 90 && PlayerStatus.girl1_Love_lv < 99)
+            else if (PlayerStatus.girl1_Love_lv >= 90 && PlayerStatus.girl1_Love_lv < 95)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.1f);
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 95 && PlayerStatus.girl1_Love_lv < 99)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.05f);
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 99)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.05f);
             }

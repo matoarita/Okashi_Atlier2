@@ -4421,7 +4421,7 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("じゃがいもとアスパラガスの炒め");
                     _todayfoodexpence_lib.Add((int)(75f * _todayfood_buf));
-                    _todayfood_lib.Add("じゃがいもスープ");
+                    _todayfood_lib.Add("じゃがいもシチュー");
                     _todayfoodexpence_lib.Add((int)(60f * _todayfood_buf));                                     
                     _todayfood_lib.Add("ポテト・ガレット");
                     _todayfoodexpence_lib.Add((int)(50f * _todayfood_buf));                  
