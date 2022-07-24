@@ -3270,14 +3270,30 @@ public class Utage_scenario : MonoBehaviour
 
                     case "Crepe":
 
-                        GameMgr.SetContestClearCollectionFlag("contestclear3", true);
-                        YushoOkashi_Koushin("contestclear3");
+                        if (GameMgr.contest_okashiName == "maple_crepe" || GameMgr.contest_okashiName == "honey_crepe") //メープルとハニークレプは生地そのものを味わう。
+                        {
+                            GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                            YushoOkashi_Koushin("contestclear9");
+                        }
+                        else
+                        {
+                            GameMgr.SetContestClearCollectionFlag("contestclear3", true);
+                            YushoOkashi_Koushin("contestclear3");
+                        }
                         break;
 
                     case "Creampuff":
 
-                        GameMgr.SetContestClearCollectionFlag("contestclear4", true);
-                        YushoOkashi_Koushin("contestclear4");
+                        if (GameMgr.contest_okashiName == "puff") //クリームなしのシュークリーム生地は、素材系で判定
+                        {
+                            GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                            YushoOkashi_Koushin("contestclear9");
+                        }
+                        else
+                        {
+                            GameMgr.SetContestClearCollectionFlag("contestclear4", true);
+                            YushoOkashi_Koushin("contestclear4");
+                        }
                         break;
 
                     case "Donuts":
@@ -3552,60 +3568,70 @@ public class Utage_scenario : MonoBehaviour
         //審査員２の感想をセット。アントワネットは、見た目を重視する。豪華であればあるほど、得点が高い。
         judge_num++;
         CommentID += 4; //４はじまり
-        if (GameMgr.contest_Beauty_Score[judge_num] > 50) //アントワとの差　50以上良い
+        if (GameMgr.contest_Beauty_Score[judge_num] != 0)
         {
-            engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_1);
-            engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_2);
-            engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_3);
-            engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_4);
+            if (GameMgr.contest_Beauty_Score[judge_num] > 50) //アントワとの差　50以上良い
+            {
+                engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_1);
+                engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_2);
+                engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_3);
+                engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_4);
+            }
+            else if (GameMgr.contest_Beauty_Score[judge_num] > 0 && GameMgr.contest_Beauty_Score[judge_num] <= 50) //アントワとの差 50以内
+            {
+                engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_1);
+                engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_2);
+                engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_3);
+                engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_4);
+            }
+            else if (GameMgr.contest_Beauty_Score[judge_num] > -40 && GameMgr.contest_Beauty_Score[judge_num] <= 0) //アントワとの差
+            {
+                engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_1);
+                engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_2);
+                engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_3);
+                engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_4);
+            }
+            else if (GameMgr.contest_Beauty_Score[judge_num] <= -40) //アントワとの差 -40より下
+            {
+                engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_1);
+                engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_2);
+                engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_3);
+                engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_4);
+            }
         }
-        else if (GameMgr.contest_Beauty_Score[judge_num] > 0 && GameMgr.contest_Beauty_Score[judge_num] <= 50) //アントワとの差 50以内
+        else //見た目をそもそも判定しない場合のセリフ
         {
-            engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_1);
-            engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_2);
-            engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_3);
-            engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_4);
-        }
-        else if (GameMgr.contest_Beauty_Score[judge_num] > -40 && GameMgr.contest_Beauty_Score[judge_num] <= 0) //アントワとの差
-        {
-            engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_1);
-            engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_2);
-            engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_3);
-            engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_4);
-        }
-        else if (GameMgr.contest_Beauty_Score[judge_num] <= -40) //アントワとの差 -40より下
-        {
-            engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_1);
-            engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_2);
-            engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_3);
-            engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_4);
+            engine.Param.TrySetParameter("contest_judge2_comment1", "ごちそうさまでした。");
+            engine.Param.TrySetParameter("contest_judge2_comment2", "こちらのお菓子は、シンプルゆえに見た目で判断するお菓子ではございませんわね。");
+            engine.Param.TrySetParameter("contest_judge2_comment3", "なので、見た目の感想は、パスでお願いしますわ。");
+            engine.Param.TrySetParameter("contest_judge2_comment4", "おっほっほっほ！！");
         }
 
-        //審査員３の感想をセット。じいさんは、食感の値に対して、感想を述べる。
+        //審査員３の感想をセット。じいさんは、食感の値に対して、感想を述べる。補正後の点数を基準にコメント変更。
         judge_num++;
         CommentID += 4; //８はじまり
-        if (GameMgr.contest_Taste_Score[judge_num] > GameMgr.high_score) //85~
+        if (GameMgr.contest_Taste_Score[judge_num] >= 225) //
         {
             engine.Param.TrySetParameter("contest_judge3_comment1", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_1);
             engine.Param.TrySetParameter("contest_judge3_comment2", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_2);
             engine.Param.TrySetParameter("contest_judge3_comment3", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_3);
             engine.Param.TrySetParameter("contest_judge3_comment4", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_4);
         }
-        else if (GameMgr.contest_Taste_Score[judge_num] > GameMgr.low_score && GameMgr.contest_Taste_Score[judge_num] <= GameMgr.high_score) //60~85
+        else if (GameMgr.contest_Taste_Score[judge_num] >= 120 && GameMgr.contest_Taste_Score[judge_num] < 225) //
         {
             engine.Param.TrySetParameter("contest_judge3_comment1", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_1);
             engine.Param.TrySetParameter("contest_judge3_comment2", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_2);
             engine.Param.TrySetParameter("contest_judge3_comment3", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_3);
             engine.Param.TrySetParameter("contest_judge3_comment4", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_4);
         }
-        else if (GameMgr.contest_Taste_Score[judge_num] > 30 && GameMgr.contest_Taste_Score[judge_num] <= GameMgr.low_score) //30~60
+        else if (GameMgr.contest_Taste_Score[judge_num] >= 45 && GameMgr.contest_Taste_Score[judge_num] < 120) //
         {
             engine.Param.TrySetParameter("contest_judge3_comment1", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_1);
             engine.Param.TrySetParameter("contest_judge3_comment2", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_2);
             engine.Param.TrySetParameter("contest_judge3_comment3", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_3);
             engine.Param.TrySetParameter("contest_judge3_comment4", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_4);
         }
-        else if (GameMgr.contest_Taste_Score[judge_num] <= 30)
+        else if (GameMgr.contest_Taste_Score[judge_num] < 45)
         {
             engine.Param.TrySetParameter("contest_judge3_comment1", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_1);
             engine.Param.TrySetParameter("contest_judge3_comment2", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_2);

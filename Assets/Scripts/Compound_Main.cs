@@ -22,6 +22,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject text_area_Main;
     private Text _textmain;
 
+    private GameObject text_hikari_makecaption;
+
     private Text picnic_itemText;
 
     private GameObject mainUI_panel_obj;
@@ -413,9 +415,12 @@ public class Compound_Main : MonoBehaviour
 
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
-        _text = text_area.GetComponentInChildren<Text>();
+        _text = text_area.GetComponentInChildren<Text>();        
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.transform.Find("Text").GetComponent<Text>();
+
+        text_hikari_makecaption = text_area.transform.Find("HikariMakeOkashiCaptionText").gameObject;
+        text_hikari_makecaption.SetActive(false);
 
         //エクストリームパネルの取得+初期化
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
@@ -667,8 +672,7 @@ public class Compound_Main : MonoBehaviour
         recipi_text = "ヒカリのお菓子手帳だよ！" + "\n" + "にいちゃんのレシピが増えたら、ここに書いてくね！";
         hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" + 
             "好きな材料を" + GameMgr.ColorYellow +
-            "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"+ "\n" +
-            GameMgr.ColorMizuiro + "※ヒカリはトッピング仕上げができないので注意" + "</color>";
+            "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
 
 
 
@@ -1772,6 +1776,7 @@ public class Compound_Main : MonoBehaviour
                 yes_no_panel.SetActive(false);
 
                 text_area.SetActive(false);
+                text_hikari_makecaption.SetActive(false);
                 WindowOff();
 
                 map_ambience.Mute();
@@ -1869,6 +1874,10 @@ public class Compound_Main : MonoBehaviour
                 text_area.SetActive(true);
                 WindowOff();
                 _text.text = hikarimake_text;
+                text_hikari_makecaption.SetActive(true);
+
+                //エフェクトはオフ
+                compoBGA_imageHikariMake.transform.Find("Particle_KiraExplode").gameObject.SetActive(false);
 
                 //ヒカリちゃんを表示する
                 ReDrawLive2DPos_Compound();
@@ -1915,6 +1924,7 @@ public class Compound_Main : MonoBehaviour
 
                 text_area.SetActive(false);
                 WindowOff();
+                text_hikari_makecaption.SetActive(false);
 
                 recipiMemoButton.SetActive(false);
                 recipimemoController_obj.SetActive(false);
@@ -3454,7 +3464,8 @@ public class Compound_Main : MonoBehaviour
 
                         case 1:
 
-                            get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
+                            //get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
+                            get_heart = 10;
                             _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
                             GirlExpressionKoushin(10);
@@ -3462,7 +3473,8 @@ public class Compound_Main : MonoBehaviour
 
                         case 2:
 
-                            get_heart = GameMgr.event_okashi_score;
+                            //get_heart = GameMgr.event_okashi_score;
+                            get_heart = 20;
                             _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false);
                             GirlExpressionKoushin(30);
@@ -3472,7 +3484,8 @@ public class Compound_Main : MonoBehaviour
 
                         case 3:
 
-                            get_heart = GameMgr.event_okashi_score;
+                            //get_heart = GameMgr.event_okashi_score;
+                            get_heart = 30;
                             _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
                             girlEat_judge.loveGetPlusAnimeON(get_heart, false);
                             GirlExpressionKoushin(50);
@@ -3482,9 +3495,10 @@ public class Compound_Main : MonoBehaviour
 
                         case 4:
 
-                            get_heart = GameMgr.event_okashi_score;
+                            //get_heart = GameMgr.event_okashi_score;
+                            get_heart = 50;
                             _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(GameMgr.event_okashi_score, false);
+                            girlEat_judge.loveGetPlusAnimeON(get_heart, false);
                             GirlExpressionKoushin(100);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;

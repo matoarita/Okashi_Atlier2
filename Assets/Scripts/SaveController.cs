@@ -943,13 +943,17 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     Debug.Log("GameMgr.sys_extreme_itemID: " + GameMgr.sys_extreme_itemID);
                     Debug.Log("GameMgr.sys_extreme_itemType: " + GameMgr.sys_extreme_itemType);
 
-                    //対処療法　なぜか理由がわからないけど、たまにオリジナルアイテムリスト+1の箇所を、extremepanelで指定してしまうことがある。
-                    if(pitemlist.player_originalitemlist.Count-1 < GameMgr.sys_extreme_itemID)
+                    //対処療法　なぜか理由がわからないけど、たまにオリジナルアイテムリスト+1の箇所を、extremepanelで指定してしまうことがある。なので、ずれてた場合、パネルは削除。
+                    if (pitemlist.player_originalitemlist.Count - 1 != GameMgr.sys_extreme_itemID)
                     {
-                        GameMgr.sys_extreme_itemID = GameMgr.sys_extreme_itemID - 1;
+                        //GameMgr.sys_extreme_itemID = GameMgr.sys_extreme_itemID - 1;
+                        extreme_panel.deleteExtreme_Item();
                     }
-                    extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
-                    extreme_panel.SetInitParamExtreme();
+                    else
+                    {
+                        extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
+                        extreme_panel.SetInitParamExtreme();
+                    }
 
                 }
 

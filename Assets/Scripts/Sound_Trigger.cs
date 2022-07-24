@@ -50,6 +50,26 @@ public class Sound_Trigger : MonoBehaviour {
                 
                 break;
 
+            case "Yes_okashiSet": //
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                //SE_point_click(46);
+                break;
+
+            case "No_okashiSet": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                //SE_point_click(18);
+                break;
+
             case "NouhinButton": //納品決定を押したときのSE
 
                 //ポインタが入ったときに鳴る音

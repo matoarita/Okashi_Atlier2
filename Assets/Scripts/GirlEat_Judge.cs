@@ -1288,7 +1288,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //③お菓子の種別の計算
                 if (_girl_subtype[count] == "Non") //特に指定なし
                 {
-                    dislike_flag = true;
+                    dislike_flag = false;
                 }
                 else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
                 {
@@ -2659,11 +2659,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
             if (Getlove_exp <= 1) { Getlove_exp = 1; }
-
-            //装備品による補正
-            _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
-            GetMoney = (int)(GetMoney * _buf_moneyup / 2);
-
+           
             //再計算後、60点以上とれていたら、1は必ず上がる。マイナスにはならない。
             if (total_score >= GameMgr.low_score) //60点
             {
@@ -2694,24 +2690,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
             if(PlayerStatus.girl1_Love_lv >= 70 && PlayerStatus.girl1_Love_lv < 80)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.5f);
+                Getlove_exp = (int)(Getlove_exp * 0.75f);
             }
-            else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
+            else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 85)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.25f);
+                Getlove_exp = (int)(Getlove_exp * 0.5f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 90 && PlayerStatus.girl1_Love_lv < 95)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.1f);
+                Getlove_exp = (int)(Getlove_exp * 0.25f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 95 && PlayerStatus.girl1_Love_lv < 99)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.05f);
+                Getlove_exp = (int)(Getlove_exp * 0.1f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 99)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.05f);
+                Getlove_exp = (int)(Getlove_exp * 1.0f);
             }
+
+
+            //お金関係　装備品による補正
+            _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
+            GetMoney = (int)(GetMoney * _buf_moneyup / 2);
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
             Debug.Log("取得お金: " + GetMoney);

@@ -19,6 +19,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private CardView card_view;
     private Transform resulttransform;
 
+    private GameObject extremePanel_obj;
+    private ExtremePanel extremePanel;
+
     private SoundController sc;
 
     private ItemDataBase database;
@@ -32,6 +35,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private GameObject yes_no_panel;
     private GameObject black_Image;
     private GameObject text_area;
+    private GameObject yes_no_okashisetkakunin;
     private Text _text;
 
     private int itemID_1;
@@ -114,6 +118,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
+        extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
+
         charaIcon_sprite_1 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_02");
         charaIcon_sprite_2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_07");
         charaIcon_sprite_3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_08");
@@ -139,6 +146,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         yes_no_panel = this.transform.Find("Yes_no_Panel_Finalcheck").gameObject;
         yes_no_panel.SetActive(false);
+        yes_no_okashisetkakunin = this.transform.Find("Yes_no_OkashiSetKakunin").gameObject;
+        yes_no_okashisetkakunin.SetActive(false);
         black_Image = this.transform.Find("BlackImage_HikariMake").gameObject;
         black_Image.SetActive(false);
 
@@ -351,18 +360,21 @@ public class HikariMakeStartPanel : MonoBehaviour {
        
         _cardImage_obj2[0].GetComponent<SetImage>().CardParamOFF_2();
 
-        if (_mstatus == 0)
+        if (_mstatus == 0) //単に表示するだけ
         {
             _cardImage_obj2[0].transform.Find("CompoundResultButton").gameObject.SetActive(false);
             _cardImage_obj2[0].transform.localScale = new Vector3(0.85f, 0.85f, 1);
             _cardImage_obj2[0].transform.localPosition = new Vector3(0, 85, 0);
         }
-        else
+        else //できたアイテムを受け取る場合の処理
         {
-            _cardImage_obj2[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+            yes_no_okashisetkakunin.SetActive(true);
+            _cardImage_obj2[0].transform.Find("CompoundResultButton").gameObject.SetActive(false);
             _cardImage_obj2[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
             _cardImage_obj2[0].transform.localPosition = new Vector3(0, 85, 0);
             Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
+
+            StartCoroutine("OkashiSetKakunin_Check");
         }
     }
 
@@ -386,6 +398,37 @@ public class HikariMakeStartPanel : MonoBehaviour {
         }
 
         _cardImage_obj2.Clear();
+
+    }
+
+    IEnumerator OkashiSetKakunin_Check()
+    {
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //お菓子パネルにセットする
+
+                sc.PlaySe(25);
+                extremePanel.SetExtremeItem(pitemlist.player_originalitemlist.Count - 1, 1);
+                ResultHikariMakeCardView_andOFF();
+                break;
+
+            case false: //セットせず、そのまま受け取る
+
+                sc.PlaySe(46);
+                ResultHikariMakeCardView_andOFF();
+                break;
+        }
 
     }
 
@@ -474,17 +517,19 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 //うけとる処理
 
+                //アイテム取得処理
+                compound_keisan.HikariMakeGetItem();
+
                 //カード表示
                 sc.PlaySe(17);
                 TakeResultCard_DrawView(1);
                 effect_Particle_KiraExplode.SetActive(true); //エフェクト
                 effect_Particle_KiraExplode_2.SetActive(true);
-
-                compound_keisan.HikariMakeGetItem();
-               
+              
 
                 //ヒカリのお菓子経験値の処理
-                _getexp = 10 * GameMgr.hikari_make_okashiKosu;
+                _getexp = (int)(3f * database.items[GameMgr.hikari_make_okashiID].girl1_itemLike) * GameMgr.hikari_make_okashiKosu;
+
                 hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 0, 0);
                 _itemType_subtext = GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji;
                 _nowlv = GameMgr.hikarimakeokashi_nowlv;
@@ -556,13 +601,14 @@ public class HikariMakeStartPanel : MonoBehaviour {
     } 
 
 
-    //SetImageから読み出し
+    //SetImageからも読み出し　compound_Mainに戻る
     public void ResultHikariMakeCardView_andOFF()
     {
         black_Image.SetActive(false);
         text_area.SetActive(false);
         effect_Particle_KiraExplode.SetActive(false);
         effect_Particle_KiraExplode_2.SetActive(false);
+        yes_no_okashisetkakunin.SetActive(false);
         DeleteCard_DrawView2();
     }
 

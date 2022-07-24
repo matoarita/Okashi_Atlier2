@@ -20,6 +20,8 @@ public class Compound_Check : MonoBehaviour {
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
+    private GameObject text_hikari_makecaption;
+
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
 
@@ -147,6 +149,8 @@ public class Compound_Check : MonoBehaviour {
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
+        text_hikari_makecaption = text_area.transform.Find("HikariMakeOkashiCaptionText").gameObject;       
+
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
@@ -265,6 +269,7 @@ public class Compound_Check : MonoBehaviour {
                 FinalCheckPanel.SetActive(true);
                 yes.GetComponent<Button>().interactable = false;
                 no.GetComponent<Button>().interactable = false;
+                text_hikari_makecaption.SetActive(false);
 
                 //一度contentの中身を削除
                 foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -406,6 +411,11 @@ public class Compound_Check : MonoBehaviour {
                         GameMgr.compound_status = 100;
                         itemselect_cancel.Two_cancel();
 
+                        if (GameMgr.compound_select == 7)
+                        {
+                            text_hikari_makecaption.SetActive(true);
+                        }
+
                         break;
                 }
                 break;
@@ -523,8 +533,12 @@ public class Compound_Check : MonoBehaviour {
 
                         yes.SetActive(true);
                         yes_text.text = "作る";
-                        YesSetDesign2();                       
-                        
+                        YesSetDesign2();
+
+                        if (GameMgr.compound_select == 7)
+                        {
+                            text_hikari_makecaption.SetActive(true);
+                        }
 
                         break;
                 }

@@ -205,6 +205,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int keisan_method_flag;
     private float totalkyori;
     private float kyori_hosei;
+    private int _add_hoseiparam;
 
 
     //計算用_ADDアイテムリスト 材料（最大３つまで）を、0,1,2の順に入れる。
@@ -1542,11 +1543,30 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //ジュースののどごしを計算する。
         _basejuice = _basesweat + _basebitter + _basesour;
 
-        //特殊処理。カンノーリ生地ができるときは、生地をフライヤーであげるので、ふわふわ感をサクサク感に変換する。
-        if(_basename == "crepe_flyed")
+        //新規作成時の特殊処理
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
         {
-            _basecrispy = _basefluffy;
-            _basefluffy = 0;
+            //ジュースの特殊処理　甘さが青天井で上がることはないように、上限をおさえる。
+            if (_base_itemType_sub == "Juice")
+            {
+                if (_basename == "juice_float") //ジュースフロートは、無視する。アイスをのせるたびに、甘さがどんどん下がってしまうため。
+                { }
+                else
+                {
+                    if (_basesweat >= 50)
+                    {
+                        _add_hoseiparam = (_basesweat - 50) / 2;
+                        _basesweat = 50 + _add_hoseiparam;
+                    }
+                }
+            }
+
+            //特殊処理。カンノーリ生地ができるときは、生地をフライヤーであげるので、ふわふわ感をサクサク感に変換する。
+            if (_basename == "crepe_flyed")
+            {
+                _basecrispy = _basefluffy;
+                _basefluffy = 0;
+            }
         }
 
 

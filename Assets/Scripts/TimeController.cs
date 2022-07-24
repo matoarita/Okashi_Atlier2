@@ -322,7 +322,9 @@ public class TimeController : MonoBehaviour
                                             //満腹度が0になると、ハートも減り始める。
                                             if (PlayerStatus.player_girl_manpuku <= 0)
                                             {
-                                                if(PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 80)
+                                                girleat_judge.DegHeart(-1, false);
+
+                                                /*if (PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 80)
                                                 {
                                                     girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.05f), false);
                                                 }
@@ -337,7 +339,7 @@ public class TimeController : MonoBehaviour
                                                 else
                                                 {
                                                     girleat_judge.DegHeart(-1, false);
-                                                }
+                                                }*/
                                                 
                                                 girl1_status.MotionChange(23);
                                             }

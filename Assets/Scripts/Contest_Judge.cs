@@ -655,17 +655,9 @@ public class Contest_Judge : MonoBehaviour {
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 110)
+        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.6f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 110 && GameMgr.contest_Taste_Score[2] < 130)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.75f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 130 && GameMgr.contest_Taste_Score[2] < 150)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.0f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
         }
         else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
         {

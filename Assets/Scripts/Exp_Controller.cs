@@ -75,6 +75,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private Compound_Keisan compound_keisan;
 
     private GameObject compoBG_A;
+    private GameObject HikariMakeImage;
 
     private GameObject yes_no_panel;
 
@@ -166,6 +167,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab6;
     private GameObject Compo_Magic_effect_Prefab_kiraexplode;   
     private List<GameObject> _listEffect = new List<GameObject>();
+
+    private GameObject HikariMake_effect_Particle_KiraExplode;
 
     private GameObject ResultBGimage;
     private GameObject BlackImage;
@@ -1075,8 +1078,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
+        HikariMakeImage = compoBG_A.transform.Find("HikariMakeImage").gameObject;
+        HikariMake_effect_Particle_KiraExplode = HikariMakeImage.transform.Find("Particle_KiraExplode").gameObject;
+
         //一個以上作ってた場合、先にそれは入手する。
-        if(GameMgr.hikari_make_okashiKosu >= 1)
+        if (GameMgr.hikari_make_okashiKosu >= 1)
         {
             Hikarimake_StartPanel.GetYosokuItem();
         }
@@ -1181,6 +1187,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //カード表示
         NewRecipiFlag = false; //ヒカリが作る場合、強制的に新レシピ解放フラグをOFFに。
         card_view.ResultCardYosoku_DrawView(1, new_item);
+
+        //エフェクトON
+        HikariMake_effect_Particle_KiraExplode.SetActive(true);
 
         //音も鳴らす
         sc.PlaySe(25);
