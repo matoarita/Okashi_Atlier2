@@ -1614,14 +1614,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             else
             {
                 random = Random.Range(0, 10);
-                if (random < 5)
+                if (random >= 0 && random < 5)
                 {
                     live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
                 }
-                else
+                else if (random >= 5 && random < 10)
                 {
                     live2d_animator.Play("Idle_hikariMake2", motion_layer_num, 0.0f); //ヤムチャの歌をうたいながら
                 }
+                /*else if (random >= 7 && random < 10)
+                {
+                    live2d_animator.Play("Idle_hikariMake3", motion_layer_num, 0.0f); //棒目で上機嫌
+                }*/
             }
         }
         
