@@ -240,6 +240,9 @@ public class PlayerData
     //プレイヤーが作成したオリジナルの予測アイテムリスト。
     public List<Item> save_player_yosokuitemlist = new List<Item>();
 
+    //お菓子パネルのアイテムリスト。
+    public List<Item> save_player_extremepanel_itemlist = new List<Item>();
+
     //アイテムの前回スコアなどを記録する
     public List<ItemSaveparam> save_itemdatabase = new List<ItemSaveparam>();
 

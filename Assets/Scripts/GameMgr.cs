@@ -512,7 +512,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool NPC_Dislike_UseON;
 
     public static Dictionary<int, int> Hikariokashi_Exptable = new Dictionary<int, int>();
-    public static Dictionary<int, int> Hikariokashi_Exptable2 = new Dictionary<int, int>();
+    //public static Dictionary<int, int> Hikariokashi_Exptable2 = new Dictionary<int, int>();
 
     //各NPCお菓子判定番号
     public static int Mose_Okashi_num01;
@@ -1386,25 +1386,25 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Hikariokashi_Exptable.Add(1, 10);
         Hikariokashi_Exptable.Add(2, 20);
-        Hikariokashi_Exptable.Add(3, 50);
-        Hikariokashi_Exptable.Add(4, 100);
-        Hikariokashi_Exptable.Add(5, 250);
-        Hikariokashi_Exptable.Add(6, 500);
-        Hikariokashi_Exptable.Add(7, 1000);
-        Hikariokashi_Exptable.Add(8, 1500);
+        Hikariokashi_Exptable.Add(3, 30);
+        Hikariokashi_Exptable.Add(4, 70);
+        Hikariokashi_Exptable.Add(5, 150);
+        Hikariokashi_Exptable.Add(6, 250);
+        Hikariokashi_Exptable.Add(7, 500);
+        Hikariokashi_Exptable.Add(8, 1000);
         Hikariokashi_Exptable.Add(9, 9999);
 
         //少し難しめのお菓子は、レベルも上がりにくくなる。
-        Hikariokashi_Exptable2.Clear();
+        /*Hikariokashi_Exptable2.Clear();
 
         Hikariokashi_Exptable2.Add(1, 30);
         Hikariokashi_Exptable2.Add(2, 70);
         Hikariokashi_Exptable2.Add(3, 150);
-        Hikariokashi_Exptable2.Add(4, 300);
-        Hikariokashi_Exptable2.Add(5, 600);
-        Hikariokashi_Exptable2.Add(6, 900);
-        Hikariokashi_Exptable2.Add(7, 1300);
-        Hikariokashi_Exptable2.Add(8, 1800);
-        Hikariokashi_Exptable2.Add(9, 9999);
+        Hikariokashi_Exptable2.Add(4, 270);
+        Hikariokashi_Exptable2.Add(5, 450);
+        Hikariokashi_Exptable2.Add(6, 800);
+        Hikariokashi_Exptable2.Add(7, 1200);
+        Hikariokashi_Exptable2.Add(8, 1500);
+        Hikariokashi_Exptable2.Add(9, 9999);*/
     }
 }

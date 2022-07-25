@@ -472,13 +472,24 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             Check_ListHyouji();
         }
+
+        //次に、お菓子パネルリストを、上記のリスト（_listitem）に追加していく。
+        check_itemListType = 2;
+        for (i = 0; i < pitemlist.player_extremepanel_itemlist.Count; i++)
+        {
+            check_item_Hyouji = pitemlist.player_extremepanel_itemlist[i].item_Hyouji;
+            check_itemName = pitemlist.player_extremepanel_itemlist[i].itemName;
+            check_itemType = pitemlist.player_extremepanel_itemlist[i].itemType.ToString();
+            check_itemType_sub = pitemlist.player_extremepanel_itemlist[i].itemType_sub.ToString();
+
+            Check_ListHyouji();
+        }
     }
 
     void Check_ListHyouji()
     {
         if (check_item_Hyouji > 0) //item_hyoujiが1のものを表示する。未使用アイテムなどは0にして表示しない。
         {
-            //Debug.Log("ID: " + i + " 所持アイテム: " + pitemlist.player_originalitemlist[i].itemName);
             if (SceneManager.GetActiveScene().name == "Compound")
             {
                 switch (GameMgr.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
@@ -733,6 +744,25 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
             }
         }
+
+        //次に、お菓子パネルアイテムリストを、上記のリスト（_listitem）に追加していく。
+        check_itemListType = 2;
+        for (i = 0; i < pitemlist.player_extremepanel_itemlist.Count; i++)
+        {
+            if (pitemlist.player_extremepanel_itemlist[i].item_Hyouji > 0)
+            {
+                //トッピング調合の時のみ使用。
+
+                if (SceneManager.GetActiveScene().name == "Compound")
+                {
+                    //お菓子タイプのみ表示
+                    if (pitemlist.player_extremepanel_itemlist[i].itemType.ToString() == "Okashi")
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+            }
+        }
     }
 
 
@@ -750,66 +780,78 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         //まず、プレイヤーアイテムリストを、表示
         check_itemListType = 0;
+            
         for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
-            if (database.items[i].item_Hyouji > 0)
-            {
-                if (i > database.sheet_topendID[6]) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
-                {
+            check_item_Hyouji = database.items[i].item_Hyouji;
+            check_itemName = database.items[i].itemName;
+            check_itemType = database.items[i].itemType.ToString();
+            check_itemType_sub = database.items[i].itemType_sub.ToString();
 
-                }
-                else
-                {
-
-                    if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
-                    {
-                        if (SceneManager.GetActiveScene().name == "Compound")
-                        {
-                            if (GameMgr.tutorial_ON == true)
-                            {
-                                //チュートリアル時は、とりあえずオレンジだけ表示
-                                if (database.items[i].itemName == "orange")
-                                {
-                                    itemlist_hyouji_Check();
-                                }
-                            }
-                            else
-                            {
-                                //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                                if (database.items[i].itemType.ToString() == "Potion" || database.items[i].itemType_sub.ToString() == "Potion" || 
-                                    database.items[i].itemType_sub.ToString() == "Fruits" || database.items[i].itemType_sub.ToString() == "Berry" ||
-                                    database.items[i].itemType_sub.ToString() == "Nuts" || database.items[i].itemType_sub.ToString() == "Chocolate_Mat" ||
-                                    database.items[i].itemType_sub.ToString() == "IceCream" || database.items[i].itemType_sub.ToString() == "Candy" ||
-                                    database.items[i].itemType_sub.ToString() == "Tea_Potion")
-                                {
-                                    itemlist_hyouji_Check();
-                                }
-                            }
-                            
-                        }
-                    }
-                }
-            }
+            Check_ListToppingHyouji();
         }
 
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
         check_itemListType = 1;
         for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
-            if (pitemlist.player_originalitemlist[i].item_Hyouji > 0)
-            {
-                //トッピング調合の時のみ使用。
+            check_item_Hyouji = pitemlist.player_originalitemlist[i].item_Hyouji;
+            check_itemName = pitemlist.player_originalitemlist[i].itemName;
+            check_itemType = pitemlist.player_originalitemlist[i].itemType.ToString();
+            check_itemType_sub = pitemlist.player_originalitemlist[i].itemType_sub.ToString();
 
-                if (SceneManager.GetActiveScene().name == "Compound")
+            Check_ListToppingHyouji();
+        }
+
+        //次に、お菓子パネルリストを、上記のリスト（_listitem）に追加していく。
+        check_itemListType = 2;
+        for (i = 0; i < pitemlist.player_extremepanel_itemlist.Count; i++)
+        {
+            check_item_Hyouji = pitemlist.player_extremepanel_itemlist[i].item_Hyouji;
+            check_itemName = pitemlist.player_extremepanel_itemlist[i].itemName;
+            check_itemType = pitemlist.player_extremepanel_itemlist[i].itemType.ToString();
+            check_itemType_sub = pitemlist.player_extremepanel_itemlist[i].itemType_sub.ToString();
+
+            Check_ListToppingHyouji();
+        }
+    }
+
+    void Check_ListToppingHyouji()
+    {
+        if (check_item_Hyouji > 0)
+        {
+            if (i > database.sheet_topendID[6]) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+            {
+
+            }
+            else
+            {
+
+                if (pitemlist.playeritemlist[check_itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
                 {
-                    //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                    if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Potion" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Potion" ||
-                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Fruits" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Berry" ||
-                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Nuts" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Chocolate" ||
-                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "IceCream" || pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Candy" ||
-                        pitemlist.player_originalitemlist[i].itemType_sub.ToString() == "Tea_Potion")
+                    if (SceneManager.GetActiveScene().name == "Compound")
                     {
-                        itemlist_hyouji_Check();
+                        if (GameMgr.tutorial_ON == true)
+                        {
+                            //チュートリアル時は、とりあえずオレンジだけ表示
+                            if (check_itemName == "orange")
+                            {
+                                itemlist_hyouji_Check();
+                            }
+                        }
+                        else
+                        {
+                            //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
+                            if (check_itemType == "Potion" || check_itemType_sub == "Potion" ||
+                                check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" ||
+                                check_itemType_sub == "Nuts" || check_itemType_sub == "Chocolate_Mat" ||
+                                check_itemType_sub == "IceCream" || check_itemType_sub == "Candy" ||
+                                check_itemType_sub == "Tea_Potion")
+                            {
+                                itemlist_hyouji_Check();
+                            }
+                        }
+
                     }
                 }
             }
@@ -828,6 +870,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             case 1: //プレイヤーオリジナルアイテムリスト
 
                 original_itemlist_hyouji();
+                break;
+
+            case 2: //エクストリームパネルアイテムリスト
+
+                extreme_itemlist_hyouji();
                 break;
         }
     }
@@ -882,34 +929,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //アイテム名の表示
         item_name = pitemlist.player_originalitemlist[i].itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
 
-        //_slotHyouji1[]は、一度名前を、全て空白に初期化
-        /*for (n = 0; n < _slotHyouji1.Length; n++)
-        {
-            _slotHyouji1[n] = "";
-        }
-
-        //カード正式名称（ついてるスロット名も含めた名前）
-        for (n = 0; n < _slot.Length; n++)
-        {
-            count = 0;
-
-            //スロット名を日本語に変換。DBから変換。Nonは、空白になる。
-            while (count < slotnamedatabase.slotname_lists.Count)
-            {
-                if (slotnamedatabase.slotname_lists[count].slotName == pitemlist.player_originalitemlist[i].toppingtype[n].ToString())
-                {
-
-                    _slotHyouji1[n] = GameMgr.ColorYellow + slotnamedatabase.slotname_lists[count].slot_Hyouki_2 + "</color>";
-
-                    break;
-                }
-                count++;
-            }
-        }
-
-        _text[0].text = _slotHyouji1[0] + _slotHyouji1[1] + _slotHyouji1[2] + _slotHyouji1[3] + _slotHyouji1[4] + _slotHyouji1[5] + 
-        _slotHyouji1[6] + _slotHyouji1[7] + _slotHyouji1[8] + _slotHyouji1[9] + item_name;
-                */
         _text[0].text = item_name;
 
         item_kosu = pitemlist.player_originalitemlist[i].ItemKosu;
@@ -922,6 +941,42 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         //画像を変更
         texture2d = pitemlist.player_originalitemlist[i].itemIcon_sprite;
+        _Img.sprite = texture2d;
+
+        ++list_count;
+    }
+
+
+    //リストにアイテム名（作ったアイテム）を表示する処理
+    void extreme_itemlist_hyouji()
+    {
+        _listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _text = _listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
+        _Img = _listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+
+        _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
+
+        _toggle_itemID.toggleitem_ID = pitemlist.player_extremepanel_itemlist[i].itemID; //アイテムIDを、リストビューのトグル自体にも記録させておく。
+        _toggle_itemID.toggleitem_type = 2; //プレイヤーアイテムリストを識別するための番号。オリジナルアイテムの場合、1を入れる。
+        _toggle_itemID.toggle_originplist_ID = i; //オリジナルアイテムリストのリスト番号
+        //Debug.Log("プレイヤオリジナルアイテムリストID: " + _toggle_itemID.toggle_originplist_ID + " " + "アイテムID: " + _toggle_itemID.toggleitem_ID);
+
+
+        //アイテム名の表示
+        item_name = pitemlist.player_extremepanel_itemlist[i].itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+
+        _text[0].text = item_name;
+
+        item_kosu = pitemlist.player_extremepanel_itemlist[i].ItemKosu;
+
+        _text[1].text = item_kosu.ToString(); //プレイヤーがそのアイテムをもっている個数
+        _text[1].color = new Color(255f / 255f, 234f / 255f, 64f / 255f);
+        //_listitem[list_count].transform.Find("Background/Item_count").GetComponent<>().
+
+        //Debug.Log("Original: " + i + "　ItemID" + _toggle_itemID.toggleitem_ID + " アイテム名: " + item_name);
+
+        //画像を変更
+        texture2d = pitemlist.player_extremepanel_itemlist[i].itemIcon_sprite;
         _Img.sprite = texture2d;
 
         ++list_count;

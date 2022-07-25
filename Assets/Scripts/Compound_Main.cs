@@ -1386,7 +1386,7 @@ public class Compound_Main : MonoBehaviour
                 status_panel.SetActive(false);
                 okashihint_panel.SetActive(false);
                 recipiMemoButton.SetActive(false);
-                extreme_panel.SetInitParamExtreme(); //compo=0のタイミングで、毎回エクストリームパネルのアイテム削除を判定する。
+                extreme_panel.SetInitParamExtreme(); //compo=0のタイミングで、毎回エクストリームパネルのアイテムの有無を判定する。
 
                 WindowOn();                
                 select_original_button.interactable = true;
@@ -1797,7 +1797,7 @@ public class Compound_Main : MonoBehaviour
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
                 
-                if (extreme_panel.extreme_itemID != 9999 && PlayerStatus.player_extreme_kaisu > 0)　//extreme_panel.extreme_kaisu
+                if (pitemlist.player_extremepanel_itemlist.Count > 0 && PlayerStatus.player_extreme_kaisu > 0)　//extreme_panel.extreme_kaisu
                 {
                     select_extreme_button.interactable = true;
                 } else
@@ -1819,10 +1819,10 @@ public class Compound_Main : MonoBehaviour
                 {
                     select_hikarimake_button.interactable = false; //ピクニックイベント中はヒカリお菓子作るボタンオフ
 
-                    if (extreme_panel.extreme_itemID != 9999)
+                    if (pitemlist.player_extremepanel_itemlist.Count > 0)
                     {
-                        picnic_itemText.text = GameMgr.ColorYellow + pitemlist.player_originalitemlist[extreme_panel.extreme_itemID].item_SlotName + "</color>" +
-                        pitemlist.player_originalitemlist[extreme_panel.extreme_itemID].itemNameHyouji;
+                        picnic_itemText.text = GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[0].item_SlotName + "</color>" +
+                        pitemlist.player_extremepanel_itemlist[0].itemNameHyouji;
                     }
                     else
                     {
@@ -1930,7 +1930,7 @@ public class Compound_Main : MonoBehaviour
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
 
-                if (extreme_panel.extreme_itemID != 9999 && PlayerStatus.player_extreme_kaisu > 0)　//extreme_panel.extreme_kaisu
+                if (pitemlist.player_extremepanel_itemlist.Count > 0 && PlayerStatus.player_extreme_kaisu > 0)　//extreme_panel.extreme_kaisu
                 {
                     select_extreme_button.interactable = true;
                 }
@@ -1964,7 +1964,7 @@ public class Compound_Main : MonoBehaviour
                 text_area.SetActive(true);
                 WindowOff();
 
-                card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
+                card_view.PresentGirl(2, 0);
                 StartCoroutine("Girl_present_Final_select");
 
 
@@ -1978,7 +1978,7 @@ public class Compound_Main : MonoBehaviour
                 character_move.transform.position = new Vector3(0, 0, 0);
 
                 //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1 1=コンテストのとき
-                girlEat_judge.Girleat_Judge_method(extreme_panel.extreme_itemID, extreme_panel.extreme_itemtype, 0);
+                girlEat_judge.Girleat_Judge_method(0, 2, 0);
 
                 break;
 
@@ -2385,7 +2385,7 @@ public class Compound_Main : MonoBehaviour
         //ゲーム進行度に応じて、ヒントボタンなどは表示する。
         CheckButtonFlag();
 
-        if (extreme_panel.extreme_itemID != 9999)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             girleat_toggle.GetComponent<Toggle>().interactable = true;
             //girleat_toggle.SetActive(true);
@@ -2606,7 +2606,7 @@ public class Compound_Main : MonoBehaviour
             extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
             Debug.Log("このお菓子でいく？");
-            card_view.PresentGirl(extreme_panel.extreme_itemtype, extreme_panel.extreme_itemID);
+            card_view.PresentGirl(2, 0);
             StartCoroutine("PicnicItem_Final_select");
         }
         else
@@ -2767,7 +2767,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            if ( extreme_panel.extreme_itemID != 9999 )
+            if (pitemlist.player_extremepanel_itemlist.Count > 0)
             {
                 _text.text = "今、作ったお菓子をあげますか？"; // + "\n" + "あと " + GameMgr.ColorLemon + nokori_kaisu + "</color>" + "回　あげられるよ。"
                 HintButtonOFF();
@@ -2816,7 +2816,7 @@ public class Compound_Main : MonoBehaviour
 
             if (GameMgr.OkashiQuest_flag_stage1[4])
             {
-                if (extreme_panel.extreme_itemID == 9999)
+                if (pitemlist.player_extremepanel_itemlist.Count == 0)
                 {
                     //お菓子を作ってないと、コンテストへ進めない。
                     _text.text = "お兄ちゃん..。まだお菓子を作ってないよ～。";
@@ -3097,8 +3097,8 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.event_pitem_use_OK = true;
 
                 //決定したアイテムの番号と個数
-                GameMgr.event_kettei_itemID = extreme_panel.extreme_itemID;
-                GameMgr.event_kettei_item_Type = extreme_panel.extreme_itemtype;
+                GameMgr.event_kettei_itemID = 0;
+                GameMgr.event_kettei_item_Type = 2;
                 //GameMgr.event_kettei_item_Kosu = updown_counter.updown_kosu; //最終個数を入れる。
                 GameMgr.event_kettei_item_Kosu = 1;
                 break;
@@ -3979,7 +3979,7 @@ public class Compound_Main : MonoBehaviour
         }
 
         //お菓子が完成したが、一度もまだあげたことがない時。
-        if(PlayerStatus.player_girl_eatCount <= 0 && extreme_panel.extreme_itemID != 9999)
+        if(PlayerStatus.player_girl_eatCount <= 0 && pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             ClickPanel_2.SetActive(true);
         }
@@ -4453,9 +4453,9 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("じゃがいものトマト煮込み");
                     _todayfoodexpence_lib.Add((int)(90f * _todayfood_buf));
                     _todayfood_lib.Add("回転網焼きステーキ");
-                    _todayfoodexpence_lib.Add((int)(90f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("おさかな地中海蒸し焼き");
-                    _todayfoodexpence_lib.Add((int)(120f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("手ごねバーグ");
                     _todayfoodexpence_lib.Add((int)(120f * _todayfood_buf));
                     _todayfood_lib.Add("ほっくりじゃがピザ");
@@ -4466,7 +4466,7 @@ public class Compound_Main : MonoBehaviour
 
                 case 7:
 
-                    _todayfood_lib.Add("ゴールデンカレーライス");
+                    _todayfood_lib.Add("欧風ゴールデンカレーライス");
                     _todayfoodexpence_lib.Add((int)(160f * _todayfood_buf));
                     _todayfood_lib.Add("アツアツリゾット");
                     _todayfoodexpence_lib.Add((int)(120f * _todayfood_buf));
@@ -4479,12 +4479,12 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("あったかじゃがいもポタージュ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("ブルゴーニュ風ステーキ");
+                    _todayfood_lib.Add("ブルゴーニュの羊ステーキ");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("じゃがいもりだくさんのペスカトーレ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("うまうまステーキ");
-                    _todayfoodexpence_lib.Add((int)(250f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(550f * _todayfood_buf));
                     break;
 
                 case 13:
@@ -4494,7 +4494,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("エビのオリーブアヒージョ・ドリア");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("マッシュルームとしめじの純和風パスタ");
-                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     _todayfood_lib.Add("厚切り！アルプス牛ロースステーキ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
@@ -4504,11 +4504,11 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("ポテトコロッケ");
                     _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
                     _todayfood_lib.Add("エビきのこのジェノベーゼ");
-                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(700f * _todayfood_buf));
                     _todayfood_lib.Add("たことガーリック盛沢山ペペロンチーノ");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("巨大イカの逆襲パスタ・オリーブ仕上げ");
-                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     _todayfood_lib.Add("ジャンボ・えびふら～い");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
@@ -4557,18 +4557,31 @@ public class Compound_Main : MonoBehaviour
 
                 case 80:
 
-                    _todayfood_lib.Add("ポム・スフレ");
+                    _todayfood_lib.Add("ポテト・ボンボン");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("イタリアンロイヤルトマトピザ");
-                    _todayfoodexpence_lib.Add((int)(1000f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(2000f * _todayfood_buf));
                     _todayfood_lib.Add("ジャーマンポテトガーリックピザ");
                     _todayfoodexpence_lib.Add((int)(1400f * _todayfood_buf));
                     _todayfood_lib.Add("まんぷくラザニア");
-                    _todayfoodexpence_lib.Add((int)(600f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(800f * _todayfood_buf));
                     _todayfood_lib.Add("にいちゃんのハンバーグ");
-                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("新・黄金じゃがバター");
                     _todayfoodexpence_lib.Add((int)(1000f * _todayfood_buf));
+                    
+                    break;
+
+                case 90:
+
+                    _todayfood_lib.Add("ロイヤルポテト焼き");
+                    _todayfoodexpence_lib.Add((int)(3000f * _todayfood_buf));
+                    _todayfood_lib.Add("スタースパゲティ");
+                    _todayfoodexpence_lib.Add((int)(3000f * _todayfood_buf));
+                    _todayfood_lib.Add("ステーキ・シャトーブリアン");
+                    _todayfoodexpence_lib.Add((int)(5000f * _todayfood_buf));
+                    _todayfood_lib.Add("うなぎのパイ皮包み焼き");
+                    _todayfoodexpence_lib.Add((int)(4000f * _todayfood_buf));
                     break;
 
                 default:

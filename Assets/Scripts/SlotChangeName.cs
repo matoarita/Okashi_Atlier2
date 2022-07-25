@@ -66,9 +66,13 @@ public class SlotChangeName : SingletonMonoBehaviour<SlotChangeName>
                 {
                     _slot[i] = pitemlist.player_originalitemlist[itemID].toppingtype[i].ToString();
                 }
-                else
+                else if (_status == 1)
                 {
                     _slot[i] = pitemlist.player_yosokuitemlist[itemID].toppingtype[i].ToString();
+                }
+                else if(_status == 2)
+                {
+                    _slot[i] = pitemlist.player_extremepanel_itemlist[itemID].toppingtype[i].ToString();
                 }
             }
         }

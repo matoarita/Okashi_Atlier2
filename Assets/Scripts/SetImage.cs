@@ -607,8 +607,155 @@ public class SetImage : MonoBehaviour
                 for (i = 0; i < _slot.Length; i++)
                 {
                     _slot[i] = pitemlist.player_originalitemlist[check_counter].toppingtype[i].ToString();
-                }                
-                
+                }                               
+
+                break;
+
+            case 2: //エクストリームパネルに設定したアイテムリストを選択した場合
+
+                //アイテムID
+                itemID = pitemlist.player_extremepanel_itemlist[check_counter].itemID;
+
+                //アイテムタイプを代入//
+                item_type = pitemlist.player_extremepanel_itemlist[check_counter].itemType.ToString();
+
+                //サブカテゴリーの代入
+                item_type_sub = pitemlist.player_extremepanel_itemlist[check_counter].itemType_sub.ToString();
+
+                /* アイテム解説の表示 */
+                item_RankDesc.text = pitemlist.player_extremepanel_itemlist[check_counter].itemDesc;
+
+                // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
+                texture2d = pitemlist.player_extremepanel_itemlist[check_counter].itemIcon_sprite;
+
+                //カードのスロット部分の名
+                item_SlotName = pitemlist.player_extremepanel_itemlist[check_counter].item_SlotName;
+
+                //カードのアイテム名
+                _name = pitemlist.player_extremepanel_itemlist[check_counter].itemNameHyouji;
+
+                //アイテムの品質値
+                _quality = pitemlist.player_extremepanel_itemlist[check_counter].Quality.ToString();
+
+                //レアリティ
+                _rare = pitemlist.player_extremepanel_itemlist[check_counter].Rare;
+
+                //シークレット表示フラグ
+                _secretFlag = pitemlist.player_extremepanel_itemlist[check_counter].SecretFlag;
+
+                //甘さなどのパラメータを代入
+                _quality_score = pitemlist.player_extremepanel_itemlist[check_counter].Quality;
+                _rich_score = pitemlist.player_extremepanel_itemlist[check_counter].Rich;
+                _sweat_score = pitemlist.player_extremepanel_itemlist[check_counter].Sweat;
+                _bitter_score = pitemlist.player_extremepanel_itemlist[check_counter].Bitter;
+                _sour_score = pitemlist.player_extremepanel_itemlist[check_counter].Sour;
+
+                _crispy_score = pitemlist.player_extremepanel_itemlist[check_counter].Crispy;
+                _fluffy_score = pitemlist.player_extremepanel_itemlist[check_counter].Fluffy;
+                _smooth_score = pitemlist.player_extremepanel_itemlist[check_counter].Smooth;
+                _hardness_score = pitemlist.player_extremepanel_itemlist[check_counter].Hardness;
+
+                _juice_score = pitemlist.player_extremepanel_itemlist[check_counter].Juice;
+
+                _powdery_score = pitemlist.player_extremepanel_itemlist[check_counter].Powdery;
+                _oily_score = pitemlist.player_extremepanel_itemlist[check_counter].Oily;
+                _watery_score = pitemlist.player_extremepanel_itemlist[check_counter].Watery;
+
+                //前回の味読み込み
+                _lastrich_score = pitemlist.player_extremepanel_itemlist[check_counter].last_rich_score;
+                _lastsweat_score = pitemlist.player_extremepanel_itemlist[check_counter].last_sweat_score;
+                _lastbitter_score = pitemlist.player_extremepanel_itemlist[check_counter].last_bitter_score;
+                _lastsour_score = pitemlist.player_extremepanel_itemlist[check_counter].last_sour_score;
+
+                _lastcrispy_score = pitemlist.player_extremepanel_itemlist[check_counter].last_crispy_score;
+                _lastfluffy_score = pitemlist.player_extremepanel_itemlist[check_counter].last_fluffy_score;
+                _lastsmooth_score = pitemlist.player_extremepanel_itemlist[check_counter].last_smooth_score;
+                _lasthardness_score = pitemlist.player_extremepanel_itemlist[check_counter].last_hardness_score;
+                _lastjuice_score = pitemlist.player_extremepanel_itemlist[check_counter].last_juice_score;
+
+                _eat_kaisu = pitemlist.player_extremepanel_itemlist[check_counter].Eat_kaisu;
+                _highscore_flag = pitemlist.player_extremepanel_itemlist[check_counter].HighScore_flag;
+                _lasttotal_score = pitemlist.player_extremepanel_itemlist[check_counter].last_total_score;
+                _lasthint_text = pitemlist.player_extremepanel_itemlist[check_counter].last_hinttext;
+
+                for (i = 0; i < _slot.Length; i++)
+                {
+                    _slot[i] = pitemlist.player_extremepanel_itemlist[check_counter].toppingtype[i].ToString();
+                }
+
+                break;
+
+            case 3: //表示などの確認用のチェック用アイテムリストを選択した場合。これはプレーヤは触れず、内部処理用のもの。セーブもされないTempデータ。
+
+                //アイテムID
+                itemID = pitemlist.player_check_itemlist[check_counter].itemID;
+
+                //アイテムタイプを代入//
+                item_type = pitemlist.player_check_itemlist[check_counter].itemType.ToString();
+
+                //サブカテゴリーの代入
+                item_type_sub = pitemlist.player_check_itemlist[check_counter].itemType_sub.ToString();
+
+                /* アイテム解説の表示 */
+                item_RankDesc.text = pitemlist.player_check_itemlist[check_counter].itemDesc;
+
+                // アイテムデータベース(ItemDataBaseスクリプト・オブジェクト）に登録された「0」番のアイテムアイコンを、texture2d型の変数へ取得。「itemIcon」画像はTexture2D型で読み込んでる。
+                texture2d = pitemlist.player_check_itemlist[check_counter].itemIcon_sprite;
+
+                //カードのスロット部分の名
+                item_SlotName = pitemlist.player_check_itemlist[check_counter].item_SlotName;
+
+                //カードのアイテム名
+                _name = pitemlist.player_check_itemlist[check_counter].itemNameHyouji;
+
+                //アイテムの品質値
+                _quality = pitemlist.player_check_itemlist[check_counter].Quality.ToString();
+
+                //レアリティ
+                _rare = pitemlist.player_check_itemlist[check_counter].Rare;
+
+                //シークレット表示フラグ
+                _secretFlag = pitemlist.player_check_itemlist[check_counter].SecretFlag;
+
+                //甘さなどのパラメータを代入
+                _quality_score = pitemlist.player_check_itemlist[check_counter].Quality;
+                _rich_score = pitemlist.player_check_itemlist[check_counter].Rich;
+                _sweat_score = pitemlist.player_check_itemlist[check_counter].Sweat;
+                _bitter_score = pitemlist.player_check_itemlist[check_counter].Bitter;
+                _sour_score = pitemlist.player_check_itemlist[check_counter].Sour;
+
+                _crispy_score = pitemlist.player_check_itemlist[check_counter].Crispy;
+                _fluffy_score = pitemlist.player_check_itemlist[check_counter].Fluffy;
+                _smooth_score = pitemlist.player_check_itemlist[check_counter].Smooth;
+                _hardness_score = pitemlist.player_check_itemlist[check_counter].Hardness;
+
+                _juice_score = pitemlist.player_check_itemlist[check_counter].Juice;
+
+                _powdery_score = pitemlist.player_check_itemlist[check_counter].Powdery;
+                _oily_score = pitemlist.player_check_itemlist[check_counter].Oily;
+                _watery_score = pitemlist.player_check_itemlist[check_counter].Watery;
+
+                //前回の味読み込み
+                _lastrich_score = pitemlist.player_check_itemlist[check_counter].last_rich_score;
+                _lastsweat_score = pitemlist.player_check_itemlist[check_counter].last_sweat_score;
+                _lastbitter_score = pitemlist.player_check_itemlist[check_counter].last_bitter_score;
+                _lastsour_score = pitemlist.player_check_itemlist[check_counter].last_sour_score;
+
+                _lastcrispy_score = pitemlist.player_check_itemlist[check_counter].last_crispy_score;
+                _lastfluffy_score = pitemlist.player_check_itemlist[check_counter].last_fluffy_score;
+                _lastsmooth_score = pitemlist.player_check_itemlist[check_counter].last_smooth_score;
+                _lasthardness_score = pitemlist.player_check_itemlist[check_counter].last_hardness_score;
+                _lastjuice_score = pitemlist.player_check_itemlist[check_counter].last_juice_score;
+
+                _eat_kaisu = pitemlist.player_check_itemlist[check_counter].Eat_kaisu;
+                _highscore_flag = pitemlist.player_check_itemlist[check_counter].HighScore_flag;
+                _lasttotal_score = pitemlist.player_check_itemlist[check_counter].last_total_score;
+                _lasthint_text = pitemlist.player_check_itemlist[check_counter].last_hinttext;
+
+                for (i = 0; i < _slot.Length; i++)
+                {
+                    _slot[i] = pitemlist.player_check_itemlist[check_counter].toppingtype[i].ToString();
+                }
 
                 break;
 
@@ -645,7 +792,6 @@ public class SetImage : MonoBehaviour
         item_SlotName = pitemlist.player_yosokuitemlist[check_counter].item_SlotName;
 
         //カードのアイテム名
-        //item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
         _name = pitemlist.player_yosokuitemlist[check_counter].itemNameHyouji;
 
         //アイテムの品質値
@@ -676,7 +822,7 @@ public class SetImage : MonoBehaviour
         _watery_score = pitemlist.player_yosokuitemlist[check_counter].Watery;
 
         //前回の味読み込み
-        //_lastquality_score = pitemlist.player_originalitemlist[check_counter].Quality;
+        //_lastquality_score = pitemlist.player_yosokuitemlist[check_counter].Quality;
         _lastrich_score = pitemlist.player_yosokuitemlist[check_counter].last_rich_score;
         _lastsweat_score = pitemlist.player_yosokuitemlist[check_counter].last_sweat_score;
         _lastbitter_score = pitemlist.player_yosokuitemlist[check_counter].last_bitter_score;
@@ -727,7 +873,6 @@ public class SetImage : MonoBehaviour
         item_SlotName = GameMgr.contestclear_collection_list[check_counter].ItemData.item_SlotName;
 
         //カードのアイテム名
-        //item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + pitemlist.player_originalitemlist[check_counter].itemNameHyouji;
         _name = GameMgr.contestclear_collection_list[check_counter].ItemData.itemNameHyouji;
 
         //アイテムの品質値
@@ -758,7 +903,6 @@ public class SetImage : MonoBehaviour
         _watery_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Watery;
 
         //前回の味読み込み
-        //_lastquality_score = pitemlist.player_originalitemlist[check_counter].Quality;
         _lastrich_score = GameMgr.contestclear_collection_list[check_counter].ItemData.last_rich_score;
         _lastsweat_score = GameMgr.contestclear_collection_list[check_counter].ItemData.last_sweat_score;
         _lastbitter_score = GameMgr.contestclear_collection_list[check_counter].ItemData.last_bitter_score;

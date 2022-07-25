@@ -882,7 +882,7 @@ AnimationClip:
       - serializedVersion: 2
         time: 1.867
         value: 0
-        inSlope: 0
+        inSlope: Infinity
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
@@ -3185,7 +3185,7 @@ AnimationClip:
       - serializedVersion: 2
         time: 1.867
         value: 0
-        inSlope: 0
+        inSlope: Infinity
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2

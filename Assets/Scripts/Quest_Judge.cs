@@ -81,6 +81,7 @@ public class Quest_Judge : MonoBehaviour {
     private SoundController sc;
 
     private Dictionary<int, int> deleteOriginalList = new Dictionary<int, int>(); //オリジナルアイテムリストの削除用のリスト。ID, 個数のセット
+    private Dictionary<int, int> deleteExtremeList = new Dictionary<int, int>(); //お菓子パネルアイテムリストの削除用のリスト。ID, 個数のセット
 
     private int i, count, list_count;
     public bool nouhinOK_flag;
@@ -499,6 +500,7 @@ public class Quest_Judge : MonoBehaviour {
 
         nouhinOK_flag = false;
         deleteOriginalList.Clear();
+        deleteExtremeList.Clear();
 
         _getNinki = 0;
         _getMoney = 0;
@@ -584,6 +586,47 @@ public class Quest_Judge : MonoBehaviour {
             }
         }
 
+        if (!nouhinOK_flag) //上の探索で納品OKがtrueなら、お菓子パネルアイテムリストは検索しない
+        {
+            //
+            i = 0;
+            while (i < pitemlist.player_extremepanel_itemlist.Count)
+            {
+
+                //まず該当アイテムがあるかどうか調べる。
+                if (_itemname == pitemlist.player_extremepanel_itemlist[i].itemName)
+                {
+                    //一致したら、さらに個数が足りてるかどうかを調べる。
+                    if (pitemlist.player_extremepanel_itemlist[i].ItemKosu >= _kosu_total)
+                    {
+                        nouhinOK_flag = true;
+
+                        if (_status) //削除処理もいれる場合
+                        {
+                            //さらにデリートリストに追加しておく。あとで降順に削除
+                            deleteExtremeList.Add(i, _kosu_total);
+                        }
+
+                        break;
+                    }
+                    else
+                    {
+                        nouhinOK_flag = false;
+
+                        _kosu_total -= pitemlist.player_extremepanel_itemlist[i].ItemKosu;
+
+                        if (_status) //削除処理もいれる場合
+                        {
+                            //さらにデリートリストに追加しておく。あとで降順に削除
+                            deleteExtremeList.Add(i, pitemlist.player_extremepanel_itemlist[i].ItemKosu);
+                        }
+
+                    }
+                }
+                i++;
+            }
+        }
+
         if (nouhinOK_flag)
         {
             if (_status) //決定した場合。削除処理や演出アニメははいらない
@@ -643,6 +686,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             pitemlist.deletePlayerItem(database.items[del_itemid].itemName, del_itemkosu); //デフォルトアイテムから先に削除
             DeleteOriginalItem(); //オリジナルからも削除
+            DeleteExtremeItem(); //エクストリームパネルからも選んでいれば削除
         }
 
         _getMoney = _buy_price * _kosu_default;
@@ -683,13 +727,28 @@ public class Quest_Judge : MonoBehaviour {
 
             foreach (KeyValuePair<int, int> deletePair in newTable)
             {
-                if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
-                {
-                    exp_Controller._temp_extreme_id = 9999;
-                    exp_Controller._temp_extremeSetting = false;
-                }
+
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
 
+                //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
+            }
+        }
+    }
+
+    void DeleteExtremeItem()
+    {
+
+        //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
+        if (deleteExtremeList.Count > 0)
+        {
+            //Debug.Log("オリジナルアイテムを納品");
+
+            //オリジナルアイテムをトッピングに使用していた場合の削除処理。削除用リストに入れた分をもとに、削除の処理を行う。
+            var newTable = deleteExtremeList.OrderByDescending(value => value.Key); //降順にする
+
+            foreach (KeyValuePair<int, int> deletePair in newTable)
+            {
+                pitemlist.deleteExtremePanelItem(deletePair.Key, deletePair.Value);
                 //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }
         }
@@ -718,6 +777,7 @@ public class Quest_Judge : MonoBehaviour {
         SetInitQItem(_qitemID); //依頼アイテムのパラメータを代入
 
         deleteOriginalList.Clear();
+        deleteExtremeList.Clear();
         result_OkashiScore.Clear();
         okashi_totalscore = 0;
         okashi_totalkosu = 0;
@@ -1119,31 +1179,20 @@ public class Quest_Judge : MonoBehaviour {
             {
                 case 0:
 
-                    //もし、エクストリームパネルにセットされているお菓子を納品し、個数が０になった場合。処理が必要。
-                    if (exp_Controller._temp_extreme_id == _id)
-                    {
-                        if (pitemlist.playeritemlist[database.items[_id].itemName] <= 0)
-                        {
-                            exp_Controller._temp_extreme_id = 9999;
-                        }
-                    }
                     //所持アイテムを削除
                     pitemlist.deletePlayerItem(database.items[_id].itemName, _kosu_default);
                     break;
 
                 case 1:
 
-                    //もし、エクストリームパネルにセットされているお菓子を納品し、個数が０になった場合。処理が必要。
-                    if (exp_Controller._temp_extreme_id == _id)
-                    {
-                        if (pitemlist.player_originalitemlist[_id].ItemKosu <= 0)
-                        {
-                            exp_Controller._temp_extreme_id = 9999;
-                        }
-                    }
-
                     //所持アイテムをリストに追加し、あとで降順に削除
                     deleteOriginalList.Add(_id, _kosu_default);
+                    break;
+
+                case 2:
+
+                    //所持アイテムをリストに追加し、あとで降順に削除
+                    deleteExtremeList.Add(_id, _kosu_default);
                     break;
 
             }
@@ -1693,6 +1742,52 @@ public class Quest_Judge : MonoBehaviour {
                 for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
                 {
                     _koyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
+                }
+                break;
+
+            case 2: //お菓子パネル設定アイテムリストから選択している場合
+
+                _id = pitemlistController._listitem[_count_n].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+
+                //各パラメータを取得
+                _basename = pitemlist.player_extremepanel_itemlist[_id].itemName;
+                _basehp = pitemlist.player_extremepanel_itemlist[_id].itemHP;
+                _baseday = pitemlist.player_extremepanel_itemlist[_id].item_day;
+                _basequality = pitemlist.player_extremepanel_itemlist[_id].Quality;
+                _baseexp = pitemlist.player_extremepanel_itemlist[_id].Exp;
+                _baseprobability = pitemlist.player_extremepanel_itemlist[_id].Ex_Probability;
+                _baserich = pitemlist.player_extremepanel_itemlist[_id].Rich;
+                _basesweat = pitemlist.player_extremepanel_itemlist[_id].Sweat;
+                _basebitter = pitemlist.player_extremepanel_itemlist[_id].Bitter;
+                _basesour = pitemlist.player_extremepanel_itemlist[_id].Sour;
+                _basecrispy = pitemlist.player_extremepanel_itemlist[_id].Crispy;
+                _basefluffy = pitemlist.player_extremepanel_itemlist[_id].Fluffy;
+                _basesmooth = pitemlist.player_extremepanel_itemlist[_id].Smooth;
+                _basehardness = pitemlist.player_extremepanel_itemlist[_id].Hardness;
+                _basejuice = pitemlist.player_extremepanel_itemlist[_id].Juice;
+                _basejiggly = pitemlist.player_extremepanel_itemlist[_id].Jiggly;
+                _basechewy = pitemlist.player_extremepanel_itemlist[_id].Chewy;
+                _basepowdery = pitemlist.player_extremepanel_itemlist[_id].Powdery;
+                _baseoily = pitemlist.player_extremepanel_itemlist[_id].Oily;
+                _basewatery = pitemlist.player_extremepanel_itemlist[_id].Watery;
+                _basebeauty = pitemlist.player_extremepanel_itemlist[_id].Beauty;
+                _basescore = pitemlist.player_extremepanel_itemlist[_id].Base_Score;
+                _basegirl1_like = pitemlist.player_extremepanel_itemlist[_id].girl1_itemLike;
+                _basecost = pitemlist.player_extremepanel_itemlist[_id].cost_price;
+                _basesell = pitemlist.player_extremepanel_itemlist[_id].sell_price;
+                _base_itemType = pitemlist.player_extremepanel_itemlist[_id].itemType.ToString();
+                _base_itemType_sub = pitemlist.player_extremepanel_itemlist[_id].itemType_sub.ToString();
+                _base_extreme_kaisu = pitemlist.player_extremepanel_itemlist[_id].ExtremeKaisu;
+                _base_item_hyouji = pitemlist.player_extremepanel_itemlist[_id].item_Hyouji;
+
+                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+                {
+                    _basetp[i] = pitemlist.player_extremepanel_itemlist[_id].toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
+                {
+                    _koyutp[i] = pitemlist.player_extremepanel_itemlist[_id].koyu_toppingtype[i].ToString();
                 }
                 break;
         }

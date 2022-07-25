@@ -330,6 +330,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         //店売りかオリジナルか、アイテムID        
         _cardImage.check_counter = pitemlist.player_yosokuitemlist.Count - 1;
+        //Debug.Log("_cardImage.check_counter: " + _cardImage.check_counter);
         _cardImage.SetInitYosoku();
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.75f, 0.75f, 1);
@@ -418,15 +419,34 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
             case true: //お菓子パネルにセットする
 
+                //アイテム取得処理
+                compound_keisan.HikariMakeGetItem(1);
+
+                //個数リセット
+                GameMgr.hikari_make_okashiKosu = 0;
+
                 sc.PlaySe(25);
-                extremePanel.SetExtremeItem(pitemlist.player_originalitemlist.Count - 1, 1);
+                extremePanel.SetExtremeItem(0, 2);
                 ResultHikariMakeCardView_andOFF();
+
+                //仕上げ回数をリセット
+                PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+
+                ResetHyouji();
                 break;
 
             case false: //セットせず、そのまま受け取る
 
+                //アイテム取得処理
+                compound_keisan.HikariMakeGetItem(0);
+
+                //個数リセット
+                GameMgr.hikari_make_okashiKosu = 0;
+
                 sc.PlaySe(46);
                 ResultHikariMakeCardView_andOFF();
+
+                ResetHyouji();
                 break;
         }
 
@@ -517,9 +537,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 //うけとる処理
 
-                //アイテム取得処理
-                compound_keisan.HikariMakeGetItem();
-
+                
                 //カード表示
                 sc.PlaySe(17);
                 TakeResultCard_DrawView(1);
@@ -560,10 +578,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 {
                     _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
                     GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！";
-                }
-
-                //個数リセット
-                GameMgr.hikari_make_okashiKosu = 0;
+                }                
 
                 //ヒカリがそのお菓子作った回数をカウント
                 databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].hikari_make_count++;
@@ -580,9 +595,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         }
 
-        SelectHyouji_OnOFF();
-        paramHyoujiKoushin();
-        CharaIconChange();
+        ResetHyouji();
     }
 
     //TimeControllerなどから読み込み。失敗しても経験ははいる。
@@ -644,6 +657,11 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         }
 
+        ResetHyouji();
+    }
+
+    void ResetHyouji()
+    {
         SelectHyouji_OnOFF();
         paramHyoujiKoushin();
         CharaIconChange();
@@ -670,7 +688,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
         //うけとる処理
         if (GameMgr.hikari_make_okashiKosu >= 1)
         {
-            compound_keisan.HikariMakeGetItem();
+            if (pitemlist.player_yosokuitemlist.Count > 0)
+            {
+                compound_keisan.HikariMakeGetItem(0);
+            }
             GameMgr.hikari_make_okashiKosu = 0;
         }
         else

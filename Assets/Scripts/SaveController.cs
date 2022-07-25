@@ -407,6 +407,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //アイテムリスト＜予測＞
             save_player_yosokuitemlist = pitemlist.player_yosokuitemlist,
 
+            //お菓子パネルのアイテムリスト。
+            save_player_extremepanel_itemlist = pitemlist.player_extremepanel_itemlist,
+
             //アイテムの前回スコアなどを記録する
             //save_itemdatabase = _temp_itemscorelist,
 
@@ -752,7 +755,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //アイテムリスト＜予測＞
         pitemlist.player_yosokuitemlist.Clear();
-        pitemlist.player_yosokuitemlist = playerData.save_player_yosokuitemlist;
+        pitemlist.player_yosokuitemlist = playerData.save_player_yosokuitemlist;      
 
         //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。アイテムIDも、後でDB更新の際に全てずれる可能性があるので入れ直し。
         for (i = 0; i < pitemlist.player_yosokuitemlist.Count; i++)
@@ -762,6 +765,17 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             pitemlist.player_yosokuitemlist[i].itemID = database.items[_itemID].itemID;
         }
 
+        //お菓子パネルのアイテムリスト。
+        pitemlist.player_extremepanel_itemlist.Clear();
+        pitemlist.player_extremepanel_itemlist = playerData.save_player_extremepanel_itemlist;
+
+        //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。アイテムIDも、後でDB更新の際に全てずれる可能性があるので入れ直し。
+        for (i = 0; i < pitemlist.player_extremepanel_itemlist.Count; i++)
+        {
+            _itemID = pitemlist.SearchItemString(pitemlist.player_extremepanel_itemlist[i].itemName);
+            pitemlist.player_extremepanel_itemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
+            pitemlist.player_extremepanel_itemlist[i].itemID = database.items[_itemID].itemID;
+        }
 
         //アイテムの前回スコアなどを読み込み
         /*for (count = 0; count < playerData.save_itemdatabase.Count; count++)
@@ -937,23 +951,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 questname.text = girl1_status.OkashiQuest_Name;
                 sceneBGM.PlayMain(); //BGMの更新                               
 
-                if (GameMgr.sys_extreme_itemID != 9999)
+                if (pitemlist.player_extremepanel_itemlist.Count > 0)
                 {
                     extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponentInChildren<ExtremePanel>();
-                    Debug.Log("GameMgr.sys_extreme_itemID: " + GameMgr.sys_extreme_itemID);
-                    Debug.Log("GameMgr.sys_extreme_itemType: " + GameMgr.sys_extreme_itemType);
+                    //Debug.Log("GameMgr.sys_extreme_itemID: " + GameMgr.sys_extreme_itemID);
+                    //Debug.Log("GameMgr.sys_extreme_itemType: " + GameMgr.sys_extreme_itemType);
 
-                    //対処療法　なぜか理由がわからないけど、たまにオリジナルアイテムリスト+1の箇所を、extremepanelで指定してしまうことがある。なので、ずれてた場合、パネルは削除。
-                    if (pitemlist.player_originalitemlist.Count - 1 != GameMgr.sys_extreme_itemID)
-                    {
-                        //GameMgr.sys_extreme_itemID = GameMgr.sys_extreme_itemID - 1;
-                        extreme_panel.deleteExtreme_Item();
-                    }
-                    else
-                    {
-                        extreme_panel.SetExtremeItem(GameMgr.sys_extreme_itemID, GameMgr.sys_extreme_itemType);
-                        extreme_panel.SetInitParamExtreme();
-                    }
+                    extreme_panel.SetExtremeItem(0, 2);
+                    extreme_panel.SetInitParamExtreme();
 
                 }
 

@@ -1792,11 +1792,8 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.contest_okashiNameHyouji = database.items[GameMgr.event_kettei_itemID].itemNameHyouji;
             itemType_sub = database.items[GameMgr.event_kettei_itemID].itemType_sub.ToString();
             itemName = database.items[GameMgr.event_kettei_itemID].itemName;
-
-            //削除
-            //pitemlist.deletePlayerItem(database.items[GameMgr.event_kettei_itemID].itemName, GameMgr.event_kettei_item_Kosu);
         }
-        else //自分が制作したオリジナルアイテム
+        else if (GameMgr.event_kettei_item_Type == 1) //自分が制作したオリジナルアイテム
         {
             Debug.Log("選択したアイテム: " + pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
             GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].item_SlotName;
@@ -1804,8 +1801,15 @@ public class Utage_scenario : MonoBehaviour
             itemType_sub = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
             itemName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemName;
 
-            //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
-            //pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+        }
+        else if (GameMgr.event_kettei_item_Type == 2) //自分が制作したオリジナルアイテム
+        {
+            Debug.Log("選択したアイテム: " + pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
+            GameMgr.contest_okashiSlotName = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].item_SlotName;
+            GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
+            itemType_sub = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
+            itemName = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemName;
+
         }
 
         //提出したお菓子の名前をセット
@@ -2174,10 +2178,15 @@ public class Utage_scenario : MonoBehaviour
             //削除
             pitemlist.deletePlayerItem(database.items[GameMgr.event_kettei_itemID].itemName, GameMgr.event_kettei_item_Kosu);
         }
-        else //自分が制作したオリジナルアイテム
+        else if (GameMgr.event_kettei_item_Type == 1)//自分が制作したオリジナルアイテム
         {
             //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
             pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+        }
+        else if (GameMgr.event_kettei_item_Type == 2)//自分が制作したオリジナルアイテム
+        {
+            //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
+            pitemlist.deleteExtremePanelItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
         }
     }
 
@@ -2260,10 +2269,10 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.MapSubEvent_Flag = 10;
 
                 //ししゃもクッキーを消費　パネルにセットされていたら。
-                if (exp_Controller._temp_extremeSetting &&
-                                        pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemName == "shishamo_cookie")
+                if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
+                                        pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
                 {
-                    pitemlist.deleteOriginalItem(exp_Controller._temp_extreme_id, 1);
+                    pitemlist.deleteExtremePanelItem(0, 1);
                 }
             }
         }

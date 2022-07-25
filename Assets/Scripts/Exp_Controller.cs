@@ -599,19 +599,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 
         if (DoubleItemCreated == 0)
         {
-            result_item = pitemlist.player_originalitemlist.Count - 1;
-            GameMgr.Okashi_makeID = pitemlist.player_originalitemlist[result_item].itemID;
-            renkin_hyouji = pitemlist.player_originalitemlist[result_item].itemNameHyouji;
+            result_item = pitemlist.player_check_itemlist.Count - 1;
+            GameMgr.Okashi_makeID = pitemlist.player_check_itemlist[result_item].itemID;
+            renkin_hyouji = pitemlist.player_check_itemlist[result_item].itemNameHyouji;
 
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
-            if (pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Mat" || 
-                pitemlist.player_originalitemlist[result_item].itemType.ToString() == "Potion")
+            if (pitemlist.player_check_itemlist[result_item].itemType.ToString() == "Mat" || 
+                pitemlist.player_check_itemlist[result_item].itemType.ToString() == "Potion")
             {
             }
             else
             {
                 //お菓子パネルに、作ったやつをセット。
-                extremePanel.SetExtremeItem(result_item, 1);
+                extremePanel.SetExtremeItem(result_item, 2);
 
                 //仕上げ回数をリセット
                 PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
@@ -620,7 +620,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             new_item = result_item;
 
-            card_view.ResultCard_DrawView(1, new_item);
+            card_view.ResultCard_DrawView(3, new_item);
         }
         else //例外処理。卵白と卵黄が同時にできる場合など。
         {
@@ -898,7 +898,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //トッピング調合完了なので、リザルトアイテムのパラメータ計算と、プレイヤーアイテムリストに追加処理
             compound_keisan.Topping_Compound_Method(0);
 
-            new_item = pitemlist.player_originalitemlist.Count - 1;
+            new_item = pitemlist.player_check_itemlist.Count - 1;
 
             //仕上げ回数を減らす
             PlayerStatus.player_extreme_kaisu--;
@@ -965,7 +965,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
 
             //カードで表示
-            card_view.ResultCard_DrawView(1, new_item);
+            card_view.ResultCard_DrawView(3, new_item);
 
             //チュートリアルのときは、一時的にOFF
             if (GameMgr.tutorial_ON == true)
@@ -984,7 +984,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_kosu = 1;
 
             //右側パネルに、作ったやつを表示する。
-            extremePanel.SetExtremeItem(new_item, 1);
+            extremePanel.SetExtremeItem(0, 2);
             
             //テキストの表示
             renkin_exp_up();
@@ -1097,7 +1097,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         
         //調合の予測処理 予測用オリジナルアイテムを生成　パラメータも予測して表示する（アイテム消費はしない）
-        compound_keisan.Topping_Compound_Method(1);
+        compound_keisan.Topping_Compound_Method(2);
 
         //使用する材料と個数を別に保存する。すぐにはアイテムの使用はせず、時間イベントに合わせて、処理を行う。
         GameMgr.hikari_kettei_item[0] = pitemlistController.kettei_item1;
@@ -1138,6 +1138,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             GameMgr.hikari_kettei_itemName[0] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[0]].itemName;
         }
+        else if (GameMgr.hikari_kettei_toggleType[0] == 2)
+        {
+            GameMgr.hikari_kettei_itemName[0] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[0]].itemName;
+        }
 
         if (GameMgr.hikari_kettei_toggleType[1] == 0)
         {
@@ -1146,6 +1150,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else if (GameMgr.hikari_kettei_toggleType[1] == 1)
         {
             GameMgr.hikari_kettei_itemName[1] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[1]].itemName;
+        }
+        else if (GameMgr.hikari_kettei_toggleType[1] == 2)
+        {
+            GameMgr.hikari_kettei_itemName[1] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[1]].itemName;
         }
 
         if (GameMgr.hikari_kettei_item[2] != 9999)
@@ -1157,6 +1165,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             else if (GameMgr.hikari_kettei_toggleType[2] == 1)
             {
                 GameMgr.hikari_kettei_itemName[2] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[2]].itemName;
+            }
+            else if (GameMgr.hikari_kettei_toggleType[2] == 2)
+            {
+                GameMgr.hikari_kettei_itemName[2] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[2]].itemName;
             }
         }
 
@@ -1633,7 +1645,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
-            pitemlist.player_originalitemlist[new_item].itemNameHyouji +
+            pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji +
             " が" + result_kosu + "個 できたよ！";
             //+ "\n" + _ex_text + "パティシエ経験値 " + _getexp + "上がった！";
         }
@@ -1641,12 +1653,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + 
-            pitemlist.player_originalitemlist[new_item].itemNameHyouji +
+            pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji +
             " が" + result_kosu + "個 できたよ！";
             //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。"; ;
         }
 
-        Debug.Log(pitemlist.player_originalitemlist[new_item].itemNameHyouji + "が出来ました！");
+        Debug.Log(pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji + "が出来ました！");
 
     }
 

@@ -435,6 +435,45 @@ public class Contest_Judge : MonoBehaviour {
 
                 break;
 
+            case 2:
+
+                _baseID = pitemlist.player_extremepanel_itemlist[kettei_item1].itemID;
+                _basename = pitemlist.player_extremepanel_itemlist[kettei_item1].itemName;
+                _basenameHyouji = pitemlist.player_extremepanel_itemlist[kettei_item1].itemNameHyouji;
+                _basequality = pitemlist.player_extremepanel_itemlist[kettei_item1].Quality;
+                _basesweat = pitemlist.player_extremepanel_itemlist[kettei_item1].Sweat;
+                _basebitter = pitemlist.player_extremepanel_itemlist[kettei_item1].Bitter;
+                _basesour = pitemlist.player_extremepanel_itemlist[kettei_item1].Sour;
+                _baserich = pitemlist.player_extremepanel_itemlist[kettei_item1].Rich;
+                _basecrispy = pitemlist.player_extremepanel_itemlist[kettei_item1].Crispy;
+                _basefluffy = pitemlist.player_extremepanel_itemlist[kettei_item1].Fluffy;
+                _basesmooth = pitemlist.player_extremepanel_itemlist[kettei_item1].Smooth;
+                _basehardness = pitemlist.player_extremepanel_itemlist[kettei_item1].Hardness;
+                _basejiggly = pitemlist.player_extremepanel_itemlist[kettei_item1].Jiggly;
+                _basechewy = pitemlist.player_extremepanel_itemlist[kettei_item1].Chewy;
+                _basepowdery = pitemlist.player_extremepanel_itemlist[kettei_item1].Powdery;
+                _baseoily = pitemlist.player_extremepanel_itemlist[kettei_item1].Oily;
+                _basewatery = pitemlist.player_extremepanel_itemlist[kettei_item1].Watery;
+                _basebeauty = pitemlist.player_extremepanel_itemlist[kettei_item1].Beauty;
+                _basegirl1_like = pitemlist.player_extremepanel_itemlist[kettei_item1].girl1_itemLike;
+                _baseitemtype = pitemlist.player_extremepanel_itemlist[kettei_item1].itemType.ToString();
+                _baseitemtype_sub = pitemlist.player_extremepanel_itemlist[kettei_item1].itemType_sub.ToString();
+                _basecost = pitemlist.player_extremepanel_itemlist[kettei_item1].cost_price;
+                _baseSetjudge_num = pitemlist.player_extremepanel_itemlist[kettei_item1].SetJudge_Num;
+                _basejuice = pitemlist.player_extremepanel_itemlist[kettei_item1].Juice;
+
+                for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
+                {
+                    _basetp[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < database.items[kettei_item1].koyu_toppingtype.Length; i++)
+                {
+                    _koyutp[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].koyu_toppingtype[i].ToString();
+                }
+
+                break;
+
             default:
                 break;
         }

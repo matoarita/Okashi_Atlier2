@@ -293,6 +293,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         
         hikariBuf_okashilv(_itemType_sub);
 
+        Debug.Log("ヒカリのバフ補正値　_buf_hikari_okashiparam: " + _buf_hikari_okashiparam);
         return _buf_hikari_okashiparam;
     }
 
@@ -312,21 +313,20 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             hikari_okashiLV = GameMgr.hikarimakeokashi_nowlv;
             HikariOkashilv_Keisan(_itemType_sub); //実際のバフ率を計算
-        }
-        
+        }        
     }
 
     void HikariOkashilv_Keisan(string _itemType_sub)
     {
+        //食感への補正
         _buf_hikari_okashiparam = 0.1f + SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.2f, 1.5f);
 
         //最終的にかかる時間は、Exp_Controllerで計算
         GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 3.0f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の2倍
 
         //最終的な成功率は、Compound_Checkで計算
-        GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.2f, 1.3f); //成功率　LV1~9 を　0.5から1.1に変換。
-        Debug.Log("GameMgr.hikari_make_okashiTime_successrate_buf: " + GameMgr.hikari_make_okashiTime_successrate_buf + " " + "hikari_okashiLV: " + hikari_okashiLV);
-
+        GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.2f, 1.8f); //成功率　LV1~9 を　0.5から1.1に変換。
+        
         if (GameMgr.hikari_make_okashiTime_costbuf <= 0.1f)
         {
             GameMgr.hikari_make_okashiTime_costbuf = 0.1f;
@@ -346,9 +346,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 GameMgr.hikari_make_okashiTime_successrate_buf = 0.95f;
                 break;
         }
+
+        Debug.Log("GameMgr.hikari_make_okashiTime_successrate_buf: " + GameMgr.hikari_make_okashiTime_successrate_buf + " " + "hikari_okashiLV: " + hikari_okashiLV);
     }
 
-    //ヒカリのお菓子レベルにより、お菓子のパラメータにバフがかかる計算。
+    //ヒカリのお菓子レベルに応じて、にいちゃんが作るお菓子のパラメータにもバフがかかる計算。
     public float Buf_HikariOkashiLV_HoseiParamUp(string _itemType_sub)
     {
         _buf_hikari_okashi_paramup = 1.0f;
@@ -359,11 +361,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (GameMgr.hikariokashiExpTable_noTypeflag)
         {
             //どのお菓子タイプにもあてはまらなかったら、計算しない。
+            _buf_hikari_okashi_paramup = 1.0f;
         }
         else
         {
             hikari_okashiLV = GameMgr.hikarimakeokashi_nowlv;
-            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.3f); //LV1~9までで、1~1.3倍まで上昇
+            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.3f); //LV1~9までで、1.0~1.3倍まで上昇
         }
 
         return _buf_hikari_okashi_paramup;

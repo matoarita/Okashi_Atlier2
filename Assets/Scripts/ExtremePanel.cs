@@ -249,7 +249,7 @@ public class ExtremePanel : MonoBehaviour {
     {
         extreme_itemID = exp_Controller._temp_extreme_id; // 空の場合は、9999でリセット           
 
-        if (extreme_itemID != 9999)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             extreme_itemtype = exp_Controller._temp_extreme_itemtype;
             Starthp = exp_Controller._temp_Starthp;
@@ -257,7 +257,7 @@ public class ExtremePanel : MonoBehaviour {
             Okashi_moneyparam = exp_Controller._temp_extreme_money;
             _moneydeg = exp_Controller._temp_moneydeg;
 
-            Extreme_Hyouji();
+            Extreme_Hyouji(0);
         }
         else
         {
@@ -280,22 +280,38 @@ public class ExtremePanel : MonoBehaviour {
         exp_Controller._temp_extreme_itemtype = extreme_itemtype;
         exp_Controller._temp_extremeSetting = true; //セットされていますよ～、ということ。この状態で、オリジナルリストの最後の番号のアイテムが削除されたら、パネルのデータも削除する。
 
-        if(itemtype == 0)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             //お菓子のHPをセット
-            SetDegOkashiLife(database.items[extreme_itemID].itemHP);
-        } else
-        {
-            //お菓子のHPをセット
-            SetDegOkashiLife(pitemlist.player_originalitemlist[extreme_itemID].itemHP);
-        }
+            SetDegOkashiLife(pitemlist.player_extremepanel_itemlist[0].itemHP);
+            /*if (itemtype == 0)
+            {
+                //お菓子のHPをセット
+                SetDegOkashiLife(database.items[extreme_itemID].itemHP);
+            } else if (itemtype == 1)
+            {
+                //お菓子のHPをセット
+                SetDegOkashiLife(pitemlist.player_originalitemlist[extreme_itemID].itemHP);
+            }
+            else if (itemtype == 2)
+            {
+                //お菓子のHPをセット
+                SetDegOkashiLife(pitemlist.player_extremepanel_itemlist[extreme_itemID].itemHP);
+            }*/
 
-        Extreme_Hyouji();
+
+            Extreme_Hyouji(0);
+        }
     }
 
-    void Extreme_Hyouji()
+    void Extreme_Hyouji(int _id)
     {
-        if (extreme_itemtype == 0) //デフォルトアイテムの場合
+        texture2d = pitemlist.player_extremepanel_itemlist[_id].itemIcon_sprite;
+        //スロット名+アイテム名の表示
+        extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[_id].item_SlotName +
+            "</color>" + pitemlist.player_extremepanel_itemlist[_id].itemNameHyouji;
+
+        /*if (extreme_itemtype == 0) //デフォルトアイテムの場合
         {
             texture2d = database.items[extreme_itemID].itemIcon_sprite;
             extreme_itemName.text = database.items[extreme_itemID].itemNameHyouji;
@@ -309,6 +325,14 @@ public class ExtremePanel : MonoBehaviour {
                 "</color>" + pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
             //extreme_itemName.text = pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
         }
+        else if (extreme_itemtype == 2) //エクストリームパネルに設定したアイテムの場合　通常はこれのみを使用。
+        {
+            texture2d = pitemlist.player_extremepanel_itemlist[extreme_itemID].itemIcon_sprite;
+
+            //スロット名+アイテム名の表示
+            extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[extreme_itemID].item_SlotName +
+                "</color>" + pitemlist.player_extremepanel_itemlist[extreme_itemID].itemNameHyouji;
+        }*/
 
 
         item_Icon.color = new Color(1, 1, 1, 1);
@@ -386,6 +410,10 @@ public class ExtremePanel : MonoBehaviour {
         {
             pitemlistController.final_base_kettei_item = pitemlist.player_originalitemlist[extreme_itemID].itemID;
         }
+        else if (extreme_itemtype == 2) //エクストリームパネルに設定したアイテムの場合　通常これのみ使用
+        {
+            pitemlistController.final_base_kettei_item = pitemlist.player_extremepanel_itemlist[extreme_itemID].itemID;
+        }
 
         pitemlistController.base_kettei_item = extreme_itemID;
         pitemlistController._base_toggle_type = extreme_itemtype;
@@ -447,6 +475,7 @@ public class ExtremePanel : MonoBehaviour {
         }
     }
 
+    //未使用
     public void Sell_Okashi()
     {
         Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
@@ -460,14 +489,15 @@ public class ExtremePanel : MonoBehaviour {
         sc.PlaySe(31);
 
         //持ち物から減らす。
-        if (extreme_itemtype == 0) //デフォルトアイテムの場合
+        pitemlist.deleteExtremePanelItem(0, 1);
+        /*if (extreme_itemtype == 0) //デフォルトアイテムの場合
         {
             pitemlist.deletePlayerItem(database.items[extreme_itemID].itemName, 1);
         }
         else if (extreme_itemtype == 1) //オリジナルアイテムの場合
         {
             pitemlist.deleteOriginalItem(extreme_itemID, 1);
-        }
+        }*/
 
         //エクストリームパネルからも削除
         deleteExtreme_Item();
@@ -477,7 +507,7 @@ public class ExtremePanel : MonoBehaviour {
     }
 
 
-    public void deleteExtreme_Item() //削除
+    public void deleteExtreme_Item() //削除。さらに全てのパラメータもリセットする。
     {
         card_view.DeleteCard_DrawView();
 
@@ -499,6 +529,8 @@ public class ExtremePanel : MonoBehaviour {
 
         GameMgr.sys_extreme_itemID = 9999;
         GameMgr.sys_extreme_itemType = 0;
+
+        pitemlist.deleteAllExtremePanelItem();
     }
 
 
@@ -525,7 +557,7 @@ public class ExtremePanel : MonoBehaviour {
         exp_Controller._temp_life_anim_on = true;
 
         //お菓子の現在の価値もセット
-        Okashi_moneyparam = Okashi_keisan.Sell_Okashi(extreme_itemID, extreme_itemtype);
+        //Okashi_moneyparam = Okashi_keisan.Sell_Okashi(extreme_itemID, extreme_itemtype);
 
         //減少量も決定
         _moneydeg = Okashi_moneyparam / Starthp;

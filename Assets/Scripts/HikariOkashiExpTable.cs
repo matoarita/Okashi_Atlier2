@@ -237,7 +237,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 PlayerStatus.player_girl_crepe_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_crepe_exp;
                 _nowlv = PlayerStatus.player_girl_crepe_lv;
-                Check_OkashilvUP2();
+                Check_OkashilvUP();
                 PlayerStatus.player_girl_crepe_exp = _nowexp;
                 PlayerStatus.player_girl_crepe_lv = _nowlv;
                 _itemType_subtext = "クレープ";
@@ -248,7 +248,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 PlayerStatus.player_girl_creampuff_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_creampuff_exp;
                 _nowlv = PlayerStatus.player_girl_creampuff_lv;
-                Check_OkashilvUP2();
+                Check_OkashilvUP();
                 PlayerStatus.player_girl_creampuff_exp = _nowexp;
                 PlayerStatus.player_girl_creampuff_lv = _nowlv;
                 _itemType_subtext = "シュークリーム";
@@ -259,7 +259,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 PlayerStatus.player_girl_donuts_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_donuts_exp;
                 _nowlv = PlayerStatus.player_girl_donuts_lv;
-                Check_OkashilvUP2();
+                Check_OkashilvUP();
                 PlayerStatus.player_girl_donuts_exp = _nowexp;
                 PlayerStatus.player_girl_donuts_lv = _nowlv;
                 _itemType_subtext = "ドーナツ";
@@ -292,7 +292,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 PlayerStatus.player_girl_icecream_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_icecream_exp;
                 _nowlv = PlayerStatus.player_girl_icecream_lv;
-                Check_OkashilvUP2();
+                Check_OkashilvUP();
                 PlayerStatus.player_girl_icecream_exp = _nowexp;
                 PlayerStatus.player_girl_icecream_lv = _nowlv;
                 _itemType_subtext = "アイス";
@@ -325,7 +325,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 PlayerStatus.player_girl_rareokashi_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_rareokashi_exp;
                 _nowlv = PlayerStatus.player_girl_rareokashi_lv;
-                Check_OkashilvUP2();
+                Check_OkashilvUP();
                 PlayerStatus.player_girl_rareokashi_exp = _nowexp;
                 PlayerStatus.player_girl_rareokashi_lv = _nowlv;
                 _itemType_subtext = "レアお菓子";
@@ -344,7 +344,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 PlayerStatus.player_girl_cake_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_cake_exp;
                 _nowlv = PlayerStatus.player_girl_cake_lv;
-                Check_OkashilvUP2();
+                Check_OkashilvUP();
                 PlayerStatus.player_girl_cake_exp = _nowexp;
                 PlayerStatus.player_girl_cake_lv = _nowlv;
                 _itemType_subtext = "ケーキ";
@@ -515,7 +515,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
     }
 
     //少し難しめのお菓子の経験テーブル
-    void Check_OkashilvUP2()
+    /*void Check_OkashilvUP2()
     {
         if (_nowlv >= 9) //9がカンスト
         { }
@@ -527,5 +527,5 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 _nowlv++;
             }
         }
-    }
+    }*/
 }

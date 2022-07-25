@@ -119,7 +119,7 @@ public class Contest_Main : MonoBehaviour {
 
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        text_area = GameObject.FindWithTag("Message_Window");
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         _text.text = "コンテスト会場だ。";
@@ -225,10 +225,10 @@ public class Contest_Main : MonoBehaviour {
 
         //判定するお菓子を決定
         
-        if (exp_Controller._temp_extreme_id != 9999)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
-            kettei_itemID = exp_Controller._temp_extreme_id;
-            kettei_itemType = exp_Controller._temp_extreme_itemtype;           
+            kettei_itemID = 0;
+            kettei_itemType = 2;           
         }
         else //エクストリームパネルにお菓子が入っていない時。デバッグ用。
         {
@@ -268,8 +268,23 @@ public class Contest_Main : MonoBehaviour {
             GameMgr.contest_okashi_ItemData = pitemlist.player_originalitemlist[kettei_itemID];
             Debug.Log("コンテストお菓子　itemType:1 セッティングOK");
         }
+        else if (kettei_itemType == 2)
+        {
+            itemName = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemName;
+            item_subType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
 
-        
+            //表示用アイテム名
+            GameMgr.contest_okashiSlotName = pitemlist.player_extremepanel_itemlist[kettei_itemID].item_SlotName;
+            GameMgr.contest_okashiName = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemName;
+            GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemNameHyouji;
+            GameMgr.contest_okashiSubType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
+            GameMgr.contest_okashiID = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemID;
+
+            GameMgr.contest_okashi_ItemData = pitemlist.player_extremepanel_itemlist[kettei_itemID];
+            Debug.Log("コンテストお菓子　itemType:2 セッティングOK");
+        }
+
+
 
 
         judge_flag = false;

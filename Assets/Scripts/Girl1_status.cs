@@ -1606,8 +1606,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else
         {
-            //changeanim_clip.ChangeClip(1);           
-            live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
+            //changeanim_clip.ChangeClip(1);
+            if (PlayerStatus.girl1_Love_lv < 80)
+            {
+                live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
+            }
+            else
+            {
+                random = Random.Range(0, 10);
+                if (random < 5)
+                {
+                    live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
+                }
+                else
+                {
+                    live2d_animator.Play("Idle_hikariMake2", motion_layer_num, 0.0f); //ヤムチャの歌をうたいながら
+                }
+            }
         }
         
         _model.GetComponent<CubismEyeBlinkController>().enabled = true;

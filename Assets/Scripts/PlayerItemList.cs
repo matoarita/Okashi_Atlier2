@@ -43,9 +43,11 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int ev_evflag_num;
 
     private int i, j, k;
+    private int tempID;
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
+    private bool check_itemlist;
 
     private int _itemcount;
     private int _itemid;    
@@ -62,8 +64,14 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //プレイヤーが作成したオリジナルのアイテムリスト。
     public List<Item> player_originalitemlist = new List<Item>();
 
+    //お菓子パネルにセッティングするアイテムリスト。基本的に、このリストには一個しかアイテムが入らないように使う。
+    public List<Item> player_extremepanel_itemlist = new List<Item>();
+
     //予測用のオリジナルのアイテムリスト。プレイヤーから触ることはできない架空の所持リスト。
     public List<Item> player_yosokuitemlist = new List<Item>();
+
+    //お菓子パネルにセッティングするアイテムチェック用のリスト。こちらも保存されず、架空のtemp所持リストで扱う。
+    public List<Item> player_check_itemlist = new List<Item>();
 
     // Use this for initialization
     void Start () {
@@ -275,6 +283,18 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             }
         }
 
+        //エクストリームパネルもみる
+        for (i = 0; i < player_extremepanel_itemlist.Count; i++)
+        {
+            if (player_extremepanel_itemlist[i].itemName == itemName)
+            {
+                if (player_extremepanel_itemlist[i].ItemKosu > 0)
+                {
+                    _total_kosu += player_extremepanel_itemlist[i].ItemKosu;
+                }
+            }
+        }
+
         return _total_kosu; //0個　持っていないときは、0
     }
 
@@ -288,6 +308,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
         else
         {
+            check_itemlist = false;
+
             //オリジナルアイテムリストも見る。
             for (i = 0; i < player_originalitemlist.Count; i++)
             {
@@ -296,11 +318,29 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                     if (player_originalitemlist[i].ItemKosu > 0)
                     {
                         deleteOriginalItem(i, 1);
+                        check_itemlist = true;
                     }
                 }
             }
-        }
-     
+
+            //オリジナルアイテムリストにアイテムが見つからなかった場合　エクストリームパネルもみる。
+            if(!check_itemlist)
+            {
+                for (i = 0; i < player_extremepanel_itemlist.Count; i++)
+                {
+                    if (player_extremepanel_itemlist[i].itemName == itemName)
+                    {
+                        if (player_extremepanel_itemlist[i].ItemKosu > 0)
+                        {
+                            deleteExtremePanelItem(i, 1);
+                            check_itemlist = true;
+                        }
+                    }
+                }
+            }
+        }    
+
+        //特に見当たらない場合、処理は無視して終了
     }
 
 
@@ -428,6 +468,56 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
     }
 
+    //エクストリームパネル設定用アイテムを登録する。
+    public void addExtremeItem(string _name, int _mp, int _day, int _quality, int _exp, float _ex_probabilty,
+        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _beauty,
+        int _juice,
+        float _girl1_like, int _cost, int _sell,
+        string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10,
+        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori)
+    {
+        //トッピングアイテムを追加の際は、アイテム名（_name）＋任意の数字のパラメータ。ファイルネームやアイコンなどは共通なので、データベースから取得。
+
+        //データベースから_nameに一致するものを取得。
+        i = 0;
+
+        while (i < database.items.Count)
+        {
+
+            if (database.items[i].itemName == _name)
+            {
+                _id = database.items[i].itemID;　//アイテムIDのこと。
+                _comp_hosei = database.items[i].itemComp_Hosei;
+                _file_name = database.items[i].fileName;
+                _nameHyouji = database.items[i].itemNameHyouji;
+                _desc = database.items[i].itemDesc;
+                _type = database.items[i].itemType.ToString();
+                _subtype = database.items[i].itemType_sub.ToString();
+                _base_score = database.items[i].Base_Score;
+                _judge_num = database.items[i].SetJudge_Num;
+                _eat_kaisu = database.items[i].Eat_kaisu;
+                _highscore_flag = database.items[i].HighScore_flag;
+                _lasttotal_score = database.items[i].last_total_score;
+                _hinttext = database.items[i].last_hinttext;
+                _rare = database.items[i].Rare;
+                _manpuku = database.items[i].Manpuku;
+                _secretFlag = database.items[i].SecretFlag;
+
+                for (k = 0; k < _koyutp.Length; k++)
+                {
+                    _koyutp[k] = database.items[i].koyu_toppingtype[k];
+                }
+                break;
+            }
+            ++i;
+        }
+
+        player_extremepanel_itemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _base_score, _girl1_like, _cost, _sell,
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
+    }
+
     //予測表示用オリジナルアイテムを登録する。
     public void addYosokuOriginalItem(string _name, int _mp, int _day, int _quality, int _exp, float _ex_probabilty,
         int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _beauty,
@@ -479,33 +569,125 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
     }
 
+    //チェック用のオリジナルアイテムを登録する。
+    public void addCheckOriginalItem(string _name, int _mp, int _day, int _quality, int _exp, float _ex_probabilty,
+        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _beauty,
+        int _juice,
+        float _girl1_like, int _cost, int _sell,
+        string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10,
+        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori)
+    {
+
+        player_check_itemlist.Clear();
+
+        //データベースから_nameに一致するものを取得。
+        i = 0;
+
+        while (i < database.items.Count)
+        {
+
+            if (database.items[i].itemName == _name)
+            {
+                _id = database.items[i].itemID;　//アイテムIDのこと。
+                _comp_hosei = database.items[i].itemComp_Hosei;
+                _file_name = database.items[i].fileName;
+                _nameHyouji = database.items[i].itemNameHyouji;
+                _desc = database.items[i].itemDesc;
+                _type = database.items[i].itemType.ToString();
+                _subtype = database.items[i].itemType_sub.ToString();
+                _base_score = database.items[i].Base_Score;
+                _judge_num = database.items[i].SetJudge_Num;
+                _eat_kaisu = database.items[i].Eat_kaisu;
+                _highscore_flag = database.items[i].HighScore_flag;
+                _lasttotal_score = database.items[i].last_total_score;
+                _hinttext = database.items[i].last_hinttext;
+                _rare = database.items[i].Rare;
+                _manpuku = database.items[i].Manpuku;
+                _secretFlag = database.items[i].SecretFlag;
+
+                for (k = 0; k < _koyutp.Length; k++)
+                {
+                    _koyutp[k] = database.items[i].koyu_toppingtype[k];
+                }
+                break;
+            }
+            ++i;
+        }
+
+        player_check_itemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _base_score, _girl1_like, _cost, _sell,
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
+    }
+
+    //お菓子パネルにすでにセットされてるアイテムを、オリジナルアイテムへコピーする。個数だけは計算したものをいれる。
+    public void ExtremeToCopyOriginalItem(int _kosu)
+    {
+
+        tempID = 0;
+        player_originalitemlist.Add(
+            new Item(player_extremepanel_itemlist[tempID].itemID, player_extremepanel_itemlist[tempID].fileName, player_extremepanel_itemlist[tempID].itemName,
+            player_extremepanel_itemlist[tempID].itemNameHyouji, player_extremepanel_itemlist[tempID].itemDesc, player_extremepanel_itemlist[tempID].itemComp_Hosei,
+            player_extremepanel_itemlist[tempID].itemHP, player_extremepanel_itemlist[tempID].item_day, player_extremepanel_itemlist[tempID].Quality,
+            player_extremepanel_itemlist[tempID].Exp, player_extremepanel_itemlist[tempID].Ex_Probability,
+            player_extremepanel_itemlist[tempID].Rich, player_extremepanel_itemlist[tempID].Sweat, player_extremepanel_itemlist[tempID].Bitter,
+            player_extremepanel_itemlist[tempID].Sour, player_extremepanel_itemlist[tempID].Crispy, player_extremepanel_itemlist[tempID].Fluffy,
+            player_extremepanel_itemlist[tempID].Smooth, player_extremepanel_itemlist[tempID].Hardness, player_extremepanel_itemlist[tempID].Jiggly,
+            player_extremepanel_itemlist[tempID].Chewy, player_extremepanel_itemlist[tempID].Powdery, player_extremepanel_itemlist[tempID].Oily,
+            player_extremepanel_itemlist[tempID].Watery, player_extremepanel_itemlist[tempID].Beauty, player_extremepanel_itemlist[tempID].Juice,
+            player_extremepanel_itemlist[tempID].itemType.ToString(), player_extremepanel_itemlist[tempID].itemType_sub.ToString(),
+            player_extremepanel_itemlist[tempID].Base_Score, player_extremepanel_itemlist[tempID].girl1_itemLike, player_extremepanel_itemlist[tempID].cost_price,
+            player_extremepanel_itemlist[tempID].sell_price,
+            player_extremepanel_itemlist[tempID].toppingtype[0], player_extremepanel_itemlist[tempID].toppingtype[1], player_extremepanel_itemlist[tempID].toppingtype[2],
+            player_extremepanel_itemlist[tempID].toppingtype[3], player_extremepanel_itemlist[tempID].toppingtype[4], player_extremepanel_itemlist[tempID].toppingtype[5],
+            player_extremepanel_itemlist[tempID].toppingtype[6], player_extremepanel_itemlist[tempID].toppingtype[7], player_extremepanel_itemlist[tempID].toppingtype[8],
+            player_extremepanel_itemlist[tempID].toppingtype[9], 
+            player_extremepanel_itemlist[tempID].koyu_toppingtype[0], player_extremepanel_itemlist[tempID].koyu_toppingtype[1], 
+            player_extremepanel_itemlist[tempID].koyu_toppingtype[2], player_extremepanel_itemlist[tempID].koyu_toppingtype[3],
+            player_extremepanel_itemlist[tempID].koyu_toppingtype[4],
+            _kosu, player_extremepanel_itemlist[tempID].ExtremeKaisu, player_extremepanel_itemlist[tempID].item_Hyouji,
+            player_extremepanel_itemlist[tempID].SetJudge_Num, player_extremepanel_itemlist[tempID].Eat_kaisu, player_extremepanel_itemlist[tempID].HighScore_flag,
+            player_extremepanel_itemlist[tempID].last_total_score, player_extremepanel_itemlist[tempID].last_hinttext,
+            player_extremepanel_itemlist[tempID].total_kyori, player_extremepanel_itemlist[tempID].Rare, player_extremepanel_itemlist[tempID].Manpuku,
+            player_extremepanel_itemlist[tempID].SecretFlag));
+    }
+
     //指定したIDのオリジナルアイテムを削除する
     public void deleteOriginalItem(int _id, int _kosu)
     {
         player_originalitemlist[_id].ItemKosu -= _kosu;
-
-        //extremepanelにセットされていたアイテムを消した場合は、
-        //expanel上のアイテムも消える。
-        if (exp_Controller._temp_extremeSetting)
-        {
-            //パネルのアイテムを直接削除した場合
-            if (_id == exp_Controller._temp_extreme_id && player_originalitemlist[_id].ItemKosu <= 0)
-            {
-                exp_Controller._temp_extremeSetting = false;
-                exp_Controller._temp_extreme_id = 9999;
-            }
-            //エクストリームパネルにアイテムが設定されているかつ、オリジナルアイテムを削除した場合、列が一個ずれる
-            else if (_id != exp_Controller._temp_extreme_id && player_originalitemlist[_id].ItemKosu <= 0)
-            {
-                exp_Controller._temp_extreme_id--;
-            }
-        }
 
         //0以下になったら、リストそのものから削除する。
         if (player_originalitemlist[_id].ItemKosu <= 0)
         {
             player_originalitemlist.RemoveAt(_id);
         }
+    }
+
+    //指定したIDのお菓子パネルアイテムを削除する
+    public void deleteExtremePanelItem(int _id, int _kosu)
+    {
+        //extremepanelにセットされていたアイテムを使用した場合、個数が0以下になれば
+        //expanel上のアイテムは消える。
+        if (player_extremepanel_itemlist.Count > 0)
+        {
+            player_extremepanel_itemlist[_id].ItemKosu -= _kosu;
+
+            //0以下になったら、リストそのものから削除する。
+            if (player_extremepanel_itemlist[_id].ItemKosu <= 0)
+            {
+                player_extremepanel_itemlist.Clear();
+
+                //exp_Controller._temp_extremeSetting = false;
+                //exp_Controller._temp_extreme_id = 9999;
+            }            
+        }        
+    }
+
+    //お菓子パネルアイテムを全削除する。個数は関係なし。
+    public void deleteAllExtremePanelItem()
+    {
+        player_extremepanel_itemlist.Clear();
     }
 
     //アイテム名を入力すると、該当するeventitem_IDを返す処理
@@ -524,7 +706,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return 9999; //該当するIDがない場合
     }
 
-    //アイテム名を入力すると、現在の所持数を返す処理。（店売り＋オリジナル）
+    //アイテム名を入力すると、現在の所持数を返す処理。（店売り＋オリジナル＋エクストリームパネル）
     public int KosuCount(string _itemname)
     {
         i = 0;
@@ -546,6 +728,14 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             if (database.items[_itemid].itemName == player_originalitemlist[i].itemName)
             {
                 _itemcount += player_originalitemlist[i].ItemKosu;
+            }
+        }
+
+        for (i = 0; i < player_extremepanel_itemlist.Count; i++)
+        {
+            if (database.items[_itemid].itemName == player_extremepanel_itemlist[i].itemName)
+            {
+                _itemcount += player_extremepanel_itemlist[i].ItemKosu;
             }
         }
 

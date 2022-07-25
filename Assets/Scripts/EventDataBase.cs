@@ -923,10 +923,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                     if (!GameMgr.Beginner_flag[6])
                     {
-                        if (exp_Controller._temp_extremeSetting)
+                        if (pitemlist.player_extremepanel_itemlist.Count > 0)
                         {
-                            if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Oily > GameMgr.Watery_Line ||
-                                pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Powdery > GameMgr.Watery_Line)
+                            if (pitemlist.player_extremepanel_itemlist[0].Oily > GameMgr.Watery_Line ||
+                                pitemlist.player_extremepanel_itemlist[0].Powdery > GameMgr.Watery_Line)
                             {
                                 GameMgr.Beginner_flag[6] = true;
                                 GameMgr.GirlLoveSubEvent_stage1[85] = true;
@@ -937,14 +937,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             }
                             else
                             {
-                                if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Juice" ||
-                                    pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Tea" ||
-                                    pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Tea_Potion" ||
-                                    pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemType_sub.ToString() == "Coffee_Mat")
+                                if (pitemlist.player_extremepanel_itemlist[0].itemType_sub.ToString() == "Juice" ||
+                                    pitemlist.player_extremepanel_itemlist[0].itemType_sub.ToString() == "Tea" ||
+                                    pitemlist.player_extremepanel_itemlist[0].itemType_sub.ToString() == "Tea_Potion" ||
+                                    pitemlist.player_extremepanel_itemlist[0].itemType_sub.ToString() == "Coffee_Mat")
                                 { }
                                 else
                                 {
-                                    if (pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].Watery > GameMgr.Watery_Line)
+                                    if (pitemlist.player_extremepanel_itemlist[0].Watery > GameMgr.Watery_Line)
                                     {
                                         GameMgr.Beginner_flag[6] = true;
                                         GameMgr.GirlLoveSubEvent_stage1[85] = true;
