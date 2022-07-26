@@ -214,6 +214,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //アイテムID＋個数で、追加
     public void addPlayerItem(string itemName, int count_kosu)
     {
+        //Debug.Log("itemName: " + itemName);
         playeritemlist[itemName] = playeritemlist[itemName] + count_kosu;
 
         if ( playeritemlist[itemName] > 99 )

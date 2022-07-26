@@ -869,6 +869,7 @@ public class ShopItemListController : MonoBehaviour
                     Check_ONShopListFlag(shop_hyouji_flag);
                 }
 
+                /*
                 if (GameMgr.MapEvent_01[0]) //近くの森へいったことがある
                 {
                     shop_hyouji_flag = 2100;
@@ -908,7 +909,7 @@ public class ShopItemListController : MonoBehaviour
                 {
                     shop_hyouji_flag = 2107;
                     Check_ONShopListFlag(shop_hyouji_flag);
-                }
+                }*/
 
                 break;
         }

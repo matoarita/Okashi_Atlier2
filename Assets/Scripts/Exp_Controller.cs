@@ -1645,7 +1645,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
-            pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji +
+            pitemlist.player_check_itemlist[new_item].itemNameHyouji +
             " が" + result_kosu + "個 できたよ！";
             //+ "\n" + _ex_text + "パティシエ経験値 " + _getexp + "上がった！";
         }
@@ -1653,12 +1653,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + 
-            pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji +
+            pitemlist.player_check_itemlist[new_item].itemNameHyouji +
             " が" + result_kosu + "個 できたよ！";
             //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。"; ;
         }
 
-        Debug.Log(pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji + "が出来ました！");
+        Debug.Log(pitemlist.player_check_itemlist[new_item].itemNameHyouji + "が出来ました！");
 
     }
 

@@ -691,7 +691,7 @@ public class MainListController2 : MonoBehaviour
             else
             {
                 //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。
-                rndnum = Random.Range(0, 6);
+                rndnum = Random.Range(0, 7);
                 GameMgr.hiroba_event_ID = 16000 + rndnum;
             }
            

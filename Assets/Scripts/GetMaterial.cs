@@ -75,6 +75,7 @@ public class GetMaterial : MonoBehaviour
     private int _itemid;
     private int _getMoney;
     private int _prob;
+    private string place_name;
 
     private int cullent_total_mat;
 
@@ -343,15 +344,7 @@ public class GetMaterial : MonoBehaviour
                 }
 
                 //プレイヤーのアイテム発見力をバフつきで計算
-                _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
-                player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
-
-                //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
-                rare_event_kakuritsu = (player_girl_findpower_final - PlayerStatus.player_girl_findpower_def) * 0.1f;
-                if(rare_event_kakuritsu >= 50.0f)
-                {
-                    rare_event_kakuritsu = 50.0f;
-                }
+                Keisan_FindPower();                
 
                 //ウェイトアニメ
                 mat_anim_on = true;
@@ -721,6 +714,8 @@ public class GetMaterial : MonoBehaviour
 
     void RareItemGetMethod(int _count)
     {
+        //こっちのレアドロップアイテムは、発見力の影響なし
+
         // レアドロップアイテムの抽選
         itemId = rareChoose();
         itemName = itemrareInfo[itemId];
@@ -1723,6 +1718,16 @@ public class GetMaterial : MonoBehaviour
                 Treasure_BirdSanctuali();
                 break;
 
+            case "Ido":
+
+                Treasure_Forest();
+                break;
+
+            case "CatGrave":
+
+                Treasure_Forest();
+                break;
+
             default:
                 Treasure_Forest();
                 break;
@@ -1827,6 +1832,25 @@ public class GetMaterial : MonoBehaviour
         
     }
 
+    void TreasureGetHikari()
+    {
+        //音とかパネルとかは無しで、宝箱取得処理のみ
+        itemId = TreasureChoose();
+        itemName = treasureInfo[itemId];
+
+        if (itemName == "Non") //はずれ
+        { }
+        else
+        {
+            //アイテムの取得処理
+            pitemlist.addPlayerItemString(itemName, 1);
+
+            //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+            //_itemid = pitemlist.SearchItemString(itemName);
+            getmatplace_panel.result_items[itemName] += 1;
+        }
+    }
+
     //宝箱データのセッティング。せっかくなので、骨董品とか収集品とかレシピとか、コレクションアイテム中心にする。
     void InitializeTreasureDicts(int _treasure_num)
     {
@@ -1834,9 +1858,6 @@ public class GetMaterial : MonoBehaviour
         //まずは初期化
         treasureInfo = new Dictionary<int, string>();
         treasureDropDict = new Dictionary<int, float>();
-
-        //通常アイテムか、レシピなどのイベントアイテムかでるかを決める。これもくじ引き。
-        //random = Random.Range(0, 100);
 
         switch (_treasure_num)
         {
@@ -1917,7 +1938,98 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(4, 20.0f);
                 break;
         }
-        
+    }
+
+    //ヒカリ採取時の宝箱データのセッティング。
+    void InitializeHikariTreasureDicts(string _treasure_name)
+    {
+        //まずは初期化
+        treasureInfo = new Dictionary<int, string>();
+        treasureDropDict = new Dictionary<int, float>();
+
+        switch (_treasure_name)
+        {
+            case "Forest": //お宝セットテーブル　森
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "Record_6");
+
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+
+                break;
+
+            case "BerryFarm":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "Record_7");
+
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                break;
+
+            case "Lavender_field":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "Record_8");
+
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                break;
+
+            case "StrawberryGarden":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "Record_9");
+
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                break;
+
+            case "HimawariHill":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "Record_10");
+
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                break;
+
+            case "Ido":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "Record_11");
+
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                break;
+
+            case "BirdSanctuali":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "Record_12");
+
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                break;
+
+            case "CatGrave":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "Record_13");
+
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                break;
+
+            default:
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名
+
+                treasureDropDict.Add(0, 100.0f); //こっちは確率テーブル
+                break;
+        }
+
 
     }
 
@@ -2111,20 +2223,19 @@ public class GetMaterial : MonoBehaviour
     //妹が外出から帰ってきて材料をゲットする処理 EventDataBaseから読み出し
     public void OutGirlGetRandomMaterials(int _index) 
     {
-
         index = _index; //採取地IDの決定
+        place_name = matplace_database.matplace_lists[index].placeName;
         _findpower_girl_getmat_final = 0;
 
         // 入手できるアイテムのデータベース
         ResetItemDicts();
         InitializeHikariDicts(_index); //ヒカリ入手用のDB
+        InitializeHikariTreasureDicts(place_name); //ヒカリ採取時の宝箱DB
 
         //プレイヤーのアイテム発見力をバフつきで計算
-        _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
-        player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
-       
-        _findpower_girl_getmat = player_girl_findpower_final - PlayerStatus.player_girl_findpower_def;
-
+        Keisan_FindPower();
+        
+        //アイテム発見力30ごとに、一回探索する
         _findpower_girl_getmat_final = 0;
         while(_findpower_girl_getmat >= 30)
         {
@@ -2135,16 +2246,37 @@ public class GetMaterial : MonoBehaviour
         //Debug.Log("_findpower_girl_getmat_final: " + _findpower_girl_getmat_final);
 
         //アイテムの入手
-        for (count = 0; count < 5 + _findpower_girl_getmat_final; count++) //〇回繰り返す
+        for (count = 0; count < 1 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
             ItemGetMethod(count);
         }
 
         //レアアイテムの入手
-        for (count = 0; count < 3 + _findpower_girl_getmat_final; count++) //〇回繰り返す
+        for (count = 0; count < _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
 
             RareItemGetMethod(count);
+        }
+
+        //さらに、宝箱レアアイテムの入手
+        for (count = 0; count < 3; count++) //〇回繰り返す
+        {
+            TreasureGetHikari();
+        }
+    }
+
+    void Keisan_FindPower()
+    {
+        //プレイヤーのアイテム発見力をバフつきで計算
+        _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
+        player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
+        _findpower_girl_getmat = player_girl_findpower_final - PlayerStatus.player_girl_findpower_def;
+
+        //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
+        rare_event_kakuritsu = _findpower_girl_getmat * 0.1f;
+        if (rare_event_kakuritsu >= 50.0f)
+        {
+            rare_event_kakuritsu = 50.0f;
         }
     }
 }
