@@ -375,6 +375,13 @@ public class HikariMakeStartPanel : MonoBehaviour {
             _cardImage_obj2[0].transform.localPosition = new Vector3(0, 85, 0);
             Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
 
+            yes_no_okashisetkakunin.transform.Find("Yes_okashiSet").GetComponent<Button>().interactable = true;
+            if (database.items[GameMgr.hikari_make_okashiID].itemType.ToString() == "Mat" || database.items[GameMgr.hikari_make_okashiID].itemType.ToString() == "Potion"
+                || database.items[GameMgr.hikari_make_okashiID].itemType.ToString() == "Etc")
+            {
+                yes_no_okashisetkakunin.transform.Find("Yes_okashiSet").GetComponent<Button>().interactable = false;
+            }
+
             StartCoroutine("OkashiSetKakunin_Check");
         }
     }
@@ -547,8 +554,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 //ヒカリのお菓子経験値の処理
                 _getexp = (int)(3f * database.items[GameMgr.hikari_make_okashiID].girl1_itemLike) * GameMgr.hikari_make_okashiKosu;
-
                 hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 0, 0);
+
                 _itemType_subtext = GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji;
                 _nowlv = GameMgr.hikarimakeokashi_nowlv;
 
@@ -563,14 +570,14 @@ public class HikariMakeStartPanel : MonoBehaviour {
                         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
                     GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！"
                     + "\n" + "ヒカリは　" + GameMgr.ColorYellow + database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "</color>" + "　を　おぼえた！"
-                    + "\n" + _itemType_subtext + "経験値: " + _getexp + "アップ！　"
+                    + "\n" + _itemType_subtext + "経験値: " + GameMgr.hikarimakeokashi_finalgetexp + "アップ！　"
                     + _itemType_subtext + "LV: " + _nowlv;
                     }
                     else
                     {
                         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
                     GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！"
-                    + "\n" + _itemType_subtext + "経験値: " + _getexp + "アップ！　"
+                    + "\n" + _itemType_subtext + "経験値: " + GameMgr.hikarimakeokashi_finalgetexp + "アップ！　"
                     + _itemType_subtext + "LV: " + _nowlv;
                     }
                 }

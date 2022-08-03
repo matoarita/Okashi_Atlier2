@@ -1364,6 +1364,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.deleteOriginalItem(kettei_item1, result_kosu);
 
         }
+        else if (toggle_type1 == 2) //お菓子パネルアイテム
+        {
+            //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
+            pitemlist.deleteExtremePanelItem(kettei_item1, result_kosu);
+
+        }
 
         switch (SceneManager.GetActiveScene().name)
         {

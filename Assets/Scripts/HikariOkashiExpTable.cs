@@ -402,6 +402,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
 
         GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji = _itemType_subtext;
         GameMgr.hikarimakeokashi_nowlv = _nowlv;
+        GameMgr.hikarimakeokashi_finalgetexp = _getexp;
     }
 
     void NowLvSetting(int _status) //BufPowerKeisan用

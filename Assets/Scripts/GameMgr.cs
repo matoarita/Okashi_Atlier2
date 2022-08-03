@@ -188,6 +188,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_toplast_score; //前回あげた最高得点
     public static int Okashi_toplast_heart; //前回あげたときの最高ハート取得量
 
+    public static int Okashi_spquest_eatkaisu; //そのクエスト内で、お菓子を食べた回数をカウント
+    public static bool Okashi_Extra_SpEvent_Start; //ハート系クエストで、食べたお菓子が一定回数以下のとき、発動するクエスト
+
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
     public static int contest_TotalScore;
@@ -452,8 +455,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool specialsubevent_flag1; //お菓子の採点が777のときに、サブイベントを呼び出すときのフラグ
     public static string hikarimakeokashi_itemTypeSub_nameHyouji; //ヒカリのお菓子Expテーブルの各お菓子の名前表記。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_nowlv; //ヒカリのお菓子Expテーブルで、現在のお菓子レベル。スクリプト間の値受け渡し用で一時的。
+    public static int hikarimakeokashi_finalgetexp; //ヒカリのお菓子経験値　最終獲得値。一時的。
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
-    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ
+    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ   
 
     private PlayerItemList pitemlist;
 
@@ -811,6 +815,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         RandomEatOkashi_counter = 0;
         specialsubevent_flag1 = false;
         hikariokashiExpTable_noTypeflag = false;
+        Okashi_Extra_SpEvent_Start = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -958,6 +963,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_lastsweat_param = 0;
         Okashi_lastsour_param = 0;
         Okashi_lastbitter_param = 0;
+        Okashi_spquest_eatkaisu = 0;
         NowEatOkashiID = 0;
         NowEatOkashiName = "";
 

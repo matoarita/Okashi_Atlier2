@@ -325,7 +325,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 3.0f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の2倍
 
         //最終的な成功率は、Compound_Checkで計算
-        GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.2f, 1.8f); //成功率　LV1~9 を　0.5から1.1に変換。
+        GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.4f, 1.8f); //成功率　LV1~9 を　0.4から1.8に変換。
         
         if (GameMgr.hikari_make_okashiTime_costbuf <= 0.1f)
         {

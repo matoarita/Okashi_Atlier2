@@ -612,11 +612,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         }
                         break;
 
-                    case 5:
+                    case 5: //売るとき
 
                         //フルーツかレアアイテムを表示
-                        if (check_itemType == "Mat" || check_itemType_sub == "Rare" ||
-                                check_itemType == "Potion" || check_itemType_sub == "Equip")
+                        if (check_itemType == "Mat" || check_itemType == "Potion" || check_itemType == "Okashi" ||
+                                check_itemType_sub == "Rare" || check_itemType_sub == "Equip" )
                         {
 
                             itemlist_hyouji_Check();
@@ -702,27 +702,21 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         check_itemListType = 0;
         for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
-            if ( database.items[i].item_Hyouji > 0 )
+            if (database.items[i].item_Hyouji > 0)
             {
-                if (i > database.sheet_topendID[6]) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
-                {
 
-                }
-                else
+                if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
                 {
-
-                    if (pitemlist.playeritemlist[database.items[i].itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
+                    if (SceneManager.GetActiveScene().name == "Compound")
                     {
-                        if (SceneManager.GetActiveScene().name == "Compound")
+                        //お菓子タイプのみ表示
+                        if (database.items[i].itemType.ToString() == "Okashi")
                         {
-                            //お菓子タイプのみ表示
-                            if (database.items[i].itemType.ToString() == "Okashi")
-                            {
-                                itemlist_hyouji_Check();
-                            }
+                            itemlist_hyouji_Check();
                         }
                     }
                 }
+
             }
         }
 
@@ -788,7 +782,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType = database.items[i].itemType.ToString();
             check_itemType_sub = database.items[i].itemType_sub.ToString();
 
-            Check_ListToppingHyouji();
+            if (pitemlist.playeritemlist[check_itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
+            {
+                Check_ListToppingHyouji();
+            }
         }
 
         //次に、オリジナルプレイヤーアイテムリストを、上記のリスト（_listitem）に追加していく。
@@ -800,6 +797,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType = pitemlist.player_originalitemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_originalitemlist[i].itemType_sub.ToString();
 
+            //Debug.Log("check_itemName check_itemType check_item_Hyouji: " + check_itemName + " " + check_itemType + " " + check_item_Hyouji);
             Check_ListToppingHyouji();
         }
 
@@ -820,40 +818,29 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     {
         if (check_item_Hyouji > 0)
         {
-            if (i > database.sheet_topendID[6]) //ID = 501以降、レシピ本などの特殊アイテムは表示しない。ゴミは表示する。
+            if (SceneManager.GetActiveScene().name == "Compound")
             {
-
-            }
-            else
-            {
-
-                if (pitemlist.playeritemlist[check_itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
+                if (GameMgr.tutorial_ON == true)
                 {
-                    if (SceneManager.GetActiveScene().name == "Compound")
+                    //チュートリアル時は、とりあえずオレンジだけ表示
+                    if (check_itemName == "orange")
                     {
-                        if (GameMgr.tutorial_ON == true)
-                        {
-                            //チュートリアル時は、とりあえずオレンジだけ表示
-                            if (check_itemName == "orange")
-                            {
-                                itemlist_hyouji_Check();
-                            }
-                        }
-                        else
-                        {
-                            //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                            if (check_itemType == "Potion" || check_itemType_sub == "Potion" ||
-                                check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" ||
-                                check_itemType_sub == "Nuts" || check_itemType_sub == "Chocolate_Mat" ||
-                                check_itemType_sub == "IceCream" || check_itemType_sub == "Candy" ||
-                                check_itemType_sub == "Tea_Potion")
-                            {
-                                itemlist_hyouji_Check();
-                            }
-                        }
-
+                        itemlist_hyouji_Check();
                     }
                 }
+                else
+                {
+                    //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
+                    if (check_itemType == "Potion" || check_itemType_sub == "Potion" ||
+                        check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" ||
+                        check_itemType_sub == "Nuts" || check_itemType_sub == "Chocolate_Mat" ||
+                        check_itemType_sub == "IceCream" || check_itemType_sub == "Candy" ||
+                        check_itemType_sub == "Tea_Potion")
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+
             }
         }
     }

@@ -299,7 +299,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //現在のクエストクリアフラグ
             save_QuestClearflag = GameMgr.QuestClearflag,
             save_QuestClearButton_anim = GameMgr.QuestClearButton_anim,
-            
+
             //ヒカリのお菓子作り系フラグ
             save_hikari_kettei_item = GameMgr.hikari_kettei_item,
             save_hikari_kettei_kosu = GameMgr.hikari_kettei_kosu,
@@ -338,6 +338,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             save_Okashi_toplast_score = GameMgr.Okashi_toplast_score,
             save_Okashi_toplast_heart = GameMgr.Okashi_toplast_heart,
+
+            save_Okashi_spquest_eatkaisu = GameMgr.Okashi_spquest_eatkaisu, //そのクエスト内で、お菓子を食べた回数をカウント
+            save_Okashi_Extra_SpEvent_Start = GameMgr.Okashi_Extra_SpEvent_Start, //ハート系クエストで、食べたお菓子が一定回数以下のとき、発動するクエスト
 
             save_NowEatOkashiName = GameMgr.NowEatOkashiName, //今食べたいお菓子の名前表示
             save_NowEatOkashiID = GameMgr.NowEatOkashiID, //今食べたいお菓子ID表示
@@ -656,6 +659,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Okashi_toplast_score = playerData.save_Okashi_toplast_score;
         GameMgr.Okashi_toplast_heart = playerData.save_Okashi_toplast_heart;
 
+        GameMgr.Okashi_spquest_eatkaisu = playerData.save_Okashi_spquest_eatkaisu; //そのクエスト内で、お菓子を食べた回数をカウント
+        GameMgr.Okashi_Extra_SpEvent_Start = playerData.save_Okashi_Extra_SpEvent_Start; //ハート系クエストで、食べたお菓子が一定回数以下のとき、発動するクエスト
+
         if (playerData.save_NowEatOkashiName != null)
         {
             GameMgr.NowEatOkashiName = playerData.save_NowEatOkashiName; //今食べたいお菓子の名前表示
@@ -745,12 +751,16 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         pitemlist.player_originalitemlist.Clear();
         pitemlist.player_originalitemlist = playerData.save_player_originalitemlist;
        
-        //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。アイテムIDも、後でDB更新の際に全てずれる可能性があるので入れ直し。
+        //テクスチャのデータは保存すると壊れてしまうので、ここで入れ直す。アイテムIDも、後でDB更新の際に全てずれる可能性があるので入れ直し。その他、
+        //アップデートでパラメータをどうしても書き換えたいものは、ここで入れる。
         for (i = 0; i < pitemlist.player_originalitemlist.Count; i++)
         {
             _itemID = pitemlist.SearchItemString(pitemlist.player_originalitemlist[i].itemName);
             pitemlist.player_originalitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
-            pitemlist.player_originalitemlist[i].itemID = database.items[_itemID].itemID;            
+            pitemlist.player_originalitemlist[i].itemID = database.items[_itemID].itemID;
+            pitemlist.player_originalitemlist[i].girl1_itemLike = database.items[_itemID].girl1_itemLike;
+            pitemlist.player_originalitemlist[i].cost_price = database.items[_itemID].cost_price;
+            pitemlist.player_originalitemlist[i].sell_price = database.items[_itemID].sell_price;
         }
 
         //アイテムリスト＜予測＞
@@ -763,6 +773,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             _itemID = pitemlist.SearchItemString(pitemlist.player_yosokuitemlist[i].itemName);
             pitemlist.player_yosokuitemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
             pitemlist.player_yosokuitemlist[i].itemID = database.items[_itemID].itemID;
+            pitemlist.player_yosokuitemlist[i].girl1_itemLike = database.items[_itemID].girl1_itemLike;
+            pitemlist.player_yosokuitemlist[i].cost_price = database.items[_itemID].cost_price;
+            pitemlist.player_yosokuitemlist[i].sell_price = database.items[_itemID].sell_price;
         }
 
         //お菓子パネルのアイテムリスト。
@@ -775,6 +788,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             _itemID = pitemlist.SearchItemString(pitemlist.player_extremepanel_itemlist[i].itemName);
             pitemlist.player_extremepanel_itemlist[i].itemIcon_sprite = database.items[_itemID].itemIcon_sprite;
             pitemlist.player_extremepanel_itemlist[i].itemID = database.items[_itemID].itemID;
+            pitemlist.player_extremepanel_itemlist[i].girl1_itemLike = database.items[_itemID].girl1_itemLike;
+            pitemlist.player_extremepanel_itemlist[i].cost_price = database.items[_itemID].cost_price;
+            pitemlist.player_extremepanel_itemlist[i].sell_price = database.items[_itemID].sell_price;
         }
 
         //アイテムの前回スコアなどを読み込み
@@ -1013,7 +1029,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //アイテムリスト＜デフォルト＞
         for (i = 0; i < database.items.Count; i++)
         {
-            pitemlist.playeritemlist[database.items[i].itemName] = 0;
+            pitemlist.playeritemlist[database.items[i].itemName] = 0;           
         }
 
         //プレイヤーのイベントアイテムリスト。
@@ -1060,6 +1076,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < database.items.Count; i++)
         {
             database.items[i].Eat_kaisu = 0;
+
+            //装備品の引き継ぎは、強制的にオフ
+            if (database.items[i].itemType_sub.ToString() == "Equip")
+            {
+                pitemlist.playeritemlist[database.items[i].itemName] = 0;
+            }
         }
 
         //体力は全回復
@@ -1104,8 +1126,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _tempdongrilist.Clear();
         for (i = 0; i < database.items.Count; i++)
         {
-            if(database.items[i].itemType_sub.ToString() == "Donguri" || database.items[i].itemType_sub.ToString() == "Equip" ||
-                database.items[i].itemType_sub.ToString() == "Machine" || database.items[i].itemType_sub.ToString() == "Object")
+            if(database.items[i].itemType_sub.ToString() == "Donguri" ||
+                database.items[i].itemType_sub.ToString() == "Machine" || database.items[i].itemType_sub.ToString() == "Object"
+                || database.items[i].itemType_sub.ToString() == "Record")
             {
                 _tempdongrilist.Add(new ItemSaveKosu(database.items[i].itemName, pitemlist.playeritemlist[database.items[i].itemName], 0));
             }

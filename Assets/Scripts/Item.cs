@@ -167,6 +167,7 @@ public class Item
         Object,
         Donguri,
         Rare,
+        Record,
         Etc
     }
 

@@ -778,10 +778,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                 {
                                     event_end_flag = true;
 
-                                    if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている
+                                    if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている　かつ　お菓子パネルにセットされてる
                                     {
-                                        if (exp_Controller._temp_extremeSetting &&
-                                            pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemName == "shishamo_cookie")
+                                        if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
+                                            pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
                                         {
                                             GameMgr.map_ev_ID = 11;
                                             GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -1424,6 +1424,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             slot_view_status = 0; //イベント後にマップを切り替える場合
             Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeOut(); //FadeOutBlackは、家の背景を隠す用のブラック。フェードアウトでOFFにする。
+                                                                      //採取地表示
+            Slot_View();
         }
 
     }

@@ -2025,19 +2025,40 @@ public class Utage_scenario : MonoBehaviour
             //判定
             if (!GameMgr.NPC_DislikeFlag)
             {
-                engine.Param.TrySetParameter("EventJudge_num", 100);
-                Debug.Log("プリンさん　お菓子が違ってた");
-
-                //Teaが違ってた場合、Tea_Potionをみる処理。
-                if (!NPCevent_okashicheck)
+                //プリンさんクエスト時
+                if (GameMgr.GirlLoveEvent_num == 11)
                 {
-                    NPCevent_okashicheck = true;
-                    GameMgr.shop_event_ON = true;
-                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                    GameMgr.KoyuJudge_num = GameMgr.Shop_Okashi_num02;//GirlLikeSetの番号を直接指定
-                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
-                    PitemPresentEvent();
+                    engine.Param.TrySetParameter("EventJudge_num", 100);
+                    Debug.Log("プリンさん　お菓子が違ってた");
+
+                    //Teaが違ってた場合、Tea_Potionをみる処理。
+                    if (!NPCevent_okashicheck)
+                    {
+                        NPCevent_okashicheck = true;
+                        GameMgr.shop_event_ON = true;
+                        GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                        GameMgr.KoyuJudge_num = GameMgr.Shop_Okashi_num02;//GirlLikeSetの番号を直接指定
+                        GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                        PitemPresentEvent();
+                    }
                 }
+                else
+                {
+                    //もっかい、今度は妹のお菓子の判定値で判定
+                    total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
+
+                    if (total_score < GameMgr.mazui_score) //まずい
+                    { 
+                        engine.Param.TrySetParameter("EventJudge_num", 201);
+                        Debug.Log("プリンさん　お菓子が違ってた");
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 200);
+                        Debug.Log("プリンさん　お菓子が違ってた");
+                    }
+                }
+
             }
             else
             {
@@ -2088,10 +2109,21 @@ public class Utage_scenario : MonoBehaviour
                     engine.Param.TrySetParameter("EventJudge_num", 110);
                     Debug.Log("モタリケ　バナナミルクあげた");
                 }
-                else
+                else　//それ以外で、メッセージ分岐
                 {
-                    engine.Param.TrySetParameter("EventJudge_num", 100);
-                    Debug.Log("モタリケ　お菓子が違ってた");
+                    //もっかい、今度は妹のお菓子の判定値で判定
+                    total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
+
+                    if (total_score < GameMgr.mazui_score) //まずい
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 101);
+                        Debug.Log("モタリケ　お菓子が違ってた");
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 100);
+                        Debug.Log("モタリケ　お菓子が違ってた");
+                    }           
                 }
 
             }
@@ -2135,9 +2167,19 @@ public class Utage_scenario : MonoBehaviour
             //判定
             if (!GameMgr.NPC_DislikeFlag)
             {
-                engine.Param.TrySetParameter("EventJudge_num", 100);
-                Debug.Log("フィオナ　お菓子が違ってた");
+                //もっかい、今度は妹のお菓子の判定値で判定
+                total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
 
+                if (total_score < GameMgr.mazui_score) //まずい
+                { 
+                    engine.Param.TrySetParameter("EventJudge_num", 101);
+                    Debug.Log("フィオナ　お菓子が違ってた　まずい");
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 100);
+                    Debug.Log("フィオナ　お菓子が違ってた　でもおいしい");
+                }
             }
             else
             {

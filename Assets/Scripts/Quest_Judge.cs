@@ -1218,7 +1218,9 @@ public class Quest_Judge : MonoBehaviour {
 
         //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
         DeleteOriginalItem();
-        
+        DeleteExtremeItem();
+
+
 
         StartCoroutine("Okashi_Judge_Anim2");
         

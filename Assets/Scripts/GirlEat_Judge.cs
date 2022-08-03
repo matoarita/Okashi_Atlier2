@@ -2194,6 +2194,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             database.items[_baseID].Eat_kaisu += 1;
             Debug.Log("食べた回数: " + database.items[_baseID].Eat_kaisu);
 
+            //エクストラモード時、そのクエストで食べた回数をカウント。
+            GameMgr.Okashi_spquest_eatkaisu++;
+
             //好感度とお金を計算
             LoveScoreCal();
 
@@ -2737,6 +2740,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     Getlove_exp = (int)(Getlove_exp * 1.75f);
                     PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
 
+                    //体力も上がる。
+                    PlayerStatus.player_girl_maxlifepoint += 2;
+
                     //次で食べたいお菓子が強制的に変わる。
                     GameMgr.RandomEatOkashi_counter = 0; 
                     girl1_status.RandomOkashiDecideMethod();
@@ -2769,6 +2775,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //お金関係　装備品による補正
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
             GetMoney = (int)(GetMoney * _buf_moneyup / 2);
+
+            if (GameMgr.Story_Mode == 1)
+            {
+                GetMoney = (int)(GetMoney * 0.4f); //エクストラの最終的な調整　元のままだと、少し入りすぎた感があるため。
+            }
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
             Debug.Log("取得お金: " + GetMoney);
@@ -3856,7 +3867,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         //次のクエストを指定。
         GameMgr.MesaggeKoushinON = false;
-        GameMgr.stageclear_cullentlove = 0;
 
         if (GameMgr.NextQuestID % 100 != 0) //次クエが100番台以外
         {
@@ -4062,10 +4072,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 case 0:
 
-                    if (PlayerStatus.girl1_Love_exp >= 150)
+                    if (PlayerStatus.girl1_Love_exp >= 100)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        if(GameMgr.Okashi_spquest_eatkaisu <= 3)
+                        {
+                            //3回以内だと、特別イベント
+                            GameMgr.Okashi_Extra_SpEvent_Start = true;
+                        }
                     }
                     break;
 
@@ -4075,24 +4091,42 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                        {
+                            //3回以内だと、特別イベント
+                            GameMgr.Okashi_Extra_SpEvent_Start = true;
+                        }
                     }
                     break;
 
                 case 2:
 
-                    if (PlayerStatus.girl1_Love_exp >= 600)
+                    if (PlayerStatus.girl1_Love_exp >= 650)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                        {
+                            //3回以内だと、特別イベント
+                            GameMgr.Okashi_Extra_SpEvent_Start = true;
+                        }
                     }
                     break;
 
                 case 3:
 
-                    if (PlayerStatus.girl1_Love_exp >= 900)
+                    if (PlayerStatus.girl1_Love_exp >= 1000)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                        {
+                            //3回以内だと、特別イベント
+                            GameMgr.Okashi_Extra_SpEvent_Start = true;
+                        }
                     }
                     break;
 
@@ -4117,10 +4151,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 20:
 
-                    if (PlayerStatus.girl1_Love_exp >= 2000)
+                    if (PlayerStatus.girl1_Love_exp >= 3000)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                        {
+                            //3回以内だと、特別イベント
+                            GameMgr.Okashi_Extra_SpEvent_Start = true;
+                        }
                     }
                     break;
 
@@ -4154,6 +4194,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.QuestClearButton_anim = false;
         GameMgr.QuestClearCommentflag = false;
         GameMgr.stageclear_cullentlove = 0;
+        GameMgr.Okashi_spquest_eatkaisu = 0;
         GameMgr.QuestManzokuFace = false;
 
         GameMgr.GirlLoveEvent_stage1[GameMgr.GirlLoveEvent_num] = true; //現在進行中のイベントをONにしておく。
@@ -4407,6 +4448,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.QuestClearButton_anim = false;
         GameMgr.QuestClearCommentflag = false;
         GameMgr.stageclear_cullentlove = 0;
+        GameMgr.Okashi_spquest_eatkaisu = 0;
 
         //黒で一度フェードアウト
         sceneBGM.MuteBGM();

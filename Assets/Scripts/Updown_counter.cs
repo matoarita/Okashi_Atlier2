@@ -428,6 +428,11 @@ public class Updown_counter : MonoBehaviour {
                                 _item_max1 = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
                                 break;
 
+                            case 2:
+
+                                _item_max1 = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                break;
+
                             default:
                                 break;
                         }
@@ -442,6 +447,11 @@ public class Updown_counter : MonoBehaviour {
                             case 1:
 
                                 _item_max2 = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
+                                break;
+
+                            case 2:
+
+                                _item_max2 = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item2].ItemKosu;
                                 break;
 
                             default:
@@ -460,6 +470,11 @@ public class Updown_counter : MonoBehaviour {
                                 case 1:
 
                                     _item_max3 = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
+                                    break;
+
+                                case 2:
+
+                                    _item_max3 = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item3].ItemKosu;
                                     break;
 
                                 default:
@@ -526,6 +541,11 @@ public class Updown_counter : MonoBehaviour {
                                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
                                         break;
 
+                                    case 2:
+
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        break;
+
                                     default:
                                         break;
                                 }
@@ -545,6 +565,11 @@ public class Updown_counter : MonoBehaviour {
                                     case 1:
 
                                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
+                                        break;
+
+                                    case 2:
+
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item2].ItemKosu;
                                         break;
 
                                     default:
@@ -567,6 +592,11 @@ public class Updown_counter : MonoBehaviour {
                                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
                                         break;
 
+                                    case 2:
+
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        break;
+
                                     default:
                                         break;
                                 }
@@ -585,6 +615,11 @@ public class Updown_counter : MonoBehaviour {
                                     case 1:
 
                                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.base_kettei_item].ItemKosu;
+                                        break;
+
+                                    case 2:
+
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.base_kettei_item].ItemKosu;
                                         break;
 
                                     default:
@@ -607,6 +642,11 @@ public class Updown_counter : MonoBehaviour {
                                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
                                         break;
 
+                                    case 2:
+
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        break;
+
                                     default:
                                         break;
                                 }
@@ -627,6 +667,11 @@ public class Updown_counter : MonoBehaviour {
                                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
                                         break;
 
+                                    case 2:
+
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item2].ItemKosu;
+                                        break;
+
                                     default:
                                         break;
                                 }
@@ -645,6 +690,11 @@ public class Updown_counter : MonoBehaviour {
                                     case 1:
 
                                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        break;
+
+                                    case 2:
+
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item3].ItemKosu;
                                         break;
 
                                     default:
@@ -670,6 +720,11 @@ public class Updown_counter : MonoBehaviour {
                             case 1:
 
                                 _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                break;
+
+                            case 2:
+
+                                _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
                                 break;
 
                             default:
@@ -756,6 +811,21 @@ public class Updown_counter : MonoBehaviour {
 
                         break;
 
+                    case 2:
+
+                        if (pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu >=
+                            quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
+                        {
+                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default
+                                - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
+                        }
+                        else
+                        {
+                            _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                        }
+
+                        break;
+
                     default:
                         break;
                 }
@@ -775,7 +845,11 @@ public class Updown_counter : MonoBehaviour {
                     case 1:
 
                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                        break;
 
+                    case 2:
+
+                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
                         break;
 
                     default:
@@ -861,7 +935,11 @@ public class Updown_counter : MonoBehaviour {
                     case 1:
 
                         _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                        break;
 
+                    case 2:
+
+                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
                         break;
 
                     default:
@@ -1184,6 +1262,13 @@ public class Updown_counter : MonoBehaviour {
                 player_itemkosu1 += pitemlist.player_originalitemlist[i].ItemKosu;
             }
         }
+        for (i = 0; i < pitemlist.player_extremepanel_itemlist.Count; i++)
+        {
+            if (cmpitem_name1 == pitemlist.player_extremepanel_itemlist[i].itemName)
+            {
+                player_itemkosu1 += pitemlist.player_extremepanel_itemlist[i].ItemKosu;
+            }
+        }
         //店売りの所持個数を計算
         player_itemkosu1 += pitemlist.playeritemlist[database.items[itemdb_id1].itemName];
 
@@ -1194,6 +1279,13 @@ public class Updown_counter : MonoBehaviour {
             if (cmpitem_name2 == pitemlist.player_originalitemlist[i].itemName)
             {
                 player_itemkosu2 += pitemlist.player_originalitemlist[i].ItemKosu;
+            }
+        }
+        for (i = 0; i < pitemlist.player_extremepanel_itemlist.Count; i++)
+        {
+            if (cmpitem_name2 == pitemlist.player_extremepanel_itemlist[i].itemName)
+            {
+                player_itemkosu2 += pitemlist.player_extremepanel_itemlist[i].ItemKosu;
             }
         }
         //店売りの所持個数を計算
@@ -1208,6 +1300,13 @@ public class Updown_counter : MonoBehaviour {
                 if (cmpitem_name3 == pitemlist.player_originalitemlist[i].itemName)
                 {
                     player_itemkosu3 += pitemlist.player_originalitemlist[i].ItemKosu;
+                }
+            }
+            for (i = 0; i < pitemlist.player_extremepanel_itemlist.Count; i++)
+            {
+                if (cmpitem_name3 == pitemlist.player_extremepanel_itemlist[i].itemName)
+                {
+                    player_itemkosu3 += pitemlist.player_extremepanel_itemlist[i].ItemKosu;
                 }
             }
             //店売りの所持個数を計算
@@ -1333,6 +1432,13 @@ public class Updown_counter : MonoBehaviour {
 
                 _text.text = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
             GameMgr.ColorYellow + pitemlist.player_originalitemlist[pitemlistController.kettei_item1].sell_price * updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+            + "\n" + "個数を選択してください";
+                break;
+
+            case 2:
+
+                _text.text = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
+            GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].sell_price * updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
                 break;
 

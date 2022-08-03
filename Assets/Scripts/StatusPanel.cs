@@ -50,6 +50,7 @@ public class StatusPanel : MonoBehaviour {
     private Text playerLV_param;
     private Text girlExtremeKaisu_param;
     private Text BoxLv_param;
+    private Text Okashi_SPquest_eatkaisu_param;
 
     private Text girlFind_power_param_buf;
 
@@ -154,6 +155,7 @@ public class StatusPanel : MonoBehaviour {
         BoxLv_param = paramview1.transform.Find("ParamI_param/Text").GetComponent<Text>();
         renkinnextLV_param = paramview1.transform.Find("ParamG_param/Text").GetComponent<Text>();
         zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
+        Okashi_SPquest_eatkaisu_param = paramview1.transform.Find("ParamJ_param/TextKosu").GetComponent<Text>();
 
         //ヒカリお菓子ステータス関係
         InitHikariOkashiParam_View();
@@ -215,6 +217,7 @@ public class StatusPanel : MonoBehaviour {
         girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
         girlExtremeKaisu_param.text = PlayerStatus.player_extreme_kaisu_Max.ToString();
         BoxLv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
+        
         renkinnextLV_param.text = (exp_table.exp_table[PlayerStatus.player_renkin_lv + 1] - PlayerStatus.player_renkin_exp).ToString(); //次レベルに必要な経験値がでる。
 
         if (PlayerStatus.player_girl_lifepoint <= 3)
@@ -243,6 +246,18 @@ public class StatusPanel : MonoBehaviour {
         {
             paramview1.transform.Find("ParamC_param/Text_plus").gameObject.SetActive(false);
             paramview1.transform.Find("ParamC_param/Buf_Text").gameObject.SetActive(false);
+        }
+
+        if(GameMgr.Story_Mode == 1)
+        {
+            paramview1.transform.Find("ParamJ").gameObject.SetActive(true);
+            paramview1.transform.Find("ParamJ_param").gameObject.SetActive(true);
+            Okashi_SPquest_eatkaisu_param.text = GameMgr.Okashi_spquest_eatkaisu.ToString();
+        }
+        else
+        {
+            paramview1.transform.Find("ParamJ").gameObject.SetActive(false);
+            paramview1.transform.Find("ParamJ_param").gameObject.SetActive(false);
         }
     }
 

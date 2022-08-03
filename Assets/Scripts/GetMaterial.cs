@@ -539,7 +539,35 @@ public class GetMaterial : MonoBehaviour
 
                     case "HimawariHill":
 
-                        treasure_no();
+                        treasure_Check4();
+                        break;
+
+                    case "Lavender_field":
+
+                        //イベント１
+                        treasure_Check2();
+                        break;
+
+                    case "CatGrave":
+
+                        treasure_Check5();
+                        break;
+
+                    case "StrawberryGarden":
+
+                        treasure_Check3();
+                        break;
+
+                    case "Ido":
+
+                        if (GameMgr.Story_Mode == 0)
+                        {
+                            treasure_no();
+                        }
+                        else if (GameMgr.Story_Mode == 1)
+                        {
+                            treasure_Check();
+                        }
                         break;
 
                     default:
@@ -1166,7 +1194,7 @@ public class GetMaterial : MonoBehaviour
 
             case 5:
 
-                _text.text = "にいちゃん。ちっちゃいいちごは、これから大きくなるから、つまずに取っておこうね♪";
+                _text.text = "にいちゃん。" + "\n" + "ちっちゃいいちごは、これから大きくなるから、" + "\n" + "つまずに取っておこうね♪";
                 break;
 
             default:
@@ -1586,10 +1614,10 @@ public class GetMaterial : MonoBehaviour
             case "HimawariHill":
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 80.0f); //採集
+                eventDict.Add(0, 75.0f); //採集
                 eventDict.Add(1, 10.0f); //10%でイベント
                 eventDict.Add(2, 10.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 0.0f); //お宝発見
+                eventDict.Add(3, 5.0f); //お宝発見
 
                 /*
                 if (!GameMgr.MapEvent_04[1])
@@ -1612,10 +1640,10 @@ public class GetMaterial : MonoBehaviour
             default:
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 80.0f); //採集
+                eventDict.Add(0, 78.0f); //採集
                 eventDict.Add(1, 15.0f); //10%でイベント
                 eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu_hosei); //お宝発見
+                eventDict.Add(3, 7.0f + rare_event_kakuritsu_hosei); //お宝発見
                 break;
         }
     }
@@ -1675,6 +1703,36 @@ public class GetMaterial : MonoBehaviour
         Treasure_Status = 1;
     }
 
+    void treasure_Check4()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ あそこにへんな家があるよ！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "調べる";
+        TreasureImage_obj.SetActive(false);
+        //CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
+    void treasure_Check5()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ あそこに、ねこが集まってるよ！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "調べる";
+        TreasureImage_obj.SetActive(false);
+        //CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
     void treasure_no()
     {
         _text.text = "とくに何もみつからなかった。";
@@ -1700,12 +1758,12 @@ public class GetMaterial : MonoBehaviour
 
             case "Lavender_field":
 
-                Treasure_Forest();
+                Treasure_LavenderField();
                 break;
 
             case "StrawberryGarden":
 
-                Treasure_Forest();
+                Treasure_StrawberryGarden();
                 break;
 
             case "HimawariHill":
@@ -1720,12 +1778,12 @@ public class GetMaterial : MonoBehaviour
 
             case "Ido":
 
-                Treasure_Forest();
+                Treasure_Ido();
                 break;
 
             case "CatGrave":
 
-                Treasure_Forest();
+                Treasure_CatGrave();
                 break;
 
             default:
@@ -1761,6 +1819,35 @@ public class GetMaterial : MonoBehaviour
 
         TreasureGetAction();
         
+    }
+
+    void Treasure_LavenderField()
+    {
+        InitializeTreasureDicts(4); //中の番号で、どの宝箱かを指定する
+
+        TreasureGetAction();
+    }
+
+    void Treasure_CatGrave()
+    {
+        InitializeTreasureDicts(6); //中の番号で、どの宝箱かを指定する
+
+        TreasureGetAction();
+    }
+
+    void Treasure_StrawberryGarden()
+    {
+        InitializeTreasureDicts(5); //中の番号で、どの宝箱かを指定する
+
+        TreasureGetAction();
+    }
+
+    void Treasure_Ido()
+    {
+        InitializeTreasureDicts(7); //中の番号で、どの宝箱かを指定する
+
+        TreasureGetAction();
+
     }
 
     void TreasureGetAction()
@@ -1878,6 +1965,15 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(6, 20.0f);
+
+                if(GameMgr.Story_Mode == 1)
+                {
+                    if (pitemlist.KosuCount("Record_6") == 0)
+                    {
+                        treasureInfo.Add(7, "Record_6");
+                        treasureDropDict.Add(7, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    }
+                }
                 break;
 
             case 1: //お宝セットテーブル　ひまわりの丘
@@ -1891,6 +1987,15 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(1, 0.0f);
                 treasureDropDict.Add(2, 20.0f);
                 treasureDropDict.Add(3, 70.0f + rare_event_kakuritsu);
+
+                if (GameMgr.Story_Mode == 1)
+                {
+                    if (pitemlist.KosuCount("Record_10") == 0)
+                    {
+                        treasureInfo.Add(4, "Record_10");
+                        treasureDropDict.Add(4, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    }
+                }
                 break;
 
             case 2: //お宝セットテーブル　バードサンクチュアリ
@@ -1908,6 +2013,15 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(3, 50.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
+
+                if (GameMgr.Story_Mode == 1)
+                {
+                    if (pitemlist.KosuCount("Record_12") == 0)
+                    {
+                        treasureInfo.Add(6, "Record_12");
+                        treasureDropDict.Add(6, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    }
+                }
                 break;
 
             case 3: //お宝セットテーブル　ベリーファーム
@@ -1921,6 +2035,93 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(1, 40.0f);
                 treasureDropDict.Add(2, 39.0f);
                 treasureDropDict.Add(3, 1.0f + (rare_event_kakuritsu*0.5f)); //rare_event_kakuritsu = アイテム発見力によるバフは最大で50%
+
+                if (GameMgr.Story_Mode == 1)
+                {
+                    if (pitemlist.KosuCount("Record_7") == 0)
+                    {
+                        treasureInfo.Add(4, "Record_7");
+                        treasureDropDict.Add(4, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    }
+                }
+                break;
+
+            case 4: //お宝セットテーブル　ラベンダーフィールド
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "lavender_flower");
+                treasureInfo.Add(2, "hydrangea");
+
+                treasureDropDict.Add(0, 40.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 55.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+
+                if (GameMgr.Story_Mode == 1)
+                {
+                    if (pitemlist.KosuCount("Record_8") == 0)
+                    {
+                        treasureInfo.Add(3, "Record_8");
+                        treasureDropDict.Add(3, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    }
+                }
+                break;
+
+            case 5: //お宝セットテーブル　ストロベリーガーデン
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "strawberry");
+
+                treasureDropDict.Add(0, 30.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 80.0f + rare_event_kakuritsu);
+
+                if (GameMgr.Story_Mode == 1)
+                {
+                    if (pitemlist.KosuCount("Record_9") == 0)
+                    {
+                        treasureInfo.Add(2, "Record_9");
+                        treasureDropDict.Add(2, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    }
+                }
+                break;
+
+            case 6: //お宝セットテーブル　ねこのおはか
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "star_powder");
+                treasureInfo.Add(2, "lemon");
+                treasureInfo.Add(3, "mint");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 25.0f + rare_event_kakuritsu);
+
+                if (GameMgr.Story_Mode == 1)
+                {
+                    if (pitemlist.KosuCount("Record_13") == 0)
+                    {
+                        treasureInfo.Add(4, "Record_13");
+                        treasureDropDict.Add(4, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    }
+                }
+                break;
+
+            case 7: //お宝セットテーブル　井戸
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "star_powder");
+
+                treasureDropDict.Add(0, 90.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 10.0f + rare_event_kakuritsu);
+
+                if (GameMgr.Story_Mode == 1)
+                {
+                    if (pitemlist.KosuCount("Record_11") == 0)
+                    {
+                        treasureInfo.Add(2, "Record_11");
+                        treasureDropDict.Add(2, 1.0f + (int)(rare_event_kakuritsu * 0.5f));
+                    }
+                }
                 break;
 
             default:
@@ -1951,75 +2152,99 @@ public class GetMaterial : MonoBehaviour
         {
             case "Forest": //お宝セットテーブル　森
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "Record_6");
-
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。                
                 treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+
+                if (pitemlist.KosuCount("Record_6") == 0)
+                {
+                    treasureInfo.Add(1, "Record_6");
+                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
 
                 break;
 
             case "BerryFarm":
 
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "Record_7");
-
                 treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+
+                if (pitemlist.KosuCount("Record_7") == 0)
+                {                   
+                    treasureInfo.Add(1, "Record_7");
+                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "Lavender_field":
 
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "Record_8");
-
                 treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+
+                if (pitemlist.KosuCount("Record_8") == 0)
+                {                  
+                    treasureInfo.Add(1, "Record_8");
+                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "StrawberryGarden":
 
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "Record_9");
-
                 treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                
+                if (pitemlist.KosuCount("Record_9") == 0)
+                {
+                    treasureInfo.Add(1, "Record_9");
+                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "HimawariHill":
 
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "Record_10");
-
                 treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                
+                if (pitemlist.KosuCount("Record_10") == 0)
+                {
+                    treasureInfo.Add(1, "Record_10");
+                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "Ido":
 
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "Record_11");
-
                 treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                
+                if (pitemlist.KosuCount("Record_11") == 0)
+                {
+                    treasureInfo.Add(1, "Record_11");
+                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "BirdSanctuali":
 
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "Record_12");
-
                 treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                
+                if (pitemlist.KosuCount("Record_12") == 0)
+                {
+                    treasureInfo.Add(1, "Record_12");
+                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "CatGrave":
 
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "Record_13");
-
                 treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                
+                if (pitemlist.KosuCount("Record_13") == 0)
+                {
+                    treasureInfo.Add(1, "Record_13");
+                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             default:

@@ -182,6 +182,9 @@ public class PlayerData
     public int save_Okashi_toplast_score; //前回あげた最高得点
     public int save_Okashi_toplast_heart; //前回あげたときの最高ハート取得量
 
+    public int save_Okashi_spquest_eatkaisu; //そのクエスト内で、お菓子を食べた回数をカウント
+    public bool save_Okashi_Extra_SpEvent_Start; //ハート系クエストで、食べたお菓子が一定回数以下のとき、発動するクエスト
+
     public string save_NowEatOkashiName; //今食べたいお菓子の名前表示
     public int save_NowEatOkashiID; //今食べたいお菓子ID表示
 
