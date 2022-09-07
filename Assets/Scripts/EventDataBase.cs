@@ -682,7 +682,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }*/
 
                 //エクストラモードのみのイベント　どっこいステーキ
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
                 {
@@ -698,7 +698,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.Mute_on = true;
                         }
                     }
-                }
+                }*/
 
                 //エクストラモードのみのイベント　わたあめ
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避

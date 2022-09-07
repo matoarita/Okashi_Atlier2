@@ -1760,7 +1760,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 //魔力の泡だて器をもっている
                 if(pitemlist.ReturnItemKosu("whisk_magic") >= 1)
                 {
-                    if (_base_itemType_sub.ToString() == "Appaleil") //アパレイユを作るとき
+                    if (_base_itemType_sub.ToString() == "Appaleil") //生地系を作るときは、全てにバフ
                     {
                         _basecrispy = (int)(_basecrispy * 1.3f);
                         _basefluffy = (int)(_basefluffy * 1.3f);

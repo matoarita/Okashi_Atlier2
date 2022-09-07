@@ -79,7 +79,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
         {
-            _buf_kakuritsuup += 5;
+            _buf_kakuritsuup += 10;
         }
         /*if (pitemlist.KosuCount("maneki_cat") >= 1) //持ってるだけで効果アップ
         {
@@ -326,7 +326,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         //最終的な成功率は、Compound_Checkで計算
         GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.4f, 1.8f); //成功率　LV1~9 を　0.4から1.8に変換。
-        
+
+        if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
+        {
+            GameMgr.hikari_make_okashiTime_successrate_buf += 0.1f;
+        }
+
         if (GameMgr.hikari_make_okashiTime_costbuf <= 0.1f)
         {
             GameMgr.hikari_make_okashiTime_costbuf = 0.1f;

@@ -266,7 +266,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
     //バージョン情報
-    public static float GameVersion = 1.20f;
+    public static float GameVersion = 1.22f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
