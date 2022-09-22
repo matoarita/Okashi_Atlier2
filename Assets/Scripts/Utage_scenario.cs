@@ -135,13 +135,13 @@ public class Utage_scenario : MonoBehaviour
 
     void Update()
     {
-        if(utagesoundmanager == null)
+        /*if(utagesoundmanager == null)
         {
             utagesoundmanager_obj = GameObject.FindWithTag("UtageManageres").gameObject;
             utagesoundmanager = utagesoundmanager_obj.transform.Find("SoundManager").GetComponent<SoundManager>();
         }
 
-        utagesoundmanager.MasterVolume = GameMgr.MasterVolumeParam;
+        utagesoundmanager.MasterVolume = GameMgr.MasterVolumeParam;*/
 
         //キャンバスの読み込み
         if (canvas == null)
@@ -2665,6 +2665,12 @@ public class Utage_scenario : MonoBehaviour
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 
+        if (GameMgr.Story_Mode == 1)
+        {
+            //キャラ背後のハートもオフにする。
+            GirlHeartEffect_obj.SetActive(false);
+        }
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -2676,6 +2682,12 @@ public class Utage_scenario : MonoBehaviour
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
+
+        if (GameMgr.Story_Mode == 1)
+        {
+            //キャラ背後のハートもオフにする。
+            GirlHeartEffect_obj.SetActive(true);
+        }
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 

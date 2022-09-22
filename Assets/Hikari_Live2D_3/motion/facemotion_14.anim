@@ -868,6 +868,18 @@ AnimationClip:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
+        time: 0.167
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 4
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
         time: 4.333
         value: 0
         inSlope: 0
@@ -887,12 +899,18 @@ AnimationClip:
         time: 0
         value: 0
         inSlope: 0
-        outSlope: 0
+        outSlope: 1.5
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 2
+        value: 3
+        inSlope: 1.5
+        outSlope: -1.2858979
         tangentMode: 0
       - serializedVersion: 2
         time: 4.333
         value: 0
-        inSlope: 0
+        inSlope: -1.2858979
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
@@ -1930,6 +1948,20 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
+      path: 4262707411
+      attribute: 3702945584
+      script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
+      typeID: 114
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 4000147159
+      attribute: 3702945584
+      script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
+      typeID: 114
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
       path: 1888002596
       attribute: 3702945584
       script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
@@ -2113,20 +2145,6 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 3895506017
-      attribute: 3702945584
-      script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
-      typeID: 114
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 4262707411
-      attribute: 3702945584
-      script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
-      typeID: 114
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 4000147159
       attribute: 3702945584
       script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
       typeID: 114
@@ -3195,6 +3213,18 @@ AnimationClip:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
+        time: 0.167
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 4
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
         time: 4.333
         value: 0
         inSlope: 0
@@ -3214,12 +3244,18 @@ AnimationClip:
         time: 0
         value: 0
         inSlope: 0
-        outSlope: 0
+        outSlope: 1.5
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 2
+        value: 3
+        inSlope: 1.5
+        outSlope: -1.2858979
         tangentMode: 0
       - serializedVersion: 2
         time: 4.333
         value: 0
-        inSlope: 0
+        inSlope: -1.2858979
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2

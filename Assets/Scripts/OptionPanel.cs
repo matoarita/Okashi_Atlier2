@@ -255,15 +255,15 @@ public class OptionPanel : MonoBehaviour {
     {
         OptionInit();
 
-        mastervolume_param = (int)(GameMgr.MasterVolumeParam * 100) / 2;
+        mastervolume_param = (int)(GameMgr.MasterVolumeParam * 100);
         mastervolume_Slider.value = (int)(GameMgr.MasterVolumeParam * 100);
         mastervolume_paramtext.text = mastervolume_param.ToString();
 
-        BGMvolume_param = (int)(GameMgr.BGMVolumeParam * 100) / 2;
+        BGMvolume_param = (int)(GameMgr.BGMVolumeParam * 100);
         BGMvolume_Slider.value = (int)(GameMgr.BGMVolumeParam * 100);
         BGMvolume_paramtext.text = BGMvolume_param.ToString();
 
-        SEvolume_param = (int)(GameMgr.SeVolumeParam * 100) / 2;
+        SEvolume_param = (int)(GameMgr.SeVolumeParam * 100);
         SEvolume_Slider.value = (int)(GameMgr.SeVolumeParam * 100);
         SEvolume_paramtext.text = SEvolume_param.ToString();
     }
@@ -271,28 +271,31 @@ public class OptionPanel : MonoBehaviour {
     public void OnMasterVolume()
     {
         //初期値 0~200 100
-        mastervolume_param = (int)(mastervolume_Slider.value / 2);
+        mastervolume_param = (int)(mastervolume_Slider.value);
         mastervolume_paramtext.text = mastervolume_param.ToString();
 
         //反映
         GameMgr.MasterVolumeParam = mastervolume_Slider.value / 100;
         sc.VolumeSetting();
+
+        Debug.Log("GameMgr.MasterVolumeParam: " + GameMgr.MasterVolumeParam);
     }
 
     public void OnBGMVolume()
     {
         //初期値 0~200 100
-        BGMvolume_param = (int)(BGMvolume_Slider.value / 2);
+        BGMvolume_param = (int)(BGMvolume_Slider.value);
         BGMvolume_paramtext.text = BGMvolume_param.ToString();
 
         //反映
-        GameMgr.BGMVolumeParam = BGMvolume_Slider.value / 100;        
+        GameMgr.BGMVolumeParam = BGMvolume_Slider.value / 100;
+        Debug.Log("GameMgr.BGMVolumeParam: " + GameMgr.BGMVolumeParam);
     }
 
     public void OnSEVolume()
     {
         //初期値 0~200 100
-        SEvolume_param = (int)(SEvolume_Slider.value / 2);
+        SEvolume_param = (int)(SEvolume_Slider.value);
         SEvolume_paramtext.text = SEvolume_param.ToString();
 
         //反映
@@ -300,6 +303,8 @@ public class OptionPanel : MonoBehaviour {
         sc.VolumeSetting();
 
         //ステージクリアボタンの音量は、「StageClear_Button」スクリプトで直接調整
+
+        Debug.Log("GameMgr.SeVolumeParam: " + GameMgr.SeVolumeParam);
     }
 
     public void SelectBGM(int _id)

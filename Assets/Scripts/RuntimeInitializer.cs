@@ -167,6 +167,10 @@ public class RuntimeInitializer : MonoBehaviour
         var event_database_init = new GameObject("EventDataBase", typeof(EventDataBase));
         GameObject.DontDestroyOnLoad(event_database_init);
 
+        //FPSカウンタ
+        var fpscounter_init = new GameObject("FPSCounter", typeof(FPSCounter));
+        GameObject.DontDestroyOnLoad(fpscounter_init);
+
     }
 
 } // class RuntimeInitializer

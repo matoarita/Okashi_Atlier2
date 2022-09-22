@@ -585,6 +585,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //スクリーン設定の固定
         Screen.SetResolution(800, 600, false); //(800, 600, false, 60) 3番目はフルスクリーンのありなし。4番目はFPSの固定
 
+        //FPS指定　こっちが本流っぽい
+        Application.targetFrameRate = 60;
+
         //秒計算。　
         timeLeft = 1.0f;
 

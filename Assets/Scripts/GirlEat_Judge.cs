@@ -3997,12 +3997,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
-                case 13: //カミナリのようにすっぱいクレープ 酸味が100以上のクレープ　すっぱすぎてもクリアできる
+                case 13: //カミナリのようにすっぱいクレープ 酸味が100以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
 
-                    if (_baseitemtype_sub == "Crepe" && total_score >= 120 && _basesour >= 100)
+                    if (_baseitemtype_sub == "Crepe" && total_score >= 120)
                     {
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
+                        if (sour_level >= 7 || _basesour >= 100)
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+                        }
                     }
                     break;
 

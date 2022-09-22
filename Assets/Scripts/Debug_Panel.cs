@@ -18,6 +18,7 @@ public class Debug_Panel : MonoBehaviour {
     private Compound_Main compound_Main;
 
     private ExpTable exp_table;
+    private FPSCounter fps_counter;
 
     private GameObject mainlist_controller2_obj;
     private MainListController2 mainlist_controller2;
@@ -39,8 +40,11 @@ public class Debug_Panel : MonoBehaviour {
 
     private Text DebugInputOn;
 
+    private Text FPSCounter_text;
+
     private InputField input_money;
     private InputField input_edonguri;
+    private InputField input_fmotion;
     private InputField input_plevel;
     private InputField input_event;
     private InputField input_girllove;
@@ -49,6 +53,7 @@ public class Debug_Panel : MonoBehaviour {
     private string input_text3;
     private int money_num;
     private int edonguri_num;
+    private int fmotion_num;
     private int plevel_num;
     private int event_num;
     private int girllove_param;
@@ -97,6 +102,7 @@ public class Debug_Panel : MonoBehaviour {
 
         input_money = this.transform.Find("Hyouji/InputField_Money").gameObject.GetComponent<InputField>();
         input_edonguri = this.transform.Find("Hyouji/InputField_EDonguri").gameObject.GetComponent<InputField>();
+        input_fmotion = this.transform.Find("Hyouji/InputField_FaceMotionNum").gameObject.GetComponent<InputField>();
         input_plevel = this.transform.Find("Hyouji/InputField_PLevel").gameObject.GetComponent<InputField>();
         input_event = this.transform.Find("Hyouji/InputField_EventNum").gameObject.GetComponent<InputField>();
         input_girllove = this.transform.Find("Hyouji/InputField_GirlLove").gameObject.GetComponent<InputField>();
@@ -115,6 +121,8 @@ public class Debug_Panel : MonoBehaviour {
         CStatus_text = this.transform.Find("Hyouji/CompoundStatusText").GetComponent<Text>();
         CSelect_text = this.transform.Find("Hyouji/CompoundSelectText").GetComponent<Text>();
 
+        FPSCounter_text = this.transform.Find("Hyouji/FPSCount").GetComponent<Text>();
+
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
@@ -129,6 +137,10 @@ public class Debug_Panel : MonoBehaviour {
 
         //レベルアップチェック用オブジェクトの取得
         exp_table = ExpTable.Instance.GetComponent<ExpTable>();
+
+        //FPSカウンタ取得
+        fps_counter = FPSCounter.Instance.GetComponent<FPSCounter>();
+
     }
 
     // Update is called once per frame
@@ -175,6 +187,8 @@ public class Debug_Panel : MonoBehaviour {
         Counter = this.transform.Find("Hyouji/TimeCount").gameObject.GetComponentInChildren<Text>(); //デバッグ用
         Counter.text = "PlayTime: " + GameMgr.Game_timeCount + " s";
 
+        //FPS取得
+        FPSCounter_text.text = fps_counter.Fps.ToString();
     }
 
     public void InputMoneyNum()
@@ -250,6 +264,19 @@ public class Debug_Panel : MonoBehaviour {
             }
 
             matplace_database.matPlaceKaikin("Emerald_Shop"); //怪しげな館解禁
+        }
+    }
+
+    public void InputFMotionNum()
+    {
+        if (Debug_INPUT_ON)
+        {
+            input_text = input_fmotion.text;
+            Int32.TryParse(input_text, out fmotion_num);
+
+            canvas = GameObject.FindWithTag("Canvas");
+
+            girl1_status.FaceMotionPlay(fmotion_num);
         }
     }
 

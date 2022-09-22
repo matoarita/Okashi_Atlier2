@@ -97,6 +97,11 @@
 			"Name": "口　開閉"
 		},
 		{
+			"Id": "ParamMoguMouthOOff",
+			"GroupId": "ParamGroup7",
+			"Name": "にっこりもぐ口透明度"
+		},
+		{
 			"Id": "ParamKiba",
 			"GroupId": "ParamGroup7",
 			"Name": "きば"
@@ -315,6 +320,96 @@
 			"Id": "ParamMouthUeMaskAlpha",
 			"GroupId": "ParamGroup4",
 			"Name": "ねこクッキー上唇マスク"
+		},
+		{
+			"Id": "ParamSaltOnOff",
+			"GroupId": "ParamGroup4",
+			"Name": "お塩の透明度"
+		},
+		{
+			"Id": "ParamAwadateOnOff",
+			"GroupId": "ParamGroup4",
+			"Name": "泡だて器の透明度"
+		},
+		{
+			"Id": "ParamAwadateRot",
+			"GroupId": "ParamGroup4",
+			"Name": "泡だて器の回転"
+		},
+		{
+			"Id": "ParamAwadatePosX",
+			"GroupId": "ParamGroup4",
+			"Name": "泡だて器の位置X"
+		},
+		{
+			"Id": "ParamAwadatePosY",
+			"GroupId": "ParamGroup4",
+			"Name": "泡だて器の位置Y"
+		},
+		{
+			"Id": "ParamSaltMove",
+			"GroupId": "ParamGroup4",
+			"Name": "お塩の移動"
+		},
+		{
+			"Id": "ParamSaltRot",
+			"GroupId": "ParamGroup4",
+			"Name": "お塩の回転"
+		},
+		{
+			"Id": "ParamSaltPX",
+			"GroupId": "ParamGroup4",
+			"Name": "しおつぶの位置調整X"
+		},
+		{
+			"Id": "ParamSaltPY",
+			"GroupId": "ParamGroup4",
+			"Name": "しおつぶの位置調整Y"
+		},
+		{
+			"Id": "ParamSaltParticle",
+			"GroupId": "ParamGroup4",
+			"Name": "しおつぶパッパッ"
+		},
+		{
+			"Id": "ParamSaltParticle2",
+			"GroupId": "ParamGroup4",
+			"Name": "しおつぶパッパッ2"
+		},
+		{
+			"Id": "ParamBowlRot",
+			"GroupId": "ParamGroup4",
+			"Name": "ボウルの回転"
+		},
+		{
+			"Id": "ParamBowlPosX",
+			"GroupId": "ParamGroup4",
+			"Name": "ボウルの位置X"
+		},
+		{
+			"Id": "ParamBowlPosY",
+			"GroupId": "ParamGroup4",
+			"Name": "ボウルの位置Y"
+		},
+		{
+			"Id": "ParamSaltUp",
+			"GroupId": "ParamGroup4",
+			"Name": "ボウルのしおいっぱい"
+		},
+		{
+			"Id": "ParamSaltUp2",
+			"GroupId": "ParamGroup4",
+			"Name": "ボウルのしおいっぱい2"
+		},
+		{
+			"Id": "ParamStarEffect",
+			"GroupId": "ParamGroup4",
+			"Name": "ほしつぶエフェクト"
+		},
+		{
+			"Id": "ParamStarEffect2",
+			"GroupId": "ParamGroup4",
+			"Name": "ほしつぶエフェクト2"
 		},
 		{
 			"Id": "ParamMainCamX",
@@ -777,14 +872,24 @@
 			"Name": "髪揺れ_LF_hair_2"
 		},
 		{
-			"Id": "R_hairA_1",
+			"Id": "R_hairAX_1",
 			"GroupId": "ParamGroup",
-			"Name": "髪揺れ_横R_hairA_1"
+			"Name": "髪揺れ_横R_hairAX_1"
 		},
 		{
-			"Id": "R_hairA_2",
+			"Id": "R_hairAX_2",
 			"GroupId": "ParamGroup",
-			"Name": "髪揺れ_横R_hairA_2"
+			"Name": "髪揺れ_横R_hairAX_2"
+		},
+		{
+			"Id": "R_hairAY_1",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_横R_hairAY_1"
+		},
+		{
+			"Id": "R_hairAY_2",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_横R_hairAY_2"
 		},
 		{
 			"Id": "R_hairB_1",
@@ -815,6 +920,36 @@
 			"Id": "L_hairB_2",
 			"GroupId": "ParamGroup",
 			"Name": "髪揺れ_横L_hairB_2"
+		},
+		{
+			"Id": "R_twintail_1",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_R_twintail_1"
+		},
+		{
+			"Id": "R_twintail_2",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_R_twintail_2"
+		},
+		{
+			"Id": "R_twintail_3",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_R_twintail_3"
+		},
+		{
+			"Id": "L_twintail_1",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_L_twintail_1"
+		},
+		{
+			"Id": "L_twintail_2",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_L_twintail_2"
+		},
+		{
+			"Id": "L_twintail_3",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_L_twintail_3"
 		},
 		{
 			"Id": "Param_Angle_Rotation_1_ArtMesh179",
