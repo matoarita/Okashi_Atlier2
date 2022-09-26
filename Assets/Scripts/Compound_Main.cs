@@ -4491,11 +4491,11 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("黄金じゃがバター焼き");
                     _todayfoodexpence_lib.Add((int)(600f * _todayfood_buf));
-                    _todayfood_lib.Add("エビのオリーブアヒージョ・ドリア");
+                    _todayfood_lib.Add("エビアヒージョ・ドリア");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
-                    _todayfood_lib.Add("マッシュルームとしめじの純和風パスタ");
+                    _todayfood_lib.Add("マッシュルームパスタ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
-                    _todayfood_lib.Add("厚切り！アルプス牛ロースステーキ");
+                    _todayfood_lib.Add("厚切りアルプス牛ロースステーキ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
@@ -4503,9 +4503,9 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("ポテトコロッケ");
                     _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
-                    _todayfood_lib.Add("エビきのこのジェノベーゼ");
+                    _todayfood_lib.Add("へんな草風味のジェノベーゼ");
                     _todayfoodexpence_lib.Add((int)(700f * _todayfood_buf));
-                    _todayfood_lib.Add("たことガーリック盛沢山ペペロンチーノ");
+                    _todayfood_lib.Add("たこペペロンチーノ");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("巨大イカの逆襲パスタ・オリーブ仕上げ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
@@ -4521,7 +4521,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     _todayfood_lib.Add("巨大なエビ・ドリア");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
-                    _todayfood_lib.Add("なすとひき肉のまろやかチーズペンネ");
+                    _todayfood_lib.Add("なすとひき肉のチーズペンネ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
@@ -4531,7 +4531,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
                     _todayfood_lib.Add("地中海風サラダパスタ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("こくまろ・ビーフシチュー");
+                    _todayfood_lib.Add("こくまろビーフシチュー");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     _todayfood_lib.Add("ムール貝のアダルティ酒蒸し");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
@@ -4543,13 +4543,13 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("じゃがいものパンケーキ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("マグロ切れ端とサーモンこってりドリア");
+                    _todayfood_lib.Add("マグロサーモンこってりドリア");
                     _todayfoodexpence_lib.Add((int)(600f * _todayfood_buf));
-                    _todayfood_lib.Add("カジキとあらびきチョリソーのピザ");
+                    _todayfood_lib.Add("カジキとあらびきチョリソーピザ");
                     _todayfoodexpence_lib.Add((int)(800f * _todayfood_buf));
-                    _todayfood_lib.Add("スクランブルエッグとパンの軽食セット");
+                    _todayfood_lib.Add("スクランブルエッグ");
                     _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
-                    _todayfood_lib.Add("エシャロットとカブラの京風オリーブパスタ");
+                    _todayfood_lib.Add("ムラサきのこの京風オリーブパスタ");
                     _todayfoodexpence_lib.Add((int)(800f * _todayfood_buf));
                     _todayfood_lib.Add("きのこもりだくさんサラダ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
@@ -4565,7 +4565,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(1400f * _todayfood_buf));
                     _todayfood_lib.Add("まんぷくラザニア");
                     _todayfoodexpence_lib.Add((int)(800f * _todayfood_buf));
-                    _todayfood_lib.Add("にいちゃんのハンバーグ");
+                    _todayfood_lib.Add("にいちゃんハンバーグ");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("新・黄金じゃがバター");
                     _todayfoodexpence_lib.Add((int)(1000f * _todayfood_buf));

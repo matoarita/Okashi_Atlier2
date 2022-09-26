@@ -296,7 +296,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool okashinontphint_flag;    //SPお菓子に必要なトッピングがのってなかったときに出す感想
     public static int okashiafter_status;    //採点表示　SPお菓子の感想か固有の感想か
     public static int mainquest_ID;         //クエストクリア時のイベント
-    public static bool mainClear_flag;      //クエストクリア時のイベント    
+    public static bool mainClear_flag;      //クエストクリア時のイベント
+    public static int Extraquest_ID;      //エクストラクエストクリア時のイベント 
+    public static bool ExtraClear_flag;      //エクストラクエストクリア時のイベント 
+    public static string ExtraClear_QuestName;      //エクストラクエストクリア時のイベント名前 
     public static bool QuestClearButtonMessage_flag;  //クエストクリア時のボタン出現時、一言しゃべる
     public static int QuestClearButtonMessage_EvNum; //クエストクリア時のイベント番号
 
@@ -819,6 +822,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         specialsubevent_flag1 = false;
         hikariokashiExpTable_noTypeflag = false;
         Okashi_Extra_SpEvent_Start = false;
+        ExtraClear_QuestName = "";
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -943,6 +947,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         okashihint_flag = false;
         okashinontphint_flag = false;
         mainClear_flag = false;
+        ExtraClear_flag = false;
         emeralDonguri_flag = false;
         QuestClearButtonMessage_flag = false;
 

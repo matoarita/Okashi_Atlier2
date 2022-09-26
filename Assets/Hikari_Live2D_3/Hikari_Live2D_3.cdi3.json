@@ -952,6 +952,11 @@
 			"Name": "髪揺れ_L_twintail_3"
 		},
 		{
+			"Id": "L_twintail_4",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_L_twintail_4"
+		},
+		{
 			"Id": "Param_Angle_Rotation_1_ArtMesh179",
 			"GroupId": "ParamGroup10",
 			"Name": "[0]右ツインテール"

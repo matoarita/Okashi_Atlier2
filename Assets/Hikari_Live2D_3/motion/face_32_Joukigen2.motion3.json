@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 41,
-		"TotalSegmentCount": 60,
-		"TotalPointCount": 167,
+		"CurveCount": 42,
+		"TotalSegmentCount": 61,
+		"TotalPointCount": 171,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -277,6 +277,21 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMoguMouthOOff",
+			"Segments": [
+				0,
+				0,
+				1,
+				1,
+				0,
+				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamKiba",
 			"Segments": [
 				0,
@@ -482,28 +497,6 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamBreath",
-			"Segments": [
-				0,
-				1,
-				1,
-				0.5,
-				1,
-				1,
-				0,
-				1.5,
-				0,
-				1,
-				2,
-				0,
-				2.5,
-				1,
-				3,
-				1
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "ParamCharaPosX",
 			"Segments": [
 				0,
@@ -537,6 +530,28 @@
 				0,
 				3,
 				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBreath",
+			"Segments": [
+				0,
+				1,
+				1,
+				0.5,
+				1,
+				1,
+				0,
+				1.5,
+				0,
+				1,
+				2,
+				0,
+				2.5,
+				1,
+				3,
+				1
 			]
 		},
 		{

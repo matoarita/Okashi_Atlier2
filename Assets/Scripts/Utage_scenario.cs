@@ -394,12 +394,22 @@ public class Utage_scenario : MonoBehaviour
                     //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
                     StartCoroutine(QuestClearButton_Hyouji());
                 }
-                
+
+                if (GameMgr.ExtraClear_flag == true)
+                {
+                    GameMgr.ExtraClear_flag = false;
+                    mainClear_ID = GameMgr.Extraquest_ID;
+                    scenarioLabel = "ExtraClearMessage"; //イベントレシピタグのシナリオを再生。
+
+                    //エクストラクリア後の感想テキストを表示
+                    StartCoroutine(MainQuestClear_Hyouji());
+                }
 
                 if (GameMgr.mainClear_flag == true)
                 {
                     GameMgr.mainClear_flag = false;
                     mainClear_ID = GameMgr.mainquest_ID;
+                    scenarioLabel = "MainQuestClear"; //イベントレシピタグのシナリオを再生。
 
                     //SPお菓子食べたあとの感想テキストを表示
                     StartCoroutine(MainQuestClear_Hyouji());
@@ -2623,7 +2633,6 @@ public class Utage_scenario : MonoBehaviour
 
         scenarioLabel = "QuestClearMessage"; //イベントレシピタグのシナリオを再生。
 
-
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("QuestClearMessage_num", GameMgr.QuestClearButtonMessage_EvNum);     
 
@@ -2655,7 +2664,7 @@ public class Utage_scenario : MonoBehaviour
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "MainQuestClear"; //イベントレシピタグのシナリオを再生。
+        //scenarioLabel = "MainQuestClear"; //イベントレシピタグのシナリオを再生。
 
         scenario_loading = true;
 
