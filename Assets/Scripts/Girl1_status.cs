@@ -3011,6 +3011,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 32: //るんるんモーション
 
                 Debug.Log("32 るんるん");
+                //材料とりにいきたいモード。このときに外へいくと、ハートがあがる。
+                GameMgr.OsotoIkitaiFlag = true;
+
                 FaceMotionPlay(1006);
                 _touchface_comment_lib.Add("るんるん♪");
                 _touchface_comment_lib.Add("エメラルどんぐり、拾いにいこうよ～。おにいちゃん。");

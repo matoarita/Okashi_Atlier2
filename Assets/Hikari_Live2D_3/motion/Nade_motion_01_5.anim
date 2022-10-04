@@ -489,6 +489,28 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: Value
+    path: Parameters/ParamMoguMouthOOff
+    classID: 114
+    script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 2.967
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: Value
     path: Parameters/ParamKiba
     classID: 114
     script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
@@ -773,14 +795,14 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 1.5
-        value: -2
+        value: -4
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 2.967
-        value: -0.003
-        inSlope: 0.17382431
+        value: -0.006
+        inSlope: 0.34764862
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
@@ -807,14 +829,14 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 1.833
-        value: -1
+        value: -5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 2.967
-        value: -0.165
-        inSlope: 1.1640223
+        value: -0.175
+        inSlope: 1.7354513
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
@@ -863,14 +885,14 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 2.167
-        value: 5
+        value: 8
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 2.967
-        value: 2.27
-        inSlope: -5.5537558
+        value: 2.284
+        inSlope: -6.3825073
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
@@ -878,34 +900,6 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: Value
     path: Parameters/ParamUpperbodyYure
-    classID: 114
-    script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.5
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 2.967
-        value: 0.001
-        inSlope: -0.08793465
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: Value
-    path: Parameters/ParamBreath
     classID: 114
     script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
   - curve:
@@ -950,6 +944,34 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: Value
     path: Parameters/ParamCharaPosY
+    classID: 114
+    script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 2.967
+        value: 0.001
+        inSlope: -0.08793465
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: Value
+    path: Parameters/ParamBreath
     classID: 114
     script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
   - curve:
@@ -1762,6 +1784,13 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
+      path: 2693413920
+      attribute: 3702945584
+      script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
+      typeID: 114
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
       path: 1068745495
       attribute: 3702945584
       script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
@@ -2501,6 +2530,28 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: Value
+    path: Parameters/ParamMoguMouthOOff
+    classID: 114
+    script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 2.967
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: Value
     path: Parameters/ParamKiba
     classID: 114
     script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
@@ -2785,14 +2836,14 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 1.5
-        value: -2
+        value: -4
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 2.967
-        value: -0.003
-        inSlope: 0.17382431
+        value: -0.006
+        inSlope: 0.34764862
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
@@ -2819,14 +2870,14 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 1.833
-        value: -1
+        value: -5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 2.967
-        value: -0.165
-        inSlope: 1.1640223
+        value: -0.175
+        inSlope: 1.7354513
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
@@ -2875,14 +2926,14 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 2.167
-        value: 5
+        value: 8
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 2.967
-        value: 2.27
-        inSlope: -5.5537558
+        value: 2.284
+        inSlope: -6.3825073
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
@@ -2890,34 +2941,6 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: Value
     path: Parameters/ParamUpperbodyYure
-    classID: 114
-    script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1.5
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 2.967
-        value: 0.001
-        inSlope: -0.08793465
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: Value
-    path: Parameters/ParamBreath
     classID: 114
     script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
   - curve:
@@ -2962,6 +2985,34 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: Value
     path: Parameters/ParamCharaPosY
+    classID: 114
+    script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 2.967
+        value: 0.001
+        inSlope: -0.08793465
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: Value
+    path: Parameters/ParamBreath
     classID: 114
     script: {fileID: 11500000, guid: dafbb7ec1700e8147a48dbed2e4e543c, type: 3}
   - curve:

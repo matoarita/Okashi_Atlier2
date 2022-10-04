@@ -4491,7 +4491,7 @@ public class Compound_Main : MonoBehaviour
 
                     _todayfood_lib.Add("黄金じゃがバター焼き");
                     _todayfoodexpence_lib.Add((int)(600f * _todayfood_buf));
-                    _todayfood_lib.Add("エビアヒージョ・ドリア");
+                    _todayfood_lib.Add("エビグラタン");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("マッシュルームパスタ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));

@@ -522,24 +522,14 @@
 			"Name": "メイド服_スカート広がり_A2"
 		},
 		{
-			"Id": "MSkirt_Yure_B1",
+			"Id": "MSuso_OpenA1",
 			"GroupId": "ParamGroup3",
-			"Name": "メイド服_スカート横揺れ_B1"
+			"Name": "メイド服_すそ広がり_A1"
 		},
 		{
-			"Id": "MSkirt_Yure_B2",
+			"Id": "MSuso_OpenA2",
 			"GroupId": "ParamGroup3",
-			"Name": "メイド服_スカート横揺れ_B2"
-		},
-		{
-			"Id": "MSkirt_Yure_D1",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_スカート横揺れ_D1"
-		},
-		{
-			"Id": "MSkirt_Yure_D2",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_スカート横揺れ_D2"
+			"Name": "メイド服_すそ広がり_A2"
 		},
 		{
 			"Id": "MSuso_Yure_A1",
@@ -552,16 +542,6 @@
 			"Name": "メイド服_すそ横揺れ_A2"
 		},
 		{
-			"Id": "MSuso_OpenA1",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_すそ広がり_A1"
-		},
-		{
-			"Id": "MSuso_OpenA2",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_すそ広がり_A2"
-		},
-		{
 			"Id": "MSuso_Yure_B1",
 			"GroupId": "ParamGroup3",
 			"Name": "メイド服_すそ横揺れ_B1"
@@ -572,16 +552,6 @@
 			"Name": "メイド服_すそ横揺れ_B2"
 		},
 		{
-			"Id": "MSuso_OpenB1",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_すそ広がり_B1"
-		},
-		{
-			"Id": "MSuso_OpenB2",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_すそ広がり_B2"
-		},
-		{
 			"Id": "MSuso_Yure_C1",
 			"GroupId": "ParamGroup3",
 			"Name": "メイド服_すそ横揺れ_C1"
@@ -590,16 +560,6 @@
 			"Id": "MSuso_Yure_C2",
 			"GroupId": "ParamGroup3",
 			"Name": "メイド服_すそ横揺れ_C2"
-		},
-		{
-			"Id": "MSuso_OpenC1",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_すそ広がり_C1"
-		},
-		{
-			"Id": "MSuso_OpenC2",
-			"GroupId": "ParamGroup3",
-			"Name": "メイド服_すそ広がり_C2"
 		},
 		{
 			"Id": "LarmSuso_Yure_1",
@@ -822,26 +782,6 @@
 			"Name": "リボン揺れ_バルンハットA4"
 		},
 		{
-			"Id": "Nekotail_ribbon_A_1",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_猫しっぽA1"
-		},
-		{
-			"Id": "Nekotail_ribbon_A_2",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_猫しっぽA2"
-		},
-		{
-			"Id": "Nekotail_ribbon_A_3",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_猫しっぽA3"
-		},
-		{
-			"Id": "Nekotail_ribbon_A_4",
-			"GroupId": "ParamGroup2",
-			"Name": "リボン揺れ_猫しっぽA4"
-		},
-		{
 			"Id": "F_hair_1",
 			"GroupId": "ParamGroup",
 			"Name": "髪揺れ_F_hair_1"
@@ -882,16 +822,6 @@
 			"Name": "髪揺れ_横R_hairAX_2"
 		},
 		{
-			"Id": "R_hairAY_1",
-			"GroupId": "ParamGroup",
-			"Name": "髪揺れ_横R_hairAY_1"
-		},
-		{
-			"Id": "R_hairAY_2",
-			"GroupId": "ParamGroup",
-			"Name": "髪揺れ_横R_hairAY_2"
-		},
-		{
 			"Id": "R_hairB_1",
 			"GroupId": "ParamGroup",
 			"Name": "髪揺れ_横R_hairB_1"
@@ -920,6 +850,16 @@
 			"Id": "L_hairB_2",
 			"GroupId": "ParamGroup",
 			"Name": "髪揺れ_横L_hairB_2"
+		},
+		{
+			"Id": "Yoko_hairY_1",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_横全体_hairY_1"
+		},
+		{
+			"Id": "Yoko_hairY_2",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ_横全体_hairY_2"
 		},
 		{
 			"Id": "R_twintail_1",
@@ -957,164 +897,29 @@
 			"Name": "髪揺れ_L_twintail_4"
 		},
 		{
-			"Id": "Param_Angle_Rotation_1_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[0]右ツインテール"
+			"Id": "Rnekomimi_move",
+			"GroupId": "ParamGroup9",
+			"Name": "ねこみみのピコピコ"
 		},
 		{
-			"Id": "Param_Angle_Rotation_2_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[1]右ツインテール"
+			"Id": "Rnekomimi_yure1",
+			"GroupId": "ParamGroup9",
+			"Name": "右猫耳の揺れ1"
 		},
 		{
-			"Id": "Param_Angle_Rotation_3_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[2]右ツインテール"
+			"Id": "Rnekomimi_yure2",
+			"GroupId": "ParamGroup9",
+			"Name": "右猫耳の揺れ2"
 		},
 		{
-			"Id": "Param_Angle_Rotation_4_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[3]右ツインテール"
+			"Id": "Lnekomimi_yure1",
+			"GroupId": "ParamGroup9",
+			"Name": "左猫耳の揺れ1"
 		},
 		{
-			"Id": "Param_Angle_Rotation_5_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[4]右ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_6_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[5]右ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_7_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[6]右ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_8_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[7]右ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_9_ArtMesh179",
-			"GroupId": "ParamGroup10",
-			"Name": "[8]右ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_1_ArtMesh195",
-			"GroupId": "ParamGroup11",
-			"Name": "[0]右ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_2_ArtMesh195",
-			"GroupId": "ParamGroup11",
-			"Name": "[1]右ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_3_ArtMesh195",
-			"GroupId": "ParamGroup11",
-			"Name": "[2]右ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_4_ArtMesh195",
-			"GroupId": "ParamGroup11",
-			"Name": "[3]右ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_5_ArtMesh195",
-			"GroupId": "ParamGroup11",
-			"Name": "[4]右ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_6_ArtMesh195",
-			"GroupId": "ParamGroup11",
-			"Name": "[5]右ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_7_ArtMesh195",
-			"GroupId": "ParamGroup11",
-			"Name": "[6]右ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_1_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[0]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_2_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[1]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_3_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[2]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_4_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[3]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_5_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[4]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_6_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[5]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_7_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[6]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_8_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[7]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_9_ArtMesh175",
-			"GroupId": "ParamGroup12",
-			"Name": "[8]左ツインテール"
-		},
-		{
-			"Id": "Param_Angle_Rotation_1_ArtMesh194",
-			"GroupId": "ParamGroup13",
-			"Name": "[0]左ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_2_ArtMesh194",
-			"GroupId": "ParamGroup13",
-			"Name": "[1]左ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_3_ArtMesh194",
-			"GroupId": "ParamGroup13",
-			"Name": "[2]左ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_4_ArtMesh194",
-			"GroupId": "ParamGroup13",
-			"Name": "[3]左ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_5_ArtMesh194",
-			"GroupId": "ParamGroup13",
-			"Name": "[4]左ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_6_ArtMesh194",
-			"GroupId": "ParamGroup13",
-			"Name": "[5]左ツインテール裏"
-		},
-		{
-			"Id": "Param_Angle_Rotation_7_ArtMesh194",
-			"GroupId": "ParamGroup13",
-			"Name": "[6]左ツインテール裏"
+			"Id": "Lnekomimi_yure2",
+			"GroupId": "ParamGroup9",
+			"Name": "左猫耳の揺れ2"
 		},
 		{
 			"Id": "ParamCattail_rootRot",
@@ -1167,6 +972,46 @@
 			"Name": "[8]猫しっぽ"
 		},
 		{
+			"Id": "Nekotail_ribbon_A_1",
+			"GroupId": "ParamGroup9",
+			"Name": "リボン揺れ_猫しっぽA1"
+		},
+		{
+			"Id": "Nekotail_ribbon_A_2",
+			"GroupId": "ParamGroup9",
+			"Name": "リボン揺れ_猫しっぽA2"
+		},
+		{
+			"Id": "Nekotail_ribbon_B_1",
+			"GroupId": "ParamGroup9",
+			"Name": "リボン揺れ_猫しっぽB1"
+		},
+		{
+			"Id": "Nekotail_ribbon_B_2",
+			"GroupId": "ParamGroup9",
+			"Name": "リボン揺れ_猫しっぽB2"
+		},
+		{
+			"Id": "Nekotail_ribbon_C_1",
+			"GroupId": "ParamGroup9",
+			"Name": "リボン揺れ_猫しっぽC1"
+		},
+		{
+			"Id": "Nekotail_ribbon_C_2",
+			"GroupId": "ParamGroup9",
+			"Name": "リボン揺れ_猫しっぽC2"
+		},
+		{
+			"Id": "Nekotail_ribbon_D_1",
+			"GroupId": "ParamGroup9",
+			"Name": "リボン揺れ_猫しっぽD1"
+		},
+		{
+			"Id": "Nekotail_ribbon_D_2",
+			"GroupId": "ParamGroup9",
+			"Name": "リボン揺れ_猫しっぽD2"
+		},
+		{
 			"Id": "Hair_All_z_Pos",
 			"GroupId": "",
 			"Name": "風揺れ位置"
@@ -1190,6 +1035,16 @@
 			"Id": "ParamWingScale",
 			"GroupId": "ParamGroup16",
 			"Name": "つばさの拡縮"
+		},
+		{
+			"Id": "ParamStarBodyX",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星の体回転X"
+		},
+		{
+			"Id": "ParamStarBodyY",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星の体回転Y"
 		},
 		{
 			"Id": "ParamStarRot_1",
@@ -1292,26 +1147,6 @@
 			"Id": "ParamGroup",
 			"GroupId": "",
 			"Name": "髪"
-		},
-		{
-			"Id": "ParamGroup10",
-			"GroupId": "",
-			"Name": "右ツインテール"
-		},
-		{
-			"Id": "ParamGroup11",
-			"GroupId": "",
-			"Name": "右ツインテール裏"
-		},
-		{
-			"Id": "ParamGroup12",
-			"GroupId": "",
-			"Name": "左ツインテール"
-		},
-		{
-			"Id": "ParamGroup13",
-			"GroupId": "",
-			"Name": "左ツインテール裏"
 		},
 		{
 			"Id": "ParamGroup9",
@@ -1421,38 +1256,6 @@
 		{
 			"Id": "Part01EyeBall001",
 			"Name": "目玉"
-		},
-		{
-			"Id": "ArtMesh175_Skinning",
-			"Name": "左ツインテール(スキニング)"
-		},
-		{
-			"Id": "Part11",
-			"Name": "左ツインテール(回転)"
-		},
-		{
-			"Id": "ArtMesh194_Skinning",
-			"Name": "左ツインテール裏(スキニング)"
-		},
-		{
-			"Id": "Part12",
-			"Name": "左ツインテール裏(回転)"
-		},
-		{
-			"Id": "ArtMesh179_Skinning",
-			"Name": "右ツインテール(スキニング)"
-		},
-		{
-			"Id": "Part9",
-			"Name": "右ツインテール(回転)"
-		},
-		{
-			"Id": "ArtMesh195_Skinning",
-			"Name": "右ツインテール裏(スキニング)"
-		},
-		{
-			"Id": "Part10",
-			"Name": "右ツインテール裏(回転)"
 		},
 		{
 			"Id": "ArtMesh421_Skinning",

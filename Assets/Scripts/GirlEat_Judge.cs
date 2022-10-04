@@ -4224,7 +4224,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         if (GameMgr.Okashi_spquest_eatkaisu <= 3)
                         {
                             //3回以内だと、特別イベント
-                            GameMgr.Okashi_Extra_SpEvent_Start = true;
+                            GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
                     }
                     break;
