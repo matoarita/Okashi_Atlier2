@@ -1279,13 +1279,13 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 15
+        value: 25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 3
-        value: -13
+        value: -25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2945,13 +2945,13 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 15
+        value: 25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 3
-        value: -13
+        value: -25
         inSlope: 0
         outSlope: 0
         tangentMode: 0

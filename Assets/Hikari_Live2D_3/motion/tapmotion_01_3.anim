@@ -1819,25 +1819,19 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 5
-        value: -13
+        value: -19
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 6
-        value: 0
-        inSlope: 25.845026
-        outSlope: 25.838078
-        tangentMode: 0
-      - serializedVersion: 2
         time: 7.167
-        value: 15
+        value: 25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 9.667
-        value: -13
+        value: -20
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -4037,25 +4031,19 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 5
-        value: -13
+        value: -19
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 6
-        value: 0
-        inSlope: 25.845026
-        outSlope: 25.838078
-        tangentMode: 0
-      - serializedVersion: 2
         time: 7.167
-        value: 15
+        value: 25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 9.667
-        value: -13
+        value: -20
         inSlope: 0
         outSlope: 0
         tangentMode: 0

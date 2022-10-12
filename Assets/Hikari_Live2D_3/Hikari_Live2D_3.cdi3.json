@@ -492,6 +492,46 @@
 			"Name": "ティンクルスターダスト"
 		},
 		{
+			"Id": "ParamArmKokyu",
+			"GroupId": "",
+			"Name": "肩呼吸"
+		},
+		{
+			"Id": "ParamBodyY_yure2",
+			"GroupId": "",
+			"Name": "胸揺れX"
+		},
+		{
+			"Id": "ParamBodyY_yure",
+			"GroupId": "",
+			"Name": "胸揺れY"
+		},
+		{
+			"Id": "ParamBodyY_sinshuku",
+			"GroupId": "",
+			"Name": "胸揺れ伸縮"
+		},
+		{
+			"Id": "ParamBodyLEri_yure1",
+			"GroupId": "",
+			"Name": "ワンピース左エリ揺れ1"
+		},
+		{
+			"Id": "ParamBodyLEri_yure2",
+			"GroupId": "",
+			"Name": "ワンピース左エリ揺れ2"
+		},
+		{
+			"Id": "ParamBodyREri_yure1",
+			"GroupId": "",
+			"Name": "ワンピース右エリ揺れ1"
+		},
+		{
+			"Id": "ParamBodyREri_yure2",
+			"GroupId": "",
+			"Name": "ワンピース右エリ揺れ2"
+		},
+		{
 			"Id": "MSkirt_Yure_A1",
 			"GroupId": "ParamGroup3",
 			"Name": "メイド服_スカート横揺れ_A1"
