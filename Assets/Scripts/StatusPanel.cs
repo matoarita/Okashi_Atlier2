@@ -51,6 +51,8 @@ public class StatusPanel : MonoBehaviour {
     private Text girlExtremeKaisu_param;
     private Text BoxLv_param;
     private Text Okashi_SPquest_eatkaisu_param;
+    private Text Okashi_SPquest_MaxScore_param;
+    private Text Okashi_Game_MaxScore_param;
 
     private Text girlFind_power_param_buf;
 
@@ -156,6 +158,8 @@ public class StatusPanel : MonoBehaviour {
         renkinnextLV_param = paramview1.transform.Find("ParamG_param/Text").GetComponent<Text>();
         zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
         Okashi_SPquest_eatkaisu_param = paramview1.transform.Find("ParamJ_param/TextKosu").GetComponent<Text>();
+        Okashi_SPquest_MaxScore_param = paramview1.transform.Find("ParamK_param/TextKosu").GetComponent<Text>();
+        Okashi_Game_MaxScore_param = paramview1.transform.Find("ParamL_param/TextKosu").GetComponent<Text>();
 
         //ヒカリお菓子ステータス関係
         InitHikariOkashiParam_View();
@@ -248,17 +252,26 @@ public class StatusPanel : MonoBehaviour {
             paramview1.transform.Find("ParamC_param/Buf_Text").gameObject.SetActive(false);
         }
 
-        if(GameMgr.Story_Mode == 1)
+        
+        if (GameMgr.Story_Mode == 1)
         {
             paramview1.transform.Find("ParamJ").gameObject.SetActive(true);
             paramview1.transform.Find("ParamJ_param").gameObject.SetActive(true);
+            paramview1.transform.Find("ParamK").gameObject.SetActive(true);
+            paramview1.transform.Find("ParamK_param").gameObject.SetActive(true);
             Okashi_SPquest_eatkaisu_param.text = GameMgr.Okashi_spquest_eatkaisu.ToString();
+            Okashi_SPquest_MaxScore_param.text = GameMgr.Okashi_spquest_MaxScore.ToString();
+            
         }
         else
         {
             paramview1.transform.Find("ParamJ").gameObject.SetActive(false);
             paramview1.transform.Find("ParamJ_param").gameObject.SetActive(false);
+            paramview1.transform.Find("ParamK").gameObject.SetActive(false);
+            paramview1.transform.Find("ParamK_param").gameObject.SetActive(false);
         }
+        Okashi_Game_MaxScore_param.text = GameMgr.Okashi_toplast_score.ToString();
+
     }
 
     public void OnCostumePanel()

@@ -15,8 +15,13 @@ public class ExtraQuestOKPanel : MonoBehaviour {
     private Image okashiImage;
     private Text ExtraQuestText;
 
+    private Text ExtraQuest_Score;
+
     private GirlEat_Judge girlEat_judge;
     private Special_Quest special_quest;
+
+    private GameObject Panel1;
+    private GameObject Panel2;
 
     private GameObject quest_panel;
 
@@ -43,17 +48,27 @@ public class ExtraQuestOKPanel : MonoBehaviour {
 
         girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
-        button = this.transform.Find("Button").GetComponent<Button>();
+        Panel1 = this.transform.Find("Panel1").gameObject;
+        Panel1.SetActive(true);
+        Panel2 = this.transform.Find("Panel2").gameObject;
+        Panel2.SetActive(false);
+
+        //パネル1
+        button = this.transform.Find("Panel1/Button").GetComponent<Button>();
         button.interactable = false;
 
-        stagenum_text = this.transform.Find("QuestClear/stageNumberText").GetComponent<Text>();
+        stagenum_text = this.transform.Find("Panel1/QuestClear/stageNumberText").GetComponent<Text>();
         stagenum_text.text = GameMgr.stage_quest_num.ToString();
 
-        okashiImage = this.transform.Find("ItemImgPanel/ItemImg").GetComponent<Image>();
+        okashiImage = this.transform.Find("Panel1/ItemImgPanel/ItemImg").GetComponent<Image>();
 
-        quest_panel = this.transform.Find("QuestPanel").gameObject;
+        quest_panel = this.transform.Find("Panel1/QuestPanel").gameObject;
         ExtraQuestText = quest_panel.transform.Find("Image/QuestClearText").GetComponent<Text>();
         ExtraQuestText.text = GameMgr.ExtraClear_QuestName;
+
+        //パネル2
+        ExtraQuest_Score = this.transform.Find("Panel2/QuestClearScore/ScoreText").GetComponent<Text>();
+        ExtraQuest_Score.text = GameMgr.Okashi_spquest_MaxScore.ToString();
 
         if (GameMgr.Story_Mode == 0)
         {
@@ -76,6 +91,13 @@ public class ExtraQuestOKPanel : MonoBehaviour {
     }
 
     public void MainQuestOKButtonON()
+    {
+        Panel2.SetActive(true);
+        Panel1.SetActive(false);
+        //girlEat_judge.PanelResultOFF();
+    }
+
+    public void MainQuestOKButtonON2()
     {
         girlEat_judge.PanelResultOFF();
     }

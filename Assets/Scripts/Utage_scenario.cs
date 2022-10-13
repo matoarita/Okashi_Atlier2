@@ -130,6 +130,7 @@ public class Utage_scenario : MonoBehaviour
         
         picnic_place_num = 1;
 
+        FadeAnim_flag = false;
         NPCevent_okashicheck = false;
     }
 
@@ -2083,15 +2084,48 @@ public class Utage_scenario : MonoBehaviour
                     if (GameMgr.event_judge_status == 2 || GameMgr.event_judge_status == 3) //2~は合格。3=100~150。
                     {
                         engine.Param.TrySetParameter("EventJudge_num", 2);
-                        PlayerStatus.player_money += 5000;
+                        if (!GameMgr.ShopEvent_stage[10])
+                        {
+                            engine.Param.TrySetParameter("ExtraShopClear_Flag", false); 
+                            PlayerStatus.player_money += 2000;
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("ExtraShopClear_Flag", true);
+                        }
                     }
                     else
                     {
                         engine.Param.TrySetParameter("EventJudge_num", 3); //4=150以上。
-                        PlayerStatus.player_money += 10000;
-                        pitemlist.addPlayerItemString("Record_18", 1); //レコード
+                        if (!GameMgr.ShopEvent_stage[10]) //初見クリア
+                        {
+                            engine.Param.TrySetParameter("ExtraShopClear_Flag", false);
+                            PlayerStatus.player_money += 10000;
+                            pitemlist.addPlayerItemString("Record_18", 1); //レコード
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("ExtraShopClear_Flag", true);
+
+                            //二度目以降で、レコードはもらってなかった場合
+                            if(pitemlist.KosuCount("Record_18") >= 1)
+                            {
+                                engine.Param.TrySetParameter("ExtraShopClear_Flag_Record", true);
+                            }
+                            else
+                            {
+                                engine.Param.TrySetParameter("ExtraShopClear_Flag_Record", false);
+                                pitemlist.addPlayerItemString("Record_18", 1); //レコード
+                            }
+                        }
+                        
                     }
 
+                    //そのクエスト内で、最高得点を更新した場合。
+                    if (total_score > GameMgr.Okashi_spquest_MaxScore)
+                    {
+                        GameMgr.Okashi_spquest_MaxScore = total_score;
+                    }
                     GameMgr.ShopEvent_stage[10] = true; //エクストラ　クエストNo11お店クリアフラグ
                 }
                 else
@@ -2694,7 +2728,6 @@ public class Utage_scenario : MonoBehaviour
 
         if (GameMgr.Story_Mode == 1)
         {
-            //キャラ背後のハートもオフにする。
             GirlHeartEffect_obj.SetActive(true);
         }
 
@@ -3812,9 +3845,9 @@ public class Utage_scenario : MonoBehaviour
     //ゲームメイン中のLive2DキャラクタをOFFにする。
     void CharacterLive2DImageOFF()
     {        
-        _renderController.Opacity = 1.0f;
-        FadeAnim_flag = true;
-        FadeAnim_status = 1;
+        _renderController.Opacity = 0.0f;
+        //FadeAnim_flag = true;
+        //FadeAnim_status = 1;
 
         //宴用の表情モードに切り替える。
         live2d_animator.SetLayerWeight(3, 1.0f);

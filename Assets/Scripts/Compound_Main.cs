@@ -4484,17 +4484,17 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("じゃがいもりだくさんのペスカトーレ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("うまうまステーキ");
-                    _todayfoodexpence_lib.Add((int)(550f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(450f * _todayfood_buf));
                     break;
 
                 case 13:
 
                     _todayfood_lib.Add("黄金じゃがバター焼き");
-                    _todayfoodexpence_lib.Add((int)(600f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("エビグラタン");
-                    _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(220f * _todayfood_buf));
                     _todayfood_lib.Add("マッシュルームパスタ");
-                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("厚切りアルプス牛ロースステーキ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
@@ -4504,7 +4504,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("ポテトコロッケ");
                     _todayfoodexpence_lib.Add((int)(100f * _todayfood_buf));
                     _todayfood_lib.Add("へんな草風味のジェノベーゼ");
-                    _todayfoodexpence_lib.Add((int)(700f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("たこペペロンチーノ");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("巨大イカの逆襲パスタ・オリーブ仕上げ");

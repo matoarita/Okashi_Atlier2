@@ -240,7 +240,7 @@ namespace Utage
 		//************ BGM ************//
 		public void PlayBgm(AudioClip clip, bool isLoop)
 		{
-			System.Play(IdBgm, IdBgm, new SoundData( clip, SoundPlayMode.NotPlaySame, DefaultVolume, isLoop), 0,  DefaultFadeTime );
+			System.Play(IdBgm, IdBgm, new SoundData( clip, SoundPlayMode.NotPlaySame, DefaultVolume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam, isLoop), 0,  DefaultFadeTime );
 		}
 
 		public void PlayBgm(AssetFile file)
@@ -292,7 +292,7 @@ namespace Utage
 
 		public void PlayAmbience(AudioClip clip, bool isLoop, float fadeInTime, float fadeOutTime)
 		{
-			System.Play(IdAmbience, IdAmbience, new SoundData(clip, SoundPlayMode.NotPlaySame, DefaultVolume, isLoop), fadeInTime, fadeOutTime);
+			System.Play(IdAmbience, IdAmbience, new SoundData(clip, SoundPlayMode.NotPlaySame, DefaultVolume * GameMgr.MasterVolumeParam, isLoop), fadeInTime, fadeOutTime);
 		}
 		
 		public void StopAmbience()
@@ -443,7 +443,7 @@ namespace Utage
 		public void PlaySe(AudioClip clip, float volume, string label = "", SoundPlayMode playMode = SoundPlayMode.Add, bool isLoop = false)
 		{
 			if (string.IsNullOrEmpty(label)) label = clip.name;
-			System.Play(IdSe, label, new SoundData(clip, playMode, volume, isLoop), 0, 0.02f);
+			System.Play(IdSe, label, new SoundData(clip, playMode, volume * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam, isLoop), 0, 0.02f);
 		}
 
 		public void StopSe(string label, float fadeTime)

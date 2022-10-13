@@ -38,15 +38,15 @@ public class MainQuestOKPanel : MonoBehaviour {
 
         girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
-        button = this.transform.Find("Button").GetComponent<Button>();
+        button = this.transform.Find("Panel1/Button").GetComponent<Button>();
         button.interactable = false;
 
-        stagenum_text = this.transform.Find("QuestClear/stageNumberText").GetComponent<Text>();
+        stagenum_text = this.transform.Find("Panel1/QuestClear/stageNumberText").GetComponent<Text>();
         stagenum_text.text = GameMgr.stage_quest_num.ToString();
 
-        okashiImage = this.transform.Find("ItemImgPanel/ItemImg").GetComponent<Image>();
+        okashiImage = this.transform.Find("Panel1/ItemImgPanel/ItemImg").GetComponent<Image>();
 
-        quest_panel = this.transform.Find("QuestPanel").gameObject;
+        quest_panel = this.transform.Find("Panel1/QuestPanel").gameObject;
         
         if (GameMgr.Story_Mode == 0)
         {

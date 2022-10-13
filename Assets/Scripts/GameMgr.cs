@@ -189,6 +189,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_toplast_heart; //前回あげたときの最高ハート取得量
 
     public static int Okashi_spquest_eatkaisu; //そのクエスト内で、お菓子を食べた回数をカウント
+    public static int Okashi_spquest_MaxScore; //そのクエスト内で、最大のお菓子の点数
     public static bool Okashi_Extra_SpEvent_Start; //ハート系クエストで、食べたお菓子が一定回数以下のとき、発動するクエスト
 
     //コンテスト審査員の点数
@@ -972,6 +973,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_lastsour_param = 0;
         Okashi_lastbitter_param = 0;
         Okashi_spquest_eatkaisu = 0;
+        Okashi_spquest_MaxScore = 0;
         NowEatOkashiID = 0;
         NowEatOkashiName = "";
 
