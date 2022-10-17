@@ -130,7 +130,6 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             case 0: //さくさく感のバフ
 
-                // かまどレベルによるバフ
                 switch (_itemType_sub)
                 {
                     case "Bread":
@@ -141,16 +140,39 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Cookie":
 
                         OvenBuf();
+                        CookieBuf();
                         break;
 
-                    /*case "Cookie_Mat":
+                    case "Cookie_Mat":
+
+                        CookieBuf();
+                        break;
+
+                    case "Cookie_Hard":
 
                         OvenBuf();
-                        break;*/
+                        CookieBuf();
+                        break;
 
                     case "Rusk":
 
                         OvenBuf();
+                        break;
+
+                    //現状ティーの香りは、さくさく感の値のこと
+                    case "Tea":
+
+                        TeaBuf();
+                        break;
+
+                    case "Tea_Mat":
+
+                        TeaBuf();
+                        break;
+
+                    case "Tea_Potion":
+
+                        TeaBuf();
                         break;
                 }
                 
@@ -158,9 +180,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case 1: //ふわふわ感のバフ
 
-                // かまどレベルによるバフ
                 switch (_itemType_sub)
                 {
+                    case "Crepe":
+
+                        CrepeBuf();
+                        break;
+
+                    case "Crepe_Mat":
+                        CrepeBuf();
+                        break;
+
                     case "Creampuff":
 
                         OvenBuf();
@@ -195,7 +225,6 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case 3: //歯ごたえ感のバフ
 
-                // かまどレベルによるバフ
                 switch (_itemType_sub)
                 {
                     case "Biscotti":
@@ -210,6 +239,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 }
 
                 return _buf_shokukanup;
+
+            case 4: //ジュースのバフ
+
+                break;
         }
 
         return 0; //なにもない場合や例外は0
@@ -232,6 +265,78 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             {
                 _buf_shokukanup = 0;
             }
+        }
+    }
+
+    void CookieBuf()
+    {
+        if (pitemlist.KosuCount("cookie_powerup1") >= 1) //
+        {
+            _buf_shokukanup += 5;
+        }
+        if (pitemlist.KosuCount("cookie_powerup2") >= 1) //
+        {
+            _buf_shokukanup += 10;
+        }
+        if (pitemlist.KosuCount("cookie_powerup3") >= 1) //
+        {
+            _buf_shokukanup += 15;
+        }
+        if (pitemlist.KosuCount("cookie_powerup4") >= 1) //
+        {
+            _buf_shokukanup += 25;
+        }
+        if (pitemlist.KosuCount("cookie_powerup5") >= 1) //
+        {
+            _buf_shokukanup += 50;
+        }
+    }
+
+    void CrepeBuf()
+    {
+        if (pitemlist.KosuCount("crepe_powerup1") >= 1) //
+        {
+            _buf_shokukanup += 5;
+        }
+        if (pitemlist.KosuCount("crepe_powerup2") >= 1) //
+        {
+            _buf_shokukanup += 10;
+        }
+        if (pitemlist.KosuCount("crepe_powerup3") >= 1) //
+        {
+            _buf_shokukanup += 15;
+        }
+        if (pitemlist.KosuCount("crepe_powerup4") >= 1) //
+        {
+            _buf_shokukanup += 25;
+        }
+        if (pitemlist.KosuCount("crepe_powerup5") >= 1) //
+        {
+            _buf_shokukanup += 50;
+        }
+    }
+
+    void TeaBuf()
+    {
+        if (pitemlist.KosuCount("tea_powerup1") >= 1) //
+        {
+            _buf_shokukanup += 5;
+        }
+        if (pitemlist.KosuCount("tea_powerup2") >= 1) //
+        {
+            _buf_shokukanup += 10;
+        }
+        if (pitemlist.KosuCount("tea_powerup3") >= 1) //
+        {
+            _buf_shokukanup += 15;
+        }
+        if (pitemlist.KosuCount("tea_powerup4") >= 1) //
+        {
+            _buf_shokukanup += 25;
+        }
+        if (pitemlist.KosuCount("tea_powerup5") >= 1) //
+        {
+            _buf_shokukanup += 50;
         }
     }
 

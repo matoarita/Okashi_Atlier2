@@ -1756,9 +1756,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType_sub);
                 _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType_sub);
                 _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType_sub);
+                _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _base_itemType_sub);
 
                 //魔力の泡だて器をもっている
-                if(pitemlist.ReturnItemKosu("whisk_magic") >= 1)
+                if (pitemlist.ReturnItemKosu("whisk_magic") >= 1)
                 {
                     if (_base_itemType_sub.ToString() == "Appaleil") //生地系を作るときは、全てにバフ
                     {

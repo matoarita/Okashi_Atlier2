@@ -78,3 +78,4 @@
 ・BGM_76		bgm_classic_tchaikovsky_kurumi-hana	【宴用】クリスタルキャッチャー8bitBGM
 ・BGM_77		ボサノバ2				カフェのBGM＜広場２で使用＞
 ・BGM_78		audiostock_251363.mp3			【宴用】ショップのBGM
+・BGM_79		PerituneMaterial_Cafe_Musette		【宴用】調合テーマ７　ワルツの調合風音楽　BGM61と同じ

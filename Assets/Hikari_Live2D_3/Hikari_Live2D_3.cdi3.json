@@ -1087,6 +1087,26 @@
 			"Name": "きら星の体回転Y"
 		},
 		{
+			"Id": "ParamStarWindMove",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ふわ揺れの風動き"
+		},
+		{
+			"Id": "ParamStarHuwahuwa_1",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ふわふわ"
+		},
+		{
+			"Id": "ParamStarHuwahuwa_2",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ふわふわ2"
+		},
+		{
+			"Id": "ParamStarHuwahuwa_3",
+			"GroupId": "ParamGroup14",
+			"Name": "きら星ふわふわ3"
+		},
+		{
 			"Id": "ParamStarRot_1",
 			"GroupId": "ParamGroup14",
 			"Name": "きら星回転1"

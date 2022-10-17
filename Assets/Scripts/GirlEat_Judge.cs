@@ -2661,21 +2661,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
             {
-                Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.25f));
+                Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.25f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
                 compound_Main.GirlExpressionKoushin(60);
             }
             else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
             {
-                Getlove_exp += (int)((total_score * 0.25f) * (_basegirl1_like * 1.5f));
+                Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.5f));
                 GetMoney += (int)(_basecost * 2.2f);
                 GetMoney *= (int)(total_score * 0.01f);
                 compound_Main.GirlExpressionKoushin(60);
             }
             else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
             {
-                Getlove_exp += (int)((total_score * 0.3f) * (_basegirl1_like * 1.5f));
+                Getlove_exp += (int)((total_score * 0.2f) * (_basegirl1_like * 1.5f));
                 GetMoney += (int)(_basecost * 2.5f);
                 GetMoney *= (int)(total_score * 0.01f);
                 compound_Main.GirlExpressionKoushin(60);
@@ -3890,6 +3890,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.recipi_read_endflag = false;
 
         GameMgr.ExtraClear_QuestName = girl1_status.OkashiQuest_Name; //このタイミングで一度現クエストのクエストネームを保存
+        GameMgr.ExtraClear_QuestNum = GameMgr.GirlLoveEvent_num;
         SelectNewOkashiSet();
     }
 

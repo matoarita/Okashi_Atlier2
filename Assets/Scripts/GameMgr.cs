@@ -301,6 +301,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Extraquest_ID;      //エクストラクエストクリア時のイベント 
     public static bool ExtraClear_flag;      //エクストラクエストクリア時のイベント 
     public static string ExtraClear_QuestName;      //エクストラクエストクリア時のイベント名前 
+    public static int ExtraClear_QuestNum;      //エクストラクエストクリア時のイベント番号を一時保存 
     public static bool QuestClearButtonMessage_flag;  //クエストクリア時のボタン出現時、一言しゃべる
     public static int QuestClearButtonMessage_EvNum; //クエストクリア時のイベント番号
 

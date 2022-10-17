@@ -313,7 +313,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     {
         switch (spquest_set_num)
         {
-            case 0: //オリジナルクッキーを食べたい
+            case 0: //ハートを100
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 10000;
@@ -321,28 +321,28 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 1: //
+            case 1: //300
 
                 girl1_status.OkashiQuest_ID = 10010;
                 OkashiQuest_Count = 2;
 
                 break;
 
-            case 2: //
+            case 2: //650
 
                 girl1_status.OkashiQuest_ID = 10020;
                 OkashiQuest_Count = 3;
 
                 break;
 
-            case 3: //
+            case 3: //1000
 
                 girl1_status.OkashiQuest_ID = 10030;
                 OkashiQuest_Count = 4;
 
                 break;
 
-            case 4: //
+            case 4: //230点以上のスーパークレープ　条件分岐
 
                 girl1_status.OkashiQuest_ID = 10040;
                 OkashiQuest_Count = 5;
@@ -356,7 +356,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 11: //お茶会用の
+            case 11: //お茶会用のお茶
 
                 girl1_status.OkashiQuest_ID = 10110;
                 OkashiQuest_Count = 2;
@@ -384,7 +384,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 20: //ハート2000以上
+            case 20: //ハート3000以上
 
                 girl1_status.OkashiQuest_ID = 10200;
                 OkashiQuest_Count = 1;
@@ -398,7 +398,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 22: //
+            case 22: //ヒカリが10種類のお菓子を作れる
 
                 girl1_status.OkashiQuest_ID = 10220;
                 OkashiQuest_Count = 3;
