@@ -1752,11 +1752,19 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
+                //お菓子の食感ごとに、バフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType_sub); //中の数字でどの食感パラムかの指定
                 _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType_sub);
                 _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType_sub);
                 _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType_sub);
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _base_itemType_sub);
+
+                //固有のお菓子のみにバフをかける処理
+                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(0, _basename); //中の数字でどの食感パラムかの指定
+                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(1, _basename);
+                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(2, _basename);
+                _basehardness += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(3, _basename);
+                _basejuice += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(4, _basename);
 
                 //魔力の泡だて器をもっている
                 if (pitemlist.ReturnItemKosu("whisk_magic") >= 1)
@@ -1797,6 +1805,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_hosei);
                 _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_hosei);
                 _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_hosei);
+
+                //専用アイテムがあれば、ヒカリのお菓子さらにパラメータアップ
+                _basecrispy += bufpower_keisan.Buf_HikariParamUp_Keisan(0, _base_itemType_sub); //_base_itemType_subは未使用だが、とりあえず置いてる。
+                _basefluffy += bufpower_keisan.Buf_HikariParamUp_Keisan(1, _base_itemType_sub);
+                _basesmooth += bufpower_keisan.Buf_HikariParamUp_Keisan(2, _base_itemType_sub);
+                _basehardness += bufpower_keisan.Buf_HikariParamUp_Keisan(3, _base_itemType_sub);
+                _basejuice += bufpower_keisan.Buf_HikariParamUp_Keisan(4, _base_itemType_sub);
             }
         }
 

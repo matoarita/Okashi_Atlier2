@@ -191,6 +191,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_spquest_eatkaisu; //そのクエスト内で、お菓子を食べた回数をカウント
     public static int Okashi_spquest_MaxScore; //そのクエスト内で、最大のお菓子の点数
     public static bool Okashi_Extra_SpEvent_Start; //ハート系クエストで、食べたお菓子が一定回数以下のとき、発動するクエスト
+    public static int ExtraClear_QuestItemRank;      //エクストラクエストクリア時のご褒美のランク
 
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
@@ -301,7 +302,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Extraquest_ID;      //エクストラクエストクリア時のイベント 
     public static bool ExtraClear_flag;      //エクストラクエストクリア時のイベント 
     public static string ExtraClear_QuestName;      //エクストラクエストクリア時のイベント名前 
-    public static int ExtraClear_QuestNum;      //エクストラクエストクリア時のイベント番号を一時保存 
+    public static int ExtraClear_QuestNum;          //エクストラクエストクリア時のイベント番号を一時保存     
     public static bool QuestClearButtonMessage_flag;  //クエストクリア時のボタン出現時、一言しゃべる
     public static int QuestClearButtonMessage_EvNum; //クエストクリア時のイベント番号
 
@@ -790,6 +791,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         sys_extreme_itemType = 0;
 
         stageclear_cullentlove = 0;
+        ExtraClear_QuestItemRank = 1;
 
         contest_eventStart_flag = false;
         MenuOpenFlag = false;

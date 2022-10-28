@@ -4043,8 +4043,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     if (total_score >= 230)
                     {
                         sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
+                        _windowtext.text = "満足しているようだ。";                       
                     }
+
+                    //エクストラ獲得アイテムのランクも決定
+                    ExtraItemGetRank();
                     break;
 
                 case 10: //茶色いクッキー
@@ -4052,8 +4055,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     if (_basename == "cocoa_cookie" && total_score >= GameMgr.low_score)
                     {
                         sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
+                        _windowtext.text = "満足しているようだ。";                       
                     }
+
+                    //エクストラ獲得アイテムのランクも決定
+                    ExtraItemGetRank();
                     break;
 
                 case 13: //カミナリのようにすっぱいクレープ 酸味が100以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
@@ -4063,8 +4069,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         if (sour_level >= 7 || _basesour >= 100)
                         {
                             sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
+                            _windowtext.text = "満足しているようだ。";                           
                         }
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4075,9 +4084,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         if (_basename == "strawberry_crepe" || _basename == "strawberryblueberry_crepe" || _basename == "berry_crepe" || _basename == "doubleberry_crepe")
                         {
                             sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
+                            _windowtext.text = "満足しているようだ。";                           
                         }
 
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4089,8 +4100,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             || _basename == "cafeaulait_creampuff" || _basename == "cocoa_cookie" || _basename == "biscotti")
                         {
                             sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
+                            _windowtext.text = "満足しているようだ。";                          
                         }
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
 
                     }
                     break;
@@ -4101,7 +4115,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
+                    }
 
+                    if (total_score >= 200 && total_score < 250)
+                    {
+                        GameMgr.ExtraClear_QuestItemRank = 2;
+                    }
+                    else if (total_score >= 250 && total_score < 300)
+                    {
+                        GameMgr.ExtraClear_QuestItemRank = 3;
+                    }
+                    else if (total_score >= 300)
+                    {
+                        GameMgr.ExtraClear_QuestItemRank = 4;
                     }
                     break;
 
@@ -4111,7 +4137,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
+                        
+                    }
 
+                    if (total_score >= 300 && total_score < 350)
+                    {
+                        GameMgr.ExtraClear_QuestItemRank = 2;
+                    }
+                    else if (total_score >= 350 && total_score < 400)
+                    {
+                        GameMgr.ExtraClear_QuestItemRank = 3;
+                    }
+                    else if (total_score >= 400)
+                    {
+                        GameMgr.ExtraClear_QuestItemRank = 4;
                     }
                     break;
 
@@ -4238,14 +4277,40 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     break;
             }
 
+            
             if (sp_quest_clear)
             {
+                //エクストラ獲得アイテムのランクも決定
+                ExtraItemGetRank();
+
                 GetLoveEnd();
             }
         }
     }
 
-
+    void ExtraItemGetRank()
+    {
+        if (GameMgr.Okashi_spquest_MaxScore >= 60 && GameMgr.Okashi_spquest_MaxScore < 100) //ランク１は使わないが、例外で、ハートのときなどに、お菓子をあげる前にクリアする可能性はあり。その場合は、１も通る。
+        {
+            GameMgr.ExtraClear_QuestItemRank = 1;
+        }
+        else if (GameMgr.Okashi_spquest_MaxScore >= 100 && GameMgr.Okashi_spquest_MaxScore < 150)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 2;
+        }
+        else if (GameMgr.Okashi_spquest_MaxScore >= 150 && GameMgr.Okashi_spquest_MaxScore < 200)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 3;
+        }
+        else if (GameMgr.Okashi_spquest_MaxScore >= 200)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 4;
+        }
+        /*else if (GameMgr.Okashi_spquest_MaxScore >= 300)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 5;
+        }*/
+    }
 
 
     void EndSpQuest()

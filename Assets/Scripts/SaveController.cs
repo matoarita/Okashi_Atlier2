@@ -342,6 +342,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_Okashi_spquest_eatkaisu = GameMgr.Okashi_spquest_eatkaisu, //そのクエスト内で、お菓子を食べた回数をカウント
             save_Okashi_spquest_MaxScore = GameMgr.Okashi_spquest_MaxScore, //そのクエスト内で、お菓子の最高得点
             save_Okashi_Extra_SpEvent_Start = GameMgr.Okashi_Extra_SpEvent_Start, //ハート系クエストで、食べたお菓子が一定回数以下のとき、発動するクエスト
+            save_ExtraClear_QuestItemRank = GameMgr.ExtraClear_QuestItemRank,      //エクストラクエストクリア時のご褒美のランク
 
             save_NowEatOkashiName = GameMgr.NowEatOkashiName, //今食べたいお菓子の名前表示
             save_NowEatOkashiID = GameMgr.NowEatOkashiID, //今食べたいお菓子ID表示
@@ -663,6 +664,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Okashi_spquest_eatkaisu = playerData.save_Okashi_spquest_eatkaisu; //そのクエスト内で、お菓子を食べた回数をカウント
         GameMgr.Okashi_spquest_MaxScore = playerData.save_Okashi_spquest_MaxScore; //そのクエスト内で、お菓子の最高得点
         GameMgr.Okashi_Extra_SpEvent_Start = playerData.save_Okashi_Extra_SpEvent_Start; //ハート系クエストで、食べたお菓子が一定回数以下のとき、発動するクエスト
+        GameMgr.ExtraClear_QuestItemRank = playerData.save_ExtraClear_QuestItemRank;      //エクストラクエストクリア時のご褒美のランク
 
         if (playerData.save_NowEatOkashiName != null)
         {

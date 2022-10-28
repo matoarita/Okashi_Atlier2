@@ -532,6 +532,26 @@
 			"Name": "ワンピース右エリ揺れ2"
 		},
 		{
+			"Id": "ParamBodyLHida_yure1",
+			"GroupId": "",
+			"Name": "ワンピース左ひだ揺れ1"
+		},
+		{
+			"Id": "ParamBodyLHida_yure2",
+			"GroupId": "",
+			"Name": "ワンピース左ひだ揺れ2"
+		},
+		{
+			"Id": "ParamBodyRHida_yure1",
+			"GroupId": "",
+			"Name": "ワンピース右ひだ揺れ1"
+		},
+		{
+			"Id": "ParamBodyRHida_yure2",
+			"GroupId": "",
+			"Name": "ワンピース右ひだ揺れ2"
+		},
+		{
 			"Id": "MSkirt_Yure_A1",
 			"GroupId": "ParamGroup3",
 			"Name": "メイド服_スカート横揺れ_A1"

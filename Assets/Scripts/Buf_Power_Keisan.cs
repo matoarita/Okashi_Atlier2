@@ -175,7 +175,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         TeaBuf();
                         break;
                 }
-                
+
+                AllShokukanBuf();
+
                 return _buf_shokukanup;
 
             case 1: //ふわふわ感のバフ
@@ -217,11 +219,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }
 
+                AllShokukanBuf();
+
                 return _buf_shokukanup;
 
             case 2: //なめらか感のバフ
 
-                break;
+                AllShokukanBuf();
+
+                return _buf_shokukanup;
 
             case 3: //歯ごたえ感のバフ
 
@@ -232,17 +238,25 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         OvenBuf();
                         break;
 
+                    case "Candy":
+                        CandyBuf();
+                        break;
+
                     case "Cookie_Hard":
 
                         OvenBuf();
                         break;
                 }
 
+                AllShokukanBuf();
+
                 return _buf_shokukanup;
 
             case 4: //ジュースのバフ
 
-                break;
+                AllShokukanBuf();
+
+                return _buf_shokukanup;
         }
 
         return 0; //なにもない場合や例外は0
@@ -289,6 +303,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (pitemlist.KosuCount("cookie_powerup5") >= 1) //
         {
             _buf_shokukanup += 50;
+        }
+    }
+
+    void CandyBuf()
+    {
+        if (pitemlist.KosuCount("candy_powerup1") >= 1) //
+        {
+            _buf_shokukanup += 20;
         }
     }
 
@@ -339,6 +361,104 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _buf_shokukanup += 50;
         }
     }
+
+    void AllShokukanBuf()
+    {
+        if (pitemlist.KosuCount("shokukan_powerup1") >= 1) //
+        {
+            _buf_shokukanup += 5;
+        }
+        if (pitemlist.KosuCount("shokukan_powerup2") >= 1) //
+        {
+            _buf_shokukanup += 10;
+        }
+        if (pitemlist.KosuCount("shokukan_powerup3") >= 1) //
+        {
+            _buf_shokukanup += 15;
+        }
+    }
+
+    //特定のアイテムにのみ、バフをかける処理
+    public int Buf_OkashiParamUp_ItemNameKeisan(int _status, string _basename)
+    {
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        _buf_shokukanup = 0;
+
+        if (pitemlist.KosuCount("otona_powerup1") >= 1) //
+        {
+            if (_basename == "cannoli" || _basename == "tiramisu" || _basename == "sea_losanonos" || _basename == "cream_coffee"
+                            || _basename == "cafeaulait_creampuff" || _basename == "cocoa_cookie" || _basename == "biscotti")
+            {
+                switch (_status)
+                {
+                    case 0: //さくさく感のバフ
+
+                        if (_basename == "cannoli" || _basename == "sea_losanonos" || _basename == "cream_coffee" || _basename == "cocoa_cookie")
+                        {
+                            _buf_shokukanup += 15;
+                        }
+
+                        return _buf_shokukanup;
+
+                    case 1: //ふわふわ感のバフ
+
+                        if (_basename == "tiramisu" || _basename == "cafeaulait_creampuff")
+                        {
+                            _buf_shokukanup += 15;
+                        }
+
+                        return _buf_shokukanup;
+
+                    case 2: //なめらか感のバフ
+
+                        break;
+
+                    case 3: //歯ごたえ感のバフ
+
+                        if (_basename == "biscotti")
+                        {
+                            _buf_shokukanup += 15;
+                        }
+
+                        return _buf_shokukanup;
+
+                    case 4: //ジュースのバフ
+
+                        break;
+                }                
+            }            
+        }
+
+        return _buf_shokukanup;
+    }
+
+
+    //ヒカリの作ったお菓子に、バフをかける処理
+    public int Buf_HikariParamUp_Keisan(int _status, string _itemType_sub)
+    {
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        _buf_shokukanup = 0;
+
+        if (pitemlist.KosuCount("hikari_powerup1") >= 1) //
+        {
+            _buf_shokukanup += 10;
+        }
+        if (pitemlist.KosuCount("hikari_powerup2") >= 1) //
+        {
+            _buf_shokukanup += 20;
+        }
+        if (pitemlist.KosuCount("hikari_powerup3") >= 1) //
+        {
+            _buf_shokukanup += 30;
+        }
+
+        return _buf_shokukanup;
+    }
+
 
 
     //メイン調合シーンで確認する
